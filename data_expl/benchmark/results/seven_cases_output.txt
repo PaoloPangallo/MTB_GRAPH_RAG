@@ -1,0 +1,393 @@
+﻿
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+  FILE: ablation_graphrag_results.json (Ablation GraphRAG (full))
+  Casi totali nel file: 30
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  BENCH-006
+  Gene: N/A | Variant: N/A | Tumor: N/A
+  Expected Drug: N/A
+  ESCAT Tier (output): N/A
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  REPORT (1974 chars):
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  Ecco il report strutturato per il Molecular Tumor Board:
+  
+  **1. Variante e classificazione ESCAT**
+  *   **Gene:** ABL1
+  *   **Variante:** BCR-ABL1 Fusion
+  *   **Tumore:** Chronic Myeloid Leukemia (CML)
+  *   **Linea:** First-line
+  *   **Classificazione ESCAT:** Tier I-A [PMID: 20537386]
+  
+  **2. Terapia raccomandata**
+  Le seguenti opzioni terapeutiche sono indicate per la gestione della CML BCR-ABL1 positiva:
+  
+  *   **IMATINIB** (Livello A): Farmaco approvato. Companion Diagnostic (CDx): PDGFRB FISH Assay (ARUP Laboratories, Inc.). Evidenza di risposta clinica in CML [PMID: 20537386].
+  *   **NILOTINIB** (Livello A): Farmaco approvato. Companion Diagnostic (CDx): MRDx BCR-ABL Test (MolecularMD Corporation). Evidenza di risposta clinica in CML [PMID: 20537386].
+  *   **DASATINIB** (Livello A): Farmaco approvato. Evidenza di risposta clinica in CML [PMID: 20537386].
+  *   **PONATINIB** (Livello B): Farmaco approvato.
+  
+  **3. Profilo di resistenza**
+  Il profilo mutazionale di BCR-ABL1 impatta significativamente l'efficacia dei TKI:
+  
+  *   **Mutazione T315I:** Conferisce resistenza al trattamento con Imatinib [PMID: 20537386].
+  *   **Mutazione F317L:** ├ê stata dimostrata la capacit├á di conferire resistenza a Dasatinib nei pazienti con CML [PMID: 18818391].
+  *   **Mutazione E255K:** Associata a resistenza a Imatinib in pazienti in fase cronica di CML [PMID: 19779040].
+  
+  **4. Trial clinici eleggibili**
+  *   **NCT05456191:** Studio di fase 3 per valutare l'efficacia di Asciminib rispetto a Nilotinib in adulti con CML Ph+ di nuova diagnosi in fase cronica.
+  *   **NCT03589326:** Studio di fase 3 che confronta Ponatinib vs Imatinib in adulti con Leucemia Linfoblastica Acuta (ALL).
+  
+  **5. Lista finale dei PMID verificati**
+  *   PMID: 1991160
+  *   PMID: 3455828
+  *   PMID: 8952155
+  *   PMID: 10194126
+  *   PMID: 12476305
+  *   PMID: 17369142
+  *   PMID: 18818391
+  *   PMID: 19737651
+  *   PMID: 19779040
+  *   PMID: 20385793
+  *   PMID: 20537386
+  *   PMID: 27229714
+  *   PMID: 28404889
+  *   PMID: 36050548
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  cited_pmids_list: [1991160, 3455828, 8952155, 10194126, 12476305, 17369142, 18818391, 19737651, 19779040, 20385793, 20537386, 27229714, 28404889, 36050548]
+  dac_anchor_pmid_cited: False
+  dac_drug_found: True
+  escat_match: True
+  extracted_escat: I-A
+  hallucinated_pmids_list: []
+  judge_detail: {'completezza': 3.5, 'utilita_clinica': 3.0, 'fedelta_evidenze': 2.0, 'accuratezza_clinica': 3.5, 'score_totale': 3.0, 'motivazione': "Il report presenta una struttura chiara e copre gli elementi principali (variante, terapie, resistenze, trial). Tuttavia, la fedelt├á alle evidenze ├¿ compromessa: la lista finale contiene 14 PMID, ma nel corpo del report vengono citati solo 3 riferimenti (20537386, 18818391, 19779040), creando una significativa incongruenza. L'utilit├á clinica ├¿ limitata dall'assenza di informazioni pratiche essenziali (dosaggi, sequenza terapeutica, gestione degli effetti collaterali, criteri di risposta). L'accuratezza clinica ├¿ complessivamente buona per le terapie standard e le mutazioni di resistenza, con solo alcune imprecisioni minori (es. Companion Diagnostic per Imatinib)."}
+  judge_score: 3.0
+  n_cited_pmids: 14
+  n_hallucinated_pmids: 0
+  pmid_hallucination_rate: 0.0
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  BENCH-013
+  Gene: N/A | Variant: N/A | Tumor: N/A
+  Expected Drug: N/A
+  ESCAT Tier (output): N/A
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  REPORT (1175 chars):
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  Ecco il report strutturato per il Molecular Tumor Board:
+  
+  **1. Variante e classificazione ESCAT**
+  *   **Gene:** ALK
+  *   **Variante:** G1202R (point mutation)
+  *   **Tumore:** Lung Adenocarcinoma
+  *   **Classificazione ESCAT:** Non determinato
+  
+  **2. Terapia raccomandata**
+  *   **Lorlatinib (CDx: ALK-positive assay):** Raccomandato come opzione terapeutica (Livello 2). Il farmaco ├¿ progettato per superare le resistenze agli inibitori di ALK di prima e seconda generazione, inclusa la mutazione G1202R.
+  
+  **3. Profilo di resistenza**
+  *   La mutazione **G1202R** ├¿ una nota mutazione di resistenza "solvent front" che emerge frequentemente dopo il trattamento con inibitori di ALK di seconda generazione (come Alectinib o Brigatinib), riducendone l'efficacia. Lorlatinib ├¿ specificamente sviluppato per mantenere l'attivit├á contro questa specifica variante.
+  
+  **4. Trial clinici eleggibili**
+  *   **NCT06282874:** Lorlatinib in Patients With ALK-Positive NSCLC With Brain or Leptomeningeal Metastases (Fase 4).
+  *   **NCT05144997:** Lorlatinib Continuation Study (Fase 4).
+  
+  **5. Lista finale dei PMID verificati nel Knowledge Graph**
+  *   Nessun PMID verificato fornito nel contesto.
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  cited_pmids_list: []
+  dac_anchor_pmid_cited: False
+  dac_drug_found: True
+  escat_match: True
+  extracted_escat: NON DETERMINATO
+  hallucinated_pmids_list: []
+  judge_detail: {'completezza': 3.0, 'utilita_clinica': 3.0, 'fedelta_evidenze': 1.0, 'accuratezza_clinica': 4.0, 'score_totale': 2.75, 'motivazione': "Il report presenta una buona accuratezza clinica (lorlatinib ├¿ correttamente indicato per G1202R) e una struttura intellegibile. Tuttavia, il difetto critico ├¿ l'assenza totale di citazioni PMID a supporto delle raccomandazioni, rendendo impossibile verificare la fondatezza scientifica. La completezza ├¿ limitata: ESCAT ├¿ 'Non determinato' senza giustificazione, mancano dosaggi, criteri di eleggibilit├á dettagliati per i trial e strategie terapeutiche alternative. L'utilit├á clinica ├¿ ridotta dalla mancanza di riferimenti bibliografici e informazioni actionable specifiche."}
+  judge_score: 2.75
+  n_cited_pmids: 0
+  n_hallucinated_pmids: 0
+  pmid_hallucination_rate: 0.0
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  BENCH-014
+  Gene: N/A | Variant: N/A | Tumor: N/A
+  Expected Drug: N/A
+  ESCAT Tier (output): N/A
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  REPORT (1129 chars):
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  **REPORT MOLECULAR TUMOR BOARD**
+  
+  **1. Variante e classificazione ESCAT**
+  *   **Gene:** ABL1
+  *   **Variante:** T315I (point mutation)
+  *   **Tumore:** Chronic Myeloid Leukemia (CML)
+  *   **Classificazione ESCAT:** Tier I-B
+  
+  **2. Terapia raccomandata**
+  *   **Ponatinib (Livello B):** Raccomandato per il trattamento della CML in presenza della mutazione T315I, avendo dimostrato sensibilit├á e risposta clinica in pazienti con questa specifica alterazione [PMID: 25349473, PMID: 23190221].
+  
+  **3. Profilo di resistenza**
+  *   **Mutazione T315I:** Questa specifica variante conferisce una resistenza intrinseca al trattamento con Imatinib [PMID: 20537386]. La mutazione impatta negativamente la risposta alle terapie di prima generazione [PMID: 19779040].
+  
+  **4. Trial clinici eleggibili**
+  *   **NCT03589326:** Ponatinib Versus Imatinib in Adults With Acute Lymphoblastic Leukemia (PHASE3)
+  *   **NCT05456191:** Asciminib Versus Nilotinib in Adult Participants With Newly Diagnosed Ph+ CML-CP (PHASE3)
+  
+  **5. Lista finale dei PMID verificati nel Knowledge Graph**
+  *   PMID: 19779040
+  *   PMID: 20537386
+  *   PMID: 23190221
+  *   PMID: 25349473
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  cited_pmids_list: [19779040, 20537386, 23190221, 25349473]
+  dac_anchor_pmid_cited: False
+  dac_drug_found: True
+  escat_match: True
+  extracted_escat: I-B
+  hallucinated_pmids_list: []
+  judge_detail: {'completezza': 4.0, 'utilita_clinica': 4.5, 'fedelta_evidenze': 4.5, 'accuratezza_clinica': 4.5, 'score_totale': 4.375, 'motivazione': "Il report ├¿ completo nella copertura degli elementi essenziali (variante, terapia, resistenze, trial) con classificazione ESCAT inclusa, ma manca di dettagli sul meccanismo molecolare e alternative terapeutiche. L'utilit├á clinica ├¿ alta: raccomandazione chiara (Ponatinib), classificazione ESCAT Tier I-B utile, e due trial pertinenti. I quattro PMID citati sono tutti pertinenti e coerenti con le raccomandazioni (studi su Ponatinib e resistenza a Imatinib). L'accuratezza clinica ├¿ buona: Ponatinib ├¿ correttamente indicato come farmaco di scelta per T315I, la classificazione ESCAT ├¿ appropriata, e la resistenza a Imatinib ├¿ documentata. Piccoli miglioramenti possibili: dosaggi, criteri di inclusione trial, e meccanismo di resistenza."}
+  judge_score: 4.375
+  n_cited_pmids: 4
+  n_hallucinated_pmids: 0
+  pmid_hallucination_rate: 0.0
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  BENCH-017
+  Gene: N/A | Variant: N/A | Tumor: N/A
+  Expected Drug: N/A
+  ESCAT Tier (output): N/A
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  REPORT (1241 chars):
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  Ecco il report strutturato per il Molecular Tumor Board:
+  
+  **1. Variante e classificazione ESCAT**
+  *   **Biomarker:** MSI-High (Microsatellite Instability-High)
+  *   **Tumore:** Colorectal Cancer (CRC)
+  *   **Linea di trattamento:** First-line
+  *   **Classificazione ESCAT:** Tier I-A
+  
+  **2. Terapia raccomandata**
+  *   **Nivolumab + Ipilimumab:** Raccomandati come terapia di prima linea per pazienti con CRC MSI-H, supportati da evidenze di alta qualit├á sulla sensibilit├á e risposta clinica [PMID: 39602630, PMID: 39874977].
+  *   **Pembrolizumab:** Raccomandato (Livello 1). Companion Diagnostics (CDx): FoundationOne CDx (Foundation Medicine, Inc.), MI Cancer Seek (MCS) (Caris Life Sciences).
+  *   **Dostarlimab:** Considerato (Livello 2). Companion Diagnostic (CDx): MI Cancer Seek (MCS) (Caris Life Sciences).
+  
+  **3. Profilo di resistenza**
+  Non sono riportate mutazioni di resistenza specifiche (come T790M o C797S, tipiche di altri target) o meccanismi di resistenza molecolare nei dati forniti per il biomarker MSI-High nel tumore del colon-retto.
+  
+  **4. Trial clinici eleggibili**
+  Non sono stati forniti identificativi NCT di trial clinici specifici nel contesto.
+  
+  **5. Lista finale dei PMID verificati**
+  *   PMID: 39602630
+  *   PMID: 39874977
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  cited_pmids_list: [39602630, 39874977]
+  dac_anchor_pmid_cited: False
+  dac_drug_found: True
+  escat_match: True
+  extracted_escat: I-A
+  hallucinated_pmids_list: []
+  judge_detail: {'completezza': 4.0, 'utilita_clinica': 4.5, 'fedelta_evidenze': 4.0, 'accuratezza_clinica': 4.5, 'score_totale': 4.25, 'motivazione': 'Il report ├¿ ben strutturato e copre le sezioni principali (variante, ESCAT, terapie, resistenze, trial). Le raccomandazioni per MSI-H in CRC sono clinicamente accurate e allineate alle linee guida (Nivolumab+Ipilimumab, Pembrolizumab Livello 1, Dostarlimab Livello 2). I due PMID citati sono pertinenti alle raccomandazioni. Utilit├á clinica elevata per la presenza di livelli di evidenza e companion diagnostics. Il punteggio ├¿ leggermente ridotto per completezza (assenza di NCT trial) e fedelt├á (avrebbe beneficiato di ulteriori riferimenti a supporto di ciascuna terapia).'}
+  judge_score: 4.25
+  n_cited_pmids: 2
+  n_hallucinated_pmids: 0
+  pmid_hallucination_rate: 0.0
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  BENCH-023
+  Gene: N/A | Variant: N/A | Tumor: N/A
+  Expected Drug: N/A
+  ESCAT Tier (output): N/A
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  REPORT (2088 chars):
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  **REPORT MOLECULAR TUMOR BOARD**
+  
+  **1. Variante e classificazione ESCAT**
+  *   **Biomarker:** TMB-High (Tumor Mutational Burden High)
+  *   **Classificazione ESCAT:** Tier I-B
+  
+  **2. Terapia raccomandata**
+  Il TMB-High ├¿ un biomarcatore agnostico di istologia che indica una maggiore suscettibilit├á agli inibitori dei checkpoint immunitari (ICI). Le seguenti opzioni terapeutiche sono indicate in prima linea per tumori solidi avanzati:
+  
+  *   **Pembrolizumab:** Approvato. Companion Diagnostic (CDx): FoundationOne CDx (Foundation Medicine, Inc.), MI Cancer Seek (MCS) (Caris Life Sciences). L'evidenza clinica supporta l'efficacia in tumori solidi avanzati [PMID: 30643254] e specificamente nel carcinoma polmonare non a piccole cellule [PMID: 29658845].
+  *   **Durvalumab:** Approvato. Livello di evidenza B.
+  *   **Tremelimumab:** Approvato. Livello di evidenza B.
+  *   **Atezolizumab:** Livello di evidenza B.
+  *   **Toripalimab:** Livello di evidenza B.
+  *   **PD1 Inhibitors (generici):** Livello di evidenza B.
+  
+  L'efficacia di queste terapie ├¿ stata documentata in diverse neoplasie, tra cui:
+  - Carcinoma polmonare non a piccole cellule (NSCLC) [PMID: 25765070, 30082870, 30785829, 32271377, 33355200, 35708671, 36240972, 38422883, 39255777].
+  - Tumori del colon-retto [PMID: 31038663, 38727700].
+  - Carcinoma squamocellulare della testa e del collo [PMID: 36806911].
+  - Altri tumori solidi avanzati [PMID: 30309915].
+  
+  **3. Profilo di resistenza**
+  Non sono stati forniti nel contesto specifici meccanismi di resistenza molecolare (come mutazioni puntiformi) associati al biomarker TMB-High. La resistenza agli ICI in pazienti TMB-High pu├▓ tuttavia essere legata a fattori immunologici o perdita di antigeni, ma non sono riportati PMID specifici per mutazioni di resistenza in questo dataset.
+  
+  **4. Trial clinici eleggibili**
+  Nessun trial clinico con NCT ID ├¿ presente nel contesto fornito.
+  
+  **5. Lista finale dei PMID verificati**
+  - 25765070
+  - 29658845
+  - 30082870
+  - 30309915
+  - 30643254
+  - 30785829
+  - 31038663
+  - 32271377
+  - 33355200
+  - 35708671
+  - 36240972
+  - 36806911
+  - 38422883
+  - 38727700
+  - 39255777
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  cited_pmids_list: [25765070, 29658845, 30309915, 30643254, 31038663, 36806911]
+  dac_anchor_pmid_cited: False
+  dac_drug_found: True
+  escat_match: True
+  extracted_escat: I-B
+  hallucinated_pmids_list: []
+  judge_detail: {'completezza': 4.0, 'utilita_clinica': 4.0, 'fedelta_evidenze': 5.0, 'accuratezza_clinica': 4.5, 'score_totale': 4.375, 'motivazione': "Il report presenta una buona completezza coprendo variante, terapie e resistenze (seppur in modo limitato per queste ultime), con ESCAT correttamente classificato Tier I-B. L'utilit├á clinica ├¿ buona grazie alla struttura chiara e all'inclusione dei companion diagnostic per pembrolizumab, though mancano dosaggi e indicazioni istologia-specifiche. La fedelt├á alle evidenze ├¿ eccellente: tutti i 15 PMID sono presenti nel report e pertinenti alle raccomandazioni. L'accuratezza clinica ├¿ solida: le raccomandazioni terapeutiche sono corrette e allineate con le approvazioni regolatorie (FDA/EMA) per pembrolizumab come CDx per TMB-High. Il punteggio ├¿ limitato dalla genericit├á del report (non fornisce raccomandazioni specifiche per singole istologie) e dalla mancanza di dettagli clinicamente azionabili come dosaggi o algoritmi decisionali."}
+  judge_score: 4.375
+  n_cited_pmids: 6
+  n_hallucinated_pmids: 0
+  pmid_hallucination_rate: 0.0
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  BENCH-024
+  Gene: N/A | Variant: N/A | Tumor: N/A
+  Expected Drug: N/A
+  ESCAT Tier (output): N/A
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  REPORT (2904 chars):
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  ### Report Molecular Tumor Board
+  
+  **Paziente:** Adenocarcinoma polmonare
+  **Variante:** EGFR Exon 19 Deletion (atypical)
+  **Linea di trattamento:** First-line
+  
+  ---
+  
+  #### 1. Variante e classificazione ESCAT
+  La variante **EGFR Exon 19 Deletion** ├¿ classificata come **ESCAT Tier I-A**, indicando un livello di evidenza massimo per la correlazione tra la mutazione e la risposta clinica ai farmaci targetizzati.
+  
+  #### 2. Terapia raccomandata
+  Di seguito le opzioni terapeutiche di prima linea basate sulle evidenze di sensibilit├á fornite:
+  
+  *   **Osimertinib** (CDx: FoundationOne CDx, FoundationOne Liquid CDx, Guardant360 CDx, cobas EGFR Mutation Test v2): Raccomandato come opzione di prima linea con elevato livello di evidenza per la sensibilit├á nel NSCLC [PMID: 37937763].
+  *   **Afatinib** (CDx: FoundationOne CDx, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit): Opzione terapeutica approvata per pazienti con mutazioni sensitizzanti di EGFR [PMID: 24868098, PMID: 24263064].
+  *   **Gefitinib** (CDx: FoundationOne CDx, FoundationOne Liquid CDx, Oncomine Dx Target Test, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit): Terapia approvata con evidenza di risposta nel NSCLC [PMID: 23982599].
+  *   **Erlotinib** (CDx: FoundationOne CDx, FoundationOne Liquid CDx, cobas EGFR Mutation Test v1): Terapia approvata basata su evidenze di sensibilit├á clinica [PMID: 28958502].
+  *   **Dacomitinib** (CDx: therascreen EGFR RGQ PCR Kit): Opzione approvata per il trattamento di pazienti con mutazioni di EGFR [PMID: 31591063].
+  *   **Altre opzioni:** Sono indicati **Carboplatin** e **Ramucirumab** (Livello A), oltre a **Amivantamab** e **Lazertinib** (non ancora approvati in questo contesto specifico, ma con Livello A di evidenza).
+  
+  #### 3. Profilo di resistenza
+  Il profilo di resistenza per le mutazioni di EGFR, inclusa l'Exon 19 Deletion, evidenzia una complessit├á nella risposta ai trattamenti sistemici. In particolare, ├¿ stata analizzata la risposta agli inibitori dei checkpoint immunitari (anti-PD-1, anti-PD-L1, anti-CTLA-4), osservando come lo status di EGFR possa influenzare l'efficacia di tali terapie [PMID: 31086949].
+  
+  #### 4. Trial clinici eleggibili
+  I seguenti trial sono potenzialmente applicabili per pazienti con mutazione di EGFR:
+  *   **NCT05748093**: Studio sull'ottimizzazione dell'esposizione di Osimertinib tramite Cobicistat (Fase 4).
+  *   **NCT07092202**: Combinazione di Firmonertinib e iniezione intratecale per metastasi leptomeningee (Fase 4).
+  *   **NCT07183189**: Studio su SHR-A2009 in combinazione con Aumolertinib come prima linea (Fase 3).
+  *   **NCT06305754**: Studio su Sacituzumab Tirumotecan vs Pemetrexed/Carboplatin in pazienti che hanno progredito dopo TKI di EGFR (Fase 3).
+  
+  #### 5. Lista dei PMID verificati
+  - 23982599
+  - 24263064
+  - 24868098
+  - 26768165
+  - 27022112
+  - 27959700
+  - 28958502
+  - 31086949
+  - 31591063
+  - 32955177
+  - 37879444
+  - 37937763
+  - 38942080
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  cited_pmids_list: [23982599, 24263064, 24868098, 28958502, 31086949, 31591063, 37937763]
+  dac_anchor_pmid_cited: False
+  dac_drug_found: True
+  escat_match: True
+  extracted_escat: I-A
+  hallucinated_pmids_list: []
+  judge_detail: {'completezza': 3.5, 'utilita_clinica': 3.0, 'fedelta_evidenze': 4.0, 'accuratezza_clinica': 3.5, 'score_totale': 3.5, 'motivazione': "Il report presenta una buona struttura generale e copre le aree richieste (variante, terapie, resistenze, trial). Tuttavia, risulta carente in alcuni aspetti: (1) la sezione resistenze ├¿ limitata e non dettaglia i meccanismi di resistenza acquisita a TKI EGFR (es. T790M, C797S); (2) manca una raccomandazione prioritaria esplicita per la scelta del TKI di prima linea nonostante le linee guida favoriscano osimertinib; (3) i trial elencati non riportano criteri di inclusione, rendendo difficile l'immediata valutazione di eleggibilit├á; (4) alcune affermazioni sono inaccurate (es. Carboplatin+Ramucirumab Livello A per EGFR mutato, Amivantamab non approvato in prima linea). I PMID citati risultano pertinenti e presenti nel report, con 7 citazioni dirette e 13 totali verificate."}
+  judge_score: 3.5
+  n_cited_pmids: 7
+  n_hallucinated_pmids: 0
+  pmid_hallucination_rate: 0.0
+
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  BENCH-030
+  Gene: N/A | Variant: N/A | Tumor: N/A
+  Expected Drug: N/A
+  ESCAT Tier (output): N/A
+ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  REPORT (1488 chars):
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  Ecco il report strutturato per il Molecular Tumor Board:
+  
+  **1. Variante e classificazione ESCAT**
+  *   **Gene:** ERBB2 (HER2)
+  *   **Variante:** Amplificazione (cna)
+  *   **Tumore:** Gastric Cancer
+  *   **Classificazione ESCAT:** Tier I-A
+  
+  **2. Terapia raccomandata**
+  *   **Trastuzumab** (Livello A). Indicato come terapia di prima linea per l'adenocarcinoma gastrico HER2-positivo [PMID: 20728210]. 
+      *   **Companion Diagnostics (CDx):** FoundationOne CDx, HER2 CISH pharmDx Kit, HER2 FISH pharmDx Kit, INFORM HER-2/neu, INFORM HER2 Dual ISH DNA Probe Cocktail, PathVysion HER-2 DNA Probe Kit, SPOT-LIGHT HER2 CISH Kit, Ventana HER2 Dual ISH DNA Probe Cocktail.
+  *   **Lapatinib** (Livello B). Evidenza di risposta nel cancro gastrico [PMID: 24868024, PMID: 31047804].
+  *   **Trastuzumab Deruxtecan** (Livello B). Indicato per pazienti con espressione di HER2 [PMID: 31047804].
+      *   **Companion Diagnostics (CDx):** Guardant360 CDx, Oncomine Dx Target Test.
+  
+  **3. Profilo di resistenza**
+  *   Non sono stati forniti dati specifici nel contesto riguardo a mutazioni di resistenza acquisite (come T790M o C797S, tipiche di EGFR) per l'amplificazione di ERBB2 nel tumore gastrico.
+  
+  **4. Trial clinici eleggibili**
+  *   **NCT06731478:** Studio su TDXd (Trastuzumab Deruxtecan), Chemioterapia, Pembrolizumab e Trastuzumab in prima linea per cancro gastrico/GEJ HER2-positivo (Fase 3, RECRUITING).
+  
+  **5. Lista finale dei PMID verificati**
+  *   PMID: 20728210
+  *   PMID: 24868024
+  *   PMID: 31047804
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+  cited_pmids_list: [20728210, 24868024, 31047804]
+  dac_anchor_pmid_cited: False
+  dac_drug_found: True
+  escat_match: True
+  extracted_escat: I-A
+  hallucinated_pmids_list: []
+  judge_detail: {'completezza': 4.0, 'utilita_clinica': 4.5, 'fedelta_evidenze': 4.0, 'accuratezza_clinica': 4.0, 'score_totale': 4.125, 'motivazione': "Il report ├¿ strutturato con ESCAT classification, livelli di evidenza (A/B), CDx elencati e trial NCT specifico - elementi che lo rendono altamente actionable. La sezione resistenze, pur onesta nel dichiarare l'assenza di dati specifici per ERBB2 in GC, avrebbe potuto menzionare meccanismi noti come la conversione a cancro mammario-like o alterazioni downstream. I tre PMID citati (20728210 ToGA trial per trastuzumab; 24868024 e 31047804 per lapatinib e T-DXd) sono tutti pertinenti e corretti. Le raccomandazioni terapeutiche sono clinicamente accurate: trastuzumab first-line ├¿ standard of care per GC HER2+, T-DXd ├¿ approvato con indicazione HER2+. Leggera penalit├á per la incompletezza nella sezione resistenze e per un solo trial elencato (potenzialmente limitativo)."}
+  judge_score: 4.125
+  n_cited_pmids: 3
+  n_hallucinated_pmids: 0
+  pmid_hallucination_rate: 0.0
+
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+  FILE: benchmark_results.json (Benchmark results)
+  Casi totali nel file: 1
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+
+--- BENCH-006: NON PRESENTE nel file ---
+
+--- BENCH-013: NON PRESENTE nel file ---
+
+--- BENCH-014: NON PRESENTE nel file ---
+
+--- BENCH-017: NON PRESENTE nel file ---
+
+--- BENCH-023: NON PRESENTE nel file ---
+
+--- BENCH-024: NON PRESENTE nel file ---
+
+--- BENCH-030: NON PRESENTE nel file ---

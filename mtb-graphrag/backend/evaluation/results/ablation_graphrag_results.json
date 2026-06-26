@@ -1,0 +1,535 @@
+[
+  {
+    "case_id": "BENCH-001",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board.\n\n### 1. Variante e Classificazione ESCAT\n*   **Gene:** EGFR\n*   **Variante:** L858R (point mutation)\n*   **Tumore:** Lung Adenocarcinoma\n*   **Linea di trattamento:** First-line\n*   **Classificazione ESCAT:** Tier I-A\n\n### 2. Terapia Raccomandata\nLe seguenti terapie sono indicate per la variante EGFR L858R in prima linea, con i relativi livelli di evidenza e companion diagnostics (CDx):\n\n*   **Osimertinib** (Approvato) | CDx: FoundationOne CDx, FoundationOne Liquid CDx, Guardant360 CDx, cobas EGFR Mutation Test v2. Raccomandato come terapia di prima linea [PMID: 37937763].\n*   **Afatinib** (Approvato) | CDx: FoundationOne CDx, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit. Evidenza di sensibilità/risposta di livello A [PMID: 24868098, 23982599].\n*   **Erlotinib** (Approvato) | CDx: FoundationOne CDx, FoundationOne Liquid CDx, cobas EGFR Mutation Test v1. Evidenza di sensibilità/risposta di livello A [PMID: 24263064].\n*   **Gefitinib** (Approvato) | CDx: FoundationOne CDx, FoundationOne Liquid CDx, Oncomine Dx Target Test, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit. Evidenza di sensibilità/risposta di livello A [PMID: 27959700].\n*   **Dacomitinib** (Approvato) | CDx: therascreen EGFR RGQ PCR Kit. Evidenza di sensibilità/risposta di livello A [PMID: 28958502].\n*   **Amivantamab** (Non approvato) | CDx: Guardant360 CDx, Oncomine Dx Target Test. Livello di evidenza A.\n*   **Lazertinib** (Non approvato). Livello di evidenza A.\n*   **Carboplatin** (Approvato). Livello di evidenza A.\n*   **Ramucirumab** (Approvato). Livello di evidenza A.\n\n### 3. Profilo di Resistenza\nL'insorgenza di mutazioni secondarie può compromettere l'efficacia dei TKI di EGFR:\n\n*   **T790M:** Questa mutazione conferisce resistenza agli inibitori della tirosina chinasi di prima generazione, come l'Erlotinib, portando frequentemente alla recidiva del paziente [PMID: 25668228].\n*   **C797S:** Identificata tramite sequenziamento di cfDNA in pazienti con cancro al polmone avanzato, questa mutazione rende il tumore resistente all'Osimertinib [PMID: 25939061].\n\n### 4. Trial Clinici Eleggibili\n*   **NCT05748093:** Studio sull'esposizione di Osimertinib e cost-effectiveness tramite boosting farmacocinetico con Cobicistat (Fase 4).\n*   **NCT07092202:** Firmonertinib combinato con iniezione intratecale per NSCLC con metastasi leptomeningee (Fase 4).\n*   **NCT05047250:** Atezolizumab in pazienti con alta espressione di PD-L1, chemotherapy-naïve (Fase 3).\n*   **NCT06305754:** Sacituzumab Tirumotecan vs Pemetrexed + Carboplatin in pazienti con mutazione EGFR progrediti dopo TKI (Fase 3).\n*   **NCT07183189:** SHR-A2009 combinato con Aumolertinib vs Aumolertinib in prima linea (Fase 3).\n\n### 5. Lista dei PMID Verificati\n23982599, 24263064, 24439929, 24868098, 25668228, 25939061, 26768165, 27022112, 27032107, 27959700, 28958502, 31591063, 32955177, 37879444, 37937763, 38942080",
+    "cited_pmids_list": [
+      23982599,
+      24263064,
+      24439929,
+      24868098,
+      25668228,
+      25939061,
+      26768165,
+      27022112,
+      27032107,
+      27959700,
+      28958502,
+      31591063,
+      32955177,
+      37879444,
+      37937763,
+      38942080
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 16,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-002",
+    "report": "### Report Clinico Molecular Tumor Board\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** ALK\n*   **Variante:** Fusion (Fusione)\n*   **Tumore:** Adenocarcinoma polmonare (Lung Adenocarcinoma)\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata (First-line)**\nLe seguenti terapie sono raccomandate per pazienti con NSCLC ALK-positivo, basandosi su evidenze di sensibilità e risposta clinica:\n\n*   **Alectinib Hydrochloride** (Livello A)\n    *   **Companion Diagnostic (CDx):** FoundationOne CDx, FoundationOne Liquid CDx.\n    *   **Evidenza:** Elevata efficacia clinica in pazienti con NSCLC ALK-positivo [PMID: 26708155, 28586279].\n*   **Brigatinib** (Livello A)\n    *   **Companion Diagnostic (CDx):** Vysis ALK Break Apart FISH Probe Kit.\n    *   **Evidenza:** Dimostrata risposta clinica e sensibilità nel trattamento del NSCLC ALK-positivo [PMID: 23724913, 28602779].\n*   **Ceritinib** (Livello A)\n    *   **Companion Diagnostic (CDx):** FoundationOne CDx.\n    *   **Evidenza:** Efficacia documentata come inibitore di ALK in pazienti con adenocarcinoma polmonare [PMID: 20979469, 25470694].\n*   **Crizotinib** (Livello A)\n    *   **Companion Diagnostic (CDx):** FoundationOne CDx, Oncomine Dx Target Test, Vysis ALK Break Apart FISH Probe Kit.\n    *   **Evidenza:** Uno dei primi inibitori di ALK a dimostrare risposta significativa nel NSCLC [PMID: 20979469, 21933749].\n*   **Lorlatinib** (Livello B)\n    *   **Evidenza:** Utilizzato per l'inibizione di ALK, con particolare efficacia in contesti di progressione o metastasi [PMID: 32780660].\n\n**3. Profilo di resistenza**\nNel contesto delle fusioni ALK, i meccanismi di resistenza includono l'insorgenza di mutazioni secondarie nel dominio chinasico di ALK che riducono l'affinità dei farmaci di prima e seconda generazione. L'evidenza clinica sottolinea come l'evoluzione clonale e le mutazioni di resistenza guidino la scelta di inibitori di nuova generazione (come Lorlatinib) per superare i blocchi terapeutici [PMID: 32780660, 38598794].\n\n**4. Trial clinici eleggibili**\n*   **NCT06282874:** Lorlatinib in pazienti con NSCLC ALK-positivo con metastasi cerebrali o leptomeningee (Fase 4, Active, not recruiting).\n*   **NCT05144997:** Lorlatinib Continuation Study (Fase 4, Active, not recruiting).\n*   **NCT05525338:** Confronto tra dose standard di Alectinib e dose aggiustata in base ai livelli ematici di Alectinib (Fase 4, Recruiting).\n*   **NCT05160922:** Crizotinib Continuation Clinical Study (Fase 4, Active, not recruiting).\n\n**5. Lista dei PMID verificati**\n20979469, 21642865, 21933749, 23724913, 25470694, 26466010, 26708155, 28475456, 28501140, 28586279, 28602779, 30413378, 32780660, 38598794",
+    "cited_pmids_list": [
+      20979469,
+      21642865,
+      21933749,
+      23724913,
+      25470694,
+      26466010,
+      26708155,
+      28475456,
+      28501140,
+      28586279,
+      28602779,
+      30413378,
+      32780660,
+      38598794
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 14,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-003",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** BRAF\n*   **Variante:** V600E (Point mutation)\n*   **Tumore:** Melanoma\n*   **Linea:** First-line\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\nIl trattamento di prima linea per il melanoma BRAF V600E si basa sull'utilizzo di inibitori di BRAF e MEK, con evidenze di risposta clinica consolidate (Livello A/B).\n\n*   **VEMURAFENIB** (Livello A) | CDx: cobas 4800 BRAF V600 Mutation Test. Raccomandato per l'elevata sensibilità e risposta osservata in pazienti con melanoma cutaneo [PMID: 21639808, 22356324].\n*   **DABRAFENIB** (Livello B) | CDx: THXID BRAF Kit. Indicato per la risposta clinica documentata in pazienti con melanoma [PMID: 20818844, 22663011].\n*   **TRAMETINIB** (Livello B) | CDx: FoundationOne CDx, MI Cancer Seek (MCS), THXID BRAF Kit. Utilizzato per superare la resistenza o in combinazione, con evidenze di risposta [PMID: 25265494, 26557775].\n*   **COBIMETINIB** (Livello B). Indicato come terapia target per melanoma BRAF mutato in base a evidenze di risposta clinica [PMID: 24508103, 23569304].\n\n*Altre evidenze di risposta per le terapie target in questo setting includono i lavori di Menzies et al. [PMID: 24583796], Ugurel et al. [PMID: 25524477], Robert et al. [PMID: 25399551] e Long et al. [PMID: 28891408].*\n\n**3. Profilo di resistenza**\nLa resistenza alle terapie target BRAF/MEK nel melanoma V600E è un fattore critico. Studi di fase I hanno evidenziato come, nonostante l'uso di inibitori di MEK (es. RO4987655), una parte significativa di pazienti con melanoma BRAF V600E possa presentare progressione di malattia, specialmente se sottoposti a trattamenti precedenti con vemurafenib [PMID: 24947927].\n\n**4. Trial clinici eleggibili**\n*   **NCT03340506:** Dabrafenib and/or Trametinib Rollover Study (Fase 4, RECRUITING).\n*   **NCT06112314:** IMC-F106C Regimen Versus Nivolumab Regimens in Previously Untreated Advanced Melanoma (PRISM-MEL-301) (Fase 3, RECRUITING).\n*   **NCT05522660:** Immunotherapy or Targeted Therapy With or Without Stereotactic Radiosurgery for Patients With Brain Metastases From Melanoma or NSCLC (Fase 3, RECRUITING).\n*   **NCT05549297:** Tebentafusp Regimen Versus Investigator's Choice in Previously Treated Advanced Melanoma (TEBE-AM) (Fase 3, RECRUITING).\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n20818844, 21639808, 22356324, 22663011, 23569304, 24388723, 24508103, 24583796, 24586605, 24947927, 25265494, 25399551, 25524477, 26557775, 28891408",
+    "cited_pmids_list": [
+      20818844,
+      21639808,
+      22356324,
+      22663011,
+      23569304,
+      24388723,
+      24508103,
+      24583796,
+      24586605,
+      24947927,
+      25265494,
+      25399551,
+      25524477,
+      26557775,
+      28891408
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 15,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-004",
+    "report": "### Report Molecular Tumor Board\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** ERBB2\n*   **Variante:** Amplificazione (cna)\n*   **Tumore:** Breast Cancer (Carcinoma Mammario)\n*   **Linea:** First-line\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\nSulla base del profilo molecolare (HER2-positivo), sono raccomandate le seguenti opzioni terapeutiche:\n\n*   **Trastuzumab (Livello A):** Farmaco di riferimento per il tumore al seno HER2+. Supportato da evidenze di alta qualità per risposta e sensibilità [PMID: 26874901, 16236737].\n    *   **Companion Diagnostics (CDx):** FoundationOne CDx, HER2 CISH pharmDx Kit, HER2 FISH pharmDx Kit, INFORM HER-2/neu, INFORM HER2 Dual ISH DNA Probe Cocktail, PathVysion HER-2 DNA Probe Kit, SPOT-LIGHT HER2 CISH Kit, Ventana HER2 Dual ISH DNA Probe Cocktail.\n*   **Neratinib Maleate (Livello A):** Raccomandato per pazienti con amplificazione di ERBB2 [PMID: 33480963].\n*   **Margetuximab (Livello A):** Indicato per il trattamento del tumore al seno HER2+ [PMID: 26874901].\n*   **Pertuzumab + Trastuzumab (Livello B):** Terapia combinata indicata per potenziare l'efficacia del blocco del recettore HER2 [PMID: 22257673, 22149875].\n*   **Lapatinib (Livello B):** Inibitore tirosin-chinasico di ERBB2, efficace in contesti di amplificazione del gene [PMID: 21172893, 19289619].\n*   **Afatinib (Livello B):** Inibitore irreversibile di ERBB2 [PMID: 23020162].\n    *   **Companion Diagnostics (CDx):** FoundationOne CDx, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit.\n*   **Capecitabina (Livello B):** Opzione chemioterapica associabile o alternativa [PMID: 11248153, 15911866].\n\n**3. Profilo di resistenza**\nIl contesto fornito non specifica mutazioni di resistenza puntiformi (come T790M o C797S, tipiche di EGFR) per l'amplificazione di ERBB2 nel tumore al seno. In generale, la resistenza alle terapie anti-HER2 può derivare da meccanismi di bypass o perdita di espressione del target, ma non sono stati forniti PMID specifici per mutazioni di resistenza in questo set di dati.\n\n**4. Trial clinici eleggibili**\nI seguenti trial sono attualmente recruiting o attivi per l'indagine della resistenza o dell'efficacia in pazienti con tumore al seno:\n*   **NCT06274515:** Studio sui meccanismi di resistenza alle terapie per il tumore al seno (Fase 4).\n*   **NCT05452213:** Analisi dei pattern molecolari di efficacia e resistenza a Ribociclib (Fase 4).\n*   **NCT07195344:** Studio sull'esposizione del payload (Free-DXd) in pazienti trattati con T-DXd (Fase 4).\n\n**5. Lista finale dei PMID verificati**\n- 11248153\n- 15911866\n- 16236737\n- 17192538\n- 19289619\n- 21172893\n- 22149875\n- 22257673\n- 23020162\n- 23382472\n- 24793816\n- 25370464\n- 25693012\n- 26874901\n- 33480963",
+    "cited_pmids_list": [
+      11248153,
+      15911866,
+      16236737,
+      17192538,
+      19289619,
+      21172893,
+      22149875,
+      22257673,
+      23020162,
+      23382472,
+      24793816,
+      25370464,
+      25693012,
+      26874901,
+      33480963
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 15,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-005",
+    "report": "### Report Molecular Tumor Board\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** BRCA1\n*   **Variante:** Point mutation\n*   **Tumore:** Ovarian Cancer (First-line)\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Olaparib** (Livello A): Raccomandato per l'elevata sensibilità e risposta clinica nel carcinoma ovarico epiteliale [PMID: 27717299, 30345884], con evidenze di miglioramento degli outcome [PMID: 22274685].\n    *   *Companion Diagnostic (CDx):* BRACAnalysis CDx, FoundationOne CDx, FoundationOne Liquid CDx, Myriad myChoice CDx.\n*   **Niraparib** (Livello A): Indicato per la risposta clinica osservata nei pazienti con tumore ovarico [PMID: 28882436, 30345884].\n*   **Rucaparib Phosphate** (Livello A): Indicato per la sensibilità e risposta clinica nel carcinoma ovarico [PMID: 28882436].\n    *   *Companion Diagnostic (CDx):* BRACAnalysis CDx, FoundationFocus CDxBRCA Assay, FoundationOne Liquid CDx.\n*   **Platinum Compound** (Livello B): Opzione terapeutica basata su evidenze di risposta clinica [PMID: 21862407, 24240112, 25218906, 27908594].\n*   **Cediranib** (Livello B): Opzione terapeutica con livello di evidenza B.\n\n**3. Profilo di resistenza**\nNon sono stati forniti dati specifici nel contesto riguardo a mutazioni di resistenza acquisite (come le mutazioni di reversione di BRCA1) o l'impatto di specifici residui aminoacidici sulla risposta ai PARP inhibitor.\n\n**4. Trial clinici eleggibili**\n*   **NCT01874353:** Olaparib in pazienti con BRCA mutato dopo risposta completa o parziale a chemioterapia platinica (Phase 3).\n*   **NCT06580314:** Olaparib (con o senza Bevacizumab) per un periodo di uno o due anni nel trattamento del tumore ovarico (Phase 3).\n*   **NCT03737643:** Combinazione di Durvalumab, chemioterapia e Bevacizumab, seguita da mantenimento con Durvalumab, Bevacizumab e Olaparib (Phase 3).\n*   **NCT06735326:** Fluzoparib con o senza Bevacizumab come terapia neoadiuvante (Phase 2).\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 21862407\n*   PMID: 22274685\n*   PMID: 24240112\n*   PMID: 25218906\n*   PMID: 26740259\n*   PMID: 27717299\n*   PMID: 27908594\n*   PMID: 28882436\n*   PMID: 30345884",
+    "cited_pmids_list": [
+      21862407,
+      22274685,
+      24240112,
+      25218906,
+      26740259,
+      27717299,
+      27908594,
+      28882436,
+      30345884
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 9,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-006",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** ABL1\n*   **Variante:** BCR-ABL1 Fusion\n*   **Tumore:** Chronic Myeloid Leukemia (CML)\n*   **Linea:** First-line\n*   **Classificazione ESCAT:** Tier I-A [PMID: 20537386]\n\n**2. Terapia raccomandata**\nLe seguenti opzioni terapeutiche sono indicate per la gestione della CML BCR-ABL1 positiva:\n\n*   **IMATINIB** (Livello A): Farmaco approvato. Companion Diagnostic (CDx): PDGFRB FISH Assay (ARUP Laboratories, Inc.). Evidenza di risposta clinica in CML [PMID: 20537386].\n*   **NILOTINIB** (Livello A): Farmaco approvato. Companion Diagnostic (CDx): MRDx BCR-ABL Test (MolecularMD Corporation). Evidenza di risposta clinica in CML [PMID: 20537386].\n*   **DASATINIB** (Livello A): Farmaco approvato. Evidenza di risposta clinica in CML [PMID: 20537386].\n*   **PONATINIB** (Livello B): Farmaco approvato.\n\n**3. Profilo di resistenza**\nIl profilo mutazionale di BCR-ABL1 impatta significativamente l'efficacia dei TKI:\n\n*   **Mutazione T315I:** Conferisce resistenza al trattamento con Imatinib [PMID: 20537386].\n*   **Mutazione F317L:** È stata dimostrata la capacità di conferire resistenza a Dasatinib nei pazienti con CML [PMID: 18818391].\n*   **Mutazione E255K:** Associata a resistenza a Imatinib in pazienti in fase cronica di CML [PMID: 19779040].\n\n**4. Trial clinici eleggibili**\n*   **NCT05456191:** Studio di fase 3 per valutare l'efficacia di Asciminib rispetto a Nilotinib in adulti con CML Ph+ di nuova diagnosi in fase cronica.\n*   **NCT03589326:** Studio di fase 3 che confronta Ponatinib vs Imatinib in adulti con Leucemia Linfoblastica Acuta (ALL).\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 1991160\n*   PMID: 3455828\n*   PMID: 8952155\n*   PMID: 10194126\n*   PMID: 12476305\n*   PMID: 17369142\n*   PMID: 18818391\n*   PMID: 19737651\n*   PMID: 19779040\n*   PMID: 20385793\n*   PMID: 20537386\n*   PMID: 27229714\n*   PMID: 28404889\n*   PMID: 36050548",
+    "cited_pmids_list": [
+      1991160,
+      3455828,
+      8952155,
+      10194126,
+      12476305,
+      17369142,
+      18818391,
+      19737651,
+      19779040,
+      20385793,
+      20537386,
+      27229714,
+      28404889,
+      36050548
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 14,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-007",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n### 1. Variante e Classificazione ESCAT\n*   **Gene:** BRAF\n*   **Variante:** V600E (Point Mutation)\n*   **Tumore:** Colorectal Cancer (CRC)\n*   **Linea di Terapia:** First-line\n*   **Classificazione ESCAT:** Tier I-A\n\n### 2. Terapia Raccomandata\nLe strategie terapeutiche per BRAF V600E nel CRC prevedono l'uso di inibitori di BRAF, spesso in combinazione con inibitori di MEK e anti-EGFR per superare i feedback adattivi.\n\n*   **Encorafenib** (Livello A): Raccomandato per la sua efficacia nella risposta clinica [PMID: 31566309].\n*   **Cetuximab** (Livello A) - CDx: FoundationOne CDx, ONCO/Reveal Dx Lung & Colon Cancer Assay, cobas KRAS Mutation Test, therascreen KRAS RGQ PCR Kit, xT CDx: Utilizzato in combinazione per potenziare la risposta [PMID: 31566309, 26460303].\n*   **Binimetinib** (Livello B): Inibitore di MEK utilizzato per migliorare il controllo della malattia [PMID: 27729313].\n*   **Vemurafenib** (Livello B) - CDx: cobas 4800 BRAF V600 Mutation Test: Inibitore di BRAF [PMID: 25589621].\n*   **Dabrafenib** (Livello B) - CDx: THXID BRAF Kit: Inibitore di BRAF.\n*   **Trametinib** (Livello B) - CDx: FoundationOne CDx, MI Cancer Seek (MCS), THXID BRAF Kit: Inibitore di MEK.\n*   **Cobimetinib** (Livello B): Inibitore di MEK.\n*   **Panitumumab** (Livello B) - CDx: CRCDx RAS Mutation Detection Assay Kit, FoundationOne CDx, MI Cancer Seek (MCS), ONCO/Reveal Dx Lung & Colon Cancer Assay, Praxis Extended RAS Panel, cobas KRAS Mutation Test, therascreen KRAS RGQ PCR Kit, xT CDx.\n*   **Irinotecan Hydrochloride** (Livello B).\n\n### 3. Profilo di Resistenza\nLa monoterapia con inibitori di BRAF nel CRC è spesso limitata da una risposta ridotta o da resistenze rapide dovute all'attivazione di pathway alternativi (feedback loop).\n\n*   **Resistenza agli anti-EGFR:** L'efficacia degli anticorpi monoclonali anti-EGFR può essere limitata nei pazienti con mutazione BRAF rispetto ai wild-type [PMID: 25989278].\n*   **Ridotta Sensibilità:** È stata osservata una risposta limitata o una rapida progressione con terapie mirate singole [PMID: 22608338, 19603024].\n*   **Meccanismi di progressione:** La resistenza è associata a outcome clinici poveri e a una complessità molecolare che richiede l'inibizione simultanea di più nodi della via MAPK [PMID: 27404270, 27302369, 19001320, 19571295, 25666295, 20619739].\n\n### 4. Trial Clinici Eleggibili\nNon sono stati identificati trial clinici specifici per la variante BRAF V600E nel contesto fornito (i trial elencati riguardano pazienti BRAF Wild-type).\n\n### 5. Lista PMID Verificati\n*   19001320\n*   19571295\n*   19603024\n*   20619739\n*   22608338\n*   25589621\n*   25666295\n*   25989278\n*   26460303\n*   27302369\n*   27404270\n*   27729313\n*   31566309",
+    "cited_pmids_list": [
+      19001320,
+      19571295,
+      19603024,
+      20619739,
+      22608338,
+      25589621,
+      25666295,
+      25989278,
+      26460303,
+      27302369,
+      27404270,
+      27729313,
+      31566309
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 13,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-008",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board relativo alla variante PIK3CA nel tumore della mammella.\n\n### 1. Variante e classificazione ESCAT\n**Gene:** PIK3CA  \n**Variante:** Mutazione (point mutation)  \n**Tumore:** Breast Cancer  \n**Classificazione ESCAT:** Tier I-A\n\n### 2. Terapia raccomandata\nLe seguenti opzioni terapeutiche sono indicate per pazienti con tumore della mammella PIK3CA-mutato:\n\n*   **Alpelisib** (CDx: MI Cancer Seek (MCS) - Caris Life Sciences): Raccomandato (Livello A) per la sua efficacia in pazienti con tumore della mammella [PMID: 31091374, 37256976].\n*   **Capivasertib**: Raccomandato (Livello A) per l'efficacia dimostrata nel contesto del tumore della mammella [PMID: 31091374, 37256976].\n*   **Fulvestrant**: Raccomandato (Livello A) come parte della strategia terapeutica per il tumore della mammella.\n*   **Everolimus**: Raccomandato (Livello B) per la risposta clinica osservata nel tumore della mammella [PMID: 17575221].\n*   **Tamoxifene**: Raccomandato (Livello B) specialmente in contesti di tumore della mammella ER-positivo [PMID: 17575221].\n\n### 3. Profilo di resistenza\nLa presenza di mutazioni in PIK3CA (specificamente E542K, E545K o H1047R) è associata a un profilo di resistenza e prognosi peggiore in contesti specifici:\n*   **Resistenza a terapie anti-HER2:** In pazienti con tumore della mammella HER2-positivo trattati con terapia basata su trastuzumab, la mutazione di PIK3CA è associata a un rischio significativamente maggiore di progressione della malattia (HR = 1.86) rispetto ai pazienti wild-type [PMID: 21594665].\n*   **Altre evidenze di resistenza:** Sono stati riportati meccanismi di resistenza associati a mutazioni PIK3CA in tumori della mammella HER2-positivi [PMID: 17936563, 26920887] e in contesti generali di tumore della mammella [PMID: 30206110].\n\n### 4. Trial clinici eleggibili\n*   **NCT06790693:** Valutazione di Inavolisib + inibitore CDK4/6 + Letrozole vs Placebo + CDK4/6i + Letrozole in pazienti con tumore della mammella HR+, HER2- avanzato, PIK3CA-mutato e sensibile agli endocrini (Fase 3, RECRUITING).\n*   **NCT06982521:** Studio di fase 3 che confronta RLY-2608 + Fulvestrant vs Capivasertib + Fulvestrant in tumore della mammella HR+, HER2- localmente avanzato o metastatico PIK3CA-mutato (Fase 3, RECRUITING).\n*   **NCT06635447:** Studio su Capivasertib + Fulvestrant in pazienti cinesi con tumore della mammella HR+/HER2- localmente avanzato o metastatico (Fase 3, ACTIVE_NOT_RECRUITING).\n*   **NCT05840211:** Studio di Sacituzumab Govitecan vs scelta del medico in pazienti con tumore della mammella HR+/HER2- metastatico precedentemente trattati con terapia endocrina (Fase 3, ACTIVE_NOT_RECRUITING).\n\n### 5. Lista dei PMID verificati\n- 17575221\n- 17936563\n- 19671852\n- 21594665\n- 26920887\n- 27091708\n- 30206110\n- 31091374\n- 37256976",
+    "cited_pmids_list": [
+      17575221,
+      17936563,
+      19671852,
+      21594665,
+      26920887,
+      27091708,
+      30206110,
+      31091374,
+      37256976
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 9,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-009",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** KIT\n*   **Variante:** Exon 11 Mutation (atypical)\n*   **Tumore:** Gastrointestinal Stromal Tumor (GIST)\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Imatinib (Livello A):** Farmaco di prima scelta approvato per il trattamento di GIST con mutazioni dell'esone 11 di KIT. L'evidenza clinica supporta l'efficacia e la sensibilità di risposta in questa sottopopolazione [PMID: 14645423, 18955451, 23177515, 22614970, 27371698].\n*   **Companion Diagnostic (CDx):** PDGFRB FISH Assay (ARUP Laboratories, Inc.).\n\n**3. Profilo di resistenza**\n*   **Resistenza a Imatinib/Sunitinib:** Le mutazioni dell'esone 11 di KIT possono essere associate a profili di resistenza specifica. In particolare, i pazienti con mutazioni primarie dell'esone 11 trattati con sunitinib (in contesti di resistenza o intolleranza a imatinib) hanno mostrato una progression-free survival (PFS) significativamente più breve rispetto ad altri sottogruppi (5.1 vs 19.0 mesi) [PMID: 18955458].\n\n**4. Trial clinici eleggibili**\n*   **NCT05734105:** Studio di fase 3 che confronta Ripretinib vs Sunitinib in pazienti con GIST avanzato e specifiche mutazioni dell'esone di KIT, precedentemente trattati con imatinib.\n*   **NCT05208047:** Trial di fase 3 (Peak) su CGT9486 + Sunitinib vs Sunitinib in soggetti con GIST.\n*   **NCT05009927:** Studio di fase 2 sull'efficacia del trattamento con Imatinib dopo 10 anni di terapia (Gist-Ten).\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   10485475\n*   12000708\n*   14645423\n*   16551858\n*   18955451\n*   18955458\n*   22614970\n*   23177515\n*   27371698",
+    "cited_pmids_list": [
+      10485475,
+      12000708,
+      14645423,
+      16551858,
+      18955451,
+      18955458,
+      22614970,
+      23177515,
+      27371698
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 9,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-010",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** FLT3\n*   **Variante:** ITD (Internal Tandem Duplication)\n*   **Tumore:** Acute Myeloid Leukemia (AML)\n*   **Linea:** First-line\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Gilteritinib** (Approvato): Livello di evidenza A. È raccomandato per la risposta clinica in pazienti con AML e mutazioni FLT3 [PMID: 31665578]. \n    *   **Companion Diagnostic (CDx):** LeukoStrat CDx FLT3 Mutation Assay (Invivoscribe Technologies, Inc.).\n*   **Sorafenib** (Approvato): Livello di evidenza B.\n*   **Lestaurtinib** (Non approvato): Livello di evidenza B.\n\n**3. Profilo di resistenza**\n*   **FLT3-ITD:** È associata a una prognosi generalmente sfavorevole (Poor Outcome) [PMID: 24801015, 17957027, 21537333, 16455956, 24855211, 21067377]. \n*   In termini di risposta terapeutica, è stato osservato che il trattamento con ATRA non ha influenzato la sopravvivenza globale nei pazienti di età inferiore ai 60 anni con mutazione FLT3-ITD [PMID: 19965647].\n\n**4. Trial clinici eleggibili**\n*   **NCT04027309:** Studio di Gilteritinib vs Midostaurin in combinazione con terapia di induzione e consolidamento in pazienti con AML neo-diagnosticata con mutazioni FLT3.\n*   **NCT05586074:** HEC73543 rispetto a chemioterapia di salvataggio in AML R/R con FLT3-ITD.\n*   **NCT03182244:** Studio su ASP2215 rispetto a chemioterapia di salvataggio in pazienti con AML recidivante o refrattaria con mutazione FLT3.\n*   **NCT03897127:** Chemioterapia intensiva standard vs chemioterapia intensiva con CPX-351 in pazienti adulti con AML neo-diagnosticata e genetica intermedia o avversa.\n\n**5. Lista finale dei PMID verificati**\n*   11290608\n*   14726387\n*   16455956\n*   17957027\n*   19965647\n*   21067377\n*   21537333\n*   24801015\n*   24855211\n*   31665578",
+    "cited_pmids_list": [
+      11290608,
+      14726387,
+      16455956,
+      17957027,
+      19965647,
+      21067377,
+      21537333,
+      24801015,
+      24855211,
+      31665578
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 10,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-011",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** EGFR\n*   **Variante:** T790M (point mutation)\n*   **Tumore:** Lung Adenocarcinoma\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Osimertinib (Livello A):** Farmaco approvato e raccomandato per pazienti con NSCLC che presentano la mutazione T790M, con evidenza clinica di alta sensibilità e risposta [PMID: 27959700, 26729184, 26720284].\n    *   **Companion Diagnostics (CDx):** FoundationOne CDx, FoundationOne Liquid CDx, Guardant360 CDx, cobas EGFR Mutation Test v2.\n*   **Rociletinib (Livello B):** Farmaco non approvato, con evidenze di risposta di livello B [PMID: 25923549, 25923550].\n\n**3. Profilo di resistenza**\nLa mutazione T790M è un noto meccanismo di resistenza acquisita agli inibitori della tirosina chinasi (TKI) di prima e seconda generazione [PMID: 25668228, 21430269]. L'insorgenza di tale variante è associata a una progressione della malattia e a outcome clinici sfavorevoli [PMID: 24729716, 24623981]. Ulteriori studi hanno documentato la resistenza intrinseca o acquisita legata a questa mutazione nel carcinoma polmonare [PMID: 24035188, 23470965, 17020982, 27304188].\n\n**4. Trial clinici eleggibili**\n*   **NCT05748093:** Studio di fase 4 per migliorare l'esposizione a Osimertinib tramite boosting farmacocinetico con Cobicistat (Recruiting).\n*   **NCT07092202:** Studio di fase 4 su Firmonertinib in combinazione con iniezione intratecale per NSCLC con mutazione EGFR e metastasi leptomeningee (Recruiting).\n*   **NCT06305754:** Studio di fase 3 su Sacituzumab Tirumotecan (MK-2870) vs Pemetrexed+Carboplatino in pazienti con mutazione EGFR progrediti dopo TKI (Active, not recruiting).\n*   **NCT07183189:** Studio di fase 3 su SHR-A2009 in combinazione con Aumolertinib come prima linea in NSCLC con mutazione EGFR (Recruiting).\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 17020982\n*   PMID: 21430269\n*   PMID: 23470965\n*   PMID: 24035188\n*   PMID: 24623981\n*   PMID: 24729716\n*   PMID: 25668228\n*   PMID: 25923549\n*   PMID: 25923550\n*   PMID: 26720284\n*   PMID: 26729184\n*   PMID: 27304188\n*   PMID: 27959700",
+    "cited_pmids_list": [
+      17020982,
+      21430269,
+      23470965,
+      24035188,
+      24623981,
+      24729716,
+      25668228,
+      25923549,
+      25923550,
+      26720284,
+      26729184,
+      27304188,
+      27959700
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 13,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-012",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** KRAS\n*   **Variante:** G12C (point mutation)\n*   **Tumore:** Lung Adenocarcinoma (First-line)\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Sotorasib** (CDx: Guardant360 CDx, therascreen KRAS RGQ PCR Kit): Livello di evidenza A. Il farmaco ha mostrato risposta clinica e sensibilità nei carcinomi polmonari non a piccole cellule (NSCLC) [PMID: 34096690].\n*   **Divarasib**: Livello di evidenza B. Supportato da evidenze di sensibilità/risposta in NSCLC [PMID: 26125448, PMID: 37611121].\n*   **Selumetinib Sulfate**: Livello di evidenza B.\n\n**3. Profilo di resistenza**\n*   **KRAS G12C:** La presenza di mutazioni di KRAS è associata a una resistenza intrinseca agli inibitori della tirosina chinasi (TKI) dell'EGFR, come il gefitinib. In pazienti con cancro al polmone ricorrente, i portatori di mutazioni KRAS mostrano una frequenza significativamente inferiore di risposta parziale (PR) e malattia stabile (SD), con un tasso più elevato di progressione della malattia (PD) rispetto ai non portatori [PMID: 17409929].\n\n**4. Trial clinici eleggibili**\n*   **NCT06890598:** Studio su Olomorasib (LY3537982) in combinazione con lo standard of care in pazienti con NSCLC KRAS G12C-mutato (resecabile o non resecabile).\n*   **NCT02152631:** Studio su Abemaciclib (LY2835219) in pazienti con cancro al polmone KRAS-mutato precedentemente trattati.\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 17409929\n*   PMID: 22247021\n*   PMID: 23014527\n*   PMID: 26125448\n*   PMID: 34096690\n*   PMID: 37611121",
+    "cited_pmids_list": [
+      17409929,
+      22247021,
+      23014527,
+      26125448,
+      34096690,
+      37611121
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 6,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-013",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** ALK\n*   **Variante:** G1202R (point mutation)\n*   **Tumore:** Lung Adenocarcinoma\n*   **Classificazione ESCAT:** Non determinato\n\n**2. Terapia raccomandata**\n*   **Lorlatinib (CDx: ALK-positive assay):** Raccomandato come opzione terapeutica (Livello 2). Il farmaco è progettato per superare le resistenze agli inibitori di ALK di prima e seconda generazione, inclusa la mutazione G1202R.\n\n**3. Profilo di resistenza**\n*   La mutazione **G1202R** è una nota mutazione di resistenza \"solvent front\" che emerge frequentemente dopo il trattamento con inibitori di ALK di seconda generazione (come Alectinib o Brigatinib), riducendone l'efficacia. Lorlatinib è specificamente sviluppato per mantenere l'attività contro questa specifica variante.\n\n**4. Trial clinici eleggibili**\n*   **NCT06282874:** Lorlatinib in Patients With ALK-Positive NSCLC With Brain or Leptomeningeal Metastases (Fase 4).\n*   **NCT05144997:** Lorlatinib Continuation Study (Fase 4).\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   Nessun PMID verificato fornito nel contesto.",
+    "cited_pmids_list": [],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 0,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-014",
+    "report": "**REPORT MOLECULAR TUMOR BOARD**\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** ABL1\n*   **Variante:** T315I (point mutation)\n*   **Tumore:** Chronic Myeloid Leukemia (CML)\n*   **Classificazione ESCAT:** Tier I-B\n\n**2. Terapia raccomandata**\n*   **Ponatinib (Livello B):** Raccomandato per il trattamento della CML in presenza della mutazione T315I, avendo dimostrato sensibilità e risposta clinica in pazienti con questa specifica alterazione [PMID: 25349473, PMID: 23190221].\n\n**3. Profilo di resistenza**\n*   **Mutazione T315I:** Questa specifica variante conferisce una resistenza intrinseca al trattamento con Imatinib [PMID: 20537386]. La mutazione impatta negativamente la risposta alle terapie di prima generazione [PMID: 19779040].\n\n**4. Trial clinici eleggibili**\n*   **NCT03589326:** Ponatinib Versus Imatinib in Adults With Acute Lymphoblastic Leukemia (PHASE3)\n*   **NCT05456191:** Asciminib Versus Nilotinib in Adult Participants With Newly Diagnosed Ph+ CML-CP (PHASE3)\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   PMID: 19779040\n*   PMID: 20537386\n*   PMID: 23190221\n*   PMID: 25349473",
+    "cited_pmids_list": [
+      19779040,
+      20537386,
+      23190221,
+      25349473
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 4,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-015",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** RET\n*   **Variante:** Fusione (Fusion)\n*   **Tumore:** Adenocarcinoma polmonare\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Pralsetinib** (CDx: Oncomine Dx Target Test): Raccomandato come terapia di prima linea (Livello A) per l'elevata risposta clinica osservata nei pazienti con NSCLC portatori di fusioni RET [PMID: 34118197].\n*   **Selpercatinib** (CDx: FoundationOne CDx, Oncomine Dx Target Test, TruSight Oncology Comprehensive): Raccomandato (Livello B) sulla base dell'evidenza di sensitività e risposta in pazienti con adenocarcinoma polmonare [PMID: 27825636] e NSCLC [PMID: 27803005, PMID: 27825616, PMID: 161573, PMID: 32846060].\n*   **Vandetanib**: Opzione terapeutica approvata (Livello B).\n\n**3. Profilo di resistenza**\nNon sono stati forniti dati specifici nel contesto attuale riguardo a mutazioni di resistenza acquisite (come mutazioni del solvent front) o meccanismi di resistenza per i farmaci sopra citati.\n\n**4. Trial clinici eleggibili**\nNessuno dei trial clinici elencati (NCT05502237, NCT06970639, NCT06745908, NCT06956001, NCT06674343) risulta pertinente per pazienti con fusioni RET, in quanto focalizzati su checkpoint inhibitor o mutazioni EGFR.\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   PMID: 161573\n*   PMID: 27803005\n*   PMID: 27825616\n*   PMID: 27825636\n*   PMID: 32846060\n*   PMID: 34118197",
+    "cited_pmids_list": [
+      27803005,
+      27825616,
+      27825636,
+      32846060,
+      34118197
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 5,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-016",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** NTRK1\n*   **Variante:** Fusione (Fusion)\n*   **Tumore:** Tumore Solido (Solid Tumor)\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\nLe seguenti terapie sono raccomandate in prima linea per tumori solidi che presentano fusioni di NTRK1, supportate da evidenze di alta sensibilità e risposta clinica:\n\n*   **Entrectinib** (Approvato)\n    *   **Companion Diagnostic (CDx):** FoundationOne CDx (Foundation Medicine, Inc.), FoundationOne Liquid CDx (Foundation Medicine, Inc.).\n    *   **Evidenza Clinica:** Elevata sensibilità e risposta in tumori solidi [PMID: 28183697, PMID: 29466156, PMID: 31838007]. Livello di evidenza: A.\n*   **Larotrectinib Sulfate** (Approvato)\n    *   **Companion Diagnostic (CDx):** FoundationOne CDx (Foundation Medicine, Inc.), TruSight Oncology Comprehensive (Illumina, Inc.).\n    *   **Evidenza Clinica:** Dimostrata efficacia in tumori solidi [PMID: 29466156, PMID: 31838007], inclusi i sarcomi [PMID: 29606586] e tumori simili a lipofibromatosi neurale [PMID: 27259011]. Livello di evidenza: A. Altre evidenze di risposta sono riportate in tumori solidi generici [PMID: 35395680].\n\n**3. Profilo di resistenza**\nNon sono presenti nel contesto fornito informazioni specifiche su mutazioni di resistenza (come T790M o C797S) o meccanismi di resistenza acquisita per le fusioni di NTRK1.\n\n**4. Trial clinici eleggibili**\n*   **NCT02568267:** Basket Study of Entrectinib (RXDX-101) for the Treatment of Patients With Solid Tumors Harboring NTRK 1/2/3 (Trk A/B/C), ROS1, or ALK Gene Rearrangements (Fusions) | Fase: PHASE2 | Stato: ACTIVE_NOT_RECRUITING.\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   PMID: 27259011\n*   PMID: 28183697\n*   PMID: 29466156\n*   PMID: 29606586\n*   PMID: 31838007\n*   PMID: 35395680",
+    "cited_pmids_list": [
+      27259011,
+      28183697,
+      29466156,
+      29606586,
+      31838007,
+      35395680
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 6,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-017",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Biomarker:** MSI-High (Microsatellite Instability-High)\n*   **Tumore:** Colorectal Cancer (CRC)\n*   **Linea di trattamento:** First-line\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Nivolumab + Ipilimumab:** Raccomandati come terapia di prima linea per pazienti con CRC MSI-H, supportati da evidenze di alta qualità sulla sensibilità e risposta clinica [PMID: 39602630, PMID: 39874977].\n*   **Pembrolizumab:** Raccomandato (Livello 1). Companion Diagnostics (CDx): FoundationOne CDx (Foundation Medicine, Inc.), MI Cancer Seek (MCS) (Caris Life Sciences).\n*   **Dostarlimab:** Considerato (Livello 2). Companion Diagnostic (CDx): MI Cancer Seek (MCS) (Caris Life Sciences).\n\n**3. Profilo di resistenza**\nNon sono riportate mutazioni di resistenza specifiche (come T790M o C797S, tipiche di altri target) o meccanismi di resistenza molecolare nei dati forniti per il biomarker MSI-High nel tumore del colon-retto.\n\n**4. Trial clinici eleggibili**\nNon sono stati forniti identificativi NCT di trial clinici specifici nel contesto.\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 39602630\n*   PMID: 39874977",
+    "cited_pmids_list": [
+      39602630,
+      39874977
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 2,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-018",
+    "report": "### Report Molecular Tumor Board\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** KRAS\n*   **Variante:** G12C (point mutation)\n*   **Tumore:** Colorectal Cancer (CRC)\n*   **Linea di trattamento:** First-line\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\nPer i pazienti con tumore del colon-retto metastatico portatore della mutazione KRAS G12C, sono indicate le seguenti opzioni terapeutiche:\n\n*   **Adagrasib** (Approvato)\n    *   **Companion Diagnostic (CDx):** Agilent Resolution ctDx FIRST assay, therascreen KRAS RGQ PCR Kit.\n    *   **Evidenza:** Livello A. La sensibilità e la risposta clinica in CRC sono supportate dalle evidenze [PMID: 38587856, 37870968].\n*   **Sotorasib** (Non approvato)\n    *   **Companion Diagnostic (CDx):** Guardant360 CDx, therascreen KRAS RGQ PCR Kit.\n    *   **Evidenza:** Livello A. La sensibilità e la risposta clinica in CRC sono supportate dalle evidenze [PMID: 38587856, 37870968].\n*   **Cetuximab** (Approvato)\n    *   **Companion Diagnostic (CDx):** FoundationOne CDx, ONCO/Reveal Dx Lung & Colon Cancer Assay, cobas KRAS Mutation Test, therascreen KRAS RGQ PCR Kit, xT CDx.\n    *   **Evidenza:** Livello A.\n*   **Panitumumab** (Approvato)\n    *   **Companion Diagnostic (CDx):** CRCDx RAS Mutation Detection Assay Kit, FoundationOne CDx, MI Cancer Seek (MCS), ONCO/Reveal Dx Lung & Colon Cancer Assay, Praxis Extended RAS Panel, cobas KRAS Mutation Test, therascreen KRAS RGQ PCR Kit, xT CDx.\n    *   **Evidenza:** Livello A.\n\n**3. Profilo di resistenza**\nLa presenza della mutazione KRAS G12C è associata a una resistenza intrinseca agli inibitori del recettore dell'EGFR (EGFR-TKIs). In particolare, i pazienti con mutazione KRAS G12C mostrano una progressione libera da malattia (PFS) significativamente più breve rispetto ai pazienti con EGFR wild-type quando trattati con farmaci come erlotinib o gefitinib [PMID: 23313110]. Ulteriori dati sulla resistenza in CRC sono riportati in [PMID: 20619739].\n\n**4. Trial clinici eleggibili**\nSi segnalano i seguenti trial in fase di reclutamento (RECRUITING):\n*   **NCT06226857:** Efficacia anti-EGFR in pazienti con RAS-wild type (mCRC lato sinistro).\n*   **NCT06662786:** Amivantamab + mFOLFOX6/FOLFIRI vs Cetuximab + mFOLFOX6/FOLFIRI (KRAS/NRAS e BRAF Wild-type).\n*   **NCT02885753:** Oxaliplatino sistemico o chemio intra-arteriosa + target therapy in prima linea (mCRC limitato al fegato).\n*   **NCT07389265:** Continuazione di Cetuximab oltre la progressione di prima linea.\n*   **NCT06750094:** Amivantamab + FOLFIRI vs Cetuximab/Bevacizumab + FOLFIRI (KRAS/NRAS e BRAF Wild-type).\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 20619739\n*   PMID: 23313110\n*   PMID: 37870968\n*   PMID: 38587856",
+    "cited_pmids_list": [
+      20619739,
+      23313110,
+      37870968,
+      38587856
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 4,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-019",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board.\n\n### 1. Variante e classificazione ESCAT\n**Gene:** KIT\n**Variante:** Exon 9 Mutation (atypical)\n**Tumore:** Gastrointestinal Stromal Tumor (GIST)\n**Classificazione ESCAT:** Tier I-A\n\n### 2. Terapia raccomandata\n*   **IMATINIB (Livello A):** Raccomandato come terapia di prima linea. L'evidenza clinica mostra una risposta e sensibilità significativa per le mutazioni dell'esone 9 di KIT [PMID: 16624552, 14645423, 18955458]. \n    *   **Companion Diagnostic (CDx):** PDGFRB FISH Assay (ARUP Laboratories, Inc.).\n*   **SUNITINIB (Livello B):** Indicato come opzione terapeutica, con evidenze di risposta clinica in pazienti affetti da GIST [PMID: 22439647, 23177515].\n\n### 3. Profilo di resistenza\nLe mutazioni dell'esone 9 di KIT possono presentare una sensibilità ridotta o una risposta meno duratura a determinati inibitori tirosin-chinasici, influenzando l'outcome terapeutico a lungo termine [PMID: 18955451, 22614970].\n\n### 4. Trial clinici eleggibili\n*   **NCT05734105:** Studio di fase 3 che confronta Ripretinib vs Sunitinib in pazienti con GIST avanzato con specifiche mutazioni di KIT, precedentemente trattati con Imatinib.\n*   **NCT05208047:** Studio di fase 3 (Peak) su CGT9486 + Sunitinib vs Sunitinib.\n*   **NCT05009927 (Gist-Ten):** Studio di fase 2 sull'efficacia del trattamento con Imatinib dopo 10 anni di terapia.\n*   **NCT06087263:** Studio di fase 2 su Regorafenib in specifici subset di mutazioni KIT (Esone 17, 18 o 14) in seconda linea post-imatinib.\n*   **NCT07559864:** Studio di fase 2 che confronta Regorafenib combinato con Envafolimab vs Physician's Choice in GIST metastatici con mutazioni dell'esone 17 refrattari allo standard.\n\n### 5. Lista finale dei PMID verificati nel Knowledge Graph\n*   14645423\n*   16624552\n*   18955451\n*   18955458\n*   22439647\n*   22614970\n*   23177515",
+    "cited_pmids_list": [
+      14645423,
+      16624552,
+      18955451,
+      18955458,
+      22439647,
+      22614970,
+      23177515
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 7,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-020",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** BRAF\n*   **Variante:** V600E (point mutation)\n*   **Tumore:** Adenocarcinoma polmonare\n*   **Classificazione ESCAT:** Tier I-A [PMID: 27283860]\n\n**2. Terapia raccomandata**\nLa strategia terapeutica di prima linea per pazienti con NSCLC BRAF V600E si focalizza sull'inibizione combinata della via MAPK:\n\n*   **DABRAFENIB** (Livello A) | **CDx:** THXID BRAF Kit (bioMérieux Inc.). L'evidenza clinica supporta l'efficacia di questo inibitore di BRAF nel trattamento del carcinoma polmonare non a piccole cellule [PMID: 27283860].\n*   **TRAMETINIB** (Livello A) | **CDx:** FoundationOne CDx (Foundation Medicine, Inc.), MI Cancer Seek (MCS) (Caris Life Sciences), THXID BRAF Kit (bioMérieux Inc.). Utilizzato in combinazione con inibitori di BRAF per potenziare la risposta e ridurre l'attivazione paradossale della via MAPK [PMID: 27283860].\n*   **VEMURAFENIB** (Livello B) | **CDx:** cobas 4800 BRAF V600 Mutation Test (Roche Molecular Systems, Inc.). Alternativa terapeutica basata su evidenze di risposta nel NSCLC [PMID: 29320312].\n\n**3. Profilo di resistenza**\nNon sono stati forniti nel contesto specifico PMID relativi a mutazioni di resistenza acquisite (come mutazioni secondarie di BRAF o attivazioni di MEK/KRAS) per questa variante nel tumore polmonare.\n\n**4. Trial clinici eleggibili**\n*   **NCT03340506:** Dabrafenib and/or Trametinib Rollover Study (Fase 4) - Stato: RECRUITING.\n*   **NCT05522660:** Immunotherapy or Targeted Therapy With or Without Stereotactic Radiosurgery for Patients With Brain Metastases From Melanoma or Non-small Cell Lung Cancer (Fase 3) - Stato: RECRUITING.\n*   **NCT06745908:** Clinical Trial of N-803 Plus Tislelizumab or Prior Failed Immune Checkpoint Inhibitor and Docetaxel Versus Docetaxel Monotherapy in Participants With Advanced or Metastatic Non-Small Cell Lung Cancer Who Have Acquired Resistance to Immune Checkpoint Inhibitors (Fase 3) - Stato: RECRUITING.\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   PMID: 27283860\n*   PMID: 29320312",
+    "cited_pmids_list": [
+      27283860,
+      29320312
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 2,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-021",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** ERBB2\n*   **Variante:** Amplification (cna)\n*   **Tumore:** Gastric Cancer (First-line)\n*   **Classificazione ESCAT:** Tier I-A [PMID: 20728210]\n\n**2. Terapia raccomandata**\n*   **Trastuzumab** (Livello A). Farmaco approvato per il trattamento di prima linea. \n    *   **Companion Diagnostics (CDx):** FoundationOne CDx, HER2 CISH pharmDx Kit, HER2 FISH pharmDx Kit, INFORM HER-2/neu, INFORM HER2 Dual ISH DNA Probe Cocktail, PathVysion HER-2 DNA Probe Kit, SPOT-LIGHT HER2 CISH Kit, Ventana HER2 Dual ISH DNA Probe Cocktail.\n    *   **Evidenza clinica:** Dimostrata sensibilità e risposta nel carcinoma gastrico [PMID: 20728210].\n*   **Lapatinib** (Livello B). Farmaco approvato.\n    *   **Evidenza clinica:** Risposta documentata nel carcinoma gastrico [PMID: 24868024, PMID: 31047804].\n*   **Trastuzumab Deruxtecan** (Livello B). Farmaco approvato.\n    *   **Companion Diagnostics (CDx):** Guardant360 CDx, Oncomine Dx Target Test.\n    *   **Evidenza clinica:** Efficacia riportata nel contesto di tumori gastrici HER2-positivi [PMID: 24868024].\n\n**3. Profilo di resistenza**\nNon sono state fornite informazioni specifiche nel contesto riguardo a mutazioni di resistenza acquisite (es. mutazioni del dominio chinasico di ERBB2) o meccanismi molecolari di resistenza per i farmaci citati.\n\n**4. Trial clinici eleggibili**\n*   **NCT06731478:** Studio su TDx (Trastuzumab Deruxtecan), Chemioterapia, Pembrolizumab e Trastuzumab in prima linea per cancro gastrico o della giunzione gastroesofagea HER2-positivo. (Stato: RECRUITING).\n*   **NCT05111626:** Bemarituzumab + Chemioterapia + Nivolumab vs Chemioterapia + Nivolumab per FGFR2b overexpressed. (Stato: ACTIVE_NOT_RECRUITING).\n*   **NCT07431281:** Sonesitatug Vedotin in combinazione con Capecitabina (con o senza Rilvegostomig) per Claudin18.2 espresso. (Stato: RECRUITING).\n*   **NCT06901531:** Zolbetuximab in combinazione con Pembrolizumab e chemioterapia. (Stato: RECRUITING).\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 20728210\n*   PMID: 24868024\n*   PMID: 31047804",
+    "cited_pmids_list": [
+      20728210,
+      24868024,
+      31047804
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 3,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-022",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** BRCA2\n*   **Variante:** Mutazione puntiforme (point mutation)\n*   **Tumore:** Prostate Cancer (Carcinoma della Prostata)\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Olaparib** (Livello di evidenza: A)\n    *   **Companion Diagnostic (CDx):** BRACAnalysis CDx (Myriad Genetic Laboratories, Inc.), FoundationOne CDx (Foundation Medicine, Inc.), FoundationOne Liquid CDx (Foundation Medicine, Inc.), Myriad myChoice CDx (Myriad Genetic Laboratories, Inc.).\n    *   **Evidenza Clinica:** L'utilizzo di Olaparib è supportato da evidenze di sensibilità e risposta in pazienti con carcinoma della prostata resistente alla castrazione [PMID: 32343890] e in contesti generali di tumore della prostata [PMID: 36753688].\n\n**3. Profilo di resistenza**\n*   Non sono presenti informazioni nel contesto fornito riguardanti specifiche mutazioni di resistenza (es. mutazioni di reversione di BRCA2) o l'impatto di tali alterazioni sulle terapie indicate.\n\n**4. Trial clinici eleggibili**\n*   **NCT06439225:** Platinum and Taxane Chemo in Met Castration Resistant Prostate Cancer Patients With Alterations in DNA Damage Response Genes (Fase 3, RECRUITING).\n*   **NCT06952803:** A Study of Metastases Free Survival With Saruparib vs Placebo Added to a Standard RT/ADT in Men With High-risk Prostate Cancer With a BRCA Mutation (Fase 3, RECRUITING).\n*   **NCT05806515:** Carboplatin Chemotherapy Before Surgery for People With High-Risk Prostate Cancer and an Inherited BRCA1 or BRCA2 Gene Mutation (Fase 2, RECRUITING).\n*   **NCT04550494:** Measuring the Effects of Talazoparib in Patients With Advanced Cancer and DNA Repair Variations (Fase 2, RECRUITING).\n*   **NCT06395519:** A Study of PARG Inhibitor ETX-19477 in Patients With Advanced Solid Malignancies (Fase 1/2, RECRUITING).\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 32343890\n*   PMID: 36753688",
+    "cited_pmids_list": [
+      32343890,
+      36753688
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 2,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-023",
+    "report": "**REPORT MOLECULAR TUMOR BOARD**\n\n**1. Variante e classificazione ESCAT**\n*   **Biomarker:** TMB-High (Tumor Mutational Burden High)\n*   **Classificazione ESCAT:** Tier I-B\n\n**2. Terapia raccomandata**\nIl TMB-High è un biomarcatore agnostico di istologia che indica una maggiore suscettibilità agli inibitori dei checkpoint immunitari (ICI). Le seguenti opzioni terapeutiche sono indicate in prima linea per tumori solidi avanzati:\n\n*   **Pembrolizumab:** Approvato. Companion Diagnostic (CDx): FoundationOne CDx (Foundation Medicine, Inc.), MI Cancer Seek (MCS) (Caris Life Sciences). L'evidenza clinica supporta l'efficacia in tumori solidi avanzati [PMID: 30643254] e specificamente nel carcinoma polmonare non a piccole cellule [PMID: 29658845].\n*   **Durvalumab:** Approvato. Livello di evidenza B.\n*   **Tremelimumab:** Approvato. Livello di evidenza B.\n*   **Atezolizumab:** Livello di evidenza B.\n*   **Toripalimab:** Livello di evidenza B.\n*   **PD1 Inhibitors (generici):** Livello di evidenza B.\n\nL'efficacia di queste terapie è stata documentata in diverse neoplasie, tra cui:\n- Carcinoma polmonare non a piccole cellule (NSCLC) [PMID: 25765070, 30082870, 30785829, 32271377, 33355200, 35708671, 36240972, 38422883, 39255777].\n- Tumori del colon-retto [PMID: 31038663, 38727700].\n- Carcinoma squamocellulare della testa e del collo [PMID: 36806911].\n- Altri tumori solidi avanzati [PMID: 30309915].\n\n**3. Profilo di resistenza**\nNon sono stati forniti nel contesto specifici meccanismi di resistenza molecolare (come mutazioni puntiformi) associati al biomarker TMB-High. La resistenza agli ICI in pazienti TMB-High può tuttavia essere legata a fattori immunologici o perdita di antigeni, ma non sono riportati PMID specifici per mutazioni di resistenza in questo dataset.\n\n**4. Trial clinici eleggibili**\nNessun trial clinico con NCT ID è presente nel contesto fornito.\n\n**5. Lista finale dei PMID verificati**\n- 25765070\n- 29658845\n- 30082870\n- 30309915\n- 30643254\n- 30785829\n- 31038663\n- 32271377\n- 33355200\n- 35708671\n- 36240972\n- 36806911\n- 38422883\n- 38727700\n- 39255777",
+    "cited_pmids_list": [
+      25765070,
+      29658845,
+      30082870,
+      30309915,
+      30643254,
+      30785829,
+      31038663,
+      32271377,
+      33355200,
+      35708671,
+      36240972,
+      36806911,
+      38422883,
+      38727700,
+      39255777
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 15,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-024",
+    "report": "### Report Molecular Tumor Board\n\n**Paziente:** Adenocarcinoma polmonare\n**Variante:** EGFR Exon 19 Deletion (atypical)\n**Linea di trattamento:** First-line\n\n---\n\n#### 1. Variante e classificazione ESCAT\nLa variante **EGFR Exon 19 Deletion** è classificata come **ESCAT Tier I-A**, indicando un livello di evidenza massimo per la correlazione tra la mutazione e la risposta clinica ai farmaci targetizzati.\n\n#### 2. Terapia raccomandata\nDi seguito le opzioni terapeutiche di prima linea basate sulle evidenze di sensibilità fornite:\n\n*   **Osimertinib** (CDx: FoundationOne CDx, FoundationOne Liquid CDx, Guardant360 CDx, cobas EGFR Mutation Test v2): Raccomandato come opzione di prima linea con elevato livello di evidenza per la sensibilità nel NSCLC [PMID: 37937763].\n*   **Afatinib** (CDx: FoundationOne CDx, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit): Opzione terapeutica approvata per pazienti con mutazioni sensitizzanti di EGFR [PMID: 24868098, PMID: 24263064].\n*   **Gefitinib** (CDx: FoundationOne CDx, FoundationOne Liquid CDx, Oncomine Dx Target Test, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit): Terapia approvata con evidenza di risposta nel NSCLC [PMID: 23982599].\n*   **Erlotinib** (CDx: FoundationOne CDx, FoundationOne Liquid CDx, cobas EGFR Mutation Test v1): Terapia approvata basata su evidenze di sensibilità clinica [PMID: 28958502].\n*   **Dacomitinib** (CDx: therascreen EGFR RGQ PCR Kit): Opzione approvata per il trattamento di pazienti con mutazioni di EGFR [PMID: 31591063].\n*   **Altre opzioni:** Sono indicati **Carboplatin** e **Ramucirumab** (Livello A), oltre a **Amivantamab** e **Lazertinib** (non ancora approvati in questo contesto specifico, ma con Livello A di evidenza).\n\n#### 3. Profilo di resistenza\nIl profilo di resistenza per le mutazioni di EGFR, inclusa l'Exon 19 Deletion, evidenzia una complessità nella risposta ai trattamenti sistemici. In particolare, è stata analizzata la risposta agli inibitori dei checkpoint immunitari (anti-PD-1, anti-PD-L1, anti-CTLA-4), osservando come lo status di EGFR possa influenzare l'efficacia di tali terapie [PMID: 31086949].\n\n#### 4. Trial clinici eleggibili\nI seguenti trial sono potenzialmente applicabili per pazienti con mutazione di EGFR:\n*   **NCT05748093**: Studio sull'ottimizzazione dell'esposizione di Osimertinib tramite Cobicistat (Fase 4).\n*   **NCT07092202**: Combinazione di Firmonertinib e iniezione intratecale per metastasi leptomeningee (Fase 4).\n*   **NCT07183189**: Studio su SHR-A2009 in combinazione con Aumolertinib come prima linea (Fase 3).\n*   **NCT06305754**: Studio su Sacituzumab Tirumotecan vs Pemetrexed/Carboplatin in pazienti che hanno progredito dopo TKI di EGFR (Fase 3).\n\n#### 5. Lista dei PMID verificati\n- 23982599\n- 24263064\n- 24868098\n- 26768165\n- 27022112\n- 27959700\n- 28958502\n- 31086949\n- 31591063\n- 32955177\n- 37879444\n- 37937763\n- 38942080",
+    "cited_pmids_list": [
+      23982599,
+      24263064,
+      24868098,
+      26768165,
+      27022112,
+      27959700,
+      28958502,
+      31086949,
+      31591063,
+      32955177,
+      37879444,
+      37937763,
+      38942080
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 13,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-025",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** IDH1\n*   **Variante:** R132 (point mutation)\n*   **Tumore:** Acute Myeloid Leukemia (AML)\n*   **Classificazione ESCAT:** Tier I-B [PMID: 20376086]\n\n**2. Terapia raccomandata**\nAl momento, per la prima linea di trattamento in pazienti con AML IDH1-mutata, l'evidenza clinica suggerisce l'impiego di inibitori specifici di IDH1, sebbene l'efficacia variabile sia documentata in letteratura (con studi che riportano evidenze positive [PMID: 20376086] e altri che non hanno mostrato benefici significativi [PMID: 20805365, 20368538]).\n*   **Ivosidenib:** Inibitore di IDH1. Utilizzato in combinazione con azacitidina o come terapia mirata.\n*   **Olutasidenib:** Inibitore di IDH1.\n\n**3. Profilo di resistenza**\nNon sono stati forniti nel contesto specifico PMID relativi a mutazioni di resistenza acquisite (come mutazioni secondarie nel dominio di legame del farmaco) per gli inibitori di IDH1 in AML.\n\n**4. Trial clinici eleggibili**\nI seguenti studi clinici sono attivi per pazienti con mutazione IDH1 in AML:\n*   **NCT07075016:** Ivosidenib + Azacitidine (con o senza Venetoclax) per pazienti non eleggibili a chemioterapia intensiva (Fase 3, RECRUITING).\n*   **NCT03173248:** AG-120 (Ivosidenib) vs Placebo in combinazione con Azacitidina in AML non precedentemente trattata (Fase 3, ACTIVE_NOT_RECRUITING).\n*   **NCT03839771:** Ivosidenib o Enasidenib in combinazione con terapia di induzione e consolidamento per pazienti eleggibili a chemioterapia intensiva (Fase 3, ACTIVE_NOT_RECRUITING).\n*   **NCT06387069:** Valutazione di HMPL-306 in pazienti con AML IDH1/IDH2-mutata (Fase 3, RECRUITING).\n*   **NCT07486713:** Studio DDI su Olutasidenib in malignità IDH1-positive (Fase 4, RECRUITING).\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   20368538\n*   20376086\n*   20805365",
+    "cited_pmids_list": [
+      20368538,
+      20376086,
+      20805365
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 3,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-026",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** FGFR2\n*   **Variante:** Fusion (Fusione)\n*   **Tumore:** Colangiocarcinoma\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Infigratinib** (Approvato): Livello di evidenza A. Il farmaco ha dimostrato sensibilità e risposta clinica nel trattamento del colangiocarcinoma [PMID: 34358484, 30420614, 29182496].\n*   **Derazantinib** (Non approvato): Livello di evidenza B. Risposta positiva riportata in studi preliminari su colangiocarcinoma [PMID: 24122810].\n\n**3. Profilo di resistenza**\nNon sono riportate nel contesto fornito mutazioni di resistenza specifiche (come mutazioni secondarie del dominio chinasico di FGFR2) o i relativi meccanismi di impatto sulle terapie indicate.\n\n**4. Trial clinici eleggibili**\nI seguenti trial clinici risultano aperti per pazienti con FGFR2-altered nel colangiocarcinoma:\n*   **NCT05948475**: Studio di Tinengotinib VS. Physician's Choice (Fase 3, RECRUITING).\n*   **NCT04353375**: HMPL-453 Tartrato in colangiocarcinoma intraepatico avanzato (Fase 2/3, RECRUITING).\n*   **NCT05727176**: Studio di Futibatinib in pazienti con fusione o riarrangiamento di FGFR2 (Fase 2, RECRUITING).\n*   **NCT06777316**: Studio di un inibitore FGFR2/3 (CGT4859) (Fase 1/2, ACTIVE_NOT_RECRUITING).\n*   **NCT06302621**: Pemigatinib + Afatinib in tumori solidi refrattari avanzati (Fase 1, RECRUITING).\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   PMID: 24122810\n*   PMID: 29182496\n*   PMID: 30420614\n*   PMID: 34358484",
+    "cited_pmids_list": [
+      24122810,
+      29182496,
+      30420614,
+      34358484
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 4,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-027",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board.\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** MET\n*   **Variante:** Exon 14 Skipping (atypical)\n*   **Tumore:** Lung Adenocarcinoma\n*   **Classificazione ESCAT:** Tier I-A [PMID: 32877583]\n\n**2. Terapia raccomandata**\n*   **Capmatinib Hydrochloride** (CDx: FoundationOne CDx, FoundationOne Liquid CDx): Raccomandato come terapia di prima linea (Livello A) per l'elevata sensibilità e risposta clinica osservata in pazienti con NSCLC [PMID: 32877583].\n*   **Tepotinib Hydrochloride** (CDx: FoundationOne Liquid CDx): Raccomandato come opzione terapeutica (Livello B) basata sull'evidenza di risposta clinica nei carcinomi polmonari non a piccole cellule [PMID: 160289].\n*   **Crizotinib** (CDx: FoundationOne CDx, Oncomine Dx Target Test, Vysis ALK Break Apart FISH Probe Kit): Opzione terapeutica (Livello B) con evidenza di sensibilità e risposta in pazienti con NSCLC [PMID: 123413].\n\n**3. Profilo di resistenza**\nNon sono stati forniti dati specifici nel contesto riguardo a mutazioni di resistenza acquisite (come mutazioni nel dominio chinasico di MET) per questa specifica variante.\n\n**4. Trial clinici eleggibili**\nSebbene i trial elencati riguardino prevalentemente resistenze a EGFR-TKI o altre combinazioni, i seguenti possono essere monitorati per pazienti con NSCLC in progressione:\n*   **NCT04928846:** Valutazione di Telisotuzumab Vedotin rispetto a Docetaxel in NSCLC non squamoso precedentemente trattato.\n*   **NCT05261399:** Savolitinib più Osimertinib in pazienti con NSCLC progressi dopo Osimertinib.\n*   **NCT06829459:** Glumetinib combinato con Osimertinib in pazienti con NSCLC resistenti a EGFR-TKIs.\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   32877583\n*   160289\n*   123413",
+    "cited_pmids_list": [
+      32877583
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 1,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-028",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** ROS1\n*   **Variante:** Fusione\n*   **Tumore:** Adenocarcinoma polmonare\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata (First-line)**\n*   **Crizotinib** (CDx: FoundationOne CDx, Oncomine Dx Target Test, Vysis ALK Break Apart FISH Probe Kit). Farmaco approvato con livello di evidenza A, supportato da studi che ne dimostrano l'efficacia e la risposta clinica nel carcinoma polmonare non a piccole cellule (NSCLC) [PMID: 25264305, 25667280].\n*   **Entrectinib** (CDx: FoundationOne CDx, FoundationOne Liquid CDx). Farmaco approvato con livello di evidenza A, indicato per pazienti con NSCLC portatori di fusioni ROS1 [PMID: 28183697, 29596029, 30980071, 31838015].\n\n**3. Profilo di resistenza**\nNon sono presenti nel contesto fornito mutazioni di resistenza specifiche (es. G2032R o altre mutazioni solvent-front) né i relativi PMID di supporto per i farmaci indicati.\n\n**4. Trial clinici eleggibili**\n*   **NCT05160922:** Crizotinib Continuation Clinical Study (Fase 4, Active, not recruiting).\n*   **NCT05502237:** Combinazione di Zimberelimab, Domvanalimab e chemioterapia vs Pembrolizumab e chemioterapia in NSCLC metastatico non trattato (Fase 3, Active, not recruiting).\n*   **NCT06745908:** N-803 più Tislelizumab o precedente fallimento ICI e Docetaxel vs Docetaxel monoterapia in NSCLC avanzato/metastatico resistente a ICI (Fase 3, Recruiting).\n*   **NCT06868277:** Rilvegostomig o Pembrolizumab monoterapia per trattamento di prima linea in NSCLC metastatico PD-L1-high (Fase 3, Recruiting).\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n*   PMID: 25264305\n*   PMID: 25667280\n*   PMID: 28183697\n*   PMID: 29596029\n*   PMID: 30980071\n*   PMID: 31838015",
+    "cited_pmids_list": [
+      25264305,
+      25667280,
+      28183697,
+      29596029,
+      30980071,
+      31838015
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 6,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-029",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** BRAF\n*   **Variante:** V600E (point mutation)\n*   **Tumore:** Thyroid Cancer\n*   **Classificazione ESCAT:** Tier I-B\n\n**2. Terapia raccomandata**\nLa mutazione BRAF V600E è associata a una risposta clinica favorevole a inibitori specifici di BRAF e MEK, particolarmente nei carcinomi anaplastici [PMID: 26287849, 29072975] e papillari [PMID: 27460442].\n\n*   **Dabrafenib** (CDx: THXID BRAF Kit): Indicato come terapia mirata per pazienti con mutazione BRAF V600E (Livello B).\n*   **Trametinib** (CDx: FoundationOne CDx, MI Cancer Seek, THXID BRAF Kit): Inibitore di MEK indicato per il trattamento di tumori tiroidei BRAF-mutati (Livello B).\n*   **Vemurafenib** (CDx: cobas 4800 BRAF V600 Mutation Test): Inibitore di BRAF indicato per il trattamento di tumori tiroidei BRAF-mutati (Livello B).\n\n**3. Profilo di resistenza**\nIl contesto clinico evidenzia che la presenza della mutazione BRAF V600E nel carcinoma papillare della tiroide è spesso correlata a una prognosi peggiore e a esiti clinici sfavorevoli [PMID: 16174717, 18682506, 21594703, 21882184, 24354346, 24396464, 25024077]. Non sono riportate nel contesto specifico mutazioni di resistenza acquisite (come C797S o T790M, tipiche di altri pathway) che impattino l'efficacia dei farmaci citati.\n\n**4. Trial clinici eleggibili**\n*   **NCT04940052:** Studio di fase 3 sull'efficacia e sicurezza di Dabrafenib in combinazione con Trametinib in pazienti con cancro differenziato della tiroide metastatico, refrattario allo iodio radioattivo e positivo per BRAF V600E (Stato: Active, not recruiting).\n*   **NCT06475989:** Studio di fase 3 che confronta la terapia mirata rispetto alla chemioterapia nel cancro della tiroide (Stato: Recruiting).\n\n**5. Lista finale dei PMID verificati**\n- 16174717\n- 18682506\n- 21594703\n- 21882184\n- 24354346\n- 24396464\n- 24570209\n- 25024077\n- 26287849\n- 27460442\n- 29072975",
+    "cited_pmids_list": [
+      16174717,
+      18682506,
+      21594703,
+      21882184,
+      24354346,
+      24396464,
+      24570209,
+      25024077,
+      26287849,
+      27460442,
+      29072975
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 11,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  },
+  {
+    "case_id": "BENCH-030",
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\n*   **Gene:** ERBB2 (HER2)\n*   **Variante:** Amplificazione (cna)\n*   **Tumore:** Gastric Cancer\n*   **Classificazione ESCAT:** Tier I-A\n\n**2. Terapia raccomandata**\n*   **Trastuzumab** (Livello A). Indicato come terapia di prima linea per l'adenocarcinoma gastrico HER2-positivo [PMID: 20728210]. \n    *   **Companion Diagnostics (CDx):** FoundationOne CDx, HER2 CISH pharmDx Kit, HER2 FISH pharmDx Kit, INFORM HER-2/neu, INFORM HER2 Dual ISH DNA Probe Cocktail, PathVysion HER-2 DNA Probe Kit, SPOT-LIGHT HER2 CISH Kit, Ventana HER2 Dual ISH DNA Probe Cocktail.\n*   **Lapatinib** (Livello B). Evidenza di risposta nel cancro gastrico [PMID: 24868024, PMID: 31047804].\n*   **Trastuzumab Deruxtecan** (Livello B). Indicato per pazienti con espressione di HER2 [PMID: 31047804].\n    *   **Companion Diagnostics (CDx):** Guardant360 CDx, Oncomine Dx Target Test.\n\n**3. Profilo di resistenza**\n*   Non sono stati forniti dati specifici nel contesto riguardo a mutazioni di resistenza acquisite (come T790M o C797S, tipiche di EGFR) per l'amplificazione di ERBB2 nel tumore gastrico.\n\n**4. Trial clinici eleggibili**\n*   **NCT06731478:** Studio su TDXd (Trastuzumab Deruxtecan), Chemioterapia, Pembrolizumab e Trastuzumab in prima linea per cancro gastrico/GEJ HER2-positivo (Fase 3, RECRUITING).\n\n**5. Lista finale dei PMID verificati**\n*   PMID: 20728210\n*   PMID: 24868024\n*   PMID: 31047804",
+    "cited_pmids_list": [
+      20728210,
+      24868024,
+      31047804
+    ],
+    "hallucinated_pmids_list": [],
+    "n_cited_pmids": 3,
+    "n_hallucinated_pmids": 0,
+    "pmid_hallucination_rate": 0.0
+  }
+]

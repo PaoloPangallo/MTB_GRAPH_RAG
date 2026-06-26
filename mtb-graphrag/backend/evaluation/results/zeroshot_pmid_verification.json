@@ -1,0 +1,1260 @@
+{
+  "statistiche": {
+    "totale_casi_valutati": 30,
+    "totale_pmid_citati": 115,
+    "totale_pmid_inesistenti": 4,
+    "totale_pmid_non_pertinenti": 111,
+    "totale_pmid_allucinati": 115,
+    "tasso_allucinazione_percento": 100.0,
+    "tasso_inesistenza_percento": 3.48,
+    "tasso_non_pertinenza_percento": 96.52
+  },
+  "dettagli_casi": [
+    {
+      "case_id": "BENCH-001",
+      "gene": "EGFR",
+      "variant": "L858R",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Osimertinib",
+      "pmids_cited": [
+        "29703322",
+        "30290264",
+        "19050457",
+        "25310344"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "29703322",
+          "esiste": true,
+          "titolo": "Disruptive trends in higher education: Leadership skills for successful leaders.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di istruzione superiore e leadership, non di EGFR L858R o oncologia."
+        },
+        {
+          "pmid": "30290264",
+          "esiste": true,
+          "titolo": "Structure characterization and anti-leukemia activity of a novel polysaccharide from Angelica sinensis (Oliv.) Diels.",
+          "pertinente": false,
+          "motivazione": "L'articolo riguarda un polisaccaride vegetale con attività antileucemica, non EGFR L858R."
+        },
+        {
+          "pmid": "19050457",
+          "esiste": false,
+          "pertinente": false,
+          "motivazione": "Il PMID non esiste nel database PubMed/NCBI."
+        },
+        {
+          "pmid": "25310344",
+          "esiste": true,
+          "titolo": "Unilateral and bilateral medial rectus recession in Graves' Orbitopathy patients.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di chirurgia oculistica per Graves' Orbitopathy, non correlato a EGFR L858R o tumore polmonare."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-002",
+      "gene": "ALK",
+      "variant": "Fusion",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Alectinib",
+      "pmids_cited": [
+        "29300203",
+        "15620284",
+        "31045445",
+        "36054071"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "29300203",
+          "esiste": true,
+          "titolo": "Evolving criteria for the diagnosis of antibody-mediated rejection in renal allografts.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta del rigetto nei trapianti renali, non è correlato ad ALK o oncologia polmonare."
+        },
+        {
+          "pmid": "15620284",
+          "esiste": true,
+          "titolo": "On the thermodynamics of particle-stabilized emulsions: curvature effects and catastrophic phase inversion.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di termodinamica delle emulsioni, non di oncologia o ALK."
+        },
+        {
+          "pmid": "31045445",
+          "esiste": true,
+          "titolo": "Expert Elicitation for Estimation of the Proportion Foodborne for Selected Microbial Pathogens in New Zealand.",
+          "pertinente": false,
+          "motivazione": "Studio epidemiologico su patogeni alimentari, nessuna relazione con ALK o tumore polmonare."
+        },
+        {
+          "pmid": "36054071",
+          "esiste": true,
+          "titolo": "Higher fitness and competitive advantage of Pyricularia oryzae Triticum lineage resistant to QoI fungicides.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta resistenza fungina ai fungicidi in piante, non ALK o oncologia."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-003",
+      "gene": "BRAF",
+      "variant": "V600E",
+      "tumor": "Melanoma",
+      "expected_drug": "Vemurafenib",
+      "pmids_cited": [
+        "22443447",
+        "23524121",
+        "25371145"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "22443447",
+          "esiste": true,
+          "titolo": "Neural correlates of fair behavior in interpersonal bargaining.",
+          "pertinente": false,
+          "motivazione": "Studio di neuroscienze comportamentali, non correlato a BRAF V600E o melanoma."
+        },
+        {
+          "pmid": "23524121",
+          "esiste": true,
+          "titolo": "Endosomal escape kinetics of mesoporous silica-based system for efficient siRNA delivery.",
+          "pertinente": false,
+          "motivazione": "Articolo metodologico sul delivery di siRNA, non correlato a BRAF V600E o melanoma."
+        },
+        {
+          "pmid": "25371145",
+          "esiste": true,
+          "titolo": "Recurrent meningitis in hyper IgE syndrome.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta una sindrome immunologica non correlata a BRAF V600E o melanoma."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-004",
+      "gene": "ERBB2",
+      "variant": "Amplification",
+      "tumor": "Breast Cancer",
+      "expected_drug": "Trastuzumab+Pertuzumab",
+      "pmids_cited": [
+        "30051142",
+        "21110000",
+        "32054190",
+        "33873114",
+        "20515412",
+        "30201351",
+        "23422232",
+        "15651334"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "30051142",
+          "esiste": true,
+          "titolo": "Prognostic model based on magnetic resonance imaging, whole-tumour apparent diffusion coefficient values and HPV genotyping for stage IB-IV cervical cancer patients following chemoradiotherapy.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta cancro cervicale, non ERBB2 né carcinoma mammario."
+        },
+        {
+          "pmid": "21110000",
+          "esiste": true,
+          "titolo": "Depressive symptoms among immigrants and ethnic minorities: a population based study in 23 European countries.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di sintomi depressivi e non è correlato a ERBB2, amplificazione o tumore al seno."
+        },
+        {
+          "pmid": "32054190",
+          "esiste": true,
+          "titolo": "An improvement of real-time polymerase chain reaction system based on probe modification is required for accurate detection of African swine fever virus in clinical samples in Vietnam.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta il virus della peste suina africana, non ERBB2 né il cancro al seno."
+        },
+        {
+          "pmid": "33873114",
+          "esiste": true,
+          "titolo": "In vivo human corneal natural frequency quantification using dynamic optical coherence elastography: Repeatability and reproducibility.",
+          "pertinente": false,
+          "motivazione": "Lo studio riguarda la cornea umana e tecniche di imaging ottico, non il cancro al seno o ERBB2."
+        },
+        {
+          "pmid": "20515412",
+          "esiste": true,
+          "titolo": "The brave leader game and the timing of altruism among nonkin.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di altruismo e teoria dei giochi, non di ERBB2 né oncologia."
+        },
+        {
+          "pmid": "30201351",
+          "esiste": true,
+          "titolo": "Appendiceal Mass With a Palpable Nodule on the Thigh.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di tumore appendiceale, non del carcinoma mammario HER2-positivo."
+        },
+        {
+          "pmid": "23422232",
+          "esiste": true,
+          "titolo": "Impact of hospital policies on health care workers' influenza vaccination rates.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta solo di politiche vaccinali antinfluenzali, non di ERBB2 o cancro al seno."
+        },
+        {
+          "pmid": "15651334",
+          "esiste": true,
+          "titolo": "[Inherited dystonia update].",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta della distonia ereditaria, una malattia neurologica non correlata a ERBB2 o al cancro."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-005",
+      "gene": "BRCA1",
+      "variant": "Mutation",
+      "tumor": "Ovarian Cancer",
+      "expected_drug": "Olaparib",
+      "pmids_cited": [
+        "23526581",
+        "27525135",
+        "31123534",
+        "25471031",
+        "28202543"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "23526581",
+          "esiste": true,
+          "titolo": "Case of concurrent Riedel's thyroiditis, acute suppurative thyroiditis, and micropapillary carcinoma.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta patologie tiroidee, non BRCA1 né cancro ovarico."
+        },
+        {
+          "pmid": "27525135",
+          "esiste": true,
+          "titolo": "Budd-Chiari Syndrome in a Patient with Hepatitis C.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta sindrome di Budd-Chiari in epatite C, non correlato a BRCA1 o tumore ovarico."
+        },
+        {
+          "pmid": "31123534",
+          "esiste": true,
+          "titolo": "A point of care platform based on microfluidic chip for nucleic acid extraction in less than 1 minute.",
+          "pertinente": false,
+          "motivazione": "Articolo metodologico su estrazione acidi nucleici, non specifico per BRCA1 o tumore ovarico."
+        },
+        {
+          "pmid": "25471031",
+          "esiste": true,
+          "titolo": "Dianthin-EGF is an effective tumor targeted toxin in combination with saponins in a xenograft model for colon carcinoma.",
+          "pertinente": false,
+          "motivazione": "Articolo su carcinoma del colon, non BRCA1 né cancro ovarico."
+        },
+        {
+          "pmid": "28202543",
+          "esiste": true,
+          "titolo": "Nucleosome-like, Single-stranded DNA (ssDNA)-Histone Octamer Complexes and the Implication for DNA Double Strand Break Repair.",
+          "pertinente": false,
+          "motivazione": "Studio strutturale sulla riparazione DSB senza riferimento a BRCA1 o cancro ovarico."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-006",
+      "gene": "ABL1",
+      "variant": "BCR-ABL1 Fusion",
+      "tumor": "Chronic Myeloid Leukemia",
+      "expected_drug": "Imatinib",
+      "pmids_cited": [
+        "11054102",
+        "19124611",
+        "20555444",
+        "17212251",
+        "15122140",
+        "22654342"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "11054102",
+          "esiste": true,
+          "titolo": "Amphioxus alcohol dehydrogenase is a class 3 form of single type and of structural conservation but with unique developmental expression.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta dell'alcol deidrogenasi in anfiosso, non correlato a BCR-ABL1 o CML."
+        },
+        {
+          "pmid": "19124611",
+          "esiste": true,
+          "titolo": "Auto- and cross-regulation of the hnRNP L proteins by alternative splicing.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta della regolazione delle proteine hnRNP L, non correlata a BCR-ABL1 nella LMC."
+        },
+        {
+          "pmid": "20555444",
+          "esiste": true,
+          "titolo": "Hologram fixing in Bi(12)TiO(20) using heating and an ac electric field.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di fisica dei materiali, non di oncologia o della fusione BCR-ABL1."
+        },
+        {
+          "pmid": "17212251",
+          "esiste": true,
+          "titolo": "[Sodium deficiency caused by Seltin and drugs].",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di deficit di sodio da farmaci, non correlato alla biologia BCR-ABL1 nella CML."
+        },
+        {
+          "pmid": "15122140",
+          "esiste": true,
+          "titolo": "Chondrocyte viability and metabolic activity after treatment of bovine articular cartilage with bipolar radiofrequency: an in vitro study.",
+          "pertinente": false,
+          "motivazione": "Lo studio riguarda condrociti e radiofreqenza, non ABL1 o leucemia mieloide cronica."
+        },
+        {
+          "pmid": "22654342",
+          "esiste": true,
+          "titolo": "A rare presentation of mass abdomen.",
+          "pertinente": false,
+          "motivazione": "L'articolo descrive una massa addominale generica senza riferimenti a BCR-ABL1 o CML."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-007",
+      "gene": "BRAF",
+      "variant": "V600E",
+      "tumor": "Colorectal Cancer",
+      "expected_drug": "Encorafenib+Cetuximab",
+      "pmids_cited": [
+        "23533633",
+        "30213131",
+        "24482443"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "23533633",
+          "esiste": true,
+          "titolo": "CD24 induces expression of the oncomir miR-21 via Src, and CD24 and Src are both post-transcriptionally downregulated by the tumor suppressor miR-34a.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di CD24, miR-21 e Src, non del gene BRAF o della variante V600E."
+        },
+        {
+          "pmid": "30213131",
+          "esiste": true,
+          "titolo": "Intelligent Ball Bearing Fault Diagnosis Using Fractional Lorenz Chaos Extension Detection.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di diagnostica industriale dei cuscinetti, non di oncologia."
+        },
+        {
+          "pmid": "24482443",
+          "esiste": true,
+          "titolo": "Hunting complex differential gene interaction patterns across molecular contexts.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di un metodo computazionale generico, non specifico per BRAF V600E o cancro colorettale."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-008",
+      "gene": "PIK3CA",
+      "variant": "Mutation",
+      "tumor": "Breast Cancer",
+      "expected_drug": "Alpelisib+Fulvestrant",
+      "pmids_cited": [
+        "28582011",
+        "31253221",
+        "30243388",
+        "32356281"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "28582011",
+          "esiste": true,
+          "titolo": "Despite Dramatic Progress, Significant Controversy and Critical Challenges for Patients with ST-Segment Elevation MI.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di infarto miocardico, non di PIK3CA o tumore al seno."
+        },
+        {
+          "pmid": "31253221",
+          "esiste": true,
+          "titolo": "Predictors of Blood Culture Positivity in Pediatric Brucellosis.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta la brucellosi pediatrica, malattia infettiva non correlata a PIK3CA o cancro al seno."
+        },
+        {
+          "pmid": "30243388",
+          "esiste": true,
+          "titolo": "Polymerization of dopamine catalyzed by laccase: Comparison of enzymatic and conventional methods.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta solo la polimerizzazione della dopamina, senza alcun collegamento a PIK3CA o al cancro al seno."
+        },
+        {
+          "pmid": "32356281",
+          "esiste": true,
+          "titolo": "Adult spinal deformity surgery: the effect of surgical start time on patient outcomes and cost of care.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di chirurgia ortopedica della scoliosi, non di PIK3CA né di cancro al seno."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-009",
+      "gene": "KIT",
+      "variant": "Exon 11 Mutation",
+      "tumor": "Gastrointestinal Stromal Tumor",
+      "expected_drug": "Imatinib",
+      "pmids_cited": [
+        "22332213",
+        "15634531",
+        "17413216"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "22332213",
+          "esiste": true,
+          "titolo": "Adipose-derived stem cells on hyaluronic acid-derived scaffold: a new horizon in bioengineered cornea.",
+          "pertinente": false,
+          "motivazione": "Lo studio riguarda ingegneria tessutale della cornea, non KIT o GIST."
+        },
+        {
+          "pmid": "15634531",
+          "esiste": true,
+          "titolo": "[Metastatic cystic squamous cell carcinoma in the neck mistaken as primary branchial cleft carcinoma: a report of 4 cases].",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di carcinoma squamoso del collo, non di GIST o mutazioni KIT."
+        },
+        {
+          "pmid": "17413216",
+          "esiste": true,
+          "titolo": "trans-Diaqua{5,5'-[(E,E)-pyridine-2,6-diylbis(methylidynenitrilo)]bis[pyrimidine-2,4(1H,3H)-dione]}zinc(II) nitrate hexafluorophosphate trihydrate.",
+          "pertinente": false,
+          "motivazione": "L'articolo riguarda un composto chimico di zinco, non il gene KIT o i GIST."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-010",
+      "gene": "FLT3",
+      "variant": "ITD",
+      "tumor": "Acute Myeloid Leukemia",
+      "expected_drug": "Gilteritinib",
+      "pmids_cited": [
+        "30515227",
+        "28826412",
+        "31334135"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "30515227",
+          "esiste": true,
+          "titolo": "A Mixed Methods Study on the Barriers and Facilitators of Physical Activity Associated with Residential Relocation.",
+          "pertinente": false,
+          "motivazione": "Lo studio riguarda attività fisica e trasferimento residenziale, non FLT3 ITD o AML."
+        },
+        {
+          "pmid": "28826412",
+          "esiste": true,
+          "titolo": "Structure, Process, and Outcome Quality of Surgical Site Infection Surveillance in Switzerland.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di infezioni chirurgiche, non di FLT3-ITD o leucemia mieloide."
+        },
+        {
+          "pmid": "31334135",
+          "esiste": true,
+          "titolo": "oqxAB-Positive IncHI2 Plasmid pHXY0908 Increase Salmonella enterica Serotype Typhimurium Strains Tolerance to Ciprofloxacin.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di Salmonella, non di FLT3 o leucemia mieloide acuta."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-011",
+      "gene": "EGFR",
+      "variant": "T790M",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Osimertinib",
+      "pmids_cited": [
+        "28390343",
+        "30207183",
+        "15533933",
+        "29033148"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "28390343",
+          "esiste": true,
+          "titolo": "Multistate, multichannel coupled diabatic state representations of adiabatic states coupled by conical intersections. CH(2)OH photodissociation.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di chimica fisica teorica (fotodissociazione CH₂OH), non di EGFR, T790M o cancro polmonare."
+        },
+        {
+          "pmid": "30207183",
+          "esiste": true,
+          "titolo": "Delivery outcomes in subsequent pregnancy following primary breech cesarean delivery: a retrospective cohort study.",
+          "pertinente": false,
+          "motivazione": "Studio ostetrico su gravidanza dopo cesareo, nessuna correlazione con EGFR T790M o tumore polmonare."
+        },
+        {
+          "pmid": "15533933",
+          "esiste": true,
+          "titolo": "Ataxia telangiectasia mutated (ATM) and ATM and Rad3-related protein exhibit selective target specificities in response to different forms of DNA damage.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di ATM e ATR, non di EGFR T790M o adenocarcinoma polmonare."
+        },
+        {
+          "pmid": "29033148",
+          "esiste": true,
+          "titolo": "Medial approach for minimally-invasive harvesting of a deep circumflex iliac artery flap for reconstruction of the jaw using virtual surgical planning and CAD/CAM technology.",
+          "pertinente": false,
+          "motivazione": "L'articolo riguarda solo tecnica chirurgica ricostruttiva mandibolare, non EGFR/T790M o tumore polmonare."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-012",
+      "gene": "KRAS",
+      "variant": "G12C",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Sotorasib",
+      "pmids_cited": [
+        "33510230",
+        "34443618",
+        "36052402",
+        "37055511"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "33510230",
+          "esiste": true,
+          "titolo": "Grammatical category and the neural processing of phrases.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di linguistica e neuroscienze, non di oncologia."
+        },
+        {
+          "pmid": "34443618",
+          "esiste": true,
+          "titolo": "Reductive Amination Reaction for the Functionalization of Cellulose Nanocrystals.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di chimica dei materiali, non di KRAS G12C o oncologia."
+        },
+        {
+          "pmid": "36052402",
+          "esiste": true,
+          "titolo": "A Class Activation Map-Based Interpretable Transfer Learning Model for Automated Detection of ADHD from fMRI Data.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta la diagnosi di ADHD con fMRI, non oncologia polmonare."
+        },
+        {
+          "pmid": "37055511",
+          "esiste": true,
+          "titolo": "Study on upper bound limit analysis of horizontal layers slope stability based on optimization method.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di stabilità dei pendii in ingegneria geotecnica, non di oncologia KRAS."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-013",
+      "gene": "ALK",
+      "variant": "G1202R",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Lorlatinib",
+      "pmids_cited": [
+        "30324161",
+        "32875123"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "30324161",
+          "esiste": true,
+          "titolo": "Effect of Cytochalasin B Treatment on the Improvement of Survival Rate in Vitrified Pig Oocyte.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di crioconservazione di oociti suini, non correlato ad ALK o cancro polmonare."
+        },
+        {
+          "pmid": "32875123",
+          "esiste": true,
+          "titolo": "Tuberculosis preventive therapy (TPT) to prevent tuberculosis co-infection among adults with HIV-associated cryptococcal meningitis: A clinician's perspective.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di terapia preventiva per tubercolosi in pazienti HIV, non di oncologia."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-014",
+      "gene": "ABL1",
+      "variant": "T315I",
+      "tumor": "Chronic Myeloid Leukemia",
+      "expected_drug": "Ponatinib",
+      "pmids_cited": [
+        "28402225",
+        "20212181",
+        "33446424",
+        "15852535",
+        "23431234"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "28402225",
+          "esiste": true,
+          "titolo": "The role of attitudinal motivations and collective efficacy on Chinese consumers' intentions to engage in personal behaviors to mitigate climate change.",
+          "pertinente": false,
+          "motivazione": "Articolo sul comportamento climatico dei consumatori, non correlato ad ABL1/T315I o CML."
+        },
+        {
+          "pmid": "20212181",
+          "esiste": true,
+          "titolo": "The prostate cancer treatment bazaar: comment on \"Physician visits prior to treatment for clinically localized prostate cancer\".",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta del cancro alla prostata, irrilevante per ABL1 T315I nella CML."
+        },
+        {
+          "pmid": "33446424",
+          "esiste": true,
+          "titolo": "Advances in the World of Bacterial Microcompartments.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di microcompartimenti batterici, irrilevante per ABL1 T315I nella CML."
+        },
+        {
+          "pmid": "15852535",
+          "esiste": true,
+          "titolo": "[Effects of three Chinese traditional drugs on afferent discharge from single muscle spindle in toads].",
+          "pertinente": false,
+          "motivazione": "Studio su farmaci tradizionali cinesi e fusi muscolari in rospi, non correlato ad ABL1 o CML."
+        },
+        {
+          "pmid": "23431234",
+          "esiste": true,
+          "titolo": "Breast density legislation.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di legislazione sulla densità mammaria, irrilevante per ABL1 T315I nella CML."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-015",
+      "gene": "RET",
+      "variant": "Fusion",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Selpercatinib",
+      "pmids_cited": [
+        "25443331",
+        "33873618",
+        "33223133",
+        "34003631",
+        "34448528"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "25443331",
+          "esiste": true,
+          "titolo": "Evaluation of head-of-bed elevation compliance in critically ill patients under mechanical ventilation in a polyvalent intensive care unit.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di gestione dei pazienti in terapia intensiva, non di oncologia o fusioni RET."
+        },
+        {
+          "pmid": "33873618",
+          "esiste": true,
+          "titolo": "The plant nuclear envelope: new prospects for a poorly understood structure.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta dell'involucro nucleare delle piante, irrilevante per fusioni RET e cancro polmonare."
+        },
+        {
+          "pmid": "33223133",
+          "esiste": true,
+          "titolo": "The 'triple whammy' of coasts under threat - Why we should be worried!",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di minacce costiere ambientali, irrilevante per RET e cancro polmonare."
+        },
+        {
+          "pmid": "34003631",
+          "esiste": true,
+          "titolo": "Diverse Proton-Conducting Nanotubes via a Tandem Macrocyclization and Assembly Strategy.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di nanotubi conduttori di protoni, non di oncologia."
+        },
+        {
+          "pmid": "34448528",
+          "esiste": true,
+          "titolo": "In and out: Traffic and dynamics of thrombopoietin receptor.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta il recettore della trombopoietina (MPL), non il gene RET."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-016",
+      "gene": "NTRK1",
+      "variant": "Fusion",
+      "tumor": "Solid Tumor",
+      "expected_drug": "Larotrectinib",
+      "pmids_cited": [
+        "30067581",
+        "32311315",
+        "31641432"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "30067581",
+          "esiste": true,
+          "titolo": "Use of Web-Based Parent-Adolescent Health Promotion Program Among Puerto Ricans.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di un programma di promozione della salute genitore-adolescente, non correlato a NTRK1 o oncologia."
+        },
+        {
+          "pmid": "32311315",
+          "esiste": true,
+          "titolo": "Entropy Hotspots for the Binding of Intrinsically Disordered Ligands to a Receptor Domain.",
+          "pertinente": false,
+          "motivazione": "Studio sulla termodinamica del binding, senza riferimento a NTRK1 o fusioni NTRK in contesto oncologico."
+        },
+        {
+          "pmid": "31641432",
+          "esiste": true,
+          "titolo": "Probing complexity: thermodynamics and computational mechanics approaches to origins studies.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di termodinamica e meccanica computazionale, senza riferimenti a NTRK1 o oncologia."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-017",
+      "gene": "MMR",
+      "variant": "MSI-High",
+      "tumor": "Colorectal Cancer",
+      "expected_drug": "Pembrolizumab",
+      "pmids_cited": [
+        "30444325",
+        "29403723",
+        "31221612"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "30444325",
+          "esiste": false,
+          "pertinente": false,
+          "motivazione": "Il PMID non esiste nel database PubMed/NCBI."
+        },
+        {
+          "pmid": "29403723",
+          "esiste": true,
+          "titolo": "Development and validation of a reversed-phase HPLC method for analysis of tetrahydrozoline hydrochloride in eye drop formulations.",
+          "pertinente": false,
+          "motivazione": "L'articolo riguarda un metodo HPLC per un decongestionante oculare, non la via MMR/MSI-H nel cancro al colon."
+        },
+        {
+          "pmid": "31221612",
+          "esiste": true,
+          "titolo": "Discovery and Biological evaluation of pyrimido[4,5-d]pyrimidine-2,4(1H,3H)-dione derivatives as potent Bruton's tyrosine kinase inhibitors.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di inibitori BTK, non correlati a MMR o MSI-High."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-018",
+      "gene": "KRAS",
+      "variant": "G12C",
+      "tumor": "Colorectal Cancer",
+      "expected_drug": "Sotorasib+Panitumumab",
+      "pmids_cited": [
+        "33512242",
+        "35251017",
+        "36562583"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "33512242",
+          "esiste": true,
+          "titolo": "Transcatheter tricuspid valve implantation with the Cardiovalve system.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di impianto valvolare cardiaco, non è correlato a KRAS G12C o cancro al colon."
+        },
+        {
+          "pmid": "35251017",
+          "esiste": true,
+          "titolo": "Regulation of Pattern-Recognition Receptor Signaling by HBX During Hepatitis B Virus Infection.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di virologia (HBV) e recettori immuni, non del gene KRAS o del cancro colorettale."
+        },
+        {
+          "pmid": "36562583",
+          "esiste": true,
+          "titolo": "Experiences of Essential Care Partners during the COVID-19 Pandemic.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta dell'esperienza dei caregiver durante COVID-19, non correlato a KRAS G12C o cancro colorettale."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-019",
+      "gene": "KIT",
+      "variant": "Exon 9 Mutation",
+      "tumor": "Gastrointestinal Stromal Tumor",
+      "expected_drug": "Sunitinib",
+      "pmids_cited": [
+        "11552441",
+        "15124438",
+        "16352442",
+        "17102862"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "11552441",
+          "esiste": true,
+          "titolo": "[HTLV-I seronegative idiopathic progressive spastic paraparesis: clinical and neurophysiological study of the sensory features].",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta una malattia neurologica non correlata a KIT o GIST."
+        },
+        {
+          "pmid": "15124438",
+          "esiste": true,
+          "titolo": "Price-fixing probe. FTC investigates three N.M. hospitals and their IPAs.",
+          "pertinente": false,
+          "motivazione": "Articolo su indagine FTC per fixazione prezzi in ospedali, non correlato a KIT o GIST."
+        },
+        {
+          "pmid": "16352442",
+          "esiste": true,
+          "titolo": "Structural analysis of kappa-carrageenan [corrected] sulfated oligosaccharides by positive mode nano-ESI-FTICR-MS and MS/MS by SORI-CID.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di analisi strutturale di carragenina, un polisaccaride marine, non correlato a KIT o GIST."
+        },
+        {
+          "pmid": "17102862",
+          "esiste": true,
+          "titolo": "Chelating N-pyrrolylphosphino-N'-arylaldimine ligands: synthesis, ligand behaviour and applications in catalysis.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di chimica organometallica e catalisi, non di KIT o GIST."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-020",
+      "gene": "BRAF",
+      "variant": "V600E",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Dabrafenib+Trametinib",
+      "pmids_cited": [
+        "29311301",
+        "30323485"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "29311301",
+          "esiste": true,
+          "titolo": "TRPM4 and TRPM5 are both required for normal signaling in taste receptor cells.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di canali ionici TRPM4/TRPM5 nelle cellule gustative, non correlato a BRAF V600E."
+        },
+        {
+          "pmid": "30323485",
+          "esiste": true,
+          "titolo": "House of Delegates Votes on Resolutions.",
+          "pertinente": false,
+          "motivazione": "L'articolo riguarda mozioni organizzative, non oncologia o la variante BRAF V600E."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-021",
+      "gene": "ERBB2",
+      "variant": "Amplification",
+      "tumor": "Gastric Cancer",
+      "expected_drug": "Trastuzumab",
+      "pmids_cited": [
+        "25423112",
+        "17511913",
+        "22313441"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "25423112",
+          "esiste": false,
+          "pertinente": false,
+          "motivazione": "Il PMID non esiste nel database PubMed/NCBI."
+        },
+        {
+          "pmid": "17511913",
+          "esiste": true,
+          "titolo": "Colitis-associated cancer and dysplasia surveillance: an opposing perspective.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta del cancro colon-rettale associato a colite, non del cancro gastrico con amplificazione ERBB2."
+        },
+        {
+          "pmid": "22313441",
+          "esiste": true,
+          "titolo": "Factors influencing health care utilization in older Hispanics with diabetes along the Texas-Mexico border.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta diabete e accesso sanitario, non ERBB2 né cancro gastrico."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-022",
+      "gene": "BRCA2",
+      "variant": "Mutation",
+      "tumor": "Prostate Cancer",
+      "expected_drug": "Olaparib",
+      "pmids_cited": [
+        "33524431",
+        "33454582"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "33524431",
+          "esiste": true,
+          "titolo": "Antifungal property of acrylic denture soft liner containing silver nanoparticles synthesized in situ.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di materiali dentali antifungini, non correlato a BRCA2 o cancro alla prostata."
+        },
+        {
+          "pmid": "33454582",
+          "esiste": true,
+          "titolo": "Impact of Varroa destructor and associated pathologies on the colony collapse disorder affecting honey bees.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di patologie delle api, non di oncologia o BRCA2."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-023",
+      "gene": "TMB",
+      "variant": "TMB-High",
+      "tumor": "Solid Tumor",
+      "expected_drug": "Pembrolizumab",
+      "pmids_cited": [
+        "29221214",
+        "30071545",
+        "31455111",
+        "31143403",
+        "28264053"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "29221214",
+          "esiste": true,
+          "titolo": "Prognostic value of MICA/B in cancers: a systematic review and meta-analysis.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta MICA/B, non correlato al TMB-High."
+        },
+        {
+          "pmid": "30071545",
+          "esiste": true,
+          "titolo": "Updates in the Treatment of Active and Latent Tuberculosis.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta della tubercolosi, malattia infettiva non correlata al TMB oncologico."
+        },
+        {
+          "pmid": "31455111",
+          "esiste": true,
+          "titolo": "Effect of the maternal feeding on the carotenoid and tocopherol content of suckling lamb tissues.",
+          "pertinente": false,
+          "motivazione": "Articolo sulla nutrizione animale, non correlato a TMB o oncologia."
+        },
+        {
+          "pmid": "31143403",
+          "esiste": true,
+          "titolo": "Community-based interventions for preventing diarrhoea in people living with HIV in sub-Sahara Africa: A systematic review.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta prevenzione della diarrhea nell'HIV, non correlato al TMB in tumori solidi."
+        },
+        {
+          "pmid": "28264053",
+          "esiste": true,
+          "titolo": "Correction: Induced and Evoked Human Electrophysiological Correlates of Visual Working Memory Set-Size Effects at Encoding.",
+          "pertinente": false,
+          "motivazione": "Studio di neuroscienze cognitive su elettrofisiologia della memoria, irrilevante per TMB-High."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-024",
+      "gene": "EGFR",
+      "variant": "Exon 19 Deletion",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Osimertinib",
+      "pmids_cited": [
+        "29286580",
+        "33544443",
+        "30725075",
+        "30010141",
+        "22244150"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "29286580",
+          "esiste": true,
+          "titolo": "Optimization for imaging through scattering media for confocal microscopes with divided elliptical apertures.",
+          "pertinente": false,
+          "motivazione": "Articolo tecnico su microscopia ottica, non correlato a EGFR o oncologia."
+        },
+        {
+          "pmid": "33544443",
+          "esiste": true,
+          "titolo": "Disparities in colorectal cancer screening among breast and prostate cancer survivors.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta screening cancro colorettale in tumori al seno e prostata, non EGFR né adenocarcinoma polmonare."
+        },
+        {
+          "pmid": "30725075",
+          "esiste": true,
+          "titolo": "Optimizing Prehospital Trauma Triage-A Step Closer?",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta del triage dei traumi, non è correlato a EGFR o adenocarcinoma polmonare."
+        },
+        {
+          "pmid": "30010141",
+          "esiste": true,
+          "titolo": "Prenatal, Neonatal, and Early Childhood Features in Congenital Myotonic Dystrophy.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di distrofia miotonica congenita, malattia neuromuscolare non correlata a EGFR o oncologia."
+        },
+        {
+          "pmid": "22244150",
+          "esiste": true,
+          "titolo": "Infectious complications and hospital admissions after prostate biopsy in a European randomized trial.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta complicanze infettive da biopsia prostatica, non correlato a EGFR o tumore polmonare."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-025",
+      "gene": "IDH1",
+      "variant": "R132",
+      "tumor": "Acute Myeloid Leukemia",
+      "expected_drug": "Ivosidenib",
+      "pmids_cited": [
+        "25335332",
+        "30249841",
+        "34731144",
+        "31633454"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "25335332",
+          "esiste": true,
+          "titolo": "[Protection and mechanism of shenqi compound for diabetic angiopathy model rats].",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta angiopatia diabetica in ratti, non correlato a IDH1 R132 o AML."
+        },
+        {
+          "pmid": "30249841",
+          "esiste": true,
+          "titolo": "Posterior lentiglobus.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta una condizione oculare non correlata a IDH1 o AML."
+        },
+        {
+          "pmid": "34731144",
+          "esiste": true,
+          "titolo": "Effectiveness of platelet-rich plasma injections for the treatment of acute Achilles tendon rupture: A systematic review and meta-analysis.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di iniezioni PRP per lesioni tendinee, non di oncologia o varianti IDH1."
+        },
+        {
+          "pmid": "31633454",
+          "esiste": true,
+          "titolo": "Implementing Telerehabilitation After Stroke: Lessons Learned from Canadian Trials.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di teleriabilitazione per ictus, condizione non oncologica."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-026",
+      "gene": "FGFR2",
+      "variant": "Fusion",
+      "tumor": "Cholangiocarcinoma",
+      "expected_drug": "Pemigatinib",
+      "pmids_cited": [
+        "32647015",
+        "34311383"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "32647015",
+          "esiste": true,
+          "titolo": "World War II: bodies beyond the battlefield.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di storia militare, non di oncologia o FGFR2."
+        },
+        {
+          "pmid": "34311383",
+          "esiste": true,
+          "titolo": "Interplay between Sae2 and Rif2 in the regulation of Mre11-Rad50 activities at DNA ends.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di proteine di riparazione del DNA (Sae2, Rif2, Mre11-Rad50) non correlate a FGFR2."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-027",
+      "gene": "MET",
+      "variant": "Exon 14 Skipping",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Capmatinib",
+      "pmids_cited": [
+        "33451113",
+        "32794157"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "33451113",
+          "esiste": true,
+          "titolo": "Monitoring Lipophilic Toxins in Seawater Using Dispersive Liquid-Liquid Microextraction and Liquid Chromatography with Triple Quadrupole Mass Spectrometry.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di monitoraggio di tossine ambientali nell'acqua, non di oncologia o variante MET."
+        },
+        {
+          "pmid": "32794157",
+          "esiste": true,
+          "titolo": "Supplementum 244: swiss orthopaedics, 80th annual meeting (e-congress, August 27, 2020).",
+          "pertinente": false,
+          "motivazione": "Articolo ortopedico, nessuna rilevanza per MET o tumore polmonare."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-028",
+      "gene": "ROS1",
+      "variant": "Fusion",
+      "tumor": "Lung Adenocarcinoma",
+      "expected_drug": "Crizotinib",
+      "pmids_cited": [
+        "33920230",
+        "22445441",
+        "32441158",
+        "32713335",
+        "25500614"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "33920230",
+          "esiste": true,
+          "titolo": "Involvement of Smad7 in Inflammatory Diseases of the Gut and Colon Cancer.",
+          "pertinente": false,
+          "motivazione": "L'articolo riguarda SMAD7 nel cancro al colon, non ROS1 o fusioni geniche polmonari."
+        },
+        {
+          "pmid": "22445441",
+          "esiste": true,
+          "titolo": "A comparison of the efficacy of combined ezetimibe and statin therapy with doubling of statin dose in patients with remnant lipoproteinemia on previous statin therapy.",
+          "pertinente": false,
+          "motivazione": "Studio su statine ed ezetimibe per iperlipoproteinemia, irrilevante per fusione ROS1."
+        },
+        {
+          "pmid": "32441158",
+          "esiste": true,
+          "titolo": "Analytical tools and evaluation strategies for nanostructured lipid carrier-based topical delivery systems.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di formulazioni topiche farmaceutiche, non di ROS1 o cancro polmonare."
+        },
+        {
+          "pmid": "32713335",
+          "esiste": true,
+          "titolo": "Mesenchymal Stem Cell Therapy for Oral Inflammatory Diseases: Research Progress and Future Perspectives.",
+          "pertinente": false,
+          "motivazione": "Articolo su cellule staminali mesenchimali per malattie infiammatorie orali, non rilevante per fusione ROS1 in adenocarcinoma polmonare."
+        },
+        {
+          "pmid": "25500614",
+          "esiste": true,
+          "titolo": "A motion artifact generation and assessment system for the rapid testing of surface biopotential electrodes.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di elettrodi medici, non di ROS1 o oncologia."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-029",
+      "gene": "BRAF",
+      "variant": "V600E",
+      "tumor": "Thyroid Cancer",
+      "expected_drug": "Dabrafenib+Trametinib",
+      "pmids_cited": [
+        "16281402",
+        "31247161",
+        "29254482",
+        "23613114",
+        "25553363"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "16281402",
+          "esiste": true,
+          "titolo": "[Aggregation state of blood and the significance of its impairments in bleedings of portal genesis].",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di aggregazione del sangue e emorragie epatiche, non di BRAF V600E o cancro tiroideo."
+        },
+        {
+          "pmid": "31247161",
+          "esiste": true,
+          "titolo": "Sacral Hibernoma: Presentation of a rare case and a treatment algorithm.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta un tumore adipocitario benigno sacrale, non correlato a BRAF V600E né al cancro tiroideo."
+        },
+        {
+          "pmid": "29254482",
+          "esiste": true,
+          "titolo": "Effects of caffeine on the detection of ischemia in patients undergoing adenosine stress cardiovascular magnetic resonance imaging.",
+          "pertinente": false,
+          "motivazione": "L'articolo riguarda solo effetti della caffeina sulla risonanza magnetica cardiaca, non correlato a BRAF o tumore tiroideo."
+        },
+        {
+          "pmid": "23613114",
+          "esiste": false,
+          "pertinente": false,
+          "motivazione": "Il PMID non esiste nel database PubMed/NCBI."
+        },
+        {
+          "pmid": "25553363",
+          "esiste": true,
+          "titolo": "HPV and CSC in HNSCC cisplatin resistance.",
+          "pertinente": false,
+          "motivazione": "Articolo su HPV e resistenza al cisplatino in HNSCC, non correlato a BRAF V600E del tumore tiroideo."
+        }
+      ]
+    },
+    {
+      "case_id": "BENCH-030",
+      "gene": "ERBB2",
+      "variant": "Amplification",
+      "tumor": "Gastric Cancer",
+      "expected_drug": "Trastuzumab deruxtecan",
+      "pmids_cited": [
+        "32184131",
+        "17436103",
+        "33735112",
+        "21143374"
+      ],
+      "pmid_details": [
+        {
+          "pmid": "32184131",
+          "esiste": true,
+          "titolo": "Comparison of clinical characteristics of coronavirus disease (COVID-19) and severe acute respiratory syndrome (SARS) as experienced in Taiwan.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta di malattie virali respiratorie, non di oncologia o ERBB2."
+        },
+        {
+          "pmid": "17436103",
+          "esiste": true,
+          "titolo": "Effect of proton pump inhibitor therapy on inflammatory changes in the gastric cardia (carditis).",
+          "pertinente": false,
+          "motivazione": "Lo studio tratta solo di infiammazione gastrica e PPI, non del gene ERBB2 o della sua amplificazione."
+        },
+        {
+          "pmid": "33735112",
+          "esiste": true,
+          "titolo": "Identification of a series of hair-cell MET channel blockers that protect against aminoglycoside-induced ototoxicity.",
+          "pertinente": false,
+          "motivazione": "L'articolo riguarda il gene MET e l'ototossicità, non ERBB2 o il cancro gastrico."
+        },
+        {
+          "pmid": "21143374",
+          "esiste": true,
+          "titolo": "Effect of the VWF promoter (GT)n repeat and single-nucleotide polymorphism c.-2527G>A on circulating von Willebrand factor levels under normal conditions.",
+          "pertinente": false,
+          "motivazione": "L'articolo tratta del fattore di coagulazione VWF, non del gene ERBB2/HER2."
+        }
+      ]
+    }
+  ]
+}

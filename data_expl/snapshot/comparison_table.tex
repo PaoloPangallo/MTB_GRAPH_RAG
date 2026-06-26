@@ -1,0 +1,45 @@
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\caption{Confronto Caso per Caso: GraphRAG vs Zero-Shot (Giudice: MiniMax-M2.5)}
+\label{tab:comparison_cases}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X l c c r}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{ID} & \color{white}\textbf{Gene/Variante} & \color{white}\textbf{Tumore} & \color{white}\textbf{Categoria} & \color{white}\textbf{GR} & \color{white}\textbf{ZS} & \color{white}\textbf{$\Delta$ (GR-ZS)} \\
+\midrule
+\bench{BENCH-001} & EGFR L858R & NSCLC & baseline & 4.00 & 4.25 & \fail{-0.25} \\
+\rowcolor{roweven} \bench{BENCH-002} & ALK Fusion & NSCLC & baseline & 4.12 & 4.40 & \fail{-0.28} \\
+\bench{BENCH-003} & BRAF V600E & Melanoma & baseline & 4.25 & 3.12 & \pass{+1.12} \\
+\rowcolor{roweven} \bench{BENCH-004} & ERBB2 Amplification & Breast Cancer HER2+ & baseline & 4.38 & 4.12 & \pass{+0.26} \\
+\bench{BENCH-005} & BRCA1 Mutation & Ovarian Cancer & baseline & 3.12 & 4.12 & \fail{-1.00} \\
+\rowcolor{roweven} \bench{BENCH-006} & ABL1 BCR-ABL1 Fusion & CML & baseline & 3.38 & 3.88 & \fail{-0.50} \\
+\bench{BENCH-007} & BRAF V600E & Colorectal Cancer & baseline & 3.75 & 3.88 & -0.12 \\
+\rowcolor{roweven} \bench{BENCH-008} & PIK3CA Mutation & Breast Cancer HR+ & baseline & 4.25 & 4.25 & +0.00 \\
+\bench{BENCH-009} & KIT Exon 11 Mutation & GIST & baseline & 2.88 & 3.25 & \fail{-0.38} \\
+\rowcolor{roweven} \bench{BENCH-010} & FLT3 ITD & AML & baseline & 3.25 & 3.88 & \fail{-0.62} \\
+\bench{BENCH-011} & EGFR T790M & NSCLC & resistance & 3.88 & 4.12 & \fail{-0.25} \\
+\rowcolor{roweven} \bench{BENCH-012} & KRAS G12C & NSCLC & new\_target & 3.25 & 4.38 & \fail{-1.12} \\
+\bench{BENCH-013} & ALK G1202R & NSCLC & resistance & 1.62 & 3.40 & \fail{-1.77} \\
+\rowcolor{roweven} \bench{BENCH-014} & ABL1 T315I & CML & resistance & 4.50 & 4.62 & -0.12 \\
+\bench{BENCH-015} & RET Fusion & NSCLC & new\_target & 4.25 & 3.50 & \pass{+0.75} \\
+\rowcolor{roweven} \bench{BENCH-016} & NTRK1 Fusion & Solid Tumor & tumor\_agnostic & 4.38 & 4.50 & -0.12 \\
+\bench{BENCH-017} & MMR MSI-High & Colorectal Cancer & biomarker & 3.25 & 4.62 & \fail{-1.38} \\
+\rowcolor{roweven} \bench{BENCH-018} & KRAS G12C & Colorectal Cancer & new\_target & 3.25 & 4.50 & \fail{-1.25} \\
+\bench{BENCH-019} & KIT Exon 9 Mutation & GIST & resistance & 4.38 & 3.50 & \pass{+0.88} \\
+\rowcolor{roweven} \bench{BENCH-020} & BRAF V600E & NSCLC & off\_label & 3.25 & 3.75 & \fail{-0.50} \\
+\bench{BENCH-021} & ERBB2 Amplification & Gastric Cancer & off\_label & 3.88 & 3.38 & \pass{+0.50} \\
+\rowcolor{roweven} \bench{BENCH-022} & BRCA2 Mutation & Prostate Cancer & off\_label & 3.50 & 3.75 & \fail{-0.25} \\
+\bench{BENCH-023} & TMB TMB-High & Solid Tumor & tumor\_agnostic & 3.88 & 3.75 & +0.12 \\
+\rowcolor{roweven} \bench{BENCH-024} & EGFR Exon 19 Deletion & NSCLC & baseline & 3.62 & 3.38 & \pass{+0.25} \\
+\bench{BENCH-025} & IDH1 R132 & AML & new\_target & 1.62 & 3.88 & \fail{-2.25} \\
+\rowcolor{roweven} \bench{BENCH-026} & FGFR2 Fusion & Cholangiocarcinoma & new\_target & 4.25 & 3.62 & \pass{+0.62} \\
+\bench{BENCH-027} & MET Exon 14 Skipping & NSCLC & new\_target & 3.38 & 3.00 & \pass{+0.38} \\
+\rowcolor{roweven} \bench{BENCH-028} & ROS1 Fusion & NSCLC & new\_target & 4.12 & 4.00 & +0.12 \\
+\bench{BENCH-029} & BRAF V600E & Thyroid Cancer & off\_label & 4.00 & 4.25 & \fail{-0.25} \\
+\rowcolor{roweven} \bench{BENCH-030} & ERBB2 Amplification & Gastric Cancer & new\_target & 4.62 & 4.50 & +0.12 \\
+\bottomrule
+\end{tabularx}
+\end{table}

@@ -1,0 +1,167 @@
+device_id,device_name,platform_type,specimen_types,gene,drug
+cdx:ABBOTTREALTIMEI:IDH1:IVOSIDENIB,"Abbott RealTime IDH1  (Abbott Molecular, Inc.)",PCR,Bone marrow;Peripheral Blood,IDH1,Ivosidenib
+cdx:ABBOTTREALTIMEI:IDH1:OLUTASIDENIB,"Abbott RealTime IDH1  (Abbott Molecular, Inc.)",PCR,Bone marrow;Peripheral Blood,IDH1,Olutasidenib
+cdx:ABBOTTREALTIMEI:IDH2:ENASIDENIB,"Abbott RealTime IDH2  (Abbott Molecular, Inc.)",PCR,Bone marrow;Peripheral Blood,IDH2,Enasidenib
+cdx:AGILENTRESOLUTI:KRAS:ADAGRASIB,"Agilent Resolution ctDx FIRST assay  (Resolution Bioscience, Inc.)",NGS,cfDNA from plasma,KRAS,Adagrasib
+cdx:BRACANALYSISCDX:BRCA1:OLAPARIB,"BRACAnalysis CDx  (Myriad Genetic Laboratories, Inc.)",PCR and Sanger sequencing,Whole blood,BRCA1,Olaparib
+cdx:BRACANALYSISCDX:BRCA2:OLAPARIB,"BRACAnalysis CDx  (Myriad Genetic Laboratories, Inc.)",PCR and Sanger sequencing,Whole blood,BRCA2,Olaparib
+cdx:BRACANALYSISCDX:BRCA1:RUCAPARIB,"BRACAnalysis CDx  (Myriad Genetic Laboratories, Inc.)",PCR and Sanger sequencing,Whole blood,BRCA1,Rucaparib
+cdx:BRACANALYSISCDX:BRCA2:RUCAPARIB,"BRACAnalysis CDx  (Myriad Genetic Laboratories, Inc.)",PCR and Sanger sequencing,Whole blood,BRCA2,Rucaparib
+cdx:COBAS4800BRAFV6:BRAF:VEMURAFENIB,"cobas 4800 BRAF V600 Mutation Test  (Roche Molecular Systems, Inc.)",PCR,FFPE,BRAF,Vemurafenib
+cdx:COBAS4800BRAFV6:BRAF:VEMURAFENIBCOBI,"cobas 4800 BRAF V600 Mutation Test  (Roche Molecular Systems, Inc.)",PCR,FFPE,BRAF,Vemurafenib+Cobimetinib
+cdx:COBASEGFRMUTATI:EGFR:ERLOTINIB,"cobas EGFR Mutation Test v1  (Roche Molecular Systems, Inc.)",PCR,FFPE,EGFR,Erlotinib
+cdx:COBASEGFRMUTATI:EGFR:OSIMERTINIB,"cobas EGFR Mutation Test v2  (Roche Molecular Systems, Inc.)",PCR,FFPE,EGFR,Osimertinib
+cdx:COBASEGFRMUTATI:EGFR:GEFITINIB,"cobas EGFR Mutation Test v2  (Roche Molecular Systems, Inc.)",PCR,FFPE,EGFR,Gefitinib
+cdx:COBASEGFRMUTATI:EGFR:AFATINIB,"cobas EGFR Mutation Test v2  (Roche Molecular Systems, Inc.)",PCR,FFPE,EGFR,Afatinib
+cdx:COBASEZH2MUTATI:EZH2:TAZEMETOSTAT,"cobas EZH2 Mutation Test  (Roche Molecular Systems, Inc.)",PCR,FFPE,EZH2,Tazemetostat
+cdx:COBASKRASMUTATI:KRAS:CETUXIMABCETUXI,"cobas KRAS Mutation Test  (Roche Molecular Systems, Inc.)",PCR,FFPE,KRAS,"Cetuximab,Cetuximab+Chemotherapy"
+cdx:COBASKRASMUTATI:KRAS:PANITUMUMABPANI,"cobas KRAS Mutation Test  (Roche Molecular Systems, Inc.)",PCR,FFPE,KRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:CRCDXRASMUTATIO:KRAS:PANITUMUMABPANI,"CRCDx RAS Mutation Detection Assay Kit  (EntroGen, Inc.)",PCR,FFPE,KRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:CRCDXRASMUTATIO:NRAS:PANITUMUMABPANI,"CRCDx RAS Mutation Detection Assay Kit  (EntroGen, Inc.)",PCR,FFPE,NRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:FOUNDATIONFOCUS:BRCA1:RUCAPARIB,"FoundationFocus CDxBRCA Assay  (Foundation Medicine, Inc.)",NGS,FFPE,BRCA1,Rucaparib
+cdx:FOUNDATIONFOCUS:BRCA2:RUCAPARIB,"FoundationFocus CDxBRCA Assay  (Foundation Medicine, Inc.)",NGS,FFPE,BRCA2,Rucaparib
+cdx:FOUNDATIONONECD:BRCA1:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRCA1,Olaparib
+cdx:FOUNDATIONONECD:BRCA2:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRCA2,Olaparib
+cdx:FOUNDATIONONECD:EGFR:GEFITINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,EGFR,Gefitinib
+cdx:FOUNDATIONONECD:EGFR:AFATINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,EGFR,Afatinib
+cdx:FOUNDATIONONECD:ERBB2:ADOTRASTUZUMABE,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,ERBB2,Ado-Trastuzumab Emtansine
+cdx:FOUNDATIONONECD:BRAF:TRAMETINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRAF,Trametinib
+cdx:FOUNDATIONONECD:EGFR:ERLOTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,EGFR,Erlotinib
+cdx:FOUNDATIONONECD:EGFR:OSIMERTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,EGFR,Osimertinib
+cdx:FOUNDATIONONECD:ALK:ALECTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,ALK,Alectinib
+cdx:FOUNDATIONONECD:ERBB2:TRASTUZUMABPERT,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,ERBB2,Trastuzumab+Pertuzumab+Chemotherapy
+cdx:FOUNDATIONONECD:ALK:CRIZOTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,ALK,Crizotinib
+cdx:FOUNDATIONONECD:KRAS:PANITUMUMABPANI,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,KRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:FOUNDATIONONECD:ALK:CERITINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,ALK,Ceritinib
+cdx:FOUNDATIONONECD:KRAS:CETUXIMABCETUXI,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,KRAS,"Cetuximab,Cetuximab+Chemotherapy"
+cdx:FOUNDATIONONECD:NRAS:PANITUMUMABPANI,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,NRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:FOUNDATIONONECD:BRAF:DABRAFENIBTRAME,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRAF,Dabrafenib+Trametinib
+cdx:FOUNDATIONONECD:ERBB2:TRASTUZUMABTRAS,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,ERBB2,"Trastuzumab,Trastuzumab+Chemotherapy"
+cdx:FOUNDATIONONECD:BRAF:ENCORAFENIBBINI,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRAF,Encorafenib+Binimetinib
+cdx:FOUNDATIONONECD:MET:CAPMATINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,MET,Capmatinib
+cdx:FOUNDATIONONECD:PIK3CA:ALPELISIBFULVES,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,PIK3CA,Alpelisib+Fulvestrant
+cdx:FOUNDATIONONECD:BRAF:TOVORAFENIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRAF,Tovorafenib
+cdx:FOUNDATIONONECD:BRCA1:OLAPARIBABIRATE,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRCA1,Olaparib+Abiraterone+Prednisone
+cdx:FOUNDATIONONECD:BRCA2:OLAPARIBABIRATE,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRCA2,Olaparib+Abiraterone+Prednisone
+cdx:FOUNDATIONONECD:FGFR2:PEMIGATINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,FGFR2,Pemigatinib
+cdx:FOUNDATIONONECD:ATM:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,ATM,Olaparib
+cdx:FOUNDATIONONECD:BARD1:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BARD1,Olaparib
+cdx:FOUNDATIONONECD:PALB2:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,PALB2,Olaparib
+cdx:FOUNDATIONONECD:RAD51B:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,RAD51B,Olaparib
+cdx:FOUNDATIONONECD:BRIP1:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRIP1,Olaparib
+cdx:FOUNDATIONONECD:CDK12:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,CDK12,Olaparib
+cdx:FOUNDATIONONECD:CHEK1:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,CHEK1,Olaparib
+cdx:FOUNDATIONONECD:CHEK2:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,CHEK2,Olaparib
+cdx:FOUNDATIONONECD:RAD51D:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,RAD51D,Olaparib
+cdx:FOUNDATIONONECD:FANCL:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,FANCL,Olaparib
+cdx:FOUNDATIONONECD:RAD54L:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,RAD54L,Olaparib
+cdx:FOUNDATIONONECD:RAD51C:OLAPARIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,RAD51C,Olaparib
+cdx:FOUNDATIONONECD:OTHERBIOMARKERS:PEMBROLIZUMAB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,Other Biomarkers,Pembrolizumab
+cdx:FOUNDATIONONECD:PIK3CA:CAPIVASERTIBFUL,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,PIK3CA,Capivasertib+Fulvestrant
+cdx:FOUNDATIONONECD:PTEN:CAPIVASERTIBFUL,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,PTEN,Capivasertib+Fulvestrant
+cdx:FOUNDATIONONECD:NTRK1:LAROTRECTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,NTRK1,Larotrectinib
+cdx:FOUNDATIONONECD:NTRK2:LAROTRECTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,NTRK2,Larotrectinib
+cdx:FOUNDATIONONECD:NTRK3:LAROTRECTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,NTRK3,Larotrectinib
+cdx:FOUNDATIONONECD:NTRK1:ENTRECTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,NTRK1,Entrectinib
+cdx:FOUNDATIONONECD:NTRK2:ENTRECTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,NTRK2,Entrectinib
+cdx:FOUNDATIONONECD:NTRK3:ENTRECTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,NTRK3,Entrectinib
+cdx:FOUNDATIONONECD:ROS1:ENTRECTINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,ROS1,Entrectinib
+cdx:FOUNDATIONONECD:BRCA1:NIRAPARIBABIRAT,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRCA1,Niraparib+Abiraterone Acetate+Prednisone
+cdx:FOUNDATIONONECD:BRCA2:NIRAPARIBABIRAT,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRCA2,Niraparib+Abiraterone Acetate+Prednisone
+cdx:FOUNDATIONONECD:RET:SELPERCATINIB,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,RET,Selpercatinib
+cdx:FOUNDATIONONECD:BRAF:VEMURAFENIBATEZ,"FoundationOne CDx  (Foundation Medicine, Inc.)",NGS,FFPE,BRAF,Vemurafenib+Atezolizumab+Cobimetinib
+cdx:FOUNDATIONONELI:EGFR:GEFITINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,EGFR,Gefitinib
+cdx:FOUNDATIONONELI:EGFR:OSIMERTINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,EGFR,Osimertinib
+cdx:FOUNDATIONONELI:EGFR:ERLOTINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,EGFR,Erlotinib
+cdx:FOUNDATIONONELI:BRCA1:RUCAPARIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRCA1,Rucaparib
+cdx:FOUNDATIONONELI:BRCA2:RUCAPARIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRCA2,Rucaparib
+cdx:FOUNDATIONONELI:BRCA1:OLAPARIBABIRATE,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRCA1,Olaparib+Abiraterone+Prednisone
+cdx:FOUNDATIONONELI:BRCA2:OLAPARIBABIRATE,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRCA2,Olaparib+Abiraterone+Prednisone
+cdx:FOUNDATIONONELI:BRCA1:OLAPARIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRCA1,Olaparib
+cdx:FOUNDATIONONELI:BRCA2:OLAPARIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRCA2,Olaparib
+cdx:FOUNDATIONONELI:ATM:OLAPARIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,ATM,Olaparib
+cdx:FOUNDATIONONELI:MET:TEPOTINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,MET,Tepotinib
+cdx:FOUNDATIONONELI:PIK3CA:INAVOLISIBPALBO,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,PIK3CA,Inavolisib+Palbociclib+Fulvestrant
+cdx:FOUNDATIONONELI:BRAF:ENCORAFENIBBINI,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRAF,Encorafenib+Binimetinib
+cdx:FOUNDATIONONELI:ROS1:ENTRECTINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,ROS1,Entrectinib
+cdx:FOUNDATIONONELI:NTRK1:ENTRECTINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,NTRK1,Entrectinib
+cdx:FOUNDATIONONELI:NTRK2:ENTRECTINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,NTRK2,Entrectinib
+cdx:FOUNDATIONONELI:NTRK3:ENTRECTINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,NTRK3,Entrectinib
+cdx:FOUNDATIONONELI:ALK:ALECTINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,ALK,Alectinib
+cdx:FOUNDATIONONELI:PIK3CA:ALPELISIBFULVES,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,PIK3CA,Alpelisib+Fulvestrant
+cdx:FOUNDATIONONELI:BRAF:ENCORAFENIBCETU,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRAF,Encorafenib+Cetuximab
+cdx:FOUNDATIONONELI:MET:CAPMATINIB,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,MET,Capmatinib
+cdx:FOUNDATIONONELI:BRCA2:NIRAPARIBABIRAT,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRCA2,Niraparib+Abiraterone Acetate+Prednisone
+cdx:FOUNDATIONONELI:BRCA1:NIRAPARIBABIRAT,"FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",NGS,cfDNA from plasma,BRCA1,Niraparib+Abiraterone Acetate+Prednisone
+cdx:GUARDANT360CDXG:EGFR:OSIMERTINIB,"Guardant360 CDx  (Guardant Health, Inc.)",NGS,cfDNA from plasma,EGFR,Osimertinib
+cdx:GUARDANT360CDXG:EGFR:AMIVANTAMAB,"Guardant360 CDx  (Guardant Health, Inc.)",NGS,cfDNA from plasma,EGFR,Amivantamab
+cdx:GUARDANT360CDXG:KRAS:SOTORASIB,"Guardant360 CDx  (Guardant Health, Inc.)",NGS,cfDNA from plasma,KRAS,Sotorasib
+cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU,"Guardant360 CDx  (Guardant Health, Inc.)",NGS,cfDNA from plasma,ERBB2,Trastuzumab Deruxtecan
+cdx:GUARDANT360CDXG:ESR1:ELACESTRANT,"Guardant360 CDx  (Guardant Health, Inc.)",NGS,cfDNA from plasma,ESR1,Elacestrant
+cdx:HER2CISHPHARMDX:ERBB2:TRASTUZUMABTRAS,HER2 CISH pharmDx Kit  (Dako Denmark A/S),CISH,FFPE,ERBB2,"Trastuzumab,Trastuzumab+Chemotherapy"
+cdx:HER2FISHPHARMDX:ERBB2:TRASTUZUMABTRAS,HER2 FISH pharmDx Kit  (Dako Denmark A/S),FISH,FFPE,ERBB2,"Trastuzumab,Trastuzumab+Chemotherapy"
+cdx:HER2FISHPHARMDX:ERBB2:PEMBROLIZUMABTR,HER2 FISH pharmDx Kit  (Dako Denmark A/S),FISH,FFPE,ERBB2,"Pembrolizumab+Trastuzumab+Chemotherapy,Trastuzumab+Chemotherapy"
+cdx:HER2FISHPHARMDX:ERBB2:TRASTUZUMABPERT,HER2 FISH pharmDx Kit  (Dako Denmark A/S),FISH,FFPE,ERBB2,Trastuzumab+Pertuzumab+Chemotherapy
+cdx:HER2FISHPHARMDX:ERBB2:ADOTRASTUZUMABE,HER2 FISH pharmDx Kit  (Dako Denmark A/S),FISH,FFPE,ERBB2,Ado-Trastuzumab Emtansine
+cdx:INFORMHER2NEUVE:ERBB2:TRASTUZUMABTRAS,"INFORM HER-2/neu  (Ventana Medical Systems, Inc.)",FISH,FFPE,ERBB2,"Trastuzumab,Trastuzumab+Chemotherapy"
+cdx:INFORMHER2DUALI:ERBB2:TRASTUZUMABTRAS,"INFORM HER2 Dual ISH DNA Probe Cocktail  (Ventana Medical Systems, Inc.)",CISH,FFPE,ERBB2,"Trastuzumab,Trastuzumab+Chemotherapy"
+cdx:INFORMHER2DUALI:ERBB2:ADOTRASTUZUMABE,"INFORM HER2 Dual ISH DNA Probe Cocktail  (Ventana Medical Systems, Inc.)",CISH,FFPE,ERBB2,Ado-Trastuzumab Emtansine
+cdx:KITD816VASSAYAR:KIT:AVAPRITINIB,"KIT D816V Assay  (ARUP Laboratories, Inc.)",PCR,Bone marrow,KIT,Avapritinib
+cdx:LEUKOSTRATCDXFL:FLT3:MIDOSTAURINHIGH,"LeukoStrat CDx FLT3 Mutation Assay  (Invivoscribe Technologies, Inc.)",PCR,Mononuclear cells from bone marrow;Mononuclear cells from peripheral blood,FLT3,Midostaurin+High Dose Chemotherapy
+cdx:LEUKOSTRATCDXFL:FLT3:GILTERITINIB,"LeukoStrat CDx FLT3 Mutation Assay  (Invivoscribe Technologies, Inc.)",PCR,Mononuclear cells from bone marrow;Mononuclear cells from peripheral blood,FLT3,Gilteritinib
+cdx:LEUKOSTRATCDXFL:FLT3:QUIZARTINIB,"LeukoStrat CDx FLT3 Mutation Assay  (Invivoscribe Technologies, Inc.)",PCR,Mononuclear cells from bone marrow;Mononuclear cells from peripheral blood,FLT3,Quizartinib
+cdx:MRDXBCRABLTESTM:BCR:NILOTINIB,MRDx BCR-ABL Test  (MolecularMD Corporation),PCR,Peripheral Blood,BCR,Nilotinib
+cdx:MRDXBCRABLTESTM:ABL1:NILOTINIB,MRDx BCR-ABL Test  (MolecularMD Corporation),PCR,Peripheral Blood,ABL1,Nilotinib
+cdx:MYRIADMYCHOICEC:BRCA1:OLAPARIB,"Myriad myChoice CDx  (Myriad Genetic Laboratories, Inc.)",NGS,FFPE,BRCA1,Olaparib
+cdx:MYRIADMYCHOICEC:BRCA2:OLAPARIB,"Myriad myChoice CDx  (Myriad Genetic Laboratories, Inc.)",NGS,FFPE,BRCA2,Olaparib
+cdx:ONCOREVEALDXLUN:KRAS:CETUXIMABCETUXI,"ONCO/Reveal Dx Lung & Colon Cancer Assay (O/RDx-LCCA)  (Pillar Biosciences, Inc.)",NGS,FFPE,KRAS,"Cetuximab,Cetuximab+Chemotherapy"
+cdx:ONCOREVEALDXLUN:KRAS:PANITUMUMABPANI,"ONCO/Reveal Dx Lung & Colon Cancer Assay (O/RDx-LCCA)  (Pillar Biosciences, Inc.)",NGS,FFPE,KRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:ONCOMINEDXTARGE:BRAF:DABRAFENIBTRAME,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,BRAF,Dabrafenib+Trametinib
+cdx:ONCOMINEDXTARGE:ROS1:CRIZOTINIB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,ROS1,Crizotinib
+cdx:ONCOMINEDXTARGE:EGFR:GEFITINIB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,EGFR,Gefitinib
+cdx:ONCOMINEDXTARGE:ERBB2:ZONGERTINIB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,ERBB2,Zongertinib
+cdx:ONCOMINEDXTARGE:RET:PRALSETINIB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,RET,Pralsetinib
+cdx:ONCOMINEDXTARGE:EGFR:AMIVANTAMAB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,EGFR,Amivantamab
+cdx:ONCOMINEDXTARGE:IDH1:IVOSIDENIB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,IDH1,Ivosidenib
+cdx:ONCOMINEDXTARGE:ERBB2:TRASTUZUMABDERU,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,ERBB2,Trastuzumab Deruxtecan
+cdx:ONCOMINEDXTARGE:RET:SELPERCATINIB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,RET,Selpercatinib
+cdx:ONCOMINEDXTARGE:IDH1:VORASIDENIB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,IDH1,Vorasidenib
+cdx:ONCOMINEDXTARGE:IDH2:VORASIDENIB,Oncomine Dx Target Test  (Life Technologies Corporation),NGS,FFPE,IDH2,Vorasidenib
+cdx:PATHVYSIONHER2D:ERBB2:TRASTUZUMABTRAS,PathVysion HER-2 DNA Probe Kit  (Abbott Molecular Inc.),FISH,FFPE,ERBB2,"Trastuzumab,Trastuzumab+Chemotherapy"
+cdx:VENTANAHER2DUAL:ERBB2:TRASTUZUMABTRAS,"Ventana HER2 Dual ISH DNA Probe Cocktail  (Ventana Medical Systems, Inc.)",CISH,FFPE,ERBB2,"Trastuzumab,Trastuzumab+Chemotherapy"
+cdx:VYSISALKBREAKAP:ALK:CRIZOTINIB,Vysis ALK Break Apart FISH Probe Kit  (Abbott Molecular Inc.),FISH,FFPE,ALK,Crizotinib
+cdx:VYSISALKBREAKAP:ALK:BRIGATINIB,Vysis ALK Break Apart FISH Probe Kit  (Abbott Molecular Inc.),FISH,FFPE,ALK,Brigatinib
+cdx:XTCDXTEMPUSLABS:KRAS:CETUXIMABCETUXI,"xT CDx  (Tempus Labs, Inc.)",NGS,FFPE;FFPE with matched normal from blood;FFPE with matched normal from saliva,KRAS,"Cetuximab,Cetuximab+Chemotherapy"
+cdx:XTCDXTEMPUSLABS:KRAS:PANITUMUMABPANI,"xT CDx  (Tempus Labs, Inc.)",NGS,FFPE;FFPE with matched normal from blood;FFPE with matched normal from saliva,KRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:XTCDXTEMPUSLABS:NRAS:PANITUMUMABPANI,"xT CDx  (Tempus Labs, Inc.)",NGS,FFPE;FFPE with matched normal from blood;FFPE with matched normal from saliva,NRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:PDGFRBFISHASSAY:PDGFRB:IMATINIB,"PDGFRB FISH Assay  (ARUP Laboratories, Inc.)",FISH,Bone marrow,PDGFRB,Imatinib
+cdx:PRAXISEXTENDEDR:KRAS:PANITUMUMABPANI,"Praxis Extended RAS Panel  (Illumina, Inc.)",NGS,FFPE,KRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:PRAXISEXTENDEDR:NRAS:PANITUMUMABPANI,"Praxis Extended RAS Panel  (Illumina, Inc.)",NGS,FFPE,NRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:SPOTLIGHTHER2CI:ERBB2:TRASTUZUMABTRAS,SPOT-LIGHT HER2 CISH Kit  (Life Technologies Corporation),CISH,FFPE,ERBB2,"Trastuzumab,Trastuzumab+Chemotherapy"
+cdx:THERASCREENBRAF:BRAF:ENCORAFENIBCETU,therascreen BRAF V600E RGQ PCR Kit  (QIAGEN GmbH),PCR,FFPE,BRAF,Encorafenib+Cetuximab
+cdx:THERASCREENEGFR:EGFR:AFATINIB,"therascreen EGFR RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,EGFR,Afatinib
+cdx:THERASCREENEGFR:EGFR:GEFITINIB,"therascreen EGFR RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,EGFR,Gefitinib
+cdx:THERASCREENEGFR:EGFR:DACOMITINIB,"therascreen EGFR RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,EGFR,Dacomitinib
+cdx:THERASCREENFGFR:FGFR3:ERDAFITINIB,therascreen FGFR RGQ RT-PCR Kit  (QIAGEN Manchester Ltd.),PCR,FFPE,FGFR3,Erdafitinib
+cdx:THERASCREENKRAS:KRAS:PANITUMUMABPANI,"therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,KRAS,"Panitumumab,Panitumumab+Chemotherapy"
+cdx:THERASCREENKRAS:KRAS:SOTORASIB,"therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,KRAS,Sotorasib
+cdx:THERASCREENKRAS:KRAS:CETUXIMABCETUXI,"therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,KRAS,"Cetuximab,Cetuximab+Chemotherapy"
+cdx:THERASCREENKRAS:KRAS:ADAGRASIB,"therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,KRAS,Adagrasib
+cdx:THERASCREENKRAS:KRAS:ADAGRASIBCETUXI,"therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,KRAS,Adagrasib+Cetuximab
+cdx:THERASCREENKRAS:KRAS:SOTORASIBPANITU,"therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.)",PCR,FFPE,KRAS,Sotorasib+Panitumumab
+cdx:THERASCREENPDGF:PDGFRA:AVAPRITINIB,therascreen PDGFRA RGQ PCR Kit  (QIAGEN GmbH),PCR,FFPE,PDGFRA,Avapritinib
+cdx:THERASCREENPIK3:PIK3CA:ALPELISIBFULVES,therascreen PIK3CA RGQ PCR Kit  (QIAGEN GmbH),PCR,FFPE;cfDNA from plasma,PIK3CA,Alpelisib+Fulvestrant
+cdx:THXIDBRAFKITBIO:BRAF:TRAMETINIB,THXID BRAF Kit  (bioMérieux Inc.),PCR,FFPE,BRAF,Trametinib
+cdx:THXIDBRAFKITBIO:BRAF:DABRAFENIB,THXID BRAF Kit  (bioMérieux Inc.),PCR,FFPE,BRAF,Dabrafenib
+cdx:THXIDBRAFKITBIO:BRAF:ENCORAFENIBBINI,THXID BRAF Kit  (bioMérieux Inc.),PCR,FFPE,BRAF,Encorafenib+Binimetinib
+cdx:TRUSIGHTONCOLOG:NTRK1:LAROTRECTINIB,"TruSight Oncology Comprehensive (Illumina, Inc.)",NGS,FFPE,NTRK1,Larotrectinib
+cdx:TRUSIGHTONCOLOG:NTRK2:LAROTRECTINIB,"TruSight Oncology Comprehensive (Illumina, Inc.)",NGS,FFPE,NTRK2,Larotrectinib
+cdx:TRUSIGHTONCOLOG:NTRK3:SELPERCATINIB,"TruSight Oncology Comprehensive (Illumina, Inc.)",NGS,FFPE,NTRK3,Selpercatinib
+cdx:TRUSIGHTONCOLOG:RET:SELPERCATINIB,"TruSight Oncology Comprehensive (Illumina, Inc.)",NGS,FFPE,RET,Selpercatinib
+cdx:MICANCERSEEKMCS:BRAF:TRAMETINIB,MI Cancer Seek (MCS) (Caris Life Sciences),NGS,FFPE,BRAF,Trametinib
+cdx:MICANCERSEEKMCS:KRAS:PANITUMUMAB,MI Cancer Seek (MCS) (Caris Life Sciences),NGS,FFPE,KRAS,Panitumumab
+cdx:MICANCERSEEKMCS:NRAS:PANITUMUMAB,MI Cancer Seek (MCS) (Caris Life Sciences),NGS,FFPE,NRAS,Panitumumab
+cdx:MICANCERSEEKMCS:OTHERBIOMARKERS:PEMBROLIZUMAB,MI Cancer Seek (MCS) (Caris Life Sciences),NGS,FFPE,Other Biomarkers,Pembrolizumab
+cdx:MICANCERSEEKMCS:OTHERBIOMARKERS:DOSTARLIMAB,MI Cancer Seek (MCS) (Caris Life Sciences),NGS,FFPE,Other Biomarkers,Dostarlimab
+cdx:MICANCERSEEKMCS:PIK3CA:ALPELISIB,MI Cancer Seek (MCS) (Caris Life Sciences),NGS,FFPE,PIK3CA,Alpelisib
+cdx:MICANCERSEEKMCS:BRAF:ENCORAFENIBCETU,MI Cancer Seek (MCS) (Caris Life Sciences),NGS,FFPE,BRAF,Encorafenib+Cetuximab

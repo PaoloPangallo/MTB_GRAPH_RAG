@@ -1,0 +1,378 @@
+# Report API OncoKB™ — Integrazione nella Pipeline GraphRAG MTB
+**Data:** 05 Giugno 2026  
+**Riferimento:** https://api.oncokb.org/oncokb-website/api  
+**Versione dati testata:** v7.2 (ultimo aggiornamento: 02/05/2025)
+
+---
+
+## 1. Cos'è OncoKB e perché è rilevante per la tesi
+
+OncoKB è una Precision Oncology Knowledgebase sviluppata e mantenuta dal
+Knowledge Systems group del Memorial Sloan Kettering Cancer Center (MSK).
+Contiene informazioni sugli effetti biologici e le implicazioni terapeutiche
+di specifiche alterazioni genomiche nei tumori.
+
+Rispetto a CIViC (già nel KB):
+- Aggiornamento continuo — l'API restituisce sempre l'ultima versione dei dati
+- Livelli terapeutici più granulari (LEVEL_1, LEVEL_2, LEVEL_3A, LEVEL_3B, R1, R2)
+- Supporto nativo per combinazioni di farmaci come singola entità terapeutica
+- Classificazione oncogenicità esplicita (Oncogenic, Likely Oncogenic, VUS)
+- Separazione netta tra annotazione somatica e germinale
+- Supporto per biomarker tumore-agnostici (MSI-H, TMB-H) senza gene richiesto
+
+
+---
+
+## 2. Autenticazione
+
+```
+Authorization: Bearer [token]
+```
+
+Il token si ottiene da Account Settings su oncokb.org dopo approvazione.
+Va tenuto privato — non includere in repository pubblici o condividere.
+
+### Istanze disponibili
+
+| Istanza | Auth | Uso |
+|---|---|---|
+| `https://www.oncokb.org` | Richiesta | Produzione — dati completi |
+| `https://public.api.oncokb.org` | Non richiesta | Tutti i geni, esclusi dati terapeutici |
+| `https://demo.oncokb.org` | Non richiesta | Test — dati completi solo per BRAF, TP53, ROS1 |
+
+**Per la tesi:** usare `demo.oncokb.org` per testare BENCH-001 (BRAF V600E)
+senza esporre il token. Per gli altri casi del benchmark serve la produzione.
+
+
+---
+
+## 3. Endpoint — Panoramica
+
+Tutti gli endpoint di annotazione supportano GET (query singola) e POST (batch).
+Usare GET per verifiche puntuali, POST per annotare tutti i casi del benchmark.
+
+### 3.1 Annotazione Somatica
+
+| Endpoint | Input principale | Caso d'uso nella pipeline |
+|---|---|---|
+| `/api/v1/annotate/mutations/byProteinChange` | Gene + protein change | **Principale** — varianti puntiformi (es. BRAF V600E) |
+| `/api/v1/annotate/mutations/byGenomicChange` | Posizione genomica MAF | Quando si ha chr,start,end,ref,var |
+| `/api/v1/annotate/mutations/byHGVSg` | Espressione HGVS genomica | Quando si ha es. `7:g.140453136A>T` |
+| `/api/v1/annotate/copyNumberAlterations` | Gene + tipo CNA | Amplificazioni/delezioni (es. ERBB2 Amp) |
+| `/api/v1/annotate/structuralVariants` | Coppia di geni | **Fusioni** — ALK, RET, NTRK1, ROS1, FGFR2 |
+
+### 3.2 Annotazione Germinale
+
+| Endpoint | Input principale |
+|---|---|
+| `/api/v1/annotate/germline/mutations/byGenomicChange` | Posizione genomica MAF |
+| `/api/v1/annotate/germline/mutations/byHGVSg` | HGVS genomica |
+| `/api/v1/annotate/germline/mutations/byHGVSc` | HGVS coding DNA |
+
+**Nota:** la protein change germinale non è supportata — una singola protein
+change può corrispondere a più varianti cDNA con interpretazioni diverse.
+Se l'origine della variante è sconosciuta, chiamare sia l'endpoint somatico
+che quello germinale.
+
+
+---
+
+## 4. Parametri comuni
+
+| Parametro | Descrizione | Esempio |
+|---|---|---|
+| `hugoSymbol` | Simbolo HUGO del gene | `BRAF` |
+| `entrezGeneId` | ID Entrez numerico (prioritario su hugoSymbol) | `673` |
+| `alteration` | Protein change o termine umbrella | `V600E`, `TMB-H`, `MSI-H` |
+| `tumorType` | Codice OncoTree o nome tumore | `MEL`, `Melanoma` |
+| `referenceGenome` | Genoma di riferimento | `GRCh37` (default), `GRCh38` |
+| `consequence` | Sequence ontology consequence | `missense_variant` |
+| `genomicLocation` | Formato MAF: chr,start,end,ref,var | `7,140453136,140453136,A,T` |
+| `hgvsg` | Espressione HGVS genomica | `7:g.140453136A>T` |
+| `hgvsc` | Espressione HGVS coding | `EGFR:c.2369C>T` |
+
+**Nota importante:** se sia `hugoSymbol` che `entrezGeneId` sono forniti,
+`entrezGeneId` ha priorità. Nel KB abbiamo `entrez_id` su ogni nodo Gene —
+usarlo direttamente nelle chiamate API evita ambiguità.
+
+
+---
+
+## 5. Endpoint principali per la pipeline — Dettaglio
+
+### 5.1 byProteinChange — Varianti puntiformi
+**Endpoint principale per Variant Interpreter e OncoKB Enricher**
+
+```bash
+# GET — query singola (es. BENCH-001)
+curl -X GET \
+  "https://www.oncokb.org/api/v1/annotate/mutations/byProteinChange \
+  ?hugoSymbol=BRAF&alteration=V600E&tumorType=Melanoma" \
+  -H "Authorization: Bearer [token]"
+
+# POST — batch su tutti i casi benchmark
+curl -X POST \
+  "https://www.oncokb.org/api/v1/annotate/mutations/byProteinChange" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer [token]" \
+  -d '[
+    {"gene": {"hugoSymbol": "BRAF"}, "alteration": "V600E", "tumorType": "Melanoma"},
+    {"gene": {"hugoSymbol": "EGFR"}, "alteration": "L858R", "tumorType": "Lung Adenocarcinoma"}
+  ]'
+```
+
+**Alterazioni atipiche supportate (rilevanti per il benchmark):**
+
+| Gene | Alteration value |
+|---|---|
+| `FLT3` | `Internal Tandem Duplication` oppure `ITD` |
+| `EGFR` | `vII`, `vIII`, `vV` (isoforme varianti) |
+| `BRAF` | `Kinase Domain Duplication` oppure `KDD` |
+| Nessun gene | `TMB-H` oppure `Tumor Mutational Burden-High` |
+| Nessun gene | `MSI-H` oppure `Microsatellite Instability-High` |
+
+Per MSI-H e TMB-H: chiamare senza `hugoSymbol` — sono biomarker tumore-agnostici.
+
+### 5.2 structuralVariants — Fusioni
+**Endpoint per i casi Fusion del benchmark (ALK, RET, NTRK1, ROS1, FGFR2)**
+
+```bash
+# GET — fusione ALK (es. BENCH con EML4-ALK)
+curl -X GET \
+  "https://www.oncokb.org/api/v1/annotate/structuralVariants \
+  ?hugoSymbolA=EML4&hugoSymbolB=ALK \
+  &structuralVariantType=FUSION&isFunctionalFusion=true \
+  &tumorType=Lung%20Adenocarcinoma" \
+  -H "Authorization: Bearer [token]"
+
+# POST — batch fusioni
+curl -X POST \
+  "https://www.oncokb.org/api/v1/annotate/structuralVariants" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer [token]" \
+  -d '[
+    {
+      "geneA": {"hugoSymbol": "EML4"},
+      "geneB": {"hugoSymbol": "ALK"},
+      "structuralVariantType": "FUSION",
+      "functionalFusion": true,
+      "tumorType": "Lung Adenocarcinoma"
+    }
+  ]'
+```
+
+**Nota:** `isFunctionalFusion=true` (GET) corrisponde a `"functionalFusion": true`
+(POST body) — i nomi dei parametri differiscono tra GET e POST.
+
+### 5.3 copyNumberAlterations — CNA
+**Per casi di amplificazione/delezione nel benchmark (es. ERBB2 Amp)**
+
+```bash
+curl -X GET \
+  "https://www.oncokb.org/api/v1/annotate/copyNumberAlterations \
+  ?hugoSymbol=ERBB2&copyNameAlterationType=AMPLIFICATION \
+  &tumorType=Breast%20Cancer" \
+  -H "Authorization: Bearer [token]"
+```
+
+Valori supportati per `copyNameAlterationType`:
+`AMPLIFICATION`, `DELETION`, `GAIN`, `LOSS`
+
+
+---
+
+## 6. Struttura della risposta JSON — Campi rilevanti per la pipeline
+
+Dalla risposta reale su BRAF V600E / Melanoma (v7.2):
+
+```
+{
+  "geneExist": true,
+  "variantExist": true,
+  "oncogenic": "Oncogenic",
+  "hotspot": true,
+  "highestSensitiveLevel": "LEVEL_1",
+  "highestResistanceLevel": null,
+  "highestFdaLevel": "LEVEL_Fda2",
+
+  "mutationEffect": {
+    "knownEffect": "Gain-of-function",
+    "description": "...",
+    "citations": { "pmids": [...] }
+  },
+
+  "geneSummary": "...",
+  "variantSummary": "...",
+  "tumorTypeSummary": "...",
+
+  "treatments": [
+    {
+      "drugs": [{"drugName": "Dabrafenib"}, {"drugName": "Trametinib"}],
+      "level": "LEVEL_1",
+      "fdaLevel": "LEVEL_Fda2",
+      "levelAssociatedCancerType": {"name": "Melanoma", "code": "MEL"},
+      "pmids": ["23020132", "25265492", ...],
+      "description": "...",
+      "alterations": ["V600E", "V600K"]
+    },
+    ...
+  ],
+
+  "dataVersion": "v7.2",
+  "lastUpdate": "02/05/2025"
+}
+```
+
+### Mapping campi → pipeline
+
+| Campo OncoKB | Uso nella pipeline | Note |
+|---|---|---|
+| `highestSensitiveLevel` | ESCAT tier + Complexity Check | LEVEL_1 → Tier I-A, LEVEL_2 → Tier I-B |
+| `highestResistanceLevel` | Resistance Checker | null se nessuna resistenza nota |
+| `oncogenic` | Variant Interpreter | conferma classificazione oncogenicità |
+| `treatments[].drugs` | Target Identifier | array — supporta combinazioni native |
+| `treatments[].level` | Target Identifier | più granulare di CIViC A/B |
+| `treatments[].levelAssociatedCancerType` | filtro tumor-type | codice OncoTree |
+| `treatments[].pmids` | Evidence Grounding | PMID per trattamento specifico |
+| `treatments[].description` | Synthesizer | testo clinico esteso con dati trial |
+| `mutationEffect.knownEffect` | Variant Interpreter | Gain-of-function, Loss-of-function, ecc. |
+| `variantSummary` | Synthesizer | riassunto pronto per il report |
+| `tumorTypeSummary` | Synthesizer | riassunto tumor-specifico pronto |
+
+### Mapping livelli OncoKB → ESCAT
+
+| Livello OncoKB | ESCAT | Significato |
+|---|---|---|
+| LEVEL_1 | Tier I-A | FDA-approved per quella indicazione |
+| LEVEL_2 | Tier I-B | Standard of care, evidenza forte |
+| LEVEL_3A | Tier II-A | Evidenza da trial clinici |
+| LEVEL_3B | Tier II-B | Evidenza da studi più piccoli |
+| LEVEL_4 | Tier III | Evidenza biologica, non clinica |
+| LEVEL_R1 | — | Resistenza standard of care |
+| LEVEL_R2 | — | Resistenza da trial o case report |
+
+
+---
+
+## 7. Integrazione nella pipeline — Ruolo dell'OncoKB Enricher
+
+### Posizione nella pipeline
+
+```
+Report MTB (output primario)
+         ↓
+  [Oncologo legge il report]
+         ↓
+  Soddisfatto? → Fine
+  Non soddisfatto / vuole approfondire?
+         ↓
+  OncoKB Enricher (attivato su richiesta)
+         ↓
+  Chiamata API live → treatments LEVEL_1/2 non già nel report
+         ↓
+  Report MTB arricchito (sezione separata "Evidenze aggiuntive OncoKB live")
+```
+
+### Perché human-in-the-loop e non automatico
+
+L'attivazione manuale è una scelta architetturale deliberata, non una
+limitazione. I motivi:
+
+1. **Rumore clinico**: OncoKB restituisce trattamenti per tutti i livelli e
+   tutti i tumori. Senza un filtro clinico consapevole il report si riempie
+   di evidenze non pertinenti al caso specifico.
+
+2. **Responsabilità clinica**: in un MTB reale, ogni fonte di evidenza deve
+   essere valutata dal clinico. L'API live porta dati aggiornati in tempo
+   reale (inclusi abstract ASCO 2026 come verificato nella chiamata di test)
+   che non hanno ancora passato il ciclo di revisione del KB statico.
+
+3. **Human-in-the-loop**: pattern raccomandato da MDAgents e dalla letteratura
+   sull'AI clinica per decisioni ad alta stakes. Citabile direttamente in tesi.
+
+### Endpoint da usare nell'Enricher per tipo di variante
+
+| Tipo variante | Endpoint | Parametri chiave |
+|---|---|---|
+| Puntiforme (es. BRAF V600E) | `byProteinChange` | `hugoSymbol`, `alteration`, `tumorType` |
+| Fusione (es. EML4-ALK) | `structuralVariants` | `hugoSymbolA/B`, `FUSION`, `isFunctionalFusion=true` |
+| CNA (es. ERBB2 Amp) | `copyNumberAlterations` | `hugoSymbol`, `AMPLIFICATION` |
+| TMB-H / MSI-H | `byProteinChange` | solo `alteration=TMB-H` (no gene) |
+| ITD (es. FLT3) | `byProteinChange` | `alteration=ITD` o `Internal Tandem Duplication` |
+
+### Cosa estrarre dalla risposta
+
+```
+treatments filtrati per:
+  - level IN [LEVEL_1, LEVEL_2]          ← solo alta evidenza
+  - levelAssociatedCancerType compatibile ← tumor-type specificity
+  - drug non già presente nel report KB   ← solo nuove informazioni
+
+campi da includere nel report arricchito:
+  - drugs (nomi)
+  - level + fdaLevel
+  - pmids (per Evidence Grounding)
+  - description (primo paragrafo)
+  - tumorTypeSummary (se non già incluso)
+```
+
+
+---
+
+## 8. Note tecniche importanti
+
+- **`evidenceType` deprecato**: rimosso da OncoKB v3.24.0 (dicembre 2024).
+  Non usare nelle query.
+
+- **`entrezGeneId` prioritario**: se fornito insieme a `hugoSymbol`,
+  `entrezGeneId` ha la precedenza. Nel KB abbiamo `entrez_id` su ogni nodo
+  Gene — usarlo evita ambiguità su simboli HUGO con alias multipli.
+
+- **`CDKN2A`**: senza suffisso isoforma → interroga p16.
+  Per p14 usare `hugoSymbol=CDKN2A (p14)`.
+
+- **Fusioni — differenza GET vs POST**: il parametro booleano si chiama
+  `isFunctionalFusion` nel GET e `functionalFusion` nel body POST.
+
+- **Rate limiting**: per batch grandi (es. tutti i 30 casi benchmark) usare
+  POST con array — una singola chiamata invece di 30 GET sequenziali.
+  La documentazione riporta throughput fino a 5 thread concorrenti con
+  POST da 100 varianti ciascuno.
+
+- **Dati live**: OncoKB aggiorna continuamente. La chiamata di test su
+  BRAF V600E ha restituito un abstract ASCO 2026 (Kopetz et al.) — dati
+  non disponibili in nessun KB statico. Questo è l'argomento principale
+  per giustificare l'Enricher live in tesi.
+
+
+---
+
+## 9. Casi speciali del benchmark coperti dall'API
+
+| Caso | Tipo | Endpoint corretto |
+|---|---|---|
+| BRAF V600E / Melanoma | Puntiforme | `byProteinChange` |
+| EGFR L858R / NSCLC | Puntiforme | `byProteinChange` |
+| EML4-ALK Fusion / NSCLC | Fusione | `structuralVariants` |
+| FLT3 ITD / AML | Atipica | `byProteinChange` con `alteration=ITD` |
+| ERBB2 Amplification / Breast | CNA | `copyNumberAlterations` |
+| MSI-H / Colorectal | Biomarker | `byProteinChange` con `alteration=MSI-H` (no gene) |
+| TMB-H / Tumor agnostic | Biomarker | `byProteinChange` con `alteration=TMB-H` (no gene) |
+| BCR-ABL1 Fusion / CML | Fusione | `structuralVariants` con `hugoSymbolA=BCR&hugoSymbolB=ABL1` |
+
+
+---
+
+## 10. Prossimi passi
+
+- [ ] Testare `structuralVariants` su EML4-ALK (caso Fusion del benchmark)
+- [ ] Testare `byProteinChange` con `alteration=MSI-H` (caso Biomarker)
+- [ ] Definire formalmente l'interfaccia dell'OncoKB Enricher nella pipeline
+      (input: stato MTBState + flag `enrich: true`; output: sezione aggiuntiva
+      nel report)
+- [ ] Aggiornare la documentazione HTML e MD della pipeline con il nodo
+      OncoKB Enricher come step opzionale post-report
+
+---
+*Documento prodotto nella sessione del 05 Giugno 2026*
+*Fonte: https://api.oncokb.org/oncokb-website/api + risposta reale API su BRAF V600E*

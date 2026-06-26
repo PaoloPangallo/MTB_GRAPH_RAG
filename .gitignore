@@ -1,0 +1,29 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables (sensitive data)
+.env
+mtb-graphrag/.env
+
+# Python caching & logs
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+*.bak
+
+# IDE & system files
+.idea/
+.vscode/
+.virtual_documents/
+.gemini/
+.agents/
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Notebook checkpoint files
+.ipynb_checkpoints/

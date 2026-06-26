@@ -1,0 +1,335 @@
+disease_id,disease,doid,doid_uri
+1,Lymphoid Leukemia,1037,http://purl.obolibrary.org/obo/DOID_1037
+2,Gastrointestinal Stromal Tumor,9253,http://purl.obolibrary.org/obo/DOID_9253
+3,Acute Myeloid Leukemia,9119,http://purl.obolibrary.org/obo/DOID_9119
+4,Chronic Myeloid Leukemia,8552,http://purl.obolibrary.org/obo/DOID_8552
+5,Bone Marrow Cancer,4960,http://purl.obolibrary.org/obo/DOID_4960
+6,Acute Leukemia,12603,http://purl.obolibrary.org/obo/DOID_12603
+7,Melanoma,1909,http://purl.obolibrary.org/obo/DOID_1909
+8,Lung Non-small Cell Carcinoma,3908,http://purl.obolibrary.org/obo/DOID_3908
+9,Polycythemia Vera,8997,http://purl.obolibrary.org/obo/DOID_8997
+10,Colorectal Cancer,9256,http://purl.obolibrary.org/obo/DOID_9256
+11,Inflammatory Myofibroblastic Tumor,50905,http://purl.obolibrary.org/obo/DOID_50905
+12,Neuroblastoma,769,http://purl.obolibrary.org/obo/DOID_769
+13,Cancer,162,http://purl.obolibrary.org/obo/DOID_162
+14,Medullary Thyroid Carcinoma,3973,http://purl.obolibrary.org/obo/DOID_3973
+15,Thyroid Cancer,1781,http://purl.obolibrary.org/obo/DOID_1781
+16,Papillary Thyroid Carcinoma,3969,http://purl.obolibrary.org/obo/DOID_3969
+17,Lung Adenocarcinoma,3910,http://purl.obolibrary.org/obo/DOID_3910
+18,Acute Myeloid Leukemia With Mutated NPM1,81089,http://purl.obolibrary.org/obo/DOID_81089
+19,Bladder Carcinoma,4007,http://purl.obolibrary.org/obo/DOID_4007
+20,Glioblastoma,3068,http://purl.obolibrary.org/obo/DOID_3068
+21,Ovarian Cancer,2394,http://purl.obolibrary.org/obo/DOID_2394
+22,Stomach Cancer,10534,http://purl.obolibrary.org/obo/DOID_10534
+23,Breast Cancer,1612,http://purl.obolibrary.org/obo/DOID_1612
+24,Lung Cancer,1324,http://purl.obolibrary.org/obo/DOID_1324
+25,T-cell Lymphoblastic Leukemia/lymphoma,715,http://purl.obolibrary.org/obo/DOID_715
+26,Estrogen-receptor Positive Breast Cancer,60075,http://purl.obolibrary.org/obo/DOID_60075
+27,Cholangiocarcinoma,4947,http://purl.obolibrary.org/obo/DOID_4947
+28,Malignant Anus Melanoma,14145,http://purl.obolibrary.org/obo/DOID_14145
+29,Acute Promyelocytic Leukemia,60318,http://purl.obolibrary.org/obo/DOID_60318
+30,Invasive Bladder Transitional Cell Carcinoma,6477,http://purl.obolibrary.org/obo/DOID_6477
+31,Myelodysplastic Syndrome,50908,http://purl.obolibrary.org/obo/DOID_50908
+32,Malignant Astrocytoma,3069,http://purl.obolibrary.org/obo/DOID_3069
+33,Head And Neck Squamous Cell Carcinoma,5520,http://purl.obolibrary.org/obo/DOID_5520
+34,Mantle Cell Lymphoma,50746,http://purl.obolibrary.org/obo/DOID_50746
+35,Gastric Adenosquamous Carcinoma,5635,http://purl.obolibrary.org/obo/DOID_5635
+36,Multiple Myeloma,9538,http://purl.obolibrary.org/obo/DOID_9538
+37,Acute Lymphoblastic Leukemia,9952,http://purl.obolibrary.org/obo/DOID_9952
+38,Fibrolamellar Carcinoma,5015,http://purl.obolibrary.org/obo/DOID_5015
+39,Diffuse Large B-cell Lymphoma,50745,http://purl.obolibrary.org/obo/DOID_50745
+40,Prostate Cancer,10283,http://purl.obolibrary.org/obo/DOID_10283
+41,Ovarian Carcinoma,4001,http://purl.obolibrary.org/obo/DOID_4001
+42,Clear Cell Renal Cell Carcinoma,4467,http://purl.obolibrary.org/obo/DOID_4467
+43,Ewing Sarcoma,3369,http://purl.obolibrary.org/obo/DOID_3369
+44,Follicular Lymphoma,50873,http://purl.obolibrary.org/obo/DOID_50873
+45,Chronic Lymphocytic Leukemia,1040,http://purl.obolibrary.org/obo/DOID_1040
+46,Colon Carcinoma,1520,http://purl.obolibrary.org/obo/DOID_1520
+47,Prostate Carcinoma,10286,http://purl.obolibrary.org/obo/DOID_10286
+48,Hematologic Cancer,2531,http://purl.obolibrary.org/obo/DOID_2531
+49,Esophagus Adenocarcinoma,4914,http://purl.obolibrary.org/obo/DOID_4914
+50,Cervical Adenocarcinoma,3702,http://purl.obolibrary.org/obo/DOID_3702
+51,Uveal Melanoma,6039,http://purl.obolibrary.org/obo/DOID_6039
+52,Renal Cell Carcinoma,4450,http://purl.obolibrary.org/obo/DOID_4450
+53,Epithelial Ovarian Cancer,2152,http://purl.obolibrary.org/obo/DOID_2152
+54,T-cell Acute Lymphoblastic Leukemia,5603,http://purl.obolibrary.org/obo/DOID_5603
+55,Barrett's Adenocarcinoma,7941,http://purl.obolibrary.org/obo/DOID_7941
+56,Cervical Squamous Cell Carcinoma,3744,http://purl.obolibrary.org/obo/DOID_3744
+57,Brain Glioblastoma Multiforme,3073,http://purl.obolibrary.org/obo/DOID_3073
+58,Granulosa Cell Tumor,2999,http://purl.obolibrary.org/obo/DOID_2999
+59,B-lymphoblastic Leukemia/lymphoma,80630,http://purl.obolibrary.org/obo/DOID_80630
+60,Thymic Carcinoma,3284,http://purl.obolibrary.org/obo/DOID_3284
+61,Oligodendroglioma,3181,http://purl.obolibrary.org/obo/DOID_3181
+62,Follicular Thyroid Carcinoma,3962,http://purl.obolibrary.org/obo/DOID_3962
+63,Gastric Adenocarcinoma,3717,http://purl.obolibrary.org/obo/DOID_3717
+64,Prostate Adenocarcinoma,2526,http://purl.obolibrary.org/obo/DOID_2526
+65,Pancreatic Adenocarcinoma,4074,http://purl.obolibrary.org/obo/DOID_4074
+66,Small-cell Carcinoma Of The Ovary Of Hypercalcemic Type,7651,http://purl.obolibrary.org/obo/DOID_7651
+67,Acral Lentiginous Melanoma,6367,http://purl.obolibrary.org/obo/DOID_6367
+68,Skin Melanoma,8923,http://purl.obolibrary.org/obo/DOID_8923
+69,Esophagus Squamous Cell Carcinoma,3748,http://purl.obolibrary.org/obo/DOID_3748
+70,Myeloid Neoplasm,70004,http://purl.obolibrary.org/obo/DOID_70004
+71,Her2-receptor Positive Breast Cancer,60079,http://purl.obolibrary.org/obo/DOID_60079
+72,Ovarian Serous Carcinoma,50933,http://purl.obolibrary.org/obo/DOID_50933
+73,Peripheral T-cell Lymphoma,50749,http://purl.obolibrary.org/obo/DOID_50749
+74,Oral Squamous Cell Carcinoma,50866,http://purl.obolibrary.org/obo/DOID_50866
+75,Peritoneal Mesothelioma,1788,http://purl.obolibrary.org/obo/DOID_1788
+76,Colon Cancer,219,http://purl.obolibrary.org/obo/DOID_219
+77,Parietal Lobe Ependymoma,50903,http://purl.obolibrary.org/obo/DOID_50903
+78,Cervical Cancer,4362,http://purl.obolibrary.org/obo/DOID_4362
+79,Osteosarcoma,3347,http://purl.obolibrary.org/obo/DOID_3347
+80,Lung Squamous Cell Carcinoma,3907,http://purl.obolibrary.org/obo/DOID_3907
+81,Endometrial Cancer,1380,http://purl.obolibrary.org/obo/DOID_1380
+82,Merkel Cell Carcinoma,3965,http://purl.obolibrary.org/obo/DOID_3965
+83,Medulloblastoma,50902,http://purl.obolibrary.org/obo/DOID_50902
+84,Basal Cell Carcinoma,2513,http://purl.obolibrary.org/obo/DOID_2513
+85,Oropharynx Cancer,8557,http://purl.obolibrary.org/obo/DOID_8557
+86,Papillary Renal Cell Carcinoma,4465,http://purl.obolibrary.org/obo/DOID_4465
+87,Head And Neck Carcinoma,1542,http://purl.obolibrary.org/obo/DOID_1542
+88,Malignant Pleural Mesothelioma,7474,http://purl.obolibrary.org/obo/DOID_7474
+89,Ewing Sarcoma Of Bone,3368,http://purl.obolibrary.org/obo/DOID_3368
+90,"Atypical Chronic Myeloid Leukemia, BCR-ABL1 Negative",60597,http://purl.obolibrary.org/obo/DOID_60597
+91,Endometrial Carcinoma,2871,http://purl.obolibrary.org/obo/DOID_2871
+92,Pancreatic Ductal Adenocarcinoma,3498,http://purl.obolibrary.org/obo/DOID_3498
+93,Uterine Corpus Endometrial Carcinoma,50939,http://purl.obolibrary.org/obo/DOID_50939
+94,Esophageal Carcinoma,1107,http://purl.obolibrary.org/obo/DOID_1107
+95,Pancreatic Carcinoma,4905,http://purl.obolibrary.org/obo/DOID_4905
+96,Sarcoma,1115,http://purl.obolibrary.org/obo/DOID_1115
+97,Hepatocellular Carcinoma,684,http://purl.obolibrary.org/obo/DOID_684
+98,Malignant Mesothelioma,1790,http://purl.obolibrary.org/obo/DOID_1790
+99,Bile Duct Adenocarcinoma,4896,http://purl.obolibrary.org/obo/DOID_4896
+100,T-cell Large Granular Lymphocyte Leukemia,50751,http://purl.obolibrary.org/obo/DOID_50751
+101,Brain Glioma,60108,http://purl.obolibrary.org/obo/DOID_60108
+102,Lymphoplasmacytic Lymphoma,60901,http://purl.obolibrary.org/obo/DOID_60901
+103,Adrenocortical Carcinoma,3948,http://purl.obolibrary.org/obo/DOID_3948
+104,Acute Myeloid Leukemia With MLL Rearrangement,81094,http://purl.obolibrary.org/obo/DOID_81094
+105,Renal Carcinoma,4451,http://purl.obolibrary.org/obo/DOID_4451
+106,Lung Small Cell Carcinoma,5409,http://purl.obolibrary.org/obo/DOID_5409
+107,Lung Carcinoma,3905,http://purl.obolibrary.org/obo/DOID_3905
+108,Meningioma,3565,http://purl.obolibrary.org/obo/DOID_3565
+109,Synovial Sarcoma,5485,http://purl.obolibrary.org/obo/DOID_5485
+110,Malignant Peripheral Nerve Sheath Tumor,5940,http://purl.obolibrary.org/obo/DOID_5940
+111,Skin Squamous Cell Carcinoma,3151,http://purl.obolibrary.org/obo/DOID_3151
+112,Endometrial Serous Adenocarcinoma,5750,http://purl.obolibrary.org/obo/DOID_5750
+113,Myeloproliferative Neoplasm,2226,http://purl.obolibrary.org/obo/DOID_2226
+114,Angiosarcoma,1816,http://purl.obolibrary.org/obo/DOID_1816
+115,Thyroid Gland Carcinoma,3963,http://purl.obolibrary.org/obo/DOID_3963
+116,Lung Acinar Adenocarcinoma,6482,http://purl.obolibrary.org/obo/DOID_6482
+117,Hairy Cell Leukemia,285,http://purl.obolibrary.org/obo/DOID_285
+118,Colon Mucinous Adenocarcinoma,3029,http://purl.obolibrary.org/obo/DOID_3029
+119,Inflammatory Breast Carcinoma,6263,http://purl.obolibrary.org/obo/DOID_6263
+120,Head And Neck Cancer,11934,http://purl.obolibrary.org/obo/DOID_11934
+121,Pancreatic Cancer,1793,http://purl.obolibrary.org/obo/DOID_1793
+122,Colorectal Adenocarcinoma,50861,http://purl.obolibrary.org/obo/DOID_50861
+123,Anaplastic Large Cell Lymphoma,50744,http://purl.obolibrary.org/obo/DOID_50744
+124,Myelofibrosis,4971,http://purl.obolibrary.org/obo/DOID_4971
+125,Stomach Carcinoma,5517,http://purl.obolibrary.org/obo/DOID_5517
+126,Pancreatic Ductal Carcinoma,3587,http://purl.obolibrary.org/obo/DOID_3587
+127,"B-lymphoblastic Leukemia/lymphoma, BCR-ABL1–like",80650,http://purl.obolibrary.org/obo/DOID_80650
+128,Malignant Exocrine Pancreas Neoplasm,1795,http://purl.obolibrary.org/obo/DOID_1795
+129,Laryngeal Carcinoma,2600,http://purl.obolibrary.org/obo/DOID_2600
+130,Endometrial Adenocarcinoma,2870,http://purl.obolibrary.org/obo/DOID_2870
+131,Liposarcoma,3382,http://purl.obolibrary.org/obo/DOID_3382
+132,Chronic Neutrophilic Leukemia,80187,http://purl.obolibrary.org/obo/DOID_80187
+133,Chronic Leukemia,1036,http://purl.obolibrary.org/obo/DOID_1036
+134,Chronic Myelomonocytic Leukemia,80188,http://purl.obolibrary.org/obo/DOID_80188
+135,Gastrointestinal Neuroendocrine Tumor,50626,http://purl.obolibrary.org/obo/DOID_50626
+136,"Myeloid And Lymphoid Neoplasms With Eosinophilia And Abnormalities Of PDGFRA, PDGFRB, And FGFR1",80164,http://purl.obolibrary.org/obo/DOID_80164
+137,Transitional Cell Carcinoma,2671,http://purl.obolibrary.org/obo/DOID_2671
+138,Bronchiolo-alveolar Adenocarcinoma,4926,http://purl.obolibrary.org/obo/DOID_4926
+139,Mucosal Melanoma,50929,http://purl.obolibrary.org/obo/DOID_50929
+140,Essential Thrombocythemia,2224,http://purl.obolibrary.org/obo/DOID_2224
+141,Papillary Adenocarcinoma,3112,http://purl.obolibrary.org/obo/DOID_3112
+142,Sezary's Disease,8541,http://purl.obolibrary.org/obo/DOID_8541
+143,B-cell Adult Acute Lymphocytic Leukemia,60592,http://purl.obolibrary.org/obo/DOID_60592
+144,Langerhans-cell Histiocytosis,2571,http://purl.obolibrary.org/obo/DOID_2571
+145,Pseudomyxoma Peritonei,3559,http://purl.obolibrary.org/obo/DOID_3559
+146,Chuvash Polycythemia,60474,http://purl.obolibrary.org/obo/DOID_60474
+147,Peutz-Jeghers Syndrome,3852,http://purl.obolibrary.org/obo/DOID_3852
+148,Colon Adenocarcinoma,234,http://purl.obolibrary.org/obo/DOID_234
+149,Mixed Fibrolamellar Hepatocellular Carcinoma,80182,http://purl.obolibrary.org/obo/DOID_80182
+150,Spindle Cell Sarcoma,4235,http://purl.obolibrary.org/obo/DOID_4235
+151,Triple-receptor Negative Breast Cancer,60081,http://purl.obolibrary.org/obo/DOID_60081
+152,Scrotum Paget's Disease,3444,http://purl.obolibrary.org/obo/DOID_3444
+153,Oncocytic Carcinoma Of The Thyroid,8161,http://purl.obolibrary.org/obo/DOID_8161
+154,Female Reproductive Organ Cancer,120,http://purl.obolibrary.org/obo/DOID_120
+155,Systemic Mastocytosis,349,http://purl.obolibrary.org/obo/DOID_349
+156,Ovarian Serous Cystadenocarcinoma,5746,http://purl.obolibrary.org/obo/DOID_5746
+157,Rhabdoid Cancer,3672,http://purl.obolibrary.org/obo/DOID_3672
+158,Rectum Cancer,1993,http://purl.obolibrary.org/obo/DOID_1993
+159,Her2-receptor Negative Breast Cancer,60080,http://purl.obolibrary.org/obo/DOID_60080
+160,Tuberous Sclerosis,13515,http://purl.obolibrary.org/obo/DOID_13515
+161,Myxoid Liposarcoma,5363,http://purl.obolibrary.org/obo/DOID_5363
+162,NUT Midline Carcinoma,60463,http://purl.obolibrary.org/obo/DOID_60463
+163,Bone Epithelioid Hemangioma,6610,http://purl.obolibrary.org/obo/DOID_6610
+164,Malignant Epithelioid Hemangioendothelioma,80190,http://purl.obolibrary.org/obo/DOID_80190
+165,Villous Adenoma,50869,http://purl.obolibrary.org/obo/DOID_50869
+166,Von Hippel-Lindau Disease,14175,http://purl.obolibrary.org/obo/DOID_14175
+167,Pericytoma With T(7;12),80896,http://purl.obolibrary.org/obo/DOID_80896
+168,Mammary Analogue Secretory Carcinoma,80808,http://purl.obolibrary.org/obo/DOID_80808
+169,Dermatofibrosarcoma Protuberans,3507,http://purl.obolibrary.org/obo/DOID_3507
+170,Lynch Syndrome,3883,http://purl.obolibrary.org/obo/DOID_3883
+171,Endometrial Hyperplasia,80365,http://purl.obolibrary.org/obo/DOID_80365
+172,Obsolete PTEN Hamartoma Tumor Syndrome,80191,http://purl.obolibrary.org/obo/DOID_80191
+173,Chromophobe Renal Cell Carcinoma,4471,http://purl.obolibrary.org/obo/DOID_4471
+174,Plexiform Neurofibroma,5151,http://purl.obolibrary.org/obo/DOID_5151
+175,Chordoma,3302,http://purl.obolibrary.org/obo/DOID_3302
+176,Intrahepatic Cholangiocarcinoma,4928,http://purl.obolibrary.org/obo/DOID_4928
+177,Breast Carcinoma,3459,http://purl.obolibrary.org/obo/DOID_3459
+178,High Grade Glioma,3070,http://purl.obolibrary.org/obo/DOID_3070
+179,Bladder Urothelial Carcinoma,4006,http://purl.obolibrary.org/obo/DOID_4006
+180,Esophageal Cancer,5041,http://purl.obolibrary.org/obo/DOID_5041
+181,Neuroendocrine Tumor,169,http://purl.obolibrary.org/obo/DOID_169
+182,Solid Tumor,,
+183,Leukemia,1240,http://purl.obolibrary.org/obo/DOID_1240
+184,Desmoid Tumor,80366,http://purl.obolibrary.org/obo/DOID_80366
+185,Ovarian Clear Cell Carcinoma,50934,http://purl.obolibrary.org/obo/DOID_50934
+186,Cervix Carcinoma,2893,http://purl.obolibrary.org/obo/DOID_2893
+187,Breast Tubular Carcinoma,6587,http://purl.obolibrary.org/obo/DOID_6587
+188,Childhood Pilocytic Astrocytoma,6812,http://purl.obolibrary.org/obo/DOID_6812
+189,Cecum Adenocarcinoma,3039,http://purl.obolibrary.org/obo/DOID_3039
+190,Endometrioid Ovary Carcinoma,5828,http://purl.obolibrary.org/obo/DOID_5828
+191,"Diffuse Midline Glioma, H3 K27M-mutant",80684,http://purl.obolibrary.org/obo/DOID_80684
+192,Adrenal Carcinoma,3950,http://purl.obolibrary.org/obo/DOID_3950
+193,Breast Adenocarcinoma,3458,http://purl.obolibrary.org/obo/DOID_3458
+194,Vulva Squamous Cell Carcinoma,2101,http://purl.obolibrary.org/obo/DOID_2101
+195,Sertoli-Leydig Cell Tumor,2997,http://purl.obolibrary.org/obo/DOID_2997
+196,Ureter Small Cell Carcinoma,6886,http://purl.obolibrary.org/obo/DOID_6886
+197,Glandular Pattern Ovarian Yolk Sac Tumor,6511,http://purl.obolibrary.org/obo/DOID_6511
+198,Anaplastic Thyroid Carcinoma,80522,http://purl.obolibrary.org/obo/DOID_80522
+199,Laryngeal Squamous Cell Carcinoma,2876,http://purl.obolibrary.org/obo/DOID_2876
+200,Biliary Tract Cancer,4607,http://purl.obolibrary.org/obo/DOID_4607
+201,Salivary Gland Carcinoma,50904,http://purl.obolibrary.org/obo/DOID_50904
+202,Uterine Cancer,363,http://purl.obolibrary.org/obo/DOID_363
+203,Ovarian Sex-cord Stromal Tumor,80369,http://purl.obolibrary.org/obo/DOID_80369
+204,Vagina Sarcoma,1901,http://purl.obolibrary.org/obo/DOID_1901
+205,Epithelioid Inflammatory Myofibroblastic Sarcoma,80372,http://purl.obolibrary.org/obo/DOID_80372
+206,Mucinous Adenocarcinoma,3030,http://purl.obolibrary.org/obo/DOID_3030
+207,Congenital Fibrosarcoma,8418,http://purl.obolibrary.org/obo/DOID_8418
+208,Adrenal Gland Pheochromocytoma,50892,http://purl.obolibrary.org/obo/DOID_50892
+209,Salivary Gland Cancer,8850,http://purl.obolibrary.org/obo/DOID_8850
+210,Lipofibromatosis-like Neural Tumor,80894,http://purl.obolibrary.org/obo/DOID_80894
+211,Paraganglioma,50773,http://purl.obolibrary.org/obo/DOID_50773
+212,Juvenile Polyposis Syndrome,50787,http://purl.obolibrary.org/obo/DOID_50787
+213,Chondroblastoma,2649,http://purl.obolibrary.org/obo/DOID_2649
+214,Bone Giant Cell Tumor,4305,http://purl.obolibrary.org/obo/DOID_4305
+215,Breast Secretory Carcinoma,4922,http://purl.obolibrary.org/obo/DOID_4922
+216,Adult T-cell Leukemia/lymphoma,50523,http://purl.obolibrary.org/obo/DOID_50523
+217,Childhood B-cell Acute Lymphoblastic Leukemia,80146,http://purl.obolibrary.org/obo/DOID_80146
+218,Mesenchymal Chondrosarcoma,4545,http://purl.obolibrary.org/obo/DOID_4545
+219,Alveolar Rhabdomyosarcoma,4051,http://purl.obolibrary.org/obo/DOID_4051
+220,Juvenile Myelomonocytic Leukemia,50458,http://purl.obolibrary.org/obo/DOID_50458
+221,Pilocytic Astrocytoma,4851,http://purl.obolibrary.org/obo/DOID_4851
+222,Lymphoma,60058,http://purl.obolibrary.org/obo/DOID_60058
+223,Childhood Low-grade Glioma,80830,http://purl.obolibrary.org/obo/DOID_80830
+224,Colon Signet Ring Adenocarcinoma,3033,http://purl.obolibrary.org/obo/DOID_3033
+225,Retinoblastoma,768,http://purl.obolibrary.org/obo/DOID_768
+226,B-lymphoblastic Leukemia With PAX5 P.P80R,81411,http://purl.obolibrary.org/obo/DOID_81411
+227,Urinary Bladder Cancer,11054,http://purl.obolibrary.org/obo/DOID_11054
+228,Langerhans Cell Sarcoma,7146,http://purl.obolibrary.org/obo/DOID_7146
+229,Glioma,,
+230,Chondrosarcoma,3371,http://purl.obolibrary.org/obo/DOID_3371
+231,Histiocytic And Dendritic Cell Cancer,5621,http://purl.obolibrary.org/obo/DOID_5621
+232,Glioblastoma Proneural Subtype,50804,http://purl.obolibrary.org/obo/DOID_50804
+233,Adenosquamous Lung Carcinoma,4829,http://purl.obolibrary.org/obo/DOID_4829
+234,Childhood Acute Lymphocytic Leukemia,80144,http://purl.obolibrary.org/obo/DOID_80144
+235,Rhabdomyosarcoma,3247,http://purl.obolibrary.org/obo/DOID_3247
+236,Childhood Medulloblastoma,3869,http://purl.obolibrary.org/obo/DOID_3869
+237,B-cell Acute Lymphoblastic Leukemia,80638,http://purl.obolibrary.org/obo/DOID_80638
+238,Adult Spinal Cord Ependymoma,7788,http://purl.obolibrary.org/obo/DOID_7788
+239,Cholangiolocellular Carcinoma,7642,http://purl.obolibrary.org/obo/DOID_7642
+240,Chronic Lymphocytic Leukemia/small Lymphocytic Lymphoma,6354,http://purl.obolibrary.org/obo/DOID_6354
+241,Spindle Cell Rhabdomyosarcoma,3260,http://purl.obolibrary.org/obo/DOID_3260
+242,Clear Cell Sarcoma,4233,http://purl.obolibrary.org/obo/DOID_4233
+243,Medulloblastoma SHH Activated,80703,http://purl.obolibrary.org/obo/DOID_80703
+244,Castration-resistant Prostate Carcinoma,80909,http://purl.obolibrary.org/obo/DOID_80909
+245,"Astroblastoma, MN1-altered",80904,http://purl.obolibrary.org/obo/DOID_80904
+246,B-lymphoblastic Leukemia/lymphoma With ETV6-RUNX1,80645,http://purl.obolibrary.org/obo/DOID_80645
+247,"Supratentorial Ependymoma, ZFTA Fusion–positive",81252,http://purl.obolibrary.org/obo/DOID_81252
+248,Ovary Serous Adenocarcinoma,5744,http://purl.obolibrary.org/obo/DOID_5744
+249,Atypical Teratoid Rhabdoid Tumor,2129,http://purl.obolibrary.org/obo/DOID_2129
+250,Spitzoid Melanoma,70326,http://purl.obolibrary.org/obo/DOID_70326
+251,Renal Wilms' Tumor,5176,http://purl.obolibrary.org/obo/DOID_5176
+252,Sarcoma With BCOR Genetic Alterations,81402,http://purl.obolibrary.org/obo/DOID_81402
+253,CIC-rearranged Sarcoma,81250,http://purl.obolibrary.org/obo/DOID_81250
+254,Pancreatic Endocrine Carcinoma,1798,http://purl.obolibrary.org/obo/DOID_1798
+255,"Diffuse Glioma, H3 G34 Mutant",80880,http://purl.obolibrary.org/obo/DOID_80880
+256,Childhood Ependymoma,5509,http://purl.obolibrary.org/obo/DOID_5509
+257,Ganglioglioma,5078,http://purl.obolibrary.org/obo/DOID_5078
+258,Alveolar Soft Part Sarcoma,4239,http://purl.obolibrary.org/obo/DOID_4239
+259,Diffuse Large B-cell Lymphoma Activated B-cell Type,80996,http://purl.obolibrary.org/obo/DOID_80996
+260,Epithelioid Sarcoma,6193,http://purl.obolibrary.org/obo/DOID_6193
+261,Pharynx Squamous Cell Carcinoma,50921,http://purl.obolibrary.org/obo/DOID_50921
+262,Renal Cell Carcinoma With MiT Translocations,81413,http://purl.obolibrary.org/obo/DOID_81413
+263,Pancreatic Acinar Cell Adenocarcinoma,5742,http://purl.obolibrary.org/obo/DOID_5742
+264,Anaplastic Ependymoma,5889,http://purl.obolibrary.org/obo/DOID_5889
+265,B-cell Lymphoma,707,http://purl.obolibrary.org/obo/DOID_707
+266,Congenital Mesoblastic Nephroma,4773,http://purl.obolibrary.org/obo/DOID_4773
+267,Cervical Sarcoma,,
+268,Poorly Differentiated Thyroid Carcinoma,,
+269,Central Nervous System Tumor With BCOR Internal Tandem Duplication,81315,http://purl.obolibrary.org/obo/DOID_81315
+270,Kidney Clear Cell Sarcoma,4880,http://purl.obolibrary.org/obo/DOID_4880
+271,Angiocentric Glioma,81261,http://purl.obolibrary.org/obo/DOID_81261
+272,Diffuse Large B-cell Lymphoma Germinal Center B-cell Type,80997,http://purl.obolibrary.org/obo/DOID_80997
+273,Renal Medullary Carcinoma,,
+274,B-cell Non-Hodgkin Lymphoma,,
+275,Desmoplastic Small Round Cell Tumor,6785,http://purl.obolibrary.org/obo/DOID_6785
+276,Low Grade Glioma,80829,http://purl.obolibrary.org/obo/DOID_80829
+277,Polymorphous Low Grade Neuroepithelial Tumour Of The Young,81305,http://purl.obolibrary.org/obo/DOID_81305
+278,Gynandroblastoma,,
+279,Pigmented Epithelioid Melanocytoma,,
+280,CNS Neuroblastoma With FOXR2 Activation,80906,http://purl.obolibrary.org/obo/DOID_80906
+281,Salivary Gland Mucoepidermoid Carcinoma,81293,http://purl.obolibrary.org/obo/DOID_81293
+282,Round Cell Sarcoma With EWSR1-non-ETS Fusion,81406,http://purl.obolibrary.org/obo/DOID_81406
+283,Perivascular Epithelioid Cell Tumor,2643,http://purl.obolibrary.org/obo/DOID_2643
+284,Extramammary Paget Disease,,
+285,Peritoneal Carcinoma,1791,http://purl.obolibrary.org/obo/DOID_1791
+286,B-lymphoblastic Leukemia/lymphoma With TCF3-PBX1,80649,http://purl.obolibrary.org/obo/DOID_80649
+287,Gliosarcoma,3071,http://purl.obolibrary.org/obo/DOID_3071
+288,Isomorphic Diffuse Glioma,,
+289,"Diffuse Astrocytoma, MYB- Or MYBL1-altered",81279,http://purl.obolibrary.org/obo/DOID_81279
+290,Pseudomyogenic Hemangioendothelioma,,
+291,Acute Myeloid Leukemia With Inv(16)(p13.1q22) Or T(16;16)(p13.1;q22),81084,http://purl.obolibrary.org/obo/DOID_81084
+292,Desmoplastic Infantile Ganglioglioma / Desmoplastic Infantile Astrocytoma,81259,http://purl.obolibrary.org/obo/DOID_81259
+293,Anaplastic Astrocytoma,3078,http://purl.obolibrary.org/obo/DOID_3078
+294,Ganglioneuroblastoma,4163,http://purl.obolibrary.org/obo/DOID_4163
+295,Myofibroma,4386,http://purl.obolibrary.org/obo/DOID_4386
+296,Acute Myeloid Leukemia With T(8;21); (q22; Q22.1),81093,http://purl.obolibrary.org/obo/DOID_81093
+297,Acute Myeloid Leukemia With CBFA2T3::GLIS2 Fusion,,
+298,"Supratentorial Ependymoma, YAP1 Fusion–positive",81253,http://purl.obolibrary.org/obo/DOID_81253
+299,Acinic Cell Carcinoma,3025,http://purl.obolibrary.org/obo/DOID_3025
+300,Acute Myeloid Leukemia With BCR-ABL1,80976,http://purl.obolibrary.org/obo/DOID_80976
+301,Sclerosing Epithelioid Fibrosarcoma,,
+302,Low-grade Fibromyxoid Sarcoma,,
+303,B-lymphoblastic Leukemia/lymphoma With BCR-ABL1,80643,http://purl.obolibrary.org/obo/DOID_80643
+304,Acute Myeloid Leukemia With MNX1::ETV6 Fusion,,
+305,Acute Myeloid Leukemia With T(6;9) (p23;q34.1),81080,http://purl.obolibrary.org/obo/DOID_81080
+306,Acute Myeloid Leukemia With NPM1::MLF1 Fusion,,
+307,AML With KAT6A::CREBBP Fusion,,
+308,B-lymphoblastic Leukemia/lymphoma With TCF3::HLF Fusion,,
+309,Acute Myeloid Leukemia With Mutated CEBPA,81095,http://purl.obolibrary.org/obo/DOID_81095
+310,B-lymphoblastic Leukemia With MEF2D Rearrangement,,
+311,B-lymphoblastic Leukemia With NUTM1 Rearrangement,,
+312,B-lymphoblastic Leukemia/lymphoma With IGH::IL3 Fusion,80648,http://purl.obolibrary.org/obo/DOID_80648
+313,B-lymphoblastic Leukemia With DUX4 Rearrangement,81412,http://purl.obolibrary.org/obo/DOID_81412
+314,Large B-cell Lymphoma With IRF4 Rearrangement,,
+315,Acute Myeloid Leukemia With T(1;22)(p13;q13),81096,http://purl.obolibrary.org/obo/DOID_81096
+316,Acute Promyelocytic Leukemia With PML-RARA,81081,http://purl.obolibrary.org/obo/DOID_81081
+317,Acute Myeloid Leukaemia With FUS::ERG Fusion,,
+318,Cribriform Neuroepithelial Tumor,,
+319,Acute Myeloid Leukemia With NUP98 Rearrangement,,
+320,B-lymphoblastic Leukemia With MYC Rearrangement,,
+321,"Embryonal Tumor With Multilayered Rosettes, C19MC-altered",80903,http://purl.obolibrary.org/obo/DOID_80903
+322,Embryonal Tumor With Multilayered Rosettes,81286,http://purl.obolibrary.org/obo/DOID_81286
+323,Acute Myeloid Leukemia With MECOM Rearrangement,,
+324,B-lymphoblastic Leukaemia/lymphoma With Other Defined Genetic Alterations,,
+325,B-lymphoblastic Leukaemia/lymphoma With KMT2A Rearrangement,,
+326,Myofibroma And Myopericytoma,,
+327,Extraskeletal Myxoid Chondrosarcoma,6496,http://purl.obolibrary.org/obo/DOID_6496
+328,"Solid Tumors, Advanced",,
+329,Gastroblastoma,,
+330,Histiocytic Sarcoma,80915,http://purl.obolibrary.org/obo/DOID_80915
+331,Gastrointestinal Carcinoma,50922,http://purl.obolibrary.org/obo/DOID_50922
+332,Angiomatoid Fibrous Histiocytoma,,
+333,DOID:0070626,70626,http://purl.obolibrary.org/obo/DOID_70626
+334,Myoepithelial Tumors Of Soft Tissue,,

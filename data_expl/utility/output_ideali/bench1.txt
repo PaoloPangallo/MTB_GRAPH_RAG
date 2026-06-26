@@ -1,0 +1,126 @@
+================================================================================
+  OUTPUT SISTEMA AGENTICO — MOLECULAR TUMOR BOARD
+  Caso: BENCH-001
+  Data analisi: 02/06/2026
+================================================================================
+
+PROFILO MOLECOLARE IN INGRESSO
+--------------------------------
+Gene:       EGFR
+Variante:   L858R (missense, esone 21)
+Istotipo:   Non-Small Cell Lung Cancer (NSCLC)
+Categoria:  Mutazione attivante primaria
+
+
+RACCOMANDAZIONE PRINCIPALE
+---------------------------
+Farmaco:          Osimertinib (AZD9291)
+Livello evidenza: A  (massimo rigore clinico — trial randomizzato di fase III)
+Classificazione:  ESCAT Tier I-A
+Tipo evidenza:    Predictive — Sensitivity/Response
+Fonte primaria:   Studio FLAURA (Soria et al., NEJM 2018 — PMID 29151359)
+                  OS mediana: 38.6 mesi vs 31.8 mesi chemioterapia standard
+                  PFS mediana: 18.9 mesi vs 10.2 mesi
+Indicazione FDA:  Approvato in prima linea per EGFR exon 19 del / L858R (2018)
+Indicazione EMA:  Approvato (2019)
+
+
+EVIDENZE AGGIUNTIVE DALLA KB
+------------------------------
+Farmaco             Livello   Tipo              Note
+------------------  --------  ----------------  --------------------------------
+Erlotinib           A         Sensitivity       Prima generazione EGFR-TKI;
+                                                superato da Osimertinib per OS
+Gefitinib           A         Sensitivity       Prima generazione EGFR-TKI;
+                                                superato da Osimertinib per OS
+Afatinib            B         Sensitivity       Seconda generazione; alternativa
+                                                se Osimertinib non disponibile
+Erlotinib +         B         Sensitivity       Combinazione con anti-VEGF;
+Bevacizumab                                     beneficio marginale su PFS
+Chemioterapia       A         Resistance        Storicamente usata; ora
+                                                superata da TKI di terza gen.
+
+
+RESISTENZE ACQUISITE NOTE
+--------------------------
+Meccanismo principale:
+  T790M (mutazione gatekeeper, esone 20)
+  — Frequenza: ~50% dei pazienti dopo TKI di prima/seconda generazione
+  — Osimertinib rimane attivo su T790M (approvazione specifica, AURA3)
+  — Se progressione su Osimertinib: rivalutare biopsia liquida
+
+Meccanismi alternativi post-Osimertinib (minoranza dei casi):
+  C797S            — resistenza a tutti i TKI EGFR approvati
+  Amplificazione   — MET (bypass pathway), ERBB2
+  Trasformazione   — SCLC (5-10% dei casi, rivalutare istologia)
+
+Implicazione clinica: in caso di progressione su Osimertinib è mandatoria
+la ri-biopsia (tessuto o liquida) prima di scegliere la linea successiva.
+
+
+TRIAL CLINICI APERTI (dalla KB)
+---------------------------------
+N. trial rilevanti trovati nella KB per questo profilo: 3
+
+[1] Fase III — Osimertinib + chemioterapia vs Osimertinib solo
+    Popolazione: EGFR mut, prima linea, NSCLC avanzato
+    Stato: Reclutamento attivo
+
+[2] Fase II — Osimertinib + Savolitinib (MET inhibitor)
+    Popolazione: progressione su Osimertinib con amplificazione MET
+    Stato: Reclutamento attivo
+
+[3] Fase II — Amivantamab + Lazertinib post-Osimertinib
+    Popolazione: progressione su Osimertinib, EGFR exon 19/L858R
+    Stato: Reclutamento attivo
+
+Nota: i trial elencati derivano dalla KB al momento dell'analisi.
+      Verificare ClinicalTrials.gov per stato aggiornato.
+
+
+CONTESTO CLINICO — NOTE PER IL BOARD
+--------------------------------------
+1. L858R è la seconda mutazione attivante più frequente in EGFR (38% dei
+   casi EGFR-mutati), dopo la delezione dell'esone 19 (45%). Entrambe
+   rispondono a Osimertinib con efficacia sovrapponibile.
+
+2. Il test NGS o PCR per EGFR è raccomandato come standard su tutti i
+   pazienti con NSCLC non-squamoso metastatico (ESMO Guidelines 2023).
+
+3. Penetrazione nel SNC: Osimertinib ha eccellente penetrazione
+   ematoencefalica — preferibile in pazienti con metastasi cerebrali
+   o ad alto rischio di progressione CNS.
+
+4. Profilo di tossicità: principale tossicità attesa è rash acneiforme
+   (gestibile) e raramente QTc prolongation (monitorare ECG baseline).
+
+
+TRACCIA DEL RAGIONAMENTO (per revisione clinica)
+-------------------------------------------------
+Nodi KB attivati:
+  Gene:               EGFR (entrez_id: 1956)
+  Variante:           L858R (variant_id: 33)
+  MolecularProfile:   EGFR L858R (mp_id: 12)
+  Evidenze usate:     ev_001 (Osimertinib/A), ev_002 (Erlotinib/A),
+                      ev_003 (Gefitinib/A), ev_004 (Afatinib/B)
+  Trial recuperati:   NCT04035486, NCT02249evenness, NCT04830046
+  Disease match:      "Lung Non-Small Cell Carcinoma" → NSCLC (sinonimo)
+  Percorso grafo:     Gene → HAS_VARIANT → Variant → IN_MOLECULAR_PROFILE
+                      → MolecularProfile → HAS_EVIDENCE → Evidence
+                      → TARGETS_DRUG → Drug
+
+Agenti coinvolti:
+  Variant Interpreter:    ha classificato L858R come mutazione attivante
+                          primaria, ha identificato il MolecularProfile
+                          corretto nella KB
+  Evidence Synthesizer:   ha recuperato e ordinato le evidenze per livello,
+                          ha identificato le resistenze associate
+  Trial Matcher:          ha interrogato i trial clinici aperti per il profilo
+  Report Generator:       ha prodotto questo output strutturato
+
+================================================================================
+  DISCLAIMER: Questo output è generato da un sistema automatico a supporto
+  della discussione clinica. La decisione terapeutica finale è di esclusiva
+  competenza del medico specialista, che deve valutare il contesto clinico
+  completo del paziente.
+================================================================================

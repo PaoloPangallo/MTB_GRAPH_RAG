@@ -1,0 +1,56 @@
+=== LAST USER INPUT ===
+<USER_REQUEST>
+continua
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-06-23T17:57:59+02:00.
+
+The user's current state is as follows:
+Active Document: c:\Users\paolo\Desktop\IspezioneDatasetTesi\mtb-graphrag\backend\evaluation\run_ablation_study.py (LANGUAGE_PYTHON)
+Cursor is on line: 175
+Other open documents:
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\scratch\generate_complexity_check_report.py (LANGUAGE_PYTHON)
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\mtb-graphrag\backend\pipeline\agents\oncokb_enricher.py (LANGUAGE_PYTHON)
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\mtb-graphrag\backend\evaluation\ablation_enricher.py (LANGUAGE_PYTHON)
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\mtb-graphrag\backend\evaluation\run_ablation_study.py (LANGUAGE_PYTHON)
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\scratch\diagnose_ablation.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Claude Sonnet 4.6 (Thinking) to Gemini 3.5 Flash (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+
+=== SECOND LAST USER INPUT ===
+<USER_REQUEST>
+L'enricher fix è giusto e ben documentato — il DAC 50%→90% era effettivamente un artefatto di rete/formato, non un limite di OncoKB, e l'hai sistemato correttamente. Ma fermati su un punto: questo fix ha reso l'enricher un avversario molto più forte, e adesso un paio di numeri raccontano una storia più scomoda da difendere. Te la mostro, perché è meglio vederla ora che davanti al relatore.
+La tensione nuova: l'enricher ora ti tallona
+Guarda la riga enricher v2 accanto al full:
+enricher v2fullDAC90%100%PMID Coverage50%63.3%Judge3.743.80ESCAT0%100%
+Su DAC, coverage e judge l'enricher è ora a un soffio dal full. La domanda del relatore diventa inevitabile: "se una semplice chiamata API a OncoKB ti dà il 90% del farmaco e il 50% dei PMID, cosa aggiunge davvero tutta la macchina a grafo a cinque agenti?"
+La risposta esiste ed è forte, ma devi dirla esplicitamente perché i numeri da soli non la gridano più:
+
+ESCAT 0% vs 100% — l'enricher non può produrlo, è strutturalmente incapace (OncoKB dà livelli FDA, non ESCAT). Questa resta la tua vittoria incondizionata.
+PMID Hallucination 58.8% vs 0% — e questo è il punto chiave: l'enricher ha le fonti corrette da OncoKB eppure allucina quasi il 60% dei PMID. La verifica CITED_IN del full le intercetta tutte. Dà alla tua architettura un ruolo che nessuna fonte strutturata-ma-non-verificata può svolgere.
+Copertura clinica — l'enricher copre solo ciò che è in OncoKB; niente CIViC, niente trial, niente resistenze. Il 50% di coverage vs 63.3% è proprio questo gap.
+
+Inquadrato bene, l'enricher forte ti aiuta: dimostra che una buona fonte strutturata arriva lontano sul farmaco, ma fallisce esattamente sui due assi che sono il tuo contributo (ESCAT + verifica citazioni). È la stessa logica del DAC del vanilla — il pezzo "facile" lo fanno tutti, tu vinci sul resto.
+Tre cose da verificare prima di considerarlo chiuso
+1. Il fallback pertinente=True del websearch — ancora non risolto. Te l'avevo segnalato e in v2 non compare. L'81.1% di pmi
+<truncated 579 bytes>
+rata sui risultati attesi), ma è una scelta di design, non un semplice bugfix. Il relatore potrebbe chiedere: "il vanilla e il websearch hanno ricevuto lo stesso trattamento di normalizzazione dell'input?" Se la risposta è no, c'è un'asimmetria da dichiarare. Verifica che la normalizzazione biomarker (TMB-H/MSI-H) sia coerente tra le condizioni che la possono usare.
+3. La distinzione Tipo D è importante tenerla onesta. BENCH-012 era un fallimento di rete puro (re-run) — legittimo. Gli altri 16 erano formato. Tienili separati anche nella tesi: "1 transient network failure + 16 query format" è più credibile di "17 bug" perché mostra che hai distinto le cause invece di raggruppare tutto.
+Un'osservazione sul rigore (a tuo favore)
+Hai distinto i 3 fallimenti genuini (BENCH-024, 025, 027) dai fix tecnici, e li hai spiegati clinicamente (EGFR exon19 → serve la notazione esatta per Osimertinib; IDH1 R132; MET exon14). Questo è esattamente il tipo di analisi caso-per-caso che rende difendibile un benchmark piccolo. Quei tre casi sono utili: mostrano perché serve la specificità variante-livello che il tuo grafo gestisce e una chiamata API generica no. Non sono debolezze, sono evidenza a supporto.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-06-23T17:51:57+02:00.
+
+The user's current state is as follows:
+Active Document: c:\Users\paolo\Desktop\IspezioneDatasetTesi\mtb-graphrag\backend\evaluation\run_ablation_study.py (LANGUAGE_PYTHON)
+Cursor is on line: 175
+Other open documents:
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\mtb-graphrag\backend\evaluation\run_ablation_study.py (LANGUAGE_PYTHON)
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\scratch\diagnose_ablation.py (LANGUAGE_PYTHON)
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\scratch\test_rag_err.py (LANGUAGE_PYTHON)
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\mtb-graphrag\backend\evaluation\ablation_rag.py (LANGUAGE_PYTHON)
+- c:\Users\paolo\Desktop\IspezioneDatasetTesi\scratch\test_pdf.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>

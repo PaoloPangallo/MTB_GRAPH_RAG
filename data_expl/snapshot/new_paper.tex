@@ -1,0 +1,341 @@
+\documentclass[12pt, a4paper]{article}
+
+% === Pacchetti ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tabularx}
+
+% === Geometria pagina ===
+\geometry{
+  top=2.5cm, bottom=2.5cm,
+  left=3cm,  right=2.5cm,
+  headheight=15pt
+}
+
+% === Palette colori ===
+\definecolor{primaryblue}{HTML}{1A3A5C}
+\definecolor{accentblue}{HTML}{2E7EBA}
+\definecolor{lightgray}{HTML}{F5F7FA}
+\definecolor{medgray}{HTML}{AABCD0}
+\definecolor{passgreen}{HTML}{2E7D32}
+\definecolor{failred}{HTML}{C62828}
+\definecolor{warnAmber}{HTML}{E65100}
+\definecolor{roweven}{HTML}{EFF4F9}
+\definecolor{sessionblue}{HTML}{EAF2FB}
+
+% === Hyperref ===
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accentblue,
+  urlcolor=accentblue,
+  pdftitle={Report di Analisi: Nuovi Paper di Riferimento per la Tesi},
+  pdfauthor={Paolo},
+  pdfsubject={Tesi Magistrale},
+}
+
+% === Header / Footer ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{medgray}\textit{Tesi Magistrale: GraphRAG per Molecular Tumor Board}}
+\fancyhead[R]{\small\color{medgray}Giugno 2026}
+\fancyfoot[C]{\small\color{medgray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% === Titoli sezione ===
+\titleformat{\section}
+{\Large\bfseries\color{primaryblue}}
+{\thesection.}{0.6em}{}
+[\titlerule]
+\titleformat{\subsection}
+{\normalsize\bfseries\color{accentblue}}
+{\thesubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.6em}
+\titlespacing*{\subsection}{0pt}{1em}{0.3em}
+
+% === Box colorati ===
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{summarybox}{
+  enhanced, breakable,
+  colback=lightgray, colframe=primaryblue,
+  boxrule=1.2pt, arc=4pt,
+  fonttitle=\bfseries\color{white},
+  title={Sintesi del Posizionamento},
+}
+\newtcolorbox{insightbox}{
+  enhanced, breakable,
+  colback=sessionblue, colframe=accentblue,
+  boxrule=1pt, arc=4pt,
+  fonttitle=\bfseries\color{white},
+  title={Nota di Discussione},
+}
+
+% === Macro colori ===
+\newcommand{\pass}[1]{{\color{passgreen}\textbf{#1}}}
+\newcommand{\fail}[1]{{\color{failred}\textbf{#1}}}
+\newcommand{\warn}[1]{{\color{warnAmber}\textbf{#1}}}
+\newcommand{\bench}[1]{{\texttt{\textbf{#1}}}}
+
+% ============================================================
+\begin{document}
+
+% === Titolo ===
+\begin{center}
+  {\LARGE\bfseries\color{primaryblue} Report di Analisi --- Nuovi Paper di Riferimento per la Tesi}\\[0.4em]
+  {\large\color{accentblue} Sistema GraphRAG Agentico per Molecular Tumor Board}\\[0.2em]
+  {\small\color{medgray}\textit{Analisi del contributo al posizionamento della tesi --- Giugno 2026}}
+\end{center}
+\vspace{0.5em}\hrule\vspace{1.2em}
+
+% ============================================================
+\section*{Panoramica}
+I tre paper analizzati coprono tre prospettive complementari e distinte rispetto ai paper già in uso nella tesi:
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\caption{Panoramica dei nuovi paper di riferimento e loro prospettiva}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.5cm} >{\raggedright\arraybackslash}p{3.8cm} >{\centering\arraybackslash}c >{\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{Paper} & \color{white}\textbf{Venue} & \color{white}\textbf{Anno} & \color{white}\textbf{Prospettiva} \\
+\midrule
+Aldea et al. --- IASLC MTB Consensus & J. Thoracic Oncology & 2025 & Clinica --- definisce lo standard MTB \\
+\rowcolor{roweven}
+Berman et al. --- RAG\_MTB & JMIR Medical Informatics & 2025 & Tecnica --- RAG testuale per MTB \\
+Loaiza-Bonilla et al. --- OncoMultiAgentKB & ESMO Real World Data & 2026 & Tecnica --- Multi-agente + KB oncologica \\
+\bottomrule
+\end{tabularx}
+\label{tab:panoramica}
+\end{table}
+
+Nessuno dei cinque paper già in uso (\textit{Edge et al.}, \textit{Wu et al.}, \textit{Kim et al.}, \textit{Jin et al.}, \textit{D\'iaz Cant\'on \& D\'iaz Cant\'on}) rappresenta un confronto diretto con un sistema RAG o multi-agente applicato specificamente al problema delle raccomandazioni terapeutiche in ambito Molecular Tumor Board (MTB). I tre nuovi lavori analizzati colmano esattamente questo gap.
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+% ============================================================
+\section{Aldea et al. (2025) --- IASLC Consensus Statement on Molecular Tumor Boards}
+
+\textbf{Riferimento completo:}\\
+Aldea M, Rotow JK, Arcila M, et al. \textit{Molecular tumor boards: a consensus statement from the International Association for the Study of Lung Cancer.} J Thorac Oncol. 2025;20:1594--1614. DOI: 10.1016/j.jtho.2025.07.009
+
+\subsection{Cos'è}
+Un consensus statement redatto dalla \textit{International Association for the Study of Lung Cancer} (IASLC) che raccoglie le raccomandazioni di decine di oncologi esperti su come implementare e far operare un MTB. Non si tratta di un paper sperimentale sull'Intelligenza Artificiale, bensì del documento normativo clinico di riferimento per il problema medico che la tesi si propone di affrontare.
+
+\subsection{Contributo chiave per la tesi}
+\textbf{Giustificazione clinica dell'uso di ESCAT come metrica primaria.}\\
+Il consensus statement afferma esplicitamente che l'uso di scale di azionabilità genomica è \textit{critico} per gli MTB al fine di generare raccomandazioni consistenti ed evidence-based, riducendo la dipendenza dall'opinione del singolo esperto. Identifica la scala ESCAT e OncoKB come i due standard di riferimento, descrivendo la seguente mappatura:
+\begin{itemize}[leftmargin=1.8em, itemsep=2pt]
+  \item \textbf{ESCAT I / OncoKB 1--2:} biomarker pronti per l'uso routinario, associati ad un beneficio di sopravvivenza in trial clinici con terapia mirata (\textit{matched}).
+  \item \textbf{ESCAT II / OncoKB 3A:} richiedono ulteriore validazione (tasso di risposta migliorato ma beneficio di sopravvivenza incerto).
+  \item \textbf{ESCAT III / OncoKB 3B:} evidenza clinica in altri tipi di tumore con la medesima alterazione genomica.
+  \item \textbf{ESCAT IV:} evidenza derivante unicamente da dati preclinici.
+\end{itemize}
+
+Crucialmente, il documento riporta: \textit{``each ranking applies to a specific drug--target pair, not the alteration alone''} (ogni livello si applica ad una specifica coppia farmaco-bersaglio, non all'alterazione da sola). Questa affermazione giustifica esattamente la scelta architetturale dell'interfaccia dell'ESCAT Interpreter sviluppata nella tesi, che valuta la quadrupla composta da \texttt{gene + variante + farmaco + tumore} piuttosto che basarsi sul solo livello di evidenza grezzo dell'alterazione.
+
+\subsection{Dove usarlo in tesi}
+\begin{itemize}[leftmargin=1.8em, itemsep=2pt]
+  \item \textbf{Introduzione / Background:} per giustificare il motivo per cui un MTB necessita di un sistema di classificazione strutturato e per validare la scelta della scala ESCAT come standard europeo.
+  \item \textbf{Sezione Metodologica (ESCAT Interpreter):} per citare la definizione formale dei tier ESCAT implementati all'interno della logica degli agenti.
+  \item \textbf{Discussione:} per confrontare le raccomandazioni generate dal sistema con lo standard clinico internazionalmente riconosciuto.
+  \item \textbf{Limitazioni:} il consensus identifica forti disparità globali nell'accesso agli MTB; il sistema sviluppato nella tesi si posiziona come uno strumento idoneo ad abbattere queste barriere automatizzando la fase di preparazione dei casi.
+\end{itemize}
+
+\subsection{Differenziatore rispetto alla tesi}
+Il consensus non affronta in alcun modo il tema dell'automazione tramite AI. Rappresenta il documento che definisce le regole del problema clinico che la tesi risolve dal punto di vista tecnologico ed ingegneristico.
+
+% ============================================================
+\newpage
+\section{Berman et al. (2025) --- RAG\_MTB: Retrieval Augmented Therapy Suggestion for Molecular Tumor Boards}
+
+\textbf{Riferimento completo:}\\
+Berman E, Sundberg Malek H, Bitzer M, Malek N, Eickhoff C. \textit{Retrieval Augmented Therapy Suggestion for Molecular Tumor Boards: Algorithmic Development and Validation Study.} JMIR Med Inform. 2025. DOI: 10.2196/64364. PMID: 40053768.
+
+\subsection{Cos'è}
+Una pipeline RAG sviluppata con LlamaIndex su dati estratti da PubMed (impiegando LLaMA come spina dorsale LLM) concepita per generare raccomandazioni terapeutiche per pazienti reali afferenti al Molecular Tumor Board dell'Università di Tubinga. La valutazione delle risposte generate dal sistema viene effettuata manualmente dai membri del board stesso.
+
+\subsection{Architettura}
+\begin{itemize}[leftmargin=1.8em, itemsep=2pt]
+  \item \textbf{Input:} cartella clinica del paziente (profilo molecolare e diagnosi).
+  \item \textbf{Retrieval:} interrogazione semantica di PubMed tramite LlamaIndex per ciascuna coppia (tipo di cancro, mutazione genica).
+  \item \textbf{Filtro:} restrizione ai geni presenti nei livelli 1, 2 o 3 di OncoKB.
+  \item \textbf{Output:} raccomandazione terapeutica, giustificazione testuale e referenze PubMed.
+  \item \textbf{Ground Truth:} il protocollo MTB ufficiale precedentemente deliberato dall'istituzione ospedaliera.
+\end{itemize}
+
+\subsection{Contributo chiave per la tesi}
+\textbf{Rappresenta il confronto diretto più pertinente in letteratura.}\\
+Il lavoro condivide lo stesso dominio (MTB) e lo stesso compito (raccomandazioni terapeutiche), ma adotta un approccio basato su RAG testuale classico su PubMed anziché su una base di conoscenza strutturata a grafo (Neo4j).
+
+Le differenze architetturali rispetto alla tesi evidenziano tre importanti vantaggi del sistema proposto:
+\begin{enumerate}[leftmargin=2em, label=\textbf{\arabic*.}]
+  \item \textbf{Fonte della Conoscenza:} Berman et al. interrogano PubMed in modo non strutturato tramite ricerca semantica. La tesi impiega una Knowledge Base pre-costruita e curata a partire da fonti validate (CIViC + OncoKB) con integrità referenziale verificata. Il sistema di Berman è esposto al recupero di paper non pertinenti o contraddittori; la tesi interroga esclusivamente record clinici validati da esperti.
+  \item \textbf{Gestione delle Allucinazioni:} Il sistema RAG\_MTB non possiede meccanismi per garantire che i codici PMID citati nell'output esistano realmente o siano associati al profilo del paziente. La tesi effettua una verifica referenziale esplicita tramite la relazione \texttt{CITED\_IN} nel grafo prima della sintesi, garantendo uno $0\%$ di allucinazioni PMID.
+  \item \textbf{Classificazione ESCAT:} Berman et al. non assegnano un livello ESCAT. Il sistema proposto lo fa in modo sistematico e strutturato, allineandosi alle raccomandazioni del consensus statement clinico (Aldea et al., 2025).
+\end{enumerate}
+
+\subsection{Metrica di confronto disponibile}
+Il paper riporta che il sistema è stato valutato qualitativamente su rilevanza e correttezza, ma non introduce metriche quantitative riproducibili (come accuratezza o F1-score) calcolate su un benchmark standardizzato. La valutazione automatica e quantitativa effettuata nella tesi su 30 casi clinici risulta dunque metodologicamente più rigorosa.
+
+\subsection{Dove usarlo in tesi}
+\begin{itemize}[leftmargin=1.8em, itemsep=2pt]
+  \item \textbf{Lavori Correlati (State of the Art):} come il confronto più affine in assoluto per dominio e obiettivi.
+  \item \textbf{Metodologia:} per motivare e giustificare la scelta di un approccio GraphRAG strutturato a grafo rispetto ad un RAG puramente testuale su letteratura scientifica.
+  \item \textbf{Discussione:} per dimostrare come le tre limitazioni architetturali di Berman et al. vengano superate sistematicamente dal design del nostro sistema.
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Loaiza-Bonilla et al. (2026) --- OncoMultiAgentKB}
+
+\textbf{Riferimento completo:}\\
+Loaiza-Bonilla A, Yost C, Kurnaz S, et al. \textit{Transforming oncology clinical trial matching through neuro-symbolic, multi-agent AI and an oncology-specific knowledge graph: a prospective evaluation in 3,804 patients.} ESMO Real World Data and Digital Oncology. 2026. DOI: 10.1016/j.esmorw.2026.100706.
+
+\subsection{Cos'è}
+Un sistema industriale (sviluppato da Massive Bio) valutato prospetticamente su 3.804 pazienti reali affetti da patologie metastatiche o progressive, su un arco temporale di 12 mesi. L'architettura unisce agenti LLM specializzati (\textit{OncoAgents}) ad un grafo della conoscenza oncologica (\textit{OncoGraph}) all'interno di un framework neuro-simbolico (in cui agenti probabilistici operano su una logica deterministica di grafo). Il \textit{gold standard} di riferimento è stato generato in modo indipendente da due oncologi (con un coefficiente $\kappa$ di Cohen pari a $0.92$). Il focus primario è il matching paziente-trial clinico.
+
+\subsection{Architettura OncoAgents + OncoGraph}
+Il sistema si compone di quattro pilastri:
+\begin{itemize}[leftmargin=1.8em, itemsep=2pt]
+  \item \textbf{OncoAgents:} agenti LLM specializzati in estrazione di dati clinici, normalizzazione semantica e matching.
+  \item \textbf{OncoGraph:} knowledge graph oncologico proprietario con ontologie e tassonomie validate.
+  \item \textbf{OncoRecommend:} motore euristico di ordinamento e prioritizzazione.
+  \item \textbf{OncoSet:} un corpus di regole cliniche costantemente validato da esperti.
+\end{itemize}
+Ha processato complessivamente oltre 157.000 pagine di documentazione clinica (~86.5 milioni di token).
+
+\subsection{Risultati chiave}
+\begin{itemize}[leftmargin=1.8em, itemsep=2pt]
+  \item Il sistema ottiene un punteggio $F_1 = 0.8246$ rispetto allo $0.78$ registrato escludendo l'apporto di OncoGraph (ablation study).
+  \item La rimozione del grounding sul grafo riduce drasticamente la precisione e genera allucinazioni nelle citazioni, con conseguente violazione di criteri clinici temporali o quantitativi.
+  \item Collassare la fase di estrazione e quella di matching all'interno di un unico agente generalista declassa l'F1-score da $0.8246$ a $0.78$.
+\end{itemize}
+
+\subsection{Contributo chiave per la tesi}
+\textbf{Validazione su scala industriale della nostra tesi architetturale.}\\
+Rappresenta l'unico sistema in letteratura che adotta un'architettura concettualmente analoga a quella proposta nella tesi: Knowledge Graph oncologico strutturato pre-costruito integrato ad un ecosistema di agenti LLM specializzati.
+
+L'ablation study di Loaiza-Bonilla et al. offre una validazione esterna di enorme rilevanza per i risultati da noi descritti in RQ1: dimostra quantitativamente che la rimozione del grounding su grafo degrada le performance e innesca citazioni allucinate. La tesi traspone questo medesimo principio in ambito accademico e \textit{open-source} (utilizzando modelli open-source eseguiti localmente tramite Ollama), espandendolo ad un compito più complesso dal punto di vista dell'interpretazione molecolare (raccomandazioni terapeutiche basate su ESCAT e linee terapeutiche).
+
+\subsection{Differenze rispetto alla tesi --- dove la tesi va oltre}
+\begin{enumerate}[leftmargin=2em, label=\textbf{\arabic*.}]
+  \item \textbf{Task:} OncoAgents opera esclusivamente sul matching paziente-trial. La tesi affronta la raccomandazione di terapie matched con annesso livello di evidenza ESCAT e citazioni bibliografiche verificate, richiedendo una sintesi clinica molto più complessa.
+  \item \textbf{Therapy Line:} Il sistema di Massive Bio non integra la linea terapeutica come vincolo logico strutturato. Nella tesi, la \texttt{therapy\_line} è un input obbligatorio che altera dinamicamente le raccomandazioni del grafo.
+  \item \textbf{Scala vs. Profondità:} OncoAgents analizza 3.804 pazienti su un task specifico (trial). La tesi analizza un benchmark di 30 casi clinici in profondità, con un'interrogazione multi-agente a 5 stadi, classificazione ESCAT per ciascuna evidenza, controllo di sicurezza sulle resistenze e citazioni verificate.
+  \item \textbf{Modello Computazionale:} OncoAgents si appoggia interamente ad API commerciali chiuse e costose (GPT-4/GPT-4o). La tesi dimostra la fattibilità tecnica del medesimo impianto architetturale tramite un modello open-source locale da 31B parametri, abbattendo i costi di inferenza e garantendo la riservatezza dei dati del paziente.
+\end{enumerate}
+
+\subsection{Dove usarlo in tesi}
+\begin{itemize}[leftmargin=1.8em, itemsep=2pt]
+  \item \textbf{Stato dell'Arte:} per descrivere il sistema industriale di riferimento più vicino alla nostra architettura.
+  \item \textbf{Motivazione dei Risultati (Discussione):} citare l'ablation study di Massive Bio per supportare e contestualizzare i risultati di RQ1 (allucinazione dello zero-shot ed efficacia del grounding).
+  \item \textbf{Discussione:} posizionare la tesi come la prima pipeline accademica open-source in grado di replicare (ed espandere) le logiche di un sistema industriale proprietario multimilionario.
+\end{itemize}
+
+% ============================================================
+\newpage
+\section{Sintesi: Come Cambia il Posizionamento della Tesi}
+
+\subsection{Evoluzione del Posizionamento}
+Prima dell'integrazione di questi tre lavori, il posizionamento della tesi si articolava su cinque riferimenti privi di un legame esplicito con il dominio specifico dei Molecular Tumor Board (MTB):
+\begin{itemize}[leftmargin=1.8em, itemsep=2pt]
+  \item \textit{Edge et al.} (GraphRAG) $\rightarrow$ Fondamento infrastrutturale del recupero globale.
+  \item \textit{Wu et al.} (MedGraphRAG) $\rightarrow$ Grounding su grafo in ambito medico generale.
+  \item \textit{Kim et al.} (MDAgents) $\rightarrow$ Architettura multi-agente adattiva per Q\&A medici.
+  \item \textit{Jin et al.} (TrialGPT) $\rightarrow$ Motore per la sezione di matching dei trial clinici.
+  \item \textit{D\'iaz Cant\'on} (Agentic Shift) $\rightarrow$ Contestualizzazione nello scenario oncologico attuale.
+\end{itemize}
+
+L'inclusione delle tre nuove opere colma il gap relativo alla specificità del dominio MTB e della sua validazione:
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\caption{Evoluzione del posizionamento della tesi per livelli}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4cm} >{\raggedright\arraybackslash}p{4cm} >{\raggedright\arraybackslash}X}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{Livello} & \color{white}\textbf{Paper} & \color{white}\textbf{Funzione} \\
+\midrule
+Clinico --- definizione & Aldea et al. (IASLC 2025) & ESCAT è lo standard clinico riconosciuto per gli MTB \\
+\rowcolor{roweven}
+Tecnico --- confronto RAG & Berman et al. (JMIR 2025) & RAG testuale su PubMed ha limiti strutturali che la KB Neo4j risolve \\
+Tecnico --- validazione ind. & Loaiza-Bonilla et al. (ESMO 2026) & KB oncologica + multi-agente è l'architettura vincente anche su 3.804 pazienti reali \\
+\rowcolor{roweven}
+Contributo originale & Tesi (GraphRAG MTB) & ESCAT tier, therapy\_line, resistance checker, open-source su modello gratuito \\
+\bottomrule
+\end{tabularx}
+\label{tab:posizionamento}
+\end{table}
+
+\subsection{Narrativa per la Discussione con il Relatore}
+\begin{insightbox}
+\textbf{Frase di Positioning Chiave:}
+\\
+\textit{``Il sistema proposto si colloca all'intersezione tra tre tendenze convergenti nella letteratura recente: la validazione clinica dell'uso di ESCAT come standard per le raccomandazioni MTB (Aldea et al., IASLC 2025), la dimostrazione che il RAG testuale su PubMed soffre di limitazioni strutturali nella gestione delle citazioni (Berman et al., JMIR 2025), e la validazione industriale su larga scala che la combinazione KB oncologica strutturata + agenti LLM specializzati riduce le allucinazioni e migliora la precision rispetto al solo LLM (Loaiza-Bonilla et al., ESMO 2026). La tesi contribuisce a questo panorama con una pipeline open-source completa che integra classificazione ESCAT, gestione della linea terapeutica e verifica strutturale delle citazioni --- elementi assenti o parziali in tutti e tre i sistemi di riferimento.''}
+\end{insightbox}
+
+% ============================================================
+\newpage
+\section{Tabella Comparativa Completa}
+La Tabella \ref{tab:comparativa} colloca la pipeline proposta all'interno dello stato dell'arte internazionale recente.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.4}
+\caption{Tabella comparativa completa del posizionamento della tesi}
+\begin{tabularx}{\textwidth}{
+  >{\raggedright\arraybackslash}p{2.5cm} 
+  >{\raggedright\arraybackslash}X 
+  >{\raggedright\arraybackslash}X 
+  >{\centering\arraybackslash}p{1.2cm} 
+  >{\centering\arraybackslash}p{1.2cm} 
+  >{\centering\arraybackslash}p{1.4cm} 
+  >{\raggedright\arraybackslash}X 
+  >{\raggedright\arraybackslash}p{2cm}
+}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{Sistema} & \color{white}\textbf{Task} & \color{white}\textbf{KB} & \color{white}\textbf{Agenti} & \color{white}\textbf{ESCAT} & \color{white}\textbf{Therapy Line} & \color{white}\textbf{Controllo Alluc.} & \color{white}\textbf{Scala} \\
+\midrule
+Berman et al. 2025 & MTB recommendation & PubMed RAG testuale & No & No & No & Nessuno strutturale & Casi reali MTB \\
+\rowcolor{roweven}
+Loaiza-Bonilla et al. 2026 & Trial matching & OncoGraph (KB propr.) & S\`i (OncoAgents) & No & No & Grounding su grafo & 3.804 pazienti \\
+Ferber et al. 2025 & Decision-making & OncoKB + web search & S\`i (tool-based) & No & No & Tool grounding & 20 casi multimodali \\
+\rowcolor{roweven}
+\textbf{Tesi (GraphRAG MTB)} & \textbf{MTB rec. + trial} & \textbf{Neo4j (CIViC+OncoKB)} & \textbf{S\`i (5 ag.)} & \textbf{S\`i} & \textbf{S\`i} & \textbf{\texttt{CITED\_IN} verificato} & \textbf{30 casi benchmark} \\
+\bottomrule
+\end{tabularx}
+\label{tab:comparativa}
+\end{table}
+
+\vfill
+\begin{center}
+  {\color{medgray}\rule{0.5\linewidth}{0.4pt}}\\[0.3em]
+  {\small\color{medgray}\textit{Report di analisi bibliografica --- Giugno 2026}}
+\end{center}
+
+\end{document}

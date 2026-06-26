@@ -1,0 +1,1 @@
+import sys; sys.path.insert(0, 'c:/Users/paolo/Desktop/IspezioneDatasetTesi/mtb-graphrag'); from backend.api.main import app; print('api.main imported successfully'); from backend.evaluation.run_benchmark import main; print('evaluation.run_benchmark imported successfully');

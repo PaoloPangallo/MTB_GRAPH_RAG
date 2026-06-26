@@ -1,0 +1,10 @@
+﻿C:\Users\paolo\Desktop\IspezioneDatasetTesi\.venv\Scripts\python.exe :   File "<string>", line 10
+In riga:1 car:1
++ C:\Users\paolo\Desktop\IspezioneDatasetTesi\.venv\Scripts\python.exe  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  File "<string>", line 10:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    print(f'PMID {pmid}: ...{report[start:end].replace(chr(10),
+                                                      ^
+SyntaxError: '(' was never closed

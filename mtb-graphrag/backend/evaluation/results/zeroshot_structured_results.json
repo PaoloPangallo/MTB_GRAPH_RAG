@@ -1,0 +1,704 @@
+[
+  {
+    "case_id": "BENCH-001",
+    "gene": "EGFR",
+    "variant": "L858R",
+    "tumor": "NSCLC",
+    "expected_drug": "Osimertinib",
+    "t_generation_sec": 24.76,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nIl paziente presenta una mutazione missenso del gene EGFR (Epidermal Growth Factor Receptor) nella posizione L858R (esone 21), classificata come variante sensitizzante. Questa alterazione è un driver oncogenico classico nell'adenocarcinoma polmonare non a piccole cellule (NSCLC).\\n\\n2. TERAPIA RACCOMANDATA\\nLa terapia di prima linea standard prevede l'utilizzo di inibitori della tirosina chinasi (TKI) di terza generazione. L'Osimertinib è raccomandato come gold standard per la sua superiore efficacia in termini di progression-free survival (PFS) e capacità di penetrazione nel sistema nervoso centrale rispetto ai TKI di prima e seconda generazione [PMID: 29949464]. In alternativa, TKI di prima generazione (come Gefitinib o Erlotinib) o di seconda generazione (Afatinib) rimangono opzioni valide, sebbene con tassi di risposta e durata inferiori rispetto a Osimertinib [PMID: 22833218].\\n\\n3. RESISTENZE\\nI meccanismi di resistenza a Osimertinib includono la comparsa di mutazioni secondarie nel dominio chinasico di EGFR, come la C797S, o l'attivazione di vie bypass come MET amplification [PMID: 30121543]. Per i TKI di prima/seconda generazione, la mutazione T790M è il driver di resistenza predominante in circa il 50-60% dei casi [PMID: 22833218].\\n\\n4. TRIAL\\nLo studio FLAURA ha dimostrato che Osimertinib migliora significativamente la PFS e la sopravvivenza globale (OS) rispetto a standard di cura basati su Gefitinib o Erlotinib in pazienti con mutazioni sensitizzanti di EGFR [PMID: 29949464]. Trial recenti esplorano l'approccio combinato con chemioterapia o l'uso di anticorpi bispecifici per contrastare le resistenze acquisite.\",\n  \"recommended_drugs\": [\n    \"Osimertinib\",\n    \"Gefitinib\",\n    \"Erlotinib\",\n    \"Afatinib\"\n  ],\n  \"citations\": [\n    \"29949464\",\n    \"22833218\",\n    \"30121543\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nIl paziente presenta una mutazione missenso del gene EGFR (Epidermal Growth Factor Receptor) nella posizione L858R (esone 21), classificata come variante sensitizzante. Questa alterazione è un driver oncogenico classico nell'adenocarcinoma polmonare non a piccole cellule (NSCLC).\n\n2. TERAPIA RACCOMANDATA\nLa terapia di prima linea standard prevede l'utilizzo di inibitori della tirosina chinasi (TKI) di terza generazione. L'Osimertinib è raccomandato come gold standard per la sua superiore efficacia in termini di progression-free survival (PFS) e capacità di penetrazione nel sistema nervoso centrale rispetto ai TKI di prima e seconda generazione [PMID: 29949464]. In alternativa, TKI di prima generazione (come Gefitinib o Erlotinib) o di seconda generazione (Afatinib) rimangono opzioni valide, sebbene con tassi di risposta e durata inferiori rispetto a Osimertinib [PMID: 22833218].\n\n3. RESISTENZE\nI meccanismi di resistenza a Osimertinib includono la comparsa di mutazioni secondarie nel dominio chinasico di EGFR, come la C797S, o l'attivazione di vie bypass come MET amplification [PMID: 30121543]. Per i TKI di prima/seconda generazione, la mutazione T790M è il driver di resistenza predominante in circa il 50-60% dei casi [PMID: 22833218].\n\n4. TRIAL\nLo studio FLAURA ha dimostrato che Osimertinib migliora significativamente la PFS e la sopravvivenza globale (OS) rispetto a standard di cura basati su Gefitinib o Erlotinib in pazienti con mutazioni sensitizzanti di EGFR [PMID: 29949464]. Trial recenti esplorano l'approccio combinato con chemioterapia o l'uso di anticorpi bispecifici per contrastare le resistenze acquisite.",
+      "recommended_drugs": [
+        "Osimertinib",
+        "Gefitinib",
+        "Erlotinib",
+        "Afatinib"
+      ],
+      "citations": [
+        "29949464",
+        "22833218",
+        "30121543"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-002",
+    "gene": "ALK",
+    "variant": "Fusion",
+    "tumor": "NSCLC",
+    "expected_drug": "Alectinib",
+    "t_generation_sec": 16.28,
+    "raw_response": "{\n  \"report_text\": \"### 1. Variante\\nIl paziente presenta un adenocarcinoma polmonare con fusione del gene ALK (Anaplastic Lymphoma Kinase), un driver oncogenico cruciale che attiva le vie di segnalazione RAS/MAPK e PI3K/AKT/mTOR, promuovendo la proliferazione cellulare e la sopravvivenza [PMID: 23212132].\\n\\n### 2. Terapia Raccomandata\\nPer la prima linea di trattamento, gli inibitori di ALK di seconda e terza generazione hanno dimostrato una superiorità significativa rispetto alla chemioterapia e ai farmaci di prima generazione. \\n- **Alectinib**: Raccomandato per l'efficacia nel controllo della malattia e l'elevata penetrazione nel sistema nervoso centrale (SNC) [PMID: 29677386].\\n- **Brigatinib**: Opzione efficace con un ampio spettro di attività contro le mutazioni di resistenza [PMID: 30345151].\\n- **Lorlatinib**: Inibitore di terza generazione, indicato specialmente in caso di progressione dopo altri TKI o per un controllo ottimale del SNC [PMID: 32533101].\\n\\n### 3. Resistenze\\nLe resistenze agli inibitori di ALK possono manifestarsi tramite:\\n- **Mutazioni on-target**: Sviluppo di mutazioni nel dominio chinasico di ALK (es. G1202R), che spesso rendono i farmaci di prima e seconda generazione inefficaci, richiedendo l'uso di Lorlatinib [PMID: 31545141].\\n- **Meccanismi off-target**: Attivazione di vie bypass come MET amplificazione o mutazioni di KRAS [PMID: 26235242].\\n\\n### 4. Trial\\n- **ALEX Trial**: Ha dimostrato che Alectinib riduce significativamente il rischio di progressione della malattia rispetto a Crizotinib [PMID: 29677386].\\n- **CROWN Trial**: Ha evidenziato l'eccezionale efficacia di Lorlatinib come prima linea, mostrando un prolungato intervallo di sopravvivenza libera da progressione (PFS) [PMID: 32533101].\",\n  \"recommended_drugs\": [\n    \"Alectinib\",\n    \"Brigatinib\",\n    \"Lorlatinib\"\n  ],\n  \"citations\": [\n    \"23212132\",\n    \"29677386\",\n    \"30345151\",\n    \"32533101\",\n    \"31545141\",\n    \"26235242\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "### 1. Variante\nIl paziente presenta un adenocarcinoma polmonare con fusione del gene ALK (Anaplastic Lymphoma Kinase), un driver oncogenico cruciale che attiva le vie di segnalazione RAS/MAPK e PI3K/AKT/mTOR, promuovendo la proliferazione cellulare e la sopravvivenza [PMID: 23212132].\n\n### 2. Terapia Raccomandata\nPer la prima linea di trattamento, gli inibitori di ALK di seconda e terza generazione hanno dimostrato una superiorità significativa rispetto alla chemioterapia e ai farmaci di prima generazione. \n- **Alectinib**: Raccomandato per l'efficacia nel controllo della malattia e l'elevata penetrazione nel sistema nervoso centrale (SNC) [PMID: 29677386].\n- **Brigatinib**: Opzione efficace con un ampio spettro di attività contro le mutazioni di resistenza [PMID: 30345151].\n- **Lorlatinib**: Inibitore di terza generazione, indicato specialmente in caso di progressione dopo altri TKI o per un controllo ottimale del SNC [PMID: 32533101].\n\n### 3. Resistenze\nLe resistenze agli inibitori di ALK possono manifestarsi tramite:\n- **Mutazioni on-target**: Sviluppo di mutazioni nel dominio chinasico di ALK (es. G1202R), che spesso rendono i farmaci di prima e seconda generazione inefficaci, richiedendo l'uso di Lorlatinib [PMID: 31545141].\n- **Meccanismi off-target**: Attivazione di vie bypass come MET amplificazione o mutazioni di KRAS [PMID: 26235242].\n\n### 4. Trial\n- **ALEX Trial**: Ha dimostrato che Alectinib riduce significativamente il rischio di progressione della malattia rispetto a Crizotinib [PMID: 29677386].\n- **CROWN Trial**: Ha evidenziato l'eccezionale efficacia di Lorlatinib come prima linea, mostrando un prolungato intervallo di sopravvivenza libera da progressione (PFS) [PMID: 32533101].",
+      "recommended_drugs": [
+        "Alectinib",
+        "Brigatinib",
+        "Lorlatinib"
+      ],
+      "citations": [
+        "23212132",
+        "29677386",
+        "30345151",
+        "32533101",
+        "31545141",
+        "26235242"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-003",
+    "gene": "BRAF",
+    "variant": "V600E",
+    "tumor": "Melanoma",
+    "expected_drug": "Vemurafenib",
+    "t_generation_sec": 10.11,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nIl paziente presenta una mutazione puntiforme BRAF V600E in un contesto di melanoma in prima linea. Questa variante è un driver oncogenico critico che attiva costantemente la via MAPK/ERK, promuovendo la proliferazione cellulare e la sopravvivenza [PMID: 20443518].\\n\\n2. TERAPIA RACCOMANDATA\\nIl gold standard per il trattamento di prima linea nei melanomi BRAF V600E mutati consiste nella combinazione di inibitori di BRAF e MEK. Questa strategia mirata a bloccare verticalmente la via MAPK riduce la resistenza acquisita e la tossicità cutanea rispetto alla monoterapia [PMID: 23432111]. Le opzioni raccomandate includono:\\n- Dabrafenib + Trametinib [PMID: 23432111]\\n- Vemurafenib + Cobimetinib [PMID: 24413315]\\n- Encorafenib + Binimetinib [PMID: 30021018]\\nIn alternativa, in contesti specifici o per pazienti selezionati, l'immunoterapia con anti-PD1 (Pembrolizumab o Nivolumab) rappresenta un'opzione di prima linea con una durata di risposta potenzialmente più lunga [PMID: 25360111].\\n\\n3. RESISTENZE\\nLa resistenza agli inibitori BRAF/MEK può svilupparsi attraverso meccanismi di riattivazione della via MAPK, tra cui mutazioni secondarie di BRAF, amplificazione di BRAF o mutazioni in MEK1/2 e NRAS [PMID: 28333435]. L'eterogeneità intratumorale può inoltre favorire la selezione di cloni resistenti.\\n\\n4. TRIAL\\nI trial pivotal che supportano l'uso di BRAF/MEK inhibitor includono lo studio COMBI-d e COMBI-v per Dabrafenib/Trametinib [PMID: 23432111] e lo studio COLUMBUS per Encorafenib/Binimetinib [PMID: 30021018]. Ricerche recenti esplorano la sequenza tra immunoterapia e terapia target per massimizzare l'outcome clinico [PMID: 31241273].\",\n  \"recommended_drugs\": [\n    \"Dabrafenib\",\n    \"Trametinib\",\n    \"Vemurafenib\",\n    \"Cobimetinib\",\n    \"Encorafenib\",\n    \"Binimetinib\",\n    \"Pembrolizumab\",\n    \"Nivolumab\"\n  ],\n  \"citations\": [\n    \"20443518\",\n    \"23432111\",\n    \"24413315\",\n    \"30021018\",\n    \"25360111\",\n    \"28333435\",\n    \"31241273\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nIl paziente presenta una mutazione puntiforme BRAF V600E in un contesto di melanoma in prima linea. Questa variante è un driver oncogenico critico che attiva costantemente la via MAPK/ERK, promuovendo la proliferazione cellulare e la sopravvivenza [PMID: 20443518].\n\n2. TERAPIA RACCOMANDATA\nIl gold standard per il trattamento di prima linea nei melanomi BRAF V600E mutati consiste nella combinazione di inibitori di BRAF e MEK. Questa strategia mirata a bloccare verticalmente la via MAPK riduce la resistenza acquisita e la tossicità cutanea rispetto alla monoterapia [PMID: 23432111]. Le opzioni raccomandate includono:\n- Dabrafenib + Trametinib [PMID: 23432111]\n- Vemurafenib + Cobimetinib [PMID: 24413315]\n- Encorafenib + Binimetinib [PMID: 30021018]\nIn alternativa, in contesti specifici o per pazienti selezionati, l'immunoterapia con anti-PD1 (Pembrolizumab o Nivolumab) rappresenta un'opzione di prima linea con una durata di risposta potenzialmente più lunga [PMID: 25360111].\n\n3. RESISTENZE\nLa resistenza agli inibitori BRAF/MEK può svilupparsi attraverso meccanismi di riattivazione della via MAPK, tra cui mutazioni secondarie di BRAF, amplificazione di BRAF o mutazioni in MEK1/2 e NRAS [PMID: 28333435]. L'eterogeneità intratumorale può inoltre favorire la selezione di cloni resistenti.\n\n4. TRIAL\nI trial pivotal che supportano l'uso di BRAF/MEK inhibitor includono lo studio COMBI-d e COMBI-v per Dabrafenib/Trametinib [PMID: 23432111] e lo studio COLUMBUS per Encorafenib/Binimetinib [PMID: 30021018]. Ricerche recenti esplorano la sequenza tra immunoterapia e terapia target per massimizzare l'outcome clinico [PMID: 31241273].",
+      "recommended_drugs": [
+        "Dabrafenib",
+        "Trametinib",
+        "Vemurafenib",
+        "Cobimetinib",
+        "Encorafenib",
+        "Binimetinib",
+        "Pembrolizumab",
+        "Nivolumab"
+      ],
+      "citations": [
+        "20443518",
+        "23432111",
+        "24413315",
+        "30021018",
+        "25360111",
+        "28333435",
+        "31241273"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-004",
+    "gene": "ERBB2",
+    "variant": "Amplification",
+    "tumor": "Breast Cancer HER2+",
+    "expected_drug": "Trastuzumab+Pertuzumab",
+    "t_generation_sec": 9.11,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: Amplificazione di ERBB2 (HER2) in carcinoma mammario. L'amplificazione del gene ERBB2 porta a una sovraespressione della proteina HER2, un recettore tirosin-chinasi che guida la proliferazione cellulare e la sopravvivenza tumorale.\\n\\n2. Terapia raccomandata: Per il trattamento di prima linea in pazienti con tumore al seno HER2-positivo, lo standard di cura prevede l'uso di una terapia combinata che include un agente anti-HER2 (Trastuzumab) associato a chemioterapia (solitamente taxani). In contesti specifici, l'aggiunta di Pertuzumab potenzia l'inibizione del signaling di HER2 [PMID: 20125250]. Per i pazienti con malattia metastatica, il regime TCHP (Docetaxel, Carboplatin, Pertuzumab, Trastuzumab) è ampiamente raccomandato [PMID: 25735160].\\n\\n3. Resistenze: I meccanismi di resistenza comuni includono l'emergenza di mutazioni nel dominio chinasico di ERBB2, l'attivazione di pathway alternativi (come PI3K/AKT/mTOR) o la perdita di espressione di HER2 [PMID: 15671841]. In particolare, mutazioni in PIK3CA possono ridurre la risposta ai trattamenti anti-HER2.\\n\\n4. Trial: Trial clinici recenti hanno esplorato l'uso di Antibody-Drug Conjugates (ADC). Il trial DESTINY-Breast01 ha dimostrato l'efficacia di Trastuzumab deruxtecan in pazienti con HER2-positivo precedentemente trattate, definendo un nuovo standard per le linee successive [PMID: 32054110].\",\n  \"recommended_drugs\": [\n    \"Trastuzumab\",\n    \"Pertuzumab\",\n    \"Docetaxel\",\n    \"Carboplatin\"\n  ],\n  \"citations\": [\n    \"20125250\",\n    \"25735160\",\n    \"15671841\",\n    \"32054110\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: Amplificazione di ERBB2 (HER2) in carcinoma mammario. L'amplificazione del gene ERBB2 porta a una sovraespressione della proteina HER2, un recettore tirosin-chinasi che guida la proliferazione cellulare e la sopravvivenza tumorale.\n\n2. Terapia raccomandata: Per il trattamento di prima linea in pazienti con tumore al seno HER2-positivo, lo standard di cura prevede l'uso di una terapia combinata che include un agente anti-HER2 (Trastuzumab) associato a chemioterapia (solitamente taxani). In contesti specifici, l'aggiunta di Pertuzumab potenzia l'inibizione del signaling di HER2 [PMID: 20125250]. Per i pazienti con malattia metastatica, il regime TCHP (Docetaxel, Carboplatin, Pertuzumab, Trastuzumab) è ampiamente raccomandato [PMID: 25735160].\n\n3. Resistenze: I meccanismi di resistenza comuni includono l'emergenza di mutazioni nel dominio chinasico di ERBB2, l'attivazione di pathway alternativi (come PI3K/AKT/mTOR) o la perdita di espressione di HER2 [PMID: 15671841]. In particolare, mutazioni in PIK3CA possono ridurre la risposta ai trattamenti anti-HER2.\n\n4. Trial: Trial clinici recenti hanno esplorato l'uso di Antibody-Drug Conjugates (ADC). Il trial DESTINY-Breast01 ha dimostrato l'efficacia di Trastuzumab deruxtecan in pazienti con HER2-positivo precedentemente trattate, definendo un nuovo standard per le linee successive [PMID: 32054110].",
+      "recommended_drugs": [
+        "Trastuzumab",
+        "Pertuzumab",
+        "Docetaxel",
+        "Carboplatin"
+      ],
+      "citations": [
+        "20125250",
+        "25735160",
+        "15671841",
+        "32054110"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-005",
+    "gene": "BRCA1",
+    "variant": "Mutation",
+    "tumor": "Ovarian Cancer",
+    "expected_drug": "Olaparib",
+    "t_generation_sec": 12.19,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nIl paziente presenta una mutazione germinale o somatica del gene BRCA1 in un contesto di carcinoma ovarico. Le mutazioni di BRCA1 compromettono la riparazione del DNA tramite ricombinazione omologa (HRR), rendendo il tumore particolarmente sensibile agli inibitori di PARP (PARP inhibitors).\\n\\n2. TERAPIA RACCOMANDATA\\nPer il carcinoma ovarico in prima linea con mutazione BRCA1, l'attuale standard terapeutico prevede l'integrazione di un inibitore di PARP dopo il completamento della chemioterapia basata su platino. \\n- Olaparib: Indicato come terapia di mantenimento per pazienti con mutazione BRCA1/2 [PMID: 29274144].\\n- Niraparib: Indicato per il mantenimento in pazienti con mutazione BRCA [PMID: 31132211].\\n- Alternativamente, l'associazione di Bevacizumab con chemioterapia citotossica può essere considerata in base al rischio di recidiva e allo stato del biomarcatore [PMID: 25253338].\\n\\n3. RESISTENZE\\nLa resistenza agli inibitori di PARP può emergere attraverso diverse meccanze, tra cui:\\n- Mutazioni di reversione nel gene BRCA1, che ripristinano la cornice di lettura originale e la funzione di riparazione HRR [PMID: 26333354].\\n- Alterazioni della pompa di efflusso dei farmaci o modifiche nella via di segnalazione di ATR/ATM [PMID: 30423145].\\n\\n4. TRIAL\\n- Studio SOLO: Ha dimostrato una riduzione significativa del rischio di progressione e della mortalità complessiva con Olaparib in pazienti BRCA-mutate [PMID: 29274144].\\n- Studio PRIMA: Ha evidenziato l'efficacia di Niraparib nel mantenimento di prima linea indipendentemente dallo stato BRCA, sebbene con beneficio maggiore nei pazienti mutati [PMID: 31132211].\",\n  \"recommended_drugs\": [\n    \"Olaparib\",\n    \"Niraparib\",\n    \"Bevacizumab\"\n  ],\n  \"citations\": [\n    \"29274144\",\n    \"31132211\",\n    \"25253338\",\n    \"26333354\",\n    \"30423145\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nIl paziente presenta una mutazione germinale o somatica del gene BRCA1 in un contesto di carcinoma ovarico. Le mutazioni di BRCA1 compromettono la riparazione del DNA tramite ricombinazione omologa (HRR), rendendo il tumore particolarmente sensibile agli inibitori di PARP (PARP inhibitors).\n\n2. TERAPIA RACCOMANDATA\nPer il carcinoma ovarico in prima linea con mutazione BRCA1, l'attuale standard terapeutico prevede l'integrazione di un inibitore di PARP dopo il completamento della chemioterapia basata su platino. \n- Olaparib: Indicato come terapia di mantenimento per pazienti con mutazione BRCA1/2 [PMID: 29274144].\n- Niraparib: Indicato per il mantenimento in pazienti con mutazione BRCA [PMID: 31132211].\n- Alternativamente, l'associazione di Bevacizumab con chemioterapia citotossica può essere considerata in base al rischio di recidiva e allo stato del biomarcatore [PMID: 25253338].\n\n3. RESISTENZE\nLa resistenza agli inibitori di PARP può emergere attraverso diverse meccanze, tra cui:\n- Mutazioni di reversione nel gene BRCA1, che ripristinano la cornice di lettura originale e la funzione di riparazione HRR [PMID: 26333354].\n- Alterazioni della pompa di efflusso dei farmaci o modifiche nella via di segnalazione di ATR/ATM [PMID: 30423145].\n\n4. TRIAL\n- Studio SOLO: Ha dimostrato una riduzione significativa del rischio di progressione e della mortalità complessiva con Olaparib in pazienti BRCA-mutate [PMID: 29274144].\n- Studio PRIMA: Ha evidenziato l'efficacia di Niraparib nel mantenimento di prima linea indipendentemente dallo stato BRCA, sebbene con beneficio maggiore nei pazienti mutati [PMID: 31132211].",
+      "recommended_drugs": [
+        "Olaparib",
+        "Niraparib",
+        "Bevacizumab"
+      ],
+      "citations": [
+        "29274144",
+        "31132211",
+        "25253338",
+        "26333354",
+        "30423145"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-006",
+    "gene": "ABL1",
+    "variant": "BCR-ABL1 Fusion",
+    "tumor": "CML",
+    "expected_drug": "Imatinib",
+    "t_generation_sec": 6.44,
+    "raw_response": "{\n  \"report_text\": \"### Report Molecular Tumor Board\\n\\n**1. Variante**\\nIl paziente presenta una fusione BCR-ABL1, patognomonica per la Leucemia Mieloide Cronica (LMC). Questa fusione crea una tirosin-chinasi costitutivamente attiva che guida la proliferazione mieloide incontrollata [PMID: 11311232].\\n\\n**2. Terapia raccomandata**\\nPer i pazienti in prima linea, i farmaci di scelta sono gli inibitori delle tirosin-chinasi (TKI) di prima generazione o di seconda generazione. L'Imatinib rimane lo standard storico, ma i TKI di seconda generazione come Nilotinib e Dasatinib sono raccomandati per ottenere una risposta più rapida e profonda, specialmente in pazienti a rischio intermedio o elevato secondo i criteri SATESO/ELN [PMID: 23834314]. In alternativa, Bosutinib rappresenta un'ulteriore opzione di prima linea [PMID: 20473131].\\n\\n**3. Resistenze**\\nLa resistenza ai TKI è primariamente guidata da mutazioni puntiformi nel dominio chinasico di ABL, come la mutazione T315I, che conferisce resistenza a tutti i TKI di prima e seconda generazione [PMID: 17251951]. In caso di progressione o insorgenza di T315I, l'utilizzo di Ponatinib o l'approvazione recente di Asciminib (inibitore STAMP) è indicato [PMID: 33564154].\\n\\n**4. Trial**\\nStudi clinici comparativi (come l'ENEST study) hanno dimostrato che i TKI di seconda generazione offrono tassi di risposta molecolare più elevati rispetto all'Imatinib [PMID: 20462415]. Trial recenti si focalizzano sulla 'Treatment Free Remission' (TFR) per i pazienti che raggiungono una risposta molecolare profonda stabile [PMID: 25543333].\",\n  \"recommended_drugs\": [\n    \"Imatinib\",\n    \"Nilotinib\",\n    \"Dasatinib\",\n    \"Bosutinib\"\n  ],\n  \"citations\": [\n    \"11311232\",\n    \"23834314\",\n    \"20473131\",\n    \"17251951\",\n    \"33564154\",\n    \"20462415\",\n    \"25543333\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "### Report Molecular Tumor Board\n\n**1. Variante**\nIl paziente presenta una fusione BCR-ABL1, patognomonica per la Leucemia Mieloide Cronica (LMC). Questa fusione crea una tirosin-chinasi costitutivamente attiva che guida la proliferazione mieloide incontrollata [PMID: 11311232].\n\n**2. Terapia raccomandata**\nPer i pazienti in prima linea, i farmaci di scelta sono gli inibitori delle tirosin-chinasi (TKI) di prima generazione o di seconda generazione. L'Imatinib rimane lo standard storico, ma i TKI di seconda generazione come Nilotinib e Dasatinib sono raccomandati per ottenere una risposta più rapida e profonda, specialmente in pazienti a rischio intermedio o elevato secondo i criteri SATESO/ELN [PMID: 23834314]. In alternativa, Bosutinib rappresenta un'ulteriore opzione di prima linea [PMID: 20473131].\n\n**3. Resistenze**\nLa resistenza ai TKI è primariamente guidata da mutazioni puntiformi nel dominio chinasico di ABL, come la mutazione T315I, che conferisce resistenza a tutti i TKI di prima e seconda generazione [PMID: 17251951]. In caso di progressione o insorgenza di T315I, l'utilizzo di Ponatinib o l'approvazione recente di Asciminib (inibitore STAMP) è indicato [PMID: 33564154].\n\n**4. Trial**\nStudi clinici comparativi (come l'ENEST study) hanno dimostrato che i TKI di seconda generazione offrono tassi di risposta molecolare più elevati rispetto all'Imatinib [PMID: 20462415]. Trial recenti si focalizzano sulla 'Treatment Free Remission' (TFR) per i pazienti che raggiungono una risposta molecolare profonda stabile [PMID: 25543333].",
+      "recommended_drugs": [
+        "Imatinib",
+        "Nilotinib",
+        "Dasatinib",
+        "Bosutinib"
+      ],
+      "citations": [
+        "11311232",
+        "23834314",
+        "20473131",
+        "17251951",
+        "33564154",
+        "20462415",
+        "25543333"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-007",
+    "gene": "BRAF",
+    "variant": "V600E",
+    "tumor": "Colorectal Cancer",
+    "expected_drug": "Encorafenib+Cetuximab",
+    "t_generation_sec": 5.34,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: BRAF V600E nel tumore del colon-retto (CRC). Questa mutazione è associata a una prognosi peggiore e a una risposta limitata agli inibitori di BRAF in monoterapia a causa del feedback attivatorio di EGFR.\\n\\n2. Terapia raccomandata: Per i pazienti con CRC BRAF V600E in prima linea, l'attuale standard di cura prevede la combinazione di chemioterapia (FOLFOX o FOLFIRI) associata a un anticorpo anti-EGFR (Cetuximab o Panitumumab) e un inibitore di BRAF (Encorafenib). Questo approccio, validato dallo studio BEACON, ha dimostrato un miglioramento significativo della sopravvivenza libera da progressione e della sopravvivenza globale rispetto alla sola combinazione di BRAF-inibitore e anti-EGFR [PMID: 32334560]. In alternativa, in contesti specifici, può essere considerato il regime doublet di chemioterapia più anti-EGFR, sebbene l'aggiunta di Encorafenib sia oggi preferibile [PMID: 32334560].\\n\\n3. Resistenze: La resistenza principale è legata alla riattivazione della via delle MAPK attraverso il loop di feedback EGFR-KRAS. L'uso di inibitori di BRAF in monoterapia è pertanto inefficace nel CRC. Ulteriori meccanze di resistenza includono mutazioni acquisite in MEK o l'attivazione della via PI3K/AKT [PMID: 28434182].\\n\\n4. Trial: Si raccomanda il monitoraggio di studi che esplorano l'integrazione di immunoterapia (anti-PD1/PD-L1) in pazienti con BRAF V600E e instabilità microsatellitare (MSI-H), dove l'efficacia dei checkpoint inhibitor è significativamente superiore [PMID: 30011645].\",\n  \"recommended_drugs\": [\n    \"Encorafenib\",\n    \"Cetuximab\",\n    \"Panitumumab\",\n    \"Oxaliplatino\",\n    \"Irinotecano\"\n  ],\n  \"citations\": [\n    \"32334560\",\n    \"28434182\",\n    \"30011645\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: BRAF V600E nel tumore del colon-retto (CRC). Questa mutazione è associata a una prognosi peggiore e a una risposta limitata agli inibitori di BRAF in monoterapia a causa del feedback attivatorio di EGFR.\n\n2. Terapia raccomandata: Per i pazienti con CRC BRAF V600E in prima linea, l'attuale standard di cura prevede la combinazione di chemioterapia (FOLFOX o FOLFIRI) associata a un anticorpo anti-EGFR (Cetuximab o Panitumumab) e un inibitore di BRAF (Encorafenib). Questo approccio, validato dallo studio BEACON, ha dimostrato un miglioramento significativo della sopravvivenza libera da progressione e della sopravvivenza globale rispetto alla sola combinazione di BRAF-inibitore e anti-EGFR [PMID: 32334560]. In alternativa, in contesti specifici, può essere considerato il regime doublet di chemioterapia più anti-EGFR, sebbene l'aggiunta di Encorafenib sia oggi preferibile [PMID: 32334560].\n\n3. Resistenze: La resistenza principale è legata alla riattivazione della via delle MAPK attraverso il loop di feedback EGFR-KRAS. L'uso di inibitori di BRAF in monoterapia è pertanto inefficace nel CRC. Ulteriori meccanze di resistenza includono mutazioni acquisite in MEK o l'attivazione della via PI3K/AKT [PMID: 28434182].\n\n4. Trial: Si raccomanda il monitoraggio di studi che esplorano l'integrazione di immunoterapia (anti-PD1/PD-L1) in pazienti con BRAF V600E e instabilità microsatellitare (MSI-H), dove l'efficacia dei checkpoint inhibitor è significativamente superiore [PMID: 30011645].",
+      "recommended_drugs": [
+        "Encorafenib",
+        "Cetuximab",
+        "Panitumumab",
+        "Oxaliplatino",
+        "Irinotecano"
+      ],
+      "citations": [
+        "32334560",
+        "28434182",
+        "30011645"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-008",
+    "gene": "PIK3CA",
+    "variant": "Mutation",
+    "tumor": "Breast Cancer HR+",
+    "expected_drug": "Alpelisib+Fulvestrant",
+    "t_generation_sec": 5.32,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: È stata identificata una mutazione attivante del gene PIK3CA in un contesto di carcinoma mammario. Le mutazioni di PIK3CA (comuni nei domini p110α) portano a un'iperattivazione della via PI3K/AKT/mTOR, guidando la proliferazione cellulare e la resistenza apoptotica.\\n\\n2. Terapia raccomandata: Per pazienti con carcinoma mammario HR+/HER2- che presentano mutazioni di PIK3CA, l'aggiunta di Alpelisib a un regime di inibizione endocrina (es. Fulvestrant) è raccomandata in seconda linea o successiva, dopo progressione con inibitori dell'aromatasi o fulvestrant [PMID: 29840332]. In prima linea, il gold standard rimane la terapia endocrina associata a inibitori di CDK4/6 (Palbociclib, Ribociclib, Abemaciclib), indipendentemente dallo stato di PIK3CA, sebbene la mutazione possa influenzare la risposta a lungo termine [PMID: 31455111].\\n\\n3. Resistenze: La resistenza agli inibitori di PI3K come Alpelisib può emergere attraverso mutazioni secondarie nel sito di legame del farmaco o tramite l'attivazione di vie bypass parallele, come la via MAPK o l'iperespressione di recettori RTK [PMID: 32458201]. L'iperglicemia è un effetto collaterale comune che può limitare la dose e l'efficacia del trattamento.\\n\\n4. Trial: Il trial SOLAR-1 ha dimostrato l'efficacia di Alpelisib in combinazione con Fulvestrant specificamente in pazienti con mutazioni PIK3CA o PTEN [PMID: 29840332]. Studi recenti esplorano l'uso di inibitori di PI3K di nuova generazione o l'integrazione precoce di inibitori di mTOR in combinazione con terapie endocrine [PMID: 33038457].\",\n  \"recommended_drugs\": [\"Alpelisib\", \"Fulvestrant\", \"Palbociclib\", \"Ribociclib\", \"Abemaciclib\"],\n  \"citations\": [\"29840332\", \"31455111\", \"32458201\", \"33038457\"]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: È stata identificata una mutazione attivante del gene PIK3CA in un contesto di carcinoma mammario. Le mutazioni di PIK3CA (comuni nei domini p110α) portano a un'iperattivazione della via PI3K/AKT/mTOR, guidando la proliferazione cellulare e la resistenza apoptotica.\n\n2. Terapia raccomandata: Per pazienti con carcinoma mammario HR+/HER2- che presentano mutazioni di PIK3CA, l'aggiunta di Alpelisib a un regime di inibizione endocrina (es. Fulvestrant) è raccomandata in seconda linea o successiva, dopo progressione con inibitori dell'aromatasi o fulvestrant [PMID: 29840332]. In prima linea, il gold standard rimane la terapia endocrina associata a inibitori di CDK4/6 (Palbociclib, Ribociclib, Abemaciclib), indipendentemente dallo stato di PIK3CA, sebbene la mutazione possa influenzare la risposta a lungo termine [PMID: 31455111].\n\n3. Resistenze: La resistenza agli inibitori di PI3K come Alpelisib può emergere attraverso mutazioni secondarie nel sito di legame del farmaco o tramite l'attivazione di vie bypass parallele, come la via MAPK o l'iperespressione di recettori RTK [PMID: 32458201]. L'iperglicemia è un effetto collaterale comune che può limitare la dose e l'efficacia del trattamento.\n\n4. Trial: Il trial SOLAR-1 ha dimostrato l'efficacia di Alpelisib in combinazione con Fulvestrant specificamente in pazienti con mutazioni PIK3CA o PTEN [PMID: 29840332]. Studi recenti esplorano l'uso di inibitori di PI3K di nuova generazione o l'integrazione precoce di inibitori di mTOR in combinazione con terapie endocrine [PMID: 33038457].",
+      "recommended_drugs": [
+        "Alpelisib",
+        "Fulvestrant",
+        "Palbociclib",
+        "Ribociclib",
+        "Abemaciclib"
+      ],
+      "citations": [
+        "29840332",
+        "31455111",
+        "32458201",
+        "33038457"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-009",
+    "gene": "KIT",
+    "variant": "Exon 11 Mutation",
+    "tumor": "GIST",
+    "expected_drug": "Imatinib",
+    "t_generation_sec": 12.37,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: È stata identificata una mutazione atipica dell'esone 11 del gene KIT in un contesto di Tumore Stromale Gastrointestinale (GIST). Le mutazioni dell'esone 11 sono le più comuni nei GIST e generalmente conferiscono un'elevata sensibilità agli inibitori delle tirosin-chinasi (TKI) [PMID: 11045127].\\n\\n2. Terapia raccomandata: Per i GIST in prima linea con mutazioni dell'esone 11, il gold standard terapeutico è l'Imatinib. I pazienti con mutazioni in questo dominio mostrano tassi di risposta eccellenti e una significativa riduzione della massa tumorale [PMID: 15543367]. Il dosaggio standard è tipicamente di 400 mg/die.\\n\\n3. Resistenze: La resistenza primaria o secondaria all'Imatinib può svilupparsi attraverso mutazioni secondarie. Nei casi di mutazione dell'esone 11, le resistenze comuni includono mutazioni secondarie nello stesso esone o nell'esone 13 o 17 di KIT [PMID: 16171343]. In caso di progressione, l'uso di Sunitinib è l'opzione di seconda linea raccomandata [PMID: 17210234].\\n\\n4. Trial: Studi clinici hanno confermato l'efficacia dell'Imatinib come terapia standard, riducendo drasticamente la necessità di interventi chirurgici citoreduttivi in pazienti con malattia avanzata [PMID: 11343367]. Trial più recenti esplorano combinazioni con agenti anti-angiogenici o nuovi inibitori di quarta generazione per superare le resistenze acquisite.\",\n  \"recommended_drugs\": [\"Imatinib\", \"Sunitinib\"],\n  \"citations\": [\"11045127\", \"15543367\", \"16171343\", \"17210234\", \"11343367\"]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: È stata identificata una mutazione atipica dell'esone 11 del gene KIT in un contesto di Tumore Stromale Gastrointestinale (GIST). Le mutazioni dell'esone 11 sono le più comuni nei GIST e generalmente conferiscono un'elevata sensibilità agli inibitori delle tirosin-chinasi (TKI) [PMID: 11045127].\n\n2. Terapia raccomandata: Per i GIST in prima linea con mutazioni dell'esone 11, il gold standard terapeutico è l'Imatinib. I pazienti con mutazioni in questo dominio mostrano tassi di risposta eccellenti e una significativa riduzione della massa tumorale [PMID: 15543367]. Il dosaggio standard è tipicamente di 400 mg/die.\n\n3. Resistenze: La resistenza primaria o secondaria all'Imatinib può svilupparsi attraverso mutazioni secondarie. Nei casi di mutazione dell'esone 11, le resistenze comuni includono mutazioni secondarie nello stesso esone o nell'esone 13 o 17 di KIT [PMID: 16171343]. In caso di progressione, l'uso di Sunitinib è l'opzione di seconda linea raccomandata [PMID: 17210234].\n\n4. Trial: Studi clinici hanno confermato l'efficacia dell'Imatinib come terapia standard, riducendo drasticamente la necessità di interventi chirurgici citoreduttivi in pazienti con malattia avanzata [PMID: 11343367]. Trial più recenti esplorano combinazioni con agenti anti-angiogenici o nuovi inibitori di quarta generazione per superare le resistenze acquisite.",
+      "recommended_drugs": [
+        "Imatinib",
+        "Sunitinib"
+      ],
+      "citations": [
+        "11045127",
+        "15543367",
+        "16171343",
+        "17210234",
+        "11343367"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-010",
+    "gene": "FLT3",
+    "variant": "ITD",
+    "tumor": "AML",
+    "expected_drug": "Gilteritinib",
+    "t_generation_sec": 6.06,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: È stata identificata una mutazione FLT3-ITD (Internal Tandem Duplication) in un paziente con Leucemia Mieloide Acuta (AML). Questa variante è associata a una prognosi sfavorevole e a un elevato rischio di recidiva se trattata con sola chemioterapia standard. 2. Terapia raccomandata: Per la prima linea di trattamento, il gold standard attuale prevede l'aggiunta di un inibitore di FLT3 (FLT3i) alla chemioterapia di induzione standard (7+3). Midostaurina è approvata e raccomandata per pazienti FLT3-mutati in prima linea [PMID: 26743325]. In alternativa, per pazienti eleggibili al trapianto di cellule staminali, Gilteritinib può essere considerato in contesti specifici o in seconda linea, sebbene l'uso in combinazione in prima linea sia oggetto di studi [PMID: 30530163]. 3. Resistenze: Le resistenze comuni includono l'insorgenza di mutazioni secondarie nel dominio chinasico di FLT3 (es. D835) o l'attivazione di vie alternative come RAS/MAPK. 4. Trial: Studi clinici recenti valutano combinazioni di inibitori di nuova generazione (come Gilteritinib o Quizartinib) con agenti ipometilanti o chemioterapici per superare la resistenza intrinseca e migliorare la sopravvivenza libera da malattia [PMID: 33022411].\",\n  \"recommended_drugs\": [\"Midostaurina\", \"Gilteritinib\"],\n  \"citations\": [\"26743325\", \"30530163\", \"33022411\"]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: È stata identificata una mutazione FLT3-ITD (Internal Tandem Duplication) in un paziente con Leucemia Mieloide Acuta (AML). Questa variante è associata a una prognosi sfavorevole e a un elevato rischio di recidiva se trattata con sola chemioterapia standard. 2. Terapia raccomandata: Per la prima linea di trattamento, il gold standard attuale prevede l'aggiunta di un inibitore di FLT3 (FLT3i) alla chemioterapia di induzione standard (7+3). Midostaurina è approvata e raccomandata per pazienti FLT3-mutati in prima linea [PMID: 26743325]. In alternativa, per pazienti eleggibili al trapianto di cellule staminali, Gilteritinib può essere considerato in contesti specifici o in seconda linea, sebbene l'uso in combinazione in prima linea sia oggetto di studi [PMID: 30530163]. 3. Resistenze: Le resistenze comuni includono l'insorgenza di mutazioni secondarie nel dominio chinasico di FLT3 (es. D835) o l'attivazione di vie alternative come RAS/MAPK. 4. Trial: Studi clinici recenti valutano combinazioni di inibitori di nuova generazione (come Gilteritinib o Quizartinib) con agenti ipometilanti o chemioterapici per superare la resistenza intrinseca e migliorare la sopravvivenza libera da malattia [PMID: 33022411].",
+      "recommended_drugs": [
+        "Midostaurina",
+        "Gilteritinib"
+      ],
+      "citations": [
+        "26743325",
+        "30530163",
+        "33022411"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-011",
+    "gene": "EGFR",
+    "variant": "T790M",
+    "tumor": "NSCLC",
+    "expected_drug": "Osimertinib",
+    "t_generation_sec": 7.83,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nIl paziente presenta una mutazione puntiforme T790M nel gene EGFR, localizzata nel dominio chinasico. Questa variante è classicamente associata a resistenza acquisita agli inibitori di prima e seconda generazione (come Gefitinib o Erlotinib), ma se presente in prima linea definisce un profilo di sensibilità specifico per i farmaci di terza generazione.\\n\\n2. TERAPIA RACCOMANDATA\\nIl gold standard per il trattamento di adenocarcinomi polmonari con mutazione T790M è l'impiego di Osimertinib, un inibitore irreversibile di terza generazione che mira specificamente alla mutazione T790M e alle mutazioni attivanti (come L858R o del19) risparmiando l'EGFR wild-type [PMID: 29240540]. In prima linea, Osimertinib ha dimostrato una superiorità in termini di sopravvivenza libera da progressione (PFS) rispetto a 치료 standard con TKI di prima generazione [PMID: 28901611].\\n\\n3. RESISTENZE\\nLa resistenza a Osimertinib può emergere attraverso diversi meccanismi: \\n- Mutazioni terziarie del sito di legame, in particolare la mutazione C797S, che impedisce il legame covalente del farmaco [PMID: 29326714].\\n- Bypass di attivazione di altre vie di segnalazione, come l'amplificazione di MET o l'attivazione di HER2 [PMID: 30142341].\\n- Trasformazione istologica in carcinoma a piccole cellule (SCLC) [PMID: 27313254].\\n\\n4. TRIAL\\n- Studio FLAURA: Ha confermato l'efficacia di Osimertinib in prima linea rispetto a Erlotinib o Gefitinib, mostrando un miglioramento significativo della PFS e della sopravvivenza globale (OS) [PMID: 30203014].\\n- Studio AURA3: Ha validato l'uso di Osimertinib in pazienti che hanno sviluppato la mutazione T790M dopo fallimento di TKI di prima generazione [PMID: 25946281].\",\n  \"recommended_drugs\": [\n    \"Osimertinib\"\n  ],\n  \"citations\": [\n    \"29240540\",\n    \"28901611\",\n    \"29326714\",\n    \"30142341\",\n    \"27313254\",\n    \"30203014\",\n    \"25946281\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nIl paziente presenta una mutazione puntiforme T790M nel gene EGFR, localizzata nel dominio chinasico. Questa variante è classicamente associata a resistenza acquisita agli inibitori di prima e seconda generazione (come Gefitinib o Erlotinib), ma se presente in prima linea definisce un profilo di sensibilità specifico per i farmaci di terza generazione.\n\n2. TERAPIA RACCOMANDATA\nIl gold standard per il trattamento di adenocarcinomi polmonari con mutazione T790M è l'impiego di Osimertinib, un inibitore irreversibile di terza generazione che mira specificamente alla mutazione T790M e alle mutazioni attivanti (come L858R o del19) risparmiando l'EGFR wild-type [PMID: 29240540]. In prima linea, Osimertinib ha dimostrato una superiorità in termini di sopravvivenza libera da progressione (PFS) rispetto a 치료 standard con TKI di prima generazione [PMID: 28901611].\n\n3. RESISTENZE\nLa resistenza a Osimertinib può emergere attraverso diversi meccanismi: \n- Mutazioni terziarie del sito di legame, in particolare la mutazione C797S, che impedisce il legame covalente del farmaco [PMID: 29326714].\n- Bypass di attivazione di altre vie di segnalazione, come l'amplificazione di MET o l'attivazione di HER2 [PMID: 30142341].\n- Trasformazione istologica in carcinoma a piccole cellule (SCLC) [PMID: 27313254].\n\n4. TRIAL\n- Studio FLAURA: Ha confermato l'efficacia di Osimertinib in prima linea rispetto a Erlotinib o Gefitinib, mostrando un miglioramento significativo della PFS e della sopravvivenza globale (OS) [PMID: 30203014].\n- Studio AURA3: Ha validato l'uso di Osimertinib in pazienti che hanno sviluppato la mutazione T790M dopo fallimento di TKI di prima generazione [PMID: 25946281].",
+      "recommended_drugs": [
+        "Osimertinib"
+      ],
+      "citations": [
+        "29240540",
+        "28901611",
+        "29326714",
+        "30142341",
+        "27313254",
+        "30203014",
+        "25946281"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-012",
+    "gene": "KRAS",
+    "variant": "G12C",
+    "tumor": "NSCLC",
+    "expected_drug": "Sotorasib",
+    "t_generation_sec": 13.39,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: KRAS G12C (mutazione puntiforme), identificata in un adenocarcinoma polmonare. Questa variante rappresenta un target terapeutico specifico e validato.\\n\\n2. Terapia raccomandata: Per l'adenocarcinoma polmonare con mutazione KRAS G12C, i farmaci approvati e raccomandati sono Sotorasib e Adagrasib. Sotorasib è indicato per pazienti che hanno precedentemente ricevuto chemio-immunoterapia [PMID: 33834420]. Adagrasib ha mostrato un'efficacia significativa in termini di tasso di risposta obiettiva e sopravvivenza libera da progressione in pazienti con NSCLC KRAS G12C-mutato [PMID: 34461333]. Sebbene il paziente sia in first-line, l'attuale standard prevede generalmente l'immunoterapia combinata a chemio, riservando gli inibitori di KRAS G12C alle linee successive; tuttavia, l'uso precoce è oggetto di studio.\\n\\n3. Resistenze: I meccanismi di resistenza agli inibitori di KRAS G12C includono l'acquisizione di ulteriori mutazioni nel gene KRAS (es. Y64, H95) o l'attivazione di bypass attraverso vie di segnalazione alternative come MAPK, EGFR o MET [PMID: 35113117].\\n\\n4. Trial: Sono in corso numerosi studi clinici per valutare la combinazione di inibitori di KRAS G12C con anticorpi anti-PD-1/PD-L1 o inibitori di SHP2 e SOS1 per superare le resistenze acquisite e potenziare la risposta iniziale [PMID: 36015845].\",\n  \"recommended_drugs\": [\n    \"Sotorasib\",\n    \"Adagrasib\"\n  ],\n  \"citations\": [\n    \"33834420\",\n    \"34461333\",\n    \"35113117\",\n    \"36015845\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: KRAS G12C (mutazione puntiforme), identificata in un adenocarcinoma polmonare. Questa variante rappresenta un target terapeutico specifico e validato.\n\n2. Terapia raccomandata: Per l'adenocarcinoma polmonare con mutazione KRAS G12C, i farmaci approvati e raccomandati sono Sotorasib e Adagrasib. Sotorasib è indicato per pazienti che hanno precedentemente ricevuto chemio-immunoterapia [PMID: 33834420]. Adagrasib ha mostrato un'efficacia significativa in termini di tasso di risposta obiettiva e sopravvivenza libera da progressione in pazienti con NSCLC KRAS G12C-mutato [PMID: 34461333]. Sebbene il paziente sia in first-line, l'attuale standard prevede generalmente l'immunoterapia combinata a chemio, riservando gli inibitori di KRAS G12C alle linee successive; tuttavia, l'uso precoce è oggetto di studio.\n\n3. Resistenze: I meccanismi di resistenza agli inibitori di KRAS G12C includono l'acquisizione di ulteriori mutazioni nel gene KRAS (es. Y64, H95) o l'attivazione di bypass attraverso vie di segnalazione alternative come MAPK, EGFR o MET [PMID: 35113117].\n\n4. Trial: Sono in corso numerosi studi clinici per valutare la combinazione di inibitori di KRAS G12C con anticorpi anti-PD-1/PD-L1 o inibitori di SHP2 e SOS1 per superare le resistenze acquisite e potenziare la risposta iniziale [PMID: 36015845].",
+      "recommended_drugs": [
+        "Sotorasib",
+        "Adagrasib"
+      ],
+      "citations": [
+        "33834420",
+        "34461333",
+        "35113117",
+        "36015845"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-013",
+    "gene": "ALK",
+    "variant": "G1202R",
+    "tumor": "NSCLC",
+    "expected_drug": "Lorlatinib",
+    "t_generation_sec": 6.18,
+    "raw_response": "{\n  \"report_text\": \"ANALISI MOLECULAR TUMOR BOARD\\n\\n1. Variante\\nIl paziente presenta una mutazione puntiforme G1202R nel gene ALK (Anaplastic Lymphoma Kinase) in un adenocarcinoma polmonare. Questa specifica variante è riconosciuta come la mutazione di resistenza più comune agli inibitori di ALK di prima e seconda generazione (come Crizotinib e Ceritinib), localizzata nel dominio del chinasi e capace di alterare l'affinità di legame del farmaco [PMID: 31244435].\\n\\n2. Terapia raccomandata\\nPer la variante G1202R, il farmaco di scelta è Lorlatinib, un inibitore di ALK di terza generazione progettato specificamente per superare le mutazioni di resistenza, inclusa la G1202R, grazie alla sua elevata affinità e capacità di attraversare la barriera emato-encefalica [PMID: 30344104]. In alternativa, in contesti di progressione, possono essere considerati trial clinici con nuovi inibitori di ALK di prossima generazione.\\n\\n3. Resistenze\\nLa mutazione G1202R conferisce una resistenza intrinseca o acquisita a Crizotinib, Alectinib, Brigatinib e Ceritinib [PMID: 29285748]. Il monitoraggio della risposta a Lorlatinib è fondamentale per identificare l'eventuale insorgenza di mutazioni composite (compound mutations) che potrebbero ulteriormente ridurre la sensibilità ai farmaci disponibili.\\n\\n4. Trial\\nSi raccomanda l'inserimento in trial clinici che valutano inibitori di ALK di quarta generazione o combinazioni terapeutiche per pazienti che hanno sviluppato resistenze a Lorlatinib [PMID: 33453331].\",\n  \"recommended_drugs\": [\n    \"Lorlatinib\"\n  ],\n  \"citations\": [\n    \"31244435\",\n    \"30344104\",\n    \"29285748\",\n    \"33453331\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "ANALISI MOLECULAR TUMOR BOARD\n\n1. Variante\nIl paziente presenta una mutazione puntiforme G1202R nel gene ALK (Anaplastic Lymphoma Kinase) in un adenocarcinoma polmonare. Questa specifica variante è riconosciuta come la mutazione di resistenza più comune agli inibitori di ALK di prima e seconda generazione (come Crizotinib e Ceritinib), localizzata nel dominio del chinasi e capace di alterare l'affinità di legame del farmaco [PMID: 31244435].\n\n2. Terapia raccomandata\nPer la variante G1202R, il farmaco di scelta è Lorlatinib, un inibitore di ALK di terza generazione progettato specificamente per superare le mutazioni di resistenza, inclusa la G1202R, grazie alla sua elevata affinità e capacità di attraversare la barriera emato-encefalica [PMID: 30344104]. In alternativa, in contesti di progressione, possono essere considerati trial clinici con nuovi inibitori di ALK di prossima generazione.\n\n3. Resistenze\nLa mutazione G1202R conferisce una resistenza intrinseca o acquisita a Crizotinib, Alectinib, Brigatinib e Ceritinib [PMID: 29285748]. Il monitoraggio della risposta a Lorlatinib è fondamentale per identificare l'eventuale insorgenza di mutazioni composite (compound mutations) che potrebbero ulteriormente ridurre la sensibilità ai farmaci disponibili.\n\n4. Trial\nSi raccomanda l'inserimento in trial clinici che valutano inibitori di ALK di quarta generazione o combinazioni terapeutiche per pazienti che hanno sviluppato resistenze a Lorlatinib [PMID: 33453331].",
+      "recommended_drugs": [
+        "Lorlatinib"
+      ],
+      "citations": [
+        "31244435",
+        "30344104",
+        "29285748",
+        "33453331"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-014",
+    "gene": "ABL1",
+    "variant": "T315I",
+    "tumor": "CML",
+    "expected_drug": "Ponatinib",
+    "t_generation_sec": 8.96,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nÈ stata identificata la mutazione ABL1 T315I in un paziente con Leucemia Mieloide Cronica (CML). La sostituzione della treonina con l'isoleucina nella posizione 315 (il cosiddetto 'gatekeeper residue') altera il sito di legame dell'ATP, conferendo resistenza a quasi tutti gli inibitori delle tirosin-chinasi (TKI) di prima e seconda generazione. [PMID: 17236234]\\n\\n2. TERAPIA RACCOMANDATA\\nLa terapia d'elezione per la mutazione T315I è l'impiego di Ponatinib, un TKI di terza generazione progettato specificamente per superare l'ingombro sterico creato dalla mutazione T315I. [PMID: 23428501]. In alternativa, per pazienti non candidabili a Ponatinib o in progressione, Asciminib rappresenta un'opzione terapeutica innovativa agendo come inibitore allosterico del sito mirgenico (STAMP), efficace indipendentemente dalla presenza della mutazione T315I. [PMID: 32429151]\\n\\n3. RESISTENZE\\nLa variante T315I conferisce resistenza intrinseca a Imatinib, Nilotinib, Dasatinib e Bosutinib. L'uso di questi farmaci in presenza di T315I non è efficace e non è raccomandato. [PMID: 17236234]\\n\\n4. TRIAL\\nIl trial PACE ha dimostrato che Ponatinib induce risposte profonde e durature in pazienti CML con mutazione T315I o resistenti a più TKI [PMID: 23428501]. Il trial ASSIMILE ha valutato l'efficacia di Asciminib in pazienti con T315I, mostrando tassi di risposta significativi sia in monoterapia che in combinazione con altri agenti [PMID: 32429151].\",\n  \"recommended_drugs\": [\n    \"Ponatinib\",\n    \"Asciminib\"\n  ],\n  \"citations\": [\n    \"17236234\",\n    \"23428501\",\n    \"32429151\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nÈ stata identificata la mutazione ABL1 T315I in un paziente con Leucemia Mieloide Cronica (CML). La sostituzione della treonina con l'isoleucina nella posizione 315 (il cosiddetto 'gatekeeper residue') altera il sito di legame dell'ATP, conferendo resistenza a quasi tutti gli inibitori delle tirosin-chinasi (TKI) di prima e seconda generazione. [PMID: 17236234]\n\n2. TERAPIA RACCOMANDATA\nLa terapia d'elezione per la mutazione T315I è l'impiego di Ponatinib, un TKI di terza generazione progettato specificamente per superare l'ingombro sterico creato dalla mutazione T315I. [PMID: 23428501]. In alternativa, per pazienti non candidabili a Ponatinib o in progressione, Asciminib rappresenta un'opzione terapeutica innovativa agendo come inibitore allosterico del sito mirgenico (STAMP), efficace indipendentemente dalla presenza della mutazione T315I. [PMID: 32429151]\n\n3. RESISTENZE\nLa variante T315I conferisce resistenza intrinseca a Imatinib, Nilotinib, Dasatinib e Bosutinib. L'uso di questi farmaci in presenza di T315I non è efficace e non è raccomandato. [PMID: 17236234]\n\n4. TRIAL\nIl trial PACE ha dimostrato che Ponatinib induce risposte profonde e durature in pazienti CML con mutazione T315I o resistenti a più TKI [PMID: 23428501]. Il trial ASSIMILE ha valutato l'efficacia di Asciminib in pazienti con T315I, mostrando tassi di risposta significativi sia in monoterapia che in combinazione con altri agenti [PMID: 32429151].",
+      "recommended_drugs": [
+        "Ponatinib",
+        "Asciminib"
+      ],
+      "citations": [
+        "17236234",
+        "23428501",
+        "32429151"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-015",
+    "gene": "RET",
+    "variant": "Fusion",
+    "tumor": "NSCLC",
+    "expected_drug": "Selpercatinib",
+    "t_generation_sec": 3.79,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: È stata identificata una fusione del gene RET in un adenocarcinoma polmonare. Le fusioni di RET sono driver oncogenici rari ma targetizzabili che conferiscono un vantaggio terapeutico significativo rispetto alla chemio-immunoterapia standard.\\n\\n2. Terapia raccomandata: Per i pazienti con adenocarcinoma polmonare RET-fusion in prima linea, sono raccomandati gli inibitori selettivi di RET. Selpercatinib e Pralsetinib hanno dimostrato un'efficacia superiore in termini di tasso di risposta obiettiva (ORR) e sopravvivenza libera da progressione (PFS) rispetto agli inibitori multi-chinasi [PMID: 33022351, PMID: 33553132]. Selpercatinib è approvato per l'uso in prima linea con un profilo di tollerabilità favorevole [PMID: 33022351].\\n\\n3. Resistenze: I meccanismi di resistenza agli inibitori di RET includono tipicamente mutazioni secondarie nel dominio chinasico di RET (es. solvent front mutations come G811R o V804M) [PMID: 33841028]. In caso di progressione, è indicata una nuova biopsia o analisi liquida per caratterizzare la resistenza.\\n\\n4. Trial: Sono in corso studi per valutare l'efficacia di nuove generazioni di inibitori di RET e combinazioni terapeutiche per superare le resistenze acquisite [PMID: 33841028].\",\n  \"recommended_drugs\": [\"Selpercatinib\", \"Pralsetinib\"],\n  \"citations\": [\"33022351\", \"33553132\", \"33841028\"]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: È stata identificata una fusione del gene RET in un adenocarcinoma polmonare. Le fusioni di RET sono driver oncogenici rari ma targetizzabili che conferiscono un vantaggio terapeutico significativo rispetto alla chemio-immunoterapia standard.\n\n2. Terapia raccomandata: Per i pazienti con adenocarcinoma polmonare RET-fusion in prima linea, sono raccomandati gli inibitori selettivi di RET. Selpercatinib e Pralsetinib hanno dimostrato un'efficacia superiore in termini di tasso di risposta obiettiva (ORR) e sopravvivenza libera da progressione (PFS) rispetto agli inibitori multi-chinasi [PMID: 33022351, PMID: 33553132]. Selpercatinib è approvato per l'uso in prima linea con un profilo di tollerabilità favorevole [PMID: 33022351].\n\n3. Resistenze: I meccanismi di resistenza agli inibitori di RET includono tipicamente mutazioni secondarie nel dominio chinasico di RET (es. solvent front mutations come G811R o V804M) [PMID: 33841028]. In caso di progressione, è indicata una nuova biopsia o analisi liquida per caratterizzare la resistenza.\n\n4. Trial: Sono in corso studi per valutare l'efficacia di nuove generazioni di inibitori di RET e combinazioni terapeutiche per superare le resistenze acquisite [PMID: 33841028].",
+      "recommended_drugs": [
+        "Selpercatinib",
+        "Pralsetinib"
+      ],
+      "citations": [
+        "33022351",
+        "33553132",
+        "33841028"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-016",
+    "gene": "NTRK1",
+    "variant": "Fusion",
+    "tumor": "Solid Tumor",
+    "expected_drug": "Larotrectinib",
+    "t_generation_sec": 7.62,
+    "raw_response": "{\n  \"report_text\": \"### Report Molecular Tumor Board\\n\\n**1. Variante**\\nIl paziente presenta una fusione del gene NTRK1 in un tumore solido. Le fusioni di NTRK (estendendo a NTRK1, 2 e 3) sono driver oncogenici agnostici rispetto all'istologia, caratterizzati dall'attivazione costitutiva del recettore tirosin-chinasi che promuove la proliferazione cellulare e la sopravvivenza attraverso le vie MAPK e PI3K/AKT [PMID: 30131314].\\n\\n**2. Terapia raccomandata**\\nLa terapia di prima linea raccomandata prevede l'utilizzo di inibitori selettivi di TRK (TRK inhibitors). I farmaci approvati e indicati per tumori solidi con fusioni NTRK sono:\\n- **Larotrectinib**: Inibitore altamente selettivo di TRK, ha dimostrato tassi di risposta obiettiva (ORR) molto elevati in diverse istologie tumorali [PMID: 29444110].\\n- **Entrectinib**: Indicato per fusioni NTRK, con l'ulteriore vantaggio di una migliore penetrazione della barriera emato-encefalica, utile in caso di metastasi cerebrali [PMID: 30434404].\\n\\n**3. Resistenze**\\nLa resistenza agli inibitori di TRK può insorgere attraverso meccanismi diversi:\\n- **Resistenze on-target**: Mutazioni nel dominio chinasico di TRK (es. solvent front mutations come G595R in TRKA o E727G in TRKB) che impediscono il legame del farmaco [PMID: 31434381].\\n- **Resistenze off-target**: Attivazione di vie di segnalazione bypass (es. amplificazione di EGFR o mutazioni in RAS/MAPK) [PMID: 31434381].\\n\\n**4. Trial**\\nSono in corso studi clinici per valutare l'efficacia di inibitori di TRK di seconda e terza generazione per superare le mutazioni di resistenza. Si consiglia il monitoraggio tramite biopsia liquida per l'identificazione precoce di mutazioni acquisite sotto pressione selettiva [PMID: 32322450].\",\n  \"recommended_drugs\": [\n    \"Larotrectinib\",\n    \"Entrectinib\"\n  ],\n  \"citations\": [\n    \"30131314\",\n    \"29444110\",\n    \"30434404\",\n    \"31434381\",\n    \"32322450\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "### Report Molecular Tumor Board\n\n**1. Variante**\nIl paziente presenta una fusione del gene NTRK1 in un tumore solido. Le fusioni di NTRK (estendendo a NTRK1, 2 e 3) sono driver oncogenici agnostici rispetto all'istologia, caratterizzati dall'attivazione costitutiva del recettore tirosin-chinasi che promuove la proliferazione cellulare e la sopravvivenza attraverso le vie MAPK e PI3K/AKT [PMID: 30131314].\n\n**2. Terapia raccomandata**\nLa terapia di prima linea raccomandata prevede l'utilizzo di inibitori selettivi di TRK (TRK inhibitors). I farmaci approvati e indicati per tumori solidi con fusioni NTRK sono:\n- **Larotrectinib**: Inibitore altamente selettivo di TRK, ha dimostrato tassi di risposta obiettiva (ORR) molto elevati in diverse istologie tumorali [PMID: 29444110].\n- **Entrectinib**: Indicato per fusioni NTRK, con l'ulteriore vantaggio di una migliore penetrazione della barriera emato-encefalica, utile in caso di metastasi cerebrali [PMID: 30434404].\n\n**3. Resistenze**\nLa resistenza agli inibitori di TRK può insorgere attraverso meccanismi diversi:\n- **Resistenze on-target**: Mutazioni nel dominio chinasico di TRK (es. solvent front mutations come G595R in TRKA o E727G in TRKB) che impediscono il legame del farmaco [PMID: 31434381].\n- **Resistenze off-target**: Attivazione di vie di segnalazione bypass (es. amplificazione di EGFR o mutazioni in RAS/MAPK) [PMID: 31434381].\n\n**4. Trial**\nSono in corso studi clinici per valutare l'efficacia di inibitori di TRK di seconda e terza generazione per superare le mutazioni di resistenza. Si consiglia il monitoraggio tramite biopsia liquida per l'identificazione precoce di mutazioni acquisite sotto pressione selettiva [PMID: 32322450].",
+      "recommended_drugs": [
+        "Larotrectinib",
+        "Entrectinib"
+      ],
+      "citations": [
+        "30131314",
+        "29444110",
+        "30434404",
+        "31434381",
+        "32322450"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-017",
+    "gene": "MMR",
+    "variant": "MSI-High",
+    "tumor": "Colorectal Cancer",
+    "expected_drug": "Pembrolizumab",
+    "t_generation_sec": 13.47,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: Il tumore colorettale presenta uno stato MSI-High (Microsatellite Instability-High), indicativo di un deficit del sistema di mismatch repair (dMMR). Questa caratteristica è un biomarcatore predittivo fondamentale per la risposta all'immunoterapia.\\n\\n2. Terapia raccomandata: In prima linea, l'impiego di inibitori del checkpoint immunitario (ICIs) è raccomandato. Pembrolizumab è approvato e ha mostrato un'efficacia superiore rispetto alla chemioterapia standard in termini di ORR e PFS [PMID: 29285515]. Alternativamente, l'uso di Nivolumab, in monoterapia o in combinazione con Ipilimumab, rappresenta un'opzione terapeutica valida e consolidata [PMID: 30022651]. L'immunoterapia in prima linea è associata a tassi di risposta duraturi e a una migliore sopravvivenza globale rispetto ai regimi di chemioterapia convenzionali [PMID: 29285515].\\n\\n3. Resistenze: La resistenza primaria può essere legata a una bassa espressione di PD-L1 o a una scarsa infiltrazione linfocitaria (tumori 'immunologicamente freddi'). La resistenza acquisita può derivare da mutazioni nei geni B2M o JAK1/JAK2, che compromettono l'antigen-presenting machinery o la segnalazione dell'interferone [PMID: 31515285].\\n\\n4. Trial: Studi recenti come KEYNOTE-177 hanno ridefinito lo standard di cura per i pazienti dMMR-H in prima linea [PMID: 29285515]. Altri trial stanno esplorando combinazioni di ICIs con agenti anti-angiogenici o inibitori di altri checkpoint (come LAG-3) per superare le resistenze [PMID: 33305154].\",\n  \"recommended_drugs\": [\"Pembrolizumab\", \"Nivolumab\", \"Ipilimumab\"],\n  \"citations\": [\"29285515\", \"30022651\", \"31515285\", \"33305154\"]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: Il tumore colorettale presenta uno stato MSI-High (Microsatellite Instability-High), indicativo di un deficit del sistema di mismatch repair (dMMR). Questa caratteristica è un biomarcatore predittivo fondamentale per la risposta all'immunoterapia.\n\n2. Terapia raccomandata: In prima linea, l'impiego di inibitori del checkpoint immunitario (ICIs) è raccomandato. Pembrolizumab è approvato e ha mostrato un'efficacia superiore rispetto alla chemioterapia standard in termini di ORR e PFS [PMID: 29285515]. Alternativamente, l'uso di Nivolumab, in monoterapia o in combinazione con Ipilimumab, rappresenta un'opzione terapeutica valida e consolidata [PMID: 30022651]. L'immunoterapia in prima linea è associata a tassi di risposta duraturi e a una migliore sopravvivenza globale rispetto ai regimi di chemioterapia convenzionali [PMID: 29285515].\n\n3. Resistenze: La resistenza primaria può essere legata a una bassa espressione di PD-L1 o a una scarsa infiltrazione linfocitaria (tumori 'immunologicamente freddi'). La resistenza acquisita può derivare da mutazioni nei geni B2M o JAK1/JAK2, che compromettono l'antigen-presenting machinery o la segnalazione dell'interferone [PMID: 31515285].\n\n4. Trial: Studi recenti come KEYNOTE-177 hanno ridefinito lo standard di cura per i pazienti dMMR-H in prima linea [PMID: 29285515]. Altri trial stanno esplorando combinazioni di ICIs con agenti anti-angiogenici o inibitori di altri checkpoint (come LAG-3) per superare le resistenze [PMID: 33305154].",
+      "recommended_drugs": [
+        "Pembrolizumab",
+        "Nivolumab",
+        "Ipilimumab"
+      ],
+      "citations": [
+        "29285515",
+        "30022651",
+        "31515285",
+        "33305154"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-018",
+    "gene": "KRAS",
+    "variant": "G12C",
+    "tumor": "Colorectal Cancer",
+    "expected_drug": "Sotorasib+Panitumumab",
+    "t_generation_sec": 12.77,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: È stata identificata una mutazione puntiforme KRAS G12C in un contesto di adenocarcinoma colorettale (CRC). Questa variante rappresenta un target terapeutico specifico, sebbene i tumori CRC mostrino una risposta inferiore agli inibitori di KRAS G12C rispetto al tumore del polmone non a piccole cellule (NSCLC), a causa di un feedback attivatorio della via EGFR.\\n\\n2. Terapia raccomandata: La strategia terapeutica più efficace per il CRC KRAS G12C consiste nella combinazione di un inibitore di KRAS G12C (come Sotorasib o Adagrasib) associato a un anticorpo anti-EGFR (Cetuximab o Panitumumab). La monoterapia con inibitori di KRAS G12C ha mostrato un'efficacia limitata nel CRC [PMID: 33815532], mentre la combinazione blocca l'attivazione compensatoria di EGFR, migliorando significativamente l'ORR [PMID: 34531456]. In prima linea, tuttavia, lo standard di cura rimane la chemioterapia sistemica (FOLFOX/FOLFIRI) associata a bevacizumab, riservando i target specifici a linee successive o contesti clinici selezionati.\\n\\n3. Resistenze: Le resistenze acquisite agli inibitori di KRAS G12C includono mutazioni secondarie nel dominio SWITCH II, amplificazione di EGFR, o attivazione di vie bypass come MAPK e PI3K/AKT [PMID: 34641288]. L'eterogeneità intratumorale può inoltre limitare la risposta clinica.\\n\\n4. Trial: Sono in corso trial clinici per valutare l'efficacia di combinazioni più ampie, inclusi inibitori di SHP2 o MEK, per superare la resistenza intrinseca del CRC agli inibitori di G12C [PMID: 35124321].\",\n  \"recommended_drugs\": [\n    \"Sotorasib\",\n    \"Adagrasib\",\n    \"Cetuximab\",\n    \"Panitumumab\"\n  ],\n  \"citations\": [\n    \"33815532\",\n    \"34531456\",\n    \"34641288\",\n    \"35124321\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: È stata identificata una mutazione puntiforme KRAS G12C in un contesto di adenocarcinoma colorettale (CRC). Questa variante rappresenta un target terapeutico specifico, sebbene i tumori CRC mostrino una risposta inferiore agli inibitori di KRAS G12C rispetto al tumore del polmone non a piccole cellule (NSCLC), a causa di un feedback attivatorio della via EGFR.\n\n2. Terapia raccomandata: La strategia terapeutica più efficace per il CRC KRAS G12C consiste nella combinazione di un inibitore di KRAS G12C (come Sotorasib o Adagrasib) associato a un anticorpo anti-EGFR (Cetuximab o Panitumumab). La monoterapia con inibitori di KRAS G12C ha mostrato un'efficacia limitata nel CRC [PMID: 33815532], mentre la combinazione blocca l'attivazione compensatoria di EGFR, migliorando significativamente l'ORR [PMID: 34531456]. In prima linea, tuttavia, lo standard di cura rimane la chemioterapia sistemica (FOLFOX/FOLFIRI) associata a bevacizumab, riservando i target specifici a linee successive o contesti clinici selezionati.\n\n3. Resistenze: Le resistenze acquisite agli inibitori di KRAS G12C includono mutazioni secondarie nel dominio SWITCH II, amplificazione di EGFR, o attivazione di vie bypass come MAPK e PI3K/AKT [PMID: 34641288]. L'eterogeneità intratumorale può inoltre limitare la risposta clinica.\n\n4. Trial: Sono in corso trial clinici per valutare l'efficacia di combinazioni più ampie, inclusi inibitori di SHP2 o MEK, per superare la resistenza intrinseca del CRC agli inibitori di G12C [PMID: 35124321].",
+      "recommended_drugs": [
+        "Sotorasib",
+        "Adagrasib",
+        "Cetuximab",
+        "Panitumumab"
+      ],
+      "citations": [
+        "33815532",
+        "34531456",
+        "34641288",
+        "35124321"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-019",
+    "gene": "KIT",
+    "variant": "Exon 9 Mutation",
+    "tumor": "GIST",
+    "expected_drug": "Sunitinib",
+    "t_generation_sec": 7.68,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nIl paziente presenta una mutazione atipica dell'esone 9 del gene KIT in un Gastrointestinal Stromal Tumor (GIST). Le mutazioni dell'esone 9 sono associate a una risposta clinica variabile rispetto alle mutazioni classiche dell'esone 11, richiedendo spesso un approccio terapeutico specifico per superare la minore sensibilità intrinseca ai TKI di prima generazione.\\n\\n2. TERAPIA RACCOMANDATA\\nIl trattamento di prima linea raccomandato è l'Imatinib. Sebbene le mutazioni dell'esone 9 mostrino una risposta meno robusta rispetto all'esone 11, l'Imatinib rimane lo standard di cura iniziale [PMID: 11504436]. In caso di progressione o risposta insufficiente, è raccomandato il passaggio a Sunitinib, che ha dimostrato efficacia superiore nei pazienti con mutazioni dell'esone 9 resistenti o refrattari a Imatinib [PMID: 16150464].\\n\\n3. RESISTENZE\\nLa resistenza primaria o secondaria a Imatinib nei GIST con mutazione dell'esone 9 è comune. I meccanismi includono l'insorgenza di mutazioni secondarie nel dominio chinasico di KIT o l'attivazione di vie di segnalazione alternative. Sunitinib agisce superando parte di questa resistenza attraverso un'inibizione più potente del recettore mutato [PMID: 17152512].\\n\\n4. TRIAL\\nTrial clinici di fase II e III hanno confermato che Sunitinib è l'opzione preferenziale di seconda linea per i pazienti con mutazioni dell'esone 9 [PMID: 16150464]. Studi più recenti esplorano l'uso di inibitori multichinasici di nuova generazione o terapie combinate in contesti di resistenza avanzata.\",\n  \"recommended_drugs\": [\n    \"Imatinib\",\n    \"Sunitinib\"\n  ],\n  \"citations\": [\n    \"11504436\",\n    \"16150464\",\n    \"17152512\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nIl paziente presenta una mutazione atipica dell'esone 9 del gene KIT in un Gastrointestinal Stromal Tumor (GIST). Le mutazioni dell'esone 9 sono associate a una risposta clinica variabile rispetto alle mutazioni classiche dell'esone 11, richiedendo spesso un approccio terapeutico specifico per superare la minore sensibilità intrinseca ai TKI di prima generazione.\n\n2. TERAPIA RACCOMANDATA\nIl trattamento di prima linea raccomandato è l'Imatinib. Sebbene le mutazioni dell'esone 9 mostrino una risposta meno robusta rispetto all'esone 11, l'Imatinib rimane lo standard di cura iniziale [PMID: 11504436]. In caso di progressione o risposta insufficiente, è raccomandato il passaggio a Sunitinib, che ha dimostrato efficacia superiore nei pazienti con mutazioni dell'esone 9 resistenti o refrattari a Imatinib [PMID: 16150464].\n\n3. RESISTENZE\nLa resistenza primaria o secondaria a Imatinib nei GIST con mutazione dell'esone 9 è comune. I meccanismi includono l'insorgenza di mutazioni secondarie nel dominio chinasico di KIT o l'attivazione di vie di segnalazione alternative. Sunitinib agisce superando parte di questa resistenza attraverso un'inibizione più potente del recettore mutato [PMID: 17152512].\n\n4. TRIAL\nTrial clinici di fase II e III hanno confermato che Sunitinib è l'opzione preferenziale di seconda linea per i pazienti con mutazioni dell'esone 9 [PMID: 16150464]. Studi più recenti esplorano l'uso di inibitori multichinasici di nuova generazione o terapie combinate in contesti di resistenza avanzata.",
+      "recommended_drugs": [
+        "Imatinib",
+        "Sunitinib"
+      ],
+      "citations": [
+        "11504436",
+        "16150464",
+        "17152512"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-020",
+    "gene": "BRAF",
+    "variant": "V600E",
+    "tumor": "NSCLC",
+    "expected_drug": "Dabrafenib+Trametinib",
+    "t_generation_sec": 19.01,
+    "raw_response": "{\n  \"report_text\": \"REPORT MOLECULAR TUMOR BOARD\\n\\n1. Variante\\nIl paziente presenta un adenocarcinoma polmonare con mutazione BRAF V600E, una variante driver che attiva la via MAPK/ERK, promuovendo la proliferazione cellulare e la sopravvivenza. Questa mutazione è presente in circa il 2-4% dei NSCLC.\\n\\n2. Terapia raccomandata\\nPer la prima linea di trattamento, l'evidenza clinica supporta l'uso della combinazione di Dabrafenib (inibitore di BRAF) e Trametinib (inibitore di MEK). Questa combinazione ha dimostrato una superiorità significativa rispetto alla chemioterapia standard in termini di tasso di risposta obiettiva (ORR) e sopravvivenza libera da progressione (PFS) [PMID: 28446311]. In alternativa, in contesti specifici o in linee successive, l'uso di BRAF-inibitori singoli è meno efficace a causa della rapida attivazione di feedback compensatori.\\n\\n3. Resistenze\\nI meccanismi di resistenza acquisita a Dabrafenib + Trametinib includono l'amplificazione di BRAF, mutazioni secondarie nei geni MAPK (come KRAS o NRAS) o l'attivazione di vie alternative come PI3K/AKT. La resistenza spesso si manifesta con una ripresa della crescita tumorale nonostante l'inibizione iniziale [PMID: 30134567].\\n\\n4. Trial\\nSono in corso studi per valutare l'aggiunta di immunoterapia (anti-PD-1/PD-L1) alla combinazione BRAF/MEK per potenziare la risposta immunitaria antitumorale e superare le resistenze intrinseche [PMID: 32345678].\",\n  \"recommended_drugs\": [\n    \"Dabrafenib\",\n    \"Trametinib\"\n  ],\n  \"citations\": [\n    \"28446311\",\n    \"30134567\",\n    \"32345678\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "REPORT MOLECULAR TUMOR BOARD\n\n1. Variante\nIl paziente presenta un adenocarcinoma polmonare con mutazione BRAF V600E, una variante driver che attiva la via MAPK/ERK, promuovendo la proliferazione cellulare e la sopravvivenza. Questa mutazione è presente in circa il 2-4% dei NSCLC.\n\n2. Terapia raccomandata\nPer la prima linea di trattamento, l'evidenza clinica supporta l'uso della combinazione di Dabrafenib (inibitore di BRAF) e Trametinib (inibitore di MEK). Questa combinazione ha dimostrato una superiorità significativa rispetto alla chemioterapia standard in termini di tasso di risposta obiettiva (ORR) e sopravvivenza libera da progressione (PFS) [PMID: 28446311]. In alternativa, in contesti specifici o in linee successive, l'uso di BRAF-inibitori singoli è meno efficace a causa della rapida attivazione di feedback compensatori.\n\n3. Resistenze\nI meccanismi di resistenza acquisita a Dabrafenib + Trametinib includono l'amplificazione di BRAF, mutazioni secondarie nei geni MAPK (come KRAS o NRAS) o l'attivazione di vie alternative come PI3K/AKT. La resistenza spesso si manifesta con una ripresa della crescita tumorale nonostante l'inibizione iniziale [PMID: 30134567].\n\n4. Trial\nSono in corso studi per valutare l'aggiunta di immunoterapia (anti-PD-1/PD-L1) alla combinazione BRAF/MEK per potenziare la risposta immunitaria antitumorale e superare le resistenze intrinseche [PMID: 32345678].",
+      "recommended_drugs": [
+        "Dabrafenib",
+        "Trametinib"
+      ],
+      "citations": [
+        "28446311",
+        "30134567",
+        "32345678"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-021",
+    "gene": "ERBB2",
+    "variant": "Amplification",
+    "tumor": "Gastric Cancer",
+    "expected_drug": "Trastuzumab",
+    "t_generation_sec": 7.34,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: Amplificazione del gene ERBB2 (HER2) in contesto di adenocarcinoma gastrico. L'amplificazione di HER2 è un driver oncogenico noto che promuove la proliferazione cellulare e la sopravvivenza attraverso l'attivazione delle vie di segnalazione MAPK e PI3K/AKT.\\n\\n2. Terapia raccomandata: Per i pazienti con cancro gastrico HER2-positivo in prima linea, lo standard di cura prevede l'aggiunta di Trastuzumab alla chemioterapia combinata (fluoropirimidine e platino). Trastuzumab è un anticorpo monoclonale che lega il dominio extracellulare di HER2, inibendo la proliferazione tumorale e potenziando la risposta immunitaria [PMID: 15763151]. In contesti di malattia avanzata ometastatica, l'approccio combinato ha dimostrato un miglioramento significativo della sopravvivenza globale (OS) e della sopravvivenza libera da progressione (PFS) [PMID: 17403358].\\n\\n3. Resistenze: I meccanismi di resistenza a Trastuzumab includono l'amplificazione di altri recettori RTK (come MET o EGFR), l'attivazione di mutazioni a valle in PIK3CA o PTEN loss, e la perdita dell'espressione del recettore HER2 stesso. La co-espressione di PD-L1 può influenzare l'efficacia della risposta immunitaria e modulare l'outcome terapeutico.\\n\\n4. Trial: Studi recenti hanno esplorato l'uso di coniugati anticorpo-farmaco (ADC) come Trastuzumab Deruxtecan (T-DXd), che ha mostrato un'efficacia superiore rispetto alla chemioterapia standard in pazienti precedentemente trattati, sebbene l'uso in prima linea sia oggetto di studio per determinare se possa sostituire o integrare il regime standard [PMID: 33535195].\",\n  \"recommended_drugs\": [\n    \"Trastuzumab\",\n    \"Fluorouracil\",\n    \"Cisplatin\",\n    \"Oxaliplatin\"\n  ],\n  \"citations\": [\n    \"15763151\",\n    \"17403358\",\n    \"33535195\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: Amplificazione del gene ERBB2 (HER2) in contesto di adenocarcinoma gastrico. L'amplificazione di HER2 è un driver oncogenico noto che promuove la proliferazione cellulare e la sopravvivenza attraverso l'attivazione delle vie di segnalazione MAPK e PI3K/AKT.\n\n2. Terapia raccomandata: Per i pazienti con cancro gastrico HER2-positivo in prima linea, lo standard di cura prevede l'aggiunta di Trastuzumab alla chemioterapia combinata (fluoropirimidine e platino). Trastuzumab è un anticorpo monoclonale che lega il dominio extracellulare di HER2, inibendo la proliferazione tumorale e potenziando la risposta immunitaria [PMID: 15763151]. In contesti di malattia avanzata ometastatica, l'approccio combinato ha dimostrato un miglioramento significativo della sopravvivenza globale (OS) e della sopravvivenza libera da progressione (PFS) [PMID: 17403358].\n\n3. Resistenze: I meccanismi di resistenza a Trastuzumab includono l'amplificazione di altri recettori RTK (come MET o EGFR), l'attivazione di mutazioni a valle in PIK3CA o PTEN loss, e la perdita dell'espressione del recettore HER2 stesso. La co-espressione di PD-L1 può influenzare l'efficacia della risposta immunitaria e modulare l'outcome terapeutico.\n\n4. Trial: Studi recenti hanno esplorato l'uso di coniugati anticorpo-farmaco (ADC) come Trastuzumab Deruxtecan (T-DXd), che ha mostrato un'efficacia superiore rispetto alla chemioterapia standard in pazienti precedentemente trattati, sebbene l'uso in prima linea sia oggetto di studio per determinare se possa sostituire o integrare il regime standard [PMID: 33535195].",
+      "recommended_drugs": [
+        "Trastuzumab",
+        "Fluorouracil",
+        "Cisplatin",
+        "Oxaliplatin"
+      ],
+      "citations": [
+        "15763151",
+        "17403358",
+        "33535195"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-022",
+    "gene": "BRCA2",
+    "variant": "Mutation",
+    "tumor": "Prostate Cancer",
+    "expected_drug": "Olaparib",
+    "t_generation_sec": 4.75,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: Mutazione germinale o somatica del gene BRCA2 in un contesto di adenocarcinoma prostatico. Le mutazioni di BRCA2 sono associate a un difetto nella ricombinazione omologa (HRD), rendendo il tumore suscettibile agli inibitori di PARP.\\n\\n2. Terapia raccomandata: L'approccio terapeutico d'elezione prevede l'uso di inibitori di PARP (PARPi). Olaparib e Rucaparib sono approvati per pazienti con tumore alla prostata resistente alla castrazione (mCRPC) con mutazioni BRCA1/2. Sebbene il paziente sia in prima linea, l'integrazione di Olaparib con inibitori dell'asse androgenico ha mostrato benefici significativi in termini di PFS e OS [PMID: 33510211]. Alternativamente, l'uso di platino (Docetaxel o Carboplatino) è spesso efficace in pazienti BRCA-mutati [PMID: 29629212].\\n\\n3. Resistenze: La resistenza agli inibitori di PARP può emergere attraverso mutazioni di ritorno (reversion mutations) che ripristinano la cornice di lettura del gene BRCA2, ripristinando l'attività della ricombinazione omologa [PMID: 30423011].\\n\\n4. Trial: Si raccomanda il monitoraggio di trial clinici che valutano combinazioni di PARPi con immunoterapia (anti-PD-1/PD-L1) per superare la resistenza acquisita o l'uso di inibitori di ATR/ATM per potenziare l'effetto di letalità sintetica [PMID: 34254123].\",\n  \"recommended_drugs\": [\"Olaparib\", \"Rucaparib\", \"Carboplatin\"],\n  \"citations\": [\"33510211\", \"29629212\", \"30423011\", \"34254123\"]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: Mutazione germinale o somatica del gene BRCA2 in un contesto di adenocarcinoma prostatico. Le mutazioni di BRCA2 sono associate a un difetto nella ricombinazione omologa (HRD), rendendo il tumore suscettibile agli inibitori di PARP.\n\n2. Terapia raccomandata: L'approccio terapeutico d'elezione prevede l'uso di inibitori di PARP (PARPi). Olaparib e Rucaparib sono approvati per pazienti con tumore alla prostata resistente alla castrazione (mCRPC) con mutazioni BRCA1/2. Sebbene il paziente sia in prima linea, l'integrazione di Olaparib con inibitori dell'asse androgenico ha mostrato benefici significativi in termini di PFS e OS [PMID: 33510211]. Alternativamente, l'uso di platino (Docetaxel o Carboplatino) è spesso efficace in pazienti BRCA-mutati [PMID: 29629212].\n\n3. Resistenze: La resistenza agli inibitori di PARP può emergere attraverso mutazioni di ritorno (reversion mutations) che ripristinano la cornice di lettura del gene BRCA2, ripristinando l'attività della ricombinazione omologa [PMID: 30423011].\n\n4. Trial: Si raccomanda il monitoraggio di trial clinici che valutano combinazioni di PARPi con immunoterapia (anti-PD-1/PD-L1) per superare la resistenza acquisita o l'uso di inibitori di ATR/ATM per potenziare l'effetto di letalità sintetica [PMID: 34254123].",
+      "recommended_drugs": [
+        "Olaparib",
+        "Rucaparib",
+        "Carboplatin"
+      ],
+      "citations": [
+        "33510211",
+        "29629212",
+        "30423011",
+        "34254123"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-023",
+    "gene": "TMB",
+    "variant": "TMB-High",
+    "tumor": "Solid Tumor",
+    "expected_drug": "Pembrolizumab",
+    "t_generation_sec": 5.72,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nIl paziente presenta un fenotipo TMB-High (Tumor Mutational Burden), definito generalmente come $\\\\ge$ 10 mutazioni per megabase (mut/Mb). Questo biomarker è a-istologico e indica un'elevata probabilità di presenza di neoantigeni, rendendo il tumore potenzialmente più suscettibile all'immunoterapia.\\n\\n2. TERAPIA RACCOMANDATA\\nPer i tumori solidi con TMB-High indipendentemente dall'istologia e dall'espressione di PD-L1, è raccomandato l'uso di inibitori del checkpoint immunitario (ICI). La prima scelta prevede l'uso di Pembrolizumab, approvato dalla FDA per i tumori solidi TMB-H $\\\\ge$ 10 mut/Mb [PMID: 29322518]. In alternativa, in contesti specifici o combinati, possono essere considerati inibitori di CTLA-4 come Ipilimumab in combinazione con anti-PD-1 [PMID: 28140445].\\n\\n3. RESISTENZE\\nLa resistenza ai farmaci anti-PD-1/PD-L1 in pazienti TMB-High può essere mediata da: \\n- Perdita di B2M o mutazioni in JAK1/JAK2 che impediscono l'interferone gamma signaling [PMID: 30565213].\\n- Espressione di checkpoint alternativi (es. LAG-3, TIM-3) [PMID: 31153564].\\n- Presenza di un microambiente tumorale 'freddo' con scarsa infiltrazione di linfociti T.\\n\\n4. TRIAL\\nSi consiglia il monitoraggio o l'inserimento in trial clinici che valutano combinazioni di ICI con agenti anti-angiogenici o terapie target per superare la resistenza primaria. Studi recenti stanno esplorando l'efficacia di combinazioni duali (PD-1 + CTLA-4) per ampliare la risposta nei pazienti TMB-H [PMID: 32412713].\",\n  \"recommended_drugs\": [\n    \"Pembrolizumab\",\n    \"Ipilimumab\"\n  ],\n  \"citations\": [\n    \"29322518\",\n    \"28140445\",\n    \"30565213\",\n    \"31153564\",\n    \"32412713\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nIl paziente presenta un fenotipo TMB-High (Tumor Mutational Burden), definito generalmente come $\\ge$ 10 mutazioni per megabase (mut/Mb). Questo biomarker è a-istologico e indica un'elevata probabilità di presenza di neoantigeni, rendendo il tumore potenzialmente più suscettibile all'immunoterapia.\n\n2. TERAPIA RACCOMANDATA\nPer i tumori solidi con TMB-High indipendentemente dall'istologia e dall'espressione di PD-L1, è raccomandato l'uso di inibitori del checkpoint immunitario (ICI). La prima scelta prevede l'uso di Pembrolizumab, approvato dalla FDA per i tumori solidi TMB-H $\\ge$ 10 mut/Mb [PMID: 29322518]. In alternativa, in contesti specifici o combinati, possono essere considerati inibitori di CTLA-4 come Ipilimumab in combinazione con anti-PD-1 [PMID: 28140445].\n\n3. RESISTENZE\nLa resistenza ai farmaci anti-PD-1/PD-L1 in pazienti TMB-High può essere mediata da: \n- Perdita di B2M o mutazioni in JAK1/JAK2 che impediscono l'interferone gamma signaling [PMID: 30565213].\n- Espressione di checkpoint alternativi (es. LAG-3, TIM-3) [PMID: 31153564].\n- Presenza di un microambiente tumorale 'freddo' con scarsa infiltrazione di linfociti T.\n\n4. TRIAL\nSi consiglia il monitoraggio o l'inserimento in trial clinici che valutano combinazioni di ICI con agenti anti-angiogenici o terapie target per superare la resistenza primaria. Studi recenti stanno esplorando l'efficacia di combinazioni duali (PD-1 + CTLA-4) per ampliare la risposta nei pazienti TMB-H [PMID: 32412713].",
+      "recommended_drugs": [
+        "Pembrolizumab",
+        "Ipilimumab"
+      ],
+      "citations": [
+        "29322518",
+        "28140445",
+        "30565213",
+        "31153564",
+        "32412713"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-024",
+    "gene": "EGFR",
+    "variant": "Exon 19 Deletion",
+    "tumor": "NSCLC",
+    "expected_drug": "Osimertinib",
+    "t_generation_sec": 5.84,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: È stata identificata una delezione dell'esone 19 di EGFR in un adenocarcinoma polmonare. Questa variante è classificata come sensitiva agli inibitori della tirosinachinasi (TKI) di EGFR, sebbene sia descritta come 'atipica', la maggior parte delle delezioni dell'esone 19 mantiene un'alta risposta terapeutica ai farmaci mirati [PMID: 29253591].\\n\\n2. Terapia raccomandata: Il gold standard per la prima linea di trattamento è l'Osimertinib, un TKI di terza generazione che ha dimostrato superiorità in termini di sopravvivenza libera da progressione (PFS) rispetto ai TKI di prima generazione in pazienti con mutazioni comuni di EGFR [PMID: 29939892]. In alternativa, possono essere considerati TKI di prima generazione come Gefitinib o Erlotinib, sebbene con outcome inferiori rispetto a Osimertinib [PMID: 30215511].\\n\\n3. Resistenze: La resistenza acquisita più comune a Osimertinib è la mutazione secondaria C797S [PMID: 30543334]. Altri meccanismi includono l'amplificazione di MET o la trasformazione istologica in carcinoma a piccole cellule [PMID: 32113036].\\n\\n4. Trial: Lo studio FLAURA ha consolidato l'uso di Osimertinib come standard di cura per le mutazioni sensibili dell'esone 19 e L858R [PMID: 29939892]. Trial recenti stanno esplorando l'efficacia di combinazioni di TKI con chemioterapia o altri agenti mirati per ritardare l'insorgenza della resistenza [PMID: 35233144].\",\n  \"recommended_drugs\": [\n    \"Osimertinib\",\n    \"Gefitinib\",\n    \"Erlotinib\"\n  ],\n  \"citations\": [\n    \"29253591\",\n    \"29939892\",\n    \"30215511\",\n    \"30543334\",\n    \"32113036\",\n    \"35233144\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: È stata identificata una delezione dell'esone 19 di EGFR in un adenocarcinoma polmonare. Questa variante è classificata come sensitiva agli inibitori della tirosinachinasi (TKI) di EGFR, sebbene sia descritta come 'atipica', la maggior parte delle delezioni dell'esone 19 mantiene un'alta risposta terapeutica ai farmaci mirati [PMID: 29253591].\n\n2. Terapia raccomandata: Il gold standard per la prima linea di trattamento è l'Osimertinib, un TKI di terza generazione che ha dimostrato superiorità in termini di sopravvivenza libera da progressione (PFS) rispetto ai TKI di prima generazione in pazienti con mutazioni comuni di EGFR [PMID: 29939892]. In alternativa, possono essere considerati TKI di prima generazione come Gefitinib o Erlotinib, sebbene con outcome inferiori rispetto a Osimertinib [PMID: 30215511].\n\n3. Resistenze: La resistenza acquisita più comune a Osimertinib è la mutazione secondaria C797S [PMID: 30543334]. Altri meccanismi includono l'amplificazione di MET o la trasformazione istologica in carcinoma a piccole cellule [PMID: 32113036].\n\n4. Trial: Lo studio FLAURA ha consolidato l'uso di Osimertinib come standard di cura per le mutazioni sensibili dell'esone 19 e L858R [PMID: 29939892]. Trial recenti stanno esplorando l'efficacia di combinazioni di TKI con chemioterapia o altri agenti mirati per ritardare l'insorgenza della resistenza [PMID: 35233144].",
+      "recommended_drugs": [
+        "Osimertinib",
+        "Gefitinib",
+        "Erlotinib"
+      ],
+      "citations": [
+        "29253591",
+        "29939892",
+        "30215511",
+        "30543334",
+        "32113036",
+        "35233144"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-025",
+    "gene": "IDH1",
+    "variant": "R132",
+    "tumor": "AML",
+    "expected_drug": "Ivosidenib",
+    "t_generation_sec": 5.44,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nÈ stata identificata una mutazione puntiforme nel gene IDH1 (Sostituzione R132), comune nella Leucemia Mieloide Acuta (AML). Questa mutazione comporta un guadagno di funzione enzimatico che produce l'oncometabolita 2-idrossiglutarato (2-HG), inducendo un blocco differenziativo mieloide [PMID: 22644404].\\n\\n2. TERAPIA RACCOMANDATA\\nPer i pazienti con AML e mutazione IDH1, l'inibizione specifica dell'enzima mutato è l'approccio target principale. L'Ivosidenib è approvato per il trattamento di pazienti adulti con AML recidivante o refrattaria, o in combinazione con agenti ipometilanti (HMA) in prima linea per i pazienti non idonei alla chemio intensiva [PMID: 31052536]. La combinazione di Ivosidenib con Azacitidina ha dimostrato un miglioramento significativo della sopravvivenza globale e del tasso di risposte complete [PMID: 33532112].\\n\\n3. RESISTENZE\\nLa resistenza agli inibitori di IDH1 può emergere attraverso l'acquisizione di mutazioni secondarie nel sito di legame del farmaco nell'enzima IDH1 o tramite la selezione di cloni leucemici con mutazioni in altri geni driver (es. FLT3-ITK, NRAS) che bypassano il blocco differenziativo [PMID: 32423186].\\n\\n4. TRIAL\\n- Studio Phase 3 (AGILE): Ha valutato l'efficacia di Ivosidenib in combinazione con HMA in pazienti con mutazione IDH1 [PMID: 33532112].\\n- Trial sull'uso di Ivosidenib in combinazione con Venetoclax per potenziare l'apoptosi cellulare nei cloni IDH1-mutati [PMID: 34123645].\",\n  \"recommended_drugs\": [\n    \"Ivosidenib\",\n    \"Azacitidina\"\n  ],\n  \"citations\": [\n    \"22644404\",\n    \"31052536\",\n    \"33532112\",\n    \"32423186\",\n    \"34123645\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nÈ stata identificata una mutazione puntiforme nel gene IDH1 (Sostituzione R132), comune nella Leucemia Mieloide Acuta (AML). Questa mutazione comporta un guadagno di funzione enzimatico che produce l'oncometabolita 2-idrossiglutarato (2-HG), inducendo un blocco differenziativo mieloide [PMID: 22644404].\n\n2. TERAPIA RACCOMANDATA\nPer i pazienti con AML e mutazione IDH1, l'inibizione specifica dell'enzima mutato è l'approccio target principale. L'Ivosidenib è approvato per il trattamento di pazienti adulti con AML recidivante o refrattaria, o in combinazione con agenti ipometilanti (HMA) in prima linea per i pazienti non idonei alla chemio intensiva [PMID: 31052536]. La combinazione di Ivosidenib con Azacitidina ha dimostrato un miglioramento significativo della sopravvivenza globale e del tasso di risposte complete [PMID: 33532112].\n\n3. RESISTENZE\nLa resistenza agli inibitori di IDH1 può emergere attraverso l'acquisizione di mutazioni secondarie nel sito di legame del farmaco nell'enzima IDH1 o tramite la selezione di cloni leucemici con mutazioni in altri geni driver (es. FLT3-ITK, NRAS) che bypassano il blocco differenziativo [PMID: 32423186].\n\n4. TRIAL\n- Studio Phase 3 (AGILE): Ha valutato l'efficacia di Ivosidenib in combinazione con HMA in pazienti con mutazione IDH1 [PMID: 33532112].\n- Trial sull'uso di Ivosidenib in combinazione con Venetoclax per potenziare l'apoptosi cellulare nei cloni IDH1-mutati [PMID: 34123645].",
+      "recommended_drugs": [
+        "Ivosidenib",
+        "Azacitidina"
+      ],
+      "citations": [
+        "22644404",
+        "31052536",
+        "33532112",
+        "32423186",
+        "34123645"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-026",
+    "gene": "FGFR2",
+    "variant": "Fusion",
+    "tumor": "Cholangiocarcinoma",
+    "expected_drug": "Pemigatinib",
+    "t_generation_sec": 3.92,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: FGFR2 Fusion. La presenza di fusioni del gene FGFR2 è un driver oncogenico comune nel colangiocarcinoma intraepatico, associato a un'attivazione costitutiva della via di segnalazione FGFR. \\n\\n2. Terapia raccomandata: I farmaci inibitori selettivi di FGFR sono raccomandati come terapia mirata. Pemigatinib è approvato per pazienti con colangiocarcinoma colestatico precedentemente trattati, mentre Infigratinib ha mostrato un'efficacia significativa in trial clinici specifici per pazienti FGFR2-fusion positivi [PMID: 32224133]. In contesti di prima linea, l'uso di inibitori FGFR (come Pemigatinib o Futibatinib) è considerato standard di cura per i pazienti selezionati per biomarker [PMID: 33442331].\\n\\n3. Resistenze: La resistenza primaria o acquisita agli inibitori di FGFR è spesso mediata da mutazioni secondarie nel dominio chinasico di FGFR2 (es. mutazioni 'gatekeeper' come V564F) che impediscono il legame del farmaco [PMID: 34137156]. Altre resistenze possono derivare dall'attivazione di bypass signaling attraverso le vie MAPK o PI3K.\\n\\n4. Trial: Sono in corso trial per valutare l'efficacia di Futibatinib, un inibitore irreversibile di FGFR, che ha mostrato tassi di risposta promettenti e una migliore tollerabilità rispetto agli inibitori reversibili [PMID: 34444132].\",\n  \"recommended_drugs\": [\"Pemigatinib\", \"Infigratinib\", \"Futibatinib\"],\n  \"citations\": [\"32224133\", \"33442331\", \"34137156\", \"34444132\"]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: FGFR2 Fusion. La presenza di fusioni del gene FGFR2 è un driver oncogenico comune nel colangiocarcinoma intraepatico, associato a un'attivazione costitutiva della via di segnalazione FGFR. \n\n2. Terapia raccomandata: I farmaci inibitori selettivi di FGFR sono raccomandati come terapia mirata. Pemigatinib è approvato per pazienti con colangiocarcinoma colestatico precedentemente trattati, mentre Infigratinib ha mostrato un'efficacia significativa in trial clinici specifici per pazienti FGFR2-fusion positivi [PMID: 32224133]. In contesti di prima linea, l'uso di inibitori FGFR (come Pemigatinib o Futibatinib) è considerato standard di cura per i pazienti selezionati per biomarker [PMID: 33442331].\n\n3. Resistenze: La resistenza primaria o acquisita agli inibitori di FGFR è spesso mediata da mutazioni secondarie nel dominio chinasico di FGFR2 (es. mutazioni 'gatekeeper' come V564F) che impediscono il legame del farmaco [PMID: 34137156]. Altre resistenze possono derivare dall'attivazione di bypass signaling attraverso le vie MAPK o PI3K.\n\n4. Trial: Sono in corso trial per valutare l'efficacia di Futibatinib, un inibitore irreversibile di FGFR, che ha mostrato tassi di risposta promettenti e una migliore tollerabilità rispetto agli inibitori reversibili [PMID: 34444132].",
+      "recommended_drugs": [
+        "Pemigatinib",
+        "Infigratinib",
+        "Futibatinib"
+      ],
+      "citations": [
+        "32224133",
+        "33442331",
+        "34137156",
+        "34444132"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-027",
+    "gene": "MET",
+    "variant": "Exon 14 Skipping",
+    "tumor": "NSCLC",
+    "expected_drug": "Capmatinib",
+    "t_generation_sec": 14.72,
+    "raw_response": "{\n  \"report_text\": \"1. VARIANTE\\nIl paziente presenta un adenocarcinoma polmonare con skipping dell'esone 14 del gene MET. Questa alterazione oncogenica porta alla perdita del dominio di degradazione della proteina MET, causandone l'accumulo in membrana e l'attivazione costitutiva della via di segnalazione MET/MAPK/PI3K, guidando la crescita tumorale.\\n\\n2. TERAPIA RACCOMANDATA\\nPer i pazienti con METex14-skipping in prima linea, i farmaci raccomandati sono gli inibitori selettivi di MET. Capmatinib e Tepotinib sono approvati per questa indicazione, mostrando tassi di risposta obiettiva (ORR) significativi e una buona durata della risposta in pazienti precedentemente non trattati [PMID: 32053015, PMID: 32460454]. L'efficacia di questi agenti è superiore rispetto alla chemioterapia standard in termini di controllo della malattia.\\n\\n3. RESISTENZE\\nI meccanismi di resistenza acquisita ai TKI di MET includono l'insorgenza di mutazioni secondarie nel dominio chinasico di MET, l'amplificazione di altri driver oncogenici (es. EGFR, KRAS) o l'attivazione di bypass molecolari attraverso la via MAPK. In particolare, la resistenza può manifestarsi con l'amplificazione di MET o l'insorgenza di mutazioni nel sito di legame del farmaco [PMID: 33305737].\\n\\n4. TRIAL\\nI trial pivotal che supportano l'uso di questi farmaci sono il GEOMETRY study per Capmatinib [PMID: 32053015] e il TEPNOTI study per Tepotinib [PMID: 32460454], entrambi i quali hanno dimostrato un'elevata attività clinica in pazienti con skipping dell'esone 14.\",\n  \"recommended_drugs\": [\n    \"Capmatinib\",\n    \"Tepotinib\"\n  ],\n  \"citations\": [\n    \"32053015\",\n    \"32460454\",\n    \"33305737\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "1. VARIANTE\nIl paziente presenta un adenocarcinoma polmonare con skipping dell'esone 14 del gene MET. Questa alterazione oncogenica porta alla perdita del dominio di degradazione della proteina MET, causandone l'accumulo in membrana e l'attivazione costitutiva della via di segnalazione MET/MAPK/PI3K, guidando la crescita tumorale.\n\n2. TERAPIA RACCOMANDATA\nPer i pazienti con METex14-skipping in prima linea, i farmaci raccomandati sono gli inibitori selettivi di MET. Capmatinib e Tepotinib sono approvati per questa indicazione, mostrando tassi di risposta obiettiva (ORR) significativi e una buona durata della risposta in pazienti precedentemente non trattati [PMID: 32053015, PMID: 32460454]. L'efficacia di questi agenti è superiore rispetto alla chemioterapia standard in termini di controllo della malattia.\n\n3. RESISTENZE\nI meccanismi di resistenza acquisita ai TKI di MET includono l'insorgenza di mutazioni secondarie nel dominio chinasico di MET, l'amplificazione di altri driver oncogenici (es. EGFR, KRAS) o l'attivazione di bypass molecolari attraverso la via MAPK. In particolare, la resistenza può manifestarsi con l'amplificazione di MET o l'insorgenza di mutazioni nel sito di legame del farmaco [PMID: 33305737].\n\n4. TRIAL\nI trial pivotal che supportano l'uso di questi farmaci sono il GEOMETRY study per Capmatinib [PMID: 32053015] e il TEPNOTI study per Tepotinib [PMID: 32460454], entrambi i quali hanno dimostrato un'elevata attività clinica in pazienti con skipping dell'esone 14.",
+      "recommended_drugs": [
+        "Capmatinib",
+        "Tepotinib"
+      ],
+      "citations": [
+        "32053015",
+        "32460454",
+        "33305737"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-028",
+    "gene": "ROS1",
+    "variant": "Fusion",
+    "tumor": "NSCLC",
+    "expected_drug": "Crizotinib",
+    "t_generation_sec": 10.12,
+    "raw_response": "{\n  \"report_text\": \"### Report Molecular Tumor Board\\n\\n**1. Variante**\\nIl paziente presenta un adenocarcinoma polmonare con fusione del gene ROS1. Le fusioni di ROS1 sono driver oncogenici rari ma clinicamente significativi, presenti in circa l'1-2% dei pazienti con NSCLC, e sono associate a una risposta terapeutica duratura agli inibitori specifici di ROS1.\\n\\n**2. Terapia raccomandata**\\nPer la prima linea di trattamento, sono raccomandati gli inibitori tirosin-chinasi (TKI) approvati per ROS1+ NSCLC:\\n- **Crizotinib**: Storicamente il primo farmaco approvato, efficace nel controllo della malattia [PMID: 20425187].\\n- **Entrectinib**: Approvato per pazienti con ROS1+ NSCLC, con una maggiore capacità di penetrazione della barriera emato-encefalica, utile in caso di metastasi cerebrali [PMID: 31333623].\\n- **Lorlatinib**: Inibitore di terza generazione con potente attività contro ROS1 e capacità di superare molte resistenze [PMID: 33841114].\\n\\n**3. Resistenze**\\nLa resistenza ai TKI di prima generazione (come Crizotinib) può svilupparsi attraverso:\\n- Mutazioni secondarie nel dominio chinasico di ROS1 (es. G2032R), che riducono l'affinità del farmaco [PMID: 27265252].\\n- Attivazione di pathway bypass (es. MET amplificazione) [PMID: 28573615].\\n\\n**4. Trial**\\nSono in corso studi per valutare l'efficacia di nuovi inibitori altamente selettivi e combinazioni terapeutiche per superare le resistenze acquisite, con particolare attenzione a farmaci di nuova generazione che mirano alle mutazioni 'solvent-front' [PMID: 33841114].\",\n  \"recommended_drugs\": [\n    \"Crizotinib\",\n    \"Entrectinib\",\n    \"Lorlatinib\"\n  ],\n  \"citations\": [\n    \"20425187\",\n    \"31333623\",\n    \"33841114\",\n    \"27265252\",\n    \"28573615\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "### Report Molecular Tumor Board\n\n**1. Variante**\nIl paziente presenta un adenocarcinoma polmonare con fusione del gene ROS1. Le fusioni di ROS1 sono driver oncogenici rari ma clinicamente significativi, presenti in circa l'1-2% dei pazienti con NSCLC, e sono associate a una risposta terapeutica duratura agli inibitori specifici di ROS1.\n\n**2. Terapia raccomandata**\nPer la prima linea di trattamento, sono raccomandati gli inibitori tirosin-chinasi (TKI) approvati per ROS1+ NSCLC:\n- **Crizotinib**: Storicamente il primo farmaco approvato, efficace nel controllo della malattia [PMID: 20425187].\n- **Entrectinib**: Approvato per pazienti con ROS1+ NSCLC, con una maggiore capacità di penetrazione della barriera emato-encefalica, utile in caso di metastasi cerebrali [PMID: 31333623].\n- **Lorlatinib**: Inibitore di terza generazione con potente attività contro ROS1 e capacità di superare molte resistenze [PMID: 33841114].\n\n**3. Resistenze**\nLa resistenza ai TKI di prima generazione (come Crizotinib) può svilupparsi attraverso:\n- Mutazioni secondarie nel dominio chinasico di ROS1 (es. G2032R), che riducono l'affinità del farmaco [PMID: 27265252].\n- Attivazione di pathway bypass (es. MET amplificazione) [PMID: 28573615].\n\n**4. Trial**\nSono in corso studi per valutare l'efficacia di nuovi inibitori altamente selettivi e combinazioni terapeutiche per superare le resistenze acquisite, con particolare attenzione a farmaci di nuova generazione che mirano alle mutazioni 'solvent-front' [PMID: 33841114].",
+      "recommended_drugs": [
+        "Crizotinib",
+        "Entrectinib",
+        "Lorlatinib"
+      ],
+      "citations": [
+        "20425187",
+        "31333623",
+        "33841114",
+        "27265252",
+        "28573615"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-029",
+    "gene": "BRAF",
+    "variant": "V600E",
+    "tumor": "Thyroid Cancer",
+    "expected_drug": "Dabrafenib+Trametinib",
+    "t_generation_sec": 35.87,
+    "raw_response": "{\n  \"report_text\": \"### Report Molecular Tumor Board\\n\\n**1. Variante**\\nIl paziente presenta una mutazione puntiforme BRAF V600E in un contesto di carcinoma della tiroide. Questa variante è un driver oncogenico comune, specialmente nel carcinoma papillare della tiroide, associata a una prognosi potenzialmente più aggressiva e a una maggiore resistenza alla terapia con iodio radioattivo [PMID: 25222510].\\n\\n**2. Terapia Raccomandata**\\nPer il carcinoma della tiroide BRAF-mutato, in particolare nei casi refrattari alla terapia standard, è raccomandato l'uso di inibitori di BRAF combinati con inibitori di MEK per superare l'attivazione compensatoria della via MAPK. La combinazione di Dabrafenib e Trametinib ha mostrato tassi di risposta obiettiva significativi in pazienti con tumori solidi BRAF V600E positivi, incluso il tumore della tiroide [PMID: 28353023]. In alternativa, Vemurafenib può essere considerato, sebbene la monoterapia sia spesso limitata dalla rapida insorgenza di resistenze [PMID: 24402245].\\n\\n**3. Resistenze**\\nLa resistenza agli inibitori di BRAF (monoterapia) emerge frequentemente attraverso l'attivazione di pathway paralleli o mutazioni secondarie nel complesso RAS-MAPK. L'uso combinato di BRAF-inhibitor e MEK-inhibitor è strategico per prevenire e ritardare l'insorgenza di tali resistenze [PMID: 28353023].\\n\\n**4. Trial**\\nSi raccomanda il monitoraggio di trial clinici che valutano l'efficacia di combinazioni terapeutiche che includono inibitori di BRAF con agenti immunoterapici (Anti-PD1/PD-L1) per potenziare la risposta immunitaria nel microambiente tumorale della tiroide [PMID: 31255273].\",\n  \"recommended_drugs\": [\n    \"Dabrafenib\",\n    \"Trametinib\",\n    \"Vemurafenib\"\n  ],\n  \"citations\": [\n    \"25222510\",\n    \"28353023\",\n    \"24402245\",\n    \"31255273\"\n  ]\n}",
+    "structured_data": {
+      "report_text": "### Report Molecular Tumor Board\n\n**1. Variante**\nIl paziente presenta una mutazione puntiforme BRAF V600E in un contesto di carcinoma della tiroide. Questa variante è un driver oncogenico comune, specialmente nel carcinoma papillare della tiroide, associata a una prognosi potenzialmente più aggressiva e a una maggiore resistenza alla terapia con iodio radioattivo [PMID: 25222510].\n\n**2. Terapia Raccomandata**\nPer il carcinoma della tiroide BRAF-mutato, in particolare nei casi refrattari alla terapia standard, è raccomandato l'uso di inibitori di BRAF combinati con inibitori di MEK per superare l'attivazione compensatoria della via MAPK. La combinazione di Dabrafenib e Trametinib ha mostrato tassi di risposta obiettiva significativi in pazienti con tumori solidi BRAF V600E positivi, incluso il tumore della tiroide [PMID: 28353023]. In alternativa, Vemurafenib può essere considerato, sebbene la monoterapia sia spesso limitata dalla rapida insorgenza di resistenze [PMID: 24402245].\n\n**3. Resistenze**\nLa resistenza agli inibitori di BRAF (monoterapia) emerge frequentemente attraverso l'attivazione di pathway paralleli o mutazioni secondarie nel complesso RAS-MAPK. L'uso combinato di BRAF-inhibitor e MEK-inhibitor è strategico per prevenire e ritardare l'insorgenza di tali resistenze [PMID: 28353023].\n\n**4. Trial**\nSi raccomanda il monitoraggio di trial clinici che valutano l'efficacia di combinazioni terapeutiche che includono inibitori di BRAF con agenti immunoterapici (Anti-PD1/PD-L1) per potenziare la risposta immunitaria nel microambiente tumorale della tiroide [PMID: 31255273].",
+      "recommended_drugs": [
+        "Dabrafenib",
+        "Trametinib",
+        "Vemurafenib"
+      ],
+      "citations": [
+        "25222510",
+        "28353023",
+        "24402245",
+        "31255273"
+      ]
+    }
+  },
+  {
+    "case_id": "BENCH-030",
+    "gene": "ERBB2",
+    "variant": "Amplification",
+    "tumor": "Gastric Cancer",
+    "expected_drug": "Trastuzumab deruxtecan",
+    "t_generation_sec": 4.35,
+    "raw_response": "{\n  \"report_text\": \"1. Variante: Amplificazione del gene ERBB2 (HER2), identificata come alterazione del numero di copie (CNA) in un contesto di adenocarcinoma gastrico in prima linea.\\n\\n2. Terapia raccomandata: Per i tumori gastrici HER2-positivi in prima linea, il gold standard attuale è l'associazione di Trastuzumab con chemioterapia (es. Cisplatino/Capecitabina o Oxaliplatino/Capecitabina) [PMID: 18843268]. In alternativa, l'introduzione di Trastuzumab Deruxtecan (T-DXd) ha mostrato un'efficacia significativa, sebbene sia più spesso posizionata in linee successive, i trial recenti stanno ridefinendo l'approccio terapeutico [PMID: 33512145]. Considerare inoltre l'uso di Pertuzumab in combinazione con Trastuzumab per potenziare il blocco della segnalazione HER2 [PMID: 21443126].\\n\\n3. Resistenze: Le resistenze acquisite a Trastuzumab possono derivare dall'attivazione di pathway alternativi (es. PI3K/AKT/mTOR) o da mutazioni secondarie nel dominio chinasico di ERBB2 [PMID: 23136111]. L'espressione eterogenea di HER2 può inoltre limitare la risposta clinica.\\n\\n4. Trial: Si raccomanda il monitoraggio dei trial che valutano l'associazione di inibitori di HER2 con immunoterapia (anti-PD-1/PD-L1) per superare la resistenza immunitaria nei tumori HER2-amplificati [PMID: 32515541].\",\n  \"recommended_drugs\": [\"Trastuzumab\", \"Pertuzumab\", \"Trastuzumab Deruxtecan\", \"Capecitabina\", \"Oxaliplatino\"],\n  \"citations\": [\"18843268\", \"33512145\", \"21443126\", \"23136111\", \"32515541\"]\n}",
+    "structured_data": {
+      "report_text": "1. Variante: Amplificazione del gene ERBB2 (HER2), identificata come alterazione del numero di copie (CNA) in un contesto di adenocarcinoma gastrico in prima linea.\n\n2. Terapia raccomandata: Per i tumori gastrici HER2-positivi in prima linea, il gold standard attuale è l'associazione di Trastuzumab con chemioterapia (es. Cisplatino/Capecitabina o Oxaliplatino/Capecitabina) [PMID: 18843268]. In alternativa, l'introduzione di Trastuzumab Deruxtecan (T-DXd) ha mostrato un'efficacia significativa, sebbene sia più spesso posizionata in linee successive, i trial recenti stanno ridefinendo l'approccio terapeutico [PMID: 33512145]. Considerare inoltre l'uso di Pertuzumab in combinazione con Trastuzumab per potenziare il blocco della segnalazione HER2 [PMID: 21443126].\n\n3. Resistenze: Le resistenze acquisite a Trastuzumab possono derivare dall'attivazione di pathway alternativi (es. PI3K/AKT/mTOR) o da mutazioni secondarie nel dominio chinasico di ERBB2 [PMID: 23136111]. L'espressione eterogenea di HER2 può inoltre limitare la risposta clinica.\n\n4. Trial: Si raccomanda il monitoraggio dei trial che valutano l'associazione di inibitori di HER2 con immunoterapia (anti-PD-1/PD-L1) per superare la resistenza immunitaria nei tumori HER2-amplificati [PMID: 32515541].",
+      "recommended_drugs": [
+        "Trastuzumab",
+        "Pertuzumab",
+        "Trastuzumab Deruxtecan",
+        "Capecitabina",
+        "Oxaliplatino"
+      ],
+      "citations": [
+        "18843268",
+        "33512145",
+        "21443126",
+        "23136111",
+        "32515541"
+      ]
+    }
+  }
+]

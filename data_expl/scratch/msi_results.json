@@ -1,0 +1,515 @@
+{
+    "MSI_H_Colorectal": {
+        "query": {
+            "id": null,
+            "referenceGenome": "GRCh37",
+            "hugoSymbol": "Other Biomarkers",
+            "entrezGeneId": -2,
+            "alteration": "MSI-H",
+            "alterationType": null,
+            "svType": null,
+            "tumorType": "colorectal cancer",
+            "consequence": null,
+            "proteinStart": null,
+            "proteinEnd": null,
+            "hgvs": null,
+            "hgvsInfo": null,
+            "canonicalTranscript": null,
+            "germline": false
+        },
+        "geneExist": false,
+        "variantExist": true,
+        "mutationEffect": {
+            "knownEffect": "Unknown",
+            "description": "Genetic or epigenetic alterations resulting in loss of function of mismatch repair (MMR) genes can lead to a microsatellite instability-high (MSI-H)/mismatch repair deficient (MMR-D) phenotype.",
+            "citations": {
+                "pmids": [],
+                "abstracts": []
+            }
+        },
+        "highestSensitiveLevel": "LEVEL_1",
+        "highestResistanceLevel": null,
+        "highestDiagnosticImplicationLevel": null,
+        "highestPrognosticImplicationLevel": null,
+        "geneSummary": "",
+        "variantSummary": "Genetic or epigenetic alterations resulting in loss of function of mismatch repair (MMR) genes can lead to a microsatellite instability-high (MSI-H)/mismatch repair deficient (MMR-D) phenotype.",
+        "tumorTypeSummary": "The anti-PD-1 antibodies pembrolizumab or nivolumab, as single-agents, and the anti-CTLA4 antibody ipilimumab in combination with nivolumab are FDA-approved for the treatment of patients with MMR-D or MSI-H metastatic colorectal cancer.",
+        "prognosticSummary": "",
+        "diagnosticSummary": "",
+        "diagnosticImplications": [],
+        "prognosticImplications": [],
+        "treatments": [
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C2654",
+                        "drugName": "Ipilimumab"
+                    },
+                    {
+                        "ncitCode": "C68814",
+                        "drugName": "Nivolumab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_1",
+                "fdaLevel": "LEVEL_Fda2",
+                "levelAssociatedCancerType": {
+                    "id": 43,
+                    "code": "",
+                    "color": "SaddleBrown",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Colorectal Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Bowel",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "29355075"
+                ],
+                "abstracts": [
+                    {
+                        "link": "https://ascopubs.org/doi/abs/10.1200/JCO.2022.40.16_suppl.3510",
+                        "abstract": "Overman et al. Abstract# 3510, ASCO 2022."
+                    }
+                ],
+                "description": "Nivolumab, a human anti-PD1 antibody, and ipilimumab, a human anti-CTLA-4 antibody, are immunotherapies that are FDA-approved in combination for the treatment of adult and pediatric (12 years and older) patients with unresectable or metastatic microsatellite instability-high (MSI-H) or mismatch repair-deficient (dMMR) colorectal cancer (CRC). The FDA approval was based on results of the Phase II CheckMate-142 study of nivolumab plus ipilimumab in 119 patients with MSI-H or dMMR mCRC in which the overall response rate was 49% (complete response = 4.2%, partial response = 45%), the progression-free survival rate at twelve months was 71% and the median duration of response was not reached (PMID: 29355075). In the five-year follow-up of the Phase II CheckMate-142 study, patients were divided into cohort one (single agent nivolumab as second-line therapy [n=74]), cohort two (combination nivolumab plus ipilimumab with nivolumab as second-line therapy [n=119]) and cohort three (combination nivolumab plus ipilimumab with ipilimumab as frontline therapy [n=45]) (Abstract: Overman et al. Abstract# 3510, ASCO 2022. https://ascopubs.org/doi/abs/10.1200/JCO.2022.40.16_suppl.3510). Objective response rates were 39% (95% CI= 28\u201351), 65% (95% CI=55\u201373) and 71% (95% CI=56\u201384), progressive disease rates were 26%, 12% and 16%, 48-month progression-free survival rates were 36%, 54% and 51%, and 48-month overall survival rates were 49%, 71% and 72%, respectively (Abstract: Overman et al. Abstract# 3510, ASCO 2022. https://ascopubs.org/doi/abs/10.1200/JCO.2022.40.16_suppl.3510)."
+            },
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C68814",
+                        "drugName": "Nivolumab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_1",
+                "fdaLevel": "LEVEL_Fda2",
+                "levelAssociatedCancerType": {
+                    "id": 43,
+                    "code": "",
+                    "color": "SaddleBrown",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Colorectal Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Bowel",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "28734759",
+                    "31765263"
+                ],
+                "abstracts": [
+                    {
+                        "link": "https://meetinglibrary.asco.org/record/155742/abstract",
+                        "abstract": "Andre et al. Abstract# 553, GCS 2018."
+                    },
+                    {
+                        "link": "https://ascopubs.org/doi/abs/10.1200/JCO.2022.40.16_suppl.3510",
+                        "abstract": "Overman et al. Abstract# 3510, ASCO 2022."
+                    }
+                ],
+                "description": "Nivolumab, a human anti-PD1 antibody that exerts its anti-tumorigenic effect through immune checkpoint blockade, is FDA-approved for patients with treatment-refractory metastatic colorectal cancer that has high microsatellite instability (MSI-H) or DNA mismatch repair deficiency (dMMR). FDA approval was based on results from the multicenter, open-label Phase II CheckMate-142 trial of nivolumab in 74 patients with dMMR/MSI-H metastatic colorectal cancer in which 51 patients had disease control at the median follow-up, 23 patients (31.1%; 95% CI= 20.8-42.9) achieved an objective partial response and only three of 23 responders went on to have progressive disease (PMID: 28734759). Preliminary data from the combination arm of CheckMate-142 in which 119 patients with dMMR/MSI-H metastatic colorectal cancer were treated with nivolumab plus ipilimumab showed an overall response rate of 55% and a disease control rate of 80% at the median follow-up of 13.4 months (Abstract: Andre et al. Abstract# 553, GCS 2018. https://meetinglibrary.asco.org/record/155742/abstract). Nivolumab has also shown efficacy in other non-colorectal MSI-H/dMMR cancers (PMID: 31765263). In the five-year follow-up of the Phase II CheckMate-142 study, patients were divided into cohort one (single agent nivolumab as second-line therapy [n=74]), cohort two (combination nivolumab plus ipilimumab with nivolumab as second-line therapy [n=119]) and cohort three (combination nivolumab plus ipilimumab with ipilimumab as frontline therapy [n=45]) (Abstract: Overman et al. Abstract# 3510, ASCO 2022. https://ascopubs.org/doi/abs/10.1200/JCO.2022.40.16_suppl.3510). Objective response rates were 39% (95% CI= 28\u201351), 65% (95% CI= 55\u201373) and 71% (95% CI= 56\u201384), progressive disease rates were 26%, 12% and 16%, 48-month progression-free survival rates were 36%, 54% and 51%, and 48-month overall survival rates were 49%, 71% and 72%, respectively (Abstract: Overman et al. Abstract# 3510, ASCO 2022. https://ascopubs.org/doi/abs/10.1200/JCO.2022.40.16_suppl.3510)."
+            },
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C106432",
+                        "drugName": "Pembrolizumab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_1",
+                "fdaLevel": "LEVEL_Fda2",
+                "levelAssociatedCancerType": {
+                    "id": 43,
+                    "code": "",
+                    "color": "SaddleBrown",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Colorectal Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Bowel",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "33264544",
+                    "35427471"
+                ],
+                "abstracts": [],
+                "description": "Pembrolizumab is an intravenously infused, anti-PD-1 monoclonal antibody that is FDA-approved for the treatment of patients with unresectable or metastatic microsatellite instability-high (MSI-H) or mismatch repair-deficient (dMMR) colorectal cancer (CRC) as determined by an FDA-approved test. MSI-H status for treatment with pembrolizumab was detected with the FoundationOne CDx. FDA approval was based on the results of the Phase III KEYNOTE-177 (NCT02563002) trial of pembrolizumab versus chemotherapy in 307 patients with previously untreated unresectable or metastatic MSI-H or dMMR CRC. In the Phase III KEYNOTE-177 (NCT02563002) trial, the pembrolizumab cohort (n=153) demonstrated an overall response rate (ORR) of 43.8% (95% CI=35.8-52.0), with a 11.1% (n=17) complete response (CR) rate, a 32.7% (n=50) partial response (PR) rate and a 20.9% (n=32) stable disease (SD) rate, and a median duration of response (DOR) was not reached (range=2.3+ months to 41.4+ months) while the chemotherapy cohort (n=154) demonstrated an ORR of 33.1% (95% CI=25.8-41.1), with a 3.9% (n=6) CR rate, a 29.2% (n=45) PR rate and a 42.2% (n=65) SD rate, and a median DOR of 10.6 months (range=2.8 months to 37.5+ months) (PMID: 33264544). In the final analysis of the Phase III KEYNOTE-177 (NCT02563002) trial, the pembrolizumab cohort demonstrated a median progression-free survival (PFS) of 16.5 months (95% CI=5.4-38.1) and the median overall survival (OS) was not reached (95% CI=49.2-NR) while the chemotherapy cohort demonstrated a median PFS of 8.2 months (95% CI=6.1-10.2) (HR=0.59 [95% CI=0.45-0.79]) and a median OS of 36.7 months (95% CI=27.6-NR) (HR=0.74 [95% CI=0.53-1.03]; p=0.036) (PMID: 35427471)."
+            },
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C126799",
+                        "drugName": "Dostarlimab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_2",
+                "fdaLevel": "LEVEL_Fda2",
+                "levelAssociatedCancerType": {
+                    "id": 43,
+                    "code": "",
+                    "color": "SaddleBrown",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Colorectal Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Bowel",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "37917058"
+                ],
+                "abstracts": [],
+                "description": "Dostarlimab is a humanized monoclonal antibody that targets PD-1 and is FDA-approved for patients with advanced or recurrent solid tumors that are mismatch repair deficient (dMMR) as determined by an FDA-approved companion diagnostic, the Ventana MMR RxDx Panel. Dostarlimab is also recommended in the Colon Cancer NCCN Guidelines (v2.2024) as a treatment option for patients with dMMR and microsatellite instability-high (MSI-H) or POLE/POLD1 mutant metastatic colon cancer. The NCCN recommendation is based on the results of the non-randomized, open-label, multicenter, multicohort Phase I GARNET (NCT02715284) trial of dostarlimab in patients with dMMR and MSI-H and/or POLE-altered (exonuclease domain) recurrent or advanced solid tumors who progressed following systemic therapy and had no satisfactory alternative treatment options. Among all patients in the GARNET (NCT02715284) trial (N=347), the blinded independent central review (BICR) overall response rate (ORR) was 44.1% (95% CI=38.8\u201349.5) and the median progression-free survival (PFS) was 7.0 months (95% CI=4.2\u201313.8) (PMID: 37917058). Patients with CRC (n=115) demonstrated an ORR of 43.5% (95% CI= 34.3\u201353.0) with fourteen complete responses (12.2%) and 36 partial responses (31.3%). Median PFS in this population was 8.4 months (95% CI= 3.4\u2013not reached) (PMID: 37917058)."
+            },
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C126799",
+                        "drugName": "Dostarlimab"
+                    },
+                    {
+                        "ncitCode": "C1282",
+                        "drugName": "Carboplatin"
+                    },
+                    {
+                        "ncitCode": "C1411",
+                        "drugName": "Paclitaxel"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_3B",
+                "fdaLevel": "LEVEL_Fda3",
+                "levelAssociatedCancerType": {
+                    "id": 91,
+                    "code": "",
+                    "color": "PeachPuff",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Endometrial Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Uterus",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "36972026"
+                ],
+                "abstracts": [],
+                "description": "Dostarlimab is a humanized monoclonal antibody that targets PD-1 and is FDA-approved in combination with carboplatin and paclitaxel for patients with advanced or recurrent endometrial cancer that has DNA mismatch repair deficiency (dMMR) or high microsatellite instability (MSI-H). FDA approval was based on the results of the randomized, multicenter, double-blind, placebo-controlled RUBY trial in which 122 patients with dMMR/MSI-H primary advanced or recurrent endometrial cancer were treated with either dostarlimab with carboplatin and paclitaxel, followed by dostarlimab, or placebo with carboplatin and paclitaxel, followed by placebo (PMID: 36972026). In the RUBY trial, the dostarlimab arm (n=60) compared to the placebo arm (n=62) demonstrated a progression-free survival of 30.3 months (95% CI= 11.8-not reached) versus 7.7 months (95% CI= 5.6-9.7) with a hazard ratio of 0.29 (p<0.0001; 95% CI= 0.17-0.50) and an objective response rate of 73.8% (n=31; 95% CI= 58.0-86.1) versus 62.2% (n=28; 95% CI= 46.5-76.2), with 26.2% (n=11) versus 11.1% (n=5) achieving complete response and 47.6% (n=20) versus 51.1% (n=23) achieving partial response, respectively (PMID: 36972026)."
+            }
+        ],
+        "dataVersion": "v7.2",
+        "lastUpdate": "06/21/2024",
+        "alleleExist": false,
+        "oncogenic": "Oncogenic",
+        "hotspot": false,
+        "highestFdaLevel": "LEVEL_Fda2",
+        "otherSignificantSensitiveLevels": [],
+        "otherSignificantResistanceLevels": [],
+        "exon": null,
+        "vus": false
+    },
+    "MSI_H_NSCLC": {
+        "query": {
+            "id": null,
+            "referenceGenome": "GRCh37",
+            "hugoSymbol": "Other Biomarkers",
+            "entrezGeneId": -2,
+            "alteration": "MSI-H",
+            "alterationType": null,
+            "svType": null,
+            "tumorType": "NSCLC",
+            "consequence": null,
+            "proteinStart": null,
+            "proteinEnd": null,
+            "hgvs": null,
+            "hgvsInfo": null,
+            "canonicalTranscript": null,
+            "germline": false
+        },
+        "geneExist": false,
+        "variantExist": true,
+        "mutationEffect": {
+            "knownEffect": "Unknown",
+            "description": "Genetic or epigenetic alterations resulting in loss of function of mismatch repair (MMR) genes can lead to a microsatellite instability-high (MSI-H)/mismatch repair deficient (MMR-D) phenotype.",
+            "citations": {
+                "pmids": [],
+                "abstracts": []
+            }
+        },
+        "highestSensitiveLevel": "LEVEL_1",
+        "highestResistanceLevel": null,
+        "highestDiagnosticImplicationLevel": null,
+        "highestPrognosticImplicationLevel": null,
+        "geneSummary": "",
+        "variantSummary": "Genetic or epigenetic alterations resulting in loss of function of mismatch repair (MMR) genes can lead to a microsatellite instability-high (MSI-H)/mismatch repair deficient (MMR-D) phenotype.",
+        "tumorTypeSummary": "The anti-PD-1 antibody pembrolizumab is an FDA-approved drug for therapy of adult and pediatric patients with unresectable or metastatic MSI-H/MMR-D solid cancers that have progressed following prior treatment.",
+        "prognosticSummary": "",
+        "diagnosticSummary": "",
+        "diagnosticImplications": [],
+        "prognosticImplications": [],
+        "treatments": [
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C106432",
+                        "drugName": "Pembrolizumab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_1",
+                "fdaLevel": "LEVEL_Fda2",
+                "levelAssociatedCancerType": {
+                    "id": 5,
+                    "code": "",
+                    "color": "",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "All Solid Tumors",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "",
+                    "children": {},
+                    "parent": null,
+                    "level": -1,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "30589920",
+                    "28596308",
+                    "31725351",
+                    "26028255"
+                ],
+                "abstracts": [],
+                "description": "Pembrolizumab, a human anti-PD1 antibody that exerts its anti-tumorigenic effect through immune checkpoint blockade, is FDA-approved for patients with treatment-refractory solid tumors that have high microsatellite instability (MSI-H) or DNA mismatch repair deficiency (dMMR). FDA approval was based on results of pembrolizumab treatment in 149 patients with cancers prospectively assessed as MSI-H or dMMR that were enrolled across five uncontrolled, multi-cohort, multi-center, single-arm clinical trials. In one trial, 66 of 86 patients (77%; 95% CI= 66-85) with MSI-H/dMMR solid tumors had disease control, while 46 of 86 patients (53%; 95% CI= 42-64) had objective radiographic responses and 18 of 86 patients (21%) had complete radiographic responses upon treatment with pembrolizumab (PMID: 28596308). Neither median progression-free survival nor median overall survival had been reached at a median follow-up of 12.5 months (PMID: 28596308). In another trial of 41 patients with progressive metastatic carcinoma with or without mismatch-repair deficiency, the overall response rate to pembrolizumab in patients with MSI-H/dMMR colorectal cancer or MSI-H/dMMR non-colorectal solid tumors was 40% and 71%, respectively, while the overall response rate to pembrolizumab in patients with MMR-proficient colorectal cancer was 0% (PMID: 26028255). While median overall survival was not reached in patients with dMMR tumors, median progression-free survival in patients with MMR-proficient tumors was 2.2 months (95% CI= 1.4-2.8) and median overall survival was 5.0 months (95% CI= 3.0-not estimable) (PMID: 26028255). In a study of 1,033 patients with prostate cancer who were prospectively screened for MSI, of the 32 patients with MSI-H/dMMR, six of eleven patients who were given pembrolizumab had more than 50% decline in prostate-specific antigen and four of the six patients had a radiographic partial response (PMID: 30589920). Results from the KEYNOTE-164 study of pembrolizumab in MSI-H/dMMR colorectal cancer demonstrated an objective response rate of 33% and a median overall survival of 31.4 months (95% CI= 21.4 - not reached)(PMID: 31725351)."
+            },
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C126799",
+                        "drugName": "Dostarlimab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_3B",
+                "fdaLevel": "LEVEL_Fda3",
+                "levelAssociatedCancerType": {
+                    "id": 46,
+                    "code": "",
+                    "color": "SaddleBrown",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Small Bowel Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Bowel",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "37917058"
+                ],
+                "abstracts": [],
+                "description": "Dostarlimab is a humanized monoclonal antibody that targets PD-1 and is FDA-approved for patients with advanced or recurrent solid tumors that are mismatch repair deficient (dMMR) as determined by an FDA-approved companion diagnostic, the Ventana MMR RxDx Panel. Dostarlimab is also recommended in the Small Bowel Adenocarcinoma NCCN Guidelines (v3.2024) as a treatment option for dMMR and microsatellite instability-high (MSI-H) or POLE/POLD1 mutant advanced or metastatic small bowel adenocarcinoma (SBA). The NCCN recommendation is based on the results of the non-randomized, open-label, multicenter, multicohort Phase I GARNET (NCT02715284) trial of dostarlimab in patients with dMMR and MSI-H and/or POLE-altered (exonuclease domain) recurrent or advanced solid tumors who progressed following systemic therapy and had no satisfactory alternative treatment options. Among all patients in the GARNET (NCT02715284) trial (N=347), the blinded independent central review (BICR) overall response rate (ORR) was 44.1% (95% CI=38.8\u201349.5) and the median progression-free survival (PFS) was 7.0 months (95% CI=4.2\u201313.8) (PMID: 37917058). Twelve patients with SBA were included in this study, all of whom had dMMR disease (PMID: 37917058). Within the SBA cohort (n=12), four patients achieved partial or complete response with an overall response rate of 33.3% (95% CI=9.9\u201365.1) (PMID: 37917058)."
+            },
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C126799",
+                        "drugName": "Dostarlimab"
+                    },
+                    {
+                        "ncitCode": "C1282",
+                        "drugName": "Carboplatin"
+                    },
+                    {
+                        "ncitCode": "C1411",
+                        "drugName": "Paclitaxel"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_3B",
+                "fdaLevel": "LEVEL_Fda3",
+                "levelAssociatedCancerType": {
+                    "id": 91,
+                    "code": "",
+                    "color": "PeachPuff",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Endometrial Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Uterus",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "36972026"
+                ],
+                "abstracts": [],
+                "description": "Dostarlimab is a humanized monoclonal antibody that targets PD-1 and is FDA-approved in combination with carboplatin and paclitaxel for patients with advanced or recurrent endometrial cancer that has DNA mismatch repair deficiency (dMMR) or high microsatellite instability (MSI-H). FDA approval was based on the results of the randomized, multicenter, double-blind, placebo-controlled RUBY trial in which 122 patients with dMMR/MSI-H primary advanced or recurrent endometrial cancer were treated with either dostarlimab with carboplatin and paclitaxel, followed by dostarlimab, or placebo with carboplatin and paclitaxel, followed by placebo (PMID: 36972026). In the RUBY trial, the dostarlimab arm (n=60) compared to the placebo arm (n=62) demonstrated a progression-free survival of 30.3 months (95% CI= 11.8-not reached) versus 7.7 months (95% CI= 5.6-9.7) with a hazard ratio of 0.29 (p<0.0001; 95% CI= 0.17-0.50) and an objective response rate of 73.8% (n=31; 95% CI= 58.0-86.1) versus 62.2% (n=28; 95% CI= 46.5-76.2), with 26.2% (n=11) versus 11.1% (n=5) achieving complete response and 47.6% (n=20) versus 51.1% (n=23) achieving partial response, respectively (PMID: 36972026)."
+            },
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C2654",
+                        "drugName": "Ipilimumab"
+                    },
+                    {
+                        "ncitCode": "C68814",
+                        "drugName": "Nivolumab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_3B",
+                "fdaLevel": "LEVEL_Fda3",
+                "levelAssociatedCancerType": {
+                    "id": 46,
+                    "code": "",
+                    "color": "SaddleBrown",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Small Bowel Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Bowel",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "29355075",
+                    "35398880"
+                ],
+                "abstracts": [
+                    {
+                        "link": "https://aacrjournals.org/cancerres/article/80/16_Supplement/3417/642689/Abstract-3417-A-phase-II-basket-trial-of-dual-anti",
+                        "abstract": "Chae et  al. Abstract# 3417, AACR 2020."
+                    }
+                ],
+                "description": "Nivolumab, a human anti-PD1 antibody, and ipilimumab, a human anti-CTLA-4 antibody, are immunotherapies that are FDA-approved in combination for the treatment of patients with mismatch repair deficient (dMMR) or microsatellite instability-high (MSI-H) metastatic colorectal cancer (mCRC) who experienced disease progression after chemotherapy. Nivolumab in combination with ipilimumab is also recommended in the Small Bowel Adenocarcinoma NCCN Guidelines (v3.2024) as a treatment option for patients with MMR/MSI-H or POLE/POLD1 mutant advanced or metastatic small bowel adenocarcinoma (SBA) (PMID: 35398880). The NCCN recommendation of nivolumab plus ipilimumab is based on results of the Phase II CheckMate-142 (NCT02060188) study of nivolumab plus ipilimumab in patients with MSI-H or dMMR mCRC. Among 119 patients with mCRC, the blinded independent central review (BICR) overall response rate (ORR) was 55% (95% CI=45.2\u201363.8) with four complete responses (3%) and 61 partial responses (51%), the progression-free survival (PFS) rate at twelve-months was 71% and the median duration of response was not reached (PMID: 29355075). Additionally, in the Phase II SWOG S1609 Dual Anti-CTLA-4 & Anti-PD-1 blockade in Rare Tumors (DART) (NCT02834013) basket study of nivolumab plus ipilimumab in rare tumors, among the 23 patients with SBA, the ORR was 8% with one complete response and one partial response (Abstract: Chae et al. Abstract# 3417, AACR 2020. https://aacrjournals.org/cancerres/article/80/16_Supplement/3417/642689/Abstract-3417-A-phase-II-basket-trial-of-dual-anti)."
+            },
+            {
+                "alterations": [
+                    "Microsatellite Instability-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C68814",
+                        "drugName": "Nivolumab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_3B",
+                "fdaLevel": "LEVEL_Fda3",
+                "levelAssociatedCancerType": {
+                    "id": 46,
+                    "code": "",
+                    "color": "SaddleBrown",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "Small Bowel Cancer",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "Bowel",
+                    "children": {},
+                    "parent": null,
+                    "level": 0,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "28734759"
+                ],
+                "abstracts": [],
+                "description": "Nivolumab, a human anti-PD1 antibody that exerts its anti-tumorigenic effect through immune checkpoint blockade, is FDA-approved for patients with treatment-refractory metastatic colorectal cancer (mCRC) that is mismatch repair deficient (dMMR) or microsatellite instability-high (MSI-H). Nivolumab is also recommended in the Small Bowel Adenocarcinoma NCCN Guidelines (v3.2024) as a treatment option for patients with dMMR/MSI-H or POLE/POLD1 mutant advanced or metastatic small bowel adenocarcinoma (SBA). The NCCN recommendation is based on positive data for nivolumab and other checkpoint inhibitors in dMMR/MSI-H mCRC, which includes results from the multicenter, open-label Phase II CheckMate-142 (NCT02060188) trial of nivolumab in 74 patients with dMMR/MSI-H mCRC. In this study at the median follow-up, 51 patients had disease control, 23 patients achieved an objective partial response (31.1%; 95% CI=20.8\u201342.9) and only three of 23 responders went on to have progressive disease (PMID: 28734759)."
+            }
+        ],
+        "dataVersion": "v7.2",
+        "lastUpdate": "05/16/2024",
+        "alleleExist": false,
+        "oncogenic": "Oncogenic",
+        "hotspot": false,
+        "highestFdaLevel": "LEVEL_Fda2",
+        "otherSignificantSensitiveLevels": [],
+        "otherSignificantResistanceLevels": [],
+        "exon": null,
+        "vus": false
+    }
+}

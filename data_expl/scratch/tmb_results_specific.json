@@ -1,0 +1,188 @@
+{
+    "TMB_H_NSCLC": {
+        "query": {
+            "id": null,
+            "referenceGenome": "GRCh37",
+            "hugoSymbol": "Other Biomarkers",
+            "entrezGeneId": -2,
+            "alteration": "TMB-H",
+            "alterationType": null,
+            "svType": null,
+            "tumorType": "non-small cell lung cancer",
+            "consequence": null,
+            "proteinStart": null,
+            "proteinEnd": null,
+            "hgvs": null,
+            "hgvsInfo": null,
+            "canonicalTranscript": null,
+            "germline": false
+        },
+        "geneExist": false,
+        "variantExist": true,
+        "mutationEffect": {
+            "knownEffect": "Unknown",
+            "description": "An association between high Tumor Mutational Burden (TMB), defined as the number of somatic mutations per megabase (mut/Mb) of genome sequenced, and response to immune checkpoint inhibitors has been reported in several solid tumor types.",
+            "citations": {
+                "pmids": [],
+                "abstracts": []
+            }
+        },
+        "highestSensitiveLevel": "LEVEL_1",
+        "highestResistanceLevel": null,
+        "highestDiagnosticImplicationLevel": null,
+        "highestPrognosticImplicationLevel": null,
+        "geneSummary": "",
+        "variantSummary": "An association between high Tumor Mutational Burden (TMB), defined as the number of somatic mutations per megabase (mut/Mb) of genome sequenced, and response to immune checkpoint inhibitors has been reported in several solid tumor types.",
+        "tumorTypeSummary": "The TMB for this sample is \u226510 mut/Mb. The anti-PD-1 antibody pembrolizumab is FDA-approved for the treatment of adult and pediatric patients with unresectable or metastatic solid tumors with a mutation burden of \u226510 mut/Mb.",
+        "prognosticSummary": "",
+        "diagnosticSummary": "",
+        "diagnosticImplications": [],
+        "prognosticImplications": [],
+        "treatments": [
+            {
+                "alterations": [
+                    "Tumor Mutational Burden-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C106432",
+                        "drugName": "Pembrolizumab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_1",
+                "fdaLevel": "LEVEL_Fda2",
+                "levelAssociatedCancerType": {
+                    "id": 5,
+                    "code": "",
+                    "color": "",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "All Solid Tumors",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "",
+                    "children": {},
+                    "parent": null,
+                    "level": -1,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "32919526"
+                ],
+                "abstracts": [
+                    {
+                        "link": "https://www.sciencedirect.com/science/article/pii/S0923753419594042",
+                        "abstract": "Marabelle et al. Abstract# 1192O, ESMO 2019."
+                    }
+                ],
+                "description": "Pembrolizumab, a human anti-PD1 antibody that exerts its anti-tumorigenic effect through immune checkpoint blockade, is FDA-approved for the treatment of adult and pediatric patients with unresectable or metastatic tumor mutational burden-high (TMB-H) [\u226510 mutations/megabase (mut/Mb)] solid tumors that have no other satisfactory treatment options. FDA approval was based on the Phase II multicenter, non-randomized, open-label KEYNOTE-158 trial of pembrolizumab in 102 patients with unresectable or metastatic TMB-H solid tumors in which the overall response rate was 29% (95% CI= 21-39), 57% of responses lasted more than twelve months, and 50% of responses lasted more than 24 months (Abstract: Marabelle et al. Abstract# 1192O, ESMO 2019. https://www.sciencedirect.com/science/article/pii/S0923753419594042), (https://www.accessdata.fda.gov/drugsatfda_docs/label/2020/125514s071s090lbl.pdf) (PMID: 32919526)."
+            }
+        ],
+        "dataVersion": "v7.2",
+        "lastUpdate": "08/04/2020",
+        "alleleExist": false,
+        "oncogenic": "Likely Oncogenic",
+        "hotspot": false,
+        "highestFdaLevel": "LEVEL_Fda2",
+        "otherSignificantSensitiveLevels": [],
+        "otherSignificantResistanceLevels": [],
+        "exon": null,
+        "vus": false
+    },
+    "TMB_H_CRC": {
+        "query": {
+            "id": null,
+            "referenceGenome": "GRCh37",
+            "hugoSymbol": "Other Biomarkers",
+            "entrezGeneId": -2,
+            "alteration": "TMB-H",
+            "alterationType": null,
+            "svType": null,
+            "tumorType": "colorectal cancer",
+            "consequence": null,
+            "proteinStart": null,
+            "proteinEnd": null,
+            "hgvs": null,
+            "hgvsInfo": null,
+            "canonicalTranscript": null,
+            "germline": false
+        },
+        "geneExist": false,
+        "variantExist": true,
+        "mutationEffect": {
+            "knownEffect": "Unknown",
+            "description": "An association between high Tumor Mutational Burden (TMB), defined as the number of somatic mutations per megabase (mut/Mb) of genome sequenced, and response to immune checkpoint inhibitors has been reported in several solid tumor types.",
+            "citations": {
+                "pmids": [],
+                "abstracts": []
+            }
+        },
+        "highestSensitiveLevel": "LEVEL_1",
+        "highestResistanceLevel": null,
+        "highestDiagnosticImplicationLevel": null,
+        "highestPrognosticImplicationLevel": null,
+        "geneSummary": "",
+        "variantSummary": "An association between high Tumor Mutational Burden (TMB), defined as the number of somatic mutations per megabase (mut/Mb) of genome sequenced, and response to immune checkpoint inhibitors has been reported in several solid tumor types.",
+        "tumorTypeSummary": "The TMB for this sample is \u226510 mut/Mb. The anti-PD-1 antibody pembrolizumab is FDA-approved for the treatment of adult and pediatric patients with unresectable or metastatic solid tumors with a mutation burden of \u226510 mut/Mb.",
+        "prognosticSummary": "",
+        "diagnosticSummary": "",
+        "diagnosticImplications": [],
+        "prognosticImplications": [],
+        "treatments": [
+            {
+                "alterations": [
+                    "Tumor Mutational Burden-High"
+                ],
+                "drugs": [
+                    {
+                        "ncitCode": "C106432",
+                        "drugName": "Pembrolizumab"
+                    }
+                ],
+                "approvedIndications": [],
+                "level": "LEVEL_1",
+                "fdaLevel": "LEVEL_Fda2",
+                "levelAssociatedCancerType": {
+                    "id": 5,
+                    "code": "",
+                    "color": "",
+                    "name": "",
+                    "mainType": {
+                        "id": null,
+                        "name": "All Solid Tumors",
+                        "tumorForm": "SOLID"
+                    },
+                    "tissue": "",
+                    "children": {},
+                    "parent": null,
+                    "level": -1,
+                    "tumorForm": "SOLID"
+                },
+                "levelExcludedCancerTypes": [],
+                "pmids": [
+                    "32919526"
+                ],
+                "abstracts": [
+                    {
+                        "link": "https://www.sciencedirect.com/science/article/pii/S0923753419594042",
+                        "abstract": "Marabelle et al. Abstract# 1192O, ESMO 2019."
+                    }
+                ],
+                "description": "Pembrolizumab, a human anti-PD1 antibody that exerts its anti-tumorigenic effect through immune checkpoint blockade, is FDA-approved for the treatment of adult and pediatric patients with unresectable or metastatic tumor mutational burden-high (TMB-H) [\u226510 mutations/megabase (mut/Mb)] solid tumors that have no other satisfactory treatment options. FDA approval was based on the Phase II multicenter, non-randomized, open-label KEYNOTE-158 trial of pembrolizumab in 102 patients with unresectable or metastatic TMB-H solid tumors in which the overall response rate was 29% (95% CI= 21-39), 57% of responses lasted more than twelve months, and 50% of responses lasted more than 24 months (Abstract: Marabelle et al. Abstract# 1192O, ESMO 2019. https://www.sciencedirect.com/science/article/pii/S0923753419594042), (https://www.accessdata.fda.gov/drugsatfda_docs/label/2020/125514s071s090lbl.pdf) (PMID: 32919526)."
+            }
+        ],
+        "dataVersion": "v7.2",
+        "lastUpdate": "08/04/2020",
+        "alleleExist": false,
+        "oncogenic": "Likely Oncogenic",
+        "hotspot": false,
+        "highestFdaLevel": "LEVEL_Fda2",
+        "otherSignificantSensitiveLevels": [],
+        "otherSignificantResistanceLevels": [],
+        "exon": null,
+        "vus": false
+    }
+}

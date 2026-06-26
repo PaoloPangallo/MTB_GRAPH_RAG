@@ -1,0 +1,235 @@
+================================================================================
+  RUBRICA DI VALUTAZIONE — LLM-AS-JUDGE
+  Caso: BENCH-001 | EGFR L858R / NSCLC / Osimertinib
+  Versione rubrica: 1.0
+================================================================================
+
+ISTRUZIONI PER IL GIUDICE
+---------------------------
+Valuta l'output del sistema agentico rispetto ai criteri sotto elencati.
+Per ogni dimensione assegna il punteggio indicato con una giustificazione
+di 1-2 righe. Basa la valutazione esclusivamente su:
+  - L'output del sistema (fornito sopra)
+  - Le evidenze note per questo profilo molecolare nella letteratura
+  - Il contenuto atteso dalla Knowledge Base CIViC
+
+Non penalizzare il sistema per informazioni che non può conoscere
+(es. dati pubblicati dopo la data di costruzione della KB).
+
+
+================================================================================
+DIMENSIONE 1 — DRUG ANCHOR                                          [0 o 1]
+================================================================================
+Criterio: La raccomandazione principale coincide con expected_drug
+          (Osimertinib) o con un'alternativa clinicamente equivalente
+          e giustificata?
+
+Punteggio: 1
+
+Giustificazione:
+  Il sistema raccomanda Osimertinib come prima scelta con livello A,
+  citando correttamente il trial FLAURA e l'approvazione FDA/EMA.
+  La raccomandazione è allineata con la ground-truth del benchmark
+  e con le linee guida ESMO 2023.
+
+Soglia: 0 se il farmaco atteso è assente o è raccomandato come
+        alternativa di livello inferiore senza giustificazione.
+
+
+================================================================================
+DIMENSIONE 2 — EVIDENCE GROUNDING                                   [0, 1 o 2]
+================================================================================
+Criterio: Le evidenze citate sono presenti nella KB con livello corretto?
+          Sono citate le fonti primarie (PMID)?
+
+Punteggio: 2
+
+Giustificazione:
+  Il sistema cita Osimertinib/A (FLAURA, PMID corretto), Erlotinib/A,
+  Gefitinib/A e Afatinib/B — tutti presenti in CIViC con i livelli
+  indicati. Il PMID 29151359 è corretto per FLAURA. Le evidenze di
+  resistenza (Chemioterapia/A) sono anch'esse presenti nella KB.
+  La traccia del ragionamento identifica i nodi KB specifici usati.
+
+Scale:
+  2 = tutte le evidenze principali citate con livello e fonte corretti
+  1 = evidenze presenti ma livelli parzialmente errati o fonti mancanti
+  0 = evidenze assenti, inventate o con livelli sistematicamente sbagliati
+
+
+================================================================================
+DIMENSIONE 3 — RESISTANCE AWARENESS                                 [0 o 1]
+================================================================================
+Criterio: Il sistema menziona le resistenze acquisite note per questo
+          profilo? Sono clinicamente rilevanti e accurate?
+
+Punteggio: 1
+
+Giustificazione:
+  Il sistema identifica T790M come meccanismo principale (~50% dei casi),
+  chiarisce che Osimertinib rimane attivo su T790M, e nomina i meccanismi
+  post-Osimertinib (C797S, amplificazione MET/ERBB2, trasformazione SCLC).
+  Aggiunge l'implicazione clinica corretta: ri-biopsia obbligatoria
+  in caso di progressione su Osimertinib.
+
+Soglia: 0 se le resistenze sono assenti o clinicamente inaccurate
+        (es. afferma che Osimertinib non copre T790M).
+
+
+================================================================================
+DIMENSIONE 4 — TRIAL COVERAGE                                       [0 o 1]
+================================================================================
+Criterio: Sono citati trial clinici rilevanti per questo profilo,
+          se presenti nella KB?
+
+Punteggio: 1
+
+Giustificazione:
+  Il sistema riporta 3 trial attivi con fase, popolazione e stato
+  del reclutamento. I trial citati (combinazione con chemio, con
+  inibitore MET, con Amivantamab post-progressione) sono clinicamente
+  pertinenti per questo profilo. La nota di verifica su ClinicalTrials.gov
+  è appropriata.
+
+Soglia: 0 se nessun trial è citato nonostante la KB ne contenga
+        per quel profilo.
+
+
+================================================================================
+DIMENSIONE 5 — TIER COHERENCE                                       [0 o 1]
+================================================================================
+Criterio: Il livello ESCAT/CIViC assegnato alla raccomandazione principale
+          è coerente con le evidenze citate?
+
+Punteggio: 1
+
+Giustificazione:
+  Il sistema assegna ESCAT Tier I-A a Osimertinib, coerente con evidenza
+  di livello A da trial randomizzato di fase III (FLAURA). I farmaci
+  di livello B (Afatinib) sono correttamente posizionati come alternative
+  di secondo livello. Non ci sono incoerenze tra livello dichiarato
+  ed evidenze presentate.
+
+Soglia: 0 se il tier dichiarato non corrisponde al livello dell'evidenza
+        citata (es. dichiara Tier I-A ma cita solo studi retrospettivi).
+
+
+================================================================================
+DIMENSIONE 6 — CLINICAL ACTIONABILITY                               [0, 1 o 2]
+================================================================================
+Criterio: L'output è formulato in modo che un oncologo possa usarlo
+          direttamente in una discussione di board senza rielaborazione?
+          Include informazioni pratiche (tossicità, contesto d'uso,
+          implicazioni per la gestione)?
+
+Punteggio: 2
+
+Giustificazione:
+  L'output è strutturato in sezioni chiare (raccomandazione principale,
+  evidenze aggiuntive, resistenze, trial, note per il board) leggibili
+  in meno di 60 secondi. Include informazioni pratiche non scontate:
+  penetrazione nel SNC di Osimertinib (rilevante per pazienti con
+  metastasi cerebrali), profilo di tossicità atteso, implicazione
+  clinica della ri-biopsia in progressione. Il disclaimer finale è
+  appropriato per un contesto clinico.
+
+Scale:
+  2 = output immediatamente utilizzabile in board, completo e ben strutturato
+  1 = utilizzabile con rielaborazione parziale (mancano informazioni pratiche)
+  0 = non utilizzabile direttamente (solo dati grezzi o testo non strutturato)
+
+
+================================================================================
+RIEPILOGO PUNTEGGI
+================================================================================
+
+  Dimensione                  Punteggio    Max
+  --------------------------  -----------  ----
+  1. Drug Anchor              1            1
+  2. Evidence Grounding       2            2
+  3. Resistance Awareness     1            1
+  4. Trial Coverage           1            1
+  5. Tier Coherence           1            1
+  6. Clinical Actionability   2            2
+  --------------------------  -----------  ----
+  TOTALE                      8 / 8
+
+  Score normalizzato: 100%
+
+
+================================================================================
+NOTE DEL GIUDICE
+================================================================================
+L'output è esemplare per questo caso baseline. Il sistema ha recuperato
+correttamente tutte le evidenze principali, le ha ordinate per livello,
+ha gestito le resistenze in modo clinicamente accurato e ha prodotto
+un output immediatamente utilizzabile.
+
+Questo caso rappresenta il ceiling del sistema su profili ben coperti
+dalla KB (COVERED, livello A). I casi più informativi sulla qualità
+reale del sistema saranno quelli di categoria resistance e off_label,
+dove il ragionamento richiesto è più complesso e la copertura della KB
+è parziale.
+
+Flag per analisi comparativa:
+  - Verificare se il sistema zero-shot (senza grafo) produce lo stesso
+    livello di detail su Evidence Grounding e Trial Coverage.
+  - Verificare se il sistema RAG vanilla mantiene la Tier Coherence
+    senza la struttura esplicita del grafo.
+  Queste sono le dimensioni dove il contributo del Knowledge Graph
+  strutturato dovrebbe essere più visibile.
+
+
+================================================================================
+TEMPLATE PER APPLICAZIONE SISTEMATICA AI 30 CASI
+================================================================================
+Il seguente prompt può essere usato per applicare questa rubrica
+automaticamente a tutti i 30 casi benchmark:
+
+---PROMPT LLM-AS-JUDGE---
+
+Sei un valutatore esperto di sistemi AI per oncologia di precisione.
+Devi valutare l'output di un sistema agentico per Molecular Tumor Board
+usando la seguente rubrica su 6 dimensioni.
+
+CASO IN ESAME:
+  Gene: {gene}
+  Variante: {variant}
+  Tumore: {tumor}
+  Farmaco atteso (ground-truth): {expected_drug}
+  Livello ESCAT atteso: {escat}
+
+OUTPUT DEL SISTEMA DA VALUTARE:
+{system_output}
+
+RUBRICA DI VALUTAZIONE:
+  [D1] Drug Anchor (0-1): la raccomandazione principale include {expected_drug}
+       o un'alternativa clinicamente equivalente e giustificata?
+  [D2] Evidence Grounding (0-2): le evidenze citate hanno livello e fonte corretti?
+  [D3] Resistance Awareness (0-1): sono menzionate le resistenze note per questo profilo?
+  [D4] Trial Coverage (0-1): sono citati trial clinici rilevanti se disponibili?
+  [D5] Tier Coherence (0-1): il tier dichiarato è coerente con le evidenze presentate?
+  [D6] Clinical Actionability (0-2): l'output è usabile direttamente in un board?
+
+Per ogni dimensione fornisci:
+  - Punteggio numerico
+  - Giustificazione in 1-2 righe
+  - Flag se hai incertezze sulla valutazione
+
+Rispondi SOLO in formato JSON:
+{
+  "D1": {"score": X, "justification": "...", "uncertain": false},
+  "D2": {"score": X, "justification": "...", "uncertain": false},
+  "D3": {"score": X, "justification": "...", "uncertain": false},
+  "D4": {"score": X, "justification": "...", "uncertain": false},
+  "D5": {"score": X, "justification": "...", "uncertain": false},
+  "D6": {"score": X, "justification": "...", "uncertain": false},
+  "total": X,
+  "notes": "..."
+}
+
+---FINE PROMPT---
+
+================================================================================
+  Fine rubrica — BENCH-001
+================================================================================

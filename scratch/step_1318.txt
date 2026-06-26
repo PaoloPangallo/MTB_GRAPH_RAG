@@ -1,0 +1,54 @@
+Ho tutti i dati ora. Risposta strutturata ai tre punti.
+
+---
+
+## Risposta ai tre punti
+
+### 1. Fallback websearch — il dato è recuperabile, e la notizia è buona
+
+Il JSON corretto usa `details` (non `pmids_detail` — errore nel mio primo script). I dati reali:
+
+- **134 PMID totali valutati** dal judge di pertinenza
+- **0 fallback** per timeout — nessuna voce con "fallback"/"errore" nella motivazione
+- **112 pertinenti / 22 non pertinenti** → tasso grezzo = 83.6%, prossimo all'81.1% dichiarato (lo scarto è nella formula: `n_relevant / n_cited`, non `n_relevant / n_exists`)
+
+**Conclusione**: l'81.1% è auditabile e pulito. Non ci sono fallback nascosti che lo gonfiano. Puoi citarlo con fiducia.
+
+---
+
+### 2. Normalizzazione input — nessuna asimmetria
+
+Il diagnostic conferma che **tutte e 5 le condizioni ricevono esattamente lo stesso input**:
+
+```
+BENCH-017: gene='MSI', variant='MSI-High', tumor='Colorectal Cancer', alt='biomarker'
+```
+
+La conversione `MSI-High → MSI-H` è **interna al meccanismo di query OncoKB** — è l'equivalente di come il RAG converte la variante in un embedding, o di come la Cypher query usa i nomi dei nodi del grafo. Non è una modifica dell'input clinico, è un adattamento al vocabolario del servizio. Il relatore può chiedere: *"il vanilla riceve lo stesso input?"* — sì, lo riceve. Che poi il vanilla usi "MSI-High" per scrivere il report LLM è una scelta del suo meccanismo, non un vantaggio strutturale.
+
+**La frase difendibile in tesi**: *"L'input clinico (gene, variante, istotipo, linea terapeutica) è identico per tutte le condizioni. Ciascuna condizione esegue internamente le normalizzazioni richieste dal proprio meccanismo di recupero: l'LLM usa il linguaggio naturale, il RAG usa embedding, l'enricher usa la nomenclatura OncoKB API."*
+
+---
+
+### 3. Separazione Tipo D da formato — già netta, da dichiarare esplicitamente
+
+Il conteggio preciso è:
+
+| Tipo | N | Descrizione |
+|---|---|---|
+| **D — Network transient** | **1** | BENCH-012 (KRAS G12C): API funziona, era un timeout di rete isolato |
+| **A — Tumor synonym** | 3 | OncoKB usa nomi diversi da quelli standard (`CML`, `Esophagogastric`) |
+| **B — Biomarker** | 2 | `MSI-High→MSI-H`, `TMB-High→TMB-H` |
+| **B — Alteration genérica** | 8 | Notazioni come `"Exon 11 Mutation"` senza protein change esatta |
+| **C — Fusion parser** | 3 | `hugoSymbolB=""` per gene singolo |
+| **Totale** | **17** | (16 formato + 1 rete) |
+
+**Frase tesi**: *"Su 17 casi re-eseguiti: 1 era un fallimento di rete transitorio (BENCH-012: API OncoKB restituisce correttamente Sotorasib/Adagrasib in condizioni normali); i restanti 16 presentavano errori di formato nella chiamata API — nomenclature non conformi al vocabolario OncoKB — corretti con regole generali non tarate sui risultati attesi."*
+
+---
+
+### Sul narrativo enricher-forte
+
+Hai ragione che adesso la domanda del relatore è più tagliente. Ma i dati supportano questa risposta:
+
+> *"L'enricher a 90% DAC dimostra che OncoKB da solo risolve il problema del farmaco in 9 casi su 10. Il full GraphRAG aggiunge le due cose che OncoKB strutturalmente non può fare: (1) 0% allucinazione PMID — l'enricher alucina il 58.8% delle citazioni pur avendo i PMID corretti nell'output API; (2) 100% ESCAT — classificazione europea che OncoKB non fornisce. I 3 casi dove l'enricher fallisce ancora (BENCH-024 EGFR Exon 19, BENCH-025 IDH1, BENCH-027 MET Exon 14) sono esattamente i casi dove serve la specificità variante→livello che il grafo codifica come relazione strutturata e una query API generica non può disambiguare."*

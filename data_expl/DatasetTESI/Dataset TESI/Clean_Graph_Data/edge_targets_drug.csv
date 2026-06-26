@@ -1,0 +1,3371 @@
+source_evidence_id,target_drug_concept_id,evidence_level,significance,evidence_direction
+11,rxcui:81992,B,Resistance,Does Not Support
+12,rxcui:2361596,D,Resistance,Supports
+13,rxcui:2361596,D,Resistance,Supports
+14,rxcui:1147220,B,Resistance,Supports
+15,rxcui:282388,B,Resistance,Supports
+16,rxcui:282388,B,Resistance,Supports
+17,rxcui:495881,C,Sensitivity/Response,Supports
+18,rxcui:5650,B,Sensitivity/Response,Supports
+19,rxcui:253453,B,Sensitivity/Response,Supports
+20,rxcui:2197594,D,Sensitivity/Response,Supports
+21,chembl:CHEMBL109480,C,Sensitivity/Response,Supports
+22,rxcui:37776,C,Sensitivity/Response,Supports
+23,rxcui:37776,C,Sensitivity/Response,Supports
+32,rxcui:1148495,D,Resistance,Supports
+33,rxcui:1148495,D,Resistance,Supports
+34,rxcui:495881,D,Resistance,Supports
+34,rxcui:282388,D,Resistance,Supports
+34,rxcui:662281,D,Resistance,Supports
+35,rxcui:337525,B,Resistance,Supports
+35,rxcui:328134,B,Resistance,Supports
+36,rxcui:318341,B,Resistance,Supports
+37,rxcui:1727454,D,Sensitivity/Response,Supports
+38,rxcui:1148495,D,Sensitivity/Response,Supports
+39,ncit:C171615,D,Sensitivity/Response,Supports
+40,rxcui:495881,D,Sensitivity/Response,Supports
+41,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+42,fda:DASATINIB,D,Sensitivity/Response,Supports
+43,ncit:C64639,D,Sensitivity/Response,Supports
+44,ncit:C64639,D,Sensitivity/Response,Supports
+45,ncit:C64639,D,Sensitivity/Response,Supports
+46,ncit:C64639,D,Sensitivity/Response,Supports
+47,ncit:C64639,D,Sensitivity/Response,Supports
+48,ncit:C171615,D,Resistance,Supports
+58,rxcui:282388,B,Sensitivity/Response,Supports
+73,rxcui:1424911,C,Sensitivity/Response,Supports
+75,ncit:C71896,D,Resistance,Supports
+76,ncit:C71896,D,Resistance,Supports
+77,ncit:C91394,D,Sensitivity/Response,Supports
+86,fda:TRAMETINIB,D,Resistance,Does Not Support
+86,drugbank:DB07101,D,Resistance,Does Not Support
+88,rxcui:263034,B,Resistance,Supports
+89,rxcui:263034,D,Sensitivity/Response,Supports
+89,rxcui:495881,D,Sensitivity/Response,Supports
+90,rxcui:1147220,D,Resistance,Supports
+91,rxcui:1424911,C,Resistance,Supports
+92,rxcui:2361596,E,Resistance,Supports
+93,rxcui:1424911,B,Sensitivity/Response,Supports
+93,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+94,rxcui:1424911,B,Sensitivity/Response,Supports
+95,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+95,rxcui:1424911,B,Sensitivity/Response,Supports
+96,drugbank:DB06999,D,Sensitivity/Response,Supports
+97,drugbank:DB17039,D,Sensitivity/Response,Supports
+97,drugbank:DB06999,D,Sensitivity/Response,Supports
+98,rxcui:194000,D,Sensitivity/Response,Supports
+98,rxcui:1147220,D,Sensitivity/Response,Supports
+99,rxcui:1147220,D,Sensitivity/Response,Supports
+122,rxcui:10753,B,Sensitivity/Response,Does Not Support
+123,rxcui:318341,B,Resistance,Does Not Support
+124,rxcui:318341,B,Resistance,Does Not Support
+125,rxcui:1148495,D,Resistance,Supports
+126,rxcui:318341,B,Resistance,Supports
+127,rxcui:10753,B,Resistance,Supports
+130,rxcui:81992,D,Resistance,Supports
+134,rxcui:318341,B,Resistance,Supports
+135,rxcui:318341,D,Resistance,Supports
+136,rxcui:318341,D,Resistance,Supports
+137,rxcui:10753,B,Sensitivity/Response,Does Not Support
+138,rxcui:318341,B,Resistance,Supports
+139,rxcui:81992,B,Resistance,Supports
+139,ncit:C71603,B,Resistance,Supports
+141,rxcui:1727454,D,Sensitivity/Response,Supports
+142,ncit:C171615,D,Sensitivity/Response,Supports
+143,rxcui:1148495,D,Sensitivity/Response,Supports
+144,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+145,rxcui:318341,D,Sensitivity/Response,Supports
+146,rxcui:10753,B,Sensitivity/Response,Supports
+147,rxcui:81992,B,Sensitivity/Response,Supports
+148,rxcui:11118,B,Sensitivity/Response,Supports
+149,rxcui:10753,D,Sensitivity/Response,Supports
+153,rxcui:24614,E,Sensitivity/Response,Supports
+153,rxcui:81992,E,Sensitivity/Response,Supports
+153,ncit:C71603,E,Sensitivity/Response,Supports
+154,rxcui:35302,D,Sensitivity/Response,Supports
+155,rxcui:141704,B,Sensitivity/Response,Supports
+211,rxcui:1597582,B,Sensitivity/Response,Supports
+212,rxcui:1597582,B,Sensitivity/Response,Supports
+229,rxcui:328134,B,Sensitivity/Response,Supports
+229,rxcui:337525,B,Sensitivity/Response,Supports
+231,ncit:C90581,D,Sensitivity/Response,Does Not Support
+232,rxcui:282388,D,Resistance,Supports
+233,rxcui:282388,D,Resistance,Supports
+234,rxcui:282388,B,Resistance,Supports
+235,rxcui:282388,D,Resistance,Supports
+236,rxcui:1148495,C,Resistance,Supports
+237,rxcui:1148495,C,Resistance,Supports
+238,rxcui:337525,A,Resistance,Supports
+239,rxcui:328134,B,Resistance,Supports
+240,fda:DACOMITINIB,B,Resistance,Supports
+241,rxcui:480167,D,Resistance,Supports
+247,rxcui:495881,C,Resistance,Supports
+248,rxcui:495881,B,Resistance,Supports
+249,rxcui:282388,D,Resistance,Supports
+250,rxcui:318341,B,Resistance,Supports
+251,rxcui:337525,B,Resistance,Supports
+251,rxcui:328134,B,Resistance,Supports
+258,rxcui:318341,B,Resistance,Does Not Support
+258,rxcui:263034,B,Resistance,Does Not Support
+259,rxcui:282388,A,Sensitivity/Response,Supports
+260,rxcui:282388,A,Sensitivity/Response,Supports
+261,rxcui:662281,A,Sensitivity/Response,Supports
+261,fda:DASATINIB,A,Sensitivity/Response,Supports
+262,rxcui:1148495,C,Sensitivity/Response,Supports
+263,rxcui:1601374,D,Sensitivity/Response,Supports
+264,rxcui:2169285,D,Sensitivity/Response,Supports
+266,fda:DASATINIB,D,Sensitivity/Response,Supports
+267,fda:DASATINIB,D,Sensitivity/Response,Supports
+268,fda:DASATINIB,D,Sensitivity/Response,Supports
+269,fda:DASATINIB,D,Sensitivity/Response,Supports
+270,fda:DASATINIB,D,Sensitivity/Response,Supports
+271,fda:DASATINIB,D,Sensitivity/Response,Supports
+272,rxcui:337525,C,Sensitivity/Response,Supports
+272,fda:DASATINIB,C,Sensitivity/Response,Supports
+273,rxcui:328134,D,Sensitivity/Response,Supports
+274,rxcui:328134,D,Sensitivity/Response,Supports
+275,rxcui:328134,B,Sensitivity/Response,Supports
+275,rxcui:337525,B,Sensitivity/Response,Supports
+276,rxcui:328134,D,Sensitivity/Response,Supports
+277,rxcui:337525,C,Sensitivity/Response,Supports
+278,drugbank:DB02010,E,Sensitivity/Response,Supports
+279,rxcui:480167,D,Sensitivity/Response,Supports
+279,rxcui:1940642,D,Sensitivity/Response,Supports
+280,rxcui:1940642,D,Sensitivity/Response,Supports
+281,rxcui:1940642,D,Sensitivity/Response,Supports
+282,rxcui:1940642,D,Sensitivity/Response,Supports
+283,rxcui:1940642,D,Sensitivity/Response,Supports
+284,rxcui:1940642,D,Sensitivity/Response,Supports
+285,rxcui:1940642,D,Sensitivity/Response,Supports
+286,rxcui:1940642,D,Sensitivity/Response,Supports
+286,rxcui:480167,D,Sensitivity/Response,Supports
+287,rxcui:1940642,D,Sensitivity/Response,Supports
+288,rxcui:1940642,D,Sensitivity/Response,Supports
+289,rxcui:1940642,D,Sensitivity/Response,Supports
+290,rxcui:282357,D,Sensitivity/Response,Supports
+290,rxcui:10324,D,Sensitivity/Response,Supports
+291,rxcui:10324,D,Sensitivity/Response,Supports
+291,rxcui:282357,D,Sensitivity/Response,Supports
+292,rxcui:10324,D,Sensitivity/Response,Supports
+292,rxcui:282357,D,Sensitivity/Response,Supports
+293,rxcui:10324,D,Sensitivity/Response,Supports
+293,rxcui:282357,D,Sensitivity/Response,Supports
+294,rxcui:282357,D,Sensitivity/Response,Supports
+294,rxcui:10324,D,Sensitivity/Response,Supports
+295,rxcui:1364347,C,Sensitivity/Response,Supports
+296,rxcui:1364347,C,Sensitivity/Response,Supports
+296,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+297,ncit:C48402,B,Sensitivity/Response,Supports
+298,rxcui:495881,B,Sensitivity/Response,Supports
+299,ncit:C1731,D,Sensitivity/Response,Supports
+301,rxcui:358258,D,Sensitivity/Response,Supports
+301,chembl:CHEMBL541388,D,Sensitivity/Response,Supports
+302,rxcui:282388,C,Sensitivity/Response,Supports
+303,rxcui:282388,D,Sensitivity/Response,Supports
+303,rxcui:662281,D,Sensitivity/Response,Supports
+303,fda:DASATINIB,D,Sensitivity/Response,Supports
+304,rxcui:357977,B,Sensitivity/Response,Supports
+305,rxcui:2361596,D,Sensitivity/Response,Supports
+305,ncit:C74072,D,Sensitivity/Response,Supports
+306,rxcui:318341,B,Sensitivity/Response,Supports
+307,rxcui:37776,A,Sensitivity/Response,Supports
+308,rxcui:2105,B,Sensitivity/Response,Supports
+309,ncit:C1306,E,Sensitivity/Response,Supports
+310,iuphar.ligand:7743,D,Sensitivity/Response,Supports
+311,rxcui:35302,D,Sensitivity/Response,Supports
+314,iuphar.ligand:7743,D,Sensitivity/Response,Supports
+316,rxcui:10753,B,Sensitivity/Response,Supports
+317,ncit:C2201,D,Sensitivity/Response,Supports
+319,rxcui:142433,D,Sensitivity/Response,Supports
+320,rxcui:141704,B,Sensitivity/Response,Supports
+344,rxcui:282388,A,Sensitivity/Response,Supports
+387,rxcui:263034,C,Resistance,Supports
+387,rxcui:318341,C,Resistance,Supports
+388,rxcui:263034,C,Resistance,Supports
+388,rxcui:318341,C,Resistance,Supports
+399,rxcui:142433,B,Sensitivity/Response,Supports
+403,rxcui:282388,D,Sensitivity/Response,Supports
+403,iuphar.ligand:5685,D,Sensitivity/Response,Supports
+411,ncit:C71603,B,Resistance,Supports
+412,hemonc:75494,D,Sensitivity/Response,Does Not Support
+413,rxcui:337525,B,Sensitivity/Response,Supports
+413,rxcui:328134,B,Sensitivity/Response,Supports
+414,hemonc:75494,D,Sensitivity/Response,Supports
+414,rxcui:996051,D,Sensitivity/Response,Supports
+436,rxcui:1442981,B,Resistance,Supports
+439,rxcui:1147220,D,Resistance,Supports
+440,rxcui:1148495,D,Resistance,Supports
+441,rxcui:1148495,D,Resistance,Supports
+442,rxcui:1148495,D,Resistance,Supports
+443,rxcui:1148495,D,Resistance,Supports
+444,rxcui:1148495,C,Resistance,Supports
+447,rxcui:1999574,D,Resistance,Supports
+447,rxcui:1307298,D,Resistance,Supports
+448,rxcui:83008,D,Resistance,Supports
+452,rxcui:37776,D,Sensitivity/Response,Supports
+453,rxcui:37776,D,Sensitivity/Response,Supports
+454,iuphar.ligand:8010,D,Sensitivity/Response,Supports
+454,iuphar.ligand:8011,D,Sensitivity/Response,Supports
+455,rxcui:1597582,D,Sensitivity/Response,Supports
+456,hemonc:19,E,Sensitivity/Response,Supports
+456,rxcui:2555,E,Sensitivity/Response,Supports
+457,rxcui:56946,D,Resistance,Supports
+486,rxcui:282388,C,Sensitivity/Response,Supports
+501,rxcui:10324,B,Sensitivity/Response,Does Not Support
+502,rxcui:258494,B,Sensitivity/Response,Does Not Support
+502,rxcui:10324,B,Sensitivity/Response,Does Not Support
+506,rxcui:318341,B,Resistance,Supports
+507,rxcui:657797,D,Sensitivity/Response,Supports
+528,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+529,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+622,fda:TRAMETINIB,B,Resistance,Supports
+622,rxcui:12574,B,Resistance,Supports
+623,rxcui:1597582,D,Sensitivity/Response,Supports
+630,chembl:CHEMBL1200751,D,Resistance,Supports
+630,rxcui:10485,D,Resistance,Supports
+631,rxcui:10485,D,Resistance,Supports
+631,chembl:CHEMBL1200751,D,Resistance,Supports
+632,chembl:CHEMBL1200751,D,Resistance,Supports
+632,rxcui:10485,D,Resistance,Supports
+633,rxcui:274771,D,Resistance,Does Not Support
+635,rxcui:274771,D,Resistance,Does Not Support
+636,rxcui:274771,D,Resistance,Does Not Support
+637,fda:DASATINIB,B,Resistance,Supports
+638,rxcui:1364347,D,Sensitivity/Response,Supports
+639,rxcui:1364347,B,Sensitivity/Response,Supports
+642,rxcui:328134,D,Resistance,Supports
+642,ncit:C48369,D,Resistance,Supports
+644,rxcui:141704,B,Resistance,Supports
+645,fda:TRASTUZUMAB,B,Resistance,Supports
+646,ncit:C99905,B,Sensitivity/Response,Supports
+647,rxcui:1597582,C,Sensitivity/Response,Supports
+648,rxcui:1597582,C,Sensitivity/Response,Supports
+649,rxcui:2555,C,Resistance,Supports
+649,rxcui:40048,C,Resistance,Supports
+650,rxcui:1597582,B,Sensitivity/Response,Supports
+651,rxcui:282388,D,Resistance,Supports
+652,rxcui:282388,D,Sensitivity/Response,Supports
+654,rxcui:282388,A,Sensitivity/Response,Supports
+659,rxcui:12574,B,Sensitivity/Response,Supports
+659,chembl:CHEMBL538943,B,Sensitivity/Response,Supports
+660,rxcui:40048,D,Sensitivity/Response,Supports
+660,rxcui:2555,D,Sensitivity/Response,Supports
+660,rxcui:56946,D,Sensitivity/Response,Supports
+661,rxcui:2555,D,Resistance,Supports
+662,rxcui:2555,D,Resistance,Supports
+664,rxcui:40048,B,Resistance,Supports
+664,rxcui:56946,B,Resistance,Supports
+669,rxcui:4492,B,Sensitivity/Response,Supports
+673,rxcui:2555,B,Sensitivity/Response,Supports
+673,rxcui:40048,B,Sensitivity/Response,Supports
+674,rxcui:56946,B,Sensitivity/Response,Supports
+675,rxcui:40048,B,Sensitivity/Response,Supports
+675,rxcui:2555,B,Sensitivity/Response,Supports
+676,rxcui:2555,B,Resistance,Supports
+677,rxcui:56946,B,Sensitivity/Response,Supports
+677,rxcui:40048,B,Sensitivity/Response,Supports
+678,rxcui:4492,B,Resistance,Supports
+678,rxcui:153329,B,Resistance,Supports
+679,rxcui:142433,D,Resistance,Supports
+680,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+681,rxcui:1364347,D,Sensitivity/Response,Supports
+686,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+688,rxcui:1148495,A,Sensitivity/Response,Supports
+689,iuphar.ligand:8966,C,Sensitivity/Response,Supports
+691,rxcui:4492,B,Sensitivity/Response,Does Not Support
+691,ncit:C1450,B,Sensitivity/Response,Does Not Support
+691,rxcui:318341,B,Sensitivity/Response,Does Not Support
+692,rxcui:318341,B,Sensitivity/Response,Does Not Support
+693,ncit:C2167,B,Sensitivity/Response,Supports
+694,ncit:C2167,B,Resistance,Does Not Support
+696,rxcui:263034,B,Resistance,Supports
+697,rxcui:318341,B,Resistance,Does Not Support
+698,rxcui:1098413,C,Sensitivity/Response,Supports
+699,ncit:C2167,C,Resistance,Supports
+700,rxcui:2049122,D,Sensitivity/Response,Supports
+700,drugbank:DB07101,D,Sensitivity/Response,Supports
+700,rxcui:141704,D,Sensitivity/Response,Supports
+700,rxcui:2361596,D,Sensitivity/Response,Supports
+700,ncit:C78856,D,Sensitivity/Response,Supports
+704,rxcui:1547545,B,Sensitivity/Response,Supports
+704,rxcui:1597876,B,Sensitivity/Response,Supports
+705,rxcui:141704,C,Sensitivity/Response,Supports
+705,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+706,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+707,ncit:C84870,D,Sensitivity/Response,Supports
+708,ncit:C84870,D,Sensitivity/Response,Supports
+709,rxcui:2669967,C,Sensitivity/Response,Supports
+710,ncit:C90581,D,Sensitivity/Response,Supports
+710,ncit:C165479,D,Sensitivity/Response,Supports
+711,ncit:C107684,D,Sensitivity/Response,Supports
+713,rxcui:2669967,D,Sensitivity/Response,Supports
+713,ncit:C148229,D,Sensitivity/Response,Supports
+714,ncit:C90565,C,Sensitivity/Response,Supports
+714,rxcui:56946,C,Sensitivity/Response,Supports
+714,rxcui:40048,C,Sensitivity/Response,Supports
+715,rxcui:657797,C,Sensitivity/Response,Supports
+716,rxcui:2169285,D,Resistance,Supports
+717,rxcui:318341,C,Resistance,Supports
+718,rxcui:318341,B,Resistance,Supports
+718,rxcui:263034,B,Resistance,Supports
+719,rxcui:263034,B,Resistance,Supports
+719,rxcui:318341,B,Resistance,Supports
+720,rxcui:318341,D,Resistance,Supports
+722,rxcui:2669967,D,Sensitivity/Response,Supports
+722,ncit:C148229,D,Sensitivity/Response,Supports
+723,rxcui:495881,C,Sensitivity/Response,Supports
+724,rxcui:1147220,D,Resistance,Supports
+725,rxcui:1147220,D,Resistance,Supports
+726,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+727,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+728,rxcui:1147220,C,Sensitivity/Response,Supports
+729,rxcui:318341,B,Resistance,Supports
+730,rxcui:318341,B,Sensitivity/Response,Supports
+733,rxcui:328134,D,Resistance,Supports
+734,rxcui:56946,D,Resistance,Supports
+735,rxcui:1148495,C,Sensitivity/Response,Supports
+736,rxcui:1148495,D,Sensitivity/Response,Supports
+737,ncit:C2167,B,Sensitivity/Response,Supports
+738,rxcui:282388,B,Resistance,Supports
+739,rxcui:1544460,C,Sensitivity/Response,Supports
+740,rxcui:1098413,D,Sensitivity/Response,Supports
+742,rxcui:2361596,D,Sensitivity/Response,Supports
+742,ncit:C165479,D,Sensitivity/Response,Supports
+743,rxcui:1547545,B,Sensitivity/Response,Supports
+743,rxcui:1597876,B,Sensitivity/Response,Supports
+744,ncit:C107239,D,Sensitivity/Response,Supports
+745,rxcui:1242987,C,Resistance,Supports
+746,rxcui:1242987,B,Resistance,Supports
+747,rxcui:18330,D,Sensitivity/Response,Supports
+748,rxcui:1659191,B,Sensitivity/Response,Supports
+749,rxcui:1242987,B,Sensitivity/Response,Supports
+751,iuphar.ligand:4307,D,Sensitivity/Response,Supports
+752,rxcui:56946,D,Resistance,Supports
+753,rxcui:263034,B,Sensitivity/Response,Supports
+755,rxcui:1242987,D,Resistance,Supports
+756,ncit:C165479,C,Sensitivity/Response,Supports
+757,ncit:C165479,C,Sensitivity/Response,Supports
+759,rxcui:318341,B,Resistance,Does Not Support
+761,rxcui:1940642,B,Sensitivity/Response,Supports
+762,ncit:C99905,D,Sensitivity/Response,Supports
+763,rxcui:1148495,C,Resistance,Supports
+764,rxcui:1148495,C,Resistance,Supports
+765,rxcui:1148495,C,Resistance,Supports
+766,rxcui:1148495,C,Resistance,Supports
+767,rxcui:1148495,C,Resistance,Supports
+770,rxcui:480167,D,Sensitivity/Response,Supports
+772,ncit:C2167,B,Sensitivity/Response,Supports
+773,rxcui:1430438,C,Sensitivity/Response,Supports
+774,ncit:C2167,B,Sensitivity/Response,Supports
+775,fda:DACOMITINIB,D,Sensitivity/Response,Supports
+776,rxcui:480167,D,Sensitivity/Response,Supports
+777,rxcui:318341,D,Resistance,Supports
+778,iuphar.ligand:8297,D,Sensitivity/Response,Supports
+779,rxcui:12574,D,Sensitivity/Response,Supports
+779,rxcui:40048,D,Sensitivity/Response,Supports
+779,rxcui:2555,D,Sensitivity/Response,Supports
+779,rxcui:56946,D,Sensitivity/Response,Supports
+780,rxcui:1148495,D,Resistance,Supports
+781,rxcui:1148495,B,Resistance,Supports
+783,ncit:C2733,B,Sensitivity/Response,Does Not Support
+786,rxcui:318341,D,Sensitivity/Response,Supports
+787,rxcui:318341,D,Sensitivity/Response,Supports
+788,rxcui:318341,B,Sensitivity/Response,Supports
+789,rxcui:318341,B,Sensitivity/Response,Supports
+791,rxcui:337525,C,Sensitivity/Response,Supports
+792,iuphar.ligand:9176,D,Resistance,Supports
+794,rxcui:1946825,C,Sensitivity/Response,Supports
+795,rxcui:1601374,D,Sensitivity/Response,Supports
+796,ncit:C80058,B,Sensitivity/Response,Supports
+797,rxcui:1148495,C,Sensitivity/Response,Supports
+799,rxcui:2550729,D,Sensitivity/Response,Supports
+800,rxcui:2550729,D,Sensitivity/Response,Supports
+801,ncit:C76199,D,Sensitivity/Response,Supports
+801,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+803,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+803,ncit:C76199,D,Sensitivity/Response,Supports
+803,ncit:C1725,D,Sensitivity/Response,Supports
+805,rxcui:1597582,D,Resistance,Supports
+806,rxcui:318341,B,Resistance,Does Not Support
+809,rxcui:2555,B,Sensitivity/Response,Does Not Support
+813,ncit:C78853,B,Sensitivity/Response,Supports
+814,rxcui:12574,B,Sensitivity/Response,Supports
+814,ncit:C1450,B,Sensitivity/Response,Supports
+815,rxcui:2467553,B,Resistance,Supports
+816,rxcui:263034,B,Resistance,Does Not Support
+816,rxcui:318341,B,Resistance,Does Not Support
+818,rxcui:877015,B,Sensitivity/Response,Supports
+818,rxcui:153329,B,Sensitivity/Response,Supports
+818,rxcui:4492,B,Sensitivity/Response,Supports
+819,rxcui:15657,D,Sensitivity/Response,Supports
+820,rxcui:15657,D,Sensitivity/Response,Supports
+821,rxcui:56946,B,Sensitivity/Response,Supports
+822,rxcui:37776,B,Sensitivity/Response,Supports
+823,rxcui:10324,B,Sensitivity/Response,Supports
+823,rxcui:677,B,Sensitivity/Response,Supports
+824,rxcui:32592,B,Resistance,Supports
+824,rxcui:877015,B,Resistance,Supports
+824,rxcui:153329,B,Resistance,Supports
+824,rxcui:4492,B,Resistance,Supports
+826,rxcui:318341,D,Resistance,Supports
+827,rxcui:2555,B,Resistance,Supports
+829,rxcui:357977,B,Resistance,Supports
+829,rxcui:495881,B,Resistance,Supports
+831,ncit:C71015,D,Sensitivity/Response,Supports
+835,rxcui:328134,D,Resistance,Supports
+836,rxcui:1148495,C,Sensitivity/Response,Supports
+837,chembl:CHEMBL538943,B,Sensitivity/Response,Supports
+837,rxcui:2555,B,Sensitivity/Response,Supports
+841,rxcui:1148495,C,Resistance,Supports
+841,iuphar.ligand:9261,C,Resistance,Supports
+841,rxcui:1535457,C,Resistance,Supports
+842,rxcui:2103164,C,Sensitivity/Response,Supports
+843,rxcui:2103164,C,Resistance,Supports
+844,rxcui:1148495,C,Sensitivity/Response,Supports
+845,rxcui:1597582,C,Sensitivity/Response,Supports
+846,rxcui:318341,B,Resistance,Supports
+848,rxcui:318341,B,Resistance,Supports
+849,rxcui:318341,B,Sensitivity/Response,Does Not Support
+851,rxcui:142433,D,Sensitivity/Response,Supports
+852,rxcui:4492,B,Resistance,Supports
+853,rxcui:4492,B,Resistance,Supports
+854,rxcui:318341,B,Sensitivity/Response,Supports
+854,rxcui:263034,B,Sensitivity/Response,Supports
+855,rxcui:56946,B,Resistance,Supports
+856,rxcui:10324,B,Resistance,Supports
+857,rxcui:10324,B,Resistance,Supports
+858,rxcui:10324,B,Resistance,Does Not Support
+859,ncit:C74072,D,Sensitivity/Response,Supports
+860,rxcui:480167,D,Resistance,Supports
+861,ncit:C102535,D,Sensitivity/Response,Supports
+862,ncit:C102535,D,Sensitivity/Response,Does Not Support
+863,rxcui:1307298,B,Resistance,Supports
+864,fda:TRASTUZUMAB,B,Resistance,Supports
+864,rxcui:480167,B,Resistance,Supports
+866,ncit:C77872,D,Resistance,Supports
+867,fda:TRASTUZUMAB,D,Resistance,Supports
+868,fda:TRASTUZUMAB,D,Resistance,Supports
+869,rxcui:480167,D,Resistance,Supports
+870,iuphar.ligand:6925,D,Sensitivity/Response,Supports
+871,rxcui:2555,B,Resistance,Supports
+872,rxcui:2555,B,Resistance,Supports
+873,rxcui:1147220,D,Resistance,Supports
+873,rxcui:1424911,D,Resistance,Supports
+874,ncit:C1450,B,Sensitivity/Response,Supports
+875,rxcui:318341,B,Sensitivity/Response,Supports
+875,rxcui:194000,B,Sensitivity/Response,Supports
+875,rxcui:32592,B,Sensitivity/Response,Supports
+876,rxcui:2099704,D,Sensitivity/Response,Supports
+878,rxcui:1597582,D,Sensitivity/Response,Supports
+879,rxcui:1430438,B,Sensitivity/Response,Supports
+880,rxcui:1430438,B,Sensitivity/Response,Supports
+881,rxcui:1430438,D,Sensitivity/Response,Supports
+882,rxcui:1430438,B,Sensitivity/Response,Supports
+883,rxcui:1430438,B,Sensitivity/Response,Supports
+884,rxcui:337525,B,Sensitivity/Response,Supports
+885,rxcui:337525,B,Sensitivity/Response,Supports
+886,rxcui:1430438,D,Sensitivity/Response,Supports
+887,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+887,rxcui:1430438,B,Sensitivity/Response,Supports
+887,rxcui:480167,B,Sensitivity/Response,Supports
+888,rxcui:153329,B,Sensitivity/Response,Supports
+889,rxcui:2555,B,Sensitivity/Response,Supports
+889,rxcui:4492,B,Sensitivity/Response,Supports
+890,rxcui:1148495,C,Sensitivity/Response,Supports
+891,rxcui:10324,B,Resistance,Supports
+892,rxcui:657797,B,Sensitivity/Response,Does Not Support
+892,ncit:C49061,B,Sensitivity/Response,Does Not Support
+893,rxcui:657797,B,Resistance,Does Not Support
+893,ncit:C49061,B,Resistance,Does Not Support
+894,rxcui:657797,B,Sensitivity/Response,Does Not Support
+894,ncit:C49061,B,Sensitivity/Response,Does Not Support
+895,rxcui:194000,B,Resistance,Does Not Support
+895,rxcui:318341,B,Resistance,Does Not Support
+895,rxcui:32592,B,Resistance,Does Not Support
+896,rxcui:2550729,D,Sensitivity/Response,Supports
+898,rxcui:337525,B,Sensitivity/Response,Supports
+899,ncit:C71603,D,Resistance,Supports
+899,rxcui:12574,D,Resistance,Supports
+899,rxcui:142433,D,Resistance,Supports
+900,rxcui:142433,D,Sensitivity/Response,Supports
+900,rxcui:1311566,D,Sensitivity/Response,Supports
+901,rxcui:282357,D,Resistance,Supports
+902,rxcui:318341,D,Sensitivity/Response,Supports
+904,rxcui:328134,D,Resistance,Supports
+909,rxcui:142433,B,Sensitivity/Response,Supports
+910,rxcui:40048,B,Sensitivity/Response,Supports
+910,chembl:CHEMBL1200796,B,Sensitivity/Response,Supports
+910,rxcui:266573,B,Sensitivity/Response,Supports
+911,rxcui:318341,B,Sensitivity/Response,Supports
+912,rxcui:153329,B,Sensitivity/Response,Supports
+914,rxcui:4492,B,Sensitivity/Response,Supports
+915,ncit:C133878,B,Resistance,Supports
+916,rxcui:337525,B,Resistance,Does Not Support
+918,rxcui:141704,D,Sensitivity/Response,Supports
+919,rxcui:282388,D,Sensitivity/Response,Supports
+919,ncit:C165479,D,Sensitivity/Response,Supports
+920,rxcui:56946,D,Resistance,Supports
+923,rxcui:328134,B,Sensitivity/Response,Supports
+923,rxcui:337525,B,Sensitivity/Response,Supports
+925,rxcui:83008,D,Resistance,Supports
+926,rxcui:495881,B,Resistance,Supports
+927,rxcui:56946,B,Resistance,Supports
+928,rxcui:203213,B,Sensitivity/Response,Supports
+929,ncit:C1804,B,Resistance,Supports
+930,rxcui:141704,D,Sensitivity/Response,Supports
+931,ncit:C77392,D,Sensitivity/Response,Supports
+932,iuphar.ligand:9361,D,Resistance,Supports
+932,ncit:C128632,D,Resistance,Supports
+932,ncit:C74072,D,Resistance,Supports
+933,chembl:CHEMBL538943,D,Sensitivity/Response,Supports
+934,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+935,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+936,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+937,ncit:C90581,C,Sensitivity/Response,Supports
+938,ncit:C90581,C,Sensitivity/Response,Supports
+939,rxcui:12574,D,Sensitivity/Response,Supports
+940,ncit:C47948,D,Resistance,Supports
+941,ncit:C47948,D,Sensitivity/Response,Supports
+942,ncit:C1450,B,Sensitivity/Response,Supports
+943,ncit:C2167,D,Sensitivity/Response,Supports
+944,rxcui:56946,D,Resistance,Supports
+946,rxcui:2555,B,Resistance,Supports
+947,fda:DASATINIB,D,Sensitivity/Response,Supports
+947,rxcui:318341,D,Sensitivity/Response,Supports
+948,ncit:C2167,B,Sensitivity/Response,Supports
+950,rxcui:12574,D,Resistance,Supports
+951,ncit:C122637,D,Resistance,Supports
+951,rxcui:56946,D,Resistance,Supports
+952,rxcui:56946,D,Resistance,Supports
+953,rxcui:1156,D,Resistance,Supports
+954,rxcui:328134,B,Sensitivity/Response,Supports
+955,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+958,rxcui:32592,D,Resistance,Supports
+959,rxcui:1430438,C,Sensitivity/Response,Supports
+960,rxcui:1430438,D,Sensitivity/Response,Supports
+960,rxcui:35302,D,Sensitivity/Response,Supports
+961,rxcui:1430438,B,Sensitivity/Response,Supports
+962,rxcui:1430438,D,Sensitivity/Response,Supports
+963,rxcui:1721560,D,Sensitivity/Response,Supports
+964,rxcui:1721560,B,Resistance,Supports
+965,rxcui:1721560,B,Sensitivity/Response,Supports
+966,rxcui:1721560,B,Sensitivity/Response,Supports
+967,rxcui:1721560,D,Sensitivity/Response,Supports
+967,ncit:C99905,D,Sensitivity/Response,Supports
+968,rxcui:1430438,D,Sensitivity/Response,Supports
+969,rxcui:1430438,D,Sensitivity/Response,Supports
+971,ncit:C69076,B,Sensitivity/Response,Supports
+972,rxcui:480167,B,Sensitivity/Response,Supports
+977,rxcui:328134,B,Sensitivity/Response,Does Not Support
+977,rxcui:337525,B,Sensitivity/Response,Does Not Support
+978,ncit:C48402,D,Sensitivity/Response,Supports
+978,rxcui:2104548,D,Sensitivity/Response,Supports
+979,iuphar.ligand:9240,D,Sensitivity/Response,Supports
+981,rxcui:1430438,B,Sensitivity/Response,Supports
+982,rxcui:1430438,B,Sensitivity/Response,Supports
+983,rxcui:1430438,B,Sensitivity/Response,Supports
+985,rxcui:1547545,B,Sensitivity/Response,Supports
+985,rxcui:1597876,B,Sensitivity/Response,Supports
+985,chembl:CHEMBL3707227,B,Sensitivity/Response,Supports
+986,rxcui:1442981,B,Sensitivity/Response,Supports
+988,rxcui:2361596,D,Sensitivity/Response,Supports
+988,ncit:C61311,D,Sensitivity/Response,Supports
+989,rxcui:2361596,D,Sensitivity/Response,Supports
+989,ncit:C61311,D,Sensitivity/Response,Supports
+990,fda:TRAMETINIB,B,Sensitivity/Response,Does Not Support
+991,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+991,rxcui:1430438,D,Sensitivity/Response,Supports
+992,rxcui:1430438,D,Sensitivity/Response,Supports
+992,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+993,rxcui:318341,A,Resistance,Supports
+994,ncit:C82696,B,Resistance,Does Not Support
+995,ncit:C82696,B,Resistance,Does Not Support
+996,ncit:C82696,C,Resistance,Does Not Support
+997,ncit:C82696,B,Resistance,Does Not Support
+998,ncit:C82696,B,Sensitivity/Response,Does Not Support
+999,rxcui:2361596,B,Sensitivity/Response,Supports
+1000,iuphar.ligand:7942,C,Resistance,Supports
+1001,iuphar.ligand:7942,C,Sensitivity/Response,Does Not Support
+1002,rxcui:141704,D,Sensitivity/Response,Supports
+1002,rxcui:2049122,D,Sensitivity/Response,Supports
+1003,ncit:C107684,D,Sensitivity/Response,Supports
+1003,iuphar.ligand:8056,D,Sensitivity/Response,Supports
+1004,chembl:CHEMBL1743079,D,Sensitivity/Response,Supports
+1004,rxcui:2361596,D,Sensitivity/Response,Supports
+1005,ncit:C74072,D,Sensitivity/Response,Supports
+1005,rxcui:2361596,D,Sensitivity/Response,Supports
+1006,rxcui:480167,D,Sensitivity/Response,Supports
+1006,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1007,rxcui:480167,B,Sensitivity/Response,Supports
+1007,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1008,rxcui:480167,B,Sensitivity/Response,Does Not Support
+1008,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+1009,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1009,rxcui:480167,B,Sensitivity/Response,Supports
+1011,rxcui:1430438,B,Sensitivity/Response,Supports
+1012,rxcui:1430438,B,Sensitivity/Response,Does Not Support
+1013,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1013,rxcui:1430438,B,Sensitivity/Response,Supports
+1016,rxcui:1597582,B,Sensitivity/Response,Supports
+1017,ncit:C2733,D,Sensitivity/Response,Supports
+1019,rxcui:2104548,D,Sensitivity/Response,Supports
+1019,rxcui:1148495,D,Sensitivity/Response,Supports
+1019,ncit:C48402,D,Sensitivity/Response,Supports
+1020,rxcui:263034,B,Sensitivity/Response,Supports
+1021,rxcui:263034,B,Sensitivity/Response,Supports
+1022,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1023,rxcui:480167,B,Sensitivity/Response,Supports
+1024,rxcui:282388,C,Sensitivity/Response,Supports
+1025,rxcui:282388,C,Sensitivity/Response,Supports
+1030,rxcui:1148495,A,Sensitivity/Response,Supports
+1035,rxcui:657797,D,Sensitivity/Response,Supports
+1036,rxcui:2643048,D,Resistance,Supports
+1036,rxcui:1364347,D,Resistance,Supports
+1038,rxcui:495881,B,Resistance,Supports
+1038,rxcui:2643048,B,Resistance,Supports
+1039,rxcui:495881,B,Resistance,Supports
+1040,rxcui:495881,B,Sensitivity/Response,Supports
+1041,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+1042,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+1043,fda:TRASTUZUMAB,C,Sensitivity/Response,Supports
+1044,rxcui:153329,C,Sensitivity/Response,Supports
+1044,fda:TRASTUZUMAB,C,Sensitivity/Response,Supports
+1045,rxcui:1430438,C,Sensitivity/Response,Supports
+1047,rxcui:1430438,D,Sensitivity/Response,Supports
+1048,fda:DACOMITINIB,C,Sensitivity/Response,Supports
+1057,ncit:C91381,C,Sensitivity/Response,Supports
+1058,rxcui:263034,C,Resistance,Supports
+1058,rxcui:318341,C,Resistance,Supports
+1060,rxcui:56946,B,Sensitivity/Response,Supports
+1060,rxcui:2555,B,Sensitivity/Response,Supports
+1077,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1078,rxcui:263034,C,Sensitivity/Response,Supports
+1079,ncit:C91381,D,Sensitivity/Response,Supports
+1079,rxcui:263034,D,Sensitivity/Response,Supports
+1080,rxcui:318341,D,Resistance,Supports
+1081,ncit:C91381,D,Sensitivity/Response,Supports
+1081,rxcui:263034,D,Sensitivity/Response,Supports
+1081,rxcui:318341,D,Sensitivity/Response,Supports
+1082,rxcui:263034,D,Sensitivity/Response,Supports
+1082,ncit:C91381,D,Sensitivity/Response,Supports
+1083,rxcui:318341,D,Resistance,Supports
+1087,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+1088,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+1089,rxcui:318341,C,Sensitivity/Response,Supports
+1089,rxcui:35302,C,Sensitivity/Response,Supports
+1091,rxcui:10753,A,Sensitivity/Response,Supports
+1091,rxcui:18330,A,Sensitivity/Response,Supports
+1092,rxcui:10753,B,Resistance,Supports
+1093,rxcui:10753,C,Resistance,Supports
+1094,rxcui:10753,C,Resistance,Supports
+1095,rxcui:1148495,C,Sensitivity/Response,Supports
+1097,fda:TRASTUZUMAB,C,Sensitivity/Response,Supports
+1098,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+1099,ncit:C80063,D,Sensitivity/Response,Supports
+1100,rxcui:1148495,C,Resistance,Supports
+1103,iuphar.ligand:8231,D,Sensitivity/Response,Supports
+1104,rxcui:1919083,C,Sensitivity/Response,Supports
+1105,ncit:C975,D,Resistance,Supports
+1106,rxcui:495881,D,Sensitivity/Response,Supports
+1106,rxcui:357977,D,Sensitivity/Response,Supports
+1107,rxcui:357977,D,Sensitivity/Response,Supports
+1107,rxcui:495881,D,Sensitivity/Response,Supports
+1108,rxcui:141704,C,Sensitivity/Response,Supports
+1110,rxcui:141704,C,Resistance,Supports
+1112,rxcui:10753,B,Resistance,Supports
+1112,ncit:C1594,B,Resistance,Supports
+1113,rxcui:1940642,A,Sensitivity/Response,Supports
+1113,fda:TRASTUZUMAB,A,Sensitivity/Response,Supports
+1115,rxcui:10753,D,Sensitivity/Response,Supports
+1118,rxcui:12574,D,Sensitivity/Response,Supports
+1121,rxcui:337525,C,Resistance,Supports
+1122,fda:TRASTUZUMAB,A,Sensitivity/Response,Supports
+1128,rxcui:337525,B,Sensitivity/Response,Supports
+1128,rxcui:328134,B,Sensitivity/Response,Supports
+1129,rxcui:337525,B,Sensitivity/Response,Supports
+1129,rxcui:328134,B,Sensitivity/Response,Supports
+1131,rxcui:263034,C,Resistance,Supports
+1132,rxcui:194000,B,Sensitivity/Response,Supports
+1132,rxcui:480167,B,Sensitivity/Response,Supports
+1133,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1133,rxcui:194000,B,Sensitivity/Response,Supports
+1135,drugbank:DB07101,D,Resistance,Supports
+1135,fda:TRAMETINIB,D,Resistance,Supports
+1135,rxcui:2361596,D,Resistance,Supports
+1136,rxcui:2361596,B,Sensitivity/Response,Supports
+1137,rxcui:2361596,B,Resistance,Supports
+1138,rxcui:2361596,D,Sensitivity/Response,Supports
+1140,ncit:C95738,D,Sensitivity/Response,Supports
+1141,rxcui:1722365,D,Sensitivity/Response,Supports
+1142,rxcui:2361596,B,Sensitivity/Response,Supports
+1143,rxcui:2361596,B,Sensitivity/Response,Supports
+1144,rxcui:2361596,D,Resistance,Supports
+1145,rxcui:2361596,D,Sensitivity/Response,Supports
+1150,ncit:C124946,C,Resistance,Supports
+1151,ncit:C141146,D,Sensitivity/Response,Supports
+1151,ncit:C124946,D,Sensitivity/Response,Supports
+1152,rxcui:2361596,D,Sensitivity/Response,Supports
+1152,rxcui:1430438,D,Sensitivity/Response,Supports
+1153,rxcui:328134,D,Resistance,Supports
+1153,rxcui:2361596,D,Resistance,Supports
+1155,rxcui:1430438,B,Resistance,Supports
+1163,rxcui:4492,D,Sensitivity/Response,Supports
+1163,rxcui:2555,D,Sensitivity/Response,Supports
+1164,rxcui:4492,B,Sensitivity/Response,Supports
+1164,rxcui:32592,B,Sensitivity/Response,Supports
+1165,ncit:C1742,B,Sensitivity/Response,Does Not Support
+1166,ncit:C1742,B,Sensitivity/Response,Does Not Support
+1167,rxcui:1597876,B,Sensitivity/Response,Supports
+1167,rxcui:1547545,B,Sensitivity/Response,Supports
+1167,chembl:CHEMBL3707227,B,Sensitivity/Response,Supports
+1167,rxcui:1875534,B,Sensitivity/Response,Supports
+1170,chembl:CHEMBL1201733,B,Sensitivity/Response,Supports
+1171,rxcui:328134,D,Resistance,Supports
+1172,chembl:CHEMBL3707227,B,Sensitivity/Response,Supports
+1173,ncit:C2167,D,Sensitivity/Response,Supports
+1174,rxcui:1940642,D,Sensitivity/Response,Supports
+1174,rxcui:480167,D,Sensitivity/Response,Supports
+1174,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1175,rxcui:1535457,B,Sensitivity/Response,Supports
+1176,rxcui:1940642,D,Sensitivity/Response,Supports
+1176,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1176,rxcui:480167,D,Sensitivity/Response,Supports
+1177,rxcui:480167,D,Sensitivity/Response,Supports
+1177,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1177,rxcui:1940642,D,Sensitivity/Response,Supports
+1178,rxcui:480167,D,Sensitivity/Response,Supports
+1178,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1178,rxcui:1940642,D,Sensitivity/Response,Supports
+1179,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1179,rxcui:1940642,D,Sensitivity/Response,Supports
+1179,rxcui:480167,D,Sensitivity/Response,Supports
+1180,rxcui:318341,B,Resistance,Supports
+1181,rxcui:318341,B,Resistance,Supports
+1182,rxcui:1723734,D,Resistance,Supports
+1183,iuphar.ligand:8473,D,Sensitivity/Response,Supports
+1185,rxcui:1148495,C,Sensitivity/Response,Supports
+1186,rxcui:2362259,C,Sensitivity/Response,Supports
+1187,rxcui:1148495,A,Sensitivity/Response,Supports
+1189,rxcui:1148495,C,Sensitivity/Response,Supports
+1190,rxcui:1148495,E,Sensitivity/Response,Supports
+1193,rxcui:1148495,C,Sensitivity/Response,Supports
+1194,ncit:C171615,D,Sensitivity/Response,Supports
+1195,ncit:C171615,D,Sensitivity/Response,Does Not Support
+1196,rxcui:1148495,D,Sensitivity/Response,Supports
+1197,rxcui:1148495,D,Sensitivity/Response,Does Not Support
+1198,rxcui:1148495,A,Sensitivity/Response,Supports
+1199,rxcui:1148495,A,Sensitivity/Response,Supports
+1200,rxcui:1148495,B,Sensitivity/Response,Supports
+1201,rxcui:1148495,B,Sensitivity/Response,Supports
+1202,iuphar.ligand:9827,C,Sensitivity/Response,Supports
+1203,rxcui:1148495,D,Sensitivity/Response,Supports
+1203,iuphar.ligand:9827,D,Sensitivity/Response,Supports
+1204,rxcui:1148495,D,Sensitivity/Response,Supports
+1204,iuphar.ligand:9828,D,Sensitivity/Response,Supports
+1205,iuphar.ligand:9828,D,Sensitivity/Response,Does Not Support
+1206,rxcui:1148495,D,Sensitivity/Response,Supports
+1206,iuphar.ligand:9828,D,Sensitivity/Response,Supports
+1207,rxcui:1148495,C,Sensitivity/Response,Supports
+1208,ncit:C2167,B,Resistance,Supports
+1209,rxcui:2555,E,Resistance,Supports
+1210,drugbank:DB17021,D,Sensitivity/Response,Supports
+1211,drugbank:DB17021,D,Sensitivity/Response,Supports
+1212,rxcui:2361596,B,Sensitivity/Response,Does Not Support
+1213,rxcui:2361596,B,Sensitivity/Response,Does Not Support
+1214,rxcui:1597876,C,Sensitivity/Response,Supports
+1216,rxcui:328134,B,Resistance,Supports
+1216,rxcui:337525,B,Resistance,Supports
+1218,ncit:C71146,B,Sensitivity/Response,Does Not Support
+1219,rxcui:12574,B,Resistance,Supports
+1219,rxcui:337525,B,Resistance,Supports
+1220,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+1221,rxcui:282388,A,Sensitivity/Response,Supports
+1222,rxcui:282388,B,Sensitivity/Response,Supports
+1223,rxcui:357977,B,Sensitivity/Response,Supports
+1224,rxcui:357977,C,Sensitivity/Response,Supports
+1225,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+1226,rxcui:2049122,B,Sensitivity/Response,Supports
+1227,fda:TRAMETINIB,B,Sensitivity/Response,Does Not Support
+1228,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+1229,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+1230,rxcui:235743,D,Sensitivity/Response,Supports
+1230,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+1231,rxcui:141704,B,Sensitivity/Response,Supports
+1232,rxcui:141704,B,Sensitivity/Response,Does Not Support
+1233,iuphar.ligand:7942,C,Sensitivity/Response,Supports
+1234,drugbank:DB04297,D,Sensitivity/Response,Supports
+1234,rxcui:1603350,D,Sensitivity/Response,Supports
+1234,rxcui:194337,D,Sensitivity/Response,Supports
+1234,rxcui:11118,D,Sensitivity/Response,Supports
+1235,hemonc:337,E,Sensitivity/Response,Supports
+1235,rxcui:194337,E,Sensitivity/Response,Supports
+1236,rxcui:1364347,D,Sensitivity/Response,Supports
+1237,rxcui:1535457,B,Sensitivity/Response,Supports
+1239,rxcui:1148495,D,Sensitivity/Response,Supports
+1240,rxcui:1148495,C,Sensitivity/Response,Supports
+1241,rxcui:1148495,B,Sensitivity/Response,Supports
+1243,rxcui:1148495,B,Sensitivity/Response,Supports
+1244,rxcui:1148495,C,Sensitivity/Response,Supports
+1245,rxcui:1148495,C,Sensitivity/Response,Supports
+1246,rxcui:1364347,E,Sensitivity/Response,Supports
+1247,rxcui:1364347,D,Sensitivity/Response,Supports
+1248,rxcui:1535457,C,Sensitivity/Response,Supports
+1249,ncit:C80058,D,Sensitivity/Response,Supports
+1250,rxcui:1148495,D,Resistance,Supports
+1250,rxcui:1921217,D,Resistance,Supports
+1250,rxcui:1535457,D,Resistance,Supports
+1250,iuphar.ligand:7706,D,Resistance,Supports
+1251,rxcui:2103164,D,Sensitivity/Response,Supports
+1252,rxcui:1148495,D,Resistance,Supports
+1253,rxcui:2103164,D,Sensitivity/Response,Supports
+1254,rxcui:1148495,C,Resistance,Supports
+1255,ncit:C80058,D,Sensitivity/Response,Supports
+1256,rxcui:1148495,D,Resistance,Supports
+1256,ncit:C80058,D,Resistance,Supports
+1256,ncit:C171615,D,Resistance,Supports
+1257,rxcui:1148495,D,Resistance,Supports
+1258,ncit:C80058,D,Sensitivity/Response,Supports
+1259,rxcui:1148495,D,Resistance,Supports
+1260,ncit:C80058,D,Sensitivity/Response,Supports
+1261,ncit:C171615,D,Sensitivity/Response,Supports
+1264,rxcui:1148495,C,Sensitivity/Response,Supports
+1265,rxcui:1148495,C,Sensitivity/Response,Supports
+1267,ncit:C116861,D,Sensitivity/Response,Supports
+1269,rxcui:1148495,C,Sensitivity/Response,Supports
+1270,rxcui:1148495,C,Sensitivity/Response,Supports
+1271,rxcui:1148495,C,Sensitivity/Response,Does Not Support
+1272,rxcui:1727454,B,Sensitivity/Response,Supports
+1273,rxcui:1727454,C,Sensitivity/Response,Supports
+1279,rxcui:1727454,B,Sensitivity/Response,Supports
+1280,rxcui:282388,B,Resistance,Supports
+1281,ncit:C2167,B,Resistance,Supports
+1282,rxcui:1727454,A,Sensitivity/Response,Supports
+1283,rxcui:1727454,C,Resistance,Supports
+1284,rxcui:1535457,C,Sensitivity/Response,Supports
+1285,ncit:C171615,D,Sensitivity/Response,Supports
+1286,rxcui:1727454,D,Resistance,Supports
+1287,rxcui:1148495,D,Resistance,Supports
+1288,rxcui:1148495,D,Resistance,Supports
+1289,rxcui:1535457,D,Sensitivity/Response,Supports
+1290,ncit:C171615,D,Sensitivity/Response,Supports
+1291,rxcui:1921217,D,Sensitivity/Response,Supports
+1294,rxcui:7405,D,Resistance,Supports
+1295,rxcui:1919083,B,Sensitivity/Response,Supports
+1296,rxcui:141704,B,Sensitivity/Response,Supports
+1297,rxcui:141704,B,Sensitivity/Response,Supports
+1301,rxcui:1148495,E,Sensitivity/Response,Supports
+1305,rxcui:632,C,Sensitivity/Response,Supports
+1307,rxcui:2555,D,Sensitivity/Response,Supports
+1307,rxcui:6718,D,Sensitivity/Response,Supports
+1307,rxcui:2346,D,Sensitivity/Response,Supports
+1307,rxcui:632,D,Sensitivity/Response,Supports
+1307,rxcui:12574,D,Sensitivity/Response,Supports
+1308,rxcui:632,D,Sensitivity/Response,Supports
+1309,rxcui:282388,D,Sensitivity/Response,Supports
+1310,rxcui:282388,C,Sensitivity/Response,Supports
+1315,rxcui:32592,B,Resistance,Supports
+1317,rxcui:357977,B,Adverse Response,Supports
+1319,rxcui:35302,D,Sensitivity/Response,Supports
+1320,rxcui:35302,D,Sensitivity/Response,Supports
+1321,rxcui:35302,D,Sensitivity/Response,Supports
+1322,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+1324,rxcui:142433,D,Resistance,Supports
+1324,rxcui:632,D,Resistance,Supports
+1324,rxcui:4492,D,Resistance,Supports
+1324,rxcui:12574,D,Resistance,Supports
+1326,rxcui:153329,B,Sensitivity/Response,Supports
+1326,rxcui:2361596,B,Sensitivity/Response,Supports
+1327,iuphar.ligand:7706,D,Sensitivity/Response,Supports
+1329,rxcui:2103164,D,Sensitivity/Response,Supports
+1330,rxcui:2103164,D,Sensitivity/Response,Supports
+1331,rxcui:2103164,D,Sensitivity/Response,Supports
+1332,rxcui:2103164,D,Sensitivity/Response,Supports
+1333,rxcui:1148495,C,Resistance,Supports
+1334,rxcui:1148495,E,Sensitivity/Response,Supports
+1335,rxcui:1148495,E,Sensitivity/Response,Supports
+1336,rxcui:1921217,D,Sensitivity/Response,Supports
+1337,rxcui:1148495,D,Resistance,Supports
+1338,rxcui:1535457,C,Sensitivity/Response,Supports
+1339,rxcui:1148495,C,Resistance,Supports
+1340,rxcui:1535457,D,Sensitivity/Response,Supports
+1341,rxcui:1535457,D,Sensitivity/Response,Supports
+1342,rxcui:1535457,D,Sensitivity/Response,Supports
+1343,rxcui:1535457,D,Sensitivity/Response,Supports
+1344,rxcui:1535457,D,Sensitivity/Response,Supports
+1345,rxcui:1535457,D,Resistance,Supports
+1346,rxcui:1148495,D,Resistance,Supports
+1347,rxcui:1727454,D,Resistance,Supports
+1348,ncit:C171615,D,Resistance,Supports
+1349,chembl:CHEMBL109480,D,Sensitivity/Response,Supports
+1350,rxcui:1727454,D,Resistance,Supports
+1351,rxcui:1921217,D,Resistance,Supports
+1352,chembl:CHEMBL109480,D,Sensitivity/Response,Supports
+1353,rxcui:1921217,D,Sensitivity/Response,Supports
+1354,rxcui:1727454,D,Resistance,Supports
+1355,rxcui:1535457,D,Sensitivity/Response,Supports
+1356,rxcui:1148495,D,Sensitivity/Response,Supports
+1357,rxcui:1148495,C,Resistance,Supports
+1358,ncit:C165479,D,Sensitivity/Response,Does Not Support
+1358,chembl:CHEMBL109480,D,Sensitivity/Response,Does Not Support
+1359,chembl:CHEMBL109480,D,Sensitivity/Response,Does Not Support
+1359,ncit:C165479,D,Sensitivity/Response,Does Not Support
+1360,ncit:C74072,D,Sensitivity/Response,Supports
+1361,ncit:C74072,D,Sensitivity/Response,Supports
+1362,ncit:C74072,D,Sensitivity/Response,Supports
+1363,ncit:C74072,D,Sensitivity/Response,Supports
+1363,rxcui:318341,D,Sensitivity/Response,Supports
+1364,fda:TRAMETINIB,D,Sensitivity/Response,Does Not Support
+1364,chembl:CHEMBL109480,D,Sensitivity/Response,Does Not Support
+1364,ncit:C165479,D,Sensitivity/Response,Does Not Support
+1365,rxcui:495881,B,Sensitivity/Response,Supports
+1366,rxcui:1601374,B,Sensitivity/Response,Supports
+1367,rxcui:1727454,C,Resistance,Supports
+1368,rxcui:1535457,C,Sensitivity/Response,Supports
+1370,rxcui:1597582,B,Sensitivity/Response,Supports
+1371,rxcui:1597582,B,Sensitivity/Response,Supports
+1372,ncit:C74940,D,Sensitivity/Response,Supports
+1373,rxcui:1601374,D,Sensitivity/Response,Supports
+1374,rxcui:1601374,D,Sensitivity/Response,Supports
+1375,rxcui:1601374,D,Sensitivity/Response,Supports
+1376,rxcui:1601374,D,Sensitivity/Response,Supports
+1377,rxcui:1601374,D,Sensitivity/Response,Supports
+1380,ncit:C165479,D,Sensitivity/Response,Supports
+1382,iuphar.ligand:8244,D,Sensitivity/Response,Does Not Support
+1383,fda:TRASTUZUMAB,D,Resistance,Supports
+1384,fda:TRASTUZUMAB,B,Resistance,Supports
+1385,fda:TRASTUZUMAB,B,Resistance,Supports
+1386,fda:TRASTUZUMAB,B,Resistance,Does Not Support
+1390,rxcui:1364347,B,Sensitivity/Response,Supports
+1391,rxcui:328134,B,Resistance,Supports
+1391,rxcui:337525,B,Resistance,Supports
+1392,rxcui:328134,C,Resistance,Supports
+1392,rxcui:337525,C,Resistance,Supports
+1393,rxcui:337525,C,Resistance,Supports
+1393,rxcui:328134,C,Resistance,Supports
+1394,rxcui:337525,C,Sensitivity/Response,Supports
+1395,rxcui:328134,C,Sensitivity/Response,Supports
+1396,rxcui:1721560,C,Resistance,Supports
+1397,rxcui:1721560,C,Sensitivity/Response,Supports
+1398,rxcui:1147220,B,Sensitivity/Response,Supports
+1399,rxcui:1147220,B,Sensitivity/Response,Supports
+1400,rxcui:1147220,C,Sensitivity/Response,Supports
+1401,rxcui:2169285,D,Sensitivity/Response,Supports
+1402,rxcui:2169285,D,Sensitivity/Response,Supports
+1403,rxcui:2169285,D,Sensitivity/Response,Supports
+1404,rxcui:263034,B,Sensitivity/Response,Does Not Support
+1404,rxcui:318341,B,Sensitivity/Response,Does Not Support
+1405,rxcui:1147220,B,Sensitivity/Response,Does Not Support
+1406,rxcui:1424911,B,Reduced Sensitivity,Supports
+1407,rxcui:1424911,B,Sensitivity/Response,Supports
+1408,rxcui:328134,D,Sensitivity/Response,Supports
+1408,rxcui:1147220,D,Sensitivity/Response,Supports
+1408,rxcui:318341,D,Sensitivity/Response,Supports
+1409,rxcui:1147220,A,Sensitivity/Response,Supports
+1410,rxcui:1147220,B,Sensitivity/Response,Supports
+1411,fda:TRAMETINIB,A,Sensitivity/Response,Supports
+1411,rxcui:1424911,A,Sensitivity/Response,Supports
+1413,rxcui:1147220,B,Sensitivity/Response,Does Not Support
+1413,rxcui:263034,B,Sensitivity/Response,Does Not Support
+1414,rxcui:1147220,C,Sensitivity/Response,Supports
+1415,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+1415,rxcui:1424911,B,Sensitivity/Response,Supports
+1416,rxcui:1147220,D,Resistance,Supports
+1417,chembl:CHEMBL1221944,D,Sensitivity/Response,Supports
+1418,chembl:CHEMBL1221944,D,Sensitivity/Response,Supports
+1419,rxcui:1148495,B,Sensitivity/Response,Supports
+1421,rxcui:1722365,B,Sensitivity/Response,Supports
+1421,rxcui:1147220,B,Sensitivity/Response,Supports
+1422,rxcui:1147220,B,Sensitivity/Response,Supports
+1422,rxcui:1722365,B,Sensitivity/Response,Supports
+1423,rxcui:282388,C,Sensitivity/Response,Supports
+1424,rxcui:357977,B,Sensitivity/Response,Supports
+1428,iuphar.ligand:5681,D,Sensitivity/Response,Supports
+1428,ncit:C74072,D,Sensitivity/Response,Supports
+1429,iuphar.ligand:8974,D,Sensitivity/Response,Supports
+1429,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+1430,rxcui:1147220,C,Sensitivity/Response,Supports
+1430,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+1430,rxcui:1424911,C,Sensitivity/Response,Supports
+1437,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1438,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+1438,rxcui:141704,C,Sensitivity/Response,Supports
+1439,rxcui:480167,B,Sensitivity/Response,Supports
+1439,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1440,rxcui:2395271,C,Sensitivity/Response,Supports
+1440,iuphar.ligand:8914,C,Sensitivity/Response,Supports
+1441,rxcui:282388,B,Sensitivity/Response,Supports
+1443,rxcui:1148495,C,Sensitivity/Response,Supports
+1444,rxcui:1148495,C,Sensitivity/Response,Supports
+1445,rxcui:282388,A,Sensitivity/Response,Supports
+1446,rxcui:282388,C,Resistance,Supports
+1447,ncit:C74072,D,Sensitivity/Response,Supports
+1448,iuphar.ligand:7963,D,Sensitivity/Response,Supports
+1448,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1449,fda:TRASTUZUMAB,B,Resistance,Supports
+1453,fda:TRASTUZUMAB,D,Resistance,Supports
+1454,ncit:C69145,E,Sensitivity/Response,Supports
+1454,rxcui:495881,E,Sensitivity/Response,Supports
+1455,ncit:C148229,D,Sensitivity/Response,Supports
+1455,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1456,rxcui:495881,E,Sensitivity/Response,Supports
+1456,fda:TRAMETINIB,E,Sensitivity/Response,Supports
+1457,rxcui:495881,E,Sensitivity/Response,Supports
+1457,ncit:C69145,E,Sensitivity/Response,Supports
+1458,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+1458,rxcui:1147220,D,Sensitivity/Response,Supports
+1459,rxcui:1147220,D,Sensitivity/Response,Supports
+1459,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+1461,rxcui:1147220,D,Sensitivity/Response,Supports
+1461,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+1462,rxcui:1147220,D,Sensitivity/Response,Supports
+1462,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+1463,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+1464,ncit:C116876,D,Sensitivity/Response,Supports
+1465,ncit:C116876,D,Sensitivity/Response,Supports
+1466,rxcui:282388,B,Resistance,Supports
+1467,ncit:C116876,D,Resistance,Supports
+1468,rxcui:1147220,D,Resistance,Supports
+1469,rxcui:35302,D,Sensitivity/Response,Supports
+1469,drugbank:DB07101,D,Sensitivity/Response,Supports
+1470,rxcui:1147220,C,Resistance,Supports
+1471,iuphar.ligand:8475,D,Sensitivity/Response,Supports
+1471,iuphar.ligand:9375,D,Sensitivity/Response,Supports
+1472,rxcui:2049122,B,Sensitivity/Response,Supports
+1473,rxcui:2361596,C,Sensitivity/Response,Supports
+1474,rxcui:1147220,D,Resistance,Supports
+1475,rxcui:2361596,D,Sensitivity/Response,Supports
+1476,ncit:C71750,D,Sensitivity/Response,Supports
+1477,rxcui:1242987,B,Resistance,Supports
+1477,rxcui:1659191,B,Resistance,Supports
+1481,rxcui:117055,B,Sensitivity/Response,Supports
+1482,rxcui:120608,B,Sensitivity/Response,Supports
+1483,rxcui:1148495,C,Resistance,Supports
+1483,rxcui:1727454,C,Resistance,Supports
+1484,rxcui:1727454,C,Resistance,Supports
+1484,rxcui:1148495,C,Resistance,Supports
+1490,ncit:C116876,D,Sensitivity/Response,Supports
+1491,hemonc:278,D,Sensitivity/Response,Supports
+1492,rxcui:2555,D,Resistance,Supports
+1494,iuphar.ligand:7012,D,Sensitivity/Response,Supports
+1495,rxcui:495881,B,Sensitivity/Response,Supports
+1495,rxcui:56946,B,Sensitivity/Response,Supports
+1495,rxcui:40048,B,Sensitivity/Response,Supports
+1496,rxcui:40048,B,Sensitivity/Response,Supports
+1496,rxcui:56946,B,Sensitivity/Response,Supports
+1496,rxcui:495881,B,Sensitivity/Response,Supports
+1497,rxcui:495881,B,Sensitivity/Response,Supports
+1497,rxcui:40048,B,Sensitivity/Response,Supports
+1498,rxcui:282388,A,Sensitivity/Response,Supports
+1499,fda:TRASTUZUMAB,A,Sensitivity/Response,Supports
+1500,rxcui:2669967,D,Sensitivity/Response,Supports
+1501,rxcui:2669967,D,Sensitivity/Response,Supports
+1502,rxcui:2669967,D,Sensitivity/Response,Supports
+1503,rxcui:2669967,D,Sensitivity/Response,Supports
+1504,rxcui:2669967,D,Sensitivity/Response,Supports
+1505,rxcui:2669967,D,Sensitivity/Response,Supports
+1505,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1506,rxcui:480167,D,Sensitivity/Response,Supports
+1506,rxcui:2669967,D,Sensitivity/Response,Supports
+1509,rxcui:2049122,D,Sensitivity/Response,Supports
+1517,rxcui:1597876,B,Sensitivity/Response,Supports
+1518,rxcui:357977,C,Sensitivity/Response,Supports
+1519,rxcui:10753,C,Sensitivity/Response,Supports
+1520,rxcui:1094833,C,Sensitivity/Response,Supports
+1521,rxcui:31805,B,Resistance,Supports
+1521,rxcui:22054,B,Resistance,Supports
+1521,rxcui:83008,B,Resistance,Supports
+1521,rxcui:4508,B,Resistance,Supports
+1522,rxcui:1307298,D,Sensitivity/Response,Supports
+1522,rxcui:2169285,D,Sensitivity/Response,Supports
+1522,ncit:C107684,D,Sensitivity/Response,Supports
+1526,rxcui:282357,B,Resistance,Supports
+1527,rxcui:282357,D,Sensitivity/Response,Supports
+1527,rxcui:1601374,D,Sensitivity/Response,Supports
+1528,rxcui:357977,C,Sensitivity/Response,Supports
+1529,ncit:C1450,B,Sensitivity/Response,Supports
+1530,ncit:C1450,B,Sensitivity/Response,Supports
+1531,ncit:C1450,B,Sensitivity/Response,Supports
+1532,ncit:C1450,B,Sensitivity/Response,Supports
+1533,rxcui:1147220,C,Resistance,Supports
+1534,ncit:C2670,D,Sensitivity/Response,Supports
+1534,ncit:C90581,D,Sensitivity/Response,Supports
+1535,rxcui:1601374,D,Resistance,Supports
+1536,rxcui:1601374,B,Sensitivity/Response,Does Not Support
+1537,drugbank:DB06999,D,Resistance,Supports
+1541,rxcui:1601374,B,Sensitivity/Response,Supports
+1541,rxcui:72965,B,Sensitivity/Response,Supports
+1543,rxcui:35302,D,Resistance,Supports
+1544,ncit:C78856,D,Resistance,Supports
+1545,iuphar.ligand:9212,D,Resistance,Does Not Support
+1545,rxcui:35302,D,Resistance,Does Not Support
+1547,rxcui:35302,D,Resistance,Supports
+1548,ncit:C78856,D,Resistance,Does Not Support
+1548,iuphar.ligand:9212,D,Resistance,Does Not Support
+1549,ncit:C91731,C,Sensitivity/Response,Supports
+1550,ncit:C91731,C,Sensitivity/Response,Supports
+1554,rxcui:263034,C,Resistance,Does Not Support
+1554,rxcui:318341,C,Resistance,Does Not Support
+1555,rxcui:495881,C,Sensitivity/Response,Supports
+1556,rxcui:495881,C,Resistance,Supports
+1557,rxcui:495881,D,Resistance,Supports
+1560,rxcui:1601374,D,Sensitivity/Response,Does Not Support
+1561,fda:TRASTUZUMAB,D,Sensitivity/Response,Supports
+1561,rxcui:1601374,D,Sensitivity/Response,Supports
+1562,rxcui:1601374,D,Sensitivity/Response,Supports
+1563,rxcui:1601374,D,Sensitivity/Response,Supports
+1565,rxcui:1148495,C,Sensitivity/Response,Supports
+1566,rxcui:1148495,D,Sensitivity/Response,Supports
+1567,rxcui:1547545,C,Resistance,Supports
+1568,rxcui:1547545,C,Resistance,Supports
+1569,rxcui:1547545,C,Resistance,Supports
+1570,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+1571,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+1572,rxcui:318341,B,Sensitivity/Response,Supports
+1574,rxcui:1147220,B,Sensitivity/Response,Supports
+1575,rxcui:1147220,B,Sensitivity/Response,Supports
+1576,rxcui:1147220,B,Resistance,Supports
+1577,rxcui:1148495,B,Sensitivity/Response,Supports
+1578,rxcui:1547545,B,Sensitivity/Response,Does Not Support
+1579,rxcui:1147220,B,Sensitivity/Response,Supports
+1580,rxcui:1147220,C,Resistance,Supports
+1581,rxcui:1147220,B,Resistance,Supports
+1583,rxcui:1148495,D,Sensitivity/Response,Supports
+1584,rxcui:1147220,B,Resistance,Does Not Support
+1587,rxcui:15657,B,Sensitivity/Response,Supports
+1588,rxcui:1147220,C,Sensitivity/Response,Supports
+1588,rxcui:1148495,C,Sensitivity/Response,Supports
+1589,rxcui:1147220,C,Sensitivity/Response,Supports
+1589,rxcui:263034,C,Sensitivity/Response,Supports
+1591,rxcui:1147220,B,Sensitivity/Response,Supports
+1592,rxcui:1721560,A,Sensitivity/Response,Supports
+1595,rxcui:1601374,D,Resistance,Supports
+1597,rxcui:194337,D,Sensitivity/Response,Supports
+1598,rxcui:1147220,B,Sensitivity/Response,Does Not Support
+1598,rxcui:318341,B,Sensitivity/Response,Does Not Support
+1599,rxcui:1601374,D,Sensitivity/Response,Does Not Support
+1600,rxcui:1873916,D,Sensitivity/Response,Supports
+1600,ncit:C2152,D,Sensitivity/Response,Supports
+1602,rxcui:1147220,C,Resistance,Supports
+1603,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+1604,ncit:C76199,B,Sensitivity/Response,Supports
+1605,ncit:C76199,B,Sensitivity/Response,Supports
+1606,ncit:C76199,B,Sensitivity/Response,Supports
+1607,ncit:C2152,D,Sensitivity/Response,Supports
+1607,rxcui:1601374,D,Sensitivity/Response,Supports
+1608,rxcui:1193325,C,Sensitivity/Response,Supports
+1609,rxcui:2169285,B,Resistance,Supports
+1610,ncit:C128632,D,Sensitivity/Response,Supports
+1610,rxcui:141704,D,Sensitivity/Response,Supports
+1611,rxcui:141704,D,Sensitivity/Response,Does Not Support
+1611,ncit:C128632,D,Sensitivity/Response,Does Not Support
+1612,ncit:C128632,D,Sensitivity/Response,Supports
+1613,ncit:C128632,D,Sensitivity/Response,Supports
+1614,rxcui:657797,D,Sensitivity/Response,Supports
+1615,rxcui:1094833,B,Sensitivity/Response,Does Not Support
+1615,rxcui:1597876,B,Sensitivity/Response,Does Not Support
+1616,ncit:C165479,D,Sensitivity/Response,Supports
+1617,rxcui:141704,C,Sensitivity/Response,Supports
+1618,rxcui:35302,D,Sensitivity/Response,Supports
+1619,rxcui:35302,D,Sensitivity/Response,Supports
+1620,rxcui:141704,D,Sensitivity/Response,Does Not Support
+1620,rxcui:35302,D,Sensitivity/Response,Does Not Support
+1621,rxcui:1098413,C,Sensitivity/Response,Supports
+1621,rxcui:141704,C,Sensitivity/Response,Supports
+1622,rxcui:141704,C,Sensitivity/Response,Supports
+1622,rxcui:1098413,C,Sensitivity/Response,Supports
+1623,rxcui:282357,C,Sensitivity/Response,Supports
+1623,rxcui:141704,C,Sensitivity/Response,Supports
+1624,rxcui:282357,C,Resistance,Supports
+1624,rxcui:141704,C,Resistance,Supports
+1625,ncit:C1727,D,Sensitivity/Response,Supports
+1625,rxcui:657797,D,Sensitivity/Response,Supports
+1626,rxcui:657797,D,Sensitivity/Response,Supports
+1626,ncit:C1727,D,Sensitivity/Response,Supports
+1627,ncit:C1727,D,Sensitivity/Response,Supports
+1627,rxcui:657797,D,Sensitivity/Response,Supports
+1628,rxcui:141704,E,Sensitivity/Response,Supports
+1629,rxcui:1601374,D,Resistance,Supports
+1630,rxcui:1601374,D,Resistance,Supports
+1631,ncit:C2201,B,Sensitivity/Response,Supports
+1632,rxcui:35302,D,Sensitivity/Response,Supports
+1633,rxcui:83818,C,Sensitivity/Response,Supports
+1634,rxcui:83818,C,Sensitivity/Response,Supports
+1641,iuphar.ligand:5990,D,Sensitivity/Response,Supports
+1642,iuphar.ligand:7942,B,Sensitivity/Response,Supports
+1642,rxcui:495881,B,Sensitivity/Response,Supports
+1644,rxcui:4492,B,Resistance,Supports
+1647,rxcui:37776,B,Sensitivity/Response,Supports
+1650,ncit:C1450,B,Resistance,Supports
+1651,rxcui:1148495,C,Sensitivity/Response,Supports
+1652,rxcui:1148495,C,Resistance,Supports
+1653,rxcui:2555,B,Sensitivity/Response,Supports
+1653,rxcui:4492,B,Sensitivity/Response,Supports
+1659,rxcui:1147220,D,Resistance,Supports
+1660,rxcui:1147220,D,Resistance,Supports
+1661,rxcui:2361596,C,Sensitivity/Response,Supports
+1662,ncit:C69145,C,Sensitivity/Response,Supports
+1663,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+1664,rxcui:657797,C,Sensitivity/Response,Supports
+1664,rxcui:495881,C,Sensitivity/Response,Supports
+1665,rxcui:328134,B,Sensitivity/Response,Supports
+1666,rxcui:328134,B,Sensitivity/Response,Supports
+1667,rxcui:337525,B,Resistance,Supports
+1667,rxcui:328134,B,Resistance,Supports
+1668,rxcui:1147220,D,Resistance,Supports
+1669,rxcui:1147220,B,Resistance,Supports
+1670,rxcui:337525,C,Resistance,Supports
+1670,rxcui:328134,C,Resistance,Supports
+1672,chembl:CHEMBL1201733,B,Sensitivity/Response,Does Not Support
+1673,chembl:CHEMBL1201733,B,Sensitivity/Response,Does Not Support
+1674,chembl:CHEMBL1201733,B,Sensitivity/Response,Does Not Support
+1677,hemonc:94,B,Sensitivity/Response,Supports
+1677,rxcui:1597582,B,Sensitivity/Response,Supports
+1678,rxcui:1597582,B,Sensitivity/Response,Supports
+1678,hemonc:94,B,Sensitivity/Response,Supports
+1684,rxcui:40048,B,Sensitivity/Response,Supports
+1684,rxcui:2555,B,Sensitivity/Response,Supports
+1685,rxcui:2555,B,Sensitivity/Response,Supports
+1685,rxcui:40048,B,Sensitivity/Response,Supports
+1686,rxcui:318341,B,Resistance,Supports
+1687,rxcui:318341,B,Resistance,Supports
+1688,rxcui:263034,B,Resistance,Supports
+1688,rxcui:318341,B,Resistance,Supports
+1689,rxcui:480167,B,Sensitivity/Response,Supports
+1689,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+1690,rxcui:1148495,C,Sensitivity/Response,Supports
+1691,rxcui:1148495,C,Sensitivity/Response,Supports
+1692,rxcui:1148495,C,Sensitivity/Response,Supports
+1693,fda:TRASTUZUMAB,C,Sensitivity/Response,Supports
+1694,ncit:C1450,C,Sensitivity/Response,Supports
+1698,rxcui:1147220,C,Sensitivity/Response,Supports
+1699,rxcui:1147220,C,Sensitivity/Response,Supports
+1702,rxcui:318341,D,Resistance,Supports
+1703,rxcui:318341,D,Resistance,Supports
+1704,rxcui:318341,D,Resistance,Supports
+1705,rxcui:318341,D,Resistance,Supports
+1706,drugbank:DB17021,D,Sensitivity/Response,Supports
+1706,iuphar.ligand:7518,D,Sensitivity/Response,Supports
+1707,ncit:C74062,D,Sensitivity/Response,Supports
+1708,rxcui:263034,B,Sensitivity/Response,Supports
+1709,rxcui:318341,B,Sensitivity/Response,Supports
+1710,rxcui:1147220,D,Resistance,Supports
+1711,rxcui:2643048,D,Resistance,Supports
+1713,rxcui:1148495,C,Sensitivity/Response,Supports
+1714,rxcui:1148495,C,Sensitivity/Response,Supports
+1715,rxcui:1148495,C,Resistance,Does Not Support
+1724,rxcui:337525,C,Sensitivity/Response,Supports
+1725,rxcui:1919083,B,Sensitivity/Response,Supports
+1727,ncit:C1740,D,Resistance,Supports
+1728,rxcui:1430438,B,Sensitivity/Response,Supports
+1729,rxcui:2169285,D,Resistance,Supports
+1730,rxcui:2169285,B,Resistance,Supports
+1731,rxcui:2169285,D,Sensitivity/Response,Supports
+1733,rxcui:1547545,B,Sensitivity/Response,Supports
+1734,ncit:C62523,D,Sensitivity/Response,Supports
+1735,ncit:C90581,D,Sensitivity/Response,Supports
+1735,hemonc:160,D,Sensitivity/Response,Supports
+1736,rxcui:328134,B,Sensitivity/Response,Supports
+1736,rxcui:337525,B,Sensitivity/Response,Supports
+1738,rxcui:1424911,D,Sensitivity/Response,Supports
+1738,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+1739,rxcui:2274378,D,Sensitivity/Response,Supports
+1740,rxcui:2274378,D,Sensitivity/Response,Supports
+1742,rxcui:2361596,D,Sensitivity/Response,Supports
+1746,rxcui:1430438,B,Sensitivity/Response,Supports
+1747,rxcui:1430438,B,Sensitivity/Response,Supports
+1748,rxcui:1430438,B,Sensitivity/Response,Supports
+1749,rxcui:1147220,B,Sensitivity/Response,Supports
+1750,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+1757,rxcui:4492,B,Sensitivity/Response,Supports
+1763,rxcui:328134,C,Resistance,Supports
+1763,rxcui:337525,C,Resistance,Supports
+1765,rxcui:1601374,C,Sensitivity/Response,Supports
+1765,rxcui:72965,C,Sensitivity/Response,Supports
+1766,rxcui:1369713,C,Resistance,Supports
+1766,rxcui:342369,C,Resistance,Supports
+1767,rxcui:1364347,D,Sensitivity/Response,Supports
+1770,rxcui:1442981,B,Resistance,Supports
+1771,rxcui:357977,D,Sensitivity/Response,Supports
+1772,rxcui:1597582,B,Sensitivity/Response,Supports
+1773,rxcui:1597582,B,Sensitivity/Response,Supports
+1774,rxcui:282388,C,Sensitivity/Response,Supports
+1775,rxcui:1597582,B,Resistance,Supports
+1776,rxcui:1597582,B,Sensitivity/Response,Does Not Support
+1777,rxcui:1364347,D,Sensitivity/Response,Supports
+1779,rxcui:1364347,D,Sensitivity/Response,Supports
+1780,rxcui:337525,B,Sensitivity/Response,Supports
+1781,drugbank:DB17021,D,Sensitivity/Response,Supports
+1782,rxcui:337525,C,Resistance,Supports
+1786,rxcui:337525,C,Sensitivity/Response,Supports
+1787,rxcui:337525,C,Sensitivity/Response,Supports
+1792,rxcui:1543543,A,Adverse Response,Supports
+1795,rxcui:1543543,B,Adverse Response,Supports
+1799,rxcui:337525,C,Sensitivity/Response,Supports
+1800,rxcui:194000,A,Adverse Response,Supports
+1800,rxcui:4492,A,Adverse Response,Supports
+1801,rxcui:194000,A,Adverse Response,Supports
+1801,rxcui:4492,A,Adverse Response,Supports
+1803,rxcui:4492,A,Adverse Response,Supports
+1803,rxcui:194000,A,Adverse Response,Supports
+1809,rxcui:1430438,B,Resistance,Supports
+1838,rxcui:282388,C,Sensitivity/Response,Supports
+1841,rxcui:6851,B,Adverse Response,Supports
+1842,rxcui:6851,B,Adverse Response,Supports
+1843,rxcui:6851,B,Adverse Response,Supports
+1845,rxcui:1430438,D,Sensitivity/Response,Supports
+1851,rxcui:2550729,D,Sensitivity/Response,Supports
+1851,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+1853,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+1853,rxcui:2550729,D,Sensitivity/Response,Supports
+1856,chembl:CHEMBL1743079,C,Sensitivity/Response,Supports
+1856,ncit:C79828,C,Sensitivity/Response,Supports
+1859,rxcui:12574,D,Resistance,Supports
+1860,rxcui:12574,D,Resistance,Supports
+1861,rxcui:1547545,C,Sensitivity/Response,Supports
+1862,rxcui:1547545,C,Sensitivity/Response,Supports
+1863,rxcui:1430438,B,Resistance,Supports
+1865,ncit:C104732,C,Resistance,Supports
+1867,rxcui:1721560,A,Sensitivity/Response,Supports
+1868,rxcui:2197862,C,Sensitivity/Response,Supports
+1869,rxcui:2197862,C,Sensitivity/Response,Supports
+1870,rxcui:1148495,C,Sensitivity/Response,Does Not Support
+1874,rxcui:2197862,C,Resistance,Supports
+1877,rxcui:1919503,C,Sensitivity/Response,Supports
+1877,ncit:C113332,C,Sensitivity/Response,Supports
+1878,rxcui:1919503,C,Sensitivity/Response,Supports
+1878,ncit:C113332,C,Sensitivity/Response,Supports
+1879,hemonc:75494,D,Sensitivity/Response,Supports
+1879,rxcui:1601374,D,Sensitivity/Response,Supports
+1880,rxcui:1601374,D,Sensitivity/Response,Supports
+1880,hemonc:75494,D,Sensitivity/Response,Supports
+1881,rxcui:1601374,D,Sensitivity/Response,Supports
+1888,rxcui:1430438,C,Sensitivity/Response,Supports
+1889,rxcui:1430438,C,Sensitivity/Response,Supports
+1890,rxcui:1430438,C,Sensitivity/Response,Supports
+1891,fda:DACOMITINIB,B,Sensitivity/Response,Does Not Support
+1892,fda:DACOMITINIB,C,Sensitivity/Response,Supports
+1893,fda:DACOMITINIB,B,Sensitivity/Response,Does Not Support
+1894,fda:DACOMITINIB,C,Sensitivity/Response,Supports
+1895,ncit:C1868,D,Sensitivity/Response,Supports
+1895,rxcui:357977,D,Sensitivity/Response,Supports
+1897,ncit:C78186,B,Sensitivity/Response,Supports
+1898,ncit:C28699,C,Sensitivity/Response,Supports
+1899,ncit:C28699,C,Resistance,Supports
+1900,rxcui:1193325,D,Sensitivity/Response,Supports
+1902,rxcui:153329,B,Sensitivity/Response,Supports
+1902,rxcui:1147220,B,Sensitivity/Response,Supports
+1902,rxcui:318341,B,Sensitivity/Response,Supports
+1905,rxcui:1147220,C,Resistance,Supports
+1905,rxcui:318341,C,Resistance,Supports
+1905,rxcui:153329,C,Resistance,Supports
+1906,rxcui:1147220,C,Resistance,Supports
+1906,rxcui:318341,C,Resistance,Supports
+1906,rxcui:153329,C,Resistance,Supports
+1907,rxcui:1597582,D,Sensitivity/Response,Supports
+1908,rxcui:2550729,B,Sensitivity/Response,Supports
+1909,rxcui:2550729,B,Resistance,Does Not Support
+1910,rxcui:2550729,B,Sensitivity/Response,Supports
+1911,rxcui:2550729,C,Sensitivity/Response,Does Not Support
+1912,rxcui:2550729,C,Sensitivity/Response,Supports
+1913,rxcui:2550729,C,Sensitivity/Response,Supports
+1917,rxcui:2123125,C,Sensitivity/Response,Supports
+1918,rxcui:2123125,B,Sensitivity/Response,Supports
+1919,rxcui:2123125,B,Sensitivity/Response,Supports
+1920,rxcui:2123125,C,Sensitivity/Response,Supports
+1922,ncit:C90581,D,Resistance,Supports
+1923,ncit:C71711,E,Sensitivity/Response,Supports
+1924,ncit:C71726,D,Sensitivity/Response,Supports
+1924,ncit:C126798,D,Sensitivity/Response,Supports
+1925,ncit:C126798,D,Sensitivity/Response,Supports
+1925,ncit:C71726,D,Sensitivity/Response,Supports
+1936,rxcui:1148495,C,Sensitivity/Response,Supports
+1937,rxcui:328134,B,Sensitivity/Response,Supports
+1952,ncit:C80631,D,Sensitivity/Response,Supports
+1952,drugbank:DB07101,D,Sensitivity/Response,Supports
+1953,drugbank:DB07101,D,Sensitivity/Response,Supports
+1953,ncit:C80631,D,Sensitivity/Response,Supports
+1958,rxcui:2361596,A,Sensitivity/Response,Supports
+1960,rxcui:1597582,C,Sensitivity/Response,Supports
+1963,rxcui:1597582,C,Sensitivity/Response,Supports
+1971,rxcui:263034,C,Resistance,Supports
+1974,ncit:C64639,D,Sensitivity/Response,Supports
+1974,rxcui:282388,D,Sensitivity/Response,Supports
+1975,ncit:C64639,D,Sensitivity/Response,Supports
+1975,rxcui:282388,D,Sensitivity/Response,Supports
+1976,rxcui:282388,D,Sensitivity/Response,Supports
+1976,ncit:C64639,D,Sensitivity/Response,Supports
+1977,ncit:C64639,D,Sensitivity/Response,Supports
+1977,rxcui:282388,D,Sensitivity/Response,Supports
+1979,rxcui:318341,D,Sensitivity/Response,Supports
+1979,rxcui:1148495,D,Sensitivity/Response,Supports
+1981,rxcui:318341,D,Resistance,Supports
+1984,rxcui:480167,B,Sensitivity/Response,Supports
+1985,rxcui:1442981,C,Resistance,Supports
+1986,rxcui:480167,D,Sensitivity/Response,Supports
+1987,rxcui:480167,D,Sensitivity/Response,Supports
+1988,rxcui:480167,D,Sensitivity/Response,Supports
+1989,rxcui:480167,D,Sensitivity/Response,Supports
+1990,ncit:C88272,B,Sensitivity/Response,Supports
+1991,ncit:C88272,C,Sensitivity/Response,Supports
+1992,rxcui:480167,C,Sensitivity/Response,Supports
+1993,rxcui:318341,B,Resistance,Supports
+1995,rxcui:337525,B,Resistance,Supports
+1995,rxcui:328134,B,Resistance,Supports
+1999,rxcui:318341,C,Resistance,Does Not Support
+2001,rxcui:2361596,D,Sensitivity/Response,Supports
+2001,ncit:C74072,D,Sensitivity/Response,Supports
+2002,rxcui:318341,C,Resistance,Supports
+2002,rxcui:153329,C,Resistance,Supports
+2004,rxcui:263034,B,Resistance,Supports
+2008,rxcui:328134,B,Resistance,Supports
+2009,rxcui:6718,B,Resistance,Supports
+2012,rxcui:6718,D,Resistance,Supports
+2013,rxcui:6718,D,Resistance,Supports
+2014,rxcui:6718,D,Resistance,Supports
+2020,rxcui:357977,B,Sensitivity/Response,Supports
+2022,ncit:C165479,D,Sensitivity/Response,Supports
+2026,ncit:C165479,D,Sensitivity/Response,Supports
+2034,ncit:C165479,D,Sensitivity/Response,Supports
+2035,fda:TRASTUZUMAB,B,Resistance,Supports
+2037,rxcui:318341,C,Resistance,Does Not Support
+2037,rxcui:263034,C,Resistance,Does Not Support
+2038,rxcui:1191,B,Sensitivity/Response,Does Not Support
+2040,drugbank:DB17046,D,Sensitivity/Response,Supports
+2041,ncit:C165479,D,Resistance,Supports
+2043,fda:TRASTUZUMAB,B,Resistance,Supports
+2045,ncit:C165479,D,Sensitivity/Response,Supports
+2053,rxcui:337525,B,Sensitivity/Response,Supports
+2053,rxcui:328134,B,Sensitivity/Response,Supports
+2058,drugbank:DB17046,D,Sensitivity/Response,Supports
+2062,ncit:C165479,D,Sensitivity/Response,Supports
+2071,ncit:C165479,D,Sensitivity/Response,Supports
+2074,ncit:C165479,D,Sensitivity/Response,Does Not Support
+2078,ncit:C165479,D,Sensitivity/Response,Supports
+2085,ncit:C165479,D,Sensitivity/Response,Supports
+2087,fda:TRASTUZUMAB,B,Resistance,Supports
+2089,ncit:C165479,D,Sensitivity/Response,Supports
+2096,ncit:C165479,D,Sensitivity/Response,Supports
+2098,fda:TRASTUZUMAB,B,Resistance,Supports
+2102,ncit:C165479,D,Sensitivity/Response,Supports
+2115,rxcui:318341,B,Resistance,Supports
+2115,rxcui:263034,B,Resistance,Supports
+2117,rxcui:32592,B,Resistance,Supports
+2118,rxcui:153329,B,Resistance,Supports
+2121,rxcui:32592,B,Resistance,Supports
+2121,rxcui:194000,B,Resistance,Supports
+2135,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+2148,rxcui:328134,B,Sensitivity/Response,Supports
+2153,rxcui:1430438,B,Sensitivity/Response,Supports
+2156,rxcui:328134,C,Sensitivity/Response,Supports
+2157,rxcui:1721560,C,Sensitivity/Response,Supports
+2158,rxcui:328134,C,Resistance,Supports
+2158,rxcui:337525,C,Resistance,Supports
+2159,rxcui:328134,B,Resistance,Supports
+2160,rxcui:480167,D,Resistance,Supports
+2161,fda:DACOMITINIB,D,Sensitivity/Response,Supports
+2162,rxcui:1940642,D,Sensitivity/Response,Supports
+2163,rxcui:1430438,D,Sensitivity/Response,Supports
+2164,rxcui:1430438,D,Sensitivity/Response,Supports
+2165,ncit:C77588,D,Sensitivity/Response,Supports
+2167,rxcui:282388,D,Resistance,Supports
+2168,rxcui:282388,C,Resistance,Supports
+2169,rxcui:282388,C,Resistance,Supports
+2170,rxcui:662281,D,Resistance,Supports
+2178,rxcui:263034,C,Resistance,Supports
+2181,rxcui:318341,C,Resistance,Supports
+2181,rxcui:153329,C,Resistance,Supports
+2183,ncit:C74072,D,Sensitivity/Response,Supports
+2183,rxcui:2361596,D,Sensitivity/Response,Supports
+2184,rxcui:318341,C,Resistance,Supports
+2187,rxcui:318341,B,Resistance,Supports
+2189,rxcui:318341,C,Resistance,Supports
+2192,ncit:C74072,D,Sensitivity/Response,Supports
+2192,rxcui:2361596,D,Sensitivity/Response,Supports
+2193,rxcui:263034,C,Resistance,Supports
+2198,rxcui:318341,C,Resistance,Does Not Support
+2198,rxcui:153329,C,Resistance,Does Not Support
+2201,rxcui:153329,C,Resistance,Does Not Support
+2201,rxcui:318341,C,Resistance,Does Not Support
+2204,rxcui:318341,C,Resistance,Supports
+2204,rxcui:153329,C,Resistance,Supports
+2206,rxcui:2361596,D,Sensitivity/Response,Supports
+2206,ncit:C74072,D,Sensitivity/Response,Supports
+2207,rxcui:318341,B,Resistance,Supports
+2209,rxcui:2361596,D,Sensitivity/Response,Supports
+2209,ncit:C74072,D,Sensitivity/Response,Supports
+2210,rxcui:318341,B,Resistance,Supports
+2212,rxcui:2361596,D,Sensitivity/Response,Supports
+2212,ncit:C74072,D,Sensitivity/Response,Supports
+2213,rxcui:318341,C,Resistance,Does Not Support
+2213,rxcui:153329,C,Resistance,Does Not Support
+2217,rxcui:318341,C,Resistance,Does Not Support
+2218,ncit:C74072,D,Sensitivity/Response,Supports
+2218,rxcui:2361596,D,Sensitivity/Response,Supports
+2219,rxcui:318341,B,Resistance,Supports
+2221,rxcui:142433,D,Resistance,Supports
+2222,rxcui:142433,D,Resistance,Supports
+2223,rxcui:142433,D,Resistance,Supports
+2224,rxcui:142433,D,Resistance,Supports
+2225,rxcui:153329,C,Resistance,Supports
+2225,rxcui:318341,C,Resistance,Supports
+2232,rxcui:263034,C,Resistance,Supports
+2236,rxcui:263034,C,Resistance,Supports
+2240,rxcui:328134,B,Resistance,Supports
+2242,rxcui:337525,B,Resistance,Supports
+2250,rxcui:6718,D,Resistance,Supports
+2251,rxcui:6718,D,Resistance,Supports
+2252,rxcui:6718,D,Resistance,Supports
+2253,rxcui:263034,C,Resistance,Supports
+2257,rxcui:328134,B,Resistance,Supports
+2261,rxcui:6718,D,Resistance,Supports
+2262,rxcui:6718,D,Resistance,Supports
+2263,rxcui:6718,D,Resistance,Supports
+2264,rxcui:263034,C,Resistance,Supports
+2268,rxcui:328134,C,Resistance,Supports
+2269,rxcui:263034,C,Resistance,Supports
+2273,rxcui:328134,B,Resistance,Supports
+2277,rxcui:6718,D,Resistance,Supports
+2278,rxcui:6718,D,Resistance,Supports
+2279,rxcui:6718,D,Resistance,Supports
+2286,rxcui:40048,C,Resistance,Supports
+2286,rxcui:2555,C,Resistance,Supports
+2292,rxcui:24614,C,Sensitivity/Response,Does Not Support
+2292,rxcui:2555,C,Sensitivity/Response,Does Not Support
+2292,rxcui:632,C,Sensitivity/Response,Does Not Support
+2306,rxcui:2555,C,Sensitivity/Response,Supports
+2306,rxcui:24614,C,Sensitivity/Response,Supports
+2306,rxcui:632,C,Sensitivity/Response,Supports
+2327,rxcui:37776,B,Sensitivity/Response,Supports
+2329,iuphar.ligand:9240,D,Sensitivity/Response,Supports
+2331,rxcui:2049873,B,Sensitivity/Response,Supports
+2355,rxcui:328134,B,Resistance,Supports
+2355,rxcui:337525,B,Resistance,Supports
+2385,rxcui:328134,B,Resistance,Supports
+2385,rxcui:337525,B,Resistance,Supports
+2417,rxcui:282388,C,Sensitivity/Response,Supports
+2441,rxcui:282388,C,Sensitivity/Response,Does Not Support
+2445,rxcui:282388,D,Resistance,Does Not Support
+2448,rxcui:282388,D,Sensitivity/Response,Does Not Support
+2451,rxcui:282388,D,Resistance,Supports
+2454,rxcui:282388,D,Resistance,Does Not Support
+2460,rxcui:282388,D,Resistance,Does Not Support
+2463,rxcui:282388,D,Resistance,Supports
+2465,rxcui:282388,C,Sensitivity/Response,Supports
+2466,rxcui:282388,B,Sensitivity/Response,Supports
+2469,rxcui:282388,D,Resistance,Does Not Support
+2471,rxcui:282388,B,Sensitivity/Response,Supports
+2472,rxcui:282388,D,Resistance,Does Not Support
+2474,rxcui:282388,C,Sensitivity/Response,Supports
+2475,rxcui:282388,C,Sensitivity/Response,Supports
+2477,rxcui:282388,B,Reduced Sensitivity,Supports
+2478,rxcui:282388,C,Resistance,Supports
+2480,rxcui:282388,B,Sensitivity/Response,Supports
+2481,rxcui:282388,D,Resistance,Does Not Support
+2484,rxcui:282388,D,Resistance,Does Not Support
+2486,rxcui:282388,C,Sensitivity/Response,Does Not Support
+2487,rxcui:282388,C,Sensitivity/Response,Supports
+2505,rxcui:1424911,B,Sensitivity/Response,Supports
+2506,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+2508,rxcui:328134,C,Sensitivity/Response,Supports
+2512,rxcui:328134,B,Resistance,Supports
+2513,rxcui:337525,C,Sensitivity/Response,Supports
+2519,rxcui:328134,B,Sensitivity/Response,Supports
+2559,rxcui:328134,B,Sensitivity/Response,Supports
+2621,rxcui:328134,B,Sensitivity/Response,Supports
+2624,rxcui:328134,C,Sensitivity/Response,Supports
+2625,rxcui:328134,D,Sensitivity/Response,Supports
+2626,rxcui:480167,D,Sensitivity/Response,Supports
+2627,fda:DACOMITINIB,D,Sensitivity/Response,Supports
+2628,rxcui:1940642,D,Sensitivity/Response,Supports
+2629,rxcui:1430438,D,Sensitivity/Response,Supports
+2631,ncit:C77588,D,Sensitivity/Response,Supports
+2632,rxcui:337525,C,Sensitivity/Response,Supports
+2634,rxcui:328134,B,Sensitivity/Response,Supports
+2636,rxcui:282388,C,Resistance,Does Not Support
+2638,rxcui:282388,D,Sensitivity/Response,Supports
+2640,rxcui:662281,D,Resistance,Does Not Support
+2640,fda:DASATINIB,D,Resistance,Does Not Support
+2641,rxcui:282388,D,Resistance,Supports
+2642,rxcui:282388,C,Resistance,Supports
+2644,fda:DASATINIB,D,Resistance,Supports
+2644,rxcui:662281,D,Resistance,Supports
+2645,rxcui:282388,D,Resistance,Supports
+2646,rxcui:282388,C,Resistance,Supports
+2647,rxcui:282388,D,Resistance,Supports
+2648,rxcui:662281,D,Resistance,Supports
+2649,rxcui:662281,D,Resistance,Does Not Support
+2650,rxcui:282388,D,Sensitivity/Response,Supports
+2651,rxcui:282388,C,Resistance,Supports
+2653,rxcui:662281,D,Resistance,Does Not Support
+2653,fda:DASATINIB,D,Resistance,Does Not Support
+2654,rxcui:662281,D,Resistance,Supports
+2655,rxcui:282388,D,Resistance,Supports
+2656,rxcui:282388,C,Resistance,Supports
+2657,rxcui:282388,D,Resistance,Supports
+2658,ncit:C62516,D,Resistance,Does Not Support
+2658,rxcui:662281,D,Resistance,Does Not Support
+2658,fda:DASATINIB,D,Resistance,Does Not Support
+2659,rxcui:282388,D,Resistance,Supports
+2660,rxcui:282388,C,Resistance,Supports
+2661,rxcui:282388,D,Resistance,Supports
+2662,rxcui:662281,D,Resistance,Supports
+2663,rxcui:282388,D,Resistance,Supports
+2664,rxcui:282388,C,Resistance,Does Not Support
+2666,rxcui:662281,D,Sensitivity/Response,Supports
+2667,rxcui:282388,D,Resistance,Supports
+2668,rxcui:282388,C,Resistance,Supports
+2669,rxcui:282388,D,Resistance,Supports
+2670,rxcui:662281,D,Resistance,Supports
+2671,ncit:C62516,D,Resistance,Supports
+2671,rxcui:282388,D,Resistance,Supports
+2671,fda:DASATINIB,D,Resistance,Supports
+2671,rxcui:662281,D,Resistance,Supports
+2674,rxcui:282388,D,Resistance,Supports
+2675,rxcui:282388,C,Resistance,Supports
+2676,rxcui:282388,D,Resistance,Supports
+2677,ncit:C62516,D,Resistance,Does Not Support
+2677,rxcui:662281,D,Resistance,Does Not Support
+2679,rxcui:282388,C,Resistance,Supports
+2680,rxcui:282388,D,Resistance,Supports
+2681,fda:DASATINIB,D,Resistance,Supports
+2681,ncit:C62516,D,Resistance,Supports
+2682,rxcui:282388,D,Sensitivity/Response,Supports
+2683,rxcui:282388,C,Resistance,Supports
+2684,rxcui:282388,D,Sensitivity/Response,Supports
+2685,rxcui:662281,D,Sensitivity/Response,Supports
+2686,fda:DASATINIB,D,Resistance,Does Not Support
+2686,rxcui:662281,D,Resistance,Does Not Support
+2686,ncit:C62516,D,Resistance,Does Not Support
+2687,rxcui:282388,D,Resistance,Supports
+2688,rxcui:282388,C,Resistance,Supports
+2689,rxcui:282388,D,Resistance,Supports
+2745,rxcui:40048,C,Resistance,Supports
+2745,rxcui:2555,C,Resistance,Supports
+2771,rxcui:2555,B,Resistance,Supports
+2771,rxcui:40048,B,Resistance,Supports
+2783,rxcui:10324,B,Resistance,Supports
+2784,rxcui:10324,C,Resistance,Supports
+2799,rxcui:632,B,Sensitivity/Response,Supports
+2799,rxcui:24614,B,Sensitivity/Response,Supports
+2799,rxcui:2555,B,Sensitivity/Response,Supports
+2820,rxcui:24614,C,Sensitivity/Response,Supports
+2820,rxcui:142433,C,Sensitivity/Response,Supports
+2820,rxcui:2555,C,Sensitivity/Response,Supports
+2829,rxcui:662281,D,Sensitivity/Response,Supports
+2830,rxcui:142433,D,Resistance,Supports
+2831,rxcui:142433,D,Resistance,Supports
+2832,rxcui:142433,D,Resistance,Supports
+2835,rxcui:142433,D,Resistance,Supports
+2837,rxcui:142433,D,Resistance,Supports
+2839,rxcui:142433,D,Resistance,Supports
+2840,rxcui:142433,D,Resistance,Supports
+2841,rxcui:142433,D,Resistance,Supports
+2843,rxcui:142433,D,Resistance,Does Not Support
+2845,rxcui:142433,D,Resistance,Supports
+2846,rxcui:142433,D,Resistance,Supports
+2849,rxcui:142433,D,Resistance,Supports
+2850,rxcui:662281,D,Resistance,Supports
+2851,rxcui:662281,D,Resistance,Supports
+2853,rxcui:662281,D,Resistance,Supports
+2854,rxcui:662281,D,Resistance,Supports
+2861,rxcui:662281,D,Resistance,Supports
+2862,rxcui:662281,D,Sensitivity/Response,Supports
+2863,rxcui:662281,D,Resistance,Supports
+2864,rxcui:662281,D,Sensitivity/Response,Supports
+2868,ncit:C78186,B,Sensitivity/Response,Supports
+2878,ncit:C78186,C,Sensitivity/Response,Supports
+2879,ncit:C78186,C,Sensitivity/Response,Supports
+2880,ncit:C78186,C,Sensitivity/Response,Supports
+2881,ncit:C78186,C,Sensitivity/Response,Supports
+2882,ncit:C78186,C,Sensitivity/Response,Supports
+2883,ncit:C78186,C,Sensitivity/Response,Supports
+2884,ncit:C78186,C,Sensitivity/Response,Supports
+2886,rxcui:282388,C,Resistance,Supports
+2888,rxcui:357977,D,Sensitivity/Response,Supports
+2889,rxcui:282388,C,Sensitivity/Response,Supports
+2895,rxcui:4492,B,Resistance,Supports
+2895,rxcui:2555,B,Resistance,Supports
+2899,rxcui:37776,B,Sensitivity/Response,Supports
+2901,rxcui:37776,B,Sensitivity/Response,Supports
+2902,rxcui:37776,B,Sensitivity/Response,Supports
+2903,rxcui:37776,B,Sensitivity/Response,Supports
+2904,rxcui:37776,B,Sensitivity/Response,Supports
+2905,rxcui:12574,B,Sensitivity/Response,Supports
+2905,rxcui:2555,B,Sensitivity/Response,Supports
+2906,rxcui:337525,C,Sensitivity/Response,Does Not Support
+2907,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+2907,rxcui:2361596,D,Sensitivity/Response,Supports
+2915,rxcui:2550729,D,Sensitivity/Response,Supports
+2915,ncit:C88272,D,Sensitivity/Response,Supports
+2915,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+2918,rxcui:282388,C,Resistance,Supports
+2919,rxcui:282388,C,Resistance,Supports
+2920,rxcui:282388,C,Resistance,Supports
+2921,rxcui:282388,C,Resistance,Supports
+2922,rxcui:282388,C,Resistance,Supports
+2923,rxcui:282388,C,Resistance,Supports
+2924,rxcui:282388,C,Resistance,Supports
+2926,chembl:CHEMBL3707227,B,Resistance,Supports
+2926,rxcui:1547545,B,Resistance,Supports
+2926,rxcui:1597876,B,Resistance,Supports
+2929,rxcui:263034,C,Resistance,Supports
+2929,rxcui:1424911,C,Resistance,Supports
+2931,rxcui:2049122,B,Sensitivity/Response,Supports
+2931,rxcui:1873916,B,Sensitivity/Response,Supports
+2933,rxcui:1597582,D,Sensitivity/Response,Supports
+2934,rxcui:1148495,C,Resistance,Supports
+2936,rxcui:2361596,D,Sensitivity/Response,Supports
+2937,rxcui:2049122,B,Sensitivity/Response,Supports
+2939,rxcui:328134,B,Sensitivity/Response,Supports
+2940,ncit:C121379,B,Sensitivity/Response,Supports
+2941,ncit:C121379,B,Sensitivity/Response,Supports
+2943,rxcui:318341,D,Resistance,Supports
+2948,rxcui:2197862,A,Sensitivity/Response,Supports
+2949,rxcui:2197862,B,Sensitivity/Response,Supports
+2950,rxcui:2197862,C,Sensitivity/Response,Supports
+2951,rxcui:2197862,A,Sensitivity/Response,Supports
+2952,rxcui:2197862,B,Sensitivity/Response,Supports
+2953,rxcui:2104548,C,Sensitivity/Response,Supports
+2955,rxcui:2104548,C,Sensitivity/Response,Supports
+2958,rxcui:2197862,B,Sensitivity/Response,Does Not Support
+2959,rxcui:2197862,B,Sensitivity/Response,Does Not Support
+2960,rxcui:2197862,C,Sensitivity/Response,Supports
+2961,rxcui:2197862,C,Resistance,Supports
+2963,ncit:C74594,D,Sensitivity/Response,Supports
+2964,ncit:C171616,D,Sensitivity/Response,Supports
+2967,ncit:C171616,D,Resistance,Supports
+2968,ncit:C74594,D,Resistance,Supports
+2982,fda:DASATINIB,D,Sensitivity/Response,Supports
+2983,iuphar.ligand:7012,D,Sensitivity/Response,Supports
+2984,ncit:C165479,D,Sensitivity/Response,Supports
+2984,rxcui:2555,D,Sensitivity/Response,Supports
+2985,rxcui:2555,D,Resistance,Supports
+2987,rxcui:2197862,C,Sensitivity/Response,Supports
+2988,ncit:C128057,D,Resistance,Supports
+2988,ncit:C128036,D,Resistance,Supports
+2994,rxcui:337525,A,Sensitivity/Response,Supports
+2995,rxcui:337525,A,Sensitivity/Response,Supports
+2996,rxcui:1430438,A,Sensitivity/Response,Supports
+2997,rxcui:1430438,A,Sensitivity/Response,Supports
+2998,rxcui:2361596,A,Resistance,Supports
+3003,ncit:C91392,D,Sensitivity/Response,Supports
+3003,rxcui:1597582,D,Sensitivity/Response,Supports
+3003,rxcui:2555,D,Sensitivity/Response,Supports
+3004,rxcui:480167,D,Resistance,Supports
+3005,rxcui:480167,D,Resistance,Supports
+3006,rxcui:480167,D,Resistance,Supports
+3007,ncit:C48404,D,Resistance,Supports
+3008,rxcui:357977,D,Sensitivity/Response,Does Not Support
+3009,rxcui:357977,D,Sensitivity/Response,Supports
+3009,ncit:C71603,D,Sensitivity/Response,Supports
+3010,rxcui:357977,D,Sensitivity/Response,Supports
+3010,rxcui:81992,D,Sensitivity/Response,Supports
+3012,rxcui:2643048,D,Sensitivity/Response,Does Not Support
+3013,rxcui:2555,B,Resistance,Supports
+3013,rxcui:40048,B,Resistance,Supports
+3015,rxcui:1721560,D,Resistance,Supports
+3015,ncit:C99905,D,Resistance,Supports
+3016,rxcui:328134,B,Sensitivity/Response,Supports
+3017,rxcui:1424911,A,Sensitivity/Response,Supports
+3017,fda:TRAMETINIB,A,Sensitivity/Response,Supports
+3027,ncit:C76199,B,Sensitivity/Response,Supports
+3028,rxcui:282388,C,Sensitivity/Response,Supports
+3029,rxcui:357977,D,Sensitivity/Response,Supports
+3029,rxcui:282388,D,Sensitivity/Response,Supports
+3029,ncit:C48404,D,Sensitivity/Response,Supports
+3029,fda:DASATINIB,D,Sensitivity/Response,Supports
+3034,ncit:C1731,D,Sensitivity/Response,Supports
+3034,chembl:CHEMBL129857,D,Sensitivity/Response,Supports
+3038,rxcui:2361596,D,Resistance,Supports
+3038,fda:TRAMETINIB,D,Resistance,Supports
+3039,rxcui:2669967,B,Sensitivity/Response,Supports
+3040,rxcui:2669967,B,Sensitivity/Response,Supports
+3042,ncit:C171616,D,Resistance,Supports
+3690,rxcui:318341,C,Resistance,Supports
+3690,rxcui:153329,C,Resistance,Supports
+3693,rxcui:318341,B,Resistance,Supports
+3704,rxcui:318341,B,Resistance,Supports
+3713,chembl:CHEMBL1743079,B,Sensitivity/Response,Supports
+3713,rxcui:337525,B,Sensitivity/Response,Supports
+3722,rxcui:1147220,D,Resistance,Supports
+3724,rxcui:1147220,D,Resistance,Supports
+3732,rxcui:318341,B,Resistance,Does Not Support
+3733,rxcui:1147220,D,Resistance,Supports
+3739,rxcui:318341,B,Resistance,Supports
+3750,rxcui:1147220,B,Sensitivity/Response,Supports
+3755,rxcui:1147220,B,Sensitivity/Response,Supports
+3757,rxcui:1147220,B,Sensitivity/Response,Supports
+3758,rxcui:1424911,B,Sensitivity/Response,Supports
+3758,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+3777,rxcui:1147220,C,Sensitivity/Response,Supports
+3787,rxcui:1147220,C,Sensitivity/Response,Supports
+3791,rxcui:337525,B,Sensitivity/Response,Supports
+3794,rxcui:337525,B,Sensitivity/Response,Supports
+3802,rxcui:328134,C,Sensitivity/Response,Supports
+3810,ncit:C48369,D,Resistance,Supports
+3810,rxcui:337525,D,Resistance,Supports
+3810,rxcui:328134,D,Resistance,Supports
+3811,rxcui:328134,D,Sensitivity/Response,Supports
+3811,rxcui:337525,D,Sensitivity/Response,Supports
+3811,ncit:C48369,D,Sensitivity/Response,Supports
+3815,rxcui:1307619,C,Resistance,Does Not Support
+3816,rxcui:1307619,C,Resistance,Does Not Support
+3817,fda:DASATINIB,C,Reduced Sensitivity,Supports
+3819,fda:DASATINIB,B,Resistance,Does Not Support
+3820,fda:DASATINIB,C,Resistance,Supports
+3822,rxcui:1242999,D,Resistance,Does Not Support
+3824,rxcui:263034,C,Resistance,Supports
+3827,rxcui:263034,C,Resistance,Supports
+3832,rxcui:153329,C,Resistance,Does Not Support
+3832,rxcui:318341,C,Resistance,Does Not Support
+3841,rxcui:318341,C,Resistance,Supports
+3841,rxcui:153329,C,Resistance,Supports
+3842,rxcui:263034,C,Resistance,Supports
+3845,rxcui:318341,C,Resistance,Supports
+3847,rxcui:318341,C,Resistance,Supports
+3851,rxcui:1147220,C,Resistance,Supports
+3852,rxcui:318341,D,Resistance,Supports
+3858,rxcui:318341,B,Resistance,Supports
+3861,rxcui:318341,C,Resistance,Supports
+3862,rxcui:318341,C,Resistance,Supports
+3864,rxcui:337525,B,Sensitivity/Response,Supports
+3867,rxcui:318341,C,Resistance,Supports
+3870,rxcui:153329,C,Resistance,Supports
+3870,rxcui:318341,C,Resistance,Supports
+3872,rxcui:318341,C,Resistance,Supports
+3878,rxcui:318341,D,Resistance,Supports
+3881,rxcui:318341,B,Resistance,Supports
+3882,rxcui:318341,B,Resistance,Supports
+3895,rxcui:337525,B,Resistance,Supports
+3917,rxcui:318341,B,Resistance,Supports
+3939,rxcui:318341,B,Resistance,Does Not Support
+3957,rxcui:1147220,D,Resistance,Supports
+3958,rxcui:318341,D,Resistance,Supports
+3967,rxcui:318341,B,Resistance,Supports
+3987,rxcui:318341,C,Resistance,Supports
+3989,rxcui:318341,D,Resistance,Supports
+4006,rxcui:318341,B,Resistance,Supports
+4022,rxcui:357977,C,Sensitivity/Response,Supports
+4029,rxcui:1147220,D,Resistance,Supports
+4046,rxcui:1148495,C,Resistance,Supports
+4047,rxcui:318341,C,Resistance,Supports
+4056,rxcui:357977,D,Resistance,Does Not Support
+4060,rxcui:357977,D,Resistance,Supports
+4062,rxcui:357977,C,Resistance,Supports
+4072,rxcui:357977,B,Resistance,Supports
+4077,rxcui:357977,D,Resistance,Does Not Support
+4082,rxcui:357977,C,Resistance,Supports
+4084,rxcui:282388,D,Sensitivity/Response,Supports
+4084,rxcui:1364347,D,Sensitivity/Response,Supports
+4087,rxcui:357977,D,Sensitivity/Response,Supports
+4095,rxcui:357977,C,Resistance,Supports
+4100,rxcui:357977,D,Resistance,Does Not Support
+4122,rxcui:357977,C,Resistance,Supports
+4125,rxcui:1364347,D,Sensitivity/Response,Supports
+4127,rxcui:282388,D,Sensitivity/Response,Supports
+4127,rxcui:357977,D,Sensitivity/Response,Supports
+4127,rxcui:1364347,D,Sensitivity/Response,Supports
+4136,rxcui:357977,C,Resistance,Supports
+4141,rxcui:282388,D,Sensitivity/Response,Supports
+4141,fda:DASATINIB,D,Sensitivity/Response,Supports
+4142,rxcui:357977,C,Resistance,Supports
+4147,fda:DASATINIB,C,Sensitivity/Response,Supports
+4167,rxcui:1364347,D,Resistance,Does Not Support
+4180,rxcui:1147220,B,Sensitivity/Response,Supports
+4181,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+4181,rxcui:1424911,B,Sensitivity/Response,Supports
+4186,rxcui:337525,D,Sensitivity/Response,Supports
+4187,rxcui:337525,D,Sensitivity/Response,Supports
+4188,rxcui:337525,D,Sensitivity/Response,Supports
+4189,rxcui:337525,B,Sensitivity/Response,Supports
+4189,rxcui:328134,B,Sensitivity/Response,Supports
+4190,rxcui:337525,D,Sensitivity/Response,Supports
+4197,rxcui:337525,D,Sensitivity/Response,Supports
+4198,rxcui:328134,C,Sensitivity/Response,Supports
+4201,rxcui:337525,C,Sensitivity/Response,Supports
+4209,rxcui:328134,C,Sensitivity/Response,Supports
+4210,rxcui:337525,C,Sensitivity/Response,Supports
+4210,rxcui:328134,C,Sensitivity/Response,Supports
+4220,rxcui:328134,C,Sensitivity/Response,Does Not Support
+4220,rxcui:337525,C,Sensitivity/Response,Does Not Support
+4226,rxcui:328134,C,Sensitivity/Response,Supports
+4231,rxcui:337525,C,Sensitivity/Response,Does Not Support
+4239,rxcui:328134,C,Sensitivity/Response,Does Not Support
+4244,rxcui:328134,C,Sensitivity/Response,Does Not Support
+4248,rxcui:328134,C,Sensitivity/Response,Supports
+4252,rxcui:328134,C,Sensitivity/Response,Supports
+4256,rxcui:328134,C,Sensitivity/Response,Does Not Support
+4260,rxcui:328134,C,Sensitivity/Response,Does Not Support
+4264,rxcui:328134,C,Sensitivity/Response,Does Not Support
+4265,rxcui:337525,D,Sensitivity/Response,Supports
+4266,rxcui:337525,D,Sensitivity/Response,Supports
+4273,rxcui:337525,C,Resistance,Supports
+4274,rxcui:328134,D,Sensitivity/Response,Does Not Support
+4274,rxcui:337525,D,Sensitivity/Response,Does Not Support
+4275,rxcui:337525,D,Resistance,Supports
+4276,rxcui:337525,D,Resistance,Supports
+4279,rxcui:337525,D,Sensitivity/Response,Supports
+4280,rxcui:328134,D,Resistance,Supports
+4280,rxcui:337525,D,Resistance,Supports
+4284,rxcui:337525,D,Sensitivity/Response,Supports
+4285,rxcui:337525,D,Sensitivity/Response,Supports
+4286,rxcui:337525,D,Sensitivity/Response,Supports
+4287,rxcui:337525,D,Sensitivity/Response,Supports
+4288,rxcui:1148495,C,Resistance,Supports
+4290,rxcui:337525,B,Sensitivity/Response,Supports
+4291,rxcui:337525,D,Sensitivity/Response,Supports
+4292,rxcui:318341,D,Sensitivity/Response,Does Not Support
+4293,rxcui:337525,D,Sensitivity/Response,Supports
+4294,rxcui:1721560,D,Sensitivity/Response,Supports
+4295,rxcui:337525,D,Sensitivity/Response,Supports
+4298,rxcui:337525,B,Sensitivity/Response,Supports
+4298,rxcui:328134,B,Sensitivity/Response,Supports
+4299,rxcui:337525,D,Sensitivity/Response,Supports
+4301,rxcui:337525,D,Sensitivity/Response,Supports
+4302,fda:DASATINIB,B,Resistance,Does Not Support
+4304,fda:DASATINIB,C,Resistance,Does Not Support
+4305,fda:DASATINIB,C,Resistance,Does Not Support
+4307,rxcui:1307619,C,Resistance,Does Not Support
+4308,rxcui:1307619,C,Resistance,Does Not Support
+4310,rxcui:1307619,C,Resistance,Does Not Support
+4311,rxcui:1242999,D,Resistance,Supports
+4313,rxcui:1307619,C,Resistance,Does Not Support
+4314,rxcui:1307619,C,Reduced Sensitivity,Supports
+4316,fda:DASATINIB,B,Resistance,Does Not Support
+4318,fda:DASATINIB,C,Reduced Sensitivity,Supports
+4320,rxcui:1242999,D,Resistance,Supports
+4321,rxcui:1242999,D,Resistance,Supports
+4323,rxcui:1242999,D,Resistance,Supports
+4324,rxcui:1242999,D,Resistance,Supports
+4327,fda:DASATINIB,C,Resistance,Does Not Support
+4329,rxcui:1242999,D,Resistance,Does Not Support
+4330,rxcui:1242999,D,Resistance,Supports
+4331,rxcui:1307619,C,Resistance,Does Not Support
+4332,rxcui:1307619,C,Resistance,Does Not Support
+4334,fda:DASATINIB,C,Resistance,Does Not Support
+4335,fda:DASATINIB,B,Resistance,Does Not Support
+4336,fda:DASATINIB,C,Resistance,Does Not Support
+4340,rxcui:1307619,C,Resistance,Does Not Support
+4345,rxcui:1242999,D,Resistance,Supports
+4347,rxcui:1307619,C,Resistance,Supports
+4348,rxcui:1307619,C,Resistance,Does Not Support
+4350,fda:DASATINIB,B,Resistance,Does Not Support
+4352,fda:DASATINIB,C,Reduced Sensitivity,Supports
+4353,fda:DASATINIB,C,Resistance,Does Not Support
+4355,rxcui:1242999,D,Resistance,Supports
+4357,rxcui:1307619,C,Resistance,Does Not Support
+4359,fda:DASATINIB,C,Resistance,Does Not Support
+4360,rxcui:1242999,D,Resistance,Supports
+4362,rxcui:1307619,C,Resistance,Supports
+4364,rxcui:1307619,C,Resistance,Supports
+4365,fda:DASATINIB,B,Resistance,Supports
+4368,fda:DASATINIB,C,Resistance,Supports
+4369,rxcui:1242999,C,Sensitivity/Response,Supports
+4371,rxcui:1242999,D,Sensitivity/Response,Supports
+4373,fda:DASATINIB,C,Resistance,Supports
+4376,fda:DASATINIB,C,Resistance,Supports
+4381,rxcui:1307619,C,Resistance,Does Not Support
+4382,rxcui:1307619,C,Reduced Sensitivity,Supports
+4386,fda:DASATINIB,C,Resistance,Supports
+4390,rxcui:1242999,D,Resistance,Supports
+4391,rxcui:1242999,D,Resistance,Supports
+4394,rxcui:1307619,C,Reduced Sensitivity,Supports
+4396,fda:DASATINIB,B,Resistance,Does Not Support
+4397,fda:DASATINIB,C,Reduced Sensitivity,Supports
+4398,fda:DASATINIB,C,Resistance,Does Not Support
+4399,rxcui:1242999,D,Resistance,Supports
+4400,rxcui:1307619,C,Resistance,Does Not Support
+4402,fda:DASATINIB,C,Resistance,Does Not Support
+4403,fda:DASATINIB,B,Resistance,Does Not Support
+4404,fda:DASATINIB,C,Resistance,Does Not Support
+4406,fda:DASATINIB,C,Resistance,Does Not Support
+4407,fda:DASATINIB,C,Resistance,Does Not Support
+4410,rxcui:1307619,C,Resistance,Supports
+4411,rxcui:1307619,C,Resistance,Does Not Support
+4413,fda:DASATINIB,B,Resistance,Does Not Support
+4417,rxcui:1242999,D,Resistance,Supports
+4424,rxcui:318341,C,Resistance,Does Not Support
+4429,rxcui:318341,B,Resistance,Supports
+4432,rxcui:318341,C,Resistance,Supports
+4432,rxcui:153329,C,Resistance,Supports
+4434,fda:DASATINIB,C,Resistance,Does Not Support
+4436,fda:DASATINIB,C,Sensitivity/Response,Supports
+4438,rxcui:1242999,D,Resistance,Does Not Support
+4440,rxcui:1307619,C,Resistance,Supports
+4441,rxcui:1242999,D,Resistance,Supports
+4442,rxcui:1242999,D,Resistance,Supports
+4443,rxcui:1307619,C,Resistance,Does Not Support
+4444,rxcui:1307619,C,Reduced Sensitivity,Supports
+4447,fda:DASATINIB,B,Resistance,Does Not Support
+4448,fda:DASATINIB,C,Resistance,Does Not Support
+4455,rxcui:357977,D,Sensitivity/Response,Does Not Support
+4455,rxcui:282388,D,Sensitivity/Response,Does Not Support
+4459,rxcui:282388,D,Sensitivity/Response,Supports
+4459,rxcui:1364347,D,Sensitivity/Response,Supports
+4463,rxcui:318341,C,Resistance,Supports
+4463,rxcui:153329,C,Resistance,Supports
+4464,rxcui:318341,C,Resistance,Does Not Support
+4464,rxcui:32592,C,Resistance,Does Not Support
+4464,rxcui:4492,C,Resistance,Does Not Support
+4467,rxcui:4492,C,Resistance,Supports
+4467,rxcui:318341,C,Resistance,Supports
+4467,rxcui:32592,C,Resistance,Supports
+4468,rxcui:337525,D,Sensitivity/Response,Supports
+4472,rxcui:318341,C,Resistance,Supports
+4472,rxcui:153329,C,Resistance,Supports
+4475,rxcui:1307619,C,Resistance,Does Not Support
+4477,rxcui:1242999,D,Resistance,Supports
+4478,rxcui:1307619,C,Resistance,Does Not Support
+4480,rxcui:1307619,C,Resistance,Does Not Support
+4481,fda:DASATINIB,C,Resistance,Does Not Support
+4482,fda:DASATINIB,C,Resistance,Does Not Support
+4483,fda:DASATINIB,C,Resistance,Does Not Support
+4486,rxcui:1307619,C,Resistance,Does Not Support
+4487,fda:DASATINIB,D,Sensitivity/Response,Supports
+4488,rxcui:1147220,D,Sensitivity/Response,Supports
+4489,rxcui:1147220,D,Sensitivity/Response,Supports
+4493,rxcui:337525,C,Resistance,Supports
+4494,rxcui:337525,C,Resistance,Supports
+4495,rxcui:337525,D,Sensitivity/Response,Supports
+4496,rxcui:337525,D,Resistance,Supports
+4497,rxcui:337525,D,Sensitivity/Response,Supports
+4498,rxcui:1147220,D,Resistance,Supports
+4500,rxcui:337525,D,Sensitivity/Response,Supports
+4519,rxcui:318341,D,Resistance,Supports
+4521,rxcui:1147220,D,Resistance,Supports
+4525,rxcui:1242999,D,Resistance,Does Not Support
+4527,fda:DASATINIB,C,Resistance,Supports
+4529,rxcui:1242999,D,Resistance,Does Not Support
+4530,rxcui:1307619,C,Resistance,Does Not Support
+4531,rxcui:1307619,C,Resistance,Does Not Support
+4532,fda:DASATINIB,B,Resistance,Does Not Support
+4533,fda:DASATINIB,C,Resistance,Does Not Support
+4534,rxcui:1242999,D,Resistance,Supports
+4535,rxcui:1242999,D,Resistance,Supports
+4537,rxcui:1242999,D,Sensitivity/Response,Supports
+4538,rxcui:1307619,C,Reduced Sensitivity,Supports
+4540,fda:DASATINIB,C,Resistance,Supports
+4541,fda:DASATINIB,C,Resistance,Supports
+4543,fda:DASATINIB,C,Resistance,Does Not Support
+4545,rxcui:1307619,C,Resistance,Does Not Support
+4546,rxcui:1307619,C,Resistance,Does Not Support
+4549,rxcui:1307619,C,Resistance,Does Not Support
+4551,rxcui:1307619,C,Resistance,Does Not Support
+4552,rxcui:1307619,C,Resistance,Supports
+4554,rxcui:1307619,C,Resistance,Does Not Support
+4559,rxcui:1307619,C,Sensitivity/Response,Supports
+4561,fda:DASATINIB,D,Sensitivity/Response,Supports
+4563,rxcui:1307619,C,Resistance,Does Not Support
+4565,rxcui:1307619,C,Resistance,Does Not Support
+4567,rxcui:1307619,C,Resistance,Does Not Support
+4568,rxcui:1307619,C,Resistance,Does Not Support
+4571,fda:DASATINIB,B,Resistance,Does Not Support
+4583,rxcui:357977,D,Sensitivity/Response,Supports
+4583,rxcui:1364347,D,Sensitivity/Response,Supports
+4583,rxcui:282388,D,Sensitivity/Response,Supports
+4594,rxcui:1364347,D,Sensitivity/Response,Supports
+4594,rxcui:282388,D,Sensitivity/Response,Supports
+4594,rxcui:357977,D,Sensitivity/Response,Supports
+4597,rxcui:357977,C,Resistance,Supports
+4620,rxcui:1148495,C,Resistance,Supports
+4623,rxcui:1597582,D,Sensitivity/Response,Supports
+4630,rxcui:282388,D,Sensitivity/Response,Does Not Support
+4630,rxcui:1364347,D,Sensitivity/Response,Does Not Support
+4631,rxcui:357977,D,Resistance,Supports
+4631,rxcui:282388,D,Resistance,Supports
+4643,rxcui:337525,C,Resistance,Supports
+4650,rxcui:337525,C,Resistance,Supports
+4653,rxcui:1242987,D,Resistance,Supports
+4654,rxcui:1242987,C,Resistance,Supports
+4655,rxcui:337525,D,Sensitivity/Response,Supports
+4656,rxcui:337525,D,Sensitivity/Response,Supports
+4657,rxcui:337525,D,Sensitivity/Response,Supports
+4658,rxcui:337525,D,Sensitivity/Response,Supports
+4659,rxcui:337525,D,Sensitivity/Response,Supports
+4665,rxcui:337525,C,Resistance,Supports
+4667,rxcui:337525,C,Sensitivity/Response,Supports
+4669,rxcui:328134,C,Sensitivity/Response,Supports
+4692,fda:DASATINIB,C,Sensitivity/Response,Supports
+4702,fda:DASATINIB,C,Resistance,Does Not Support
+4704,fda:DASATINIB,C,Resistance,Does Not Support
+4706,fda:DASATINIB,C,Sensitivity/Response,Supports
+4710,fda:DASATINIB,C,Resistance,Does Not Support
+4711,fda:DASATINIB,C,Resistance,Does Not Support
+4718,fda:DASATINIB,C,Resistance,Supports
+4729,rxcui:1147220,D,Sensitivity/Response,Does Not Support
+4755,rxcui:328134,B,Sensitivity/Response,Supports
+4755,rxcui:337525,B,Sensitivity/Response,Supports
+4759,rxcui:337525,B,Sensitivity/Response,Supports
+4759,rxcui:328134,B,Sensitivity/Response,Supports
+4762,rxcui:337525,B,Sensitivity/Response,Does Not Support
+4762,rxcui:328134,B,Sensitivity/Response,Does Not Support
+4766,rxcui:337525,C,Sensitivity/Response,Supports
+4768,rxcui:1307619,C,Resistance,Does Not Support
+4769,rxcui:1307619,C,Resistance,Does Not Support
+4776,rxcui:1547545,C,Sensitivity/Response,Supports
+4777,rxcui:1547545,C,Sensitivity/Response,Supports
+4783,rxcui:1147220,D,Resistance,Supports
+4784,rxcui:1147220,D,Resistance,Supports
+4785,rxcui:318341,B,Resistance,Supports
+4786,rxcui:1148495,C,Sensitivity/Response,Supports
+4787,fda:DASATINIB,D,Sensitivity/Response,Supports
+4788,fda:DASATINIB,D,Sensitivity/Response,Supports
+4791,fda:DASATINIB,D,Sensitivity/Response,Supports
+4791,rxcui:282388,D,Sensitivity/Response,Supports
+4799,rxcui:337525,D,Resistance,Supports
+4800,rxcui:337525,D,Resistance,Supports
+4801,rxcui:337525,C,Resistance,Supports
+4802,rxcui:337525,C,Resistance,Supports
+4803,rxcui:337525,C,Sensitivity/Response,Does Not Support
+4814,rxcui:1601374,C,Sensitivity/Response,Does Not Support
+4814,rxcui:72965,C,Sensitivity/Response,Does Not Support
+4825,rxcui:1547545,C,Resistance,Supports
+4826,fda:DASATINIB,D,Sensitivity/Response,Supports
+4832,ncit:C2496,B,Sensitivity/Response,Does Not Support
+4833,rxcui:1940332,D,Sensitivity/Response,Supports
+4835,rxcui:1921217,B,Sensitivity/Response,Supports
+4838,rxcui:2099704,B,Sensitivity/Response,Supports
+4839,rxcui:2099704,B,Sensitivity/Response,Supports
+4841,rxcui:1601374,B,Sensitivity/Response,Supports
+4842,rxcui:1946825,B,Sensitivity/Response,Supports
+4848,rxcui:1098413,B,Sensitivity/Response,Supports
+4849,rxcui:1098413,B,Sensitivity/Response,Supports
+4850,rxcui:1727454,C,Sensitivity/Response,Supports
+4857,chembl:CHEMBL3707227,B,Sensitivity/Response,Supports
+4857,rxcui:1919503,B,Sensitivity/Response,Supports
+4857,rxcui:1547545,B,Sensitivity/Response,Supports
+4857,rxcui:1875534,B,Sensitivity/Response,Supports
+4857,rxcui:1597876,B,Sensitivity/Response,Supports
+4858,rxcui:1727454,B,Sensitivity/Response,Supports
+4858,rxcui:1148495,B,Sensitivity/Response,Supports
+4859,rxcui:337525,B,Sensitivity/Response,Supports
+4859,fda:DACOMITINIB,B,Sensitivity/Response,Supports
+4860,fda:DACOMITINIB,B,Sensitivity/Response,Supports
+4861,rxcui:2123125,C,Sensitivity/Response,Supports
+4862,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+4863,rxcui:1597876,B,Sensitivity/Response,Supports
+4863,chembl:CHEMBL3707227,B,Sensitivity/Response,Supports
+4866,rxcui:318341,B,Sensitivity/Response,Does Not Support
+4866,rxcui:2361596,B,Sensitivity/Response,Does Not Support
+4867,fda:TRAMETINIB,B,Sensitivity/Response,Does Not Support
+4868,rxcui:2361596,B,Sensitivity/Response,Does Not Support
+4868,rxcui:337525,B,Sensitivity/Response,Does Not Support
+4869,rxcui:2049122,D,Sensitivity/Response,Supports
+4869,rxcui:1601374,D,Sensitivity/Response,Supports
+4871,iuphar.ligand:5037,D,Sensitivity/Response,Supports
+4871,rxcui:2550729,D,Sensitivity/Response,Supports
+4872,rxcui:1601374,D,Sensitivity/Response,Supports
+4874,rxcui:2555,D,Sensitivity/Response,Supports
+4874,ncit:C91392,D,Sensitivity/Response,Supports
+4874,rxcui:1597582,D,Sensitivity/Response,Supports
+4875,rxcui:2099704,B,Sensitivity/Response,Supports
+4876,rxcui:2099704,B,Sensitivity/Response,Supports
+4877,rxcui:328134,B,Sensitivity/Response,Supports
+4879,ncit:C171616,D,Resistance,Supports
+4880,ncit:C171616,D,Resistance,Supports
+4881,ncit:C171616,D,Resistance,Supports
+4882,ncit:C171616,D,Resistance,Supports
+4883,ncit:C171616,D,Resistance,Supports
+4884,ncit:C171616,D,Resistance,Supports
+4885,ncit:C171616,D,Resistance,Supports
+4886,ncit:C171616,D,Resistance,Supports
+4887,ncit:C171616,D,Resistance,Supports
+4888,ncit:C171616,D,Resistance,Supports
+4889,ncit:C171616,D,Resistance,Supports
+4890,ncit:C171616,D,Resistance,Supports
+4891,ncit:C171616,D,Resistance,Supports
+4905,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+4931,rxcui:328134,B,Sensitivity/Response,Supports
+4955,fda:TRASTUZUMAB,C,Sensitivity/Response,Does Not Support
+4955,rxcui:4492,C,Sensitivity/Response,Does Not Support
+4996,rxcui:337525,B,Sensitivity/Response,Does Not Support
+5069,rxcui:1940332,A,Sensitivity/Response,Supports
+5215,rxcui:1597582,B,Sensitivity/Response,Supports
+5215,rxcui:56946,B,Sensitivity/Response,Supports
+5261,rxcui:1919083,A,Sensitivity/Response,Supports
+5323,rxcui:141704,B,Sensitivity/Response,Supports
+5338,rxcui:1940642,B,Sensitivity/Response,Supports
+5339,rxcui:357977,B,Resistance,Supports
+5339,rxcui:141704,B,Resistance,Supports
+5344,rxcui:263034,A,Resistance,Supports
+5344,rxcui:318341,A,Resistance,Supports
+5345,rxcui:318341,A,Resistance,Supports
+5345,rxcui:263034,A,Resistance,Supports
+5505,drugbank:DB17021,D,Sensitivity/Response,Supports
+5506,rxcui:12574,B,Sensitivity/Response,Supports
+5508,rxcui:12574,B,Sensitivity/Response,Supports
+5530,rxcui:12574,B,Sensitivity/Response,Supports
+5599,chembl:CHEMBL538943,B,Sensitivity/Response,Supports
+5599,rxcui:12574,B,Sensitivity/Response,Supports
+5599,rxcui:56946,B,Sensitivity/Response,Supports
+5811,rxcui:1547545,B,Sensitivity/Response,Supports
+5815,rxcui:1597582,B,Sensitivity/Response,Supports
+5816,rxcui:1597582,B,Sensitivity/Response,Supports
+5829,ncit:C66961,C,Sensitivity/Response,Supports
+5829,rxcui:153329,C,Sensitivity/Response,Supports
+5830,rxcui:1597582,B,Sensitivity/Response,Supports
+5831,rxcui:1597582,B,Sensitivity/Response,Supports
+5835,hemonc:443,B,Sensitivity/Response,Does Not Support
+5840,rxcui:141704,B,Sensitivity/Response,Does Not Support
+5858,rxcui:1430438,C,Sensitivity/Response,Supports
+5859,rxcui:1430438,C,Sensitivity/Response,Supports
+5902,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+5902,rxcui:1424911,C,Sensitivity/Response,Supports
+5903,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+5903,rxcui:1424911,C,Sensitivity/Response,Supports
+5904,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+5904,rxcui:1424911,C,Sensitivity/Response,Supports
+5905,rxcui:1147220,B,Sensitivity/Response,Supports
+5906,rxcui:1147220,C,Sensitivity/Response,Supports
+5906,rxcui:263034,C,Sensitivity/Response,Supports
+5906,rxcui:153329,C,Sensitivity/Response,Supports
+5908,rxcui:2550729,B,Sensitivity/Response,Supports
+5909,rxcui:337525,C,Sensitivity/Response,Supports
+5912,rxcui:2550729,B,Sensitivity/Response,Supports
+5913,rxcui:1597582,B,Sensitivity/Response,Supports
+5914,rxcui:1597582,B,Sensitivity/Response,Supports
+5915,rxcui:32592,B,Sensitivity/Response,Supports
+5915,rxcui:2555,B,Sensitivity/Response,Supports
+5916,ncit:C1450,B,Sensitivity/Response,Supports
+5922,rxcui:337525,D,Sensitivity/Response,Supports
+5924,rxcui:328134,B,Sensitivity/Response,Supports
+5924,rxcui:337525,B,Sensitivity/Response,Supports
+5925,rxcui:328134,B,Sensitivity/Response,Supports
+5925,rxcui:337525,B,Sensitivity/Response,Supports
+5929,ncit:C91731,D,Sensitivity/Response,Supports
+5929,rxcui:1597582,D,Sensitivity/Response,Supports
+5932,rxcui:12574,B,Sensitivity/Response,Supports
+5932,ncit:C60768,B,Sensitivity/Response,Supports
+5932,rxcui:2555,B,Sensitivity/Response,Supports
+5933,rxcui:12574,B,Sensitivity/Response,Supports
+5933,rxcui:2555,B,Sensitivity/Response,Supports
+5933,ncit:C60768,B,Sensitivity/Response,Supports
+5934,ncit:C60768,B,Sensitivity/Response,Does Not Support
+5935,ncit:C60768,B,Sensitivity/Response,Does Not Support
+5936,ncit:C62526,C,Sensitivity/Response,Supports
+5938,rxcui:337525,C,Sensitivity/Response,Does Not Support
+5947,rxcui:1430438,D,Sensitivity/Response,Does Not Support
+5947,rxcui:328134,D,Sensitivity/Response,Does Not Support
+5952,rxcui:1535457,C,Sensitivity/Response,Supports
+5953,rxcui:1597582,D,Sensitivity/Response,Supports
+5954,rxcui:1148495,C,Sensitivity/Response,Supports
+5955,rxcui:194000,B,Sensitivity/Response,Does Not Support
+5955,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+5956,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+5956,rxcui:12574,B,Sensitivity/Response,Does Not Support
+5957,rxcui:56946,B,Sensitivity/Response,Does Not Support
+5957,rxcui:40048,B,Sensitivity/Response,Does Not Support
+5957,ncit:C90565,B,Sensitivity/Response,Does Not Support
+5958,rxcui:1147220,B,Sensitivity/Response,Supports
+5959,rxcui:1147220,B,Sensitivity/Response,Supports
+5960,rxcui:1147220,C,Sensitivity/Response,Supports
+5961,rxcui:1147220,C,Sensitivity/Response,Supports
+5962,rxcui:1147220,C,Sensitivity/Response,Supports
+5964,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5965,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5966,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5967,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5968,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5969,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5970,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5971,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5972,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5973,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5974,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5975,rxcui:1147220,C,Sensitivity/Response,Does Not Support
+5977,rxcui:1147220,C,Sensitivity/Response,Supports
+5978,rxcui:1242987,B,Sensitivity/Response,Supports
+5979,rxcui:1242987,B,Sensitivity/Response,Does Not Support
+5980,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+5981,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+5982,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+5983,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+5984,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+5985,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+5986,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+5987,rxcui:2049873,C,Sensitivity/Response,Does Not Support
+5988,rxcui:451796,D,Sensitivity/Response,Supports
+5988,ncit:C91702,D,Sensitivity/Response,Supports
+5989,rxcui:2555,D,Resistance,Supports
+5989,rxcui:40048,D,Resistance,Supports
+5994,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+6000,iuphar.ligand:5193,D,Sensitivity/Response,Supports
+6001,rxcui:495881,D,Sensitivity/Response,Supports
+6002,iuphar.ligand:5282,D,Resistance,Supports
+6003,rxcui:495881,D,Sensitivity/Response,Supports
+6004,iuphar.ligand:5282,D,Resistance,Supports
+6005,rxcui:337525,C,Sensitivity/Response,Supports
+6006,rxcui:1721560,C,Sensitivity/Response,Does Not Support
+6019,drugbank:DB17021,D,Sensitivity/Response,Supports
+6019,rxcui:1603350,D,Sensitivity/Response,Supports
+6042,rxcui:1148495,C,Sensitivity/Response,Supports
+6043,rxcui:1148495,C,Sensitivity/Response,Supports
+6044,rxcui:1147220,A,Sensitivity/Response,Supports
+6044,rxcui:1722365,A,Sensitivity/Response,Supports
+6045,rxcui:1147220,B,Sensitivity/Response,Supports
+6046,rxcui:2049106,B,Sensitivity/Response,Supports
+6046,rxcui:318341,B,Sensitivity/Response,Supports
+6047,rxcui:2049106,B,Sensitivity/Response,Supports
+6047,rxcui:318341,B,Sensitivity/Response,Supports
+6047,rxcui:2169285,B,Sensitivity/Response,Supports
+6049,rxcui:41493,C,Sensitivity/Response,Does Not Support
+6096,rxcui:1430438,C,Sensitivity/Response,Does Not Support
+6098,rxcui:2104548,C,Sensitivity/Response,Supports
+6099,rxcui:2104548,A,Sensitivity/Response,Supports
+6100,rxcui:2104548,C,Sensitivity/Response,Supports
+6101,rxcui:2104548,C,Sensitivity/Response,Supports
+6102,rxcui:2104548,C,Sensitivity/Response,Supports
+6103,rxcui:2104548,C,Sensitivity/Response,Supports
+6123,rxcui:1424911,B,Sensitivity/Response,Supports
+6123,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6123,rxcui:263034,B,Sensitivity/Response,Supports
+6124,fda:TRAMETINIB,B,Sensitivity/Response,Does Not Support
+6124,rxcui:263034,B,Sensitivity/Response,Does Not Support
+6170,fda:TRASTUZUMAB,C,Sensitivity/Response,Supports
+6170,rxcui:56946,C,Sensitivity/Response,Supports
+6171,rxcui:194000,C,Sensitivity/Response,Supports
+6171,fda:TRASTUZUMAB,C,Sensitivity/Response,Supports
+6171,rxcui:1546014,C,Sensitivity/Response,Supports
+6174,rxcui:1721560,D,Sensitivity/Response,Does Not Support
+6178,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6178,rxcui:1424911,B,Sensitivity/Response,Supports
+6179,rxcui:1424911,B,Sensitivity/Response,Supports
+6179,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6180,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6180,rxcui:1424911,B,Sensitivity/Response,Supports
+6181,rxcui:328134,C,Sensitivity/Response,Does Not Support
+6181,rxcui:337525,C,Sensitivity/Response,Does Not Support
+6182,rxcui:337525,C,Sensitivity/Response,Does Not Support
+6182,rxcui:328134,C,Sensitivity/Response,Does Not Support
+6183,rxcui:328134,B,Sensitivity/Response,Supports
+6184,rxcui:328134,B,Sensitivity/Response,Supports
+6186,rxcui:328134,C,Sensitivity/Response,Supports
+6189,rxcui:10324,B,Sensitivity/Response,Does Not Support
+6190,fda:DASATINIB,D,Resistance,Supports
+6192,fda:DASATINIB,D,Resistance,Supports
+6193,fda:DASATINIB,D,Resistance,Supports
+6194,rxcui:662281,D,Resistance,Supports
+6194,fda:DASATINIB,D,Resistance,Supports
+6196,rxcui:662281,D,Resistance,Supports
+6200,rxcui:662281,C,Resistance,Supports
+6202,rxcui:480167,D,Resistance,Supports
+6203,fda:TRASTUZUMAB,D,Resistance,Supports
+6204,fda:TRASTUZUMAB,D,Resistance,Supports
+6204,rxcui:480167,D,Resistance,Supports
+6206,ncit:C74072,D,Resistance,Does Not Support
+6207,rxcui:480167,D,Resistance,Supports
+6208,fda:DASATINIB,D,Resistance,Supports
+6209,fda:TRASTUZUMAB,D,Resistance,Supports
+6210,fda:DASATINIB,D,Resistance,Supports
+6211,fda:TRASTUZUMAB,D,Resistance,Supports
+6211,rxcui:480167,D,Resistance,Supports
+6213,ncit:C74072,D,Resistance,Does Not Support
+6214,fda:DASATINIB,D,Resistance,Supports
+6215,fda:DASATINIB,D,Resistance,Supports
+6216,fda:DASATINIB,D,Resistance,Supports
+6217,fda:DASATINIB,D,Resistance,Supports
+6218,fda:DASATINIB,D,Resistance,Supports
+6219,fda:DASATINIB,D,Resistance,Supports
+6232,rxcui:662281,C,Resistance,Supports
+6233,rxcui:662281,C,Resistance,Supports
+6234,fda:DASATINIB,D,Resistance,Supports
+6235,rxcui:662281,D,Resistance,Supports
+6235,fda:DASATINIB,D,Resistance,Supports
+6236,rxcui:662281,D,Resistance,Supports
+6237,rxcui:662281,D,Resistance,Supports
+6238,rxcui:662281,D,Resistance,Supports
+6239,rxcui:662281,D,Resistance,Supports
+6240,rxcui:662281,D,Resistance,Supports
+6241,fda:DASATINIB,D,Resistance,Supports
+6247,fda:DASATINIB,D,Resistance,Supports
+6250,fda:DASATINIB,D,Resistance,Supports
+6251,fda:DASATINIB,D,Resistance,Supports
+6253,fda:DASATINIB,D,Resistance,Supports
+6259,rxcui:1147220,D,Resistance,Does Not Support
+6260,rxcui:1424911,C,Resistance,Supports
+6261,rxcui:1147220,D,Resistance,Supports
+6262,rxcui:1147220,B,Resistance,Supports
+6262,rxcui:1424911,B,Resistance,Supports
+6263,rxcui:1147220,B,Resistance,Supports
+6263,rxcui:1424911,B,Resistance,Supports
+6264,rxcui:1424911,B,Resistance,Supports
+6264,rxcui:1147220,B,Resistance,Supports
+6266,rxcui:1147220,D,Resistance,Does Not Support
+6267,rxcui:662281,D,Resistance,Supports
+6268,rxcui:1147220,C,Resistance,Supports
+6270,fda:DASATINIB,D,Resistance,Supports
+6271,rxcui:1147220,D,Resistance,Supports
+6273,rxcui:1430438,C,Sensitivity/Response,Supports
+6274,fda:DASATINIB,D,Resistance,Supports
+6275,rxcui:1147220,D,Resistance,Supports
+6285,rxcui:662281,D,Resistance,Supports
+6285,fda:DASATINIB,D,Resistance,Supports
+6293,rxcui:32592,B,Resistance,Does Not Support
+6294,rxcui:153329,B,Resistance,Does Not Support
+6296,rxcui:318341,B,Resistance,Supports
+6298,rxcui:32592,B,Resistance,Does Not Support
+6299,rxcui:153329,B,Resistance,Does Not Support
+6301,rxcui:318341,B,Resistance,Supports
+6303,rxcui:32592,B,Resistance,Supports
+6304,rxcui:153329,B,Resistance,Supports
+6306,rxcui:318341,B,Resistance,Supports
+6308,fda:DASATINIB,B,Resistance,Does Not Support
+6309,fda:DASATINIB,B,Resistance,Supports
+6310,fda:DASATINIB,B,Resistance,Does Not Support
+6311,fda:DASATINIB,B,Resistance,Does Not Support
+6312,rxcui:263034,C,Resistance,Supports
+6312,rxcui:318341,C,Resistance,Supports
+6314,rxcui:318341,C,Resistance,Supports
+6314,rxcui:263034,C,Resistance,Supports
+6315,rxcui:318341,B,Resistance,Supports
+6315,rxcui:263034,B,Resistance,Supports
+6316,rxcui:263034,C,Resistance,Supports
+6316,rxcui:318341,C,Resistance,Supports
+6317,rxcui:1147220,D,Resistance,Supports
+6319,rxcui:318341,C,Resistance,Supports
+6319,rxcui:263034,C,Resistance,Supports
+6320,rxcui:263034,C,Resistance,Does Not Support
+6320,rxcui:318341,C,Resistance,Does Not Support
+6322,rxcui:318341,C,Resistance,Supports
+6322,rxcui:263034,C,Resistance,Supports
+6323,rxcui:263034,C,Resistance,Supports
+6323,rxcui:318341,C,Resistance,Supports
+6335,rxcui:1307619,B,Resistance,Does Not Support
+6336,rxcui:1307619,B,Resistance,Does Not Support
+6337,rxcui:1307619,B,Resistance,Does Not Support
+6341,ncit:C78186,B,Sensitivity/Response,Supports
+6342,rxcui:662281,B,Resistance,Does Not Support
+6343,ncit:C78186,B,Sensitivity/Response,Supports
+6362,rxcui:263034,B,Resistance,Supports
+6362,rxcui:318341,B,Resistance,Supports
+6363,rxcui:263034,B,Resistance,Supports
+6363,rxcui:318341,B,Resistance,Supports
+6375,rxcui:1191,B,Sensitivity/Response,Supports
+6376,rxcui:282388,D,Sensitivity/Response,Supports
+6380,rxcui:1193325,D,Sensitivity/Response,Supports
+6381,rxcui:1193325,C,Sensitivity/Response,Supports
+6392,rxcui:2104548,E,Sensitivity/Response,Supports
+6393,rxcui:2104548,E,Sensitivity/Response,Supports
+6394,rxcui:2104548,E,Sensitivity/Response,Supports
+6396,rxcui:2104548,C,Sensitivity/Response,Supports
+6400,rxcui:1147220,B,Resistance,Supports
+6400,rxcui:1424911,B,Resistance,Supports
+6401,rxcui:1424911,B,Resistance,Supports
+6401,rxcui:1147220,B,Resistance,Supports
+6402,rxcui:153329,B,Resistance,Supports
+6403,rxcui:32592,B,Resistance,Supports
+6408,iuphar.ligand:5037,D,Resistance,Supports
+6408,ncit:C88272,D,Resistance,Supports
+6409,rxcui:2550729,C,Sensitivity/Response,Supports
+6439,fda:DASATINIB,D,Sensitivity/Response,Supports
+6441,rxcui:1547545,B,Resistance,Supports
+6441,rxcui:1597876,B,Resistance,Supports
+6441,chembl:CHEMBL3707227,B,Resistance,Supports
+6473,rxcui:2104548,C,Sensitivity/Response,Supports
+6475,rxcui:2104548,C,Sensitivity/Response,Supports
+6484,ncit:C1740,B,Resistance,Supports
+6567,rxcui:2104548,A,Sensitivity/Response,Supports
+6568,rxcui:2104548,A,Sensitivity/Response,Supports
+6569,rxcui:2104548,B,Sensitivity/Response,Supports
+6930,rxcui:2104548,D,Sensitivity/Response,Supports
+6937,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6937,rxcui:1424911,B,Sensitivity/Response,Supports
+6938,rxcui:1424911,B,Sensitivity/Response,Supports
+6938,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6939,rxcui:1424911,B,Sensitivity/Response,Supports
+6939,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6940,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6940,rxcui:1424911,B,Sensitivity/Response,Supports
+6941,rxcui:1424911,B,Sensitivity/Response,Supports
+6941,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6950,rxcui:2370147,C,Sensitivity/Response,Supports
+6952,iuphar.ligand:9332,D,Sensitivity/Response,Supports
+6965,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6965,rxcui:1424911,B,Sensitivity/Response,Supports
+6966,rxcui:1722365,B,Sensitivity/Response,Supports
+6966,rxcui:1147220,B,Sensitivity/Response,Supports
+6969,fda:DASATINIB,C,Sensitivity/Response,Supports
+6970,rxcui:662281,C,Resistance,Supports
+6971,rxcui:662281,C,Resistance,Supports
+6975,rxcui:1424911,B,Sensitivity/Response,Supports
+6975,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+6976,rxcui:282388,C,Sensitivity/Response,Supports
+6993,rxcui:282388,C,Resistance,Supports
+6996,rxcui:1307619,B,Resistance,Does Not Support
+6997,rxcui:1307619,B,Resistance,Does Not Support
+6998,rxcui:1307619,B,Resistance,Does Not Support
+7007,rxcui:1193325,C,Sensitivity/Response,Supports
+7011,ncit:C128462,D,Sensitivity/Response,Supports
+7016,rxcui:1597582,D,Sensitivity/Response,Supports
+7018,ncit:C103298,C,Sensitivity/Response,Supports
+7020,rxcui:282388,C,Resistance,Supports
+7021,rxcui:1193325,C,Sensitivity/Response,Supports
+7024,rxcui:337525,B,Sensitivity/Response,Supports
+7028,rxcui:282388,C,Sensitivity/Response,Supports
+7029,fda:DASATINIB,C,Resistance,Does Not Support
+7030,fda:DASATINIB,C,Reduced Sensitivity,Supports
+7031,fda:DASATINIB,C,Resistance,Does Not Support
+7066,rxcui:2370147,B,Sensitivity/Response,Supports
+7068,rxcui:2370147,C,Sensitivity/Response,Supports
+7069,rxcui:2370147,B,Sensitivity/Response,Supports
+7070,rxcui:2370147,B,Sensitivity/Response,Supports
+7096,rxcui:318341,E,Resistance,Supports
+7096,rxcui:263034,E,Resistance,Supports
+7128,fda:DASATINIB,C,Sensitivity/Response,Supports
+7128,rxcui:282388,C,Sensitivity/Response,Supports
+7155,rxcui:1946825,D,Sensitivity/Response,Supports
+7155,rxcui:1601374,D,Sensitivity/Response,Supports
+7185,rxcui:10237,B,Sensitivity/Response,Supports
+7185,rxcui:140587,B,Sensitivity/Response,Supports
+7185,rxcui:1191,B,Sensitivity/Response,Supports
+7195,rxcui:282388,E,Sensitivity/Response,Supports
+7199,rxcui:141704,D,Sensitivity/Response,Supports
+7199,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+7208,fda:DASATINIB,C,Sensitivity/Response,Supports
+7208,rxcui:3264,C,Sensitivity/Response,Supports
+7208,rxcui:11203,C,Sensitivity/Response,Supports
+7241,fda:DASATINIB,C,Resistance,Supports
+7246,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+7248,rxcui:282388,C,Sensitivity/Response,Supports
+7249,fda:DASATINIB,D,Sensitivity/Response,Supports
+7251,fda:DASATINIB,D,Sensitivity/Response,Supports
+7254,rxcui:282388,C,Reduced Sensitivity,Supports
+7257,rxcui:1193325,C,Sensitivity/Response,Supports
+7260,rxcui:2049106,B,Sensitivity/Response,Supports
+7260,rxcui:2049122,B,Sensitivity/Response,Supports
+7260,rxcui:318341,B,Sensitivity/Response,Supports
+7261,rxcui:2123125,A,Sensitivity/Response,Supports
+7264,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+7264,rxcui:1424911,B,Sensitivity/Response,Supports
+7272,rxcui:2477104,B,Sensitivity/Response,Supports
+7274,rxcui:1597582,A,Sensitivity/Response,Supports
+7275,rxcui:1597582,A,Sensitivity/Response,Supports
+7276,rxcui:1597582,A,Sensitivity/Response,Supports
+7278,rxcui:2049873,A,Sensitivity/Response,Supports
+7282,rxcui:1148495,A,Sensitivity/Response,Supports
+7283,rxcui:2105806,B,Sensitivity/Response,Supports
+7284,rxcui:1727454,A,Sensitivity/Response,Supports
+7285,rxcui:1535457,A,Sensitivity/Response,Supports
+7286,rxcui:2103164,B,Sensitivity/Response,Supports
+7287,rxcui:2049122,A,Sensitivity/Response,Supports
+7287,rxcui:2049106,A,Sensitivity/Response,Supports
+7288,rxcui:357977,C,Resistance,Supports
+7289,rxcui:357977,C,Resistance,Does Not Support
+7292,fda:DASATINIB,C,Sensitivity/Response,Supports
+7299,rxcui:1601374,B,Sensitivity/Response,Does Not Support
+7300,rxcui:1601374,B,Sensitivity/Response,Does Not Support
+7302,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+7312,rxcui:657797,C,Sensitivity/Response,Supports
+7312,rxcui:495881,C,Sensitivity/Response,Supports
+7313,rxcui:282357,A,Sensitivity/Response,Supports
+7313,rxcui:2169285,A,Sensitivity/Response,Supports
+7314,drugbank:DB11737,C,Sensitivity/Response,Supports
+7315,rxcui:282357,A,Sensitivity/Response,Supports
+7315,rxcui:2169285,A,Sensitivity/Response,Supports
+7316,rxcui:282357,A,Sensitivity/Response,Supports
+7316,rxcui:2169285,A,Sensitivity/Response,Supports
+7318,rxcui:2169285,A,Sensitivity/Response,Supports
+7318,rxcui:282357,A,Sensitivity/Response,Supports
+7329,ncit:C104267,B,Sensitivity/Response,Supports
+7331,rxcui:1601374,B,Sensitivity/Response,Supports
+7331,rxcui:282357,B,Sensitivity/Response,Supports
+7355,rxcui:318341,B,Sensitivity/Response,Supports
+7355,rxcui:1147220,B,Sensitivity/Response,Supports
+7355,rxcui:153329,B,Sensitivity/Response,Supports
+7361,rxcui:1148495,B,Sensitivity/Response,Supports
+7362,rxcui:1148495,B,Sensitivity/Response,Supports
+7363,fda:DACOMITINIB,A,Sensitivity/Response,Supports
+7366,rxcui:282388,B,Sensitivity/Response,Supports
+7366,rxcui:81992,B,Sensitivity/Response,Supports
+7366,ncit:C71603,B,Sensitivity/Response,Supports
+7366,rxcui:24698,B,Sensitivity/Response,Supports
+7366,rxcui:6851,B,Sensitivity/Response,Supports
+7369,rxcui:1364347,D,Sensitivity/Response,Supports
+7370,rxcui:495881,D,Sensitivity/Response,Does Not Support
+7370,rxcui:357977,D,Sensitivity/Response,Does Not Support
+7375,rxcui:495881,D,Sensitivity/Response,Does Not Support
+7375,rxcui:357977,D,Sensitivity/Response,Does Not Support
+7378,rxcui:495881,D,Sensitivity/Response,Supports
+7378,rxcui:357977,D,Sensitivity/Response,Supports
+7379,rxcui:1364347,D,Sensitivity/Response,Supports
+7380,rxcui:1364347,D,Sensitivity/Response,Supports
+7382,rxcui:357977,D,Sensitivity/Response,Supports
+7382,rxcui:495881,D,Sensitivity/Response,Supports
+7384,rxcui:1597582,A,Sensitivity/Response,Supports
+7385,rxcui:1597582,A,Sensitivity/Response,Supports
+7392,rxcui:357977,D,Sensitivity/Response,Supports
+7393,rxcui:282388,D,Sensitivity/Response,Supports
+7393,rxcui:1364347,D,Sensitivity/Response,Supports
+7395,rxcui:1364347,D,Sensitivity/Response,Supports
+7395,rxcui:282388,D,Sensitivity/Response,Supports
+7397,rxcui:1364347,D,Sensitivity/Response,Supports
+7397,rxcui:357977,D,Sensitivity/Response,Supports
+7401,rxcui:1364347,D,Resistance,Does Not Support
+7402,rxcui:495881,D,Resistance,Supports
+7402,rxcui:1147220,D,Resistance,Supports
+7413,rxcui:1364347,D,Resistance,Does Not Support
+7414,rxcui:357977,D,Resistance,Supports
+7414,rxcui:282388,D,Resistance,Supports
+7415,rxcui:282388,D,Resistance,Supports
+7415,rxcui:357977,D,Resistance,Supports
+7416,rxcui:282388,D,Resistance,Supports
+7417,rxcui:357977,D,Resistance,Does Not Support
+7417,rxcui:1364347,D,Resistance,Does Not Support
+7418,rxcui:2104548,C,Sensitivity/Response,Supports
+7419,rxcui:2104548,C,Sensitivity/Response,Supports
+7420,rxcui:2104548,C,Sensitivity/Response,Supports
+7421,rxcui:2197862,C,Sensitivity/Response,Does Not Support
+7422,rxcui:2123125,A,Sensitivity/Response,Supports
+7430,rxcui:6851,D,Resistance,Supports
+7430,rxcui:142433,D,Resistance,Supports
+7444,rxcui:1601374,B,Resistance,Does Not Support
+7446,rxcui:2395271,B,Sensitivity/Response,Supports
+7447,rxcui:2049873,B,Sensitivity/Response,Supports
+7449,ncit:C88329,C,Sensitivity/Response,Does Not Support
+7463,rxcui:282388,C,Sensitivity/Response,Does Not Support
+7465,rxcui:282388,D,Resistance,Supports
+7465,fda:DASATINIB,D,Resistance,Supports
+7468,rxcui:2169285,A,Sensitivity/Response,Supports
+7468,rxcui:282357,A,Sensitivity/Response,Supports
+7480,ncit:C107245,C,Sensitivity/Response,Supports
+7481,rxcui:2197862,C,Sensitivity/Response,Supports
+7483,rxcui:2103164,D,Sensitivity/Response,Supports
+7487,rxcui:2361596,B,Sensitivity/Response,Supports
+7488,ncit:C95726,B,Sensitivity/Response,Supports
+7492,rxcui:1430438,C,Sensitivity/Response,Supports
+7493,rxcui:1430438,C,Sensitivity/Response,Supports
+7496,rxcui:2104548,A,Sensitivity/Response,Supports
+7498,rxcui:1148495,C,Sensitivity/Response,Supports
+7540,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+7540,rxcui:194337,C,Sensitivity/Response,Supports
+7552,rxcui:263034,D,Sensitivity/Response,Supports
+7552,rxcui:153329,D,Sensitivity/Response,Supports
+7553,rxcui:1147220,D,Sensitivity/Response,Does Not Support
+7554,rxcui:1147220,D,Sensitivity/Response,Does Not Support
+7556,rxcui:1147220,D,Sensitivity/Response,Does Not Support
+7566,rxcui:2555,B,Sensitivity/Response,Supports
+7566,rxcui:12574,B,Sensitivity/Response,Supports
+7572,rxcui:2625882,D,Sensitivity/Response,Supports
+7583,rxcui:1147220,B,Sensitivity/Response,Supports
+7586,ncit:C128037,B,Resistance,Supports
+7587,ncit:C128057,B,Resistance,Supports
+7601,ncit:C113792,B,Sensitivity/Response,Supports
+7610,rxcui:1721560,B,Sensitivity/Response,Supports
+7612,rxcui:2049122,B,Sensitivity/Response,Supports
+7612,rxcui:2049106,B,Sensitivity/Response,Supports
+7612,rxcui:318341,B,Sensitivity/Response,Supports
+7616,ncit:C155322,C,Sensitivity/Response,Supports
+7629,ncit:C155322,C,Sensitivity/Response,Supports
+7629,ncit:C69145,C,Sensitivity/Response,Supports
+7630,ncit:C155322,C,Sensitivity/Response,Supports
+7630,ncit:C69145,C,Sensitivity/Response,Supports
+7634,ncit:C155322,B,Sensitivity/Response,Supports
+7634,ncit:C69145,B,Sensitivity/Response,Supports
+7635,ncit:C69145,C,Sensitivity/Response,Does Not Support
+7635,ncit:C155322,C,Sensitivity/Response,Does Not Support
+7636,ncit:C123826,B,Sensitivity/Response,Supports
+7638,fda:TRASTUZUMAB,C,Sensitivity/Response,Supports
+7642,rxcui:1148495,B,Sensitivity/Response,Supports
+7643,rxcui:1148495,C,Sensitivity/Response,Supports
+7647,fda:TRASTUZUMABDERUXTECAN,B,Sensitivity/Response,Supports
+7655,fda:DASATINIB,D,Resistance,Supports
+7655,rxcui:282388,D,Resistance,Supports
+7677,fda:TRAMETINIB,C,Resistance,Supports
+7677,rxcui:1424911,C,Resistance,Supports
+7724,rxcui:1597582,C,Sensitivity/Response,Supports
+7724,rxcui:37776,C,Sensitivity/Response,Supports
+7728,rxcui:2105806,A,Sensitivity/Response,Supports
+7730,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+7763,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+7766,rxcui:1242999,D,Sensitivity/Response,Supports
+7767,rxcui:1242999,D,Sensitivity/Response,Supports
+7768,rxcui:1242999,D,Sensitivity/Response,Supports
+7769,rxcui:1242999,D,Resistance,Does Not Support
+7770,rxcui:1242999,D,Resistance,Does Not Support
+7771,rxcui:1242999,D,Resistance,Does Not Support
+7772,rxcui:1242999,D,Sensitivity/Response,Supports
+7773,rxcui:1242999,D,Resistance,Does Not Support
+7774,rxcui:1242999,D,Resistance,Supports
+7775,rxcui:1242999,D,Resistance,Supports
+7776,rxcui:1242999,D,Resistance,Supports
+7777,rxcui:1242999,D,Resistance,Does Not Support
+7777,rxcui:1364347,D,Resistance,Does Not Support
+7778,rxcui:662281,D,Resistance,Supports
+7778,fda:DASATINIB,D,Resistance,Supports
+7778,rxcui:282388,D,Resistance,Supports
+7779,rxcui:1364347,D,Resistance,Does Not Support
+7780,fda:DASATINIB,D,Resistance,Supports
+7780,rxcui:662281,D,Resistance,Supports
+7780,rxcui:282388,D,Resistance,Supports
+7781,fda:DASATINIB,D,Sensitivity/Response,Supports
+7781,rxcui:1364347,D,Sensitivity/Response,Supports
+7783,rxcui:282388,C,Sensitivity/Response,Supports
+7787,rxcui:4492,C,Sensitivity/Response,Supports
+7793,rxcui:1148495,C,Sensitivity/Response,Supports
+7796,rxcui:1148495,C,Sensitivity/Response,Supports
+7797,rxcui:2362259,D,Sensitivity/Response,Supports
+7798,rxcui:3264,D,Sensitivity/Response,Supports
+7798,rxcui:1873916,D,Sensitivity/Response,Supports
+7800,rxcui:1601374,D,Sensitivity/Response,Supports
+7801,rxcui:1873916,D,Sensitivity/Response,Supports
+7801,rxcui:3264,D,Sensitivity/Response,Supports
+7807,rxcui:1430438,D,Sensitivity/Response,Supports
+7811,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+7812,chembl:CHEMBL1200751,C,Resistance,Supports
+7812,rxcui:10485,C,Resistance,Supports
+7813,chembl:CHEMBL1200751,D,Resistance,Supports
+7813,rxcui:10485,D,Resistance,Supports
+7814,chembl:CHEMBL1200751,D,Resistance,Supports
+7814,rxcui:10485,D,Resistance,Supports
+7815,rxcui:142433,D,Resistance,Does Not Support
+7815,ncit:C71603,D,Resistance,Does Not Support
+7815,rxcui:12574,D,Resistance,Does Not Support
+7815,rxcui:34374,D,Resistance,Does Not Support
+7816,rxcui:142433,D,Resistance,Does Not Support
+7816,rxcui:34374,D,Resistance,Does Not Support
+7816,rxcui:12574,D,Resistance,Does Not Support
+7816,ncit:C71603,D,Resistance,Does Not Support
+7817,rxcui:142433,D,Resistance,Does Not Support
+7817,rxcui:12574,D,Resistance,Does Not Support
+7817,ncit:C71603,D,Resistance,Does Not Support
+7817,rxcui:34374,D,Resistance,Does Not Support
+7820,rxcui:282388,C,Resistance,Supports
+7822,rxcui:282388,C,Resistance,Supports
+7823,fda:DASATINIB,C,Resistance,Does Not Support
+7825,rxcui:282388,C,Resistance,Supports
+7826,rxcui:282388,C,Resistance,Supports
+7833,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+7838,rxcui:662281,D,Sensitivity/Response,Supports
+7838,ncit:C62516,D,Sensitivity/Response,Supports
+7838,fda:DASATINIB,D,Sensitivity/Response,Supports
+7839,fda:DASATINIB,D,Resistance,Supports
+7839,rxcui:282388,D,Resistance,Supports
+7841,rxcui:282388,D,Resistance,Supports
+7842,rxcui:662281,D,Resistance,Does Not Support
+7842,ncit:C62516,D,Resistance,Does Not Support
+7843,rxcui:282388,D,Resistance,Does Not Support
+7843,rxcui:662281,D,Resistance,Does Not Support
+7843,ncit:C62516,D,Resistance,Does Not Support
+7844,fda:DASATINIB,D,Resistance,Supports
+7844,rxcui:282388,D,Resistance,Supports
+7845,fda:DASATINIB,D,Resistance,Supports
+7846,rxcui:662281,D,Resistance,Does Not Support
+7846,ncit:C62516,D,Resistance,Does Not Support
+7847,rxcui:282388,D,Resistance,Supports
+7848,rxcui:282388,D,Resistance,Supports
+7849,ncit:C62516,D,Resistance,Supports
+7849,rxcui:282388,D,Resistance,Supports
+7850,rxcui:282388,D,Resistance,Supports
+7850,ncit:C62516,D,Resistance,Supports
+7852,rxcui:1193325,C,Sensitivity/Response,Supports
+7853,rxcui:282388,D,Resistance,Supports
+7853,ncit:C62516,D,Resistance,Supports
+7855,fda:TRAMETINIB,B,Sensitivity/Response,Does Not Support
+7862,rxcui:10485,D,Resistance,Supports
+7862,chembl:CHEMBL1200751,D,Resistance,Supports
+7869,rxcui:1535457,D,Resistance,Supports
+7869,rxcui:1148495,D,Resistance,Supports
+7874,fda:DASATINIB,D,Resistance,Does Not Support
+7874,ncit:C62516,D,Resistance,Does Not Support
+7875,rxcui:662281,D,Resistance,Supports
+7898,rxcui:10485,D,Resistance,Supports
+7898,chembl:CHEMBL1200751,D,Resistance,Supports
+7899,chembl:CHEMBL1200751,D,Resistance,Supports
+7899,rxcui:10485,D,Resistance,Supports
+7900,rxcui:10485,D,Resistance,Supports
+7900,chembl:CHEMBL1200751,D,Resistance,Supports
+7901,rxcui:10485,D,Resistance,Supports
+7901,chembl:CHEMBL1200751,D,Resistance,Supports
+7903,rxcui:10485,D,Resistance,Supports
+7903,chembl:CHEMBL1200751,D,Resistance,Supports
+7905,rxcui:10485,D,Resistance,Supports
+7905,chembl:CHEMBL1200751,D,Resistance,Supports
+7906,rxcui:10485,D,Resistance,Supports
+7906,chembl:CHEMBL1200751,D,Resistance,Supports
+7907,chembl:CHEMBL1200751,D,Resistance,Supports
+7907,rxcui:10485,D,Resistance,Supports
+7909,rxcui:10485,D,Resistance,Supports
+7909,chembl:CHEMBL1200751,D,Resistance,Supports
+7910,ncit:C71603,D,Sensitivity/Response,Supports
+7911,ncit:C71603,D,Sensitivity/Response,Supports
+7913,chembl:CHEMBL1200751,D,Sensitivity/Response,Supports
+7913,ncit:C979,D,Sensitivity/Response,Supports
+7915,chembl:CHEMBL1200751,D,Resistance,Does Not Support
+7915,rxcui:10485,D,Resistance,Does Not Support
+7916,chembl:CHEMBL1200751,D,Resistance,Does Not Support
+7916,rxcui:10485,D,Resistance,Does Not Support
+7917,rxcui:10485,D,Resistance,Does Not Support
+7917,chembl:CHEMBL1200751,D,Resistance,Does Not Support
+7918,chembl:CHEMBL1200751,D,Resistance,Does Not Support
+7918,rxcui:10485,D,Resistance,Does Not Support
+7919,chembl:CHEMBL1200751,D,Resistance,Does Not Support
+7919,rxcui:10485,D,Resistance,Does Not Support
+7920,rxcui:10485,D,Resistance,Does Not Support
+7920,chembl:CHEMBL1200751,D,Resistance,Does Not Support
+7923,rxcui:1156,D,Resistance,Does Not Support
+7923,rxcui:81992,D,Resistance,Does Not Support
+7923,rxcui:6851,D,Resistance,Does Not Support
+7924,ncit:C71603,D,Resistance,Does Not Support
+7924,rxcui:6851,D,Resistance,Does Not Support
+7924,rxcui:1156,D,Resistance,Does Not Support
+7924,rxcui:81992,D,Resistance,Does Not Support
+7925,rxcui:1156,D,Resistance,Does Not Support
+7925,rxcui:6851,D,Resistance,Does Not Support
+7925,ncit:C71603,D,Resistance,Does Not Support
+7925,rxcui:81992,D,Resistance,Does Not Support
+7926,rxcui:6851,D,Resistance,Does Not Support
+7926,rxcui:81992,D,Resistance,Does Not Support
+7926,rxcui:1156,D,Resistance,Does Not Support
+7926,ncit:C71603,D,Resistance,Does Not Support
+7927,rxcui:6851,D,Resistance,Does Not Support
+7927,ncit:C71603,D,Resistance,Does Not Support
+7927,rxcui:1156,D,Resistance,Does Not Support
+7927,rxcui:81992,D,Resistance,Does Not Support
+7928,rxcui:81992,D,Resistance,Does Not Support
+7928,rxcui:1156,D,Resistance,Does Not Support
+7928,ncit:C71603,D,Resistance,Does Not Support
+7928,rxcui:6851,D,Resistance,Does Not Support
+7929,rxcui:81992,D,Resistance,Does Not Support
+7929,rxcui:1156,D,Resistance,Does Not Support
+7929,rxcui:6851,D,Resistance,Does Not Support
+7929,ncit:C71603,D,Resistance,Does Not Support
+7930,rxcui:6851,D,Resistance,Does Not Support
+7930,rxcui:1156,D,Resistance,Does Not Support
+7930,rxcui:81992,D,Resistance,Does Not Support
+7933,rxcui:1148495,A,Sensitivity/Response,Supports
+7942,fda:DASATINIB,C,Resistance,Does Not Support
+7943,fda:DASATINIB,C,Resistance,Does Not Support
+7945,fda:DASATINIB,C,Resistance,Does Not Support
+7946,fda:DASATINIB,C,Resistance,Does Not Support
+7947,fda:DASATINIB,C,Resistance,Does Not Support
+7948,fda:DASATINIB,C,Resistance,Supports
+7949,fda:DASATINIB,C,Resistance,Does Not Support
+7950,fda:DASATINIB,C,Resistance,Does Not Support
+7955,chembl:CHEMBL1201733,C,Sensitivity/Response,Does Not Support
+7956,rxcui:1441386,D,Resistance,Supports
+7988,rxcui:357977,D,Sensitivity/Response,Supports
+7990,rxcui:282388,C,Sensitivity/Response,Supports
+7991,rxcui:357977,C,Sensitivity/Response,Supports
+7992,rxcui:357977,C,Sensitivity/Response,Supports
+7993,rxcui:2104548,C,Sensitivity/Response,Supports
+7994,rxcui:2197862,D,Sensitivity/Response,Supports
+8002,fda:DASATINIB,C,Resistance,Does Not Support
+8007,drugbank:DB17046,D,Resistance,Supports
+8008,drugbank:DB17046,D,Resistance,Supports
+8009,drugbank:DB17046,D,Sensitivity/Response,Supports
+8011,drugbank:DB17046,D,Sensitivity/Response,Supports
+8012,drugbank:DB17046,D,Sensitivity/Response,Supports
+8042,rxcui:2104548,C,Sensitivity/Response,Supports
+8063,rxcui:318341,C,Resistance,Supports
+8090,rxcui:282388,C,Resistance,Supports
+8091,rxcui:282388,C,Resistance,Supports
+8092,rxcui:282388,C,Resistance,Supports
+8093,rxcui:282388,C,Resistance,Supports
+8094,rxcui:282388,C,Resistance,Supports
+8106,rxcui:2105806,D,Sensitivity/Response,Supports
+8108,rxcui:2105806,D,Sensitivity/Response,Supports
+8112,rxcui:2555,D,Resistance,Supports
+8173,rxcui:2359268,A,Sensitivity/Response,Supports
+8177,rxcui:18330,B,Resistance,Supports
+8183,rxcui:480167,D,Resistance,Does Not Support
+8183,ncit:C74072,D,Resistance,Does Not Support
+8183,fda:TRASTUZUMAB,D,Resistance,Does Not Support
+8185,rxcui:1747556,C,Resistance,Supports
+8195,rxcui:2370147,C,Resistance,Supports
+8196,rxcui:2370147,C,Resistance,Supports
+8260,rxcui:282388,C,Sensitivity/Response,Supports
+8267,fda:TRASTUZUMAB,D,Resistance,Supports
+8271,rxcui:480167,D,Sensitivity/Response,Supports
+8271,ncit:C74072,D,Sensitivity/Response,Supports
+8274,fda:TRASTUZUMAB,D,Resistance,Supports
+8275,rxcui:480167,D,Resistance,Supports
+8276,ncit:C74072,D,Resistance,Supports
+8278,ncit:C74072,D,Resistance,Does Not Support
+8278,rxcui:480167,D,Resistance,Does Not Support
+8279,ncit:C74072,D,Resistance,Does Not Support
+8279,fda:TRASTUZUMAB,D,Resistance,Does Not Support
+8336,ncit:C116858,D,Resistance,Supports
+8337,rxcui:495881,D,Resistance,Supports
+8338,rxcui:357977,D,Resistance,Supports
+8339,ncit:C48402,D,Sensitivity/Response,Supports
+8340,rxcui:1919083,D,Sensitivity/Response,Supports
+8341,ncit:C48402,D,Resistance,Supports
+8342,rxcui:1919083,D,Resistance,Supports
+8351,rxcui:2105806,D,Sensitivity/Response,Supports
+8360,rxcui:282388,D,Resistance,Supports
+8364,ncit:C90581,D,Sensitivity/Response,Supports
+8364,rxcui:1147220,D,Sensitivity/Response,Supports
+8367,rxcui:1147220,D,Sensitivity/Response,Does Not Support
+8374,rxcui:1722365,C,Sensitivity/Response,Supports
+8374,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+8375,rxcui:1747556,C,Resistance,Supports
+8376,rxcui:1747556,D,Resistance,Supports
+8504,rxcui:1597582,A,Sensitivity/Response,Supports
+8505,rxcui:1597582,A,Sensitivity/Response,Supports
+8506,rxcui:318341,D,Sensitivity/Response,Supports
+8506,rxcui:1147220,D,Sensitivity/Response,Supports
+8506,rxcui:153329,D,Sensitivity/Response,Supports
+8507,rxcui:1147220,D,Sensitivity/Response,Supports
+8507,rxcui:337525,D,Sensitivity/Response,Supports
+8508,rxcui:282388,C,Resistance,Supports
+8509,rxcui:282388,C,Resistance,Does Not Support
+8517,rxcui:2105806,D,Sensitivity/Response,Supports
+8518,rxcui:2105806,D,Sensitivity/Response,Supports
+8547,fda:TRASTUZUMAB,D,Resistance,Supports
+8548,fda:TRASTUZUMAB,D,Resistance,Supports
+8549,fda:TRASTUZUMAB,D,Resistance,Supports
+8642,rxcui:2555,D,Resistance,Supports
+8654,rxcui:2643048,D,Resistance,Supports
+8657,rxcui:1727454,A,Sensitivity/Response,Supports
+8662,fda:TRASTUZUMAB,D,Resistance,Does Not Support
+8663,fda:TRASTUZUMAB,D,Resistance,Does Not Support
+8705,rxcui:480167,B,Resistance,Supports
+8705,rxcui:194000,B,Resistance,Supports
+8773,rxcui:2049122,B,Sensitivity/Response,Supports
+8841,rxcui:1747556,D,Resistance,Supports
+8842,rxcui:1597582,A,Sensitivity/Response,Supports
+8847,rxcui:2362259,A,Sensitivity/Response,Supports
+8850,rxcui:2370147,B,Sensitivity/Response,Supports
+8851,rxcui:2370147,A,Sensitivity/Response,Supports
+8852,rxcui:2370147,A,Sensitivity/Response,Supports
+8856,rxcui:1747556,C,Sensitivity/Response,Supports
+8857,rxcui:1747556,C,Sensitivity/Response,Supports
+8858,rxcui:1919083,D,Sensitivity/Response,Supports
+8865,rxcui:2104548,C,Sensitivity/Response,Supports
+8878,rxcui:1148495,C,Sensitivity/Response,Supports
+8900,rxcui:2197862,C,Sensitivity/Response,Supports
+8902,ncit:C155765,C,Sensitivity/Response,Supports
+8917,rxcui:24614,C,Sensitivity/Response,Supports
+8917,rxcui:6851,C,Sensitivity/Response,Supports
+8917,rxcui:2104548,C,Sensitivity/Response,Supports
+8923,rxcui:2105806,D,Sensitivity/Response,Supports
+8924,rxcui:2105806,D,Sensitivity/Response,Supports
+8930,rxcui:2104548,D,Sensitivity/Response,Supports
+8933,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+8943,rxcui:2361596,D,Sensitivity/Response,Supports
+8944,fda:TRAMETINIB,D,Sensitivity/Response,Supports
+9018,rxcui:1147220,B,Sensitivity/Response,Supports
+9021,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+9083,fda:DASATINIB,D,Sensitivity/Response,Supports
+9084,fda:DASATINIB,D,Sensitivity/Response,Supports
+9150,fda:DASATINIB,D,Sensitivity/Response,Does Not Support
+9150,rxcui:1364347,D,Sensitivity/Response,Does Not Support
+9150,rxcui:282388,D,Sensitivity/Response,Does Not Support
+9150,rxcui:662281,D,Sensitivity/Response,Does Not Support
+9159,rxcui:282388,C,Sensitivity/Response,Supports
+9159,fda:DASATINIB,C,Sensitivity/Response,Supports
+9164,fda:DASATINIB,C,Sensitivity/Response,Supports
+9165,fda:DASATINIB,C,Sensitivity/Response,Supports
+9166,fda:DASATINIB,C,Reduced Sensitivity,Supports
+9168,fda:DASATINIB,C,Sensitivity/Response,Supports
+9169,ncit:C1967,C,Sensitivity/Response,Supports
+9171,rxcui:282388,C,Sensitivity/Response,Supports
+9211,fda:DASATINIB,C,Sensitivity/Response,Supports
+9213,rxcui:1364347,C,Sensitivity/Response,Supports
+9220,rxcui:1721560,C,Sensitivity/Response,Supports
+9221,rxcui:1721560,C,Sensitivity/Response,Supports
+9223,rxcui:1721560,C,Sensitivity/Response,Supports
+9224,rxcui:1721560,C,Sensitivity/Response,Supports
+9225,rxcui:1721560,C,Sensitivity/Response,Supports
+9228,rxcui:1727454,C,Sensitivity/Response,Supports
+9239,rxcui:2555,D,Sensitivity/Response,Supports
+9239,rxcui:4492,D,Sensitivity/Response,Supports
+9339,ncit:C76199,D,Sensitivity/Response,Supports
+9339,rxcui:1603296,D,Sensitivity/Response,Supports
+9339,rxcui:1242999,D,Sensitivity/Response,Supports
+9360,rxcui:282388,C,Sensitivity/Response,Supports
+9377,rxcui:2274378,C,Sensitivity/Response,Supports
+9404,rxcui:1535457,C,Sensitivity/Response,Supports
+9431,iuphar.ligand:10678,A,Sensitivity/Response,Supports
+9547,rxcui:1307298,B,Resistance,Supports
+9588,rxcui:2104548,C,Sensitivity/Response,Supports
+9589,rxcui:2104548,C,Sensitivity/Response,Supports
+9592,rxcui:2104548,C,Resistance,Supports
+9593,rxcui:2104548,C,Resistance,Supports
+9632,hemonc:496,B,Sensitivity/Response,Supports
+9633,hemonc:496,B,Sensitivity/Response,Supports
+9697,rxcui:480167,D,Sensitivity/Response,Supports
+9709,rxcui:2274378,A,Sensitivity/Response,Supports
+9778,rxcui:480167,B,Sensitivity/Response,Supports
+9789,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+9789,rxcui:1424911,C,Sensitivity/Response,Supports
+9851,rxcui:318341,A,Sensitivity/Response,Supports
+9851,rxcui:2049106,A,Sensitivity/Response,Supports
+9945,rxcui:1442981,D,Resistance,Supports
+9946,rxcui:1442981,D,Resistance,Supports
+9947,rxcui:1442981,D,Resistance,Supports
+10016,rxcui:2103164,D,Resistance,Does Not Support
+10016,rxcui:1727454,D,Resistance,Does Not Support
+10031,rxcui:318341,C,Resistance,Supports
+10032,rxcui:318341,C,Resistance,Supports
+10033,rxcui:318341,C,Resistance,Supports
+10034,rxcui:318341,C,Resistance,Supports
+10035,rxcui:318341,C,Resistance,Does Not Support
+10066,rxcui:337525,D,Sensitivity/Response,Supports
+10074,ncit:C171616,D,Resistance,Supports
+10077,fda:DASATINIB,D,Sensitivity/Response,Does Not Support
+10077,rxcui:282388,D,Sensitivity/Response,Does Not Support
+10093,ncit:C114287,D,Resistance,Supports
+10093,rxcui:2197862,D,Resistance,Supports
+10093,rxcui:2104548,D,Resistance,Supports
+10093,rxcui:1148495,D,Resistance,Supports
+10094,rxcui:2197862,D,Sensitivity/Response,Supports
+10095,rxcui:2197862,D,Sensitivity/Response,Supports
+10096,rxcui:2197862,D,Sensitivity/Response,Supports
+10097,rxcui:2197862,D,Sensitivity/Response,Supports
+10098,rxcui:2197862,D,Sensitivity/Response,Supports
+10099,rxcui:2197862,D,Sensitivity/Response,Supports
+10137,rxcui:141704,C,Sensitivity/Response,Supports
+10138,rxcui:235743,B,Sensitivity/Response,Supports
+10138,rxcui:258494,B,Sensitivity/Response,Supports
+10139,rxcui:1597582,D,Sensitivity/Response,Supports
+10139,rxcui:24614,D,Sensitivity/Response,Supports
+10140,fda:TRASTUZUMABDERUXTECAN,B,Sensitivity/Response,Supports
+10142,rxcui:12574,B,Sensitivity/Response,Supports
+10142,rxcui:40048,B,Sensitivity/Response,Supports
+10143,rxcui:12574,B,Sensitivity/Response,Supports
+10143,rxcui:40048,B,Sensitivity/Response,Supports
+10144,rxcui:1597582,D,Sensitivity/Response,Supports
+10145,rxcui:12574,B,Sensitivity/Response,Supports
+10146,ncit:C1450,B,Sensitivity/Response,Supports
+10170,rxcui:2104548,C,Sensitivity/Response,Supports
+10180,rxcui:357977,B,Sensitivity/Response,Supports
+10193,rxcui:1364105,B,Sensitivity/Response,Supports
+10325,rxcui:2359268,C,Sensitivity/Response,Supports
+10326,fda:TRAMETINIB,C,Sensitivity/Response,Supports
+10327,rxcui:1727454,C,Sensitivity/Response,Supports
+10360,rxcui:2104548,C,Sensitivity/Response,Supports
+10361,rxcui:2104548,C,Sensitivity/Response,Supports
+10392,rxcui:2104548,A,Sensitivity/Response,Supports
+10635,rxcui:2197862,C,Sensitivity/Response,Supports
+10636,rxcui:2197862,C,Sensitivity/Response,Supports
+10717,rxcui:2104548,C,Sensitivity/Response,Supports
+10840,rxcui:2104548,C,Sensitivity/Response,Supports
+10886,rxcui:2049873,A,Sensitivity/Response,Supports
+10895,drugbank:DB11737,C,Resistance,Supports
+10913,rxcui:337525,C,Sensitivity/Response,Supports
+10996,rxcui:337525,C,Sensitivity/Response,Supports
+11015,rxcui:337525,C,Sensitivity/Response,Supports
+11021,rxcui:1721560,C,Sensitivity/Response,Supports
+11026,rxcui:1430438,C,Sensitivity/Response,Supports
+11085,rxcui:1919083,D,Sensitivity/Response,Supports
+11085,ncit:C48402,D,Sensitivity/Response,Supports
+11085,ncit:C64639,D,Sensitivity/Response,Supports
+11085,ncit:C123362,D,Sensitivity/Response,Supports
+11086,rxcui:2643048,D,Sensitivity/Response,Does Not Support
+11086,ncit:C71759,D,Sensitivity/Response,Does Not Support
+11086,iuphar.ligand:5706,D,Sensitivity/Response,Does Not Support
+11086,iuphar.ligand:5691,D,Sensitivity/Response,Does Not Support
+11086,rxcui:495881,D,Sensitivity/Response,Does Not Support
+11086,rxcui:1364347,D,Sensitivity/Response,Does Not Support
+11086,rxcui:357977,D,Sensitivity/Response,Does Not Support
+11086,iuphar.ligand:5914,D,Sensitivity/Response,Does Not Support
+11089,iuphar.ligand:5914,D,Sensitivity/Response,Does Not Support
+11089,ncit:C64639,D,Sensitivity/Response,Does Not Support
+11089,iuphar.ligand:5706,D,Sensitivity/Response,Does Not Support
+11093,ncit:C123362,D,Sensitivity/Response,Supports
+11093,ncit:C64639,D,Sensitivity/Response,Supports
+11093,ncit:C48402,D,Sensitivity/Response,Supports
+11093,rxcui:1919083,D,Sensitivity/Response,Supports
+11095,ncit:C48402,D,Sensitivity/Response,Supports
+11099,rxcui:2197862,C,Sensitivity/Response,Supports
+11100,rxcui:2104548,C,Sensitivity/Response,Supports
+11107,rxcui:2274378,C,Sensitivity/Response,Supports
+11108,rxcui:2274378,C,Sensitivity/Response,Supports
+11109,rxcui:2274378,B,Sensitivity/Response,Supports
+11110,rxcui:2274378,B,Sensitivity/Response,Supports
+11113,rxcui:2103164,C,Sensitivity/Response,Supports
+11114,rxcui:2103164,C,Resistance,Supports
+11115,rxcui:1727454,C,Resistance,Supports
+11121,rxcui:1921217,A,Sensitivity/Response,Supports
+11122,rxcui:1148495,A,Sensitivity/Response,Supports
+11123,rxcui:2197862,A,Sensitivity/Response,Supports
+11124,rxcui:2197862,A,Sensitivity/Response,Supports
+11125,rxcui:2197862,A,Sensitivity/Response,Supports
+11136,ncit:C78186,A,Sensitivity/Response,Supports
+11137,ncit:C78186,A,Sensitivity/Response,Supports
+11138,ncit:C78186,A,Sensitivity/Response,Supports
+11139,ncit:C78186,A,Sensitivity/Response,Supports
+11160,rxcui:282388,B,Resistance,Supports
+11176,rxcui:2361596,A,Sensitivity/Response,Supports
+11201,rxcui:1597582,A,Sensitivity/Response,Supports
+11202,rxcui:1597582,A,Sensitivity/Response,Supports
+11203,rxcui:1597582,A,Sensitivity/Response,Supports
+11204,rxcui:1597582,A,Sensitivity/Response,Supports
+11205,rxcui:1597582,A,Sensitivity/Response,Supports
+11206,rxcui:1597582,B,Sensitivity/Response,Does Not Support
+11207,rxcui:1597582,A,Sensitivity/Response,Supports
+11208,rxcui:1597582,A,Sensitivity/Response,Supports
+11209,rxcui:1597582,A,Sensitivity/Response,Supports
+11210,rxcui:1597582,A,Sensitivity/Response,Supports
+11212,rxcui:1597582,A,Sensitivity/Response,Supports
+11214,rxcui:1597582,A,Sensitivity/Response,Supports
+11216,rxcui:1597582,A,Sensitivity/Response,Supports
+11217,rxcui:1597582,A,Sensitivity/Response,Supports
+11218,rxcui:1148495,A,Sensitivity/Response,Supports
+11219,rxcui:1721560,A,Sensitivity/Response,Supports
+11220,rxcui:2274378,A,Sensitivity/Response,Supports
+11222,rxcui:2197862,A,Sensitivity/Response,Supports
+11227,iuphar.ligand:10505,A,Sensitivity/Response,Supports
+11228,iuphar.ligand:10468,A,Sensitivity/Response,Supports
+11229,rxcui:1430438,A,Sensitivity/Response,Supports
+11230,rxcui:2550729,A,Sensitivity/Response,Supports
+11233,rxcui:2394936,A,Sensitivity/Response,Supports
+11234,rxcui:2394936,A,Sensitivity/Response,Supports
+11238,rxcui:1147220,A,Sensitivity/Response,Supports
+11238,chembl:CHEMBL3707227,A,Sensitivity/Response,Supports
+11238,rxcui:1722365,A,Sensitivity/Response,Supports
+11239,fda:DACOMITINIB,A,Sensitivity/Response,Supports
+11240,rxcui:337525,A,Sensitivity/Response,Supports
+11240,rxcui:1535922,A,Sensitivity/Response,Supports
+11241,rxcui:328134,A,Sensitivity/Response,Supports
+11243,rxcui:1918231,A,Sensitivity/Response,Supports
+11249,iuphar.ligand:8686,A,Sensitivity/Response,Supports
+11275,rxcui:2169285,A,Sensitivity/Response,Supports
+11275,rxcui:282357,A,Sensitivity/Response,Supports
+11324,rxcui:2359268,A,Sensitivity/Response,Supports
+11346,rxcui:2670644,D,Sensitivity/Response,Supports
+11347,rxcui:2670644,D,Sensitivity/Response,Supports
+11348,rxcui:2670644,D,Sensitivity/Response,Supports
+11349,rxcui:2104548,D,Sensitivity/Response,Supports
+11350,rxcui:2104548,D,Resistance,Supports
+11351,rxcui:2104548,D,Resistance,Supports
+11353,rxcui:2104548,D,Resistance,Supports
+11354,rxcui:2197862,D,Sensitivity/Response,Supports
+11355,rxcui:2197862,D,Sensitivity/Response,Supports
+11356,rxcui:2197862,D,Resistance,Supports
+11357,rxcui:2197862,D,Resistance,Supports
+11358,rxcui:2197862,D,Resistance,Supports
+11359,rxcui:2104548,D,Resistance,Supports
+11443,rxcui:2628469,A,Sensitivity/Response,Supports
+11508,ncit:C152914,A,Sensitivity/Response,Supports
+11509,ncit:C152914,A,Sensitivity/Response,Supports
+11515,rxcui:2197862,C,Resistance,Supports
+11516,rxcui:2670644,C,Sensitivity/Response,Supports
+11574,rxcui:2104548,C,Sensitivity/Response,Supports
+11575,rxcui:2104548,C,Sensitivity/Response,Supports
+11578,rxcui:2197862,C,Sensitivity/Response,Supports
+11598,rxcui:1721560,A,Sensitivity/Response,Supports
+11599,rxcui:1721560,A,Sensitivity/Response,Supports
+11652,ncit:C173995,B,Sensitivity/Response,Supports
+11653,rxcui:1601374,B,Sensitivity/Response,Does Not Support
+11654,rxcui:1601374,B,Sensitivity/Response,Does Not Support
+11665,rxcui:1601374,B,Sensitivity/Response,Supports
+11666,rxcui:1597582,B,Sensitivity/Response,Supports
+11667,rxcui:357977,B,Sensitivity/Response,Does Not Support
+11668,fda:TRASTUZUMAB,B,Sensitivity/Response,Supports
+11669,fda:TRASTUZUMAB,B,Sensitivity/Response,Does Not Support
+11670,rxcui:1147220,B,Sensitivity/Response,Supports
+11670,rxcui:1722365,B,Sensitivity/Response,Supports
+11671,rxcui:1148495,B,Sensitivity/Response,Supports
+11672,rxcui:1424911,B,Sensitivity/Response,Supports
+11672,fda:TRAMETINIB,B,Sensitivity/Response,Supports
+11673,rxcui:1601374,B,Sensitivity/Response,Does Not Support
+11674,rxcui:2049122,B,Sensitivity/Response,Does Not Support
+11676,rxcui:1430438,B,Sensitivity/Response,Does Not Support
+11677,rxcui:1597876,B,Sensitivity/Response,Supports
+11678,rxcui:1945077,B,Sensitivity/Response,Supports
+11679,ncit:C116876,C,Sensitivity/Response,Does Not Support
+11681,rxcui:2361596,B,Sensitivity/Response,Does Not Support
+11688,rxcui:1430438,C,Sensitivity/Response,Supports
+11689,rxcui:1430438,C,Sensitivity/Response,Supports
+11690,rxcui:1430438,C,Sensitivity/Response,Supports
+11691,rxcui:1430438,C,Sensitivity/Response,Supports
+11692,rxcui:2104548,C,Sensitivity/Response,Supports
+11696,rxcui:2361596,B,Sensitivity/Response,Does Not Support
+11706,rxcui:2104548,C,Sensitivity/Response,Supports
+11708,ncit:C152914,A,Sensitivity/Response,Supports
+11731,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11739,ncit:C78186,B,Sensitivity/Response,Supports
+11744,rxcui:2104548,C,Sensitivity/Response,Supports
+11746,rxcui:2104548,C,Sensitivity/Response,Supports
+11747,rxcui:2104548,C,Sensitivity/Response,Supports
+11748,rxcui:2104548,C,Sensitivity/Response,Supports
+11751,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11752,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11753,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11754,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11755,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11756,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11757,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11758,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11759,fda:TRASTUZUMABDERUXTECAN,C,Sensitivity/Response,Supports
+11760,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11761,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11762,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11763,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11764,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11765,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+11770,rxcui:1147220,B,Sensitivity/Response,Supports
+11789,fda:DASATINIB,B,Sensitivity/Response,Does Not Support
+11848,rxcui:2197862,C,Sensitivity/Response,Supports
+11849,rxcui:2197862,C,Sensitivity/Response,Supports
+11850,rxcui:2197862,C,Sensitivity/Response,Supports
+11851,rxcui:2197862,C,Sensitivity/Response,Supports
+11852,rxcui:2197862,C,Sensitivity/Response,Supports
+11853,rxcui:2197862,C,Sensitivity/Response,Supports
+11854,rxcui:2197862,C,Sensitivity/Response,Supports
+11855,rxcui:2197862,C,Sensitivity/Response,Supports
+11856,rxcui:2197862,C,Sensitivity/Response,Supports
+11857,rxcui:2197862,C,Sensitivity/Response,Supports
+11859,rxcui:2197862,C,Sensitivity/Response,Supports
+11860,rxcui:2197862,C,Sensitivity/Response,Supports
+11861,rxcui:2197862,C,Sensitivity/Response,Supports
+11862,rxcui:2197862,C,Sensitivity/Response,Supports
+11867,rxcui:2394936,D,Sensitivity/Response,Supports
+11867,rxcui:2370147,D,Sensitivity/Response,Supports
+11875,rxcui:2370147,B,Sensitivity/Response,Supports
+11876,rxcui:2370147,D,Sensitivity/Response,Supports
+11877,rxcui:2370147,D,Sensitivity/Response,Supports
+12012,rxcui:1727454,A,Sensitivity/Response,Supports
+12013,fda:TRASTUZUMABDERUXTECAN,A,Sensitivity/Response,Supports
+12014,iuphar.ligand:10505,A,Sensitivity/Response,Supports
+12015,rxcui:1721560,A,Sensitivity/Response,Supports
+12016,ncit:C106254,A,Sensitivity/Response,Supports
+12020,rxcui:282357,A,Sensitivity/Response,Supports
+12020,rxcui:2669967,A,Sensitivity/Response,Supports
+12027,fda:TRAMETINIB,B,Sensitivity/Response,Does Not Support
+12028,ncit:C106254,A,Sensitivity/Response,Supports
+12029,rxcui:1251,B,Sensitivity/Response,Supports
+12029,ncit:C85465,B,Sensitivity/Response,Supports
+12034,rxcui:2669967,A,Sensitivity/Response,Supports
+12034,rxcui:282357,A,Sensitivity/Response,Supports
+12035,rxcui:2197862,C,Sensitivity/Response,Supports
+12042,rxcui:2619313,B,Sensitivity/Response,Supports
+12042,rxcui:1919503,B,Sensitivity/Response,Supports
+12045,rxcui:1601374,B,Resistance,Supports
+12045,rxcui:282357,B,Resistance,Supports
+12053,rxcui:2197862,C,Sensitivity/Response,Does Not Support
+12056,rxcui:2370147,A,Sensitivity/Response,Supports
+12063,rxcui:318341,A,Sensitivity/Response,Supports
+12063,rxcui:2625882,A,Sensitivity/Response,Supports
+12071,rxcui:2197862,B,Sensitivity/Response,Supports
+12075,rxcui:2395271,B,Sensitivity/Response,Supports
+12083,rxcui:1547545,B,Sensitivity/Response,Supports
+12099,rxcui:1603350,D,Sensitivity/Response,Supports
+12120,rxcui:2104548,C,Sensitivity/Response,Supports
+12131,iuphar.ligand:10505,A,Sensitivity/Response,Supports
+12131,ncit:C148147,A,Sensitivity/Response,Supports
+12140,rxcui:2197862,C,Sensitivity/Response,Supports
+12142,rxcui:1094833,D,Resistance,Supports
+12143,rxcui:318341,B,Sensitivity/Response,Supports
+12156,iuphar.ligand:10505,A,Sensitivity/Response,Supports
+12156,rxcui:40048,A,Sensitivity/Response,Supports
+12157,rxcui:2370147,A,Sensitivity/Response,Supports
+12161,fda:TRAMETINIB,A,Sensitivity/Response,Supports
+12161,rxcui:1424911,A,Sensitivity/Response,Supports
+12162,fda:TRAMETINIB,A,Sensitivity/Response,Supports
+12162,rxcui:1424911,A,Sensitivity/Response,Supports
+12264,rxcui:263034,A,Sensitivity/Response,Supports
+12264,iuphar.ligand:10678,A,Sensitivity/Response,Supports
+12360,rxcui:337525,C,Sensitivity/Response,Supports
+12369,rxcui:1430438,C,Sensitivity/Response,Supports
+12370,rxcui:1721560,C,Sensitivity/Response,Supports
+12370,rxcui:337525,C,Sensitivity/Response,Supports
+12371,rxcui:328134,C,Sensitivity/Response,Supports
+12372,rxcui:1721560,C,Sensitivity/Response,Supports
+12406,rxcui:1727454,C,Sensitivity/Response,Supports
+12463,rxcui:1307298,B,Resistance,Supports
+12464,rxcui:1307298,B,Resistance,Supports
+12469,rxcui:2123125,B,Sensitivity/Response,Supports
+12478,ncit:C76199,B,Sensitivity/Response,Supports
+12479,rxcui:357977,B,Sensitivity/Response,Does Not Support
+12498,rxcui:141704,B,Sensitivity/Response,Supports
+12503,ncit:C112205,D,Sensitivity/Response,Supports
+12503,rxcui:1601374,D,Sensitivity/Response,Supports
+12503,rxcui:282357,D,Sensitivity/Response,Supports
+12505,ncit:C95726,D,,Supports
+12505,ncit:C112205,D,,Supports
+12514,ncit:C88329,B,Sensitivity/Response,Does Not Support
+12523,fda:DATOPOTAMABDERUXTECAN,A,Sensitivity/Response,Supports
+12530,iuphar.ligand:12387,A,Sensitivity/Response,Supports
+12533,iuphar.ligand:9636,A,Sensitivity/Response,Supports
+12533,rxcui:282357,A,Sensitivity/Response,Supports
+12533,rxcui:1601374,A,Sensitivity/Response,Supports
+12534,rxcui:282357,A,Sensitivity/Response,Supports
+12534,iuphar.ligand:9636,A,Sensitivity/Response,Supports
+12534,rxcui:1601374,A,Sensitivity/Response,Supports
+12535,rxcui:1601374,A,Sensitivity/Response,Supports
+12535,iuphar.ligand:9636,A,Sensitivity/Response,Supports
+12535,rxcui:282357,A,Sensitivity/Response,Supports
+12536,rxcui:1601374,A,Sensitivity/Response,Supports
+12536,rxcui:282357,A,Sensitivity/Response,Supports
+12536,iuphar.ligand:9636,A,Sensitivity/Response,Supports
+12537,rxcui:1601374,A,Sensitivity/Response,Supports
+12537,iuphar.ligand:9636,A,Sensitivity/Response,Supports
+12537,rxcui:282357,A,Sensitivity/Response,Supports
+12538,rxcui:1601374,A,Sensitivity/Response,Supports
+12538,iuphar.ligand:9636,A,Sensitivity/Response,Supports
+12538,rxcui:282357,A,Sensitivity/Response,Supports
+12539,rxcui:1601374,A,Sensitivity/Response,Supports
+12539,rxcui:282357,A,Sensitivity/Response,Supports
+12539,iuphar.ligand:9636,A,Sensitivity/Response,Supports
+12540,rxcui:1601374,A,Sensitivity/Response,Supports
+12540,rxcui:282357,A,Sensitivity/Response,Supports
+12540,iuphar.ligand:9636,A,Sensitivity/Response,Supports
+12542,rxcui:2359268,C,Sensitivity/Response,Does Not Support
+12545,rxcui:1716278,C,Sensitivity/Response,Supports
+12547,rxcui:2628190,D,Sensitivity/Response,Supports
+12555,rxcui:1091836,D,Sensitivity/Response,Supports
+12563,iuphar.ligand:12387,A,Sensitivity/Response,Supports
+12564,iuphar.ligand:12387,A,Sensitivity/Response,Supports
+12573,ncit:C121379,B,Sensitivity/Response,Supports
+12574,rxcui:1547545,B,Sensitivity/Response,Supports
+12585,rxcui:1716278,C,Sensitivity/Response,Supports
+12586,ncit:C124946,B,Sensitivity/Response,Supports
+12587,chembl:CHEMBL3707227,B,Sensitivity/Response,Supports
+12594,rxcui:1547545,B,Sensitivity/Response,Supports
+12597,rxcui:2360232,D,Resistance,Supports
+12598,rxcui:2370147,A,Sensitivity/Response,Supports
+12601,rxcui:1191,B,Sensitivity/Response,Supports
+12602,rxcui:1191,B,Sensitivity/Response,Supports
+12623,ncit:C167205,A,Sensitivity/Response,Supports
+12630,ncit:C167205,A,Sensitivity/Response,Supports
+12631,ncit:C167205,A,Sensitivity/Response,Supports
+12632,ncit:C167205,A,Sensitivity/Response,Supports
+12633,ncit:C167205,A,Sensitivity/Response,Supports
+12634,ncit:C167205,A,Sensitivity/Response,Supports
+12695,ncit:C113792,A,Sensitivity/Response,Supports
+12708,rxcui:2370147,A,Sensitivity/Response,Supports
+12718,ncit:C167205,A,Sensitivity/Response,Supports
+12732,chembl:CHEMBL1201733,C,Sensitivity/Response,Supports
+12732,rxcui:194337,C,Sensitivity/Response,Supports
+12761,iuphar.ligand:12073,D,Sensitivity/Response,Supports
+12762,iuphar.ligand:12073,D,Sensitivity/Response,Supports
+12763,rxcui:1597582,B,Sensitivity/Response,Supports
+12764,rxcui:1597582,B,Sensitivity/Response,Supports
+12765,rxcui:1597582,B,Sensitivity/Response,Supports
+12766,rxcui:1597582,B,Sensitivity/Response,Supports
+12767,rxcui:1597582,B,Sensitivity/Response,Supports
+12798,iuphar.ligand:12989,B,Sensitivity/Response,Supports
+12799,rxcui:1919503,B,Sensitivity/Response,Does Not Support
+12799,rxcui:2619313,B,Sensitivity/Response,Does Not Support
+12807,fda:SEVABERTINIB,A,Sensitivity/Response,Supports
+12808,fda:SEVABERTINIB,A,Sensitivity/Response,Supports
+12850,rxcui:1919503,B,Sensitivity/Response,Supports
+12918,rxcui:1597876,B,Sensitivity/Response,Does Not Support
+12919,iuphar.ligand:9758,B,Sensitivity/Response,Supports
+12946,rxcui:1721560,C,Sensitivity/Response,Supports
+100000,rxcui:2103164,LEVEL_2,Sensitivity/Response,Supports
+100001,fda:NELADALKIB,LEVEL_3A,Sensitivity/Response,Supports
+100002,rxcui:1727454,LEVEL_R2,Resistance,Supports
+100003,rxcui:1921217,LEVEL_R2,Resistance,Supports
+100004,rxcui:1535457,LEVEL_R2,Resistance,Supports
+100005,rxcui:1148495,LEVEL_R2,Resistance,Supports
+100006,rxcui:1094833,LEVEL_1,Sensitivity/Response,Supports
+100006,rxcui:1597876,LEVEL_1,Sensitivity/Response,Supports
+100007,rxcui:1597876,LEVEL_1,Sensitivity/Response,Supports
+100008,rxcui:1547545,LEVEL_1,Sensitivity/Response,Supports
+100009,iuphar.ligand:11518,LEVEL_2,Sensitivity/Response,Supports
+100010,iuphar.ligand:11518,LEVEL_3B,Sensitivity/Response,Supports
+100010,rxcui:40048,LEVEL_3B,Sensitivity/Response,Supports
+100010,rxcui:56946,LEVEL_3B,Sensitivity/Response,Supports
+100011,rxcui:1547545,LEVEL_1,Sensitivity/Response,Supports
+100012,iuphar.ligand:11518,LEVEL_3B,Sensitivity/Response,Supports
+100013,iuphar.ligand:11518,LEVEL_3B,Sensitivity/Response,Supports
+100013,rxcui:40048,LEVEL_3B,Sensitivity/Response,Supports
+100013,rxcui:56946,LEVEL_3B,Sensitivity/Response,Supports
+100014,rxcui:1094833,LEVEL_3B,Sensitivity/Response,Supports
+100014,rxcui:1597876,LEVEL_3B,Sensitivity/Response,Supports
+100015,rxcui:1597876,LEVEL_3B,Sensitivity/Response,Supports
+100016,rxcui:1547545,LEVEL_1,Sensitivity/Response,Supports

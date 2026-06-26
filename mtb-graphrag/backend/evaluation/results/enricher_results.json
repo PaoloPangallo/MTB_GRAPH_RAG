@@ -1,0 +1,57 @@
+[
+  {
+    "case_id": "BENCH-013",
+    "gene": "ALK",
+    "variant": "G1202R",
+    "tumor": "NSCLC",
+    "expected_drug": "Lorlatinib",
+    "complexity": "high",
+    "escat_tier": "non determinato",
+    "n_pmids": 0,
+    "n_drugs": 0,
+    "n_resistance": 0,
+    "report": "**REPORT MOLECULAR TUMOR BOARD (MTB)**\n\n**1. Variante e classificazione ESCAT**\n- **Gene:** ALK\n- **Variante:** G1202R\n- **Tumore:** Lung Adenocarcinoma\n- **ESCAT Tier:** Tier 1 (livello di evidenza aggiornato secondo OncoKB per significato terapeutico clinicamente rilevante).\n\n**2. Terapia raccomandata**\nSulla base delle evidenze aggiornate da OncoKB, per la variante ALK G1202R (spesso associata a resistenza acquisita agli inibitori di prima e seconda generazione) è raccomandata la seguente strategia:\n\n- **Lorlatinib**: Raccomandato come terapia mirata per pazienti con NSCLC ALK-positivo che hanno mostrato progressione dopo trattamento con crizotinib e almeno un altro inibitore ALK, o come opzione terapeutica per varianti di resistenza specifiche come la G1202R.\n    - **Livello di evidenza OncoKB:** LEVEL_2 (FDA Level 2) [PMID: 30892989].\n\n**3. Profilo di resistenza**\nLa variante **G1202R** è una mutazione \"solvent-front\" ben documentata che conferisce resistenza a gran parte degli inibitori ALK di prima generazione (Crizotinib) e di seconda generazione (Alectinib, Brigatinib, Ceritinib), rendendo necessario l'impiego di inibitori di terza generazione come Lorlatinib, progettati specificamente per superare l'ingombro sterico causato dalla sostituzione dell'arginina in posizione 1202.\n\n**4. Trial clinici eleggibili**\nI seguenti trial clinici sono considerati potenzialmente rilevanti per il paziente:\n- **NCT06282874**: Lorlatinib in Patients With ALK-Positive NSCLC With Brain or Leptomeningeal Metastases (Phase 4).\n- **NCT05144997**: Lorlatinib Continuation Study (Phase 4).\n- **NCT05525338**: Comparison of Standard Dose Alectinib to Alectinib in Adjusted Dose Based on Alectinib Bloodlevels (Phase 4).\n- **NCT05160922**: Crizotinib Continuation Clinical Study (Phase 4).\n- **NCT05047250**: A Study of Atezolizumab in High PD-L1 Expression, Chemotherapy-Naïve Patients With Stage IV Non-Squamous or Squamous Non-Small Cell Lung Cancer (Phase 3).\n\n**5. Lista finale dei PMID verificati**\n- PMID: 30892989",
+    "oncokb_enrichment": [
+      {
+        "drugs": [
+          "Lorlatinib"
+        ],
+        "level": "LEVEL_2",
+        "fda_level": "LEVEL_Fda2",
+        "cancer_type": "",
+        "pmids": [
+          "30892989"
+        ],
+        "description": "Lorlatinib is an orally available, small molecule multi-targeted kinase inhibitor that is FDA-approved for the treatment of patients with ALK-positive metastatic non-small cell lung cancer (NSCLC) whose disease has progressed on crizotinib and at least one other ALK inhibitor for metastatic disease, alectinib as the first ALK inhibitor therapy for metastatic disease or ceritinib as the first ALK i"
+      }
+    ]
+  },
+  {
+    "case_id": "BENCH-017",
+    "gene": "MMR",
+    "variant": "MSI-High",
+    "tumor": "Colorectal Cancer",
+    "expected_drug": "Pembrolizumab",
+    "complexity": "high",
+    "escat_tier": "I-A",
+    "n_pmids": 2,
+    "n_drugs": 0,
+    "n_resistance": 0,
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n**1. Variante e classificazione ESCAT**\nIl biomarcatore identificato è l'instabilità microsatellitare elevata (MSI-High) in un contesto di tumore del colon-retto, classificato come ESCAT Tier I-A [PMID: 39602630, PMID: 39874977].\n\n**2. Terapia raccomandata**\nPer i pazienti con tumore del colon-retto MSI-High in prima linea, è raccomandata la terapia basata su inibitori dei checkpoint immunitari (Immunoterapia), data l'elevata sensibilità e risposta clinica documentata [PMID: 39602630, PMID: 39874977]. Come Companion Diagnostic (CDx) per l'eleggibilità a tali terapie, è necessaria la determinazione dello stato MSI tramite test immunoistochimico (IHC) o PCR per l'instabilità microsatellitare [PMID: 39602630].\n\n**3. Profilo di resistenza**\nNon sono stati forniti dati specifici nel contesto corrente riguardo a mutazioni di resistenza acquisite o meccanismi di resistenza primaria per MSI-High nel tumore del colon-retto.\n\n**4. Trial clinici eleggibili**\nNessun trial clinico (NCT ID) è stato indicato nel contesto fornito.\n\n**5. Lista finale dei PMID verificati nel Knowledge Graph**\n- PMID: 39602630\n- PMID: 39874977",
+    "oncokb_enrichment": []
+  },
+  {
+    "case_id": "BENCH-030",
+    "gene": "ERBB2",
+    "variant": "Amplification",
+    "tumor": "Gastric Cancer",
+    "expected_drug": "Trastuzumab deruxtecan",
+    "complexity": "moderate",
+    "escat_tier": "I-A",
+    "n_pmids": 3,
+    "n_drugs": 3,
+    "n_resistance": 0,
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n### 1. Variante e classificazione ESCAT\n**Gene:** ERBB2 (Amplificazione)\n**Tumore:** Gastric Cancer (First-line)\n**Classificazione ESCAT:** Tier I-A [PMID: 20728210, 24868024, 31047804]\n\n### 2. Terapia raccomandata\n*   **Trastuzumab (Livello A):** Raccomandato per l'efficacia dimostrata nel carcinoma gastrico con amplificazione di HER2 [PMID: 20728210]. \n    *   **Companion Diagnostics (CDx):** FoundationOne CDx, HER2 CISH pharmDx Kit, HER2 FISH pharmDx Kit, INFORM HER-2/neu, INFORM HER2 Dual ISH DNA Probe Cocktail, PathVysion HER-2 DNA Probe Kit, SPOT-LIGHT HER2 CISH Kit, Ventana HER2 Dual ISH DNA Probe Cocktail.\n*   **Lapatinib (Livello B):** Indicato come opzione terapeutica basata su evidenze di risposta nel carcinoma gastrico [PMID: 20728210, 24868024].\n*   **Trastuzumab Deruxtecan (Livello B):** Opzione terapeutica approvata per pazienti con HER2-positivo [PMID: 31047804].\n    *   **Companion Diagnostics (CDx):** Guardant360 CDx, Oncomine Dx Target Test.\n\n### 3. Profilo di resistenza\nLe evidenze fornite si concentrano sulla sensibilità e risposta al trattamento nel cancro gastrico [PMID: 20728210, 24868024, 31047804]; non sono riportate nel contesto specifico mutazioni di resistenza acquisita (come T790M o C797S, tipiche di altri target) o meccanismi di resistenza molecolare specifici per l'amplificazione di ERBB2 nel tumore gastrico.\n\n### 4. Trial clinici eleggibili\n*   **NCT06731478:** Studio su TDXd, Chemioterapia, Pembrolizumab e Trastuzumab in prima linea per cancro gastrico o della giunzione gastroesofagea HER2-positivo (Fase 3, RECRUITING).\n*   **NCT05111626:** Bemarituzumab più Chemioterapia e Nivolumab vs Chemioterapia e Nivolumab per FGFR2b (Fase 3, ACTIVE_NOT_RECRUITING).\n*   **NCT06901531:** Zolbetuximab associato a Pembrolizumab e Chemioterapia (Fase 3, RECRUITING).\n*   **NCT07431281:** Sonesitatug Vedotin in combinazione con Capecitabine +/- Rilvegostomig per Claudin18.2 (Fase 3, RECRUITING).\n*   **NCT05144854:** ONO-4538 in combinazione con Ipilimumab e Chemioterapia per cancro gastrico HER2-negativo (Fase 3, ACTIVE_NOT_RECRUITING).\n\n### 5. Lista finale dei PMID verificati\n- PMID: 20728210\n- PMID: 24868024\n- PMID: 31047804",
+    "oncokb_enrichment": []
+  }
+]

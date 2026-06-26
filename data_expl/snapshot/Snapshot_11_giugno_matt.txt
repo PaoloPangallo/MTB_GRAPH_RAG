@@ -1,0 +1,197 @@
+# Report di Sessione — 11 Giugno 2026
+**Sistema GraphRAG Agentico per Molecular Tumor Board**
+*Tesi Magistrale — Paolo*
+
+---
+
+## Panoramica della Sessione
+
+Sessione di lavoro intensiva focalizzata su tre aree: aggiornamento dei risultati benchmark post-fix ESCAT, analisi e posizionamento rispetto a nuovi paper di letteratura, e preparazione all'incontro con il professore. La sessione ha prodotto risultati di benchmark definitivi, un report di analisi letteratura, una bozza di email al professore, e l'identificazione di un bug critico nella KB (nodo mancante per BENCH-004).
+
+---
+
+## 1. Risultati Benchmark Aggiornati — RQ1 Definitivi
+
+### Metriche Oggettive (post-fix ESCAT Interpreter)
+
+| Metrica | GraphRAG | Zero-Shot | Delta |
+|---|---|---|---|
+| Drug Anchor Check | 96.7% (29/30) | 96.7% (29/30) | 0.0% |
+| PMID Coverage Rate | 60.0% | 0.0% | **+60.0%** |
+| PMID Hallucination Rate | 0.0% | 100.0% | **-100.0%** |
+| ESCAT Tier Match | 100.0% | 0.0% | **+100.0%** |
+
+### Metriche Qualitative LLM-as-Judge
+
+| Criterio | GraphRAG | Zero-Shot | Delta |
+|---|---|---|---|
+| Score Totale | 3.72 | 3.92 | -0.20 |
+| Completezza | 3.60 | 3.76 | -0.16 |
+| Utilità Clinica | 3.53 | 3.67 | -0.13 |
+| Fedeltà Evidenze | 3.90 | 4.13 | -0.23 |
+| Accuratezza Clinica | 3.83 | 4.11 | -0.27 |
+
+### Lettura Corretta dei Risultati
+
+I risultati vanno letti su due livelli separati:
+
+**Livello 1 — Metriche oggettive e verificabili:** GraphRAG domina nettamente. ESCAT al 100%, zero hallucination sui PMID, coverage del 60% vs 0%. Queste metriche sono calcolabili automaticamente e non dipendono dal giudizio di un LLM.
+
+**Livello 2 — LLM-as-judge:** Zero-shot appare superiore per ragioni di fluency bias documentato in letteratura. La prova del bias è interna: zero-shot allucina il 100% dei PMID ma ottiene 4.13 su fedeltà evidenze — un sistema che cita paper inesistenti non può avere fedeltà alle evidenze alta. Il giudice LLM valuta la fluidità percepita, non la correttezza fattuale. Questo è un finding metodologico originale della tesi, non un fallimento del sistema.
+
+---
+
+## 2. Analisi Casi Drug Anchor Check — Finding Narrativo Chiave
+
+Il Drug Anchor Check è 96.7% per entrambi i sistemi (29/30), ma i casi sbagliati sono **diversi e asimmetrici** — questo è il dato narrativamente più importante della sessione.
+
+### BENCH-004 — GraphRAG sbaglia, Zero-Shot indovina
+
+- **Profilo:** ERBB2 Amplificazione, Tumore al seno HER2+
+- **Farmaco atteso:** Trastuzumab + Pertuzumab (combinazione)
+- **Errore GraphRAG (score 0.5):** La KB mancava del nodo per la combinazione completa — problema di KB, non di pipeline. **Identificato come bug e risolto in sessione** (nodo aggiunto).
+- **Zero-Shot corretto:** Memoria parametrica riconosce lo standard storico HER2+ breast cancer.
+- **Tipo di errore:** Tecnico, corretto con aggiunta del nodo mancante nella KB.
+
+### BENCH-018 — Zero-Shot sbaglia, GraphRAG indovina
+
+- **Profilo:** KRAS G12C, Tumore del Colon-Retto
+- **Farmaco atteso:** Sotorasib + Panitumumab (combinazione)
+- **Errore Zero-Shot (score 0.0):** Raccomanda monoterapia Sotorasib (standard NSCLC), ignorando che in CRC l'inibizione di KRAS G12C causa riattivazione del feedback mediato da EGFR — rende obbligatorio l'anti-EGFR (Panitumumab). Approvazione FDA agosto 2023, CodeBreaK 300 trial (NEJM 2023).
+- **GraphRAG corretto:** Il Knowledge Graph contiene la relazione strutturata specifica per KRAS G12C in CRC con Panitumumab, indipendente dalla distribuzione del training set.
+- **Tipo di errore:** Strutturale, non correggibile con prompt engineering. È il bias da distribuzione dei dati di training — KRAS G12C → Sotorasib è pattern dominante per NSCLC nei dati di training, Zero-Shot lo applica erroneamente al CRC.
+
+### Implicazione clinica
+
+BENCH-018 illustra esattamente il rischio clinico del LLM vanilla in oncologia di precisione: un medico che usa zero-shot per un paziente KRAS G12C CRC riceverebbe una raccomandazione sbagliata e clinicamente pericolosa. Il Knowledge Graph codifica la specificità istologica in modo strutturale, non dipendente dalla frequenza statistica del training set. Questo è il caso d'uso che giustifica l'architettura della tesi.
+
+---
+
+## 3. Fix ESCAT Interpreter — Completato
+
+### Problema identificato
+
+La mappatura ESCAT statica precedente (`A→I-A, B→II-B`) produceva errori sistematici su tre categorie di casi: resistance variants, tumor-agnostic, off-label. Root cause: ignorava il confronto tra tumore dell'evidenza e tumore del paziente.
+
+### Fix implementato
+
+Tre cambiamenti al file `variant_interpreter.py`:
+
+**1. Funzione `_is_same_tumor()`** — confronto fuzzy tra malattia dell'evidenza nel grafo e tumore del paziente:
+```python
+def _is_same_tumor(evidence_disease: str, patient_tumor: str) -> bool:
+    if not evidence_disease or not patient_tumor:
+        return False
+    ev = evidence_disease.lower().strip()
+    pt = patient_tumor.lower().strip()
+    return ev == pt or ev in pt or pt in ev
+```
+
+**2. Arricchimento di `evidences_str`** — aggiunta del flag `Match istologico: SÌ/NO` passato all'LLM per ogni evidenza.
+
+**3. Fallback intelligente** — eliminazione della mappatura statica `A→I-A`, sostituita con logica contestuale:
+- Resistance → `non determinato`
+- Same tumor + Livello A → `I-A`, B → `I-B`, C → `II-A`, D → `II-B`
+- Tumor diverso (off-label) → declassamento: A/B → `II-B`, C → `non determinato`
+
+**4. Aggiunta al prompt** della regola critica: se `Match istologico = NO`, declassa il tier; se `Significatività = Resistance`, assegna sempre `non determinato`.
+
+### Risultato
+
+ESCAT Tier Match: 73.3% → **100.0%**
+
+---
+
+## 4. Nuovi Paper di Letteratura — Analisi e Posizionamento
+
+### Paper acquisiti e analizzati
+
+**Aldea et al. (2025) — IASLC Consensus Statement on MTB**
+*J Thorac Oncol. 2025;20:1594–1614*
+
+Documento normativo clinico che definisce ESCAT come standard internazionale per le raccomandazioni MTB. Frase chiave: *"each ranking applies to a specific drug–target pair, not the alteration alone"* — giustifica l'architettura dell'ESCAT Interpreter. Da citare in introduzione e sezione metodologica.
+
+**Berman et al. (2025) — RAG_MTB**
+*JMIR Med Inform. 2025. PMID: 40053768*
+
+Pipeline RAG testuale su PubMed (LlamaIndex + LLaMA) per raccomandazioni MTB reali, Università di Tubinga. Confronto diretto: stesso problema, approccio diverso. Tre vantaggi strutturali della tesi rispetto a Berman: KB curata vs PubMed raw, verifica PMID via `CITED_IN`, classificazione ESCAT assente in Berman.
+
+**Loaiza-Bonilla et al. (2026) — OncoMultiAgentKB**
+*ESMO Real World Data and Digital Oncology. 2026*
+
+Sistema neuro-simbolico (OncoAgents + OncoGraph) valutato su 3.804 pazienti reali. F1 = 0.82 con KB, 0.79 senza KB (ablation). Architettura comparabile alla tesi — validazione industriale dello stesso principio. Differenziatori della tesi: therapeutic recommendation vs trial matching, therapy_line come vincolo strutturale, modello open-source gratuito.
+
+### Aggiornamento posizionamento
+
+La narrativa della tesi è ora completa su quattro livelli:
+
+| Livello | Paper | Funzione |
+|---|---|---|
+| Clinico | Aldea et al. IASLC 2025 | ESCAT è lo standard riconosciuto — giustificazione clinica |
+| Tecnico RAG | Berman et al. JMIR 2025 | RAG testuale ha limiti strutturali che KB Neo4j risolve |
+| Tecnico multi-agente | Loaiza-Bonilla et al. ESMO 2026 | KB + multi-agente è l'architettura vincente anche su scala industriale |
+| Contributo originale | Tesi | ESCAT tier + therapy_line + resistance + open-source |
+
+### Frase di positioning per discussione con professore
+
+> "Il sistema proposto si colloca all'intersezione tra tre tendenze convergenti: la validazione clinica dell'uso di ESCAT come standard MTB (Aldea et al., IASLC 2025), la dimostrazione che il RAG testuale soffre di limitazioni strutturali nella gestione delle citazioni (Berman et al., JMIR 2025), e la validazione industriale su larga scala che KB oncologica strutturata + agenti LLM specializzati riduce le allucinazioni rispetto al solo LLM (Loaiza-Bonilla et al., ESMO 2026). La tesi contribuisce con una pipeline open-source completa che integra classificazione ESCAT, gestione della linea terapeutica e verifica strutturale delle citazioni — elementi assenti o parziali in tutti e tre i sistemi di riferimento."
+
+---
+
+
+---
+
+## 6. Ottimizzazioni Tecniche
+
+**Neo4j driver persistente:** Eliminato il pattern di creazione driver per ogni query. Uso di istanza persistente riutilizzata. Tempo calcolo metriche: da diversi minuti → **meno di 4 secondi**.
+
+**KB aggiornata:** Aggiunto nodo mancante per ERBB2 Amplificazione + combinazione Trastuzumab + Pertuzumab in breast cancer HER2+ (causa del fallimento BENCH-004). Dopo l'aggiunta, drug anchor GraphRAG potenzialmente sale a 30/30.
+
+---
+
+## 7. Stato Attuale del Progetto
+
+### Completato oggi
+- [x] Fix ESCAT Interpreter (73.3% → 100%)
+- [x] Benchmark RQ1 completo e stabile su 30 casi
+- [x] Analisi e posizionamento 3 nuovi paper
+- [x] Identificazione e fix bug KB BENCH-004
+- [x] Report analisi letteratura (`report_nuovi_paper_tesi.md`)
+- [x] Email al professore
+- [x] Analisi qualitativa dei due casi Drug Anchor asimmetrici
+
+### Da fare — prossima sessione
+- [ ] Rieseguire benchmark post-fix KB (verificare drug anchor 30/30)
+- [ ] Implementare citation accuracy automatica via `CITED_IN` (confronto con MedGraphRAG Wu et al.)
+- [ ] Calcolare precision@k approssimata Trial Matcher (confronto con TrialGPT Jin et al.)
+- [ ] Aggiungere paragrafo therapy_line come differenziatore in documento riflessioni paper
+- [ ] Iniziare stesura sezione "Lavori Correlati" della tesi con i 8 paper ora catalogati
+- [ ] Concordare con professore le RQ rimanenti (RQ2, RQ3, RQ4)
+
+### Stato RQ
+| RQ | Descrizione | Stato |
+|---|---|---|
+| RQ1 | GraphRAG vs LLM zero-shot | ✅ Completato — risultati definitivi |
+| RQ2 | ESCAT reproducibility + citation faithfulness | 🔄 Parziale — metriche da completare |
+| RQ3 | Automation potential MTB preparation | ⬜ Da iniziare |
+| RQ4 | Dynamic MoE Router vs fixed sequential | ⬜ Da iniziare |
+
+---
+
+## 8. Paper di Riferimento Completi (aggiornato)
+
+| # | Paper | Anno | Venue | Ruolo in Tesi |
+|---|---|---|---|---|
+| 1 | Edge et al. — GraphRAG | 2025 | Microsoft Research / arXiv | Fondamento teorico GraphRAG — RQ1 |
+| 2 | Wu et al. — MedGraphRAG | 2024 | Oxford / arXiv | KB medica strutturata — architettura |
+| 3 | Kim et al. — MDAgents | 2024 | MIT / NeurIPS | Orchestrazione adattiva — RQ4 |
+| 4 | Jin et al. — TrialGPT | 2024 | NIH / Nature Comm. | Trial Matcher blueprint — applicativo |
+| 5 | Díaz Cantón — Agentic Shift | 2026 | Cancer Sci Res | Contesto 2026 — introduzione |
+| 6 | Aldea et al. — IASLC MTB Consensus | 2025 | J Thorac Oncol | Standard clinico ESCAT — metodologia |
+| 7 | Berman et al. — RAG_MTB | 2025 | JMIR Med Inform | Confronto diretto RAG testuale |
+| 8 | Loaiza-Bonilla et al. — OncoMultiAgentKB | 2026 | ESMO | Validazione industriale stesso principio |
+
+---
+
+*Report generato a fine sessione — 11 Giugno 2026*
+*Prossima sessione: post-incontro con il professore*

@@ -1,0 +1,240 @@
+\documentclass[12pt, a4paper]{article}
+
+% === Pacchetti ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% === Geometria pagina ===
+\geometry{
+  top=2.5cm, bottom=2.5cm,
+  left=3cm,  right=2.5cm,
+  headheight=15pt
+}
+
+% === Palette colori ===
+\definecolor{primaryblue}{HTML}{1A3A5C}
+\definecolor{accentblue}{HTML}{2E7EBA}
+\definecolor{lightgray}{HTML}{F5F7FA}
+\definecolor{medgray}{HTML}{AABCD0}
+\definecolor{passgreen}{HTML}{2E7D32}
+\definecolor{failred}{HTML}{C62828}
+\definecolor{warnAmber}{HTML}{E65100}
+\definecolor{roweven}{HTML}{EFF4F9}
+\definecolor{sessionblue}{HTML}{EAF2FB}
+
+% === Hyperref ===
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accentblue,
+  urlcolor=accentblue,
+  pdftitle={Riassunto Qualitativo del Lavoro di Tesi},
+  pdfauthor={Paolo},
+  pdfsubject={Tesi Magistrale},
+}
+
+% === Header / Footer ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{medgray}\textit{Tesi Magistrale: GraphRAG per Molecular Tumor Board}}
+\fancyhead[R]{\small\color{medgray}Maggio -- Giugno 2026}
+\fancyfoot[C]{\small\color{medgray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% === Titoli sezione ===
+\titleformat{\section}
+{\Large\bfseries\color{primaryblue}}
+{\thesection.}{0.6em}{}
+[\titlerule]
+\titleformat{\subsection}
+{\normalsize\bfseries\color{accentblue}}
+{\thesubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.6em}
+\titlespacing*{\subsection}{0pt}{1em}{0.3em}
+
+% === Box colorati ===
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{summarybox}{
+  enhanced, breakable,
+  colback=lightgray, colframe=primaryblue,
+  boxrule=1.2pt, arc=4pt,
+  fonttitle=\bfseries\color{white},
+  title={Sintesi in una Frase},
+}
+\newtcolorbox{insightbox}{
+  enhanced, breakable,
+  colback=sessionblue, colframe=accentblue,
+  boxrule=1pt, arc=4pt,
+  fonttitle=\bfseries\color{white},
+  title={Dettaglio e Logica Progettuale},
+}
+\newtcolorbox{keyresultbox}{
+  enhanced, breakable,
+  colback=lightgray, colframe=passgreen,
+  boxrule=1.2pt, arc=4pt,
+  fonttitle=\bfseries\color{white},
+  title={Risultato Centrale della Tesi},
+}
+
+% === Macro colori ===
+\newcommand{\pass}[1]{{\color{passgreen}\textbf{#1}}}
+\newcommand{\fail}[1]{{\color{failred}\textbf{#1}}}
+\newcommand{\warn}[1]{{\color{warnAmber}\textbf{#1}}}
+\newcommand{\bench}[1]{{\texttt{\textbf{#1}}}}
+
+% ============================================================
+\begin{document}
+
+% === Titolo ===
+\begin{center}
+  {\LARGE\bfseries\color{primaryblue} Riassunto Qualitativo del Lavoro di Tesi}\\[0.4em]
+  {\large\color{accentblue} Pipeline Agentica GraphRAG per Molecular Tumor Board in Oncologia di Precisione}\\[0.2em]
+  {\small\color{medgray}\textit{Periodo di Riferimento: fine maggio --- inizio giugno 2026}}
+\end{center}
+\vspace{0.5em}\hrule\vspace{1.2em}
+
+% ============================================================
+\section{Il Problema di Partenza}
+Un Molecular Tumor Board (MTB) è un comitato multidisciplinare in cui specialisti discutono il profilo genomico e molecolare di un paziente oncologico per selezionare terapie mirate e personalizzate. La preparazione manuale di ciascun caso clinico richiede di consultare knowledge base oncologiche complesse, linee guida cliniche, pubblicazioni scientifiche e registri di trial clinici. Questo processo richiede tempo prezioso ed è soggetto a errori o sviste.
+
+L'idea alla base di questo lavoro di tesi consiste nel costruire un **sistema agentico intelligente** che, dato un profilo molecolare (Gene, Variante, Tumore, Linea di trattamento), sia in grado di generare autonomamente un report strutturato per il Molecular Tumor Board. Tale report deve includere raccomandazioni farmacologiche, i relativi livelli di evidenza secondo la classificazione ESCAT, il profilo di resistenza della variante, i trial clinici attivi e pertinenti, e --- soprattutto --- citazioni bibliografiche \pass{verificabili}.
+
+A differenza di un semplice chatbot basato esclusivamente su memoria parametrica, ogni singola affermazione del report generato deve essere tracciabile a una fonte reale contenuta nel Knowledge Graph, eliminando del tutto le allucinazioni.
+
+% ============================================================
+\section{Cosa è Stato Costruito}
+È stato realizzato un sistema end-to-end composto da tre macro-componenti:
+
+\subsection{1. Knowledge Graph (Neo4j)}
+Un grafo di conoscenza oncologica strutturato e costruito offline aggregando dati da fonti pubbliche e certificate: **CIViC, OncoKB, DGIdb, FDA** e **ClinicalTrials.gov**. Il grafo si compone di 9 tipi di nodi (\textit{Gene, Variant, MolecularProfile, Evidence, Drug, CompanionDiagnostic, ClinicalTrial, Disease, Publication}) collegati tra loro da 11 relazioni ontologiche. La scelta di utilizzare una base dati strutturata e verificata a priori garantisce l'integrità referenziale del sistema: ogni codice PMID presente nel grafo corrisponde a una pubblicazione scientifica reale.
+
+\subsection{2. Pipeline Agentica (LangGraph)}
+L'orchestrazione logica del sistema fa uso di LangGraph ed è strutturata su cinque agenti specializzati, coordinati tramite un modulo di routing dinamico basato sulla complessità del caso (Low/Moderate/High, ispirato al framework *MDAgents*):
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Complexity Check:} Valuta la difficoltà del caso clinico ed effettua il routing della richiesta.
+  \item \textbf{Variant Interpreter:} Interpreta la mutazione genomica e assegna il corretto livello ESCAT.
+  \item \textbf{Target Identifier:} Rileva le opzioni terapeutiche e le companion diagnostics (CDx) associate.
+  \item \textbf{Trial Matcher:} Cerca e abbina gli studi clinici attivi ed eleggibili per il paziente.
+  \item \textbf{Resistance Checker:} Identifica i meccanismi di resistenza e i farmaci da escludere.
+  \item \textbf{Synthesizer:} Raccoglie ed assembla le informazioni provenienti dagli agenti, verificando la coerenza dei PMID locali.
+\end{itemize}
+A questo flusso si aggiunge un **OncoKB Enricher** live, integrato con pattern *human-in-the-loop*, che consente all'oncologo di arricchire il report con evidenze aggiornate in tempo reale tramite le API ufficiali di OncoKB.
+
+\subsection{3. Interfaccia Utente (React + FastAPI)}
+Un'applicazione web completa dotata di un'interfaccia a tema clinico (palette bianco/blu) in cui l'utente può inserire i dati del paziente, visualizzare il report del board, abilitare l'arricchimento live ed eseguire i test di valutazione automatica.
+
+% ============================================================
+\section{Il Percorso --- Come ci siamo arrivati}
+La realizzazione del sistema ha seguito un approccio incrementale ed iterativo, suddiviso in quattro fasi principali:
+
+\textbf{FASE 1 --- Costruzione e verifica del Knowledge Graph}\\
+Abbiamo testato la consistenza delle query sul database a grafo su tutti i 30 casi del benchmark. Abbiamo riscontrato che la rappresentazione dei dati non è uniforme: le fusioni geniche richiedono interrogazioni a livello di \textit{MolecularProfile} (es. ALK Fusion), le varianti tumor-agnostic hanno convenzioni nominali differenti rispetto ad OncoKB (es. TMB High vs TMB-H), mentre la resistenza oncologica si comporta come fenomeno gene-level. Questo ha reso necessario l'introduzione di un branching logico basato sulla variabile \texttt{alteration\_type}.
+
+\textbf{FASE 2 --- Progettazione della pipeline agentica}\\
+Siamo passati da un'architettura iniziale teorica a 7 agenti con MoE Router ad un design più solido a 5 agenti con \textit{Complexity Check} dinamico. Durante questa fase, l'agente originale *Interaction Checker* è stato sostituito con il *Resistance Checker* a causa della scarsa qualità dei dati importati da DGIdb. Si è inoltre stabilito che l'attivazione dell'OncoKB Enricher dovesse rimanere *human-in-the-loop* per preservare il controllo decisionale del medico.
+
+\textbf{FASE 3 --- Scelta dei modelli e re-engineering}\\
+Per consentire l'esecuzione locale e gratuita (senza dipendenza da risorse GPU fisiche), abbiamo sfruttato gli endpoint Ollama Cloud. Abbiamo selezionato **Gemma 4 31B** per l'esecuzione dei nodi della pipeline e **MiniMax M2.7** come giudice indipendente. Il codice originale, inizialmente implementato in un singolo modulo monolitico di circa 1000 righe, è stato ristrutturato in una monorepo modulare, pulita e scalabile.
+
+\textbf{FASE 4 --- Valutazione empirica e ricalibrazione}\\
+Questa fase ha rappresentato la parte metodologicamente più rilevante della tesi, dove le metriche di valutazione del sistema sono state ripetutamente calibrate per eliminare i bias dei modelli e misurare l'efficacia reale dell'architettura.
+
+% ============================================================
+\section{Le Scoperte più Importanti}
+Il contributo scientifico del lavoro non si esaurisce nello sviluppo del software, ma è rappresentato da quattro scoperte empiriche emerse durante il testing:
+
+\subsection{1. Il Bias di Auto-valutazione (Self-evaluation Bias)}
+Nelle prime esecuzioni, la valutazione comparativa tramite *LLM-as-judge* utilizzava lo stesso modello alla base della generazione (Gemma). Questo produceva punteggi fittiziamente alti per la pipeline base. Sostituendo il valutatore con un modello indipendente (MiniMax M2.5), il gap apparente tra le performance dei due sistemi si è ridotto di ben **$2.7\times$**, fornendo una validazione empirica di un bias ampiamente discusso in letteratura.
+
+\subsection{2. L'Allucinazione Bibliografica Sistematica}
+La scoperta più rilevante della tesi. Verificando tramite API PubMed/NCBI tutti i 115 PMID citati dallo zero-shot (LLM senza base dati esterna), è emerso che **il 100\% delle citazioni è allucinato**. Il 96.5\% dei PMID esiste ma rimanda a paper scientifici di tutt'altro argomento (dall'ingegneria chimica all'istruzione superiore), mentre il 3.5\% è inventato. L'LLM genera i codici PubMed come "token decorativi" per soddisfare la struttura attesa del report.
+
+\subsection{3. La Retrieval Pollution}
+Un contributo originale: nei sistemi RAG clinici, l'interrogazione a livello di gene introduce nel contesto farmaci storici approvati per la mutazione driver originaria (es. Erlotinib per EGFR L858R) che risultano inefficaci o controindicati in presenza di mutazioni di resistenza acquisita (es. EGFR T790M). L'LLM, per fedeltà al contesto fornito dal RAG, tende a raccomandarli. Abbiamo risolto questo fenomeno introducendo un filtro variante-specifico nel *Resistance Checker*, innalzando il Safety Pass Rate dal 86.7\% al 90.0\%.
+
+\subsection{4. Il Ruolo del Knowledge Fall-back}
+Nei casi con gap di conoscenza nel database locale (es. la mutazione rara ALK G1202R), il sistema base si comporta correttamente rifiutandosi di inventare dati ed emettendo un report vuoto. L'abilitazione dell'OncoKB Enricher recupera live la terapia corretta (Lorlatinib) con relativo PMID verificato, provando l'efficacia del pattern ibrido e dell'integrazione di sicurezza.
+
+% ============================================================
+\section{Il Risultato Centrale --- Una questione di verificabilità}
+Il confronto tra il sistema GraphRAG e il modello zero-shot ha rivelato differenze profonde sul piano metodologico:
+
+\begin{table}[ht]
+\centering\renewcommand{\arraystretch}{1.3}
+\caption{Confronto delle metriche oggettive finali}
+\begin{tabular}{lccc}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{Sistema} & \color{white}\textbf{Therapeutic Match} & \color{white}\textbf{Evidence Grounding} & \color{white}\textbf{Safety (auto)} \\
+\midrule
+Zero-shot vanilla & \textbf{1.000} & 0.0\% (100\% alluc.) & \textbf{96.7\%} \\
+\rowcolor{roweven}
+GraphRAG base & \textbf{1.000} & 96.7\% & 86.7\% \\
+GraphRAG + Enricher (v3.1) & \textbf{1.000} & \textbf{100.0\%} & 90.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Lo zero-shot ottiene un Therapeutic Match perfetto (1.000) semplicemente perché i casi del benchmark sono casi clinici noti presenti nel suo dataset di pre-addestramento (memoria parametrica). Tuttavia, l'assenza totale di fonti reali (Evidence Grounding al 0.0\%) lo rende inutilizzabile.
+
+Al contrario, GraphRAG mostra un match terapeutico analogo (1.000) e garantisce la tracciabilità delle fonti, con un Evidence Grounding del 96.7\% che sale al 100\% con l'arricchimento.
+
+\begin{keyresultbox}
+\textbf{Sintesi dei Profili di Rischio:}
+\begin{itemize}[leftmargin=1.1em, itemsep=2pt]
+  \item \textbf{Zero-shot (Proattivo ma Inaffidabile):} Tende a formulare sempre una risposta terapeutica, ma allucina sistematicamente le fonti bibliografiche a supporto.
+  \item \textbf{GraphRAG (Conservativo ed Affidabile):} Dichiara l'assenza di dati quando non trova riscontri nel Knowledge Graph e limita le sue risposte solo a evidenze scientifiche rigorosamente tracciabili.
+\end{itemize}
+In medicina di precisione, l'errore di omissione (ammettere la mancanza di dati) è clinicamente accettabile e sicuro, mentre l'errore di commissione (raccomandare una terapia basandosi su citazioni inventate) costituisce un rischio intollerabile.
+\end{keyresultbox}
+
+% ============================================================
+\section{Elementi di Solidità del Lavoro}
+I punti che conferiscono rigore e valore accademico alla tesi sono:
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item Lo sviluppo di un'applicazione web end-to-end funzionante, superando la logica del puro prototipo a riga di comando.
+  \item Una metodologia di valutazione che si è corretta in corso d'opera eliminando il bias di auto-valutazione dei modelli.
+  \item L'affiancamento di metriche oggettive e riproducibili (Drug Anchor, Grounding, verifica API PubMed) alle valutazioni soggettive degli LLM.
+  \item L'identificazione di dinamiche originali nel contesto dei sistemi RAG clinici (Retrieval Pollution).
+  \item L'ancoraggio metodologico ai principali paper di riferimento in ambito biomedico e agentico (Edge et al., Wu et al., TrialGPT).
+\end{itemize}
+
+% ============================================================
+\section{Limiti Dichiarati}
+Per onestà scientifica, vengono evidenziati i seguenti limiti del sistema:
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item Il benchmark è composto da casi clinici storici, il che favorisce la memoria parametrica dello zero-shot nel calcolo del Therapeutic Match.
+  \item Il Knowledge Graph presenta inevitabili gap di copertura locale sulle varianti più rare, rendendo indispensabile l'enrichment esterno.
+  \item Il Safety check automatico basato su string-matching è rigido e produce falsi negativi quando rileva nomi di farmaci inseriti solo a scopo informativo o di contesto storico.
+\end{itemize}
+
+% ============================================================
+\section{Sintesi in una Frase}
+\begin{summarybox}
+Abbiamo costruito un sistema agentico GraphRAG per il supporto al Molecular Tumor Board che, a differenza di un LLM puro, produce raccomandazioni terapeutiche tracciabili e verificabili --- e nel farlo abbiamo dimostrato empiricamente che gli LLM allo stato dell'arte allucinano sistematicamente le citazioni bibliografiche in ambito oncologico, rendendo la verificabilità strutturale del Knowledge Graph non un optional ma un requisito clinico fondamentale.
+\end{summarybox}
+
+\vfill
+\begin{center}
+  {\color{medgray}\rule{0.5\linewidth}{0.4pt}}\\[0.3em]
+  {\small\color{medgray}\textit{Fine report --- Sessione del 08 Giugno 2026}}
+\end{center}
+
+\end{document}

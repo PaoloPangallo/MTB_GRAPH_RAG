@@ -1,0 +1,31 @@
+case_id,gene,variant,tumor,judge_score,dac_expected_drug,dac_drug_found,dac_anchor_pmid,dac_anchor_pmid_cited,eg_n_graph_ab,eg_n_cited_in_body,eg_n_intersection,eg_grounding_ratio
+BENCH-001,EGFR,L858R,NSCLC,4.87,Osimertinib,True,37937763,True,24,9,7,0.2917
+BENCH-002,ALK,Fusion,NSCLC,4.0,Alectinib,True,28586279,True,19,7,7,0.3684
+BENCH-003,BRAF,V600E,Melanoma,4.5,Vemurafenib,True,21639808,True,18,10,10,0.5556
+BENCH-004,ERBB2,Amplification,Breast Cancer HER2+,3.875,Trastuzumab+Pertuzumab,False,26874901,True,23,7,7,0.3043
+BENCH-005,BRCA1,Mutation,Ovarian Cancer,4.1,Olaparib,True,30345884,True,9,5,5,0.5556
+BENCH-006,ABL1,BCR-ABL1 Fusion,CML,3.38,Imatinib,True,11423618,False,18,4,4,0.2222
+BENCH-007,BRAF,V600E,Colorectal Cancer,3.88,Encorafenib+Cetuximab,True,31566309,True,19,7,7,0.3684
+BENCH-008,PIK3CA,Mutation,Breast Cancer HR+,4.75,Alpelisib+Fulvestrant,True,31091374,True,9,7,7,0.7778
+BENCH-009,KIT,Exon 11 Mutation,GIST,4.0,Imatinib,True,14645423,True,9,6,6,0.6667
+BENCH-010,FLT3,ITD,AML,3.5,Gilteritinib,True,31665578,True,18,9,9,0.5
+BENCH-011,EGFR,T790M,NSCLC,4.8,Osimertinib,True,27959700,True,14,13,13,0.9286
+BENCH-012,KRAS,G12C,NSCLC,3.25,Sotorasib,True,34096690,True,6,5,5,0.8333
+BENCH-013,ALK,G1202R,NSCLC,1.75,Lorlatinib,True,30892989,False,0,0,0,
+BENCH-014,ABL1,T315I,CML,4.1,Ponatinib,True,24180494,False,4,2,2,0.5
+BENCH-015,RET,Fusion,NSCLC,3.37,Selpercatinib,True,32846060,True,6,6,6,1.0
+BENCH-016,NTRK1,Fusion,Solid Tumor,4.6,Larotrectinib,True,29466156,True,6,4,4,0.6667
+BENCH-017,MMR,MSI-High,Colorectal Cancer,3.25,Pembrolizumab,False,33264544,False,0,1,0,
+BENCH-018,KRAS,G12C,Colorectal Cancer,2.75,Sotorasib+Panitumumab,True,37870968,True,4,3,3,0.75
+BENCH-019,KIT,Exon 9 Mutation,GIST,3.5,Sunitinib,True,16624552,True,7,3,3,0.4286
+BENCH-020,BRAF,V600E,NSCLC,4.6,Dabrafenib+Trametinib,True,27283860,True,2,2,2,1.0
+BENCH-021,ERBB2,Amplification,Gastric Cancer,4.5,Trastuzumab,True,20728210,True,3,3,3,1.0
+BENCH-022,BRCA2,Mutation,Prostate Cancer,4.375,Olaparib,True,32343890,True,2,2,2,1.0
+BENCH-023,TMB,TMB-High,Solid Tumor,4.25,Pembrolizumab,True,32919526,False,0,9,0,
+BENCH-024,EGFR,Exon 19 Deletion,NSCLC,4.8,Osimertinib,True,29151359,False,22,11,11,0.5
+BENCH-025,IDH1,R132,AML,3.88,Ivosidenib,True,29860938,False,3,3,3,1.0
+BENCH-026,FGFR2,Fusion,Cholangiocarcinoma,4.5,Pemigatinib,True,32203698,False,4,4,4,1.0
+BENCH-027,MET,Exon 14 Skipping,NSCLC,2.88,Capmatinib,True,32877583,True,3,3,3,1.0
+BENCH-028,ROS1,Fusion,NSCLC,3.6,Crizotinib,True,25264305,True,6,2,2,0.3333
+BENCH-029,BRAF,V600E,Thyroid Cancer,4.95,Dabrafenib+Trametinib,True,29072975,True,11,4,4,0.3636
+BENCH-030,ERBB2,Amplification,Gastric Cancer,4.375,Trastuzumab deruxtecan,True,32469182,False,3,2,2,0.6667

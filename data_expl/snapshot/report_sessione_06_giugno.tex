@@ -1,0 +1,409 @@
+\documentclass[12pt, a4paper]{article}
+
+% === Pacchetti ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{parskip}
+\usepackage{lmodern}
+
+% === Geometria pagina ===
+\geometry{
+  top=2.5cm, bottom=2.5cm,
+  left=3cm,  right=2.5cm,
+  headheight=15pt
+}
+
+% === Palette colori ===
+\definecolor{primaryblue}{HTML}{1A3A5C}
+\definecolor{accentblue}{HTML}{2E7EBA}
+\definecolor{lightgray}{HTML}{F5F7FA}
+\definecolor{medgray}{HTML}{AABCD0}
+\definecolor{passgreen}{HTML}{2E7D32}
+\definecolor{failred}{HTML}{C62828}
+\definecolor{warnAmber}{HTML}{E65100}
+\definecolor{roweven}{HTML}{EFF4F9}
+\definecolor{afternoonblue}{HTML}{EAF2FB}
+
+% === Hyperref ===
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accentblue,
+  urlcolor=accentblue,
+  pdftitle={Report Sessione 06 Giugno 2026 -- GraphRAG MTB},
+  pdfauthor={Paolo},
+  pdfsubject={Tesi Magistrale},
+}
+
+% === Header / Footer ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{medgray}\textit{Tesi Magistrale: GraphRAG per Molecular Tumor Board}}
+\fancyhead[R]{\small\color{medgray}06 Giugno 2026}
+\fancyfoot[C]{\small\color{medgray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% === Titoli sezione ===
+\titleformat{\section}
+{\Large\bfseries\color{primaryblue}}
+{\thesection.}{0.6em}{}
+[\titlerule]
+\titleformat{\subsection}
+{\normalsize\bfseries\color{accentblue}}
+{\thesubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.6em}
+\titlespacing*{\subsection}{0pt}{1em}{0.3em}
+
+% === Box colorati ===
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{summarybox}{
+  enhanced, breakable,
+  colback=lightgray, colframe=primaryblue,
+  boxrule=1.2pt, arc=4pt,
+  fonttitle=\bfseries\color{white},
+  title={Risultato Complessivo},
+}
+\newtcolorbox{insightbox}{
+  enhanced, breakable,
+  colback=afternoonblue, colframe=accentblue,
+  boxrule=1pt, arc=4pt,
+  fonttitle=\bfseries\color{white},
+  title={Insight Metodologici Emersi},
+}
+\newtcolorbox{keyresultbox}{
+  enhanced, breakable,
+  colback=lightgray, colframe=passgreen,
+  boxrule=1.2pt, arc=4pt,
+  fonttitle=\bfseries\color{white},
+  title={Risultato Chiave},
+}
+
+% === Macro colori ===
+\newcommand{\pass}[1]{{\color{passgreen}\textbf{#1}}}
+\newcommand{\fail}[1]{{\color{failred}\textbf{#1}}}
+\newcommand{\warn}[1]{{\color{warnAmber}\textbf{#1}}}
+\newcommand{\bench}[1]{{\texttt{\textbf{#1}}}}
+
+% ============================================================
+\begin{document}
+
+% === Titolo ===
+\begin{center}
+  {\LARGE\bfseries\color{primaryblue} Report Sessione di Lavoro --- 06 Giugno 2026}\\[0.4em]
+  {\large\color{accentblue} Progetto: Pipeline Agentica GraphRAG per Molecular Tumor Board (Tesi Magistrale)}\\[0.2em]
+  {\small\color{medgray}\textit{Sessione pomeridiana}}
+\end{center}
+\vspace{0.5em}\hrule\vspace{1.2em}
+
+% ============================================================
+\section{Punto di Partenza}
+
+La sessione odierna e' la continuazione diretta della sessione del 05/06/2026. All'avvio si disponeva dei seguenti elementi:
+\begin{itemize}[leftmargin=1.6em, itemsep=3pt]
+  \item Pipeline v3 documentata (HTML) con OncoKB Enricher \textit{human-in-the-loop}.
+  \item KB Neo4j a 9 nodi e 11 relazioni, verificata sul caso pilota \bench{BENCH-001}.
+  \item Benchmark di 30 casi clinici con la colonna \texttt{alteration\_type} aggiunta.
+  \item Report completo sull'utilizzo delle API di OncoKB.
+  \item Query Cypher verificate e consolidate solo per il tipo \texttt{point\_mutation} (es. \bench{BRAF V600E}).
+\end{itemize}
+
+\textbf{Obiettivo della sessione:} verificare in modo sistematico la fattibilita' delle query Cypher per tutti i tipi di \texttt{alteration\_type} censiti nel benchmark prima di procedere con la fase di integrazione dell'LLM.
+
+% ============================================================
+\section{Verifica Coerenza Notebook}
+
+E' stata effettuata una revisione approfondita del notebook \texttt{esplorazione\_kb\_oncologico.ipynb} per verificarne l'allineamento con le specifiche di progettazione della pipeline v3.
+
+\subsection{Elementi Coerenti}
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Cella 11:} La query di sintesi degli archi (\texttt{edges\_summary}) include correttamente le relazioni \texttt{HAS\_DISEASE} e \texttt{CITED\_IN}.
+  \item \textbf{Cella 11:} La densita' del grafo e' calcolata correttamente tramite la formula corretta per grafi orientati: $E / (V \cdot (V - 1))$.
+  \item \textbf{Cella 67:} E' presente la metodologia di audit strutturata su 3 strategie (\textit{Standard}, \textit{Fusion}, \textit{Biomarker}).
+  \item \textbf{Query Cypher:} Utilizzano coerentemente i parametri \texttt{hugo\_symbol} e \texttt{variant\_name} in tutti i passaggi chiave.
+\end{itemize}
+
+\subsection{Incoerenze Corrette}
+\begin{enumerate}[leftmargin=1.6em, itemsep=3pt]
+  \item \textbf{Cella 50 (Filtro Tumor-type):} Mancava il filtro per tipo di tumore nella query Cypher per le resistenze di \bench{BRAF V600E}. Questo causava la sovrapposizione errata di dati relativi a Melanoma e CRC, violando il principio per cui la specificita' tumorale e' mandataria. \textit{Risolto inserendo il filtro.}
+  \item \textbf{Conteggio Relazioni:} Il notebook contava 11 relazioni nel grafo, mentre la documentazione v2 faceva riferimento a 10. L'incoerenza e' stata allineata a 11 nella versione v3 della pipeline.
+\end{enumerate}
+
+% ============================================================
+\section{Ragionamento sull'Input della Pipeline}
+
+Dall'analisi del file CSV di benchmark e' emerso che la struttura di input originaria era troppo semplificata (limitata a gene, variante, tumore e linea terapeutica). Essa non permetteva di gestire in modo adeguato e strutturato casi complessi quali fusioni geniche, CNA, biomarker clinici e alterazioni atipiche.
+
+\subsection{Decisioni Strategiche Prese}
+\begin{itemize}[leftmargin=1.6em, itemsep=4pt]
+  \item \textbf{Obbligatorieta' di \texttt{alteration\_type}:} Il tipo di alterazione deve essere passato come input obbligatorio, poiche' non e' possibile inferirlo in modo deterministico e sicuro a partire dal solo nome della variante.
+  \item \textbf{Uso della \texttt{category}:} La categoria del benchmark (es. \textit{baseline}, \textit{resistance}, \textit{new\_target}, \textit{off\_label}, \textit{tumor\_agnostic}) deve essere impiegata \textbf{solo} nella fase di valutazione per validare il routing atteso. Essa non sara' inserita come parametro di input per la pipeline in produzione per evitare fenomeni di \textit{overfitting} sulla valutazione.
+  \item \textbf{Complexity Check via LLM:} Il controllo di complessita' viene mantenuto come chiamata LLM flessibile e non come una mappatura rigida deterministica (\textit{category} $\to$ \textit{tier}), per garantire una migliore generalizzabilita' in ambiente di produzione.
+  \item \textbf{Gestione del ``Solid Tumor'':} Per i casi tumor-agnostici (come \bench{BENCH-016} NTRK1 o \bench{BENCH-023} TMB-High) e' corretto impostare il tumore come ``Solid Tumor'', riflettendo la reale approvazione regolatoria FDA.
+  \item \textbf{Classificazione di \bench{BENCH-024}:} L'alterazione \bench{EGFR Exon 19 Deletion} e' stata classificata come \texttt{atypical} e non come \texttt{cna}, trattandosi di una delezione \textit{in-frame} a livello proteico e non di una variazione del numero di copie geniche.
+\end{itemize}
+
+\subsection{Struttura Finale dell'Input}
+La tabella seguente illustra lo schema formale dei dati di input definiti per la pipeline v3:
+
+\begin{table}[ht]
+\centering\renewcommand{\arraystretch}{1.35}
+\caption{Schema formale dei campi di input della pipeline v3}
+\begin{tabular}{llp{7cm}c}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{Campo} & \color{white}\textbf{Tipo} & \color{white}\textbf{Valori Ammessi} & \color{white}\textbf{Obbligatorio} \\
+\midrule
+\texttt{gene} & string & HUGO symbol (\textit{null} per biomarker) & Si$^*$ \\
+\rowcolor{roweven}
+\texttt{variant} & string & Cambio proteico, Fusion, MSI-High, ecc. & Si \\
+\texttt{tumor\_type} & string & Nome del tumore o codice OncoTree & Si \\
+\rowcolor{roweven}
+\texttt{alteration\_type} & enum & \texttt{point\_mutation} | \texttt{fusion} | \texttt{cna} | \texttt{itd} | \texttt{atypical} | \texttt{biomarker} & Si \\
+\texttt{therapy\_line} & string & \texttt{first-line} | \texttt{second-line} | \texttt{later-line} & No \\
+\rowcolor{roweven}
+\texttt{enrich\_with\_oncokb} & boolean & \texttt{true} | \texttt{false} (default \texttt{false}) & No \\
+\bottomrule
+\end{tabular}
+\end{table}
+\small{\textit{* Nota: Il campo gene puo' assumere valore null per biomarker generali non associati a un singolo gene (es. MSI-H, TMB-H).}}
+
+% ============================================================
+\section{Benchmark Aggiornato}
+
+La colonna \texttt{alteration\_type} e' stata popolata sistematicamente per tutti i 30 casi clinici del benchmark, portando alla distribuzione riassunta nella Tabella 2:
+
+\begin{table}[ht]
+\centering\renewcommand{\arraystretch}{1.3}
+\caption{Distribuzione dei casi clinici del benchmark}
+\begin{tabular}{lrl}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{Alteration Type} & \color{white}\textbf{Casi} & \color{white}\textbf{Identificativi casi benchmark} \\
+\midrule
+\texttt{point\_mutation} & 14 & \bench{BENCH-001}, \bench{003}, \bench{005}, \bench{007}, \bench{008}, \bench{011}, \\
+ & & \bench{012}, \bench{013}, \bench{014}, \bench{018}, \bench{020}, \bench{022}, \bench{025}, \bench{029} \\
+\rowcolor{roweven}
+\texttt{fusion} & 6 & \bench{BENCH-002}, \bench{006}, \bench{015}, \bench{016}, \bench{026}, \bench{028} \\
+\texttt{atypical} & 4 & \bench{BENCH-009}, \bench{019}, \bench{024}, \bench{027} \\
+\rowcolor{roweven}
+\texttt{cna} & 3 & \bench{BENCH-004}, \bench{021}, \bench{030} \\
+\texttt{biomarker} & 2 & \bench{BENCH-017}, \bench{023} \\
+\rowcolor{roweven}
+\texttt{itd} & 1 & \bench{BENCH-010} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Casi Speciali e Regole di Gestione}
+\begin{itemize}[leftmargin=1.6em, itemsep=3pt]
+  \item \textbf{\bench{BENCH-005} (BRCA1) e \bench{BENCH-008} (PIK3CA):} Presentano il valore \texttt{variant='Mutation'}. Questo termine ``ombrello'' viene tradotto su OncoKB come \texttt{alteration=Mutation} per estrarre tutte le evidenze cliniche associate.
+  \item \textbf{\bench{BENCH-006} (BCR::ABL1):} La query deve ricercare entrambi i partner genici (``BCR'' e ``ABL1'') all'interno del nome del profilo molecolare (\texttt{MolecularProfile.name}).
+  \item \textbf{\bench{BENCH-016} (NTRK1/Solid Tumor) e \bench{BENCH-023} (TMB/Solid Tumor):} Casi tumor-agnostici, gestiti senza costringere a un'associazione con un organo o tessuto specifico.
+\end{itemize}
+
+% ============================================================
+\section{Verifica Query Cypher per tutti i Tipi di Alteration Type}
+
+Sono state eseguite oltre 15 query Neo4j per verificare la fattibilita' del modulo \textit{Variant Interpreter} su tutti e 6 i tipi di alterazione identificati.
+
+\subsection{Point Mutation (14 casi)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{Percorso nel Grafo:} \texttt{Gene(hugo\_symbol)} $\to$ \texttt{Variant(variant\_name)} $\to$ \texttt{MP} $\to$ \texttt{Evidence} $\to$ \texttt{CITED\_IN} $\to$ \texttt{Publication}
+  \item \textbf{Stato:} \pass{Verificato} (sessione precedente)
+\end{itemize}
+
+\subsection{Fusion (6 casi)}
+Le fusioni non seguono il percorso classico. Vengono cercate direttamente tramite il nome del profilo molecolare (\texttt{MolecularProfile.name}).
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Notazioni nel KB:}
+    \begin{itemize}[leftmargin=1.2em, itemsep=1pt]
+      \item \texttt{v::ALK Fusion} (gene driver a destra, partner variabile)
+      \item \texttt{FGFR2::v Fusion} (gene driver a sinistra, partner variabile)
+      \item \texttt{BCR::ABL1 Fusion} (entrambi i partner specificati)
+    \end{itemize}
+  \item \textbf{Risultati per caso:}
+    \begin{itemize}[leftmargin=1.2em, itemsep=1pt]
+      \item \bench{BENCH-002} ALK $\to$ \texttt{v::ALK Fusion} (26 evidenze A/B) \pass{Verificato}
+      \item \bench{BENCH-006} BCR $\to$ \texttt{BCR::ABL1 Fusion} (4 evidenze A/B) \pass{Verificato}
+      \item \bench{BENCH-015} RET $\to$ \texttt{v::RET Fusion} (9 evidenze A/B) \pass{Verificato}
+      \item \bench{BENCH-016} NTRK1 $\to$ \texttt{v::NTRK1 Fusion} (4 evidenze A/B) \pass{Verificato}
+      \item \bench{BENCH-026} FGFR2 $\to$ \texttt{FGFR2::v Fusion} (5 evidenze A/B) \pass{Verificato}
+      \item \bench{BENCH-028} ROS1 $\to$ \texttt{v::ROS1 Fusion} (6 evidenze A/B) \pass{Verificato}
+    \end{itemize}
+  \item \textbf{Profili composti individuati:} Es. \texttt{BCR::ABL1 Fusion AND ABL1 T315I}, \texttt{v::ALK Fusion OR v::ROS1 Fusion} (richiedono una gestione della priorita' sul profilo semplice).
+\end{itemize}
+
+\subsection{Atypical (4 casi)}
+Seguono la stessa logica di ricerca delle fusioni sul nome del MolecularProfile.
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \bench{BENCH-009} KIT Exon 11 e \bench{BENCH-019} KIT Exon 9 $\to$ \pass{Verificati} in questa sessione (dettagli sotto).
+  \item \bench{BENCH-024} EGFR Exon 19 $\to$ \texttt{EGFR Exon 19 Deletion} (12 evidenze A/B) \pass{Verificato}
+  \item \bench{BENCH-027} MET Exon 14 $\to$ \texttt{MET Exon 14 Skipping} (3 evidenze A/B) \pass{Verificato}
+  \item \textit{Nota:} MET Exon 14 ha copertura molto limitata nel KB locale (1A + 2B); l'arricchimento via OncoKB sara' probabilmente necessario.
+\end{itemize}
+
+\subsection{CNA (3 casi)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{Logica di ricerca:} \texttt{MolecularProfile.name} contiene il simbolo del gene ed i termini \texttt{'amplif'} o \texttt{'deletion'}.
+  \item \bench{BENCH-004} ERBB2 Amplification $\to$ \texttt{ERBB2 Amplification} (5 evidenze A/B) \pass{Verificato}
+  \item \bench{BENCH-021} e \bench{BENCH-030} $\to$ \pass{Verificati} (dettagli sotto).
+\end{itemize}
+
+\subsection{ITD (1 caso)}
+\begin{itemize}[leftmargin=1.6em]
+  \item \bench{BENCH-010} FLT3 ITD $\to$ \texttt{FLT3 ITD} (20 evidenze B + 1 A per AML, 2 B per APL) \pass{Verificato}
+  \item \textbf{Profilo composto trovato:} \texttt{FLT3 ITD OR FLT3 D835 OR FLT3 I836}
+\end{itemize}
+
+\subsection{Biomarker (2 casi)}
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Nomi nel KB locale:} \texttt{"TMB High"} (non \texttt{TMB-H}) e \texttt{"MSI High"} (non \texttt{MSI-H}). E' necessario un mapping per le query esterne.
+  \item \bench{BENCH-017} MSI-High $\to$ \texttt{MSI High} (2 evidenze A in CRC) \pass{Verificato}
+  \item \bench{BENCH-023} TMB-High $\to$ \texttt{TMB High} (9 evidenze B in NSCLC, 2 B in CRC, 1 B in Solid Tumor) \pass{Verificato}
+  \item \textit{Nota:} MSI High ha copertura molto limitata locale (2 evidenze A solo CRC). L'arricchimento tramite OncoKB sara' fondamentale.
+\end{itemize}
+
+% ============================================================
+\section{Implicazioni Architetturali}
+
+\begin{insightbox}
+Dalla fase di validazione delle query sono emerse tre implicazioni critiche per l'implementazione del modulo \textit{Variant Interpreter}:
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item \textbf{Branching logico obbligatorio per \texttt{alteration\_type}:}\\
+        Il Variant Interpreter non puo' avvalersi di una query Cypher unica. Sono necessarie due logiche separate:
+        \begin{itemize}[itemsep=2pt, leftmargin=1.2em]
+          \item \textit{Point Mutation:} percorso classico \texttt{Gene} $\to$ \texttt{Variant} $\to$ \texttt{MP} $\to$ \texttt{Evidence}.
+          \item \textit{Altri tipi:} ricerca diretta basata su stringhe tramite operatori \texttt{CONTAINS} su \texttt{MolecularProfile.name}.
+        \end{itemize}
+        In LangGraph cio' sara' implementato tramite un conditional edge dopo il complexity check, oppure tramite costrutti \textit{if/else} interni a un singolo nodo.
+  \item \textbf{Priorita' dei profili semplici rispetto a quelli composti:}\\
+        Nel database orientato a grafi sono presenti profili composti (es. ``BCR::ABL1 Fusion AND ABL1 T315I''). La query deve privilegiare il match esatto sul profilo semplice (\textit{exact match}), mantenendo i profili composti come evidenze secondarie (es. ordinando i risultati tramite \texttt{ORDER BY size(mp.name) ASC}).
+  \item \textbf{Dizionario di Mapping KB $\leftrightarrow$ OncoKB API:}\\
+        I nomi dei biomarker clinici differiscono tra il database locale (CIViC) e le API esterne di OncoKB:
+        \begin{itemize}[itemsep=1pt, leftmargin=1.2em]
+          \item Database locale: \texttt{"TMB High"} e \texttt{"MSI High"}
+          \item API OncoKB: \texttt{"TMB-H"} e \texttt{"MSI-H"}
+        \end{itemize}
+        E' necessario definire un dizionario di conversione esplicito nel codice per interrogare correttamente le API.
+\end{enumerate}
+\end{insightbox}
+
+% ============================================================
+\section{Stato Finale della Verifica delle Query}
+
+Tutti i 30 casi clinici del benchmark (100\%) sono stati analizzati ed e' stata verificata la loro fattibilita' all'interno della base di conoscenza locale Neo4j.
+
+\begin{table}[ht]
+\centering\renewcommand{\arraystretch}{1.35}
+\caption{Matrice di copertura del Grafo Neo4j per classe di alterazione}
+\begin{tabular}{lcp{2.8cm}p{3cm}p{4.8cm}}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{Alteration Type} & \color{white}\textbf{Casi} & \color{white}\textbf{Stato KB} & \color{white}\textbf{Evidenze Trovate} & \color{white}\textbf{Percorso di Query} \\
+\midrule
+\texttt{point\_mutation} & 14 & \pass{Completo} & Livelli A/B & \texttt{Gene} $\to$ \texttt{Variant} $\to$ \texttt{MP} $\to$ \texttt{Evidence} \\
+\rowcolor{roweven}
+\texttt{fusion} & 6 & \pass{Completo} & Livelli A/B & \texttt{MolecularProfile.name} \texttt{CONTAINS} gene \\
+\texttt{atypical} & 4 & \pass{Completo} & Livelli A/B & \texttt{MolecularProfile.name} \texttt{CONTAINS} 'exon X' \\
+\rowcolor{roweven}
+\texttt{cna} & 3 & \pass{Completo} & Livelli A/B & \bench{BENCH-030} e' un \fail{GAP} \\
+\texttt{itd} & 1 & \pass{Completo} & 23 evidenze tot. & \texttt{FLT3 ITD} su AML e APL \\
+\rowcolor{roweven}
+\texttt{biomarker} & 2 & \pass{Completo} & Livelli A/B & \texttt{TMB High} / \texttt{MSI High} (esatti) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Dettaglio delle Query Completate in Questa Sessione}
+\begin{itemize}[leftmargin=1.6em, itemsep=3pt]
+  \item \textbf{\bench{BENCH-009} (KIT Exon 11 / GIST):} \texttt{KIT Exon 11 Mutation} trova 9 evidenze B e 1 evidenza A per GIST, piu' evidenze secondarie per Melanoma e Polmone. \pass{Verificato}.
+  \item \textbf{\bench{BENCH-019} (KIT Exon 9 / GIST):} \texttt{KIT Exon 9 Mutation} trova 6 evidenze B e 1 evidenza A per GIST. \pass{Verificato}.
+  \item \textbf{\bench{BENCH-021} (ERBB2 Amplificazione / Tumore Gastrico / Trastuzumab):} Trova 2 evidenze B e 1 evidenza A per Gastric Adenocarcinoma. \pass{Verificato}.
+  \item \textbf{\bench{BENCH-030} (ERBB2 Amplificazione / Tumore Gastrico / Trastuzumab Deruxtecan):} Il farmaco e' presente nel KB. Tuttavia, non sono presenti evidenze cliniche sul tumore gastrico (presenti solo sul polmone non a piccole cellule, NSCLC, livello A).
+        Questo rappresenta un \textbf{gap di copertura del grafo (GAP)}, giustificato dal fatto che il farmaco e' di recente approvazione e il database open-source CIViC non e' ancora aggiornato. Questo caso richiedera' l'attivazione obbligatoria dell'OncoKB Enricher per evitare falsi negativi.
+\end{itemize}
+
+\subsection{Gap di Copertura Identificati e Annotati}
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \bench{BENCH-030}: \texttt{ERBB2 Amp / Gastric / Trastuzumab deruxtecan} $\to$ \texttt{kb\_coverage=GAP} (richiede OncoKB).
+  \item \bench{BENCH-027}: \texttt{MET Exon 14 / NSCLC / Capmatinib} $\to$ Copertura limitata nel KB locale (solo 3 evidenze).
+  \item \bench{BENCH-017}: \texttt{MSI High / CRC / Pembrolizumab} $\to$ Copertura limitata nel KB locale (solo 2 evidenze).
+\end{itemize}
+
+% ============================================================
+\section{Conclusione --- LLM Readiness}
+
+\begin{keyresultbox}
+La verifica sistematica ha confermato che la base di conoscenza e la struttura logica del sistema sono \textbf{pronte al 100\%} per l'integrazione con l'agente LLM. Tutti i 30 casi sono stati mappati con successo, i gap del database locale sono stati identificati e circoscritti, e le regole di branching del Variant Interpreter sono state completamente formalizzate.
+\end{keyresultbox}
+
+% ============================================================
+\section{Documenti Prodotti nella Sessione}
+
+\begin{table}[ht]
+\centering\renewcommand{\arraystretch}{1.3}
+\caption{Documenti generati durante la sessione di lavoro}
+\begin{tabular}{lp{9.5cm}}
+\toprule
+\rowcolor{primaryblue}
+\color{white}\textbf{Nome File} & \color{white}\textbf{Descrizione} \\
+\midrule
+\texttt{pipeline\_mtb\_v3.html} & Descrizione della pipeline v3 con input strutturato e gestione delle alterazioni. \\
+\rowcolor{roweven}
+\texttt{benchmark\_papers\_summary\_30\_v2.csv} & Database benchmark di 30 casi clinici aggiornato con i tipi di alterazione. \\
+\texttt{report\_oncokb\_api.md} & Report tecnico di integrazione delle API OncoKB. \\
+\rowcolor{roweven}
+\texttt{report\_sessione\_06062026.txt} & Riepilogo testuale grezzo della sessione di lavoro (punto di partenza di questo report). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Agenda Sessione Successiva}
+
+\subsection{Priorita' Urgenti (Prerequisiti di Sviluppo)}
+\begin{itemize}[leftmargin=1.6em, itemsep=3pt]
+  \item \textbf{Scelta del modello LLM:} Selezione dell'LLM (candidati: \textit{Claude 3.5 Sonnet}, \textit{GPT-4o}, \textit{Gemini 1.5 Pro}) in base a costi (30 casi con molteplici metriche), supporto nativo per output strutturato (JSON schema) e ampiezza della context window.
+  \item \textbf{Test Pilota:} Esecuzione del primo test end-to-end sul caso pilota \bench{BENCH-001} (BRAF V600E / Melanoma) tramite lo script Python esistente.
+\end{itemize}
+
+\subsection{Attivita' Importanti (Completamento Pipeline)}
+\begin{itemize}[leftmargin=1.6em, itemsep=3pt]
+  \item \textbf{Aggiornamento codice (\texttt{pipeline\_mtb\_v2.py} $\to$ \texttt{v3}):}
+        \begin{itemize}[itemsep=2pt, leftmargin=1.2em]
+          \item Implementazione del branching logico per \texttt{alteration\_type} nel Variant Interpreter.
+          \item Inserimento del dizionario di mapping locale-OncoKB per i biomarker.
+          \item Aggiunta del campo \texttt{alteration\_type} all'interno dello Stato di LangGraph.
+          \item Integrazione del nodo OncoKB Enricher per sopperire ai gap.
+        \end{itemize}
+  \item \textbf{Aggiornamento CSV:} Marcatura esplicita di \texttt{kb\_coverage=GAP} per il caso \bench{BENCH-030}.
+  \item \textbf{Raffinamento query KIT Exon 11/9:} Introduzione di filtri piu' restrittivi per evitare la sovrapposizione con Melanoma e Polmone nei casi GIST.
+\end{itemize}
+
+\subsection{Attivita' a Medio Termine (Completamento Tesi)}
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item Sviluppo dell'interfaccia utente web con Streamlit.
+  \item Esecuzione della valutazione sistematica sui 30 casi clinici (Evidence Grounding, Drug Anchor Check e LLM-as-a-judge).
+  \item Aggiornamento del diagramma di architettura della pipeline (\texttt{diagramma\_pipeline\_v2.md} $\to$ \texttt{v3}).
+\end{itemize}
+
+\vfill
+\begin{center}
+  {\color{medgray}\rule{0.5\linewidth}{0.4pt}}\\[0.3em]
+  {\small\color{medgray}\textit{Fine report --- Sessione del 06 Giugno 2026}}
+\end{center}
+
+\end{document}
