@@ -56,24 +56,41 @@ function buildLocalGraph(data: ReportResponse): SubGraphData {
   const nodes: GraphNode[] = [];
   const links: GraphLink[] = [];
 
-  if (data.complexity === 'zero-shot') {
+  const isZeroShot = data.complexity === 'zero-shot' || data.complexity === 'vanilla' || data.complexity === 'websearch' || data.complexity === 'rag_testuale';
+  if (isZeroShot) {
+    const isWebSearch = data.complexity === 'websearch';
+    const isRAG = data.complexity === 'rag_testuale';
+    
+    let description = 'Memoria interna del Large Language Model. Nessun database consultato.';
+    let label = 'LLM Parametric Memory';
+    if (isWebSearch) {
+      label = 'LLM + PubMed WebSearch';
+      description = 'Generazione LLM arricchita da ricerca articoli PubMed inline.';
+    } else if (isRAG) {
+      label = 'LLM + Textual RAG';
+      description = 'Generazione LLM arricchita da retrieval semantico di chunk di testo dal KG.';
+    }
+
     nodes.push({
-      id: 'llm_core', label: 'LLM Parametric Memory', type: 'llm_memory',
+      id: 'llm_core', label: label, type: 'llm_memory',
       color: NODE_COLORS.llm_memory, val: 14,
-      metadata: { description: 'Memoria interna del Large Language Model. Nessun database consultato.' },
+      metadata: { description: description },
     });
     data.cited_pmids.forEach((pmid, idx) => {
       const pid = `halluc_pmid_${idx}`;
       nodes.push({
         id: pid, label: `PMID: ${pmid}`, type: 'publication',
-        color: '#EF4444', val: 5,
+        color: (isWebSearch || isRAG) ? '#F59E0B' : '#EF4444', // Orange for websearch/rag, red for zero-shot
+        val: 5,
         metadata: {
-          pmid, hallucinated: true,
-          description: 'PMID citato dall\'LLM ma NON verificato. Probabile allucinazione.',
+          pmid, hallucinated: !isWebSearch && !isRAG,
+          description: isWebSearch 
+            ? 'PMID citato e recuperato via PubMed WebSearch.' 
+            : (isRAG ? 'PMID citato ed estratto da RAG testuale.' : 'PMID citato dall\'LLM ma NON verificato. Probabile allucinazione.'),
           url: `https://pubmed.ncbi.nlm.nih.gov/${pmid}`,
         },
       });
-      links.push({ source: 'llm_core', target: pid, label: 'HALLUCINATED', type: 'HALLUCINATED' });
+      links.push({ source: 'llm_core', target: pid, label: 'CITED', type: 'CITED' });
     });
     return { nodes, links };
   }
@@ -190,7 +207,7 @@ export default function KnowledgeGraph3D({ data }: KnowledgeGraph3DProps) {
 
   // ── Carica sotto-grafo dal backend o fallback locale ─────
   useEffect(() => {
-    const isZeroShot = data.complexity === 'zero-shot';
+    const isZeroShot = data.complexity === 'zero-shot' || data.complexity === 'vanilla' || data.complexity === 'websearch' || data.complexity === 'rag_testuale';
     const geneSymbol = data.report.match(/Gene:\s*([A-Za-z0-9]+)/)?.[1] || '';
 
     const fetchSubgraph = async () => {

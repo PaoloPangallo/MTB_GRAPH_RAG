@@ -1,0 +1,646 @@
+{
+  "summary": {
+    "total_cases": 30,
+    "pct_complexity_stable": 93.33,
+    "pct_escat_stable": 96.67,
+    "pct_pmids_stable": 100.0,
+    "pct_drugs_stable": 93.33
+  },
+  "unstable_cases_list": [
+    "BENCH-010: complexity: ['moderate', 'low', 'moderate', 'moderate', 'low'], drugs vary across runs: [['GILTERITINIB', 'LESTAURTINIB', 'SORAFENIB'], [], ['GILTERITINIB', 'LESTAURTINIB', 'SORAFENIB'], ['GILTERITINIB', 'LESTAURTINIB', 'SORAFENIB'], []]",
+    "BENCH-016: tier: ['I-A', 'I-A', 'I-C', 'I-C', 'I-A']",
+    "BENCH-029: complexity: ['high', 'high', 'low', 'high', 'high'], drugs vary across runs: [['DABRAFENIB', 'TRAMETINIB', 'VEMURAFENIB'], ['DABRAFENIB', 'TRAMETINIB', 'VEMURAFENIB'], [], ['DABRAFENIB', 'TRAMETINIB', 'VEMURAFENIB'], ['DABRAFENIB', 'TRAMETINIB', 'VEMURAFENIB']]"
+  ],
+  "stability_details": [
+    {
+      "case_id": "BENCH-001",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-002",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-003",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-004",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-005",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-006",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-007",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-008",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-009",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-010",
+      "complexity_stable": false,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": false,
+      "complexities": [
+        "moderate",
+        "low",
+        "moderate",
+        "moderate",
+        "low"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-011",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-012",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-013",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "non determinato",
+        "non determinato",
+        "non determinato",
+        "non determinato",
+        "non determinato"
+      ]
+    },
+    {
+      "case_id": "BENCH-014",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-B",
+        "I-B",
+        "I-B",
+        "I-B",
+        "I-B"
+      ]
+    },
+    {
+      "case_id": "BENCH-015",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-016",
+      "complexity_stable": true,
+      "escat_stable": false,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-C",
+        "I-C",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-017",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-018",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-019",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-020",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-021",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-022",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-023",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-B",
+        "I-B",
+        "I-B",
+        "I-B",
+        "I-B"
+      ]
+    },
+    {
+      "case_id": "BENCH-024",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-025",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "high",
+        "high",
+        "high",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-B",
+        "I-B",
+        "I-B",
+        "I-B",
+        "I-B"
+      ]
+    },
+    {
+      "case_id": "BENCH-026",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-027",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-028",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    },
+    {
+      "case_id": "BENCH-029",
+      "complexity_stable": false,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": false,
+      "complexities": [
+        "high",
+        "high",
+        "low",
+        "high",
+        "high"
+      ],
+      "escat_tiers": [
+        "I-B",
+        "I-B",
+        "I-B",
+        "I-B",
+        "I-B"
+      ]
+    },
+    {
+      "case_id": "BENCH-030",
+      "complexity_stable": true,
+      "escat_stable": true,
+      "pmids_stable": true,
+      "drugs_stable": true,
+      "complexities": [
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate",
+        "moderate"
+      ],
+      "escat_tiers": [
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A",
+        "I-A"
+      ]
+    }
+  ]
+}

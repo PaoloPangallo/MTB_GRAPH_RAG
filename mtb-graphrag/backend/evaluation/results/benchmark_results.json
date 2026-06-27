@@ -1,0 +1,25 @@
+[
+  {
+    "case_id": "BENCH-001",
+    "gene": "EGFR",
+    "variant": "L858R",
+    "tumor": "NSCLC",
+    "expected_drug": "Osimertinib",
+    "complexity": "moderate",
+    "escat_tier": "I-A",
+    "n_pmids": 16,
+    "n_drugs": 9,
+    "n_resistance": 2,
+    "n_trials": 5,
+    "judge_score": 3.125,
+    "judge_detail": {
+      "completezza": 3.5,
+      "utilita_clinica": 3.0,
+      "fedelta_evidenze": 2.5,
+      "accuratezza_clinica": 3.5,
+      "score_totale": 3.125,
+      "motivazione": "Il report è strutturato in modo chiaro e copre gli elementi principali (variante, terapie, resistenze, trial). Tuttavia, presenta diverse criticità: (1) la lista finale dei PMID contiene 16 riferimenti non tutti citati nel corpo del report (solo 3 riferimenti espliciti: 25668228, 25939061, 37937763); (2) alcune classificazioni sono inaccurate - Amivantamab è elencato come opzione di 'prima linea' nonostante sia approvato per NSCLC EGFR mutato solo in linea successiva (post-platinum); (3) le indicazioni CDx contengono imprecisioni (es. Lazertinib non ha ancora CDx approvato); (4) mancano dettagli su dosaggi e sequenza terapeutica ottimale. La fedeltà alle evidenze è compromessa dalla mancata corrispondenza tra i PMID elencati e il testo che li dovrebbe supportare."
+    },
+    "report": "Ecco il report strutturato per il Molecular Tumor Board:\n\n### 1. Variante e classificazione ESCAT\n*   **Gene:** EGFR\n*   **Variante:** L858R (point mutation)\n*   **Tumore:** Adenocarcinoma polmonare (Lung Adenocarcinoma)\n*   **Linea di trattamento:** Prima linea (first-line)\n*   **Classificazione ESCAT:** Tier I-A\n\n### 2. Terapia raccomandata\nLe seguenti terapie sono indicate per pazienti con mutazione EGFR L858R in prima linea, basate su evidenze di sensibilità/risposta (Livello A/B):\n\n*   **Osimertinib** (Approvato) | **CDx:** FoundationOne CDx, FoundationOne Liquid CDx, Guardant360 CDx, cobas EGFR Mutation Test v2. È raccomandato come opzione terapeutica di prima linea [PMID: 37937763].\n*   **Afatinib** (Approvato) | **CDx:** FoundationOne CDx, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit.\n*   **Dacomitinib** (Approvato) | **CDx:** therascreen EGFR RGQ PCR Kit.\n*   **Erlotinib** (Approvato) | **CDx:** FoundationOne CDx, FoundationOne Liquid CDx, cobas EGFR Mutation Test v1.\n*   **Gefitinib** (Approvato) | **CDx:** FoundationOne CDx, FoundationOne Liquid CDx, Oncomine Dx Target Test, cobas EGFR Mutation Test v2, therascreen EGFR RGQ PCR Kit.\n*   **Amivantamab** (Non approvato) | **CDx:** Guardant360 CDx, Oncomine Dx Target Test.\n*   **Lazertinib** (Non approvato).\n*   **Carboplatin** (Approvato).\n*   **Ramucirumab** (Approvato).\n\n### 3. Profilo di resistenza\nL'efficacia dei TKI di EGFR può essere compromessa dallo sviluppo di mutazioni secondarie:\n*   **T790M:** Conferisce resistenza agli inibitori della tirosina chinasi di prima generazione, come l'erlotinib, portando frequentemente a recidiva clinica [PMID: 25668228].\n*   **C797S:** Mutazione identificata in pazienti che hanno sviluppato resistenza a osimertinib; l'espressione di questo mutante rende le cellule resistenti all'azione di osimertinib [PMID: 25939061].\n\n### 4. Trial clinici eleggibili\n*   **NCT05748093:** Studio sull'esposizione di Osimertinib e costo-efficacia tramite boosting farmacocinetico con Cobicistat (Fase 4).\n*   **NCT07092202:** Firmonertinib combinato con iniezione intratecale per NSCLC con mutazione EGFR e metastasi leptomeningee (Fase 4).\n*   **NCT07183189:** Studio di SHR-A2009 combinato con Aumolertinib vs Aumolertinib in prima linea per NSCLC EGFR-mutato (Fase 3).\n*   **NCT0630575 la:** Sacituzumab Tirumotecan vs Pemetrexed/Carboplatin in NSCLC EGFR-mutato progredito dopo precedenti TKI (Fase 3).\n*   **NCT05047250:** Studio su Atezolizumab in pazienti con alta espressione di PD-L1, chemotherapy-naïve (Fase 3).\n\n### 5. Lista finale dei PMID verificati\n*   23982599\n*   24263064\n*   24439929\n*   24868098\n*   25668228\n*   25939061\n*   26768165\n*   27022112\n*   27032107\n*   27959700\n*   28958502\n*   31591063\n*   32955177\n*   37879444\n*   37937763\n*   38942080"
+  }
+]

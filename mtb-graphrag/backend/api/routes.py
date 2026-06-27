@@ -15,8 +15,11 @@ from backend.pipeline.agents.judge import llm_as_judge
 from backend.pipeline.helpers import make_pmids_clickable
 from backend.pipeline.llm import llm
 from backend.evaluation.run_zeroshot import SYNTHESIZER_SYSTEM, build_zeroshot_context
-from backend.evaluation.compute_metrics import extract_pmids_from_report
+from backend.evaluation.compute_metrics import extract_pmids_from_report, extract_escat_tier
 from backend.api.subgraph import extract_subgraph, build_zeroshot_subgraph
+from backend.evaluation.ablation_websearch import run_websearch
+from backend.evaluation.ablation_rag import run_rag_testuale
+
 
 router = APIRouter()
 
@@ -169,6 +172,103 @@ def zeroshot(req: MTBRequest) -> ReportResponse:
     )
 
 
+def extract_drugs_from_report(report_text: str) -> list[dict]:
+    from backend.evaluation.drug_aliases import DRUG_ALIASES
+    found_drugs = []
+    text_lower = report_text.lower()
+    detected = set()
+    for alias, generic in DRUG_ALIASES.items():
+        if alias in text_lower or generic in text_lower:
+            detected.add(generic)
+            
+    for drug in sorted(list(detected)):
+        found_drugs.append({
+            "drug_name": drug.capitalize(),
+            "approved": True,
+            "evidence_level": "N/D",
+            "companion_diagnostic": None
+        })
+    return found_drugs
+
+
+@router.post("/websearch", response_model=ReportResponse)
+def websearch(req: MTBRequest) -> ReportResponse:
+    """Esegue la condizione websearch (PubMed search + LLM zero-shot)."""
+    gene = req.gene or ""
+    variant = req.variant
+    tumor_type = req.tumor_type
+    alteration_type = req.alteration_type
+    if "MSI" in variant.upper() or "TMB" in variant.upper():
+        alteration_type = "biomarker"
+    therapy_line = req.therapy_line or "first-line"
+    
+    report = run_websearch(
+        gene, variant, tumor_type, alteration_type, therapy_line
+    )
+    
+    # Estrai i PMID citati
+    cited_pmids = list(extract_pmids_from_report(report))
+    
+    # Rendi i PMID cliccabili
+    report_clickable = make_pmids_clickable(report)
+    
+    # Estrai ESCAT tier
+    escat_tier = extract_escat_tier(report) or "N/D"
+    
+    # Estrai farmaci raccomandati
+    drug_candidates = extract_drugs_from_report(report)
+    
+    return ReportResponse(
+        complexity="websearch",
+        escat_tier=escat_tier,
+        report=report_clickable,
+        cited_pmids=cited_pmids,
+        drug_candidates=drug_candidates,
+        resistance_data=[],
+        trial_candidates=[],
+        oncokb_enrichment=None
+    )
+
+
+@router.post("/rag", response_model=ReportResponse)
+def rag(req: MTBRequest) -> ReportResponse:
+    """Esegue la condizione rag_testuale (RAG su chunk KG + LLM)."""
+    gene = req.gene or ""
+    variant = req.variant
+    tumor_type = req.tumor_type
+    alteration_type = req.alteration_type
+    if "MSI" in variant.upper() or "TMB" in variant.upper():
+        alteration_type = "biomarker"
+    therapy_line = req.therapy_line or "first-line"
+    
+    report = run_rag_testuale(
+        gene, variant, tumor_type, alteration_type, therapy_line
+    )
+    
+    # Estrai i PMID citati
+    cited_pmids = list(extract_pmids_from_report(report))
+    
+    # Rendi i PMID cliccabili
+    report_clickable = make_pmids_clickable(report)
+    
+    # Estrai ESCAT tier
+    escat_tier = extract_escat_tier(report) or "N/D"
+    
+    # Estrai farmaci raccomandati
+    drug_candidates = extract_drugs_from_report(report)
+    
+    return ReportResponse(
+        complexity="rag_testuale",
+        escat_tier=escat_tier,
+        report=report_clickable,
+        cited_pmids=cited_pmids,
+        drug_candidates=drug_candidates,
+        resistance_data=[],
+        trial_candidates=[],
+        oncokb_enrichment=None
+    )
+
+
 @router.post("/judge", response_model=JudgeResponse)
 def judge(req: JudgeRequest) -> JudgeResponse:
     """Valuta un report MTB con LLM-as-judge."""
@@ -179,4 +279,5 @@ def judge(req: JudgeRequest) -> JudgeResponse:
     }
     result = llm_as_judge(req.report, case_info)
     return JudgeResponse(**result)
+
 

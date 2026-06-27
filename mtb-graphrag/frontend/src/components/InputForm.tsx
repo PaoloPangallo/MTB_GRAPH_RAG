@@ -12,13 +12,15 @@ import {
   Box,
   Typography,
   Switch,
-  FormControlLabel
+  FormControlLabel,
+  Checkbox,
+  FormGroup
 } from '@mui/material';
 import type { MTBRequest, AlterationType } from '../types';
 
 interface InputFormProps {
   onSubmit: (req: MTBRequest, isZeroShot: boolean) => void;
-  onCompare: (req: MTBRequest) => void;
+  onCompare: (req: MTBRequest, conditions: string[]) => void;
   disabled: boolean;
 }
 
@@ -30,6 +32,17 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
   const [therapyLine, setTherapyLine] = useState('first-line');
   const [driverVariant, setDriverVariant] = useState('');
   const [enrichOncoKB, setEnrichOncoKB] = useState(false);
+  const [compareConditions, setCompareConditions] = useState<string[]>(['vanilla', 'full_graphrag']);
+
+  const handleToggleCondition = (cond: string) => {
+    setCompareConditions(prev => {
+      if (prev.includes(cond)) {
+        return prev.filter(c => c !== cond);
+      } else {
+        return [...prev, cond];
+      }
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +70,7 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
   };
 
   const handleCompareSubmit = () => {
+    if (compareConditions.length < 2) return;
     onCompare({
       gene,
       variant,
@@ -65,8 +79,9 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
       therapy_line: therapyLine,
       enrich_with_oncokb: enrichOncoKB,
       driver_variant: driverVariant || undefined
-    });
+    }, compareConditions);
   };
+
 
   return (
     <Card variant="outlined">
@@ -195,12 +210,49 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
               Genera Baseline Zero-Shot
             </Button>
 
+            <Box sx={{ mt: 1, p: 2, border: '1px solid #E2E8F0', borderRadius: 2, bgcolor: '#F8FAFC' }}>
+              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}>
+                Condizioni da confrontare:
+              </Typography>
+              <FormGroup>
+                {[
+                  { id: 'vanilla', label: 'Vanilla (Zero-Shot)' },
+                  { id: 'websearch', label: 'WebSearch' },
+                  { id: 'rag_testuale', label: 'RAG Testuale' },
+                  { id: 'full_graphrag', label: 'Full GraphRAG' }
+                ].map((item) => (
+                  <FormControlLabel
+                    key={item.id}
+                    control={
+                      <Checkbox
+                        size="small"
+                        checked={compareConditions.includes(item.id)}
+                        onChange={() => handleToggleCondition(item.id)}
+                        disabled={disabled}
+                      />
+                    }
+                    label={
+                      <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                        {item.label}
+                      </Typography>
+                    }
+                    sx={{ my: -0.5 }}
+                  />
+                ))}
+              </FormGroup>
+              {compareConditions.length < 2 && (
+                <Typography variant="caption" color="error" sx={{ mt: 0.5, display: 'block' }}>
+                  Seleziona almeno 2 condizioni.
+                </Typography>
+              )}
+            </Box>
+
             <Button 
               type="button" 
               variant="contained" 
               color="info"
               size="medium" 
-              disabled={disabled}
+              disabled={disabled || compareConditions.length < 2}
               onClick={handleCompareSubmit}
               disableElevation
             >
