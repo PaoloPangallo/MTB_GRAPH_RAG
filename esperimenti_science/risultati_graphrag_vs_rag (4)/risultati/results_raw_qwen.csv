@@ -1,0 +1,679 @@
+qid,system,hop_count,qtype,precision,recall,f1,exact,n_pred,n_match,retr_recall,ctx_words,answer,reader,is_err
+Q001,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,FLT3,qwen3-coder-next,False
+Q001,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,0.0,948,NON DETERMINABILE,qwen3-coder-next,False
+Q001,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,943,FLT3,qwen3-coder-next,False
+Q001,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,943,FLT3,qwen3-coder-next,False
+Q002,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,15,ALK,qwen3-coder-next,False
+Q002,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,0.0,972,NON DETERMINABILE,qwen3-coder-next,False
+Q002,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,941,ALK,qwen3-coder-next,False
+Q002,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,947,ALK,qwen3-coder-next,False
+Q003,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,EGFR,qwen3-coder-next,False
+Q003,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,957,EGFR,qwen3-coder-next,False
+Q003,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,944,EGFR,qwen3-coder-next,False
+Q003,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,938,EGFR,qwen3-coder-next,False
+Q004,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,3,3,1.0,45,"NTRK1, NTRK2, NTRK3",qwen3-coder-next,False
+Q004,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,3,3,1.0,964,"NTRK1,NTRK2,NTRK3",qwen3-coder-next,False
+Q004,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,3,3,1.0,940,"NTRK1,NTRK2,NTRK3",qwen3-coder-next,False
+Q004,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,3,3,1.0,938,"NTRK1, NTRK2, NTRK3",qwen3-coder-next,False
+Q005,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,RET,qwen3-coder-next,False
+Q005,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,948,RET,qwen3-coder-next,False
+Q005,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,940,RET,qwen3-coder-next,False
+Q005,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,951,RET,qwen3-coder-next,False
+Q006,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,44,KRAS,qwen3-coder-next,False
+Q006,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,0.0,947,NON DETERMINABILE,qwen3-coder-next,False
+Q006,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,946,KRAS,qwen3-coder-next,False
+Q006,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,944,KRAS,qwen3-coder-next,False
+Q007,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,15,MET,qwen3-coder-next,False
+Q007,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,963,MET,qwen3-coder-next,False
+Q007,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,941,MET,qwen3-coder-next,False
+Q007,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,949,MET,qwen3-coder-next,False
+Q008,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,28,"BCR, ABL1",qwen3-coder-next,False
+Q008,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,0.0,950,NON DETERMINABILE,qwen3-coder-next,False
+Q008,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,940,"BCR, ABL1",qwen3-coder-next,False
+Q008,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,941,"BCR, ABL1",qwen3-coder-next,False
+Q009,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,PIK3CA,qwen3-coder-next,False
+Q009,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,959,PIK3CA,qwen3-coder-next,False
+Q009,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,945,PIK3CA,qwen3-coder-next,False
+Q009,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,938,PIK3CA,qwen3-coder-next,False
+Q010,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,FGFR3,qwen3-coder-next,False
+Q010,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,959,FGFR3,qwen3-coder-next,False
+Q010,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,943,FGFR3,qwen3-coder-next,False
+Q010,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,950,FGFR3,qwen3-coder-next,False
+Q011,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,30,BRAF,qwen3-coder-next,False
+Q011,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,966,BRAF,qwen3-coder-next,False
+Q011,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,940,BRAF,qwen3-coder-next,False
+Q011,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,941,BRAF,qwen3-coder-next,False
+Q012,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,KRAS,qwen3-coder-next,False
+Q012,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,0.0,892,NON DETERMINABILE,qwen3-coder-next,False
+Q012,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,946,KRAS,qwen3-coder-next,False
+Q012,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,937,KRAS,qwen3-coder-next,False
+Q013,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,EGFR,qwen3-coder-next,False
+Q013,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,965,EGFR,qwen3-coder-next,False
+Q013,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,941,EGFR,qwen3-coder-next,False
+Q013,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,945,EGFR,qwen3-coder-next,False
+Q014,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,28,"KIT, PDGFRA",qwen3-coder-next,False
+Q014,rag_dense,2,drug_to_gene_cdx,1.0,0.5,0.6666666666666666,0.0,1,1,0.5,951,KIT,qwen3-coder-next,False
+Q014,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,943,"KIT, PDGFRA",qwen3-coder-next,False
+Q014,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,937,"KIT, PDGFRA",qwen3-coder-next,False
+Q015,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,EGFR,qwen3-coder-next,False
+Q015,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,937,EGFR,qwen3-coder-next,False
+Q015,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,943,EGFR,qwen3-coder-next,False
+Q015,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,940,EGFR,qwen3-coder-next,False
+Q016,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,29,ERBB2,qwen3-coder-next,False
+Q016,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,947,ERBB2,qwen3-coder-next,False
+Q016,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,942,ERBB2,qwen3-coder-next,False
+Q016,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,946,ERBB2,qwen3-coder-next,False
+Q017,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,IDH1,qwen3-coder-next,False
+Q017,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,0.0,957,NON DETERMINABILE,qwen3-coder-next,False
+Q017,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,941,IDH1,qwen3-coder-next,False
+Q017,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,952,IDH1,qwen3-coder-next,False
+Q018,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,28,"IDH1, IDH2",qwen3-coder-next,False
+Q018,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,0.0,948,NON DETERMINABILE,qwen3-coder-next,False
+Q018,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,940,"IDH1, IDH2",qwen3-coder-next,False
+Q018,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,936,"IDH1,IDH2",qwen3-coder-next,False
+Q019,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,ALK,qwen3-coder-next,False
+Q019,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,1.0,950,NON DETERMINABILE,qwen3-coder-next,False
+Q019,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,945,ALK,qwen3-coder-next,False
+Q019,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,946,ALK,qwen3-coder-next,False
+Q020,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,16,BRAF,qwen3-coder-next,False
+Q020,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,952,BRAF,qwen3-coder-next,False
+Q020,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,947,BRAF,qwen3-coder-next,False
+Q020,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,943,BRAF,qwen3-coder-next,False
+Q021,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,30,BRAF,qwen3-coder-next,False
+Q021,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,951,BRAF,qwen3-coder-next,False
+Q021,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,941,BRAF,qwen3-coder-next,False
+Q021,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,946,BRAF,qwen3-coder-next,False
+Q022,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,28,"RET, NTRK3",qwen3-coder-next,False
+Q022,rag_dense,2,drug_to_gene_cdx,0.4,1.0,0.5714285714285715,1.0,5,2,1.0,935,"RET, NTRK3, NTRK2, NTRK1, KIF5B",qwen3-coder-next,False
+Q022,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,940,"RET, NTRK3",qwen3-coder-next,False
+Q022,rag_hybrid,2,drug_to_gene_cdx,0.5,1.0,0.6666666666666666,1.0,4,2,1.0,941,"RET, NTRK3, NTRK2, NTRK1",qwen3-coder-next,False
+Q023,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,58,KRAS,qwen3-coder-next,False
+Q023,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,939,KRAS,qwen3-coder-next,False
+Q023,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,931,KRAS,qwen3-coder-next,False
+Q023,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,948,KRAS,qwen3-coder-next,False
+Q024,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,4,4,1.0,56,"NTRK1,NTRK2,NTRK3,ROS1",qwen3-coder-next,False
+Q024,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,4,4,1.0,958,"NTRK1, NTRK2, NTRK3, ROS1",qwen3-coder-next,False
+Q024,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,4,4,1.0,944,"NTRK1, NTRK2, NTRK3, ROS1",qwen3-coder-next,False
+Q024,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,4,4,1.0,942,"NTRK1,NTRK2,NTRK3,ROS1",qwen3-coder-next,False
+Q025,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,ERBB2,qwen3-coder-next,False
+Q025,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,940,ERBB2,qwen3-coder-next,False
+Q025,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,942,ERBB2,qwen3-coder-next,False
+Q025,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,935,ERBB2,qwen3-coder-next,False
+Q026,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,IDH2,qwen3-coder-next,False
+Q026,rag_dense,2,drug_to_gene_cdx,0.0,0.0,0.0,0.0,0,0,0.0,955,NON DETERMINABILE,qwen3-coder-next,False
+Q026,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,941,IDH2,qwen3-coder-next,False
+Q026,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,940,IDH2,qwen3-coder-next,False
+Q027,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,30,"BRCA1, BRCA2",qwen3-coder-next,False
+Q027,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,952,"BRCA1, BRCA2",qwen3-coder-next,False
+Q027,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,934,"BRCA1, BRCA2",qwen3-coder-next,False
+Q027,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,2,2,1.0,939,"BRCA1, BRCA2",qwen3-coder-next,False
+Q028,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,ALK,qwen3-coder-next,False
+Q028,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,951,ALK,qwen3-coder-next,False
+Q028,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,940,ALK,qwen3-coder-next,False
+Q028,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,934,ALK,qwen3-coder-next,False
+Q029,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,BRAF,qwen3-coder-next,False
+Q029,rag_dense,2,drug_to_gene_cdx,0.2,1.0,0.3333333333333333,1.0,5,1,1.0,947,"BRAF, ETV5, ETV1, RASA1, CIC",qwen3-coder-next,False
+Q029,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,942,BRAF,qwen3-coder-next,False
+Q029,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,944,BRAF,qwen3-coder-next,False
+Q030,graphrag,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,14,EGFR,qwen3-coder-next,False
+Q030,rag_dense,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,955,EGFR,qwen3-coder-next,False
+Q030,rag_bm25,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,941,EGFR,qwen3-coder-next,False
+Q030,rag_hybrid,2,drug_to_gene_cdx,1.0,1.0,1.0,1.0,1,1,1.0,936,EGFR,qwen3-coder-next,False
+Q031,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,5,5,1.0,71,"ENDOXIFEN, VACCINE, NIVOLUMAB, TRIFLURIDINE, TIPIRACIL HYDROCHLORIDE",qwen3-coder-next,False
+Q031,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,15,0,0.0,956,"AP4A, ABIRATERONE ACETATE, ADENOSINE TRIPHOSPHATE, AR-C118925XX, AR-C126313, BASROPARIB, BINIMETINIB, BUPARLISIB, CELECOXIB, DACTOLISIB, DASATINIB ANHYDROUS, DECITABINE, 2-THIOUTP, 4-THIO-UTP, 5BRUTP, AP4A, ADENOSINE TRIPHOSPHATE",qwen3-coder-next,False
+Q031,rag_bm25,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,3,0,0.0,913,"Tegavivint, JW55, G007-LK",qwen3-coder-next,False
+Q031,rag_hybrid,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.0,918,NON DETERMINABILE,qwen3-coder-next,False
+Q032,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,4,4,1.0,56,"AZD-4547, OLAPARIB, VISTUSERTIB, SELUMETINIB",qwen3-coder-next,False
+Q032,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,1,0,0.25,911,N/D,qwen3-coder-next,False
+Q032,rag_bm25,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,1,0,0.0,812,Nessuno,qwen3-coder-next,False
+Q032,rag_hybrid,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,2,0,0.0,866,"TYRA-300, Erdafitinib",qwen3-coder-next,False
+Q033,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,6,6,1.0,84,"RIBOCICLIB, ALECTINIB, REGORAFENIB, TRAMETINIB, DABRAFENIB, AVAPRITINIB",qwen3-coder-next,False
+Q033,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,5,0,0.1666666666666666,938,"CETUXIMAB, FLUOROURACIL, GEMCITABINE, LYSINE, RECOMBINANT TRANSFORMING GROWTH FACTOR",qwen3-coder-next,False
+Q033,rag_bm25,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.0,864,NON DETERMINABILE,qwen3-coder-next,False
+Q033,rag_hybrid,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,3,0,0.0,873,"FLUOROURACIL, CETUXIMAB, PANITUMUMAB",qwen3-coder-next,False
+Q034,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,5,5,1.0,71,"SAVOLITINIB, SUNITINIB, BELZUTIFAN, PROPRANOLOL HYDROCHLORIDE, PT2385",qwen3-coder-next,False
+Q034,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.0,921,NON DETERMINABILE,qwen3-coder-next,False
+Q034,rag_bm25,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.2,895,NON DETERMINABILE,qwen3-coder-next,False
+Q034,rag_hybrid,2,gene_to_trialdrug,0.25,0.2,0.2222222222222222,0.0,4,1,0.2,905,"Belzutifan, Venetoclax, Ixazomib Citrate, Dexamethasone",qwen3-coder-next,False
+Q035,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,3,3,1.0,43,"ENTRECTINIB,REPOTRECTINIB,LAROTRECTINIB SULFATE",qwen3-coder-next,False
+Q035,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.3333333333333333,936,NON DETERMINABILE,qwen3-coder-next,False
+Q035,rag_bm25,2,gene_to_trialdrug,1.0,0.6666666666666666,0.8,0.0,2,2,0.3333333333333333,839,"Larotrectinib, Entrectinib",qwen3-coder-next,False
+Q035,rag_hybrid,2,gene_to_trialdrug,1.0,0.6666666666666666,0.8,0.0,2,2,0.3333333333333333,917,"ENTRECTINIB, LAROTRECTINIB",qwen3-coder-next,False
+Q036,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,3,3,1.0,43,"ENTRECTINIB, REPOTRECTINIB, LAROTRECTINIB SULFATE",qwen3-coder-next,False
+Q036,rag_dense,2,gene_to_trialdrug,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.0,3,2,0.3333333333333333,935,"Selpercatinib, Entrectinib, Larotrectinib",qwen3-coder-next,False
+Q036,rag_bm25,2,gene_to_trialdrug,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.0,3,2,0.6666666666666666,863,"Entrectinib, Larotrectinib, Selpercatinib",qwen3-coder-next,False
+Q036,rag_hybrid,2,gene_to_trialdrug,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.0,3,2,0.6666666666666666,924,"Selpercatinib, Entrectinib, Larotrectinib",qwen3-coder-next,False
+Q037,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,7,7,1.0,99,"AZACITIDINE, DECITABINE, VENETOCLAX, REVUMENIB, MIDOSTAURIN, CYTARABINE, DAUNORUBICIN HYDROCHLORIDE",qwen3-coder-next,False
+Q037,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.1428571428571428,907,NON DETERMINABILE,qwen3-coder-next,False
+Q037,rag_bm25,2,gene_to_trialdrug,1.0,0.1428571428571428,0.25,0.0,1,1,0.2857142857142857,867,DECITABINE,qwen3-coder-next,False
+Q037,rag_hybrid,2,gene_to_trialdrug,1.0,0.1428571428571428,0.25,0.0,1,1,0.1428571428571428,869,DECITABINE,qwen3-coder-next,False
+Q038,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,8,8,1.0,113,"AFATINIB, PEMIGATINIB, FULVESTRANT, EXEMESTANE, ENFORTUMAB VEDOTIN, ERDAFITINIB, HMPL-453, TINENGOTINIB",qwen3-coder-next,False
+Q038,rag_dense,2,gene_to_trialdrug,1.0,0.125,0.2222222222222222,0.0,1,1,0.5,920,Pemigatinib,qwen3-coder-next,False
+Q038,rag_bm25,2,gene_to_trialdrug,0.2857142857142857,0.25,0.2666666666666666,0.0,7,2,0.375,850,"INFIGRATINIB, Pemigatinib, Erdafitinib, Fexaratinib, CGT4859, TYRA-200, JNJ-79635322",qwen3-coder-next,False
+Q038,rag_hybrid,2,gene_to_trialdrug,0.25,0.125,0.1666666666666666,0.0,4,1,0.25,913,"Pemigatinib, Futibatinib, CGT4859, TYRA-200",qwen3-coder-next,False
+Q039,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,10,10,1.0,140,"TAMOXIFEN, DURVALUMAB, TREMELIMUMAB, PEMBROLIZUMAB, CARBOPLATIN, CISPLATIN, NIVOLUMAB, CETUXIMAB, AFATINIB, TELAGLENASTAT",qwen3-coder-next,False
+Q039,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.0,937,NON DETERMINABILE,qwen3-coder-next,False
+Q039,rag_bm25,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,1,0,0.0,904,Nessuno,qwen3-coder-next,False
+Q039,rag_hybrid,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,1,0,0.0,920,N/D,qwen3-coder-next,False
+Q040,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,7,7,1.0,98,"DURVALUMAB, TREMELIMUMAB, PEMBROLIZUMAB, CARBOPLATIN, CISPLATIN, NIVOLUMAB, TELAGLENASTAT",qwen3-coder-next,False
+Q040,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.0,937,NON DETERMINABILE,qwen3-coder-next,False
+Q040,rag_bm25,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,0,0,0.1428571428571428,920,NON DETERMINABILE,qwen3-coder-next,False
+Q040,rag_hybrid,2,gene_to_trialdrug,0.0666666666666666,0.1428571428571428,0.0909090909090909,0.0,15,1,0.1428571428571428,905,"AFATINIB, BARDOXOLONE, BARDOXOLONE METHYL, BUTHIONINE SULFOXIMINE, CAMRELIZUMAB, CARBOPLATIN, CERITINIB, COMPOUND 10, CPUY192018, CRIZOTINIB, DIMETHYL FUMARATE, DIROXIMEL FUMARATE, FLUOROURACIL, GEFITINIB, ISOQUINOLINE 17",qwen3-coder-next,False
+Q041,graphrag,2,gene_to_trialdrug,1.0,1.0,1.0,1.0,8,8,1.0,116,"CX-5461, TALAZOPARIB, BET BROMODOMAIN INHIBITOR ZEN-3694, DURVALUMAB, OLAPARIB, COPANLISIB HYDROCHLORIDE, FULVESTRANT, ELIMUSERTIB",qwen3-coder-next,False
+Q041,rag_dense,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,1,0,0.125,925,AMUVATINIB,qwen3-coder-next,False
+Q041,rag_bm25,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,5,0,0.25,909,"AMUVATINIB, AFATINIB, ICOTINIB, ERLOTINIB, GEFITINIB",qwen3-coder-next,False
+Q041,rag_hybrid,2,gene_to_trialdrug,0.0,0.0,0.0,0.0,1,0,0.25,916,AMUVATINIB,qwen3-coder-next,False
+Q042,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,SUNITINIB,qwen3-coder-next,False
+Q042,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,967,NON DETERMINABILE,qwen3-coder-next,False
+Q042,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,898,SUNITINIB,qwen3-coder-next,False
+Q042,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,862,SUNITINIB,qwen3-coder-next,False
+Q043,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,39,"PALBOCICLIB, FULVESTRANT, INAVOLISIB",qwen3-coder-next,False
+Q043,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,971,NON DETERMINABILE,qwen3-coder-next,False
+Q043,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,883,"FULVESTRANT, INAVOLISIB, PALBOCICLIB",qwen3-coder-next,False
+Q043,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,825,"FULVESTRANT, INAVOLISIB, PALBOCICLIB",qwen3-coder-next,False
+Q044,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,39,"JQEZ5, TAZEMETOSTAT",qwen3-coder-next,False
+Q044,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,978,NON DETERMINABILE,qwen3-coder-next,False
+Q044,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,878,"JQEZ5, TAZEMETOSTAT",qwen3-coder-next,False
+Q044,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,888,"TAZEMETOSTAT, JQEZ5",qwen3-coder-next,False
+Q045,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,CETUXIMAB,qwen3-coder-next,False
+Q045,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,970,NON DETERMINABILE,qwen3-coder-next,False
+Q045,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,907,CETUXIMAB,qwen3-coder-next,False
+Q045,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,764,CETUXIMAB,qwen3-coder-next,False
+Q046,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,SELPERCATINIB,qwen3-coder-next,False
+Q046,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,972,NON DETERMINABILE,qwen3-coder-next,False
+Q046,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,857,SELPERCATINIB,qwen3-coder-next,False
+Q046,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,933,SELPERCATINIB,qwen3-coder-next,False
+Q047,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,39,"PANITUMUMAB, CETUXIMAB",qwen3-coder-next,False
+Q047,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,972,NON DETERMINABILE,qwen3-coder-next,False
+Q047,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,837,"CETUXIMAB, PANITUMUMAB",qwen3-coder-next,False
+Q047,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,847,"CETUXIMAB, PANITUMUMAB",qwen3-coder-next,False
+Q048,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,26,"IMATINIB,SUNITINIB",qwen3-coder-next,False
+Q048,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,904,NON DETERMINABILE,qwen3-coder-next,False
+Q048,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,816,"IMATINIB, SUNITINIB",qwen3-coder-next,False
+Q048,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,855,"IMATINIB, SUNITINIB",qwen3-coder-next,False
+Q049,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,4,4,1.0,52,"QUIZARTINIB, PONATINIB, SORAFENIB, GILTERITINIB",qwen3-coder-next,False
+Q049,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.25,976,NON DETERMINABILE,qwen3-coder-next,False
+Q049,rag_bm25,3,variant_to_drug,0.8,1.0,0.888888888888889,1.0,5,4,1.0,864,"GILTERITINIB, PONATINIB, QUIZARTINIB, SORAFENIB, SUNITINIB",qwen3-coder-next,False
+Q049,rag_hybrid,3,variant_to_drug,0.6666666666666666,0.5,0.5714285714285715,0.0,3,2,1.0,849,"GILTERITINIB, SORAFENIB, SUNITINIB",qwen3-coder-next,False
+Q050,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,DASATINIB,qwen3-coder-next,False
+Q050,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,974,NON DETERMINABILE,qwen3-coder-next,False
+Q050,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,914,DASATINIB,qwen3-coder-next,False
+Q050,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,939,DASATINIB,qwen3-coder-next,False
+Q051,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,ALPELISIB,qwen3-coder-next,False
+Q051,rag_dense,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,903,ALPELISIB,qwen3-coder-next,False
+Q051,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,896,ALPELISIB,qwen3-coder-next,False
+Q051,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,830,ALPELISIB,qwen3-coder-next,False
+Q052,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,ERLOTINIB,qwen3-coder-next,False
+Q052,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,1.0,887,NON DETERMINABILE,qwen3-coder-next,False
+Q052,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,872,ERLOTINIB,qwen3-coder-next,False
+Q052,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,900,ERLOTINIB,qwen3-coder-next,False
+Q053,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,AXITINIB,qwen3-coder-next,False
+Q053,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,974,NON DETERMINABILE,qwen3-coder-next,False
+Q053,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,829,AXITINIB,qwen3-coder-next,False
+Q053,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,855,AXITINIB,qwen3-coder-next,False
+Q054,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,15,OICR-9429,qwen3-coder-next,False
+Q054,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,966,NON DETERMINABILE,qwen3-coder-next,False
+Q054,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,881,OICR-9429,qwen3-coder-next,False
+Q054,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,916,OICR-9429,qwen3-coder-next,False
+Q055,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,39,"PALBOCICLIB, INAVOLISIB, FULVESTRANT",qwen3-coder-next,False
+Q055,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,964,NON DETERMINABILE,qwen3-coder-next,False
+Q055,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,891,"FULVESTRANT, INAVOLISIB, PALBOCICLIB",qwen3-coder-next,False
+Q055,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,800,"FULVESTRANT, INAVOLISIB, PALBOCICLIB",qwen3-coder-next,False
+Q056,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,52,"ERLOTINIB, SUNVOZERTINIB",qwen3-coder-next,False
+Q056,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.5,888,NON DETERMINABILE,qwen3-coder-next,False
+Q056,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,838,"ERLOTINIB, SUNVOZERTINIB",qwen3-coder-next,False
+Q056,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,903,"ERLOTINIB, SUNVOZERTINIB",qwen3-coder-next,False
+Q057,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,40,"VEMURAFENIB, CETUXIMAB, IRINOTECAN HYDROCHLORIDE",qwen3-coder-next,False
+Q057,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,954,NON DETERMINABILE,qwen3-coder-next,False
+Q057,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,905,"CETUXIMAB, IRINOTECAN HYDROCHLORIDE, VEMURAFENIB",qwen3-coder-next,False
+Q057,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,925,"CETUXIMAB, IRINOTECAN HYDROCHLORIDE, VEMURAFENIB",qwen3-coder-next,False
+Q058,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,40,"MIRDAMETINIB, TRAMETINIB, SELUMETINIB SULFATE",qwen3-coder-next,False
+Q058,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,973,NON DETERMINABILE,qwen3-coder-next,False
+Q058,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,907,"MIRDAMETINIB, SELUMETINIB, TRAMETINIB",qwen3-coder-next,False
+Q058,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,844,"MIRDAMETINIB, SELUMETINIB SULFATE, TRAMETINIB",qwen3-coder-next,False
+Q059,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,TEMOZOLOMIDE,qwen3-coder-next,False
+Q059,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,970,NON DETERMINABILE,qwen3-coder-next,False
+Q059,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,881,TEMOZOLOMIDE,qwen3-coder-next,False
+Q059,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,844,TEMOZOLOMIDE,qwen3-coder-next,False
+Q060,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,SUNVOZERTINIB,qwen3-coder-next,False
+Q060,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,868,NON DETERMINABILE,qwen3-coder-next,False
+Q060,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,838,SUNVOZERTINIB,qwen3-coder-next,False
+Q060,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,849,SUNVOZERTINIB,qwen3-coder-next,False
+Q061,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,26,"NILOTINIB,DASATINIB",qwen3-coder-next,False
+Q061,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,975,NON DETERMINABILE,qwen3-coder-next,False
+Q061,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,854,"DASATINIB, NILOTINIB",qwen3-coder-next,False
+Q061,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,893,"DASATINIB, NILOTINIB",qwen3-coder-next,False
+Q062,graphrag,3,variant_to_drug,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.0,3,2,1.0,42,"DURVALUMAB, ANTI-PD-1 MONCLONAL ANTIBODY MEDI0680, NIVOLUMAB",qwen3-coder-next,False
+Q062,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,961,NON DETERMINABILE,qwen3-coder-next,False
+Q062,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,866,"NIVOLUMAB, ANTI-PD-1 MONOCLONAL ANTIBODY MEDI0680, DURVALUMAB",qwen3-coder-next,False
+Q062,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,895,"NIVOLUMAB, ANTI-PD-1 MONOCLONAL ANTIBODY MEDI0680, DURVALUMAB",qwen3-coder-next,False
+Q063,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,EVEROLIMUS,qwen3-coder-next,False
+Q063,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,973,NON DETERMINABILE,qwen3-coder-next,False
+Q063,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,908,EVEROLIMUS,qwen3-coder-next,False
+Q063,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,935,EVEROLIMUS,qwen3-coder-next,False
+Q064,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,66,"VEMURAFENIB, CRIZOTINIB, SELUMETINIB SULFATE, TRAMETINIB, RILOTUMUMAB",qwen3-coder-next,False
+Q064,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,976,NON DETERMINABILE,qwen3-coder-next,False
+Q064,rag_bm25,3,variant_to_drug,1.0,0.4,0.5714285714285715,0.0,2,2,0.6,774,"VEMURAFENIB, RILOTUMUMAB",qwen3-coder-next,False
+Q064,rag_hybrid,3,variant_to_drug,0.75,0.6,0.6666666666666665,0.0,4,3,0.6,857,"RUXOLITINIB PHOSPHATE, CRIZOTINIB, RILOTUMUMAB, VEMURAFENIB",qwen3-coder-next,False
+Q065,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,DASATINIB,qwen3-coder-next,False
+Q065,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,970,NON DETERMINABILE,qwen3-coder-next,False
+Q065,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,846,DASATINIB,qwen3-coder-next,False
+Q065,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,891,DASATINIB,qwen3-coder-next,False
+Q066,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,SUNVOZERTINIB,qwen3-coder-next,False
+Q066,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,914,NON DETERMINABILE,qwen3-coder-next,False
+Q066,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,860,SUNVOZERTINIB,qwen3-coder-next,False
+Q066,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,888,SUNVOZERTINIB,qwen3-coder-next,False
+Q067,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,66,"CETUXIMAB, IRINOTECAN HYDROCHLORIDE, FULVESTRANT, INAVOLISIB, PALBOCICLIB",qwen3-coder-next,False
+Q067,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,964,NON DETERMINABILE,qwen3-coder-next,False
+Q067,rag_bm25,3,variant_to_drug,1.0,0.4,0.5714285714285715,0.0,2,2,1.0,863,"CETUXIMAB, IRINOTECAN HYDROCHLORIDE",qwen3-coder-next,False
+Q067,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,894,"FULVESTRANT, INAVOLISIB, PALBOCICLIB, CETUXIMAB, IRINOTECAN HYDROCHLORIDE",qwen3-coder-next,False
+Q068,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,VEMURAFENIB,qwen3-coder-next,False
+Q068,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,950,NON DETERMINABILE,qwen3-coder-next,False
+Q068,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,880,VEMURAFENIB,qwen3-coder-next,False
+Q068,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,893,VEMURAFENIB,qwen3-coder-next,False
+Q069,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,26,CETUXIMAB,qwen3-coder-next,False
+Q069,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,974,NON DETERMINABILE,qwen3-coder-next,False
+Q069,rag_bm25,3,variant_to_drug,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,893,"CETUXIMAB, IRINOTECAN HYDROCHLORIDE",qwen3-coder-next,False
+Q069,rag_hybrid,3,variant_to_drug,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,912,"CETUXIMAB, IRINOTECAN HYDROCHLORIDE",qwen3-coder-next,False
+Q070,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,GEFITINIB,qwen3-coder-next,False
+Q070,rag_dense,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,886,GEFITINIB,qwen3-coder-next,False
+Q070,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,865,GEFITINIB,qwen3-coder-next,False
+Q070,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,882,GEFITINIB,qwen3-coder-next,False
+Q071,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,LONAFARNIB,qwen3-coder-next,False
+Q071,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,964,NON DETERMINABILE,qwen3-coder-next,False
+Q071,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,842,LONAFARNIB,qwen3-coder-next,False
+Q071,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,954,LONAFARNIB,qwen3-coder-next,False
+Q072,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,65,"DASATINIB, AXITINIB, IMATINIB, NILOTINIB, BAFETINIB",qwen3-coder-next,False
+Q072,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,974,NON DETERMINABILE,qwen3-coder-next,False
+Q072,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,846,"DASATINIB, AXITINIB, IMATINIB, NILOTINIB, BAFETINIB",qwen3-coder-next,False
+Q072,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,882,"DASATINIB, AXITINIB, BAFETINIB, IMATINIB, NILOTINIB",qwen3-coder-next,False
+Q073,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,26,"THIOGUANINE, MERCAPTOPURINE",qwen3-coder-next,False
+Q073,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,967,NON DETERMINABILE,qwen3-coder-next,False
+Q073,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,865,"MERCAPTOPURINE, THIOGUANINE",qwen3-coder-next,False
+Q073,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,899,"MERCAPTOPURINE, THIOGUANINE",qwen3-coder-next,False
+Q074,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,32,"DAUNORUBICIN HYDROCHLORIDE, CYTARABINE HYDROCHLORIDE",qwen3-coder-next,False
+Q074,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,889,NON DETERMINABILE,qwen3-coder-next,False
+Q074,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,815,"CYTARABINE HYDROCHLORIDE, DAUNORUBICIN HYDROCHLORIDE",qwen3-coder-next,False
+Q074,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,815,"CYTARABINE HYDROCHLORIDE, DAUNORUBICIN HYDROCHLORIDE",qwen3-coder-next,False
+Q075,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,SUNITINIB,qwen3-coder-next,False
+Q075,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,970,NON DETERMINABILE,qwen3-coder-next,False
+Q075,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,852,SUNITINIB,qwen3-coder-next,False
+Q075,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,882,SUNITINIB,qwen3-coder-next,False
+Q076,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,IPILIMUMAB,qwen3-coder-next,False
+Q076,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,973,NON DETERMINABILE,qwen3-coder-next,False
+Q076,rag_bm25,3,variant_to_drug,0.3333333333333333,1.0,0.5,1.0,3,1,1.0,866,"IPILIMUMAB, INDOLE-3-CARBINOL, INTERFERON GAMMA-1B",qwen3-coder-next,False
+Q076,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,901,IPILIMUMAB,qwen3-coder-next,False
+Q077,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,39,"AXITINIB, BOSUTINIB, DASATINIB",qwen3-coder-next,False
+Q077,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,975,NON DETERMINABILE,qwen3-coder-next,False
+Q077,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,891,"AXITINIB, DASATINIB, BOSUTINIB",qwen3-coder-next,False
+Q077,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,909,"AXITINIB, DASATINIB, BOSUTINIB",qwen3-coder-next,False
+Q078,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,39,"PANITUMUMAB, CETUXIMAB",qwen3-coder-next,False
+Q078,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,975,NON DETERMINABILE,qwen3-coder-next,False
+Q078,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,899,"CETUXIMAB, PANITUMUMAB",qwen3-coder-next,False
+Q078,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,894,"CETUXIMAB, PANITUMUMAB",qwen3-coder-next,False
+Q079,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,39,"PALBOCICLIB, FULVESTRANT, INAVOLISIB",qwen3-coder-next,False
+Q079,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,964,NON DETERMINABILE,qwen3-coder-next,False
+Q079,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,883,"FULVESTRANT, INAVOLISIB, PALBOCICLIB",qwen3-coder-next,False
+Q079,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,894,"FULVESTRANT, INAVOLISIB, PALBOCICLIB",qwen3-coder-next,False
+Q080,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,53,"SELUMETINIB SULFATE, DACTOLISIB, CETUXIMAB",qwen3-coder-next,False
+Q080,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,971,NON DETERMINABILE,qwen3-coder-next,False
+Q080,rag_bm25,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,886,"CETUXIMAB, DACTOLISIB, SELUMETINIB SULFATE",qwen3-coder-next,False
+Q080,rag_hybrid,3,variant_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,867,"CETUXIMAB, DACTOLISIB, SELUMETINIB SULFATE",qwen3-coder-next,False
+Q081,graphrag,3,variant_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,68,CERITINIB,qwen3-coder-next,False
+Q081,rag_dense,3,variant_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,974,NON DETERMINABILE,qwen3-coder-next,False
+Q081,rag_bm25,3,variant_to_drug,0.25,1.0,0.4,1.0,4,1,1.0,786,"Ceritinib, Alectinib hydrochloride, Crizotinib, ALK inhibitor TAE684",qwen3-coder-next,False
+Q081,rag_hybrid,3,variant_to_drug,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,890,"CERITINIB, ALK INHIBITOR TAE684",qwen3-coder-next,False
+Q082,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,10,Breast Cancer,qwen3-coder-next,False
+Q082,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,987,NON DETERMINABILE,qwen3-coder-next,False
+Q082,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,893,Breast Cancer,qwen3-coder-next,False
+Q082,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,1003,Breast Cancer,qwen3-coder-next,False
+Q083,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,29,"Medulloblastoma, Basal Cell Carcinoma, Cancer",qwen3-coder-next,False
+Q083,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.3333333333333333,986,NON DETERMINABILE,qwen3-coder-next,False
+Q083,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,891,"Basal Cell Carcinoma, Medulloblastoma, Cancer",qwen3-coder-next,False
+Q083,rag_hybrid,4,gene_to_disease,1.0,0.6666666666666666,0.8,0.0,2,2,1.0,924,"Basal Cell Carcinoma, Medulloblastoma",qwen3-coder-next,False
+Q084,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,13,CNS Neuroblastoma With FOXR2 Activation,qwen3-coder-next,False
+Q084,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,976,NON DETERMINABILE,qwen3-coder-next,False
+Q084,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,905,CNS Neuroblastoma With FOXR2 Activation,qwen3-coder-next,False
+Q084,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,955,CNS Neuroblastoma With FOXR2 Activation,qwen3-coder-next,False
+Q085,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,31,"Skin Squamous Cell Carcinoma, Cancer, Breast Cancer",qwen3-coder-next,False
+Q085,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,899,NON DETERMINABILE,qwen3-coder-next,False
+Q085,rag_bm25,4,gene_to_disease,0.5,1.0,0.6666666666666666,1.0,6,3,1.0,914,"Breast Cancer, Lung Cancer, Skin Squamous Cell Carcinoma, Melanoma, Gastrointestinal Stromal Tumor, Polycythemia Vera",qwen3-coder-next,False
+Q085,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,959,"Skin Squamous Cell Carcinoma, Breast Cancer, Cancer",qwen3-coder-next,False
+Q086,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,10,Breast Cancer,qwen3-coder-next,False
+Q086,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,982,NON DETERMINABILE,qwen3-coder-next,False
+Q086,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,894,Breast Cancer,qwen3-coder-next,False
+Q086,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,992,Breast Cancer,qwen3-coder-next,False
+Q087,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,19,"Myelofibrosis, Essential Thrombocythemia",qwen3-coder-next,False
+Q087,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,1001,NON DETERMINABILE,qwen3-coder-next,False
+Q087,rag_bm25,4,gene_to_disease,0.6666666666666666,1.0,0.8,1.0,3,2,1.0,898,"Myelofibrosis, Essential Thrombocythemia, Myeloproliferative Neoplasm",qwen3-coder-next,False
+Q087,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,968,"Myelofibrosis, Essential Thrombocythemia",qwen3-coder-next,False
+Q088,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,21,"Colorectal Cancer, Renal Cell Carcinoma",qwen3-coder-next,False
+Q088,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,995,NON DETERMINABILE,qwen3-coder-next,False
+Q088,rag_bm25,4,gene_to_disease,0.6666666666666666,1.0,0.8,1.0,3,2,1.0,880,"Colorectal Cancer, Renal Cell Carcinoma, Von Hippel-Lindau Disease",qwen3-coder-next,False
+Q088,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,986,"Colorectal Cancer, Renal Cell Carcinoma",qwen3-coder-next,False
+Q089,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,36,"Lung Non-small Cell Carcinoma, Colorectal Cancer, Head And Neck Squamous Cell Carcinoma",qwen3-coder-next,False
+Q089,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,989,NON DETERMINABILE,qwen3-coder-next,False
+Q089,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,853,"Head And Neck Squamous Cell Carcinoma, Colorectal Cancer, Lung Non-small Cell Carcinoma",qwen3-coder-next,False
+Q089,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,946,"Head And Neck Squamous Cell Carcinoma, Lung Non-small Cell Carcinoma, Colorectal Cancer",qwen3-coder-next,False
+Q090,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,11,Chronic Lymphocytic Leukemia,qwen3-coder-next,False
+Q090,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,979,NON DETERMINABILE,qwen3-coder-next,False
+Q090,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,893,Chronic Lymphocytic Leukemia,qwen3-coder-next,False
+Q090,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,983,Chronic Lymphocytic Leukemia,qwen3-coder-next,False
+Q091,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,10,Breast Cancer,qwen3-coder-next,False
+Q091,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,965,NON DETERMINABILE,qwen3-coder-next,False
+Q091,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,880,Breast Cancer,qwen3-coder-next,False
+Q091,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,993,Breast Cancer,qwen3-coder-next,False
+Q092,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,4,4,1.0,40,"Pancreatic Adenocarcinoma, Colorectal Cancer, Sarcoma, Renal Cell Carcinoma",qwen3-coder-next,False
+Q092,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,901,NON DETERMINABILE,qwen3-coder-next,False
+Q092,rag_bm25,4,gene_to_disease,0.8,1.0,0.888888888888889,1.0,5,4,1.0,908,"Colorectal Cancer, Renal Cell Carcinoma, Pancreatic Adenocarcinoma, Sarcoma, Renal Carcinoma",qwen3-coder-next,False
+Q092,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,4,4,1.0,935,"Colorectal Cancer, Renal Cell Carcinoma, Sarcoma, Pancreatic Adenocarcinoma",qwen3-coder-next,False
+Q093,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,19,"Sarcoma, Ovarian Cancer",qwen3-coder-next,False
+Q093,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,965,NON DETERMINABILE,qwen3-coder-next,False
+Q093,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,883,"Ovarian Cancer, Sarcoma",qwen3-coder-next,False
+Q093,rag_hybrid,4,gene_to_disease,1.0,0.5,0.6666666666666666,0.0,1,1,0.5,1009,Ovarian Cancer,qwen3-coder-next,False
+Q094,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,30,"Breast Cancer, Lung Adenocarcinoma, Solid Tumor",qwen3-coder-next,False
+Q094,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,959,NON DETERMINABILE,qwen3-coder-next,False
+Q094,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,899,"Breast Cancer, Lung Adenocarcinoma, Solid Tumor",qwen3-coder-next,False
+Q094,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,3,3,1.0,954,"Breast Cancer, Lung Adenocarcinoma, Solid Tumor",qwen3-coder-next,False
+Q095,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,10,Lynch Syndrome,qwen3-coder-next,False
+Q095,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,1014,NON DETERMINABILE,qwen3-coder-next,False
+Q095,rag_bm25,4,gene_to_disease,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,899,"Lynch Syndrome, Colorectal Cancer",qwen3-coder-next,False
+Q095,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,1013,Lynch Syndrome,qwen3-coder-next,False
+Q096,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,10,Colorectal Cancer,qwen3-coder-next,False
+Q096,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,977,NON DETERMINABILE,qwen3-coder-next,False
+Q096,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,900,Colorectal Cancer,qwen3-coder-next,False
+Q096,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,973,Colorectal Cancer,qwen3-coder-next,False
+Q097,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,10,Prostate Cancer,qwen3-coder-next,False
+Q097,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,1013,NON DETERMINABILE,qwen3-coder-next,False
+Q097,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,885,Prostate Cancer,qwen3-coder-next,False
+Q097,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,1017,Prostate Cancer,qwen3-coder-next,False
+Q098,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,9,Meningioma,qwen3-coder-next,False
+Q098,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,908,NON DETERMINABILE,qwen3-coder-next,False
+Q098,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,885,Meningioma,qwen3-coder-next,False
+Q098,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,889,Meningioma,qwen3-coder-next,False
+Q099,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,20,"Acute Myeloid Leukemia, Myelofibrosis",qwen3-coder-next,False
+Q099,rag_dense,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,978,"Acute Myeloid Leukemia, Myelofibrosis",qwen3-coder-next,False
+Q099,rag_bm25,4,gene_to_disease,0.6666666666666666,1.0,0.8,1.0,3,2,1.0,867,"Acute Myeloid Leukemia, Myelofibrosis, Systemic Mastocytosis",qwen3-coder-next,False
+Q099,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,921,"Acute Myeloid Leukemia, Myelofibrosis",qwen3-coder-next,False
+Q100,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,12,Lung Non-small Cell Carcinoma,qwen3-coder-next,False
+Q100,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,990,NON DETERMINABILE,qwen3-coder-next,False
+Q100,rag_bm25,4,gene_to_disease,0.1428571428571428,1.0,0.25,1.0,7,1,1.0,907,"Lung Non-small Cell Carcinoma, Breast Cancer, Melanoma, Gastrointestinal Stromal Tumor, Polycythemia Vera, Stomach Cancer, Myelodysplastic Syndrome",qwen3-coder-next,False
+Q100,rag_hybrid,4,gene_to_disease,1.0,1.0,1.0,1.0,1,1,1.0,977,Lung Non-small Cell Carcinoma,qwen3-coder-next,False
+Q101,graphrag,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,22,"Lung Non-small Cell Carcinoma, Lung Adenocarcinoma",qwen3-coder-next,False
+Q101,rag_dense,4,gene_to_disease,0.0,0.0,0.0,0.0,0,0,0.0,995,NON DETERMINABILE,qwen3-coder-next,False
+Q101,rag_bm25,4,gene_to_disease,1.0,1.0,1.0,1.0,2,2,1.0,815,"Lung Adenocarcinoma, Lung Non-small Cell Carcinoma",qwen3-coder-next,False
+Q101,rag_hybrid,4,gene_to_disease,0.6666666666666666,1.0,0.8,1.0,3,2,1.0,869,"Lung Non-small Cell Carcinoma, Lung Adenocarcinoma, Colorectal Adenocarcinoma",qwen3-coder-next,False
+Q102,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,61,"CISPLATIN, FLUOROURACIL, ALISERTIB, PACLITAXEL, PLATINUM COMPOUND",qwen3-coder-next,False
+Q102,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.2,980,NON DETERMINABILE,qwen3-coder-next,False
+Q102,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,869,"PLATINUM COMPOUND, CISPLATIN, FLUOROURACIL, ALISERTIB, PACLITAXEL",qwen3-coder-next,False
+Q102,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,944,"PLATINUM COMPOUND, PACLITAXEL, CISPLATIN, FLUOROURACIL, ALISERTIB",qwen3-coder-next,False
+Q103,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,12,OLAPARIB,qwen3-coder-next,False
+Q103,rag_dense,4,gene_to_drug,0.0909090909090909,1.0,0.1666666666666666,1.0,11,1,1.0,981,"AFT-II, APITOLISIB, ATX-II, BATRACHOTOXIN, BC-III, GNE-616, OLAPARIB, PF‐06526290, SAXITOXIN, TETRODOTOXIN, VERATRIDINE",qwen3-coder-next,False
+Q103,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,864,OLAPARIB,qwen3-coder-next,False
+Q103,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,959,OLAPARIB,qwen3-coder-next,False
+Q104,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,4,4,1.0,48,"CRENOLANIB, IMATINIB, SUNITINIB, PONATINIB",qwen3-coder-next,False
+Q104,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.25,950,NON DETERMINABILE,qwen3-coder-next,False
+Q104,rag_bm25,4,gene_to_drug,0.6666666666666666,0.5,0.5714285714285715,0.0,3,2,0.5,845,"IMATINIB, SUNITINIB, AVAPRITINIB",qwen3-coder-next,False
+Q104,rag_hybrid,4,gene_to_drug,0.3333333333333333,0.5,0.4,0.0,6,2,0.5,789,"Avapritinib, Sunitinib, Imatinib, Nilotinib, Sorafenib, Ripretinib",qwen3-coder-next,False
+Q105,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,5,5,1.0,62,"JQ1, TRAMETINIB, SOTRASTAURIN ACETATE, MIRDAMETINIB, SELUMETINIB SULFATE",qwen3-coder-next,False
+Q105,rag_dense,4,gene_to_drug,0.3,0.6,0.4,0.0,10,3,0.6,979,"CABOZANTINIB S-MALATE, MIRDAMETINIB, MOFEGILINE, PHENELZINE, PXS-4681A, PXS-4728A, SELUMETINIB, SOTRASTAURIN ACETATE, TIMOLUMAB, VORINOSTAT",qwen3-coder-next,False
+Q105,rag_bm25,4,gene_to_drug,0.3571428571428571,1.0,0.5263157894736842,1.0,14,5,1.0,908,"CABOZANTINIB S-MALATE, MIRDAMETINIB, MOFEGILINE, PHENELZINE, PXS-4681A, PXS-4728A, SELUMETINIB, SOTRASTAURIN ACETATE, TIMOLUMAB, VORINOSTAT, TRAMETINIB, JQ1, MIRDAMETINIB, SOTRASTAURIN ACETATE, SELUMETINIB SULFATE, CABOZANTINIB",qwen3-coder-next,False
+Q105,rag_hybrid,4,gene_to_drug,0.6666666666666666,0.4,0.5,0.0,3,2,0.8,827,"TRAMETINIB, CABOZANTINIB S-MALATE, JQ1",qwen3-coder-next,False
+Q106,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,30,"IMATINIB, EPIDERMAL GROWTH FACTOR RECEPTOR TYROSINE KINASE INHIBITOR",qwen3-coder-next,False
+Q106,rag_dense,4,gene_to_drug,0.5,1.0,0.6666666666666666,1.0,4,2,1.0,955,"DEXAMETHASONE, EPIDERMAL GROWTH FACTOR RECEPTOR TYROSINE KINASE INHIBITOR, IMATINIB, KERACYANIN",qwen3-coder-next,False
+Q106,rag_bm25,4,gene_to_drug,0.5,1.0,0.6666666666666666,1.0,4,2,1.0,790,"DEXAMETHASONE, EPIDERMAL GROWTH FACTOR RECEPTOR TYROSINE KINASE INHIBITOR, IMATINIB, KERACYANIN",qwen3-coder-next,False
+Q106,rag_hybrid,4,gene_to_drug,0.5,1.0,0.6666666666666666,1.0,4,2,1.0,954,"DEXAMETHASONE, EPIDERMAL GROWTH FACTOR RECEPTOR TYROSINE KINASE INHIBITOR, IMATINIB, KERACYANIN",qwen3-coder-next,False
+Q107,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,12,GEMCITABINE,qwen3-coder-next,False
+Q107,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,979,NON DETERMINABILE,qwen3-coder-next,False
+Q107,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,881,GEMCITABINE,qwen3-coder-next,False
+Q107,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,980,GEMCITABINE,qwen3-coder-next,False
+Q108,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,24,"JQ1, I-BET151",qwen3-coder-next,False
+Q108,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,961,NON DETERMINABILE,qwen3-coder-next,False
+Q108,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,873,"I-BET151, JQ1",qwen3-coder-next,False
+Q108,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,977,"I-BET151, JQ1",qwen3-coder-next,False
+Q109,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,12,PALBOCICLIB,qwen3-coder-next,False
+Q109,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,1.0,977,NON DETERMINABILE,qwen3-coder-next,False
+Q109,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,796,PALBOCICLIB,qwen3-coder-next,False
+Q109,rag_hybrid,4,gene_to_drug,0.2,1.0,0.3333333333333333,1.0,5,1,1.0,985,"ABEMACICLIB, KYT-0353, PALBOCICLIB, RIBOCICLIB, RONICICLIB, PALBOCICLIB",qwen3-coder-next,False
+Q110,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,4,4,1.0,50,"CYTARABINE HYDROCHLORIDE,GEMCITABINE,DOXORUBICIN HYDROCHLORIDE,SALINOMYCIN",qwen3-coder-next,False
+Q110,rag_dense,4,gene_to_drug,0.6666666666666666,0.5,0.5714285714285715,0.0,3,2,0.5,980,"DOXORUBICIN HYDROCHLORIDE, OXALIPLATIN, SALINOMYCIN",qwen3-coder-next,False
+Q110,rag_bm25,4,gene_to_drug,0.8,1.0,0.888888888888889,1.0,5,4,1.0,900,"DOXORUBICIN HYDROCHLORIDE, OXALIPLATIN, SALINOMYCIN, CYTARABINE HYDROCHLORIDE, GEMCITABINE",qwen3-coder-next,False
+Q110,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,4,4,1.0,970,"DOXORUBICIN HYDROCHLORIDE, SALINOMYCIN, CYTARABINE HYDROCHLORIDE, GEMCITABINE",qwen3-coder-next,False
+Q111,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,12,TRAMETINIB,qwen3-coder-next,False
+Q111,rag_dense,4,gene_to_drug,0.3333333333333333,1.0,0.5,1.0,3,1,1.0,983,"DIMETHYL SULFOXIDE, TRAMETINIB DIMETHYL SULFOXIDE, TRETINOIN",qwen3-coder-next,False
+Q111,rag_bm25,4,gene_to_drug,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,819,"DIMETHYL SULFOXIDE, TRAMETINIB",qwen3-coder-next,False
+Q111,rag_hybrid,4,gene_to_drug,0.3333333333333333,1.0,0.5,1.0,3,1,1.0,984,"TRAMETINIB, DIMETHYL SULFOXIDE, TRETINOIN",qwen3-coder-next,False
+Q112,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,12,GEMCITABINE,qwen3-coder-next,False
+Q112,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,16,0,1.0,978,"1,10-PHENANTHROLINE, ALBENDAZOLE, ALPHA-TERTHIENYL, APATORSEN, ARGIPRESSIN, ASCORBIC ACID, BENZENETHIOL, BENZO(K)FLUORANTHENE, BUFOTENINE, CHEMBL:CHEMBL1935538, CHEMBL:CHEMBL2094499, CHEMBL:CHEMBL2332783, CHEMBL:CHEMBL333177, CLOXYQUIN, CRIDANIMOD",qwen3-coder-next,False
+Q112,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,823,GEMCITABINE,qwen3-coder-next,False
+Q112,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,991,GEMCITABINE,qwen3-coder-next,False
+Q113,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,25,"TRETINOIN, ARSENIC TRIOXIDE",qwen3-coder-next,False
+Q113,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,978,NON DETERMINABILE,qwen3-coder-next,False
+Q113,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,892,"ARSENIC TRIOXIDE, TRETINOIN",qwen3-coder-next,False
+Q113,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,892,"TRETINOIN, ARSENIC TRIOXIDE",qwen3-coder-next,False
+Q114,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,24,"FULVESTRANT, PACLITAXEL",qwen3-coder-next,False
+Q114,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,960,NON DETERMINABILE,qwen3-coder-next,False
+Q114,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,908,"FULVESTRANT, PACLITAXEL",qwen3-coder-next,False
+Q114,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,2,2,1.0,978,"FULVESTRANT, PACLITAXEL",qwen3-coder-next,False
+Q115,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,12,IPILIMUMAB,qwen3-coder-next,False
+Q115,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,985,NON DETERMINABILE,qwen3-coder-next,False
+Q115,rag_bm25,4,gene_to_drug,0.3333333333333333,1.0,0.5,1.0,3,1,1.0,871,"INDOLE-3-CARBINOL, INTERFERON GAMMA-1B, IPILIMUMAB",qwen3-coder-next,False
+Q115,rag_hybrid,4,gene_to_drug,0.3333333333333333,1.0,0.5,1.0,3,1,1.0,975,"INDOLE-3-CARBINOL, INTERFERON GAMMA-1B, IPILIMUMAB",qwen3-coder-next,False
+Q116,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,12,TAMOXIFEN,qwen3-coder-next,False
+Q116,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,976,NON DETERMINABILE,qwen3-coder-next,False
+Q116,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,835,TAMOXIFEN,qwen3-coder-next,False
+Q116,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,970,TAMOXIFEN,qwen3-coder-next,False
+Q117,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,13,AMRUBICIN HYDROCHLORIDE,qwen3-coder-next,False
+Q117,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.0,976,NON DETERMINABILE,qwen3-coder-next,False
+Q117,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,828,AMRUBICIN HYDROCHLORIDE,qwen3-coder-next,False
+Q117,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,1,1,1.0,976,AMRUBICIN HYDROCHLORIDE,qwen3-coder-next,False
+Q118,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,39,"FACT COMPLEX-TARGETING CURAXIN CBL0137, JQ1, PANOBINOSTAT",qwen3-coder-next,False
+Q118,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.3333333333333333,973,NON DETERMINABILE,qwen3-coder-next,False
+Q118,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,822,"FACT COMPLEX-TARGETING CURAXIN CBL0137, JQ1, PANOBINOSTAT",qwen3-coder-next,False
+Q118,rag_hybrid,4,gene_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,953,"FACT COMPLEX-TARGETING CURAXIN CBL0137, JQ1, PANOBINOSTAT",qwen3-coder-next,False
+Q119,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,6,6,1.0,78,"IPILIMUMAB, NIVOLUMAB, PEMBROLIZUMAB, DOSTARLIMAB, CARBOPLATIN, PACLITAXEL",qwen3-coder-next,False
+Q119,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,0,0,0.1666666666666666,956,NON DETERMINABILE,qwen3-coder-next,False
+Q119,rag_bm25,4,gene_to_drug,1.0,0.3333333333333333,0.5,0.0,2,2,0.3333333333333333,905,"Pembrolizumab, Dostarlimab",qwen3-coder-next,False
+Q119,rag_hybrid,4,gene_to_drug,1.0,0.3333333333333333,0.5,0.0,2,2,0.3333333333333333,962,"Pembrolizumab, Dostarlimab",qwen3-coder-next,False
+Q120,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,4,4,1.0,51,"EVEROLIMUS, WYE-354, MTOR KINASE INHIBITOR PP242, DACTOLISIB",qwen3-coder-next,False
+Q120,rag_dense,4,gene_to_drug,0.0,0.0,0.0,0.0,15,0,0.0,985,"ABEMACICLIB, AT-7519, BSJ-03-123, BSJ-03-204, BSJ-04-132, CDK/CRK INHIBITOR, CIMPUCICLIB, CP-10, CROZBACICLIB, DALPICICLIB, EBVACICLIB, INIXACICLIB, LEROCICLIB, NARAZACICLIB, PACLITAXEL",qwen3-coder-next,False
+Q120,rag_bm25,4,gene_to_drug,1.0,1.0,1.0,1.0,4,4,1.0,832,"EVEROLIMUS, DACTOLISIB, MTOR KINASE INHIBITOR PP242, WYE-354",qwen3-coder-next,False
+Q120,rag_hybrid,4,gene_to_drug,0.2105263157894736,1.0,0.3478260869565217,1.0,19,4,1.0,965,"ABEMACICLIB, AT-7519, BSJ-03-123, BSJ-03-204, BSJ-04-132, CDK/CRK INHIBITOR, CIMPUCICLIB, CP-10, CROZBACICLIB, DALPICICLIB, EBVACICLIB, INIXACICLIB, LEROCICLIB, NARAZACICLIB, PACLITAXEL, EVEROLIMUS, DACTOLISIB, MTOR KINASE INHIBITOR PP242, WYE-354",qwen3-coder-next,False
+Q121,graphrag,4,gene_to_drug,1.0,1.0,1.0,1.0,3,3,1.0,36,"PANITUMUMAB, CETUXIMAB, FLUOROURACIL",qwen3-coder-next,False
+Q121,rag_dense,4,gene_to_drug,0.4,0.6666666666666666,0.5,0.0,5,2,0.6666666666666666,974,"CETUXIMAB, FLUOROURACIL, GEMCITABINE, LYSINE, RECOMBINANT TRANSFORMING GROWTH FACTOR",qwen3-coder-next,False
+Q121,rag_bm25,4,gene_to_drug,0.5,1.0,0.6666666666666666,1.0,6,3,1.0,838,"CETUXIMAB, FLUOROURACIL, GEMCITABINE, LYSINE, PANITUMUMAB, RECOMBINANT TRANSFORMING GROWTH FACTOR",qwen3-coder-next,False
+Q121,rag_hybrid,4,gene_to_drug,0.5,1.0,0.6666666666666666,1.0,6,3,1.0,921,"CETUXIMAB, FLUOROURACIL, GEMCITABINE, LYSINE, RECOMBINANT TRANSFORMING GROWTH FACTOR, PANITUMUMAB",qwen3-coder-next,False
+Q122,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,5,5,1.0,95,"BOSUTINIB, DASATINIB, IMATINIB, NILOTINIB, PONATINIB",qwen3-coder-next,False
+Q122,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,944,NON DETERMINABILE,qwen3-coder-next,False
+Q122,rag_bm25,5,gene_evidence_trial_bridge,0.5,0.2,0.2857142857142857,0.0,2,1,0.6,901,"DASATINIB, AXITINIB",qwen3-coder-next,False
+Q122,rag_hybrid,5,gene_evidence_trial_bridge,1.0,0.2,0.3333333333333333,0.0,1,1,0.4,864,DASATINIB,qwen3-coder-next,False
+Q123,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,19,OLAPARIB,qwen3-coder-next,False
+Q123,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,930,NON DETERMINABILE,qwen3-coder-next,False
+Q123,rag_bm25,5,gene_evidence_trial_bridge,0.25,1.0,0.4,1.0,4,1,1.0,874,"OLAPARIB, TEMOZOLOMIDE, KU-0060648, NU-7441",qwen3-coder-next,False
+Q123,rag_hybrid,5,gene_evidence_trial_bridge,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,904,"OLAPARIB, TEMOZOLOMIDE",qwen3-coder-next,False
+Q124,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,2,2,1.0,38,"CETUXIMAB, PALBOCICLIB",qwen3-coder-next,False
+Q124,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.5,939,NON DETERMINABILE,qwen3-coder-next,False
+Q124,rag_bm25,5,gene_evidence_trial_bridge,0.5,0.5,0.5,0.0,2,1,0.5,851,"LETROZOLE, PALBOCICLIB",qwen3-coder-next,False
+Q124,rag_hybrid,5,gene_evidence_trial_bridge,0.3333333333333333,0.5,0.4,0.0,3,1,0.5,879,"PANITUMUMAB, LETROZOLE, PALBOCICLIB",qwen3-coder-next,False
+Q125,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,2,2,1.0,39,"DAUNORUBICIN HYDROCHLORIDE, DECITABINE",qwen3-coder-next,False
+Q125,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,917,NON DETERMINABILE,qwen3-coder-next,False
+Q125,rag_bm25,5,gene_evidence_trial_bridge,1.0,0.5,0.6666666666666666,0.0,1,1,0.5,858,DECITABINE,qwen3-coder-next,False
+Q125,rag_hybrid,5,gene_evidence_trial_bridge,1.0,0.5,0.6666666666666666,0.0,1,1,0.5,847,DECITABINE,qwen3-coder-next,False
+Q126,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,19,ERDAFITINIB,qwen3-coder-next,False
+Q126,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,19,0,1.0,930,"Pemigatinib, FGFR INHIBITOR ASP5878, DEBIO 1347, FGFR INHIBITOR CPL304110, ALDAFERMIN, BOS172722, BRIVANIB, BRIVANIB ALANINATE, DERAZANTINIB, DOVITINIB, EMPESERTIB, AZ3146, AZD-4547, BAY1217389, CP-459632, CYCLOPHOSPHAMIDE ANHYDROUS, COMPOUND 20, COMPOUND 27F, COMPOUND 34H",qwen3-coder-next,False
+Q126,rag_bm25,5,gene_evidence_trial_bridge,0.125,1.0,0.2222222222222222,1.0,8,1,1.0,905,"INFIGRATINIB, ERDAFITINIB, FEXAGRATINIB, DOVITINIB, PD173074, CGT4859, FUTIBATINIB, PEMIGATINIB",qwen3-coder-next,False
+Q126,rag_hybrid,5,gene_evidence_trial_bridge,0.3333333333333333,1.0,0.5,1.0,3,1,1.0,908,"ERDAFITINIB, INFIGRATINIB, PEMIGATINIB",qwen3-coder-next,False
+Q127,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,5,5,1.0,95,"IVOSIDENIB, OLAPARIB, TEMOZOLOMIDE, VENETOCLAX, VORASIDENIB",qwen3-coder-next,False
+Q127,rag_dense,5,gene_evidence_trial_bridge,1.0,0.2,0.3333333333333333,0.0,1,1,0.2,894,ivosidenib,qwen3-coder-next,False
+Q127,rag_bm25,5,gene_evidence_trial_bridge,0.5,0.2,0.2857142857142857,0.0,2,1,0.2,875,"AGI-5198, IVOSIDENIB",qwen3-coder-next,False
+Q127,rag_hybrid,5,gene_evidence_trial_bridge,0.5,0.2,0.2857142857142857,0.0,2,1,0.4,879,"Ivosidenib, AGI-5198",qwen3-coder-next,False
+Q128,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,3,3,1.0,57,"ENASIDENIB, VENETOCLAX, VORASIDENIB",qwen3-coder-next,False
+Q128,rag_dense,5,gene_evidence_trial_bridge,0.5,0.3333333333333333,0.4,0.0,2,1,0.3333333333333333,920,"enasidenib, ivosidenib",qwen3-coder-next,False
+Q128,rag_bm25,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,1,0,0.0,857,"Nessun farmaco
+
+NON DETERMINABILE",qwen3-coder-next,False
+Q128,rag_hybrid,5,gene_evidence_trial_bridge,1.0,0.3333333333333333,0.5,0.0,1,1,0.3333333333333333,857,Enasidenib,qwen3-coder-next,False
+Q129,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,4,4,1.0,76,"IMATINIB, PONATINIB, SORAFENIB, SUNITINIB",qwen3-coder-next,False
+Q129,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,900,NON DETERMINABILE,qwen3-coder-next,False
+Q129,rag_bm25,5,gene_evidence_trial_bridge,1.0,0.5,0.6666666666666666,0.0,2,2,0.5,862,"IMATINIB, SUNITINIB",qwen3-coder-next,False
+Q129,rag_hybrid,5,gene_evidence_trial_bridge,1.0,0.25,0.4,0.0,1,1,0.25,889,IMATINIB,qwen3-coder-next,False
+Q130,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,2,2,1.0,38,"NIVOLUMAB, OXALIPLATIN",qwen3-coder-next,False
+Q130,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,907,NON DETERMINABILE,qwen3-coder-next,False
+Q130,rag_bm25,5,gene_evidence_trial_bridge,1.0,0.5,0.6666666666666666,0.0,1,1,0.5,885,OXALIPLATIN,qwen3-coder-next,False
+Q130,rag_hybrid,5,gene_evidence_trial_bridge,1.0,0.5,0.6666666666666666,0.0,1,1,0.5,904,OXALIPLATIN,qwen3-coder-next,False
+Q131,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,2,2,1.0,38,"DURVALUMAB, NIVOLUMAB",qwen3-coder-next,False
+Q131,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,918,NON DETERMINABILE,qwen3-coder-next,False
+Q131,rag_bm25,5,gene_evidence_trial_bridge,0.3333333333333333,1.0,0.5,1.0,6,2,1.0,866,"ANTI-PD-1 MONOCLONAL ANTIBODY MEDI0680, ATEZOLIZUMAB, AVELUMAB, DOSTARLIMAB, DURVALUMAB, NIVOLUMAB",qwen3-coder-next,False
+Q131,rag_hybrid,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,1,0,1.0,833,Nessuno,qwen3-coder-next,False
+Q132,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,19,DURVALUMAB,qwen3-coder-next,False
+Q132,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,914,NON DETERMINABILE,qwen3-coder-next,False
+Q132,rag_bm25,5,gene_evidence_trial_bridge,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,842,"ANTI-PD-1 MONOCLONAL ANTIBODY MEDI0680, DURVALUMAB",qwen3-coder-next,False
+Q132,rag_hybrid,5,gene_evidence_trial_bridge,0.0666666666666666,1.0,0.125,1.0,15,1,1.0,910,"ANCI-PD-1 MONOCLONAL ANTIBODY MEDI0680, DURVALUMAB, ATEZOLIZUMAB, AVELUMAB, CAPECITABINE, CARBOPLATIN, DOSTARLIMAB, FLUOROURACIL, IPILIMUMAB, LEUCOVORIN CALCIUM, NIVOLUMAB, OXALIPLATIN, PACLITAXEL, PEMBROLIZUMAB, TEMOZOLOMIDE",qwen3-coder-next,False
+Q133,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,3,3,1.0,58,"MIRDAMETINIB, SELUMETINIB SULFATE, TRAMETINIB",qwen3-coder-next,False
+Q133,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,892,NON DETERMINABILE,qwen3-coder-next,False
+Q133,rag_bm25,5,gene_evidence_trial_bridge,0.5,0.3333333333333333,0.4,0.0,2,1,0.6666666666666666,857,"SELUMETINIB SULFATE, VEMURAFENIB",qwen3-coder-next,False
+Q133,rag_hybrid,5,gene_evidence_trial_bridge,0.5,0.3333333333333333,0.4,0.0,2,1,0.6666666666666666,904,"VEMURAFENIB, SELUMETINIB",qwen3-coder-next,False
+Q134,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,2,2,1.0,40,"CYTARABINE HYDROCHLORIDE, DAUNORUBICIN HYDROCHLORIDE",qwen3-coder-next,False
+Q134,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,919,NON DETERMINABILE,qwen3-coder-next,False
+Q134,rag_bm25,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,1,0,0.0,909,TRETINOIN,qwen3-coder-next,False
+Q134,rag_hybrid,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,2,0,0.0,869,"TRETINOIN, VALPROIC ACID",qwen3-coder-next,False
+Q135,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,2,2,1.0,38,"IMATINIB, SUNITINIB",qwen3-coder-next,False
+Q135,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,921,NON DETERMINABILE,qwen3-coder-next,False
+Q135,rag_bm25,5,gene_evidence_trial_bridge,0.6666666666666666,1.0,0.8,1.0,3,2,1.0,906,"IMATINIB, SUNITINIB, CRENOLANIB",qwen3-coder-next,False
+Q135,rag_hybrid,5,gene_evidence_trial_bridge,0.6666666666666666,1.0,0.8,1.0,3,2,1.0,909,"IMATINIB, SUNITINIB, AVAPRITINIB",qwen3-coder-next,False
+Q136,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,3,3,1.0,57,"PRALSETINIB, SELPERCATINIB, VANDETANIB",qwen3-coder-next,False
+Q136,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,920,NON DETERMINABILE,qwen3-coder-next,False
+Q136,rag_bm25,5,gene_evidence_trial_bridge,0.3333333333333333,0.3333333333333333,0.3333333333333333,0.0,3,1,0.3333333333333333,875,"SELPERCATINIB, CABOZANTINIB, SORAFENIB",qwen3-coder-next,False
+Q136,rag_hybrid,5,gene_evidence_trial_bridge,0.3333333333333333,0.3333333333333333,0.3333333333333333,0.0,3,1,0.3333333333333333,894,"sorafenib, cabozantinib, selpercatinib",qwen3-coder-next,False
+Q137,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,2,2,1.0,38,"NIVOLUMAB,PEMBROLIZUMAB",qwen3-coder-next,False
+Q137,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,935,NON DETERMINABILE,qwen3-coder-next,False
+Q137,rag_bm25,5,gene_evidence_trial_bridge,0.25,1.0,0.4,1.0,8,2,1.0,910,"ROFLUMILAST, SB202190, VISTUSERTIB, SIROLIMUS, EVEROLIMUS, ATEZOLIZUMAB, NIVOLUMAB, PEMBROLIZUMAB",qwen3-coder-next,False
+Q137,rag_hybrid,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,2,0,0.0,896,"ROFLUMILAST, SIROLIMUS",qwen3-coder-next,False
+Q138,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,3,3,1.0,57,"AZACITIDINE, CARBOPLATIN, TAMOXIFEN",qwen3-coder-next,False
+Q138,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,909,NON DETERMINABILE,qwen3-coder-next,False
+Q138,rag_bm25,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,1,0,0.0,910,REBEMADLIN,qwen3-coder-next,False
+Q138,rag_hybrid,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,1,0,0.0,891,Nessun farmaco è contemporaneamente supportato da evidenza clinica e testato in trial clinici per il gene TP53.,qwen3-coder-next,False
+Q139,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,4,4,1.0,76,"ALPELISIB, DEXAMETHASONE, PALBOCICLIB, RIBOCICLIB",qwen3-coder-next,False
+Q139,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.25,911,NON DETERMINABILE,qwen3-coder-next,False
+Q139,rag_bm25,5,gene_evidence_trial_bridge,0.25,0.25,0.25,0.0,4,1,0.5,877,"PALBOCICLIB, ABEMACICLIB, FLX925, CDK4 INHIBITOR III",qwen3-coder-next,False
+Q139,rag_hybrid,5,gene_evidence_trial_bridge,1.0,0.25,0.4,0.0,1,1,0.75,846,PALBOCICLIB,qwen3-coder-next,False
+Q140,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,3,3,1.0,57,"FULVESTRANT, PALBOCICLIB, RIBOCICLIB",qwen3-coder-next,False
+Q140,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,950,NON DETERMINABILE,qwen3-coder-next,False
+Q140,rag_bm25,5,gene_evidence_trial_bridge,0.6,1.0,0.7499999999999999,1.0,5,3,1.0,796,"FULVESTRANT, RIBOCICLIB, DEXAMETHASONE, PALBOCICLIB, ABEMACICLIB",qwen3-coder-next,False
+Q140,rag_hybrid,5,gene_evidence_trial_bridge,0.75,1.0,0.8571428571428571,1.0,4,3,1.0,905,"FULVESTRANT, PALBOCICLIB, RIBOCICLIB, ABEMACICLIB",qwen3-coder-next,False
+Q141,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,19,OLAPARIB,qwen3-coder-next,False
+Q141,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,928,NON DETERMINABILE,qwen3-coder-next,False
+Q141,rag_bm25,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,884,OLAPARIB,qwen3-coder-next,False
+Q141,rag_hybrid,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,899,OLAPARIB,qwen3-coder-next,False
+Q142,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,2,2,1.0,38,"FULVESTRANT, PEMIGATINIB",qwen3-coder-next,False
+Q142,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,1,0,1.0,912,N/D,qwen3-coder-next,False
+Q142,rag_bm25,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,3,0,0.5,871,"FEXAGRATINIB, INFIGRATINIB, PD173074",qwen3-coder-next,False
+Q142,rag_hybrid,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,2,0,0.5,869,"DOVITINIB, PD173074",qwen3-coder-next,False
+Q143,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,19,OLAPARIB,qwen3-coder-next,False
+Q143,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,900,NON DETERMINABILE,qwen3-coder-next,False
+Q143,rag_bm25,5,gene_evidence_trial_bridge,0.1666666666666666,1.0,0.2857142857142857,1.0,6,1,1.0,870,"JQ1, CISPLATIN, OLAPARIB, PREXASERTIB, I-BET151, PANOBINOSTAT",qwen3-coder-next,False
+Q143,rag_hybrid,5,gene_evidence_trial_bridge,0.0526315789473684,1.0,0.1,1.0,19,1,1.0,900,"ACIVICIN, ADOZELESIN, AFIMOXIFENE, ALISERTIB, AMG-900, AMIFOSTINE ANHYDROUS, AMINOPTERIN, AN-9, ANTIBIOTIC, AZACITIDINE, BIZELESIN, BROMOCRIPTINE, BRYOSTATIN 1, CALCITRIOL, CISPLATIN, JQ1, I-BET151, OLAPARIB, PREXASERTIB",qwen3-coder-next,False
+Q144,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,3,3,1.0,58,"ENTRECTINIB, LAROTRECTINIB SULFATE, REPOTRECTINIB",qwen3-coder-next,False
+Q144,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,914,NON DETERMINABILE,qwen3-coder-next,False
+Q144,rag_bm25,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,3,3,1.0,854,"LAROTRECTINIB SULFATE, REPOTRECTINIB, ENTRECTINIB",qwen3-coder-next,False
+Q144,rag_hybrid,5,gene_evidence_trial_bridge,1.0,0.6666666666666666,0.8,0.0,2,2,1.0,902,"Larotrectinib Sulfate, Entrectinib",qwen3-coder-next,False
+Q145,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,19,ENTRECTINIB,qwen3-coder-next,False
+Q145,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,912,NON DETERMINABILE,qwen3-coder-next,False
+Q145,rag_bm25,5,gene_evidence_trial_bridge,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,898,"ENTRECTINIB, LAROTRECTINIB",qwen3-coder-next,False
+Q145,rag_hybrid,5,gene_evidence_trial_bridge,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,906,"ENTRECTINIB, LAROTRECTINIB",qwen3-coder-next,False
+Q146,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,3,3,1.0,58,"ENTRECTINIB, LAROTRECTINIB SULFATE, REPOTRECTINIB",qwen3-coder-next,False
+Q146,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,903,NON DETERMINABILE,qwen3-coder-next,False
+Q146,rag_bm25,5,gene_evidence_trial_bridge,0.5,0.6666666666666666,0.5714285714285715,0.0,4,2,0.6666666666666666,873,"ENTRECTINIB, LAROTRECTINIB SULFATE, CRIZOTINIB, TSR-011",qwen3-coder-next,False
+Q146,rag_hybrid,5,gene_evidence_trial_bridge,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.0,3,2,0.6666666666666666,853,"ENTRECTINIB, LAROTRECTINIB, SELPERCATINIB",qwen3-coder-next,False
+Q147,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,19,OLAPARIB,qwen3-coder-next,False
+Q147,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,930,NON DETERMINABILE,qwen3-coder-next,False
+Q147,rag_bm25,5,gene_evidence_trial_bridge,0.5,1.0,0.6666666666666666,1.0,2,1,1.0,897,"OLAPARIB, MITOMYCIN",qwen3-coder-next,False
+Q147,rag_hybrid,5,gene_evidence_trial_bridge,0.25,1.0,0.4,1.0,4,1,1.0,890,"OLAPARIB, RUCAPARIB, TALAZOPARIB, MITOMYCIN",qwen3-coder-next,False
+Q148,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,4,4,1.0,76,"BRIGATINIB, CERITINIB, CRIZOTINIB, LORLATINIB",qwen3-coder-next,False
+Q148,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,1,0,0.25,931,Entrectinib,qwen3-coder-next,False
+Q148,rag_bm25,5,gene_evidence_trial_bridge,0.6666666666666666,0.5,0.5714285714285715,0.0,3,2,0.5,899,"CRIZOTINIB, FORETINIB, LORLATINIB",qwen3-coder-next,False
+Q148,rag_hybrid,5,gene_evidence_trial_bridge,0.2,0.25,0.2222222222222222,0.0,5,1,0.75,884,"Entrectinib, Crizotinib, Foretinib, Repotrectinib, Taletrectinib",qwen3-coder-next,False
+Q149,graphrag,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,19,PEMBROLIZUMAB,qwen3-coder-next,False
+Q149,rag_dense,5,gene_evidence_trial_bridge,0.0,0.0,0.0,0.0,0,0,0.0,924,NON DETERMINABILE,qwen3-coder-next,False
+Q149,rag_bm25,5,gene_evidence_trial_bridge,0.3333333333333333,1.0,0.5,1.0,3,1,1.0,870,"PEMBROLIZUMAB, NIVOLUMAB, IPILIMUMAB",qwen3-coder-next,False
+Q149,rag_hybrid,5,gene_evidence_trial_bridge,1.0,1.0,1.0,1.0,1,1,1.0,919,PEMBROLIZUMAB,qwen3-coder-next,False
+Q150,graphrag,5,gene_to_cdx,1.0,0.75,0.8571428571428571,0.0,3,3,1.0,59,"cobas EGFR Mutation Test v1, FoundationOne CDx, FoundationOne Liquid CDx",qwen3-coder-next,False
+Q150,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.6666666666666666,914,NON DETERMINABILE,qwen3-coder-next,False
+Q150,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,3,0,0.3333333333333333,885,"cdx:MRDXBCRABLTESTM:ABL1:NILOTINIB, cdx:MRDXBCRABLTESTM:BCR:NILOTINIB, cdx:COBASEGFRMUTATI:EGFR:ERLOTINIB",qwen3-coder-next,False
+Q150,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.6666666666666666,943,NON DETERMINABILE,qwen3-coder-next,False
+Q151,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,1,1,1.0,18,MRDx BCR-ABL Test,qwen3-coder-next,False
+Q151,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,916,NON DETERMINABILE,qwen3-coder-next,False
+Q151,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,1,0,1.0,921,cdx:MRDXBCRABLTESTM:ABL1:NILOTINIB,qwen3-coder-next,False
+Q151,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,948,NON DETERMINABILE,qwen3-coder-next,False
+Q152,graphrag,5,gene_to_cdx,1.0,0.7142857142857143,0.8333333333333333,0.0,5,5,1.0,102,"cobas KRAS Mutation Test, FoundationOne CDx, ONCO/Reveal Dx Lung & Colon Cancer Assay, xT CDx, therascreen KRAS RGQ PCR Kit",qwen3-coder-next,False
+Q152,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,866,NON DETERMINABILE,qwen3-coder-next,False
+Q152,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.4,926,NON DETERMINABILE,qwen3-coder-next,False
+Q152,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.2,931,NON DETERMINABILE,qwen3-coder-next,False
+Q153,graphrag,5,gene_to_cdx,1.0,0.6666666666666666,0.8,0.0,2,2,1.0,38,"FoundationOne CDx, MI Cancer Seek",qwen3-coder-next,False
+Q153,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.5,926,NON DETERMINABILE,qwen3-coder-next,False
+Q153,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,906,NON DETERMINABILE,qwen3-coder-next,False
+Q153,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.5,936,NON DETERMINABILE,qwen3-coder-next,False
+Q154,graphrag,5,gene_to_cdx,1.0,0.75,0.8571428571428571,0.0,3,3,1.0,59,"cobas EGFR Mutation Test v1, FoundationOne CDx, FoundationOne Liquid CDx",qwen3-coder-next,False
+Q154,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.6666666666666666,920,NON DETERMINABILE,qwen3-coder-next,False
+Q154,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,2,0,0.6666666666666666,936,"cdx:MRDXBCRABLTESTM:BCR:NILOTINIB, cdx:MRDXBCRABLTESTM:ABL1:NILOTINIB",qwen3-coder-next,False
+Q154,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.6666666666666666,948,NON DETERMINABILE,qwen3-coder-next,False
+Q155,graphrag,5,gene_to_cdx,1.0,0.6666666666666666,0.8,0.0,2,2,1.0,38,"FoundationOne CDx, MI Cancer Seek",qwen3-coder-next,False
+Q155,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.5,918,NON DETERMINABILE,qwen3-coder-next,False
+Q155,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,29,0,0.5,934,"cdx:MRDXBCRABLTESTM:BCR:NILOTINIB, cdx:MRDXBCRABLTESTM:ABL1:NILOTINIB, cdx:ONCOMINEDXTARGE:IDH1:IVOSIDENIB, cdx:ONCOMINEDXTARGE:EGFR:GEFITINIB, cdx:ONCOMINEDXTARGE:IDH2:VORASIDENIB, cdx:ONCOMINEDXTARGE:IDH1:VORASIDENIB, cdx:ONCOMINEDXTARGE:EGFR:AMIVANTAMAB, cdx:ONCOMINEDXTARGE:ERBB2:ZONGERTINIB, cdx:ONCOMINEDXTARGE:RET:SELPERCATINIB, cdx:ONCOMINEDXTARGE:ROS1:CRIZOTINIB, cdx:ONCOMINEDXTARGE:RET:PRALSETINIB, cdx:ONCOMINEDXTARGE:BRAF:DABRAFENIBTRAME, cdx:ONCOMINEDXTARGE:ERBB2:TRASTUZUMABDERU, cdx:COBASEZH2MUTATI:EZH2:TAZEMETOSTAT, cdx:COBASEGFRMUTATI:EGFR:ERLOTINIB, cdx:COBASEGFRMUTATI:EGFR:GEFITINIB, cdx:COBASEGFRMUTATI:EGFR:AFATINIB, cdx:COBASEGFRMUTATI:EGFR:OSIMERTINIB, cdx:COBAS4800BRAFV6:BRAF:VEMURAFENIB, cdx:COBASKRASMUTATI:KRAS:PANITUMUMABPANI, cdx:COBASKRASMUTATI:KRAS:CETUXIMABCETUXI, cdx:COBAS4800BRAFV6:BRAF:VEMURAFENIBCOBI, cdx:TRUSIGHTONCOLOG:RET:SELPERCATINIB, cdx:GUARDANT360CDXG:ESR1:ELACESTRANT, cdx:GUARDANT360CDXG:EGFR:OSIMERTINIB, cdx:GUARDANT360CDXG:KRAS:SOTORASIB, cdx:FOUNDATIONONECD:PALB2:OLAPARIB, cdx:FOUNDATIONONECD:RAD51B:OLAPARIB, cdx:FOUNDATIONONECD:BARD1:OLAPARIB",qwen3-coder-next,False
+Q155,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,42,0,0.5,943,"cdx:TRUSIGHTONCOLOG:RET:SELPERCATINIB, cdx:TRUSIGHTONCOLOG:NTRK1:LAROTRECTINIB, cdx:TRUSIGHTONCOLOG:NTRK3:SELPERCATINIB, cdx:TRUSIGHTONCOLOG:NTRK2:LAROTRECTINIB, cdx:FOUNDATIONONECD:RET:SELPERCATINIB, cdx:FOUNDATIONONECD:ALK:CERITINIB, cdx:FOUNDATIONONECD:ALK:CRIZOTINIB, cdx:FOUNDATIONONECD:BARD1:OLAPARIB, cdx:FOUNDATIONONECD:NTRK1:LAROTRECTINIB, cdx:FOUNDATIONONECD:ATM:OLAPARIB, cdx:FOUNDATIONONECD:NTRK1:ENTRECTINIB, cdx:FOUNDATIONONECD:ROS1:ENTRECTINIB, cdx:FOUNDATIONONECD:NTRK3:LAROTRECTINIB, cdx:FOUNDATIONONECD:PIK3CA:CAPIVASERTIBFUL, cdx:FOUNDATIONONECD:MET:CAPMATINIB, cdx:FOUNDATIONONECD:NTRK2:LAROTRECTINIB, cdx:FOUNDATIONONECD:PTEN:CAPIVASERTIBFUL, cdx:KITD816VASSAYAR:KIT:AVAPRITINIB, cdx:FOUNDATIONONECD:NTRK3:ENTRECTINIB, cdx:FOUNDATIONONECD:NTRK2:ENTRECTINIB, cdx:FOUNDATIONONECD:BRAF:TRAMETINIB, cdx:FOUNDATIONONECD:BRAF:TOVORAFENIB, cdx:FOUNDATIONONECD:BRIP1:OLAPARIB, cdx:FOUNDATIONONECD:PIK3CA:ALPELISIBFULVES, cdx:FOUNDATIONONECD:FANCL:OLAPARIB, cdx:FOUNDATIONONECD:ALK:ALECTINIB, cdx:FOUNDATIONONECD:CHEK1:OLAPARIB, cdx:ONCOMINEDXTARGE:RET:SELPERCATINIB, cdx:ONCOMINEDXTARGE:RET:PRALSETINIB, cdx:FOUNDATIONONELI:MET:CAPMATINIB, cdx:FOUNDATIONONELI:NTRK1:ENTRECTINIB, cdx:FOUNDATIONONELI:ROS1:ENTRECTINIB, cdx:FOUNDATIONONELI:ATM:OLAPARIB, cdx:FOUNDATIONONECD:ERBB2:ADOTRASTUZUMABE, cdx:FOUNDATIONONECD:BRCA1:OLAPARIB, cdx:ONCOMINEDXTARGE:ROS1:CRIZOTINIB, cdx:FOUNDATIONONELI:MET:TEPOTINIB, cdx:INFORMHER2DUALI:ERBB2:ADOTRASTUZUMABE, cdx:FOUNDATIONONELI:PIK3CA:INAVOLISIBPALBO, cdx:FOUNDATIONONECD:RAD51C:OLAPARIB, cdx:FOUNDATIONONELI:ALK:ALECTINIB, cdx:INFORMHER2NEUVE:ERBB2:TRASTUZUMABTRAS",qwen3-coder-next,False
+Q156,graphrag,5,gene_to_cdx,1.0,0.8,0.888888888888889,0.0,4,4,1.0,79,"cobas 4800 BRAF V600 Mutation Test, FoundationOne CDx, THXID BRAF Kit, MI Cancer Seek",qwen3-coder-next,False
+Q156,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.25,933,NON DETERMINABILE,qwen3-coder-next,False
+Q156,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.5,940,NON DETERMINABILE,qwen3-coder-next,False
+Q156,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.5,938,NON DETERMINABILE,qwen3-coder-next,False
+Q157,graphrag,5,gene_to_cdx,1.0,0.8,0.888888888888889,0.0,4,4,1.0,79,"FoundationOne CDx, THXID BRAF Kit, MI Cancer Seek (MCS), cobas 4800 BRAF V600 Mutation Test",qwen3-coder-next,False
+Q157,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.25,897,NON DETERMINABILE,qwen3-coder-next,False
+Q157,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,36,0,0.5,934,"cdx:MRDXBCRABLTESTM:BCR:NILOTINIB,cdx:MRDXBCRABLTESTM:ABL1:NILOTINIB,cdx:ONCOMINEDXTARGE:IDH2:VORASIDENIB,cdx:ONCOMINEDXTARGE:RET:PRALSETINIB,cdx:ONCOMINEDXTARGE:RET:SELPERCATINIB,cdx:ONCOMINEDXTARGE:IDH1:IVOSIDENIB,cdx:ONCOMINEDXTARGE:EGFR:AMIVANTAMAB,cdx:ONCOMINEDXTARGE:EGFR:GEFITINIB,cdx:ONCOMINEDXTARGE:ERBB2:ZONGERTINIB,cdx:ONCOMINEDXTARGE:IDH1:VORASIDENIB,cdx:ONCOMINEDXTARGE:ROS1:CRIZOTINIB,cdx:COBASEZH2MUTATI:EZH2:TAZEMETOSTAT,cdx:ONCOMINEDXTARGE:BRAF:DABRAFENIBTRAME,cdx:ONCOMINEDXTARGE:ERBB2:TRASTUZUMABDERU,cdx:COBASEGFRMUTATI:EGFR:GEFITINIB,cdx:COBASEGFRMUTATI:EGFR:AFATINIB,cdx:COBASEGFRMUTATI:EGFR:ERLOTINIB,cdx:COBASEGFRMUTATI:EGFR:OSIMERTINIB,cdx:COBAS4800BRAFV6:BRAF:VEMURAFENIB,cdx:COBASKRASMUTATI:KRAS:PANITUMUMABPANI,cdx:COBASKRASMUTATI:KRAS:CETUXIMABCETUXI,cdx:COBAS4800BRAFV6:BRAF:VEMURAFENIBCOBI,cdx:FOUNDATIONONECD:EGFR:OSIMERTINIB,cdx:FOUNDATIONONECD:BRCA1:OLAPARIB,cdx:FOUNDATIONONECD:EGFR:GEFITINIB,cdx:FOUNDATIONONECD:BRCA2:OLAPARIB,cdx:FOUNDATIONONECD:BRAF:TRAMETINIB,cdx:FOUNDATIONONECD:EGFR:AFATINIB,cdx:FOUNDATIONONECD:RET:SELPERCATINIB,cdx:FOUNDATIONONECD:FANCL:OLAPARIB,cdx:FOUNDATIONONECD:RAD54L:OLAPARIB,cdx:FOUNDATIONONECD:RAD51C:OLAPARIB,cdx:FOUNDATIONONECD:NTRK1:LAROTRECTINIB,cdx:FOUNDATIONONECD:NTRK2:ENTRECTINIB,cdx:FOUNDATIONONECD:ATM:OLAPARIB,cdx:FOUNDATIONONECD:NTRK3:ENTRECTINIB",qwen3-coder-next,False
+Q157,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.5,929,NON DETERMINABILE,qwen3-coder-next,False
+Q158,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,1,1,1.0,20,MI Cancer Seek,qwen3-coder-next,False
+Q158,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,934,NON DETERMINABILE,qwen3-coder-next,False
+Q158,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,2,0,0.0,934,"ND, RB1",qwen3-coder-next,False
+Q158,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,944,NON DETERMINABILE,qwen3-coder-next,False
+Q159,graphrag,5,gene_to_cdx,1.0,0.75,0.8571428571428571,0.0,3,3,1.0,61,"FoundationOne CDx, Oncomine Dx Target Test, Vysis ALK Break Apart FISH Probe Kit",qwen3-coder-next,False
+Q159,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,2,0,0.3333333333333333,923,"cdx:FOUNDATIONONECD:ROS1:ENTRECTINIB, cdx:FOUNDATIONONELI:ROS1:ENTRECTINIB",qwen3-coder-next,False
+Q159,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,3,0,0.6666666666666666,931,"cdx:ONCOMINEDXTARGE:ROS1:CRIZOTINIB, cdx:FOUNDATIONONECD:ROS1:ENTRECTINIB, cdx:FOUNDATIONONELI:ROS1:ENTRECTINIB",qwen3-coder-next,False
+Q159,rag_hybrid,5,gene_to_cdx,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.0,3,2,0.6666666666666666,945,"FoundationOne CDx, FoundationOne Liquid CDx, Oncomine Dx Target Test",qwen3-coder-next,False
+Q160,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,5,5,1.0,100,"cobas EGFR Mutation Test v2, FoundationOne CDx, FoundationOne Liquid CDx, Oncomine Dx Target Test, therascreen EGFR RGQ PCR Kit",qwen3-coder-next,False
+Q160,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.4,947,NON DETERMINABILE,qwen3-coder-next,False
+Q160,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,9,0,0.6,930,"cdx:MRDXBCRABLTESTM:BCR:NILOTINIB, cdx:MRDXBCRABLTESTM:ABL1:NILOTINIB, cdx:ONCOMINEDXTARGE:EGFR:GEFITINIB, cdx:COBASEGFRMUTATI:EGFR:GEFITINIB, cdx:GUARDANT360CDXG:EGFR:OSIMERTINIB, cdx:COBASEGFRMUTATI:EGFR:OSIMERTINIB, cdx:ONCOMINEDXTARGE:EGFR:AMIVANTAMAB, cdx:COBASEGFRMUTATI:EGFR:ERLOTINIB, cdx:COBASEGFRMUTATI:EGFR:AFATINIB",qwen3-coder-next,False
+Q160,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.4,948,NON DETERMINABILE,qwen3-coder-next,False
+Q161,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,1,1,1.0,19,PDGFRB FISH Assay,qwen3-coder-next,False
+Q161,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,909,NON DETERMINABILE,qwen3-coder-next,False
+Q161,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,933,NON DETERMINABILE,qwen3-coder-next,False
+Q161,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,940,NON DETERMINABILE,qwen3-coder-next,False
+Q162,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,2,2,1.0,38,"FoundationOne CDx, MI Cancer Seek",qwen3-coder-next,False
+Q162,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.5,945,NON DETERMINABILE,qwen3-coder-next,False
+Q162,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,884,NON DETERMINABILE,qwen3-coder-next,False
+Q162,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.5,929,NON DETERMINABILE,qwen3-coder-next,False
+Q163,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,3,3,1.0,56,"FoundationOne CDx, THXID BRAF Kit, MI Cancer Seek",qwen3-coder-next,False
+Q163,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.3333333333333333,911,NON DETERMINABILE,qwen3-coder-next,False
+Q163,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,38,0,0.3333333333333333,936,"cdx:MRDXBCRABLTESTM:ABL1:NILOTINIB, cdx:MRDXBCRABLTESTM:BCR:NILOTINIB, cdx:ONCOMINEDXTARGE:EGFR:AMIVANTAMAB, cdx:ONCOMINEDXTARGE:IDH1:IVOSIDENIB, cdx:ONCOMINEDXTARGE:IDH1:VORASIDENIB, cdx:ONCOMINEDXTARGE:IDH2:VORASIDENIB, cdx:ONCOMINEDXTARGE:RET:SELPERCATINIB, cdx:ONCOMINEDXTARGE:ERBB2:ZONGERTINIB, cdx:ONCOMINEDXTARGE:EGFR:GEFITINIB, cdx:ONCOMINEDXTARGE:ROS1:CRIZOTINIB, cdx:ONCOMINEDXTARGE:RET:PRALSETINIB, cdx:ONCOMINEDXTARGE:ERBB2:TRASTUZUMABDERU, cdx:ONCOMINEDXTARGE:BRAF:DABRAFENIBTRAME, cdx:COBASEZH2MUTATI:EZH2:TAZEMETOSTAT, cdx:COBASEGFRMUTATI:EGFR:ERLOTINIB, cdx:COBASEGFRMUTATI:EGFR:AFATINIB, cdx:COBASEGFRMUTATI:EGFR:OSIMERTINIB, cdx:COBASEGFRMUTATI:EGFR:GEFITINIB, cdx:COBASKRASMUTATI:KRAS:PANITUMUMABPANI, cdx:COBASKRASMUTATI:KRAS:CETUXIMABCETUXI, cdx:COBAS4800BRAFV6:BRAF:VEMURAFENIB, cdx:COBAS4800BRAFV6:BRAF:VEMURAFENIBCOBI, cdx:FOUNDATIONONECD:BRAF:TRAMETINIB, cdx:FOUNDATIONONECD:BRIP1:OLAPARIB, cdx:FOUNDATIONONECD:EGFR:ERLOTINIB, cdx:FOUNDATIONONECD:EGFR:OSIMERTINIB, cdx:FOUNDATIONONECD:BRCA1:OLAPARIB, cdx:FOUNDATIONONECD:ALK:ALECTINIB, cdx:FOUNDATIONONECD:NTRK1:ENTRECTINIB, cdx:FOUNDATIONONECD:NTRK1:LAROTRECTINIB, cdx:FOUNDATIONONECD:NTRK2:LAROTRECTINIB, cdx:FOUNDATIONONECD:ATM:OLAPARIB, cdx:FOUNDATIONONECD:NTRK3:LAROTRECTINIB, cdx:FOUNDATIONONECD:RET:SELPERCATINIB, cdx:FOUNDATIONONECD:PALB2:OLAPARIB, cdx:FOUNDATIONONECD:BARD1:OLAPARIB, cdx:FOUNDATIONONECD:RAD51B:OLAPARIB, cdx:TRUSIGHTONCOLOG:RET:SELPERCATINIB",qwen3-coder-next,False
+Q163,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.3333333333333333,951,NON DETERMINABILE,qwen3-coder-next,False
+Q164,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,2,2,1.0,40,"FoundationOne CDx, MI Cancer Seek",qwen3-coder-next,False
+Q164,rag_dense,5,gene_to_cdx,1.0,0.5,0.6666666666666666,0.0,1,1,0.5,940,FoundationOne CDx,qwen3-coder-next,False
+Q164,rag_bm25,5,gene_to_cdx,1.0,1.0,1.0,1.0,2,2,1.0,932,"FoundationOne CDx, MI Cancer Seek",qwen3-coder-next,False
+Q164,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,3,0,1.0,947,"cdx:FOUNDATIONONECD:OTHERBIOMARKERS:PEMBROLIZUMAB, cdx:MICANCERSEEKMCS:OTHERBIOMARKERS:DOSTARLIMAB, cdx:MICANCERSEEKMCS:OTHERBIOMARKERS:PEMBROLIZUMAB",qwen3-coder-next,False
+Q165,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,1,1,1.0,19,PDGFRB FISH Assay,qwen3-coder-next,False
+Q165,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,934,NON DETERMINABILE,qwen3-coder-next,False
+Q165,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,943,NON DETERMINABILE,qwen3-coder-next,False
+Q165,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,951,NON DETERMINABILE,qwen3-coder-next,False
+Q166,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,1,1,1.0,23,cobas 4800 BRAF V600 Mutation Test,qwen3-coder-next,False
+Q166,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,923,NON DETERMINABILE,qwen3-coder-next,False
+Q166,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,1.0,923,NON DETERMINABILE,qwen3-coder-next,False
+Q166,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,946,NON DETERMINABILE,qwen3-coder-next,False
+Q167,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,3,3,1.0,59,"cobas EGFR Mutation Test v1, FoundationOne CDx, FoundationOne Liquid CDx",qwen3-coder-next,False
+Q167,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.3333333333333333,920,NON DETERMINABILE,qwen3-coder-next,False
+Q167,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,9,0,0.6666666666666666,937,"cdx:COBASEGFRMUTATI:EGFR:ERLOTINIB, cdx:COBASEGFRMUTATI:EGFR:AFATINIB, cdx:COBASEGFRMUTATI:EGFR:GEFITINIB, cdx:COBASEGFRMUTATI:EGFR:OSIMERTINIB, cdx:ONCOMINEDXTARGE:EGFR:AMIVANTAMAB, cdx:ONCOMINEDXTARGE:EGFR:GEFITINIB, cdx:GUARDANT360CDXG:EGFR:OSIMERTINIB, cdx:GUARDANT360CDXG:EGFR:AMIVANTAMAB, cdx:FOUNDATIONONECD:EGFR:ERLOTINIB",qwen3-coder-next,False
+Q167,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,1.0,945,NON DETERMINABILE,qwen3-coder-next,False
+Q168,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,2,2,1.0,37,"PDGFRB FISH Assay, MRDx BCR-ABL Test",qwen3-coder-next,False
+Q168,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,1,0,0.0,937,cdx:KITD816VASSAYAR:KIT:AVAPRITINIB,qwen3-coder-next,False
+Q168,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,2,0,0.0,905,"cdx:KITD816VASSAYAR:KIT:AVAPRITINIB, cdx:THERASCREENPDGF:PDGFRA:AVAPRITINIB",qwen3-coder-next,False
+Q168,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,1,0,0.0,938,cdx:KITD816VASSAYAR:KIT:AVAPRITINIB,qwen3-coder-next,False
+Q169,graphrag,5,gene_to_cdx,1.0,1.0,1.0,1.0,1,1,1.0,20,MI Cancer Seek,qwen3-coder-next,False
+Q169,rag_dense,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,926,NON DETERMINABILE,qwen3-coder-next,False
+Q169,rag_bm25,5,gene_to_cdx,0.0,0.0,0.0,0.0,2,0,0.0,927,"NDX2SGK1,ALPELISIB",qwen3-coder-next,False
+Q169,rag_hybrid,5,gene_to_cdx,0.0,0.0,0.0,0.0,0,0,0.0,933,NON DETERMINABILE,qwen3-coder-next,False

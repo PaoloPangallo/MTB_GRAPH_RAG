@@ -1,0 +1,57 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Un confronto sperimentale: GraphRAG contro RAG testuale}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Che cosa volevo verificare}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}I materiali}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}La knowledge base}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Il testo per il RAG}{3}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Il banco di prova (benchmark)}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}I sistemi a confronto e le regole del gioco}{4}{section.1.4}%
+\contentsline {section}{\numberline {1.5}I risultati}{5}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Accuratezza complessiva}{5}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Come cambia la cosa al crescere degli hop}{5}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}È un caso? No}{6}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Perché il RAG fallisce}{6}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}Meno contesto, non di più}{7}{subsection.1.5.5}%
+\contentsline {section}{\numberline {1.6}Il vantaggio non dipende dal modello lettore}{8}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Robustezza al linguaggio: e se la domanda è riformulata?}{8}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Prima sorpresa: il router a parole chiave è fragile}{9}{subsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.7.2}La correzione: un router semantico}{9}{subsection.1.7.2}%
+\contentsline {section}{\numberline {1.8}Sicurezza clinica: sa dire ``non lo so''?}{10}{section.1.8}%
+\contentsline {subsection}{\numberline {1.8.1}Un guardrail fail-safe}{11}{subsection.1.8.1}%
+\contentsline {section}{\numberline {1.9}Limiti, detti con franchezza}{12}{section.1.9}%
+\contentsline {section}{\numberline {1.10}Che cosa significa per il Molecular Tumor Board}{13}{section.1.10}%
+\contentsline {section}{\numberline {1.11}Riproducibilità}{13}{section.1.11}%
+\contentsline {chapter}{\numberline {2}La frontiera dell'automazione nel Molecular Tumor Board}{14}{chapter.2}%
+\contentsline {section}{\numberline {2.1}La domanda}{14}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Il workflow MTB, decomposto}{14}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Sopra la frontiera: il lavoro fattuale è delegabile}{16}{section.2.3}%
+\contentsline {section}{\numberline {2.4}La frontiera è sicura perché il sistema la conosce}{16}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Sotto la frontiera: il giudizio resta umano}{16}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Conclusione}{16}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Efficienza di contesto: recupero dei fatti al variare del budget}{18}{chapter.3}%
+\contentsline {section}{\numberline {3.1}La domanda}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Metrica e metodo}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Risultati}{19}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Interpretazione}{20}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Conclusione}{20}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Baseline denso biomedico: encoder o retrieval?}{21}{chapter.4}%
+\contentsline {section}{\numberline {4.1}La domanda}{21}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Sistemi confrontati}{21}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Risultati}{22}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Tre conclusioni}{23}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Implicazione per la tesi}{23}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Scaling della profondità dei salti}{24}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Domanda sperimentale}{24}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Disegno: una spina tipizzata, lo stesso gene ad ogni profondità}{24}{section.5.2}%
+\contentsline {section}{\numberline {5.3}La covariata onesta: quanti passaggi separati servono}{25}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Risultati}{25}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Recall del fatto terminale}{26}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Chain-recall / completezza della catena}{26}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}Conclusioni}{27}{section.5.5}%
+\contentsline {chapter}{\numberline {A}Il test di McNemar: significato e ruolo negli esperimenti}{28}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Che cos'è il test di McNemar}{28}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Come funziona}{28}{section.Alph1.2}%
+\contentsline {section}{\numberline {A.3}Perché è appropriato per questi esperimenti}{29}{section.Alph1.3}%
+\contentsline {section}{\numberline {A.4}Come è stato usato nella tesi}{29}{section.Alph1.4}%
+\contentsline {section}{\numberline {A.5}Il ruolo nel quadro complessivo}{29}{section.Alph1.5}%

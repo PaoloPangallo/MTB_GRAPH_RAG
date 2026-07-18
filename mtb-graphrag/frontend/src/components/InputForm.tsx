@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { 
-  Card, 
-  CardContent, 
-  CardHeader, 
-  TextField, 
-  Select, 
-  MenuItem, 
-  InputLabel, 
-  FormControl, 
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
   Button,
   Box,
   Typography,
   Switch,
   FormControlLabel,
   Checkbox,
-  FormGroup
+  FormGroup,
+  Divider,
 } from '@mui/material';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import type { MTBRequest, AlterationType } from '../types';
 
 interface InputFormProps {
@@ -64,7 +66,7 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
       tumor_type: tumorType,
       alteration_type: alterationType,
       therapy_line: therapyLine,
-      enrich_with_oncokb: false, // Zero-shot non usa OncoKB
+      enrich_with_oncokb: false,
       driver_variant: driverVariant || undefined
     }, true);
   };
@@ -82,18 +84,20 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
     }, compareConditions);
   };
 
-
   return (
     <Card variant="outlined">
-      <CardHeader 
-        title="Input Clinico" 
-        titleTypographyProps={{ variant: 'h6', fontWeight: 600 }}
-        sx={{ borderBottom: '1px solid #E2E8F0', bgcolor: 'background.default' }}
+      <CardHeader
+        title="Input Clinico"
+        titleTypographyProps={{ variant: 'h6', fontWeight: 700 }}
+        sx={{
+          borderBottom: '1px solid #E2E8F0',
+          background: 'linear-gradient(to right, #EFF6FF, #FFFFFF)',
+        }}
       />
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 1 }}>
-            
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, mt: 1 }}>
+
             <TextField
               label="Gene (Opzionale per Biomarker)"
               value={gene}
@@ -171,9 +175,9 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
 
             <FormControlLabel
               control={
-                <Switch 
-                  checked={enrichOncoKB} 
-                  onChange={(e) => setEnrichOncoKB(e.target.checked)} 
+                <Switch
+                  checked={enrichOncoKB}
+                  onChange={(e) => setEnrichOncoKB(e.target.checked)}
                   disabled={disabled}
                   color="primary"
                 />
@@ -183,26 +187,27 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
                   Integrazione OncoKB API Live
                 </Typography>
               }
-              sx={{ mt: 1, mb: 1, ml: 1 }}
+              sx={{ ml: 0.5 }}
             />
 
-            <Button 
-              type="submit" 
-              variant="contained" 
-              size="large" 
+            <Divider sx={{ my: 0.5 }} />
+
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
               color="primary"
               disabled={disabled}
-              sx={{ mt: 2 }}
               disableElevation
             >
               Genera Report GraphRAG
             </Button>
 
-            <Button 
-              type="button" 
-              variant="outlined" 
+            <Button
+              type="button"
+              variant="outlined"
               color="secondary"
-              size="medium" 
+              size="medium"
               disabled={disabled}
               onClick={handleZeroShotSubmit}
               disableElevation
@@ -210,8 +215,14 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
               Genera Baseline Zero-Shot
             </Button>
 
-            <Box sx={{ mt: 1, p: 2, border: '1px solid #E2E8F0', borderRadius: 2, bgcolor: '#F8FAFC' }}>
-              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}>
+            <Divider sx={{ my: 0.5 }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                Confronto Ablativo
+              </Typography>
+            </Divider>
+
+            <Box sx={{ p: 2, border: '1px solid #E2E8F0', borderRadius: 2, bgcolor: '#F8FAFC' }}>
+              <Typography variant="body2" sx={{ fontWeight: 700, mb: 1, color: 'text.primary' }}>
                 Condizioni da confrontare:
               </Typography>
               <FormGroup>
@@ -247,24 +258,24 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
               )}
             </Box>
 
-            <Button 
-              type="button" 
-              variant="contained" 
+            <Button
+              type="button"
+              variant="contained"
               color="info"
-              size="medium" 
+              size="medium"
               disabled={disabled || compareConditions.length < 2}
               onClick={handleCompareSubmit}
+              startIcon={<CompareArrowsIcon />}
               disableElevation
             >
               Confronto Side-by-Side
             </Button>
-            
-            <Typography variant="caption" color="text.secondary" align="center">
-              L'analisi può richiedere fino a 30-40 secondi a causa dell'esecuzione locale del LLM.
-            </Typography>
 
           </Box>
         </form>
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center', mt: 2, fontStyle: 'italic' }}>
+          L'analisi può richiedere fino a 30-40 secondi a causa dell'esecuzione locale del LLM.
+        </Typography>
       </CardContent>
     </Card>
   );

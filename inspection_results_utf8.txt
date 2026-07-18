@@ -1,0 +1,507 @@
+
+============================================================
+FILE: cancerGeneList.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\cancerGeneList.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 1,236
+  Colonne: 16
+
+[SCHEMA COLONNE]
+  Hugo Symbol                                   dtype=object     null=0.0%  unique=1,236
+  Entrez Gene ID                                dtype=int64      null=0.0%  unique=1,236
+  GRCh37 Isoform                                dtype=object     null=19.1%  unique=1,000
+  GRCh37 RefSeq                                 dtype=object     null=21.0%  unique=977
+  GRCh38 Isoform                                dtype=object     null=18.9%  unique=1,002
+  GRCh38 RefSeq                                 dtype=object     null=19.9%  unique=989
+  Gene Type                                     dtype=object     null=18.6%  unique=5
+  # of occurrence within resources (Column K-P) dtype=int64      null=0.0%  unique=7
+  OncoKB Annotated                              dtype=object     null=0.0%  unique=2
+  MSK-IMPACT                                    dtype=object     null=0.0%  unique=2
+  MSK-HEME                                      dtype=object     null=0.0%  unique=2
+  FOUNDATION ONE                                dtype=object     null=0.0%  unique=2
+  FOUNDATION ONE HEME                           dtype=object     null=0.0%  unique=2
+  Vogelstein                                    dtype=object     null=0.0%  unique=2
+  COSMIC CGC (v99)                              dtype=object     null=0.0%  unique=2
+  Gene Aliases                                  dtype=object     null=9.7%  unique=1,116
+
+[PRIME 3 RIGHE]
+  Hugo Symbol  Entrez Gene ID   GRCh37 Isoform   GRCh37 RefSeq   GRCh38 Isoform   GRCh38 RefSeq Gene Type  # of occurrence within resources (Column K-P) OncoKB Annotated MSK-IMPACT MSK-HEME FOUNDATION ONE FOUNDATION ONE HEME Vogelstein COSMIC CGC (v99)                     Gene Aliases
+0        ABL1              25  ENST00000318560     NM_005157.4  ENST00000318560     NM_005157.4  ONCOGENE                                              7              Yes        Yes      Yes            Yes                 Yes        Yes              Yes                 ABL, JTK7, c-ABL
+1        AKT1             207  ENST00000349310  NM_001014431.1  ENST00000349310  NM_001014431.1  ONCOGENE                                              7              Yes        Yes      Yes            Yes                 Yes        Yes              Yes  AKT, PKB, PRKBA, RAC, RAC-alpha
+2         ALK             238  ENST00000389048     NM_004304.4  ENST00000389048     NM_004304.4  ONCOGENE                                              7              Yes        Yes      Yes            Yes                 Yes        Yes              Yes                            CD246
+
+[CAMPIONE VALORI - prime 5 colonne]
+  Hugo Symbol: ['ABL1', 'AKT1', 'ALK', 'AMER1', 'APC']
+  Entrez Gene ID: [25, 207, 238, 139285, 324]
+  GRCh37 Isoform: ['ENST00000318560', 'ENST00000349310', 'ENST00000389048', 'ENST00000330258', 'ENST00000257430']
+  GRCh37 RefSeq: ['NM_005157.4', 'NM_001014431.1', 'NM_004304.4', 'NM_152424.3', 'NM_000038.5']
+  GRCh38 Isoform: ['ENST00000318560', 'ENST00000349310', 'ENST00000389048', 'ENST00000374869', 'ENST00000257430']
+
+============================================================
+FILE: companion_diagnostic_devices.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\companion_diagnostic_devices.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 187
+  Colonne: 7
+
+[SCHEMA COLONNE]
+  Gene                                          dtype=object     null=0.0%  unique=41
+  Alteration(s)                                 dtype=object     null=0.0%  unique=32
+  Cancer Type                                   dtype=object     null=0.0%  unique=24
+  Drug(s)                                       dtype=object     null=0.0%  unique=62
+  Companion Diagnostic Device                   dtype=object     null=0.0%  unique=40
+  Specimen Types(s)                             dtype=object     null=0.0%  unique=9
+  Platform Type                                 dtype=object     null=0.0%  unique=5
+
+[PRIME 3 RIGHE]
+   Gene                      Alteration(s)                Cancer Type       Drug(s)                     Companion Diagnostic Device              Specimen Types(s) Platform Type
+0  IDH1  R132C, R132G, R132H, R132L, R132S     Acute Myeloid Leukemia    Ivosidenib  Abbott RealTime IDH1  (Abbott Molecular, Inc.)  Bone marrow, Peripheral Blood           PCR
+1  IDH1  R132C, R132G, R132H, R132L, R132S  Myelodysplastic Syndromes    Ivosidenib  Abbott RealTime IDH1  (Abbott Molecular, Inc.)  Bone marrow, Peripheral Blood           PCR
+2  IDH1  R132C, R132G, R132H, R132L, R132S     Acute Myeloid Leukemia  Olutasidenib  Abbott RealTime IDH1  (Abbott Molecular, Inc.)  Bone marrow, Peripheral Blood           PCR
+
+[CAMPIONE VALORI - prime 5 colonne]
+  Gene: ['IDH1', 'IDH2', 'KRAS', 'BRCA1', 'BRCA2']
+  Alteration(s): ['R132C, R132G, R132H, R132L, R132S', 'R140G, R140L, R140Q, R140W, R172G, R172K, R172M, R172S, R172W', 'G12C', 'Oncogenic Mutations', 'V600E']
+  Cancer Type: ['Acute Myeloid Leukemia', 'Myelodysplastic Syndromes', 'Non-Small Cell Lung Cancer', 'Ovarian Cancer, Ovary/Fallopian Tube, Peritoneal Serous Carcinoma', 'Prostate Cancer, Prostate Cancer']
+  Drug(s): ['Ivosidenib', 'Olutasidenib', 'Enasidenib', 'Adagrasib', 'Olaparib']
+  Companion Diagnostic Device: ['Abbott RealTime IDH1  (Abbott Molecular, Inc.)', 'Abbott RealTime IDH2  (Abbott Molecular, Inc.)', 'Agilent Resolution ctDx FIRST assay  (Resolution Bioscience, Inc.)', 'BRACAnalysis CDx  (Myriad Genetic Laboratories, Inc.)', 'cobas 4800 BRAF V600 Mutation Test  (Roche Molecular Systems, Inc.)']
+
+============================================================
+FILE: fda_approved_oncology_therapies.xlsx
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\fda_approved_oncology_therapies.xlsx
+============================================================
+Fogli trovati: ['FDA-Approved Oncology Therapies', 'Footnotes']
+
+--- Foglio: FDA-Approved Oncology Therapies ---
+
+[DIMENSIONI]
+  Righe: 250
+  Colonne: 8
+
+[SCHEMA COLONNE]
+  Year of drug’s first FDA- approval            dtype=object     null=0.0%  unique=25
+  FDA-approved drug(s) a                        dtype=object     null=0.0%  unique=250
+  FDA drug label listed biomarker(s) b          dtype=object     null=52.0%  unique=82
+  Class of agent(s) c                           dtype=object     null=0.0%  unique=34
+  Mechanism of action or drug target c          dtype=object     null=0.0%  unique=167
+  Targeted therapy                              dtype=object     null=0.0%  unique=2
+  Precision oncology therapy                    dtype=object     null=0.0%  unique=2
+  Can a DNA/NGS-based method be used for biomarker detection?  dtype=object     null=52.0%  unique=2
+
+[PRIME 3 RIGHE]
+  Year of drug’s first FDA- approval FDA-approved drug(s) a FDA drug label listed biomarker(s) b                                       Class of agent(s) c                         Mechanism of action or drug target c Targeted therapy Precision oncology therapy Can a DNA/NGS-based method be used for biomarker detection? 
+0                         1998-2001*            Alemtuzumab                                  NaN  Hematopoietic protein binding antibody, ADC or cytotoxin                             CD52-directed cytolytic antibody                Y                          N                                                          NaN
+1                         1998-2001*           Alitretinoin                                  NaN                                                  Retinoid  Vitamin A derivative; activates retinoid receptors PML-RARɑ                Y                          N                                                          NaN
+2                         1998-2001*       Arsenic trioxide                      PML-RARɑ Fusion                                    Cytotoxic chemotherapy                     Chemotherapeutic agent; targets PML-RARɑ                N                          Y                                                            Y
+
+[ATTENZIONE - colonne con >50% null]
+  - FDA drug label listed biomarker(s) b
+  - Can a DNA/NGS-based method be used for biomarker detection? 
+
+[CAMPIONE VALORI - prime 5 colonne]
+  Year of drug’s first FDA- approval: ['1998-2001*', 2018, 2002, 2003, 2004]
+  FDA-approved drug(s) a: ['Alemtuzumab', 'Alitretinoin', 'Arsenic trioxide', 'Bexarotene', 'Capecitabine']
+  FDA drug label listed biomarker(s) b: ['PML-RARɑ Fusion', 'CD25+', 'ER+', 'CD33+', 'ALK+ (ALK Fusions)']
+  Class of agent(s) c: ['Hematopoietic protein binding antibody, ADC or cytotoxin', 'Retinoid', 'Cytotoxic chemotherapy', 'Nucleoside metabolic inhibitor', 'Hormone therapy']
+  Mechanism of action or drug target c: ['CD52-directed cytolytic antibody', 'Vitamin A derivative; activates retinoid receptors PML-RARɑ', 'Chemotherapeutic agent; targets PML-RARɑ', 'Selective activator of retinoid X receptors (RXR)s', 'Nucleoside metabolic inhibitor']
+
+--- Foglio: Footnotes ---
+
+[DIMENSIONI]
+  Righe: 6
+  Colonne: 1
+
+[SCHEMA COLONNE]
+  a The following drugs are no longer FDA-approved: Umbralisib, Infigratinib, Belantamab mafodotin, Olaratumab, Panobinostat, Tositumomab and Iodine I 131 Tositumomab according to: www.fda.gov/drugs/resources-information-approved-drugs/withdrawn-cancer-accelerated-approvals  (content current of 07/25/2023) dtype=object     null=0.0%  unique=6
+
+[PRIME 3 RIGHE]
+                                         a The following drugs are no longer FDA-approved: Umbralisib, Infigratinib, Belantamab mafodotin, Olaratumab, Panobinostat, Tositumomab and Iodine I 131 Tositumomab according to: www.fda.gov/drugs/resources-information-approved-drugs/withdrawn-cancer-accelerated-approvals  (content current of 07/25/2023)
+0  b\nIncludes pathognomonic and indication-specific biomarkers, that while not specifically listed in the Indications and Usage section of the FDA drug label, are targeted by the precision oncology drug (ex KIT D816 in systemic mastocytosis [avapritinib]).\nBullets signify indication-specific FDA-recognized biomarker(s) for the listed therapy.
+1                                                                                                                    c Drug classifications were made based on information in each drug's FDA drug label(https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm) and NCI Drug Dictionary(https://www.cancer.gov/publications/dictionaries/cancer-drug).
+2                                                                                                                                                     d\nClassification applies only to drugs labeled as Precision oncology therapies.\nIf at least one of the listed biomarkers can be detected by DNA/NGS-based method, this column will be marked as Y.
+
+[CAMPIONE VALORI - prime 5 colonne]
+  a The following drugs are no longer FDA-approved: Umbralisib, Infigratinib, Belantamab mafodotin, Olaratumab, Panobinostat, Tositumomab and Iodine I 131 Tositumomab according to: www.fda.gov/drugs/resources-information-approved-drugs/withdrawn-cancer-accelerated-approvals  (content current of 07/25/2023): ['b\nIncludes pathognomonic and indication-specific biomarkers, that while not specifically listed in the Indications and Usage section of the FDA drug label, are targeted by the precision oncology drug (ex KIT D816 in systemic mastocytosis [avapritinib]).\nBullets signify indication-specific FDA-recognized biomarker(s) for the listed therapy.', "c Drug classifications were made based on information in each drug's FDA drug label(https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm) and NCI Drug Dictionary(https://www.cancer.gov/publications/dictionaries/cancer-drug).", 'd\nClassification applies only to drugs labeled as Precision oncology therapies.\nIf at least one of the listed biomarkers can be detected by DNA/NGS-based method, this column will be marked as Y.', '* The exact year of the drug’s first FDA-approval could not be determined due to absent or ambiguous data on FDA.gov website', 'Oncology drug: A drug approved by the US-Food and Drug Administration (FDA) for the treatment of cancer\nTargeted therapy: A cancer drug that binds to or inhibits a specific protein target\nPrecision oncology therapy: A drug that is most effective in a molecularly defined subset of patients and for which pre-treatment molecular profiling is required for optimal patient selection']
+
+============================================================
+FILE: 01-May-2026-AcceptedClinicalEvidenceSummaries.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Civic\01-May-2026-AcceptedClinicalEvidenceSummaries.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 4,843
+  Colonne: 25
+
+[SCHEMA COLONNE]
+  molecular_profile                             dtype=object     null=0.0%  unique=1,933
+  molecular_profile_id                          dtype=int64      null=0.0%  unique=1,933
+  disease                                       dtype=object     null=3.3%  unique=334
+  doid                                          dtype=float64    null=5.6%  unique=301
+  phenotypes                                    dtype=object     null=80.8%  unique=307
+  therapies                                     dtype=object     null=41.3%  unique=722
+  therapy_interaction_type                      dtype=object     null=85.9%  unique=3
+  evidence_type                                 dtype=object     null=0.0%  unique=6
+  evidence_direction                            dtype=object     null=1.1%  unique=2
+  evidence_level                                dtype=object     null=0.0%  unique=5
+  significance                                  dtype=object     null=2.0%  unique=17
+  evidence_statement                            dtype=object     null=0.0%  unique=4,591
+  citation_id                                   dtype=object     null=0.0%  unique=2,224
+  source_type                                   dtype=object     null=0.0%  unique=3
+  asco_abstract_id                              dtype=float64    null=99.6%  unique=13
+  citation                                      dtype=object     null=0.0%  unique=2,091
+  nct_ids                                       dtype=object     null=86.0%  unique=243
+  rating                                        dtype=float64    null=0.9%  unique=5
+  evidence_status                               dtype=object     null=0.0%  unique=1
+  evidence_id                                   dtype=int64      null=0.0%  unique=4,843
+  variant_origin                                dtype=object     null=7.9%  unique=6
+  last_review_date                              dtype=object     null=0.0%  unique=1,937
+  evidence_civic_url                            dtype=object     null=0.0%  unique=4,843
+  molecular_profile_civic_url                   dtype=object     null=0.0%  unique=1,933
+  is_flagged                                    dtype=bool       null=0.0%  unique=2
+
+[PRIME 3 RIGHE]
+  molecular_profile  molecular_profile_id                         disease    doid phenotypes therapies therapy_interaction_type evidence_type evidence_direction evidence_level significance                                                                                                                                                                                         evidence_statement citation_id source_type  asco_abstract_id              citation nct_ids  rating evidence_status  evidence_id variant_origin         last_review_date                          evidence_civic_url                      molecular_profile_civic_url  is_flagged
+0        JAK2 V617F                    64               Lymphoid Leukemia  1037.0        NaN       NaN                      NaN    Diagnostic           Supports              B     Negative                                                                                                                         JAK2 V617F is not associated with lymphoid leukemia (B-lineage ALL, T-ALL or CLL).    16081687      PubMed               NaN   Levine et al., 2005     NaN     4.0        accepted            1        Somatic  2023-01-09 21:46:26 UTC  https://civicdb.org/links/evidence_items/1  https://civicdb.org/links/molecular_profiles/64       False
+1      PDGFRA D842V                    99  Gastrointestinal Stromal Tumor  9253.0        NaN       NaN                      NaN    Diagnostic           Supports              B     Negative                                                                                                                   GIST tumors harboring PDGFRA D842V mutation are more likely to be benign than malignant.    15146165      PubMed               NaN   Lasota et al., 2004     NaN     3.0        accepted            2        Somatic  2023-01-09 21:46:27 UTC  https://civicdb.org/links/evidence_items/2  https://civicdb.org/links/molecular_profiles/99       False
+2       DNMT3A R882                    32          Acute Myeloid Leukemia  9119.0        NaN       NaN                      NaN    Diagnostic           Supports              B     Positive  Young AML patients (<60 years old) with DNMT3A mutations (60% of which were R882) were older in age, had higher white blood cell counts and had higher platelet counts than patients wildtype for DNMT3A.    22490330      PubMed               NaN  Ribeiro et al., 2012     NaN     3.0        accepted            4        Somatic  2023-01-09 21:46:25 UTC  https://civicdb.org/links/evidence_items/4  https://civicdb.org/links/molecular_profiles/32       False
+
+[ATTENZIONE - colonne con >50% null]
+  - phenotypes
+  - therapy_interaction_type
+  - asco_abstract_id
+  - nct_ids
+
+[CAMPIONE VALORI - prime 5 colonne]
+  molecular_profile: ['JAK2 V617F', 'PDGFRA D842V', 'DNMT3A R882', 'KRAS G12', 'NRAS Q61']
+  molecular_profile_id: [64, 99, 32, 76, 94]
+  disease: ['Lymphoid Leukemia', 'Gastrointestinal Stromal Tumor', 'Acute Myeloid Leukemia', 'Chronic Myeloid Leukemia', 'Bone Marrow Cancer']
+  doid: [1037.0, 9253.0, 9119.0, 8552.0, 4960.0]
+  phenotypes: ['Infantile onset', 'Pediatric onset,Early young adult onset', 'Brain neoplasm', 'Juvenile onset', 'Polycythemia']
+
+============================================================
+FILE: 01-May-2026-FeatureSummaries.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Civic\01-May-2026-FeatureSummaries.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 961
+  Colonne: 18
+
+[SCHEMA COLONNE]
+  feature_id                                    dtype=int64      null=0.0%  unique=961
+  feature_civic_url                             dtype=object     null=0.0%  unique=961
+  feature_type                                  dtype=object     null=0.0%  unique=4
+  name                                          dtype=object     null=0.0%  unique=961
+  feature_aliases                               dtype=object     null=34.8%  unique=627
+  description                                   dtype=object     null=92.8%  unique=68
+  last_review_date                              dtype=object     null=0.0%  unique=529
+  is_flagged                                    dtype=bool       null=0.0%  unique=1
+  entrez_id                                     dtype=float64    null=35.9%  unique=616
+  ncit_id                                       dtype=object     null=99.3%  unique=7
+  five_prime_partner_status                     dtype=object     null=65.2%  unique=3
+  three_prime_partner_status                    dtype=object     null=65.2%  unique=3
+  five_prime_gene_id                            dtype=float64    null=68.2%  unique=183
+  five_prime_gene_name                          dtype=object     null=68.2%  unique=183
+  five_prime_gene_entrez_id                     dtype=float64    null=68.2%  unique=183
+  three_prime_gene_id                           dtype=float64    null=66.8%  unique=148
+  three_prime_gene_name                         dtype=object     null=66.8%  unique=148
+  three_prime_gene_entrez_id                    dtype=float64    null=66.8%  unique=148
+
+[PRIME 3 RIGHE]
+   feature_id                     feature_civic_url feature_type  name                             feature_aliases                                                                                                                                                                                                                                                                                                                                                                                                                                                          description         last_review_date  is_flagged  entrez_id ncit_id five_prime_partner_status three_prime_partner_status  five_prime_gene_id five_prime_gene_name  five_prime_gene_entrez_id  three_prime_gene_id three_prime_gene_name  three_prime_gene_entrez_id
+0           1  https://civicdb.org/links/features/1         Gene   ALK                       CD246,NBLST3,ALK,ALK1  ALK amplifications, fusions and mutations have been shown to be driving events in non-small cell lung cancer. While crizontinib has demonstrated efficacy in treating the amplification, mutations in ALK have been shown to confer resistance to current tyrosine kinase inhibitors. Second-generation TKI's have seen varied success in treating these resistant cases, and the HSP90 inhibitor 17-AAG has been shown to be cytostatic in ALK-altered cell lines.  2025-05-03 03:00:07 UTC       False      238.0     NaN                       NaN                        NaN                 NaN                  NaN                        NaN                  NaN                   NaN                         NaN
+1           2  https://civicdb.org/links/features/2         Gene  AKT1  AKT,PKB,PKB-ALPHA,PRKBA,RAC,RAC-ALPHA,AKT1                                                                       AKT1, also referred to as protein kinase B, is a known oncogene. AKT activation relies on the PI3K pathway, and is recognized as a critical node in the pathway. The E17 hotspot is the most characterized of AKT1 mutations, and has been shown to result in activation of the protein. Mutations in AKT1 have also been shown to confer resistance to allosteric kinase inhibitors in vitro.  2025-05-03 03:00:08 UTC       False      207.0     NaN                       NaN                        NaN                 NaN                  NaN                        NaN                  NaN                   NaN                         NaN
+2           3  https://civicdb.org/links/features/3         Gene  ARAF                 A-RAF,ARAF1,PKS2,RAFA1,ARAF                                             ARAF has recently become increasingly considered for its oncogenic potential. Its potential as a target for informing clinical action was demonstrated by a single case of advanced lung adenocarcinoma harboring an S214C mutation that, when treated with sorafenib, acheived near-complete clinical remission. This finding has brought new focus on ARAF as a marker that should be assayed for in cancer treatment.  2025-05-03 03:00:08 UTC       False      369.0     NaN                       NaN                        NaN                 NaN                  NaN                        NaN                  NaN                   NaN                         NaN
+
+[ATTENZIONE - colonne con >50% null]
+  - description
+  - ncit_id
+  - five_prime_partner_status
+  - three_prime_partner_status
+  - five_prime_gene_id
+  - five_prime_gene_name
+  - five_prime_gene_entrez_id
+  - three_prime_gene_id
+  - three_prime_gene_name
+  - three_prime_gene_entrez_id
+
+[CAMPIONE VALORI - prime 5 colonne]
+  feature_id: [1, 2, 3, 4, 5]
+  feature_civic_url: ['https://civicdb.org/links/features/1', 'https://civicdb.org/links/features/2', 'https://civicdb.org/links/features/3', 'https://civicdb.org/links/features/4', 'https://civicdb.org/links/features/5']
+  feature_type: ['Gene', 'Factor', 'Fusion', 'Region']
+  name: ['ALK', 'AKT1', 'ARAF', 'ABL1', 'BRAF']
+  feature_aliases: ['CD246,NBLST3,ALK,ALK1', 'AKT,PKB,PKB-ALPHA,PRKBA,RAC,RAC-ALPHA,AKT1', 'A-RAF,ARAF1,PKS2,RAFA1,ARAF', 'ABL,JTK7,bcr/abl,c-ABL,c-ABL1,p150,v-abl,ABL1,BCR-ABL,CHDSKM', 'B-RAF1,BRAF1,NS7,RAFB1,B-raf,BRAF,BRAF-1']
+
+============================================================
+FILE: 01-May-2026-MolecularProfileSummaries.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Civic\01-May-2026-MolecularProfileSummaries.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 1,937
+  Colonne: 13
+
+[SCHEMA COLONNE]
+  name                                          dtype=object     null=0.0%  unique=1,937
+  molecular_profile_id                          dtype=int64      null=0.0%  unique=1,937
+  summary                                       dtype=object     null=86.7%  unique=234
+  variant_ids                                   dtype=object     null=0.0%  unique=1,936
+  variants_civic_url                            dtype=object     null=0.0%  unique=1,936
+  evidence_score                                dtype=float64    null=0.0%  unique=192
+  evidence_item_ids                             dtype=object     null=0.2%  unique=1,934
+  evidence_items_civic_url                      dtype=object     null=0.2%  unique=1,934
+  assertion_ids                                 dtype=object     null=92.5%  unique=145
+  assertions_civic_url                          dtype=object     null=92.5%  unique=145
+  aliases                                       dtype=object     null=51.8%  unique=930
+  last_review_date                              dtype=object     null=0.0%  unique=298
+  is_flagged                                    dtype=bool       null=0.0%  unique=1
+
+[PRIME 3 RIGHE]
+               name  molecular_profile_id                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            summary variant_ids                    variants_civic_url  evidence_score                                                                                                                                                    evidence_item_ids                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       evidence_items_civic_url assertion_ids                                                                assertions_civic_url                              aliases         last_review_date  is_flagged
+0  BCR::ABL1 Fusion                     1  The BCR-ABL fusion protein, commonly referred to as the Philadelphia chromosome, is one of the most studied fusion genes in cancer. It has widely been considered the initiating event in chronic myelogenous leukemia (CML). However, despite its ability to initiate disease in mice, its status as an initiating mutation is in dispute. In what is commonly used as the poster-child for targeted therapeutics, the development and use of imatinib in the clinic has led to profound improvements in the prognosis of the disease. However, imatinib resistance is still seen in patients with mutations in the ABL kinase domain of the fusion, most notably the T315I variant. In patients resistant to imatinib, either acquired or otherwise, second generation BCR-ABL TKI's (dasatinib and nilotinib) have seen some success in delivering a tumor response. Third generation ABL1 inhibitor ponatinib is the only FDA approved drug with activity against T315I . However due to risk of life-threatening blood clots and severe narrowing of blood vessels ponatinib is ONLY approved for T315I-positive CML or T315I-positive Ph+ ALL or in cases of CML, Ph+ ALL with resistance or intolerance to other approved ABL1 inhibitors.           1  https://civicdb.org/links/variants/1           433.5  232, 4436, 213, 344, 12089, 260, 259, 261, 12434, 12048, 12090, 12087, 12047, 12046, 12526, 12213, 12589, 220, 11235, 11223, 11224, 12088, 4706, 7838, 11288, 11287  https://civicdb.org/links/evidence_items/232, https://civicdb.org/links/evidence_items/4436, https://civicdb.org/links/evidence_items/213, https://civicdb.org/links/evidence_items/344, https://civicdb.org/links/evidence_items/12089, https://civicdb.org/links/evidence_items/260, https://civicdb.org/links/evidence_items/259, https://civicdb.org/links/evidence_items/261, https://civicdb.org/links/evidence_items/12434, https://civicdb.org/links/evidence_items/12048, https://civicdb.org/links/evidence_items/12090, https://civicdb.org/links/evidence_items/12087, https://civicdb.org/links/evidence_items/12047, https://civicdb.org/links/evidence_items/12046, https://civicdb.org/links/evidence_items/12526, https://civicdb.org/links/evidence_items/12213, https://civicdb.org/links/evidence_items/12589, https://civicdb.org/links/evidence_items/220, https://civicdb.org/links/evidence_items/11235, https://civicdb.org/links/evidence_items/11223, https://civicdb.org/links/evidence_items/11224, https://civicdb.org/links/evidence_items/12088, https://civicdb.org/links/evidence_items/4706, https://civicdb.org/links/evidence_items/7838, https://civicdb.org/links/evidence_items/11288, https://civicdb.org/links/evidence_items/11287      137, 188  https://civicdb.org/links/assertions/137, https://civicdb.org/links/assertions/188  BCR-ABL, BCR-ABL1, T(9;22)(Q34;Q11)  2025-11-05 23:21:22 UTC       False
+1         AKT1 E17K                     4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              AKT1 E17K is a recurrent mutation that has been observed in breast, colorectal, lung, and ovarian cancer. It has been convincingly shown to be an activating mutation resulting in PI3K/AKT/mTOR pathway activity. It has been suggested that this mutation decreases the cell's sensitivity to AKT1 allosteric kinase inhibitors. This, and other AKT1 mutations, are the subject of much research and development for therapeutics.           4  https://civicdb.org/links/variants/4            33.5                                                                                                                                            707, 4029, 3039, 709, 231                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         https://civicdb.org/links/evidence_items/707, https://civicdb.org/links/evidence_items/4029, https://civicdb.org/links/evidence_items/3039, https://civicdb.org/links/evidence_items/709, https://civicdb.org/links/evidence_items/231           NaN                                                                                 NaN                 RS34409589, GLU17LYS  2024-04-16 22:42:41 UTC       False
+2  EML4::ALK Fusion                     5                                                                                                                                                                                                                                                                                                                                                                                                The EML4-ALK fusion variant 1 consisting of ALK kinase domain (exons 20-29) fused to EML4 exons 1-13 is the most common EML4-ALK variant, and was discovered in non-small cell lung cancer. Multiple EML4 breakpoint shave been described with differential sensitivity to inhibitors with variant 1 showing greater sensitivity than 3a in cell lines. EML4-ALK is crizotinib sensitive; however, several mutations that confer resistance mutations have been described in case studies. In the only clinical trial for crizotinib that included determination of EML4-ALK variant type in a subset of its participants, a very high response rate was observed, although the numbers were insufficient to validate correlation of variant type to outcome. Preclinical studies with this variant have indicated sensitivity to Hsp90 inhibitors.           5  https://civicdb.org/links/variants/5            48.0                                                                                                                        1207, 1332, 1206, 1203, 1188, 1121, 262, 9228                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          https://civicdb.org/links/evidence_items/1207, https://civicdb.org/links/evidence_items/1332, https://civicdb.org/links/evidence_items/1206, https://civicdb.org/links/evidence_items/1203, https://civicdb.org/links/evidence_items/1188, https://civicdb.org/links/evidence_items/1121, https://civicdb.org/links/evidence_items/262, https://civicdb.org/links/evidence_items/9228           NaN                                                                                 NaN                             EML4-ALK  2024-04-16 22:42:41 UTC       False
+
+[ATTENZIONE - colonne con >50% null]
+  - summary
+  - assertion_ids
+  - assertions_civic_url
+  - aliases
+
+[CAMPIONE VALORI - prime 5 colonne]
+  name: ['BCR::ABL1 Fusion', 'AKT1 E17K', 'EML4::ALK Fusion', 'ALK F1174L', 'ALK R1275Q']
+  molecular_profile_id: [1, 4, 5, 8, 9]
+  summary: ["The BCR-ABL fusion protein, commonly referred to as the Philadelphia chromosome, is one of the most studied fusion genes in cancer. It has widely been considered the initiating event in chronic myelogenous leukemia (CML). However, despite its ability to initiate disease in mice, its status as an initiating mutation is in dispute. In what is commonly used as the poster-child for targeted therapeutics, the development and use of imatinib in the clinic has led to profound improvements in the prognosis of the disease. However, imatinib resistance is still seen in patients with mutations in the ABL kinase domain of the fusion, most notably the T315I variant. In patients resistant to imatinib, either acquired or otherwise, second generation BCR-ABL TKI's (dasatinib and nilotinib) have seen some success in delivering a tumor response. Third generation ABL1 inhibitor ponatinib is the only FDA approved drug with activity against T315I . However due to risk of life-threatening blood clots and severe narrowing of blood vessels ponatinib is ONLY approved for T315I-positive CML or T315I-positive Ph+ ALL or in cases of CML, Ph+ ALL with resistance or intolerance to other approved ABL1 inhibitors.", "AKT1 E17K is a recurrent mutation that has been observed in breast, colorectal, lung, and ovarian cancer. It has been convincingly shown to be an activating mutation resulting in PI3K/AKT/mTOR pathway activity. It has been suggested that this mutation decreases the cell's sensitivity to AKT1 allosteric kinase inhibitors. This, and other AKT1 mutations, are the subject of much research and development for therapeutics.", 'The EML4-ALK fusion variant 1 consisting of ALK kinase domain (exons 20-29) fused to EML4 exons 1-13 is the most common EML4-ALK variant, and was discovered in non-small cell lung cancer. Multiple EML4 breakpoint shave been described with differential sensitivity to inhibitors with variant 1 showing greater sensitivity than 3a in cell lines. EML4-ALK is crizotinib sensitive; however, several mutations that confer resistance mutations have been described in case studies. In the only clinical trial for crizotinib that included determination of EML4-ALK variant type in a subset of its participants, a very high response rate was observed, although the numbers were insufficient to validate correlation of variant type to outcome. Preclinical studies with this variant have indicated sensitivity to Hsp90 inhibitors.', 'ALK F1174L has been observed as recurrent in neuroblastoma, non-small cell lung cancer (NSCLC), and other cancer types. Neuroblastoma cells containing this mutation have shown resistance to low doses of criztonib. However, increased dosage can overcome this resistance in cell lines studies. TAE684 has also proven effective in both NSCLC and neuroblastoma F1174L containing cells.', 'ALK R1275Q has been observed as a recurrent mutation in neuroblastoma, non-small cell lung cancer (NSCLC), as well as other cancer types. Neuroblastoma cells with this mutation have shown sensitivity to the ALK-inhibitor TAE684. This and the geldanamycin deriviative 17-DMAG have been shown to be effective in NSCLC cell lines.']
+  variant_ids: ['1', '4', '5', '8', '9']
+  variants_civic_url: ['https://civicdb.org/links/variants/1', 'https://civicdb.org/links/variants/4', 'https://civicdb.org/links/variants/5', 'https://civicdb.org/links/variants/8', 'https://civicdb.org/links/variants/9']
+
+============================================================
+FILE: 01-May-2026-VariantSummaries.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Civic\01-May-2026-VariantSummaries.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 1,973
+  Colonne: 40
+
+[SCHEMA COLONNE]
+  variant_id                                    dtype=object     null=0.0%  unique=1,973
+  variant_civic_url                             dtype=object     null=0.0%  unique=3
+  feature_type                                  dtype=int64      null=0.0%  unique=571
+  feature_id                                    dtype=object     null=0.0%  unique=571
+  feature_name                                  dtype=object     null=0.0%  unique=571
+  feature_civic_url                             dtype=object     null=0.0%  unique=1,353
+  variant                                       dtype=object     null=45.4%  unique=1,074
+  variant_aliases                               dtype=bool       null=0.0%  unique=2
+  is_flagged                                    dtype=object     null=93.0%  unique=30
+  variant_groups                                dtype=object     null=33.0%  unique=95
+  variant_types                                 dtype=int64      null=0.0%  unique=1,973
+  single_variant_molecular_profile_id           dtype=object     null=0.0%  unique=614
+  last_review_date                              dtype=object     null=12.6%  unique=337
+  gene                                          dtype=float64    null=12.6%  unique=337
+  entrez_id                                     dtype=object     null=35.7%  unique=23
+  chromosome                                    dtype=float64    null=35.8%  unique=1,011
+  start                                         dtype=float64    null=35.8%  unique=1,009
+  stop                                          dtype=object     null=58.4%  unique=54
+  reference_bases                               dtype=object     null=60.2%  unique=45
+  variant_bases                                 dtype=object     null=37.7%  unique=311
+  representative_transcript                     dtype=float64    null=38.9%  unique=3
+  ensembl_version                               dtype=object     null=35.6%  unique=2
+  reference_build                               dtype=object     null=57.8%  unique=833
+  hgvs_descriptions                             dtype=object     null=56.3%  unique=859
+  allele_registry_id                            dtype=object     null=57.6%  unique=537
+  clinvar_ids                                   dtype=object     null=99.9%  unique=1
+  ncit_id                                       dtype=object     null=88.1%  unique=2
+  5_prime_partner_status                        dtype=object     null=89.3%  unique=139
+  5_prime_partner                               dtype=object     null=88.1%  unique=3
+  3_prime_partner_status                        dtype=object     null=88.7%  unique=95
+  3_prime_partner                               dtype=object     null=88.1%  unique=235
+  vicc_compliant_name                           dtype=object     null=95.4%  unique=72
+  5_prime_transcript                            dtype=float64    null=95.4%  unique=24
+  5_prime_end_exon                              dtype=float64    null=99.9%  unique=1
+  5_prime_exon_offset                           dtype=object     null=99.9%  unique=1
+  5_prime_exon_offset_direction                 dtype=object     null=95.2%  unique=51
+  3_prime_transcript                            dtype=float64    null=95.2%  unique=24
+  3_prime_start_exon                            dtype=float64    null=100.0%  unique=0
+  3_prime_exon_offset                           dtype=float64    null=100.0%  unique=0
+  3_prime_exon_offset_direction                 dtype=float64    null=100.0%  unique=0
+
+[PRIME 3 RIGHE]
+                             variant_id variant_civic_url  feature_type feature_id                              feature_name feature_civic_url                            variant  variant_aliases             is_flagged     variant_groups  variant_types single_variant_molecular_profile_id last_review_date  gene entrez_id   chromosome        start stop reference_bases      variant_bases  representative_transcript ensembl_version                                                                                        reference_build hgvs_descriptions allele_registry_id clinvar_ids ncit_id 5_prime_partner_status 5_prime_partner 3_prime_partner_status                   3_prime_partner vicc_compliant_name  5_prime_transcript  5_prime_end_exon 5_prime_exon_offset 5_prime_exon_offset_direction  3_prime_transcript  3_prime_start_exon  3_prime_exon_offset  3_prime_exon_offset_direction
+1  https://civicdb.org/links/variants/1            Fusion         61802  BCR::ABL1  https://civicdb.org/links/features/61802            Fusion  T(9;22)(Q34;Q11),BCR-ABL1,BCR-ABL            False  ABL1 fusions in B-ALL  transcript_fusion              1             2024-10-23 19:57:59 UTC              NaN   NaN       NaN          NaN          NaN  NaN             NaN                NaN                        NaN             NaN                                                                                                    NaN               NaN                NaN         NaN   known                    BCR           known                   ABL1  BCR(entrez:613)::ABL1(entrez:25)   ENST00000305877.8                14.0               NaN                 NaN             ENST00000318560.5                 2.0                 NaN                  NaN                            NaN
+2  https://civicdb.org/links/variants/2              Gene             4       ABL1      https://civicdb.org/links/features/4             T315I              THR334ILE,RS121913459            False    Imatinib Resistance   missense_variant              2             2025-05-02 19:42:24 UTC             ABL1  25.0         9  133748283.0  133748283.0    C               T  ENST00000318560.5                       75.0          GRCh37  NM_007313.2:c.1001C>T,NP_005148.2:p.Thr315Ile,ENST00000372348.2:c.1001C>T,NC_000009.11:g.133748283C>T          CA122575              12624         NaN     NaN                    NaN             NaN                    NaN                               NaN                 NaN                 NaN               NaN                 NaN                           NaN                 NaN                 NaN                  NaN                            NaN
+3  https://civicdb.org/links/variants/3              Gene             4       ABL1      https://civicdb.org/links/features/4             E255K                  E274K,RS121913448            False    Imatinib Resistance   missense_variant              3             2025-05-02 19:42:18 UTC             ABL1  25.0         9  133738363.0  133738363.0    G               A  ENST00000318560.5                       75.0          GRCh37    NC_000009.11:g.133738363G>A,NM_005157.5:c.763G>A,NP_005148.2:p.Glu255Lys,ENST00000318560.5:c.763G>A        CA16602551             376090         NaN     NaN                    NaN             NaN                    NaN                               NaN                 NaN                 NaN               NaN                 NaN                           NaN                 NaN                 NaN                  NaN                            NaN
+
+[ATTENZIONE - colonne con >50% null]
+  - is_flagged
+  - stop
+  - reference_bases
+  - reference_build
+  - hgvs_descriptions
+  - allele_registry_id
+  - clinvar_ids
+  - ncit_id
+  - 5_prime_partner_status
+  - 5_prime_partner
+  - 3_prime_partner_status
+  - 3_prime_partner
+  - vicc_compliant_name
+  - 5_prime_transcript
+  - 5_prime_end_exon
+  - 5_prime_exon_offset
+  - 5_prime_exon_offset_direction
+  - 3_prime_transcript
+  - 3_prime_start_exon
+  - 3_prime_exon_offset
+  - 3_prime_exon_offset_direction
+
+[CAMPIONE VALORI - prime 5 colonne]
+  variant_id: ['https://civicdb.org/links/variants/1', 'https://civicdb.org/links/variants/2', 'https://civicdb.org/links/variants/3', 'https://civicdb.org/links/variants/4', 'https://civicdb.org/links/variants/5']
+  variant_civic_url: ['Fusion', 'Gene', 'Factor']
+  feature_type: [61802, 4, 2, 61755, 1]
+  feature_id: ['BCR::ABL1', 'ABL1', 'AKT1', 'EML4::ALK', 'ALK']
+  feature_name: ['https://civicdb.org/links/features/61802', 'https://civicdb.org/links/features/4', 'https://civicdb.org/links/features/2', 'https://civicdb.org/links/features/61755', 'https://civicdb.org/links/features/1']
+
+============================================================
+FILE: categories.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\DGIdb\categories.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 32,795
+  Colonne: 4
+
+[SCHEMA COLONNE]
+  name                                          dtype=object     null=0.0%  unique=18,856
+  name-2                                        dtype=object     null=0.0%  unique=39
+  source_db_name                                dtype=object     null=0.0%  unique=17
+  source_db_version                             dtype=object     null=0.0%  unique=15
+
+[PRIME 3 RIGHE]
+   name                    name-2 source_db_name source_db_version
+0   PXR  NUCLEAR HORMONE RECEPTOR       BaderLab            Feb-14
+1  LXRA  NUCLEAR HORMONE RECEPTOR       BaderLab            Feb-14
+2   SHP  NUCLEAR HORMONE RECEPTOR       BaderLab            Feb-14
+
+[CAMPIONE VALORI - prime 5 colonne]
+  name: ['PXR', 'LXRA', 'SHP', 'DAX', 'REV-ERBA']
+  name-2: ['NUCLEAR HORMONE RECEPTOR', 'CLINICALLY ACTIONABLE', 'DRUG RESISTANCE', 'G PROTEIN COUPLED RECEPTOR', 'PHOSPHATIDYLINOSITOL 3 KINASE']
+  source_db_name: ['BaderLab', 'CarisMolecularIntelligence', 'COSMIC', 'dGene', 'FoundationOneGenes']
+  source_db_version: ['Feb-14', '9/4/20', '4-Sep-20', '27-Jun-13', '9/3/20']
+
+============================================================
+FILE: drugs.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\DGIdb\drugs.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 81,572
+  Colonne: 9
+
+[SCHEMA COLONNE]
+  drug_claim_name                               dtype=object     null=0.0%  unique=62,039
+  nomenclature                                  dtype=object     null=0.0%  unique=4
+  concept_id                                    dtype=object     null=9.7%  unique=24,473
+  drug_name                                     dtype=object     null=9.7%  unique=23,702
+  approved                                      dtype=object     null=9.7%  unique=2
+  immunotherapy                                 dtype=object     null=9.7%  unique=2
+  anti_neoplastic                               dtype=object     null=9.7%  unique=2
+  source_db_name                                dtype=object     null=0.0%  unique=28
+  source_db_version                             dtype=object     null=0.0%  unique=25
+
+[PRIME 3 RIGHE]
+                          drug_claim_name       nomenclature    concept_id                               drug_name approved immunotherapy anti_neoplastic source_db_name source_db_version
+0  BRAF(V600E) Kinase Inhibitor RO5212054  Primary Drug Name   ncit:C92591  BRAF(V600E) KINASE INHIBITOR RO5212054    False         False            True           NCIt            24.02d
+1                 clonidine hydrochloride  Primary Drug Name  rxcui:142432                 CLONIDINE HYDROCHLORIDE     True         False           False         RxNorm          20240401
+2                               clonidine  Primary Drug Name  rxcui:142432                 CLONIDINE HYDROCHLORIDE     True         False           False         RxNorm          20240401
+
+[CAMPIONE VALORI - prime 5 colonne]
+  drug_claim_name: ['BRAF(V600E) Kinase Inhibitor RO5212054', 'clonidine hydrochloride', 'clonidine', 'Clonidine', 'Clonidine Hydrochloride']
+  nomenclature: ['Primary Drug Name', 'Drugs@FDA ID', 'Primary Name', 'GuideToPharmacology Ligand ID']
+  concept_id: ['ncit:C92591', 'rxcui:142432', 'rxcui:42331', 'rxcui:5487', 'ncit:C74072']
+  drug_name: ['BRAF(V600E) KINASE INHIBITOR RO5212054', 'CLONIDINE HYDROCHLORIDE', 'MISOPROSTOL', 'HYDROCHLOROTHIAZIDE', 'DACTOLISIB']
+  approved: [False, True]
+
+============================================================
+FILE: genes.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\DGIdb\genes.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 80,234
+  Colonne: 6
+
+[SCHEMA COLONNE]
+  gene_claim_name                               dtype=object     null=0.0%  unique=26,738
+  nomenclature                                  dtype=object     null=0.0%  unique=8
+  concept_id                                    dtype=object     null=2.7%  unique=12,000
+  gene_name                                     dtype=object     null=2.7%  unique=12,000
+  source_db_name                                dtype=object     null=0.0%  unique=39
+  source_db_version                             dtype=object     null=0.0%  unique=34
+
+[PRIME 3 RIGHE]
+  gene_claim_name    nomenclature concept_id gene_name source_db_name source_db_version
+0          NGFIBA  NCBI Gene Name        NaN       NaN       BaderLab            Feb-14
+1          NGFIBB  NCBI Gene Name        NaN       NaN       BaderLab            Feb-14
+2             DAX  NCBI Gene Name        NaN       NaN       BaderLab            Feb-14
+
+[CAMPIONE VALORI - prime 5 colonne]
+  gene_claim_name: ['NGFIBA', 'NGFIBB', 'DAX', 'REV-ERBA', 'COUP2']
+  nomenclature: ['NCBI Gene Name', 'Gene Symbol', 'Gene Name', 'UniProtKB ID', 'OncoKB Gene Name']
+  concept_id: ['hgnc:7968', 'hgnc:391', 'hgnc:1773', 'hgnc:1774', 'hgnc:1780']
+  gene_name: ['NR1I2', 'AKT1', 'CDK4', 'CDK5', 'CDK9']
+  source_db_name: ['BaderLab', 'CancerCommons', 'NCBI', 'CarisMolecularIntelligence', 'ChEMBL']
+
+============================================================
+FILE: interactions.tsv
+PATH: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\DGIdb\interactions.tsv
+============================================================
+Caricato con successo usando sep='\t', encoding=utf-8
+
+[DIMENSIONI]
+  Righe: 98,239
+  Colonne: 13
+
+[SCHEMA COLONNE]
+  gene_claim_name                               dtype=object     null=0.0%  unique=8,795
+  gene_concept_id                               dtype=object     null=8.3%  unique=5,011
+  gene_name                                     dtype=object     null=8.3%  unique=5,011
+  interaction_source_db_name                    dtype=object     null=0.0%  unique=21
+  interaction_source_db_version                 dtype=object     null=0.0%  unique=18
+  interaction_type                              dtype=object     null=64.5%  unique=16
+  interaction_score                             dtype=float64    null=17.2%  unique=6,381
+  drug_claim_name                               dtype=object     null=0.0%  unique=35,164
+  drug_concept_id                               dtype=object     null=10.8%  unique=19,563
+  drug_name                                     dtype=object     null=10.8%  unique=18,853
+  approved                                      dtype=object     null=10.8%  unique=2
+  immunotherapy                                 dtype=object     null=10.8%  unique=2
+  anti_neoplastic                               dtype=object     null=10.8%  unique=2
+
+[PRIME 3 RIGHE]
+  gene_claim_name gene_concept_id gene_name interaction_source_db_name interaction_source_db_version interaction_type  interaction_score      drug_claim_name       drug_concept_id             drug_name approved immunotherapy anti_neoplastic
+0          CYP2D6       hgnc:2625    CYP2D6                        DTC                        9/2/20              NaN           0.017709           RACLOPRIDE          ncit:C152139            RACLOPRIDE    False         False           False
+1           PPARG       hgnc:9236     PPARG                        DTC                        9/2/20              NaN           0.840123  KALOPANAX-SAPONIN F  chembl:CHEMBL1833984  CHEMBL:CHEMBL1833984    False         False           False
+2           ATAD5      hgnc:25752     ATAD5                        DTC                        9/2/20              NaN           0.177992            RO-5-3335    chembl:CHEMBL91609    CHEMBL:CHEMBL91609    False         False           False
+
+[ATTENZIONE - colonne con >50% null]
+  - interaction_type
+
+[CAMPIONE VALORI - prime 5 colonne]
+  gene_claim_name: ['CYP2D6', 'PPARG', 'ATAD5', 'RGS4', 'MAPK1']
+  gene_concept_id: ['hgnc:2625', 'hgnc:9236', 'hgnc:25752', 'hgnc:10000', 'hgnc:6871']
+  gene_name: ['CYP2D6', 'PPARG', 'ATAD5', 'RGS4', 'MAPK1']
+  interaction_source_db_name: ['DTC', 'TTD', 'GuideToPharmacology', 'DoCM', 'NCI']
+  interaction_source_db_version: ['9/2/20', '2020.06.01', '2024.1', '10-Apr-24', '14-Sep-17']

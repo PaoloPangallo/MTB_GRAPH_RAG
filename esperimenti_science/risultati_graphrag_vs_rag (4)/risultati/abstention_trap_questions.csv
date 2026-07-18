@@ -1,0 +1,35 @@
+trap_id,category,template,intent,entity,question,gold_answer
+T001,catena_spezzata,gene_to_drug,GENE_TO_DRUG,RMI2,Quale farmaco è indicato per le alterazioni del gene RMI2?,NON DETERMINABILE
+T002,catena_spezzata,gene_to_drug,GENE_TO_DRUG,SDC4,Quale farmaco è indicato per le alterazioni del gene SDC4?,NON DETERMINABILE
+T003,catena_spezzata,gene_to_drug,GENE_TO_DRUG,EXT1,Quale farmaco è indicato per le alterazioni del gene EXT1?,NON DETERMINABILE
+T004,catena_spezzata,gene_to_drug,GENE_TO_DRUG,TPMT,Quale farmaco è indicato per le alterazioni del gene TPMT?,NON DETERMINABILE
+T005,catena_spezzata,gene_to_drug,GENE_TO_DRUG,AFF3,Quale farmaco è indicato per le alterazioni del gene AFF3?,NON DETERMINABILE
+T006,catena_spezzata,gene_to_drug,GENE_TO_DRUG,NCOA4,Quale farmaco è indicato per le alterazioni del gene NCOA4?,NON DETERMINABILE
+T007,catena_spezzata,gene_to_disease,GENE_TO_DISEASE,PDCD11,Quale malattia è associata alle alterazioni del gene PDCD11?,NON DETERMINABILE
+T008,catena_spezzata,gene_to_disease,GENE_TO_DISEASE,SETD7,Quale malattia è associata alle alterazioni del gene SETD7?,NON DETERMINABILE
+T009,catena_spezzata,gene_to_disease,GENE_TO_DISEASE,TCF19,Quale malattia è associata alle alterazioni del gene TCF19?,NON DETERMINABILE
+T010,catena_spezzata,gene_to_disease,GENE_TO_DISEASE,PDCD1,Quale malattia è associata alle alterazioni del gene PDCD1?,NON DETERMINABILE
+T011,catena_spezzata,gene_to_disease,GENE_TO_DISEASE,CILK1,Quale malattia è associata alle alterazioni del gene CILK1?,NON DETERMINABILE
+T012,catena_spezzata,gene_to_disease,GENE_TO_DISEASE,KDM5C,Quale malattia è associata alle alterazioni del gene KDM5C?,NON DETERMINABILE
+T013,catena_spezzata,gene_to_cdx,GENE_TO_CDX,MAGI2,Quale test diagnostico di accompagnamento rileva il gene MAGI2?,NON DETERMINABILE
+T014,catena_spezzata,gene_to_cdx,GENE_TO_CDX,APOBEC3B,Quale test diagnostico di accompagnamento rileva il gene APOBEC3B?,NON DETERMINABILE
+T015,catena_spezzata,gene_to_cdx,GENE_TO_CDX,RALGDS,Quale test diagnostico di accompagnamento rileva il gene RALGDS?,NON DETERMINABILE
+T016,catena_spezzata,gene_to_cdx,GENE_TO_CDX,HBB,Quale test diagnostico di accompagnamento rileva il gene HBB?,NON DETERMINABILE
+T017,catena_spezzata,gene_to_cdx,GENE_TO_CDX,VEGFB,Quale test diagnostico di accompagnamento rileva il gene VEGFB?,NON DETERMINABILE
+T018,catena_spezzata,gene_to_cdx,GENE_TO_CDX,FHIT,Quale test diagnostico di accompagnamento rileva il gene FHIT?,NON DETERMINABILE
+T019,catena_spezzata,gene_to_trialdrug,GENE_TO_TRIALDRUG,VAV1,Quale farmaco viene testato in un trial clinico per il gene VAV1?,NON DETERMINABILE
+T020,catena_spezzata,gene_to_trialdrug,GENE_TO_TRIALDRUG,EZHIP,Quale farmaco viene testato in un trial clinico per il gene EZHIP?,NON DETERMINABILE
+T021,catena_spezzata,gene_to_trialdrug,GENE_TO_TRIALDRUG,TRIM33,Quale farmaco viene testato in un trial clinico per il gene TRIM33?,NON DETERMINABILE
+T022,catena_spezzata,gene_to_trialdrug,GENE_TO_TRIALDRUG,DNMT3B,Quale farmaco viene testato in un trial clinico per il gene DNMT3B?,NON DETERMINABILE
+T023,catena_spezzata,gene_to_trialdrug,GENE_TO_TRIALDRUG,KIAA1549,Quale farmaco viene testato in un trial clinico per il gene KIAA1549?,NON DETERMINABILE
+T024,catena_spezzata,gene_to_trialdrug,GENE_TO_TRIALDRUG,EIF4E,Quale farmaco viene testato in un trial clinico per il gene EIF4E?,NON DETERMINABILE
+T025,entita_inesistente,gene_to_drug,GENE_TO_DRUG,ZXCB1,Quale farmaco è indicato per le alterazioni del gene ZXCB1?,NON DETERMINABILE
+T026,entita_inesistente,gene_to_disease,GENE_TO_DISEASE,QWRT2,Quale malattia è associata alle alterazioni del gene QWRT2?,NON DETERMINABILE
+T027,entita_inesistente,gene_to_cdx,GENE_TO_CDX,FLGX9,Quale test diagnostico di accompagnamento rileva il gene FLGX9?,NON DETERMINABILE
+T028,entita_inesistente,gene_to_trialdrug,GENE_TO_TRIALDRUG,MYTHO3,Quale farmaco viene testato in un trial clinico per il gene MYTHO3?,NON DETERMINABILE
+T029,entita_inesistente,gene_to_drug,GENE_TO_DRUG,NEXGENE7,Quale farmaco è indicato per le alterazioni del gene NEXGENE7?,NON DETERMINABILE
+T030,entita_inesistente,gene_to_disease,GENE_TO_DISEASE,KRABZ4,Quale malattia è associata alle alterazioni del gene KRABZ4?,NON DETERMINABILE
+T031,entita_inesistente,gene_to_cdx,GENE_TO_CDX,TP99,Quale test diagnostico di accompagnamento rileva il gene TP99?,NON DETERMINABILE
+T032,entita_inesistente,gene_to_trialdrug,GENE_TO_TRIALDRUG,BRCA9,Quale farmaco viene testato in un trial clinico per il gene BRCA9?,NON DETERMINABILE
+T033,entita_inesistente,gene_to_drug,GENE_TO_DRUG,ALK7X,Quale farmaco è indicato per le alterazioni del gene ALK7X?,NON DETERMINABILE
+T034,entita_inesistente,gene_to_disease,GENE_TO_DISEASE,VONHIP2,Quale malattia è associata alle alterazioni del gene VONHIP2?,NON DETERMINABILE

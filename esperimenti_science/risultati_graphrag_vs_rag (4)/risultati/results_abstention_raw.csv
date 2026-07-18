@@ -1,0 +1,201 @@
+item_id,category,template,system,gold,ctx_words,ctx_empty,pred
+T001,catena_spezzata,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T001,catena_spezzata,gene_to_drug,rag_bm25,NON DETERMINABILE,795,False,NON DETERMINABILE
+T001,catena_spezzata,gene_to_drug,rag_hybrid,NON DETERMINABILE,973,False,NON DETERMINABILE
+T001,catena_spezzata,gene_to_drug,rag_dense,NON DETERMINABILE,970,False,AMUVATINIB
+T002,catena_spezzata,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T002,catena_spezzata,gene_to_drug,rag_bm25,NON DETERMINABILE,857,False,"AFATINIB, CRIZOTINIB"
+T002,catena_spezzata,gene_to_drug,rag_hybrid,NON DETERMINABILE,972,False,AFATINIB
+T002,catena_spezzata,gene_to_drug,rag_dense,NON DETERMINABILE,976,False,NON DETERMINABILE
+T003,catena_spezzata,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T003,catena_spezzata,gene_to_drug,rag_bm25,NON DETERMINABILE,795,False,NON DETERMINABILE
+T003,catena_spezzata,gene_to_drug,rag_hybrid,NON DETERMINABILE,975,False,NON DETERMINABILE
+T003,catena_spezzata,gene_to_drug,rag_dense,NON DETERMINABILE,972,False,COMPOUND 74
+T004,catena_spezzata,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T004,catena_spezzata,gene_to_drug,rag_bm25,NON DETERMINABILE,815,False,"AZATHIOPRINE, CISPLATIN, CYCLOPHOSPHAMIDE ANHYDROUS, CYCLOSPORINE, CYTARABINE, DAUNORUBICIN LIPOSOMAL, DOXORUBICIN HYDROCHLORIDE, MERCAPTOPURINE, OLANZAPINE, PEGASPARGASE, PREDNISONE, S-ADENOSYLMETHIONINE, THIOGUANINE, VINCRISTINE"
+T004,catena_spezzata,gene_to_drug,rag_hybrid,NON DETERMINABILE,973,False,"AZATHIOPRINE, CISPLATIN, CYCLOPHOSPHAMIDE ANHYDROUS, CYCLOSPORINE, CYTARABINE, DAUNORUBICIN LIPOSOMAL, DOXORUBICIN HYDROCHLORIDE, MERCAPTOPURINE, OLANZAPINE, PEGASPARGASE, PREDNISONE, S-ADENOSYLMETHIONINE, THIOGUANINE, VINCRISTINE"
+T004,catena_spezzata,gene_to_drug,rag_dense,NON DETERMINABILE,981,False,NON DETERMINABILE
+T005,catena_spezzata,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T005,catena_spezzata,gene_to_drug,rag_bm25,NON DETERMINABILE,795,False,NON DETERMINABILE
+T005,catena_spezzata,gene_to_drug,rag_hybrid,NON DETERMINABILE,971,False,NON DETERMINABILE
+T005,catena_spezzata,gene_to_drug,rag_dense,NON DETERMINABILE,972,False,NON DETERMINABILE
+T006,catena_spezzata,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T006,catena_spezzata,gene_to_drug,rag_bm25,NON DETERMINABILE,795,False,NON DETERMINABILE
+T006,catena_spezzata,gene_to_drug,rag_hybrid,NON DETERMINABILE,977,False,NON DETERMINABILE
+T006,catena_spezzata,gene_to_drug,rag_dense,NON DETERMINABILE,971,False,NON DETERMINABILE
+T007,catena_spezzata,gene_to_disease,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T007,catena_spezzata,gene_to_disease,rag_bm25,NON DETERMINABILE,849,False,NON DETERMINABILE
+T007,catena_spezzata,gene_to_disease,rag_hybrid,NON DETERMINABILE,929,False,NON DETERMINABILE
+T007,catena_spezzata,gene_to_disease,rag_dense,NON DETERMINABILE,966,False,NON DETERMINABILE
+T008,catena_spezzata,gene_to_disease,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T008,catena_spezzata,gene_to_disease,rag_bm25,NON DETERMINABILE,854,False,NON DETERMINABILE
+T008,catena_spezzata,gene_to_disease,rag_hybrid,NON DETERMINABILE,901,False,NON DETERMINABILE
+T008,catena_spezzata,gene_to_disease,rag_dense,NON DETERMINABILE,984,False,NON DETERMINABILE
+T009,catena_spezzata,gene_to_disease,graphrag,NON DETERMINABILE,0,True,"Leucemia linfoblastica acuta a cellule B, TCF19"
+T009,catena_spezzata,gene_to_disease,rag_bm25,NON DETERMINABILE,853,False,NON DETERMINABILE
+T009,catena_spezzata,gene_to_disease,rag_hybrid,NON DETERMINABILE,946,False,NON DETERMINABILE
+T009,catena_spezzata,gene_to_disease,rag_dense,NON DETERMINABILE,995,False,NON DETERMINABILE
+T010,catena_spezzata,gene_to_disease,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T010,catena_spezzata,gene_to_disease,rag_bm25,NON DETERMINABILE,871,False,NON DETERMINABILE
+T010,catena_spezzata,gene_to_disease,rag_hybrid,NON DETERMINABILE,858,False,NON DETERMINABILE
+T010,catena_spezzata,gene_to_disease,rag_dense,NON DETERMINABILE,940,False,Von Hippel-Lindau Disease
+T011,catena_spezzata,gene_to_disease,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T011,catena_spezzata,gene_to_disease,rag_bm25,NON DETERMINABILE,849,False,NON DETERMINABILE
+T011,catena_spezzata,gene_to_disease,rag_hybrid,NON DETERMINABILE,859,False,NON DETERMINABILE
+T011,catena_spezzata,gene_to_disease,rag_dense,NON DETERMINABILE,980,False,NON DETERMINABILE
+T012,catena_spezzata,gene_to_disease,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T012,catena_spezzata,gene_to_disease,rag_bm25,NON DETERMINABILE,858,False,NON DETERMINABILE
+T012,catena_spezzata,gene_to_disease,rag_hybrid,NON DETERMINABILE,879,False,NON DETERMINABILE
+T012,catena_spezzata,gene_to_disease,rag_dense,NON DETERMINABILE,983,False,NON DETERMINABILE
+T013,catena_spezzata,gene_to_cdx,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T013,catena_spezzata,gene_to_cdx,rag_bm25,NON DETERMINABILE,940,False,NON DETERMINABILE
+T013,catena_spezzata,gene_to_cdx,rag_hybrid,NON DETERMINABILE,937,False,NON DETERMINABILE
+T013,catena_spezzata,gene_to_cdx,rag_dense,NON DETERMINABILE,966,False,NON DETERMINABILE
+T014,catena_spezzata,gene_to_cdx,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T014,catena_spezzata,gene_to_cdx,rag_bm25,NON DETERMINABILE,940,False,NON DETERMINABILE
+T014,catena_spezzata,gene_to_cdx,rag_hybrid,NON DETERMINABILE,950,False,NON DETERMINABILE
+T014,catena_spezzata,gene_to_cdx,rag_dense,NON DETERMINABILE,941,False,NON DETERMINABILE
+T015,catena_spezzata,gene_to_cdx,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T015,catena_spezzata,gene_to_cdx,rag_bm25,NON DETERMINABILE,940,False,NON DETERMINABILE
+T015,catena_spezzata,gene_to_cdx,rag_hybrid,NON DETERMINABILE,949,False,NON DETERMINABILE
+T015,catena_spezzata,gene_to_cdx,rag_dense,NON DETERMINABILE,959,False,NON DETERMINABILE
+T016,catena_spezzata,gene_to_cdx,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T016,catena_spezzata,gene_to_cdx,rag_bm25,NON DETERMINABILE,940,False,NON DETERMINABILE
+T016,catena_spezzata,gene_to_cdx,rag_hybrid,NON DETERMINABILE,941,False,NON DETERMINABILE
+T016,catena_spezzata,gene_to_cdx,rag_dense,NON DETERMINABILE,962,False,NON DETERMINABILE
+T017,catena_spezzata,gene_to_cdx,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T017,catena_spezzata,gene_to_cdx,rag_bm25,NON DETERMINABILE,940,False,NON DETERMINABILE
+T017,catena_spezzata,gene_to_cdx,rag_hybrid,NON DETERMINABILE,942,False,"VEGFB, AFLIBERCEPT, BEVACIZUMAB-AWWB, CONBERCEPT, ENDOSTATIN, LENALIDOMIDE, SORAFENIB"
+T017,catena_spezzata,gene_to_cdx,rag_dense,NON DETERMINABILE,961,False,NON DETERMINABILE
+T018,catena_spezzata,gene_to_cdx,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T018,catena_spezzata,gene_to_cdx,rag_bm25,NON DETERMINABILE,940,False,NON DETERMINABILE
+T018,catena_spezzata,gene_to_cdx,rag_hybrid,NON DETERMINABILE,942,False,NON DETERMINABILE
+T018,catena_spezzata,gene_to_cdx,rag_dense,NON DETERMINABILE,954,False,NON DETERMINABILE
+T019,catena_spezzata,gene_to_trialdrug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T019,catena_spezzata,gene_to_trialdrug,rag_bm25,NON DETERMINABILE,899,False,NON DETERMINABILE
+T019,catena_spezzata,gene_to_trialdrug,rag_hybrid,NON DETERMINABILE,976,False,"EPOETIN ALFA, PHORBOL 12-MYRISTATE 13-ACETATE, TETRADECANOYLPHORBOL ACETATE"
+T019,catena_spezzata,gene_to_trialdrug,rag_dense,NON DETERMINABILE,974,False,NON DETERMINABILE
+T020,catena_spezzata,gene_to_trialdrug,graphrag,NON DETERMINABILE,0,True,Tafasitamab
+T020,catena_spezzata,gene_to_trialdrug,rag_bm25,NON DETERMINABILE,889,False,NON DETERMINABILE
+T020,catena_spezzata,gene_to_trialdrug,rag_hybrid,NON DETERMINABILE,977,False,NON DETERMINABILE
+T020,catena_spezzata,gene_to_trialdrug,rag_dense,NON DETERMINABILE,976,False,NON DETERMINABILE
+T021,catena_spezzata,gene_to_trialdrug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T021,catena_spezzata,gene_to_trialdrug,rag_bm25,NON DETERMINABILE,889,False,NON DETERMINABILE
+T021,catena_spezzata,gene_to_trialdrug,rag_hybrid,NON DETERMINABILE,973,False,TRIMETREXATE
+T021,catena_spezzata,gene_to_trialdrug,rag_dense,NON DETERMINABILE,975,False,"ASTEGOLIMAB, ETOKIMAB, ITEPEKIMAB, TORUDOKIMAB"
+T022,catena_spezzata,gene_to_trialdrug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T022,catena_spezzata,gene_to_trialdrug,rag_bm25,NON DETERMINABILE,777,False,NON DETERMINABILE
+T022,catena_spezzata,gene_to_trialdrug,rag_hybrid,NON DETERMINABILE,864,False,NON DETERMINABILE
+T022,catena_spezzata,gene_to_trialdrug,rag_dense,NON DETERMINABILE,892,False,"COMPOUND 13A, COMPOUND 13D, COMPOUND 13R, CURCUMIN, GALUNISERTIB, ZILURGISERTIB"
+T023,catena_spezzata,gene_to_trialdrug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T023,catena_spezzata,gene_to_trialdrug,rag_bm25,NON DETERMINABILE,813,False,NON DETERMINABILE
+T023,catena_spezzata,gene_to_trialdrug,rag_hybrid,NON DETERMINABILE,974,False,NON DETERMINABILE
+T023,catena_spezzata,gene_to_trialdrug,rag_dense,NON DETERMINABILE,982,False,NON DETERMINABILE
+T024,catena_spezzata,gene_to_trialdrug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T024,catena_spezzata,gene_to_trialdrug,rag_bm25,NON DETERMINABILE,784,False,"(2R)-2-({9-(1-METHYLETHYL)-6-[(4-PYRIDIN-2-YLBENZYL)AMINO]-9H-PURIN-2-YL}AMINO)BUTAN-1-OL, (S)-CR8, 1-AZAKENPAULLONE, 6-BROMOINDIRUBIN-3'-OXIME, 6-PHENYL[5H]PYRROLO[2,3-B]PYRAZINE, AMINOPURVALANOL A, AT-7519, BS-194, CDK INHIBITOR 4.35, CDK1/5 INHIBITOR, CDK2 INHIBITOR IV, CGP74514A, DINACICLIB, ETOPOSIDE, H2O2"
+T024,catena_spezzata,gene_to_trialdrug,rag_hybrid,NON DETERMINABILE,975,False,"(2R)-2-({9-(1-METHYLETHYL)-6-[(4-PYRIDIN-2-YLBENZYL)AMINO]-9H-PURIN-2-YL}AMINO)BUTAN-1-OL, (S)-CR8, 1-AZAKENPAULLONE, 6-BROMOINDIRUBIN-3'-OXIME, 6-PHENYL[5H]PYRROLO[2,3-B]PYRAZINE, AMINOPURVALANOL A, AT-7519, BS-194, CDK INHIBITOR 4.35, CDK1/5 INHIBITOR, CDK2 INHIBITOR IV, CGP74514A, DINACICLIB, ETOPOSIDE, H2O2"
+T024,catena_spezzata,gene_to_trialdrug,rag_dense,NON DETERMINABILE,980,False,NON DETERMINABILE
+T025,entita_inesistente,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T025,entita_inesistente,gene_to_drug,rag_bm25,NON DETERMINABILE,788,False,NON DETERMINABILE
+T025,entita_inesistente,gene_to_drug,rag_hybrid,NON DETERMINABILE,981,False,NON DETERMINABILE
+T025,entita_inesistente,gene_to_drug,rag_dense,NON DETERMINABILE,980,False,NON DETERMINABILE
+T026,entita_inesistente,gene_to_disease,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T026,entita_inesistente,gene_to_disease,rag_bm25,NON DETERMINABILE,842,False,NON DETERMINABILE
+T026,entita_inesistente,gene_to_disease,rag_hybrid,NON DETERMINABILE,919,False,NON DETERMINABILE
+T026,entita_inesistente,gene_to_disease,rag_dense,NON DETERMINABILE,977,False,NON DETERMINABILE
+T027,entita_inesistente,gene_to_cdx,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T027,entita_inesistente,gene_to_cdx,rag_bm25,NON DETERMINABILE,940,False,NON DETERMINABILE
+T027,entita_inesistente,gene_to_cdx,rag_hybrid,NON DETERMINABILE,936,False,NON DETERMINABILE
+T027,entita_inesistente,gene_to_cdx,rag_dense,NON DETERMINABILE,940,False,NON DETERMINABILE
+T028,entita_inesistente,gene_to_trialdrug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T028,entita_inesistente,gene_to_trialdrug,rag_bm25,NON DETERMINABILE,882,False,NON DETERMINABILE
+T028,entita_inesistente,gene_to_trialdrug,rag_hybrid,NON DETERMINABILE,977,False,NON DETERMINABILE
+T028,entita_inesistente,gene_to_trialdrug,rag_dense,NON DETERMINABILE,970,False,NON DETERMINABILE
+T029,entita_inesistente,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T029,entita_inesistente,gene_to_drug,rag_bm25,NON DETERMINABILE,788,False,NON DETERMINABILE
+T029,entita_inesistente,gene_to_drug,rag_hybrid,NON DETERMINABILE,981,False,NON DETERMINABILE
+T029,entita_inesistente,gene_to_drug,rag_dense,NON DETERMINABILE,974,False,NON DETERMINABILE
+T030,entita_inesistente,gene_to_disease,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T030,entita_inesistente,gene_to_disease,rag_bm25,NON DETERMINABILE,842,False,NON DETERMINABILE
+T030,entita_inesistente,gene_to_disease,rag_hybrid,NON DETERMINABILE,914,False,NON DETERMINABILE
+T030,entita_inesistente,gene_to_disease,rag_dense,NON DETERMINABILE,987,False,NON DETERMINABILE
+T031,entita_inesistente,gene_to_cdx,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T031,entita_inesistente,gene_to_cdx,rag_bm25,NON DETERMINABILE,940,False,NON DETERMINABILE
+T031,entita_inesistente,gene_to_cdx,rag_hybrid,NON DETERMINABILE,945,False,NON DETERMINABILE
+T031,entita_inesistente,gene_to_cdx,rag_dense,NON DETERMINABILE,950,False,NON DETERMINABILE
+T032,entita_inesistente,gene_to_trialdrug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T032,entita_inesistente,gene_to_trialdrug,rag_bm25,NON DETERMINABILE,882,False,NON DETERMINABILE
+T032,entita_inesistente,gene_to_trialdrug,rag_hybrid,NON DETERMINABILE,969,False,NON DETERMINABILE
+T032,entita_inesistente,gene_to_trialdrug,rag_dense,NON DETERMINABILE,970,False,NON DETERMINABILE
+T033,entita_inesistente,gene_to_drug,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T033,entita_inesistente,gene_to_drug,rag_bm25,NON DETERMINABILE,788,False,NON DETERMINABILE
+T033,entita_inesistente,gene_to_drug,rag_hybrid,NON DETERMINABILE,981,False,NON DETERMINABILE
+T033,entita_inesistente,gene_to_drug,rag_dense,NON DETERMINABILE,978,False,NON DETERMINABILE
+T034,entita_inesistente,gene_to_disease,graphrag,NON DETERMINABILE,0,True,NON DETERMINABILE
+T034,entita_inesistente,gene_to_disease,rag_bm25,NON DETERMINABILE,842,False,NON DETERMINABILE
+T034,entita_inesistente,gene_to_disease,rag_hybrid,NON DETERMINABILE,930,False,Von Hippel-Lindau Disease
+T034,entita_inesistente,gene_to_disease,rag_dense,NON DETERMINABILE,1012,False,NON DETERMINABILE
+C001,rispondibile,drug_to_gene_cdx,graphrag,ERBB2,29,False,ERBB2
+C001,rispondibile,drug_to_gene_cdx,rag_bm25,ERBB2,942,False,ERBB2
+C001,rispondibile,drug_to_gene_cdx,rag_hybrid,ERBB2,946,False,ERBB2
+C001,rispondibile,drug_to_gene_cdx,rag_dense,ERBB2,947,False,ERBB2
+C002,rispondibile,drug_to_gene_cdx,graphrag,KRAS,44,False,KRAS
+C002,rispondibile,drug_to_gene_cdx,rag_bm25,KRAS,946,False,KRAS
+C002,rispondibile,drug_to_gene_cdx,rag_hybrid,KRAS,944,False,KRAS
+C002,rispondibile,drug_to_gene_cdx,rag_dense,KRAS,947,False,NON DETERMINABILE
+C003,rispondibile,drug_to_gene_cdx,graphrag,KRAS,58,False,KRAS
+C003,rispondibile,drug_to_gene_cdx,rag_bm25,KRAS,931,False,KRAS
+C003,rispondibile,drug_to_gene_cdx,rag_hybrid,KRAS,948,False,KRAS
+C003,rispondibile,drug_to_gene_cdx,rag_dense,KRAS,939,False,KRAS
+C004,rispondibile,gene_evidence_trial_bridge,graphrag,FULVESTRANT | PALBOCICLIB | RIBOCICLIB,57,False,"FULVESTRANT, PALBOCICLIB, RIBOCICLIB"
+C004,rispondibile,gene_evidence_trial_bridge,rag_bm25,FULVESTRANT | PALBOCICLIB | RIBOCICLIB,796,False,"FULVESTRANT, PALBOCICLIB, RIBOCICLIB, ABEMACICLIB"
+C004,rispondibile,gene_evidence_trial_bridge,rag_hybrid,FULVESTRANT | PALBOCICLIB | RIBOCICLIB,905,False,"FULVESTRANT, PALBOCICLIB, RIBOCICLIB, ABEMACICLIB"
+C004,rispondibile,gene_evidence_trial_bridge,rag_dense,FULVESTRANT | PALBOCICLIB | RIBOCICLIB,950,False,NON DETERMINABILE
+C005,rispondibile,gene_evidence_trial_bridge,graphrag,ALPELISIB | DEXAMETHASONE | PALBOCICLIB | RIBOCICLIB,76,False,"ALPELISIB, DEXAMETHASONE, PALBOCICLIB, RIBOCICLIB"
+C005,rispondibile,gene_evidence_trial_bridge,rag_bm25,ALPELISIB | DEXAMETHASONE | PALBOCICLIB | RIBOCICLIB,877,False,"PALBOCICLIB, ABEMACICLIB, TRILACICLIB, FLX925"
+C005,rispondibile,gene_evidence_trial_bridge,rag_hybrid,ALPELISIB | DEXAMETHASONE | PALBOCICLIB | RIBOCICLIB,846,False,"PALBOCICLIB, RIBOCICLIB, FLT3/CDK4/6 INHIBITOR FLX925, CDK4 INHIBITOR, CDK4 INHIBITOR II, CDK4 INHIBITOR III"
+C005,rispondibile,gene_evidence_trial_bridge,rag_dense,ALPELISIB | DEXAMETHASONE | PALBOCICLIB | RIBOCICLIB,911,False,Olaparib
+C006,rispondibile,gene_to_cdx,graphrag,"FoundationOne CDx  (Foundation Medicine, Inc.) | MI Cancer Seek (MCS) (Caris Life Sciences)",40,False,"FoundationOne CDx, MI Cancer Seek (MCS)"
+C006,rispondibile,gene_to_cdx,rag_bm25,"FoundationOne CDx  (Foundation Medicine, Inc.) | MI Cancer Seek (MCS) (Caris Life Sciences)",932,False,"FoundationOne CDx,MI Cancer Seek MCS"
+C006,rispondibile,gene_to_cdx,rag_hybrid,"FoundationOne CDx  (Foundation Medicine, Inc.) | MI Cancer Seek (MCS) (Caris Life Sciences)",947,False,"FoundationOne CDx, MI Cancer Seek"
+C006,rispondibile,gene_to_cdx,rag_dense,"FoundationOne CDx  (Foundation Medicine, Inc.) | MI Cancer Seek (MCS) (Caris Life Sciences)",940,False,"Pembrolizumab, FoundationOne CDx"
+C007,rispondibile,gene_to_cdx,graphrag,"FoundationOne CDx  (Foundation Medicine, Inc.) | ONCO/Reveal Dx Lung & Colon Cancer Assay (O/RDx-LCCA)  (Pillar Biosciences, Inc.) | cobas KRAS Mutation Test  (Roche Molecular Systems, Inc.) | therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.) | xT CDx  (Tempus Labs, Inc.)",102,False,"cobas KRAS Mutation Test, FoundationOne CDx, ONCO/Reveal Dx Lung & Colon Cancer Assay, xT CDx, therascreen KRAS RGQ PCR Kit"
+C007,rispondibile,gene_to_cdx,rag_bm25,"FoundationOne CDx  (Foundation Medicine, Inc.) | ONCO/Reveal Dx Lung & Colon Cancer Assay (O/RDx-LCCA)  (Pillar Biosciences, Inc.) | cobas KRAS Mutation Test  (Roche Molecular Systems, Inc.) | therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.) | xT CDx  (Tempus Labs, Inc.)",926,False,NON DETERMINABILE
+C007,rispondibile,gene_to_cdx,rag_hybrid,"FoundationOne CDx  (Foundation Medicine, Inc.) | ONCO/Reveal Dx Lung & Colon Cancer Assay (O/RDx-LCCA)  (Pillar Biosciences, Inc.) | cobas KRAS Mutation Test  (Roche Molecular Systems, Inc.) | therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.) | xT CDx  (Tempus Labs, Inc.)",931,False,NON DETERMINABILE
+C007,rispondibile,gene_to_cdx,rag_dense,"FoundationOne CDx  (Foundation Medicine, Inc.) | ONCO/Reveal Dx Lung & Colon Cancer Assay (O/RDx-LCCA)  (Pillar Biosciences, Inc.) | cobas KRAS Mutation Test  (Roche Molecular Systems, Inc.) | therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.) | xT CDx  (Tempus Labs, Inc.)",866,False,NON DETERMINABILE
+C008,rispondibile,gene_to_disease,graphrag,Colorectal Cancer,10,False,Colorectal Cancer
+C008,rispondibile,gene_to_disease,rag_bm25,Colorectal Cancer,900,False,Colorectal Cancer
+C008,rispondibile,gene_to_disease,rag_hybrid,Colorectal Cancer,973,False,"Colorectal Cancer, Von Hippel-Lindau Disease"
+C008,rispondibile,gene_to_disease,rag_dense,Colorectal Cancer,977,False,NON DETERMINABILE
+C009,rispondibile,gene_to_disease,graphrag,CNS Neuroblastoma With FOXR2 Activation,13,False,Neuroblastoma With FOXR2 Activation
+C009,rispondibile,gene_to_disease,rag_bm25,CNS Neuroblastoma With FOXR2 Activation,905,False,CNS Neuroblastoma
+C009,rispondibile,gene_to_disease,rag_hybrid,CNS Neuroblastoma With FOXR2 Activation,955,False,Neuroblastoma
+C009,rispondibile,gene_to_disease,rag_dense,CNS Neuroblastoma With FOXR2 Activation,976,False,NON DETERMINABILE
+C010,rispondibile,gene_to_drug,graphrag,TAMOXIFEN,12,False,TAMOXIFEN
+C010,rispondibile,gene_to_drug,rag_bm25,TAMOXIFEN,835,False,TAMOXIFEN
+C010,rispondibile,gene_to_drug,rag_hybrid,TAMOXIFEN,970,False,TAMOXIFEN
+C010,rispondibile,gene_to_drug,rag_dense,TAMOXIFEN,976,False,NON DETERMINABILE
+C011,rispondibile,gene_to_drug,graphrag,CRENOLANIB | IMATINIB | PONATINIB | SUNITINIB,48,False,"CRENOLANIB, IMATINIB, SUNITINIB, PONATINIB"
+C011,rispondibile,gene_to_drug,rag_bm25,CRENOLANIB | IMATINIB | PONATINIB | SUNITINIB,845,False,"Imatinib, Sunitinib, Avapritinib, Nilotinib, Sorafenib"
+C011,rispondibile,gene_to_drug,rag_hybrid,CRENOLANIB | IMATINIB | PONATINIB | SUNITINIB,789,False,"Avapritinib, Sunitinib, Imatinib, Ripretinib, Sorafenib, Nilotinib"
+C011,rispondibile,gene_to_drug,rag_dense,CRENOLANIB | IMATINIB | PONATINIB | SUNITINIB,950,False,NON DETERMINABILE
+C012,rispondibile,gene_to_trialdrug,graphrag,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB,43,False,"ENTRECTINIB, REPOTRECTINIB, LAROTRECTINIB SULFATE"
+C012,rispondibile,gene_to_trialdrug,rag_bm25,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB,863,False,"Entrectinib, Larotrectinib, Selpercatinib, Crizoitinib, TSR-011, Lenvatinib, Fulvestrant, Daratumumab, Pomalidomide, Dexamethasone, Venetoclax, Ixazomib Citrate"
+C012,rispondibile,gene_to_trialdrug,rag_hybrid,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB,924,False,NON DETERMINABILE
+C012,rispondibile,gene_to_trialdrug,rag_dense,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB,935,False,"Selpercatinib, Entrectinib, Larotrectinib"
+C013,rispondibile,gene_to_trialdrug,graphrag,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB,43,False,"ENTRECTINIB, REPOTRECTINIB, LAROTRECTINIB SULFATE"
+C013,rispondibile,gene_to_trialdrug,rag_bm25,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB,839,False,"Larotrectinib, Entrectinib, Daratumumab, Pomalidomide, Dexamethasone, Venetoclax, Ixazomib Citrate, JNJ-79635322, Lenvatinib, Fulvestrant"
+C013,rispondibile,gene_to_trialdrug,rag_hybrid,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB,917,False,"Entrectinib, Larotrectinib"
+C013,rispondibile,gene_to_trialdrug,rag_dense,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB,936,False,"Entrectinib, Larotrectinib, Selpercatinib"
+C014,rispondibile,variant_to_drug,graphrag,LONAFARNIB,13,False,LONAFARNIB
+C014,rispondibile,variant_to_drug,rag_bm25,LONAFARNIB,842,False,LONAFARNIB
+C014,rispondibile,variant_to_drug,rag_hybrid,LONAFARNIB,954,False,LONAFARNIB
+C014,rispondibile,variant_to_drug,rag_dense,LONAFARNIB,964,False,NON DETERMINABILE
+C015,rispondibile,variant_to_drug,graphrag,MIRDAMETINIB | SELUMETINIB SULFATE | TRAMETINIB,40,False,"MIRDAMETINIB, TRAMETINIB, SELUMETINIB SULFATE"
+C015,rispondibile,variant_to_drug,rag_bm25,MIRDAMETINIB | SELUMETINIB SULFATE | TRAMETINIB,907,False,"MIRDAMETINIB, SELUMETINIB SULFATE, TRAMETINIB"
+C015,rispondibile,variant_to_drug,rag_hybrid,MIRDAMETINIB | SELUMETINIB SULFATE | TRAMETINIB,844,False,"MIRDAMETINIB, SELUMETINIB SULFATE, TRAMETINIB"
+C015,rispondibile,variant_to_drug,rag_dense,MIRDAMETINIB | SELUMETINIB SULFATE | TRAMETINIB,973,False,NON DETERMINABILE
+C016,rispondibile,variant_to_drug,graphrag,ALPELISIB,13,False,ALPELISIB
+C016,rispondibile,variant_to_drug,rag_bm25,ALPELISIB,896,False,ALPELISIB
+C016,rispondibile,variant_to_drug,rag_hybrid,ALPELISIB,830,False,ALPELISIB
+C016,rispondibile,variant_to_drug,rag_dense,ALPELISIB,903,False,ALPELISIB

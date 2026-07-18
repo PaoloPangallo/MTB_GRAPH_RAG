@@ -1,0 +1,551 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{lmodern}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+
+\captionsetup{font=small,labelfont=bf,width=0.92\textwidth}
+\sisetup{output-decimal-marker={,},group-separator={.},group-minimum-digits=4}
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.15}
+
+\begin{document}
+
+\chapter{Un confronto sperimentale: GraphRAG contro RAG testuale}
+\label{ch:graphrag-vs-rag}
+
+\section{Che cosa volevo verificare}
+
+La domanda di partenza è semplice. Quando un medico interroga la knowledge
+base oncologica, spesso la risposta non è scritta da nessuna parte in un
+unico punto: va \emph{costruita} collegando più fatti. Per esempio, da un
+gene si arriva a una variante, dalla variante a un profilo molecolare, dal
+profilo a un'evidenza clinica e infine a un farmaco. Ogni collegamento è un
+``passo'' di ragionamento, che qui chiamo \emph{hop}.
+
+L'ipotesi è che un sistema che ragiona sul grafo della conoscenza
+(\textbf{GraphRAG}) risponda meglio di un sistema che cerca testo per
+somiglianza (\textbf{RAG testuale}), e che il suo vantaggio \emph{cresca}
+man mano che aumentano i passi da collegare. L'intuizione: il RAG testuale
+deve pescare più frammenti separati e rimetterli insieme dentro uno spazio
+di contesto limitato, e più frammenti servono, più è facile che ne manchi
+uno. Il GraphRAG invece segue il percorso nel grafo in modo diretto e
+raccoglie esattamente i fatti che servono.
+
+\section{I materiali}
+
+\subsection{La knowledge base}
+
+Ho ricostruito il grafo in memoria a partire dai file CSV esportati dalla
+knowledge base. Per questo esperimento non serviva il database Neo4j: la
+ricostruzione dai CSV mantiene la stessa integrità dei collegamenti
+(17 join su 18 si risolvono al 100\%).
+
+Il grafo contiene \num{43005} nodi di 9 tipi (farmaci, trial clinici,
+evidenze, pubblicazioni, varianti, profili molecolari, geni, malattie e
+test diagnostici) e \num{55544} collegamenti di 11 tipi diversi. Le fonti
+sono tutte curate: CIViC per l'evidenza clinica, DGIdb per le interazioni
+gene--farmaco, ClinicalTrials.gov per i trial e FDA per i test diagnostici
+companion.
+
+\subsection{Il testo per il RAG}
+
+Per dare al RAG testuale una base di partenza equa, ho trasformato ogni
+fatto del grafo in un breve paragrafo che si spiega da solo, ottenendo
+\num{20679} passaggi. Un dettaglio importante per la correttezza del
+confronto: questi passaggi formano un unico grande archivio, non separato
+per gene. Così il RAG deve davvero \emph{trovare} i fatti giusti per
+somiglianza, senza ricevere in regalo la struttura del grafo.
+
+\section{Il banco di prova (benchmark)}
+
+Ho generato \textbf{169 domande} percorrendo il grafo in modo automatico.
+Per ognuna conosco la risposta corretta, gli identificatori dei nodi
+coinvolti, il percorso di supporto e il numero di hop. La risposta di
+riferimento nasce quindi dalla struttura del grafo, non dal giudizio di
+una persona o di un altro modello.
+
+La regola chiave nel costruire le domande: le entità intermedie del
+percorso \emph{non compaiono mai} nel testo della domanda. È questo che
+obbliga davvero a ragionare a più passi --- il sistema deve ricostruire il
+percorso, non limitarsi a riconoscere parole già presenti nella domanda.
+
+\begin{table}[H]
+\centering
+\caption{Composizione del benchmark: 7 modelli di domanda, per numero di hop.}
+\label{tab:benchmark}
+\begin{tabular}{clcl}
+\toprule
+\textbf{Hop} & \textbf{Modello di domanda} & \textbf{N} & \textbf{Percorso di supporto} \\
+\midrule
+2 & \texttt{drug\_to\_gene\_cdx}          & 30 & Farmaco $\to$ Test $\to$ Gene \\
+2 & \texttt{gene\_to\_trialdrug}          & 11 & Gene $\leftarrow$ Trial $\to$ Farmaco \\
+3 & \texttt{variant\_to\_drug}            & 40 & Variante $\to$ Profilo $\to$ Evidenza $\to$ Farmaco \\
+4 & \texttt{gene\_to\_disease}            & 20 & Gene $\to$ Variante $\to$ Profilo $\to$ Evidenza $\to$ Malattia \\
+4 & \texttt{gene\_to\_drug}               & 20 & Gene $\to$ Variante $\to$ Profilo $\to$ Evidenza $\to$ Farmaco \\
+5 & \texttt{gene\_evidence\_trial\_bridge}& 28 & intersezione di due percorsi \\
+5 & \texttt{gene\_to\_cdx}                & 20 & \dots\ $\to$ Farmaco $\to$ Test \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Le domande a 5 hop comprendono il caso più difficile
+(\texttt{gene\_evidence\_trial\_bridge}): chiedono i farmaci che sono
+\emph{allo stesso tempo} supportati da un'evidenza clinica \emph{e} testati
+in un trial per lo stesso gene. Serve incrociare due percorsi distinti, ed
+è qui che il RAG testuale è più in difficoltà.
+
+\section{I sistemi a confronto e le regole del gioco}
+
+Ho confrontato quattro sistemi, tenendo \emph{uguale per tutti} il modello
+che legge il contesto e scrive la risposta (\texttt{gemma3:27b} via Ollama
+Cloud, temperatura 0) e lo \emph{stesso limite di contesto} (900 parole):
+
+\begin{enumerate}
+  \item \textbf{GraphRAG} --- riconosce le entità nella domanda, traduce la
+        domanda in uno schema di collegamenti da seguire (senza mai vedere
+        la risposta corretta), percorre il grafo e restituisce i percorsi
+        trovati.
+  \item \textbf{RAG denso} --- cerca per somiglianza semantica con embedding
+        \texttt{all-MiniLM-L6-v2}.
+  \item \textbf{RAG BM25} --- cerca per corrispondenza di parole (metodo
+        lessicale classico).
+  \item \textbf{RAG ibrido} --- combina denso e BM25 in parti uguali.
+\end{enumerate}
+
+Per rendere il confronto onesto ho tenuto fisse cinque cose: stesso modello
+lettore, stesso prompt e stessa temperatura; stesso limite di contesto (e
+il GraphRAG ne usa molto meno del massimo consentito); archivio testuale
+unico e non pre-suddiviso per gene; risposte di riferimento derivate dal
+grafo, non da un giudizio soggettivo; metrica di confronto identica per
+tutti.
+
+\section{I risultati}
+
+\subsection{Accuratezza complessiva}
+
+Sulla media delle 169 domande, il GraphRAG è nettamente davanti a tutti,
+usando al contempo molto meno contesto (Tabella~\ref{tab:overall}).
+
+\begin{table}[H]
+\centering
+\caption{Accuratezza media sulle 169 domande. ``Recall fatti-ponte'' misura
+quanti dei fatti intermedi necessari finiscono davvero nel contesto.}
+\label{tab:overall}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Sistema} & \textbf{F1} & \textbf{Precision} & \textbf{Recall} & \textbf{Exact} & \textbf{Recall ponte} & \textbf{Parole ctx} \\
+\midrule
+\textbf{GraphRAG} & \textbf{0,994} & \textbf{0,994} & \textbf{0,994} & \textbf{0,994} & \textbf{1,000} & \textbf{35,8} \\
+RAG BM25          & 0,671 & 0,660 & 0,765 & 0,704 & 0,816 & 889,9 \\
+RAG ibrido        & 0,676 & 0,677 & 0,745 & 0,680 & 0,803 & 918,4 \\
+RAG denso         & 0,163 & 0,176 & 0,183 & 0,154 & 0,266 & 946,7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{{{artifact:art_8d805894-8303-42f6-927f-680c87c7257e}}}
+\caption{Accuratezza media per sistema su quattro metriche. Il GraphRAG
+(barre blu) è primo ovunque; fra i sistemi testuali, BM25 e ibrido sono
+vicini e ben sopra il denso.}
+\label{fig:bars}
+\end{figure}
+
+\subsection{Come cambia la cosa al crescere degli hop}
+
+Questo è il risultato centrale. Il RAG lessicale e ibrido reggono fino a
+4 hop, ma \textbf{crollano a 5 hop} (F1 intorno a 0,30), proprio sulle
+domande a doppio vincolo. Il GraphRAG resta a 1,00
+(Tabella~\ref{tab:byhop}, Figura~\ref{fig:degradation}).
+
+\begin{table}[H]
+\centering
+\caption{F1 medio per numero di hop. Il divario tra GraphRAG e BM25 passa
+da $+0{,}26$ (2 hop) a $+0{,}69$ (5 hop): il vantaggio si allarga, come
+previsto.}
+\label{tab:byhop}
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Hop} & \textbf{GraphRAG} & \textbf{RAG BM25} & \textbf{RAG ibrido} & \textbf{RAG denso} \\
+\midrule
+2 & 1,000 & 0,744 & 0,756 & 0,498 \\
+3 & 1,000 & 0,923 & 0,927 & 0,050 \\
+4 & 0,975 & 0,780 & 0,792 & 0,095 \\
+5 & 1,000 & 0,308 & 0,301 & 0,028 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{{{artifact:art_4417f50d-20ef-4679-b4e6-e874e7a30c58}}}
+\caption{Curva di degrado: F1 medio in funzione del numero di hop, con
+bande di incertezza al 95\%. La linea del GraphRAG resta piatta in alto; le
+linee testuali scendono ripide a 5 hop.}
+\label{fig:degradation}
+\end{figure}
+
+\subsection{È un caso? No}
+
+Ho verificato la solidità del confronto con il test di McNemar sulle
+risposte esatte, appaiate domanda per domanda. Il GraphRAG risponde
+correttamente dove BM25 sbaglia in \textbf{50} domande, mentre il contrario
+accade una sola volta ($p = 4{,}6\times10^{-14}$). Contro l'ibrido il conto
+è $+54 / -1$ ($p = 3{,}1\times10^{-15}$); contro il denso $+142 / -0$
+($p = 3{,}6\times10^{-43}$). Le differenze sono nettamente significative in
+tutti i casi.
+
+\subsection{Perché il RAG fallisce}
+
+La spiegazione è nel recupero dei fatti-ponte, cioè i fatti intermedi del
+percorso. Il GraphRAG li porta nel contesto nel \textbf{100\%} dei casi a
+ogni livello di hop. Il RAG testuale parte dall'82\% circa (BM25) e scende
+molto sulle catene lunghe (Figura~\ref{fig:bridge}): se il fatto intermedio
+non entra nel contesto, il lettore non ha gli elementi per rispondere. Non
+è un difetto del modello che legge, ma di ciò che gli viene passato.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{{{artifact:art_b89d8c35-2239-43db-a8f1-e455fba0cb37}}}
+\caption{Recall dei fatti-ponte per numero di hop. Il GraphRAG resta a
+1,00; i sistemi testuali crollano a 5 hop --- ed è esattamente lì che
+crolla anche la loro accuratezza.}
+\label{fig:bridge}
+\end{figure}
+
+\subsection{Meno contesto, non di più}
+
+Il GraphRAG raggiunge un'accuratezza quasi perfetta usando in media
+\textbf{35,8 parole} di contesto, contro le circa 890--950 dei sistemi
+testuali: circa \textbf{25 volte} in meno (Figura~\ref{fig:efficiency}).
+In pratica questo significa risposte più rapide, meno costi e un contesto
+interamente rintracciabile alle fonti originali.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\textwidth]{{{artifact:art_2b561568-9609-4ce0-bd2f-ce3157d9744c}}}
+\caption{Accuratezza contro quantità di contesto usato (asse orizzontale in
+scala logaritmica). Il GraphRAG sta in alto a sinistra: massima
+accuratezza, minimo contesto.}
+\label{fig:efficiency}
+\end{figure}
+
+\section{Il vantaggio non dipende dal modello lettore}
+
+Un'obiezione ragionevole è che il divario dipenda dallo specifico modello
+che legge il contesto. Per escluderlo ho ripetuto l'esperimento cambiando
+\emph{solo} il lettore --- da \texttt{gemma3:27b} (Google) a
+\texttt{qwen3-coder-next} (Alibaba, famiglia e addestramento diversi) ---
+e lasciando identici il recupero, il limite di contesto, l'archivio e il
+metodo di valutazione. Questo ricalca lo studio con secondo modello già
+previsto nel progetto.
+
+L'esperimento copre l'intero banco di prova: tutte e \textbf{169} le
+domande, da 2 a 5 hop, a cui entrambi i lettori hanno risposto su tutti e
+quattro i sistemi --- copertura \emph{completa, senza esclusioni}. Le
+undici domande a 5 hop (Q159--Q169) inizialmente rimaste indietro per il
+limite d'uso dell'account Ollama (errore \texttt{HTTP 429}) sono state
+completate riutilizzando gli stessi contesti di recupero, verificati
+identici a quelli di gemma. Il recupero è deterministico e coincide tra i
+due lettori su tutte le 676 coppie domanda--sistema.
+
+\begin{table}[H]
+\centering
+\caption{Stesse 169 domande, due lettori diversi. La classifica non cambia.}
+\label{tab:reader}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Sistema} & \textbf{F1 gemma3:27b} & \textbf{F1 qwen3-coder-next} & \textbf{$\Delta$} \\
+\midrule
+\textbf{GraphRAG} & \textbf{0,994} & \textbf{0,991} & $-0{,}003$ \\
+RAG ibrido        & 0,676 & 0,698 & $+0{,}022$ \\
+RAG BM25          & 0,671 & 0,701 & $+0{,}030$ \\
+RAG denso         & 0,163 & 0,164 & $+0{,}001$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{{{artifact:art_1bceae17-07a0-4183-b045-5535f3bfcab6}}}
+\caption{Confronto tra due lettori diversi sulle stesse 169 domande. La
+gerarchia resta invariata: il vantaggio è del metodo di recupero, non del
+modello che legge.}
+\label{fig:reader}
+\end{figure}
+
+Cambiando del tutto il lettore, la classifica non si muove \emph{a
+nessuna profondità di ragionamento}: il GraphRAG resta di fatto perfetto
+($\sim 0{,}99$) da 2 a 5 hop, i sistemi testuali restano circa 30 punti
+sotto e nello stesso ordine, il denso resta molto indietro. Le piccole
+oscillazioni ($\pm 0{,}02$--$0{,}03$) sono rumore e semmai vanno
+leggermente a favore di qwen sui sistemi testuali --- il che rafforza la
+conclusione: il divario è una proprietà del recupero, non del lettore.
+
+\section{Robustezza al linguaggio: e se la domanda è riformulata?}
+
+Un'obiezione naturale è che il benchmark usi domande generate da schemi
+fissi, con un vocabolario regolare. Un clinico reale scrive in modo vario.
+Ho quindi generato una \textbf{parafrasi in linguaggio clinico} di tutte le
+169 domande (i nomi delle entità restano, cambia il modo di chiedere) e ho
+rieseguito i sistemi. La divergenza lessicale è forte: la somiglianza
+mediana (indice di Jaccard sulle parole) tra originale e parafrasi è
+\textbf{0,21}.
+
+Il risultato va raccontato in due tempi, con onestà.
+
+\subsection{Prima sorpresa: il router a parole chiave è fragile}
+
+Nella prima implementazione, il GraphRAG sceglieva quale percorso seguire
+nel grafo con un router \emph{a parole chiave}: cercava termini come
+``malattia'', ``trial'', ``companion'' nel testo della domanda. Funziona
+benissimo sulle domande originali, ma è tarato sul loro vocabolario.
+Riformulando, quelle parole spariscono e il router sbaglia strada: la
+rotta \texttt{gene\_to\_disease} veniva preservata in 0 casi su 20, la
+\texttt{gene\_evidence\_trial\_bridge} in 1 su 28. L'accuratezza del
+GraphRAG con router a parole chiave \textbf{crolla da 0,99 a 0,67} sulle
+parafrasi, con il recall di recupero che scende da 1,00 a 0,68. I sistemi
+testuali, che non hanno un router, restano quasi stabili (perdono circa
+0,04 di F1). Questo va detto: non hanno un router \emph{da rompere}, ma
+partono da molto più in basso.
+
+\subsection{La correzione: un router semantico}
+
+La causa non è l'entity linking (che resta quasi perfetto: 168 entità
+agganciate su 169) ma la scorciatoia ingegneristica del router. L'ho
+sostituito con un \textbf{router semantico}: un classificatore che riconosce
+l'\emph{intento} della domanda fra sette categorie, indipendentemente dalle
+parole esatte usate. Il router non vede mai la risposta corretta né
+l'archivio: classifica solo l'intento, quindi il confronto resta equo.
+Con il router semantico il GraphRAG \textbf{risale a F1 0,895} (recall di
+recupero 0,95), restando davanti a tutti i sistemi testuali a ogni livello
+di hop e con circa 22 volte meno contesto (41 parole contro circa 900).
+
+\begin{table}[H]
+\centering
+\caption{Robustezza alla riformulazione. Il router a parole chiave crolla
+sulle parafrasi; il router semantico recupera gran parte del divario. I
+sistemi testuali sono stabili ma molto più in basso.}
+\label{tab:robustezza}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Sistema (condizione)} & \textbf{F1} & \textbf{Exact} & \textbf{Recall rec.} & \textbf{Contesto (parole)} \\
+\midrule
+GraphRAG (orig., router parole chiave)      & 0,994 & 0,994 & 1,000 & 36 \\
+GraphRAG (parafrasi, router parole chiave)  & 0,667 & 0,751 & 0,679 & 50 \\
+\textbf{GraphRAG (parafrasi, router semantico)} & \textbf{0,895} & \textbf{0,941} & \textbf{0,947} & \textbf{41} \\
+\midrule
+RAG BM25 (orig.\ $\rightarrow$ parafrasi)   & 0,671 $\rightarrow$ 0,634 & --- & 0,816 $\rightarrow$ 0,809 & $\sim$885 \\
+RAG ibrido (orig.\ $\rightarrow$ parafrasi) & 0,676 $\rightarrow$ 0,626 & --- & 0,803 $\rightarrow$ 0,788 & $\sim$905 \\
+RAG denso (orig.\ $\rightarrow$ parafrasi)  & 0,163 $\rightarrow$ 0,193 & --- & 0,266 $\rightarrow$ 0,285 & $\sim$935 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{{{artifact:art_625e7cc1-0a74-4a9b-b27d-38dcef510854}}}
+\caption{Robustezza alla riformulazione clinica. (a) La riformulazione non
+ribalta la gerarchia fra i sistemi. (b) Sulle domande riformulate, con
+router semantico, il GraphRAG resta in vantaggio a ogni numero di hop.}
+\label{fig:robustezza}
+\end{figure}
+
+La lettura scientifica è netta: il \emph{paradigma} --- il recupero
+strutturato guidato dal grafo --- è robusto alla variazione linguistica.
+Ciò che era fragile era una scorciatoia di ingegneria (il router a parole
+chiave). Un GraphRAG fatto come si deve comprende l'intento della domanda,
+ed è esattamente questo a ripristinare la robustezza.
+
+\section{Sicurezza clinica: sa dire ``non lo so''?}
+
+In un tumor board un sistema che \emph{inventa} un test diagnostico o un
+trial inesistente è pericoloso; uno che si \emph{astiene} quando la risposta
+non c'è è sicuro. Ho costruito 34 domande-trappola senza risposta valida:
+24 a \emph{catena spezzata} (geni realmente presenti nella knowledge base,
+ma la specifica catena multi-hop non esiste --- verificato: il grafo
+restituisce contesto vuoto) e 10 a \emph{entità inesistente} (nomi di gene
+plausibili ma assenti). Ho aggiunto 16 domande valide di controllo, per
+verificare che i sistemi non rifiutino tutto indistintamente.
+
+Su una domanda senza risposta, astenersi (rispondere ``NON DETERMINABILE'')
+è il comportamento corretto; elencare entità è un'allucinazione.
+
+\begin{table}[H]
+\centering
+\caption{Test di astensione. GraphRAG è l'unico sistema che si astiene sulle
+trappole senza mai rifiutare una domanda valida.}
+\label{tab:astensione}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Sistema} & \textbf{Astensione} & \textbf{Allucinaz.} & \textbf{Entità inventate} & \textbf{Falsa astens.} \\
+                 & \textbf{trappole $\uparrow$} & \textbf{trappole $\downarrow$} & \textbf{(se allucina) $\downarrow$} & \textbf{valide $\downarrow$} \\
+\midrule
+\textbf{GraphRAG} & \textbf{0,94} & \textbf{0,06} & \textbf{1,5}  & \textbf{0,00} \\
+RAG BM25          & 0,91 & 0,09 & 10,7 & 0,06 \\
+RAG ibrido        & 0,79 & 0,21 & 6,1  & 0,12 \\
+RAG denso         & 0,85 & 0,15 & 2,6  & 0,56 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{{{artifact:art_c37f24d3-042c-4bb7-847f-93d77e1e391d}}}
+\caption{Sicurezza e astensione. (a) GraphRAG si astiene sulle trappole
+(barre piene) senza rifiutare le domande valide (barre tratteggiate).
+(b) Quando allucina, il RAG inventa fino a quasi 11 entità; il GraphRAG
+parte da contesto vuoto.}
+\label{fig:astensione}
+\end{figure}
+
+Tre cose emergono. Primo, il meccanismo è \textbf{architetturale}: il
+recupero dal grafo è vuoto su tutte le 34 trappole perché il cammino
+semplicemente non esiste, mentre il RAG recupera comunque 860--970 parole
+di passaggi superficialmente simili --- il carburante dell'allucinazione.
+Secondo, quando il RAG allucina, allucina molto: BM25 elenca in media
+\textbf{10,7 entità} inventate per trappola, il caso clinicamente più
+pericoloso. Terzo, l'apparente prudenza del RAG denso è un miraggio: sembra
+sicuro sulle trappole (0,85) ma si astiene falsamente sul \textbf{56\%}
+delle domande valide --- non è cautela calibrata, è fallimento di recupero.
+
+\subsection{Un guardrail fail-safe}
+
+I due unici cedimenti del GraphRAG (2 trappole su 34) non vengono dal
+recupero --- vuoto e corretto su tutte --- ma dal lettore, che con contesto
+vuoto ha attinto una volta alla memoria del modello. La correzione è un
+\textbf{guardrail deterministico}: se il recupero dal grafo è vuoto, il
+sistema risponde ``NON DETERMINABILE'' senza nemmeno interpellare il
+lettore. Prima di adottarlo ho verificato che il GraphRAG produce contesto
+vuoto su tutte le 34 trappole ma su nessuna delle 16 domande valide: la
+separazione è netta, quindi il guardrail non introduce false astensioni.
+
+\begin{table}[H]
+\centering
+\caption{Effetto del guardrail ``contesto vuoto $\rightarrow$ astieniti'' sul
+GraphRAG. Sicurezza perfetta senza perdere risposte valide.}
+\label{tab:guardrail}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metrica} & \textbf{Senza guardrail} & \textbf{Con guardrail} \\
+\midrule
+Astensione su trappole $\uparrow$      & 0,94 & \textbf{1,00} \\
+Allucinazione su trappole $\downarrow$ & 0,06 & \textbf{0,00} \\
+Entità inventate (media) $\downarrow$  & 1,5  & \textbf{0,0} \\
+Falsa astensione su valide $\downarrow$& 0,00 & \textbf{0,00} \\
+Risponde a domande valide $\uparrow$   & 1,00 & \textbf{1,00} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{{{artifact:art_fdba3c00-a97d-48c1-84c4-16b5236ca3dc}}}
+\caption{Il guardrail deterministico. (a) Porta il GraphRAG a sicurezza
+perfetta sulle trappole. (b) Nel piano sicurezza--competenza, GraphRAG con
+guardrail coincide con il punto ideale (nessuna falsa astensione, astensione
+totale sulle trappole).}
+\label{fig:guardrail}
+\end{figure}
+
+Questo comportamento \emph{fail-safe} è possibile solo grazie al grafo:
+``contesto vuoto'' è un segnale affidabile di non-rispondibilità perché il
+recupero strutturato o trova un cammino o non lo trova. Applicare lo stesso
+guardrail al RAG non servirebbe a nulla: il RAG recupera sempre centinaia di
+parole, quindi il suo contesto non è mai vuoto e la trappola arriva comunque
+al lettore. Il RAG \textbf{non ha un segnale equivalente}. La raccomandazione
+per un sistema di supporto decisionale clinico è quindi diretta: recupero
+strutturato più guardrail deterministico danno un comportamento dimostrabile
+--- o una risposta con supporto tracciabile nel grafo, o una dichiarazione
+esplicita di non sapere. Nessuna via di mezzo allucinata.
+
+\section{Limiti, detti con franchezza}
+
+\begin{itemize}
+  \item \textbf{Domande da modello}: il benchmark copre 7 schemi di
+        percorso. Sono rappresentativi delle domande cliniche reali, ma non
+        coprono tutto il linguaggio naturale libero.
+  \item \textbf{L'unico ``errore'' del GraphRAG} (domanda Q112, 4 hop): il
+        lettore ha risposto ``Gemcitabina'' (italiano) contro il
+        riferimento ``GEMCITABINE'' (inglese). È clinicamente corretto,
+        penalizzato solo dal confronto lettera per lettera. In pratica il
+        GraphRAG è perfetto sul benchmark; il valore 0,975 a 4 hop è un
+        artefatto della metrica, non un errore di ragionamento.
+  \item \textbf{Il RAG denso è penalizzato dai passaggi brevi}: con
+        paragrafi da poche decine di parole, l'embedding usato rende poco.
+        Il confronto principale va letto contro BM25 e ibrido, che sono
+        baseline testuali più eque.
+  \item \textbf{Lo schema di percorso del GraphRAG è specifico}: rispecchia
+        la logica del sistema di produzione, ma andrebbe esteso per domande
+        fuori dallo schema. Non usa mai la risposta corretta, quindi il
+        confronto resta equo.
+  \item \textbf{Il router va scelto con cura}: come mostra l'esperimento sulle
+        parafrasi, un router a parole chiave è fragile alla variazione
+        linguistica. Il router semantico usato qui recupera la robustezza, ma
+        introduce una dipendenza da un classificatore d'intento, la cui
+        accuratezza (circa 88\% sulle parafrasi) diventa un ulteriore anello
+        da monitorare in produzione.
+\end{itemize}
+
+\section{Che cosa significa per il Molecular Tumor Board}
+
+\begin{enumerate}
+  \item \textbf{Affidabilità dove serve}: le decisioni reali del tumor board
+        sono a più passi (dal profilo molecolare del paziente alla terapia
+        con evidenza, al trial arruolabile, al test richiesto). Proprio lì
+        dove il RAG testuale crolla, il GraphRAG resta accurato.
+  \item \textbf{Tracciabilità}: ogni risposta del GraphRAG è un percorso
+        esplicito nel grafo, che il clinico può verificare --- requisito
+        essenziale in ambito clinico.
+  \item \textbf{Efficienza}: usare circa 25 volte meno contesto significa
+        meno tempo e meno costi, con un contesto ancorato a fonti curate.
+  \item \textbf{Una metrica-spia}: il recall dei fatti-ponte spiega
+        \emph{perché} il grafo vince, e conviene tenerlo monitorato anche in
+        produzione.
+\end{enumerate}
+
+\section{Riproducibilità}
+
+Tutti i materiali sono salvati: il benchmark con risposte di riferimento e
+percorsi (\texttt{benchmark\_multihop\_qa.csv}), le risposte e i punteggi
+per ogni domanda e sistema con entrambi i lettori
+(\texttt{results\_raw.csv}, \texttt{results\_raw\_qwen.csv}), le metriche
+aggregate (\texttt{metrics\_summary.csv}, \texttt{metrics\_by\_hop.csv}), il
+confronto tra lettori (\texttt{reader\_generalization\_gemma\_vs\_qwen.csv})
+e le cinque figure a 300 dpi. Lettore principale: \texttt{gemma3:27b};
+lettore di controllo: \texttt{qwen3-coder-next}, entrambi via Ollama Cloud.
+Ambiente: Python 3.12 (\texttt{networkx}, \texttt{sentence-transformers},
+\texttt{rank-bm25}, \texttt{scikit-learn}).
+
+Per gli esperimenti aggiuntivi sono inclusi: le 169 parafrasi cliniche
+(\texttt{benchmark\_multihop\_qa\_paraphrased.csv}), i risultati con router a
+parole chiave e con router semantico
+(\texttt{results\_paraphrase\_keywordrouter.csv},
+\texttt{results\_paraphrase\_graphrag\_routed.csv}), la sintesi di robustezza
+(\texttt{robustezza\_parafrasi\_summary.csv}), il set completo di
+domande-trappola e di controllo
+(\texttt{abstention\_trap\_questions.csv},
+\texttt{abstention\_control\_questions.csv}), i risultati per-domanda del test
+di astensione (\texttt{results\_abstention\_raw.csv}), le metriche con e senza
+guardrail (\texttt{abstention\_summary.csv},
+\texttt{abstention\_summary\_guardrail.csv},
+\texttt{guardrail\_before\_after.csv}) e le figure~\ref{fig:robustezza},
+\ref{fig:astensione} e~\ref{fig:guardrail}. Il codice dei due sistemi e degli
+esperimenti è nella cartella \texttt{scripts/}
+(\texttt{01\_sistemi\_retrieval.py}, \texttt{02\_esperimento\_robustezza\_parafrasi.py},
+\texttt{03\_esperimento\_astensione\_guardrail.py}).
+
+\end{document}

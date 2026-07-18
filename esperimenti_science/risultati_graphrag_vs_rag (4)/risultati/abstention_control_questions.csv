@@ -1,0 +1,17 @@
+trap_id,template,qid,question,gold_answer
+C001,drug_to_gene_cdx,Q016,Quale gene viene rilevato dal test diagnostico di accompagnamento del farmaco TRASTUZUMAB DERUXTECAN?,ERBB2
+C002,drug_to_gene_cdx,Q006,Quale gene viene rilevato dal test diagnostico di accompagnamento del farmaco ADAGRASIB + CETUXIMAB?,KRAS
+C003,drug_to_gene_cdx,Q023,Quale gene viene rilevato dal test diagnostico di accompagnamento del farmaco SOTORASIB + PANITUMUMAB?,KRAS
+C004,gene_evidence_trial_bridge,Q140,Quali farmaci sono contemporaneamente supportati da evidenza clinica e testati in trial clinici per il gene CDK6?,FULVESTRANT | PALBOCICLIB | RIBOCICLIB
+C005,gene_evidence_trial_bridge,Q139,Quali farmaci sono contemporaneamente supportati da evidenza clinica e testati in trial clinici per il gene CDK4?,ALPELISIB | DEXAMETHASONE | PALBOCICLIB | RIBOCICLIB
+C006,gene_to_cdx,Q164,Quali test diagnostici di accompagnamento (companion diagnostic) sono disponibili per i farmaci che hanno evidenza clinica per il gene Other Biomarkers?,"FoundationOne CDx  (Foundation Medicine, Inc.) | MI Cancer Seek (MCS) (Caris Life Sciences)"
+C007,gene_to_cdx,Q152,Quali test diagnostici di accompagnamento (companion diagnostic) sono disponibili per i farmaci che hanno evidenza clinica per il gene TP53?,"FoundationOne CDx  (Foundation Medicine, Inc.) | ONCO/Reveal Dx Lung & Colon Cancer Assay (O/RDx-LCCA)  (Pillar Biosciences, Inc.) | cobas KRAS Mutation Test  (Roche Molecular Systems, Inc.) | therascreen KRAS RGQ PCR Kit  (Qiagen Manchester, Ltd.) | xT CDx  (Tempus Labs, Inc.)"
+C008,gene_to_disease,Q096,In quali malattie il gene EPHB4 presenta evidenza clinica documentata?,Colorectal Cancer
+C009,gene_to_disease,Q084,In quali malattie il gene FOXR2 presenta evidenza clinica documentata?,CNS Neuroblastoma With FOXR2 Activation
+C010,gene_to_drug,Q116,Quali farmaci sono associati a evidenze cliniche per il gene AGR2?,TAMOXIFEN
+C011,gene_to_drug,Q104,Quali farmaci sono associati a evidenze cliniche per il gene PDGFRA?,CRENOLANIB | IMATINIB | PONATINIB | SUNITINIB
+C012,gene_to_trialdrug,Q036,Quali farmaci vengono testati nei trial clinici associati al gene NTRK3?,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB
+C013,gene_to_trialdrug,Q035,Quali farmaci vengono testati nei trial clinici associati al gene NTRK2?,ENTRECTINIB | LAROTRECTINIB SULFATE | REPOTRECTINIB
+C014,variant_to_drug,Q071,Quali farmaci hanno evidenza clinica per la variante FNTB RS11623866?,LONAFARNIB
+C015,variant_to_drug,Q058,Quali farmaci hanno evidenza clinica per la variante DDX43 Overexpression?,MIRDAMETINIB | SELUMETINIB SULFATE | TRAMETINIB
+C016,variant_to_drug,Q051,Quali farmaci hanno evidenza clinica per la variante RB1 PHOSPHORYLATION?,ALPELISIB

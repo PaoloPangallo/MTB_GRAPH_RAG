@@ -1,0 +1,17 @@
+hop_count,system,f1_gemma,f1_qwen
+2,GraphRAG,1.0,1.0
+2,RAG BM25,0.744,0.78
+2,RAG ibrido,0.756,0.777
+2,RAG denso,0.498,0.499
+3,GraphRAG,1.0,0.992
+3,RAG BM25,0.923,0.94
+3,RAG ibrido,0.927,0.964
+3,RAG denso,0.05,0.05
+4,GraphRAG,0.975,1.0
+4,RAG BM25,0.78,0.871
+4,RAG ibrido,0.792,0.867
+4,RAG denso,0.095,0.095
+5,GraphRAG,1.0,0.975
+5,RAG BM25,0.308,0.293
+5,RAG ibrido,0.301,0.268
+5,RAG denso,0.028,0.029

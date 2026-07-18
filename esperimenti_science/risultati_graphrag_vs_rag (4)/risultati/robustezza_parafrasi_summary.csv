@@ -1,0 +1,10 @@
+sistema_condizione,F1,exact,retr_recall,ctx_words
+"GraphRAG (orig, router keyword)",0.994,0.994,1.0,35.817
+"GraphRAG (parafrasi, router keyword)",0.667,0.751,0.679,49.828
+"GraphRAG (parafrasi, router semantico)",0.895,0.941,0.947,40.538
+RAG BM25 (orig),0.671,0.704,0.816,889.893
+RAG BM25 (parafrasi),0.634,0.71,0.809,881.107
+RAG ibrido (orig),0.676,0.68,0.803,918.396
+RAG ibrido (parafrasi),0.626,0.68,0.788,891.574
+RAG denso (orig),0.163,0.154,0.266,946.722
+RAG denso (parafrasi),0.193,0.172,0.285,923.432

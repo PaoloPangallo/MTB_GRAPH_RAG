@@ -188,9 +188,9 @@ export default function KnowledgeGraph3D({ data }: KnowledgeGraph3DProps) {
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [is3D, setIs3D] = useState(true);
-  const [chargeStrength, setChargeStrength] = useState(-120);
+  const [chargeStrength, setChargeStrength] = useState(-220);
   const [visibleTypes, setVisibleTypes] = useState<Set<string>>(new Set(Object.keys(NODE_COLORS)));
-  const [dimensions, setDimensions] = useState({ width: 800, height: 560 });
+  const [dimensions, setDimensions] = useState({ width: 800, height: 640 });
 
   // ── Resize observer ─────────────────────────────────────
   useEffect(() => {
@@ -198,7 +198,7 @@ export default function KnowledgeGraph3D({ data }: KnowledgeGraph3DProps) {
     const obs = new ResizeObserver(entries => {
       for (const entry of entries) {
         const { width } = entry.contentRect;
-        setDimensions({ width: Math.max(400, width), height: 560 });
+        setDimensions({ width: Math.max(400, width), height: 640 });
       }
     });
     obs.observe(containerRef.current);
@@ -323,7 +323,7 @@ export default function KnowledgeGraph3D({ data }: KnowledgeGraph3DProps) {
   }, [graphData.nodes]);
 
   return (
-    <Box sx={{ display: 'flex', gap: 0, height: 600, position: 'relative' }}>
+    <Box sx={{ display: 'flex', gap: 2, height: 700, position: 'relative' }}>
       {/* ── Zero-Shot Warning Banner ─────────────────────── */}
       {isZeroShot && (
         <Alert
@@ -353,17 +353,17 @@ export default function KnowledgeGraph3D({ data }: KnowledgeGraph3DProps) {
         elevation={0}
         sx={{
           position: 'absolute',
-          top: isZeroShot ? 64 : 12,
+          top: isZeroShot ? 68 : 12,
           left: 12,
           zIndex: 10,
-          width: 220,
-          p: 1.5,
-          bgcolor: 'rgba(15,23,42,0.85)',
-          backdropFilter: 'blur(12px)',
-          borderRadius: 2,
-          border: '1px solid rgba(148,163,184,0.2)',
+          width: 230,
+          p: 2,
+          bgcolor: 'rgba(10,18,36,0.88)',
+          backdropFilter: 'blur(14px)',
+          borderRadius: 2.5,
+          border: '1px solid rgba(148,163,184,0.18)',
           color: '#E2E8F0',
-          maxHeight: 500,
+          maxHeight: 620,
           overflow: 'auto',
         }}
       >
@@ -498,8 +498,8 @@ export default function KnowledgeGraph3D({ data }: KnowledgeGraph3DProps) {
             if (l.type === 'RESISTANCE' || l.type === 'RESISTANCE_VARIANT' || l.type === 'RESISTS_DRUG') return '#F87171';
             return '#334155';
           }}
-          linkWidth={(link: any) => (link as GraphLink).type === 'HALLUCINATED' ? 2 : 1}
-          linkOpacity={0.6}
+          linkWidth={(link: any) => (link as GraphLink).type === 'HALLUCINATED' ? 2.5 : 1.5}
+          linkOpacity={0.7}
           linkDirectionalArrowLength={4}
           linkDirectionalArrowRelPos={1}
           linkDirectionalParticles={(link: any) => (link as GraphLink).type === 'HALLUCINATED' ? 3 : 0}
@@ -512,10 +512,10 @@ export default function KnowledgeGraph3D({ data }: KnowledgeGraph3DProps) {
             node.fz = node.z;
           }}
           numDimensions={is3D ? 3 : 2}
-          d3AlphaDecay={0.02}
-          d3VelocityDecay={0.3}
-          cooldownTicks={100}
-          warmupTicks={50}
+          d3AlphaDecay={0.012}
+          d3VelocityDecay={0.18}
+          cooldownTicks={250}
+          warmupTicks={200}
         />
       </Box>
 

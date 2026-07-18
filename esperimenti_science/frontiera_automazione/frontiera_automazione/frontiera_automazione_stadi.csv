@@ -1,0 +1,11 @@
+stadio,descrizione,natura,automatizzabilita,evidenza_sperimentale
+1,"Annotazione varianti (gene, tipo, HGVS/dbSNP)",look-up strutturato,automatizzabile,a monte del grafo
+2,Assemblaggio catene variante→gene→farmaco→evidenza→trial→cdx,cross-referencing multi-hop,automatizzabile,"GraphRAG F1≈0.99 (hop 2-5), bridge-recall 100%, reader-indipendente"
+3,Recupero companion diagnostics / approvazioni FDA,look-up relazionale,automatizzabile,"template gene_to_cdx, drug_to_gene_cdx risolti (F1≈1.0)"
+4,Pre-screening eleggibilità trial (criteri strutturati),matching su criteri espliciti,parziale,"gene_to_trialdrug, gene_evidence_trial_bridge"
+5,Armonizzazione livelli di evidenza (CIViC A-E vs OncoKB LEVEL_x),normalizzazione semantica,parziale,"225 livello-A vs 1668 C, ~17 in scala OncoKB mista"
+6,Ponderazione di evidenze deboli o contrastanti,giudizio,giudizio_umano,fuori portata del retrieval
+7,"Integrazione contesto-paziente (comorbidità, linee, PS, funzione d'organo)",giudizio clinico,giudizio_umano,"non nel grafo, per costruzione"
+8,Priorità tra alterazioni multiple azionabili,giudizio multidisciplinare,giudizio_umano,
+9,"Off-label / uso compassionevole, etica, accesso, costi",giudizio + responsabilità,giudizio_umano,
+10,Raccomandazione terapeutica finale e accountability,giudizio + responsabilità legale,giudizio_umano,

@@ -1,0 +1,71 @@
+============================================================
+ONCOLOGICAL KNOWLEDGE GRAPH ETL PIPELINE
+============================================================
+Sorgenti dati: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI
+Directory di output puliti: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data
+
+Caricamento dataset in corso...
+  cancerGeneList.tsv caricato: 1236 righe
+  FeatureSummaries.tsv caricato: 961 righe
+  VariantSummaries.tsv caricato (CORRETTO): 1973 righe
+  MolecularProfileSummaries.tsv caricato: 1937 righe
+  AcceptedClinicalEvidenceSummaries.tsv caricato: 4843 righe
+  DGIdb categories.tsv caricato: 32795 righe
+  DGIdb drugs.tsv caricato: 81572 righe
+  DGIdb genes.tsv caricato: 80234 righe
+  DGIdb interactions.tsv caricato: 98239 righe
+  companion_diagnostic_devices.tsv caricato: 187 righe
+  fda_approved_oncology_therapies.xlsx (FDA sheet) caricato: 250 righe
+
+--- ELABORAZIONE NODI: DRUG ---
+  FDA Oncology Precision Therapies (Y): 120
+  Nodi Drug salvati: 24501 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\node_drug.csv
+
+--- ELABORAZIONE NODI: GENE ---
+  Geni importati da cancerGeneList: 1236
+  Geni aggiuntivi rilevati da Civic FeatureSummaries: 200
+  Nodi Gene salvati: 1436 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\node_gene.csv
+
+--- ELABORAZIONE NODI: VARIANT ---
+  Nodi Variant salvati: 1973 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\node_variant.csv
+
+--- ELABORAZIONE NODI: MOLECULAR PROFILE ---
+  Nodi MolecularProfile salvati: 1937 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\node_molecular_profile.csv
+
+--- ELABORAZIONE NODI: EVIDENCE ---
+  Nodi Evidence salvati: 4843 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\node_evidence.csv
+
+--- ELABORAZIONE NODI: COMPANION DIAGNOSTIC ---
+  Nodi CompanionDiagnostic salvati: 166 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\node_companion_diagnostic.csv
+
+========================================
+ARCHI (RELATIONSHIPS) GENERATION
+========================================
+
+--- ELABORAZIONE ARCO: (:Gene)-[:HAS_VARIANT]->(:Variant) ---
+  Archi HAS_VARIANT salvati: 1725 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\edge_has_variant.csv
+
+--- ELABORAZIONE ARCO: (:Variant)-[:IN_MOLECULAR_PROFILE]->(:MolecularProfile) ---
+  Archi IN_MOLECULAR_PROFILE salvati: 2279 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\edge_in_molecular_profile.csv
+
+--- ELABORAZIONE ARCO: (:MolecularProfile)-[:HAS_EVIDENCE]->(:Evidence) ---
+  Archi HAS_EVIDENCE salvati: 4843 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\edge_has_evidence.csv
+
+--- ELABORAZIONE ARCO: (:Evidence)-[:TARGETS_DRUG]->(:Drug) ---
+  Archi TARGETS_DRUG salvati: 3347 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\edge_targets_drug.csv
+
+--- ELABORAZIONE ARCO: (:Gene)-[:INTERACTS_WITH]->(:Drug) ---
+  Archi INTERACTS_WITH salvati: 25589 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\edge_interacts_with.csv
+
+--- ELABORAZIONE ARCO: (:Drug)-[:HAS_COMPANION_DIAGNOSTIC]->(:CompanionDiagnostic) ---
+  Archi HAS_COMPANION_DIAGNOSTIC salvati: 150 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\edge_has_companion_diagnostic.csv
+  Archi DIAGNOSES_GENE salvati: 163 in c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\edge_diagnoses_gene.csv
+
+========================================
+FUZZY MATCH FAILURES AND COMPILATION LOG
+========================================
+  Trovati 405 fallimenti di fuzzy match per i farmaci.
+  Log salvato in: c:\Users\paolo\Desktop\IspezioneDatasetTesi\DatasetTESI\Dataset TESI\Clean_Graph_Data\fuzzy_match_failures.log
+
+ETL completato con successo!
+============================================================
