@@ -41,3 +41,39 @@ class ComparisonDemoTest(TestCase):
         self.assertEqual(result.deterministic.evidence, [])
         self.assertEqual(result.agentic.evidence, [])
         self.assertEqual(result.summary.shared_sources, [])
+
+    def test_common_dossier_separates_unverified_supported_and_excluded_items(self):
+        result = compare_architectures(self._request())
+
+        self.assertEqual(
+            result.deterministic.dossier.review_evidence[0].classification,
+            "unverified",
+        )
+        self.assertEqual(
+            result.agentic.dossier.applicable_evidence[0].source_id,
+            "PMID:29151359",
+        )
+        self.assertEqual(
+            result.agentic.dossier.excluded_evidence[0].claim,
+            "Il caso presenta amplificazione di MET.",
+        )
+        self.assertIn("Stadio", result.agentic.dossier.missing_data)
+
+    def test_complete_clinical_context_is_preserved_in_the_dossier(self):
+        request = self._request()
+        request.disease_stage = "IV"
+        request.disease_setting = "metastatic"
+        request.prior_therapies = ["Nessuno"]
+        request.prior_response = "Non applicabile"
+        request.ecog_status = 1
+        request.cns_metastases = False
+        request.co_alterations = ["Nessuna nota"]
+        request.jurisdiction = "Italia"
+        request.mtb_goal = "treatment-evidence"
+
+        dossier = compare_architectures(request).agentic.dossier
+        values = {field.key: field.value for field in dossier.case_summary}
+
+        self.assertEqual(dossier.missing_data, [])
+        self.assertEqual(values["ecog_status"], "1")
+        self.assertEqual(values["cns_metastases"], "Assenti")

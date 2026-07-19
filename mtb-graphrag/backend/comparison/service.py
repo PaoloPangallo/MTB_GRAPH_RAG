@@ -16,7 +16,11 @@ from backend.api.schemas import (
     ArchitectureMetrics,
     ArchitectureRun,
     ClaimCheck,
+    ClinicalDossier,
     ComparisonSummary,
+    DossierCaseField,
+    DossierEvidence,
+    DossierFinding,
     EvidenceItem,
     TraceStep,
 )
@@ -143,6 +147,152 @@ def _checks_from_verifications(
     return checks
 
 
+def _text_value(value) -> str | None:
+    if value is None or value == "":
+        return None
+    if isinstance(value, bool):
+        return "Presenti" if value else "Assenti"
+    if isinstance(value, list):
+        return ", ".join(str(item) for item in value) if value else None
+    return str(value)
+
+
+def _case_summary(req: ArchitectureComparisonRequest) -> list[DossierCaseField]:
+    fields = [
+        ("molecular_profile", "Profilo molecolare", f"{req.gene or 'Biomarker'} {req.variant}"),
+        ("tumor_type", "Tumore", req.tumor_type),
+        ("therapy_line", "Linea richiesta", req.therapy_line),
+        ("disease_stage", "Stadio", req.disease_stage),
+        ("disease_setting", "Setting", req.disease_setting),
+        ("prior_therapies", "Trattamenti precedenti", req.prior_therapies),
+        ("prior_response", "Risposta precedente", req.prior_response),
+        ("ecog_status", "ECOG performance status", req.ecog_status),
+        ("cns_metastases", "Metastasi SNC", req.cns_metastases),
+        ("co_alterations", "Co-alterazioni", req.co_alterations),
+        ("jurisdiction", "Contesto regolatorio", req.jurisdiction),
+        ("mtb_goal", "Obiettivo MTB", req.mtb_goal),
+    ]
+    return [
+        DossierCaseField(
+            key=key,
+            label=label,
+            value=_text_value(value),
+            confirmed=_text_value(value) is not None,
+        )
+        for key, label, value in fields
+    ]
+
+
+def _dossier_finding(record: dict, kind: str) -> DossierFinding:
+    if kind == "trial":
+        nct_id = record.get("nct_id") or "Trial senza identificatore"
+        title = f"{nct_id}: {record.get('title', 'titolo non disponibile')}"
+        details = [record.get("phase"), record.get("status"), record.get("drug_tested")]
+        return DossierFinding(
+            title=title,
+            detail=" · ".join(str(value) for value in details if value) or "Dettagli non disponibili.",
+        )
+    pmid = record.get("pmid")
+    details = [record.get("disease"), record.get("evidence_level"), record.get("statement")]
+    return DossierFinding(
+        title=str(record.get("variant") or "Meccanismo di resistenza"),
+        detail=" · ".join(str(value) for value in details if value) or "Dettagli non disponibili.",
+        source_id=f"PMID:{pmid}" if pmid else None,
+    )
+
+
+def _build_dossier(
+    req: ArchitectureComparisonRequest,
+    items: list[EvidenceItem],
+    checks: list[ClaimCheck],
+    state: dict | None = None,
+) -> ClinicalDossier:
+    summary = _case_summary(req)
+    missing = [field.label for field in summary if not field.confirmed]
+    applicable: list[DossierEvidence] = []
+    review: list[DossierEvidence] = []
+    excluded: list[DossierEvidence] = []
+    matched_checks: set[int] = set()
+
+    for index, item in enumerate(items):
+        check = None
+        if index < len(checks) and (
+            len(checks) == len(items)
+            or checks[index].source_id == item.source_id
+        ):
+            check = checks[index]
+            matched_checks.add(index)
+        status = check.status if check else "not_checked"
+        classification = {
+            "supported": "applicable",
+            "blocked": "excluded",
+            "insufficient": "review",
+            "not_checked": "unverified",
+        }[status]
+        entry = DossierEvidence(
+            claim=_claim_text(item),
+            therapy=item.object,
+            setting=item.context,
+            source_id=item.source_id,
+            evidence_level=item.evidence_level,
+            classification=classification,
+            rationale=(
+                check.reason
+                if check
+                else "Record recuperato, ma non sottoposto a verifica claim-by-claim."
+            ),
+        )
+        if classification == "applicable":
+            applicable.append(entry)
+        elif classification == "excluded":
+            excluded.append(entry)
+        else:
+            review.append(entry)
+
+    for index, check in enumerate(checks):
+        if index in matched_checks or check.status not in {"blocked", "insufficient"}:
+            continue
+        entry = DossierEvidence(
+            claim=check.claim,
+            therapy="Non determinata",
+            setting=req.tumor_type,
+            source_id=check.source_id,
+            classification="excluded" if check.status == "blocked" else "review",
+            rationale=check.reason,
+        )
+        (excluded if check.status == "blocked" else review).append(entry)
+
+    state = state or {}
+    resistance = [
+        _dossier_finding(record, "resistance")
+        for record in state.get("resistance_data", [])
+    ]
+    trials = [
+        _dossier_finding(record, "trial")
+        for record in state.get("trial_candidates", [])
+    ]
+    questions = [f"Completare il dato clinico: {label}." for label in missing]
+    if review:
+        questions.append("Revisionare le evidenze con applicabilità incerta o non verificata.")
+    if excluded:
+        questions.append("Confermare l'esclusione delle evidenze appartenenti a un setting diverso.")
+    if applicable:
+        questions.append("Valutare nel MTB applicabilità individuale, tossicità e stato regolatorio delle evidenze ammesse.")
+    else:
+        questions.append("Stabilire se ampliare la ricerca: nessuna evidenza è stata ammessa come direttamente applicabile.")
+
+    return ClinicalDossier(
+        case_summary=summary,
+        missing_data=missing,
+        applicable_evidence=applicable,
+        review_evidence=review,
+        excluded_evidence=excluded,
+        resistance_findings=resistance,
+        trial_findings=trials,
+        mtb_questions=questions,
+    )
+
+
 def _demo_evidence(req: ArchitectureComparisonRequest) -> list[EvidenceItem]:
     is_egfr_example = (
         (req.gene or "").upper() == "EGFR"
@@ -205,6 +355,7 @@ def _demo_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         trace=trace,
         evidence=evidence,
         report=report,
+        dossier=_build_dossier(req, evidence, checks),
         claim_checks=checks,
         metrics=ArchitectureMetrics(
             elapsed_ms=34,
@@ -266,6 +417,7 @@ def _demo_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         trace=trace,
         evidence=evidence,
         report=report,
+        dossier=_build_dossier(req, evidence, checks),
         claim_checks=checks,
         metrics=ArchitectureMetrics(
             elapsed_ms=91,
@@ -313,6 +465,15 @@ def _initial_state(req: ArchitectureComparisonRequest) -> dict:
         "tumor_type": req.tumor_type,
         "alteration_type": req.alteration_type,
         "therapy_line": req.therapy_line,
+        "disease_stage": req.disease_stage,
+        "disease_setting": req.disease_setting,
+        "prior_therapies": req.prior_therapies,
+        "prior_response": req.prior_response,
+        "ecog_status": req.ecog_status,
+        "cns_metastases": req.cns_metastases,
+        "co_alterations": req.co_alterations,
+        "jurisdiction": req.jurisdiction,
+        "mtb_goal": req.mtb_goal,
         "enrich_with_oncokb": req.enrich_with_oncokb,
         "driver_variant": req.driver_variant or "",
         "complexity": "low",
@@ -380,6 +541,7 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         ],
         evidence=evidence,
         report=state.get("report", ""),
+        dossier=_build_dossier(req, evidence, checks, state),
         claim_checks=checks,
         metrics=ArchitectureMetrics(
             elapsed_ms=elapsed,
@@ -421,6 +583,15 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             "tumor_type": req.tumor_type,
             "alteration_type": req.alteration_type,
             "therapy_line": req.therapy_line,
+            "disease_stage": req.disease_stage or "",
+            "disease_setting": req.disease_setting or "",
+            "prior_therapies": ", ".join(req.prior_therapies),
+            "prior_response": req.prior_response or "",
+            "ecog_status": "" if req.ecog_status is None else str(req.ecog_status),
+            "cns_metastases": "" if req.cns_metastases is None else str(req.cns_metastases),
+            "co_alterations": ", ".join(req.co_alterations),
+            "jurisdiction": req.jurisdiction or "",
+            "mtb_goal": req.mtb_goal or "",
         },
     )
     checks = _checks_from_verifications(evidence, verifications)
@@ -474,6 +645,7 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         trace=trace,
         evidence=evidence,
         report=report,
+        dossier=_build_dossier(req, evidence, checks, state),
         claim_checks=checks,
         metrics=ArchitectureMetrics(
             elapsed_ms=elapsed,

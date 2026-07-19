@@ -20,6 +20,26 @@ ammesse nel report soltanto dopo il confronto con record CIViC e abstract
 PubMed; esiti incerti o fonti non disponibili vengono inviati alla revisione
 umana.
 
+## Dossier clinico comparativo
+
+Il confronto accetta, oltre al profilo molecolare, stadio, setting di malattia,
+trattamenti e risposta precedenti, ECOG, interessamento del SNC,
+co-alterazioni, contesto regolatorio e obiettivo del MTB. I campi sono
+facoltativi: quelli non compilati vengono mostrati come dati mancanti e non
+sono ricostruiti dal modello.
+
+Entrambe le architetture restituiscono lo stesso contratto di dossier:
+
+- riepilogo del caso e dati mancanti;
+- evidenze applicabili al contesto dichiarato;
+- evidenze da revisionare o non verificate;
+- evidenze escluse con motivazione;
+- resistenze e trial potenzialmente pertinenti;
+- questioni da discutere nel Molecular Tumor Board.
+
+La classificazione riguarda il supporto documentale e il setting dichiarato,
+non l'idoneità terapeutica individuale.
+
 ## Avvio
 
 ```bash

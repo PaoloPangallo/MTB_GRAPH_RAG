@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Alert,
   Box,
   Button,
@@ -21,11 +24,14 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type {
   AlterationType,
   ArchitectureComparisonResponse,
   ArchitectureRun,
   ClaimCheck,
+  ClinicalDossier,
+  DossierEvidence,
   ExecutionMode,
 } from '../types';
 
@@ -74,6 +80,93 @@ function statusColor(status: ClaimCheck['status']) {
   if (status === 'blocked') return 'error';
   if (status === 'insufficient') return 'warning';
   return 'default';
+}
+
+function splitClinicalValues(value: string) {
+  return value.split(',').map(item => item.trim()).filter(Boolean);
+}
+
+function DossierEvidenceList({
+  title,
+  items,
+  severity,
+}: {
+  title: string;
+  items: DossierEvidence[];
+  severity: 'success' | 'warning' | 'error';
+}) {
+  return (
+    <Box sx={{ mb: 2 }}>
+      <Typography variant="subtitle2" sx={{ fontWeight: 800, mb: 0.75 }}>{title} ({items.length})</Typography>
+      {items.length === 0 ? (
+        <Typography variant="caption" color="text.secondary">Nessun elemento in questa sezione.</Typography>
+      ) : items.map((item, index) => (
+        <Alert key={`${item.claim}-${index}`} severity={severity} variant="outlined" sx={{ mb: 0.75, alignItems: 'flex-start' }}>
+          <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.therapy}</Typography>
+          <Typography variant="caption" component="div">Setting: {item.setting}</Typography>
+          <Typography variant="caption" component="div">{item.rationale}</Typography>
+          <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5, flexWrap: 'wrap' }}>
+            {item.source_id && <Chip label={item.source_id} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
+            {item.evidence_level && <Chip label={`Livello ${item.evidence_level}`} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
+            <Chip label={item.classification} size="small" sx={{ height: 20, fontSize: 10 }} />
+          </Box>
+        </Alert>
+      ))}
+    </Box>
+  );
+}
+
+function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
+  return (
+    <Box sx={{ mb: 2.5 }}>
+      <Typography variant="overline" sx={{ fontWeight: 800 }}>Dossier per il Molecular Tumor Board</Typography>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))' }, gap: 0.75, my: 1 }}>
+        {dossier.case_summary.map(field => (
+          <Box key={field.key} sx={{ p: 1, borderRadius: 1.5, bgcolor: field.confirmed ? '#F8FAFC' : '#FFF7E6', border: '1px solid #E2E8F0' }}>
+            <Typography variant="caption" color="text.secondary" component="div">{field.label}</Typography>
+            <Typography variant="body2" sx={{ fontWeight: 700 }}>{field.value || 'Da completare'}</Typography>
+          </Box>
+        ))}
+      </Box>
+
+      {dossier.missing_data.length > 0 && (
+        <Alert severity="warning" sx={{ mb: 1.5 }}>
+          <strong>Dati mancanti:</strong> {dossier.missing_data.join(', ')}. L’applicabilità individuale non può essere chiusa senza questi elementi.
+        </Alert>
+      )}
+
+      <DossierEvidenceList title="Evidenze applicabili al contesto dichiarato" items={dossier.applicable_evidence} severity="success" />
+      <DossierEvidenceList title="Evidenze da verificare con l’oncologo" items={dossier.review_evidence} severity="warning" />
+      <DossierEvidenceList title="Evidenze escluse dal report" items={dossier.excluded_evidence} severity="error" />
+
+      <Grid container spacing={1.5} sx={{ mb: 2 }}>
+        <Grid size={{ xs: 12, sm: 6 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Resistenze osservate ({dossier.resistance_findings.length})</Typography>
+          {dossier.resistance_findings.length === 0 ? <Typography variant="caption">Nessun record disponibile.</Typography> : dossier.resistance_findings.map((item, index) => (
+            <Box key={`${item.title}-${index}`} sx={{ mt: 0.75, p: 1, border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
+              <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.title}</Typography>
+              <Typography variant="caption" component="div">{item.detail}</Typography>
+              {item.source_id && <Chip label={item.source_id} size="small" variant="outlined" sx={{ mt: 0.5, height: 20, fontSize: 10 }} />}
+            </Box>
+          ))}
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Trial potenzialmente pertinenti ({dossier.trial_findings.length})</Typography>
+          {dossier.trial_findings.length === 0 ? <Typography variant="caption">Nessun record disponibile.</Typography> : dossier.trial_findings.map((item, index) => (
+            <Box key={`${item.title}-${index}`} sx={{ mt: 0.75, p: 1, border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
+              <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.title}</Typography>
+              <Typography variant="caption">{item.detail}</Typography>
+            </Box>
+          ))}
+        </Grid>
+      </Grid>
+
+      <Alert severity="info">
+        <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Questioni da discutere nel MTB</Typography>
+        {dossier.mtb_questions.map((question, index) => <Typography key={`${question}-${index}`} variant="caption" component="div">{index + 1}. {question}</Typography>)}
+      </Alert>
+    </Box>
+  );
 }
 
 function BlueprintCard({ architecture }: { architecture: 'deterministic' | 'agentic' }) {
@@ -157,6 +250,8 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           {run.llm_roles.map(role => <Chip key={role} label={role} size="small" sx={{ bgcolor: colors.soft, color: colors.main }} />)}
         </Box>
 
+        <ClinicalDossierPanel dossier={run.dossier} />
+
         <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>Dietro le quinte</Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.1, mb: 2.5 }}>
           {run.trace.map(step => (
@@ -192,7 +287,7 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           ))}
         </Box>
 
-        <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>Report per l'oncologo</Typography>
+        <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>Output testuale grezzo dell'architettura</Typography>
         <Box sx={{ p: 2, bgcolor: '#F8FAFC', borderLeft: `4px solid ${colors.main}`, borderRadius: 1, mb: 2.5 }}>
           <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{run.report}</Typography>
         </Box>
@@ -232,6 +327,15 @@ export default function ArchitectureComparison() {
   const [tumorType, setTumorType] = useState('Lung Adenocarcinoma');
   const [alterationType, setAlterationType] = useState<AlterationType>('point_mutation');
   const [therapyLine, setTherapyLine] = useState('first-line');
+  const [diseaseStage, setDiseaseStage] = useState('');
+  const [diseaseSetting, setDiseaseSetting] = useState('');
+  const [priorTherapies, setPriorTherapies] = useState('');
+  const [priorResponse, setPriorResponse] = useState('');
+  const [ecogStatus, setEcogStatus] = useState('');
+  const [cnsMetastases, setCnsMetastases] = useState('');
+  const [coAlterations, setCoAlterations] = useState('');
+  const [jurisdiction, setJurisdiction] = useState('');
+  const [mtbGoal, setMtbGoal] = useState('general-review');
   const [mode, setMode] = useState<ExecutionMode>('demo');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -250,6 +354,15 @@ export default function ArchitectureComparison() {
           tumor_type: tumorType,
           alteration_type: alterationType,
           therapy_line: therapyLine,
+          disease_stage: diseaseStage || null,
+          disease_setting: diseaseSetting || null,
+          prior_therapies: splitClinicalValues(priorTherapies),
+          prior_response: priorResponse || null,
+          ecog_status: ecogStatus === '' ? null : Number(ecogStatus),
+          cns_metastases: cnsMetastases === '' ? null : cnsMetastases === 'present',
+          co_alterations: splitClinicalValues(coAlterations),
+          jurisdiction: jurisdiction || null,
+          mtb_goal: mtbGoal,
           enrich_with_oncokb: false,
           execution_mode: mode,
         }),
@@ -309,6 +422,45 @@ export default function ArchitectureComparison() {
               <FormControl size="small" fullWidth><InputLabel>Modalità</InputLabel><Select value={mode} label="Modalità" onChange={event => setMode(event.target.value as ExecutionMode)}>
                 <MenuItem value="demo">Contratto proposto (demo)</MenuItem><MenuItem value="live">Componenti reali (live)</MenuItem>
               </Select></FormControl>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Accordion variant="outlined" disableGutters>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Contesto clinico per l’applicabilità</Typography>
+                    <Typography variant="caption" color="text.secondary">I campi non compilati saranno riportati nel dossier come dati mancanti, non inventati dal sistema.</Typography>
+                  </Box>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container spacing={2}>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}><TextField label="Stadio" placeholder="es. IV" value={diseaseStage} onChange={event => setDiseaseStage(event.target.value)} size="small" fullWidth /></Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                      <FormControl size="small" fullWidth><InputLabel>Setting di malattia</InputLabel><Select value={diseaseSetting} label="Setting di malattia" onChange={event => setDiseaseSetting(event.target.value)}>
+                        <MenuItem value=""><em>Non specificato</em></MenuItem><MenuItem value="resected">Resecato</MenuItem><MenuItem value="locally-advanced">Localmente avanzato</MenuItem><MenuItem value="metastatic">Metastatico</MenuItem>
+                      </Select></FormControl>
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                      <FormControl size="small" fullWidth><InputLabel>ECOG</InputLabel><Select value={ecogStatus} label="ECOG" onChange={event => setEcogStatus(event.target.value)}>
+                        <MenuItem value=""><em>Non specificato</em></MenuItem>{[0, 1, 2, 3, 4, 5].map(value => <MenuItem key={value} value={String(value)}>{value}</MenuItem>)}
+                      </Select></FormControl>
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                      <FormControl size="small" fullWidth><InputLabel>Metastasi SNC</InputLabel><Select value={cnsMetastases} label="Metastasi SNC" onChange={event => setCnsMetastases(event.target.value)}>
+                        <MenuItem value=""><em>Non specificato</em></MenuItem><MenuItem value="absent">Assenti</MenuItem><MenuItem value="present">Presenti</MenuItem>
+                      </Select></FormControl>
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 6 }}><TextField label="Trattamenti precedenti" placeholder="Separati da virgola; scrivere Nessuno se confermato" value={priorTherapies} onChange={event => setPriorTherapies(event.target.value)} size="small" fullWidth /></Grid>
+                    <Grid size={{ xs: 12, md: 6 }}><TextField label="Risposta o progressione precedente" value={priorResponse} onChange={event => setPriorResponse(event.target.value)} size="small" fullWidth /></Grid>
+                    <Grid size={{ xs: 12, md: 6 }}><TextField label="Co-alterazioni" placeholder="Separare con virgola; scrivere Nessuna nota se confermato" value={coAlterations} onChange={event => setCoAlterations(event.target.value)} size="small" fullWidth /></Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}><TextField label="Paese / contesto regolatorio" placeholder="es. Italia" value={jurisdiction} onChange={event => setJurisdiction(event.target.value)} size="small" fullWidth /></Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                      <FormControl size="small" fullWidth><InputLabel>Obiettivo MTB</InputLabel><Select value={mtbGoal} label="Obiettivo MTB" onChange={event => setMtbGoal(event.target.value)}>
+                        <MenuItem value="general-review">Revisione generale</MenuItem><MenuItem value="treatment-evidence">Evidenze terapeutiche</MenuItem><MenuItem value="resistance">Resistenze</MenuItem><MenuItem value="clinical-trials">Trial clinici</MenuItem>
+                      </Select></FormControl>
+                    </Grid>
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1.5, alignItems: { sm: 'center' } }}>
