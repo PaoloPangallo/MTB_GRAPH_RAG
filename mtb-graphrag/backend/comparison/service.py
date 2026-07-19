@@ -179,6 +179,7 @@ def _demo_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             status="not_checked",
             reason="La fonte è stata recuperata, ma questa architettura non applica un verificatore claim-by-claim al testo finale.",
             source_id="PMID:29151359",
+            requires_human_review=True,
         )
     ] if has_evidence else [
         ClaimCheck(
@@ -211,6 +212,7 @@ def _demo_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             evidence_count=len(evidence),
             verified_claims=sum(c.status == "supported" for c in checks),
             blocked_claims=sum(c.status == "blocked" for c in checks),
+            review_claims=sum(c.requires_human_review for c in checks),
         ),
         limitations=[
             "La modalità demo non interroga il database live.",
@@ -271,6 +273,7 @@ def _demo_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             evidence_count=len(evidence),
             verified_claims=sum(c.status == "supported" for c in checks),
             blocked_claims=sum(c.status == "blocked" for c in checks),
+            review_claims=sum(c.requires_human_review for c in checks),
         ),
         limitations=[
             "La modalità demo illustra il contratto previsto, non una validazione clinica.",
@@ -378,7 +381,14 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         evidence=evidence,
         report=state.get("report", ""),
         claim_checks=checks,
-        metrics=ArchitectureMetrics(elapsed_ms=elapsed, tool_calls=5, evidence_count=len(evidence), verified_claims=0, blocked_claims=0),
+        metrics=ArchitectureMetrics(
+            elapsed_ms=elapsed,
+            tool_calls=5,
+            evidence_count=len(evidence),
+            verified_claims=0,
+            blocked_claims=0,
+            review_claims=1,
+        ),
         limitations=["Il classificatore ESCAT live usa un LLM; il retrieval rimane vincolato alle query tipizzate."],
     )
 
@@ -403,7 +413,16 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     ledger.append(collection.run_id, "candidate_report_rendered", "deterministic_renderer", {
         "report": candidate_report,
     })
-    verifications = verify_evidence_items(evidence)
+    verifications = verify_evidence_items(
+        evidence,
+        case_context={
+            "gene": req.gene or "",
+            "variant": req.variant,
+            "tumor_type": req.tumor_type,
+            "alteration_type": req.alteration_type,
+            "therapy_line": req.therapy_line,
+        },
+    )
     checks = _checks_from_verifications(evidence, verifications)
     ledger.append(collection.run_id, "claims_verified", "source_verifier", {
         "checks": [{
@@ -462,6 +481,7 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             evidence_count=len(evidence),
             verified_claims=supported,
             blocked_claims=blocked,
+            review_claims=uncertain,
             ledger_events=len(events),
         ),
         limitations=guarantees,

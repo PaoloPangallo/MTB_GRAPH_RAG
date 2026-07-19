@@ -135,13 +135,14 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           </Box>
         )}
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(3, minmax(0, 1fr))', md: 'repeat(6, minmax(0, 1fr))' }, gap: 1, my: 2.5 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(3, minmax(0, 1fr))', md: 'repeat(4, minmax(0, 1fr))', lg: 'repeat(7, minmax(0, 1fr))' }, gap: 1, my: 2.5 }}>
           {[
             ['Tempo', `${run.metrics.elapsed_ms} ms`],
             ['Nodi/strumenti', run.metrics.tool_calls],
             ['Evidenze', run.metrics.evidence_count],
             ['Claim supportate', run.metrics.verified_claims],
             ['Claim bloccate', run.metrics.blocked_claims],
+            ['Da revisionare', run.metrics.review_claims ?? 0],
             ['Eventi ledger', run.metrics.ledger_events ?? 0],
           ].map(([label, value]) => (
             <Box key={String(label)} sx={{ p: 1, borderRadius: 1.5, bgcolor: colors.soft, textAlign: 'center' }}>
