@@ -36,11 +36,76 @@ const palette = {
   agentic: { main: '#7551A6', soft: '#F3EEFA', icon: <PsychologyIcon /> },
 };
 
+const architectureBlueprints = {
+  deterministic: {
+    title: 'Traversal deterministico',
+    subtitle: 'Percorso noto prima dell’esecuzione',
+    llm: 'L’LLM interviene dopo il retrieval come lettore/sintetizzatore vincolato.',
+    steps: [
+      ['Caso MTB', 'Gene, variante, tumore e linea terapeutica.'],
+      ['Normalizzazione', 'Entità e intento vengono ricondotti a forme canoniche.'],
+      ['Template tipizzato', 'L’intento seleziona una traversata predefinita.'],
+      ['Knowledge Graph', 'La query recupera entità, relazioni e provenienza.'],
+      ['Contesto strutturato', 'I record diventano l’unico contesto ammesso.'],
+      ['Sintesi vincolata', 'L’LLM verbalizza il contesto; non sceglie gli strumenti.'],
+      ['Revisione oncologica', 'Il clinico verifica pertinenza e fonte.'],
+    ],
+  },
+  agentic: {
+    title: 'Architettura agentica verificabile',
+    subtitle: 'Raccolta adattiva, responsabilità separate',
+    llm: 'L’LLM può pianificare la raccolta; ledger, rendering e verifica restano controllati.',
+    steps: [
+      ['Controller di autonomia', 'Decide se il caso richiede una raccolta multi-step.'],
+      ['Piano e strumenti', 'L’agente interroga iterativamente strumenti tipizzati del KG.'],
+      ['Event log append-only', 'Ogni osservazione viene registrata senza riscrivere il passato.'],
+      ['Vista canonica', 'Deduplica i record e conserva provenienza e conflitti.'],
+      ['Proiezione pertinente', 'Ammette soltanto le evidenze necessarie al caso.'],
+      ['Rendering deterministico', 'Costruisce un report candidato dai record ammessi.'],
+      ['Verifica delle claim', 'Blocca, ripara o invia all’oncologo le claim non supportate.'],
+      ['Narrazione opzionale', 'Un’eventuale riscrittura LLM viene verificata di nuovo.'],
+      ['Revisione oncologica', 'Il clinico riceve un artefatto tracciabile e revisionabile.'],
+    ],
+  },
+};
+
 function statusColor(status: ClaimCheck['status']) {
   if (status === 'supported') return 'success';
   if (status === 'blocked') return 'error';
   if (status === 'insufficient') return 'warning';
   return 'default';
+}
+
+function BlueprintCard({ architecture }: { architecture: 'deterministic' | 'agentic' }) {
+  const colors = palette[architecture];
+  const blueprint = architectureBlueprints[architecture];
+  return (
+    <Card variant="outlined" sx={{ height: '100%', borderTop: `5px solid ${colors.main}` }}>
+      <CardContent sx={{ p: { xs: 2, md: 3 } }}>
+        <Box sx={{ display: 'flex', gap: 1.25, alignItems: 'flex-start', mb: 2 }}>
+          <Box sx={{ color: colors.main, display: 'flex', mt: 0.25 }}>{colors.icon}</Box>
+          <Box>
+            <Typography variant="h5" sx={{ color: colors.main, fontWeight: 800 }}>{blueprint.title}</Typography>
+            <Typography variant="body2" color="text.secondary">{blueprint.subtitle}</Typography>
+          </Box>
+        </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
+          {blueprint.steps.map(([title, detail], index) => (
+            <Box key={title} sx={{ display: 'grid', gridTemplateColumns: '28px 1fr', gap: 1 }}>
+              <Box sx={{ width: 24, height: 24, borderRadius: '50%', bgcolor: colors.main, color: '#fff', display: 'grid', placeItems: 'center', fontSize: 11, fontWeight: 800 }}>{index + 1}</Box>
+              <Box sx={{ pb: 0.8, borderBottom: '1px solid #E2E8F0' }}>
+                <Typography variant="body2" sx={{ fontWeight: 800 }}>{title}</Typography>
+                <Typography variant="caption" color="text.secondary">{detail}</Typography>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+        <Alert severity="info" sx={{ mt: 2 }}>
+          <Typography variant="caption"><strong>Ruolo dell’LLM:</strong> {blueprint.llm}</Typography>
+        </Alert>
+      </CardContent>
+    </Card>
+  );
 }
 
 function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
@@ -56,13 +121,13 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           </Box>
         </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 1, my: 2.5 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(5, minmax(0, 1fr))' }, gap: 1, my: 2.5 }}>
           {[
             ['Tempo', `${run.metrics.elapsed_ms} ms`],
-            ['Passi', run.metrics.tool_calls],
+            ['Nodi/strumenti', run.metrics.tool_calls],
             ['Evidenze', run.metrics.evidence_count],
-            ['Verificate', run.metrics.verified_claims],
-            ['Bloccate', run.metrics.blocked_claims],
+            ['Claim supportate', run.metrics.verified_claims],
+            ['Claim bloccate', run.metrics.blocked_claims],
           ].map(([label, value]) => (
             <Box key={String(label)} sx={{ p: 1, borderRadius: 1.5, bgcolor: colors.soft, textAlign: 'center' }}>
               <Typography variant="caption" sx={{ display: 'block' }}>{label}</Typography>
@@ -116,6 +181,7 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
 
         <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>Controllo delle claim</Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 2.5 }}>
+          {run.claim_checks.length === 0 && <Alert severity="warning">Nessuna verifica claim-by-claim disponibile.</Alert>}
           {run.claim_checks.map((check, index) => (
             <Box key={`${check.claim}-${index}`} sx={{ p: 1.25, border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
@@ -183,12 +249,26 @@ export default function ArchitectureComparison() {
       <Box sx={{ mb: 3 }}>
         <Typography variant="h1">Confronto delle due architetture</Typography>
         <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 900 }}>
-          Lo stesso caso viene elaborato con un percorso tipizzato e con una raccolta agentica. La vista mostra evidenze, provenienza, ruolo dell'LLM e controlli applicati.
+          Lo stesso caso viene osservato attraverso le due architetture proposte nella tesi. Il confronto non cerca necessariamente fonti diverse: rende visibili responsabilità, percorso di raccolta, ruolo dell’LLM e controlli sul report destinato all’oncologo.
         </Typography>
       </Box>
 
+      <Alert severity="info" sx={{ mb: 3 }}>
+        <strong>Come leggere il confronto.</strong> Se le fonti coincidono non significa che le architetture siano uguali: entrambe interrogano lo stesso Knowledge Graph. La differenza è nel percorso e, soprattutto, nella separazione tra raccolta dell’evidenza, rendering e verifica delle claim.
+      </Alert>
+
+      <Typography variant="h4" sx={{ mb: 1.5, fontWeight: 800 }}>Struttura proposta</Typography>
+      <Grid container spacing={3} sx={{ alignItems: 'stretch', mb: 3 }}>
+        <Grid size={{ xs: 12, lg: 6 }}><BlueprintCard architecture="deterministic" /></Grid>
+        <Grid size={{ xs: 12, lg: 6 }}><BlueprintCard architecture="agentic" /></Grid>
+      </Grid>
+
       <Card variant="outlined" sx={{ mb: 3 }}>
         <CardContent>
+          <Typography variant="h5" sx={{ mb: 0.5, fontWeight: 800 }}>Esegui lo stesso caso</Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            La demo mostra il contratto architetturale con una fault injection dichiarata. Il live usa i componenti disponibili e segnala i pezzi dell’architettura agentica ancora parziali.
+          </Typography>
           <Grid container spacing={2} sx={{ alignItems: 'center' }}>
             <Grid size={{ xs: 12, sm: 6, md: 2 }}><TextField label="Gene" value={gene} onChange={event => setGene(event.target.value)} size="small" fullWidth /></Grid>
             <Grid size={{ xs: 12, sm: 6, md: 2 }}><TextField label="Variante" value={variant} onChange={event => setVariant(event.target.value)} size="small" fullWidth /></Grid>
@@ -204,14 +284,14 @@ export default function ArchitectureComparison() {
               </Select></FormControl>
             </Grid>
             <Grid size={{ xs: 12, sm: 6, md: 2 }}>
-              <FormControl size="small" fullWidth><InputLabel>Modalita</InputLabel><Select value={mode} label="Modalita" onChange={event => setMode(event.target.value as ExecutionMode)}>
-                <MenuItem value="demo">Demo riproducibile</MenuItem><MenuItem value="live">Backend live</MenuItem>
+              <FormControl size="small" fullWidth><InputLabel>Modalità</InputLabel><Select value={mode} label="Modalità" onChange={event => setMode(event.target.value as ExecutionMode)}>
+                <MenuItem value="demo">Contratto proposto (demo)</MenuItem><MenuItem value="live">Componenti reali (live)</MenuItem>
               </Select></FormControl>
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1.5, alignItems: { sm: 'center' } }}>
                 <Button variant="contained" startIcon={loading ? <CircularProgress size={18} color="inherit" /> : <PlayArrowIcon />} onClick={runComparison} disabled={loading}>Esegui confronto</Button>
-                <Typography variant="caption">La modalita demo non richiede Neo4j o LLM; la modalita live usa i servizi configurati nel backend.</Typography>
+                <Typography variant="caption">La modalità demo non richiede Neo4j o LLM; la modalità live usa i servizi configurati nel backend e dichiara i limiti di integrazione.</Typography>
               </Box>
             </Grid>
           </Grid>
@@ -222,7 +302,12 @@ export default function ArchitectureComparison() {
       {data && (
         <>
           <Alert severity={data.execution_mode === 'demo' ? 'warning' : 'info'} sx={{ mb: 3 }}>
-            <strong>{data.case_label}</strong> — {data.disclaimer}
+            <strong>{data.case_label}</strong> — {data.disclaimer}<br />
+            <Typography variant="caption">
+              {data.execution_mode === 'demo'
+                ? 'Scenario sintetico dichiarato: serve a mostrare il comportamento delle due architetture e il blocco di una claim non supportata.'
+                : 'Esecuzione sui componenti reali: i limiti riportati in ciascuna colonna indicano ciò che non è ancora integrato end-to-end.'}
+            </Typography>
           </Alert>
           <Card variant="outlined" sx={{ mb: 3 }}>
             <CardContent>
@@ -234,8 +319,14 @@ export default function ArchitectureComparison() {
                 <Chip label={`Solo traversal: ${data.summary.deterministic_only_sources.join(', ') || 'nessuna'}`} variant="outlined" />
                 <Chip label={`Solo agentico: ${data.summary.agentic_only_sources.join(', ') || 'nessuna'}`} color="secondary" variant="outlined" />
               </Box>
+              {data.summary.deterministic_only_sources.length === 0 && data.summary.agentic_only_sources.length === 0 && (
+                <Alert severity="success" sx={{ mt: 1.5 }}>
+                  In questo caso le fonti coincidono. È un risultato plausibile: il vantaggio dell’architettura verificabile va letto nella trace e nel controllo delle claim, non nell’obbligo di produrre una risposta diversa.
+                </Alert>
+              )}
             </CardContent>
           </Card>
+          <Typography variant="h4" sx={{ mb: 1.5, fontWeight: 800 }}>Esecuzione e controlli</Typography>
           <Grid container spacing={3} sx={{ alignItems: 'stretch' }}>
             <Grid size={{ xs: 12, lg: 6 }}><ArchitecturePanel run={data.deterministic} /></Grid>
             <Grid size={{ xs: 12, lg: 6 }}><ArchitecturePanel run={data.agentic} /></Grid>
