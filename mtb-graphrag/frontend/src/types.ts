@@ -121,6 +121,7 @@ export interface ArchitectureRun {
     evidence_count: number;
     verified_claims: number;
     blocked_claims: number;
+    review_claims?: number;
     ledger_events?: number;
   };
   limitations: string[];
