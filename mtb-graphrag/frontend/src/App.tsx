@@ -19,15 +19,18 @@ import {
 } from '@mui/material';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import GavelIcon from '@mui/icons-material/Gavel';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import InputForm from './components/InputForm';
 import ReportView from './components/ReportView';
 import StructuredData from './components/StructuredData';
 import JudgePanel from './components/JudgePanel';
+import ArchitectureComparison from './components/ArchitectureComparison';
 import type { MTBRequest, ReportResponse, JudgeResponse } from './types';
 
 function App() {
+  const [architectureView, setArchitectureView] = useState(false);
   const [loading, setLoading] = useState(false);
   const [enriching, setEnriching] = useState(false);
   const [isZeroShotMode, setIsZeroShotMode] = useState(false);
@@ -280,10 +283,19 @@ function App() {
               Sistema di supporto alle decisioni oncologiche
             </Typography>
           </Box>
+          <Button
+            color="inherit"
+            variant={architectureView ? 'outlined' : 'text'}
+            startIcon={<CompareArrowsIcon />}
+            onClick={() => setArchitectureView(current => !current)}
+            sx={{ ml: 'auto', borderColor: architectureView ? 'rgba(255,255,255,0.7)' : undefined }}
+          >
+            {architectureView ? 'Torna al report' : 'Confronta architetture'}
+          </Button>
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="xl" sx={{ flexGrow: 1, py: 4 }}>
+      {architectureView ? <ArchitectureComparison /> : <Container maxWidth="xl" sx={{ flexGrow: 1, py: 4 }}>
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, md: 4, lg: 3 }}>
             <InputForm
@@ -613,7 +625,7 @@ function App() {
             )}
           </Grid>
         </Grid>
-      </Container>
+      </Container>}
     </Box>
   );
 }
