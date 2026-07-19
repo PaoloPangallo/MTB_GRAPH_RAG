@@ -7,7 +7,7 @@ from unittest import TestCase
 
 from backend.pipeline.agentic.ledger import EventLedger
 from backend.pipeline.agentic.runtime import run_agentic_collection
-from backend.pipeline.agentic.source_verifier import verify_evidence_items
+from backend.pipeline.agentic.source_verifier import _parse_results, verify_evidence_items
 
 
 class _Response:
@@ -18,8 +18,10 @@ class _Response:
 class _SequencedLLM:
     def __init__(self, payloads):
         self.payloads = iter(payloads)
+        self.messages = []
 
-    def invoke(self, _messages):
+    def invoke(self, messages):
+        self.messages.append(messages)
         return _Response(json.dumps(next(self.payloads)))
 
 
@@ -135,6 +137,33 @@ class SourceVerifierTest(TestCase):
         self.assertEqual(results[0].verdict, "supported")
         self.assertEqual(results[0].verification_level, "pubmed_abstract")
         self.assertFalse(results[0].requires_human_review)
+
+    def test_parser_accepts_langchain_text_content_blocks(self):
+        content = [{
+            "type": "text",
+            "text": "```json\n[{\"index\": 0, \"verdict\": \"supported\", \"reason\": \"ok\"}]\n```",
+        }]
+        self.assertEqual(_parse_results(content), {0: ("supported", "ok")})
+
+    def test_requested_therapy_line_is_sent_to_the_semantic_verifier(self):
+        llm = _SequencedLLM([[
+            {"index": 0, "verdict": "uncertain", "reason": "Setting adiuvante."}
+        ]])
+        results = verify_evidence_items(
+            [self._item()],
+            llm_client=llm,
+            source_loader=lambda _pmids: {
+                29151359: {
+                    "title": "Osimertinib in untreated EGFR-mutated NSCLC",
+                    "abstract": "The trial enrolled patients with EGFR-mutated advanced NSCLC.",
+                }
+            },
+            case_context={"therapy_line": "first-line"},
+        )
+
+        sent_payload = json.loads(llm.messages[0][1][1])
+        self.assertEqual(sent_payload[0]["requested_case"]["therapy_line"], "first-line")
+        self.assertEqual(results[0].verdict, "uncertain")
 
     def test_missing_original_source_fails_closed(self):
         results = verify_evidence_items(

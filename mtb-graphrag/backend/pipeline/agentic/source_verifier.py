@@ -6,6 +6,7 @@ import json
 import os
 import re
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import Any, Callable, Iterable
 from urllib.parse import urlencode
@@ -15,7 +16,10 @@ from urllib.request import Request, urlopen
 SOURCE_VERIFIER_SYSTEM = """Sei un verificatore di evidenze per un Molecular Tumor Board.
 Per ogni elemento valuta se la CLAIM è sostenuta dalla scheda CIViC e dall'abstract
 PubMed forniti. Controlla esplicitamente variante/biomarker, significatività,
-tumore e oggetto della claim. Il fatto che il PMID esista non basta.
+tumore, oggetto della claim e contesto clinico richiesto, inclusa la linea
+terapeutica. Il fatto che il PMID esista non basta. Una fonte adiuvante,
+post-progressione o di linea successiva non supporta una claim presentata come
+prima linea, a meno che il record dimostri direttamente anche quel contesto.
 
 Usa "supported" solo se il supporto è diretto. Usa "unsupported" se la fonte
 contraddice la claim o riguarda entità cliniche diverse. Usa "uncertain" se i
@@ -92,16 +96,51 @@ def _anchors(text: str) -> set[str]:
     }
 
 
+def _content_text(content: Any) -> str:
+    """Normalizza stringhe e content block restituiti dai client LangChain."""
+    if isinstance(content, str):
+        return content.strip()
+    if isinstance(content, dict):
+        for key in ("text", "content", "output"):
+            if isinstance(content.get(key), str):
+                return content[key].strip()
+        return json.dumps(content, ensure_ascii=False)
+    if isinstance(content, list):
+        blocks = []
+        for block in content:
+            if isinstance(block, str):
+                blocks.append(block)
+            elif isinstance(block, dict) and isinstance(block.get("text"), str):
+                blocks.append(block["text"])
+        if blocks:
+            return "\n".join(blocks).strip()
+        return json.dumps(content, ensure_ascii=False)
+    return str(content).strip()
+
+
 def _parse_results(content: Any) -> dict[int, tuple[str, str]]:
-    text = str(content).strip()
-    fenced = re.search(r"```(?:json)?\s*(\[.*?\])\s*```", text, flags=re.DOTALL)
-    if fenced:
-        text = fenced.group(1)
+    if isinstance(content, list) and all(
+        isinstance(result, dict) and "index" in result for result in content
+    ):
+        parsed: Any = content
+    elif isinstance(content, dict) and "results" in content:
+        parsed = content["results"]
     else:
-        candidate = re.search(r"\[.*\]", text, flags=re.DOTALL)
-        if candidate:
-            text = candidate.group(0)
-    parsed = json.loads(text)
+        text = _content_text(content)
+        fenced = re.search(r"```(?:json)?\s*([\[{].*?[\]}])\s*```", text, flags=re.DOTALL)
+        if fenced:
+            text = fenced.group(1)
+        else:
+            array = re.search(r"\[.*\]", text, flags=re.DOTALL)
+            obj = re.search(r"\{.*\}", text, flags=re.DOTALL)
+            candidate = array or obj
+            if candidate:
+                text = candidate.group(0)
+        parsed = json.loads(text)
+        if isinstance(parsed, dict):
+            parsed = parsed.get("results", [parsed])
+    if not isinstance(parsed, list):
+        raise ValueError("Il verificatore non ha restituito una lista di esiti")
     return {
         int(result["index"]): (
             str(result["verdict"]).lower(),
@@ -111,18 +150,49 @@ def _parse_results(content: Any) -> dict[int, tuple[str, str]]:
     }
 
 
+def _batch_size() -> int:
+    try:
+        return min(8, max(1, int(os.getenv("SOURCE_VERIFIER_BATCH_SIZE", "4"))))
+    except ValueError:
+        return 4
+
+
+def _verification_batches(payload: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    size = _batch_size()
+    return [payload[start:start + size] for start in range(0, len(payload), size)]
+
+
+def _invoke_verifier_batch(
+    llm_client: Any,
+    batch: list[dict[str, Any]],
+) -> tuple[dict[int, tuple[str, str]], str | None]:
+    try:
+        response = llm_client.invoke([
+            ("system", SOURCE_VERIFIER_SYSTEM),
+            ("human", json.dumps(batch, ensure_ascii=False, sort_keys=True)),
+        ])
+        return _parse_results(response.content), None
+    except TimeoutError:
+        return {}, "timeout del modello"
+    except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+        return {}, "risposta non conforme al formato JSON"
+    except Exception:
+        return {}, "errore del servizio LLM"
+
+
 def verify_evidence_items(
     items: list[Any],
     *,
     llm_client: Any | None = None,
     source_loader: Callable[[Iterable[int]], dict[int, dict[str, str]]] = fetch_pubmed_sources,
+    case_context: dict[str, str] | None = None,
 ) -> list[SourceVerification]:
     """Verifica in modalità fail-closed: dubbio o fonte assente richiedono revisione."""
     if not items:
         return []
     if llm_client is None:
-        from backend.pipeline.llm import llm
-        llm_client = llm
+        from backend.pipeline.llm import llm_judge
+        llm_client = llm_judge
 
     structural: dict[int, SourceVerification] = {}
     eligible: list[tuple[int, Any, int]] = []
@@ -198,6 +268,7 @@ def verify_evidence_items(
         payload.append({
             "index": index,
             "claim": _claim(item),
+            "requested_case": case_context or {},
             "civic_record": {
                 "evidence_level": item.evidence_level,
                 "evidence_statement": item.evidence_statement,
@@ -207,15 +278,22 @@ def verify_evidence_items(
         })
 
     llm_results: dict[int, tuple[str, str]] = {}
+    llm_failures: dict[int, str] = {}
     if payload:
-        try:
-            response = llm_client.invoke([
-                ("system", SOURCE_VERIFIER_SYSTEM),
-                ("human", json.dumps(payload, ensure_ascii=False, sort_keys=True)),
-            ])
-            llm_results = _parse_results(response.content)
-        except Exception:
-            llm_results = {}
+        batches = _verification_batches(payload)
+        workers = min(4, len(batches))
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futures = {
+                executor.submit(_invoke_verifier_batch, llm_client, batch): batch
+                for batch in batches
+            }
+            for future in as_completed(futures):
+                batch = futures[future]
+                batch_results, failure = future.result()
+                llm_results.update(batch_results)
+                if failure:
+                    for entry in batch:
+                        llm_failures[int(entry["index"])] = failure
 
     results: list[SourceVerification] = []
     for index in range(len(items)):
@@ -231,9 +309,11 @@ def verify_evidence_items(
                 requires_human_review=True,
             ))
             continue
+        failure = llm_failures.get(index)
         verdict, reason = llm_results.get(index, (
             "uncertain",
-            "Il verificatore semantico non ha restituito un esito valido.",
+            "Verifica semantica non completata"
+            + (f" ({failure})." if failure else ": esito mancante nella risposta del modello."),
         ))
         if verdict not in {"supported", "unsupported", "uncertain"}:
             verdict = "uncertain"
