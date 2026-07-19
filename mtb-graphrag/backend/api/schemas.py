@@ -96,6 +96,7 @@ class ArchitectureMetrics(BaseModel):
     evidence_count: int
     verified_claims: int
     blocked_claims: int
+    review_claims: int = 0
     ledger_events: int = 0
 
 
