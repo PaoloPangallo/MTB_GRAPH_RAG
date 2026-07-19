@@ -1,9 +1,10 @@
-"""Esecuzione comparativa del traversal deterministico e del flusso agentico.
+"""Esecuzione comparativa delle due architetture proposte nella tesi.
 
-La modalita ``demo`` non richiede Neo4j o un endpoint LLM ed espone un caso
-sintetico dichiarato. La modalita ``live`` usa i componenti reali del backend:
-un piano fisso per il traversal e il LangGraph esistente per l'orchestrazione
-agentica. La risposta mantiene espliciti limiti e provenienza.
+La modalità ``demo`` non richiede Neo4j o un endpoint LLM ed espone un caso
+sintetico dichiarato. La modalità ``live`` usa i componenti reali del backend.
+Per l'architettura agentica rende esplicita la distanza tra la raccolta adattiva
+corrente e il contratto verificabile proposto, senza presentare il solo routing
+LangGraph come un agente completo.
 """
 
 from __future__ import annotations
@@ -45,10 +46,72 @@ def _summary(deterministic: ArchitectureRun, agentic: ArchitectureRun) -> Compar
         deterministic_only_sources=sorted(fixed - planned),
         agentic_only_sources=sorted(planned - fixed),
         explanation=(
-            "Il confronto misura cosa viene recuperato e come viene trasformato nel report. "
-            "Una fonte condivisa non implica da sola correttezza clinica."
+            "Le due architetture possono recuperare le stesse fonti: la differenza principale "
+            "riguarda chi decide il percorso e quali controlli separano raccolta, rendering e "
+            "verifica. Fonti condivise non significano architetture equivalenti e non provano "
+            "da sole la correttezza clinica."
         ),
     )
+
+
+def _claim_text(item: EvidenceItem) -> str:
+    return f"{item.subject} — {item.relation} — {item.object} ({item.context})."
+
+
+def _canonical_evidence(items: list[EvidenceItem]) -> list[EvidenceItem]:
+    """Deduplica senza perdere la provenienza necessaria alla verifica."""
+    canonical: list[EvidenceItem] = []
+    seen: set[tuple[str, str, str, str, str | None]] = set()
+    for item in items:
+        key = (
+            item.subject,
+            item.relation,
+            item.object,
+            item.context,
+            item.source_id,
+        )
+        if key not in seen:
+            seen.add(key)
+            canonical.append(item)
+    return canonical
+
+
+def _render_verified_report(case_label: str, items: list[EvidenceItem]) -> str:
+    """Rendering deterministico: emette solo record dotati di fonte."""
+    supported = [item for item in items if item.source_id]
+    if not supported:
+        return (
+            f"Caso: {case_label}.\n"
+            "Nessuna evidenza con provenienza sufficiente per generare claim fattuali. "
+            "È richiesta la revisione dell'oncologo."
+        )
+    lines = [f"Caso: {case_label}.", "Evidenze ammesse nel report verificato:"]
+    for item in supported:
+        lines.append(f"- {_claim_text(item)} [{item.source_id}]")
+    lines.append(
+        "Il report organizza l'evidenza disponibile e deve essere revisionato "
+        "dal Molecular Tumor Board; non costituisce una raccomandazione terapeutica."
+    )
+    return "\n".join(lines)
+
+
+def _checks_from_ledger(items: list[EvidenceItem]) -> list[ClaimCheck]:
+    if not items:
+        return [ClaimCheck(
+            claim="Nessuna claim fattuale emessa.",
+            status="insufficient",
+            reason="La vista canonica non contiene record utilizzabili.",
+        )]
+    return [ClaimCheck(
+        claim=_claim_text(item),
+        status="supported" if item.source_id else "blocked",
+        reason=(
+            "Claim ricostruita dal record canonico e ancorata alla fonte."
+            if item.source_id
+            else "Claim esclusa dal rendering perché priva di una fonte verificabile."
+        ),
+        source_id=item.source_id,
+    ) for item in items]
 
 
 def _demo_evidence(req: ArchitectureComparisonRequest) -> list[EvidenceItem]:
@@ -83,9 +146,9 @@ def _demo_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     )
     checks = [
         ClaimCheck(
-            claim="EGFR p.L858R e associata a osimertinib nel contesto NSCLC.",
-            status="supported",
-            reason="Entita, relazione, contesto e fonte coincidono con il record recuperato.",
+            claim="EGFR p.L858R è associata a osimertinib nel contesto NSCLC.",
+            status="not_checked",
+            reason="La fonte è stata recuperata, ma questa architettura non applica un verificatore claim-by-claim al testo finale.",
             source_id="PMID:29151359",
         )
     ] if has_evidence else [
@@ -97,11 +160,11 @@ def _demo_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     ]
     trace = [
         TraceStep(order=1, stage="Normalizzazione", actor="Regole", detail="Gene, variante, tumore e intento sono canonizzati."),
-        TraceStep(order=2, stage="Instradamento", actor="Router", detail="Intento selezionato: VARIANT_TO_DRUG."),
-        TraceStep(order=3, stage="Template", actor="Piano fisso", detail="Variant -> Drug -> Evidence -> Publication."),
+        TraceStep(order=2, stage="Instradamento", actor="Router", detail="L'intento seleziona un template noto, non un piano libero."),
+        TraceStep(order=3, stage="Template tipizzato", actor="Piano fisso", detail="Variant → Drug → Evidence → Publication."),
         TraceStep(order=4, stage="Traversal", actor="Knowledge graph", detail="Esecuzione della query tipizzata sullo snapshot."),
         TraceStep(order=5, stage="Contesto", actor="Adapter", detail=f"Costruiti {len(evidence)} record con provenienza."),
-        TraceStep(order=6, stage="Sintesi", actor="LLM vincolato", detail="Rendering linguistico solo dal contesto recuperato."),
+        TraceStep(order=6, stage="Sintesi vincolata", actor="LLM", detail="L'LLM verbalizza soltanto il contesto recuperato."),
         TraceStep(order=7, stage="Revisione", actor="Oncologo", detail="Controllo della fonte e pertinenza per il caso."),
     ]
     return ArchitectureRun(
@@ -121,8 +184,8 @@ def _demo_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             blocked_claims=sum(c.status == "blocked" for c in checks),
         ),
         limitations=[
-            "La modalita demo non interroga il database live.",
-            "Il determinismo riguarda il retrieval; la formulazione LLM puo variare.",
+            "La modalità demo non interroga il database live.",
+            "Il determinismo riguarda il retrieval; la formulazione LLM può variare.",
         ],
     )
 
@@ -136,11 +199,11 @@ def _demo_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         "nel contesto NSCLC (PMID 29151359). Resistenze e trial: non determinabili "
         "dalla fixture; richiedono ulteriori strumenti o dati del paziente."
         if has_evidence
-        else "Il ledger dimostrativo non contiene evidenze per questo caso; e richiesta revisione umana."
+        else "Il ledger dimostrativo non contiene evidenze per questo caso; è richiesta revisione umana."
     )
     checks = [
         ClaimCheck(
-            claim="EGFR p.L858R e associata a osimertinib nel contesto NSCLC.",
+            claim="EGFR p.L858R è associata a osimertinib nel contesto NSCLC.",
             status="supported" if has_evidence else "insufficient",
             reason="Claim ancorata al ledger." if has_evidence else "Nessun record canonico disponibile.",
             source_id="PMID:29151359" if has_evidence else None,
@@ -155,11 +218,14 @@ def _demo_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         TraceStep(order=1, stage="Controller", actor="Regole di autonomia", detail="Richiesta composta: attivata raccolta multi-step."),
         TraceStep(order=2, stage="Pianificazione", actor="LLM agente", detail="Interpreta variante, farmaci, resistenze, trial e fonti."),
         TraceStep(order=3, stage="Strumenti", actor="LLM agente + KG", detail="Selezione iterativa degli strumenti tipizzati."),
-        TraceStep(order=4, stage="Event log", actor="Data plane", detail=f"Registrati {len(evidence)} eventi fattuali append-only."),
+        TraceStep(order=4, stage="Event log append-only", actor="Data plane", detail=f"Registrati {len(evidence)} eventi fattuali immutabili."),
         TraceStep(order=5, stage="Vista canonica", actor="Regole", detail="Deduplicazione e conservazione dei conflitti."),
-        TraceStep(order=6, stage="Rendering", actor="Renderer", detail="Report candidato costruito dai record ammessi."),
-        TraceStep(order=7, stage="Verifica", actor="Claim verifier", detail="Una claim non supportata e stata bloccata.", status="warning"),
-        TraceStep(order=8, stage="Revisione", actor="Oncologo", detail="Valutazione di evidenze, lacune e conflitti."),
+        TraceStep(order=6, stage="Proiezione pertinente", actor="Regole", detail="Solo i record utili al caso entrano nel report."),
+        TraceStep(order=7, stage="Rendering deterministico", actor="Renderer", detail="Il report candidato è costruito dai record ammessi."),
+        TraceStep(order=8, stage="Verifica delle claim", actor="Claim verifier", detail="La claim non supportata su MET è stata bloccata.", status="warning"),
+        TraceStep(order=9, stage="Riparazione", actor="Regole", detail="La claim bloccata non raggiunge il report verificato."),
+        TraceStep(order=10, stage="Narrazione opzionale", actor="LLM + nuova verifica", detail="Una riscrittura LLM è ammessa solo se supera di nuovo il verificatore."),
+        TraceStep(order=11, stage="Revisione", actor="Oncologo", detail="Valutazione di evidenze, lacune e conflitti."),
     ]
     return ArchitectureRun(
         architecture_id="agentic",
@@ -178,8 +244,8 @@ def _demo_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             blocked_claims=sum(c.status == "blocked" for c in checks),
         ),
         limitations=[
-            "La modalita demo illustra il contratto previsto, non una validazione clinica.",
-            "Nel backend corrente event log e verificatore completo richiedono ancora integrazione end-to-end.",
+            "La modalità demo illustra il contratto previsto, non una validazione clinica.",
+            "La claim su MET è una fault injection dichiarata, usata per rendere visibile il blocco.",
         ],
     )
 
@@ -239,11 +305,13 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     elapsed = int((perf_counter() - started) * 1000)
     evidence = _evidence_from_state(state)
     checks = [ClaimCheck(
-        claim="Le citazioni del report appartengono ai PMID verificati nel KG.",
-        status="supported",
-        reason="Il filtro del synthesizer rimuove identificatori non verificati.",
-        source_id=f"PMID:{pmid}",
-    ) for pmid in state.get("cited_pmids", [])]
+        claim="Il contenuto clinico del report coincide con le evidenze recuperate.",
+        status="not_checked",
+        reason=(
+            "Il filtro corrente controlla gli identificatori PMID, ma non verifica "
+            "l'aderenza semantica di ogni claim al record sorgente."
+        ),
+    )]
     return ArchitectureRun(
         architecture_id="deterministic",
         title="Traversal deterministico",
@@ -258,7 +326,7 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         evidence=evidence,
         report=state.get("report", ""),
         claim_checks=checks,
-        metrics=ArchitectureMetrics(elapsed_ms=elapsed, tool_calls=5, evidence_count=len(evidence), verified_claims=len(checks), blocked_claims=0),
+        metrics=ArchitectureMetrics(elapsed_ms=elapsed, tool_calls=5, evidence_count=len(evidence), verified_claims=0, blocked_claims=0),
         limitations=["Il classificatore ESCAT live usa un LLM; il retrieval rimane vincolato alle query tipizzate."],
     )
 
@@ -268,32 +336,50 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
 
     started = perf_counter()
     state = run_pipeline(_initial_state(req))
+    collected = _evidence_from_state(state)
+    evidence = _canonical_evidence(collected)
+    checks = _checks_from_ledger(evidence)
+    report = _render_verified_report(_case_label(req), evidence)
     elapsed = int((perf_counter() - started) * 1000)
-    evidence = _evidence_from_state(state)
+
     path = ["complexity_check", "variant_interpreter"]
     if state.get("complexity") in ("moderate", "high"):
         path.extend(["target_identifier", "trial_matcher", "resistance_checker"])
     path.extend(["synthesizer", "oncokb_enricher"])
-    trace = [TraceStep(order=i + 1, stage=name.replace("_", " ").title(), actor="LangGraph", detail="Nodo completato nel percorso ricostruito dallo stato finale.") for i, name in enumerate(path)]
-    checks = [ClaimCheck(
-        claim="PMID presente nel report e verificato nel KG.",
-        status="supported",
-        reason="Controllo applicato dal synthesizer corrente.",
-        source_id=f"PMID:{pmid}",
-    ) for pmid in state.get("cited_pmids", [])]
+
+    supported = sum(check.status == "supported" for check in checks)
+    blocked = sum(check.status == "blocked" for check in checks)
+    trace = [
+        TraceStep(order=1, stage="Controller di autonomia", actor="Regole + LLM", detail=f"Complessità {state.get('complexity', 'non determinata')}: selezionato il percorso di raccolta."),
+        TraceStep(order=2, stage="Raccolta adattiva", actor="LangGraph + strumenti KG", detail=f"Eseguiti i nodi: {', '.join(path)}."),
+        TraceStep(order=3, stage="Event log", actor="Adapter sperimentale", detail=f"Acquisiti {len(collected)} record dalla raccolta corrente."),
+        TraceStep(order=4, stage="Vista canonica", actor="Regole", detail=f"Deduplicazione completata: {len(evidence)} record canonici."),
+        TraceStep(order=5, stage="Proiezione pertinente", actor="Regole", detail="Selezionati i record utilizzabili per il caso e dotati di provenienza."),
+        TraceStep(order=6, stage="Rendering deterministico", actor="Renderer", detail="Il report verificabile è generato dai record canonici, non dal testo libero dell'LLM."),
+        TraceStep(order=7, stage="Verifica delle claim", actor="Claim verifier", detail=f"Claim supportate: {supported}; claim bloccate: {blocked}."),
+        TraceStep(order=8, stage="Narrazione opzionale", actor="LLM + nuova verifica", detail="Non applicata in questa esecuzione: viene mostrato il report deterministico."),
+        TraceStep(order=9, stage="Revisione", actor="Oncologo", detail="Il clinico controlla evidenze, provenienza, lacune e conflitti."),
+    ]
     return ArchitectureRun(
         architecture_id="agentic",
-        title="Orchestrazione agentica corrente",
-        subtitle="Routing condizionale LangGraph sui componenti reali",
-        llm_roles=["Classificatore", "Sintetizzatore", "Giudice opzionale"],
+        title="Architettura agentica verificabile",
+        subtitle="Raccolta adattiva, ledger canonico, rendering e verifica separati",
+        llm_roles=["Controller della raccolta", "Narratore opzionale post-verifica"],
         trace=trace,
         evidence=evidence,
-        report=state.get("report", ""),
+        report=report,
         claim_checks=checks,
-        metrics=ArchitectureMetrics(elapsed_ms=elapsed, tool_calls=len(path), evidence_count=len(evidence), verified_claims=len(checks), blocked_claims=0),
+        metrics=ArchitectureMetrics(
+            elapsed_ms=elapsed,
+            tool_calls=len(path),
+            evidence_count=len(evidence),
+            verified_claims=supported,
+            blocked_claims=blocked,
+        ),
         limitations=[
-            "La trace live e ricostruita dallo stato finale; non e ancora un event log append-only.",
-            "Il claim verifier deterministico completo non e ancora collegato a questa esecuzione live.",
+            "La raccolta live usa ancora il routing condizionale LangGraph: la pianificazione libera degli strumenti non è implementata.",
+            "L'event log è derivato dallo stato finale e non è ancora persistito append-only durante l'esecuzione.",
+            "Il verificatore controlla il supporto rispetto al ledger del KG, non la correttezza clinica della fonte.",
         ],
     )
 
