@@ -92,6 +92,9 @@ export interface EvidenceItem {
   context: string;
   source_id?: string | null;
   provenance: string;
+  evidence_statement?: string | null;
+  citation_text?: string | null;
+  evidence_level?: string | null;
 }
 
 export interface ClaimCheck {
@@ -99,6 +102,8 @@ export interface ClaimCheck {
   status: 'supported' | 'insufficient' | 'blocked' | 'not_checked';
   reason: string;
   source_id?: string | null;
+  verification_level?: string | null;
+  requires_human_review?: boolean;
 }
 
 export interface ArchitectureRun {
@@ -116,8 +121,12 @@ export interface ArchitectureRun {
     evidence_count: number;
     verified_claims: number;
     blocked_claims: number;
+    ledger_events?: number;
   };
   limitations: string[];
+  run_id?: string | null;
+  ledger_valid?: boolean | null;
+  planning_mode?: string | null;
 }
 
 export interface ArchitectureComparisonResponse {
@@ -149,13 +158,36 @@ export type GraphNodeType =
   | 'resistance'
   | 'llm_memory';
 
+export interface GraphNodeMetadata {
+  [key: string]: string | number | boolean | undefined;
+  approved?: boolean;
+  citation_text?: string;
+  companion_diagnostic?: string;
+  description?: string;
+  disease?: string;
+  drug_name?: string;
+  escat_tier?: string;
+  evidence_level?: string;
+  hallucinated?: boolean;
+  hugo_symbol?: string;
+  nct_id?: string;
+  phase?: string;
+  pmid?: number;
+  significance?: string;
+  statement?: string;
+  status?: string;
+  title?: string;
+  url?: string;
+  variant_name?: string;
+}
+
 export interface GraphNode {
   id: string;
   label: string;
   type: GraphNodeType;
   color: string;
   val?: number;          // node size weight for force-graph
-  metadata: Record<string, any>;
+  metadata: GraphNodeMetadata;
 }
 
 export interface GraphLink {
