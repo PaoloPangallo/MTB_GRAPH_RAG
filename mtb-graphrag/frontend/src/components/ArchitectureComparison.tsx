@@ -121,13 +121,28 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           </Box>
         </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(5, minmax(0, 1fr))' }, gap: 1, my: 2.5 }}>
+        {(run.run_id || run.planning_mode || run.ledger_valid !== null && run.ledger_valid !== undefined) && (
+          <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 1.5 }}>
+            {run.planning_mode && <Chip label={`Planner: ${run.planning_mode}`} size="small" variant="outlined" />}
+            {run.run_id && (
+              <Button size="small" variant="text" href={`${API_BASE}/api/v1/agent-runs/${run.run_id}`} target="_blank" rel="noreferrer">
+                Apri ledger {run.run_id.slice(0, 8)}
+              </Button>
+            )}
+            {run.ledger_valid !== null && run.ledger_valid !== undefined && (
+              <Chip label={run.ledger_valid ? 'Ledger integro' : 'Ledger non integro'} size="small" color={run.ledger_valid ? 'success' : 'error'} />
+            )}
+          </Box>
+        )}
+
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(3, minmax(0, 1fr))', md: 'repeat(6, minmax(0, 1fr))' }, gap: 1, my: 2.5 }}>
           {[
             ['Tempo', `${run.metrics.elapsed_ms} ms`],
             ['Nodi/strumenti', run.metrics.tool_calls],
             ['Evidenze', run.metrics.evidence_count],
             ['Claim supportate', run.metrics.verified_claims],
             ['Claim bloccate', run.metrics.blocked_claims],
+            ['Eventi ledger', run.metrics.ledger_events ?? 0],
           ].map(([label, value]) => (
             <Box key={String(label)} sx={{ p: 1, borderRadius: 1.5, bgcolor: colors.soft, textAlign: 'center' }}>
               <Typography variant="caption" sx={{ display: 'block' }}>{label}</Typography>
@@ -166,6 +181,8 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
             <Box key={`${item.subject}-${item.object}-${index}`} sx={{ p: 1.5, border: '1px solid #DCE5E2', borderRadius: 2, bgcolor: '#FCFEFD' }}>
               <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.subject} → {item.relation} → {item.object}</Typography>
               <Typography variant="caption" sx={{ display: 'block' }}>Contesto: {item.context}</Typography>
+              {item.evidence_level && <Typography variant="caption" sx={{ display: 'block' }}>Livello evidenza: {item.evidence_level}</Typography>}
+              {item.evidence_statement && <Typography variant="caption" sx={{ display: 'block', mt: 0.5 }}><strong>Statement CIViC:</strong> {item.evidence_statement}</Typography>}
               <Box sx={{ display: 'flex', gap: 0.75, alignItems: 'center', flexWrap: 'wrap', mt: 0.75 }}>
                 {item.source_id && <Chip label={item.source_id} size="small" color="info" variant="outlined" />}
                 <Typography variant="caption">{item.provenance}</Typography>
@@ -189,6 +206,10 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
                 <Box>
                   <Typography variant="body2" sx={{ fontWeight: 700 }}>{check.claim}</Typography>
                   <Typography variant="caption">{check.reason}{check.source_id ? ` · ${check.source_id}` : ''}</Typography>
+                  <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 0.5 }}>
+                    {check.verification_level && <Chip label={`Livello: ${check.verification_level}`} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
+                    {check.requires_human_review && <Chip label="Revisione umana richiesta" size="small" color="warning" sx={{ height: 20, fontSize: 10 }} />}
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -196,7 +217,7 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
         </Box>
 
         <Alert severity="info" icon={<VerifiedUserIcon />}>
-          <Typography variant="caption" component="div" sx={{ fontWeight: 700 }}>Limiti dichiarati</Typography>
+          <Typography variant="caption" component="div" sx={{ fontWeight: 700 }}>Garanzie e confini operativi</Typography>
           {run.limitations.map(item => <Typography key={item} variant="caption" component="div">• {item}</Typography>)}
         </Alert>
       </CardContent>
@@ -267,7 +288,7 @@ export default function ArchitectureComparison() {
         <CardContent>
           <Typography variant="h5" sx={{ mb: 0.5, fontWeight: 800 }}>Esegui lo stesso caso</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            La demo mostra il contratto architetturale con una fault injection dichiarata. Il live usa i componenti disponibili e segnala i pezzi dell’architettura agentica ancora parziali.
+            La demo mostra il contratto architetturale con una fault injection dichiarata. Il live esegue il planner a strumenti consentiti, persiste il ledger durante la raccolta e verifica ogni claim rispetto a CIViC e PubMed.
           </Typography>
           <Grid container spacing={2} sx={{ alignItems: 'center' }}>
             <Grid size={{ xs: 12, sm: 6, md: 2 }}><TextField label="Gene" value={gene} onChange={event => setGene(event.target.value)} size="small" fullWidth /></Grid>
@@ -291,7 +312,7 @@ export default function ArchitectureComparison() {
             <Grid size={{ xs: 12 }}>
               <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1.5, alignItems: { sm: 'center' } }}>
                 <Button variant="contained" startIcon={loading ? <CircularProgress size={18} color="inherit" /> : <PlayArrowIcon />} onClick={runComparison} disabled={loading}>Esegui confronto</Button>
-                <Typography variant="caption">La modalità demo non richiede Neo4j o LLM; la modalità live usa i servizi configurati nel backend e dichiara i limiti di integrazione.</Typography>
+                <Typography variant="caption">La modalità demo non richiede Neo4j o LLM; la modalità live richiede Neo4j, endpoint LLM e accesso a PubMed.</Typography>
               </Box>
             </Grid>
           </Grid>
@@ -306,7 +327,7 @@ export default function ArchitectureComparison() {
             <Typography variant="caption">
               {data.execution_mode === 'demo'
                 ? 'Scenario sintetico dichiarato: serve a mostrare il comportamento delle due architetture e il blocco di una claim non supportata.'
-                : 'Esecuzione sui componenti reali: i limiti riportati in ciascuna colonna indicano ciò che non è ancora integrato end-to-end.'}
+                : 'Esecuzione sui componenti reali: planner, ledger append-only e verifica claim–fonte sono attivi; gli esiti incerti vengono inviati alla revisione umana.'}
             </Typography>
           </Alert>
           <Card variant="outlined" sx={{ mb: 3 }}>

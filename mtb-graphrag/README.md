@@ -8,13 +8,17 @@ Molecular Tumor Board. Il sistema non produce decisioni terapeutiche autonome.
 La schermata **Confronta architetture** applica lo stesso caso a:
 
 1. traversal deterministico: piano fisso, query tipizzate, LLM a valle;
-2. orchestrazione agentica: routing condizionale, piu strumenti e controllo
-   esplicito delle claim nella modalita dimostrativa.
+2. architettura agentica verificabile: planner dinamico su strumenti allow-listed,
+   ledger append-only, vista canonica, rendering deterministico e verifica
+   claim--fonte.
 
-La modalita `demo` funziona senza servizi esterni ed espone una fixture
-dichiarata. La modalita `live` richiede Neo4j e l'endpoint LLM configurati; la
-UI mostra esplicitamente che event log e verificatore end-to-end non sono
-ancora completamente integrati nel backend corrente.
+La modalità `demo` funziona senza servizi esterni ed espone una fixture
+dichiarata. La modalità `live` richiede Neo4j, l'endpoint LLM configurato e
+accesso a PubMed. Ogni decisione e tool call viene inserita durante
+l'esecuzione in un ledger SQLite append-only con catena SHA-256. Le claim sono
+ammesse nel report soltanto dopo il confronto con record CIViC e abstract
+PubMed; esiti incerti o fonti non disponibili vengono inviati alla revisione
+umana.
 
 ## Avvio
 
@@ -36,13 +40,17 @@ npm run dev
 
 Aprire `http://localhost:5173` e scegliere **Confronta architetture**.
 
-## Sicurezza e riproducibilita
+Per un deployment persistente, impostare `AGENT_LEDGER_PATH` su una directory
+montata come volume. Il valore predefinito è `./data/agent_events.sqlite3`.
+
+## Sicurezza e riproducibilità
 
 - non committare `.env`, password, token o casi clinici identificabili;
 - usare solo casi sintetici/pubblici nella demo;
 - conservare gli artefatti pesanti fuori da Git con checksum;
-- considerare `claim support` come supporto rispetto al ledger, non come
-  accuratezza clinica.
+- considerare `claim support` come esito di provenienza, regole cliniche e
+  verifica semantica sulla fonte disponibile, non come sostituto della
+  valutazione clinica dell'oncologo.
 
 Gli script della tesi sono in `experiments/reproducibility/` con una nota sugli
 artefatti richiesti.

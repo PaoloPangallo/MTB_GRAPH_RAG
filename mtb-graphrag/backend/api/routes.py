@@ -4,7 +4,7 @@ API Routes — /analyze, /enrich, /judge, /zeroshot.
 
 from __future__ import annotations
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from backend.api.schemas import (
@@ -36,6 +36,34 @@ router = APIRouter()
 def architecture_comparison(req: ArchitectureComparisonRequest) -> ArchitectureComparisonResponse:
     """Confronta le due architetture sullo stesso caso e rende visibile la trace."""
     return compare_architectures(req)
+
+
+@router.get("/agent-runs/{run_id}")
+def agent_run_events(run_id: str) -> dict:
+    """Espone un singolo ledger tramite UUID, senza consentire ricerca o modifica."""
+    from uuid import UUID
+
+    from backend.pipeline.agentic.ledger import EventLedger
+
+    try:
+        UUID(run_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="run_id non valido") from exc
+
+    ledger = EventLedger()
+    events = ledger.events(run_id)
+    if not events:
+        raise HTTPException(status_code=404, detail="esecuzione non trovata")
+    public_events = [
+        {key: value for key, value in event.items() if key != "payload_json"}
+        for event in events
+    ]
+    return {
+        "run_id": run_id,
+        "append_only": True,
+        "hash_chain_valid": ledger.verify_chain(run_id),
+        "events": public_events,
+    }
 
 
 @router.get("/subgraph")
@@ -293,4 +321,3 @@ def judge(req: JudgeRequest) -> JudgeResponse:
     }
     result = llm_as_judge(req.report, case_info)
     return JudgeResponse(**result)
-

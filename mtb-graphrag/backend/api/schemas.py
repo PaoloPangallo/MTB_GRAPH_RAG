@@ -76,6 +76,9 @@ class EvidenceItem(BaseModel):
     context: str
     source_id: Optional[str] = None
     provenance: str
+    evidence_statement: Optional[str] = None
+    citation_text: Optional[str] = None
+    evidence_level: Optional[str] = None
 
 
 class ClaimCheck(BaseModel):
@@ -83,6 +86,8 @@ class ClaimCheck(BaseModel):
     status: Literal["supported", "insufficient", "blocked", "not_checked"]
     reason: str
     source_id: Optional[str] = None
+    verification_level: Optional[str] = None
+    requires_human_review: bool = False
 
 
 class ArchitectureMetrics(BaseModel):
@@ -91,6 +96,7 @@ class ArchitectureMetrics(BaseModel):
     evidence_count: int
     verified_claims: int
     blocked_claims: int
+    ledger_events: int = 0
 
 
 class ArchitectureRun(BaseModel):
@@ -104,6 +110,9 @@ class ArchitectureRun(BaseModel):
     claim_checks: list[ClaimCheck]
     metrics: ArchitectureMetrics
     limitations: list[str]
+    run_id: Optional[str] = None
+    ledger_valid: Optional[bool] = None
+    planning_mode: Optional[str] = None
 
 
 class ComparisonSummary(BaseModel):

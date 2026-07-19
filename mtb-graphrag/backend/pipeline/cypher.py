@@ -66,13 +66,16 @@ MATCH (g:Gene {hugo_symbol: $gene})
       -[:CITED_IN]->(p:Publication)
 WHERE e.evidence_level IN ['A', 'B', 'LEVEL_1', 'LEVEL_2', '1', '2']
   AND ANY(kw IN $disease_keywords WHERE toLower(e.disease) CONTAINS kw)
+OPTIONAL MATCH (e)-[:TARGETS_DRUG]->(d:Drug)
 RETURN e.evidence_level     AS evidence_level,
        e.significance       AS significance,
        e.disease            AS disease,
+       e.evidence_statement AS evidence_statement,
        p.pmid               AS pmid,
        p.citation_text      AS citation_text,
-       mp.name              AS molecular_profile
-ORDER BY e.evidence_level ASC, size(mp.name) ASC
+       mp.name              AS molecular_profile,
+       collect(DISTINCT d.drug_name) AS therapies
+ORDER BY evidence_level ASC, size(molecular_profile) ASC
 LIMIT 15
 """
 
@@ -85,13 +88,16 @@ MATCH (mp)-[:HAS_EVIDENCE]->(e:Evidence)
      -[:CITED_IN]->(p:Publication)
 WHERE e.evidence_level IN ['A', 'B', 'LEVEL_1', 'LEVEL_2', '1', '2']
   AND ANY(kw IN $disease_keywords WHERE toLower(e.disease) CONTAINS kw)
+OPTIONAL MATCH (e)-[:TARGETS_DRUG]->(d:Drug)
 RETURN e.evidence_level     AS evidence_level,
        e.significance       AS significance,
        e.disease            AS disease,
+       e.evidence_statement AS evidence_statement,
        p.pmid               AS pmid,
        p.citation_text      AS citation_text,
-       mp.name              AS molecular_profile
-ORDER BY e.evidence_level ASC, size(mp.name) ASC
+       mp.name              AS molecular_profile,
+       collect(DISTINCT d.drug_name) AS therapies
+ORDER BY evidence_level ASC, size(molecular_profile) ASC
 LIMIT 15
 """
 
@@ -103,13 +109,16 @@ MATCH (mp)-[:HAS_EVIDENCE]->(e:Evidence)
      -[:CITED_IN]->(p:Publication)
 WHERE e.evidence_level IN ['A', 'B', 'LEVEL_1', 'LEVEL_2', '1', '2']
   AND ANY(kw IN $disease_keywords WHERE toLower(e.disease) CONTAINS kw)
+OPTIONAL MATCH (e)-[:TARGETS_DRUG]->(d:Drug)
 RETURN e.evidence_level     AS evidence_level,
        e.significance       AS significance,
        e.disease            AS disease,
+       e.evidence_statement AS evidence_statement,
        p.pmid               AS pmid,
        p.citation_text      AS citation_text,
-       mp.name              AS molecular_profile
-ORDER BY e.evidence_level ASC
+       mp.name              AS molecular_profile,
+       collect(DISTINCT d.drug_name) AS therapies
+ORDER BY evidence_level ASC
 LIMIT 15
 """
 
