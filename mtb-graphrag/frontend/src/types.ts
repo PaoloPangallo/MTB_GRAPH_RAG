@@ -75,6 +75,65 @@ export interface JudgeResponse {
   error?: string;
 }
 
+export type ExecutionMode = 'demo' | 'live';
+
+export interface TraceStep {
+  order: number;
+  stage: string;
+  actor: string;
+  detail: string;
+  status: 'completed' | 'warning' | 'blocked';
+}
+
+export interface EvidenceItem {
+  subject: string;
+  relation: string;
+  object: string;
+  context: string;
+  source_id?: string | null;
+  provenance: string;
+}
+
+export interface ClaimCheck {
+  claim: string;
+  status: 'supported' | 'insufficient' | 'blocked' | 'not_checked';
+  reason: string;
+  source_id?: string | null;
+}
+
+export interface ArchitectureRun {
+  architecture_id: 'deterministic' | 'agentic';
+  title: string;
+  subtitle: string;
+  llm_roles: string[];
+  trace: TraceStep[];
+  evidence: EvidenceItem[];
+  report: string;
+  claim_checks: ClaimCheck[];
+  metrics: {
+    elapsed_ms: number;
+    tool_calls: number;
+    evidence_count: number;
+    verified_claims: number;
+    blocked_claims: number;
+  };
+  limitations: string[];
+}
+
+export interface ArchitectureComparisonResponse {
+  execution_mode: ExecutionMode;
+  case_label: string;
+  disclaimer: string;
+  deterministic: ArchitectureRun;
+  agentic: ArchitectureRun;
+  summary: {
+    shared_sources: string[];
+    deterministic_only_sources: string[];
+    agentic_only_sources: string[];
+    explanation: string;
+  };
+}
+
 
 // ── Knowledge Graph 3D Types ──────────────────────────────
 
@@ -110,4 +169,3 @@ export interface SubGraphData {
   nodes: GraphNode[];
   links: GraphLink[];
 }
-

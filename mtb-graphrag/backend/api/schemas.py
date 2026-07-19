@@ -54,3 +54,69 @@ class JudgeResponse(BaseModel):
     motivazione:         Optional[str] = None
     raw_response:        Optional[str] = None
     error:               Optional[str] = None
+
+
+class ArchitectureComparisonRequest(MTBRequest):
+    """Caso condiviso dalle due architetture nella vista comparativa."""
+    execution_mode: Literal["demo", "live"] = "demo"
+
+
+class TraceStep(BaseModel):
+    order: int
+    stage: str
+    actor: str
+    detail: str
+    status: Literal["completed", "warning", "blocked"] = "completed"
+
+
+class EvidenceItem(BaseModel):
+    subject: str
+    relation: str
+    object: str
+    context: str
+    source_id: Optional[str] = None
+    provenance: str
+
+
+class ClaimCheck(BaseModel):
+    claim: str
+    status: Literal["supported", "insufficient", "blocked", "not_checked"]
+    reason: str
+    source_id: Optional[str] = None
+
+
+class ArchitectureMetrics(BaseModel):
+    elapsed_ms: int
+    tool_calls: int
+    evidence_count: int
+    verified_claims: int
+    blocked_claims: int
+
+
+class ArchitectureRun(BaseModel):
+    architecture_id: Literal["deterministic", "agentic"]
+    title: str
+    subtitle: str
+    llm_roles: list[str]
+    trace: list[TraceStep]
+    evidence: list[EvidenceItem]
+    report: str
+    claim_checks: list[ClaimCheck]
+    metrics: ArchitectureMetrics
+    limitations: list[str]
+
+
+class ComparisonSummary(BaseModel):
+    shared_sources: list[str]
+    deterministic_only_sources: list[str]
+    agentic_only_sources: list[str]
+    explanation: str
+
+
+class ArchitectureComparisonResponse(BaseModel):
+    execution_mode: Literal["demo", "live"]
+    case_label: str
+    disclaimer: str
+    deterministic: ArchitectureRun
+    agentic: ArchitectureRun
+    summary: ComparisonSummary
