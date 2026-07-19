@@ -1,10 +1,9 @@
 """Esecuzione comparativa delle due architetture proposte nella tesi.
 
 La modalità ``demo`` non richiede Neo4j o un endpoint LLM ed espone un caso
-sintetico dichiarato. La modalità ``live`` usa i componenti reali del backend.
-Per l'architettura agentica rende esplicita la distanza tra la raccolta adattiva
-corrente e il contratto verificabile proposto, senza presentare il solo routing
-LangGraph come un agente completo.
+sintetico dichiarato. La modalità ``live`` usa i componenti reali del backend:
+planner dinamico, strumenti tipizzati, ledger persistente, vista canonica,
+rendering deterministico e verifica claim--fonte.
 """
 
 from __future__ import annotations
@@ -76,9 +75,28 @@ def _canonical_evidence(items: list[EvidenceItem]) -> list[EvidenceItem]:
     return canonical
 
 
-def _render_verified_report(case_label: str, items: list[EvidenceItem]) -> str:
-    """Rendering deterministico: emette solo record dotati di fonte."""
-    supported = [item for item in items if item.source_id]
+def _render_candidate_report(case_label: str, items: list[EvidenceItem]) -> str:
+    """Prima proiezione deterministica, ancora soggetta al claim verifier."""
+    if not items:
+        return f"Caso: {case_label}.\nNessuna evidenza candidata disponibile."
+    lines = [f"Caso: {case_label}.", "Evidenze candidate:"]
+    for item in items:
+        source = f" [{item.source_id}]" if item.source_id else " [fonte assente]"
+        lines.append(f"- {_claim_text(item)}{source}")
+    return "\n".join(lines)
+
+
+def _render_verified_report(
+    case_label: str,
+    items: list[EvidenceItem],
+    checks: list[ClaimCheck],
+) -> str:
+    """Rendering finale: emette solo claim supportate dal verificatore multilivello."""
+    supported = [
+        item
+        for item, check in zip(items, checks)
+        if check.status == "supported"
+    ]
     if not supported:
         return (
             f"Caso: {case_label}.\n"
@@ -95,23 +113,34 @@ def _render_verified_report(case_label: str, items: list[EvidenceItem]) -> str:
     return "\n".join(lines)
 
 
-def _checks_from_ledger(items: list[EvidenceItem]) -> list[ClaimCheck]:
+def _checks_from_verifications(
+    items: list[EvidenceItem],
+    verifications: list,
+) -> list[ClaimCheck]:
     if not items:
         return [ClaimCheck(
             claim="Nessuna claim fattuale emessa.",
             status="insufficient",
             reason="La vista canonica non contiene record utilizzabili.",
+            verification_level="canonical_view",
+            requires_human_review=True,
         )]
-    return [ClaimCheck(
-        claim=_claim_text(item),
-        status="supported" if item.source_id else "blocked",
-        reason=(
-            "Claim ricostruita dal record canonico e ancorata alla fonte."
-            if item.source_id
-            else "Claim esclusa dal rendering perché priva di una fonte verificabile."
-        ),
-        source_id=item.source_id,
-    ) for item in items]
+    checks: list[ClaimCheck] = []
+    for item, verification in zip(items, verifications):
+        status = {
+            "supported": "supported",
+            "unsupported": "blocked",
+            "uncertain": "insufficient",
+        }.get(verification.verdict, "insufficient")
+        checks.append(ClaimCheck(
+            claim=_claim_text(item),
+            status=status,
+            reason=verification.reason,
+            source_id=item.source_id,
+            verification_level=verification.verification_level,
+            requires_human_review=verification.requires_human_review,
+        ))
+    return checks
 
 
 def _demo_evidence(req: ArchitectureComparisonRequest) -> list[EvidenceItem]:
@@ -254,13 +283,22 @@ def _evidence_from_state(state: dict) -> list[EvidenceItem]:
     items: list[EvidenceItem] = []
     for record in state.get("variant_data", {}).get("evidence_records", []):
         source = f"PMID:{record['pmid']}" if record.get("pmid") else None
+        therapies = [therapy for therapy in record.get("therapies", []) if therapy]
+        clinical_object = (
+            ", ".join(sorted(therapies))
+            if therapies
+            else record.get("molecular_profile", "clinical evidence")
+        )
         items.append(EvidenceItem(
             subject=f"{state.get('gene', '')} {state.get('variant', '')}".strip(),
             relation=record.get("significance", "evidence"),
-            object=record.get("molecular_profile", "clinical evidence"),
+            object=clinical_object,
             context=record.get("disease", state.get("tumor_type", "")),
             source_id=source,
             provenance="Neo4j/CIViC snapshot tramite query tipizzata.",
+            evidence_statement=record.get("evidence_statement"),
+            citation_text=record.get("citation_text"),
+            evidence_level=record.get("evidence_level"),
         ))
     return items
 
@@ -283,6 +321,20 @@ def _initial_state(req: ArchitectureComparisonRequest) -> dict:
         "report": "",
         "cited_pmids": [],
         "escat_tier": "non determinato",
+    }
+
+
+def _evidence_payload(item: EvidenceItem) -> dict:
+    return {
+        "subject": item.subject,
+        "relation": item.relation,
+        "object": item.object,
+        "context": item.context,
+        "source_id": item.source_id,
+        "provenance": item.provenance,
+        "evidence_statement": item.evidence_statement,
+        "citation_text": item.citation_text,
+        "evidence_level": item.evidence_level,
     }
 
 
@@ -332,34 +384,69 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
 
 
 def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
-    from backend.pipeline.graph import run_pipeline
+    from backend.pipeline.agentic.ledger import EventLedger
+    from backend.pipeline.agentic.runtime import run_agentic_collection
+    from backend.pipeline.agentic.source_verifier import verify_evidence_items
 
     started = perf_counter()
-    state = run_pipeline(_initial_state(req))
+    collection = run_agentic_collection(_initial_state(req))
+    state = collection.state
     collected = _evidence_from_state(state)
     evidence = _canonical_evidence(collected)
-    checks = _checks_from_ledger(evidence)
-    report = _render_verified_report(_case_label(req), evidence)
+    ledger = EventLedger()
+    ledger.append(collection.run_id, "canonical_view_created", "canonicalizer", {
+        "records_in": len(collected),
+        "records_out": len(evidence),
+        "records": [_evidence_payload(item) for item in evidence],
+    })
+    candidate_report = _render_candidate_report(_case_label(req), evidence)
+    ledger.append(collection.run_id, "candidate_report_rendered", "deterministic_renderer", {
+        "report": candidate_report,
+    })
+    verifications = verify_evidence_items(evidence)
+    checks = _checks_from_verifications(evidence, verifications)
+    ledger.append(collection.run_id, "claims_verified", "source_verifier", {
+        "checks": [{
+            "claim": check.claim,
+            "status": check.status,
+            "reason": check.reason,
+            "source_id": check.source_id,
+            "verification_level": check.verification_level,
+            "requires_human_review": check.requires_human_review,
+        } for check in checks],
+    })
+    report = _render_verified_report(_case_label(req), evidence, checks)
+    ledger.append(collection.run_id, "verified_report_rendered", "deterministic_renderer", {
+        "report": report,
+    })
+    events = ledger.events(collection.run_id)
+    ledger_valid = ledger.verify_chain(collection.run_id)
     elapsed = int((perf_counter() - started) * 1000)
-
-    path = ["complexity_check", "variant_interpreter"]
-    if state.get("complexity") in ("moderate", "high"):
-        path.extend(["target_identifier", "trial_matcher", "resistance_checker"])
-    path.extend(["synthesizer", "oncokb_enricher"])
 
     supported = sum(check.status == "supported" for check in checks)
     blocked = sum(check.status == "blocked" for check in checks)
+    uncertain = sum(check.status == "insufficient" for check in checks)
     trace = [
-        TraceStep(order=1, stage="Controller di autonomia", actor="Regole + LLM", detail=f"Complessità {state.get('complexity', 'non determinata')}: selezionato il percorso di raccolta."),
-        TraceStep(order=2, stage="Raccolta adattiva", actor="LangGraph + strumenti KG", detail=f"Eseguiti i nodi: {', '.join(path)}."),
-        TraceStep(order=3, stage="Event log", actor="Adapter sperimentale", detail=f"Acquisiti {len(collected)} record dalla raccolta corrente."),
-        TraceStep(order=4, stage="Vista canonica", actor="Regole", detail=f"Deduplicazione completata: {len(evidence)} record canonici."),
-        TraceStep(order=5, stage="Proiezione pertinente", actor="Regole", detail="Selezionati i record utilizzabili per il caso e dotati di provenienza."),
-        TraceStep(order=6, stage="Rendering deterministico", actor="Renderer", detail="Il report verificabile è generato dai record canonici, non dal testo libero dell'LLM."),
-        TraceStep(order=7, stage="Verifica delle claim", actor="Claim verifier", detail=f"Claim supportate: {supported}; claim bloccate: {blocked}."),
-        TraceStep(order=8, stage="Narrazione opzionale", actor="LLM + nuova verifica", detail="Non applicata in questa esecuzione: viene mostrato il report deterministico."),
-        TraceStep(order=9, stage="Revisione", actor="Oncologo", detail="Il clinico controlla evidenze, provenienza, lacune e conflitti."),
+        TraceStep(order=1, stage="Controller di autonomia", actor="Policy", detail="Definiti strumenti consentiti, dipendenze e massimo numero di passi."),
+        TraceStep(order=2, stage="Pianificazione dinamica", actor="LLM planner", detail=f"Modalità {collection.planning_mode}; piano osservato: {', '.join(collection.tool_path) or 'nessuno'}."),
+        TraceStep(order=3, stage="Raccolta iterativa", actor="Agente + strumenti KG", detail=f"Completate {len(collection.tool_path)} chiamate; ogni osservazione ha alimentato la decisione successiva."),
+        TraceStep(order=4, stage="Event log append-only", actor="SQLite hash-chain", detail=f"Persistiti {len(events)} eventi durante l'esecuzione; catena integra: {'sì' if ledger_valid else 'no'}.", status="completed" if ledger_valid else "blocked"),
+        TraceStep(order=5, stage="Vista canonica", actor="Regole", detail=f"Deduplicazione completata: {len(evidence)} record canonici."),
+        TraceStep(order=6, stage="Proiezione pertinente", actor="Regole", detail="Selezionati i record relativi al caso con statement clinico e provenienza."),
+        TraceStep(order=7, stage="Rendering candidato", actor="Renderer deterministico", detail="Costruito esclusivamente dalla proiezione canonica."),
+        TraceStep(order=8, stage="Verifica claim–fonte", actor="Regole + LLM", detail=f"PubMed/CIViC: {supported} supportate, {blocked} bloccate, {uncertain} inviate a revisione.", status="warning" if blocked or uncertain else "completed"),
+        TraceStep(order=9, stage="Riparazione", actor="Regole", detail="Le claim bloccate o incerte sono escluse dal report verificato."),
+        TraceStep(order=10, stage="Report verificato", actor="Renderer deterministico", detail="Emesse soltanto claim che hanno superato provenienza, regole cliniche e verifica semantica."),
+        TraceStep(order=11, stage="Narrazione opzionale", actor="LLM + nuova verifica", detail="Non applicata in questa esecuzione: viene mostrato il report deterministico."),
+        TraceStep(order=12, stage="Revisione", actor="Oncologo", detail="Gli esiti incerti sono esplicitamente destinati alla revisione umana."),
     ]
+    guarantees = [
+        "Il planner sceglie iterativamente tra strumenti clinici allow-listed; dipendenze e budget restano imposti dal controller.",
+        f"Il ledger è persistito durante ogni decisione e tool call con catena SHA-256 verificata ({collection.run_id}).",
+        "Il verificatore è fail-closed: confronta claim, record CIViC e abstract PubMed; fonte assente o esito incerto richiedono revisione umana.",
+    ]
+    if collection.errors:
+        guarantees.append("Escalation runtime: " + "; ".join(collection.errors))
     return ArchitectureRun(
         architecture_id="agentic",
         title="Architettura agentica verificabile",
@@ -371,16 +458,16 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         claim_checks=checks,
         metrics=ArchitectureMetrics(
             elapsed_ms=elapsed,
-            tool_calls=len(path),
+            tool_calls=len(collection.tool_path),
             evidence_count=len(evidence),
             verified_claims=supported,
             blocked_claims=blocked,
+            ledger_events=len(events),
         ),
-        limitations=[
-            "La raccolta live usa ancora il routing condizionale LangGraph: la pianificazione libera degli strumenti non è implementata.",
-            "L'event log è derivato dallo stato finale e non è ancora persistito append-only durante l'esecuzione.",
-            "Il verificatore controlla il supporto rispetto al ledger del KG, non la correttezza clinica della fonte.",
-        ],
+        limitations=guarantees,
+        run_id=collection.run_id,
+        ledger_valid=ledger_valid,
+        planning_mode=collection.planning_mode,
     )
 
 
