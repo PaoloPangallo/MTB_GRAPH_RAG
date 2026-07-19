@@ -62,7 +62,7 @@ _env_path = Path(__file__).resolve().parents[2] / ".env"
 load_dotenv(_env_path)
 _NEO4J_URI      = "bolt://localhost:7687"
 _NEO4J_USER     = "neo4j"
-_NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "pangallo22")
+_NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "")
 
 _drv = GraphDatabase.driver(_NEO4J_URI, auth=(_NEO4J_USER, _NEO4J_PASSWORD))
 

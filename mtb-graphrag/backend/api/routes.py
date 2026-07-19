@@ -7,7 +7,15 @@ from __future__ import annotations
 from fastapi import APIRouter
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from backend.api.schemas import MTBRequest, ReportResponse, JudgeRequest, JudgeResponse
+from backend.api.schemas import (
+    MTBRequest,
+    ReportResponse,
+    JudgeRequest,
+    JudgeResponse,
+    ArchitectureComparisonRequest,
+    ArchitectureComparisonResponse,
+)
+from backend.comparison.service import compare_architectures
 from backend.pipeline.state import MTBState
 from backend.pipeline.graph import run_pipeline
 from backend.pipeline.agents.oncokb_enricher import oncokb_enricher
@@ -22,6 +30,12 @@ from backend.evaluation.ablation_rag import run_rag_testuale
 
 
 router = APIRouter()
+
+
+@router.post("/compare-architectures", response_model=ArchitectureComparisonResponse)
+def architecture_comparison(req: ArchitectureComparisonRequest) -> ArchitectureComparisonResponse:
+    """Confronta le due architetture sullo stesso caso e rende visibile la trace."""
+    return compare_architectures(req)
 
 
 @router.get("/subgraph")
@@ -279,5 +293,4 @@ def judge(req: JudgeRequest) -> JudgeResponse:
     }
     result = llm_as_judge(req.report, case_info)
     return JudgeResponse(**result)
-
 
