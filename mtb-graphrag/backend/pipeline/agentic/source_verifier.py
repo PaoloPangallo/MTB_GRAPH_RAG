@@ -409,7 +409,7 @@ def _verification(
         applicability_status=applicability_status,
         applicability_reason=applicability_reason,
         verification_level=verification_level,
-        requires_source_review=source_support_status in {"uncertain", "unsupported"},
+        requires_source_review=source_support_status in {"uncertain", "contradicted"},
         requires_clinical_review=applicability_status in {"indeterminate", "not_compatible"},
         source_line_category=source_line_category,
         source_setting_category=source_setting_category,
@@ -426,22 +426,41 @@ def _derive_verified_claim(
     line: str | None,
     setting: str | None,
     prerequisites: str | None,
+    full_regimen: str | None = None,
 ) -> str | None:
     """Proiezione contestualizzata della claim quando la fonte la supporta
     solo insieme a prerequisiti aggiuntivi noti (es. AURA3/PMID 27959700:
     "EGFR L858R" da solo non basta — la fonte riguarda L858R con T790M dopo
-    progressione a un precedente EGFR-TKI). Non modifica mai il ledger
-    originale (claim/evidence_statement restano intatti altrove); è
-    esclusivamente una proiezione aggiuntiva per l'oncologo. Restituisce
-    ``None`` quando non ci sono prerequisiti strutturati noti da aggiungere
-    (nessuna contestualizzazione necessaria) — non tenta mai di dedurne dal
-    solo testo libero della motivazione."""
+    progressione a un precedente EGFR-TKI) o a un regime farmacologico più
+    ampio di quello scritto nella claim (es. MARIPOSA-2: la claim cita solo
+    amivantamab + carboplatin, ma il braccio della fonte include anche
+    pemetrexed). Non modifica mai il ledger originale (claim/evidence_statement
+    restano intatti altrove); è esclusivamente una proiezione aggiuntiva per
+    l'oncologo. Restituisce ``None`` quando non c'è nulla di strutturato da
+    aggiungere (nessuna contestualizzazione necessaria) — non tenta mai di
+    dedurre alcunché dal solo testo libero della motivazione."""
     context_parts = [part for part in (population, line, setting, prerequisites) if part]
-    if not context_parts:
+    if not context_parts and full_regimen is None:
         return None
-    context_note = ", ".join(context_parts)
     relation_text = (item.relation or "associazione clinica").strip().lower()
-    return f"{item.subject} con {context_note} è associato a {relation_text} a {item.object}."
+    object_text = full_regimen or item.object
+    if context_parts:
+        context_note = ", ".join(context_parts)
+        return f"{item.subject} con {context_note} è associato a {relation_text} a {object_text}."
+    return f"{item.subject} è associato a {relation_text} a {object_text} (regime completo dichiarato dalla fonte)."
+
+
+def _matched_arm_regimen_text(item: Any, source_arms: list[dict[str, Any]]) -> str | None:
+    """Restituisce il regime completo del braccio di cui la claim è un
+    sottoinsieme proprio — usato per contestualizzare (non per respingere) un
+    match "partial": la fonte sostiene una claim più specifica di quella
+    scritta nel KG (es. MARIPOSA-2), non una combinazione da scartare."""
+    claim_components = claim_components_from_object(item.object)
+    for arm in source_arms:
+        arm_set = set(arm["interventions"])
+        if claim_components and claim_components < arm_set:
+            return " + ".join(sorted(arm_set))
+    return None
 
 
 def _regimen_check_reason(
@@ -451,30 +470,25 @@ def _regimen_check_reason(
     (``claim_arm_match``), mai su un'estrazione testuale generica:
 
     - "exact": la claim coincide con un braccio — nessuna riserva.
-    - "partial": la claim è una combinazione parziale o eccedente rispetto a
-      un braccio noto — il supporto non può restare "supported" senza
-      riserva.
+    - "partial": la claim è un sottoinsieme proprio di un braccio noto — la
+      fonte sostiene una claim più specifica di quella scritta nel KG.
+      Non è un fallimento: viene gestito altrove come contestualizzazione
+      (``supported_after_contextualization``), non come riserva sul supporto.
     - "unknown": nessun braccio noto per confrontare una claim a più
-      farmaci — non verificabile, stessa riserva di "partial".
+      farmaci — non verificabile, riserva sul supporto.
     - "no_match": nessuna sovrapposizione fra claim e bracci noti; qui non
-      degradiamo a "unsupported" (riservato a una vera contraddizione
+      degradiamo a "contradicted" (riservato a una vera contraddizione
       accertata altrove) ma segnaliamo comunque la mancata corrispondenza.
     """
     claim_components = claim_components_from_object(item.object)
     if len(claim_components) < 2:
         return None  # non è una claim di regime combinato: nessun controllo necessario
-    if claim_arm_match == "exact":
+    if claim_arm_match in ("exact", "partial"):
         return None
     arm_summary = "; ".join(
         f"{arm['arm_name']}: {', '.join(arm['interventions']) or 'nessun farmaco riconosciuto'}"
         for arm in source_arms
     ) or "nessun braccio riportato dalla fonte"
-    if claim_arm_match == "partial":
-        return (
-            "Il regime della claim non coincide esattamente con nessun braccio della fonte "
-            f"({arm_summary}): il supporto documentale non copre una combinazione parziale come "
-            "regime equivalente."
-        )
     if claim_arm_match == "unknown":
         return (
             "La claim descrive un regime a più farmaci, ma la fonte non ha riportato bracci di "
@@ -486,6 +500,27 @@ def _regimen_check_reason(
             f"({arm_summary}): supporto documentale non confermabile su questa combinazione."
         )
     return None
+
+
+def _documentary_support_status(raw_support_status: str, contextualized: bool) -> str:
+    """Tassonomia documentale a quattro valori — sostituisce il precedente
+    schema binario supported/unsupported, che etichettava come "non
+    supportate" fonti (AURA3, ADAURA, MARIPOSA-2) che in realtà sostengono una
+    claim più specifica di quella scritta nel KG:
+
+    - ``supported_as_written``: la fonte sostiene la claim così come scritta,
+      senza bisogno di prerequisiti o regimi aggiuntivi.
+    - ``supported_after_contextualization``: la fonte sostiene la claim solo
+      insieme a prerequisiti/regime aggiuntivi noti — vedi ``derived_verified_claim``.
+    - ``uncertain``: dato insufficiente per decidere (nessuna contraddizione).
+    - ``contradicted``: la fonte contraddice realmente la claim (mai per
+      genericità della claim o per una combinazione parziale non confermata).
+    """
+    if raw_support_status == "unsupported":
+        return "contradicted"
+    if raw_support_status == "uncertain":
+        return "uncertain"
+    return "supported_after_contextualization" if contextualized else "supported_as_written"
 
 
 def _finalize_verification(
@@ -512,11 +547,15 @@ def _finalize_verification(
     del verdict del modello); senza (profilo da cache), passa per
     ``derive_applicability`` (nessun verdict LLM disponibile né necessario)."""
     claim_arm_match = match_claim_to_arms(claim_components_from_object(item.object), source_arms)
+    full_regimen = None
     if support_status == "supported":
-        regimen_reason = _regimen_check_reason(item, claim_arm_match, source_arms)
-        if regimen_reason:
-            support_status = "uncertain"
-            support_reason = regimen_reason
+        if claim_arm_match == "partial":
+            full_regimen = _matched_arm_regimen_text(item, source_arms)
+        else:
+            regimen_reason = _regimen_check_reason(item, claim_arm_match, source_arms)
+            if regimen_reason:
+                support_status = "uncertain"
+                support_reason = regimen_reason
 
     categories = {
         "source_line_category": line_category,
@@ -531,14 +570,17 @@ def _finalize_verification(
         applicability_status, applicability_reason = derive_applicability(categories, case_context)
 
     derived_verified_claim = (
-        _derive_verified_claim(item, population, line, setting, prerequisites)
+        _derive_verified_claim(item, population, line, setting, prerequisites, full_regimen=full_regimen)
         if support_status == "supported"
         else None
+    )
+    documentary_support_status = _documentary_support_status(
+        support_status, derived_verified_claim is not None,
     )
 
     return _verification(
         index=index,
-        source_support_status=support_status,
+        source_support_status=documentary_support_status,
         source_support_reason=support_reason,
         verification_level="pubmed_abstract",
         source_population=population,

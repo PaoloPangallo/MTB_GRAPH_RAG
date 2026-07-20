@@ -350,7 +350,7 @@ class SourceVerifierTest(TestCase):
             llm_client=llm,
             source_loader=self._source_loader(),
         )
-        self.assertEqual(results[0].source_support_status, "supported")
+        self.assertEqual(results[0].source_support_status, "supported_as_written")
         self.assertEqual(results[0].verification_level, "pubmed_abstract")
         self.assertFalse(results[0].requires_source_review)
 
@@ -423,8 +423,9 @@ class SourceVerifierTest(TestCase):
     def test_supported_source_with_incompatible_setting_is_not_compatible(self):
         """Fonte documentalmente supportata (T790M post-progressione) ma con
         setting esplicitamente incompatibile con una richiesta first-line:
-        il supporto resta 'supported', l'applicabilità diventa 'not_compatible' —
-        non deve mai ricadere in un generico bucket di supporto incerto."""
+        il supporto resta supportato (contestualizzato, con prerequisiti
+        noti), l'applicabilità diventa 'not_compatible' — non deve mai
+        ricadere in un generico bucket di supporto incerto."""
         llm = _SequencedLLM([[{
             "index": 0,
             "source_support_status": "supported",
@@ -450,7 +451,8 @@ class SourceVerifierTest(TestCase):
             case_context={"therapy_line": "first-line"},
         )
         result = results[0]
-        self.assertEqual(result.source_support_status, "supported")
+        self.assertEqual(result.source_support_status, "supported_after_contextualization")
+        self.assertIsNotNone(result.derived_verified_claim)
         self.assertEqual(result.applicability_status, "not_compatible")
         self.assertEqual(result.source_setting, "post-progressione")
         self.assertFalse(result.requires_source_review)
@@ -470,18 +472,18 @@ class SourceVerifierTest(TestCase):
             source_loader=self._source_loader(),
             case_context={"therapy_line": "first-line", "disease_stage": ""},
         )
-        self.assertEqual(results[0].source_support_status, "supported")
+        self.assertEqual(results[0].source_support_status, "supported_as_written")
         self.assertEqual(results[0].applicability_status, "indeterminate")
         self.assertTrue(results[0].requires_clinical_review)
 
     def test_aura3_supports_claim_with_derived_verified_claim_not_unsupported(self):
         """PMID 27959700 (AURA3): la fonte non contraddice EGFR L858R — riguarda
         L858R in presenza di T790M e dopo progressione a un precedente
-        EGFR-TKI. Non deve diventare 'unsupported' solo perché la claim del KG
-        è più generica: resta 'supported', con una derived_verified_claim
-        contestualizzata. L'applicabilità resta 'not_compatible' per il
-        conflitto esplicito first-line (caso) contro post-progressione
-        (fonte)."""
+        EGFR-TKI. Non deve diventare 'contradicted' solo perché la claim del
+        KG è più generica: diventa 'supported_after_contextualization', con
+        una derived_verified_claim contestualizzata. L'applicabilità resta
+        'not_compatible' per il conflitto esplicito first-line (caso) contro
+        post-progressione (fonte)."""
         item = self._item(source_id="PMID:27959700", object_="osimertinib")
         llm = _SequencedLLM([[{
             "index": 0,
@@ -507,14 +509,14 @@ class SourceVerifierTest(TestCase):
             case_context={"therapy_line": "first-line"},
         )
         result = results[0]
-        self.assertEqual(result.source_support_status, "supported")
-        self.assertNotEqual(result.source_support_status, "unsupported")
+        self.assertEqual(result.source_support_status, "supported_after_contextualization")
+        self.assertNotEqual(result.source_support_status, "contradicted")
         self.assertIsNotNone(result.derived_verified_claim)
         self.assertIn("T790M", result.derived_verified_claim)
         self.assertIn("progressione", result.derived_verified_claim.lower())
         self.assertEqual(result.applicability_status, "not_compatible")
 
-    def test_source_genuinely_contradicts_biomarker_is_unsupported(self):
+    def test_source_genuinely_contradicts_biomarker_is_contradicted(self):
         llm = _SequencedLLM([[{
             "index": 0,
             "source_support_status": "unsupported",
@@ -529,7 +531,7 @@ class SourceVerifierTest(TestCase):
             llm_client=llm,
             source_loader=self._source_loader(),
         )
-        self.assertEqual(results[0].source_support_status, "unsupported")
+        self.assertEqual(results[0].source_support_status, "contradicted")
         self.assertTrue(results[0].requires_source_review)
 
     def test_no_first_line_metastatic_inference_in_payload_sent_to_llm(self):
@@ -570,12 +572,14 @@ class SourceVerifierTest(TestCase):
             }
         }
 
-    def test_partial_regimen_is_not_confirmed_as_the_full_source_regimen(self):
-        """PMID 37879444: la fonte descrive un unico braccio amivantamab +
-        carboplatino + pemetrexed, ma la claim riguarda solo amivantamab +
-        carboplatino. Il supporto non deve restare 'supported' senza riserva:
-        la claim è un sottoinsieme proprio del braccio ('partial'), quindi
-        diventa 'uncertain'."""
+    def test_partial_regimen_is_supported_after_contextualization_with_full_regimen(self):
+        """PMID 37879444 (stile MARIPOSA-2): la fonte descrive un unico
+        braccio amivantamab + carboplatino + pemetrexed, ma la claim del KG
+        riguarda solo amivantamab + carboplatino. La claim è un sottoinsieme
+        proprio di un braccio noto e univoco ('partial'): la fonte sostiene
+        una claim più specifica di quella scritta nel KG, non va etichettata
+        come non supportata. Diventa 'supported_after_contextualization', con
+        una derived_verified_claim che mostra il regime completo."""
         item = self._item(object_="amivantamab + carboplatino", source_id="PMID:37879444")
         llm = _SequencedLLM([[{
             "index": 0,
@@ -592,9 +596,10 @@ class SourceVerifierTest(TestCase):
         )
         result = results[0]
         self.assertEqual(result.claim_arm_match, "partial")
-        self.assertEqual(result.source_support_status, "uncertain")
-        self.assertIn("pemetrexed", result.source_support_reason.lower())
-        self.assertTrue(result.requires_source_review)
+        self.assertEqual(result.source_support_status, "supported_after_contextualization")
+        self.assertIsNotNone(result.derived_verified_claim)
+        self.assertIn("pemetrexed", result.derived_verified_claim.lower())
+        self.assertFalse(result.requires_source_review)
 
     def test_multi_drug_claim_with_no_source_arms_reported_is_uncertain(self):
         """PMID 37879444: se l'LLM non riporta affatto source_arms per una
@@ -643,7 +648,7 @@ class SourceVerifierTest(TestCase):
         )
         result = results[0]
         self.assertEqual(result.claim_arm_match, "exact")
-        self.assertEqual(result.source_support_status, "supported")
+        self.assertEqual(result.source_support_status, "supported_as_written")
 
     def test_erlotinib_first_line_advanced_with_missing_patient_stage_and_setting_is_indeterminate(self):
         """Regressione richiesta: fonte con categorie complete (first_line /
@@ -685,7 +690,7 @@ class SourceVerifierTest(TestCase):
             source_loader=self._regimen_source_loader(),
         )
         self.assertEqual(results[0].claim_arm_match, "exact")
-        self.assertEqual(results[0].source_support_status, "supported")
+        self.assertEqual(results[0].source_support_status, "supported_as_written")
 
     def test_retry_recovers_a_missing_item_from_a_partial_batch(self):
         """Un batch che risponde solo per un indice non deve far cadere
@@ -700,8 +705,8 @@ class SourceVerifierTest(TestCase):
             source_loader=self._source_loader(),
             metrics=metrics,
         )
-        self.assertEqual(results[0].source_support_status, "supported")
-        self.assertEqual(results[1].source_support_status, "supported")
+        self.assertEqual(results[0].source_support_status, "supported_as_written")
+        self.assertEqual(results[1].source_support_status, "supported_as_written")
         self.assertEqual(results[1].source_support_reason, "recuperato dal retry")
         self.assertEqual(metrics["verifier_batches"], 1)
         self.assertEqual(metrics["retry_items"], 1)
@@ -786,7 +791,7 @@ class SourceVerifierTest(TestCase):
         )
         self.assertEqual(metrics_second["cache_hits"], 1)
         self.assertEqual(metrics_second["cache_misses"], 0)
-        self.assertEqual(results_second[0].source_support_status, "supported")
+        self.assertEqual(results_second[0].source_support_status, "supported_as_written")
         # Cambiando il contesto paziente (ora incompleto), l'applicabilità si
         # ricalcola comunque correttamente in modo puramente deterministico,
         # senza alcuna nuova chiamata LLM.
@@ -863,8 +868,8 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
             evidence_level="A",
         )
 
-    def _scripted_llm(self, categories_by_index):
-        sources = self._sources
+    def _scripted_llm(self, categories_by_index, context_text_by_index=None):
+        context_text_by_index = context_text_by_index or {}
 
         class _ScriptedLLM:
             def invoke(self, messages):
@@ -873,7 +878,7 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
                 for entry in payload:
                     index = entry["index"]
                     line_cat, setting_cat, prior_req = categories_by_index[index]
-                    results.append({
+                    result = {
                         "index": index,
                         "source_support_status": "supported",
                         "source_support_reason": "La fonte documenta il proprio record contestualizzato.",
@@ -882,7 +887,9 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
                         "source_prior_therapy_requirement": prior_req,
                         "applicability_status": "compatible",
                         "applicability_reason": "Setting e linea coincidono secondo l'LLM (verdict pre-validazione).",
-                    })
+                    }
+                    result.update(context_text_by_index.get(index, {}))
+                    results.append(result)
                 return _Response(json.dumps(results))
 
         return _ScriptedLLM()
@@ -916,6 +923,38 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
             "disease_setting": "",
             "prior_therapies": "",
         }
+        self._context_text = {
+            3: {
+                "source_population": "NSCLC EGFR L858R completamente resecato",
+                "source_setting": "adiuvante",
+            },
+            4: {
+                "source_population": "EGFR L858R con T790M",
+                "source_prerequisites": "progressione a un precedente EGFR-TKI",
+            },
+        }
+
+    def test_adaura_and_post_progression_sources_are_supported_after_contextualization(self):
+        """ADAURA (PMID 32955177): "L858R in NSCLC completamente resecato,
+        setting adiuvante" non è una claim generica non supportata — è una
+        claim più specifica di quella scritta nel KG. Stesso discorso per la
+        fonte post-progressione (indice 4): entrambe diventano
+        'supported_after_contextualization', mai 'contradicted'."""
+        results = verify_evidence_items(
+            self._items,
+            llm_client=self._scripted_llm(self._categories, self._context_text),
+            source_loader=lambda _pmids: self._sources,
+            case_context=self._case_context,
+        )
+        adaura = results[3]
+        self.assertEqual(adaura.source_support_status, "supported_after_contextualization")
+        self.assertNotEqual(adaura.source_support_status, "contradicted")
+        self.assertIsNotNone(adaura.derived_verified_claim)
+        self.assertIn("adiuvante", adaura.derived_verified_claim.lower())
+
+        post_progression = results[4]
+        self.assertEqual(post_progression.source_support_status, "supported_after_contextualization")
+        self.assertIsNotNone(post_progression.derived_verified_claim)
 
     def test_zero_compatible_when_stage_setting_and_prior_therapies_are_missing(self):
         results = verify_evidence_items(
@@ -968,7 +1007,11 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
             if result.applicability_status != "compatible":
                 self.assertNotIn("coincidono secondo l'llm", result.applicability_reason.lower())
 
-    def test_pmid_37879444_partial_regimen_is_not_supported(self):
+    def test_pmid_37879444_partial_regimen_is_supported_after_contextualization(self):
+        """MARIPOSA-2: la claim del KG (amivantamab + carboplatin) è un
+        sottoinsieme proprio del braccio unico noto (+ pemetrexed) — la
+        fonte sostiene una claim più specifica, non va etichettata come non
+        supportata: diventa 'supported_after_contextualization'."""
         item = self._item(
             "PMID:37879444", "AMIVANTAMAB, CARBOPLATIN",
             "Amivantamab plus carboplatin in EGFR Exon20ins NSCLC.", "Real-world claim.",
@@ -988,5 +1031,6 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
             case_context=self._case_context,
         )
         self.assertEqual(results[0].claim_arm_match, "partial")
-        self.assertEqual(results[0].source_support_status, "uncertain")
-        self.assertIn("pemetrexed", results[0].source_support_reason.lower())
+        self.assertEqual(results[0].source_support_status, "supported_after_contextualization")
+        self.assertIsNotNone(results[0].derived_verified_claim)
+        self.assertIn("pemetrexed", results[0].derived_verified_claim.lower())

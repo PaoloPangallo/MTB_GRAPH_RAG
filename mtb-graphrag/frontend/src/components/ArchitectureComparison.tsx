@@ -93,9 +93,10 @@ const claimStatusLabels: Record<ClaimCheck['status'], string> = {
 };
 
 const supportLabels: Record<DossierEvidence['source_support_status'], string> = {
-  supported: 'Fonte: supporto documentale confermato',
+  supported_as_written: 'Fonte: supporto documentale confermato',
+  supported_after_contextualization: 'Fonte: supporto confermato con contestualizzazione',
   uncertain: 'Fonte: supporto documentale incerto',
-  unsupported: 'Fonte: non supportata',
+  contradicted: 'Fonte: in contraddizione con la claim',
 };
 
 // L'etichetta per "not_compatible" deve sempre riferirsi al contesto
@@ -474,7 +475,7 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           </Accordion>
         )}
 
-        {metrics.verifier_batches != null && metrics.verifier_batches > 0 && (
+        {((metrics.verifier_batches ?? 0) > 0 || (metrics.cache_hits ?? 0) > 0) && (
           <Accordion defaultExpanded={false} disableGutters sx={{ mb: 2.5 }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Box>

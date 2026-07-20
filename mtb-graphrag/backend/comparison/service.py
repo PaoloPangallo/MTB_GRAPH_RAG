@@ -122,7 +122,7 @@ def _render_verified_report(
     supported = [
         (item, verification)
         for item, verification in zip(items, verifications)
-        if verification.source_support_status == "supported"
+        if verification.source_support_status in ("supported_as_written", "supported_after_contextualization")
     ]
     if not supported:
         return (
@@ -145,6 +145,8 @@ def _render_verified_report(
         if prerequisites:
             header += f" — contesto della fonte: {prerequisites}."
         lines.append(header)
+        if verification.source_support_status == "supported_after_contextualization" and verification.derived_verified_claim:
+            lines.append(f"  Claim contestualizzata dalla fonte: {verification.derived_verified_claim}")
         lines.append(f"  Supporto documentale: {verification.source_support_reason}")
         lines.append(
             "  Applicabilità al contesto richiesto: "
@@ -154,15 +156,14 @@ def _render_verified_report(
 
     if any(v.applicability_status == "compatible" for _item, v in supported):
         lines.append(
-            "Solo le evidenze compatibili con il contesto dichiarato sono da considerare come "
-            "possibili opzioni per il caso; restano comunque soggette a revisione del "
-            "Molecular Tumor Board."
+            "Le evidenze compatibili con il contesto dichiarato sono evidenze candidate da "
+            "discutere nel Molecular Tumor Board; restano comunque soggette a revisione."
         )
     if any(v.applicability_status != "compatible" for _item, v in supported):
         lines.append(
             "Le evidenze supportate ma non compatibili o con applicabilità indeterminata restano "
-            "visibili come contesto documentale: non sono opzioni per il caso e non vanno lette "
-            "come fonti false."
+            "visibili come contesto documentale: non sono evidenze candidate da discutere nel "
+            "Molecular Tumor Board per questo caso e non vanno lette come fonti false."
         )
     lines.append(
         "Il report organizza l'evidenza disponibile e deve essere revisionato "
@@ -172,9 +173,14 @@ def _render_verified_report(
 
 
 def _support_from_check_status(status: str) -> str:
+    """Le architetture senza un verificatore fonte-per-fonte separato (demo,
+    traversal deterministico) non distinguono "as written" da
+    "after contextualization": producono sempre il valore di base
+    "supported_as_written" quando il check tecnico è positivo, onestamente
+    senza fabbricare una contestualizzazione mai valutata."""
     return {
-        "supported": "supported",
-        "blocked": "unsupported",
+        "supported": "supported_as_written",
+        "blocked": "contradicted",
         "insufficient": "uncertain",
         "not_checked": "uncertain",
     }.get(status, "uncertain")
@@ -182,8 +188,10 @@ def _support_from_check_status(status: str) -> str:
 
 def _dossier_bucket(source_support_status: str, applicability_status: str) -> str:
     """Funzione pura di bucketing: deriva la sezione clinica del dossier dai
-    due assi indipendenti. Nessuna evidenza compare in più di una sezione."""
-    if source_support_status == "unsupported":
+    due assi indipendenti. Nessuna evidenza compare in più di una sezione.
+    'supported_as_written' e 'supported_after_contextualization' contano
+    entrambe come documentalmente supportate ai fini del bucketing."""
+    if source_support_status == "contradicted":
         return "excluded"
     if source_support_status == "uncertain":
         return "review"
@@ -209,8 +217,9 @@ def _checks_from_verifications(
     checks: list[ClaimCheck] = []
     for item, verification in zip(items, verifications):
         status = {
-            "supported": "supported",
-            "unsupported": "blocked",
+            "supported_as_written": "supported",
+            "supported_after_contextualization": "supported",
+            "contradicted": "blocked",
             "uncertain": "insufficient",
         }.get(verification.source_support_status, "insufficient")
         checks.append(ClaimCheck(
@@ -334,7 +343,9 @@ def _build_dossier(
                 "Applicabilità non valutata: questa architettura non esegue un "
                 "verificatore fonte-per-fonte separato dal supporto documentale."
             )
-            requires_source_review = support_status != "supported"
+            requires_source_review = support_status not in (
+                "supported_as_written", "supported_after_contextualization",
+            )
             requires_clinical_review = True
             population = source_line = source_setting = prerequisites = None
             derived_verified_claim = None
@@ -384,7 +395,9 @@ def _build_dossier(
             source_support_reason=check.reason,
             applicability_status="indeterminate",
             applicability_reason="Applicabilità non valutata: claim priva di un record di evidenza associato.",
-            requires_source_review=support_status != "supported",
+            requires_source_review=support_status not in (
+                "supported_as_written", "supported_after_contextualization",
+            ),
             requires_clinical_review=True,
             dossier_section=_dossier_bucket(support_status, "indeterminate"),
         ))
@@ -940,8 +953,12 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     ledger_valid = ledger.verify_chain(collection.run_id)
     elapsed = int((perf_counter() - started) * 1000)
 
-    supported = sum(v.source_support_status == "supported" for v in verifications)
-    blocked = sum(v.source_support_status == "unsupported" for v in verifications)
+    supported_as_written = sum(v.source_support_status == "supported_as_written" for v in verifications)
+    supported_after_contextualization = sum(
+        v.source_support_status == "supported_after_contextualization" for v in verifications
+    )
+    supported = supported_as_written + supported_after_contextualization
+    blocked = sum(v.source_support_status == "contradicted" for v in verifications)
     uncertain = sum(v.source_support_status == "uncertain" for v in verifications)
     compatible = sum(v.applicability_status == "compatible" for v in verifications)
     indeterminate_applicability = sum(v.applicability_status == "indeterminate" for v in verifications)
@@ -982,6 +999,8 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             source_supported_count=supported,
             source_uncertain_count=uncertain,
             source_unsupported_count=blocked,
+            source_supported_as_written_count=supported_as_written,
+            source_supported_after_contextualization_count=supported_after_contextualization,
             applicability_compatible_count=compatible,
             applicability_indeterminate_count=indeterminate_applicability,
             applicability_not_compatible_count=not_compatible,
