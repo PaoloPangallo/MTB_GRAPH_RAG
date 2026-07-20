@@ -37,13 +37,21 @@ LLM_PIPELINE  = os.getenv("LLM_PIPELINE", "gemma4:31b-cloud")       # agenti del
 LLM_JUDGE     = os.getenv("LLM_JUDGE", "minimax-m2.5")           # LLM-as-judge per valutazione (fallback)
 TEMPERATURE   = 0.0                      # determinismo per uso clinico
 
-llm = ChatOllama(
-    model=LLM_PIPELINE,
-    base_url=OLLAMA_BASE_URL,
-    api_key=OLLAMA_API_KEY,
-    temperature=TEMPERATURE,
-    timeout=60,
-)
+def build_llm(*, timeout: int = 60) -> ChatOllama:
+    """Costruisce un client con lo stesso modello/credenziali della pipeline,
+    ma con un timeout di connessione/lettura configurabile. Il timeout va
+    sempre impostato qui, sul client HTTP stesso: è l'unico meccanismo che
+    interrompe davvero una richiesta di rete bloccata."""
+    return ChatOllama(
+        model=LLM_PIPELINE,
+        base_url=OLLAMA_BASE_URL,
+        api_key=OLLAMA_API_KEY,
+        temperature=TEMPERATURE,
+        timeout=timeout,
+    )
+
+
+llm = build_llm(timeout=60)
 
 llm_judge = ChatOllama(
     model=LLM_JUDGE,

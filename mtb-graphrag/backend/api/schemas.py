@@ -24,7 +24,7 @@ class MTBRequest(BaseModel):
     disease_setting:    Optional[Literal["resected", "locally-advanced", "metastatic"]] = None
     prior_therapies:    list[str] = Field(default_factory=list)
     prior_response:     Optional[str] = None
-    ecog_status:        Optional[int] = Field(default=None, ge=0, le=5)
+    ecog_status:        Optional[int] = Field(default=None, ge=0, le=4)
     cns_metastases:     Optional[bool] = None
     co_alterations:     list[str] = Field(default_factory=list)
     jurisdiction:       Optional[str] = None
@@ -110,6 +110,15 @@ class ArchitectureMetrics(BaseModel):
     review_claims: int = 0
     ledger_events: int = 0
     stage_timings_ms: dict[str, int] = Field(default_factory=dict)
+    # Conteggi distinti sui due assi di verifica — non sommati fra loro,
+    # né con i conteggi legacy sopra (verified_claims/blocked_claims/review_claims
+    # restano derivati dalla sola vista tecnica ClaimCheck).
+    source_supported_count: int = 0
+    source_uncertain_count: int = 0
+    source_unsupported_count: int = 0
+    applicability_compatible_count: int = 0
+    applicability_indeterminate_count: int = 0
+    applicability_not_compatible_count: int = 0
 
 
 class DossierCaseField(BaseModel):
@@ -120,14 +129,29 @@ class DossierCaseField(BaseModel):
 
 
 class DossierEvidence(BaseModel):
+    evidence_id: str
     claim: str
     therapy: str
     setting: str
     source_id: Optional[str] = None
     evidence_level: Optional[str] = None
-    support_status: Literal["supported", "uncertain", "unsupported", "not_checked"]
-    applicability_status: Literal["compatible", "indeterminate", "not_applicable"]
-    rationale: str
+    source_support_status: Literal["supported", "uncertain", "unsupported"]
+    source_support_reason: str
+    source_population: Optional[str] = None
+    source_line: Optional[str] = None
+    source_setting: Optional[str] = None
+    source_prerequisites: Optional[str] = None
+    applicability_status: Literal["compatible", "indeterminate", "not_compatible"]
+    applicability_reason: str
+    requires_source_review: bool
+    requires_clinical_review: bool
+    dossier_section: Literal[
+        "supported_compatible",
+        "supported_indeterminate",
+        "supported_not_compatible",
+        "review",
+        "excluded",
+    ]
 
 
 class DossierFinding(BaseModel):
@@ -139,9 +163,11 @@ class DossierFinding(BaseModel):
 class ClinicalDossier(BaseModel):
     case_summary: list[DossierCaseField]
     missing_data: list[str]
-    supported_evidence: list[DossierEvidence]
-    review_evidence: list[DossierEvidence]
-    excluded_evidence: list[DossierEvidence]
+    # Vista canonica unica: ogni evidenza compare una sola volta, con
+    # entrambi gli assi di verifica e la sezione derivata (dossier_section).
+    # Le 5 sezioni cliniche si ottengono raggruppando per quel campo,
+    # sia lato backend (report testuale) sia lato frontend (rendering).
+    evidence: list[DossierEvidence]
     resistance_findings: list[DossierFinding]
     trial_findings: list[DossierFinding]
     mtb_questions: list[str]
@@ -162,6 +188,10 @@ class ArchitectureRun(BaseModel):
     run_id: Optional[str] = None
     ledger_valid: Optional[bool] = None
     planning_mode: Optional[str] = None
+    fallback_reason: Optional[str] = None
+    planner_attempts: Optional[int] = None
+    planner_elapsed_ms: Optional[int] = None
+    tool_call_timings: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class ComparisonSummary(BaseModel):

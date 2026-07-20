@@ -14,33 +14,74 @@ from urllib.request import Request, urlopen
 
 
 SOURCE_VERIFIER_SYSTEM = """Sei un verificatore di evidenze per un Molecular Tumor Board.
-Per ogni elemento valuta se la CLAIM è sostenuta dalla scheda CIViC e dall'abstract
-PubMed forniti. Controlla esplicitamente variante/biomarker, significatività,
-tumore, oggetto della claim e contesto clinico richiesto, inclusa la linea
-terapeutica. Il fatto che il PMID esista non basta. Una fonte adiuvante,
-post-progressione o di linea successiva non supporta una claim presentata come
-prima linea, a meno che il record dimostri direttamente anche quel contesto.
-Non dedurre che "first-line" significhi automaticamente malattia metastatica:
-se stadio o setting non sono dichiarati e la distinzione dipende proprio da
-questi dati, usa "uncertain" e richiedi revisione umana.
+Per ogni elemento produci DUE giudizi indipendenti — non fonderli in uno solo.
 
-Usa "supported" solo se il supporto è diretto. Usa "unsupported" se la fonte
-contraddice la claim o riguarda entità cliniche diverse. Usa "uncertain" se i
-dati non bastano. Non aggiungere conoscenza esterna.
-Scrivi sempre la motivazione in italiano.
+1) SUPPORTO DOCUMENTALE (source_support_status/source_support_reason)
+Valuta se la scheda CIViC e l'abstract PubMed sostengono la CLAIM così come la
+FONTE stessa la descrive: popolazione studiata, linea/setting, trattamenti
+precedenti e co-biomarker richiesti dalla fonte fanno parte del contesto della
+claim da verificare, non vanno ignorati. Esempio corretto di claim
+contestualizzata: "osimertinib mostra attività in NSCLC EGFR T790M dopo
+progressione a un precedente EGFR-TKI". Non riscrivere la claim usando i dati
+del paziente (non diventa "osimertinib supportato per L858R in prima linea").
+Il fatto che il PMID esista non basta: controlla esplicitamente
+variante/biomarker, farmaco o combinazione, tumore, significatività e
+statement CIViC contro l'abstract.
+Usa "supported" solo se la fonte sostiene direttamente il proprio record
+contestualizzato. Usa "unsupported" SOLO quando la fonte è disponibile e
+CONTRADDICE realmente biomarker, farmaco, tumore o claim. Se il PMID è
+assente/invalido, l'abstract non è disponibile, i dati sono insufficienti o la
+verifica non può essere completata, usa "uncertain" — non "unsupported": un
+dato mancante non è una contraddizione.
+Se ricavabili dalla fonte, riporta anche source_population, source_line,
+source_setting, source_prerequisites (stringhe brevi); lascia questi campi
+`null` quando la fonte non li specifica — non inventarli mai.
 
-Restituisci esclusivamente un array JSON:
-[{"index": 0, "verdict": "supported|unsupported|uncertain", "reason": "..."}]
+2) APPLICABILITÀ AL CASO (applicability_status/applicability_reason)
+Confronta il contesto appena estratto dalla fonte (punto 1) con il contesto
+clinico dichiarato dal paziente ("requested_case"). Questo è un confronto
+separato dal supporto documentale: una fonte può sostenere perfettamente il
+proprio record e restare comunque non applicabile al caso richiesto.
+Non dedurre che "first-line" significhi automaticamente malattia metastatica
+o viceversa. Non assumere assenza di terapie pregresse o co-alterazioni
+quando il campo del paziente è vuoto: un dato non dichiarato è sconosciuto,
+non negativo.
+Usa "not_compatible" solo quando il setting/linea della fonte confligge
+ESPLICITAMENTE col contesto richiesto (es. fonte solo post-progressione o di
+linea successiva contro una richiesta dichiarata first-line-naive).
+Usa "indeterminate" quando mancano dati per decidere da un lato o dall'altro.
+Usa "compatible" solo quando entrambi i lati dichiarano esplicitamente
+setting/linea coincidenti — mai come default.
+
+Non aggiungere conoscenza esterna. Scrivi sempre le motivazioni in italiano.
+
+Restituisci esclusivamente un array JSON, un oggetto per elemento:
+[{"index": 0,
+  "source_support_status": "supported|unsupported|uncertain",
+  "source_support_reason": "...",
+  "source_population": "..." o null,
+  "source_line": "..." o null,
+  "source_setting": "..." o null,
+  "source_prerequisites": "..." o null,
+  "applicability_status": "compatible|indeterminate|not_compatible",
+  "applicability_reason": "..."}]
 """
 
 
 @dataclass
 class SourceVerification:
     index: int
-    verdict: str
-    reason: str
+    source_support_status: str
+    source_support_reason: str
+    source_population: str | None
+    source_line: str | None
+    source_setting: str | None
+    source_prerequisites: str | None
+    applicability_status: str
+    applicability_reason: str
     verification_level: str
-    requires_human_review: bool
+    requires_source_review: bool
+    requires_clinical_review: bool
 
 
 def _pmid(source_id: str | None) -> int | None:
@@ -122,7 +163,10 @@ def _content_text(content: Any) -> str:
     return str(content).strip()
 
 
-def _parse_results(content: Any) -> dict[int, tuple[str, str]]:
+ParsedResult = tuple[str, str, str | None, str | None, str | None, str | None, str, str]
+
+
+def _parse_results(content: Any) -> dict[int, ParsedResult]:
     if isinstance(content, list) and all(
         isinstance(result, dict) and "index" in result for result in content
     ):
@@ -145,10 +189,20 @@ def _parse_results(content: Any) -> dict[int, tuple[str, str]]:
             parsed = parsed.get("results", [parsed])
     if not isinstance(parsed, list):
         raise ValueError("Il verificatore non ha restituito una lista di esiti")
+
+    def _optional_text(value: Any) -> str | None:
+        return str(value) if isinstance(value, str) and value.strip() else None
+
     return {
         int(result["index"]): (
-            str(result["verdict"]).lower(),
-            str(result.get("reason", "")),
+            str(result["source_support_status"]).lower(),
+            str(result.get("source_support_reason", "")),
+            _optional_text(result.get("source_population")),
+            _optional_text(result.get("source_line")),
+            _optional_text(result.get("source_setting")),
+            _optional_text(result.get("source_prerequisites")),
+            str(result["applicability_status"]).lower(),
+            str(result.get("applicability_reason", "")),
         )
         for result in parsed
     }
@@ -169,7 +223,7 @@ def _verification_batches(payload: list[dict[str, Any]]) -> list[list[dict[str, 
 def _invoke_verifier_batch(
     llm_client: Any,
     batch: list[dict[str, Any]],
-) -> tuple[dict[int, tuple[str, str]], str | None]:
+) -> tuple[dict[int, ParsedResult], str | None]:
     try:
         response = llm_client.invoke([
             ("system", SOURCE_VERIFIER_SYSTEM),
@@ -184,6 +238,36 @@ def _invoke_verifier_batch(
         return {}, "errore del servizio LLM"
 
 
+def _verification(
+    *,
+    index: int,
+    source_support_status: str,
+    source_support_reason: str,
+    verification_level: str,
+    source_population: str | None = None,
+    source_line: str | None = None,
+    source_setting: str | None = None,
+    source_prerequisites: str | None = None,
+    applicability_status: str = "indeterminate",
+    applicability_reason: str = "",
+) -> SourceVerification:
+    """Costruisce un esito derivando i due flag di revisione dai due assi."""
+    return SourceVerification(
+        index=index,
+        source_support_status=source_support_status,
+        source_support_reason=source_support_reason,
+        source_population=source_population,
+        source_line=source_line,
+        source_setting=source_setting,
+        source_prerequisites=source_prerequisites,
+        applicability_status=applicability_status,
+        applicability_reason=applicability_reason,
+        verification_level=verification_level,
+        requires_source_review=source_support_status in {"uncertain", "unsupported"},
+        requires_clinical_review=applicability_status in {"indeterminate", "not_compatible"},
+    )
+
+
 def verify_evidence_items(
     items: list[Any],
     *,
@@ -191,7 +275,13 @@ def verify_evidence_items(
     source_loader: Callable[[Iterable[int]], dict[int, dict[str, str]]] = fetch_pubmed_sources,
     case_context: dict[str, str] | None = None,
 ) -> list[SourceVerification]:
-    """Verifica in modalità fail-closed: dubbio o fonte assente richiedono revisione."""
+    """Verifica in modalità fail-closed: dubbio o fonte assente richiedono revisione.
+
+    ``unsupported`` è riservato ai casi in cui la fonte è disponibile e
+    contraddice realmente la claim: nessuno dei controlli strutturali qui
+    sotto ha letto un contenuto contraddittorio, quindi producono sempre
+    ``uncertain`` quando falliscono, mai ``unsupported``.
+    """
     if not items:
         return []
     if llm_client is None:
@@ -203,30 +293,27 @@ def verify_evidence_items(
     for index, item in enumerate(items):
         pmid = _pmid(item.source_id)
         if pmid is None:
-            structural[index] = SourceVerification(
+            structural[index] = _verification(
                 index=index,
-                verdict="unsupported",
-                reason="Identificatore PMID assente o non valido.",
+                source_support_status="uncertain",
+                source_support_reason="Identificatore PMID assente o non valido.",
                 verification_level="provenance",
-                requires_human_review=True,
             )
             continue
         if not item.evidence_statement or not item.citation_text:
-            structural[index] = SourceVerification(
+            structural[index] = _verification(
                 index=index,
-                verdict="uncertain",
-                reason="Il record non contiene statement clinico e citazione sufficienti.",
+                source_support_status="uncertain",
+                source_support_reason="Il record non contiene statement clinico e citazione sufficienti.",
                 verification_level="curated_record",
-                requires_human_review=True,
             )
             continue
         if item.evidence_level not in {"A", "B", "LEVEL_1", "LEVEL_2", "1", "2"}:
-            structural[index] = SourceVerification(
+            structural[index] = _verification(
                 index=index,
-                verdict="unsupported",
-                reason="Livello di evidenza non ammesso dal protocollo.",
+                source_support_status="uncertain",
+                source_support_reason="Livello di evidenza sotto la soglia del protocollo: dato insufficiente, non una contraddizione.",
                 verification_level="clinical_rules",
-                requires_human_review=True,
             )
             continue
         eligible.append((index, item, pmid))
@@ -252,21 +339,19 @@ def verify_evidence_items(
         subject_anchors = _anchors(item.subject)
         object_anchors = _anchors(item.object)
         if subject_anchors and not any(anchor in source_text for anchor in subject_anchors):
-            structural[index] = SourceVerification(
+            structural[index] = _verification(
                 index=index,
-                verdict="uncertain",
-                reason="La fonte non contiene gli ancoraggi del biomarker dichiarato nella claim.",
+                source_support_status="uncertain",
+                source_support_reason="La fonte non contiene gli ancoraggi del biomarker dichiarato nella claim.",
                 verification_level="clinical_rules",
-                requires_human_review=True,
             )
             continue
         if object_anchors and not any(anchor in source_text for anchor in object_anchors):
-            structural[index] = SourceVerification(
+            structural[index] = _verification(
                 index=index,
-                verdict="uncertain",
-                reason="La fonte non contiene l'oggetto clinico dichiarato nella claim.",
+                source_support_status="uncertain",
+                source_support_reason="La fonte non contiene l'oggetto clinico dichiarato nella claim.",
                 verification_level="clinical_rules",
-                requires_human_review=True,
             )
             continue
         payload.append({
@@ -281,7 +366,7 @@ def verify_evidence_items(
             "pubmed": source,
         })
 
-    llm_results: dict[int, tuple[str, str]] = {}
+    llm_results: dict[int, ParsedResult] = {}
     llm_failures: dict[int, str] = {}
     if payload:
         batches = _verification_batches(payload)
@@ -305,27 +390,44 @@ def verify_evidence_items(
             results.append(structural[index])
             continue
         if index in missing_source:
-            results.append(SourceVerification(
+            results.append(_verification(
                 index=index,
-                verdict="uncertain",
-                reason="Abstract PubMed non disponibile: il record CIViC da solo non chiude la verifica.",
+                source_support_status="uncertain",
+                source_support_reason="Abstract PubMed non disponibile: il record CIViC da solo non chiude la verifica.",
                 verification_level="curated_record",
-                requires_human_review=True,
             ))
             continue
         failure = llm_failures.get(index)
-        verdict, reason = llm_results.get(index, (
-            "uncertain",
-            "Verifica semantica non completata"
-            + (f" ({failure})." if failure else ": esito mancante nella risposta del modello."),
-        ))
-        if verdict not in {"supported", "unsupported", "uncertain"}:
-            verdict = "uncertain"
-        results.append(SourceVerification(
+        parsed = llm_results.get(index)
+        if parsed is None:
+            support_status = "uncertain"
+            support_reason = (
+                "Verifica semantica non completata"
+                + (f" ({failure})." if failure else ": esito mancante nella risposta del modello.")
+            )
+            population = line = setting = prerequisites = None
+            applicability_status = "indeterminate"
+            applicability_reason = "Applicabilità non valutata: la verifica del supporto documentale non è stata completata."
+        else:
+            (
+                support_status, support_reason,
+                population, line, setting, prerequisites,
+                applicability_status, applicability_reason,
+            ) = parsed
+        if support_status not in {"supported", "unsupported", "uncertain"}:
+            support_status = "uncertain"
+        if applicability_status not in {"compatible", "indeterminate", "not_compatible"}:
+            applicability_status = "indeterminate"
+        results.append(_verification(
             index=index,
-            verdict=verdict,
-            reason=reason,
+            source_support_status=support_status,
+            source_support_reason=support_reason,
             verification_level="pubmed_abstract",
-            requires_human_review=verdict != "supported",
+            source_population=population,
+            source_line=line,
+            source_setting=setting,
+            source_prerequisites=prerequisites,
+            applicability_status=applicability_status,
+            applicability_reason=applicability_reason,
         ))
     return results

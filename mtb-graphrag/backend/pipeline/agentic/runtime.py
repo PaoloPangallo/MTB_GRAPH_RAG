@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 import json
+import os
 import re
-from dataclasses import dataclass
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FuturesTimeoutError
+from dataclasses import dataclass, field
+from time import perf_counter
 from typing import Any, Callable
 from uuid import uuid4
 
@@ -12,6 +16,18 @@ from backend.pipeline.agentic.ledger import EventLedger
 
 
 Tool = Callable[[dict[str, Any]], dict[str, Any]]
+
+# Categorie sanitizzate del motivo di fallback: mai il testo grezzo
+# dell'eccezione, che potrebbe contenere dettagli interni o segreti.
+FallbackReason = str  # "timeout" | "invalid_json" | "service_unavailable" | "budget_exhausted" | "other"
+
+_FALLBACK_MESSAGES: dict[FallbackReason, str] = {
+    "timeout": "Fallback sicuro: timeout del planner.",
+    "invalid_json": "Fallback sicuro: risposta del planner non conforme al formato JSON.",
+    "service_unavailable": "Fallback sicuro: servizio del planner non disponibile.",
+    "budget_exhausted": "Fallback sicuro: budget di tempo del planner esaurito.",
+    "other": "Fallback sicuro: il planner ha proposto uno strumento non consentito o un errore non classificato.",
+}
 
 
 PLANNER_SYSTEM = """Sei il planner di raccolta evidenze per un Molecular Tumor Board.
@@ -25,6 +41,27 @@ Restituisci esclusivamente JSON valido:
 """
 
 
+def _planner_timeout_seconds() -> int:
+    try:
+        return max(1, int(os.getenv("PLANNER_TIMEOUT_SECONDS", "20")))
+    except ValueError:
+        return 20
+
+
+def _planner_max_retries() -> int:
+    try:
+        return max(0, int(os.getenv("PLANNER_MAX_RETRIES", "1")))
+    except ValueError:
+        return 1
+
+
+def _planner_total_budget_seconds() -> int:
+    try:
+        return max(1, int(os.getenv("PLANNER_TOTAL_BUDGET_SECONDS", "30")))
+    except ValueError:
+        return 30
+
+
 @dataclass
 class AgenticCollectionResult:
     state: dict[str, Any]
@@ -34,6 +71,10 @@ class AgenticCollectionResult:
     planning_mode: str
     ledger_valid: bool
     errors: list[str]
+    fallback_reason: FallbackReason | None = None
+    planner_attempts: int = 0
+    planner_elapsed_ms: int = 0
+    tool_call_timings: list[dict[str, Any]] = field(default_factory=list)
 
 
 def _default_tools() -> dict[str, Tool]:
@@ -129,28 +170,50 @@ def _fallback_tool(allowed: list[str]) -> str:
     return next(tool for tool in safe_order if tool in allowed)
 
 
-def _choose_tool(
+def _invoke_planner_with_timeout(planner_llm: Any, messages: list[tuple[str, str]], timeout_seconds: int) -> Any:
+    """Invoca il planner con un timeout. Il meccanismo di interruzione affidabile
+    è il timeout configurato sul client stesso (vedi ``backend.pipeline.llm.build_llm``);
+    questo executor è solo una misura difensiva aggiuntiva e non deve MAI attendere
+    il thread bloccato dopo lo scadere del timeout — un thread Python non può
+    terminare in sicurezza una richiesta di rete in corso, quindi lo si abbandona
+    con ``shutdown(wait=False)`` invece di bloccare l'esecuzione su di esso."""
+    executor = ThreadPoolExecutor(max_workers=1)
+    try:
+        future = executor.submit(planner_llm.invoke, messages)
+        return future.result(timeout=timeout_seconds)
+    finally:
+        executor.shutdown(wait=False)
+
+
+def _attempt_planner_call(
     state: dict[str, Any],
     completed: set[str],
     allowed: list[str],
     planner_llm: Any,
-) -> tuple[str, str, bool]:
+    timeout_seconds: int,
+) -> tuple[tuple[str, str] | None, FallbackReason | None]:
+    """Un solo tentativo di ottenere una decisione valida dal planner.
+    Restituisce ``(decisione, None)`` in caso di successo oppure
+    ``(None, categoria_sanitizzata)`` in caso di fallimento — mai il testo
+    grezzo dell'eccezione."""
     prompt = json.dumps({
         "stato": _state_summary(state, completed),
         "strumenti_consentiti": allowed,
     }, ensure_ascii=False, sort_keys=True)
+    messages = [("system", PLANNER_SYSTEM), ("human", prompt)]
     try:
-        response = planner_llm.invoke([
-            ("system", PLANNER_SYSTEM),
-            ("human", prompt),
-        ])
+        response = _invoke_planner_with_timeout(planner_llm, messages, timeout_seconds)
+    except FuturesTimeoutError:
+        return None, "timeout"
+    except Exception:
+        return None, "service_unavailable"
+    try:
         tool, rationale = _parse_decision(response.content)
-        if tool not in allowed:
-            raise ValueError(f"Strumento non consentito: {tool}")
-        return tool, rationale, False
-    except Exception as exc:
-        fallback = _fallback_tool(allowed)
-        return fallback, f"Fallback sicuro dopo errore del planner: {exc}", True
+    except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+        return None, "invalid_json"
+    if tool not in allowed:
+        return None, "other"
+    return (tool, rationale), None
 
 
 def _observation(tool: str, state: dict[str, Any]) -> dict[str, Any]:
@@ -180,10 +243,16 @@ def run_agentic_collection(
     tool_registry: dict[str, Tool] | None = None,
     max_steps: int = 8,
 ) -> AgenticCollectionResult:
-    """Esegue un ciclo plan→tool→observe limitato e completamente auditabile."""
+    """Esegue un ciclo plan→tool→observe limitato e completamente auditabile.
+
+    Il planner LLM può fallire una sola volta per l'intera run: dopo la prima
+    transizione a ``safe_fallback`` non viene più richiamato — gli step
+    successivi usano direttamente l'ordine tipizzato sicuro, senza ulteriori
+    chiamate LLM e senza moltiplicare i tentativi/timeout per ogni step.
+    """
     if planner_llm is None:
-        from backend.pipeline.llm import llm
-        planner_llm = llm
+        from backend.pipeline.llm import build_llm
+        planner_llm = build_llm(timeout=_planner_timeout_seconds())
     tools = tool_registry or _default_tools()
     event_ledger = ledger or EventLedger()
     run_id = str(uuid4())
@@ -191,7 +260,16 @@ def run_agentic_collection(
     completed: set[str] = set()
     tool_path: list[str] = []
     errors: list[str] = []
-    used_fallback = False
+    tool_call_timings: list[dict[str, Any]] = []
+
+    planning_mode = "llm_dynamic"
+    fallback_locked = False
+    fallback_reason: FallbackReason | None = None
+    planner_attempts = 0
+    planner_elapsed_ms = 0
+    budget_remaining_ms = _planner_total_budget_seconds() * 1000
+    timeout_seconds = _planner_timeout_seconds()
+    max_attempts = 1 + _planner_max_retries()
 
     event_ledger.append(run_id, "run_started", "controller", {
         "case": _state_summary(state, completed)["case"],
@@ -203,19 +281,50 @@ def run_agentic_collection(
         if not allowed:
             errors.append("Nessuno strumento consentito disponibile.")
             break
-        tool, rationale, fallback = _choose_tool(
-            state,
-            completed,
-            allowed,
-            planner_llm,
-        )
-        used_fallback = used_fallback or fallback
-        event_ledger.append(run_id, "plan_decision", "llm_planner", {
+
+        if fallback_locked:
+            tool = _fallback_tool(allowed)
+            rationale = _FALLBACK_MESSAGES.get(fallback_reason, _FALLBACK_MESSAGES["other"])
+        else:
+            decision: tuple[str, str] | None = None
+            for _attempt in range(max_attempts):
+                if budget_remaining_ms <= 0:
+                    fallback_reason = fallback_reason or "budget_exhausted"
+                    break
+                planner_attempts += 1
+                started = perf_counter()
+                decision, category = _attempt_planner_call(
+                    state, completed, allowed, planner_llm, timeout_seconds,
+                )
+                elapsed = int((perf_counter() - started) * 1000)
+                planner_elapsed_ms += elapsed
+                budget_remaining_ms -= elapsed
+                if decision is not None:
+                    break
+                fallback_reason = fallback_reason or category
+
+            if decision is not None:
+                tool, rationale = decision
+            else:
+                fallback_locked = True
+                planning_mode = "safe_fallback"
+                fallback_reason = fallback_reason or "other"
+                tool = _fallback_tool(allowed)
+                rationale = _FALLBACK_MESSAGES.get(fallback_reason, _FALLBACK_MESSAGES["other"])
+                event_ledger.append(run_id, "planner_fallback_triggered", "controller", {
+                    "step": step,
+                    "reason_category": fallback_reason,
+                    "rationale": rationale,
+                    "attempts": planner_attempts,
+                    "elapsed_ms": planner_elapsed_ms,
+                })
+
+        event_ledger.append(run_id, "plan_decision", "llm_planner" if not fallback_locked else "controller", {
             "step": step,
             "selected_tool": tool,
             "allowed_tools": allowed,
             "rationale": rationale,
-            "fallback": fallback,
+            "fallback": fallback_locked,
         })
 
         if tool == "finish":
@@ -226,10 +335,17 @@ def run_agentic_collection(
             break
 
         event_ledger.append(run_id, "tool_started", tool, {"step": step})
+        tool_started = perf_counter()
         try:
             state = tools[tool](state)
             completed.add(tool)
             tool_path.append(tool)
+            tool_call_timings.append({
+                "tool": tool,
+                "sequence": len(tool_path),
+                "elapsed_ms": int((perf_counter() - tool_started) * 1000),
+                "status": "completed",
+            })
             event_ledger.append(run_id, "tool_completed", tool, {
                 "step": step,
                 "observation": _observation(tool, state),
@@ -237,6 +353,12 @@ def run_agentic_collection(
         except Exception as exc:
             message = f"{tool}: {exc}"
             errors.append(message)
+            tool_call_timings.append({
+                "tool": tool,
+                "sequence": len(tool_path) + 1,
+                "elapsed_ms": int((perf_counter() - tool_started) * 1000),
+                "status": "failed",
+            })
             event_ledger.append(run_id, "tool_failed", tool, {
                 "step": step,
                 "error": str(exc),
@@ -255,7 +377,11 @@ def run_agentic_collection(
         run_id=run_id,
         events=events,
         tool_path=tool_path,
-        planning_mode="safe_fallback" if used_fallback else "llm_dynamic",
+        planning_mode=planning_mode,
         ledger_valid=event_ledger.verify_chain(run_id),
         errors=errors,
+        fallback_reason=fallback_reason if planning_mode == "safe_fallback" else None,
+        planner_attempts=planner_attempts,
+        planner_elapsed_ms=planner_elapsed_ms,
+        tool_call_timings=tool_call_timings,
     )

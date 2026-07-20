@@ -1,7 +1,22 @@
+from types import SimpleNamespace
 from unittest import TestCase
 
 from backend.api.schemas import ArchitectureComparisonRequest, EvidenceItem
-from backend.comparison.service import _canonical_evidence, compare_architectures
+from backend.comparison.service import (
+    _agentic_trace,
+    _canonical_evidence,
+    _render_verified_report,
+    compare_architectures,
+)
+
+
+_DOSSIER_SECTIONS = {
+    "supported_compatible",
+    "supported_indeterminate",
+    "supported_not_compatible",
+    "review",
+    "excluded",
+}
 
 
 class ComparisonDemoTest(TestCase):
@@ -25,6 +40,9 @@ class ComparisonDemoTest(TestCase):
         self.assertNotEqual(result.deterministic.llm_roles, result.agentic.llm_roles)
 
     def test_demo_exposes_the_proposed_verifiable_control_layer(self):
+        # Ambito demo invariato: questa fixture (inclusa la fault injection MET)
+        # non viene qui usata come prova di validità clinica, solo come
+        # dimostrazione del contratto architetturale.
         result = compare_architectures(self._request())
         stages = [step.stage for step in result.agentic.trace]
         self.assertIn("Event log append-only", stages)
@@ -45,26 +63,27 @@ class ComparisonDemoTest(TestCase):
     def test_common_dossier_separates_unverified_supported_and_excluded_items(self):
         result = compare_architectures(self._request())
 
-        self.assertEqual(
-            result.deterministic.dossier.review_evidence[0].support_status,
-            "not_checked",
-        )
-        self.assertEqual(
-            result.agentic.dossier.supported_evidence[0].source_id,
-            "PMID:29151359",
-        )
-        self.assertEqual(
-            result.agentic.dossier.supported_evidence[0].applicability_status,
-            "indeterminate",
-        )
-        self.assertEqual(
-            result.agentic.dossier.excluded_evidence[0].claim,
-            "Il caso presenta amplificazione di MET.",
-        )
-        self.assertEqual(
-            result.agentic.dossier.excluded_evidence[0].applicability_status,
-            "indeterminate",
-        )
+        deterministic_review = [
+            item for item in result.deterministic.dossier.evidence if item.dossier_section == "review"
+        ]
+        self.assertEqual(deterministic_review[0].source_support_status, "uncertain")
+
+        # Senza un verificatore fonte-per-fonte reale (percorso demo), l'evidenza
+        # EGFR/osimertinib resta documentalmente supportata ma con applicabilità
+        # onestamente indeterminata — mai "compatible" per default fabbricato.
+        agentic_supported = [
+            item for item in result.agentic.dossier.evidence
+            if item.dossier_section == "supported_indeterminate"
+        ]
+        self.assertEqual(agentic_supported[0].source_id, "PMID:29151359")
+        self.assertEqual(agentic_supported[0].applicability_status, "indeterminate")
+
+        agentic_excluded = [
+            item for item in result.agentic.dossier.evidence if item.dossier_section == "excluded"
+        ]
+        self.assertEqual(agentic_excluded[0].claim, "Il caso presenta amplificazione di MET.")
+        self.assertEqual(agentic_excluded[0].applicability_status, "indeterminate")
+
         self.assertIn("Stadio", result.agentic.dossier.missing_data)
 
     def test_complete_clinical_context_is_preserved_in_the_dossier(self):
@@ -85,10 +104,13 @@ class ComparisonDemoTest(TestCase):
         self.assertEqual(dossier.missing_data, [])
         self.assertEqual(values["ecog_status"], "1")
         self.assertEqual(values["cns_metastases"], "Assenti")
-        self.assertEqual(
-            dossier.supported_evidence[0].applicability_status,
-            "compatible",
-        )
+
+        # Anche con contesto clinico completo nella richiesta, senza una vera
+        # verifica LLM l'applicabilità resta "indeterminate": un contesto
+        # completo nella richiesta non fabbrica un "compatible" fittizio.
+        supported = [item for item in dossier.evidence if item.source_support_status == "supported"]
+        self.assertEqual(supported[0].applicability_status, "indeterminate")
+        self.assertEqual(supported[0].dossier_section, "supported_indeterminate")
 
     def test_canonical_view_removes_exact_duplicate_evidence(self):
         item = EvidenceItem(
@@ -104,3 +126,108 @@ class ComparisonDemoTest(TestCase):
 
         self.assertEqual(len(canonical), 1)
         self.assertEqual(canonical[0].source_id, "PMID:37937763")
+
+    def test_dossier_evidence_sections_form_a_clean_partition(self):
+        """Vista canonica unica: ogni evidenza compare in esattamente una
+        sezione, nessuna evidenza è persa e gli evidence_id sono univoci."""
+        result = compare_architectures(self._request())
+        for run in (result.deterministic, result.agentic):
+            dossier = run.dossier
+            sections = {item.dossier_section for item in dossier.evidence}
+            self.assertTrue(sections <= _DOSSIER_SECTIONS)
+            ids = [item.evidence_id for item in dossier.evidence]
+            self.assertEqual(len(ids), len(set(ids)))
+            by_section: dict[str, list] = {}
+            for item in dossier.evidence:
+                by_section.setdefault(item.dossier_section, []).append(item)
+            self.assertEqual(sum(len(items) for items in by_section.values()), len(dossier.evidence))
+
+
+class AgenticTraceTest(TestCase):
+    def _collection(self, **overrides):
+        base = {"planning_mode": "llm_dynamic", "tool_path": ["interpret_variant"], "fallback_reason": None}
+        base.update(overrides)
+        return SimpleNamespace(**base)
+
+    def test_trace_reflects_llm_dynamic_planning(self):
+        collection = self._collection(tool_path=["interpret_variant", "assess_complexity"])
+        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=1, blocked=0, uncertain=0)
+        planning_step, collection_step = trace[1], trace[2]
+
+        self.assertEqual(planning_step.detail, "Il planner ha scelto iterativamente gli strumenti.")
+        self.assertEqual(planning_step.status, "completed")
+        self.assertIn("ha alimentato la decisione successiva", collection_step.detail)
+        self.assertEqual(collection_step.status, "completed")
+
+    def test_trace_reflects_safe_fallback_planning(self):
+        collection = self._collection(planning_mode="safe_fallback", fallback_reason="timeout")
+        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=0, blocked=0, uncertain=0)
+        planning_step, collection_step = trace[1], trace[2]
+
+        self.assertEqual(
+            planning_step.detail,
+            "È stato eseguito un piano tipizzato predefinito; questa esecuzione non "
+            "dimostra pianificazione agentica dinamica.",
+        )
+        self.assertEqual(planning_step.status, "warning")
+        self.assertNotIn("ha alimentato la decisione successiva", collection_step.detail)
+        self.assertEqual(collection_step.status, "warning")
+        self.assertIn("timeout", collection_step.detail)
+
+
+class RenderVerifiedReportTest(TestCase):
+    _BANNED_PHRASES = ("terapia raccomandata", "terapia indicata", "paziente eleggibile", "opzione applicabile")
+
+    def _verification(self, **overrides):
+        base = dict(
+            source_support_status="supported",
+            source_support_reason="La fonte documenta il proprio record.",
+            source_population=None,
+            source_line=None,
+            source_setting=None,
+            source_prerequisites=None,
+            applicability_status="indeterminate",
+            applicability_reason="Dati clinici insufficienti per decidere.",
+        )
+        base.update(overrides)
+        return SimpleNamespace(**base)
+
+    def test_avoids_recommendation_wording_when_not_compatible(self):
+        item = EvidenceItem(
+            subject="EGFR T790M",
+            relation="Sensitivity/Response",
+            object="osimertinib",
+            context="NSCLC post-progressione",
+            source_id="PMID:27959700",
+            provenance="fixture",
+        )
+        verification = self._verification(
+            source_population="NSCLC EGFR T790M",
+            source_line="seconda linea",
+            source_setting="post-progressione",
+            source_prerequisites="progressione a un precedente EGFR-TKI",
+            applicability_status="not_compatible",
+            applicability_reason="Richiesta first-line esplicita; la fonte riguarda solo pazienti post-progressione.",
+        )
+        report = _render_verified_report("EGFR T790M · NSCLC · first-line", [item], [verification])
+
+        for phrase in self._BANNED_PHRASES:
+            self.assertNotIn(phrase, report.lower())
+        self.assertIn("PMID:27959700", report)
+        self.assertIn("post-progressione", report)
+
+    def test_avoids_recommendation_wording_when_applicability_indeterminate(self):
+        item = EvidenceItem(
+            subject="EGFR L858R",
+            relation="Sensitivity/Response",
+            object="osimertinib",
+            context="NSCLC",
+            source_id="PMID:29151359",
+            provenance="fixture",
+        )
+        verification = self._verification(applicability_status="indeterminate")
+        report = _render_verified_report("EGFR L858R · NSCLC · first-line", [item], [verification])
+
+        for phrase in self._BANNED_PHRASES:
+            self.assertNotIn(phrase, report.lower())
+        self.assertIn("indeterminata", report)

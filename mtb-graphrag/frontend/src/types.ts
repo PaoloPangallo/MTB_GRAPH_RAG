@@ -122,15 +122,31 @@ export interface DossierCaseField {
   confirmed: boolean;
 }
 
+export type DossierSection =
+  | 'supported_compatible'
+  | 'supported_indeterminate'
+  | 'supported_not_compatible'
+  | 'review'
+  | 'excluded';
+
 export interface DossierEvidence {
+  evidence_id: string;
   claim: string;
   therapy: string;
   setting: string;
   source_id?: string | null;
   evidence_level?: string | null;
-  support_status: 'supported' | 'uncertain' | 'unsupported' | 'not_checked';
-  applicability_status: 'compatible' | 'indeterminate' | 'not_applicable';
-  rationale: string;
+  source_support_status: 'supported' | 'uncertain' | 'unsupported';
+  source_support_reason: string;
+  source_population?: string | null;
+  source_line?: string | null;
+  source_setting?: string | null;
+  source_prerequisites?: string | null;
+  applicability_status: 'compatible' | 'indeterminate' | 'not_compatible';
+  applicability_reason: string;
+  requires_source_review: boolean;
+  requires_clinical_review: boolean;
+  dossier_section: DossierSection;
 }
 
 export interface DossierFinding {
@@ -142,9 +158,10 @@ export interface DossierFinding {
 export interface ClinicalDossier {
   case_summary: DossierCaseField[];
   missing_data: string[];
-  supported_evidence: DossierEvidence[];
-  review_evidence: DossierEvidence[];
-  excluded_evidence: DossierEvidence[];
+  // Vista canonica unica: ogni evidenza compare una sola volta, con
+  // entrambi gli assi di verifica; le sezioni cliniche si ottengono
+  // raggruppando per dossier_section (vedi groupDossierEvidence).
+  evidence: DossierEvidence[];
   resistance_findings: DossierFinding[];
   trial_findings: DossierFinding[];
   mtb_questions: string[];
@@ -169,11 +186,22 @@ export interface ArchitectureRun {
     review_claims?: number;
     ledger_events?: number;
     stage_timings_ms?: Record<string, number>;
+    // Conteggi distinti sui due assi — mai sommati fra loro né coi conteggi legacy sopra.
+    source_supported_count?: number;
+    source_uncertain_count?: number;
+    source_unsupported_count?: number;
+    applicability_compatible_count?: number;
+    applicability_indeterminate_count?: number;
+    applicability_not_compatible_count?: number;
   };
   limitations: string[];
   run_id?: string | null;
   ledger_valid?: boolean | null;
   planning_mode?: string | null;
+  fallback_reason?: string | null;
+  planner_attempts?: number | null;
+  planner_elapsed_ms?: number | null;
+  tool_call_timings?: Array<{ tool: string; sequence: number; elapsed_ms: number; status: string }>;
 }
 
 export interface ArchitectureComparisonResponse {
