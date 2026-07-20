@@ -120,6 +120,84 @@ describe('ArchitecturePanel — tempi delle chiamate agli strumenti', () => {
   });
 });
 
+describe('ArchitecturePanel — diagnostica verificatore', () => {
+  it('non mostra la sezione quando non ci sono batch del verificatore', () => {
+    render(<ArchitecturePanel run={buildRun()} />);
+    expect(screen.queryByText('Diagnostica verificatore')).not.toBeInTheDocument();
+  });
+
+  it('mostra batch, retry, recuperi e tempo del verificatore quando disponibili', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          metrics: {
+            elapsed_ms: 10,
+            tool_calls: 1,
+            evidence_count: 14,
+            verified_claims: 0,
+            blocked_claims: 0,
+            verifier_batches: 4,
+            verifier_failed_batches: 1,
+            verifier_retry_items: 3,
+            verifier_recovered_items: 1,
+            verifier_failed_items: 2,
+            verifier_elapsed_ms: 850,
+          },
+        })}
+      />,
+    );
+    expect(screen.getByText('Diagnostica verificatore')).toBeInTheDocument();
+    expect(screen.getByText('4')).toBeInTheDocument();
+    expect(screen.getByText('850 ms')).toBeInTheDocument();
+  });
+
+  it('mostra un warning quando più del 20% delle verifiche fallisce definitivamente', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          metrics: {
+            elapsed_ms: 10,
+            tool_calls: 1,
+            evidence_count: 14,
+            verified_claims: 0,
+            blocked_claims: 0,
+            verifier_batches: 4,
+            verifier_failed_batches: 3,
+            verifier_retry_items: 9,
+            verifier_recovered_items: 0,
+            verifier_failed_items: 9,
+            verifier_elapsed_ms: 5000,
+          },
+        })}
+      />,
+    );
+    expect(screen.getByText(/Più del 20% delle verifiche è fallito definitivamente/)).toBeInTheDocument();
+  });
+
+  it('non mostra il warning quando i fallimenti definitivi restano sotto il 20%', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          metrics: {
+            elapsed_ms: 10,
+            tool_calls: 1,
+            evidence_count: 14,
+            verified_claims: 0,
+            blocked_claims: 0,
+            verifier_batches: 4,
+            verifier_failed_batches: 1,
+            verifier_retry_items: 1,
+            verifier_recovered_items: 1,
+            verifier_failed_items: 0,
+            verifier_elapsed_ms: 500,
+          },
+        })}
+      />,
+    );
+    expect(screen.queryByText(/Più del 20% delle verifiche è fallito definitivamente/)).not.toBeInTheDocument();
+  });
+});
+
 describe('ArchitecturePanel — banner safe_fallback', () => {
   it('dichiara che il fallback non equivale a pianificazione dinamica riuscita', () => {
     render(

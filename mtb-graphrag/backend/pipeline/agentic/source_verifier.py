@@ -263,6 +263,16 @@ def _batch_size() -> int:
         return 4
 
 
+def _max_workers() -> int:
+    """Concorrenza dei batch iniziali verso l'endpoint LLM. Predefinita a 1:
+    con un singolo endpoint (es. Ollama locale) una concorrenza più alta può
+    sovraccaricare il servizio e causare fallimenti a cascata."""
+    try:
+        return max(1, min(8, int(os.getenv("SOURCE_VERIFIER_MAX_WORKERS", "1"))))
+    except ValueError:
+        return 1
+
+
 def _retry_timeout_seconds() -> int:
     try:
         return max(1, int(os.getenv("SOURCE_VERIFIER_RETRY_TIMEOUT_SECONDS", "15")))
@@ -271,10 +281,12 @@ def _retry_timeout_seconds() -> int:
 
 
 def _retry_max_workers() -> int:
+    """Concorrenza del retry bounded a singolo record. Predefinita a 1, per
+    lo stesso motivo di ``_max_workers``."""
     try:
-        return max(1, min(4, int(os.getenv("SOURCE_VERIFIER_RETRY_MAX_WORKERS", "2"))))
+        return max(1, min(4, int(os.getenv("SOURCE_VERIFIER_RETRY_MAX_WORKERS", "1"))))
     except ValueError:
-        return 2
+        return 1
 
 
 def _verification_batches(payload: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
@@ -391,24 +403,79 @@ def _regimen_components(text: str) -> set[str]:
     return {part.strip().lower() for part in parts if part.strip()}
 
 
-def _incomplete_regimen_reason(item: Any, source_interventions: list[str]) -> str | None:
-    """Confronta il regime completo dichiarato dalla fonte con l'oggetto della
-    claim (``item.object``). Restituisce un motivo se la fonte descrive un
-    regime più ampio di quello della claim — una combinazione parziale non va
-    mai confermata senza riserva come se fosse il regime completo."""
+_REGIMEN_CHAIN_PATTERN = re.compile(
+    r"[A-Za-z][A-Za-z0-9-]{3,}(?:\s*(?:\+|,|/|\bplus\b|\band\b|\be\b)\s*[A-Za-z][A-Za-z0-9-]{3,})+",
+    re.IGNORECASE,
+)
+
+# Parole generiche che compaiono spesso in catene testuali connesse da "and"/
+# "plus"/virgole ma non sono nomi di farmaci: escluse per ridurre i falsi
+# positivi della scansione testuale diretta (non un dizionario di farmaci).
+_REGIMEN_CHAIN_STOPWORDS = {
+    "and", "the", "with", "efficacy", "safety", "survival", "progression",
+    "free", "overall", "response", "rate", "rates", "phase", "study",
+    "trial", "patients", "patient", "advanced", "metastatic", "previously",
+    "treated", "therapy", "treatment", "group", "groups", "arm", "arms",
+    "randomized", "randomised", "results", "significant", "significantly",
+    "compared", "versus", "placebo", "standard", "care", "chemotherapy",
+    "combination", "regimen", "cohort", "analysis", "outcome", "outcomes",
+    "median", "follow", "months", "years", "clinical", "disease", "line",
+    "first", "second", "later", "based", "receiving", "received",
+}
+
+
+def _regimen_phrase_components(text: str) -> set[str]:
+    """Cerca catene di token separati da connettori (+, virgola, 'and',
+    'plus', ecc.) nel testo grezzo PubMed/CIViC — un'euristica indipendente
+    dall'LLM per individuare un regime a più farmaci descritto nel titolo/
+    abstract anche quando ``source_interventions`` non lo riporta."""
+    components: set[str] = set()
+    for match in _REGIMEN_CHAIN_PATTERN.finditer(text or ""):
+        for token in re.split(r"\s*(?:\+|,|/|\bplus\b|\band\b|\be\b)\s*", match.group(0), flags=re.IGNORECASE):
+            normalized = token.strip().lower()
+            if normalized and normalized not in _REGIMEN_CHAIN_STOPWORDS:
+                components.add(normalized)
+    return components
+
+
+def _regimen_check_reason(item: Any, source_interventions: list[str], source_text: str) -> str | None:
+    """Fail-closed: una claim a più farmaci non resta "supported" senza
+    riserva se il regime completo della fonte non è verificabile o include
+    componenti aggiuntivi — sia che manchino da ``source_interventions``
+    (l'LLM può ometterli), sia che siano presenti solo nel testo grezzo
+    PubMed/CIViC disponibile, che viene sempre riscansionato indipendentemente
+    dalla motivazione dichiarata dall'LLM."""
+    claim_components = _regimen_components(item.object)
+    if len(claim_components) < 2:
+        return None  # non è una claim di regime combinato: nessun controllo necessario
+
     source_components = {value.strip().lower() for value in source_interventions if value and value.strip()}
     if not source_components:
-        return None
-    claim_components = _regimen_components(item.object)
-    missing = source_components - claim_components
-    if not missing:
-        return None
-    return (
-        "La fonte descrive il regime completo "
-        f"({', '.join(sorted(source_components))}), che include "
-        f"{', '.join(sorted(missing))} non presenti nella claim: il supporto "
-        "documentale non copre la combinazione parziale come regime equivalente."
-    )
+        return (
+            "La claim descrive un regime a più farmaci "
+            f"({', '.join(sorted(claim_components))}), ma la fonte non ha riportato un elenco "
+            "verificabile del regime completo: il supporto documentale non può essere confermato "
+            "senza riserva su una combinazione parziale."
+        )
+
+    missing_from_source_list = source_components - claim_components
+    if missing_from_source_list:
+        return (
+            "La fonte descrive il regime completo "
+            f"({', '.join(sorted(source_components))}), che include "
+            f"{', '.join(sorted(missing_from_source_list))} non presenti nella claim: il supporto "
+            "documentale non copre la combinazione parziale come regime equivalente."
+        )
+
+    missing_from_text = _regimen_phrase_components(source_text) - claim_components - source_components
+    if missing_from_text:
+        return (
+            "Il testo della fonte (titolo/abstract) menziona componenti aggiuntivi del regime "
+            f"({', '.join(sorted(missing_from_text))}) non presenti né nella claim né nell'elenco "
+            "riportato dal verificatore: il supporto documentale non può essere confermato senza "
+            "riserva sulla combinazione parziale."
+        )
+    return None
 
 
 def verify_evidence_items(
@@ -429,7 +496,8 @@ def verify_evidence_items(
     Se ``metrics`` è fornito, viene popolato in-place con contatori
     diagnostici (``verifier_batches``, ``verifier_failed_batches``,
     ``verifier_retry_items``, ``verifier_recovered_items``,
-    ``verifier_elapsed_ms``) senza cambiare il tipo di ritorno della funzione.
+    ``verifier_failed_items``, ``verifier_elapsed_ms``) senza cambiare il tipo
+    di ritorno della funzione.
     """
     verification_started = perf_counter()
     if not items:
@@ -439,6 +507,7 @@ def verify_evidence_items(
                 verifier_failed_batches=0,
                 verifier_retry_items=0,
                 verifier_recovered_items=0,
+                verifier_failed_items=0,
                 verifier_elapsed_ms=0,
             )
         return []
@@ -483,6 +552,7 @@ def verify_evidence_items(
 
     payload = []
     missing_source: set[int] = set()
+    source_text_by_index: dict[int, str] = {}
     for index, item, pmid in eligible:
         source = pubmed_sources.get(pmid)
         if not source or not source.get("abstract"):
@@ -494,6 +564,7 @@ def verify_evidence_items(
             source.get("title", ""),
             source.get("abstract", ""),
         )).lower()
+        source_text_by_index[index] = source_text
         subject_anchors = _anchors(item.subject)
         object_anchors = _anchors(item.object)
         if subject_anchors and not any(anchor in source_text for anchor in subject_anchors):
@@ -533,7 +604,7 @@ def verify_evidence_items(
     if payload:
         batches = _verification_batches(payload)
         batches_run = len(batches)
-        workers = min(4, len(batches))
+        workers = min(_max_workers(), len(batches))
         with ThreadPoolExecutor(max_workers=workers) as executor:
             futures = {
                 executor.submit(_invoke_verifier_batch, llm_client, batch): batch
@@ -563,12 +634,14 @@ def verify_evidence_items(
                 elif index in retry_failures:
                     llm_failures[index] = retry_failures[index]
 
+    failed_items = retry_items - recovered_items
     if metrics is not None:
         metrics.update(
             verifier_batches=batches_run,
             verifier_failed_batches=failed_batches,
             verifier_retry_items=retry_items,
             verifier_recovered_items=recovered_items,
+            verifier_failed_items=failed_items,
             verifier_elapsed_ms=int((perf_counter() - verification_started) * 1000),
         )
 
@@ -611,13 +684,15 @@ def verify_evidence_items(
         if applicability_status not in {"compatible", "indeterminate", "not_compatible"}:
             applicability_status = "indeterminate"
 
-        if support_status == "supported" and source_interventions:
-            incomplete_reason = _incomplete_regimen_reason(items[index], source_interventions)
-            if incomplete_reason:
+        if support_status == "supported":
+            regimen_reason = _regimen_check_reason(
+                items[index], source_interventions, source_text_by_index.get(index, ""),
+            )
+            if regimen_reason:
                 support_status = "uncertain"
-                support_reason = incomplete_reason
+                support_reason = regimen_reason
 
-        applicability_status = validate_applicability(
+        applicability_status, applicability_reason = validate_applicability(
             {
                 "source_line_category": line_category,
                 "source_setting_category": setting_category,
@@ -625,6 +700,7 @@ def verify_evidence_items(
             },
             case_context or {},
             applicability_status,
+            applicability_reason,
         )
 
         results.append(_verification(

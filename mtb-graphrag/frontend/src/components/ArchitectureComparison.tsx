@@ -471,6 +471,53 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           </Accordion>
         )}
 
+        {metrics.verifier_batches != null && metrics.verifier_batches > 0 && (
+          <Accordion defaultExpanded={false} disableGutters sx={{ mb: 2.5 }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Box>
+                <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>
+                  Diagnostica verificatore
+                </Typography>
+                <Typography variant="caption" color="text.secondary" component="div">
+                  Vista tecnica sul batching/retry del verificatore — separata dalle metriche cliniche sopra.
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              {(() => {
+                const failedItems = metrics.verifier_failed_items ?? 0;
+                const denominator = metrics.evidence_count || 0;
+                const failureRatio = denominator > 0 ? failedItems / denominator : 0;
+                return (
+                  <>
+                    {failureRatio > 0.2 && (
+                      <Alert severity="warning" sx={{ mb: 1.5 }}>
+                        Più del 20% delle verifiche è fallito definitivamente ({failedItems} su {denominator}):
+                        gli esiti relativi restano "uncertain" e richiedono revisione della fonte.
+                      </Alert>
+                    )}
+                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(3, minmax(0, 1fr))' }, gap: 1 }}>
+                      {[
+                        ['Batch eseguiti', metrics.verifier_batches ?? 0],
+                        ['Batch falliti', metrics.verifier_failed_batches ?? 0],
+                        ['Elementi ritentati', metrics.verifier_retry_items ?? 0],
+                        ['Elementi recuperati', metrics.verifier_recovered_items ?? 0],
+                        ['Fallimenti definitivi', failedItems],
+                        ['Tempo verificatore', formatMs(metrics.verifier_elapsed_ms ?? 0)],
+                      ].map(([label, value]) => (
+                        <Box key={String(label)} sx={{ p: 1, borderRadius: 1.5, bgcolor: colors.soft, textAlign: 'center' }}>
+                          <Typography variant="caption" sx={{ display: 'block' }}>{label}</Typography>
+                          <Typography variant="subtitle2" sx={{ color: colors.main, fontWeight: 800 }}>{value}</Typography>
+                        </Box>
+                      ))}
+                    </Box>
+                  </>
+                );
+              })()}
+            </AccordionDetails>
+          </Accordion>
+        )}
+
         <Alert severity="info" icon={<VerifiedUserIcon />}>
           <Typography variant="caption" component="div" sx={{ fontWeight: 700 }}>Garanzie e confini operativi</Typography>
           {run.limitations.map(item => <Typography key={item} variant="caption" component="div">• {item}</Typography>)}

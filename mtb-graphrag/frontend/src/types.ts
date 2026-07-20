@@ -193,6 +193,14 @@ export interface ArchitectureRun {
     applicability_compatible_count?: number;
     applicability_indeterminate_count?: number;
     applicability_not_compatible_count?: number;
+    // Diagnostica tecnica del verificatore (batching + recupero via retry) —
+    // separata dai conteggi clinici sopra.
+    verifier_batches?: number;
+    verifier_failed_batches?: number;
+    verifier_retry_items?: number;
+    verifier_recovered_items?: number;
+    verifier_failed_items?: number;
+    verifier_elapsed_ms?: number;
   };
   limitations: string[];
   run_id?: string | null;
