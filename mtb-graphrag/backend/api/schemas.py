@@ -126,6 +126,7 @@ class ArchitectureMetrics(BaseModel):
     verifier_failed_batches: int = 0
     verifier_retry_items: int = 0
     verifier_recovered_items: int = 0
+    verifier_failed_items: int = 0
     verifier_elapsed_ms: int = 0
 
 

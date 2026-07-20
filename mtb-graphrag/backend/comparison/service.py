@@ -957,6 +957,7 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             verifier_failed_batches=verifier_metrics.get("verifier_failed_batches", 0),
             verifier_retry_items=verifier_metrics.get("verifier_retry_items", 0),
             verifier_recovered_items=verifier_metrics.get("verifier_recovered_items", 0),
+            verifier_failed_items=verifier_metrics.get("verifier_failed_items", 0),
             verifier_elapsed_ms=verifier_metrics.get("verifier_elapsed_ms", 0),
         ),
         limitations=guarantees,

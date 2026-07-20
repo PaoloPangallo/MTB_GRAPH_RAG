@@ -88,16 +88,38 @@ def _downgrade(current: str, cap: str) -> str:
     return current if _VERDICT_RANK[current] <= _VERDICT_RANK[cap] else cap
 
 
+def _resolve(original: str, cap: str, cap_reason: str, original_reason: str) -> tuple[str, str]:
+    """Applica il cap conservativo. La motivazione cambia SOLO se il verdict
+    cambia davvero: se il verdict resta quello originale (già altrettanto o
+    più conservativo), la motivazione originale resta coerente e va
+    preservata — non va mai sostituita una motivazione ancora valida."""
+    final = _downgrade(original, cap)
+    return (final, cap_reason) if final != original else (final, original_reason)
+
+
 def validate_applicability(
     extracted_source_context: dict[str, Any],
     declared_patient_context: dict[str, Any],
     llm_verdict: str,
-) -> ApplicabilityStatus:
-    """Convalida/riduce il ``llm_verdict`` sulla base di categorie strutturate.
+    llm_reason: str = "",
+) -> tuple[ApplicabilityStatus, str]:
+    """Convalida/riduce il ``llm_verdict`` sulla base di categorie strutturate,
+    e restituisce ``(verdict, reason)`` — la motivazione è sempre coerente con
+    il verdict finale: se il verdict viene declassato, la motivazione originale
+    dell'LLM (che può descrivere una corrispondenza che il validatore ha
+    invece giudicato insufficiente o in conflitto) viene sostituita con una
+    motivazione deterministica; se il verdict resta invariato, la motivazione
+    originale è preservata.
 
     Regole (si applicano tutte; il risultato è il verdict più conservativo
     fra quello prodotto dall'LLM e quello imposto da ogni regola violata):
 
+    - "compatible" è consentito SOLO quando le tre categorie strutturate della
+      fonte (linea, setting, requisito di pre-trattamento) sono tutte note E i
+      corrispondenti campi del paziente sono dichiarati e coincidono: una
+      categoria della fonte mancante o "unknown" non permette mai di
+      confermare "compatible", anche se l'unico dato disponibile (es.
+      "first-line") coincide.
     - "first-line" non implica metastatico, avanzato, non operato o mai
       trattato: nessuna di queste inferenze è mai effettuata qui.
     - un campo del contesto paziente non dichiarato (vuoto/assente) resta
@@ -117,7 +139,11 @@ def validate_applicability(
       esclusivi come "resected" contro "metastatic").
     - il verdict non viene mai reso più permissivo di quello ricevuto.
     """
-    verdict: str = llm_verdict if llm_verdict in _VERDICT_RANK else "indeterminate"
+    original_verdict = llm_verdict if llm_verdict in _VERDICT_RANK else "indeterminate"
+    original_reason = (
+        llm_reason if llm_verdict in _VERDICT_RANK
+        else "Verdict del modello non riconosciuto: trattato come indeterminato per default conservativo."
+    )
 
     line_category = normalize_line_category(extracted_source_context.get("source_line_category"))
     setting_category = normalize_setting_category(extracted_source_context.get("source_setting_category"))
@@ -141,6 +167,14 @@ def validate_applicability(
         (patient_line == "first_line" and line_category in _LATER_LINE_SOURCE_CATEGORIES)
         or (patient_line == "later_line" and line_category == "first_line" and prior_requirement == "treatment_naive")
     )
+    if line_conflict:
+        return _resolve(
+            original_verdict, "not_compatible",
+            "Conflitto esplicito di linea terapeutica: il caso dichiara la linea "
+            f"'{patient_therapy_line}' mentre la fonte riguarda la categoria di linea "
+            f"'{line_category}'; le due linee sono in conflitto esplicito.",
+            original_reason,
+        )
 
     # Conflitto esplicito di setting: stati di malattia dichiarati e
     # mutuamente esclusivi (es. paziente "resected" contro fonte
@@ -149,19 +183,38 @@ def validate_applicability(
         (patient_setting == "resected" and setting_category in _MUTUALLY_EXCLUSIVE_SETTINGS)
         or (setting_category == "resected" and patient_setting in _MUTUALLY_EXCLUSIVE_SETTINGS)
     )
+    if setting_conflict:
+        return _resolve(
+            original_verdict, "not_compatible",
+            "Conflitto esplicito di setting di malattia: il paziente è dichiarato "
+            f"'{patient_setting_raw}' mentre la fonte riguarda la categoria di setting "
+            f"'{setting_category}'; i due setting sono mutuamente esclusivi.",
+            original_reason,
+        )
 
-    if line_conflict or setting_conflict:
-        return _downgrade(verdict, "not_compatible")  # type: ignore[return-value]
-
-    needs_indeterminate = False
+    missing: list[str] = []
+    # Una categoria sorgente mancante/"unknown" non permette mai un giudizio
+    # positivo: senza sapere linea/setting/pre-trattamento della fonte non è
+    # possibile confermare una corrispondenza esplicita col caso.
+    if line_category == "unknown":
+        missing.append("la categoria di linea della fonte non è determinabile")
+    if setting_category == "unknown":
+        missing.append("la categoria di setting della fonte non è determinabile")
+    if prior_requirement == "unknown":
+        missing.append("il requisito di pre-trattamento della fonte non è determinabile")
     if setting_category != "unknown" and not _is_declared(patient_setting_raw):
-        needs_indeterminate = True
+        missing.append("il setting del paziente non è dichiarato")
     if setting_category in {"metastatic", "locally_advanced"} and not _is_declared(patient_stage):
-        needs_indeterminate = True
+        missing.append("lo stadio del paziente non è dichiarato")
     if prior_requirement != "unknown" and not _is_declared(patient_prior_therapies):
-        needs_indeterminate = True
+        missing.append("i trattamenti precedenti del paziente non sono dichiarati")
 
-    if needs_indeterminate:
-        return _downgrade(verdict, "indeterminate")  # type: ignore[return-value]
+    if missing:
+        unique_missing = list(dict.fromkeys(missing))
+        return _resolve(
+            original_verdict, "indeterminate",
+            "Dati insufficienti per confermare la compatibilità: " + "; ".join(unique_missing) + ".",
+            original_reason,
+        )
 
-    return verdict  # type: ignore[return-value]
+    return original_verdict, original_reason
