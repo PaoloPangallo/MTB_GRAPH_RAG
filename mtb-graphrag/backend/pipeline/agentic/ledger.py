@@ -6,9 +6,10 @@ import hashlib
 import json
 import os
 import sqlite3
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 from uuid import uuid4
 
 
@@ -27,15 +28,27 @@ class EventLedger:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._initialize()
 
-    def _connect(self) -> sqlite3.Connection:
+    @contextmanager
+    def _session(self) -> Iterator[sqlite3.Connection]:
+        """Apre una connessione, gestisce commit/rollback e la chiude sempre.
+
+        ``sqlite3.Connection`` usata come context manager gestisce solo la
+        transazione (commit/rollback), non chiude la connessione: senza una
+        chiusura esplicita il file WAL resta aperto (visibile soprattutto su
+        Windows, dove impedisce persino la cancellazione della directory
+        temporanea nei test)."""
         connection = sqlite3.connect(self.path, timeout=10)
         connection.row_factory = sqlite3.Row
         connection.execute("PRAGMA journal_mode=WAL")
         connection.execute("PRAGMA synchronous=FULL")
-        return connection
+        try:
+            with connection:
+                yield connection
+        finally:
+            connection.close()
 
     def _initialize(self) -> None:
-        with self._connect() as connection:
+        with self._session() as connection:
             connection.executescript(
                 """
                 CREATE TABLE IF NOT EXISTS agent_events (
@@ -97,7 +110,7 @@ class EventLedger:
         created_at = datetime.now(timezone.utc).isoformat()
         event_id = str(uuid4())
 
-        with self._connect() as connection:
+        with self._session() as connection:
             connection.execute("BEGIN IMMEDIATE")
             previous = connection.execute(
                 """
@@ -153,7 +166,7 @@ class EventLedger:
         }
 
     def events(self, run_id: str) -> list[dict[str, Any]]:
-        with self._connect() as connection:
+        with self._session() as connection:
             rows = connection.execute(
                 "SELECT * FROM agent_events WHERE run_id = ? ORDER BY sequence",
                 (run_id,),

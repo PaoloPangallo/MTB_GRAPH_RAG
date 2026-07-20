@@ -3,12 +3,14 @@
 La modalità ``demo`` non richiede Neo4j o un endpoint LLM ed espone un caso
 sintetico dichiarato. La modalità ``live`` usa i componenti reali del backend:
 planner dinamico, strumenti tipizzati, ledger persistente, vista canonica,
-rendering deterministico e verifica claim--fonte.
+rendering deterministico e verifica claim--fonte su due assi indipendenti
+(supporto documentale e applicabilità al caso).
 """
 
 from __future__ import annotations
 
 from time import perf_counter
+from typing import Any
 
 from backend.api.schemas import (
     ArchitectureComparisonRequest,
@@ -30,6 +32,23 @@ DISCLAIMER = (
     "Dimostratore di ricerca per preparazione e revisione dell'evidenza. "
     "Non produce raccomandazioni terapeutiche e non sostituisce il Molecular Tumor Board."
 )
+
+# Titoli delle 5 sezioni cliniche del dossier, derivati dal campo
+# ``dossier_section`` di ogni ``DossierEvidence``. Usati sia per il report
+# testuale sia — con la stessa chiave — dal frontend per il rendering.
+SECTION_TITLES: dict[str, str] = {
+    "supported_compatible": "Evidenze supportate e compatibili con il contesto dichiarato",
+    "supported_indeterminate": "Evidenze supportate con applicabilità indeterminata",
+    "supported_not_compatible": "Evidenze supportate ma non compatibili con il contesto dichiarato",
+    "review": "Evidenze con supporto documentale incerto",
+    "excluded": "Claim non supportate dalla fonte",
+}
+
+_APPLICABILITY_LABELS = {
+    "compatible": "compatibile con il contesto dichiarato",
+    "indeterminate": "indeterminata",
+    "not_compatible": "non compatibile con il contesto dichiarato",
+}
 
 
 def _case_label(req: ArchitectureComparisonRequest) -> str:
@@ -93,13 +112,17 @@ def _render_candidate_report(case_label: str, items: list[EvidenceItem]) -> str:
 def _render_verified_report(
     case_label: str,
     items: list[EvidenceItem],
-    checks: list[ClaimCheck],
+    verifications: list[Any],
 ) -> str:
-    """Rendering finale: emette solo claim supportate dal verificatore multilivello."""
+    """Rendering finale: emette le claim con supporto documentale, mostrando
+    sempre entrambi gli assi (supporto e applicabilità) e i prerequisiti
+    della fonte quando noti — senza mai generalizzare una fonte oltre il
+    proprio campo né usare formulazioni di raccomandazione per record con
+    applicabilità non compatibile."""
     supported = [
-        item
-        for item, check in zip(items, checks)
-        if check.status == "supported"
+        (item, verification)
+        for item, verification in zip(items, verifications)
+        if verification.source_support_status == "supported"
     ]
     if not supported:
         return (
@@ -107,14 +130,68 @@ def _render_verified_report(
             "Nessuna evidenza con provenienza sufficiente per generare claim fattuali. "
             "È richiesta la revisione dell'oncologo."
         )
-    lines = [f"Caso: {case_label}.", "Evidenze ammesse nel report verificato:"]
-    for item in supported:
-        lines.append(f"- {_claim_text(item)} [{item.source_id}]")
+
+    lines = [f"Caso: {case_label}.", "Evidenze documentalmente supportate:"]
+    for item, verification in supported:
+        prerequisites = ", ".join(
+            part for part in (
+                verification.source_population,
+                verification.source_line,
+                verification.source_setting,
+                verification.source_prerequisites,
+            ) if part
+        )
+        header = f"- {_claim_text(item)} [{item.source_id}]"
+        if prerequisites:
+            header += f" — contesto della fonte: {prerequisites}."
+        lines.append(header)
+        lines.append(f"  Supporto documentale: {verification.source_support_reason}")
+        lines.append(
+            "  Applicabilità al contesto richiesto: "
+            f"{_APPLICABILITY_LABELS.get(verification.applicability_status, verification.applicability_status)} "
+            f"— {verification.applicability_reason}"
+        )
+
+    if any(v.applicability_status == "compatible" for _item, v in supported):
+        lines.append(
+            "Solo le evidenze compatibili con il contesto dichiarato sono da considerare come "
+            "possibili opzioni per il caso; restano comunque soggette a revisione del "
+            "Molecular Tumor Board."
+        )
+    if any(v.applicability_status != "compatible" for _item, v in supported):
+        lines.append(
+            "Le evidenze supportate ma non compatibili o con applicabilità indeterminata restano "
+            "visibili come contesto documentale: non sono opzioni per il caso e non vanno lette "
+            "come fonti false."
+        )
     lines.append(
         "Il report organizza l'evidenza disponibile e deve essere revisionato "
         "dal Molecular Tumor Board; non costituisce una raccomandazione terapeutica."
     )
     return "\n".join(lines)
+
+
+def _support_from_check_status(status: str) -> str:
+    return {
+        "supported": "supported",
+        "blocked": "unsupported",
+        "insufficient": "uncertain",
+        "not_checked": "uncertain",
+    }.get(status, "uncertain")
+
+
+def _dossier_bucket(source_support_status: str, applicability_status: str) -> str:
+    """Funzione pura di bucketing: deriva la sezione clinica del dossier dai
+    due assi indipendenti. Nessuna evidenza compare in più di una sezione."""
+    if source_support_status == "unsupported":
+        return "excluded"
+    if source_support_status == "uncertain":
+        return "review"
+    if applicability_status == "not_compatible":
+        return "supported_not_compatible"
+    if applicability_status == "indeterminate":
+        return "supported_indeterminate"
+    return "supported_compatible"
 
 
 def _checks_from_verifications(
@@ -135,14 +212,14 @@ def _checks_from_verifications(
             "supported": "supported",
             "unsupported": "blocked",
             "uncertain": "insufficient",
-        }.get(verification.verdict, "insufficient")
+        }.get(verification.source_support_status, "insufficient")
         checks.append(ClaimCheck(
             claim=_claim_text(item),
             status=status,
-            reason=verification.reason,
+            reason=verification.source_support_reason,
             source_id=item.source_id,
             verification_level=verification.verification_level,
-            requires_human_review=verification.requires_human_review,
+            requires_human_review=verification.requires_source_review,
         ))
     return checks
 
@@ -205,73 +282,108 @@ def _build_dossier(
     req: ArchitectureComparisonRequest,
     items: list[EvidenceItem],
     checks: list[ClaimCheck],
+    *,
+    verifications: list[Any] | None = None,
     state: dict | None = None,
 ) -> ClinicalDossier:
+    """Costruisce la vista canonica unica delle evidenze (``ClinicalDossier.evidence``).
+
+    Quando ``verifications`` è disponibile (percorso live agentico, allineato
+    1:1 posizionalmente con ``items``), ogni evidenza riceve i due assi reali
+    prodotti dal verificatore. Quando non lo è (demo, traversal
+    deterministico — architetture che non eseguono mai un verificatore
+    fonte-per-fonte), l'applicabilità resta onestamente "indeterminate": non
+    viene mai fabbricato un "compatible" di default.
+    """
     summary = _case_summary(req)
     missing = [field.label for field in summary if not field.confirmed]
-    supported: list[DossierEvidence] = []
-    review: list[DossierEvidence] = []
-    excluded: list[DossierEvidence] = []
+    evidence: list[DossierEvidence] = []
     matched_checks: set[int] = set()
 
-    for index, item in enumerate(items):
+    for position, item in enumerate(items):
         check = None
-        if index < len(checks) and (
+        if position < len(checks) and (
             len(checks) == len(items)
-            or checks[index].source_id == item.source_id
+            or checks[position].source_id == item.source_id
         ):
-            check = checks[index]
-            matched_checks.add(index)
-        status = check.status if check else "not_checked"
-        support_status = {
-            "supported": "supported",
-            "blocked": "unsupported",
-            "insufficient": "uncertain",
-            "not_checked": "not_checked",
-        }[status]
-        # Il supporto della claim e l'applicabilità al singolo paziente sono
-        # assi indipendenti. Una claim bloccata non prova, da sola, che il
-        # trattamento sia clinicamente non applicabile; senza un contesto
-        # completo l'esito resta quindi indeterminato.
-        applicability_status = (
-            "compatible"
-            if status == "supported" and not missing
-            else "indeterminate"
+            check = checks[position]
+            matched_checks.add(position)
+        verification = (
+            verifications[position]
+            if verifications is not None and position < len(verifications)
+            else None
         )
-        entry = DossierEvidence(
+
+        if verification is not None:
+            support_status = verification.source_support_status
+            support_reason = verification.source_support_reason
+            applicability_status = verification.applicability_status
+            applicability_reason = verification.applicability_reason
+            requires_source_review = verification.requires_source_review
+            requires_clinical_review = verification.requires_clinical_review
+            population = verification.source_population
+            source_line = verification.source_line
+            source_setting = verification.source_setting
+            prerequisites = verification.source_prerequisites
+        elif check is not None:
+            support_status = _support_from_check_status(check.status)
+            support_reason = check.reason
+            applicability_status = "indeterminate"
+            applicability_reason = (
+                "Applicabilità non valutata: questa architettura non esegue un "
+                "verificatore fonte-per-fonte separato dal supporto documentale."
+            )
+            requires_source_review = support_status != "supported"
+            requires_clinical_review = True
+            population = source_line = source_setting = prerequisites = None
+        else:
+            support_status = "uncertain"
+            support_reason = "Record recuperato, ma non sottoposto a verifica claim-by-claim."
+            applicability_status = "indeterminate"
+            applicability_reason = "Applicabilità non valutata: nessuna verifica eseguita su questo record."
+            requires_source_review = True
+            requires_clinical_review = True
+            population = source_line = source_setting = prerequisites = None
+
+        evidence.append(DossierEvidence(
+            evidence_id=f"{item.source_id or 'unsourced'}-{position}",
             claim=_claim_text(item),
             therapy=item.object,
             setting=item.context,
             source_id=item.source_id,
             evidence_level=item.evidence_level,
-            support_status=support_status,
+            source_support_status=support_status,
+            source_support_reason=support_reason,
+            source_population=population,
+            source_line=source_line,
+            source_setting=source_setting,
+            source_prerequisites=prerequisites,
             applicability_status=applicability_status,
-            rationale=(
-                check.reason
-                if check
-                else "Record recuperato, ma non sottoposto a verifica claim-by-claim."
-            ),
-        )
-        if support_status == "supported":
-            supported.append(entry)
-        elif support_status == "unsupported":
-            excluded.append(entry)
-        else:
-            review.append(entry)
+            applicability_reason=applicability_reason,
+            requires_source_review=requires_source_review,
+            requires_clinical_review=requires_clinical_review,
+            dossier_section=_dossier_bucket(support_status, applicability_status),
+        ))
 
     for index, check in enumerate(checks):
         if index in matched_checks or check.status not in {"blocked", "insufficient"}:
             continue
-        entry = DossierEvidence(
+        support_status = _support_from_check_status(check.status)
+        evidence.append(DossierEvidence(
+            evidence_id=f"synthetic-{index}",
             claim=check.claim,
             therapy="Non determinata",
             setting=req.tumor_type,
             source_id=check.source_id,
-            support_status="unsupported" if check.status == "blocked" else "uncertain",
+            evidence_level=None,
+            source_support_status=support_status,
+            source_support_reason=check.reason,
             applicability_status="indeterminate",
-            rationale=check.reason,
-        )
-        (excluded if check.status == "blocked" else review).append(entry)
+            applicability_reason="Applicabilità non valutata: claim priva di un record di evidenza associato.",
+            requires_source_review=support_status != "supported",
+            requires_clinical_review=True,
+            dossier_section=_dossier_bucket(support_status, "indeterminate"),
+        ))
 
     state = state or {}
     resistance = [
@@ -282,27 +394,42 @@ def _build_dossier(
         _dossier_finding(record, "trial")
         for record in state.get("trial_candidates", [])
     ]
+
+    by_section: dict[str, list[DossierEvidence]] = {}
+    for entry in evidence:
+        by_section.setdefault(entry.dossier_section, []).append(entry)
+    has_supported = bool(
+        by_section.get("supported_compatible")
+        or by_section.get("supported_indeterminate")
+        or by_section.get("supported_not_compatible")
+    )
+
     questions = []
     if missing:
         questions.append("Completare i dati clinici mancanti: " + ", ".join(missing) + ".")
-    if review:
+    if by_section.get("review") or by_section.get("supported_indeterminate"):
         questions.append(
-            "Revisionare le evidenze con supporto incerto o non verificato "
-            "e con applicabilità individuale indeterminata."
+            "Revisionare le evidenze con supporto documentale incerto o con "
+            "applicabilità individuale indeterminata."
         )
-    if excluded:
+    if by_section.get("excluded"):
         questions.append("Revisionare le evidenze escluse e la relativa motivazione.")
-    if supported:
-        questions.append("Valutare nel MTB applicabilità individuale, tossicità e stato regolatorio delle evidenze supportate.")
-    else:
+    if by_section.get("supported_not_compatible"):
+        questions.append(
+            "Valutare se le evidenze supportate ma non compatibili con il contesto "
+            "dichiarato siano comunque rilevanti per il MTB, senza considerarle opzioni per il caso."
+        )
+    if by_section.get("supported_compatible"):
+        questions.append(
+            "Valutare nel MTB tossicità e stato regolatorio delle evidenze supportate e compatibili."
+        )
+    if not has_supported:
         questions.append("Stabilire se ampliare la ricerca: nessuna evidenza documentale è risultata supportata.")
 
     return ClinicalDossier(
         case_summary=summary,
         missing_data=missing,
-        supported_evidence=supported,
-        review_evidence=review,
-        excluded_evidence=excluded,
+        evidence=evidence,
         resistance_findings=resistance,
         trial_findings=trials,
         mtb_questions=questions,
@@ -330,6 +457,9 @@ def _demo_evidence(req: ArchitectureComparisonRequest) -> list[EvidenceItem]:
 
 
 def _demo_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
+    # Ambito demo invariato: la fixture EGFR/osimertinib e la fault injection
+    # MET restano quelle esistenti — qui si adatta solo la forma del dossier
+    # al nuovo contratto, senza usare questa fixture come prova clinica.
     evidence = _demo_evidence(req)
     has_evidence = bool(evidence)
     report = (
@@ -380,6 +510,10 @@ def _demo_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             verified_claims=sum(c.status == "supported" for c in checks),
             blocked_claims=sum(c.status == "blocked" for c in checks),
             review_claims=sum(c.requires_human_review for c in checks),
+            source_supported_count=sum(c.status == "supported" for c in checks),
+            source_uncertain_count=sum(c.status in ("insufficient", "not_checked") for c in checks),
+            source_unsupported_count=sum(c.status == "blocked" for c in checks),
+            applicability_indeterminate_count=len(evidence),
         ),
         limitations=[
             "La modalità demo non interroga il database live.",
@@ -442,6 +576,10 @@ def _demo_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             verified_claims=sum(c.status == "supported" for c in checks),
             blocked_claims=sum(c.status == "blocked" for c in checks),
             review_claims=sum(c.requires_human_review for c in checks),
+            source_supported_count=sum(c.status == "supported" for c in checks),
+            source_uncertain_count=sum(c.status in ("insufficient", "not_checked") for c in checks),
+            source_unsupported_count=sum(c.status == "blocked" for c in checks),
+            applicability_indeterminate_count=len(evidence),
         ),
         limitations=[
             "La modalità demo illustra il contratto previsto, non una validazione clinica.",
@@ -547,7 +685,7 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         ),
     )]
     dossier_started = perf_counter()
-    dossier = _build_dossier(req, evidence, checks, state)
+    dossier = _build_dossier(req, evidence, checks, state=state)
     dossier_ms = int((perf_counter() - dossier_started) * 1000)
     elapsed = int((perf_counter() - started) * 1000)
     return ArchitectureRun(
@@ -577,9 +715,63 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
                 "synthesis": synthesis_ms,
                 "dossier": dossier_ms,
             },
+            source_supported_count=0,
+            source_uncertain_count=len(evidence),
+            source_unsupported_count=0,
+            applicability_indeterminate_count=len(evidence),
         ),
         limitations=["Il classificatore ESCAT live usa un LLM; il retrieval rimane vincolato alle query tipizzate."],
     )
+
+
+def _agentic_trace(
+    collection: Any,
+    evidence: list[EvidenceItem],
+    events: list[dict],
+    ledger_valid: bool,
+    supported: int,
+    blocked: int,
+    uncertain: int,
+) -> list[TraceStep]:
+    """Costruisce la trace in modo condizionale su ``planning_mode``: non deve
+    mai descrivere un'esecuzione in ``safe_fallback`` come pianificazione
+    dinamica riuscita, né affermare che ogni osservazione ha guidato la
+    decisione successiva quando il planner non è più stato interpellato."""
+    dynamic = collection.planning_mode == "llm_dynamic"
+    if dynamic:
+        planning_detail = "Il planner ha scelto iterativamente gli strumenti."
+        planning_status = "completed"
+        collection_detail = (
+            f"Completate {len(collection.tool_path)} chiamate; ogni osservazione ha "
+            "alimentato la decisione successiva del planner."
+        )
+        collection_status = "completed"
+    else:
+        planning_detail = (
+            "È stato eseguito un piano tipizzato predefinito; questa esecuzione non "
+            "dimostra pianificazione agentica dinamica."
+        )
+        planning_status = "warning"
+        collection_detail = (
+            f"Completate {len(collection.tool_path)} chiamate secondo l'ordine di sicurezza "
+            f"predefinito (motivo del fallback: {collection.fallback_reason})."
+        )
+        collection_status = "warning"
+
+    return [
+        TraceStep(order=1, stage="Controller di autonomia", actor="Policy", detail="Definiti strumenti consentiti, dipendenze e massimo numero di passi."),
+        TraceStep(order=2, stage="Pianificazione dinamica", actor="LLM planner", detail=planning_detail, status=planning_status),
+        TraceStep(order=3, stage="Raccolta iterativa", actor="Agente + strumenti KG", detail=collection_detail, status=collection_status),
+        TraceStep(order=4, stage="Event log append-only", actor="SQLite hash-chain", detail=f"Persistiti {len(events)} eventi durante l'esecuzione; catena integra: {'sì' if ledger_valid else 'no'}.", status="completed" if ledger_valid else "blocked"),
+        TraceStep(order=5, stage="Vista canonica", actor="Regole", detail=f"Deduplicazione completata: {len(evidence)} record canonici."),
+        TraceStep(order=6, stage="Proiezione pertinente", actor="Regole", detail="Selezionati i record relativi al caso con statement clinico e provenienza."),
+        TraceStep(order=7, stage="Rendering candidato", actor="Renderer deterministico", detail="Costruito esclusivamente dalla proiezione canonica."),
+        TraceStep(order=8, stage="Verifica claim–fonte", actor="Regole + LLM", detail=f"PubMed/CIViC: {supported} supportate, {blocked} bloccate, {uncertain} inviate a revisione.", status="warning" if blocked or uncertain else "completed"),
+        TraceStep(order=9, stage="Riparazione", actor="Regole", detail="Le claim bloccate o incerte sono escluse dal report verificato."),
+        TraceStep(order=10, stage="Report verificato", actor="Renderer deterministico", detail="Emesse soltanto claim che hanno superato provenienza, regole cliniche e verifica semantica."),
+        TraceStep(order=11, stage="Narrazione opzionale", actor="LLM + nuova verifica", detail="Non applicata in questa esecuzione: viene mostrato il report deterministico."),
+        TraceStep(order=12, stage="Revisione", actor="Oncologo", detail="Gli esiti incerti sono esplicitamente destinati alla revisione umana."),
+    ]
 
 
 def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
@@ -629,49 +821,54 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     verification_ms = int((perf_counter() - verification_started) * 1000)
     ledger.append(collection.run_id, "claims_verified", "source_verifier", {
         "checks": [{
-            "claim": check.claim,
-            "status": check.status,
-            "reason": check.reason,
-            "source_id": check.source_id,
-            "verification_level": check.verification_level,
-            "requires_human_review": check.requires_human_review,
-        } for check in checks],
+            "claim": _claim_text(item),
+            "source_id": item.source_id,
+            "source_support_status": verification.source_support_status,
+            "source_support_reason": verification.source_support_reason,
+            "source_population": verification.source_population,
+            "source_line": verification.source_line,
+            "source_setting": verification.source_setting,
+            "source_prerequisites": verification.source_prerequisites,
+            "applicability_status": verification.applicability_status,
+            "applicability_reason": verification.applicability_reason,
+            "verification_level": verification.verification_level,
+        } for item, verification in zip(evidence, verifications)],
     })
     rendering_started = perf_counter()
-    report = _render_verified_report(_case_label(req), evidence, checks)
+    report = _render_verified_report(_case_label(req), evidence, verifications)
     ledger.append(collection.run_id, "verified_report_rendered", "deterministic_renderer", {
         "report": report,
     })
-    dossier = _build_dossier(req, evidence, checks, state)
+    dossier = _build_dossier(req, evidence, checks, verifications=verifications, state=state)
     rendering_ms = int((perf_counter() - rendering_started) * 1000)
     events = ledger.events(collection.run_id)
     ledger_valid = ledger.verify_chain(collection.run_id)
     elapsed = int((perf_counter() - started) * 1000)
 
-    supported = sum(check.status == "supported" for check in checks)
-    blocked = sum(check.status == "blocked" for check in checks)
-    uncertain = sum(check.status == "insufficient" for check in checks)
-    trace = [
-        TraceStep(order=1, stage="Controller di autonomia", actor="Policy", detail="Definiti strumenti consentiti, dipendenze e massimo numero di passi."),
-        TraceStep(order=2, stage="Pianificazione dinamica", actor="LLM planner", detail=f"Modalità {collection.planning_mode}; piano osservato: {', '.join(collection.tool_path) or 'nessuno'}."),
-        TraceStep(order=3, stage="Raccolta iterativa", actor="Agente + strumenti KG", detail=f"Completate {len(collection.tool_path)} chiamate; ogni osservazione ha alimentato la decisione successiva."),
-        TraceStep(order=4, stage="Event log append-only", actor="SQLite hash-chain", detail=f"Persistiti {len(events)} eventi durante l'esecuzione; catena integra: {'sì' if ledger_valid else 'no'}.", status="completed" if ledger_valid else "blocked"),
-        TraceStep(order=5, stage="Vista canonica", actor="Regole", detail=f"Deduplicazione completata: {len(evidence)} record canonici."),
-        TraceStep(order=6, stage="Proiezione pertinente", actor="Regole", detail="Selezionati i record relativi al caso con statement clinico e provenienza."),
-        TraceStep(order=7, stage="Rendering candidato", actor="Renderer deterministico", detail="Costruito esclusivamente dalla proiezione canonica."),
-        TraceStep(order=8, stage="Verifica claim–fonte", actor="Regole + LLM", detail=f"PubMed/CIViC: {supported} supportate, {blocked} bloccate, {uncertain} inviate a revisione.", status="warning" if blocked or uncertain else "completed"),
-        TraceStep(order=9, stage="Riparazione", actor="Regole", detail="Le claim bloccate o incerte sono escluse dal report verificato."),
-        TraceStep(order=10, stage="Report verificato", actor="Renderer deterministico", detail="Emesse soltanto claim che hanno superato provenienza, regole cliniche e verifica semantica."),
-        TraceStep(order=11, stage="Narrazione opzionale", actor="LLM + nuova verifica", detail="Non applicata in questa esecuzione: viene mostrato il report deterministico."),
-        TraceStep(order=12, stage="Revisione", actor="Oncologo", detail="Gli esiti incerti sono esplicitamente destinati alla revisione umana."),
-    ]
+    supported = sum(v.source_support_status == "supported" for v in verifications)
+    blocked = sum(v.source_support_status == "unsupported" for v in verifications)
+    uncertain = sum(v.source_support_status == "uncertain" for v in verifications)
+    compatible = sum(v.applicability_status == "compatible" for v in verifications)
+    indeterminate_applicability = sum(v.applicability_status == "indeterminate" for v in verifications)
+    not_compatible = sum(v.applicability_status == "not_compatible" for v in verifications)
+
+    trace = _agentic_trace(collection, evidence, events, ledger_valid, supported, blocked, uncertain)
+
     guarantees = [
         "Il planner sceglie iterativamente tra strumenti clinici allow-listed; dipendenze e budget restano imposti dal controller.",
         f"Il ledger è persistito durante ogni decisione e tool call con catena SHA-256 verificata ({collection.run_id}).",
-        "Il verificatore è fail-closed: confronta claim, record CIViC e abstract PubMed; fonte assente o esito incerto richiedono revisione umana.",
+        "Il verificatore è fail-closed su due assi indipendenti — supporto documentale e applicabilità al caso: "
+        "fonte assente o esito incerto richiedono revisione umana su almeno uno dei due assi.",
     ]
+    if collection.planning_mode == "safe_fallback":
+        guarantees.append(
+            "Il planner LLM non ha completato un piano valido; è stato eseguito il piano sicuro predefinito "
+            f"(motivo: {collection.fallback_reason}; tentativi: {collection.planner_attempts}; "
+            f"tempo planner: {collection.planner_elapsed_ms} ms)."
+        )
     if collection.errors:
         guarantees.append("Escalation runtime: " + "; ".join(collection.errors))
+
     return ArchitectureRun(
         architecture_id="agentic",
         title="Architettura agentica verificabile",
@@ -696,11 +893,21 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
                 "verification": verification_ms,
                 "rendering": rendering_ms,
             },
+            source_supported_count=supported,
+            source_uncertain_count=uncertain,
+            source_unsupported_count=blocked,
+            applicability_compatible_count=compatible,
+            applicability_indeterminate_count=indeterminate_applicability,
+            applicability_not_compatible_count=not_compatible,
         ),
         limitations=guarantees,
         run_id=collection.run_id,
         ledger_valid=ledger_valid,
         planning_mode=collection.planning_mode,
+        fallback_reason=collection.fallback_reason,
+        planner_attempts=collection.planner_attempts,
+        planner_elapsed_ms=collection.planner_elapsed_ms,
+        tool_call_timings=collection.tool_call_timings,
     )
 
 

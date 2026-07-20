@@ -25,6 +25,7 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import type {
   AlterationType,
   ArchitectureComparisonResponse,
@@ -34,6 +35,8 @@ import type {
   DossierEvidence,
   ExecutionMode,
 } from '../types';
+import { buildComparisonRequest, type ComparisonFormState } from './comparisonRequest';
+import { DOSSIER_SECTION_ORDER, DOSSIER_SECTION_SEVERITY, DOSSIER_SECTION_TITLES, groupDossierEvidence } from './dossierSections';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
@@ -82,21 +85,26 @@ function statusColor(status: ClaimCheck['status']) {
   return 'default';
 }
 
-function splitClinicalValues(value: string) {
-  return value.split(',').map(item => item.trim()).filter(Boolean);
-}
-
-const supportLabels: Record<DossierEvidence['support_status'], string> = {
-  supported: 'Claim: supportata dalla fonte',
-  uncertain: 'Claim: supporto incerto',
-  unsupported: 'Claim: non supportata',
-  not_checked: 'Claim: non verificata',
+const claimStatusLabels: Record<ClaimCheck['status'], string> = {
+  supported: 'Supportata',
+  insufficient: 'Insufficiente',
+  blocked: 'Bloccata',
+  not_checked: 'Non verificata',
 };
 
+const supportLabels: Record<DossierEvidence['source_support_status'], string> = {
+  supported: 'Fonte: supporto documentale confermato',
+  uncertain: 'Fonte: supporto documentale incerto',
+  unsupported: 'Fonte: non supportata',
+};
+
+// L'etichetta per "not_compatible" deve sempre riferirsi al contesto
+// dichiarato, non al paziente: una fonte può essere perfettamente valida e
+// semplicemente riguardare un setting diverso da quello richiesto.
 const applicabilityLabels: Record<DossierEvidence['applicability_status'], string> = {
-  compatible: 'Paziente: compatibile col contesto dichiarato',
-  indeterminate: 'Paziente: applicabilità indeterminata',
-  not_applicable: 'Paziente: contesto non applicabile',
+  compatible: 'Applicabilità: compatibile con il contesto dichiarato',
+  indeterminate: 'Applicabilità: indeterminata',
+  not_compatible: 'Applicabilità: non compatibile con il contesto dichiarato',
 };
 
 const timingLabels: Record<string, string> = {
@@ -108,6 +116,10 @@ const timingLabels: Record<string, string> = {
   verification: 'verifica',
   rendering: 'rendering',
 };
+
+function formatMs(ms: number): string {
+  return ms < 1 ? '<1 ms' : `${ms} ms`;
+}
 
 function DossierEvidenceList({
   title,
@@ -123,24 +135,39 @@ function DossierEvidenceList({
       <Typography variant="subtitle2" sx={{ fontWeight: 800, mb: 0.75 }}>{title} ({items.length})</Typography>
       {items.length === 0 ? (
         <Typography variant="caption" color="text.secondary">Nessun elemento in questa sezione.</Typography>
-      ) : items.map((item, index) => (
-        <Alert key={`${item.claim}-${index}`} severity={severity} variant="outlined" sx={{ mb: 0.75, alignItems: 'flex-start' }}>
-          <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.therapy}</Typography>
-          <Typography variant="caption" component="div">Setting: {item.setting}</Typography>
-          <Typography variant="caption" component="div">{item.rationale}</Typography>
-          <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5, flexWrap: 'wrap' }}>
-            {item.source_id && <Chip label={item.source_id} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
-            {item.evidence_level && <Chip label={`Livello ${item.evidence_level}`} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
-            <Chip label={supportLabels[item.support_status]} size="small" sx={{ height: 20, fontSize: 10 }} />
-            <Chip label={applicabilityLabels[item.applicability_status]} size="small" color={item.applicability_status === 'compatible' ? 'success' : item.applicability_status === 'not_applicable' ? 'error' : 'warning'} sx={{ height: 20, fontSize: 10 }} />
-          </Box>
-        </Alert>
-      ))}
+      ) : items.map(item => {
+        const sourcePrerequisites = [item.source_population, item.source_line, item.source_setting, item.source_prerequisites]
+          .filter(Boolean)
+          .join(' · ');
+        return (
+          <Alert key={item.evidence_id} severity={severity} variant="outlined" sx={{ mb: 0.75, alignItems: 'flex-start' }}>
+            <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.therapy}</Typography>
+            <Typography variant="caption" component="div">Contesto dichiarato dal paziente: {item.setting}</Typography>
+            {sourcePrerequisites && (
+              <Typography variant="caption" component="div">Contesto descritto dalla fonte: {sourcePrerequisites}</Typography>
+            )}
+            <Typography variant="caption" component="div">Supporto documentale: {item.source_support_reason}</Typography>
+            <Typography variant="caption" component="div">Applicabilità al caso: {item.applicability_reason}</Typography>
+            <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5, flexWrap: 'wrap' }}>
+              {item.source_id && <Chip label={item.source_id} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
+              {item.evidence_level && <Chip label={`Livello ${item.evidence_level}`} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
+              <Chip label={supportLabels[item.source_support_status]} size="small" sx={{ height: 20, fontSize: 10 }} />
+              <Chip
+                label={applicabilityLabels[item.applicability_status]}
+                size="small"
+                color={item.applicability_status === 'compatible' ? 'success' : item.applicability_status === 'not_compatible' ? 'error' : 'warning'}
+                sx={{ height: 20, fontSize: 10 }}
+              />
+            </Box>
+          </Alert>
+        );
+      })}
     </Box>
   );
 }
 
 function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
+  const grouped = groupDossierEvidence(dossier.evidence);
   return (
     <Box sx={{ mb: 2.5 }}>
       <Typography variant="overline" sx={{ fontWeight: 800 }}>Dossier per il Molecular Tumor Board</Typography>
@@ -159,9 +186,14 @@ function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
         </Alert>
       )}
 
-      <DossierEvidenceList title="Evidenze supportate dalla fonte" items={dossier.supported_evidence} severity="success" />
-      <DossierEvidenceList title="Evidenze da verificare con l’oncologo" items={dossier.review_evidence} severity="warning" />
-      <DossierEvidenceList title="Evidenze escluse dal report" items={dossier.excluded_evidence} severity="error" />
+      {DOSSIER_SECTION_ORDER.map(section => (
+        <DossierEvidenceList
+          key={section}
+          title={DOSSIER_SECTION_TITLES[section]}
+          items={grouped[section]}
+          severity={DOSSIER_SECTION_SEVERITY[section]}
+        />
+      ))}
 
       <Grid container spacing={1.5} sx={{ mb: 2 }}>
         <Grid size={{ xs: 12, sm: 6 }}>
@@ -226,8 +258,10 @@ function BlueprintCard({ architecture }: { architecture: 'deterministic' | 'agen
   );
 }
 
-function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
+export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
   const colors = palette[run.architecture_id];
+  const isTraversal = run.architecture_id === 'deterministic';
+  const metrics = run.metrics;
   return (
     <Card variant="outlined" sx={{ height: '100%', borderTop: `5px solid ${colors.main}` }}>
       <CardContent sx={{ p: { xs: 2, md: 3 } }}>
@@ -239,9 +273,11 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           </Box>
         </Box>
 
-        {(run.run_id || run.planning_mode || run.ledger_valid !== null && run.ledger_valid !== undefined) && (
+        {(run.run_id || run.planning_mode || (run.ledger_valid !== null && run.ledger_valid !== undefined)) && (
           <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 1.5 }}>
             {run.planning_mode && <Chip label={`Planner: ${run.planning_mode}`} size="small" variant="outlined" />}
+            {run.planner_attempts != null && <Chip label={`Tentativi planner: ${run.planner_attempts}`} size="small" variant="outlined" />}
+            {run.planner_elapsed_ms != null && <Chip label={`Tempo planner: ${formatMs(run.planner_elapsed_ms)}`} size="small" variant="outlined" />}
             {run.run_id && (
               <Button size="small" variant="text" href={`${API_BASE}/api/v1/agent-runs/${run.run_id}`} target="_blank" rel="noreferrer">
                 Apri ledger {run.run_id.slice(0, 8)}
@@ -253,15 +289,29 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           </Box>
         )}
 
+        {run.planning_mode === 'safe_fallback' && (
+          <Alert severity="warning" icon={<WarningAmberIcon />} sx={{ mt: 1.5 }}>
+            <Typography variant="body2" sx={{ fontWeight: 700 }}>
+              Il planner LLM non ha completato un piano valido; è stato eseguito il piano sicuro predefinito.
+            </Typography>
+            <Typography variant="caption" component="div">
+              Causa: {run.fallback_reason ?? 'non classificata'}. Questa esecuzione non dimostra pianificazione agentica dinamica.
+            </Typography>
+          </Alert>
+        )}
+
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(3, minmax(0, 1fr))', md: 'repeat(4, minmax(0, 1fr))', lg: 'repeat(7, minmax(0, 1fr))' }, gap: 1, my: 2.5 }}>
           {[
-            ['Tempo', `${run.metrics.elapsed_ms} ms`],
-            ['Nodi/strumenti', run.metrics.tool_calls],
-            ['Evidenze', run.metrics.evidence_count],
-            ['Claim supportate', run.metrics.verified_claims],
-            ['Claim bloccate', run.metrics.blocked_claims],
-            ['Da revisionare', run.metrics.review_claims ?? 0],
-            ['Eventi ledger', run.metrics.ledger_events ?? 0],
+            ['Tempo', formatMs(metrics.elapsed_ms)],
+            ['Nodi/strumenti', metrics.tool_calls],
+            ['Evidenze', metrics.evidence_count],
+            ['Fonti supportate', metrics.source_supported_count ?? 0],
+            ['Supporto documentale incerto', metrics.source_uncertain_count ?? 0],
+            ['Fonti non supportate', metrics.source_unsupported_count ?? 0],
+            ['Applicabilità compatibile', metrics.applicability_compatible_count ?? 0],
+            ['Applicabilità indeterminata', metrics.applicability_indeterminate_count ?? 0],
+            ['Applicabilità non compatibile', metrics.applicability_not_compatible_count ?? 0],
+            ['Eventi ledger', metrics.ledger_events ?? 0],
           ].map(([label, value]) => (
             <Box key={String(label)} sx={{ p: 1, borderRadius: 1.5, bgcolor: colors.soft, textAlign: 'center' }}>
               <Typography variant="caption" sx={{ display: 'block' }}>{label}</Typography>
@@ -270,11 +320,11 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           ))}
         </Box>
 
-        {Object.keys(run.metrics.stage_timings_ms ?? {}).length > 0 && (
+        {Object.keys(metrics.stage_timings_ms ?? {}).length > 0 && (
           <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: -1.5, mb: 2.5 }}>
             <Typography variant="caption" sx={{ fontWeight: 800, alignSelf: 'center' }}>Tempi per fase:</Typography>
-            {Object.entries(run.metrics.stage_timings_ms ?? {}).map(([stage, milliseconds]) => (
-              <Chip key={stage} label={`${timingLabels[stage] ?? stage}: ${milliseconds} ms`} size="small" variant="outlined" />
+            {Object.entries(metrics.stage_timings_ms ?? {}).map(([stage, milliseconds]) => (
+              <Chip key={stage} label={`${timingLabels[stage] ?? stage}: ${formatMs(milliseconds)}`} size="small" variant="outlined" />
             ))}
           </Box>
         )}
@@ -321,30 +371,70 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           ))}
         </Box>
 
-        <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>Output testuale grezzo dell'architettura</Typography>
-        <Box sx={{ p: 2, bgcolor: '#F8FAFC', borderLeft: `4px solid ${colors.main}`, borderRadius: 1, mb: 2.5 }}>
-          <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{run.report}</Typography>
-        </Box>
+        {isTraversal ? (
+          <Accordion defaultExpanded={false} disableGutters sx={{ mb: 2.5 }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>
+                Output LLM non verificato — solo analisi sperimentale
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Alert severity="error" sx={{ mb: 1.5 }}>
+                Questo testo può contenere formulazioni non supportate come "terapia raccomandata" o
+                "trial eleggibile". Non usare come report clinico.
+              </Alert>
+              <Box sx={{ p: 2, bgcolor: '#F8FAFC', borderLeft: `4px solid ${colors.main}`, borderRadius: 1 }}>
+                <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{run.report}</Typography>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        ) : (
+          <>
+            <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>
+              Report verificato (testo) — filtrato sull'asse del supporto documentale
+            </Typography>
+            <Alert severity="info" sx={{ my: 1 }}>
+              Questo testo riflette solo il supporto documentale delle fonti; l'applicabilità al caso è
+              mostrata per ciascun elemento nel dossier sopra, che resta l'artefatto primario.
+            </Alert>
+            <Box sx={{ p: 2, bgcolor: '#F8FAFC', borderLeft: `4px solid ${colors.main}`, borderRadius: 1, mb: 2.5 }}>
+              <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{run.report}</Typography>
+            </Box>
+          </>
+        )}
 
-        <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>Controllo delle claim</Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 2.5 }}>
-          {run.claim_checks.length === 0 && <Alert severity="warning">Nessuna verifica claim-by-claim disponibile.</Alert>}
-          {run.claim_checks.map((check, index) => (
-            <Box key={`${check.claim}-${index}`} sx={{ p: 1.25, border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
-              <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
-                <Chip label={check.status} color={statusColor(check.status)} size="small" />
-                <Box>
-                  <Typography variant="body2" sx={{ fontWeight: 700 }}>{check.claim}</Typography>
-                  <Typography variant="caption">{check.reason}{check.source_id ? ` · ${check.source_id}` : ''}</Typography>
-                  <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 0.5 }}>
-                    {check.verification_level && <Chip label={`Livello: ${check.verification_level}`} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
-                    {check.requires_human_review && <Chip label="Revisione umana richiesta" size="small" color="warning" sx={{ height: 20, fontSize: 10 }} />}
+        <Accordion defaultExpanded={false} disableGutters sx={{ mb: 2.5 }}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Box>
+              <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>
+                Vista tecnica: controllo del supporto documentale per fonte
+              </Typography>
+              <Typography variant="caption" color="text.secondary" component="div">
+                Solo asse del supporto — il dossier sopra resta la vista clinica primaria, con entrambi gli assi.
+              </Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              {run.claim_checks.length === 0 && <Alert severity="warning">Nessuna verifica claim-by-claim disponibile.</Alert>}
+              {run.claim_checks.map((check, index) => (
+                <Box key={`${check.claim}-${index}`} sx={{ p: 1.25, border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
+                  <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
+                    <Chip label={claimStatusLabels[check.status]} color={statusColor(check.status)} size="small" />
+                    <Box>
+                      <Typography variant="body2" sx={{ fontWeight: 700 }}>{check.claim}</Typography>
+                      <Typography variant="caption">{check.reason}{check.source_id ? ` · ${check.source_id}` : ''}</Typography>
+                      <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 0.5 }}>
+                        {check.verification_level && <Chip label={`Livello: ${check.verification_level}`} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
+                        {check.requires_human_review && <Chip label="Revisione umana richiesta" size="small" color="warning" sx={{ height: 20, fontSize: 10 }} />}
+                      </Box>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
+              ))}
             </Box>
-          ))}
-        </Box>
+          </AccordionDetails>
+        </Accordion>
 
         <Alert severity="info" icon={<VerifiedUserIcon />}>
           <Typography variant="caption" component="div" sx={{ fontWeight: 700 }}>Garanzie e confini operativi</Typography>
@@ -379,27 +469,27 @@ export default function ArchitectureComparison() {
     setLoading(true);
     setError(null);
     try {
+      const formState: ComparisonFormState = {
+        gene,
+        variant,
+        tumorType,
+        alterationType,
+        therapyLine,
+        diseaseStage,
+        diseaseSetting,
+        priorTherapies,
+        priorResponse,
+        ecogStatus,
+        cnsMetastases,
+        coAlterations,
+        jurisdiction,
+        mtbGoal,
+        mode,
+      };
       const response = await fetch(`${API_BASE}/api/v1/compare-architectures`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          gene,
-          variant,
-          tumor_type: tumorType,
-          alteration_type: alterationType,
-          therapy_line: therapyLine,
-          disease_stage: diseaseStage || null,
-          disease_setting: diseaseSetting || null,
-          prior_therapies: splitClinicalValues(priorTherapies),
-          prior_response: priorResponse || null,
-          ecog_status: ecogStatus === '' ? null : Number(ecogStatus),
-          cns_metastases: cnsMetastases === '' ? null : cnsMetastases === 'present',
-          co_alterations: splitClinicalValues(coAlterations),
-          jurisdiction: jurisdiction || null,
-          mtb_goal: mtbGoal,
-          enrich_with_oncokb: false,
-          execution_mode: mode,
-        }),
+        body: JSON.stringify(buildComparisonRequest(formState)),
       });
       if (!response.ok) {
         const body = await response.text();
@@ -461,8 +551,8 @@ export default function ArchitectureComparison() {
               <Accordion variant="outlined" disableGutters>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Box>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Contesto clinico per l’applicabilità</Typography>
-                    <Typography variant="caption" color="text.secondary">I campi non compilati saranno riportati nel dossier come dati mancanti, non inventati dal sistema.</Typography>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Contesto clinico del paziente</Typography>
+                    <Typography variant="caption" color="text.secondary">I campi non compilati saranno riportati nel dossier come dati non dichiarati, non inventati dal sistema.</Typography>
                   </Box>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -475,7 +565,7 @@ export default function ArchitectureComparison() {
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                       <FormControl size="small" fullWidth><InputLabel>ECOG</InputLabel><Select value={ecogStatus} label="ECOG" onChange={event => setEcogStatus(event.target.value)}>
-                        <MenuItem value=""><em>Non specificato</em></MenuItem>{[0, 1, 2, 3, 4, 5].map(value => <MenuItem key={value} value={String(value)}>{value}</MenuItem>)}
+                        <MenuItem value=""><em>Non disponibile</em></MenuItem>{[0, 1, 2, 3, 4].map(value => <MenuItem key={value} value={String(value)}>{value}</MenuItem>)}
                       </Select></FormControl>
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, md: 3 }}>
