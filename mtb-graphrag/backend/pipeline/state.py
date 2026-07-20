@@ -23,6 +23,15 @@ class MTBState(TypedDict):
     therapy_line:       str                    # first-line | second-line | later-line
     enrich_with_oncokb: bool                   # attiva OncoKB Enricher (human-in-the-loop)
     driver_variant:     NotRequired[str]       # variante driver da cui si è sviluppata la resistenza
+    disease_stage:      NotRequired[str]
+    disease_setting:    NotRequired[str]
+    prior_therapies:    NotRequired[list[str]]
+    prior_response:     NotRequired[str]
+    ecog_status:        NotRequired[int]
+    cns_metastases:     NotRequired[bool]
+    co_alterations:     NotRequired[list[str]]
+    jurisdiction:       NotRequired[str]
+    mtb_goal:           NotRequired[str]
 
     # Routing
     complexity:         Literal["low", "moderate", "high"]

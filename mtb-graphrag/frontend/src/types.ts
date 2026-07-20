@@ -9,6 +9,15 @@ export interface MTBRequest {
   enrich_with_oncokb: boolean;
   report?: string;
   driver_variant?: string;
+  disease_stage?: string | null;
+  disease_setting?: 'resected' | 'locally-advanced' | 'metastatic' | null;
+  prior_therapies?: string[];
+  prior_response?: string | null;
+  ecog_status?: number | null;
+  cns_metastases?: boolean | null;
+  co_alterations?: string[];
+  jurisdiction?: string | null;
+  mtb_goal?: 'general-review' | 'treatment-evidence' | 'resistance' | 'clinical-trials' | null;
 }
 
 
@@ -106,6 +115,40 @@ export interface ClaimCheck {
   requires_human_review?: boolean;
 }
 
+export interface DossierCaseField {
+  key: string;
+  label: string;
+  value?: string | null;
+  confirmed: boolean;
+}
+
+export interface DossierEvidence {
+  claim: string;
+  therapy: string;
+  setting: string;
+  source_id?: string | null;
+  evidence_level?: string | null;
+  classification: 'applicable' | 'review' | 'excluded' | 'unverified';
+  rationale: string;
+}
+
+export interface DossierFinding {
+  title: string;
+  detail: string;
+  source_id?: string | null;
+}
+
+export interface ClinicalDossier {
+  case_summary: DossierCaseField[];
+  missing_data: string[];
+  applicable_evidence: DossierEvidence[];
+  review_evidence: DossierEvidence[];
+  excluded_evidence: DossierEvidence[];
+  resistance_findings: DossierFinding[];
+  trial_findings: DossierFinding[];
+  mtb_questions: string[];
+}
+
 export interface ArchitectureRun {
   architecture_id: 'deterministic' | 'agentic';
   title: string;
@@ -114,6 +157,7 @@ export interface ArchitectureRun {
   trace: TraceStep[];
   evidence: EvidenceItem[];
   report: string;
+  dossier: ClinicalDossier;
   claim_checks: ClaimCheck[];
   metrics: {
     elapsed_ms: number;

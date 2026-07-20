@@ -20,6 +20,17 @@ class MTBRequest(BaseModel):
     enrich_with_oncokb: bool = False             # attiva OncoKB Enricher
     report:             Optional[str] = None     # report base da arricchire
     driver_variant:     Optional[str] = None     # variante driver originale da cui si è sviluppata la resistenza
+    disease_stage:      Optional[str] = None
+    disease_setting:    Optional[Literal["resected", "locally-advanced", "metastatic"]] = None
+    prior_therapies:    list[str] = Field(default_factory=list)
+    prior_response:     Optional[str] = None
+    ecog_status:        Optional[int] = Field(default=None, ge=0, le=5)
+    cns_metastases:     Optional[bool] = None
+    co_alterations:     list[str] = Field(default_factory=list)
+    jurisdiction:       Optional[str] = None
+    mtb_goal:           Optional[Literal[
+        "general-review", "treatment-evidence", "resistance", "clinical-trials"
+    ]] = None
 
 
 
@@ -100,6 +111,40 @@ class ArchitectureMetrics(BaseModel):
     ledger_events: int = 0
 
 
+class DossierCaseField(BaseModel):
+    key: str
+    label: str
+    value: Optional[str] = None
+    confirmed: bool
+
+
+class DossierEvidence(BaseModel):
+    claim: str
+    therapy: str
+    setting: str
+    source_id: Optional[str] = None
+    evidence_level: Optional[str] = None
+    classification: Literal["applicable", "review", "excluded", "unverified"]
+    rationale: str
+
+
+class DossierFinding(BaseModel):
+    title: str
+    detail: str
+    source_id: Optional[str] = None
+
+
+class ClinicalDossier(BaseModel):
+    case_summary: list[DossierCaseField]
+    missing_data: list[str]
+    applicable_evidence: list[DossierEvidence]
+    review_evidence: list[DossierEvidence]
+    excluded_evidence: list[DossierEvidence]
+    resistance_findings: list[DossierFinding]
+    trial_findings: list[DossierFinding]
+    mtb_questions: list[str]
+
+
 class ArchitectureRun(BaseModel):
     architecture_id: Literal["deterministic", "agentic"]
     title: str
@@ -108,6 +153,7 @@ class ArchitectureRun(BaseModel):
     trace: list[TraceStep]
     evidence: list[EvidenceItem]
     report: str
+    dossier: ClinicalDossier
     claim_checks: list[ClaimCheck]
     metrics: ArchitectureMetrics
     limitations: list[str]
