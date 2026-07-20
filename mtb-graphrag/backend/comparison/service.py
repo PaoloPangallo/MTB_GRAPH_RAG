@@ -209,7 +209,7 @@ def _build_dossier(
 ) -> ClinicalDossier:
     summary = _case_summary(req)
     missing = [field.label for field in summary if not field.confirmed]
-    applicable: list[DossierEvidence] = []
+    supported: list[DossierEvidence] = []
     review: list[DossierEvidence] = []
     excluded: list[DossierEvidence] = []
     matched_checks: set[int] = set()
@@ -223,28 +223,38 @@ def _build_dossier(
             check = checks[index]
             matched_checks.add(index)
         status = check.status if check else "not_checked"
-        classification = {
-            "supported": "applicable",
-            "blocked": "excluded",
-            "insufficient": "review",
-            "not_checked": "unverified",
+        support_status = {
+            "supported": "supported",
+            "blocked": "unsupported",
+            "insufficient": "uncertain",
+            "not_checked": "not_checked",
         }[status]
+        # Il supporto della claim e l'applicabilità al singolo paziente sono
+        # assi indipendenti. Una claim bloccata non prova, da sola, che il
+        # trattamento sia clinicamente non applicabile; senza un contesto
+        # completo l'esito resta quindi indeterminato.
+        applicability_status = (
+            "compatible"
+            if status == "supported" and not missing
+            else "indeterminate"
+        )
         entry = DossierEvidence(
             claim=_claim_text(item),
             therapy=item.object,
             setting=item.context,
             source_id=item.source_id,
             evidence_level=item.evidence_level,
-            classification=classification,
+            support_status=support_status,
+            applicability_status=applicability_status,
             rationale=(
                 check.reason
                 if check
                 else "Record recuperato, ma non sottoposto a verifica claim-by-claim."
             ),
         )
-        if classification == "applicable":
-            applicable.append(entry)
-        elif classification == "excluded":
+        if support_status == "supported":
+            supported.append(entry)
+        elif support_status == "unsupported":
             excluded.append(entry)
         else:
             review.append(entry)
@@ -257,7 +267,8 @@ def _build_dossier(
             therapy="Non determinata",
             setting=req.tumor_type,
             source_id=check.source_id,
-            classification="excluded" if check.status == "blocked" else "review",
+            support_status="unsupported" if check.status == "blocked" else "uncertain",
+            applicability_status="indeterminate",
             rationale=check.reason,
         )
         (excluded if check.status == "blocked" else review).append(entry)
@@ -271,20 +282,25 @@ def _build_dossier(
         _dossier_finding(record, "trial")
         for record in state.get("trial_candidates", [])
     ]
-    questions = [f"Completare il dato clinico: {label}." for label in missing]
+    questions = []
+    if missing:
+        questions.append("Completare i dati clinici mancanti: " + ", ".join(missing) + ".")
     if review:
-        questions.append("Revisionare le evidenze con applicabilità incerta o non verificata.")
+        questions.append(
+            "Revisionare le evidenze con supporto incerto o non verificato "
+            "e con applicabilità individuale indeterminata."
+        )
     if excluded:
-        questions.append("Confermare l'esclusione delle evidenze appartenenti a un setting diverso.")
-    if applicable:
-        questions.append("Valutare nel MTB applicabilità individuale, tossicità e stato regolatorio delle evidenze ammesse.")
+        questions.append("Revisionare le evidenze escluse e la relativa motivazione.")
+    if supported:
+        questions.append("Valutare nel MTB applicabilità individuale, tossicità e stato regolatorio delle evidenze supportate.")
     else:
-        questions.append("Stabilire se ampliare la ricerca: nessuna evidenza è stata ammessa come direttamente applicabile.")
+        questions.append("Stabilire se ampliare la ricerca: nessuna evidenza documentale è risultata supportata.")
 
     return ClinicalDossier(
         case_summary=summary,
         missing_data=missing,
-        applicable_evidence=applicable,
+        supported_evidence=supported,
         review_evidence=review,
         excluded_evidence=excluded,
         resistance_findings=resistance,
@@ -517,9 +533,11 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     state = target_identifier(state)
     state = trial_matcher(state)
     state = resistance_checker(state)
+    retrieval_ms = int((perf_counter() - started) * 1000)
+    synthesis_started = perf_counter()
     state = synthesizer(state)
-    elapsed = int((perf_counter() - started) * 1000)
-    evidence = _evidence_from_state(state)
+    synthesis_ms = int((perf_counter() - synthesis_started) * 1000)
+    evidence = _canonical_evidence(_evidence_from_state(state))
     checks = [ClaimCheck(
         claim="Il contenuto clinico del report coincide con le evidenze recuperate.",
         status="not_checked",
@@ -528,6 +546,10 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             "l'aderenza semantica di ogni claim al record sorgente."
         ),
     )]
+    dossier_started = perf_counter()
+    dossier = _build_dossier(req, evidence, checks, state)
+    dossier_ms = int((perf_counter() - dossier_started) * 1000)
+    elapsed = int((perf_counter() - started) * 1000)
     return ArchitectureRun(
         architecture_id="deterministic",
         title="Traversal deterministico",
@@ -541,7 +563,7 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         ],
         evidence=evidence,
         report=state.get("report", ""),
-        dossier=_build_dossier(req, evidence, checks, state),
+        dossier=dossier,
         claim_checks=checks,
         metrics=ArchitectureMetrics(
             elapsed_ms=elapsed,
@@ -549,7 +571,12 @@ def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             evidence_count=len(evidence),
             verified_claims=0,
             blocked_claims=0,
-            review_claims=1,
+            review_claims=len(evidence),
+            stage_timings_ms={
+                "retrieval": retrieval_ms,
+                "synthesis": synthesis_ms,
+                "dossier": dossier_ms,
+            },
         ),
         limitations=["Il classificatore ESCAT live usa un LLM; il retrieval rimane vincolato alle query tipizzate."],
     )
@@ -562,6 +589,8 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
 
     started = perf_counter()
     collection = run_agentic_collection(_initial_state(req))
+    collection_ms = int((perf_counter() - started) * 1000)
+    projection_started = perf_counter()
     state = collection.state
     collected = _evidence_from_state(state)
     evidence = _canonical_evidence(collected)
@@ -575,6 +604,8 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     ledger.append(collection.run_id, "candidate_report_rendered", "deterministic_renderer", {
         "report": candidate_report,
     })
+    projection_ms = int((perf_counter() - projection_started) * 1000)
+    verification_started = perf_counter()
     verifications = verify_evidence_items(
         evidence,
         case_context={
@@ -595,6 +626,7 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         },
     )
     checks = _checks_from_verifications(evidence, verifications)
+    verification_ms = int((perf_counter() - verification_started) * 1000)
     ledger.append(collection.run_id, "claims_verified", "source_verifier", {
         "checks": [{
             "claim": check.claim,
@@ -605,10 +637,13 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             "requires_human_review": check.requires_human_review,
         } for check in checks],
     })
+    rendering_started = perf_counter()
     report = _render_verified_report(_case_label(req), evidence, checks)
     ledger.append(collection.run_id, "verified_report_rendered", "deterministic_renderer", {
         "report": report,
     })
+    dossier = _build_dossier(req, evidence, checks, state)
+    rendering_ms = int((perf_counter() - rendering_started) * 1000)
     events = ledger.events(collection.run_id)
     ledger_valid = ledger.verify_chain(collection.run_id)
     elapsed = int((perf_counter() - started) * 1000)
@@ -645,7 +680,7 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         trace=trace,
         evidence=evidence,
         report=report,
-        dossier=_build_dossier(req, evidence, checks, state),
+        dossier=dossier,
         claim_checks=checks,
         metrics=ArchitectureMetrics(
             elapsed_ms=elapsed,
@@ -655,6 +690,12 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             blocked_claims=blocked,
             review_claims=uncertain,
             ledger_events=len(events),
+            stage_timings_ms={
+                "collection": collection_ms,
+                "projection": projection_ms,
+                "verification": verification_ms,
+                "rendering": rendering_ms,
+            },
         ),
         limitations=guarantees,
         run_id=collection.run_id,
