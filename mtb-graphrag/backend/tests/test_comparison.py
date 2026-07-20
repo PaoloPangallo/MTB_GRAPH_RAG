@@ -5,6 +5,7 @@ from backend.api.schemas import ArchitectureComparisonRequest, EvidenceItem
 from backend.comparison.service import (
     _agentic_guarantees,
     _agentic_trace,
+    _build_dossier,
     _canonical_evidence,
     _render_verified_report,
     compare_architectures,
@@ -143,6 +144,24 @@ class ComparisonDemoTest(TestCase):
                 by_section.setdefault(item.dossier_section, []).append(item)
             self.assertEqual(sum(len(items) for items in by_section.values()), len(dossier.evidence))
 
+    def test_trial_findings_are_deduplicated_by_nct_id_in_the_final_projection(self):
+        """NCT07183189 osservato due volte nel run reale: anche se
+        trial_candidates nello stato aggregato contiene lo stesso NCT ID più
+        volte (es. raccolta multi-step), la proiezione finale del dossier non
+        deve mai mostrarlo due volte."""
+        request = self._request()
+        state = {
+            "trial_candidates": [
+                {"nct_id": "NCT07183189", "title": "Trial ripetuto", "phase": "2", "status": "Recruiting", "drug_tested": "osimertinib"},
+                {"nct_id": "NCT07183189", "title": "Trial ripetuto", "phase": "2", "status": "Recruiting", "drug_tested": "amivantamab"},
+            ],
+            "resistance_data": [],
+        }
+        dossier = _build_dossier(request, [], [], state=state)
+        nct_ids = [finding.title.split(":")[0] for finding in dossier.trial_findings]
+        self.assertEqual(nct_ids.count("NCT07183189"), 1)
+        self.assertEqual(len(dossier.trial_findings), 1)
+
 
 class AgenticTraceTest(TestCase):
     def _collection(self, **overrides):
@@ -205,11 +224,12 @@ class AgenticTraceTest(TestCase):
             collection, evidence=[], events=[], ledger_valid=True,
             supported=2, blocked=1, uncertain=1,
             compatible=1, indeterminate_applicability=2, not_compatible=1,
+            supported_as_written=1, supported_after_contextualization=1,
         )
         verification_step = trace[7]
         self.assertEqual(verification_step.order, 8)
         self.assertIn("due assi indipendenti", verification_step.detail)
-        self.assertIn("2 supportate, 1 bloccate, 1 inviate a revisione", verification_step.detail)
+        self.assertIn("2 supportate (1 come formulate, 1 dopo contestualizzazione), 1 contraddette, 1 inviate a revisione", verification_step.detail)
         self.assertIn("1 compatibili, 2 indeterminate, 1 non compatibili", verification_step.detail)
 
     def test_repair_step_distinguishes_excluded_from_visible_context(self):

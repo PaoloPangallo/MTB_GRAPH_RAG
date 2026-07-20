@@ -36,7 +36,7 @@ import type {
   ExecutionMode,
 } from '../types';
 import { buildComparisonRequest, type ComparisonFormState } from './comparisonRequest';
-import { DOSSIER_SECTION_ORDER, DOSSIER_SECTION_SEVERITY, DOSSIER_SECTION_TITLES, groupDossierEvidence } from './dossierSections';
+import { DOSSIER_SECTION_ORDER, DOSSIER_SECTION_SEVERITY, DOSSIER_SECTION_TITLES, dedupeTrialFindings, groupDossierEvidence } from './dossierSections';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
@@ -172,6 +172,7 @@ function DossierEvidenceList({
 
 function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
   const grouped = groupDossierEvidence(dossier.evidence);
+  const trialFindings = dedupeTrialFindings(dossier.trial_findings);
   return (
     <Box sx={{ mb: 2.5 }}>
       <Typography variant="overline" sx={{ fontWeight: 800 }}>Dossier per il Molecular Tumor Board</Typography>
@@ -211,8 +212,8 @@ function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
           ))}
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
-          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Trial da valutare per potenziale pertinenza ({dossier.trial_findings.length})</Typography>
-          {dossier.trial_findings.length === 0 ? <Typography variant="caption">Nessun record disponibile.</Typography> : dossier.trial_findings.map((item, index) => (
+          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Trial da valutare per potenziale pertinenza ({trialFindings.length})</Typography>
+          {trialFindings.length === 0 ? <Typography variant="caption">Nessun record disponibile.</Typography> : trialFindings.map((item, index) => (
             <Box key={`${item.title}-${index}`} sx={{ mt: 0.75, p: 1, border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
               <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.title}</Typography>
               <Typography variant="caption">{item.detail}</Typography>
@@ -309,9 +310,10 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
             ['Tempo', formatMs(metrics.elapsed_ms)],
             ['Nodi/strumenti', metrics.tool_calls],
             ['Evidenze', metrics.evidence_count],
-            ['Fonti supportate', metrics.source_supported_count ?? 0],
+            ['Supportate come formulate', metrics.source_supported_as_written_count ?? 0],
+            ['Supportate dopo contestualizzazione', metrics.source_supported_after_contextualization_count ?? 0],
             ['Supporto documentale incerto', metrics.source_uncertain_count ?? 0],
-            ['Fonti non supportate', metrics.source_unsupported_count ?? 0],
+            ['Fonti contraddette', metrics.source_unsupported_count ?? 0],
             ['Applicabilità compatibile', metrics.applicability_compatible_count ?? 0],
             ['Applicabilità indeterminata', metrics.applicability_indeterminate_count ?? 0],
             ['Applicabilità non compatibile', metrics.applicability_not_compatible_count ?? 0],
@@ -475,7 +477,12 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           </Accordion>
         )}
 
-        {((metrics.verifier_batches ?? 0) > 0 || (metrics.cache_hits ?? 0) > 0) && (
+        {(
+          (metrics.cache_hits ?? 0) > 0
+          || (metrics.cache_misses ?? 0) > 0
+          || (metrics.verifier_batches ?? 0) > 0
+          || (metrics.source_profile_elapsed_ms ?? 0) > 0
+        ) && (
           <Accordion defaultExpanded={false} disableGutters sx={{ mb: 2.5 }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Box>

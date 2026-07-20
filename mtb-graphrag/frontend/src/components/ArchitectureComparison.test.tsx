@@ -264,6 +264,30 @@ describe('ArchitecturePanel — titolo di sezione del dossier mostrato una sola 
   });
 });
 
+describe('ArchitecturePanel — deduplicazione dei trial nel renderer', () => {
+  it('non mostra due volte lo stesso NCT ID (difesa in profondità nel renderer)', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          dossier: {
+            case_summary: [],
+            missing_data: [],
+            evidence: [],
+            resistance_findings: [],
+            trial_findings: [
+              { title: 'NCT07183189: Trial ripetuto', detail: 'Fase 2 · Recruiting · osimertinib' },
+              { title: 'NCT07183189: Trial ripetuto', detail: 'Fase 2 · Recruiting · amivantamab' },
+            ],
+            mtb_questions: [],
+          },
+        })}
+      />,
+    );
+    expect(screen.getByText('Trial da valutare per potenziale pertinenza (1)')).toBeInTheDocument();
+    expect(screen.getAllByText('NCT07183189: Trial ripetuto')).toHaveLength(1);
+  });
+});
+
 describe('ArchitecturePanel — campi del dossier clinico sempre etichettati', () => {
   it('mostra il valore dichiarato accanto alla propria etichetta', () => {
     render(

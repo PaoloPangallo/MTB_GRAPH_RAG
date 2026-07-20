@@ -191,6 +191,10 @@ export interface ArchitectureRun {
     source_supported_count?: number;
     source_uncertain_count?: number;
     source_unsupported_count?: number;
+    // Suddivisione del conteggio "supported" sopra nella tassonomia
+    // documentale a quattro valori (la somma dei due torna a source_supported_count).
+    source_supported_as_written_count?: number;
+    source_supported_after_contextualization_count?: number;
     applicability_compatible_count?: number;
     applicability_indeterminate_count?: number;
     applicability_not_compatible_count?: number;
