@@ -128,7 +128,8 @@ export interface DossierEvidence {
   setting: string;
   source_id?: string | null;
   evidence_level?: string | null;
-  classification: 'applicable' | 'review' | 'excluded' | 'unverified';
+  support_status: 'supported' | 'uncertain' | 'unsupported' | 'not_checked';
+  applicability_status: 'compatible' | 'indeterminate' | 'not_applicable';
   rationale: string;
 }
 
@@ -141,7 +142,7 @@ export interface DossierFinding {
 export interface ClinicalDossier {
   case_summary: DossierCaseField[];
   missing_data: string[];
-  applicable_evidence: DossierEvidence[];
+  supported_evidence: DossierEvidence[];
   review_evidence: DossierEvidence[];
   excluded_evidence: DossierEvidence[];
   resistance_findings: DossierFinding[];
@@ -167,6 +168,7 @@ export interface ArchitectureRun {
     blocked_claims: number;
     review_claims?: number;
     ledger_events?: number;
+    stage_timings_ms?: Record<string, number>;
   };
   limitations: string[];
   run_id?: string | null;

@@ -86,6 +86,29 @@ function splitClinicalValues(value: string) {
   return value.split(',').map(item => item.trim()).filter(Boolean);
 }
 
+const supportLabels: Record<DossierEvidence['support_status'], string> = {
+  supported: 'Claim: supportata dalla fonte',
+  uncertain: 'Claim: supporto incerto',
+  unsupported: 'Claim: non supportata',
+  not_checked: 'Claim: non verificata',
+};
+
+const applicabilityLabels: Record<DossierEvidence['applicability_status'], string> = {
+  compatible: 'Paziente: compatibile col contesto dichiarato',
+  indeterminate: 'Paziente: applicabilità indeterminata',
+  not_applicable: 'Paziente: contesto non applicabile',
+};
+
+const timingLabels: Record<string, string> = {
+  retrieval: 'retrieval',
+  synthesis: 'sintesi',
+  dossier: 'dossier',
+  collection: 'raccolta agentica',
+  projection: 'proiezione',
+  verification: 'verifica',
+  rendering: 'rendering',
+};
+
 function DossierEvidenceList({
   title,
   items,
@@ -108,7 +131,8 @@ function DossierEvidenceList({
           <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5, flexWrap: 'wrap' }}>
             {item.source_id && <Chip label={item.source_id} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
             {item.evidence_level && <Chip label={`Livello ${item.evidence_level}`} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />}
-            <Chip label={item.classification} size="small" sx={{ height: 20, fontSize: 10 }} />
+            <Chip label={supportLabels[item.support_status]} size="small" sx={{ height: 20, fontSize: 10 }} />
+            <Chip label={applicabilityLabels[item.applicability_status]} size="small" color={item.applicability_status === 'compatible' ? 'success' : item.applicability_status === 'not_applicable' ? 'error' : 'warning'} sx={{ height: 20, fontSize: 10 }} />
           </Box>
         </Alert>
       ))}
@@ -135,13 +159,13 @@ function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
         </Alert>
       )}
 
-      <DossierEvidenceList title="Evidenze applicabili al contesto dichiarato" items={dossier.applicable_evidence} severity="success" />
+      <DossierEvidenceList title="Evidenze supportate dalla fonte" items={dossier.supported_evidence} severity="success" />
       <DossierEvidenceList title="Evidenze da verificare con l’oncologo" items={dossier.review_evidence} severity="warning" />
       <DossierEvidenceList title="Evidenze escluse dal report" items={dossier.excluded_evidence} severity="error" />
 
       <Grid container spacing={1.5} sx={{ mb: 2 }}>
         <Grid size={{ xs: 12, sm: 6 }}>
-          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Resistenze osservate ({dossier.resistance_findings.length})</Typography>
+          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Meccanismi di resistenza documentati ({dossier.resistance_findings.length})</Typography>
           {dossier.resistance_findings.length === 0 ? <Typography variant="caption">Nessun record disponibile.</Typography> : dossier.resistance_findings.map((item, index) => (
             <Box key={`${item.title}-${index}`} sx={{ mt: 0.75, p: 1, border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
               <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.title}</Typography>
@@ -151,11 +175,12 @@ function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
           ))}
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
-          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Trial potenzialmente pertinenti ({dossier.trial_findings.length})</Typography>
+          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Trial da valutare per potenziale pertinenza ({dossier.trial_findings.length})</Typography>
           {dossier.trial_findings.length === 0 ? <Typography variant="caption">Nessun record disponibile.</Typography> : dossier.trial_findings.map((item, index) => (
             <Box key={`${item.title}-${index}`} sx={{ mt: 0.75, p: 1, border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
               <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.title}</Typography>
               <Typography variant="caption">{item.detail}</Typography>
+              <Chip label="Eleggibilità non verificata" size="small" color="warning" variant="outlined" sx={{ display: 'flex', width: 'fit-content', mt: 0.5, height: 20, fontSize: 10 }} />
             </Box>
           ))}
         </Grid>
@@ -244,6 +269,15 @@ function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
             </Box>
           ))}
         </Box>
+
+        {Object.keys(run.metrics.stage_timings_ms ?? {}).length > 0 && (
+          <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: -1.5, mb: 2.5 }}>
+            <Typography variant="caption" sx={{ fontWeight: 800, alignSelf: 'center' }}>Tempi per fase:</Typography>
+            {Object.entries(run.metrics.stage_timings_ms ?? {}).map(([stage, milliseconds]) => (
+              <Chip key={stage} label={`${timingLabels[stage] ?? stage}: ${milliseconds} ms`} size="small" variant="outlined" />
+            ))}
+          </Box>
+        )}
 
         <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>Ruolo dell'LLM</Typography>
         <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mb: 2.5 }}>

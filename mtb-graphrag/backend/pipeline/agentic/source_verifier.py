@@ -20,10 +20,14 @@ tumore, oggetto della claim e contesto clinico richiesto, inclusa la linea
 terapeutica. Il fatto che il PMID esista non basta. Una fonte adiuvante,
 post-progressione o di linea successiva non supporta una claim presentata come
 prima linea, a meno che il record dimostri direttamente anche quel contesto.
+Non dedurre che "first-line" significhi automaticamente malattia metastatica:
+se stadio o setting non sono dichiarati e la distinzione dipende proprio da
+questi dati, usa "uncertain" e richiedi revisione umana.
 
 Usa "supported" solo se il supporto è diretto. Usa "unsupported" se la fonte
 contraddice la claim o riguarda entità cliniche diverse. Usa "uncertain" se i
 dati non bastano. Non aggiungere conoscenza esterna.
+Scrivi sempre la motivazione in italiano.
 
 Restituisci esclusivamente un array JSON:
 [{"index": 0, "verdict": "supported|unsupported|uncertain", "reason": "..."}]

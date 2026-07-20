@@ -31,14 +31,15 @@ sono ricostruiti dal modello.
 Entrambe le architetture restituiscono lo stesso contratto di dossier:
 
 - riepilogo del caso e dati mancanti;
-- evidenze applicabili al contesto dichiarato;
+- evidenze supportate documentalmente, con applicabilità clinica separata;
 - evidenze da revisionare o non verificate;
 - evidenze escluse con motivazione;
 - resistenze e trial potenzialmente pertinenti;
 - questioni da discutere nel Molecular Tumor Board.
 
-La classificazione riguarda il supporto documentale e il setting dichiarato,
-non l'idoneità terapeutica individuale.
+Il dossier mantiene due assi distinti: supporto della claim rispetto alla fonte
+e compatibilità con i dati clinici dichiarati. Se il caso è incompleto,
+l'applicabilità resta indeterminata anche quando la fonte supporta la claim.
 
 ## Avvio
 
