@@ -136,7 +136,7 @@ export interface DossierEvidence {
   setting: string;
   source_id?: string | null;
   evidence_level?: string | null;
-  source_support_status: 'supported' | 'uncertain' | 'unsupported';
+  source_support_status: 'supported_as_written' | 'supported_after_contextualization' | 'uncertain' | 'contradicted';
   source_support_reason: string;
   source_population?: string | null;
   source_line?: string | null;

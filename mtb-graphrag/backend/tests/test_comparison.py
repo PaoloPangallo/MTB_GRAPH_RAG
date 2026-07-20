@@ -109,7 +109,7 @@ class ComparisonDemoTest(TestCase):
         # Anche con contesto clinico completo nella richiesta, senza una vera
         # verifica LLM l'applicabilità resta "indeterminate": un contesto
         # completo nella richiesta non fabbrica un "compatible" fittizio.
-        supported = [item for item in dossier.evidence if item.source_support_status == "supported"]
+        supported = [item for item in dossier.evidence if item.source_support_status == "supported_as_written"]
         self.assertEqual(supported[0].applicability_status, "indeterminate")
         self.assertEqual(supported[0].dossier_section, "supported_indeterminate")
 
@@ -276,12 +276,13 @@ class RenderVerifiedReportTest(TestCase):
 
     def _verification(self, **overrides):
         base = dict(
-            source_support_status="supported",
+            source_support_status="supported_as_written",
             source_support_reason="La fonte documenta il proprio record.",
             source_population=None,
             source_line=None,
             source_setting=None,
             source_prerequisites=None,
+            derived_verified_claim=None,
             applicability_status="indeterminate",
             applicability_reason="Dati clinici insufficienti per decidere.",
         )

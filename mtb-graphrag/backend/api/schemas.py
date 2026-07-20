@@ -116,6 +116,10 @@ class ArchitectureMetrics(BaseModel):
     source_supported_count: int = 0
     source_uncertain_count: int = 0
     source_unsupported_count: int = 0
+    # Suddivisione del conteggio "supported" sopra nella tassonomia
+    # documentale a quattro valori (source_supported_count ne è la somma).
+    source_supported_as_written_count: int = 0
+    source_supported_after_contextualization_count: int = 0
     applicability_compatible_count: int = 0
     applicability_indeterminate_count: int = 0
     applicability_not_compatible_count: int = 0
@@ -147,7 +151,17 @@ class DossierEvidence(BaseModel):
     setting: str
     source_id: Optional[str] = None
     evidence_level: Optional[str] = None
-    source_support_status: Literal["supported", "uncertain", "unsupported"]
+    # Tassonomia documentale a quattro valori: distingue una claim sostenuta
+    # così come scritta da una sostenuta solo dopo contestualizzazione (vedi
+    # derived_verified_claim) — AURA3/ADAURA/MARIPOSA-2 non diventano mai
+    # "contradicted" solo perché la claim del KG è più generica del record
+    # della fonte. "contradicted" resta riservato a una vera contraddizione.
+    source_support_status: Literal[
+        "supported_as_written",
+        "supported_after_contextualization",
+        "uncertain",
+        "contradicted",
+    ]
     source_support_reason: str
     source_population: Optional[str] = None
     source_line: Optional[str] = None

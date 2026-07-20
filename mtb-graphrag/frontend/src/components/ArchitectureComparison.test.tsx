@@ -70,7 +70,7 @@ describe('ArchitecturePanel — etichette del contesto (paziente vs fonte recupe
                 claim: 'Claim di prova',
                 therapy: 'Osimertinib',
                 setting: 'NSCLC metastatico EGFR+',
-                source_support_status: 'supported',
+                source_support_status: 'supported_as_written',
                 source_support_reason: 'Supportata dalla fonte primaria.',
                 applicability_status: 'compatible',
                 applicability_reason: 'Compatibile con il contesto dichiarato.',
@@ -154,6 +154,35 @@ describe('ArchitecturePanel — diagnostica verificatore', () => {
     expect(screen.getByText('850 ms')).toBeInTheDocument();
   });
 
+  it('mostra la sezione anche in un warm run (verifier_batches=0, cache_hits>0)', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          metrics: {
+            elapsed_ms: 10,
+            tool_calls: 1,
+            evidence_count: 6,
+            verified_claims: 0,
+            blocked_claims: 0,
+            cache_hits: 17,
+            cache_misses: 0,
+            verifier_batches: 0,
+            failed_batches: 0,
+            retry_items: 0,
+            recovered_items: 0,
+            permanently_failed_items: 0,
+            source_profile_elapsed_ms: 5,
+            applicability_elapsed_ms: 3,
+          },
+        })}
+      />,
+    );
+    expect(screen.getByText('Diagnostica verificatore')).toBeInTheDocument();
+    expect(screen.getByText('17')).toBeInTheDocument();
+    expect(screen.getByText('5 ms')).toBeInTheDocument();
+    expect(screen.getByText('3 ms')).toBeInTheDocument();
+  });
+
   it('mostra un warning quando più del 20% delle verifiche fallisce definitivamente', () => {
     render(
       <ArchitecturePanel
@@ -198,6 +227,40 @@ describe('ArchitecturePanel — diagnostica verificatore', () => {
       />,
     );
     expect(screen.queryByText(/Più del 20% delle verifiche è fallito definitivamente/)).not.toBeInTheDocument();
+  });
+});
+
+describe('ArchitecturePanel — titolo di sezione del dossier mostrato una sola volta', () => {
+  it('non duplica il titolo della sezione con il relativo conteggio', () => {
+    const evidence = Array.from({ length: 9 }, (_, index) => ({
+      evidence_id: `ev-${index}`,
+      claim: `Claim ${index}`,
+      therapy: 'Osimertinib',
+      setting: 'NSCLC metastatico EGFR+',
+      source_support_status: 'supported_as_written' as const,
+      source_support_reason: 'Supportata dalla fonte primaria.',
+      applicability_status: 'compatible' as const,
+      applicability_reason: 'Compatibile con il contesto dichiarato.',
+      requires_source_review: false,
+      requires_clinical_review: false,
+      dossier_section: 'supported_compatible' as const,
+    }));
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          dossier: {
+            case_summary: [],
+            missing_data: [],
+            evidence,
+            resistance_findings: [],
+            trial_findings: [],
+            mtb_questions: [],
+          },
+        })}
+      />,
+    );
+    const matches = screen.getAllByText('Evidenze supportate e compatibili con il contesto dichiarato (9)');
+    expect(matches).toHaveLength(1);
   });
 });
 
