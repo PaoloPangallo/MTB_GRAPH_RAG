@@ -109,6 +109,7 @@ class ArchitectureMetrics(BaseModel):
     blocked_claims: int
     review_claims: int = 0
     ledger_events: int = 0
+    stage_timings_ms: dict[str, int] = Field(default_factory=dict)
 
 
 class DossierCaseField(BaseModel):
@@ -124,7 +125,8 @@ class DossierEvidence(BaseModel):
     setting: str
     source_id: Optional[str] = None
     evidence_level: Optional[str] = None
-    classification: Literal["applicable", "review", "excluded", "unverified"]
+    support_status: Literal["supported", "uncertain", "unsupported", "not_checked"]
+    applicability_status: Literal["compatible", "indeterminate", "not_applicable"]
     rationale: str
 
 
@@ -137,7 +139,7 @@ class DossierFinding(BaseModel):
 class ClinicalDossier(BaseModel):
     case_summary: list[DossierCaseField]
     missing_data: list[str]
-    applicable_evidence: list[DossierEvidence]
+    supported_evidence: list[DossierEvidence]
     review_evidence: list[DossierEvidence]
     excluded_evidence: list[DossierEvidence]
     resistance_findings: list[DossierFinding]

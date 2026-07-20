@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from backend.api.schemas import ArchitectureComparisonRequest
-from backend.comparison.service import compare_architectures
+from backend.api.schemas import ArchitectureComparisonRequest, EvidenceItem
+from backend.comparison.service import _canonical_evidence, compare_architectures
 
 
 class ComparisonDemoTest(TestCase):
@@ -46,16 +46,24 @@ class ComparisonDemoTest(TestCase):
         result = compare_architectures(self._request())
 
         self.assertEqual(
-            result.deterministic.dossier.review_evidence[0].classification,
-            "unverified",
+            result.deterministic.dossier.review_evidence[0].support_status,
+            "not_checked",
         )
         self.assertEqual(
-            result.agentic.dossier.applicable_evidence[0].source_id,
+            result.agentic.dossier.supported_evidence[0].source_id,
             "PMID:29151359",
+        )
+        self.assertEqual(
+            result.agentic.dossier.supported_evidence[0].applicability_status,
+            "indeterminate",
         )
         self.assertEqual(
             result.agentic.dossier.excluded_evidence[0].claim,
             "Il caso presenta amplificazione di MET.",
+        )
+        self.assertEqual(
+            result.agentic.dossier.excluded_evidence[0].applicability_status,
+            "indeterminate",
         )
         self.assertIn("Stadio", result.agentic.dossier.missing_data)
 
@@ -77,3 +85,22 @@ class ComparisonDemoTest(TestCase):
         self.assertEqual(dossier.missing_data, [])
         self.assertEqual(values["ecog_status"], "1")
         self.assertEqual(values["cns_metastases"], "Assenti")
+        self.assertEqual(
+            dossier.supported_evidence[0].applicability_status,
+            "compatible",
+        )
+
+    def test_canonical_view_removes_exact_duplicate_evidence(self):
+        item = EvidenceItem(
+            subject="EGFR L858R",
+            relation="Sensitivity/Response",
+            object="OSIMERTINIB",
+            context="Lung Non-small Cell Carcinoma",
+            source_id="PMID:37937763",
+            provenance="fixture",
+        )
+
+        canonical = _canonical_evidence([item, item.model_copy()])
+
+        self.assertEqual(len(canonical), 1)
+        self.assertEqual(canonical[0].source_id, "PMID:37937763")
