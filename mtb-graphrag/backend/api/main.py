@@ -21,7 +21,10 @@ app = FastAPI(
 # CORS — origini esplicite, configurabili da .env/ambiente
 cors_origins = [
     origin.strip()
-    for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
+    for origin in os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173,http://127.0.0.1:5174",
+    ).split(",")
     if origin.strip()
 ]
 app.add_middleware(

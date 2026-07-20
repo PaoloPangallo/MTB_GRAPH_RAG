@@ -14,7 +14,8 @@ __pycache__/
 *$py.class
 *.log
 *.bak
-mtb-graphrag/data/agent_events.sqlite3*
+mtb-graphrag/data/*.sqlite3
+mtb-graphrag/data/*.db
 
 # IDE & system files
 .idea/
