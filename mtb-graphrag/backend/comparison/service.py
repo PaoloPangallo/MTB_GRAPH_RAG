@@ -12,6 +12,7 @@ from __future__ import annotations
 from time import perf_counter
 from typing import Any
 
+from backend.pipeline.agents.trial_dedup import deduplicate_trials
 from backend.api.schemas import (
     ArchitectureComparisonRequest,
     ArchitectureComparisonResponse,
@@ -131,7 +132,15 @@ def _render_verified_report(
             "È richiesta la revisione dell'oncologo."
         )
 
-    lines = [f"Caso: {case_label}.", "Evidenze documentalmente supportate:"]
+    as_written_count = sum(1 for _item, v in supported if v.source_support_status == "supported_as_written")
+    contextualized_count = sum(
+        1 for _item, v in supported if v.source_support_status == "supported_after_contextualization"
+    )
+    lines = [
+        f"Caso: {case_label}.",
+        f"Evidenze documentalmente supportate ({as_written_count} come formulate, "
+        f"{contextualized_count} dopo contestualizzazione):",
+    ]
     for item, verification in supported:
         prerequisites = ", ".join(
             part for part in (
@@ -161,9 +170,9 @@ def _render_verified_report(
         )
     if any(v.applicability_status != "compatible" for _item, v in supported):
         lines.append(
-            "Le evidenze supportate ma non compatibili o con applicabilità indeterminata restano "
-            "visibili come contesto documentale: non sono evidenze candidate da discutere nel "
-            "Molecular Tumor Board per questo caso e non vanno lette come fonti false."
+            "Le evidenze supportate ma non compatibili o con applicabilità indeterminata "
+            "restano evidenze contestuali da sottoporre a revisione nel Molecular Tumor Board, "
+            "ma non vengono presentate come candidate terapeutiche per il caso."
         )
     lines.append(
         "Il report organizza l'evidenza disponibile e deve essere revisionato "
@@ -407,9 +416,13 @@ def _build_dossier(
         _dossier_finding(record, "resistance")
         for record in state.get("resistance_data", [])
     ]
+    # Deduplica di nuovo per NCT ID nella proiezione finale del dossier: anche
+    # se trial_matcher deduplica già alla fonte, uno stato aggregato da più
+    # step (es. raccolta agentica) può reintrodurre lo stesso trial più
+    # volte prima di arrivare qui — mai mostrare lo stesso NCT ID due volte.
     trials = [
         _dossier_finding(record, "trial")
-        for record in state.get("trial_candidates", [])
+        for record in deduplicate_trials(state.get("trial_candidates", []))
     ]
 
     by_section: dict[str, list[DossierEvidence]] = {}
@@ -752,6 +765,8 @@ def _agentic_trace(
     compatible: int = 0,
     indeterminate_applicability: int = 0,
     not_compatible: int = 0,
+    supported_as_written: int = 0,
+    supported_after_contextualization: int = 0,
 ) -> list[TraceStep]:
     """Costruisce la trace in modo condizionale su ``planning_mode``: non deve
     mai descrivere un'esecuzione in ``safe_fallback`` come pianificazione
@@ -805,7 +820,9 @@ def _agentic_trace(
             actor="Regole + LLM",
             detail=(
                 f"Il verificatore produce due assi indipendenti. Supporto documentale — PubMed/CIViC: "
-                f"{supported} supportate, {blocked} bloccate, {uncertain} inviate a revisione. "
+                f"{supported} supportate ({supported_as_written} come formulate, "
+                f"{supported_after_contextualization} dopo contestualizzazione), {blocked} contraddette, "
+                f"{uncertain} inviate a revisione. "
                 f"Applicabilità al caso — {compatible} compatibili, {indeterminate_applicability} indeterminate, "
                 f"{not_compatible} non compatibili."
             ),
@@ -968,6 +985,7 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
         collection, evidence, events, ledger_valid,
         supported, blocked, uncertain,
         compatible, indeterminate_applicability, not_compatible,
+        supported_as_written, supported_after_contextualization,
     )
 
     guarantees = _agentic_guarantees(collection)

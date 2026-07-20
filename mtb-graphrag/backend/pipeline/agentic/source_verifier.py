@@ -29,9 +29,13 @@ from backend.pipeline.agentic.regimen_arms import (
 from backend.pipeline.agentic.source_profile_cache import statement_hash
 
 # Versione del prompt del profilo sorgente: incrementare quando cambia la
-# logica di estrazione (section 1 del prompt sotto), per invalidare
-# automaticamente le voci di cache legate alla versione precedente.
-SOURCE_PROFILE_PROMPT_VERSION = "v2"
+# logica di estrazione (section 1 del prompt sotto) O la tassonomia del
+# risultato esposto (es. v2 -> v3: passaggio da supported/uncertain/unsupported
+# a supported_as_written/supported_after_contextualization/uncertain/contradicted),
+# per invalidare automaticamente le voci di cache legate alla versione
+# precedente — un profilo v2 non è mai riutilizzato come se fosse
+# equivalente a un profilo v3: chiavi di cache diverse, cache miss garantito.
+SOURCE_PROFILE_PROMPT_VERSION = "v3"
 
 
 SOURCE_VERIFIER_SYSTEM = """Sei un verificatore di evidenze per un Molecular Tumor Board.

@@ -489,7 +489,7 @@ class SourceVerifierTest(TestCase):
             "index": 0,
             "source_support_status": "supported",
             "source_support_reason": "La fonte documenta attività di osimertinib in EGFR L858R con T790M dopo progressione a un precedente EGFR-TKI.",
-            "source_population": "EGFR L858R con T790M",
+            "source_population": "presenza di T790M",
             "source_line": "seconda linea",
             "source_setting": "post-progressione",
             "source_prerequisites": "progressione a un precedente EGFR-TKI",
@@ -512,8 +512,13 @@ class SourceVerifierTest(TestCase):
         self.assertEqual(result.source_support_status, "supported_after_contextualization")
         self.assertNotEqual(result.source_support_status, "contradicted")
         self.assertIsNotNone(result.derived_verified_claim)
+        # La claim contestualizzata deve correggere popolazione, linea,
+        # setting e prerequisiti — non limitarsi ad aggiungere testo attorno
+        # all'oggetto originale.
         self.assertIn("T790M", result.derived_verified_claim)
-        self.assertIn("progressione", result.derived_verified_claim.lower())
+        self.assertIn("seconda linea", result.derived_verified_claim.lower())
+        self.assertIn("post-progressione", result.derived_verified_claim.lower())
+        self.assertIn("progressione a un precedente egfr-tki", result.derived_verified_claim.lower())
         self.assertEqual(result.applicability_status, "not_compatible")
 
     def test_source_genuinely_contradicts_biomarker_is_contradicted(self):
@@ -574,18 +579,23 @@ class SourceVerifierTest(TestCase):
 
     def test_partial_regimen_is_supported_after_contextualization_with_full_regimen(self):
         """PMID 37879444 (stile MARIPOSA-2): la fonte descrive un unico
-        braccio amivantamab + carboplatino + pemetrexed, ma la claim del KG
-        riguarda solo amivantamab + carboplatino. La claim è un sottoinsieme
+        braccio amivantamab + carboplatino + pemetrexed dopo progressione a
+        osimertinib, ma la claim del KG riguarda solo amivantamab +
+        carboplatino, senza linea/prerequisiti. La claim è un sottoinsieme
         proprio di un braccio noto e univoco ('partial'): la fonte sostiene
         una claim più specifica di quella scritta nel KG, non va etichettata
         come non supportata. Diventa 'supported_after_contextualization', con
-        una derived_verified_claim che mostra il regime completo."""
+        una derived_verified_claim che corregge sia il regime completo sia la
+        linea/i prerequisiti — non si limita ad aggiungere testo attorno
+        all'oggetto originale."""
         item = self._item(object_="amivantamab + carboplatino", source_id="PMID:37879444")
         llm = _SequencedLLM([[{
             "index": 0,
             "source_support_status": "supported",
             "source_support_reason": "La fonte documenta il regime nel proprio contesto.",
             "source_arms": [{"arm_name": "braccio sperimentale", "interventions": ["amivantamab", "carboplatino", "pemetrexed"]}],
+            "source_line": "seconda linea",
+            "source_prerequisites": "progressione a osimertinib",
             "applicability_status": "indeterminate",
             "applicability_reason": "Dati clinici del paziente non dichiarati.",
         }]])
@@ -599,6 +609,7 @@ class SourceVerifierTest(TestCase):
         self.assertEqual(result.source_support_status, "supported_after_contextualization")
         self.assertIsNotNone(result.derived_verified_claim)
         self.assertIn("pemetrexed", result.derived_verified_claim.lower())
+        self.assertIn("osimertinib", result.derived_verified_claim.lower())
         self.assertFalse(result.requires_source_review)
 
     def test_multi_drug_claim_with_no_source_arms_reported_is_uncertain(self):
@@ -797,6 +808,49 @@ class SourceVerifierTest(TestCase):
         # senza alcuna nuova chiamata LLM.
         self.assertEqual(results_second[0].applicability_status, "indeterminate")
 
+    def test_v2_cached_profile_is_not_reused_after_prompt_version_bump_to_v3(self):
+        """La tassonomia del supporto documentale è cambiata (v2 -> v3,
+        da supported/uncertain/unsupported a supported_as_written/
+        supported_after_contextualization/uncertain/contradicted): un profilo
+        scritto in cache con la vecchia versione del prompt non deve mai
+        essere riutilizzato come se fosse equivalente a un profilo v3 — deve
+        produrre un cache miss e una nuova chiamata LLM."""
+        from backend.pipeline.agentic.source_profile_cache import statement_hash
+        from backend.pipeline.agentic.source_verifier import SOURCE_PROFILE_PROMPT_VERSION
+
+        self.assertEqual(SOURCE_PROFILE_PROMPT_VERSION, "v3")
+
+        item = self._item()
+        cache = InMemorySourceProfileCache()
+        pmid = 29151359
+        cache.put(
+            pmid, statement_hash(item.evidence_statement, item.citation_text),
+            "v2", "default",
+            {
+                "support_status": "supported",  # vecchia tassonomia grezza, pre-taxonomy
+                "support_reason": "Profilo v2 obsoleto.",
+                "population": None, "line": None, "setting": None, "prerequisites": None,
+                "line_category": "unknown", "setting_category": "unknown", "prior_requirement": "unknown",
+                "source_arms": [],
+            },
+        )
+
+        llm = _SequencedLLM([[{
+            "index": 0,
+            "source_support_status": "supported",
+            "source_support_reason": "Nuova estrazione v3.",
+            "applicability_status": "indeterminate",
+            "applicability_reason": "Dati clinici del paziente non dichiarati.",
+        }]])
+        metrics: dict[str, int] = {}
+        results = verify_evidence_items(
+            [item], llm_client=llm, source_loader=self._source_loader(),
+            profile_cache=cache, metrics=metrics,
+        )
+        self.assertEqual(metrics["cache_misses"], 1)
+        self.assertEqual(metrics["cache_hits"], 0)
+        self.assertEqual(results[0].source_support_reason, "Nuova estrazione v3.")
+
     def test_deterministic_validator_downgrades_llm_verdict_when_setting_undeclared(self):
         """Anche se l'LLM restituisce 'compatible', il validatore deterministico
         deve ridurlo a 'indeterminate' quando la fonte dichiara un setting
@@ -950,6 +1004,7 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
         self.assertEqual(adaura.source_support_status, "supported_after_contextualization")
         self.assertNotEqual(adaura.source_support_status, "contradicted")
         self.assertIsNotNone(adaura.derived_verified_claim)
+        self.assertIn("resecato", adaura.derived_verified_claim.lower())
         self.assertIn("adiuvante", adaura.derived_verified_claim.lower())
 
         post_progression = results[4]
@@ -1021,6 +1076,7 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
             "source_support_status": "supported",
             "source_support_reason": "La fonte documenta il regime nel proprio contesto.",
             "source_arms": [{"arm_name": "braccio unico", "interventions": ["amivantamab", "carboplatin", "pemetrexed"]}],
+            "source_prerequisites": "progressione a osimertinib",
             "applicability_status": "indeterminate",
             "applicability_reason": "Dati clinici del paziente non dichiarati.",
         }]])
@@ -1033,4 +1089,131 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
         self.assertEqual(results[0].claim_arm_match, "partial")
         self.assertEqual(results[0].source_support_status, "supported_after_contextualization")
         self.assertIsNotNone(results[0].derived_verified_claim)
+        self.assertIn("osimertinib", results[0].derived_verified_claim.lower())
         self.assertIn("pemetrexed", results[0].derived_verified_claim.lower())
+
+
+class CompleteStageIVMetastaticScenarioTest(TestCase):
+    """Simula il caso completo stadio IV/metastatico richiesto per la
+    validazione: 14 fonti (9 pienamente coincidenti col contesto dichiarato,
+    5 in conflitto esplicito di linea), incluse le tre fonti nominate
+    (AURA3/ADAURA/MARIPOSA-2). Nessuna chiamata LLM/Neo4j reale disponibile
+    in questo ambiente: il client LLM è scriptato, ma la cache condivisa fra
+    il run "cold" e il run "warm" è quella reale (InMemorySourceProfileCache),
+    per validare davvero il comportamento di cache hit/miss."""
+
+    def _item(self, pmid, object_, evidence_statement, citation_text):
+        return SimpleNamespace(
+            subject="EGFR L858R",
+            relation="Sensitivity/Response",
+            object=object_,
+            context="NSCLC",
+            source_id=f"PMID:{pmid}",
+            evidence_statement=evidence_statement,
+            citation_text=citation_text,
+            evidence_level="A",
+        )
+
+    def setUp(self):
+        self._case_context = {
+            "therapy_line": "first-line",
+            "disease_stage": "IV",
+            "disease_setting": "metastatic",
+            "prior_therapies": "Nessuno",
+        }
+        compatible_pmids = [10000000 + i for i in range(9)]
+        conflict_pmids = [27959700, 32955177, 37879444, 20000003, 20000004]
+        self._items = [
+            self._item(pmid, "osimertinib", f"Evidence statement {pmid}.", f"Citation {pmid}.")
+            for pmid in compatible_pmids
+        ] + [
+            self._item(pmid, "osimertinib", f"Evidence statement {pmid}.", f"Citation {pmid}.")
+            for pmid in conflict_pmids
+        ]
+        self._sources = {
+            pmid: {"title": f"Study {pmid}", "abstract": "Patients with EGFR L858R NSCLC treated with osimertinib."}
+            for pmid in compatible_pmids + conflict_pmids
+        }
+        self._categories_by_pmid = {
+            **{pmid: ("first_line", "metastatic", "treatment_naive") for pmid in compatible_pmids},
+            27959700: ("post_progression", "metastatic", "previously_treated"),  # AURA3
+            32955177: ("adjuvant", "resected", "specific_therapy"),  # ADAURA
+            37879444: ("post_progression", "metastatic", "previously_treated"),  # MARIPOSA-2
+            20000003: ("post_progression", "metastatic", "previously_treated"),
+            20000004: ("post_progression", "metastatic", "previously_treated"),
+        }
+
+    def _scripted_llm(self):
+        categories_by_pmid = self._categories_by_pmid
+
+        class _ScriptedLLM:
+            def invoke(self, messages):
+                payload = json.loads(messages[1][1])
+                results = []
+                for entry in payload:
+                    pmid = int(entry["pubmed"]["title"].split()[-1])
+                    line_cat, setting_cat, prior_req = categories_by_pmid[pmid]
+                    results.append({
+                        "index": entry["index"],
+                        "source_support_status": "supported",
+                        "source_support_reason": f"La fonte documenta il proprio record (PMID {pmid}).",
+                        "source_line_category": line_cat,
+                        "source_setting_category": setting_cat,
+                        "source_prior_therapy_requirement": prior_req,
+                        "applicability_status": "compatible",
+                        "applicability_reason": "Verdict LLM pre-validazione.",
+                    })
+                return _Response(json.dumps(results))
+
+        return _ScriptedLLM()
+
+    def test_cold_then_warm_run_reaches_9_compatible_5_not_compatible_0_indeterminate(self):
+        cache = InMemorySourceProfileCache()
+
+        cold_metrics: dict[str, int] = {}
+        cold_results = verify_evidence_items(
+            self._items,
+            llm_client=self._scripted_llm(),
+            source_loader=lambda _pmids: self._sources,
+            case_context=self._case_context,
+            profile_cache=cache,
+            metrics=cold_metrics,
+        )
+        self.assertEqual(cold_metrics["cache_misses"], 14)
+        self.assertEqual(cold_metrics["cache_hits"], 0)
+
+        warm_metrics: dict[str, int] = {}
+        warm_results = verify_evidence_items(
+            self._items,
+            llm_client=self._scripted_llm(),
+            source_loader=lambda _pmids: self._sources,
+            case_context=self._case_context,
+            profile_cache=cache,
+            metrics=warm_metrics,
+        )
+        self.assertEqual(warm_metrics["cache_hits"], 14)
+        self.assertEqual(warm_metrics["cache_misses"], 0)
+
+        for label, results in (("cold", cold_results), ("warm", warm_results)):
+            with self.subTest(run=label):
+                compatible = sum(1 for r in results if r.applicability_status == "compatible")
+                not_compatible = sum(1 for r in results if r.applicability_status == "not_compatible")
+                indeterminate = sum(1 for r in results if r.applicability_status == "indeterminate")
+                self.assertEqual(compatible, 9, f"{label}: attese 9 compatible")
+                self.assertEqual(not_compatible, 5, f"{label}: attese 5 not_compatible")
+                self.assertEqual(indeterminate, 0, f"{label}: attese 0 indeterminate")
+                contradicted = [r for r in results if r.source_support_status == "contradicted"]
+                self.assertEqual(contradicted, [], f"{label}: nessuna fonte deve essere 'contradicted'")
+
+        # Le tre fonti nominate (AURA3, ADAURA, MARIPOSA-2) restano supportate
+        # (eventualmente dopo contestualizzazione), mai contraddette, in
+        # entrambi i run.
+        named_indices = {0 + 9: 27959700, 1 + 9: 32955177, 2 + 9: 37879444}
+        for index, pmid in named_indices.items():
+            for label, results in (("cold", cold_results), ("warm", warm_results)):
+                with self.subTest(run=label, pmid=pmid):
+                    self.assertIn(
+                        results[index].source_support_status,
+                        {"supported_as_written", "supported_after_contextualization"},
+                    )
+                    self.assertNotEqual(results[index].source_support_status, "contradicted")
