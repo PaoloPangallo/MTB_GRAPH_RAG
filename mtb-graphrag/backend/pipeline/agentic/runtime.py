@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
 from concurrent.futures import ThreadPoolExecutor
@@ -14,6 +15,8 @@ from uuid import uuid4
 
 from backend.pipeline.agentic.ledger import EventLedger
 
+
+logger = logging.getLogger(__name__)
 
 Tool = Callable[[dict[str, Any]], dict[str, Any]]
 
@@ -28,6 +31,31 @@ _FALLBACK_MESSAGES: dict[FallbackReason, str] = {
     "budget_exhausted": "Fallback sicuro: budget di tempo del planner esaurito.",
     "other": "Fallback sicuro: il planner ha proposto uno strumento non consentito o un errore non classificato.",
 }
+
+# Categorie sanitizzate per un fallimento di tool call: mai str(exc) nel
+# ledger o nelle limitations restituite dall'API — i dettagli tecnici
+# completi restano solo nei log server-side (senza token/segreti).
+ToolFailureCategory = str  # "timeout" | "invalid_response" | "service_unavailable" | "data_error" | "other"
+
+_TOOL_FAILURE_MESSAGES: dict[ToolFailureCategory, str] = {
+    "timeout": "timeout durante l'esecuzione dello strumento",
+    "invalid_response": "risposta dello strumento non conforme al formato atteso",
+    "service_unavailable": "servizio esterno non disponibile durante l'esecuzione dello strumento",
+    "data_error": "dati insufficienti o non validi per completare lo strumento",
+    "other": "errore non classificato durante l'esecuzione dello strumento",
+}
+
+
+def _categorize_tool_exception(exc: Exception) -> ToolFailureCategory:
+    if isinstance(exc, (TimeoutError, FuturesTimeoutError)):
+        return "timeout"
+    if isinstance(exc, (ConnectionError, OSError)):
+        return "service_unavailable"
+    if isinstance(exc, (json.JSONDecodeError, ValueError, TypeError)):
+        return "invalid_response"
+    if isinstance(exc, (KeyError, IndexError, AttributeError)):
+        return "data_error"
+    return "other"
 
 
 PLANNER_SYSTEM = """Sei il planner di raccolta evidenze per un Molecular Tumor Board.
@@ -351,7 +379,9 @@ def run_agentic_collection(
                 "observation": _observation(tool, state),
             })
         except Exception as exc:
-            message = f"{tool}: {exc}"
+            category = _categorize_tool_exception(exc)
+            logger.exception("Tool '%s' failed during agentic collection (category=%s)", tool, category)
+            message = f"{tool}: {_TOOL_FAILURE_MESSAGES[category]}"
             errors.append(message)
             tool_call_timings.append({
                 "tool": tool,
@@ -361,7 +391,7 @@ def run_agentic_collection(
             })
             event_ledger.append(run_id, "tool_failed", tool, {
                 "step": step,
-                "error": str(exc),
+                "error_category": category,
             })
             break
     else:

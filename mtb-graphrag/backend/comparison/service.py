@@ -732,6 +732,9 @@ def _agentic_trace(
     supported: int,
     blocked: int,
     uncertain: int,
+    compatible: int = 0,
+    indeterminate_applicability: int = 0,
+    not_compatible: int = 0,
 ) -> list[TraceStep]:
     """Costruisce la trace in modo condizionale su ``planning_mode``: non deve
     mai descrivere un'esecuzione in ``safe_fallback`` come pianificazione
@@ -766,12 +769,70 @@ def _agentic_trace(
         TraceStep(order=5, stage="Vista canonica", actor="Regole", detail=f"Deduplicazione completata: {len(evidence)} record canonici."),
         TraceStep(order=6, stage="Proiezione pertinente", actor="Regole", detail="Selezionati i record relativi al caso con statement clinico e provenienza."),
         TraceStep(order=7, stage="Rendering candidato", actor="Renderer deterministico", detail="Costruito esclusivamente dalla proiezione canonica."),
-        TraceStep(order=8, stage="Verifica claim–fonte", actor="Regole + LLM", detail=f"PubMed/CIViC: {supported} supportate, {blocked} bloccate, {uncertain} inviate a revisione.", status="warning" if blocked or uncertain else "completed"),
-        TraceStep(order=9, stage="Riparazione", actor="Regole", detail="Le claim bloccate o incerte sono escluse dal report verificato."),
-        TraceStep(order=10, stage="Report verificato", actor="Renderer deterministico", detail="Emesse soltanto claim che hanno superato provenienza, regole cliniche e verifica semantica."),
+        TraceStep(
+            order=8,
+            stage="Verifica claim–fonte",
+            actor="Regole + LLM",
+            detail=(
+                f"Il verificatore produce due assi indipendenti. Supporto documentale — PubMed/CIViC: "
+                f"{supported} supportate, {blocked} bloccate, {uncertain} inviate a revisione. "
+                f"Applicabilità al caso — {compatible} compatibili, {indeterminate_applicability} indeterminate, "
+                f"{not_compatible} non compatibili."
+            ),
+            status="warning" if (blocked or uncertain or indeterminate_applicability or not_compatible) else "completed",
+        ),
+        TraceStep(
+            order=9,
+            stage="Riparazione",
+            actor="Regole",
+            detail=(
+                "Le fonti con supporto documentale incerto o non supportato sono escluse dal report "
+                "documentale. Le fonti supportate ma non compatibili (o con applicabilità indeterminata) "
+                "restano visibili come contesto, non come opzioni per il caso."
+            ),
+        ),
+        TraceStep(
+            order=10,
+            stage="Report verificato",
+            actor="Renderer deterministico",
+            detail=(
+                "\"Verificato\" significa verificato rispetto al supporto documentale della fonte, non "
+                "clinicamente raccomandato: sono emesse soltanto le claim che hanno superato provenienza, "
+                "regole cliniche e verifica semantica."
+            ),
+        ),
         TraceStep(order=11, stage="Narrazione opzionale", actor="LLM + nuova verifica", detail="Non applicata in questa esecuzione: viene mostrato il report deterministico."),
         TraceStep(order=12, stage="Revisione", actor="Oncologo", detail="Gli esiti incerti sono esplicitamente destinati alla revisione umana."),
     ]
+
+
+def _agentic_guarantees(collection: Any) -> list[str]:
+    """Costruisce le garanzie in modo condizionale su ``planning_mode``: non
+    deve mai descrivere una pianificazione dinamica riuscita quando è stato
+    eseguito il piano sicuro predefinito, né il contrario."""
+    if collection.planning_mode == "llm_dynamic":
+        guarantees = ["Il planner ha scelto iterativamente gli strumenti."]
+    else:
+        guarantees = [
+            "È stato eseguito il piano sicuro predefinito; questa esecuzione non "
+            "dimostra pianificazione agentica dinamica."
+        ]
+    guarantees.append(
+        f"Il ledger è persistito durante ogni decisione e tool call con catena SHA-256 verificata ({collection.run_id})."
+    )
+    guarantees.append(
+        "Il verificatore è fail-closed su due assi indipendenti — supporto documentale e applicabilità al caso: "
+        "fonte assente o esito incerto richiedono revisione umana su almeno uno dei due assi."
+    )
+    if collection.planning_mode == "safe_fallback":
+        guarantees.append(
+            "Il planner LLM non ha completato un piano valido; è stato eseguito il piano sicuro predefinito "
+            f"(motivo: {collection.fallback_reason}; tentativi: {collection.planner_attempts}; "
+            f"tempo planner: {collection.planner_elapsed_ms} ms)."
+        )
+    if collection.errors:
+        guarantees.append("Escalation runtime: " + "; ".join(collection.errors))
+    return guarantees
 
 
 def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
@@ -798,8 +859,10 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     })
     projection_ms = int((perf_counter() - projection_started) * 1000)
     verification_started = perf_counter()
+    verifier_metrics: dict[str, int] = {}
     verifications = verify_evidence_items(
         evidence,
+        metrics=verifier_metrics,
         case_context={
             "gene": req.gene or "",
             "variant": req.variant,
@@ -852,22 +915,13 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     indeterminate_applicability = sum(v.applicability_status == "indeterminate" for v in verifications)
     not_compatible = sum(v.applicability_status == "not_compatible" for v in verifications)
 
-    trace = _agentic_trace(collection, evidence, events, ledger_valid, supported, blocked, uncertain)
+    trace = _agentic_trace(
+        collection, evidence, events, ledger_valid,
+        supported, blocked, uncertain,
+        compatible, indeterminate_applicability, not_compatible,
+    )
 
-    guarantees = [
-        "Il planner sceglie iterativamente tra strumenti clinici allow-listed; dipendenze e budget restano imposti dal controller.",
-        f"Il ledger è persistito durante ogni decisione e tool call con catena SHA-256 verificata ({collection.run_id}).",
-        "Il verificatore è fail-closed su due assi indipendenti — supporto documentale e applicabilità al caso: "
-        "fonte assente o esito incerto richiedono revisione umana su almeno uno dei due assi.",
-    ]
-    if collection.planning_mode == "safe_fallback":
-        guarantees.append(
-            "Il planner LLM non ha completato un piano valido; è stato eseguito il piano sicuro predefinito "
-            f"(motivo: {collection.fallback_reason}; tentativi: {collection.planner_attempts}; "
-            f"tempo planner: {collection.planner_elapsed_ms} ms)."
-        )
-    if collection.errors:
-        guarantees.append("Escalation runtime: " + "; ".join(collection.errors))
+    guarantees = _agentic_guarantees(collection)
 
     return ArchitectureRun(
         architecture_id="agentic",
@@ -899,6 +953,11 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             applicability_compatible_count=compatible,
             applicability_indeterminate_count=indeterminate_applicability,
             applicability_not_compatible_count=not_compatible,
+            verifier_batches=verifier_metrics.get("verifier_batches", 0),
+            verifier_failed_batches=verifier_metrics.get("verifier_failed_batches", 0),
+            verifier_retry_items=verifier_metrics.get("verifier_retry_items", 0),
+            verifier_recovered_items=verifier_metrics.get("verifier_recovered_items", 0),
+            verifier_elapsed_ms=verifier_metrics.get("verifier_elapsed_ms", 0),
         ),
         limitations=guarantees,
         run_id=collection.run_id,

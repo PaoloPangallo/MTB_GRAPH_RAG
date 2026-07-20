@@ -3,6 +3,7 @@ from unittest import TestCase
 
 from backend.api.schemas import ArchitectureComparisonRequest, EvidenceItem
 from backend.comparison.service import (
+    _agentic_guarantees,
     _agentic_trace,
     _canonical_evidence,
     _render_verified_report,
@@ -145,7 +146,15 @@ class ComparisonDemoTest(TestCase):
 
 class AgenticTraceTest(TestCase):
     def _collection(self, **overrides):
-        base = {"planning_mode": "llm_dynamic", "tool_path": ["interpret_variant"], "fallback_reason": None}
+        base = {
+            "planning_mode": "llm_dynamic",
+            "tool_path": ["interpret_variant"],
+            "fallback_reason": None,
+            "run_id": "run-fixture",
+            "planner_attempts": 0,
+            "planner_elapsed_ms": 0,
+            "errors": [],
+        }
         base.update(overrides)
         return SimpleNamespace(**base)
 
@@ -173,6 +182,77 @@ class AgenticTraceTest(TestCase):
         self.assertNotIn("ha alimentato la decisione successiva", collection_step.detail)
         self.assertEqual(collection_step.status, "warning")
         self.assertIn("timeout", collection_step.detail)
+
+    def test_verification_step_reports_both_independent_axes(self):
+        collection = self._collection()
+        trace = _agentic_trace(
+            collection, evidence=[], events=[], ledger_valid=True,
+            supported=2, blocked=1, uncertain=1,
+            compatible=1, indeterminate_applicability=2, not_compatible=1,
+        )
+        verification_step = trace[7]
+        self.assertEqual(verification_step.order, 8)
+        self.assertIn("due assi indipendenti", verification_step.detail)
+        self.assertIn("2 supportate, 1 bloccate, 1 inviate a revisione", verification_step.detail)
+        self.assertIn("1 compatibili, 2 indeterminate, 1 non compatibili", verification_step.detail)
+
+    def test_repair_step_distinguishes_excluded_from_visible_context(self):
+        collection = self._collection()
+        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=0, blocked=0, uncertain=0)
+        repair_step = trace[8]
+        self.assertEqual(repair_step.order, 9)
+        self.assertIn("escluse dal report", repair_step.detail)
+        self.assertIn("non come opzioni per il caso", repair_step.detail)
+
+    def test_verified_report_step_clarifies_documentary_not_clinical_meaning(self):
+        collection = self._collection()
+        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=0, blocked=0, uncertain=0)
+        verified_report_step = trace[9]
+        self.assertEqual(verified_report_step.order, 10)
+        self.assertIn("non clinicamente raccomandato", verified_report_step.detail)
+
+
+class AgenticGuaranteesTest(TestCase):
+    def _collection(self, **overrides):
+        base = {
+            "planning_mode": "llm_dynamic",
+            "run_id": "run-fixture",
+            "fallback_reason": None,
+            "planner_attempts": 0,
+            "planner_elapsed_ms": 0,
+            "errors": [],
+        }
+        base.update(overrides)
+        return SimpleNamespace(**base)
+
+    def test_llm_dynamic_guarantee_does_not_mention_safe_fallback(self):
+        guarantees = _agentic_guarantees(self._collection())
+        self.assertEqual(guarantees[0], "Il planner ha scelto iterativamente gli strumenti.")
+        self.assertFalse(any("piano sicuro predefinito" in guarantee and "motivo" in guarantee for guarantee in guarantees))
+
+    def test_safe_fallback_guarantee_never_claims_dynamic_planning(self):
+        collection = self._collection(
+            planning_mode="safe_fallback", fallback_reason="timeout", planner_attempts=2, planner_elapsed_ms=500,
+        )
+        guarantees = _agentic_guarantees(collection)
+        self.assertEqual(
+            guarantees[0],
+            "È stato eseguito il piano sicuro predefinito; questa esecuzione non "
+            "dimostra pianificazione agentica dinamica.",
+        )
+        self.assertTrue(any("motivo: timeout" in guarantee for guarantee in guarantees))
+        self.assertFalse(any(guarantee == "Il planner ha scelto iterativamente gli strumenti." for guarantee in guarantees))
+
+    def test_sanitized_runtime_errors_are_surfaced_without_raw_exception_text(self):
+        collection = self._collection(errors=["check_resistance: servizio esterno non disponibile durante l'esecuzione dello strumento"])
+        guarantees = _agentic_guarantees(collection)
+        escalation = [g for g in guarantees if g.startswith("Escalation runtime")]
+        self.assertEqual(len(escalation), 1)
+        self.assertIn("servizio esterno non disponibile", escalation[0])
+
+    def test_no_escalation_guarantee_when_no_errors(self):
+        guarantees = _agentic_guarantees(self._collection())
+        self.assertFalse(any(g.startswith("Escalation runtime") for g in guarantees))
 
 
 class RenderVerifiedReportTest(TestCase):

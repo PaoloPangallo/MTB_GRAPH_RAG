@@ -54,6 +54,72 @@ describe('ArchitecturePanel — pannello output grezzo del traversal', () => {
   });
 });
 
+describe('ArchitecturePanel — etichette del contesto (paziente vs fonte recuperata)', () => {
+  it('etichetta item.setting come contesto della fonte recuperata, non come dichiarazione del paziente', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          dossier: {
+            case_summary: [
+              { key: 'disease_stage', label: 'Stadio dichiarato dal paziente', value: 'IV', confirmed: true },
+            ],
+            missing_data: [],
+            evidence: [
+              {
+                evidence_id: 'ev-1',
+                claim: 'Claim di prova',
+                therapy: 'Osimertinib',
+                setting: 'NSCLC metastatico EGFR+',
+                source_support_status: 'supported',
+                source_support_reason: 'Supportata dalla fonte primaria.',
+                applicability_status: 'compatible',
+                applicability_reason: 'Compatibile con il contesto dichiarato.',
+                requires_source_review: false,
+                requires_clinical_review: false,
+                dossier_section: 'supported_compatible',
+              },
+            ],
+            resistance_findings: [],
+            trial_findings: [],
+            mtb_questions: [],
+          },
+        })}
+      />,
+    );
+
+    expect(screen.getByText(/Tumore\/contesto del record recuperato: NSCLC metastatico EGFR\+/)).toBeInTheDocument();
+    expect(screen.queryByText(/Contesto dichiarato dal paziente/)).not.toBeInTheDocument();
+    expect(screen.getByText('Stadio dichiarato dal paziente')).toBeInTheDocument();
+  });
+});
+
+describe('ArchitecturePanel — tempi delle chiamate agli strumenti', () => {
+  it('non mostra la sezione quando tool_call_timings è assente', () => {
+    render(<ArchitecturePanel run={buildRun()} />);
+    expect(screen.queryByText('Tempi delle chiamate agli strumenti')).not.toBeInTheDocument();
+  });
+
+  it('mostra sequenza, nome tool, durata e stato quando disponibili', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          tool_call_timings: [
+            { tool: 'interpret_variant', sequence: 1, elapsed_ms: 120, status: 'completed' },
+            { tool: 'check_resistance', sequence: 2, elapsed_ms: 45, status: 'failed' },
+          ],
+        })}
+      />,
+    );
+    expect(screen.getByText('Tempi delle chiamate agli strumenti')).toBeInTheDocument();
+    expect(screen.getByText('interpret_variant')).toBeInTheDocument();
+    expect(screen.getByText('120 ms')).toBeInTheDocument();
+    expect(screen.getByText('check_resistance')).toBeInTheDocument();
+    expect(screen.getByText('45 ms')).toBeInTheDocument();
+    expect(screen.getByText('completed')).toBeInTheDocument();
+    expect(screen.getByText('failed')).toBeInTheDocument();
+  });
+});
+
 describe('ArchitecturePanel — banner safe_fallback', () => {
   it('dichiara che il fallback non equivale a pianificazione dinamica riuscita', () => {
     render(
