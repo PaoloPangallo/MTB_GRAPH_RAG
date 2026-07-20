@@ -154,9 +154,25 @@ class AgenticTraceTest(TestCase):
             "planner_attempts": 0,
             "planner_elapsed_ms": 0,
             "errors": [],
+            "mandatory_tools": [],
+            "missing_mandatory_tools": [],
+            "incompleteness_reason": None,
         }
         base.update(overrides)
         return SimpleNamespace(**base)
+
+    def test_collection_step_shows_mandatory_completed_and_missing_tools(self):
+        collection = self._collection(
+            mandatory_tools=["interpret_variant", "identify_targets", "check_resistance", "match_trials"],
+            missing_mandatory_tools=["check_resistance"],
+            incompleteness_reason="Limite di passi raggiunto prima di completare gli strumenti obbligatori.",
+        )
+        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=0, blocked=0, uncertain=0)
+        collection_step = trace[2]
+        self.assertIn("obbligatori", collection_step.detail.lower())
+        self.assertIn("check_resistance", collection_step.detail)
+        self.assertIn("Motivo dell'incompletezza", collection_step.detail)
+        self.assertEqual(collection_step.status, "warning")
 
     def test_trace_reflects_llm_dynamic_planning(self):
         collection = self._collection(tool_path=["interpret_variant", "assess_complexity"])

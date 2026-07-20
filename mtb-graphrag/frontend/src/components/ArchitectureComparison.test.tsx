@@ -136,12 +136,15 @@ describe('ArchitecturePanel — diagnostica verificatore', () => {
             evidence_count: 14,
             verified_claims: 0,
             blocked_claims: 0,
+            cache_hits: 5,
+            cache_misses: 9,
             verifier_batches: 4,
-            verifier_failed_batches: 1,
-            verifier_retry_items: 3,
-            verifier_recovered_items: 1,
-            verifier_failed_items: 2,
-            verifier_elapsed_ms: 850,
+            failed_batches: 1,
+            retry_items: 3,
+            recovered_items: 1,
+            permanently_failed_items: 2,
+            source_profile_elapsed_ms: 850,
+            applicability_elapsed_ms: 12,
           },
         })}
       />,
@@ -162,11 +165,11 @@ describe('ArchitecturePanel — diagnostica verificatore', () => {
             verified_claims: 0,
             blocked_claims: 0,
             verifier_batches: 4,
-            verifier_failed_batches: 3,
-            verifier_retry_items: 9,
-            verifier_recovered_items: 0,
-            verifier_failed_items: 9,
-            verifier_elapsed_ms: 5000,
+            failed_batches: 3,
+            retry_items: 9,
+            recovered_items: 0,
+            permanently_failed_items: 9,
+            source_profile_elapsed_ms: 5000,
           },
         })}
       />,
@@ -185,16 +188,56 @@ describe('ArchitecturePanel — diagnostica verificatore', () => {
             verified_claims: 0,
             blocked_claims: 0,
             verifier_batches: 4,
-            verifier_failed_batches: 1,
-            verifier_retry_items: 1,
-            verifier_recovered_items: 1,
-            verifier_failed_items: 0,
-            verifier_elapsed_ms: 500,
+            failed_batches: 1,
+            retry_items: 1,
+            recovered_items: 1,
+            permanently_failed_items: 0,
+            source_profile_elapsed_ms: 500,
           },
         })}
       />,
     );
     expect(screen.queryByText(/Più del 20% delle verifiche è fallito definitivamente/)).not.toBeInTheDocument();
+  });
+});
+
+describe('ArchitecturePanel — campi del dossier clinico sempre etichettati', () => {
+  it('mostra il valore dichiarato accanto alla propria etichetta', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          dossier: {
+            case_summary: [{ key: 'tumor_type', label: 'Tumore', value: 'NSCLC', confirmed: true }],
+            missing_data: [],
+            evidence: [],
+            resistance_findings: [],
+            trial_findings: [],
+            mtb_questions: [],
+          },
+        })}
+      />,
+    );
+    expect(screen.getByText('Tumore')).toBeInTheDocument();
+    expect(screen.getByText('NSCLC')).toBeInTheDocument();
+  });
+
+  it('non mostra mai "Da completare" senza un\'etichetta accanto, anche se il campo non è dichiarato', () => {
+    render(
+      <ArchitecturePanel
+        run={buildRun({
+          dossier: {
+            case_summary: [{ key: 'disease_stage', label: 'Stadio', value: null, confirmed: false }],
+            missing_data: ['Stadio'],
+            evidence: [],
+            resistance_findings: [],
+            trial_findings: [],
+            mtb_questions: [],
+          },
+        })}
+      />,
+    );
+    expect(screen.getByText('Stadio')).toBeInTheDocument();
+    expect(screen.getByText('Da completare')).toBeInTheDocument();
   });
 });
 

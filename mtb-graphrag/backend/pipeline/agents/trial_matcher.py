@@ -5,6 +5,7 @@ Attivo solo per complessità High.
 
 from __future__ import annotations
 
+from backend.pipeline.agents.trial_dedup import deduplicate_trials
 from backend.pipeline.state import MTBState
 from backend.pipeline.helpers import run_cypher, get_disease_keywords
 from backend.pipeline.cypher import CYPHER_TRIALS
@@ -19,4 +20,4 @@ def trial_matcher(state: MTBState) -> MTBState:
         "disease_keywords": disease_kws,
         "drug_names": drug_names,
     })
-    return {**state, "trial_candidates": records}
+    return {**state, "trial_candidates": deduplicate_trials(records)}

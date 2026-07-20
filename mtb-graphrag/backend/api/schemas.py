@@ -119,15 +119,18 @@ class ArchitectureMetrics(BaseModel):
     applicability_compatible_count: int = 0
     applicability_indeterminate_count: int = 0
     applicability_not_compatible_count: int = 0
-    # Metriche diagnostiche del verificatore (batching + recupero bounded via
-    # retry) — puramente tecniche, non cliniche: da non mischiare con i
-    # conteggi sopra nel rendering.
+    # Metriche diagnostiche del verificatore (cache del profilo sorgente,
+    # batching e recupero bounded via retry) — puramente tecniche, non
+    # cliniche: da non mischiare con i conteggi sopra nel rendering.
+    cache_hits: int = 0
+    cache_misses: int = 0
     verifier_batches: int = 0
-    verifier_failed_batches: int = 0
-    verifier_retry_items: int = 0
-    verifier_recovered_items: int = 0
-    verifier_failed_items: int = 0
-    verifier_elapsed_ms: int = 0
+    failed_batches: int = 0
+    retry_items: int = 0
+    recovered_items: int = 0
+    permanently_failed_items: int = 0
+    source_profile_elapsed_ms: int = 0
+    applicability_elapsed_ms: int = 0
 
 
 class DossierCaseField(BaseModel):
@@ -150,6 +153,10 @@ class DossierEvidence(BaseModel):
     source_line: Optional[str] = None
     source_setting: Optional[str] = None
     source_prerequisites: Optional[str] = None
+    # Proiezione contestualizzata della claim quando la fonte la supporta solo
+    # insieme a prerequisiti aggiuntivi (es. biomarker + linea di terapia
+    # precedente); il ledger/claim originali restano immutati altrove.
+    derived_verified_claim: Optional[str] = None
     applicability_status: Literal["compatible", "indeterminate", "not_compatible"]
     applicability_reason: str
     requires_source_review: bool

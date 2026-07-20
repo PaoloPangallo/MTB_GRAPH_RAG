@@ -146,6 +146,9 @@ function DossierEvidenceList({
             {sourcePrerequisites && (
               <Typography variant="caption" component="div">Contesto descritto dalla fonte: {sourcePrerequisites}</Typography>
             )}
+            {item.derived_verified_claim && (
+              <Typography variant="caption" component="div">Claim contestualizzata dalla fonte: {item.derived_verified_claim}</Typography>
+            )}
             <Typography variant="caption" component="div">Supporto documentale: {item.source_support_reason}</Typography>
             <Typography variant="caption" component="div">Applicabilità al caso: {item.applicability_reason}</Typography>
             <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5, flexWrap: 'wrap' }}>
@@ -174,7 +177,7 @@ function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))' }, gap: 0.75, my: 1 }}>
         {dossier.case_summary.map(field => (
           <Box key={field.key} sx={{ p: 1, borderRadius: 1.5, bgcolor: field.confirmed ? '#F8FAFC' : '#FFF7E6', border: '1px solid #E2E8F0' }}>
-            <Typography variant="caption" color="text.secondary" component="div">{field.label}</Typography>
+            <Typography variant="caption" color="text.secondary" component="div">{field.label || 'Campo clinico'}</Typography>
             <Typography variant="body2" sx={{ fontWeight: 700 }}>{field.value || 'Da completare'}</Typography>
           </Box>
         ))}
@@ -485,7 +488,7 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
             </AccordionSummary>
             <AccordionDetails>
               {(() => {
-                const failedItems = metrics.verifier_failed_items ?? 0;
+                const failedItems = metrics.permanently_failed_items ?? 0;
                 const denominator = metrics.evidence_count || 0;
                 const failureRatio = denominator > 0 ? failedItems / denominator : 0;
                 return (
@@ -498,12 +501,15 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
                     )}
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(3, minmax(0, 1fr))' }, gap: 1 }}>
                       {[
+                        ['Cache hit', metrics.cache_hits ?? 0],
+                        ['Cache miss', metrics.cache_misses ?? 0],
                         ['Batch eseguiti', metrics.verifier_batches ?? 0],
-                        ['Batch falliti', metrics.verifier_failed_batches ?? 0],
-                        ['Elementi ritentati', metrics.verifier_retry_items ?? 0],
-                        ['Elementi recuperati', metrics.verifier_recovered_items ?? 0],
+                        ['Batch falliti', metrics.failed_batches ?? 0],
+                        ['Elementi ritentati', metrics.retry_items ?? 0],
+                        ['Elementi recuperati', metrics.recovered_items ?? 0],
                         ['Fallimenti definitivi', failedItems],
-                        ['Tempo verificatore', formatMs(metrics.verifier_elapsed_ms ?? 0)],
+                        ['Tempo profilo fonte', formatMs(metrics.source_profile_elapsed_ms ?? 0)],
+                        ['Tempo applicabilità', formatMs(metrics.applicability_elapsed_ms ?? 0)],
                       ].map(([label, value]) => (
                         <Box key={String(label)} sx={{ p: 1, borderRadius: 1.5, bgcolor: colors.soft, textAlign: 'center' }}>
                           <Typography variant="caption" sx={{ display: 'block' }}>{label}</Typography>

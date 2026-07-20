@@ -83,18 +83,110 @@ def _normalized_patient_line(value: Any) -> str:
     return "unknown"
 
 
-def _downgrade(current: str, cap: str) -> str:
-    """Restituisce il verdict più conservativo tra ``current`` e ``cap``, mai il contrario."""
-    return current if _VERDICT_RANK[current] <= _VERDICT_RANK[cap] else cap
+def _force(final: str, forced_reason: str, original_verdict: str, original_reason: str) -> tuple[str, str]:
+    """Impone ``final`` in modo incondizionato (non un cap di rango: un
+    ``not_compatible`` del modello privo di giustificazione esplicita viene
+    corretto qui anche se sarebbe già "più conservativo" del cap — un
+    not_compatible non giustificato non è conservativo, è sbagliato). La
+    motivazione cambia SOLO se il verdict cambia davvero rispetto
+    all'originale — altrimenti la motivazione originale resta coerente."""
+    return (final, forced_reason) if final != original_verdict else (final, original_reason)
 
 
-def _resolve(original: str, cap: str, cap_reason: str, original_reason: str) -> tuple[str, str]:
-    """Applica il cap conservativo. La motivazione cambia SOLO se il verdict
-    cambia davvero: se il verdict resta quello originale (già altrettanto o
-    più conservativo), la motivazione originale resta coerente e va
-    preservata — non va mai sostituita una motivazione ancora valida."""
-    final = _downgrade(original, cap)
-    return (final, cap_reason) if final != original else (final, original_reason)
+def _evaluate_forced(
+    extracted_source_context: dict[str, Any],
+    declared_patient_context: dict[str, Any],
+) -> tuple[str, str] | None:
+    """Valuta le regole deterministiche condivise (conflitto esplicito o dati
+    mancanti) sulla base delle sole categorie strutturate — mai su un verdict
+    LLM. Restituisce ``(verdict_forzato, motivazione)`` quando una regola
+    impone un esito, oppure ``None`` quando il contesto è pienamente noto e
+    non in conflitto (nessuna forzatura necessaria: solo in questo caso un
+    "compatible" è ammesso)."""
+    line_category = normalize_line_category(extracted_source_context.get("source_line_category"))
+    setting_category = normalize_setting_category(extracted_source_context.get("source_setting_category"))
+    prior_requirement = normalize_prior_therapy_requirement(
+        extracted_source_context.get("source_prior_therapy_requirement")
+    )
+
+    patient_stage = declared_patient_context.get("disease_stage")
+    patient_setting_raw = declared_patient_context.get("disease_setting")
+    patient_prior_therapies = declared_patient_context.get("prior_therapies")
+    patient_therapy_line = declared_patient_context.get("therapy_line")
+
+    patient_setting = _normalized_patient_setting(patient_setting_raw)
+    patient_line = _normalized_patient_line(patient_therapy_line)
+
+    # Conflitto esplicito di linea: richiesta first-line dichiarata contro
+    # fonte esclusivamente post-progressione/di linea successiva (o viceversa
+    # una richiesta di linea successiva contro una fonte che richiede
+    # esplicitamente pazienti mai trattati in precedenza).
+    line_conflict = (
+        (patient_line == "first_line" and line_category in _LATER_LINE_SOURCE_CATEGORIES)
+        or (patient_line == "later_line" and line_category == "first_line" and prior_requirement == "treatment_naive")
+    )
+    if line_conflict:
+        return "not_compatible", (
+            "Conflitto esplicito di linea terapeutica: il caso dichiara la linea "
+            f"'{patient_therapy_line}' mentre la fonte riguarda la categoria di linea "
+            f"'{line_category}'; le due linee sono in conflitto esplicito."
+        )
+
+    # Conflitto esplicito di setting: stati di malattia dichiarati e
+    # mutuamente esclusivi (es. paziente "resected" contro fonte
+    # "metastatic"/"locally_advanced"/"recurrent", o viceversa).
+    setting_conflict = (
+        (patient_setting == "resected" and setting_category in _MUTUALLY_EXCLUSIVE_SETTINGS)
+        or (setting_category == "resected" and patient_setting in _MUTUALLY_EXCLUSIVE_SETTINGS)
+    )
+    if setting_conflict:
+        return "not_compatible", (
+            "Conflitto esplicito di setting di malattia: il paziente è dichiarato "
+            f"'{patient_setting_raw}' mentre la fonte riguarda la categoria di setting "
+            f"'{setting_category}'; i due setting sono mutuamente esclusivi."
+        )
+
+    missing: list[str] = []
+    # Una categoria sorgente mancante/"unknown" non permette mai un giudizio
+    # positivo: senza sapere linea/setting/pre-trattamento della fonte non è
+    # possibile confermare una corrispondenza esplicita col caso.
+    if line_category == "unknown":
+        missing.append("la categoria di linea della fonte non è determinabile")
+    if setting_category == "unknown":
+        missing.append("la categoria di setting della fonte non è determinabile")
+    if prior_requirement == "unknown":
+        missing.append("il requisito di pre-trattamento della fonte non è determinabile")
+    if setting_category != "unknown" and not _is_declared(patient_setting_raw):
+        missing.append("il setting del paziente non è dichiarato")
+    if setting_category in {"metastatic", "locally_advanced"} and not _is_declared(patient_stage):
+        missing.append("lo stadio del paziente non è dichiarato")
+    if prior_requirement != "unknown" and not _is_declared(patient_prior_therapies):
+        missing.append("i trattamenti precedenti del paziente non sono dichiarati")
+
+    if missing:
+        unique_missing = list(dict.fromkeys(missing))
+        return "indeterminate", (
+            "Dati insufficienti per confermare la compatibilità: " + "; ".join(unique_missing) + "."
+        )
+
+    return None
+
+
+def derive_applicability(
+    extracted_source_context: dict[str, Any],
+    declared_patient_context: dict[str, Any],
+) -> tuple[ApplicabilityStatus, str]:
+    """Applicabilità puramente deterministica, senza alcun verdict LLM: fase
+    B del percorso rapido (indipendente dalla chiamata LLM cacheable del
+    profilo sorgente in fase A). Usa le stesse regole di ``validate_applicability``
+    ma non richiede — né può ricevere — un giudizio del modello: se nessun
+    conflitto o dato mancante impone un esito, il contesto è per costruzione
+    pienamente noto e non in conflitto, quindi "compatible" è l'unico esito
+    coerente."""
+    forced = _evaluate_forced(extracted_source_context, declared_patient_context)
+    if forced is not None:
+        return forced  # type: ignore[return-value]
+    return "compatible", "Setting, linea e pre-trattamento dichiarati coincidono esplicitamente con il contesto del caso."
 
 
 def validate_applicability(
@@ -133,11 +225,18 @@ def validate_applicability(
     - se la fonte richiede la presenza/assenza di trattamenti precedenti
       (``source_prior_therapy_requirement`` noto) e il campo paziente è
       vuoto, il verdict è ridotto ad "indeterminate".
-    - "not_compatible" è consentito solo in presenza di un conflitto esplicito
-      fra valori dichiarati (es. richiesta first-line contro fonte
-      post-progression/later-line, oppure setting dichiarati mutuamente
-      esclusivi come "resected" contro "metastatic").
-    - il verdict non viene mai reso più permissivo di quello ricevuto.
+    - "not_compatible" richiede SEMPRE due valori esplicitamente dichiarati e
+      in conflitto, rilevati qui dal validatore (es. richiesta first-line
+      dichiarata contro fonte post-progression/later-line, oppure setting
+      dichiarati mutuamente esclusivi come "resected" contro "metastatic").
+      Un "not_compatible" del modello non corroborato da uno di questi
+      conflitti espliciti NON viene mai preservato: se mancano dati non
+      diventa "indeterminate" solo perché era "già conservativo" — un
+      not_compatible ingiustificato è un errore da correggere, non un valore
+      di sicurezza da mantenere. Fonte adiuvante/resected con setting del
+      caso non dichiarato produce quindi sempre "indeterminate", mai
+      "not_compatible" per l'assunzione implicita che first-line implichi
+      malattia avanzata/non resecata.
     """
     original_verdict = llm_verdict if llm_verdict in _VERDICT_RANK else "indeterminate"
     original_reason = (
@@ -145,76 +244,19 @@ def validate_applicability(
         else "Verdict del modello non riconosciuto: trattato come indeterminato per default conservativo."
     )
 
-    line_category = normalize_line_category(extracted_source_context.get("source_line_category"))
-    setting_category = normalize_setting_category(extracted_source_context.get("source_setting_category"))
-    prior_requirement = normalize_prior_therapy_requirement(
-        extracted_source_context.get("source_prior_therapy_requirement")
-    )
+    forced = _evaluate_forced(extracted_source_context, declared_patient_context)
+    if forced is not None:
+        final, forced_reason = forced
+        return _force(final, forced_reason, original_verdict, original_reason)
 
-    patient_stage = declared_patient_context.get("disease_stage")
-    patient_setting_raw = declared_patient_context.get("disease_setting")
-    patient_prior_therapies = declared_patient_context.get("prior_therapies")
-    patient_therapy_line = declared_patient_context.get("therapy_line")
-
-    patient_setting = _normalized_patient_setting(patient_setting_raw)
-    patient_line = _normalized_patient_line(patient_therapy_line)
-
-    # Conflitto esplicito di linea: richiesta first-line dichiarata contro
-    # fonte esclusivamente post-progressione/di linea successiva (o viceversa
-    # una richiesta di linea successiva contro una fonte che richiede
-    # esplicitamente pazienti mai trattati in precedenza).
-    line_conflict = (
-        (patient_line == "first_line" and line_category in _LATER_LINE_SOURCE_CATEGORIES)
-        or (patient_line == "later_line" and line_category == "first_line" and prior_requirement == "treatment_naive")
-    )
-    if line_conflict:
-        return _resolve(
-            original_verdict, "not_compatible",
-            "Conflitto esplicito di linea terapeutica: il caso dichiara la linea "
-            f"'{patient_therapy_line}' mentre la fonte riguarda la categoria di linea "
-            f"'{line_category}'; le due linee sono in conflitto esplicito.",
-            original_reason,
-        )
-
-    # Conflitto esplicito di setting: stati di malattia dichiarati e
-    # mutuamente esclusivi (es. paziente "resected" contro fonte
-    # "metastatic"/"locally_advanced"/"recurrent", o viceversa).
-    setting_conflict = (
-        (patient_setting == "resected" and setting_category in _MUTUALLY_EXCLUSIVE_SETTINGS)
-        or (setting_category == "resected" and patient_setting in _MUTUALLY_EXCLUSIVE_SETTINGS)
-    )
-    if setting_conflict:
-        return _resolve(
-            original_verdict, "not_compatible",
-            "Conflitto esplicito di setting di malattia: il paziente è dichiarato "
-            f"'{patient_setting_raw}' mentre la fonte riguarda la categoria di setting "
-            f"'{setting_category}'; i due setting sono mutuamente esclusivi.",
-            original_reason,
-        )
-
-    missing: list[str] = []
-    # Una categoria sorgente mancante/"unknown" non permette mai un giudizio
-    # positivo: senza sapere linea/setting/pre-trattamento della fonte non è
-    # possibile confermare una corrispondenza esplicita col caso.
-    if line_category == "unknown":
-        missing.append("la categoria di linea della fonte non è determinabile")
-    if setting_category == "unknown":
-        missing.append("la categoria di setting della fonte non è determinabile")
-    if prior_requirement == "unknown":
-        missing.append("il requisito di pre-trattamento della fonte non è determinabile")
-    if setting_category != "unknown" and not _is_declared(patient_setting_raw):
-        missing.append("il setting del paziente non è dichiarato")
-    if setting_category in {"metastatic", "locally_advanced"} and not _is_declared(patient_stage):
-        missing.append("lo stadio del paziente non è dichiarato")
-    if prior_requirement != "unknown" and not _is_declared(patient_prior_therapies):
-        missing.append("i trattamenti precedenti del paziente non sono dichiarati")
-
-    if missing:
-        unique_missing = list(dict.fromkeys(missing))
-        return _resolve(
-            original_verdict, "indeterminate",
-            "Dati insufficienti per confermare la compatibilità: " + "; ".join(unique_missing) + ".",
-            original_reason,
+    # Nessun conflitto esplicito rilevato dal validatore e nessun dato
+    # mancante: un "not_compatible" del modello non confermato da uno dei
+    # conflitti verificati sopra non è ammesso — "not_compatible" richiede
+    # sempre due valori esplicitamente dichiarati e incompatibili.
+    if original_verdict == "not_compatible":
+        return "indeterminate", (
+            "Il verdict 'not_compatible' del modello non corrisponde a un conflitto esplicito "
+            "tra valori dichiarati rilevato dal validatore: applicabilità trattata come indeterminata."
         )
 
     return original_verdict, original_reason
