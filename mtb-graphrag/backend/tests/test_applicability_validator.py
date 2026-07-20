@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from backend.pipeline.agentic.applicability_validator import (
+    derive_applicability,
     normalize_line_category,
     normalize_prior_therapy_requirement,
     normalize_setting_category,
@@ -109,16 +110,57 @@ class ValidateApplicabilityTest(TestCase):
         )
         self.assertEqual(status, "indeterminate")
 
-    def test_never_upgrades_an_already_conservative_verdict(self):
+    def test_adaura_pmid_32955177_first_line_case_with_missing_context_is_indeterminate(self):
+        """Test obbligatorio: regressione osservata nel run live — PMID
+        32955177 (ADAURA, adiuvante) veniva classificato 'not_compatible' con
+        la motivazione vietata "first-line implica malattia avanzata/non
+        resecata". Con therapy_line='first-line' e stadio/setting/terapie
+        precedenti del caso mancanti, il verdict finale deve essere
+        'indeterminate' — anche partendo da un llm_verdict già
+        'not_compatible' — e la motivazione vietata non deve sopravvivere."""
         status, reason = validate_applicability(
-            {"source_line_category": "first_line"},
-            {"therapy_line": "first-line", "disease_stage": "", "disease_setting": ""},
+            {
+                "source_line_category": "adjuvant",
+                "source_setting_category": "resected",
+                "source_prior_therapy_requirement": "specific_therapy",
+            },
+            {
+                "therapy_line": "first-line",
+                "disease_stage": "",
+                "disease_setting": "",
+                "prior_therapies": "",
+            },
             "not_compatible",
-            "Conflitto biomarcatore esplicito.",
+            "First-line generalmente implica malattia avanzata/non resecata.",
         )
-        self.assertEqual(status, "not_compatible")
-        # Il verdict non cambia: la motivazione originale dell'LLM resta valida e va preservata.
-        self.assertEqual(reason, "Conflitto biomarcatore esplicito.")
+        self.assertEqual(status, "indeterminate")
+        self.assertNotIn("generalmente implica", reason)
+        self.assertNotIn("avanzata", reason.lower())
+
+    def test_not_compatible_without_explicit_conflict_is_corrected_to_indeterminate(self):
+        """Un 'not_compatible' del modello non basta da solo: se il
+        validatore non rileva un conflitto esplicito codificato (linea o
+        setting mutuamente esclusivi) — anche quando tutti i dati necessari
+        sono dichiarati e non in conflitto — il verdict viene corretto.
+        'not_compatible' richiede sempre due valori esplicitamente
+        dichiarati e incompatibili, mai un'inferenza libera del modello."""
+        status, reason = validate_applicability(
+            {
+                "source_line_category": "first_line",
+                "source_setting_category": "metastatic",
+                "source_prior_therapy_requirement": "treatment_naive",
+            },
+            {
+                "therapy_line": "first-line",
+                "disease_stage": "IV",
+                "disease_setting": "metastatic",
+                "prior_therapies": "Nessuno",
+            },
+            "not_compatible",
+            "Il modello ha rilevato un'incompatibilità non specificata.",
+        )
+        self.assertEqual(status, "indeterminate")
+        self.assertNotIn("non specificata", reason)
 
     def test_unrecognized_llm_verdict_defaults_to_indeterminate_baseline(self):
         status, reason = validate_applicability({}, {}, "definitely_compatible")
@@ -160,3 +202,52 @@ class ValidateApplicabilityTest(TestCase):
         self.assertEqual(status, "indeterminate")
         self.assertNotIn("coincidono perfettamente", reason)
         self.assertIn("insufficienti", reason.lower())
+
+
+class DeriveApplicabilityTest(TestCase):
+    """derive_applicability: stessa logica di validate_applicability ma senza
+    alcun verdict LLM — usata nel percorso rapido (fase B, indipendente dalla
+    chiamata LLM cacheable del profilo sorgente)."""
+
+    def test_fully_matching_context_is_compatible(self):
+        status, reason = derive_applicability(
+            {
+                "source_line_category": "first_line",
+                "source_setting_category": "metastatic",
+                "source_prior_therapy_requirement": "treatment_naive",
+            },
+            {
+                "therapy_line": "first-line",
+                "disease_stage": "IV",
+                "disease_setting": "metastatic",
+                "prior_therapies": "Nessuno",
+            },
+        )
+        self.assertEqual(status, "compatible")
+        self.assertTrue(reason)
+
+    def test_missing_data_is_indeterminate_without_any_llm_verdict(self):
+        status, _reason = derive_applicability(
+            {"source_line_category": "first_line"},
+            {"therapy_line": "first-line", "disease_stage": "", "disease_setting": ""},
+        )
+        self.assertEqual(status, "indeterminate")
+
+    def test_explicit_conflict_is_not_compatible_without_any_llm_verdict(self):
+        status, reason = derive_applicability(
+            {"source_line_category": "post_progression"},
+            {"therapy_line": "first-line"},
+        )
+        self.assertEqual(status, "not_compatible")
+        self.assertIn("conflitto", reason.lower())
+
+    def test_adaura_case_stays_indeterminate_via_pure_derivation(self):
+        status, _reason = derive_applicability(
+            {
+                "source_line_category": "adjuvant",
+                "source_setting_category": "resected",
+                "source_prior_therapy_requirement": "specific_therapy",
+            },
+            {"therapy_line": "first-line", "disease_stage": "", "disease_setting": "", "prior_therapies": ""},
+        )
+        self.assertEqual(status, "indeterminate")

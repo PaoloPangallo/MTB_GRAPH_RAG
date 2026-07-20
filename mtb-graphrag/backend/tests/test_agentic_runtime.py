@@ -6,7 +6,8 @@ from types import SimpleNamespace
 from unittest import TestCase
 
 from backend.pipeline.agentic.ledger import EventLedger
-from backend.pipeline.agentic.runtime import run_agentic_collection
+from backend.pipeline.agentic.runtime import mandatory_tools_for_goal, run_agentic_collection
+from backend.pipeline.agentic.source_profile_cache import InMemorySourceProfileCache
 from backend.pipeline.agentic.source_verifier import _parse_results, verify_evidence_items
 
 
@@ -62,6 +63,23 @@ class _AlwaysFailingLLM:
 
     def invoke(self, messages):
         raise RuntimeError("errore simulato del servizio LLM")
+
+
+class MandatoryToolsForGoalTest(TestCase):
+    def test_general_review_requires_all_four_core_tools(self):
+        self.assertEqual(
+            set(mandatory_tools_for_goal("general-review")),
+            {"interpret_variant", "identify_targets", "check_resistance", "match_trials"},
+        )
+
+    def test_unset_or_unknown_goal_defaults_to_general_review_policy(self):
+        self.assertEqual(mandatory_tools_for_goal(None), mandatory_tools_for_goal("general-review"))
+        self.assertEqual(mandatory_tools_for_goal("something-else"), mandatory_tools_for_goal("general-review"))
+
+    def test_specific_goals_have_narrower_explicit_policies(self):
+        self.assertEqual(set(mandatory_tools_for_goal("resistance")), {"interpret_variant", "check_resistance"})
+        self.assertEqual(set(mandatory_tools_for_goal("clinical-trials")), {"interpret_variant", "match_trials"})
+        self.assertEqual(set(mandatory_tools_for_goal("treatment-evidence")), {"interpret_variant", "identify_targets"})
 
 
 class EventLedgerTest(TestCase):
@@ -200,6 +218,37 @@ class AgenticRuntimeTest(TestCase):
         self.assertNotIn("secret123", serialized_events)
         self.assertNotIn("internal-host", serialized_events)
         self.assertNotIn("secret123", result.fallback_reason)
+
+    def test_finish_is_blocked_until_mandatory_tools_for_the_goal_are_completed(self):
+        """Riproduce la regressione osservata nel run reale: il planner tenta
+        di terminare dopo interpret_variant/identify_targets/match_trials,
+        saltando check_resistance. Il controller deve impedirlo: 'finish' non
+        è mai negli strumenti consentiti finché la policy minima per
+        l'obiettivo MTB non è soddisfatta — il planner viene forzato al
+        piano sicuro, che completa lo strumento mancante prima di finire."""
+        decisions = [
+            {"tool": "assess_complexity", "rationale": "Valuto l'ampiezza del caso."},
+            {"tool": "interpret_variant", "rationale": "Raccolgo l'evidenza primaria."},
+            {"tool": "identify_targets", "rationale": "Cerco farmaci collegati."},
+            {"tool": "match_trials", "rationale": "Cerco studi pertinenti."},
+            {"tool": "finish", "rationale": "La raccolta sembra sufficiente."},
+        ]
+        state = self._initial_state()
+        state["mtb_goal"] = "general-review"
+        with TemporaryDirectory() as directory:
+            ledger = EventLedger(Path(directory) / "events.sqlite3")
+            result = run_agentic_collection(
+                state,
+                ledger=ledger,
+                planner_llm=_SequencedLLM(decisions),
+                tool_registry=self._tools(),
+            )
+        self.assertIn("check_resistance", result.tool_path)
+        self.assertEqual(result.missing_mandatory_tools, [])
+        self.assertEqual(
+            set(result.mandatory_tools),
+            {"interpret_variant", "identify_targets", "check_resistance", "match_trials"},
+        )
 
     def test_tool_failure_is_sanitized_and_excludes_raw_exception_text(self):
         """Un'eccezione sollevata da un tool non deve mai finire grezza nel
@@ -387,6 +436,7 @@ class SourceVerifierTest(TestCase):
             "source_line": "seconda linea",
             "source_setting": "post-progressione",
             "source_prerequisites": "progressione a un precedente EGFR-TKI",
+            "source_line_category": "post_progression",
             "applicability_status": "not_compatible",
             "applicability_reason": (
                 "La richiesta è esplicitamente first-line; la fonte riguarda solo "
@@ -423,6 +473,46 @@ class SourceVerifierTest(TestCase):
         self.assertEqual(results[0].source_support_status, "supported")
         self.assertEqual(results[0].applicability_status, "indeterminate")
         self.assertTrue(results[0].requires_clinical_review)
+
+    def test_aura3_supports_claim_with_derived_verified_claim_not_unsupported(self):
+        """PMID 27959700 (AURA3): la fonte non contraddice EGFR L858R — riguarda
+        L858R in presenza di T790M e dopo progressione a un precedente
+        EGFR-TKI. Non deve diventare 'unsupported' solo perché la claim del KG
+        è più generica: resta 'supported', con una derived_verified_claim
+        contestualizzata. L'applicabilità resta 'not_compatible' per il
+        conflitto esplicito first-line (caso) contro post-progressione
+        (fonte)."""
+        item = self._item(source_id="PMID:27959700", object_="osimertinib")
+        llm = _SequencedLLM([[{
+            "index": 0,
+            "source_support_status": "supported",
+            "source_support_reason": "La fonte documenta attività di osimertinib in EGFR L858R con T790M dopo progressione a un precedente EGFR-TKI.",
+            "source_population": "EGFR L858R con T790M",
+            "source_line": "seconda linea",
+            "source_setting": "post-progressione",
+            "source_prerequisites": "progressione a un precedente EGFR-TKI",
+            "source_line_category": "post_progression",
+            "applicability_status": "not_compatible",
+            "applicability_reason": "Richiesta first-line; la fonte riguarda pazienti post-progressione.",
+        }]])
+        results = verify_evidence_items(
+            [item],
+            llm_client=llm,
+            source_loader=lambda _pmids: {
+                27959700: {
+                    "title": "Osimertinib in EGFR T790M-Positive Advanced NSCLC (AURA3)",
+                    "abstract": "Patients with EGFR L858R and T790M progressed on a prior EGFR-TKI before receiving osimertinib.",
+                }
+            },
+            case_context={"therapy_line": "first-line"},
+        )
+        result = results[0]
+        self.assertEqual(result.source_support_status, "supported")
+        self.assertNotEqual(result.source_support_status, "unsupported")
+        self.assertIsNotNone(result.derived_verified_claim)
+        self.assertIn("T790M", result.derived_verified_claim)
+        self.assertIn("progressione", result.derived_verified_claim.lower())
+        self.assertEqual(result.applicability_status, "not_compatible")
 
     def test_source_genuinely_contradicts_biomarker_is_unsupported(self):
         llm = _SequencedLLM([[{
@@ -481,16 +571,17 @@ class SourceVerifierTest(TestCase):
         }
 
     def test_partial_regimen_is_not_confirmed_as_the_full_source_regimen(self):
-        """PMID 37879444: la fonte descrive amivantamab + carboplatino +
-        pemetrexed, ma la claim riguarda solo amivantamab + carboplatino.
-        Il supporto non deve restare 'supported' senza riserva: deve
-        diventare 'uncertain' finché il regime completo non è confrontato."""
+        """PMID 37879444: la fonte descrive un unico braccio amivantamab +
+        carboplatino + pemetrexed, ma la claim riguarda solo amivantamab +
+        carboplatino. Il supporto non deve restare 'supported' senza riserva:
+        la claim è un sottoinsieme proprio del braccio ('partial'), quindi
+        diventa 'uncertain'."""
         item = self._item(object_="amivantamab + carboplatino", source_id="PMID:37879444")
         llm = _SequencedLLM([[{
             "index": 0,
             "source_support_status": "supported",
             "source_support_reason": "La fonte documenta il regime nel proprio contesto.",
-            "source_interventions": ["amivantamab", "carboplatino", "pemetrexed"],
+            "source_arms": [{"arm_name": "braccio sperimentale", "interventions": ["amivantamab", "carboplatino", "pemetrexed"]}],
             "applicability_status": "indeterminate",
             "applicability_reason": "Dati clinici del paziente non dichiarati.",
         }]])
@@ -500,15 +591,15 @@ class SourceVerifierTest(TestCase):
             source_loader=self._regimen_source_loader(),
         )
         result = results[0]
+        self.assertEqual(result.claim_arm_match, "partial")
         self.assertEqual(result.source_support_status, "uncertain")
         self.assertIn("pemetrexed", result.source_support_reason.lower())
         self.assertTrue(result.requires_source_review)
 
-    def test_multi_drug_claim_with_no_source_interventions_reported_is_uncertain(self):
-        """PMID 37879444: se l'LLM non riporta affatto source_interventions
-        per una claim a più farmaci, il regime non è verificabile. Fail-closed
-        a 'uncertain', mai 'supported' senza riserva su una combinazione
-        potenzialmente parziale."""
+    def test_multi_drug_claim_with_no_source_arms_reported_is_uncertain(self):
+        """PMID 37879444: se l'LLM non riporta affatto source_arms per una
+        claim a più farmaci, il regime non è verificabile ('unknown').
+        Fail-closed a 'uncertain', mai 'supported' senza riserva."""
         item = self._item(object_="amivantamab + carboplatino + pemetrexed", source_id="PMID:37879444")
         llm = _SequencedLLM([[{
             "index": 0,
@@ -516,45 +607,43 @@ class SourceVerifierTest(TestCase):
             "source_support_reason": "La fonte documenta il regime.",
             "applicability_status": "indeterminate",
             "applicability_reason": "Dati clinici del paziente non dichiarati.",
-        }]])  # nessun source_interventions nella risposta dell'LLM
+        }]])  # nessun source_arms nella risposta dell'LLM
         results = verify_evidence_items(
             [item],
             llm_client=llm,
             source_loader=self._regimen_source_loader(),
         )
         result = results[0]
+        self.assertEqual(result.claim_arm_match, "unknown")
         self.assertEqual(result.source_support_status, "uncertain")
         self.assertTrue(result.requires_source_review)
 
-    def test_llm_omits_a_component_from_source_interventions_but_abstract_mentions_it(self):
-        """PMID 37879444: riproduce l'errore osservato nel run reale — l'LLM
-        classifica 'supported' e riporta source_interventions incompleto
-        (identico alla claim KG a due soli farmaci), ma il testo dell'abstract
-        disponibile menziona esplicitamente il regime completo a tre farmaci.
-        La scansione diretta del testo PubMed deve rilevarlo comunque, non
-        soltanto la motivazione/l'elenco dichiarati dall'LLM."""
-        item = self._item(object_="AMIVANTAMAB, CARBOPLATIN", source_id="PMID:37879444")
+    def test_comparator_arm_drugs_are_never_merged_into_the_claim_arm(self):
+        """MARIPOSA: osimertinib è il comparatore in un braccio separato, non
+        parte del regime amivantamab + lazertinib. Un'estrazione piatta
+        unirebbe erroneamente i tre farmaci; qui i bracci restano separati e
+        la claim del braccio sperimentale resta 'exact'."""
+        item = self._item(object_="amivantamab + lazertinib", source_id="PMID:37879444")
         llm = _SequencedLLM([[{
             "index": 0,
             "source_support_status": "supported",
-            "source_support_reason": "La fonte documenta il regime nel proprio contesto.",
-            "source_interventions": ["amivantamab", "carboplatin"],
+            "source_support_reason": "La fonte documenta il braccio sperimentale.",
+            "source_arms": [
+                {"arm_name": "amivantamab+lazertinib", "interventions": ["amivantamab", "lazertinib"]},
+                {"arm_name": "osimertinib (comparatore)", "interventions": ["osimertinib"]},
+                {"arm_name": "lazertinib monoterapia", "interventions": ["lazertinib"]},
+            ],
             "applicability_status": "indeterminate",
             "applicability_reason": "Dati clinici del paziente non dichiarati.",
         }]])
         results = verify_evidence_items(
             [item],
             llm_client=llm,
-            source_loader=lambda _pmids: {
-                37879444: {
-                    "title": "Amivantamab plus carboplatin and pemetrexed in EGFR Exon20ins NSCLC",
-                    "abstract": "Patients with EGFR-mutated NSCLC were treated with amivantamab, carboplatin and pemetrexed.",
-                }
-            },
+            source_loader=self._regimen_source_loader(),
         )
         result = results[0]
-        self.assertEqual(result.source_support_status, "uncertain")
-        self.assertIn("pemetrexed", result.source_support_reason.lower())
+        self.assertEqual(result.claim_arm_match, "exact")
+        self.assertEqual(result.source_support_status, "supported")
 
     def test_erlotinib_first_line_advanced_with_missing_patient_stage_and_setting_is_indeterminate(self):
         """Regressione richiesta: fonte con categorie complete (first_line /
@@ -586,7 +675,7 @@ class SourceVerifierTest(TestCase):
             "index": 0,
             "source_support_status": "supported",
             "source_support_reason": "La fonte documenta il regime completo.",
-            "source_interventions": ["amivantamab", "carboplatino", "pemetrexed"],
+            "source_arms": [{"arm_name": "braccio unico", "interventions": ["amivantamab", "carboplatino", "pemetrexed"]}],
             "applicability_status": "indeterminate",
             "applicability_reason": "Dati clinici del paziente non dichiarati.",
         }]])
@@ -595,6 +684,7 @@ class SourceVerifierTest(TestCase):
             llm_client=llm,
             source_loader=self._regimen_source_loader(),
         )
+        self.assertEqual(results[0].claim_arm_match, "exact")
         self.assertEqual(results[0].source_support_status, "supported")
 
     def test_retry_recovers_a_missing_item_from_a_partial_batch(self):
@@ -614,9 +704,11 @@ class SourceVerifierTest(TestCase):
         self.assertEqual(results[1].source_support_status, "supported")
         self.assertEqual(results[1].source_support_reason, "recuperato dal retry")
         self.assertEqual(metrics["verifier_batches"], 1)
-        self.assertEqual(metrics["verifier_retry_items"], 1)
-        self.assertEqual(metrics["verifier_recovered_items"], 1)
-        self.assertEqual(metrics["verifier_failed_items"], 0)
+        self.assertEqual(metrics["retry_items"], 1)
+        self.assertEqual(metrics["recovered_items"], 1)
+        self.assertEqual(metrics["permanently_failed_items"], 0)
+        self.assertEqual(metrics["cache_hits"], 0)
+        self.assertEqual(metrics["cache_misses"], 2)
 
     def test_retry_that_fails_again_degrades_to_uncertain_not_an_exception(self):
         """Nessun retry infinito: se anche il retry a singolo record fallisce,
@@ -632,10 +724,10 @@ class SourceVerifierTest(TestCase):
         self.assertEqual(results[0].source_support_status, "uncertain")
         self.assertTrue(results[0].requires_source_review)
         self.assertEqual(metrics["verifier_batches"], 1)
-        self.assertEqual(metrics["verifier_failed_batches"], 1)
-        self.assertEqual(metrics["verifier_retry_items"], 1)
-        self.assertEqual(metrics["verifier_recovered_items"], 0)
-        self.assertEqual(metrics["verifier_failed_items"], 1)
+        self.assertEqual(metrics["failed_batches"], 1)
+        self.assertEqual(metrics["retry_items"], 1)
+        self.assertEqual(metrics["recovered_items"], 0)
+        self.assertEqual(metrics["permanently_failed_items"], 1)
 
     def test_default_concurrency_is_a_single_worker(self):
         """Con un singolo endpoint Ollama, la concorrenza predefinita deve
@@ -659,6 +751,46 @@ class SourceVerifierTest(TestCase):
                 os.environ.pop("SOURCE_VERIFIER_MAX_WORKERS", None)
             else:
                 os.environ["SOURCE_VERIFIER_MAX_WORKERS"] = original
+
+    def test_second_call_with_same_pmid_is_served_from_cache_no_llm_call(self):
+        """Il profilo della fonte (asse del supporto, indipendente dal
+        paziente) viene letto da cache al secondo giro per lo stesso PMID:
+        nessuna nuova chiamata LLM, anche cambiando il contesto paziente."""
+        item = self._item()
+        llm = _SequencedLLM([[{
+            "index": 0,
+            "source_support_status": "supported",
+            "source_support_reason": "La fonte documenta il proprio record.",
+            "source_line_category": "first_line",
+            "source_setting_category": "metastatic",
+            "source_prior_therapy_requirement": "treatment_naive",
+            "applicability_status": "compatible",
+            "applicability_reason": "Coincidenza dichiarata.",
+        }]])
+        cache = InMemorySourceProfileCache()
+        metrics_first: dict[str, int] = {}
+        results_first = verify_evidence_items(
+            [item], llm_client=llm, source_loader=self._source_loader(),
+            profile_cache=cache, metrics=metrics_first,
+            case_context={"therapy_line": "first-line", "disease_stage": "IV", "disease_setting": "metastatic", "prior_therapies": "Nessuno"},
+        )
+        self.assertEqual(metrics_first["cache_misses"], 1)
+        self.assertEqual(metrics_first["cache_hits"], 0)
+        self.assertEqual(results_first[0].applicability_status, "compatible")
+
+        metrics_second: dict[str, int] = {}
+        results_second = verify_evidence_items(
+            [item], llm_client=llm, source_loader=self._source_loader(),
+            profile_cache=cache, metrics=metrics_second,
+            case_context={"therapy_line": "first-line", "disease_stage": "", "disease_setting": "", "prior_therapies": ""},
+        )
+        self.assertEqual(metrics_second["cache_hits"], 1)
+        self.assertEqual(metrics_second["cache_misses"], 0)
+        self.assertEqual(results_second[0].source_support_status, "supported")
+        # Cambiando il contesto paziente (ora incompleto), l'applicabilità si
+        # ricalcola comunque correttamente in modo puramente deterministico,
+        # senza alcuna nuova chiamata LLM.
+        self.assertEqual(results_second[0].applicability_status, "indeterminate")
 
     def test_deterministic_validator_downgrades_llm_verdict_when_setting_undeclared(self):
         """Anche se l'LLM restituisce 'compatible', il validatore deterministico
@@ -845,7 +977,7 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
             "index": 0,
             "source_support_status": "supported",
             "source_support_reason": "La fonte documenta il regime nel proprio contesto.",
-            "source_interventions": ["amivantamab", "carboplatin"],
+            "source_arms": [{"arm_name": "braccio unico", "interventions": ["amivantamab", "carboplatin", "pemetrexed"]}],
             "applicability_status": "indeterminate",
             "applicability_reason": "Dati clinici del paziente non dichiarati.",
         }]])
@@ -855,5 +987,6 @@ class EgfrL858rLiveScenarioRegressionTest(TestCase):
             source_loader=lambda _pmids: self._sources,
             case_context=self._case_context,
         )
+        self.assertEqual(results[0].claim_arm_match, "partial")
         self.assertEqual(results[0].source_support_status, "uncertain")
         self.assertIn("pemetrexed", results[0].source_support_reason.lower())

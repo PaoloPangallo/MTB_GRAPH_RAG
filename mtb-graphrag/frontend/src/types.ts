@@ -142,6 +142,7 @@ export interface DossierEvidence {
   source_line?: string | null;
   source_setting?: string | null;
   source_prerequisites?: string | null;
+  derived_verified_claim?: string | null;
   applicability_status: 'compatible' | 'indeterminate' | 'not_compatible';
   applicability_reason: string;
   requires_source_review: boolean;
@@ -193,14 +194,17 @@ export interface ArchitectureRun {
     applicability_compatible_count?: number;
     applicability_indeterminate_count?: number;
     applicability_not_compatible_count?: number;
-    // Diagnostica tecnica del verificatore (batching + recupero via retry) —
-    // separata dai conteggi clinici sopra.
+    // Diagnostica tecnica del verificatore (cache del profilo sorgente,
+    // batching, recupero via retry) — separata dai conteggi clinici sopra.
+    cache_hits?: number;
+    cache_misses?: number;
     verifier_batches?: number;
-    verifier_failed_batches?: number;
-    verifier_retry_items?: number;
-    verifier_recovered_items?: number;
-    verifier_failed_items?: number;
-    verifier_elapsed_ms?: number;
+    failed_batches?: number;
+    retry_items?: number;
+    recovered_items?: number;
+    permanently_failed_items?: number;
+    source_profile_elapsed_ms?: number;
+    applicability_elapsed_ms?: number;
   };
   limitations: string[];
   run_id?: string | null;

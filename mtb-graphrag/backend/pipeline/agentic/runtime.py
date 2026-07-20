@@ -103,6 +103,25 @@ class AgenticCollectionResult:
     planner_attempts: int = 0
     planner_elapsed_ms: int = 0
     tool_call_timings: list[dict[str, Any]] = field(default_factory=list)
+    mandatory_tools: list[str] = field(default_factory=list)
+    missing_mandatory_tools: list[str] = field(default_factory=list)
+    incompleteness_reason: str | None = None
+
+
+# Policy minima di strumenti per obiettivo MTB: il planner può scegliere
+# ordine e strumenti aggiuntivi, ma non può selezionare "finish" prima di aver
+# completato questi. Un obiettivo non riconosciuto o assente ricade sulla
+# policy più ampia ("general-review"), mai su un sottoinsieme più permissivo.
+MANDATORY_TOOLS_BY_GOAL: dict[str, tuple[str, ...]] = {
+    "general-review": ("interpret_variant", "identify_targets", "check_resistance", "match_trials"),
+    "treatment-evidence": ("interpret_variant", "identify_targets"),
+    "resistance": ("interpret_variant", "check_resistance"),
+    "clinical-trials": ("interpret_variant", "match_trials"),
+}
+
+
+def mandatory_tools_for_goal(mtb_goal: str | None) -> tuple[str, ...]:
+    return MANDATORY_TOOLS_BY_GOAL.get(mtb_goal or "", MANDATORY_TOOLS_BY_GOAL["general-review"])
 
 
 def _default_tools() -> dict[str, Tool]:
@@ -123,7 +142,7 @@ def _default_tools() -> dict[str, Tool]:
     }
 
 
-def _allowed_tools(state: dict[str, Any], completed: set[str]) -> list[str]:
+def _allowed_tools(state: dict[str, Any], completed: set[str], mandatory: tuple[str, ...]) -> list[str]:
     allowed: list[str] = []
     if "assess_complexity" not in completed:
         allowed.append("assess_complexity")
@@ -138,7 +157,13 @@ def _allowed_tools(state: dict[str, Any], completed: set[str]) -> list[str]:
             allowed.append("match_trials")
         if state.get("enrich_with_oncokb") and "enrich_oncokb" not in completed:
             allowed.append("enrich_oncokb")
-        allowed.append("finish")
+        # "finish" non è mai consentito prima che tutti gli strumenti
+        # obbligatori per l'obiettivo MTB siano stati completati: il planner
+        # può scegliere ordine e strumenti aggiuntivi, ma non terminare in
+        # anticipo saltando quelli richiesti (es. check_resistance per
+        # mtb_goal="general-review").
+        if all(tool in completed for tool in mandatory):
+            allowed.append("finish")
     return allowed
 
 
@@ -289,6 +314,7 @@ def run_agentic_collection(
     tool_path: list[str] = []
     errors: list[str] = []
     tool_call_timings: list[dict[str, Any]] = []
+    mandatory = mandatory_tools_for_goal(state.get("mtb_goal"))
 
     planning_mode = "llm_dynamic"
     fallback_locked = False
@@ -305,7 +331,7 @@ def run_agentic_collection(
     })
 
     for step in range(1, max_steps + 1):
-        allowed = _allowed_tools(state, completed)
+        allowed = _allowed_tools(state, completed, mandatory)
         if not allowed:
             errors.append("Nessuno strumento consentito disponibile.")
             break
@@ -402,6 +428,14 @@ def run_agentic_collection(
         "errors": errors,
     })
     events = event_ledger.events(run_id)
+    missing_mandatory = [tool for tool in mandatory if tool not in completed]
+    incompleteness_reason = None
+    if missing_mandatory:
+        incompleteness_reason = (
+            "Limite di passi raggiunto prima di completare gli strumenti obbligatori."
+            if len(tool_path) >= max_steps or any("passi" in error for error in errors)
+            else "Esecuzione interrotta prima di completare gli strumenti obbligatori."
+        )
     return AgenticCollectionResult(
         state=state,
         run_id=run_id,
@@ -414,4 +448,7 @@ def run_agentic_collection(
         planner_attempts=planner_attempts,
         planner_elapsed_ms=planner_elapsed_ms,
         tool_call_timings=tool_call_timings,
+        mandatory_tools=list(mandatory),
+        missing_mandatory_tools=missing_mandatory,
+        incompleteness_reason=incompleteness_reason,
     )

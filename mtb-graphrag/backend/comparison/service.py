@@ -325,6 +325,7 @@ def _build_dossier(
             source_line = verification.source_line
             source_setting = verification.source_setting
             prerequisites = verification.source_prerequisites
+            derived_verified_claim = verification.derived_verified_claim
         elif check is not None:
             support_status = _support_from_check_status(check.status)
             support_reason = check.reason
@@ -336,6 +337,7 @@ def _build_dossier(
             requires_source_review = support_status != "supported"
             requires_clinical_review = True
             population = source_line = source_setting = prerequisites = None
+            derived_verified_claim = None
         else:
             support_status = "uncertain"
             support_reason = "Record recuperato, ma non sottoposto a verifica claim-by-claim."
@@ -344,6 +346,7 @@ def _build_dossier(
             requires_source_review = True
             requires_clinical_review = True
             population = source_line = source_setting = prerequisites = None
+            derived_verified_claim = None
 
         evidence.append(DossierEvidence(
             evidence_id=f"{item.source_id or 'unsourced'}-{position}",
@@ -358,6 +361,7 @@ def _build_dossier(
             source_line=source_line,
             source_setting=source_setting,
             source_prerequisites=prerequisites,
+            derived_verified_claim=derived_verified_claim,
             applicability_status=applicability_status,
             applicability_reason=applicability_reason,
             requires_source_review=requires_source_review,
@@ -761,6 +765,19 @@ def _agentic_trace(
         )
         collection_status = "warning"
 
+    mandatory_tools = getattr(collection, "mandatory_tools", []) or []
+    missing_mandatory_tools = getattr(collection, "missing_mandatory_tools", []) or []
+    incompleteness_reason = getattr(collection, "incompleteness_reason", None)
+    completed_mandatory = [tool for tool in mandatory_tools if tool not in missing_mandatory_tools]
+    collection_detail += (
+        f" Policy minima per l'obiettivo — obbligatori: {', '.join(mandatory_tools) or 'nessuno'}; "
+        f"completati: {', '.join(completed_mandatory) or 'nessuno'}; "
+        f"mancanti: {', '.join(missing_mandatory_tools) or 'nessuno'}."
+    )
+    if missing_mandatory_tools:
+        collection_detail += f" Motivo dell'incompletezza: {incompleteness_reason or 'non specificato'}."
+        collection_status = "warning"
+
     return [
         TraceStep(order=1, stage="Controller di autonomia", actor="Policy", detail="Definiti strumenti consentiti, dipendenze e massimo numero di passi."),
         TraceStep(order=2, stage="Pianificazione dinamica", actor="LLM planner", detail=planning_detail, status=planning_status),
@@ -835,6 +852,20 @@ def _agentic_guarantees(collection: Any) -> list[str]:
     return guarantees
 
 
+def _source_profile_cache() -> Any:
+    """Cache di processo, condivisa fra le richieste: un PMID già verificato
+    con lo stesso prompt/modello non causa mai una nuova chiamata LLM solo
+    perché cambia il caso clinico richiesto."""
+    from backend.pipeline.agentic.source_profile_cache import SourceProfileCache
+    global _SOURCE_PROFILE_CACHE
+    if _SOURCE_PROFILE_CACHE is None:
+        _SOURCE_PROFILE_CACHE = SourceProfileCache()
+    return _SOURCE_PROFILE_CACHE
+
+
+_SOURCE_PROFILE_CACHE: Any = None
+
+
 def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     from backend.pipeline.agentic.ledger import EventLedger
     from backend.pipeline.agentic.runtime import run_agentic_collection
@@ -863,6 +894,7 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
     verifications = verify_evidence_items(
         evidence,
         metrics=verifier_metrics,
+        profile_cache=_source_profile_cache(),
         case_context={
             "gene": req.gene or "",
             "variant": req.variant,
@@ -953,12 +985,15 @@ def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
             applicability_compatible_count=compatible,
             applicability_indeterminate_count=indeterminate_applicability,
             applicability_not_compatible_count=not_compatible,
+            cache_hits=verifier_metrics.get("cache_hits", 0),
+            cache_misses=verifier_metrics.get("cache_misses", 0),
             verifier_batches=verifier_metrics.get("verifier_batches", 0),
-            verifier_failed_batches=verifier_metrics.get("verifier_failed_batches", 0),
-            verifier_retry_items=verifier_metrics.get("verifier_retry_items", 0),
-            verifier_recovered_items=verifier_metrics.get("verifier_recovered_items", 0),
-            verifier_failed_items=verifier_metrics.get("verifier_failed_items", 0),
-            verifier_elapsed_ms=verifier_metrics.get("verifier_elapsed_ms", 0),
+            failed_batches=verifier_metrics.get("failed_batches", 0),
+            retry_items=verifier_metrics.get("retry_items", 0),
+            recovered_items=verifier_metrics.get("recovered_items", 0),
+            permanently_failed_items=verifier_metrics.get("permanently_failed_items", 0),
+            source_profile_elapsed_ms=verifier_metrics.get("source_profile_elapsed_ms", 0),
+            applicability_elapsed_ms=verifier_metrics.get("applicability_elapsed_ms", 0),
         ),
         limitations=guarantees,
         run_id=collection.run_id,

@@ -15,11 +15,23 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from backend.pipeline.agentic.applicability_validator import (
+    derive_applicability,
     normalize_line_category,
     normalize_prior_therapy_requirement,
     normalize_setting_category,
     validate_applicability,
 )
+from backend.pipeline.agentic.regimen_arms import (
+    claim_components_from_object,
+    match_claim_to_arms,
+    normalize_source_arms,
+)
+from backend.pipeline.agentic.source_profile_cache import statement_hash
+
+# Versione del prompt del profilo sorgente: incrementare quando cambia la
+# logica di estrazione (section 1 del prompt sotto), per invalidare
+# automaticamente le voci di cache legate alla versione precedente.
+SOURCE_PROFILE_PROMPT_VERSION = "v2"
 
 
 SOURCE_VERIFIER_SYSTEM = """Sei un verificatore di evidenze per un Molecular Tumor Board.
@@ -45,9 +57,14 @@ dato mancante non è una contraddizione.
 Se ricavabili dalla fonte, riporta anche source_population, source_line,
 source_setting, source_prerequisites (stringhe brevi, per l'oncologo); lascia
 questi campi `null` quando la fonte non li specifica — non inventarli mai.
-Riporta anche source_interventions: l'elenco completo dei singoli farmaci/
-interventi del regime descritto dalla fonte (es. ["amivantamab",
-"carboplatino", "pemetrexed"]); lascialo vuoto se non determinabile.
+Riporta anche source_arms: un elenco di bracci di studio, ciascuno con
+arm_name e interventions (solo i farmaci di QUEL braccio — non unire mai
+farmaci di bracci comparatori diversi in un solo elenco). Esempio: uno studio
+con un braccio sperimentale "amivantamab+lazertinib" e un braccio di
+comparazione "osimertinib" produce due bracci separati, non uno unico con
+tutti e tre i farmaci. Non includere "placebo" come farmaco: è un
+comparatore inerte. Se la fonte descrive un solo regime senza comparatori,
+riporta comunque un solo braccio. Lascia vuoto se non determinabile.
 
 Riporta inoltre, in aggiunta alle stringhe descrittive sopra, tre campi
 categorici (per il confronto deterministico, non sostituiscono le stringhe):
@@ -85,7 +102,7 @@ Restituisci esclusivamente un array JSON, un oggetto per elemento:
   "source_line": "..." o null,
   "source_setting": "..." o null,
   "source_prerequisites": "..." o null,
-  "source_interventions": ["farmaco1", "farmaco2"],
+  "source_arms": [{"arm_name": "...", "interventions": ["farmaco1", "farmaco2"]}],
   "source_line_category": "first_line|later_line|post_progression|adjuvant|unknown",
   "source_setting_category": "resected|locally_advanced|metastatic|recurrent|adjuvant|unknown",
   "source_prior_therapy_requirement": "treatment_naive|previously_treated|specific_therapy|unknown",
@@ -114,10 +131,16 @@ class SourceVerification:
     source_line_category: str = "unknown"
     source_setting_category: str = "unknown"
     source_prior_therapy_requirement: str = "unknown"
-    # Regime completo dichiarato dalla fonte (es. ["amivantamab",
-    # "carboplatino", "pemetrexed"]), usato per verificare che una claim su
-    # una combinazione parziale non venga confermata come regime equivalente.
-    source_interventions: list[str] = field(default_factory=list)
+    # Bracci di studio strutturati (arm_name + interventions per braccio, mai
+    # uniti fra loro) e confronto deterministico della claim contro ciascun
+    # braccio — sostituisce l'estrazione piatta basata su token generici.
+    source_arms: list[dict[str, Any]] = field(default_factory=list)
+    claim_arm_match: str = "unknown"
+    # Proiezione contestualizzata della claim (mai una modifica del ledger
+    # originale): generata solo quando la fonte supporta la claim con
+    # prerequisiti aggiuntivi noti (popolazione/linea/setting/prerequisiti),
+    # per distinguere un prerequisito legittimo da una contraddizione.
+    derived_verified_claim: str | None = None
 
 
 def _pmid(source_id: str | None) -> int | None:
@@ -201,7 +224,7 @@ def _content_text(content: Any) -> str:
 
 ParsedResult = tuple[
     str, str, str | None, str | None, str | None, str | None, str, str,
-    str, str, str, list[str],
+    str, str, str, list[dict[str, Any]],
 ]
 
 
@@ -232,11 +255,6 @@ def _parse_results(content: Any) -> dict[int, ParsedResult]:
     def _optional_text(value: Any) -> str | None:
         return str(value) if isinstance(value, str) and value.strip() else None
 
-    def _interventions(value: Any) -> list[str]:
-        if not isinstance(value, list):
-            return []
-        return [str(entry).strip() for entry in value if isinstance(entry, str) and entry.strip()]
-
     return {
         int(result["index"]): (
             str(result["source_support_status"]).lower(),
@@ -250,7 +268,7 @@ def _parse_results(content: Any) -> dict[int, ParsedResult]:
             normalize_line_category(result.get("source_line_category")),
             normalize_setting_category(result.get("source_setting_category")),
             normalize_prior_therapy_requirement(result.get("source_prior_therapy_requirement")),
-            _interventions(result.get("source_interventions")),
+            normalize_source_arms(result.get("source_arms")),
         )
         for result in parsed
     }
@@ -375,7 +393,9 @@ def _verification(
     source_line_category: str = "unknown",
     source_setting_category: str = "unknown",
     source_prior_therapy_requirement: str = "unknown",
-    source_interventions: list[str] | None = None,
+    source_arms: list[dict[str, Any]] | None = None,
+    claim_arm_match: str = "unknown",
+    derived_verified_claim: str | None = None,
 ) -> SourceVerification:
     """Costruisce un esito derivando i due flag di revisione dai due assi."""
     return SourceVerification(
@@ -394,88 +414,146 @@ def _verification(
         source_line_category=source_line_category,
         source_setting_category=source_setting_category,
         source_prior_therapy_requirement=source_prior_therapy_requirement,
-        source_interventions=list(source_interventions) if source_interventions else [],
+        source_arms=list(source_arms) if source_arms else [],
+        claim_arm_match=claim_arm_match,
+        derived_verified_claim=derived_verified_claim,
     )
 
 
-def _regimen_components(text: str) -> set[str]:
-    parts = re.split(r"[+,/]|(?:\band\b)", text or "", flags=re.IGNORECASE)
-    return {part.strip().lower() for part in parts if part.strip()}
+def _derive_verified_claim(
+    item: Any,
+    population: str | None,
+    line: str | None,
+    setting: str | None,
+    prerequisites: str | None,
+) -> str | None:
+    """Proiezione contestualizzata della claim quando la fonte la supporta
+    solo insieme a prerequisiti aggiuntivi noti (es. AURA3/PMID 27959700:
+    "EGFR L858R" da solo non basta — la fonte riguarda L858R con T790M dopo
+    progressione a un precedente EGFR-TKI). Non modifica mai il ledger
+    originale (claim/evidence_statement restano intatti altrove); è
+    esclusivamente una proiezione aggiuntiva per l'oncologo. Restituisce
+    ``None`` quando non ci sono prerequisiti strutturati noti da aggiungere
+    (nessuna contestualizzazione necessaria) — non tenta mai di dedurne dal
+    solo testo libero della motivazione."""
+    context_parts = [part for part in (population, line, setting, prerequisites) if part]
+    if not context_parts:
+        return None
+    context_note = ", ".join(context_parts)
+    relation_text = (item.relation or "associazione clinica").strip().lower()
+    return f"{item.subject} con {context_note} è associato a {relation_text} a {item.object}."
 
 
-_REGIMEN_CHAIN_PATTERN = re.compile(
-    r"[A-Za-z][A-Za-z0-9-]{3,}(?:\s*(?:\+|,|/|\bplus\b|\band\b|\be\b)\s*[A-Za-z][A-Za-z0-9-]{3,})+",
-    re.IGNORECASE,
-)
+def _regimen_check_reason(
+    item: Any, claim_arm_match: str, source_arms: list[dict[str, Any]],
+) -> str | None:
+    """Fail-closed sulla base del confronto deterministico per bracci
+    (``claim_arm_match``), mai su un'estrazione testuale generica:
 
-# Parole generiche che compaiono spesso in catene testuali connesse da "and"/
-# "plus"/virgole ma non sono nomi di farmaci: escluse per ridurre i falsi
-# positivi della scansione testuale diretta (non un dizionario di farmaci).
-_REGIMEN_CHAIN_STOPWORDS = {
-    "and", "the", "with", "efficacy", "safety", "survival", "progression",
-    "free", "overall", "response", "rate", "rates", "phase", "study",
-    "trial", "patients", "patient", "advanced", "metastatic", "previously",
-    "treated", "therapy", "treatment", "group", "groups", "arm", "arms",
-    "randomized", "randomised", "results", "significant", "significantly",
-    "compared", "versus", "placebo", "standard", "care", "chemotherapy",
-    "combination", "regimen", "cohort", "analysis", "outcome", "outcomes",
-    "median", "follow", "months", "years", "clinical", "disease", "line",
-    "first", "second", "later", "based", "receiving", "received",
-}
-
-
-def _regimen_phrase_components(text: str) -> set[str]:
-    """Cerca catene di token separati da connettori (+, virgola, 'and',
-    'plus', ecc.) nel testo grezzo PubMed/CIViC — un'euristica indipendente
-    dall'LLM per individuare un regime a più farmaci descritto nel titolo/
-    abstract anche quando ``source_interventions`` non lo riporta."""
-    components: set[str] = set()
-    for match in _REGIMEN_CHAIN_PATTERN.finditer(text or ""):
-        for token in re.split(r"\s*(?:\+|,|/|\bplus\b|\band\b|\be\b)\s*", match.group(0), flags=re.IGNORECASE):
-            normalized = token.strip().lower()
-            if normalized and normalized not in _REGIMEN_CHAIN_STOPWORDS:
-                components.add(normalized)
-    return components
-
-
-def _regimen_check_reason(item: Any, source_interventions: list[str], source_text: str) -> str | None:
-    """Fail-closed: una claim a più farmaci non resta "supported" senza
-    riserva se il regime completo della fonte non è verificabile o include
-    componenti aggiuntivi — sia che manchino da ``source_interventions``
-    (l'LLM può ometterli), sia che siano presenti solo nel testo grezzo
-    PubMed/CIViC disponibile, che viene sempre riscansionato indipendentemente
-    dalla motivazione dichiarata dall'LLM."""
-    claim_components = _regimen_components(item.object)
+    - "exact": la claim coincide con un braccio — nessuna riserva.
+    - "partial": la claim è una combinazione parziale o eccedente rispetto a
+      un braccio noto — il supporto non può restare "supported" senza
+      riserva.
+    - "unknown": nessun braccio noto per confrontare una claim a più
+      farmaci — non verificabile, stessa riserva di "partial".
+    - "no_match": nessuna sovrapposizione fra claim e bracci noti; qui non
+      degradiamo a "unsupported" (riservato a una vera contraddizione
+      accertata altrove) ma segnaliamo comunque la mancata corrispondenza.
+    """
+    claim_components = claim_components_from_object(item.object)
     if len(claim_components) < 2:
         return None  # non è una claim di regime combinato: nessun controllo necessario
-
-    source_components = {value.strip().lower() for value in source_interventions if value and value.strip()}
-    if not source_components:
+    if claim_arm_match == "exact":
+        return None
+    arm_summary = "; ".join(
+        f"{arm['arm_name']}: {', '.join(arm['interventions']) or 'nessun farmaco riconosciuto'}"
+        for arm in source_arms
+    ) or "nessun braccio riportato dalla fonte"
+    if claim_arm_match == "partial":
         return (
-            "La claim descrive un regime a più farmaci "
-            f"({', '.join(sorted(claim_components))}), ma la fonte non ha riportato un elenco "
-            "verificabile del regime completo: il supporto documentale non può essere confermato "
-            "senza riserva su una combinazione parziale."
+            "Il regime della claim non coincide esattamente con nessun braccio della fonte "
+            f"({arm_summary}): il supporto documentale non copre una combinazione parziale come "
+            "regime equivalente."
         )
-
-    missing_from_source_list = source_components - claim_components
-    if missing_from_source_list:
+    if claim_arm_match == "unknown":
         return (
-            "La fonte descrive il regime completo "
-            f"({', '.join(sorted(source_components))}), che include "
-            f"{', '.join(sorted(missing_from_source_list))} non presenti nella claim: il supporto "
-            "documentale non copre la combinazione parziale come regime equivalente."
+            "La claim descrive un regime a più farmaci, ma la fonte non ha riportato bracci di "
+            "studio verificabili: il supporto documentale non può essere confermato senza riserva."
         )
-
-    missing_from_text = _regimen_phrase_components(source_text) - claim_components - source_components
-    if missing_from_text:
+    if claim_arm_match == "no_match":
         return (
-            "Il testo della fonte (titolo/abstract) menziona componenti aggiuntivi del regime "
-            f"({', '.join(sorted(missing_from_text))}) non presenti né nella claim né nell'elenco "
-            "riportato dal verificatore: il supporto documentale non può essere confermato senza "
-            "riserva sulla combinazione parziale."
+            "Il regime della claim non trova corrispondenza in alcun braccio riportato dalla fonte "
+            f"({arm_summary}): supporto documentale non confermabile su questa combinazione."
         )
     return None
+
+
+def _finalize_verification(
+    *,
+    index: int,
+    item: Any,
+    support_status: str,
+    support_reason: str,
+    population: str | None,
+    line: str | None,
+    setting: str | None,
+    prerequisites: str | None,
+    line_category: str,
+    setting_category: str,
+    prior_requirement: str,
+    source_arms: list[dict[str, Any]],
+    case_context: dict[str, str],
+    llm_applicability: tuple[str, str] | None,
+) -> SourceVerification:
+    """Costruisce il risultato finale a partire dal profilo della fonte
+    (fase A, eventualmente da cache) e dal contesto paziente corrente (fase
+    B, sempre ricalcolata). Con ``llm_applicability`` fornito (chiamata LLM
+    fresca), l'applicabilità passa per ``validate_applicability`` (convalida
+    del verdict del modello); senza (profilo da cache), passa per
+    ``derive_applicability`` (nessun verdict LLM disponibile né necessario)."""
+    claim_arm_match = match_claim_to_arms(claim_components_from_object(item.object), source_arms)
+    if support_status == "supported":
+        regimen_reason = _regimen_check_reason(item, claim_arm_match, source_arms)
+        if regimen_reason:
+            support_status = "uncertain"
+            support_reason = regimen_reason
+
+    categories = {
+        "source_line_category": line_category,
+        "source_setting_category": setting_category,
+        "source_prior_therapy_requirement": prior_requirement,
+    }
+    if llm_applicability is not None:
+        applicability_status, applicability_reason = validate_applicability(
+            categories, case_context, llm_applicability[0], llm_applicability[1],
+        )
+    else:
+        applicability_status, applicability_reason = derive_applicability(categories, case_context)
+
+    derived_verified_claim = (
+        _derive_verified_claim(item, population, line, setting, prerequisites)
+        if support_status == "supported"
+        else None
+    )
+
+    return _verification(
+        index=index,
+        source_support_status=support_status,
+        source_support_reason=support_reason,
+        verification_level="pubmed_abstract",
+        source_population=population,
+        source_line=line,
+        source_setting=setting,
+        source_prerequisites=prerequisites,
+        applicability_status=applicability_status,
+        applicability_reason=applicability_reason,
+        source_line_category=line_category,
+        source_setting_category=setting_category,
+        source_prior_therapy_requirement=prior_requirement,
+        source_arms=source_arms,
+        claim_arm_match=claim_arm_match,
+        derived_verified_claim=derived_verified_claim,
+    )
 
 
 def verify_evidence_items(
@@ -485,6 +563,8 @@ def verify_evidence_items(
     source_loader: Callable[[Iterable[int]], dict[int, dict[str, str]]] = fetch_pubmed_sources,
     case_context: dict[str, str] | None = None,
     metrics: dict[str, int] | None = None,
+    profile_cache: Any | None = None,
+    model_revision: str = "default",
 ) -> list[SourceVerification]:
     """Verifica in modalità fail-closed: dubbio o fonte assente richiedono revisione.
 
@@ -494,21 +574,33 @@ def verify_evidence_items(
     ``uncertain`` quando falliscono, mai ``unsupported``.
 
     Se ``metrics`` è fornito, viene popolato in-place con contatori
-    diagnostici (``verifier_batches``, ``verifier_failed_batches``,
-    ``verifier_retry_items``, ``verifier_recovered_items``,
-    ``verifier_failed_items``, ``verifier_elapsed_ms``) senza cambiare il tipo
-    di ritorno della funzione.
+    diagnostici (``cache_hits``, ``cache_misses``, ``verifier_batches``,
+    ``failed_batches``, ``retry_items``, ``recovered_items``,
+    ``permanently_failed_items``, ``source_profile_elapsed_ms``,
+    ``applicability_elapsed_ms``) senza cambiare il tipo di ritorno della
+    funzione.
+
+    Se ``profile_cache`` è fornito (``SourceProfileCache``/
+    ``InMemorySourceProfileCache``, vedi ``source_profile_cache.py``), il
+    profilo della fonte (asse del supporto, indipendente dal paziente) viene
+    letto/scritto da cache per PMID+hash dello statement+versione prompt+
+    modello: un cambio di contesto paziente non causa mai una nuova chiamata
+    LLM per un PMID già in cache. Senza ``profile_cache`` (default), il
+    comportamento è invariato: nessuna cache, ogni chiamata è fresca.
     """
     verification_started = perf_counter()
     if not items:
         if metrics is not None:
             metrics.update(
+                cache_hits=0,
+                cache_misses=0,
                 verifier_batches=0,
-                verifier_failed_batches=0,
-                verifier_retry_items=0,
-                verifier_recovered_items=0,
-                verifier_failed_items=0,
-                verifier_elapsed_ms=0,
+                failed_batches=0,
+                retry_items=0,
+                recovered_items=0,
+                permanently_failed_items=0,
+                source_profile_elapsed_ms=0,
+                applicability_elapsed_ms=0,
             )
         return []
     if llm_client is None:
@@ -552,7 +644,9 @@ def verify_evidence_items(
 
     payload = []
     missing_source: set[int] = set()
-    source_text_by_index: dict[int, str] = {}
+    cached_profiles: dict[int, dict[str, Any]] = {}
+    payload_pmid_by_index: dict[int, int] = {}
+    payload_statement_hash_by_index: dict[int, str] = {}
     for index, item, pmid in eligible:
         source = pubmed_sources.get(pmid)
         if not source or not source.get("abstract"):
@@ -564,7 +658,6 @@ def verify_evidence_items(
             source.get("title", ""),
             source.get("abstract", ""),
         )).lower()
-        source_text_by_index[index] = source_text
         subject_anchors = _anchors(item.subject)
         object_anchors = _anchors(item.object)
         if subject_anchors and not any(anchor in source_text for anchor in subject_anchors):
@@ -583,6 +676,16 @@ def verify_evidence_items(
                 verification_level="clinical_rules",
             )
             continue
+        cached_profile = None
+        if profile_cache is not None:
+            cached_profile = profile_cache.get(
+                pmid, statement_hash(item.evidence_statement, item.citation_text),
+                SOURCE_PROFILE_PROMPT_VERSION, model_revision,
+            )
+        if cached_profile is not None:
+            cached_profiles[index] = cached_profile
+            continue
+
         payload.append({
             "index": index,
             "claim": _claim(item),
@@ -594,6 +697,8 @@ def verify_evidence_items(
             },
             "pubmed": source,
         })
+        payload_pmid_by_index[index] = pmid
+        payload_statement_hash_by_index[index] = statement_hash(item.evidence_statement, item.citation_text)
 
     llm_results: dict[int, ParsedResult] = {}
     llm_failures: dict[int, str] = {}
@@ -634,18 +739,11 @@ def verify_evidence_items(
                 elif index in retry_failures:
                     llm_failures[index] = retry_failures[index]
 
-    failed_items = retry_items - recovered_items
-    if metrics is not None:
-        metrics.update(
-            verifier_batches=batches_run,
-            verifier_failed_batches=failed_batches,
-            verifier_retry_items=retry_items,
-            verifier_recovered_items=recovered_items,
-            verifier_failed_items=failed_items,
-            verifier_elapsed_ms=int((perf_counter() - verification_started) * 1000),
-        )
+    permanently_failed_items = retry_items - recovered_items
+    source_profile_elapsed_ms = int((perf_counter() - verification_started) * 1000)
 
     results: list[SourceVerification] = []
+    applicability_started = perf_counter()
     for index in range(len(items)):
         if index in structural:
             results.append(structural[index])
@@ -658,6 +756,27 @@ def verify_evidence_items(
                 verification_level="curated_record",
             ))
             continue
+
+        cached_profile = cached_profiles.get(index)
+        if cached_profile is not None:
+            results.append(_finalize_verification(
+                index=index,
+                item=items[index],
+                support_status=cached_profile["support_status"],
+                support_reason=cached_profile["support_reason"],
+                population=cached_profile["population"],
+                line=cached_profile["line"],
+                setting=cached_profile["setting"],
+                prerequisites=cached_profile["prerequisites"],
+                line_category=cached_profile["line_category"],
+                setting_category=cached_profile["setting_category"],
+                prior_requirement=cached_profile["prior_requirement"],
+                source_arms=cached_profile["source_arms"],
+                case_context=case_context or {},
+                llm_applicability=None,
+            ))
+            continue
+
         failure = llm_failures.get(index)
         parsed = llm_results.get(index)
         if parsed is None:
@@ -670,53 +789,65 @@ def verify_evidence_items(
             applicability_status = "indeterminate"
             applicability_reason = "Applicabilità non valutata: la verifica del supporto documentale non è stata completata."
             line_category = setting_category = prior_requirement = "unknown"
-            source_interventions: list[str] = []
+            source_arms: list[dict[str, Any]] = []
         else:
             (
                 support_status, support_reason,
                 population, line, setting, prerequisites,
                 applicability_status, applicability_reason,
                 line_category, setting_category, prior_requirement,
-                source_interventions,
+                source_arms,
             ) = parsed
         if support_status not in {"supported", "unsupported", "uncertain"}:
             support_status = "uncertain"
         if applicability_status not in {"compatible", "indeterminate", "not_compatible"}:
             applicability_status = "indeterminate"
 
-        if support_status == "supported":
-            regimen_reason = _regimen_check_reason(
-                items[index], source_interventions, source_text_by_index.get(index, ""),
+        if profile_cache is not None and parsed is not None:
+            profile_cache.put(
+                payload_pmid_by_index[index], payload_statement_hash_by_index[index],
+                SOURCE_PROFILE_PROMPT_VERSION, model_revision,
+                {
+                    "support_status": support_status,
+                    "support_reason": support_reason,
+                    "population": population,
+                    "line": line,
+                    "setting": setting,
+                    "prerequisites": prerequisites,
+                    "line_category": line_category,
+                    "setting_category": setting_category,
+                    "prior_requirement": prior_requirement,
+                    "source_arms": source_arms,
+                },
             )
-            if regimen_reason:
-                support_status = "uncertain"
-                support_reason = regimen_reason
 
-        applicability_status, applicability_reason = validate_applicability(
-            {
-                "source_line_category": line_category,
-                "source_setting_category": setting_category,
-                "source_prior_therapy_requirement": prior_requirement,
-            },
-            case_context or {},
-            applicability_status,
-            applicability_reason,
-        )
-
-        results.append(_verification(
+        results.append(_finalize_verification(
             index=index,
-            source_support_status=support_status,
-            source_support_reason=support_reason,
-            verification_level="pubmed_abstract",
-            source_population=population,
-            source_line=line,
-            source_setting=setting,
-            source_prerequisites=prerequisites,
-            applicability_status=applicability_status,
-            applicability_reason=applicability_reason,
-            source_line_category=line_category,
-            source_setting_category=setting_category,
-            source_prior_therapy_requirement=prior_requirement,
-            source_interventions=source_interventions,
+            item=items[index],
+            support_status=support_status,
+            support_reason=support_reason,
+            population=population,
+            line=line,
+            setting=setting,
+            prerequisites=prerequisites,
+            line_category=line_category,
+            setting_category=setting_category,
+            prior_requirement=prior_requirement,
+            source_arms=source_arms,
+            case_context=case_context or {},
+            llm_applicability=(applicability_status, applicability_reason),
         ))
+
+    if metrics is not None:
+        metrics.update(
+            cache_hits=len(cached_profiles),
+            cache_misses=len(payload_pmid_by_index),
+            verifier_batches=batches_run,
+            failed_batches=failed_batches,
+            retry_items=retry_items,
+            recovered_items=recovered_items,
+            permanently_failed_items=permanently_failed_items,
+            source_profile_elapsed_ms=source_profile_elapsed_ms,
+            applicability_elapsed_ms=int((perf_counter() - applicability_started) * 1000),
+        )
     return results
