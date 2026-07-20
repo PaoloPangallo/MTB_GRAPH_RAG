@@ -142,7 +142,7 @@ function DossierEvidenceList({
         return (
           <Alert key={item.evidence_id} severity={severity} variant="outlined" sx={{ mb: 0.75, alignItems: 'flex-start' }}>
             <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.therapy}</Typography>
-            <Typography variant="caption" component="div">Contesto dichiarato dal paziente: {item.setting}</Typography>
+            <Typography variant="caption" component="div">Tumore/contesto del record recuperato: {item.setting}</Typography>
             {sourcePrerequisites && (
               <Typography variant="caption" component="div">Contesto descritto dalla fonte: {sourcePrerequisites}</Typography>
             )}
@@ -435,6 +435,41 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
             </Box>
           </AccordionDetails>
         </Accordion>
+
+        {run.tool_call_timings && run.tool_call_timings.length > 0 && (
+          <Accordion defaultExpanded={false} disableGutters sx={{ mb: 2.5 }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Box>
+                <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>
+                  Tempi delle chiamate agli strumenti
+                </Typography>
+                <Typography variant="caption" color="text.secondary" component="div">
+                  Vista tecnica separata dalle metriche cliniche sopra.
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
+                {run.tool_call_timings.map((timing, index) => (
+                  <Box
+                    key={`${timing.sequence}-${timing.tool}-${index}`}
+                    sx={{ display: 'flex', gap: 1, alignItems: 'center', flexWrap: 'wrap', p: 1, border: '1px solid #E2E8F0', borderRadius: 1.5 }}
+                  >
+                    <Chip label={`#${timing.sequence}`} size="small" variant="outlined" sx={{ height: 20, fontSize: 10 }} />
+                    <Typography variant="body2" sx={{ fontWeight: 700 }}>{timing.tool}</Typography>
+                    <Typography variant="caption">{formatMs(timing.elapsed_ms)}</Typography>
+                    <Chip
+                      label={timing.status}
+                      size="small"
+                      color={timing.status === 'completed' ? 'success' : 'error'}
+                      sx={{ height: 20, fontSize: 10 }}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        )}
 
         <Alert severity="info" icon={<VerifiedUserIcon />}>
           <Typography variant="caption" component="div" sx={{ fontWeight: 700 }}>Garanzie e confini operativi</Typography>

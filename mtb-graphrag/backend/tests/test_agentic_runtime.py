@@ -38,6 +38,32 @@ class _FailingLLM:
         raise RuntimeError("connection refused to internal-host:11434 api_key=secret123")
 
 
+class _PartialThenRecoveringLLM:
+    """Simula un batch che risponde solo per il primo indice (l'indice
+    successivo resta mancante, senza sollevare un'eccezione) e un retry a
+    singolo record che lo recupera con successo."""
+
+    def invoke(self, messages):
+        payload = json.loads(messages[1][1])
+        first = payload[0]
+        reason = "recuperato dal retry" if len(payload) == 1 and first["index"] != 0 else "ok"
+        return _Response(json.dumps([{
+            "index": first["index"],
+            "source_support_status": "supported",
+            "source_support_reason": reason,
+            "applicability_status": "indeterminate",
+            "applicability_reason": "ok",
+        }]))
+
+
+class _AlwaysFailingLLM:
+    """Simula un servizio sempre irraggiungibile: sia il batch iniziale sia
+    il retry a singolo record devono fallire e degradare a 'uncertain'."""
+
+    def invoke(self, messages):
+        raise RuntimeError("errore simulato del servizio LLM")
+
+
 class EventLedgerTest(TestCase):
     def test_ledger_is_hash_chained_and_database_blocks_mutation(self):
         with TemporaryDirectory() as directory:
@@ -174,6 +200,53 @@ class AgenticRuntimeTest(TestCase):
         self.assertNotIn("secret123", serialized_events)
         self.assertNotIn("internal-host", serialized_events)
         self.assertNotIn("secret123", result.fallback_reason)
+
+    def test_tool_failure_is_sanitized_and_excludes_raw_exception_text(self):
+        """Un'eccezione sollevata da un tool non deve mai finire grezza nel
+        ledger né in AgenticCollectionResult.errors (che alimenta le
+        limitations restituite dall'API): solo una categoria sanitizzata."""
+        def failing_tool(state):
+            raise RuntimeError("upstream failure token=sekrit123 at postgres://user:pass@internal-host/db")
+
+        tools = self._tools()
+        tools["check_resistance"] = failing_tool
+        decisions = [
+            {"tool": "interpret_variant", "rationale": "Raccolgo l'evidenza primaria."},
+            {"tool": "check_resistance", "rationale": "Cerco meccanismi di resistenza."},
+        ]
+
+        with TemporaryDirectory() as directory:
+            ledger = EventLedger(Path(directory) / "events.sqlite3")
+            result = run_agentic_collection(
+                self._initial_state(),
+                ledger=ledger,
+                planner_llm=_SequencedLLM(decisions),
+                tool_registry=tools,
+            )
+
+        serialized_events = json.dumps(result.events, default=str)
+        self.assertNotIn("sekrit123", serialized_events)
+        self.assertNotIn("postgres://", serialized_events)
+        self.assertNotIn("internal-host", serialized_events)
+        joined_errors = " ".join(result.errors)
+        self.assertNotIn("sekrit123", joined_errors)
+        self.assertNotIn("postgres://", joined_errors)
+        self.assertTrue(any(
+            category in joined_errors
+            for category in (
+                "timeout durante l'esecuzione",
+                "risposta dello strumento non conforme",
+                "servizio esterno non disponibile",
+                "dati insufficienti o non validi",
+                "errore non classificato",
+            )
+        ))
+        failed_events = [event for event in result.events if event["event_type"] == "tool_failed"]
+        self.assertEqual(len(failed_events), 1)
+        self.assertIn(
+            failed_events[0]["payload"]["error_category"],
+            {"timeout", "invalid_response", "service_unavailable", "data_error", "other"},
+        )
 
     def test_planner_fallback_event_is_recorded_once_in_the_ledger(self):
         failing_llm = _FailingLLM()
@@ -398,6 +471,114 @@ class SourceVerifierTest(TestCase):
         self.assertEqual(requested["disease_setting"], "")
         self.assertEqual(requested["prior_therapies"], "")
         self.assertEqual(requested["co_alterations"], "")
+
+    def _regimen_source_loader(self):
+        return lambda _pmids: {
+            37879444: {
+                "title": "Amivantamab plus carboplatino and pemetrexed in EGFR-mutated NSCLC",
+                "abstract": "Patients with EGFR L858R NSCLC were treated with amivantamab, carboplatino and pemetrexed.",
+            }
+        }
+
+    def test_partial_regimen_is_not_confirmed_as_the_full_source_regimen(self):
+        """PMID 37879444: la fonte descrive amivantamab + carboplatino +
+        pemetrexed, ma la claim riguarda solo amivantamab + carboplatino.
+        Il supporto non deve restare 'supported' senza riserva: deve
+        diventare 'uncertain' finché il regime completo non è confrontato."""
+        item = self._item(object_="amivantamab + carboplatino", source_id="PMID:37879444")
+        llm = _SequencedLLM([[{
+            "index": 0,
+            "source_support_status": "supported",
+            "source_support_reason": "La fonte documenta il regime nel proprio contesto.",
+            "source_interventions": ["amivantamab", "carboplatino", "pemetrexed"],
+            "applicability_status": "indeterminate",
+            "applicability_reason": "Dati clinici del paziente non dichiarati.",
+        }]])
+        results = verify_evidence_items(
+            [item],
+            llm_client=llm,
+            source_loader=self._regimen_source_loader(),
+        )
+        result = results[0]
+        self.assertEqual(result.source_support_status, "uncertain")
+        self.assertIn("pemetrexed", result.source_support_reason.lower())
+        self.assertTrue(result.requires_source_review)
+
+    def test_matching_full_regimen_stays_supported(self):
+        item = self._item(object_="amivantamab + carboplatino + pemetrexed", source_id="PMID:37879444")
+        llm = _SequencedLLM([[{
+            "index": 0,
+            "source_support_status": "supported",
+            "source_support_reason": "La fonte documenta il regime completo.",
+            "source_interventions": ["amivantamab", "carboplatino", "pemetrexed"],
+            "applicability_status": "indeterminate",
+            "applicability_reason": "Dati clinici del paziente non dichiarati.",
+        }]])
+        results = verify_evidence_items(
+            [item],
+            llm_client=llm,
+            source_loader=self._regimen_source_loader(),
+        )
+        self.assertEqual(results[0].source_support_status, "supported")
+
+    def test_retry_recovers_a_missing_item_from_a_partial_batch(self):
+        """Un batch che risponde solo per un indice non deve far cadere
+        l'altro record in un fallimento definitivo: il singolo indice
+        mancante viene recuperato con un retry bounded a singolo record."""
+        item_a = self._item(source_id="PMID:29151359")
+        item_b = self._item(source_id="PMID:29151359")
+        metrics: dict[str, int] = {}
+        results = verify_evidence_items(
+            [item_a, item_b],
+            llm_client=_PartialThenRecoveringLLM(),
+            source_loader=self._source_loader(),
+            metrics=metrics,
+        )
+        self.assertEqual(results[0].source_support_status, "supported")
+        self.assertEqual(results[1].source_support_status, "supported")
+        self.assertEqual(results[1].source_support_reason, "recuperato dal retry")
+        self.assertEqual(metrics["verifier_batches"], 1)
+        self.assertEqual(metrics["verifier_retry_items"], 1)
+        self.assertEqual(metrics["verifier_recovered_items"], 1)
+
+    def test_retry_that_fails_again_degrades_to_uncertain_not_an_exception(self):
+        """Nessun retry infinito: se anche il retry a singolo record fallisce,
+        il risultato degrada in modo fail-closed a 'uncertain', senza
+        propagare l'eccezione grezza al chiamante."""
+        metrics: dict[str, int] = {}
+        results = verify_evidence_items(
+            [self._item()],
+            llm_client=_AlwaysFailingLLM(),
+            source_loader=self._source_loader(),
+            metrics=metrics,
+        )
+        self.assertEqual(results[0].source_support_status, "uncertain")
+        self.assertTrue(results[0].requires_source_review)
+        self.assertEqual(metrics["verifier_batches"], 1)
+        self.assertEqual(metrics["verifier_failed_batches"], 1)
+        self.assertEqual(metrics["verifier_retry_items"], 1)
+        self.assertEqual(metrics["verifier_recovered_items"], 0)
+
+    def test_deterministic_validator_downgrades_llm_verdict_when_setting_undeclared(self):
+        """Anche se l'LLM restituisce 'compatible', il validatore deterministico
+        deve ridurlo a 'indeterminate' quando la fonte dichiara un setting
+        noto e il paziente non lo ha dichiarato."""
+        llm = _SequencedLLM([[{
+            "index": 0,
+            "source_support_status": "supported",
+            "source_support_reason": "La fonte documenta il proprio record.",
+            "source_setting_category": "metastatic",
+            "source_line_category": "first_line",
+            "applicability_status": "compatible",
+            "applicability_reason": "Setting e linea coincidono secondo l'LLM.",
+        }]])
+        results = verify_evidence_items(
+            [self._item()],
+            llm_client=llm,
+            source_loader=self._source_loader(),
+            case_context={"therapy_line": "first-line", "disease_stage": "", "disease_setting": ""},
+        )
+        self.assertEqual(results[0].applicability_status, "indeterminate")
 
     def test_requires_source_review_and_requires_clinical_review_are_independent(self):
         """I due booleani non devono mai collassare in un solo OR: una fonte

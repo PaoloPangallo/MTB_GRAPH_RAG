@@ -7,10 +7,19 @@ import os
 import re
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass
+from concurrent.futures import TimeoutError as FuturesTimeoutError
+from dataclasses import dataclass, field
+from time import perf_counter
 from typing import Any, Callable, Iterable
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+
+from backend.pipeline.agentic.applicability_validator import (
+    normalize_line_category,
+    normalize_prior_therapy_requirement,
+    normalize_setting_category,
+    validate_applicability,
+)
 
 
 SOURCE_VERIFIER_SYSTEM = """Sei un verificatore di evidenze per un Molecular Tumor Board.
@@ -34,8 +43,21 @@ assente/invalido, l'abstract non è disponibile, i dati sono insufficienti o la
 verifica non può essere completata, usa "uncertain" — non "unsupported": un
 dato mancante non è una contraddizione.
 Se ricavabili dalla fonte, riporta anche source_population, source_line,
-source_setting, source_prerequisites (stringhe brevi); lascia questi campi
-`null` quando la fonte non li specifica — non inventarli mai.
+source_setting, source_prerequisites (stringhe brevi, per l'oncologo); lascia
+questi campi `null` quando la fonte non li specifica — non inventarli mai.
+Riporta anche source_interventions: l'elenco completo dei singoli farmaci/
+interventi del regime descritto dalla fonte (es. ["amivantamab",
+"carboplatino", "pemetrexed"]); lascialo vuoto se non determinabile.
+
+Riporta inoltre, in aggiunta alle stringhe descrittive sopra, tre campi
+categorici (per il confronto deterministico, non sostituiscono le stringhe):
+- source_line_category: uno tra "first_line", "later_line",
+  "post_progression", "adjuvant", "unknown".
+- source_setting_category: uno tra "resected", "locally_advanced",
+  "metastatic", "recurrent", "adjuvant", "unknown".
+- source_prior_therapy_requirement: uno tra "treatment_naive",
+  "previously_treated", "specific_therapy", "unknown".
+Usa "unknown" quando la fonte non lo specifica esplicitamente: non dedurre.
 
 2) APPLICABILITÀ AL CASO (applicability_status/applicability_reason)
 Confronta il contesto appena estratto dalla fonte (punto 1) con il contesto
@@ -63,6 +85,10 @@ Restituisci esclusivamente un array JSON, un oggetto per elemento:
   "source_line": "..." o null,
   "source_setting": "..." o null,
   "source_prerequisites": "..." o null,
+  "source_interventions": ["farmaco1", "farmaco2"],
+  "source_line_category": "first_line|later_line|post_progression|adjuvant|unknown",
+  "source_setting_category": "resected|locally_advanced|metastatic|recurrent|adjuvant|unknown",
+  "source_prior_therapy_requirement": "treatment_naive|previously_treated|specific_therapy|unknown",
   "applicability_status": "compatible|indeterminate|not_compatible",
   "applicability_reason": "..."}]
 """
@@ -82,6 +108,16 @@ class SourceVerification:
     verification_level: str
     requires_source_review: bool
     requires_clinical_review: bool
+    # Categorie strutturate per il confronto deterministico (validate contro
+    # uno schema fisso; "unknown" quando non ricavabili o non conformi) —
+    # affiancano, senza sostituirle, le stringhe descrittive sopra.
+    source_line_category: str = "unknown"
+    source_setting_category: str = "unknown"
+    source_prior_therapy_requirement: str = "unknown"
+    # Regime completo dichiarato dalla fonte (es. ["amivantamab",
+    # "carboplatino", "pemetrexed"]), usato per verificare che una claim su
+    # una combinazione parziale non venga confermata come regime equivalente.
+    source_interventions: list[str] = field(default_factory=list)
 
 
 def _pmid(source_id: str | None) -> int | None:
@@ -163,7 +199,10 @@ def _content_text(content: Any) -> str:
     return str(content).strip()
 
 
-ParsedResult = tuple[str, str, str | None, str | None, str | None, str | None, str, str]
+ParsedResult = tuple[
+    str, str, str | None, str | None, str | None, str | None, str, str,
+    str, str, str, list[str],
+]
 
 
 def _parse_results(content: Any) -> dict[int, ParsedResult]:
@@ -193,6 +232,11 @@ def _parse_results(content: Any) -> dict[int, ParsedResult]:
     def _optional_text(value: Any) -> str | None:
         return str(value) if isinstance(value, str) and value.strip() else None
 
+    def _interventions(value: Any) -> list[str]:
+        if not isinstance(value, list):
+            return []
+        return [str(entry).strip() for entry in value if isinstance(entry, str) and entry.strip()]
+
     return {
         int(result["index"]): (
             str(result["source_support_status"]).lower(),
@@ -203,6 +247,10 @@ def _parse_results(content: Any) -> dict[int, ParsedResult]:
             _optional_text(result.get("source_prerequisites")),
             str(result["applicability_status"]).lower(),
             str(result.get("applicability_reason", "")),
+            normalize_line_category(result.get("source_line_category")),
+            normalize_setting_category(result.get("source_setting_category")),
+            normalize_prior_therapy_requirement(result.get("source_prior_therapy_requirement")),
+            _interventions(result.get("source_interventions")),
         )
         for result in parsed
     }
@@ -213,6 +261,20 @@ def _batch_size() -> int:
         return min(8, max(1, int(os.getenv("SOURCE_VERIFIER_BATCH_SIZE", "4"))))
     except ValueError:
         return 4
+
+
+def _retry_timeout_seconds() -> int:
+    try:
+        return max(1, int(os.getenv("SOURCE_VERIFIER_RETRY_TIMEOUT_SECONDS", "15")))
+    except ValueError:
+        return 15
+
+
+def _retry_max_workers() -> int:
+    try:
+        return max(1, min(4, int(os.getenv("SOURCE_VERIFIER_RETRY_MAX_WORKERS", "2"))))
+    except ValueError:
+        return 2
 
 
 def _verification_batches(payload: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
@@ -238,6 +300,54 @@ def _invoke_verifier_batch(
         return {}, "errore del servizio LLM"
 
 
+def _invoke_verifier_single_with_timeout(
+    llm_client: Any,
+    entry: dict[str, Any],
+    timeout_seconds: int,
+) -> tuple[dict[int, ParsedResult], str | None]:
+    """Un solo record per chiamata, con timeout configurabile indipendente dal
+    batching iniziale — usato esclusivamente dal retry bounded, mai da un
+    ciclo di retry infinito."""
+    executor = ThreadPoolExecutor(max_workers=1)
+    try:
+        future = executor.submit(_invoke_verifier_batch, llm_client, [entry])
+        return future.result(timeout=timeout_seconds)
+    except FuturesTimeoutError:
+        return {}, "timeout del modello"
+    finally:
+        executor.shutdown(wait=False)
+
+
+def _retry_missing_items(
+    llm_client: Any,
+    payload_by_index: dict[int, dict[str, Any]],
+    missing_indices: set[int],
+) -> tuple[dict[int, ParsedResult], dict[int, str]]:
+    """Un solo retry, bounded: batch da un singolo record, concorrenza
+    limitata, timeout configurabile. Nessun retry infinito: gli indici che
+    falliscono anche qui restano falliti e degradano a 'uncertain' a monte."""
+    retry_entries = [payload_by_index[index] for index in sorted(missing_indices) if index in payload_by_index]
+    results: dict[int, ParsedResult] = {}
+    failures: dict[int, str] = {}
+    if not retry_entries:
+        return results, failures
+
+    timeout_seconds = _retry_timeout_seconds()
+    workers = min(_retry_max_workers(), len(retry_entries))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = {
+            executor.submit(_invoke_verifier_single_with_timeout, llm_client, entry, timeout_seconds): entry
+            for entry in retry_entries
+        }
+        for future in as_completed(futures):
+            entry = futures[future]
+            entry_results, failure = future.result()
+            results.update(entry_results)
+            if failure:
+                failures[int(entry["index"])] = failure
+    return results, failures
+
+
 def _verification(
     *,
     index: int,
@@ -250,6 +360,10 @@ def _verification(
     source_prerequisites: str | None = None,
     applicability_status: str = "indeterminate",
     applicability_reason: str = "",
+    source_line_category: str = "unknown",
+    source_setting_category: str = "unknown",
+    source_prior_therapy_requirement: str = "unknown",
+    source_interventions: list[str] | None = None,
 ) -> SourceVerification:
     """Costruisce un esito derivando i due flag di revisione dai due assi."""
     return SourceVerification(
@@ -265,6 +379,35 @@ def _verification(
         verification_level=verification_level,
         requires_source_review=source_support_status in {"uncertain", "unsupported"},
         requires_clinical_review=applicability_status in {"indeterminate", "not_compatible"},
+        source_line_category=source_line_category,
+        source_setting_category=source_setting_category,
+        source_prior_therapy_requirement=source_prior_therapy_requirement,
+        source_interventions=list(source_interventions) if source_interventions else [],
+    )
+
+
+def _regimen_components(text: str) -> set[str]:
+    parts = re.split(r"[+,/]|(?:\band\b)", text or "", flags=re.IGNORECASE)
+    return {part.strip().lower() for part in parts if part.strip()}
+
+
+def _incomplete_regimen_reason(item: Any, source_interventions: list[str]) -> str | None:
+    """Confronta il regime completo dichiarato dalla fonte con l'oggetto della
+    claim (``item.object``). Restituisce un motivo se la fonte descrive un
+    regime più ampio di quello della claim — una combinazione parziale non va
+    mai confermata senza riserva come se fosse il regime completo."""
+    source_components = {value.strip().lower() for value in source_interventions if value and value.strip()}
+    if not source_components:
+        return None
+    claim_components = _regimen_components(item.object)
+    missing = source_components - claim_components
+    if not missing:
+        return None
+    return (
+        "La fonte descrive il regime completo "
+        f"({', '.join(sorted(source_components))}), che include "
+        f"{', '.join(sorted(missing))} non presenti nella claim: il supporto "
+        "documentale non copre la combinazione parziale come regime equivalente."
     )
 
 
@@ -274,6 +417,7 @@ def verify_evidence_items(
     llm_client: Any | None = None,
     source_loader: Callable[[Iterable[int]], dict[int, dict[str, str]]] = fetch_pubmed_sources,
     case_context: dict[str, str] | None = None,
+    metrics: dict[str, int] | None = None,
 ) -> list[SourceVerification]:
     """Verifica in modalità fail-closed: dubbio o fonte assente richiedono revisione.
 
@@ -281,8 +425,22 @@ def verify_evidence_items(
     contraddice realmente la claim: nessuno dei controlli strutturali qui
     sotto ha letto un contenuto contraddittorio, quindi producono sempre
     ``uncertain`` quando falliscono, mai ``unsupported``.
+
+    Se ``metrics`` è fornito, viene popolato in-place con contatori
+    diagnostici (``verifier_batches``, ``verifier_failed_batches``,
+    ``verifier_retry_items``, ``verifier_recovered_items``,
+    ``verifier_elapsed_ms``) senza cambiare il tipo di ritorno della funzione.
     """
+    verification_started = perf_counter()
     if not items:
+        if metrics is not None:
+            metrics.update(
+                verifier_batches=0,
+                verifier_failed_batches=0,
+                verifier_retry_items=0,
+                verifier_recovered_items=0,
+                verifier_elapsed_ms=0,
+            )
         return []
     if llm_client is None:
         from backend.pipeline.llm import llm_judge
@@ -368,8 +526,13 @@ def verify_evidence_items(
 
     llm_results: dict[int, ParsedResult] = {}
     llm_failures: dict[int, str] = {}
+    batches_run = 0
+    failed_batches = 0
+    retry_items = 0
+    recovered_items = 0
     if payload:
         batches = _verification_batches(payload)
+        batches_run = len(batches)
         workers = min(4, len(batches))
         with ThreadPoolExecutor(max_workers=workers) as executor:
             futures = {
@@ -381,8 +544,33 @@ def verify_evidence_items(
                 batch_results, failure = future.result()
                 llm_results.update(batch_results)
                 if failure:
+                    failed_batches += 1
                     for entry in batch:
                         llm_failures[int(entry["index"])] = failure
+
+        missing_indices = {
+            int(entry["index"]) for entry in payload if int(entry["index"]) not in llm_results
+        }
+        if missing_indices:
+            retry_items = len(missing_indices)
+            payload_by_index = {int(entry["index"]): entry for entry in payload}
+            retry_results, retry_failures = _retry_missing_items(llm_client, payload_by_index, missing_indices)
+            recovered_items = len(retry_results)
+            llm_results.update(retry_results)
+            for index in missing_indices:
+                if index in retry_results:
+                    llm_failures.pop(index, None)
+                elif index in retry_failures:
+                    llm_failures[index] = retry_failures[index]
+
+    if metrics is not None:
+        metrics.update(
+            verifier_batches=batches_run,
+            verifier_failed_batches=failed_batches,
+            verifier_retry_items=retry_items,
+            verifier_recovered_items=recovered_items,
+            verifier_elapsed_ms=int((perf_counter() - verification_started) * 1000),
+        )
 
     results: list[SourceVerification] = []
     for index in range(len(items)):
@@ -408,16 +596,37 @@ def verify_evidence_items(
             population = line = setting = prerequisites = None
             applicability_status = "indeterminate"
             applicability_reason = "Applicabilità non valutata: la verifica del supporto documentale non è stata completata."
+            line_category = setting_category = prior_requirement = "unknown"
+            source_interventions: list[str] = []
         else:
             (
                 support_status, support_reason,
                 population, line, setting, prerequisites,
                 applicability_status, applicability_reason,
+                line_category, setting_category, prior_requirement,
+                source_interventions,
             ) = parsed
         if support_status not in {"supported", "unsupported", "uncertain"}:
             support_status = "uncertain"
         if applicability_status not in {"compatible", "indeterminate", "not_compatible"}:
             applicability_status = "indeterminate"
+
+        if support_status == "supported" and source_interventions:
+            incomplete_reason = _incomplete_regimen_reason(items[index], source_interventions)
+            if incomplete_reason:
+                support_status = "uncertain"
+                support_reason = incomplete_reason
+
+        applicability_status = validate_applicability(
+            {
+                "source_line_category": line_category,
+                "source_setting_category": setting_category,
+                "source_prior_therapy_requirement": prior_requirement,
+            },
+            case_context or {},
+            applicability_status,
+        )
+
         results.append(_verification(
             index=index,
             source_support_status=support_status,
@@ -429,5 +638,9 @@ def verify_evidence_items(
             source_prerequisites=prerequisites,
             applicability_status=applicability_status,
             applicability_reason=applicability_reason,
+            source_line_category=line_category,
+            source_setting_category=setting_category,
+            source_prior_therapy_requirement=prior_requirement,
+            source_interventions=source_interventions,
         ))
     return results
