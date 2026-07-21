@@ -1,0 +1,54 @@
+{
+  "buckets": {
+    "therapeutic_paths": []
+  },
+  "case_id": "PILOT-N1-RMI2-SNAPSHOT",
+  "entities": {
+    "aliases": [
+      {
+        "aliases": [
+          "BLAP18",
+          "C16orf75",
+          "MGC24665"
+        ],
+        "categories": [
+          "CLINICALLY ACTIONABLE",
+          "DNA REPAIR"
+        ],
+        "entrez_id": 116028,
+        "hugo_symbol": "RMI2",
+        "is_oncokb_annotated": false
+      }
+    ],
+    "evidence_count": 0,
+    "gene": [
+      {
+        "gene": {
+          "aliases": [
+            "BLAP18",
+            "C16orf75",
+            "MGC24665"
+          ],
+          "categories": [
+            "CLINICALLY ACTIONABLE",
+            "DNA REPAIR"
+          ],
+          "entrez_id": 116028,
+          "hugo_symbol": "RMI2",
+          "is_oncokb_annotated": false
+        }
+      }
+    ],
+    "gene_categories": [
+      "CLINICALLY ACTIONABLE",
+      "DNA REPAIR"
+    ],
+    "gene_present": true,
+    "interacts_with_drug_count": 0,
+    "molecular_profile_count": 0,
+    "relationships": [],
+    "therapeutic_path_count": 0,
+    "trial_count": 0,
+    "variant_count": 0
+  }
+}

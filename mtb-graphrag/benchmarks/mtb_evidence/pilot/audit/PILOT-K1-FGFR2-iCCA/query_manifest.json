@@ -1,0 +1,120 @@
+{
+  "audit_timestamp_utc": "2026-07-21T17:35:58.570517+00:00",
+  "case_id": "PILOT-K1-FGFR2-iCCA",
+  "queries": [
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene}) RETURN g AS gene",
+      "name": "gene_node",
+      "params": {
+        "gene": "FGFR2"
+      },
+      "record_count": 1
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(v:Variant)-[:IN_MOLECULAR_PROFILE]->(mp:MolecularProfile) RETURN DISTINCT mp.name AS molecular_profile, mp.molecular_profile_id AS molecular_profile_id, v.variant_name AS variant ORDER BY molecular_profile, variant",
+      "name": "profiles_by_gene",
+      "params": {
+        "gene": "FGFR2"
+      },
+      "record_count": 5
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (mp:MolecularProfile) WHERE toUpper(mp.name) CONTAINS $gene_upper AND (toUpper(mp.name) CONTAINS 'FUSION' OR toUpper(mp.name) CONTAINS 'REARRANGE' OR mp.name CONTAINS '::') RETURN DISTINCT mp.name AS molecular_profile, mp.molecular_profile_id AS molecular_profile_id ORDER BY molecular_profile",
+      "name": "profiles_fusion_or_rearrangement",
+      "params": {
+        "gene_upper": "FGFR2"
+      },
+      "record_count": 8
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(v:Variant)-[:IN_MOLECULAR_PROFILE]->(mp:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence) OPTIONAL MATCH (e)-[:TARGETS_DRUG]->(d:Drug) RETURN mp.name AS molecular_profile, mp.molecular_profile_id AS molecular_profile_id, v.variant_name AS variant, e.evidence_id AS evidence_id, e.significance AS significance, e.evidence_direction AS evidence_direction, e.evidence_level AS evidence_level, e.evidence_type AS evidence_type, e.disease AS disease, e.citation_id AS citation_id, e.evidence_statement AS evidence_statement, e.source_type AS source_type, e.variant_origin AS variant_origin, e.rating AS rating, d.drug_name AS drug, d.concept_id AS drug_concept_id ORDER BY evidence_id, drug",
+      "name": "evidence_by_gene_traversal",
+      "params": {
+        "gene": "FGFR2"
+      },
+      "record_count": 8
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (mp:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence) WHERE toUpper(mp.name) CONTAINS $gene_upper AND (toUpper(mp.name) CONTAINS 'FUSION' OR toUpper(mp.name) CONTAINS 'REARRANGE' OR mp.name CONTAINS '::') OPTIONAL MATCH (e)-[:TARGETS_DRUG]->(d:Drug) RETURN mp.name AS molecular_profile, e.evidence_id AS evidence_id, e.significance AS significance, e.evidence_direction AS evidence_direction, e.evidence_level AS evidence_level, e.disease AS disease, e.citation_id AS citation_id, e.evidence_statement AS evidence_statement, d.drug_name AS drug ORDER BY evidence_id, drug",
+      "name": "evidence_fusion_profiles_only",
+      "params": {
+        "gene_upper": "FGFR2"
+      },
+      "record_count": 19
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(:Variant)-[:IN_MOLECULAR_PROFILE]->(mp:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence) RETURN DISTINCT e.disease AS disease, count(*) AS evidence_count ORDER BY disease",
+      "name": "diseases_for_gene",
+      "params": {
+        "gene": "FGFR2"
+      },
+      "record_count": 6
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (d:Drug) WHERE toLower(d.drug_name) IN $drug_names RETURN d.drug_name AS drug_name, d.concept_id AS concept_id, d.approved AS approved ORDER BY drug_name",
+      "name": "expected_drugs_present",
+      "params": {
+        "drug_names": [
+          "pemigatinib",
+          "futibatinib"
+        ]
+      },
+      "record_count": 2
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (e:Evidence)-[:TARGETS_DRUG]->(d:Drug) WHERE toLower(d.drug_name) IN $drug_names OPTIONAL MATCH (mp:MolecularProfile)-[:HAS_EVIDENCE]->(e) RETURN d.drug_name AS drug, mp.name AS molecular_profile, e.evidence_id AS evidence_id, e.significance AS significance, e.evidence_direction AS evidence_direction, e.disease AS disease, e.citation_id AS citation_id, e.evidence_statement AS evidence_statement ORDER BY drug, evidence_id",
+      "name": "evidence_for_expected_drugs",
+      "params": {
+        "drug_names": [
+          "pemigatinib",
+          "futibatinib"
+        ]
+      },
+      "record_count": 5
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (p:Publication) WHERE p.pmid IN $pmids RETURN p.pmid AS pmid, p.citation_text AS citation_text, p.year AS year, p.source_type AS source_type ORDER BY pmid",
+      "name": "expected_publications",
+      "params": {
+        "pmids": [
+          32203698,
+          36652354
+        ]
+      },
+      "record_count": 1
+    },
+    {
+      "completeness_warnings": [
+        "nessuno degli NCT attesi e' presente come nodo ClinicalTrial"
+      ],
+      "cypher": "MATCH (t:ClinicalTrial) WHERE t.nct_id IN $nct_ids RETURN t.nct_id AS nct_id, t.title AS title, t.phase AS phase, t.status AS status, t.conditions AS conditions ORDER BY nct_id",
+      "name": "expected_trials",
+      "params": {
+        "nct_ids": [
+          "NCT02052778",
+          "NCT02924376"
+        ]
+      },
+      "record_count": 0
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (t:ClinicalTrial)-[:ASSOCIATED_GENE]->(g:Gene {hugo_symbol: $gene}) OPTIONAL MATCH (t)-[:TESTS_DRUG]->(d:Drug) RETURN t.nct_id AS nct_id, t.title AS title, t.phase AS phase, t.status AS status, collect(DISTINCT d.drug_name) AS drugs ORDER BY nct_id",
+      "name": "trials_by_gene",
+      "params": {
+        "gene": "FGFR2"
+      },
+      "record_count": 17
+    }
+  ],
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+}

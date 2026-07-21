@@ -1,0 +1,51 @@
+{
+  "audit_warnings": [
+    "il nodo Gene RMI2 esiste ma non ha alcuna relazione: l'astensione e' un negativo genuino del traversal",
+    "il nodo RMI2 porta le categorie ['CLINICALLY ACTIONABLE', 'DNA REPAIR'] pur non avendo alcun percorso terapeutico: la proprieta' non implica evidenza clinica ed e' una trappola per qualunque euristica che la usasse come segnale"
+  ],
+  "case_id": "PILOT-N1-RMI2-SNAPSHOT",
+  "conflicts": [],
+  "expected_claims": [
+    "N1-C0"
+  ],
+  "expected_nct_ids": [],
+  "expected_pmids": [],
+  "expected_therapies": [],
+  "extra_nct_ids": [],
+  "extra_pmids": [],
+  "extra_therapies": [],
+  "found_nct_ids": [],
+  "found_pmids": [],
+  "found_therapies": [],
+  "freeze_blockers": [],
+  "freeze_ready": true,
+  "graph_complete": true,
+  "matching_rule": "farmaco e PMID sono solo l'ancora; la corrispondenza e' completa solo se coincidono anche variante/profilo, malattia, direzione, setting, linea e fonte per ogni dimensione presente su entrambi i lati",
+  "missing_nct_ids": [],
+  "missing_pmids": [],
+  "missing_therapies": [],
+  "not_modelled_by_schema": [
+    "ecog",
+    "line",
+    "prior_therapy",
+    "resection_status",
+    "setting",
+    "stage"
+  ],
+  "partially_matching_claims": [],
+  "qualifiers_found": [],
+  "qualifiers_missing": [],
+  "structurally_matching_claims": [
+    {
+      "claim_id": "N1-C0",
+      "conflicting_dimensions": [],
+      "field_comparisons": [],
+      "match_level": "full",
+      "matched_record_ids": [],
+      "note": "claim di astensione confermata dall'assenza: il traversal non restituisce alcun percorso gene -> evidenza -> terapia",
+      "unverifiable_dimensions": []
+    }
+  ],
+  "unmatched_claims": [],
+  "unverifiable_dimensions": []
+}

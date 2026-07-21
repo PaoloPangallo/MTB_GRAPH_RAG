@@ -1,0 +1,56 @@
+{
+  "alias_count": 13,
+  "aliases": {
+    "azd 9291": "osimertinib",
+    "azd9291": "osimertinib",
+    "incb 054828": "pemigatinib",
+    "incb054828": "pemigatinib",
+    "lorbrena": "lorlatinib",
+    "lytgobi": "futibatinib",
+    "mereletinib": "osimertinib",
+    "pemazyre": "pemigatinib",
+    "pf 06463922": "lorlatinib",
+    "pf-06463922": "lorlatinib",
+    "tagrisso": "osimertinib",
+    "tas 120": "futibatinib",
+    "tas-120": "futibatinib"
+  },
+  "by_canonical": {
+    "futibatinib": [
+      "lytgobi",
+      "tas 120",
+      "tas-120"
+    ],
+    "lorlatinib": [
+      "lorbrena",
+      "pf 06463922",
+      "pf-06463922"
+    ],
+    "osimertinib": [
+      "azd 9291",
+      "azd9291",
+      "mereletinib",
+      "tagrisso"
+    ],
+    "pemigatinib": [
+      "incb 054828",
+      "incb054828",
+      "pemazyre"
+    ]
+  },
+  "canonical_count": 4,
+  "invariants": [
+    "casefold, trim e collasso degli spazi su ogni valore",
+    "prefissi PMID:/NCT: rimossi; NCT normalizzato in uppercase",
+    "un alias puo' unificare solo nomi dello stesso farmaco",
+    "rifiutati alias contenenti termini di malattia",
+    "rifiutati alias contenenti termini di tipo-alterazione (fusion, compound, ...)",
+    "rifiutati alias composti (A/B, A+B) che fonderebbero due entita'",
+    "rifiutati alias contenenti notazione di variante proteica"
+  ],
+  "rejected_by_construction": {
+    "malattie_distinte": "intrahepatic cholangiocarcinoma non e' cholangiocarcinoma",
+    "mutazione_composta": "G1202R non e' G1202R/L1196M",
+    "tipo_alterazione": "FGFR2 fusion non e' FGFR2 mutation"
+  }
+}

@@ -1,0 +1,3989 @@
+{
+  "buckets": {
+    "compound_mutations": [
+      {
+        "direction": "supports",
+        "disease": "malignant pleural mesothelioma",
+        "drug": "lorlatinib",
+        "is_compound_mutation": true,
+        "nct_ids": [],
+        "pmids": [
+          "32600123"
+        ],
+        "record_id": "evidence:11114",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "acquired resistance",
+            "progression after"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r and alk i1171n and alk l1196m"
+      }
+    ],
+    "resistance_records": [
+      {
+        "direction": "supports",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "crizotinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "22277784"
+        ],
+        "record_id": "evidence:441",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "ceritinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24675041"
+        ],
+        "record_id": "evidence:1345",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "cancer",
+        "drug": "alectinib hydrochloride",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "25727400"
+        ],
+        "record_id": "evidence:1350",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "cancer",
+        "drug": "brigatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "25727400"
+        ],
+        "record_id": "evidence:1351",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "lung adenocarcinoma",
+        "drug": "crizotinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "22277784"
+        ],
+        "record_id": "evidence:1357",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "malignant pleural mesothelioma",
+        "drug": "lorlatinib",
+        "is_compound_mutation": true,
+        "nct_ids": [],
+        "pmids": [
+          "32600123"
+        ],
+        "record_id": "evidence:11114",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "acquired resistance",
+            "progression after"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r and alk i1171n and alk l1196m"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "alectinib hydrochloride",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24736079",
+          "27130468",
+          "27432227",
+          "29373100",
+          "29376144",
+          "29650534"
+        ],
+        "record_id": "evidence:100002",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "progressed on"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "brigatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "27432227",
+          "29935304",
+          "31358542"
+        ],
+        "record_id": "evidence:100003",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "acquired resistance",
+            "metastatic"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "ceritinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24675041",
+          "25727400",
+          "26698910",
+          "27432227",
+          "31358542"
+        ],
+        "record_id": "evidence:100004",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "acquired resistance",
+            "metastatic"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "crizotinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "22277784",
+          "25727400",
+          "26698910",
+          "31585938"
+        ],
+        "record_id": "evidence:100005",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "acquired resistance",
+            "metastatic"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      }
+    ],
+    "sensitivity_records": [
+      {
+        "direction": "supports",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "tanespimycin",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "22277784"
+        ],
+        "record_id": "evidence:1352",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "lorlatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "30892989"
+        ],
+        "record_id": "evidence:100000",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "progressed on",
+            "metastatic"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "neladalkib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "39269178"
+        ],
+        "record_id": "evidence:100001",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      }
+    ],
+    "single_mutation": [
+      {
+        "direction": "supports",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "crizotinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "22277784"
+        ],
+        "record_id": "evidence:441",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "ceritinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24675041"
+        ],
+        "record_id": "evidence:1345",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "cancer",
+        "drug": "alectinib hydrochloride",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "25727400"
+        ],
+        "record_id": "evidence:1350",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "cancer",
+        "drug": "brigatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "25727400"
+        ],
+        "record_id": "evidence:1351",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "tanespimycin",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "22277784"
+        ],
+        "record_id": "evidence:1352",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "eml4::alk fusion and alk g1202r"
+      },
+      {
+        "direction": "supports",
+        "disease": "lung adenocarcinoma",
+        "drug": "crizotinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "22277784"
+        ],
+        "record_id": "evidence:1357",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "lorlatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "30892989"
+        ],
+        "record_id": "evidence:100000",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "progressed on",
+            "metastatic"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "neladalkib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "39269178"
+        ],
+        "record_id": "evidence:100001",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "alectinib hydrochloride",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24736079",
+          "27130468",
+          "27432227",
+          "29373100",
+          "29376144",
+          "29650534"
+        ],
+        "record_id": "evidence:100002",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "progressed on"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "brigatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "27432227",
+          "29935304",
+          "31358542"
+        ],
+        "record_id": "evidence:100003",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "acquired resistance",
+            "metastatic"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "ceritinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24675041",
+          "25727400",
+          "26698910",
+          "27432227",
+          "31358542"
+        ],
+        "record_id": "evidence:100004",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "acquired resistance",
+            "metastatic"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "non-small cell lung cancer",
+        "drug": "crizotinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "22277784",
+          "25727400",
+          "26698910",
+          "31585938"
+        ],
+        "record_id": "evidence:100005",
+        "relation": "resistance",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "post_progression_t790m",
+          "matched_spans": [
+            "acquired resistance",
+            "metastatic"
+          ],
+          "note": "marcatori di progressione o T790M"
+        },
+        "source_kind": "evidence",
+        "subject": "alk g1202r and v::alk fusion"
+      }
+    ],
+    "trials": [
+      {
+        "drugs": [
+          "ERLOTINIB HYDROCHLORIDE"
+        ],
+        "nct_id": "NCT02193282",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Erlotinib Hydrochloride in Treating Patients With Stage IB-IIIA Non-small Cell Lung Cancer That Has Been Completely Removed by Surgery (An ALCHEMIST Treatment Trial)"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB",
+          "PACLITAXEL",
+          "GEMCITABINE",
+          "PEMETREXED DISODIUM",
+          "CARBOPLATIN",
+          "NIVOLUMAB",
+          "CISPLATIN",
+          "PEMBROLIZUMAB",
+          "ERLOTINIB"
+        ],
+        "nct_id": "NCT02194738",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Genetic Testing in Screening Patients With Stage IB-IIIA Non-small Cell Lung Cancer That Has Been or Will Be Removed by Surgery (The ALCHEMIST Screening Trial)"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB"
+        ],
+        "nct_id": "NCT02201992",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Crizotinib in Treating Patients With Stage IB-IIIA Non-small Cell Lung Cancer That Has Been Removed by Surgery and ALK Fusion Mutations (An ALCHEMIST Treatment Trial)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT02223208",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Ro Plus CHOEP as First Line Treatment Before HSCT in Young Patients With Nodal Peripheral T-cell Lymphomas"
+      },
+      {
+        "drugs": [
+          "CERITINIB",
+          "EVEROLIMUS"
+        ],
+        "nct_id": "NCT02321501",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Ceritinib and Everolimus in Treating Patients With Locally Advanced or Metastatic Solid Tumors or Stage IIIB-IV Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "CERITINIB",
+          "NIVOLUMAB"
+        ],
+        "nct_id": "NCT02393625",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Safety and Efficacy of Ceritinib in Combination With Nivolumab in Patients With ALK-positive Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "GEMCITABINE",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "TREMELIMUMAB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT02453282",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Phase III Open Label First Line Therapy Study of MEDI 4736 (Durvalumab) With or Without Tremelimumab Versus SOC in Non Small-Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT02511288",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "LIquid BIopsies in Patients Presenting Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "GEMCITABINE",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "TREMELIMUMAB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT02542293",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Durvalumab With Tremelimumab Versus SoC as 1st Line Therapy in Metastatic Non Small-Cell Lung Cancer (NSCLC) (NEPTUNE)"
+      },
+      {
+        "drugs": [
+          "ENTRECTINIB"
+        ],
+        "nct_id": "NCT02568267",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Basket Study of Entrectinib (RXDX-101) for the Treatment of Patients With Solid Tumors Harboring NTRK 1/2/3 (Trk A/B/C), ROS1, or ALK Gene Rearrangements (Fusions)"
+      },
+      {
+        "drugs": [
+          "CERITINIB"
+        ],
+        "nct_id": "NCT02584933",
+        "phase": "PHASE4",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Roll-over Study to Allow Access to Certinib (LDK378) for Patients Who Are on Ceritinib Treatment in a Novartis-sponsored Study"
+      },
+      {
+        "drugs": [
+          "AMIVANTAMAB",
+          "CARBOPLATIN",
+          "LAZERTINIB"
+        ],
+        "nct_id": "NCT02609776",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Amivantamab, a Human Bispecific EGFR and cMet Antibody, in Participants With Advanced Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ENTRECTINIB"
+        ],
+        "nct_id": "NCT02650401",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study Of Entrectinib (Rxdx-101) in Children and Adolescents With Locally Advanced Or Metastatic Solid Or Primary CNS Tumors And/Or Who Have No Satisfactory Treatment Options"
+      },
+      {
+        "drugs": [
+          "DOSTARLIMAB"
+        ],
+        "nct_id": "NCT02715284",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of TSR-042, an Anti-programmed Cell Death-1 Receptor (PD-1) Monoclonal Antibody, in Participants With Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB",
+          "CRIZOTINIB"
+        ],
+        "nct_id": "NCT02767804",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "eXalt3: Study Comparing X-396 (Ensartinib) to Crizotinib in ALK Positive Non-Small Cell Lung Cancer (NSCLC) Patients"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB",
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT02838420",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Evaluate and Compare the Efficacy and Safety of Alectinib Versus Crizotinib and to Evaluate the Pharmacokinetics of Alectinib in Asian Participants With Treatment-Naive Anaplastic Lymphoma Kinase (ALK)-Positive Advanced Non-Small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "TEPOTINIB"
+        ],
+        "nct_id": "NCT02864992",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Tepotinib Phase II in NSCLC Harboring MET Alterations (VISION)"
+      },
+      {
+        "drugs": [
+          "NIVOLUMAB",
+          "VACCINE",
+          "EGF",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT02955290",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "CIMAvax Vaccine, Nivolumab, and Pembrolizumab in Treating Patients With Advanced Non-small Cell Lung Cancer or Squamous Head and Neck Cancer"
+      },
+      {
+        "drugs": [
+          "TALIMOGENE LAHERPAREPVEC",
+          "NIVOLUMAB"
+        ],
+        "nct_id": "NCT02978625",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Talimogene Laherparepvec and Nivolumab in Treating Patients With Refractory Lymphomas or Advanced or Refractory Non-melanoma Skin Cancers"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "GEMCITABINE",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT03003962",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Durvalumab Alone or Chemotherapy for Patients With Advanced Non Small-Cell Lung Cancer (PEARL)"
+      },
+      {
+        "drugs": [
+          "VARLILUMAB",
+          "NIVOLUMAB"
+        ],
+        "nct_id": "NCT03038672",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Nivolumab With or Without Varlilumab in Treating Patients With Relapsed or Refractory Aggressive B-cell Lymphomas"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT03042221",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Early Rebiopsy to Identify Biomarkers of Tumor Cell Survival Following EGFR, ALK, ROS1 or BRAF TKI Therapy"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB",
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT03052608",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study Of Lorlatinib Versus Crizotinib In First Line Treatment Of Patients With ALK-Positive NSCLC"
+      },
+      {
+        "drugs": [
+          "REPOTRECTINIB"
+        ],
+        "nct_id": "NCT03093116",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Repotrectinib (TPX-0005) in Patients With Advanced Solid Tumors Harboring ALK, ROS1, or NTRK1-3 Rearrangements"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "DOXORUBICIN HYDROCHLORIDE",
+          "ETOPOSIDE",
+          "BRENTUXIMAB VEDOTIN",
+          "PREDNISONE",
+          "ETOPOSIDE PHOSPHATE"
+        ],
+        "nct_id": "NCT03113500",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Brentuximab Vedotin and Combination Chemotherapy in Treating Patients With CD30-Positive Peripheral T-cell Lymphoma"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "DOXORUBICIN HYDROCHLORIDE",
+          "MELPHALAN HYDROCHLORIDE",
+          "TOPOTECAN HYDROCHLORIDE",
+          "SARGRAMOSTIM",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "DEXRAZOXANE",
+          "ISOTRETINOIN",
+          "LORLATINIB",
+          "VINCRISTINE SULFATE",
+          "BUSULFAN",
+          "DINUTUXIMAB",
+          "IOBENGUANE I-131",
+          "THIOTEPA",
+          "IOBENGUANE I-123",
+          "ETOPOSIDE PHOSPHATE"
+        ],
+        "nct_id": "NCT03126916",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Testing the Addition of 131I-MIBG or Lorlatinib to Intensive Therapy in People With High-Risk Neuroblastoma (NBL)"
+      },
+      {
+        "drugs": [
+          "GEMCITABINE",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "TREMELIMUMAB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT03164616",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Durvalumab + Tremelimumab With Chemotherapy or Durvalumab With Chemotherapy or Chemotherapy Alone for Patients With Lung Cancer (POSEIDON)."
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT03175224",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "APL-101 Study of Subjects With NSCLC With c-Met EXON 14 Skip Mutations and c-Met Dysregulation Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "ALDESLEUKIN",
+          "FLUDARABINE"
+        ],
+        "nct_id": "NCT03190941",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Administering Peripheral Blood Lymphocytes Transduced With a Murine T-Cell Receptor Recognizing the G12V Variant of Mutated RAS in HLA-A*11:01 Patients"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB",
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT03194893",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Rollover Study of Alectinib in Patients With Anaplastic Lymphoma Kinase (ALK)-Positive or Rearranged During Transfection (RET)-Positive Cancer"
+      },
+      {
+        "drugs": [
+          "COBIMETINIB",
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT03202940",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Phase IB/II Study of Alectinib Combined With Cobimetinib in Advanced ALK-Rearranged (ALK+) NSCLC"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT03213652",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Ensartinib in Treating Patients With Relapsed or Refractory Advanced Solid Tumors, Non-Hodgkin Lymphoma, or Histiocytic Disorders With ALK or ROS1 Genomic Alterations (A Pediatric MATCH Treatment Trial)"
+      },
+      {
+        "drugs": [
+          "TRAMETINIB",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT03225664",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Trametinib and Pembrolizumab in Treating Patients With Recurrent Non-small Cell Lung Cancer That Is Metastatic, Unresectable, or Locally Advanced"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT03260491",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "U3-1402 in Metastatic or Unresectable Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "OLECLUMAB",
+          "CERALASERTIB",
+          "TRASTUZUMAB DERUXTECAN",
+          "OLAPARIB",
+          "CEDIRANIB",
+          "VISTUSERTIB",
+          "DANVATIRSEN",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT03334617",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Phase II Umbrella Study of Novel Anti-cancer Agents in Participants With NSCLC Who Progressed on an Anti-PD-1/PD-L1 Containing Therapy"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT03375437",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "RNASARC - Molecular Screening Program of Soft Tissue Sarcomas With Complex Genomic Profile to Detect NTRK1/2/3, ROS1 or ALK Gene Fusions."
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT03420508",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Treating Patients With Melanoma and ALK Alterations With Ensartinib"
+      },
+      {
+        "drugs": [
+          "GEMCITABINE",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "VINORELBINE"
+        ],
+        "nct_id": "NCT03456076",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study Comparing Adjuvant Alectinib Versus Adjuvant Platinum-Based Chemotherapy in Patients With ALK Positive Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "CAPECITABINE"
+        ],
+        "nct_id": "NCT03561740",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Study of the Addition of Metronomic Capecitabine to Standard Adjuvant Therapy in High Risk HER2+ BC paTients"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB",
+          "COBIMETINIB"
+        ],
+        "nct_id": "NCT03600701",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Atezolizumab and Cobimetinib in Treating Patients With Metastatic, Recurrent, or Refractory Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "CERITINIB"
+        ],
+        "nct_id": "NCT03611738",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Ceritinib Plus Docetaxel in ALK-Negative, EGFR WT Advanced NSCLC"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "FLUDARABINE",
+          "BENDAMUSTINE"
+        ],
+        "nct_id": "NCT03696784",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Anti-CD19 CAR-T Cells With Inducible Caspase 9 Safety Switch for B-cell Lymphoma"
+      },
+      {
+        "drugs": [
+          "NIVOLUMAB"
+        ],
+        "nct_id": "NCT03703050",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Nivolumab for Pediatric and Adult Relapsing/Refractory ALK+, for Evaluation of Response in Patients With Progressive Disease (Cohort 1) or as Consolidative Immunotherapy in Patients in Complete Remission After Relapse (Cohort 2)"
+      },
+      {
+        "drugs": [
+          "BRIGATINIB"
+        ],
+        "nct_id": "NCT03707938",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Local Consolidative Therapy and Brigatinib in Treating Patients With Stage IV or Recurrent Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT03753685",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "X-396(Ensartinib) Capsules in ALK-Positive NSCLC Patients With Brain Metastases"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "GEMCITABINE",
+          "CARBOPLATIN",
+          "OLAPARIB",
+          "CISPLATIN",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT03775486",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Durvalumab+Olaparib or Durvalumab After Treatment With Durvalumab and Chemotherapy in Patients With Lung Cancer (ORION)"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB"
+        ],
+        "nct_id": "NCT03782207",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study Investigating the Outcomes and Safety of Atezolizumab Under Real-World Conditions in Patients Treated in Routine Clinical Practice"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT03786692",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Phase II Randomized Trial of Carboplatin+Pemetrexed+Bevacizumab+/- Atezolizumab in Stage IV NSCLC"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "GEMCITABINE",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT03800134",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study of Neoadjuvant/Adjuvant Durvalumab for the Treatment of Patients With Resectable Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT03808558",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Phase 2 Study of TVB-2640 in KRAS Non-Small Cell Lung Carcinomas"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT03808662",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Randomized Study of Stereotactic Body Radiation Therapy (SBRT) in Patients With Oligoprogressive Metastatic Cancers of the Breast and Lung"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT03851445",
+        "phase": "PHASE2, PHASE3",
+        "status": "RECRUITING",
+        "title": "Lung-MAP: A Master Screening Protocol for Previously-Treated Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "APG-2449"
+        ],
+        "nct_id": "NCT03917043",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "APG-2449 in Patients With Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "DATOPOTAMAB DERUXTECAN",
+          "ETOPOSIDE",
+          "SELUMETINIB",
+          "GEFITINIB",
+          "CARBOPLATIN",
+          "OSIMERTINIB",
+          "ALECTINIB",
+          "CISPLATIN",
+          "NECITUMUMAB",
+          "SELPERCATINIB",
+          "SAVOLITINIB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT03944772",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Phase 2 Platform Study in Patients With Advanced Non-Small Lung Cancer Who Progressed on First-Line Osimertinib Therapy (ORCHARD)"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB",
+          "BINIMETINIB"
+        ],
+        "nct_id": "NCT03947385",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Study of IDE196 in Patients With Solid Tumors Harboring GNAQ/11 Mutations or PRKC Fusions"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "CARBOPLATIN",
+          "PEVONEDISTAT"
+        ],
+        "nct_id": "NCT03965689",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Testing the Combination of MLN4924 (Pevonedistat), Carboplatin, and Paclitaxel in Patients With Advanced Non-small Cell Lung Cancer (NSCLC) Who Have Previously Been Treated With Immunotherapy"
+      },
+      {
+        "drugs": [
+          "ELZOVANTINIB"
+        ],
+        "nct_id": "NCT03993873",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of TPX-0022 in Patients With Advanced NSCLC, Gastric Cancer or Solid Tumors Harboring Genetic Alterations in MET"
+      },
+      {
+        "drugs": [
+          "NIVOLUMAB",
+          "IPILIMUMAB"
+        ],
+        "nct_id": "NCT04013542",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Ipilimumab and Nivolumab in Combination With Radiation Therapy in Treating Patients With Stage 2-3 Non-small Lung Cancer"
+      },
+      {
+        "drugs": [
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "NIVOLUMAB",
+          "CISPLATIN"
+        ],
+        "nct_id": "NCT04015778",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Exploratory Study of Nivolumab Monotherapy or in Combination With Nab-paclitaxel and Carboplatin in Early Stage NSCLC in China"
+      },
+      {
+        "drugs": [
+          "TRASTUZUMAB",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT04042701",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "DS8201a and Pembrolizumab in Participants With Locally Advanced/Metastatic Breast or Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ALISERTIB",
+          "OSIMERTINIB"
+        ],
+        "nct_id": "NCT04085315",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Alisertib in Combination With Osimertinib in Metastatic EGFR-mutant Lung Cancer"
+      },
+      {
+        "drugs": [
+          "REPOTRECTINIB"
+        ],
+        "nct_id": "NCT04094610",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Repotrectinib in Pediatric and Young Adult Subjects Harboring ALK, ROS1, OR NTRK1-3 Alterations"
+      },
+      {
+        "drugs": [
+          "TRAMETINIB",
+          "DABRAFENIB",
+          "AVAPRITINIB",
+          "REGORAFENIB",
+          "ALECTINIB",
+          "RIBOCICLIB"
+        ],
+        "nct_id": "NCT04116541",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study Evaluating the Activity of Anti-cancer Treatments Targeting Tumor Molecular Alterations/Characteristics in Advanced / Metastatic Tumors."
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT04127110",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Activity of Lorlatinib Based on ALK Resistance Mutations Detected on Blood in ALK Positive NSCLC Patients"
+      },
+      {
+        "drugs": [
+          "BRIGATINIB"
+        ],
+        "nct_id": "NCT04223596",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Clinical Utility of Liquid Biopsy in Brigatinib ALK+ Patients"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB",
+          "ENFORTUMAB VEDOTIN"
+        ],
+        "nct_id": "NCT04225117",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Evaluate Enfortumab Vedotin in Subjects With Locally Advanced or Metastatic Malignant Solid Tumors (EV-202)"
+      },
+      {
+        "drugs": [
+          "BRIGATINIB"
+        ],
+        "nct_id": "NCT04227028",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Brigatinib and Bevacizumab for the Treatment of ALK-Rearranged Locally Advanced, Metastatic, or Recurrent NSCLC"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "POLATUZUMAB VEDOTIN",
+          "GLOFITAMAB",
+          "DOXORUBICIN HYDROCHLORIDE",
+          "RITUXIMAB",
+          "ETOPOSIDE",
+          "PREDNISONE"
+        ],
+        "nct_id": "NCT04231877",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Polatuzumab Vedotin and Combination Chemotherapy With or Without Glofitamab for the Treatment of Untreated Aggressive Large B-cell Lymphoma"
+      },
+      {
+        "drugs": [
+          "SELPERCATINIB"
+        ],
+        "nct_id": "NCT04268550",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Targeted Treatment for RET Fusion-Positive Advanced Non-Small Cell Lung Cancer (A LUNG-MAP Treatment Trial)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04270591",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Assessment of Anti-tumor and Safety in Glumetinib in Patients With c-MET-positive Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04288726",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Allogeneic CD30.CAR-EBVSTs in Patients With Relapsed or Refractory CD30-Positive Lymphomas"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB",
+          "COBIMETINIB",
+          "ENTRECTINIB",
+          "PRALSETINIB",
+          "VEMURAFENIB",
+          "ALECTINIB",
+          "DIVARASIB"
+        ],
+        "nct_id": "NCT04302025",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Multiple Therapies in Biomarker-selected Participants With Resectable Stages IB-III Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "BRIGATINIB",
+          "TYROSINE KINASE INHIBITOR"
+        ],
+        "nct_id": "NCT04318938",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Advancing Brigatinib Properties in ALK+ NSCLC Patients by Deep Phenotyping"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB",
+          "OSIMERTINIB",
+          "SAVOLITINIB",
+          "ALECTINIB HYDROCHLORIDE"
+        ],
+        "nct_id": "NCT04322890",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Treatment Strategies and Survival Outcome for Non-small Cell Lung Cancer With Oncogenic Mutation"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT04370587",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Clinical Study of Intratumoral MVR-T3011 (T3011) Given as a Single Agent and in Combination With Intravenous Pembrolizumab in Participants With Advanced or Metastatic Solid Tumors"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04395677",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study of AB-106 in Subjects With Advanced NSCLC Harboring ROS1 Fusion Gene"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB",
+          "DACOMITINIB",
+          "PALBOCICLIB",
+          "IMATINIB",
+          "CRIZOTINIB",
+          "PYROTINIB",
+          "VEMURAFENIB",
+          "SINTILIMAB",
+          "NIRAPARIB",
+          "ALECTINIB HYDROCHLORIDE"
+        ],
+        "nct_id": "NCT04423185",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "PLATFORM Study of Precision Medicine for Rare Tumors"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB"
+        ],
+        "nct_id": "NCT04439266",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Testing Crizotinib as a Potential Targeted Treatment in Cancers With ALK Genetic Changes (MATCH-Subprotocol F)"
+      },
+      {
+        "drugs": [
+          "OSIMERTINIB",
+          "PLATINUM"
+        ],
+        "nct_id": "NCT04486833",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Quaratusugene Ozeplasmid (Reqorsa) and Osimertinib in Patients With Advanced Lung Cancer Who Progressed on Osimertinib"
+      },
+      {
+        "drugs": [
+          "BINIMETINIB",
+          "ENCORAFENIB"
+        ],
+        "nct_id": "NCT04526782",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "ENCOrafenib With Binimetinib in bRAF NSCLC"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT04547504",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "PEmbRolizumab verSus chEmotherapy and pEmbrolizumab in Non-small-cell Lung Cancers (NSCLC) With PDL1 ≥ 50 %"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT04561362",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study BT8009-100 in Subjects With Nectin-4 Expressing Advanced Malignancies"
+      },
+      {
+        "drugs": [
+          "PLATINUM",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT04585477",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Adjuvant ctDNA-Adapted Personalized Treatment in Early Stage NSCLC (ADAPT-E)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04592523",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "A Study of Usage of Brigatinib in the Treatment of Adult Participants for Approved Indications In South Korea"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04614103",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Autologous LN-145 in Patients With Metastatic Non-Small-Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "PATRITUMAB"
+        ],
+        "nct_id": "NCT04619004",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "HERTHENA-Lung01: Patritumab Deruxtecan in Subjects With Metastatic or Locally Advanced EGFR-mutated Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "RELATLIMAB",
+          "PACLITAXEL",
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "NIVOLUMAB",
+          "CISPLATIN"
+        ],
+        "nct_id": "NCT04623775",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study of Relatlimab Plus Nivolumab in Combination With Chemotherapy vs. Nivolumab in Combination With Chemotherapy as First Line Treatment for Participants With Stage IV or Recurrent Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04624373",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Genotyping of Ebus-tbna Supernant Cell-free Dna in Nsclc"
+      },
+      {
+        "drugs": [
+          "SOTORASIB"
+        ],
+        "nct_id": "NCT04625647",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Testing the Use of Targeted Treatment (AMG 510) for KRAS G12C Mutated Advanced Non-squamous Non-small Cell Lung Cancer (A Lung-MAP Treatment Trial)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04656652",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of DS-1062a Versus Docetaxel in Previously Treated Advanced or Metastatic Non-small Cell Lung Cancer With or Without Actionable Genomic Alterations (TROPION-LUNG01)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04683250",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Study of RET Inhibitor TAS0953/HM06 in Patients With Advanced Solid Tumors With RET Gene Abnormalities"
+      },
+      {
+        "drugs": [
+          "IL-18"
+        ],
+        "nct_id": "NCT04684563",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "huCART19-IL18 in CD19+ Cancers"
+      },
+      {
+        "drugs": [
+          "PALBOCICLIB",
+          "AXITINIB",
+          "CRIZOTINIB",
+          "TALAZOPARIB TOSYLATE"
+        ],
+        "nct_id": "NCT04693468",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Talazoparib and Palbociclib, Axitinib, or Crizotinib for the Treatment of Advanced or Metastatic Solid Tumors, TalaCom Trial"
+      },
+      {
+        "drugs": [
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT04716946",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Treating Early-stage Non-Small Cell Lung Cancer With Durvalumab and Radiation Therapy"
+      },
+      {
+        "drugs": [
+          "OSIMERTINIB",
+          "REPOTRECTINIB"
+        ],
+        "nct_id": "NCT04772235",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Phase I Study of Repotrectinib and Osimertinib in NSCLC Patients"
+      },
+      {
+        "drugs": [
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT04774718",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study Evaluating the Safety, Pharmacokinetics, and Efficacy of Alectinib in Pediatric Participants With ALK Fusion-Positive Solid or CNS Tumors"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04777084",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "The Efficacy and Safety of the Bispecific Anti-PD-1/PD-L1 Antibody IBI318 Combined with Lenvatinib in NSCLC."
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04777175",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "A Retrospective Study: Evaluation of the Efficacy of Immunotherapy With Rare Mutations in Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB",
+          "CARBOPLATIN"
+        ],
+        "nct_id": "NCT04837716",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Ensartinib, Carboplatin, Pemetrexed and Bevacizumab for the Treatment of Stage IIIC or IV or Recurrent ALK-Positive Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04849481",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "The Research Plan of Taiwan Precision Medicine"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04881916",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Immune and Genomic Markers in ALK+ NSCLC"
+      },
+      {
+        "drugs": [
+          "NIVOLUMAB"
+        ],
+        "nct_id": "NCT04884282",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Efficacy of Tedopi Plus Docetaxel or Tedopi Plus Nivolumab as Second-line Therapy in Metastatic Non-small-cell Lung Cancer Progressing After First-line Chemo-immunotherapy (Combi-TED)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04900935",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Patient-centered, Optimal Integration of Survivorship and Palliative Care"
+      },
+      {
+        "drugs": [
+          "BRIGATINIB"
+        ],
+        "nct_id": "NCT04925609",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Brigatinib in Pediatric and Young Adult Patients With ALK+ ALCL, IMT or Other Solid Tumors"
+      },
+      {
+        "drugs": [
+          "TELISOTUZUMAB VEDOTIN"
+        ],
+        "nct_id": "NCT04928846",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Study to Assess Disease Activity and Adverse Events of Intravenous (IV) Telisotuzumab Vedotin Compared to IV Docetaxel in Adult Participants With Previously Treated Non-Squamous Non-Small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT04962867",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "NCCH2006/MK010 Trial (FORTUNE Trial)"
+      },
+      {
+        "drugs": [
+          "IRINOTECAN HYDROCHLORIDE",
+          "REPOTRECTINIB",
+          "TEMOZOLOMIDE"
+        ],
+        "nct_id": "NCT05004116",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Repotrectinib in Combination With Chemotherapy in Children and Young Adults With Solid Tumor Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05006716",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Dose-Escalation and Expansion Study of BGB-16673 in Participants With B-Cell Malignancies"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB"
+        ],
+        "nct_id": "NCT05014464",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "ALK Tyrosine Kinase Inhibitors in ALK-rearranged Advanced Squamous Cell Carcinoma"
+      },
+      {
+        "drugs": [
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT05015010",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Alectinib in Neo-adjuvant Treatment of Stage III NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05020457",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "SI-B001 Combined With Chemotherapy in the Treatment of EGFR/ALK WT Recurrent or Metastatic NSCLC."
+      },
+      {
+        "drugs": [
+          "OSIMERTINIB"
+        ],
+        "nct_id": "NCT05020769",
+        "phase": "PHASE2, PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "SI-B001 Combined With Osimertinib Mesylate Tablets in the Treatment of Recurrent Metastatic Non-small Cell Lung Cancer."
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB"
+        ],
+        "nct_id": "NCT05047250",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study of Atezolizumab in High PD-L1 Expression, Chemotherapy-Naïve Patients With Stage IV Non-Squamous or Squamous Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "TRASTUZUMAB DERUXTECAN",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05048797",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Investigate the Efficacy and Safety of Trastuzumab Deruxtecan as the First Treatment Option for Unresectable, Locally Advanced/Metastatic Non-Small Cell Lung Cancer With HER2 Mutations"
+      },
+      {
+        "drugs": [
+          "CAMRELIZUMAB"
+        ],
+        "nct_id": "NCT05053802",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Efficiency and Safety of Microwave Ablation Plus Immune Checkpoint Inhibitor for Patients With Multiple Primary Lung Cancer: A Open, Multi-center, Phase II Clinical Trial"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05089734",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Sacituzumab Govitecan (SG) Versus Docetaxel in Participants With Advanced or Metastatic Non-Small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05122806",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Analysis of Biological Characteristics of Advanced ALK-rearranged NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05132075",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of JDQ443 in Comparison With Docetaxel in Participants With Locally Advanced or Metastatic KRAS G12C Mutant Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "CEMIPLIMAB",
+          "PACLITAXEL",
+          "CARBOPLATIN",
+          "OSIMERTINIB"
+        ],
+        "nct_id": "NCT05142189",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Clinical Trial Evaluating the Safety, Tolerability and Preliminary Efficacy of BNT116 Alone and in Combinations in Patients With Advanced Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05144698",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "RAPA-201 Therapy of Solid Tumors"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT05144997",
+        "phase": "PHASE4",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Lorlatinib Continuation Study"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB"
+        ],
+        "nct_id": "NCT05160922",
+        "phase": "PHASE4",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Crizotinib Continuation Clinical Study"
+      },
+      {
+        "drugs": [
+          "ENTRECTINIB",
+          "ALECTINIB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT05170204",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study Evaluating the Efficacy and Safety of Multiple Therapies in Cohorts of Participants With Locally Advanced, Unresectable, Stage III Non-Small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "EMB-01"
+        ],
+        "nct_id": "NCT05176665",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "EMB-01 in Patients With Advanced/Metastatic Gastrointestinal Cancers"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "VACCINE"
+        ],
+        "nct_id": "NCT05195619",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Personalized DC Vaccines in Non Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "BINIMETINIB",
+          "ENCORAFENIB"
+        ],
+        "nct_id": "NCT05195632",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Phase II Study Investigating the Combination of Encorafenib and Binimetinib in BRAF V600E Mutated Chinese Patients With Metastatic Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05198154",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "ctDNA Analysis to Monitor the Risk of Progression After First-line Immunotherapy in Patients With Advanced NSCLC"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "BRIGATINIB"
+        ],
+        "nct_id": "NCT05200481",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Safety and Efficacy of Brigatinib Plus Chemotherapy or Brigatinib Only in Advanced ALK-Positive Lung Cancer (MASTERPROTOCOL ALK)"
+      },
+      {
+        "drugs": [
+          "DATOPOTAMAB DERUXTECAN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05215340",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Study of Dato-DXd Plus Pembrolizumab vs Pembrolizumab Alone in the First-line Treatment of Subjects With Advanced or Metastatic NSCLC Without Actionable Genomic Alterations"
+      },
+      {
+        "drugs": [
+          "TYROSINE KINASE INHIBITOR"
+        ],
+        "nct_id": "NCT05236946",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Observation or Upfront Cranial RT in Oncogene Mutated NSCLC With Asymptomatic BM: A Phase III RCT"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT05241028",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Adjuvant Therapy of Ensartinib in Stage IB-IIIA ALK-positive Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "SINTILIMAB"
+        ],
+        "nct_id": "NCT05244213",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Neoadjuvant Immunotherapy in EGFR-mutant Localized NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05265091",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study of KL590586 in Patients With Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05266846",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Pembrolizumab Plus Bevacizumab and Chemotherapy for ALK-rearranged NSCLC With Persistent 5'ALK"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "SARGRAMOSTIM",
+          "VACCINE",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05269381",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Personalized Neoantigen Peptide-Based Vaccine in Combination With Pembrolizumab for Treatment of Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "CISPLATIN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05284539",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Efficacy of Platinum-based Chemotherapy Plus Immune Checkpoint Inhibitors for EGFR/ALK/ROS1 Mutant Lung Cancer"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05318573",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Evaluate Safety, Efficacy of FF-10832 in Combo With Pembrolizumab in Urothelial & Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT05341583",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Ensartinib as Adjuvant Treatment in Anaplastic Lymphoma Kinase (ALK) Positive Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05351320",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "WX-0593 Combined With Concurrent Chemoradiotherapy in Unresectable Locally Advanced NSCLC"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "CISPLATIN"
+        ],
+        "nct_id": "NCT05351788",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "SKB264 Combinatiton Therapy in Patients With Advanced or Metastatic Non-small Cell Lung Cancer."
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05370469",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Real-Time Monitoring of Symptoms in Lung Cancer Patients Receiving Oral Targeted Therapies"
+      },
+      {
+        "drugs": [
+          "SAVOLITINIB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT05374603",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Savolitinib Combine With Durvalumab in EGFR Wild-type Locally Advanced or Metastatic NSCLC"
+      },
+      {
+        "drugs": [
+          "AMIVANTAMAB",
+          "IRINOTECAN HYDROCHLORIDE",
+          "FLUOROURACIL",
+          "OXALIPLATIN"
+        ],
+        "nct_id": "NCT05379595",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Amivantamab Monotherapy and in Addition to Standard-of-Care Chemotherapy in Participants With Advanced or Metastatic Colorectal Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05384626",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Neladalkib (NVL-655) in Patients With Advanced NSCLC and Other Solid Tumors Harboring ALK Rearrangement or Activating ALK Mutation (ALKOVE-1)"
+      },
+      {
+        "drugs": [
+          "SOTORASIB"
+        ],
+        "nct_id": "NCT05398094",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Clinical Trial of AMG510 in Stage III Unresectable NSCLC KRAS p.G12C Patients and Ineligible for Chemo-radiotherapy"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05417321",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study Evaluating the Safety and Efficacy of HB0036 in Subjects With Advanced Solid Tumors"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05441956",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "TGRX-326 Chinese Phase I for Advanced Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05444712",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Transplantation After Complete Response In Patients With T-cell Lymphoma"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05445843",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Efficacy and Safety of JDQ443 Single-agent as First-line Treatment for Patients With Locally Advanced or Metastatic KRAS G12C- Mutated Non-small Cell Lung Cancer With a PD-L1 Expression < 1% or a PD-L1 Expression ≥ 1% and an STK11 Co-mutation."
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN"
+        ],
+        "nct_id": "NCT05456256",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of LP-300 With Carboplatin and Pemetrexed in Never Smokers With Advanced Lung Adenocarcinoma"
+      },
+      {
+        "drugs": [
+          "VINORELBINE TARTRATE",
+          "PACLITAXEL",
+          "CARBOPLATIN",
+          "CISPLATIN"
+        ],
+        "nct_id": "NCT05487391",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Study of QL1706 Combined With Platinum-containing Chemotherapy in Adjuvant Treatment of Stage II-IIIB Non-small Cell Lung Cancer After Complete Surgical Resection."
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT05491811",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Ensartinib in Combination With Bevacizumab in ALK-positive NSCLC Patients With TP53 Mutation"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT05498064",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "A Real World Study of Ensartinib in Advanced ALK-positive NSCLC"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "PEMBROLIZUMAB",
+          "DOMVANALIMAB",
+          "ZIMBERELIMAB"
+        ],
+        "nct_id": "NCT05502237",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Zimberelimab and Domvanalimab in Combination With Chemotherapy Versus Pembrolizumab With Chemotherapy in Patients With Untreated Metastatic Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB",
+          "ONTORPACEPT"
+        ],
+        "nct_id": "NCT05507541",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "TTI-622 in Combination With Pembrolizumab for the Treatment of Relapsed or Refractory Diffuse Large B-Cell Lymphoma"
+      },
+      {
+        "drugs": [
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT05525338",
+        "phase": "PHASE4",
+        "status": "RECRUITING",
+        "title": "Comparison of Standard Dose Alectinib to Alectinib in Adjusted Dose Based on Alectinib Bloodlevels"
+      },
+      {
+        "drugs": [
+          "NIVOLUMAB",
+          "IPILIMUMAB",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05533697",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Study of mRNA-4359 Administered Alone and in Combination With Immune Checkpoint Blockade in Participants With Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "ADJUVANT"
+        ],
+        "nct_id": "NCT05536505",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Adjuvant Treatment Based on MRD for EGFR Mutant NSCLC"
+      },
+      {
+        "drugs": [
+          "VABAMETKIB",
+          "LAZERTINIB"
+        ],
+        "nct_id": "NCT05541822",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "To Evaluate the Efficacy, Safety, Tolerability and Pharmacokinetic Profile of ABN401 in Patients With Advanced Solid Tumors Harboring c-MET Dysregulation"
+      },
+      {
+        "drugs": [
+          "OLAPARIB",
+          "PLATINUM",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT05568212",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Randomized Trial Comparing Standard of Care Versus Immune- Based Combination in Relapsed Stage III Non-small-cell Lung Cancer (NSCLC) Pretreated With Chemoradiotherapy and Durvalumab"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05599412",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Post Marketing Surveillance(PMS) Study of Lorviqua in Korea"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "ETOPOSIDE",
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "OSIMERTINIB",
+          "CISPLATIN",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT05624996",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Testing the Addition of High Dose, Targeted Radiation to the Usual Treatment for Locally-Advanced Inoperable Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "ETRUMADENANT",
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "NIVOLUMAB",
+          "CISPLATIN",
+          "DOMVANALIMAB",
+          "ZIMBERELIMAB"
+        ],
+        "nct_id": "NCT05633667",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Study of Novel Treatment Combinations in Patients With Lung Cancer"
+      },
+      {
+        "drugs": [
+          "TRASTUZUMAB",
+          "FAM-TRASTUZUMAB DERUXTECAN-NXKI"
+        ],
+        "nct_id": "NCT05650879",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "ELVN-002 in HER2 Mutant Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "NIVOLUMAB",
+          "FLUDARABINE"
+        ],
+        "nct_id": "NCT05681780",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Clinical Trial of CD40L-Augmented TIL for Patients With EGFR, ALK, ROS1 or HER2-Driven NSCLC"
+      },
+      {
+        "drugs": [
+          "DATOPOTAMAB DERUXTECAN",
+          "PACLITAXEL",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "PEMBROLIZUMAB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT05687266",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Phase III, Open-label, First-line Study of Dato-DXd in Combination With Durvalumab and Carboplatin for Advanced NSCLC Without Actionable Genomic Alterations"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05701787",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Molecular Landscape Analysis and Clinical Implications for NSCLC Patients With Rare Mutations"
+      },
+      {
+        "drugs": [
+          "ALECTINIB HYDROCHLORIDE"
+        ],
+        "nct_id": "NCT05713006",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Alectinib Pharmacokinetic in Patients With NSCLC"
+      },
+      {
+        "drugs": [
+          "BRIGATINIB"
+        ],
+        "nct_id": "NCT05721950",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Learn About Brigatinib Treatment Information Available in Chinese Participants With Non-Small-cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB",
+          "TRASTUZUMAB",
+          "CAPMATINIB",
+          "COBIMETINIB",
+          "ENTRECTINIB",
+          "VEMURAFENIB",
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT05722886",
+        "phase": "PHASE2, PHASE3",
+        "status": "RECRUITING",
+        "title": "DETERMINE (Determining Extended Therapeutic Indications for Existing Drugs in Rare Molecularly Defined Indications Using a National Evaluation Platform Trial) - Master Screening Protocol"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05724004",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Alectinib Followed by Concomitant Consolidation Radiation Therapy in Advanced NSCLC With ALK-rearrangement (A-SAB)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05735327",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study of Brigatinib as Preferred First Therapy for Adults With Non-Small Cell Lung Cancer (NSCLC) ENTIRETY"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT05740943",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Induction Lorlatinib in Stage III Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05765877",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant WX-0593 in Resectable ALK-positive or ROS1-positive Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT05770037",
+        "phase": "PHASE2, PHASE3",
+        "status": "RECRUITING",
+        "title": "DETERMINE Trial Treatment Arm 01: Alectinib in Adult, Paediatric and Teenage/Young Adult Patients With ALK Positive Cancers"
+      },
+      {
+        "drugs": [
+          "SAVOLITINIB"
+        ],
+        "nct_id": "NCT05777278",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Savolitinib Plus Docetaxel as 2L in EGFR/ALK/ROS1/MET ex14m-wildtype NSCLC With MET Overexpression"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB",
+          "PACLITAXEL"
+        ],
+        "nct_id": "NCT05781308",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Combination of Paclitaxel-bevacizumab ± Atezolizumab in Patients With Advanced NSCLC Progressing After Immunotherapy & Chemotherapy"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05784142",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Chemo-immunotherapy Induction Followed by Hypo-radiotherapy in LA-NSCLC(CHIC)"
+      },
+      {
+        "drugs": [
+          "TORIPALIMAB",
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN"
+        ],
+        "nct_id": "NCT05800340",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Immunotherapy in Rare Mutations Localized NSCLC"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "GLOFITAMAB",
+          "DOXORUBICIN HYDROCHLORIDE",
+          "RITUXIMAB",
+          "PREDNISONE"
+        ],
+        "nct_id": "NCT05800366",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase II Study of Glofitamab Plus Polatuzumab-R-CHP for Patients With High-risk Diffuse Large B-cell Lymphoma"
+      },
+      {
+        "drugs": [
+          "SOTORASIB",
+          "LADARIXIN"
+        ],
+        "nct_id": "NCT05815173",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Ladarixin With Sotorasib in Advanced NSCLC"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "OSIMERTINIB",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05816252",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study of SKB264 (MK-2870; Sac-TMT) for the Treatment of Participants With Advanced or Metastatic Non-small Cell Lung Cancer (SKB264-II-04) (MK-2870-003)"
+      },
+      {
+        "drugs": [
+          "ANLOTINIB",
+          "CADONILIMAB"
+        ],
+        "nct_id": "NCT05816499",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Cadonilimab in Patients (Pts) With Advanced Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "CHIDAMIDE"
+        ],
+        "nct_id": "NCT05833724",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Chidamide in Patients With Relapsed or Refractory Peripheral T-cell Lymphoma (R/R PTCL)"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "CAMRELIZUMAB"
+        ],
+        "nct_id": "NCT05841472",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Anti-PD-1 Antibody Therapies of Camrelizumab in Combination With Pemetrexed and Carboplatin as First-line Treatment in Patients With Advanced or Metastatic Non-Squamous Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "AMIVANTAMAB"
+        ],
+        "nct_id": "NCT05845671",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Amivantamab With Tyrosine Kinase Inhibitors (TKI) for Advanced NSCLC With ALK, ROS1, or RET Alterations"
+      },
+      {
+        "drugs": [
+          "CEMIPLIMAB"
+        ],
+        "nct_id": "NCT05882734",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Tuvusertib (M1774) in Combination With Cemiplimab in Participants With Non-Squamous NSCLC (DDRiver NSCLC 322)"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT05894889",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Pembrolizumab and Chemotherapy Neoadjuvant/Adjuvant of NSCLC"
+      },
+      {
+        "drugs": [
+          "CETUXIMAB"
+        ],
+        "nct_id": "NCT05910827",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase Ib/II Study of an Anti-HER3 Antibody, HMBD-001, With Cetuximab +/- Docetaxel in Advanced Squamous Cell Cancers"
+      },
+      {
+        "drugs": [
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT05925530",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study to Assess Neoadjuvant Durvalumab (D) and Platinum-Based Chemotherapy (CT), Followed by Either Surgery and Adjuvant D or CRT and Consolidation D, in Resectable or Borderline Resectable Stage IIB-IIIB NSCLC (MDT-BRIDGE)"
+      },
+      {
+        "drugs": [
+          "VACCINE"
+        ],
+        "nct_id": "NCT05950139",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Peptide Vaccine To Prevent Acquired Resistance In Patients With Advanced ALK+ NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05955391",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "TGRX-326 Chinese Phase II for Advanced Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05978141",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "A Registry for People With T-cell Lymphoma"
+      },
+      {
+        "drugs": [
+          "SINTILIMAB",
+          "PROPRANOLOL HYDROCHLORIDE"
+        ],
+        "nct_id": "NCT05979818",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Propranolol Hydrochloride in Combination With Sintilimab and Platinum-based Chemotherapy for Treatment of Advanced Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05983432",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Evaluate BL-B01D1 in Patients With Metastatic or Unresectable Non-Small Cell Lung Cancer (NSCLC) and Other Solid Tumors"
+      },
+      {
+        "drugs": [
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT05987644",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Delayed or Upfront Brain RAdiotherapy in Treatment naïve Lung Cancer Patients With Asymptomatic or Minimally Symptomatic Brain Metastases and ALK rEarrangements"
+      },
+      {
+        "drugs": [
+          "ALECTINIB HYDROCHLORIDE"
+        ],
+        "nct_id": "NCT05987956",
+        "phase": "PHASE2, PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Pharmacogenomics IND EXEMPT SNP Clinical Trial - Alectinib and Single Nucleotide Polymorphisms"
+      },
+      {
+        "drugs": [
+          "IL-18"
+        ],
+        "nct_id": "NCT05989204",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "TmCD19-IL18 in CD19+ Cancers"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05989542",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Confirmatory Clinical Study in NSCLC Patients With MET Exon 14 Mutation (KUNPENG-2)"
+      },
+      {
+        "drugs": [
+          "IRUPLINALKIB"
+        ],
+        "nct_id": "NCT05991895",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Real-World Study of Iruplinalkib in the Treatment of ALK-Positive Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT05994131",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "IN10018 Combination Therapy in Advanced EGFR Mutation-positive NSCLC"
+      },
+      {
+        "drugs": [
+          "RAMUCIRUMAB",
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT06007937",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Lorlatinib in Combination With Ramucirumab in People With Lung Cancer"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "TREMELIMUMAB",
+          "PEMBROLIZUMAB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT06008093",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Investigate the Efficacy of Durvalumab Plus Tremelimumab in Combination With Chemotherapy Compared With Pembrolizumab in Combination With Chemotherapy in Metastatic NSCLC Patients With Non-squamous Histology Who Have Mutations and/or Co-mutations in STK11, KEAP1, or KRAS"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06031558",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Phase III Study of SY-5007, a RET Inhibitor, in Patients With Locally Advanced or Metastatic RET Fusion-positive NSCLC"
+      },
+      {
+        "drugs": [
+          "RAMUCIRUMAB",
+          "TEPOTINIB"
+        ],
+        "nct_id": "NCT06031688",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Targeted Treatment for Advanced Non-Small Cell Lung Cancer That Has a MET Exon 14 Skipping Gene Change (An Expanded Lung-MAP Treatment Trial)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06035497",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Assess the Safety, Tolerability, Efficacy, and Drug Levels of BMS-986369 (Golcadomide) in Participants With Relapsed or Refractory T-cell Lymphomas in Japan (GOLSEEK-3)"
+      },
+      {
+        "drugs": [
+          "CYCLOPHOSPHAMIDE",
+          "FLUDARABINE",
+          "BENDAMUSTINE"
+        ],
+        "nct_id": "NCT06043713",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Autologous CD8+ and CD4+ Transgenic T Cells Expressing High Affinity KRASG12V Mutation-Specific T Cell Receptors (FH-A11KRASG12V-TCR) in Treating Patients With Metastatic Solid Tumor Cancers With KRAS G12V Mutations"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06049212",
+        "phase": "PHASE1",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Sacituzumab Tirumotecan (MK-2870) as Monotherapy and in Combination With Pembrolizumab in Participants With Advanced Solid Tumors (MK-2870-008)"
+      },
+      {
+        "drugs": [
+          "SACITUZUMAB GOVITECAN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06055465",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Sacituzumab Govitecan Plus Pembrolizumab in Resectable Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06074588",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Sacituzumab Tirumotecan (MK-2870) Versus Chemotherapy in Previously Treated Advanced or Metastatic Nonsquamous Non-small Cell Lung Cancer (NSCLC) With EGFR Mutations or Other Genomic Alterations (MK-2870-004)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06081907",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "The Efficacy and Safety of IBI363 in Solid Tumors"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB"
+        ],
+        "nct_id": "NCT06082635",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "TGRX-326 Chinese Phase III for Advanced Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "AMIVANTAMAB",
+          "TEPOTINIB"
+        ],
+        "nct_id": "NCT06083857",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "PhI/II Study of Amivantamab and Tepotinib Combo in MET-altered Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06092086",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Lorlatinib as the First-line Treatment in China Advanced ALK+ NSCLC"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06096844",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Chemotherapy Combined With Immunotherapy Versus Immunotherapy Alone for Older Adults With Stage IIIB-IV Lung Cancer, The ACHIEVE Trial"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB",
+          "TISLELIZUMAB",
+          "SUGEMALIMAB"
+        ],
+        "nct_id": "NCT06097962",
+        "phase": "EARLY_PHASE1",
+        "status": "RECRUITING",
+        "title": "Safety and Efficacy of NK510 to Treat NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06115642",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "A Phase I Study to Evaluate the Safety, Tolerability, and PK of HLX43 in Advanced/Metastatic Solid Tumors"
+      },
+      {
+        "drugs": [
+          "AMIVANTAMAB"
+        ],
+        "nct_id": "NCT06116682",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Targeted Treatment for Advanced Non-Small Cell Lung Cancer That Has Increased Copies of the MET Gene (An Expanded Lung-MAP Treatment Trial)"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06119581",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Study of First-Line Olomorasib (LY3537982) and Pembrolizumab With or Without Chemotherapy in Patients With Advanced KRAS G12C-Mutant Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ANLOTINIB"
+        ],
+        "nct_id": "NCT06141226",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Phase II Clinical Trial to Evaluate the Safety and Efficacy of TQB2450 Injection Combined With Anlotinib Capsule and Chemotherapy in the Treatment of Immunoresistant Advanced Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06172478",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of HER3-DXd in Subjects With Locally Advanced or Metastatic Solid Tumors"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06176690",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Constitutive IL7R (C7R) Modified Banked Allogeneic CD30.CAR EBVSTS for CD30-Positive Lymphomas"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06202404",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Predicting Tumor Metastasis by Employing a Target Organ/Primary Lesion Fusion Radiomics Model"
+      },
+      {
+        "drugs": [
+          "CEMIPLIMAB"
+        ],
+        "nct_id": "NCT06219317",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Immunotherapy Consolidation After Radical Treatment of Synchronous Oligo-metastatic NSCLC"
+      },
+      {
+        "drugs": [
+          "GILTERITINIB"
+        ],
+        "nct_id": "NCT06225427",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Gilteritinib for the Treatment of ALK NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06234579",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Longitudinal Assessment of Genomic Alterations and Clonal Evolution in ALK-positive NSCLC (Galileo Project)"
+      },
+      {
+        "drugs": [
+          "CAMRELIZUMAB"
+        ],
+        "nct_id": "NCT06241807",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Camrelizumab Combined With Chemotherapy for Resectable Stage IIIA-IIIB NSCLC"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06249854",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Efficacy and Safety of Combination Therapy With Bojungikki-tang and Pembrolizumab Monotherapy in Patients With Advanced Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "PLATINUM"
+        ],
+        "nct_id": "NCT06269133",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Evaluation of Cemiplimab in Combination With Platinum-Doublet Chemotherapy in First-Line (1L) Treatment of Advanced Non-Small Cell Lung Cancer (NSCLC) in Adult United States (US) Patients"
+      },
+      {
+        "drugs": [
+          "TORIPALIMAB"
+        ],
+        "nct_id": "NCT06269211",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Toripalimab for Clinically Stage II-IIIB Resectable Non-small Cell Lung Cancer with EGFR Mutation and PD-L1 Positive Expression"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT06282874",
+        "phase": "PHASE4",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Lorlatinib in Patients With ALK-Positive NSCLC With Brain or Leptomeningeal Metastases"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT06333899",
+        "phase": "EARLY_PHASE1",
+        "status": "RECRUITING",
+        "title": "Lorlatinib for Newly-Diagnosed High-Grade Glioma With ROS or ALK Fusion"
+      },
+      {
+        "drugs": [
+          "VEBRELTINIB"
+        ],
+        "nct_id": "NCT06343064",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Vebreltinib Plus PLB1004 in EGFR-mutated, Advanced NSCLC With MET Amplification or MET Overexpression Following EGFR-TKI"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT06361589",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Real World Study of Lolatinib for Advanced ALK+ NSCLC Patients"
+      },
+      {
+        "drugs": [
+          "NIVOLUMAB",
+          "IPILIMUMAB"
+        ],
+        "nct_id": "NCT06362369",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Oral 7HP349 (Alintegimod) in Combination With Ipilimumab Followed by Nivolumab Monotherapy"
+      },
+      {
+        "drugs": [
+          "OSIMERTINIB"
+        ],
+        "nct_id": "NCT06362980",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "A Study With BPI-1178 and Osimertinib in Advanced Non-small Cell Lung Cancer Patients With EGFR Mutations"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06369181",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Neuroendocrine Transformation in RB1/TP53 Inactivated NSCLC"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT06378892",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study to Evaluate the Combination of Platinum-pemetrexed Based Chemotherapy Plus Lorlatinib in ALK Positive Non-Small Cell Lung Cancer (NSCLC) With Exclusively Extracranial Disease Progression on Lorlatinib"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06381960",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Clinical Study on the Prevention and Treatment of Postoperative Metastasis of Lung Cancer by Fuzheng Quxie Recipe"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06388031",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "ICI Rechallenge for Advanced NSCLC With Long-Term Response to First-Line ICI"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06399926",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Efficacy and Safety of Intraventricule Pemetrexed Disodium Administered Via Ommaya Reservoir"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT06410040",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Retrospective Study of the Efficacy and Safety of Lolatinib in ALK+ NSCLC Patients With Brain or Meningeal Metastasis"
+      },
+      {
+        "drugs": [
+          "ABEMACICLIB",
+          "TEMOZOLOMIDE"
+        ],
+        "nct_id": "NCT06413706",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study Comparing Abemaciclib Plus Temozolomide to Temozolomide Monotherapy in Children and Young Adults With High-grade Glioma Following Radiotherapy"
+      },
+      {
+        "drugs": [
+          "TORIPALIMAB"
+        ],
+        "nct_id": "NCT06426511",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "ctDNA-MRD Guided Consolidation Toripalimab in Stage IB-IIIA NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06431243",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Clinical Study of Purinostat Mesylate for Injection in Patients With Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "CETUXIMAB",
+          "FLUOROURACIL",
+          "PACLITAXEL",
+          "GEMCITABINE",
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "PEMBROLIZUMAB",
+          "OXALIPLATIN",
+          "SASANLIMAB"
+        ],
+        "nct_id": "NCT06447662",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "A Study to Learn About the Study Medicine PF-07934040 When Given Alone or With Other Anti-cancer Therapies in People With Advanced Solid Tumors That Have a Genetic Mutation."
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06472245",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Trial of Therapeutic Cancer Vaccine OSE2101 in Patients With Non-Small Cell Lung Cancer and Secondary Resistance to Immune Checkpoint Inhibitor"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT06487078",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Analysis of the Effectiveness and Safety of Lorlatinib in Untreated ALK-Positive NSCLC Patients in a French Real-World Context"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06494540",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "NIS to Examine the Effectiveness of TDC in Patients With Metastatic Non-squamous NSCLC and High-risk Genetic Alterations"
+      },
+      {
+        "drugs": [
+          "DEFACTINIB",
+          "NIVOLUMAB",
+          "AVUTOMETINIB"
+        ],
+        "nct_id": "NCT06495125",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Defactinib, Avutometinib and Nivolumab for the Treatment of Anti-PD1 Refractory LKB1-Mutant Advanced Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06528847",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Adjuvant Benmelstobart for Stage IB, Grade 3 Invasive Lung Adenocarcinoma"
+      },
+      {
+        "drugs": [
+          "AMIVANTAMAB"
+        ],
+        "nct_id": "NCT06532032",
+        "phase": "PHASE1, PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study of Combination Therapy With Amivantamab and Docetaxel in Participants With Metastatic Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "IRINOTECAN HYDROCHLORIDE",
+          "CETUXIMAB",
+          "TORIPALIMAB"
+        ],
+        "nct_id": "NCT06547203",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Cetuximab, Irinotecan, Toripalimab in RAS/BRAF Wild-type Ultraselected Right-sided Colorectal Cancer Study"
+      },
+      {
+        "drugs": [
+          "CHIDAMIDE"
+        ],
+        "nct_id": "NCT06550336",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Clinical Study Assessing the Efficacy of Chidamide for CD30-positive Peripheral T-cell Lymphoma (PTCL)."
+      },
+      {
+        "drugs": [
+          "ENSARTINIB",
+          "DABRAFENIB + TRAMETINIB",
+          "CRIZOTINIB",
+          "PYROTINIB",
+          "PRALSETINIB",
+          "LAROTRECTINIB",
+          "SUNVOZERTINIB",
+          "SAVOLITINIB"
+        ],
+        "nct_id": "NCT06563999",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Umbrella Trial for Patients With Unresectable Stage III NSCLC Harboring Rare Mutations."
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06567015",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Study of FIH of STX-241 in Locally Advanced or Metastatic NSCLC Resistant to EGFR TKIs"
+      },
+      {
+        "drugs": [
+          "CRIZOTINIB"
+        ],
+        "nct_id": "NCT06569420",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study Of Comparing SAF-189s With Crizotinib In First Line ALK-Positive Advanced and Metastatic NSCLC"
+      },
+      {
+        "drugs": [
+          "OSIMERTINIB",
+          "VEBRELTINIB"
+        ],
+        "nct_id": "NCT06574347",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Vebreltinib Plus PLB1004 as the First-line Therapy for Patients With EGFRm+/MET+ Locally Advanced or Metastatic NSCLC."
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06620835",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Trial for Local Ablative Treatment (LAT) Optimization in Patients With Advanced Non-Small Cells Lung Cancer (NSCLC) Presenting an Anaplastic Lymphoma Kinase (ALK) Rearrangement Treated by Brigatinib"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "PEMBROLIZUMAB",
+          "RILVEGOSTOMIG"
+        ],
+        "nct_id": "NCT06627647",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Global Phase III Study of Rilvegostomig or Pembrolizumab Plus Chemotherapy for First-Line Treatment of Metastatic Non-squamous NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06632262",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase 2 Clinical Study of ABSK061 and ABSK043"
+      },
+      {
+        "drugs": [
+          "TIMOLOL",
+          "BETAMETHASONE"
+        ],
+        "nct_id": "NCT06643416",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Efficacy and Safety of Add-on Timolol for EGFR-TKI and ALK-TKI Induced Paronychia"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06674343",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Furmonertinib 160mg as First-line Treatment in Locally Advanced or Metastatic NSCLC With EGFR Classical Mutations"
+      },
+      {
+        "drugs": [
+          "CERALASERTIB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT06680050",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Phase II Study of Radiotherapy Followed by Durvalumab and Ceralasertib in Stage III NSCLC Patients With Thoracic Relapses +/- Oligometastases After PACIFIC Regimen"
+      },
+      {
+        "drugs": [
+          "ZANIDATAMAB"
+        ],
+        "nct_id": "NCT06695845",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase 2 Study of Zanidatamab in Patients With HER2-expressing Tumors"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06718309",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Chemotherapy Plus Immunotherapy Combined With SBRT as Neoadjuvant Therapy for Patients With Resectable NSCLC"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06719362",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "A Clinical Trial to Evaluate the Safety, Tolerability and Clinical Efficacy of M3T01 Monotherapy and in Combination With Pembrolizumab and Other Systemic Therapies"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06724237",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Testing Whether High Dose Chemotherapy and Infusion of the Patients' Own Stem Cells Improves Survival in Patients With Peripheral T-cell Lymphoma Who Achieved a Complete Response at the End of the Initial Chemotherapy"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06726265",
+        "phase": "PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Study of Eftilagimod Alfa (Efti) in Combination With Pembrolizumab and Chemotherapy Versus Placebo in Combination With Pembrolizumab and Chemotherapy in Participants With Metastatic Non-Small Cell Lung Cancer (NSCLC) (TACTI-004)"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "NAB-PACLITAXEL",
+          "CARBOPLATIN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06731907",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Pembrolizumab With or Without Chemotherapy in Combination With Additional Treatments for Advanced Non-Small Cell Lung Cancer (NSCLC) (MK-3475-01G/KEYMAKER U01)"
+      },
+      {
+        "drugs": [
+          "ENVAFOLIMAB",
+          "CARBOPLATIN"
+        ],
+        "nct_id": "NCT06734182",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Envafolimab Plus Disitamab Vedotin and Carboplatin in Resectable HER2-Mutant Non-Small-Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "OSIMERTINIB"
+        ],
+        "nct_id": "NCT06735391",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Clinical Study of JMT101 in Combination With Osimertinib Versus Osimertinib Alone as First-Line Treatment for Patients With Locally Advanced or Metastatic Non-Squamous Non-Small Cell Lung Cancer (NSCLC) Harboring Epidermal Growth Factor Receptor (EGFR) Sensitive Mutations"
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06745882",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Prospective Trial Assessing Real World Outcomes Response to Pembro in Black Patients w/ NSCLC"
+      },
+      {
+        "drugs": [
+          "TISLELIZUMAB"
+        ],
+        "nct_id": "NCT06745908",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Clinical Trial of N-803 Plus Tislelizumab or Prior Failed Immune Checkpoint Inhibitor and Docetaxel Versus Docetaxel Monotherapy in Participants With Advanced or Metastatic Non-Small Cell Lung Cancer Who Have Acquired Resistance to Immune Checkpoint In"
+      },
+      {
+        "drugs": [
+          "TISLELIZUMAB",
+          "DENOSUMAB"
+        ],
+        "nct_id": "NCT06749886",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "An Exploratory Study of Tislelizumab in Combination with Chemotherapy in Immuno-experienced Patients with EGFR/ALK/ROS1-negative Advanced NSCLC in the Second-line Setting"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06758401",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "This is a Study to Learn About How the Combination of the Study Medicines Sigvotatug Vedotin Plus Pembrolizumab Works in People With Non-small Cell Lung Cancer With High Levels of PD-L1."
+      },
+      {
+        "drugs": [
+          "PACLITAXEL",
+          "CARBOPLATIN"
+        ],
+        "nct_id": "NCT06758557",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study to Evaluate the Safety and Efficacy of HB0025 Injection in Patients With Advanced Solid Tumor"
+      },
+      {
+        "drugs": [
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT06765109",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Neladalkib (NVL-655) for TKI-naive Patients With Advanced ALK-Positive NSCLC"
+      },
+      {
+        "drugs": [
+          "CORTICOSTEROID"
+        ],
+        "nct_id": "NCT06780085",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Investigational Agents in Participants With Previously Treated Stage IV Nonsquamous Non-small Cell Lung Cancer (NSCLC) (MK-3475-01H/KEYMAKER-U01)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06781905",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Description of Neurocognitive and Psychiatric Disorders Associated With Targeted Therapies Used in the Treatment of Lung Cancers With ALK/ROS1 Fusion and Their Impact on Patients' Quality of Life: Construction of an Experimental Patient-researcher Collaborative Care and Research Pathway"
+      },
+      {
+        "drugs": [
+          "CADONILIMAB"
+        ],
+        "nct_id": "NCT06793813",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Cadonilimab in Patients (Pts) with Advanced Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "OSIMERTINIB",
+          "VEBRELTINIB"
+        ],
+        "nct_id": "NCT06827145",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "Combination of Vebreltinib and Osimertinib in Patients with EGFR 21 L858R Mutation Advanced NSCLC"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "CISPLATIN",
+          "OSIMERTINIB MESYLATE"
+        ],
+        "nct_id": "NCT06829459",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Study to Evaluate the Efficacy and Safety of Glumetinib Combined With Osimertinib Mesylate Versus Platinum-based Doublet Chemotherapy in Non-Small Cell Lung Cancer Patients After Resistance to EGFR-TKIs"
+      },
+      {
+        "drugs": [
+          "GOLCADOMIDE",
+          "RITUXIMAB"
+        ],
+        "nct_id": "NCT06834373",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Golcadomide and Rituximab as Bridging Therapy for Relapsed or Refractory Aggressive B-cell Non-Hodgkin Lymphoma Before CAR T-cell Therapy"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06855823",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase I/II Study of Golidocitinib Combined with Pomalidomide in R/R PTCL"
+      },
+      {
+        "drugs": [
+          "ALECTINIB"
+        ],
+        "nct_id": "NCT06862869",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Real World Clinical Outcomes of Resected ALK-Positive Early Stage NSCLC Patients Treated With Alectinib as Adjuvant Therapy"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB",
+          "RILVEGOSTOMIG"
+        ],
+        "nct_id": "NCT06868277",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Global Phase III Study of Rilvegostomig or Pembrolizumab Monotherapy for First-Line Treatment of PD-L1-high Metastatic Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "CISPLATIN"
+        ],
+        "nct_id": "NCT06868836",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Phase II Clinical Study of JS207 (PD-1/VEGF Bispecific Antibody) Combination Therapies in Patients With Driver Gene-Positive, Advanced Non-Small Cell Lung Cancer After Failure of TKI Therapy"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT06890598",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Study of Olomorasib (LY3537982) in Combination With Standard of Care in Participants With Resected or Unresectable KRAS G12C-mutant Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB",
+          "PACLITAXEL",
+          "GEMCITABINE",
+          "NIVOLUMAB",
+          "TEPOTINIB",
+          "PEMBROLIZUMAB",
+          "VINORELBINE"
+        ],
+        "nct_id": "NCT06908993",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Tepotinib vs Standard Treatment in Patients With Advanced MET Exon 14 Mutated Non-Small Cell Lung Cancer Previously Treated"
+      },
+      {
+        "drugs": [
+          "PLATINUM",
+          "VEBRELTINIB"
+        ],
+        "nct_id": "NCT06930794",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Study of Vebreltinib and Platinum-Containing Double Agents in Subjects With MET-Positive"
+      },
+      {
+        "drugs": [
+          "TISLELIZUMAB",
+          "ADJUVANT"
+        ],
+        "nct_id": "NCT06939127",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Cryoablation Combined With Tislelizumab and Chemotherapy as Neoadjuvant and Adjuvant Therapy in Resectable Stage II-IIIB NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06947694",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study on Exploring the Abscopal Effect Induced by Different Radioimmunotherapy Combination Patterns in the Treatment of Non-Small Cell Lung Cancer With Multiple Metastases"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06951646",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "ctDNA-MRD Guided Escalation of Ivonescimab and Docetaxel in Advanced NSCLC With Long-Term Responses to First-line Immunotherapy (CR1STAL-Adaptive)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06953843",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Study on the Optimal Combination Pattern of the Combined Treatment of Radiotherapy and Immunotherapy for the Abscopal Effect in Non-Small Cell Lung Cancer (NSCLC) With Multiple Metastases"
+      },
+      {
+        "drugs": [
+          "FIRMONERTINIB",
+          "CARBOPLATIN",
+          "CISPLATIN"
+        ],
+        "nct_id": "NCT06956001",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Firmonertinib Versus Platinum Based Chemotherapy as First-line Treatment for NSCLC With EGFR PACC or EGFR l861q Mutation"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "OSIMERTINIB",
+          "CISPLATIN"
+        ],
+        "nct_id": "NCT06970639",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Study Evaluating Furmonertinib Plus Platinum-based Doublet Chemotherapy Versus Osimertinib in Patients With Epidermal Growth Factor Receptor (EGFR) Sensitizing Mutation-Positive Non-squamous Non-Small Cell Lung Cancer (NSCLC) and Brain Metastases"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT06974370",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Avoiding Radiation Therapy Due to Intracranial Response to Chemotherapy, Targeted Therapy and/or Immuno-ONcology Therapy for Brain Metastases: Pilot Pragmatic Trial"
+      },
+      {
+        "drugs": [
+          "TORIPALIMAB",
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT06984588",
+        "phase": "PHASE2, PHASE3",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Compare Uliledlimab Combined With Toripalimab, Toripalimab Monotherapy, and Pembrolizumab Monotherapy in Patients With Previously Untreated Locally Advanced Unresectable or Metastatic PD-L1- and CD73- Selected Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "ADJUVANT",
+          "SUGEMALIMAB"
+        ],
+        "nct_id": "NCT06987734",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Sugemalimab + Chemotherapy Followed by Adjuvant Sugemalimab for Patients With Resectable Stage II-IIIA Non-small-cell Lung Cancer Patients"
+      },
+      {
+        "drugs": [
+          "IRINOTECAN HYDROCHLORIDE",
+          "FLUOROURACIL",
+          "GEMCITABINE",
+          "NAB-PACLITAXEL",
+          "PANITUMUMAB",
+          "IRINOTECAN SUCROSOFATE"
+        ],
+        "nct_id": "NCT06998940",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Studying Chemotherapy With or Without Panitumumab for Unresectable, Locally Advanced, or Metastatic Pancreatic Cancer Without KRAS Mutations"
+      },
+      {
+        "drugs": [
+          "ALECTINIB",
+          "DUVELISIB"
+        ],
+        "nct_id": "NCT07001384",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "A Study of Alectinib and Duvelisib in People With Anaplastic Lymphoma Kinase-Positive Anaplastic Large Cell Lymphoma (ALK+ALCL)"
+      },
+      {
+        "drugs": [
+          "GEMCITABINE",
+          "CARBOPLATIN",
+          "SINTILIMAB",
+          "CISPLATIN"
+        ],
+        "nct_id": "NCT07005336",
+        "phase": "PHASE2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Compare Uliledlimab Combined With Sintilimab and Chemotherapy Versus Sintilimab Combined With Chemotherapy in Patients With Previously Untreated Locally Advanced Unresectable or Metastatic Non-small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "TALETRECTINIB"
+        ],
+        "nct_id": "NCT07008287",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Real-world Study of Taletrectinib for Advanced ROS1+ NSCLC With Brain Metastases"
+      },
+      {
+        "drugs": [
+          "NIVOLUMAB",
+          "BRENTUXIMAB",
+          "VINBLASTINE"
+        ],
+        "nct_id": "NCT07013565",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Chemoimmunotherapy for ALK+ Relapsed/Refractory ALCL"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07014202",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Consolidation Radiotherapy vs. Observation in Oligoresidual Advanced Non-Small Cell Lung Cancer After Chemo-Immunotherapy"
+      },
+      {
+        "drugs": [
+          "ANLOTINIB"
+        ],
+        "nct_id": "NCT07037680",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Radiotherapy Plus Anlotinib in LA-NSCLC Intolerable to cCRT"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07070648",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Study on Predicting Response to Standard First-Line Treatment in Diffuse Large B-Cell Lymphoma (DLBCL) Patients Using ctDNA Combined With PET"
+      },
+      {
+        "drugs": [
+          "NIVOLUMAB",
+          "PLATINUM"
+        ],
+        "nct_id": "NCT07084610",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Metabolic Biomarkers Predicting Response to Neoadjuvant Immunotherapy in Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "VEBRELTINIB"
+        ],
+        "nct_id": "NCT07087223",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Phase Ib/II Study of Vebreltinib With Furmonertinib in NSCLC Patients With c-Met Amplification After EGFR-TKI Failure"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07110883",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "A Clinical Study of SYS6023 in Patients With Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT07111520",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Clinical Trial to Test if an Investigational Combination Therapy With BNT326 and BNT327 is Safe and Potentially Beneficial for People With Advanced Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "SINTILIMAB"
+        ],
+        "nct_id": "NCT07120698",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Adaptive Adjuvant Sintilimab Therapy Guided by MRD (ADAPT Lung)"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07130032",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Efficacy And Safety Of Anti-PD-1/PD-L1 Antibodies In Combination With Bevacizumab And Metronomic Cyclophosphamide In Patients With Non-Small Cell Lung Cancer And Cutaneous Melanoma Previously Treated With Immune Checkpoint Blockade"
+      },
+      {
+        "drugs": [
+          "GILTERITINIB"
+        ],
+        "nct_id": "NCT07140016",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "A Study of Gilteritinib in Adults With Advanced ALK-positive Non-small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "TALETRECTINIB"
+        ],
+        "nct_id": "NCT07154706",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Phase 3 Study of Taletrectinib vs Placebo as an Adjuvant Therapy in ROS1 Positive NSCLC (TRUST-IV)"
+      },
+      {
+        "drugs": [
+          "PLATINUM"
+        ],
+        "nct_id": "NCT07174908",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Phase 3 Study of IN10018 in Combination With D-1553 Versus Standard Therapy for First Line Non-squamous Non-small Cell Lung Cancer With KRAS G12C Mutation"
+      },
+      {
+        "drugs": [
+          "CARBOPLATIN",
+          "BEFOTERTINIB"
+        ],
+        "nct_id": "NCT07181499",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Sequential Chemotherapy With Befotertinib in Non-Small Cell Lung Cancer (NSCLC) Patients With Resistance to Third-Generation EGFR-TKI"
+      },
+      {
+        "drugs": [
+          "SUNVOZERTINIB"
+        ],
+        "nct_id": "NCT07182682",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "A Phase 3 Study of Sunvozertinib Versus Placebo as Adjuvant Therapy in Patients With Early-Stage Non-Small Cell Lung Cancer Harboring EGFR Exon 20 Insertion Mutations or PACC Mutations After Radical Surgery"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07190677",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "First-line Therapy With Nivolumab Plus Ipilimumab in Combination With Chemotherapy for Metatastatic NSCLC (NICReWo Trial)"
+      },
+      {
+        "drugs": [
+          "ATEZOLIZUMAB",
+          "ZONGERTINIB",
+          "NIVOLUMAB",
+          "PEMBROLIZUMAB",
+          "DURVALUMAB"
+        ],
+        "nct_id": "NCT07195695",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Beamion LUNG-3: Adjuvant Zongertinib vs Standard Treatment in People With Completely Resected Stage II-IIIB NSCLC Harboring Activating HER2 TKD Mutations"
+      },
+      {
+        "drugs": [
+          "CETUXIMAB"
+        ],
+        "nct_id": "NCT07198841",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "IBI351 Plus Cetuximab β in Untreated Advanced Non-small Cell Lung Cancer With KRAS G12C Mutation"
+      },
+      {
+        "drugs": [
+          "ENTRECTINIB"
+        ],
+        "nct_id": "NCT07199959",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Study on the Mechanism of Acquired Resistance of Entrectinib"
+      },
+      {
+        "drugs": [
+          "PEMBROLIZUMAB"
+        ],
+        "nct_id": "NCT07222566",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Symbiotic-Lung-01 : A Study to Learn About the Study Medicine Called PF-08634404 in Combination With Chemotherapy in Adult Participants With Locally Advanced or Metastatic Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [
+          "AMIVANTAMAB"
+        ],
+        "nct_id": "NCT07227025",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Amivantamab and Olomorasib Combination Therapy in Participants With Metastatic Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07252479",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "Evaluation of RAS Inhibitor Treatment in Participants With Advanced or Metastatic Solid Tumors Harboring RAS Mutations"
+      },
+      {
+        "drugs": [
+          "TISLELIZUMAB"
+        ],
+        "nct_id": "NCT07264647",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Chemo-immunotherapy for Stage III PD-L1 Positive Non-Small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "TREMELIMUMAB",
+          "ADAGRASIB",
+          "DURVALUMAB",
+          "ANTI-PD-L1 MONOCLONAL ANTIBODY",
+          "ANTI-PD1 MONOCLONAL ANTIBODY"
+        ],
+        "nct_id": "NCT07288034",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Immunotherapy Biomarkers to Predict First-line PD(L)1-based Immunotherapy Response and Selection of Second-line Treatment in Stage IIIB-IV Non-small Cell Lung Cancer, IMMUNO-BIOMAP Trial"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07288632",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Effects of Genomic Profiles on Thromboembolic Risk in Patients With Locally Advanced or Metastatic Non-small-cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07291037",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Phase III Study of Datopotamab Deruxtecan Versus Docetaxel in Previously Treated TROP2-positive Advanced or Metastatic Non-squamous NSCLC Without Actionable Genomic Alterations"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07292168",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase 1b/2 Study of the Safety and Efficacy of the Monoclonal Antibody OM-RCA-01 in Patients With Metastatic Tumors Expressing Fibroblast Growth Factor Receptor 1"
+      },
+      {
+        "drugs": [
+          "GOLIDOCITINIB"
+        ],
+        "nct_id": "NCT07300514",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Golidocitinib Versus Placebo as Maintenance Therapy for Peripheral T-Cell Lymphoma"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07303218",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "The HER Project: HRD in EGFR-mutated NSCLC"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07304739",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Furmonertinib Combined With Intrathecal Chemotherapy and Stereotactic Radiotherapy (SRT) for EGFR-Mutated NSCLC Patients With Brain Parenchymal and Leptomeningeal Metastases"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07313943",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "PAX5-NEGATIVE HODGKIN-LIKE LYMPHOMAS: A DIAGNOSTIC CHALLANGE"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07330596",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "QL1706 Combined With Chemotherapy in the Treatment of Immune-mediated NSCLC"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT07354061",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Neoadjuvant Therapy With Ensartinib Combined With Chemotherapy for ALK-positive Non - Small Cell Lung Cancer (NSCLC)"
+      },
+      {
+        "drugs": [
+          "RUXOLITINIB"
+        ],
+        "nct_id": "NCT07356245",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Ruxolitinib Maintenance Post-Hematopoietic Stem Cell Transplant T-Cell Lymphoma"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07361237",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "title": "A Phase l Clinical Study to Evalute the Safety,Tolerability,Pharmacokinetic Characteristics,and Preliminary Anti-tumor Efficacy of HJ-004-02 Tablets in Patients With Non-squamous Non-small Cell Lung Cancer With Epidermal Growth Factor Receptor (EGFR) Mutations"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07362940",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase Ⅰ/Ⅱa Clinical Study of GEN-725 in Combination With Dositinib"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07371663",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "An Phase Ib/II Clinical Trial of TCC1727 Combination Therapy in Advanced Solid Tumors"
+      },
+      {
+        "drugs": [
+          "IRUPLINALKIB"
+        ],
+        "nct_id": "NCT07374614",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "title": "Iruplinalkib in ALK-Positive Advanced Lung Adenocarcinoma After Lorlatinib"
+      },
+      {
+        "drugs": [
+          "GOLIDOCITINIB"
+        ],
+        "nct_id": "NCT07414758",
+        "phase": "PHASE3",
+        "status": "RECRUITING",
+        "title": "Golidocitinib Versus Placebo as Maintenance Therapy in PTCL Patients With Response (CR/PR) After First-Line Chemotherapy"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT07415005",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Lorlatinib Plus Local Consolidation Therapy In ALK Positive Advanced Non-Small Cell Lung Cancer"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07417189",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase I/II Study of ABSK141 in Patients With Advanced Solid Tumors ( ABSK141-101 )"
+      },
+      {
+        "drugs": [
+          "ENSARTINIB"
+        ],
+        "nct_id": "NCT07448116",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "Study of MCLA-129 in Combination With Ensartinib in Patients With Advanced Solid Tumors."
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07483983",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Study Investigating ASP3082 in Patients With Metastatic/Locally Advanced Non-small-cell Lung Cancer (NSCLC) and Pancreatic Ductal Adenocarcinoma (PDAC), With Biomarker Analysis to Characterize Response/Resistance"
+      },
+      {
+        "drugs": [],
+        "nct_id": "NCT07491497",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Phase 1/2 Study of TRI-611 in ALK-Positive NSCLC"
+      },
+      {
+        "drugs": [
+          "FULZERASIB"
+        ],
+        "nct_id": "NCT07492342",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "title": "Fulzerasib Sequential Sintilimab Plus Platinum-Doublet Neoadjuvant Therapy for Resectable KRAS G12C-Mutant NSCLC"
+      },
+      {
+        "drugs": [
+          "MIRDAMETINIB"
+        ],
+        "nct_id": "NCT07539441",
+        "phase": "PHASE1, PHASE2",
+        "status": "RECRUITING",
+        "title": "A Study of Mirdametinib in People With Central Nervous System Tumors"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT07556549",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Learn About Study Medicine Lorlatinib, as a First-line Treatment in Chinese Adults With ALK-positive a/mNSCLC"
+      },
+      {
+        "drugs": [
+          "LORLATINIB"
+        ],
+        "nct_id": "NCT07567352",
+        "phase": "NA",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "title": "A Study to Learn About Patients With Non-Small Cell Lung Cancer (NSCLC) Who Took Lorlatinib as Their First Treatment"
+      }
+    ]
+  },
+  "case_id": "PILOT-A2-ALK-G1202R",
+  "entities": {
+    "compound_mutation_count": 1,
+    "expected_drugs_found": [
+      {
+        "approved": true,
+        "concept_id": "rxcui:2103164",
+        "drug_name": "LORLATINIB"
+      }
+    ],
+    "expected_drugs_missing": [],
+    "gene": [
+      {
+        "gene": {
+          "aliases": [
+            "CD246"
+          ],
+          "categories": [
+            "DRUG RESISTANCE",
+            "DRUGGABLE GENOME",
+            "CLINICALLY ACTIONABLE",
+            "TYROSINE KINASE",
+            "KINASE"
+          ],
+          "civic_description": "ALK amplifications, fusions and mutations have been shown to be driving events in non-small cell lung cancer. While crizontinib has demonstrated efficacy in treating the amplification, mutations in ALK have been shown to confer resistance to current tyrosine kinase inhibitors. Second-generation TKI's have seen varied success in treating these resistant cases, and the HSP90 inhibitor 17-AAG has been shown to be cytostatic in ALK-altered cell lines.",
+          "entrez_id": 238,
+          "gene_type": "ONCOGENE",
+          "grch38_isoform": "ENST00000389048",
+          "grch38_refseq": "NM_004304.4",
+          "hugo_symbol": "ALK",
+          "is_oncokb_annotated": true
+        }
+      }
+    ],
+    "pmid_discovery": {
+      "as_evidence_citation": [
+        "22277784",
+        "24675041",
+        "24736079",
+        "25727400",
+        "26698910",
+        "27130468",
+        "27432227",
+        "29373100",
+        "29376144",
+        "29650534",
+        "29935304",
+        "30892989",
+        "31358542",
+        "31585938",
+        "32600123",
+        "39269178"
+      ],
+      "as_publication_node": [],
+      "expected_absent_entirely": [],
+      "expected_only_via_citation": [
+        "27432227",
+        "29650534",
+        "30892989"
+      ],
+      "implausibly_short_pmids": []
+    },
+    "profiles_with_g1202r": [
+      {
+        "classification_basis": "text_heuristic",
+        "is_compound": false,
+        "molecular_profile": "ALK G1202R AND v::ALK Fusion",
+        "variants": [
+          "G1202R"
+        ]
+      },
+      {
+        "classification_basis": "text_heuristic",
+        "is_compound": false,
+        "molecular_profile": "EML4::ALK Fusion AND ALK G1202R",
+        "variants": [
+          "G1202R"
+        ]
+      },
+      {
+        "classification_basis": "text_heuristic",
+        "is_compound": true,
+        "molecular_profile": "EML4::ALK Fusion AND ALK G1202R AND ALK I1171N AND ALK L1196M",
+        "variants": [
+          "G1202R",
+          "I1171N",
+          "L1196M"
+        ]
+      }
+    ],
+    "single_mutation_count": 12
+  }
+}

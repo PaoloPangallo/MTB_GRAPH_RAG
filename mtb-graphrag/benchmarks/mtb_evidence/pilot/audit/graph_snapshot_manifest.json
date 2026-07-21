@@ -1,0 +1,185 @@
+{
+  "audit_timestamp_utc": "2026-07-21T17:35:58.570517+00:00",
+  "commit_sha": "c295e1d7753fb247a60456f8e69d2f4210d2e309",
+  "credentials_policy": "Nessuna password o token viene registrato. L'URI e' sanitizzato da eventuali userinfo prima della scrittura.",
+  "database_name": "neo4j",
+  "database_reported_by_server": "neo4j",
+  "identifier_ranges": {
+    "ClinicalTrial.nct_id": {
+      "cypher": "MATCH (n:`ClinicalTrial`) WHERE n.`nct_id` IS NOT NULL RETURN min(n.`nct_id`) AS min_value, max(n.`nct_id`) AS max_value, count(n.`nct_id`) AS present_count",
+      "max": "NCT07607418",
+      "min": "NCT00001238",
+      "present_count": 5570
+    },
+    "Drug.concept_id": {
+      "cypher": "MATCH (n:`Drug`) WHERE n.`concept_id` IS NOT NULL RETURN min(n.`concept_id`) AS min_value, max(n.`concept_id`) AS max_value, count(n.`concept_id`) AS present_count",
+      "max": "wikidata:Q85759692",
+      "min": "chembl:CHEMBL101168",
+      "present_count": 24502
+    },
+    "Evidence.evidence_id": {
+      "cypher": "MATCH (n:`Evidence`) WHERE n.`evidence_id` IS NOT NULL RETURN min(n.`evidence_id`) AS min_value, max(n.`evidence_id`) AS max_value, count(n.`evidence_id`) AS present_count",
+      "max": 100016,
+      "min": 1,
+      "present_count": 4860
+    },
+    "Gene.entrez_id": {
+      "cypher": "MATCH (n:`Gene`) WHERE n.`entrez_id` IS NOT NULL RETURN min(n.`entrez_id`) AS min_value, max(n.`entrez_id`) AS max_value, count(n.`entrez_id`) AS present_count",
+      "max": 101928402,
+      "min": -2,
+      "present_count": 1437
+    },
+    "MolecularProfile.molecular_profile_id": {
+      "cypher": "MATCH (n:`MolecularProfile`) WHERE n.`molecular_profile_id` IS NOT NULL RETURN min(n.`molecular_profile_id`) AS min_value, max(n.`molecular_profile_id`) AS max_value, count(n.`molecular_profile_id`) AS present_count",
+      "max": 200000,
+      "min": 1,
+      "present_count": 1937
+    },
+    "Publication.pmid": {
+      "cypher": "MATCH (n:`Publication`) WHERE n.`pmid` IS NOT NULL RETURN min(n.`pmid`) AS min_value, max(n.`pmid`) AS max_value, count(n.`pmid`) AS present_count",
+      "max": 41104928,
+      "min": 123413,
+      "present_count": 2222
+    },
+    "Variant.variant_id": {
+      "cypher": "MATCH (n:`Variant`) WHERE n.`variant_id` IS NOT NULL RETURN min(n.`variant_id`) AS min_value, max(n.`variant_id`) AS max_value, count(n.`variant_id`) AS present_count",
+      "max": 200002,
+      "min": 1,
+      "present_count": 1975
+    }
+  },
+  "neo4j_edition": "enterprise",
+  "neo4j_uri": "bolt://localhost:7687",
+  "neo4j_user": "neo4j",
+  "neo4j_version": "2026.04.0",
+  "nodes_by_label": {
+    "ClinicalTrial": 5570,
+    "CompanionDiagnostic": 166,
+    "Disease": 334,
+    "Drug": 24502,
+    "Evidence": 4860,
+    "Gene": 1437,
+    "MolecularProfile": 1937,
+    "Publication": 2222,
+    "Variant": 1975
+  },
+  "provenance": {
+    "archive": "DatasetTESI/Dataset TESI/Clean_Graph_Data.zip",
+    "csv_directory": "data_expl/DatasetTESI/Dataset TESI/Clean_Graph_Data/",
+    "known_limitation": "I CSV sorgente hanno mtime in tre ondate distinte (2025-05-27, 2025-05-31, 2025-06-02): il grafo non corrisponde a un singolo istante di snapshot ma a un caricamento incrementale. Nessun manifest, checksum o release id di CIViC/DGIdb e' versionato nel repository.",
+    "loaders": [
+      "import.cypher (root del workspace)",
+      "data_expl/DatasetTESI/Dataset TESI/Clean_Graph_Data/carica_disease_publication.cypher",
+      "estrai_disease_publication_neo4j.py (root del workspace)"
+    ],
+    "loading_method": "LOAD CSV via Cypher, nessun dump neo4j-admin",
+    "official_hash_available": false
+  },
+  "queries_used": {
+    "counts": {
+      "nodes_by_label": "MATCH (n:`<label>`) RETURN count(n) AS count",
+      "nodes_total": "MATCH (n) RETURN count(n) AS count",
+      "relationships_by_type": "MATCH ()-[r:`<type>`]->() RETURN count(r) AS count",
+      "relationships_total": "MATCH ()-[r]->() RETURN count(r) AS count"
+    },
+    "identifier_ranges": {
+      "ClinicalTrial.nct_id": "MATCH (n:`ClinicalTrial`) WHERE n.`nct_id` IS NOT NULL RETURN min(n.`nct_id`) AS min_value, max(n.`nct_id`) AS max_value, count(n.`nct_id`) AS present_count",
+      "Drug.concept_id": "MATCH (n:`Drug`) WHERE n.`concept_id` IS NOT NULL RETURN min(n.`concept_id`) AS min_value, max(n.`concept_id`) AS max_value, count(n.`concept_id`) AS present_count",
+      "Evidence.evidence_id": "MATCH (n:`Evidence`) WHERE n.`evidence_id` IS NOT NULL RETURN min(n.`evidence_id`) AS min_value, max(n.`evidence_id`) AS max_value, count(n.`evidence_id`) AS present_count",
+      "Gene.entrez_id": "MATCH (n:`Gene`) WHERE n.`entrez_id` IS NOT NULL RETURN min(n.`entrez_id`) AS min_value, max(n.`entrez_id`) AS max_value, count(n.`entrez_id`) AS present_count",
+      "MolecularProfile.molecular_profile_id": "MATCH (n:`MolecularProfile`) WHERE n.`molecular_profile_id` IS NOT NULL RETURN min(n.`molecular_profile_id`) AS min_value, max(n.`molecular_profile_id`) AS max_value, count(n.`molecular_profile_id`) AS present_count",
+      "Publication.pmid": "MATCH (n:`Publication`) WHERE n.`pmid` IS NOT NULL RETURN min(n.`pmid`) AS min_value, max(n.`pmid`) AS max_value, count(n.`pmid`) AS present_count",
+      "Variant.variant_id": "MATCH (n:`Variant`) WHERE n.`variant_id` IS NOT NULL RETURN min(n.`variant_id`) AS min_value, max(n.`variant_id`) AS max_value, count(n.`variant_id`) AS present_count"
+    },
+    "server": {
+      "components": "CALL dbms.components() YIELD name, versions, edition RETURN name, versions, edition",
+      "database": "CALL db.info() YIELD name RETURN name"
+    }
+  },
+  "relationships_by_type": {
+    "ASSOCIATED_GENE": 5501,
+    "CITED_IN": 4840,
+    "DIAGNOSES_GENE": 163,
+    "HAS_COMPANION_DIAGNOSTIC": 150,
+    "HAS_DISEASE": 4684,
+    "HAS_EVIDENCE": 4860,
+    "HAS_VARIANT": 1727,
+    "INTERACTS_WITH": 25589,
+    "IN_MOLECULAR_PROFILE": 2281,
+    "TARGETS_DRUG": 3372,
+    "TESTS_DRUG": 8018
+  },
+  "snapshot_fingerprint": {
+    "algorithm": "sha256(canonical_json(statistics))",
+    "canonical_json_preview": "{\"identifier_ranges\":{\"ClinicalTrial.nct_id\":{\"max\":\"NCT07607418\",\"min\":\"NCT00001238\",\"present_count\":5570},\"Drug.concept_id\":{\"max\":\"wikidata:Q85759692\",\"min\":\"chembl:CHEMBL101168\",\"present_count\":24502},\"Evidence.evidence_id\":{\"max\":100016,\"min\":1,\"present_count\":4860},\"Gene.entrez_id\":{\"max\":101928402,\"min\":-2,\"present_count\":1437},\"MolecularProfile.molecular_profile_id\":{\"max\":200000,\"min\":1,\"",
+    "note": "Fingerprint derivato, non hash ufficiale: identifica una configurazione statistica dello snapshot, non il suo contenuto byte per byte.",
+    "statistics": {
+      "identifier_ranges": {
+        "ClinicalTrial.nct_id": {
+          "max": "NCT07607418",
+          "min": "NCT00001238",
+          "present_count": 5570
+        },
+        "Drug.concept_id": {
+          "max": "wikidata:Q85759692",
+          "min": "chembl:CHEMBL101168",
+          "present_count": 24502
+        },
+        "Evidence.evidence_id": {
+          "max": 100016,
+          "min": 1,
+          "present_count": 4860
+        },
+        "Gene.entrez_id": {
+          "max": 101928402,
+          "min": -2,
+          "present_count": 1437
+        },
+        "MolecularProfile.molecular_profile_id": {
+          "max": 200000,
+          "min": 1,
+          "present_count": 1937
+        },
+        "Publication.pmid": {
+          "max": 41104928,
+          "min": 123413,
+          "present_count": 2222
+        },
+        "Variant.variant_id": {
+          "max": 200002,
+          "min": 1,
+          "present_count": 1975
+        }
+      },
+      "nodes_by_label": {
+        "ClinicalTrial": 5570,
+        "CompanionDiagnostic": 166,
+        "Disease": 334,
+        "Drug": 24502,
+        "Evidence": 4860,
+        "Gene": 1437,
+        "MolecularProfile": 1937,
+        "Publication": 2222,
+        "Variant": 1975
+      },
+      "relationships_by_type": {
+        "ASSOCIATED_GENE": 5501,
+        "CITED_IN": 4840,
+        "DIAGNOSES_GENE": 163,
+        "HAS_COMPANION_DIAGNOSTIC": 150,
+        "HAS_DISEASE": 4684,
+        "HAS_EVIDENCE": 4860,
+        "HAS_VARIANT": 1727,
+        "INTERACTS_WITH": 25589,
+        "IN_MOLECULAR_PROFILE": 2281,
+        "TARGETS_DRUG": 3372,
+        "TESTS_DRUG": 8018
+      },
+      "total_nodes": 43003,
+      "total_relationships": 61185
+    },
+    "value": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+  },
+  "total_nodes": 43003,
+  "total_relationships": 61185
+}
