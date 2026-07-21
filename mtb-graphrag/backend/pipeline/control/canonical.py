@@ -38,11 +38,17 @@ _COMPLETENESS_RANK: dict[str, int] = {
 }
 
 #: Campi confrontati per rilevare disaccordi fra osservazioni dello stesso
-#: record. Sono i campi che il MTB legge: una divergenza qui è informazione
-#: clinica, non rumore.
+#: record. Solo campi **strutturati**: una divergenza qui è informazione
+#: clinica.
+#:
+#: I campi in prosa (``evidence_statement``, ``citation_text``, ``title``) sono
+#: deliberatamente esclusi. Due curazioni CIViC dello stesso studio lo
+#: descrivono spesso con parole diverse: segnalarlo come conflitto manderebbe
+#: al MTB rumore invece di un disaccordo reale, e finirebbe per abituarlo a
+#: ignorare le annotazioni di conflitto.
 _CONFLICT_FIELDS: Mapping[str, tuple[str, ...]] = {
-    "evidence": ("evidence_level", "evidence_statement", "citation_text", "significance"),
-    "trial": ("phase", "status", "drug_tested", "title"),
+    "evidence": ("evidence_level", "significance"),
+    "trial": ("phase", "status", "drug_tested"),
     "resistance": ("evidence_level", "significance", "drug_name"),
     "drug": ("evidence_level", "approved"),
     "oncokb": ("oncogenic", "level"),
