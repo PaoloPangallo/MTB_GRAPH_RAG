@@ -1,7 +1,7 @@
 {
-  "run_id": "6b10b8f1-6765-4948-bc81-7644d8ccc399",
-  "commit_sha": "7ccb052df4247af57544a2b1e0d30561827d9fac",
-  "timestamp": "2026-07-21T13:40:03.852903+00:00",
+  "run_id": "32b4d054-b892-4d8d-b803-6d628fff3c6b",
+  "commit_sha": "0b8d17a48f6afd2c62c69b5e420227cc40fb8c66",
+  "timestamp": "2026-07-21T14:19:31.425906+00:00",
   "run_kind": "live",
   "architecture": "agentic",
   "architecture_title": "Agentic GraphRAG verificabile",
@@ -23,11 +23,11 @@
   ],
   "missing_mandatory_tools": [],
   "ledger_valid": true,
-  "ledger_events": 27,
+  "ledger_events": 26,
   "canonical_records": {
     "observed": 31,
     "canonical": 30,
-    "conflicts": 1,
+    "conflicts": 0,
     "replay_fidelity": "full"
   },
   "projection_records": {
@@ -36,50 +36,50 @@
   },
   "structural_verification": {
     "candidate_status": "pass",
-    "final_status": "violations_repairable",
+    "final_status": "pass",
     "dossier_status": "pass",
     "coverage": 1.0,
-    "violations": 1,
-    "warnings": 22,
+    "violations": 0,
+    "warnings": 40,
     "spurious_citations": 0,
-    "escalated": true
+    "escalated": false
   },
   "support_counts": {
     "supported_as_written": 0,
-    "supported_after_contextualization": 7,
-    "uncertain": 11,
-    "contradicted": 3
+    "supported_after_contextualization": 12,
+    "uncertain": 7,
+    "contradicted": 2
   },
   "applicability_counts": {
     "compatible": 0,
-    "indeterminate": 18,
-    "not_compatible": 3
+    "indeterminate": 17,
+    "not_compatible": 4
   },
   "repair_attempts": 0,
   "cache_hits": 0,
   "cache_misses": 14,
   "stage_timings": {
     "orchestration": 0,
-    "collection": 8726,
+    "collection": 17500,
     "replay": 6,
     "canonicalization": 0,
     "projection": 0,
     "candidate_rendering": 0,
-    "structural_verification": 3,
-    "source_verification": 113492,
+    "structural_verification": 17,
+    "source_verification": 333432,
     "applicability": 0,
     "repair": 0,
     "final_rendering": 0,
     "dossier": 0
   },
-  "elapsed_ms": 122358,
+  "elapsed_ms": 351140,
   "model_revision": "ollama:gemma4:31b-cloud",
   "prompt_version": "v3",
   "counters": {
     "retrieval_tool_calls": 4,
     "planner_calls": 5,
     "llm_synthesis_calls": 0,
-    "source_verifier_calls": 6,
+    "source_verifier_calls": 4,
     "pipeline_nodes_executed": 10,
     "verifier_batches": 4
   },

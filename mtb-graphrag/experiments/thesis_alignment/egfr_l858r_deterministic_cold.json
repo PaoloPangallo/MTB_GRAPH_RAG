@@ -1,7 +1,7 @@
 {
-  "run_id": "1ce053e0-a7b3-435d-8257-cad7663fa93b",
-  "commit_sha": "7ccb052df4247af57544a2b1e0d30561827d9fac",
-  "timestamp": "2026-07-21T13:37:59.244702+00:00",
+  "run_id": "7cd9fd60-72f3-4598-8ac9-8a182d0d993a",
+  "commit_sha": "0b8d17a48f6afd2c62c69b5e420227cc40fb8c66",
+  "timestamp": "2026-07-21T14:13:37.882028+00:00",
   "run_kind": "live",
   "architecture": "deterministic",
   "architecture_title": "GraphRAG deterministico verificabile",
@@ -23,11 +23,11 @@
   ],
   "missing_mandatory_tools": [],
   "ledger_valid": true,
-  "ledger_events": 25,
+  "ledger_events": 24,
   "canonical_records": {
     "observed": 31,
     "canonical": 30,
-    "conflicts": 1,
+    "conflicts": 0,
     "replay_fidelity": "full"
   },
   "projection_records": {
@@ -36,19 +36,19 @@
   },
   "structural_verification": {
     "candidate_status": "pass",
-    "final_status": "violations_repairable",
+    "final_status": "pass",
     "dossier_status": "pass",
     "coverage": 1.0,
-    "violations": 1,
-    "warnings": 29,
+    "violations": 0,
+    "warnings": 32,
     "spurious_citations": 0,
-    "escalated": true
+    "escalated": false
   },
   "support_counts": {
     "supported_as_written": 0,
-    "supported_after_contextualization": 10,
+    "supported_after_contextualization": 11,
     "uncertain": 7,
-    "contradicted": 4
+    "contradicted": 3
   },
   "applicability_counts": {
     "compatible": 0,
@@ -60,19 +60,19 @@
   "cache_misses": 14,
   "stage_timings": {
     "orchestration": 0,
-    "collection": 7465,
-    "replay": 7,
+    "collection": 5511,
+    "replay": 5,
     "canonicalization": 0,
     "projection": 1,
     "candidate_rendering": 0,
     "structural_verification": 8,
-    "source_verification": 80124,
+    "source_verification": 722584,
     "applicability": 0,
     "repair": 0,
     "final_rendering": 0,
     "dossier": 0
   },
-  "elapsed_ms": 104513,
+  "elapsed_ms": 742689,
   "model_revision": "ollama:gemma4:31b-cloud",
   "prompt_version": "v3",
   "counters": {
