@@ -9272,7 +9272,7 @@ a.anchor-link {
 <span class="n">driver</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># Connessione al DBMS locale GraphRAGTesi attivo sulla porta 7687 (credenziali default)</span>
-    <span class="n">driver</span> <span class="o">=</span> <span class="n">GraphDatabase</span><span class="o">.</span><span class="n">driver</span><span class="p">(</span><span class="s2">"neo4j://localhost:7687"</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">"neo4j"</span><span class="p">,</span> <span class="s2">"pangallo22"</span><span class="p">))</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="n">GraphDatabase</span><span class="o">.</span><span class="n">driver</span><span class="p">(</span><span class="s2">"neo4j://localhost:7687"</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">"neo4j"</span><span class="p">,</span> <span class="s2">"REDACTED_SEE_docs_SECURITY_REMEDIATION"</span><span class="p">))</span>
     <span class="c1"># Test di connessione rapida</span>
     <span class="k">with</span> <span class="n">driver</span><span class="o">.</span><span class="n">session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
         <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"RETURN 1"</span><span class="p">)</span>

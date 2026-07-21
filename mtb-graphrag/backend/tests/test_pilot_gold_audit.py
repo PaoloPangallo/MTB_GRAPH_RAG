@@ -74,6 +74,7 @@ from benchmarks.mtb_evidence.pilot.audit_lib.serialize import (
     fingerprint,
     sanitize_uri,
     scrub,
+    secret_values,
     write_json,
     write_jsonl,
     write_text,
@@ -653,7 +654,9 @@ class SerializationTest(TestCase):
 
 
 class CredentialLeakTest(TestCase):
-    SECRET_PATTERNS = ("pangallo22", "NEO4J_PASSWORD=", "password=", "api_key=")
+    # Nessuna credenziale letterale in elenco: verrebbe versionata proprio da questo
+    # test. I segreti concreti arrivano dall'ambiente tramite `secret_values()`.
+    SECRET_PATTERNS = ("NEO4J_PASSWORD=", "password=", "api_key=", "token=")
 
     def test_uri_userinfo_is_redacted(self):
         self.assertEqual(
@@ -679,6 +682,7 @@ class CredentialLeakTest(TestCase):
         audit_dir = PILOT_ROOT / "audit"
         if not audit_dir.is_dir():
             self.skipTest("artefatti di audit non ancora generati")
+        live_secrets = [s for s in secret_values() if len(s) >= 6]
         checked = 0
         for path in sorted(audit_dir.rglob("*")):
             if not path.is_file():
@@ -687,6 +691,8 @@ class CredentialLeakTest(TestCase):
             content = path.read_text(encoding="utf-8", errors="replace")
             for pattern in self.SECRET_PATTERNS:
                 self.assertNotIn(pattern, content, f"{pattern} trovato in {path}")
+            for secret in live_secrets:
+                self.assertNotIn(secret, content, f"segreto d'ambiente trovato in {path}")
         self.assertGreater(checked, 0)
 
 

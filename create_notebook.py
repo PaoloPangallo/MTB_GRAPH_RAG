@@ -75,7 +75,12 @@ neo4j_active = False
 
 try:
     import os
-    neo4j_password = os.environ.get("NEO4J_PASSWORD", "pangallo22")
+    neo4j_password = os.environ.get("NEO4J_PASSWORD")
+    if not neo4j_password:
+        raise RuntimeError(
+            "NEO4J_PASSWORD non impostata: definiscila nell'ambiente o in .env. "
+            "Non esiste un valore di default."
+        )
     neo4j_username = os.environ.get("NEO4J_USERNAME", "neo4j")
     
     # Tentativo di connessione a Neo4j usando protocollo bolt e neo4j
@@ -1017,7 +1022,12 @@ driver = None
 connection_uri = None
 
 # Tentativo di connessione con protocolli differenti per massima compatibilità (Bolt per istanze singole, Neo4j per cluster)
-neo4j_password = os.environ.get("NEO4J_PASSWORD", "pangallo22")
+neo4j_password = os.environ.get("NEO4J_PASSWORD")
+if not neo4j_password:
+    raise RuntimeError(
+        "NEO4J_PASSWORD non impostata: definiscila nell'ambiente o in .env. "
+        "Non esiste un valore di default."
+    )
 neo4j_username = os.environ.get("NEO4J_USERNAME", "neo4j")
 
 for uri in ["bolt://localhost:7687", "neo4j://localhost:7687"]:

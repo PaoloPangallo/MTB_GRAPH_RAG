@@ -50,7 +50,18 @@ from rich import box
 # CONFIGURAZIONE
 # ============================================================================
 
-NCBI_API_KEY = "cced7273c4852e482e80f0eeb52b3849fa08"
+# La chiave NCBI arriva dall'ambiente: e' opzionale (senza, si usa il rate
+# limit piu' basso), ma non deve mai essere scritta nel codice.
+import sys as _sys
+from pathlib import Path as _Path
+
+for _root in _Path(__file__).resolve().parents:
+    if (_root / "utility" / "credentials.py").is_file():
+        _sys.path.insert(0, str(_root))
+        break
+from utility.credentials import optional_env
+
+NCBI_API_KEY = optional_env("NCBI_API_KEY")
 UNPAYWALL_EMAIL = "paolo.pangallo23@gmail.com"
 OUTPUT_DIR = Path(r"c:\Users\paolo\Desktop\IspezioneDatasetTesi\benchmark_papers")
 SLEEP_TIME = 0.34 if not NCBI_API_KEY else 0.11

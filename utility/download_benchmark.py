@@ -43,7 +43,18 @@ from rich import box
 
 # Inserisci la tua API key NCBI qui (gratuita su https://www.ncbi.nlm.nih.gov/account/)
 # Lascia stringa vuota "" se non ce l'hai ancora
-NCBI_API_KEY = "cced7273c4852e482e80f0eeb52b3849fa08"
+# La chiave NCBI arriva dall'ambiente: e' opzionale (senza, si usa il rate
+# limit piu' basso), ma non deve mai essere scritta nel codice.
+import sys as _sys
+from pathlib import Path as _Path
+
+for _root in _Path(__file__).resolve().parents:
+    if (_root / "utility" / "credentials.py").is_file():
+        _sys.path.insert(0, str(_root))
+        break
+from utility.credentials import optional_env
+
+NCBI_API_KEY = optional_env("NCBI_API_KEY")
 
 # Inserisci la tua email per Unpaywall (non serve registrazione, solo email valida)
 # Usata come identificativo per le chiamate API Unpaywall

@@ -1,11 +1,20 @@
 import re
+import sys as _sys
+from pathlib import Path as _Path
+
 from neo4j import GraphDatabase
 
+# La credenziale arriva solo dall'ambiente: nessun valore di ripiego nel codice.
+for _root in _Path(__file__).resolve().parents:
+    if (_root / "utility" / "credentials.py").is_file():
+        _sys.path.insert(0, str(_root))
+        break
+from utility.credentials import neo4j_credentials
+
+
 def main():
-    uri = "bolt://localhost:7687"
-    username = "neo4j"
-    password = "pangallo22"
-    
+    uri, username, password = neo4j_credentials()
+
     print("Connessione a Neo4j...")
     driver = GraphDatabase.driver(uri, auth=(username, password))
     

@@ -290,7 +290,7 @@ toccato** perché estranei al mandato:
 
 - due file `.env` con segreti reali presenti sul disco (root del workspace e
   `mtb-graphrag/`);
-- la password `pangallo22` hardcoded come fallback in `scratch/inspect_db.py` e
+- una password Neo4j hardcoded come fallback in `scratch/inspect_db.py` e
   `analisi/analisi.py`.
 
 L'ho inserita nella lista dei valori che lo scrubber rimuove dagli artefatti, ma la
