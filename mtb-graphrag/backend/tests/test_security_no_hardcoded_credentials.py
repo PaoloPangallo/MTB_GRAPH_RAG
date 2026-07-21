@@ -43,11 +43,13 @@ _DIRECT_ASSIGNMENT = re.compile(
 # URI con userinfo incorporato: bolt://utente:password@host
 _URI_WITH_USERINFO = re.compile(r"""(?:bolt|neo4j|https?)\+?s?://[^\s"'/]+:[^\s"'/@]+@""")
 
-# File in cui un URI con userinfo e' una fixture di test legittima.
+# File in cui un URI con userinfo e' legittimo: fixture di test, o documentazione
+# che descrive il pattern proprio per insegnare a riconoscerlo.
 _URI_FIXTURE_ALLOWLIST = {
     "mtb-graphrag/backend/tests/test_pilot_gold_audit.py",
     "mtb-graphrag/backend/tests/test_security_no_hardcoded_credentials.py",
     "mtb-graphrag/benchmarks/mtb_evidence/pilot/audit_lib/serialize.py",
+    "mtb-graphrag/docs/SECURITY_REMEDIATION.md",
 }
 
 
@@ -63,7 +65,16 @@ def _tracked_files(*patterns: str) -> list[str]:
 
 
 def _read(relative: str) -> str:
-    return (REPO_ROOT / relative).read_text(encoding="utf-8", errors="replace")
+    """Contenuto di un file tracciato, vuoto se non e' presente sul disco.
+
+    `git ls-files` elenca anche i file rimossi dal working tree ma non ancora
+    committati: leggerli farebbe fallire la scansione per un motivo che non ha nulla
+    a che vedere con le credenziali.
+    """
+    path = REPO_ROOT / relative
+    if not path.is_file():
+        return ""
+    return path.read_text(encoding="utf-8", errors="replace")
 
 
 class NoHardcodedCredentialsTest(TestCase):
