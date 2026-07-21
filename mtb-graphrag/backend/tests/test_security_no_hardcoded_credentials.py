@@ -49,6 +49,7 @@ _URI_FIXTURE_ALLOWLIST = {
     "mtb-graphrag/backend/tests/test_pilot_gold_audit.py",
     "mtb-graphrag/backend/tests/test_security_no_hardcoded_credentials.py",
     "mtb-graphrag/benchmarks/mtb_evidence/pilot/audit_lib/serialize.py",
+    "mtb-graphrag/backend/tests/test_model_selection_and_evaluation.py",
     "mtb-graphrag/docs/SECURITY_REMEDIATION.md",
 }
 
