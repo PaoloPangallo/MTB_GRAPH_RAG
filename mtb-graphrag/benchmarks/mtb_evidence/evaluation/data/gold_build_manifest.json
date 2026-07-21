@@ -1,0 +1,33 @@
+{
+  "amendments_seen_but_not_applied": 9,
+  "audit_dir": "benchmarks\\mtb_evidence\\pilot\\audit",
+  "case_count": 4,
+  "generated_at_utc": "2026-07-21T19:52:00.987143+00:00",
+  "pilot_gold_path": "benchmarks\\mtb_evidence\\pilot\\input\\mtb_evidence_gold_pilot_v1.jsonl",
+  "pilot_gold_sha256": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667",
+  "policy": "Il clinical gold non viene modificato in alcun modo. Le proposte di emendamento dell'audit sono lette solo per essere contate.",
+  "presence_summary": {
+    "claim": {
+      "absent": 4,
+      "ambiguous": 1,
+      "present": 4
+    },
+    "nct_id": {
+      "absent": 5,
+      "present": 1
+    },
+    "pmid": {
+      "absent": 2,
+      "partially_present": 3,
+      "present": 3
+    },
+    "qualifier": {
+      "absent": 24
+    },
+    "therapy": {
+      "partially_present": 1,
+      "present": 3
+    }
+  },
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+}
