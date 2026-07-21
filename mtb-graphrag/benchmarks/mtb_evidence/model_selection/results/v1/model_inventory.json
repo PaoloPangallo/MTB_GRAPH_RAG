@@ -1,0 +1,638 @@
+{
+  "available_count": 22,
+  "available_models": {
+    "deepseek-v4-flash-cloud": {
+      "context_length": 1048576,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "ac252c581d64",
+      "endpoint": "https://api.ollama.com",
+      "family": "deepseek4",
+      "local_or_cloud": "cloud",
+      "model_name": "deepseek-v4-flash",
+      "modified_at": "2026-04-24T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "158000000000",
+      "quantization": "FP8",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "size_bytes": 140000000000,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "deepseek-v4-pro-cloud": {
+      "context_length": 524288,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "079ba36ea28c",
+      "endpoint": "https://api.ollama.com",
+      "family": "deepseek4",
+      "local_or_cloud": "cloud",
+      "model_name": "deepseek-v4-pro",
+      "modified_at": "2026-04-24T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "1600000000000",
+      "quantization": "FP8",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "size_bytes": 1600000000000,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "gemma4:31b-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "221b330d11a8",
+      "endpoint": "https://api.ollama.com",
+      "family": "gemma4",
+      "local_or_cloud": "cloud",
+      "model_name": "gemma4:31b",
+      "modified_at": "2026-04-02T09:00:00-08:00",
+      "ollama_version": "0.0.0",
+      "parameter_size": "32682372656",
+      "quantization": "BF16",
+      "raw_capabilities": [
+        "completion",
+        "thinking",
+        "tools",
+        "vision"
+      ],
+      "size_bytes": 62546177752,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "31b",
+      "tool_calling": true
+    },
+    "glm-5.1-cloud": {
+      "context_length": 202752,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "882e35812821",
+      "endpoint": "https://api.ollama.com",
+      "family": "glm5.1",
+      "local_or_cloud": "cloud",
+      "model_name": "glm-5.1",
+      "modified_at": "2026-04-07T08:00:00-07:00",
+      "ollama_version": "0.0.0",
+      "parameter_size": "756162687872",
+      "quantization": "FP8",
+      "raw_capabilities": [
+        "thinking",
+        "completion",
+        "tools"
+      ],
+      "size_bytes": 1507728316928,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "glm-5.2-cloud": {
+      "context_length": 1000000,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "f553240f6dc4",
+      "endpoint": "https://api.ollama.com",
+      "family": "glm5.2",
+      "local_or_cloud": "cloud",
+      "model_name": "glm-5.2",
+      "modified_at": "2026-06-16T08:00:00-07:00",
+      "ollama_version": "0.0.0",
+      "parameter_size": "756162687872",
+      "quantization": "",
+      "raw_capabilities": [
+        "thinking",
+        "completion",
+        "tools"
+      ],
+      "size_bytes": 0,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "gpt-oss:120b-cloud": {
+      "context_length": 131072,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "d98fe6ba01e6",
+      "endpoint": "https://api.ollama.com",
+      "family": "gptoss",
+      "local_or_cloud": "cloud",
+      "model_name": "gpt-oss:120b",
+      "modified_at": "2025-08-05T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "116829156672",
+      "quantization": "MXFP4",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "size_bytes": 65290180781,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "120b",
+      "tool_calling": true
+    },
+    "gpt-oss:20b-cloud": {
+      "context_length": 131072,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "05afbac4bad6",
+      "endpoint": "https://api.ollama.com",
+      "family": "gptoss",
+      "local_or_cloud": "cloud",
+      "model_name": "gpt-oss:20b",
+      "modified_at": "2025-08-05T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "20914757184",
+      "quantization": "MXFP4",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "size_bytes": 13780162412,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "20b",
+      "tool_calling": true
+    },
+    "kimi-k2.5-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "89c148d8ace8",
+      "endpoint": "https://api.ollama.com",
+      "family": "kimi-k2",
+      "local_or_cloud": "cloud",
+      "model_name": "kimi-k2.5",
+      "modified_at": "2026-01-26T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "1042000000000",
+      "quantization": "INT4",
+      "raw_capabilities": [
+        "vision",
+        "thinking",
+        "completion",
+        "tools"
+      ],
+      "size_bytes": 1118481408000,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "kimi-k2.6-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "4764ecb21f85",
+      "endpoint": "https://api.ollama.com",
+      "family": "kimi-k2",
+      "local_or_cloud": "cloud",
+      "model_name": "kimi-k2.6",
+      "modified_at": "2026-03-31T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "1042000000000",
+      "quantization": "INT4",
+      "raw_capabilities": [
+        "vision",
+        "thinking",
+        "completion",
+        "tools"
+      ],
+      "size_bytes": 595148192736,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "kimi-k2.7-code-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "1a7e88d8c572",
+      "endpoint": "https://api.ollama.com",
+      "family": "kimi-k2",
+      "local_or_cloud": "cloud",
+      "model_name": "kimi-k2.7-code",
+      "modified_at": "2026-06-12T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "1042000000000",
+      "quantization": "INT4",
+      "raw_capabilities": [
+        "vision",
+        "thinking",
+        "completion",
+        "tools"
+      ],
+      "size_bytes": 595148192736,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "llama3:8b": {
+      "context_length": 8192,
+      "detection_notes": [
+        "Ollama 0.9.0 accetta un JSON Schema in `format`"
+      ],
+      "digest": "365c0bd3c000a25d28ddbf732fe1c6add414de7275464c4e4d1c3b5fcb5d8ad1",
+      "endpoint": "http://localhost:11434",
+      "family": "llama",
+      "local_or_cloud": "local",
+      "model_name": "llama3:8b",
+      "modified_at": "2025-07-05T18:14:22.29825081+02:00",
+      "ollama_version": "0.9.0",
+      "parameter_size": "8.0B",
+      "quantization": "Q4_0",
+      "raw_capabilities": [
+        "completion"
+      ],
+      "size_bytes": 4661224676,
+      "structured_output_mode": "json_schema",
+      "supports_structured_output": true,
+      "tag": "8b",
+      "tool_calling": false
+    },
+    "llama3:8b-instruct-q5_K_M": {
+      "context_length": 8192,
+      "detection_notes": [
+        "Ollama 0.9.0 accetta un JSON Schema in `format`"
+      ],
+      "digest": "af3083b17cd4d7eef5fb6b91553270a1206a9062c1c5355afd0cff0ac09bac69",
+      "endpoint": "http://localhost:11434",
+      "family": "llama",
+      "local_or_cloud": "local",
+      "model_name": "llama3:8b-instruct-q5_K_M",
+      "modified_at": "2025-07-07T14:36:20.250347806+02:00",
+      "ollama_version": "0.9.0",
+      "parameter_size": "8.0B",
+      "quantization": "Q5_K_M",
+      "raw_capabilities": [
+        "completion"
+      ],
+      "size_bytes": 5733000422,
+      "structured_output_mode": "json_schema",
+      "supports_structured_output": true,
+      "tag": "8b-instruct-q5_K_M",
+      "tool_calling": false
+    },
+    "minimax-m2.5-cloud": {
+      "context_length": 196608,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "1361fbbdd94e",
+      "endpoint": "https://api.ollama.com",
+      "family": "minimax-m2",
+      "local_or_cloud": "cloud",
+      "model_name": "minimax-m2.5",
+      "modified_at": "2026-02-12T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "230000000000",
+      "quantization": "FP8",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "size_bytes": 230000000000,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "minimax-m2.7-cloud": {
+      "context_length": 196608,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "d1008bea3761",
+      "endpoint": "https://api.ollama.com",
+      "family": "minimax-m2",
+      "local_or_cloud": "cloud",
+      "model_name": "minimax-m2.7",
+      "modified_at": "2026-03-18T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "229000000000",
+      "quantization": "",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "size_bytes": 480836588544,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "minimax-m3-cloud": {
+      "context_length": 524288,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "9ce5291d9c0e",
+      "endpoint": "https://api.ollama.com",
+      "family": "minimax-m3",
+      "local_or_cloud": "cloud",
+      "model_name": "minimax-m3",
+      "modified_at": "2026-06-01T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "0",
+      "quantization": "",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "thinking",
+        "vision"
+      ],
+      "size_bytes": 0,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "mistral-large-3:675b-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "f7e3b2a16d5c",
+      "endpoint": "https://api.ollama.com",
+      "family": "mistral3",
+      "local_or_cloud": "cloud",
+      "model_name": "mistral-large-3:675b",
+      "modified_at": "2025-12-02T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "675000000000",
+      "quantization": "FP8",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "vision"
+      ],
+      "size_bytes": 682000000000,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "675b",
+      "tool_calling": true
+    },
+    "mistral:latest": {
+      "context_length": 32768,
+      "detection_notes": [
+        "Ollama 0.9.0 accetta un JSON Schema in `format`"
+      ],
+      "digest": "f974a74358d62a017b37c6f424fcdf2744ca02926c4f952513ddf474b2fa5091",
+      "endpoint": "http://localhost:11434",
+      "family": "llama",
+      "local_or_cloud": "local",
+      "model_name": "mistral:latest",
+      "modified_at": "2025-06-13T16:03:27.268548479+02:00",
+      "ollama_version": "0.9.0",
+      "parameter_size": "7.2B",
+      "quantization": "Q4_0",
+      "raw_capabilities": [
+        "completion",
+        "tools"
+      ],
+      "size_bytes": 4113301824,
+      "structured_output_mode": "json_schema",
+      "supports_structured_output": true,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "nemotron-3-nano:30b-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "a4b4f1851393",
+      "endpoint": "https://api.ollama.com",
+      "family": "nemotron-3-nano",
+      "local_or_cloud": "cloud",
+      "model_name": "nemotron-3-nano:30b",
+      "modified_at": "2025-12-15T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "32000000000",
+      "quantization": "FP8",
+      "raw_capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "size_bytes": 32645090390,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "30b",
+      "tool_calling": true
+    },
+    "nemotron-3-super-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "da11955bb451",
+      "endpoint": "https://api.ollama.com",
+      "family": "nemotron_h_moe",
+      "local_or_cloud": "cloud",
+      "model_name": "nemotron-3-super",
+      "modified_at": "2026-03-11T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "120000000000",
+      "quantization": "NVFP4",
+      "raw_capabilities": [
+        "completion",
+        "thinking",
+        "tools"
+      ],
+      "size_bytes": 230500000000,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "nemotron-3-ultra-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "4eecabff7a75",
+      "endpoint": "https://api.ollama.com",
+      "family": "",
+      "local_or_cloud": "cloud",
+      "model_name": "nemotron-3-ultra",
+      "modified_at": "2026-06-04T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "550000000000",
+      "quantization": "",
+      "raw_capabilities": [
+        "completion",
+        "thinking",
+        "tools"
+      ],
+      "size_bytes": 0,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "latest",
+      "tool_calling": true
+    },
+    "qwen2.5:7b": {
+      "context_length": 32768,
+      "detection_notes": [
+        "Ollama 0.9.0 accetta un JSON Schema in `format`"
+      ],
+      "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "endpoint": "http://localhost:11434",
+      "family": "qwen2",
+      "local_or_cloud": "local",
+      "model_name": "qwen2.5:7b",
+      "modified_at": "2026-03-11T18:53:38.153401037+01:00",
+      "ollama_version": "0.9.0",
+      "parameter_size": "7.6B",
+      "quantization": "Q4_K_M",
+      "raw_capabilities": [
+        "completion",
+        "tools"
+      ],
+      "size_bytes": 4683087332,
+      "structured_output_mode": "json_schema",
+      "supports_structured_output": true,
+      "tag": "7b",
+      "tool_calling": true
+    },
+    "qwen3.5:397b-cloud": {
+      "context_length": 262144,
+      "detection_notes": [
+        "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+      ],
+      "digest": "b909ca2f1b7f",
+      "endpoint": "https://api.ollama.com",
+      "family": "qwen3.5",
+      "local_or_cloud": "cloud",
+      "model_name": "qwen3.5:397b",
+      "modified_at": "2026-02-16T00:00:00Z",
+      "ollama_version": "0.0.0",
+      "parameter_size": "397000000000",
+      "quantization": "BF16",
+      "raw_capabilities": [
+        "completion",
+        "thinking",
+        "tools",
+        "vision"
+      ],
+      "size_bytes": 397000000000,
+      "structured_output_mode": "prompt_validated",
+      "supports_structured_output": false,
+      "tag": "397b",
+      "tool_calling": true
+    }
+  },
+  "candidates": [
+    {
+      "available": true,
+      "capabilities": {
+        "context_length": 262144,
+        "detection_notes": [
+          "endpoint cloud: schema non imposto dal server, JSON richiesto nel prompt e validato localmente"
+        ],
+        "digest": "221b330d11a8",
+        "endpoint": "https://api.ollama.com",
+        "family": "gemma4",
+        "local_or_cloud": "cloud",
+        "model_name": "gemma4:31b",
+        "modified_at": "2026-04-02T09:00:00-08:00",
+        "ollama_version": "0.0.0",
+        "parameter_size": "32682372656",
+        "quantization": "BF16",
+        "raw_capabilities": [
+          "completion",
+          "thinking",
+          "tools",
+          "vision"
+        ],
+        "size_bytes": 62546177752,
+        "structured_output_mode": "prompt_validated",
+        "supports_structured_output": false,
+        "tag": "31b",
+        "tool_calling": true
+      },
+      "requested_name": "gemma4:31b-cloud",
+      "role_in_protocol": "current",
+      "unavailable_reason": null
+    },
+    {
+      "available": false,
+      "capabilities": null,
+      "requested_name": "qwen3:14b",
+      "role_in_protocol": "required",
+      "unavailable_reason": "non presente su alcun endpoint"
+    },
+    {
+      "available": false,
+      "capabilities": null,
+      "requested_name": "gemma4:12b",
+      "role_in_protocol": "required",
+      "unavailable_reason": "non presente su alcun endpoint"
+    },
+    {
+      "available": false,
+      "capabilities": null,
+      "requested_name": "gemma4:31b",
+      "role_in_protocol": "optional",
+      "unavailable_reason": "non presente su alcun endpoint"
+    }
+  ],
+  "configured_project_model": "gemma4:31b-cloud",
+  "endpoints": [
+    {
+      "api_key_configured": false,
+      "endpoint": "http://localhost:11434",
+      "kind": "local",
+      "label": "local",
+      "model_count": 4,
+      "ollama_version": "0.9.0",
+      "reachable": true
+    },
+    {
+      "api_key_configured": true,
+      "endpoint": "https://api.ollama.com",
+      "kind": "cloud",
+      "label": "configured",
+      "model_count": 18,
+      "ollama_version": "0.0.0",
+      "reachable": true
+    }
+  ],
+  "generated_at_utc": "2026-07-21T20:06:20.626605+00:00",
+  "pull_log": [],
+  "pull_policy": {
+    "allow_pull": false,
+    "max_auto_pull_bytes": 21474836480,
+    "note": "nessun download automatico oltre 20 GB, nemmeno con --allow-pull"
+  }
+}
