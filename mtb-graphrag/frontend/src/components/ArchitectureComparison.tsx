@@ -45,38 +45,34 @@ const palette = {
   agentic: { main: '#7551A6', soft: '#F3EEFA', icon: <PsychologyIcon /> },
 };
 
+// Le due architetture differiscono soltanto nella strategia di raccolta.
+// Tutto ciò che segue — ledger, replay, vista canonica, proiezione, rendering,
+// verifica strutturale, verifica documentale, applicabilità, dossier — è lo
+// stesso strato di controllo condiviso.
 const architectureBlueprints = {
   deterministic: {
-    title: 'Traversal deterministico',
-    subtitle: 'Percorso noto prima dell’esecuzione',
-    llm: 'L’LLM interviene dopo il retrieval come lettore/sintetizzatore vincolato.',
-    steps: [
-      ['Caso MTB', 'Gene, variante, tumore e linea terapeutica.'],
-      ['Normalizzazione', 'Entità e intento vengono ricondotti a forme canoniche.'],
-      ['Template tipizzato', 'L’intento seleziona una traversata predefinita.'],
-      ['Knowledge Graph', 'La query recupera entità, relazioni e provenienza.'],
-      ['Contesto strutturato', 'I record diventano l’unico contesto ammesso.'],
-      ['Sintesi vincolata', 'L’LLM verbalizza il contesto; non sceglie gli strumenti.'],
-      ['Revisione oncologica', 'Il clinico verifica pertinenza e fonte.'],
-    ],
+    title: 'GraphRAG deterministico verificabile',
+    subtitle: 'Piano fisso e traversal tipizzato, seguiti dallo strato comune di provenienza, verifica e applicabilità.',
+    collection: 'Il percorso e l’ordine degli strumenti sono stabiliti prima dell’esecuzione.',
   },
   agentic: {
-    title: 'Architettura agentica verificabile',
-    subtitle: 'Raccolta adattiva, responsabilità separate',
-    llm: 'L’LLM può pianificare la raccolta; ledger, rendering e verifica restano controllati.',
-    steps: [
-      ['Controller di autonomia', 'Decide se il caso richiede una raccolta multi-step.'],
-      ['Piano e strumenti', 'L’agente interroga iterativamente strumenti tipizzati del KG.'],
-      ['Event log append-only', 'Ogni osservazione viene registrata senza riscrivere il passato.'],
-      ['Vista canonica', 'Deduplica i record e conserva provenienza e conflitti.'],
-      ['Proiezione pertinente', 'Ammette soltanto le evidenze necessarie al caso.'],
-      ['Rendering deterministico', 'Costruisce un report candidato dai record ammessi.'],
-      ['Verifica delle claim', 'Blocca, ripara o invia all’oncologo le claim non supportate.'],
-      ['Narrazione opzionale', 'Un’eventuale riscrittura LLM viene verificata di nuovo.'],
-      ['Revisione oncologica', 'Il clinico riceve un artefatto tracciabile e revisionabile.'],
-    ],
+    title: 'Agentic GraphRAG verificabile',
+    subtitle: 'Planner adattivo e strumenti tipizzati, seguiti dal medesimo strato comune di provenienza, verifica e applicabilità.',
+    collection: 'Il planner decide iterativamente quale strumento usare, vincolato da allow-list, dipendenze, budget e policy di completezza.',
   },
 };
+
+// Reso su entrambi i pannelli: è la parte di pipeline che le due architetture
+// eseguono con lo stesso codice, non con codice duplicato.
+const SHARED_LAYER = [
+  'Ledger append-only',
+  'Vista canonica (replay)',
+  'Proiezione pertinente',
+  'Verificatore strutturale',
+  'Source verifier',
+  'Applicability validator',
+  'Dossier MTB',
+];
 
 function statusColor(status: ClaimCheck['status']) {
   if (status === 'supported') return 'success';
@@ -231,41 +227,9 @@ function ClinicalDossierPanel({ dossier }: { dossier: ClinicalDossier }) {
   );
 }
 
-function BlueprintCard({ architecture }: { architecture: 'deterministic' | 'agentic' }) {
-  const colors = palette[architecture];
-  const blueprint = architectureBlueprints[architecture];
-  return (
-    <Card variant="outlined" sx={{ height: '100%', borderTop: `5px solid ${colors.main}` }}>
-      <CardContent sx={{ p: { xs: 2, md: 3 } }}>
-        <Box sx={{ display: 'flex', gap: 1.25, alignItems: 'flex-start', mb: 2 }}>
-          <Box sx={{ color: colors.main, display: 'flex', mt: 0.25 }}>{colors.icon}</Box>
-          <Box>
-            <Typography variant="h5" sx={{ color: colors.main, fontWeight: 800 }}>{blueprint.title}</Typography>
-            <Typography variant="body2" color="text.secondary">{blueprint.subtitle}</Typography>
-          </Box>
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
-          {blueprint.steps.map(([title, detail], index) => (
-            <Box key={title} sx={{ display: 'grid', gridTemplateColumns: '28px 1fr', gap: 1 }}>
-              <Box sx={{ width: 24, height: 24, borderRadius: '50%', bgcolor: colors.main, color: '#fff', display: 'grid', placeItems: 'center', fontSize: 11, fontWeight: 800 }}>{index + 1}</Box>
-              <Box sx={{ pb: 0.8, borderBottom: '1px solid #E2E8F0' }}>
-                <Typography variant="body2" sx={{ fontWeight: 800 }}>{title}</Typography>
-                <Typography variant="caption" color="text.secondary">{detail}</Typography>
-              </Box>
-            </Box>
-          ))}
-        </Box>
-        <Alert severity="info" sx={{ mt: 2 }}>
-          <Typography variant="caption"><strong>Ruolo dell’LLM:</strong> {blueprint.llm}</Typography>
-        </Alert>
-      </CardContent>
-    </Card>
-  );
-}
-
 export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
   const colors = palette[run.architecture_id];
-  const isTraversal = run.architecture_id === 'deterministic';
+  const blueprint = architectureBlueprints[run.architecture_id];
   const metrics = run.metrics;
   return (
     <Card variant="outlined" sx={{ height: '100%', borderTop: `5px solid ${colors.main}` }}>
@@ -277,6 +241,23 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
             <Typography variant="body2" color="text.secondary">{run.subtitle}</Typography>
           </Box>
         </Box>
+
+        <Alert severity="info" sx={{ mt: 1.5 }}>
+          <strong>Raccolta:</strong> {blueprint.collection}
+        </Alert>
+
+        <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800, display: 'block', mt: 2 }}>
+          Strato di controllo condiviso
+        </Typography>
+        <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mb: 1 }}>
+          {SHARED_LAYER.map(item => (
+            <Chip key={item} label={item} size="small" variant="outlined"
+              sx={{ borderColor: colors.main, color: colors.main }} />
+          ))}
+        </Box>
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+          Identico nelle due architetture: stesso codice, non codice duplicato.
+        </Typography>
 
         {(run.run_id || run.planning_mode || (run.ledger_valid !== null && run.ledger_valid !== undefined)) && (
           <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 1.5 }}>
@@ -308,7 +289,12 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(3, minmax(0, 1fr))', md: 'repeat(4, minmax(0, 1fr))', lg: 'repeat(7, minmax(0, 1fr))' }, gap: 1, my: 2.5 }}>
           {[
             ['Tempo', formatMs(metrics.elapsed_ms)],
-            ['Nodi/strumenti', metrics.tool_calls],
+            // Metriche disaggregate: planner_calls è 0 per il piano fisso ed è
+            // ciò che distingue davvero le due orchestrazioni. Il vecchio
+            // tool_calls sommava grandezze eterogenee e non viene più letto.
+            ['Chiamate a strumenti', metrics.retrieval_tool_calls ?? 0],
+            ['Chiamate al planner', metrics.planner_calls ?? 0],
+            ['Nodi di controllo', metrics.pipeline_nodes_executed ?? 0],
             ['Evidenze', metrics.evidence_count],
             ['Supportate come formulate', metrics.source_supported_as_written_count ?? 0],
             ['Supportate dopo contestualizzazione', metrics.source_supported_after_contextualization_count ?? 0],
@@ -377,37 +363,48 @@ export function ArchitecturePanel({ run }: { run: ArchitectureRun }) {
           ))}
         </Box>
 
-        {isTraversal ? (
-          <Accordion defaultExpanded={false} disableGutters sx={{ mb: 2.5 }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>
-                Output LLM non verificato — solo analisi sperimentale
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Alert severity="error" sx={{ mb: 1.5 }}>
-                Questo testo può contenere formulazioni non supportate come "terapia raccomandata" o
-                "trial eleggibile". Non usare come report clinico.
-              </Alert>
-              <Box sx={{ p: 2, bgcolor: '#F8FAFC', borderLeft: `4px solid ${colors.main}`, borderRadius: 1 }}>
-                <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{run.report}</Typography>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-        ) : (
-          <>
-            <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>
-              Report verificato (testo) — filtrato sull'asse del supporto documentale
-            </Typography>
-            <Alert severity="info" sx={{ my: 1 }}>
-              Questo testo riflette solo il supporto documentale delle fonti; l'applicabilità al caso è
-              mostrata per ciascun elemento nel dossier sopra, che resta l'artefatto primario.
-            </Alert>
-            <Box sx={{ p: 2, bgcolor: '#F8FAFC', borderLeft: `4px solid ${colors.main}`, borderRadius: 1, mb: 2.5 }}>
-              <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{run.report}</Typography>
-            </Box>
-          </>
-        )}
+        <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800, display: 'block' }}>
+          Verifica strutturale
+        </Typography>
+        <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mb: 1 }}>
+          <Chip size="small" label={`Copertura ${Math.round((metrics.structural_coverage ?? 1) * 100)}%`}
+            color={(metrics.structural_coverage ?? 1) >= 1 ? 'success' : 'warning'} variant="outlined" />
+          <Chip size="small" label={`Violazioni: ${metrics.structural_violations ?? 0}`}
+            color={(metrics.structural_violations ?? 0) === 0 ? 'success' : 'error'} variant="outlined" />
+          <Chip size="small" label={`Citazioni spurie: ${metrics.spurious_citations ?? 0}`}
+            color={(metrics.spurious_citations ?? 0) === 0 ? 'success' : 'error'} variant="outlined" />
+          <Chip size="small" label={`Diagnostici: ${metrics.structural_warnings ?? 0}`} variant="outlined" />
+          <Chip size="small" label={`Riparazioni: ${metrics.repair_attempts ?? 0}`} variant="outlined" />
+          {metrics.escalated && (
+            <Chip size="small" color="warning" label="Escalation alla revisione umana" />
+          )}
+        </Box>
+        <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mb: 2 }}>
+          <Chip size="small" variant="outlined"
+            label={`Vista canonica: ${metrics.canonical_records_in ?? 0} → ${metrics.canonical_records_out ?? 0}`} />
+          <Chip size="small" variant="outlined"
+            label={`Proiezione: ${metrics.projection_admitted ?? 0} ammessi / ${metrics.projection_excluded ?? 0} esclusi`} />
+          {metrics.canonical_conflicts ? (
+            <Chip size="small" color="warning" variant="outlined"
+              label={`Conflitti annotati: ${metrics.canonical_conflicts}`} />
+          ) : null}
+          {metrics.model_revision && (
+            <Chip size="small" variant="outlined" label={`Modello: ${metrics.model_revision}`} />
+          )}
+        </Box>
+
+        {/* Entrambe le architetture producono un report verificato: il ramo
+            deterministico non è più un output LLM non controllato. */}
+        <Typography variant="overline" sx={{ color: colors.main, fontWeight: 800 }}>
+          Report verificato (testo) — filtrato sull'asse del supporto documentale
+        </Typography>
+        <Alert severity="info" sx={{ my: 1 }}>
+          Questo testo riflette solo il supporto documentale delle fonti; l'applicabilità al caso è
+          mostrata per ciascun elemento nel dossier sopra, che resta l'artefatto primario.
+        </Alert>
+        <Box sx={{ p: 2, bgcolor: '#F8FAFC', borderLeft: `4px solid ${colors.main}`, borderRadius: 1, mb: 2.5 }}>
+          <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{run.report}</Typography>
+        </Box>
 
         <Accordion defaultExpanded={false} disableGutters sx={{ mb: 2.5 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -602,21 +599,15 @@ export default function ArchitectureComparison() {
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h1">Confronto delle due architetture</Typography>
+        <Typography variant="h1">Confronto delle due architetture GraphRAG verificabili</Typography>
         <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 900 }}>
-          Lo stesso caso viene osservato attraverso le due architetture proposte nella tesi. Il confronto non cerca necessariamente fonti diverse: rende visibili responsabilità, percorso di raccolta, ruolo dell’LLM e controlli sul report destinato all’oncologo.
+          Lo stesso caso viene osservato attraverso le due architetture proposte nella tesi. Entrambe sono verificabili e condividono per intero lo strato di controllo: differiscono soltanto nella strategia di orchestrazione della raccolta.
         </Typography>
       </Box>
 
       <Alert severity="info" sx={{ mb: 3 }}>
-        <strong>Come leggere il confronto.</strong> Se le fonti coincidono non significa che le architetture siano uguali: entrambe interrogano lo stesso Knowledge Graph. La differenza è nel percorso e, soprattutto, nella separazione tra raccolta dell’evidenza, rendering e verifica delle claim.
+        <strong>Come leggere il confronto.</strong> Le due architetture usano lo stesso ledger, la stessa vista canonica ricostruita per replay, lo stesso verificatore strutturale, lo stesso source verifier e lo stesso applicability validator. Il confronto misura quindi <em>orchestrazione deterministica contro orchestrazione agentica</em> a strato di controllo invariato: se le fonti coincidono, è un risultato atteso, non un difetto.
       </Alert>
-
-      <Typography variant="h4" sx={{ mb: 1.5, fontWeight: 800 }}>Struttura proposta</Typography>
-      <Grid container spacing={3} sx={{ alignItems: 'stretch', mb: 3 }}>
-        <Grid size={{ xs: 12, lg: 6 }}><BlueprintCard architecture="deterministic" /></Grid>
-        <Grid size={{ xs: 12, lg: 6 }}><BlueprintCard architecture="agentic" /></Grid>
-      </Grid>
 
       <Card variant="outlined" sx={{ mb: 3 }}>
         <CardContent>

@@ -68,6 +68,37 @@ def _source_id(record: Mapping[str, Any]) -> str | None:
     return str(source) if source else None
 
 
+def _therapies_text(record: Mapping[str, Any]) -> str:
+    """Terapie del record di evidenza, nella forma resa nel report.
+
+    Neo4j restituisce ``therapies`` come lista; quando è assente si ricade sul
+    profilo molecolare, come faceva la costruzione originale delle evidenze.
+    """
+    therapies = record.get("therapies")
+    if isinstance(therapies, str):
+        therapies = [therapies]
+    values = sorted(str(item) for item in (therapies or []) if item)
+    if values:
+        return ", ".join(values)
+    return str(record.get("molecular_profile") or "clinical evidence")
+
+
+def evidence_subject(record: Mapping[str, Any]) -> str:
+    return str(record.get("subject") or record.get("molecular_profile") or "")
+
+
+def evidence_object(record: Mapping[str, Any]) -> str:
+    return str(record.get("object") or _therapies_text(record))
+
+
+def evidence_relation(record: Mapping[str, Any]) -> str:
+    return str(record.get("relation") or record.get("significance") or "evidence")
+
+
+def evidence_context(record: Mapping[str, Any]) -> str:
+    return str(record.get("context") or record.get("disease") or record.get("tumor_type") or "")
+
+
 def identity_key(record_kind: str, record: Mapping[str, Any]) -> tuple[str, ...]:
     """Chiave d'identità normalizzata, specifica per tipo di record.
 
@@ -85,10 +116,10 @@ def identity_key(record_kind: str, record: Mapping[str, Any]) -> tuple[str, ...]
         return ("oncokb", normalize(record.get("gene")), normalize(record.get("variant")))
     return (
         "evidence",
-        normalize(record.get("subject") or record.get("drug_name")),
-        normalize(record.get("relation") or record.get("significance")),
-        normalize(record.get("object") or record.get("variant")),
-        normalize(record.get("context") or record.get("tumor_type")),
+        normalize(evidence_subject(record)),
+        normalize(evidence_relation(record)),
+        normalize(evidence_object(record)),
+        normalize(evidence_context(record)),
         normalize(_source_id(record)),
     )
 
@@ -123,10 +154,10 @@ def original_claim(record_kind: str, record: Mapping[str, Any]) -> OriginalClaim
             evidence_level=record.get("evidence_level"),
         )
     return OriginalClaim(
-        subject=str(record.get("subject") or record.get("drug_name") or ""),
-        relation=str(record.get("relation") or record.get("significance") or ""),
-        object=str(record.get("object") or record.get("variant") or ""),
-        context=str(record.get("context") or record.get("tumor_type") or ""),
+        subject=evidence_subject(record),
+        relation=evidence_relation(record),
+        object=evidence_object(record),
+        context=evidence_context(record),
         source_id=_source_id(record),
         evidence_statement=record.get("evidence_statement"),
         citation_text=record.get("citation_text"),

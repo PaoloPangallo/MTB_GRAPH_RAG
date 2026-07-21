@@ -31,6 +31,10 @@ from backend.pipeline.control.contracts import (
 
 SUPPORTED_STATUSES = frozenset({"supported_as_written", "supported_after_contextualization"})
 
+#: Tipi di record che possono diventare claim citabili nel report. Deve restare
+#: allineato a ``projection.CLAIM_KINDS``.
+_CLAIM_KINDS = frozenset({"evidence", "resistance", "trial"})
+
 
 class TextStructuralVerifier:
     """Verifica che un testo corrisponda all'insieme di record atteso."""
@@ -142,7 +146,14 @@ class TextStructuralVerifier:
             ))
 
         # --- Record esclusi dalla proiezione, resi comunque ---
+        #
+        # Solo i record che *sarebbero potuti* diventare claim: il materiale di
+        # supporto (es. un record farmaco) non è mai un candidato al rendering,
+        # e il suo nome compare legittimamente dentro la claim di un'evidenza
+        # ammessa — trattarlo come "reso" sarebbe un falso positivo bloccante.
         for record in excluded:
+            if record.record_kind not in _CLAIM_KINDS:
+                continue
             if grammar.claim_is_present(report, record.claim):
                 violations.append(Violation(
                     code="EXCLUDED_RECORD_RENDERED",
