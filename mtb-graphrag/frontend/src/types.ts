@@ -180,6 +180,8 @@ export interface ArchitectureRun {
   claim_checks: ClaimCheck[];
   metrics: {
     elapsed_ms: number;
+    /** @deprecated Alias di retrieval_tool_calls: sommava chiamate a strumenti,
+     * nodi di pipeline e sintesi LLM in un solo numero. Non usare nel nuovo UI. */
     tool_calls: number;
     evidence_count: number;
     verified_claims: number;
@@ -187,6 +189,36 @@ export interface ArchitectureRun {
     review_claims?: number;
     ledger_events?: number;
     stage_timings_ms?: Record<string, number>;
+    // Conteggi disaggregati: stesso significato nelle due architetture, quindi
+    // confrontabili. planner_calls è 0 per il piano fisso ed è ciò che
+    // distingue davvero le due orchestrazioni.
+    retrieval_tool_calls?: number;
+    planner_calls?: number;
+    llm_synthesis_calls?: number;
+    source_verifier_calls?: number;
+    pipeline_nodes_executed?: number;
+    repair_attempts?: number;
+    ledger_valid?: boolean;
+    planning_mode?: string | null;
+    fallback_reason?: string | null;
+    mandatory_tools?: string[];
+    missing_mandatory_tools?: string[];
+    // Verifica strutturale. structural_warnings raccoglie i diagnostici che
+    // non influenzano lo stato (es. LEXICON_VIOLATION).
+    structural_coverage?: number;
+    structural_violations?: number;
+    structural_warnings?: number;
+    spurious_citations?: number;
+    escalated?: boolean;
+    // Vista canonica e proiezione: prima la deduplicazione era invisibile.
+    canonical_records_in?: number;
+    canonical_records_out?: number;
+    canonical_conflicts?: number;
+    projection_admitted?: number;
+    projection_excluded?: number;
+    replay_fidelity?: string | null;
+    model_revision?: string | null;
+    prompt_version?: string | null;
     // Conteggi distinti sui due assi — mai sommati fra loro né coi conteggi legacy sopra.
     source_supported_count?: number;
     source_uncertain_count?: number;

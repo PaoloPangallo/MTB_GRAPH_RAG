@@ -75,3 +75,59 @@ montata come volume. Il valore predefinito è `./data/agent_events.sqlite3`.
 
 Gli script della tesi sono in `experiments/reproducibility/` con una nota sugli
 artefatti richiesti.
+
+## Le due architetture verificabili
+
+Il sistema espone **due sole architetture GraphRAG complete**, che differiscono
+soltanto nella strategia di raccolta e condividono per intero lo strato di
+controllo (ledger, replay, vista canonica, proiezione, rendering, verifica
+strutturale, verifica documentale, applicabilità, riparazione, dossier):
+
+1. **GraphRAG deterministico verificabile** — piano fisso e traversal tipizzato.
+2. **Agentic GraphRAG verificabile** — planner adattivo in ciclo plan–act–observe.
+
+Dettagli in [`docs/THESIS_CODE_ALIGNMENT.md`](docs/THESIS_CODE_ALIGNMENT.md).
+
+Il ledger è **append-only e tamper-evident nel threat model considerato**, non
+immutabile in senso assoluto. Il dossier è un artefatto destinato alla revisione
+del Molecular Tumor Board: questo è un **prototipo di ricerca** e non produce
+raccomandazioni terapeutiche.
+
+## Verifica
+
+```bash
+# Test backend (unittest stdlib, nessun runner aggiuntivo configurato)
+cd mtb-graphrag && PYTHONPATH=. python -m unittest discover -s backend/tests -t .
+
+# Frontend
+cd frontend && npm run lint && npm run typecheck && npm test && npm run build
+```
+
+## Migrazione del ledger
+
+Lo schema v2 viene applicato automaticamente all'apertura del ledger. La
+migrazione è **additiva**: `ALTER TABLE ADD COLUMN` non attiva i trigger
+append-only e non riscrive le righe esistenti, che restano marcate `v1` e
+continuano a verificare con il preimage originale.
+
+```bash
+# Ispezione dell'integrità di un run
+PYTHONPATH=. python -c "from backend.pipeline.agentic.ledger import EventLedger; \
+  print(EventLedger('data/agent_events.sqlite3').chain_report('<run_id>'))"
+```
+
+Consigliata una copia di `data/agent_events.sqlite3` prima del primo avvio con
+lo schema v2, per prudenza sull'archivio di audit.
+
+## Case study riproducibile
+
+```bash
+PYTHONPATH=. SOURCE_VERIFIER_MAX_WORKERS=6 \
+  python experiments/thesis_alignment/run_case_study.py --live
+```
+
+Esegue EGFR L858R / Lung Adenocarcinoma / first-line / `general-review` su
+entrambe le architetture, in fase cold e warm, con **cache isolata per
+architettura** (altrimenti il cold della seconda sarebbe già caldo per effetto
+della prima). I risultati sono etichettati come **run live**, distinte da test
+con LLM scriptato, benchmark e case study descrittivo.

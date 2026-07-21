@@ -34,7 +34,29 @@ router = APIRouter()
 
 @router.post("/compare-architectures", response_model=ArchitectureComparisonResponse)
 def architecture_comparison(req: ArchitectureComparisonRequest) -> ArchitectureComparisonResponse:
-    """Confronta le due architetture sullo stesso caso e rende visibile la trace."""
+    """Esegue le due architetture GraphRAG verificabili sullo stesso caso.
+
+    Restituisce esattamente due run:
+
+    - ``deterministic`` — GraphRAG deterministico verificabile: piano fisso e
+      traversal tipizzato;
+    - ``agentic`` — Agentic GraphRAG verificabile: planner adattivo in ciclo
+      plan-act-observe.
+
+    Le due differiscono **soltanto** nella strategia di raccolta e attraversano
+    lo stesso strato di controllo (ledger append-only, vista canonica
+    ricostruita per replay, proiezione pertinente, verifica strutturale,
+    verifica claim-fonte, applicabilita', riparazione bounded, dossier). Il
+    confronto misura quindi orchestrazione deterministica contro orchestrazione
+    agentica a strato di controllo invariato.
+
+    ``execution_mode`` non identifica un'architettura: sceglie soltanto se
+    usare le dipendenze reali (``live``) o fixture e client scriptati
+    (``demo``). La forma della risposta e' identica nei due casi.
+
+    Prototipo di ricerca: il dossier e' un artefatto destinato alla revisione
+    del Molecular Tumor Board, non una raccomandazione terapeutica.
+    """
     return compare_architectures(req)
 
 

@@ -33,26 +33,75 @@ function buildRun(overrides: Partial<ArchitectureRun> = {}): ArchitectureRun {
   };
 }
 
-describe('ArchitecturePanel — pannello output grezzo del traversal', () => {
-  it('è collassato di default e marcato come non verificato', () => {
+describe('ArchitecturePanel — entrambe le architetture sono verificabili', () => {
+  it('mostra il report verificato per il ramo deterministico, senza etichette di non verificato', () => {
     render(<ArchitecturePanel run={buildRun()} />);
-    const trigger = screen.getByRole('button', { name: /Output LLM non verificato/i });
-    expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  });
 
-  it('mostra un avviso sulle formulazioni non supportate quando espanso', async () => {
-    render(<ArchitecturePanel run={buildRun()} />);
-    expect(
-      screen.getByText(/può contenere formulazioni non supportate/i),
-    ).toBeInTheDocument();
-  });
-
-  it('non applica lo stesso collasso al report agentico, che resta etichettato come solo-supporto', () => {
-    render(<ArchitecturePanel run={buildRun({ architecture_id: 'agentic', title: 'Architettura agentica verificabile' })} />);
-    expect(screen.queryByText('Output LLM non verificato — solo analisi sperimentale')).not.toBeInTheDocument();
     expect(screen.getByText(/Report verificato \(testo\)/)).toBeInTheDocument();
+    expect(screen.queryByText(/Output LLM non verificato/i)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/può contenere formulazioni non supportate/i),
+    ).not.toBeInTheDocument();
   });
-});
+
+  it('mostra il report verificato anche per il ramo agentico', () => {
+    render(<ArchitecturePanel run={buildRun({ architecture_id: 'agentic' })} />);
+
+    expect(screen.getByText(/Report verificato \(testo\)/)).toBeInTheDocument();
+    expect(screen.queryByText(/Output LLM non verificato/i)).not.toBeInTheDocument();
+  });
+
+  it('espone lo strato di controllo condiviso su entrambi i pannelli', () => {
+    const { unmount } = render(<ArchitecturePanel run={buildRun()} />);
+    expect(screen.getByText('Strato di controllo condiviso')).toBeInTheDocument();
+    expect(screen.getByText('Verificatore strutturale')).toBeInTheDocument();
+    expect(screen.getByText('Ledger append-only')).toBeInTheDocument();
+    unmount();
+
+    render(<ArchitecturePanel run={buildRun({ architecture_id: 'agentic' })} />);
+    expect(screen.getByText('Strato di controllo condiviso')).toBeInTheDocument();
+    expect(screen.getByText('Verificatore strutturale')).toBeInTheDocument();
+  });
+
+  it('non usa la terminologia D0/D1/A1', () => {
+    render(<ArchitecturePanel run={buildRun()} />);
+
+    expect(screen.queryByText(/\bD0\b/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/\bD1\b/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/\bA1\b/)).not.toBeInTheDocument();
+  });
+
+  it('distingue le chiamate al planner da quelle agli strumenti', () => {
+    render(<ArchitecturePanel run={buildRun({
+      metrics: {
+        ...buildRun().metrics,
+        retrieval_tool_calls: 4,
+        planner_calls: 0,
+        pipeline_nodes_executed: 10,
+      },
+    })} />);
+
+    expect(screen.getByText('Chiamate al planner')).toBeInTheDocument();
+    expect(screen.getByText('Chiamate a strumenti')).toBeInTheDocument();
+    expect(screen.getByText('Nodi di controllo')).toBeInTheDocument();
+  });
+
+  it('mostra copertura e violazioni della verifica strutturale', () => {
+    render(<ArchitecturePanel run={buildRun({
+      metrics: {
+        ...buildRun().metrics,
+        structural_coverage: 1,
+        structural_violations: 0,
+        spurious_citations: 0,
+      },
+    })} />);
+
+    expect(screen.getByText('Verifica strutturale')).toBeInTheDocument();
+    expect(screen.getByText('Copertura 100%')).toBeInTheDocument();
+    expect(screen.getByText('Violazioni: 0')).toBeInTheDocument();
+    expect(screen.getByText('Citazioni spurie: 0')).toBeInTheDocument();
+  });
+})
 
 describe('ArchitecturePanel — etichette del contesto (paziente vs fonte recuperata)', () => {
   it('etichetta item.setting come contesto della fonte recuperata, non come dichiarazione del paziente', () => {

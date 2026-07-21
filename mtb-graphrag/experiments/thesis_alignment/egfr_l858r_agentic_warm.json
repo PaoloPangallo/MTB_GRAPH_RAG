@@ -1,0 +1,91 @@
+{
+  "run_id": "c164dab9-a7d9-458f-ab09-3e85d489487c",
+  "commit_sha": "0b8d17a48f6afd2c62c69b5e420227cc40fb8c66",
+  "timestamp": "2026-07-21T14:19:46.253236+00:00",
+  "run_kind": "live",
+  "architecture": "agentic",
+  "architecture_title": "Agentic GraphRAG verificabile",
+  "phase": "warm",
+  "orchestration_mode": "agentic",
+  "planning_mode": "llm_dynamic",
+  "fallback_reason": null,
+  "tool_path": [
+    "interpret_variant",
+    "identify_targets",
+    "check_resistance",
+    "match_trials"
+  ],
+  "mandatory_tools": [
+    "interpret_variant",
+    "identify_targets",
+    "check_resistance",
+    "match_trials"
+  ],
+  "missing_mandatory_tools": [],
+  "ledger_valid": true,
+  "ledger_events": 26,
+  "canonical_records": {
+    "observed": 31,
+    "canonical": 30,
+    "conflicts": 0,
+    "replay_fidelity": "full"
+  },
+  "projection_records": {
+    "admitted": 21,
+    "excluded": 9
+  },
+  "structural_verification": {
+    "candidate_status": "pass",
+    "final_status": "pass",
+    "dossier_status": "pass",
+    "coverage": 1.0,
+    "violations": 0,
+    "warnings": 39,
+    "spurious_citations": 0,
+    "escalated": false
+  },
+  "support_counts": {
+    "supported_as_written": 0,
+    "supported_after_contextualization": 12,
+    "uncertain": 7,
+    "contradicted": 2
+  },
+  "applicability_counts": {
+    "compatible": 0,
+    "indeterminate": 17,
+    "not_compatible": 4
+  },
+  "repair_attempts": 0,
+  "cache_hits": 14,
+  "cache_misses": 0,
+  "stage_timings": {
+    "orchestration": 0,
+    "collection": 12922,
+    "replay": 14,
+    "canonicalization": 0,
+    "projection": 0,
+    "candidate_rendering": 0,
+    "structural_verification": 5,
+    "source_verification": 1696,
+    "applicability": 0,
+    "repair": 0,
+    "final_rendering": 0,
+    "dossier": 0
+  },
+  "elapsed_ms": 14798,
+  "model_revision": "ollama:gemma4:31b-cloud",
+  "prompt_version": "v3",
+  "counters": {
+    "retrieval_tool_calls": 4,
+    "planner_calls": 5,
+    "llm_synthesis_calls": 0,
+    "source_verifier_calls": 0,
+    "pipeline_nodes_executed": 10,
+    "verifier_batches": 0
+  },
+  "llm_roles": [
+    "Planner della raccolta",
+    "Source verifier semantico"
+  ],
+  "cache_protocol_anomalies": []
+}
