@@ -87,7 +87,7 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
   return (
     <Card variant="outlined">
       <CardHeader
-        title={<Typography variant="h6" fontWeight={700}>Input Clinico</Typography>}
+        title={<Typography variant="h6" sx={{ fontWeight: 700 }}>Input Clinico</Typography>}
         sx={{
           borderBottom: '1px solid #E2E8F0',
           background: 'linear-gradient(to right, #EFF6FF, #FFFFFF)',
