@@ -23,7 +23,18 @@ CONDITIONS = {
 # ── Neo4j ─────────────────────────────────────────────────────
 _env_path = Path(r"C:\Users\paolo\Desktop\IspezioneDatasetTesi\mtb-graphrag\.env")
 load_dotenv(_env_path)
-_NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "pangallo22")
+# La password Neo4j arriva esclusivamente dall'ambiente: nessun valore di ripiego,
+# perche' un default scritto nel codice finirebbe nella cronologia Git.
+import sys as _sys
+from pathlib import Path as _Path
+
+for _root in _Path(__file__).resolve().parents:
+    if (_root / "utility" / "credentials.py").is_file():
+        _sys.path.insert(0, str(_root))
+        break
+from utility.credentials import require_env
+
+_NEO4J_PASSWORD = require_env("NEO4J_PASSWORD")
 _drv = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", _NEO4J_PASSWORD))
 
 def check_pmids_in_kb(pmids: set[int]) -> set[int]:

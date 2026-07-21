@@ -26,10 +26,11 @@ _SECRET_ENV_VARS = (
     "NCBI_API_KEY",
 )
 
-# Password trovata hardcoded in alcuni script storici del repo (scratch/, analisi/).
-# E' elencata qui perche' un artefatto che la contenesse sarebbe comunque una fuga,
-# anche se non arriva dall'ambiente.
-_KNOWN_HARDCODED_SECRETS = ("pangallo22",)
+# Segreti aggiuntivi da rimuovere, oltre a quelli letti dalle variabili sopra.
+# Sono configurabili invece che scritti nel codice: elencare qui una credenziale
+# compromessa la manterrebbe versionata, che e' il problema che questo scrubber
+# esiste per evitare. Formato: valori separati da virgola.
+_EXTRA_SECRETS_VAR = "AUDIT_EXTRA_SECRETS"
 
 # userinfo dentro un URI: bolt://utente:password@host:porta
 _URI_USERINFO = re.compile(r"(?P<scheme>[a-zA-Z][\w+.-]*://)(?P<userinfo>[^/@]+)@")
@@ -43,7 +44,11 @@ def secret_values() -> tuple[str, ...]:
         for value in (os.environ.get(name, "").strip(),)
         if len(value) >= 4
     }
-    values.update(_KNOWN_HARDCODED_SECRETS)
+    values.update(
+        item.strip()
+        for item in os.environ.get(_EXTRA_SECRETS_VAR, "").split(",")
+        if len(item.strip()) >= 4
+    )
     return tuple(sorted(values, key=len, reverse=True))
 
 
