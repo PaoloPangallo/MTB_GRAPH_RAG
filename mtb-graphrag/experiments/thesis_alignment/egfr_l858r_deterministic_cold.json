@@ -1,0 +1,90 @@
+{
+  "run_id": "1ce053e0-a7b3-435d-8257-cad7663fa93b",
+  "commit_sha": "7ccb052df4247af57544a2b1e0d30561827d9fac",
+  "timestamp": "2026-07-21T13:37:59.244702+00:00",
+  "run_kind": "live",
+  "architecture": "deterministic",
+  "architecture_title": "GraphRAG deterministico verificabile",
+  "phase": "cold",
+  "orchestration_mode": "deterministic",
+  "planning_mode": "fixed_plan",
+  "fallback_reason": null,
+  "tool_path": [
+    "interpret_variant",
+    "identify_targets",
+    "match_trials",
+    "check_resistance"
+  ],
+  "mandatory_tools": [
+    "interpret_variant",
+    "identify_targets",
+    "check_resistance",
+    "match_trials"
+  ],
+  "missing_mandatory_tools": [],
+  "ledger_valid": true,
+  "ledger_events": 25,
+  "canonical_records": {
+    "observed": 31,
+    "canonical": 30,
+    "conflicts": 1,
+    "replay_fidelity": "full"
+  },
+  "projection_records": {
+    "admitted": 21,
+    "excluded": 9
+  },
+  "structural_verification": {
+    "candidate_status": "pass",
+    "final_status": "violations_repairable",
+    "dossier_status": "pass",
+    "coverage": 1.0,
+    "violations": 1,
+    "warnings": 29,
+    "spurious_citations": 0,
+    "escalated": true
+  },
+  "support_counts": {
+    "supported_as_written": 0,
+    "supported_after_contextualization": 10,
+    "uncertain": 7,
+    "contradicted": 4
+  },
+  "applicability_counts": {
+    "compatible": 0,
+    "indeterminate": 17,
+    "not_compatible": 4
+  },
+  "repair_attempts": 0,
+  "cache_hits": 0,
+  "cache_misses": 14,
+  "stage_timings": {
+    "orchestration": 0,
+    "collection": 7465,
+    "replay": 7,
+    "canonicalization": 0,
+    "projection": 1,
+    "candidate_rendering": 0,
+    "structural_verification": 8,
+    "source_verification": 80124,
+    "applicability": 0,
+    "repair": 0,
+    "final_rendering": 0,
+    "dossier": 0
+  },
+  "elapsed_ms": 104513,
+  "model_revision": "ollama:gemma4:31b-cloud",
+  "prompt_version": "v3",
+  "counters": {
+    "retrieval_tool_calls": 4,
+    "planner_calls": 0,
+    "llm_synthesis_calls": 0,
+    "source_verifier_calls": 4,
+    "pipeline_nodes_executed": 10,
+    "verifier_batches": 4
+  },
+  "llm_roles": [
+    "Source verifier semantico"
+  ],
+  "cache_protocol_anomalies": []
+}
