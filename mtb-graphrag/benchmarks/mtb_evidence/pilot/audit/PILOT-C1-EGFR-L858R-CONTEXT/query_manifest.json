@@ -1,0 +1,122 @@
+{
+  "audit_timestamp_utc": "2026-07-21T17:35:58.570517+00:00",
+  "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+  "queries": [
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene}) RETURN g AS gene",
+      "name": "gene_node",
+      "params": {
+        "gene": "EGFR"
+      },
+      "record_count": 1
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(v:Variant)-[:IN_MOLECULAR_PROFILE]->(mp:MolecularProfile) RETURN DISTINCT mp.name AS molecular_profile, mp.molecular_profile_id AS molecular_profile_id, v.variant_name AS variant ORDER BY molecular_profile, variant",
+      "name": "profiles_by_gene",
+      "params": {
+        "gene": "EGFR"
+      },
+      "record_count": 155
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (mp:MolecularProfile) WHERE toUpper(mp.name) CONTAINS $variant_upper RETURN DISTINCT mp.name AS molecular_profile, mp.molecular_profile_id AS molecular_profile_id ORDER BY molecular_profile",
+      "name": "profiles_containing_l858r",
+      "params": {
+        "variant_upper": "L858R"
+      },
+      "record_count": 3
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (mp:MolecularProfile) WHERE toUpper(mp.name) CONTAINS $variant_upper RETURN DISTINCT mp.name AS molecular_profile, mp.molecular_profile_id AS molecular_profile_id ORDER BY molecular_profile",
+      "name": "profiles_containing_t790m",
+      "params": {
+        "variant_upper": "T790M"
+      },
+      "record_count": 5
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (mp:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence) WHERE toUpper(mp.name) CONTAINS $variant_upper OPTIONAL MATCH (e)-[:TARGETS_DRUG]->(d:Drug) RETURN mp.name AS molecular_profile, mp.molecular_profile_id AS molecular_profile_id, e.evidence_id AS evidence_id, e.significance AS significance, e.evidence_direction AS evidence_direction, e.evidence_level AS evidence_level, e.evidence_type AS evidence_type, e.disease AS disease, e.citation_id AS citation_id, e.evidence_statement AS evidence_statement, e.source_type AS source_type, d.drug_name AS drug ORDER BY evidence_id, drug",
+      "name": "evidence_containing_l858r",
+      "params": {
+        "variant_upper": "L858R"
+      },
+      "record_count": 57
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (mp:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence)-[:TARGETS_DRUG]->(d:Drug) WHERE toLower(d.drug_name) IN $drug_names RETURN mp.name AS molecular_profile, e.evidence_id AS evidence_id, e.significance AS significance, e.evidence_direction AS evidence_direction, e.disease AS disease, e.citation_id AS citation_id, e.evidence_statement AS evidence_statement, d.drug_name AS drug ORDER BY evidence_id",
+      "name": "evidence_for_osimertinib",
+      "params": {
+        "drug_names": [
+          "osimertinib"
+        ]
+      },
+      "record_count": 28
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (e:Evidence) WHERE any(c IN e.citation_id WHERE c IN $pmid_strings) OPTIONAL MATCH (mp:MolecularProfile)-[:HAS_EVIDENCE]->(e) OPTIONAL MATCH (e)-[:TARGETS_DRUG]->(d:Drug) RETURN mp.name AS molecular_profile, e.evidence_id AS evidence_id, e.significance AS significance, e.evidence_direction AS evidence_direction, e.disease AS disease, e.citation_id AS citation_id, e.evidence_statement AS evidence_statement, d.drug_name AS drug ORDER BY evidence_id, drug",
+      "name": "evidence_citing_expected_pmids",
+      "params": {
+        "pmid_strings": [
+          "27959700",
+          "29151359",
+          "32955177"
+        ]
+      },
+      "record_count": 4
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (d:Drug) WHERE toLower(d.drug_name) IN $drug_names RETURN d.drug_name AS drug_name, d.concept_id AS concept_id, d.approved AS approved ORDER BY drug_name",
+      "name": "expected_drugs_present",
+      "params": {
+        "drug_names": [
+          "osimertinib"
+        ]
+      },
+      "record_count": 1
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (p:Publication) WHERE p.pmid IN $pmids RETURN p.pmid AS pmid, p.citation_text AS citation_text, p.year AS year, p.source_type AS source_type ORDER BY pmid",
+      "name": "expected_publications",
+      "params": {
+        "pmids": [
+          27959700,
+          29151359,
+          32955177
+        ]
+      },
+      "record_count": 2
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (t:ClinicalTrial) WHERE t.nct_id IN $nct_ids RETURN t.nct_id AS nct_id, t.title AS title, t.phase AS phase, t.status AS status, t.conditions AS conditions ORDER BY nct_id",
+      "name": "expected_trials",
+      "params": {
+        "nct_ids": [
+          "NCT02151981",
+          "NCT02296125",
+          "NCT02511106"
+        ]
+      },
+      "record_count": 1
+    },
+    {
+      "completeness_warnings": [],
+      "cypher": "MATCH (t:ClinicalTrial)-[:ASSOCIATED_GENE]->(g:Gene {hugo_symbol: $gene}) OPTIONAL MATCH (t)-[:TESTS_DRUG]->(d:Drug) RETURN t.nct_id AS nct_id, t.title AS title, t.phase AS phase, t.status AS status, collect(DISTINCT d.drug_name) AS drugs ORDER BY nct_id",
+      "name": "trials_by_gene",
+      "params": {
+        "gene": "EGFR"
+      },
+      "record_count": 728
+    }
+  ],
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+}

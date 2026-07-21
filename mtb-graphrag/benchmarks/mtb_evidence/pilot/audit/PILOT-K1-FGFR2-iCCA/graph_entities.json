@@ -1,0 +1,929 @@
+{
+  "buckets": {
+    "fusion_or_rearrangement_profiles": [
+      {
+        "direction": "supports",
+        "disease": "transitional cell carcinoma",
+        "drug": "erdafitinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "160559"
+        ],
+        "record_id": "evidence:7261",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "adjuvant_resected",
+          "matched_spans": [
+            "resectable",
+            "metastatic",
+            "unresectable"
+          ],
+          "note": "marcatori di setting adiuvante/resecato"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2 mutation or fgfr2::v fusion or fgfr2::? fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "ponatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24550739"
+        ],
+        "record_id": "evidence:295",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "other",
+          "matched_spans": [
+            "metastatic"
+          ],
+          "note": "marcatori presenti ma non sufficienti a una categoria"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::oga fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "pazopanib hydrochloride",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24550739"
+        ],
+        "record_id": "evidence:296",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::tacc3 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "ponatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24550739"
+        ],
+        "record_id": "evidence:296",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::tacc3 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "infigratinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24122810"
+        ],
+        "record_id": "evidence:1851",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::bicc1 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "pd173074",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24122810"
+        ],
+        "record_id": "evidence:1851",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::bicc1 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "infigratinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24122810"
+        ],
+        "record_id": "evidence:1853",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::ahcyl1 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "pd173074",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "24122810"
+        ],
+        "record_id": "evidence:1853",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::ahcyl1 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "infigratinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "27870574"
+        ],
+        "record_id": "evidence:1913",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "other",
+          "matched_spans": [
+            "advanced"
+          ],
+          "note": "marcatori presenti ma non sufficienti a una categoria"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::v fusion or fgfr2::? fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "transitional cell carcinoma",
+        "drug": "erdafitinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "26324363"
+        ],
+        "record_id": "evidence:1917",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::bicc1 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cancer",
+        "drug": "erdafitinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "26324363"
+        ],
+        "record_id": "evidence:1918",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::v fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "endometrial cancer",
+        "drug": "erdafitinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "26324363"
+        ],
+        "record_id": "evidence:1920",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::bicc1 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "adrenal carcinoma",
+        "drug": "erdafitinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "26324363"
+        ],
+        "record_id": "evidence:4861",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr3::tacc3 fusion and fgfr2::ccdc6 fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "infigratinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "29182496"
+        ],
+        "record_id": "evidence:5908",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::v fusion or fgfr2::? fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "intrahepatic cholangiocarcinoma",
+        "drug": "derazantinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "30420614"
+        ],
+        "record_id": "evidence:7329",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "adjuvant_resected",
+          "matched_spans": [
+            "resectable",
+            "progressed after",
+            "advanced",
+            "unresectable"
+          ],
+          "note": "marcatori di setting adiuvante/resecato"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::v fusion or fgfr2::? fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiolocellular carcinoma",
+        "drug": "pemigatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "32203698"
+        ],
+        "record_id": "evidence:8173",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::v fusion or fgfr2::? fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "infigratinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "34358484"
+        ],
+        "record_id": "evidence:11230",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "other",
+          "matched_spans": [
+            "advanced",
+            "metastatic",
+            "locally advanced"
+          ],
+          "note": "marcatori presenti ma non sufficienti a una categoria"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2::v fusion or fgfr2::? fusion"
+      },
+      {
+        "direction": "supports",
+        "disease": "myeloid neoplasm",
+        "drug": "pemigatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [],
+        "record_id": "evidence:11324",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "other",
+          "matched_spans": [
+            "treatment-naive"
+          ],
+          "note": "marcatori presenti ma non sufficienti a una categoria"
+        },
+        "source_kind": "evidence",
+        "subject": "zmym2::fgfr1 fusion or bcr::fgfr1 fusion or cep43::fgfr1 fusion or trim24::fgfr1 fusion or fgfr1 translocation"
+      }
+    ],
+    "non_fusion_profiles": [
+      {
+        "direction": "supports",
+        "disease": "endometrial cancer",
+        "drug": "ponatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "26574622"
+        ],
+        "record_id": "evidence:1236",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2 mutation"
+      },
+      {
+        "direction": "supports",
+        "disease": "endometrial cancer",
+        "drug": "pd173074",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "18757403"
+        ],
+        "record_id": "evidence:1322",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2 n550k"
+      },
+      {
+        "direction": "supports",
+        "disease": "breast cancer",
+        "drug": "dovitinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "23658459"
+        ],
+        "record_id": "evidence:1605",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2 amplification"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "infigratinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "27870574"
+        ],
+        "record_id": "evidence:1912",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "other",
+          "matched_spans": [
+            "advanced"
+          ],
+          "note": "marcatori presenti ma non sufficienti a una categoria"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2 mutation"
+      },
+      {
+        "direction": "supports",
+        "disease": "stomach carcinoma",
+        "drug": "fexagratinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "27179038"
+        ],
+        "record_id": "evidence:1990",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2 amplification"
+      },
+      {
+        "direction": "supports",
+        "disease": "cholangiocarcinoma",
+        "drug": "infigratinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "29182496"
+        ],
+        "record_id": "evidence:5912",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2 mutation"
+      },
+      {
+        "direction": "supports",
+        "disease": "head and neck squamous cell carcinoma",
+        "drug": "pazopanib hydrochloride",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "23786770"
+        ],
+        "record_id": "evidence:7833",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr2 p253r"
+      },
+      {
+        "direction": "supports",
+        "disease": "breast cancer",
+        "drug": "futibatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "32973082"
+        ],
+        "record_id": "evidence:12547",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr1 amplification"
+      },
+      {
+        "direction": "supports",
+        "disease": "pilocytic astrocytoma",
+        "drug": "pemigatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "35507888"
+        ],
+        "record_id": "evidence:10325",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "insufficient_context",
+          "matched_spans": [],
+          "note": "nessun marcatore di setting nel testo"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr1 n546k"
+      },
+      {
+        "direction": "does not support",
+        "disease": "breast cancer",
+        "drug": "pemigatinib",
+        "is_compound_mutation": false,
+        "nct_ids": [],
+        "pmids": [
+          "38710951"
+        ],
+        "record_id": "evidence:12542",
+        "relation": "sensitivity/response",
+        "setting": {
+          "classification_basis": "text_heuristic",
+          "label": "adjuvant_resected",
+          "matched_spans": [
+            "resectable",
+            "advanced",
+            "metastatic",
+            "unresectable"
+          ],
+          "note": "marcatori di setting adiuvante/resecato"
+        },
+        "source_kind": "evidence",
+        "subject": "fgfr1 amplification"
+      }
+    ]
+  },
+  "case_id": "PILOT-K1-FGFR2-iCCA",
+  "entities": {
+    "disease_specificity_mismatches": [
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:1912",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:5912",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:295",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:296",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:296",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:1851",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:1851",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:1853",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:1853",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:1913",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:5908",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiolocellular carcinoma",
+        "record_id": "evidence:8173",
+        "relation": "different_specificity"
+      },
+      {
+        "gold_disease": "intrahepatic cholangiocarcinoma",
+        "graph_disease": "cholangiocarcinoma",
+        "record_id": "evidence:11230",
+        "relation": "different_specificity"
+      }
+    ],
+    "diseases_observed": [
+      {
+        "disease": "Breast Cancer",
+        "evidence_count": 1
+      },
+      {
+        "disease": "Cholangiocarcinoma",
+        "evidence_count": 2
+      },
+      {
+        "disease": "Endometrial Cancer",
+        "evidence_count": 2
+      },
+      {
+        "disease": "Head And Neck Squamous Cell Carcinoma",
+        "evidence_count": 1
+      },
+      {
+        "disease": "Stomach Carcinoma",
+        "evidence_count": 1
+      },
+      {
+        "disease": "Transitional Cell Carcinoma",
+        "evidence_count": 1
+      }
+    ],
+    "expected_drugs_found": [
+      {
+        "approved": true,
+        "concept_id": "rxcui:2628190",
+        "drug_name": "FUTIBATINIB"
+      },
+      {
+        "approved": true,
+        "concept_id": "rxcui:2359268",
+        "drug_name": "PEMIGATINIB"
+      }
+    ],
+    "expected_drugs_missing": [],
+    "fusion_profiles": [
+      {
+        "molecular_profile": "FGFR2 Mutation OR FGFR2::v Fusion OR FGFR2::? Fusion",
+        "molecular_profile_id": 5201
+      },
+      {
+        "molecular_profile": "FGFR2::AHCYL1 Fusion",
+        "molecular_profile_id": 764
+      },
+      {
+        "molecular_profile": "FGFR2::BICC1 Fusion",
+        "molecular_profile_id": 763
+      },
+      {
+        "molecular_profile": "FGFR2::OGA Fusion",
+        "molecular_profile_id": 52
+      },
+      {
+        "molecular_profile": "FGFR2::TACC3 Fusion",
+        "molecular_profile_id": 54
+      },
+      {
+        "molecular_profile": "FGFR2::v Fusion",
+        "molecular_profile_id": 2078
+      },
+      {
+        "molecular_profile": "FGFR2::v Fusion OR FGFR2::? Fusion",
+        "molecular_profile_id": 4685
+      },
+      {
+        "molecular_profile": "FGFR3::TACC3 Fusion AND FGFR2::CCDC6 Fusion",
+        "molecular_profile_id": 5232
+      }
+    ],
+    "gene": [
+      {
+        "gene": {
+          "aliases": [
+            "BEK",
+            "CD332",
+            "CEK3",
+            "CFD1",
+            "ECT1",
+            "JWS",
+            "K-SAM",
+            "KGFR",
+            "TK14",
+            "TK25"
+          ],
+          "categories": [
+            "CLINICALLY ACTIONABLE",
+            "DRUGGABLE GENOME",
+            "TYROSINE KINASE",
+            "KINASE",
+            "CELL SURFACE"
+          ],
+          "civic_description": "The FGFR proteins are involved in a wide array of pathways known to play a signficant role in cancer. Activation of these receptors can lead to activation of the RAS-MAPK pathway and the PI3K-AKT pathway, among others. The mechanisms by which FGFR can be misregulated vary between cancers. Amplification of the receptors has been observed in lung and breast cancers, coding mutations and deletions have been seen in many cancers, and more recently, FGFR fusions that lead to pathway actiation have been demonstrated to have oncogenic potential across multiple cancer types. The targeted therapeutics ponatinib, dovitinib and pazopanib have seen success in treating over-active FGFR signalling, prompting use of diagnostic sequencing targeting the FGFR genes, especially in lung cancer patients.",
+          "entrez_id": 2263,
+          "gene_type": "ONCOGENE",
+          "grch38_isoform": "ENST00000358487",
+          "grch38_refseq": "NM_000141.4",
+          "hugo_symbol": "FGFR2",
+          "is_oncokb_annotated": true
+        }
+      }
+    ],
+    "gold_disease_parsed": {
+      "core": "intrahepatic cholangiocarcinoma",
+      "qualifiers": []
+    },
+    "pmid_discovery": {
+      "as_evidence_citation": [
+        "160559",
+        "18757403",
+        "23658459",
+        "23786770",
+        "24122810",
+        "24550739",
+        "26324363",
+        "26574622",
+        "27179038",
+        "27870574",
+        "29182496",
+        "30420614",
+        "32203698",
+        "32973082",
+        "34358484",
+        "35507888",
+        "38710951"
+      ],
+      "as_publication_node": [
+        "32203698"
+      ],
+      "expected_absent_entirely": [
+        "36652354"
+      ],
+      "expected_only_via_citation": [],
+      "implausibly_short_pmids": [
+        "160559"
+      ]
+    },
+    "setting_classification": [
+      {
+        "evidence_id": 295,
+        "setting": "other",
+        "spans": [
+          "metastatic"
+        ]
+      },
+      {
+        "evidence_id": 296,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 296,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1846,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1847,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1851,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1851,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1853,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1853,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1913,
+        "setting": "other",
+        "spans": [
+          "advanced"
+        ]
+      },
+      {
+        "evidence_id": 1917,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1918,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 1920,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 4861,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 5908,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 7261,
+        "setting": "adjuvant_resected",
+        "spans": [
+          "resectable",
+          "metastatic",
+          "unresectable"
+        ]
+      },
+      {
+        "evidence_id": 7329,
+        "setting": "adjuvant_resected",
+        "spans": [
+          "resectable",
+          "progressed after",
+          "advanced",
+          "unresectable"
+        ]
+      },
+      {
+        "evidence_id": 8173,
+        "setting": "insufficient_context",
+        "spans": []
+      },
+      {
+        "evidence_id": 11230,
+        "setting": "other",
+        "spans": [
+          "advanced",
+          "metastatic",
+          "locally advanced"
+        ]
+      }
+    ]
+  }
+}

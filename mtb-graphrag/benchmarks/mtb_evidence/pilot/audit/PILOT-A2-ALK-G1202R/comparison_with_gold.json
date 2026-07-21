@@ -1,0 +1,424 @@
+{
+  "audit_warnings": [
+    "nessuno dei PMID attesi e' presente come nodo Publication",
+    "nessuno degli NCT attesi e' presente come nodo ClinicalTrial",
+    "1 record riguardano mutazioni composte: conservati in un bucket separato e non applicati al caso a mutazione singola",
+    "l'esposizione precedente a un ALK-TKI di seconda generazione non e' modellata dallo schema: ricavabile solo per euristica testuale",
+    "dimensioni non verificabili sullo snapshot per le claim corrispondenti: ['line', 'setting']. La corrispondenza e' strutturale, non una conferma di applicabilita': serve il giudizio del secondo revisore."
+  ],
+  "case_id": "PILOT-A2-ALK-G1202R",
+  "conflicts": [],
+  "expected_claims": [
+    "A2-C1",
+    "A2-C2",
+    "A2-C3"
+  ],
+  "expected_nct_ids": [
+    "NCT01970865"
+  ],
+  "expected_pmids": [
+    "27432227",
+    "29650534",
+    "30892989"
+  ],
+  "expected_therapies": [
+    "lorlatinib"
+  ],
+  "extra_nct_ids": [],
+  "extra_pmids": [
+    "22277784",
+    "24675041",
+    "24736079",
+    "25727400",
+    "26698910",
+    "27130468",
+    "29373100",
+    "29376144",
+    "29935304",
+    "31358542",
+    "31585938",
+    "32600123",
+    "39269178"
+  ],
+  "extra_therapies": [
+    "alectinib hydrochloride",
+    "brigatinib",
+    "ceritinib",
+    "crizotinib",
+    "neladalkib",
+    "tanespimycin"
+  ],
+  "found_nct_ids": [],
+  "found_pmids": [
+    "22277784",
+    "24675041",
+    "24736079",
+    "25727400",
+    "26698910",
+    "27130468",
+    "27432227",
+    "29373100",
+    "29376144",
+    "29650534",
+    "29935304",
+    "30892989",
+    "31358542",
+    "31585938",
+    "32600123",
+    "39269178"
+  ],
+  "found_therapies": [
+    "alectinib hydrochloride",
+    "brigatinib",
+    "ceritinib",
+    "crizotinib",
+    "lorlatinib",
+    "neladalkib",
+    "tanespimycin"
+  ],
+  "freeze_blockers": [
+    "NCT attesi assenti dallo snapshot: ['NCT01970865']",
+    "claim senza alcun record corrispondente: ['A2-C1', 'A2-C3']"
+  ],
+  "freeze_ready": false,
+  "graph_complete": false,
+  "matching_rule": "farmaco e PMID sono solo l'ancora; la corrispondenza e' completa solo se coincidono anche variante/profilo, malattia, direzione, setting, linea e fonte per ogni dimensione presente su entrambi i lati",
+  "missing_nct_ids": [
+    "NCT01970865"
+  ],
+  "missing_pmids": [],
+  "missing_therapies": [],
+  "not_modelled_by_schema": [
+    "ecog",
+    "line",
+    "prior_therapy",
+    "resection_status",
+    "setting",
+    "stage"
+  ],
+  "partially_matching_claims": [],
+  "qualifiers_found": [
+    {
+      "claim_id": "A2-C1",
+      "detail": "",
+      "dimension": "variant_profile",
+      "gold_value": "alk g1202r",
+      "graph_value": "alk g1202r and v::alk fusion",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C1",
+      "detail": "relazione: same_entity_different_vocabulary",
+      "dimension": "disease",
+      "gold_value": "alk-positive nsclc",
+      "graph_value": "non-small cell lung cancer",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C1",
+      "detail": "",
+      "dimension": "direction",
+      "gold_value": "supports",
+      "graph_value": "supports",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C1",
+      "detail": "PMID condivisi: ['27432227']",
+      "dimension": "source",
+      "gold_value": "27432227",
+      "graph_value": "24736079,27130468,27432227,29373100,29376144,29650534",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C2",
+      "detail": "",
+      "dimension": "variant_profile",
+      "gold_value": "alk g1202r/del",
+      "graph_value": "alk g1202r and v::alk fusion",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C2",
+      "detail": "relazione: same_entity_different_vocabulary",
+      "dimension": "disease",
+      "gold_value": "advanced alk-positive nsclc",
+      "graph_value": "non-small cell lung cancer",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C2",
+      "detail": "",
+      "dimension": "direction",
+      "gold_value": "supports",
+      "graph_value": "supports",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C2",
+      "detail": "PMID condivisi: ['30892989']",
+      "dimension": "source",
+      "gold_value": "30892989",
+      "graph_value": "30892989",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C3",
+      "detail": "mutazione singola e mutazione composta non sono la stessa entita'",
+      "dimension": "variant_profile",
+      "gold_value": "alk g1202r plus an additional alk kinase-domain mutation",
+      "graph_value": "eml4::alk fusion and alk g1202r and alk i1171n and alk l1196m",
+      "status": "present_and_conflicts"
+    },
+    {
+      "claim_id": "A2-C3",
+      "detail": "relazione: distinct",
+      "dimension": "disease",
+      "gold_value": "alk-positive lung cancer",
+      "graph_value": "malignant pleural mesothelioma",
+      "status": "present_and_conflicts"
+    },
+    {
+      "claim_id": "A2-C3",
+      "detail": "",
+      "dimension": "direction",
+      "gold_value": "supports",
+      "graph_value": "supports",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "A2-C3",
+      "detail": "nessun PMID condiviso",
+      "dimension": "source",
+      "gold_value": "29650534",
+      "graph_value": "32600123",
+      "status": "present_and_conflicts"
+    }
+  ],
+  "qualifiers_missing": [
+    {
+      "claim_id": "A2-C1",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['progressed on']",
+      "dimension": "setting",
+      "gold_value": "advanced alk-positive nsclc progressing after second-generation alk inhibition.",
+      "graph_value": "post_progression_t790m",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "A2-C1",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['progressed on']",
+      "dimension": "line",
+      "gold_value": "advanced alk-positive nsclc progressing after second-generation alk inhibition.",
+      "graph_value": "post_progression_t790m",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "A2-C2",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['progressed on', 'metastatic']",
+      "dimension": "setting",
+      "gold_value": "pretreated advanced disease; alk mutation detected in plasma or tissue; evidence includes patients with g1202r/del.",
+      "graph_value": "post_progression_t790m",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "A2-C2",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['progressed on', 'metastatic']",
+      "dimension": "line",
+      "gold_value": "pretreated advanced disease; alk mutation detected in plasma or tissue; evidence includes patients with g1202r/del.",
+      "graph_value": "post_progression_t790m",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "A2-C3",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['acquired resistance', 'progression after']",
+      "dimension": "setting",
+      "gold_value": "compound mutations selected during sequential alk inhibition; example g1202r/l1196m.",
+      "graph_value": "post_progression_t790m",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "A2-C3",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['acquired resistance', 'progression after']",
+      "dimension": "line",
+      "gold_value": "compound mutations selected during sequential alk inhibition; example g1202r/l1196m.",
+      "graph_value": "post_progression_t790m",
+      "status": "not_modelled_by_schema"
+    }
+  ],
+  "structurally_matching_claims": [
+    {
+      "claim_id": "A2-C2",
+      "conflicting_dimensions": [],
+      "field_comparisons": [
+        {
+          "detail": "",
+          "dimension": "variant_profile",
+          "gold_value": "alk g1202r/del",
+          "graph_value": "alk g1202r and v::alk fusion",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "relazione: same_entity_different_vocabulary",
+          "dimension": "disease",
+          "gold_value": "advanced alk-positive nsclc",
+          "graph_value": "non-small cell lung cancer",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "",
+          "dimension": "direction",
+          "gold_value": "supports",
+          "graph_value": "supports",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['progressed on', 'metastatic']",
+          "dimension": "setting",
+          "gold_value": "pretreated advanced disease; alk mutation detected in plasma or tissue; evidence includes patients with g1202r/del.",
+          "graph_value": "post_progression_t790m",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['progressed on', 'metastatic']",
+          "dimension": "line",
+          "gold_value": "pretreated advanced disease; alk mutation detected in plasma or tissue; evidence includes patients with g1202r/del.",
+          "graph_value": "post_progression_t790m",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "PMID condivisi: ['30892989']",
+          "dimension": "source",
+          "gold_value": "30892989",
+          "graph_value": "30892989",
+          "status": "present_and_agrees"
+        }
+      ],
+      "match_level": "full",
+      "matched_record_ids": [
+        "evidence:100000"
+      ],
+      "note": "corrispondenza strutturale; i qualificatori ['setting', 'line'] non sono modellati dallo schema e restano non verificabili sullo snapshot: l'applicabilita' va decisa da un revisore",
+      "unverifiable_dimensions": [
+        "setting",
+        "line"
+      ]
+    }
+  ],
+  "unmatched_claims": [
+    {
+      "claim_id": "A2-C1",
+      "conflicting_dimensions": [],
+      "field_comparisons": [
+        {
+          "detail": "",
+          "dimension": "variant_profile",
+          "gold_value": "alk g1202r",
+          "graph_value": "alk g1202r and v::alk fusion",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "relazione: same_entity_different_vocabulary",
+          "dimension": "disease",
+          "gold_value": "alk-positive nsclc",
+          "graph_value": "non-small cell lung cancer",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "",
+          "dimension": "direction",
+          "gold_value": "supports",
+          "graph_value": "supports",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['progressed on']",
+          "dimension": "setting",
+          "gold_value": "advanced alk-positive nsclc progressing after second-generation alk inhibition.",
+          "graph_value": "post_progression_t790m",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['progressed on']",
+          "dimension": "line",
+          "gold_value": "advanced alk-positive nsclc progressing after second-generation alk inhibition.",
+          "graph_value": "post_progression_t790m",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "PMID condivisi: ['27432227']",
+          "dimension": "source",
+          "gold_value": "27432227",
+          "graph_value": "24736079,27130468,27432227,29373100,29376144,29650534",
+          "status": "present_and_agrees"
+        }
+      ],
+      "match_level": "unmatched",
+      "matched_record_ids": [
+        "evidence:100002",
+        "evidence:100003",
+        "evidence:100004"
+      ],
+      "note": "nessun record con farmaco e PMID insieme; record con solo farmaco: 0, con solo PMID: 3",
+      "unverifiable_dimensions": []
+    },
+    {
+      "claim_id": "A2-C3",
+      "conflicting_dimensions": [],
+      "field_comparisons": [
+        {
+          "detail": "mutazione singola e mutazione composta non sono la stessa entita'",
+          "dimension": "variant_profile",
+          "gold_value": "alk g1202r plus an additional alk kinase-domain mutation",
+          "graph_value": "eml4::alk fusion and alk g1202r and alk i1171n and alk l1196m",
+          "status": "present_and_conflicts"
+        },
+        {
+          "detail": "relazione: distinct",
+          "dimension": "disease",
+          "gold_value": "alk-positive lung cancer",
+          "graph_value": "malignant pleural mesothelioma",
+          "status": "present_and_conflicts"
+        },
+        {
+          "detail": "",
+          "dimension": "direction",
+          "gold_value": "supports",
+          "graph_value": "supports",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['acquired resistance', 'progression after']",
+          "dimension": "setting",
+          "gold_value": "compound mutations selected during sequential alk inhibition; example g1202r/l1196m.",
+          "graph_value": "post_progression_t790m",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['acquired resistance', 'progression after']",
+          "dimension": "line",
+          "gold_value": "compound mutations selected during sequential alk inhibition; example g1202r/l1196m.",
+          "graph_value": "post_progression_t790m",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "nessun PMID condiviso",
+          "dimension": "source",
+          "gold_value": "29650534",
+          "graph_value": "32600123",
+          "status": "present_and_conflicts"
+        }
+      ],
+      "match_level": "unmatched",
+      "matched_record_ids": [
+        "evidence:11114",
+        "evidence:100000"
+      ],
+      "note": "nessun record con farmaco e PMID insieme; record con solo farmaco: 2, con solo PMID: 1",
+      "unverifiable_dimensions": []
+    }
+  ],
+  "unverifiable_dimensions": [
+    "line",
+    "setting"
+  ]
+}

@@ -1,0 +1,554 @@
+{
+  "audit_warnings": [
+    "3 record in setting adiuvante/resecato: conservati e classificati, non eliminati",
+    "22 record post-progressione T790M: conservati e classificati, non eliminati",
+    "dimensioni non verificabili sullo snapshot per le claim corrispondenti: ['line', 'setting']. La corrispondenza e' strutturale, non una conferma di applicabilita': serve il giudizio del secondo revisore."
+  ],
+  "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+  "conflicts": [],
+  "expected_claims": [
+    "C1-C1",
+    "C1-C2",
+    "C1-C3"
+  ],
+  "expected_nct_ids": [
+    "NCT02151981",
+    "NCT02296125",
+    "NCT02511106"
+  ],
+  "expected_pmids": [
+    "27959700",
+    "29151359",
+    "32955177"
+  ],
+  "expected_therapies": [
+    "osimertinib"
+  ],
+  "extra_nct_ids": [],
+  "extra_pmids": [
+    "15118125",
+    "15329413",
+    "16818618",
+    "17177598",
+    "17877814",
+    "18089823",
+    "18408761",
+    "18509184",
+    "19147750",
+    "20038723",
+    "20942962",
+    "21132006",
+    "21531810",
+    "22235099",
+    "22285168",
+    "22370314",
+    "22452895",
+    "23816960",
+    "23982599",
+    "24263064",
+    "24353160",
+    "24439929",
+    "24457318",
+    "24662454",
+    "24736073",
+    "24755888",
+    "24868098",
+    "24893891",
+    "25923549",
+    "25939061",
+    "26181354",
+    "26269204",
+    "26515464",
+    "26720284",
+    "26729184",
+    "26768165",
+    "27022112",
+    "27032107",
+    "27102076",
+    "27612423",
+    "28202511",
+    "28274957",
+    "28874593",
+    "28958502",
+    "31208370",
+    "31591063",
+    "35245845",
+    "35399574",
+    "37879444",
+    "37937763",
+    "38074875",
+    "38525318",
+    "38942080"
+  ],
+  "extra_therapies": [
+    "afatinib",
+    "amivantamab",
+    "canertinib",
+    "carboplatin",
+    "cetuximab",
+    "crizotinib",
+    "dacomitinib",
+    "erlotinib",
+    "gefitinib",
+    "lapatinib",
+    "lazertinib",
+    "multikinase inhibitor aee788",
+    "neratinib maleate",
+    "ramucirumab"
+  ],
+  "found_nct_ids": [
+    "NCT02511106"
+  ],
+  "found_pmids": [
+    "15118125",
+    "15329413",
+    "16818618",
+    "17177598",
+    "17877814",
+    "18089823",
+    "18408761",
+    "18509184",
+    "19147750",
+    "20038723",
+    "20942962",
+    "21132006",
+    "21531810",
+    "22235099",
+    "22285168",
+    "22370314",
+    "22452895",
+    "23816960",
+    "23982599",
+    "24263064",
+    "24353160",
+    "24439929",
+    "24457318",
+    "24662454",
+    "24736073",
+    "24755888",
+    "24868098",
+    "24893891",
+    "25923549",
+    "25939061",
+    "26181354",
+    "26269204",
+    "26515464",
+    "26720284",
+    "26729184",
+    "26768165",
+    "27022112",
+    "27032107",
+    "27102076",
+    "27612423",
+    "27959700",
+    "28202511",
+    "28274957",
+    "28874593",
+    "28958502",
+    "31208370",
+    "31591063",
+    "32955177",
+    "35245845",
+    "35399574",
+    "37879444",
+    "37937763",
+    "38074875",
+    "38525318",
+    "38942080"
+  ],
+  "found_therapies": [
+    "afatinib",
+    "amivantamab",
+    "canertinib",
+    "carboplatin",
+    "cetuximab",
+    "crizotinib",
+    "dacomitinib",
+    "erlotinib",
+    "gefitinib",
+    "lapatinib",
+    "lazertinib",
+    "multikinase inhibitor aee788",
+    "neratinib maleate",
+    "osimertinib",
+    "ramucirumab"
+  ],
+  "freeze_blockers": [
+    "PMID attesi assenti dallo snapshot: ['29151359']",
+    "NCT attesi assenti dallo snapshot: ['NCT02151981', 'NCT02296125']",
+    "claim senza alcun record corrispondente: ['C1-C1']"
+  ],
+  "freeze_ready": false,
+  "graph_complete": false,
+  "matching_rule": "farmaco e PMID sono solo l'ancora; la corrispondenza e' completa solo se coincidono anche variante/profilo, malattia, direzione, setting, linea e fonte per ogni dimensione presente su entrambi i lati",
+  "missing_nct_ids": [
+    "NCT02151981",
+    "NCT02296125"
+  ],
+  "missing_pmids": [
+    "29151359"
+  ],
+  "missing_therapies": [],
+  "not_modelled_by_schema": [
+    "ecog",
+    "line",
+    "prior_therapy",
+    "resection_status",
+    "setting",
+    "stage"
+  ],
+  "partially_matching_claims": [],
+  "qualifiers_found": [
+    {
+      "claim_id": "C1-C1",
+      "detail": "",
+      "dimension": "variant_profile",
+      "gold_value": "egfr l858r or exon 19 deletion",
+      "graph_value": "egfr l858r",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C1",
+      "detail": "relazione: same_entity_different_vocabulary",
+      "dimension": "disease",
+      "gold_value": "advanced nsclc",
+      "graph_value": "lung non-small cell carcinoma",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C1",
+      "detail": "",
+      "dimension": "direction",
+      "gold_value": "supports",
+      "graph_value": "supports",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C1",
+      "detail": "nessun PMID condiviso",
+      "dimension": "source",
+      "gold_value": "29151359",
+      "graph_value": "24893891",
+      "status": "present_and_conflicts"
+    },
+    {
+      "claim_id": "C1-C2",
+      "detail": "",
+      "dimension": "variant_profile",
+      "gold_value": "egfr l858r or exon 19 deletion",
+      "graph_value": "egfr l858r or egfr exon 19 deletion",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C2",
+      "detail": "relazione: same_entity_different_vocabulary",
+      "dimension": "disease",
+      "gold_value": "completely resected stage ib–iiia nsclc",
+      "graph_value": "lung non-small cell carcinoma",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C2",
+      "detail": "",
+      "dimension": "direction",
+      "gold_value": "supports",
+      "graph_value": "supports",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C2",
+      "detail": "PMID condivisi: ['32955177']",
+      "dimension": "source",
+      "gold_value": "32955177",
+      "graph_value": "32955177",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C3",
+      "detail": "",
+      "dimension": "variant_profile",
+      "gold_value": "egfr t790m after prior egfr-tki progression",
+      "graph_value": "egfr t790m and egfr exon 19 deletion",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C3",
+      "detail": "relazione: same_entity_different_vocabulary",
+      "dimension": "disease",
+      "gold_value": "advanced nsclc",
+      "graph_value": "lung non-small cell carcinoma",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C3",
+      "detail": "",
+      "dimension": "direction",
+      "gold_value": "supports",
+      "graph_value": "supports",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "C1-C3",
+      "detail": "PMID condivisi: ['27959700']",
+      "dimension": "source",
+      "gold_value": "27959700",
+      "graph_value": "27959700",
+      "status": "present_and_agrees"
+    }
+  ],
+  "qualifiers_missing": [
+    {
+      "claim_id": "C1-C1",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+      "dimension": "setting",
+      "gold_value": "previously untreated, egfr-mutated advanced nsclc; first-line; l858r or exon 19 deletion.",
+      "graph_value": "insufficient_context",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "C1-C1",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+      "dimension": "line",
+      "gold_value": "previously untreated, egfr-mutated advanced nsclc; first-line; l858r or exon 19 deletion.",
+      "graph_value": "insufficient_context",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "C1-C2",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['resection', 'stage II']",
+      "dimension": "setting",
+      "gold_value": "complete resection; stage ib–iiia; adjuvant setting; with or without prior adjuvant chemotherapy.",
+      "graph_value": "adjuvant_resected",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "C1-C2",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['resection', 'stage II']",
+      "dimension": "line",
+      "gold_value": "complete resection; stage ib–iiia; adjuvant setting; with or without prior adjuvant chemotherapy.",
+      "graph_value": "adjuvant_resected",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "C1-C3",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['T790M', 'progressed after', 'progressed during', 'first-line', 'advanced']",
+      "dimension": "setting",
+      "gold_value": "t790m-positive disease; progression during/after first-line egfr-tki; post-progression setting.",
+      "graph_value": "post_progression_t790m",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "C1-C3",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['T790M', 'progressed after', 'progressed during', 'first-line', 'advanced']",
+      "dimension": "line",
+      "gold_value": "t790m-positive disease; progression during/after first-line egfr-tki; post-progression setting.",
+      "graph_value": "post_progression_t790m",
+      "status": "not_modelled_by_schema"
+    }
+  ],
+  "structurally_matching_claims": [
+    {
+      "claim_id": "C1-C2",
+      "conflicting_dimensions": [],
+      "field_comparisons": [
+        {
+          "detail": "",
+          "dimension": "variant_profile",
+          "gold_value": "egfr l858r or exon 19 deletion",
+          "graph_value": "egfr l858r or egfr exon 19 deletion",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "relazione: same_entity_different_vocabulary",
+          "dimension": "disease",
+          "gold_value": "completely resected stage ib–iiia nsclc",
+          "graph_value": "lung non-small cell carcinoma",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "",
+          "dimension": "direction",
+          "gold_value": "supports",
+          "graph_value": "supports",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['resection', 'stage II']",
+          "dimension": "setting",
+          "gold_value": "complete resection; stage ib–iiia; adjuvant setting; with or without prior adjuvant chemotherapy.",
+          "graph_value": "adjuvant_resected",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['resection', 'stage II']",
+          "dimension": "line",
+          "gold_value": "complete resection; stage ib–iiia; adjuvant setting; with or without prior adjuvant chemotherapy.",
+          "graph_value": "adjuvant_resected",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "PMID condivisi: ['32955177']",
+          "dimension": "source",
+          "gold_value": "32955177",
+          "graph_value": "32955177",
+          "status": "present_and_agrees"
+        }
+      ],
+      "match_level": "full",
+      "matched_record_ids": [
+        "evidence:11219"
+      ],
+      "note": "corrispondenza strutturale; i qualificatori ['setting', 'line'] non sono modellati dallo schema e restano non verificabili sullo snapshot: l'applicabilita' va decisa da un revisore",
+      "unverifiable_dimensions": [
+        "setting",
+        "line"
+      ]
+    },
+    {
+      "claim_id": "C1-C3",
+      "conflicting_dimensions": [],
+      "field_comparisons": [
+        {
+          "detail": "",
+          "dimension": "variant_profile",
+          "gold_value": "egfr t790m after prior egfr-tki progression",
+          "graph_value": "egfr t790m and egfr exon 19 deletion",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "relazione: same_entity_different_vocabulary",
+          "dimension": "disease",
+          "gold_value": "advanced nsclc",
+          "graph_value": "lung non-small cell carcinoma",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "",
+          "dimension": "direction",
+          "gold_value": "supports",
+          "graph_value": "supports",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['T790M', 'progressed after', 'progressed during', 'first-line', 'advanced']",
+          "dimension": "setting",
+          "gold_value": "t790m-positive disease; progression during/after first-line egfr-tki; post-progression setting.",
+          "graph_value": "post_progression_t790m",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: ['T790M', 'progressed after', 'progressed during', 'first-line', 'advanced']",
+          "dimension": "line",
+          "gold_value": "t790m-positive disease; progression during/after first-line egfr-tki; post-progression setting.",
+          "graph_value": "post_progression_t790m",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "PMID condivisi: ['27959700']",
+          "dimension": "source",
+          "gold_value": "27959700",
+          "graph_value": "27959700",
+          "status": "present_and_agrees"
+        }
+      ],
+      "match_level": "full",
+      "matched_record_ids": [
+        "evidence:11598",
+        "evidence:1867",
+        "evidence:11599"
+      ],
+      "note": "corrispondenza strutturale; i qualificatori ['setting', 'line'] non sono modellati dallo schema e restano non verificabili sullo snapshot: l'applicabilita' va decisa da un revisore",
+      "unverifiable_dimensions": [
+        "setting",
+        "line"
+      ]
+    }
+  ],
+  "unmatched_claims": [
+    {
+      "claim_id": "C1-C1",
+      "conflicting_dimensions": [],
+      "field_comparisons": [
+        {
+          "detail": "",
+          "dimension": "variant_profile",
+          "gold_value": "egfr l858r or exon 19 deletion",
+          "graph_value": "egfr l858r",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "relazione: same_entity_different_vocabulary",
+          "dimension": "disease",
+          "gold_value": "advanced nsclc",
+          "graph_value": "lung non-small cell carcinoma",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "",
+          "dimension": "direction",
+          "gold_value": "supports",
+          "graph_value": "supports",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+          "dimension": "setting",
+          "gold_value": "previously untreated, egfr-mutated advanced nsclc; first-line; l858r or exon 19 deletion.",
+          "graph_value": "insufficient_context",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+          "dimension": "line",
+          "gold_value": "previously untreated, egfr-mutated advanced nsclc; first-line; l858r or exon 19 deletion.",
+          "graph_value": "insufficient_context",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "nessun PMID condiviso",
+          "dimension": "source",
+          "gold_value": "29151359",
+          "graph_value": "24893891",
+          "status": "present_and_conflicts"
+        }
+      ],
+      "match_level": "unmatched",
+      "matched_record_ids": [
+        "evidence:4294",
+        "evidence:11219",
+        "evidence:11599",
+        "evidence:12015",
+        "evidence:963",
+        "evidence:964",
+        "evidence:965",
+        "evidence:966",
+        "evidence:967",
+        "evidence:1396",
+        "evidence:1397",
+        "evidence:1592",
+        "evidence:1867",
+        "evidence:2157",
+        "evidence:3015",
+        "evidence:6006",
+        "evidence:6174",
+        "evidence:7610",
+        "evidence:9220",
+        "evidence:9221",
+        "evidence:9223",
+        "evidence:9224",
+        "evidence:9225",
+        "evidence:11021",
+        "evidence:11598",
+        "evidence:12370",
+        "evidence:12372",
+        "evidence:12946"
+      ],
+      "note": "nessun record con farmaco e PMID insieme; record con solo farmaco: 28, con solo PMID: 0",
+      "unverifiable_dimensions": []
+    }
+  ],
+  "unverifiable_dimensions": [
+    "line",
+    "setting"
+  ]
+}

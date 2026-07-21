@@ -1,0 +1,341 @@
+{
+  "audit_warnings": [
+    "nessuno degli NCT attesi e' presente come nodo ClinicalTrial",
+    "citazioni con PMID implausibilmente corti: ['160559']; probabile difetto di ingestione nel campo citation_id, da verificare prima di usarli come fonte",
+    "13 record usano una denominazione di malattia meno specifica di 'intrahepatic cholangiocarcinoma' (es. colangiocarcinoma generico): non sono equivalenti e non vengono contati come corrispondenza",
+    "linea di terapia, stadio ed esposizione precedente a FGFR-inibitori non sono modellati dallo schema: ricavabili solo per euristica testuale",
+    "dimensioni non verificabili sullo snapshot per le claim corrispondenti: ['line', 'setting']. La corrispondenza e' strutturale, non una conferma di applicabilita': serve il giudizio del secondo revisore."
+  ],
+  "case_id": "PILOT-K1-FGFR2-iCCA",
+  "conflicts": [
+    {
+      "claim_id": "K1-C1",
+      "detail": "relazione: different_specificity (sottotipo e genitore non sono equivalenti)",
+      "dimension": "disease",
+      "gold_value": "intrahepatic cholangiocarcinoma",
+      "graph_value": "cholangiolocellular carcinoma"
+    }
+  ],
+  "expected_claims": [
+    "K1-C1",
+    "K1-C2"
+  ],
+  "expected_nct_ids": [
+    "NCT02052778",
+    "NCT02924376"
+  ],
+  "expected_pmids": [
+    "32203698",
+    "36652354"
+  ],
+  "expected_therapies": [
+    "futibatinib",
+    "pemigatinib"
+  ],
+  "extra_nct_ids": [],
+  "extra_pmids": [
+    "160559",
+    "18757403",
+    "23658459",
+    "23786770",
+    "24122810",
+    "24550739",
+    "26324363",
+    "26574622",
+    "27179038",
+    "27870574",
+    "29182496",
+    "30420614",
+    "32973082",
+    "34358484",
+    "35507888",
+    "38710951"
+  ],
+  "extra_therapies": [
+    "derazantinib",
+    "erdafitinib",
+    "infigratinib",
+    "pazopanib hydrochloride",
+    "pd173074",
+    "ponatinib"
+  ],
+  "found_nct_ids": [],
+  "found_pmids": [
+    "160559",
+    "18757403",
+    "23658459",
+    "23786770",
+    "24122810",
+    "24550739",
+    "26324363",
+    "26574622",
+    "27179038",
+    "27870574",
+    "29182496",
+    "30420614",
+    "32203698",
+    "32973082",
+    "34358484",
+    "35507888",
+    "38710951"
+  ],
+  "found_therapies": [
+    "derazantinib",
+    "erdafitinib",
+    "infigratinib",
+    "pazopanib hydrochloride",
+    "pd173074",
+    "pemigatinib",
+    "ponatinib"
+  ],
+  "freeze_blockers": [
+    "PMID attesi assenti dallo snapshot: ['36652354']",
+    "NCT attesi assenti dallo snapshot: ['NCT02052778', 'NCT02924376']",
+    "terapie attese non raggiunte dal traversal: ['futibatinib']",
+    "claim senza alcun record corrispondente: ['K1-C2']",
+    "conflitti di qualificatore non risolti: ['disease']"
+  ],
+  "freeze_ready": false,
+  "graph_complete": false,
+  "matching_rule": "farmaco e PMID sono solo l'ancora; la corrispondenza e' completa solo se coincidono anche variante/profilo, malattia, direzione, setting, linea e fonte per ogni dimensione presente su entrambi i lati",
+  "missing_nct_ids": [
+    "NCT02052778",
+    "NCT02924376"
+  ],
+  "missing_pmids": [
+    "36652354"
+  ],
+  "missing_therapies": [
+    "futibatinib"
+  ],
+  "not_modelled_by_schema": [
+    "ecog",
+    "line",
+    "prior_therapy",
+    "resection_status",
+    "setting",
+    "stage"
+  ],
+  "partially_matching_claims": [
+    {
+      "claim_id": "K1-C1",
+      "conflicting_dimensions": [
+        "disease"
+      ],
+      "field_comparisons": [
+        {
+          "detail": "tipo di alterazione condiviso: ['fusion']",
+          "dimension": "variant_profile",
+          "gold_value": "fgfr2 fusion/rearrangement",
+          "graph_value": "fgfr2::v fusion or fgfr2::? fusion",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "relazione: different_specificity (sottotipo e genitore non sono equivalenti)",
+          "dimension": "disease",
+          "gold_value": "intrahepatic cholangiocarcinoma",
+          "graph_value": "cholangiolocellular carcinoma",
+          "status": "present_and_conflicts"
+        },
+        {
+          "detail": "",
+          "dimension": "direction",
+          "gold_value": "supports",
+          "graph_value": "supports",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+          "dimension": "setting",
+          "gold_value": "previously treated locally advanced/metastatic or surgically unresectable disease; progression after ≥1 prior treatment; ecog 0–2; no prior selective fgfr inhibitor.",
+          "graph_value": "insufficient_context",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+          "dimension": "line",
+          "gold_value": "previously treated locally advanced/metastatic or surgically unresectable disease; progression after ≥1 prior treatment; ecog 0–2; no prior selective fgfr inhibitor.",
+          "graph_value": "insufficient_context",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "PMID condivisi: ['32203698']",
+          "dimension": "source",
+          "gold_value": "32203698",
+          "graph_value": "32203698",
+          "status": "present_and_agrees"
+        }
+      ],
+      "match_level": "partial",
+      "matched_record_ids": [
+        "evidence:8173"
+      ],
+      "note": "corrispondenza strutturale; i qualificatori ['setting', 'line'] non sono modellati dallo schema e restano non verificabili sullo snapshot: l'applicabilita' va decisa da un revisore",
+      "unverifiable_dimensions": [
+        "setting",
+        "line"
+      ]
+    }
+  ],
+  "qualifiers_found": [
+    {
+      "claim_id": "K1-C1",
+      "detail": "tipo di alterazione condiviso: ['fusion']",
+      "dimension": "variant_profile",
+      "gold_value": "fgfr2 fusion/rearrangement",
+      "graph_value": "fgfr2::v fusion or fgfr2::? fusion",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "K1-C1",
+      "detail": "relazione: different_specificity (sottotipo e genitore non sono equivalenti)",
+      "dimension": "disease",
+      "gold_value": "intrahepatic cholangiocarcinoma",
+      "graph_value": "cholangiolocellular carcinoma",
+      "status": "present_and_conflicts"
+    },
+    {
+      "claim_id": "K1-C1",
+      "detail": "",
+      "dimension": "direction",
+      "gold_value": "supports",
+      "graph_value": "supports",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "K1-C1",
+      "detail": "PMID condivisi: ['32203698']",
+      "dimension": "source",
+      "gold_value": "32203698",
+      "graph_value": "32203698",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "K1-C2",
+      "detail": "profilo del grafo non riconducibile al soggetto del gold (gold ['fusion'], grafo ['amplification'])",
+      "dimension": "variant_profile",
+      "gold_value": "fgfr2 fusion/rearrangement",
+      "graph_value": "fgfr1 amplification",
+      "status": "present_and_conflicts"
+    },
+    {
+      "claim_id": "K1-C2",
+      "detail": "relazione: distinct",
+      "dimension": "disease",
+      "gold_value": "intrahepatic cholangiocarcinoma",
+      "graph_value": "breast cancer",
+      "status": "present_and_conflicts"
+    },
+    {
+      "claim_id": "K1-C2",
+      "detail": "",
+      "dimension": "direction",
+      "gold_value": "supports",
+      "graph_value": "supports",
+      "status": "present_and_agrees"
+    },
+    {
+      "claim_id": "K1-C2",
+      "detail": "nessun PMID condiviso",
+      "dimension": "source",
+      "gold_value": "36652354",
+      "graph_value": "32973082",
+      "status": "present_and_conflicts"
+    }
+  ],
+  "qualifiers_missing": [
+    {
+      "claim_id": "K1-C1",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+      "dimension": "setting",
+      "gold_value": "previously treated locally advanced/metastatic or surgically unresectable disease; progression after ≥1 prior treatment; ecog 0–2; no prior selective fgfr inhibitor.",
+      "graph_value": "insufficient_context",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "K1-C1",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+      "dimension": "line",
+      "gold_value": "previously treated locally advanced/metastatic or surgically unresectable disease; progression after ≥1 prior treatment; ecog 0–2; no prior selective fgfr inhibitor.",
+      "graph_value": "insufficient_context",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "K1-C2",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+      "dimension": "setting",
+      "gold_value": "unresectable/metastatic disease; progression after ≥1 prior systemic line; prior fgfr inhibitors excluded in foenix-cca2.",
+      "graph_value": "insufficient_context",
+      "status": "not_modelled_by_schema"
+    },
+    {
+      "claim_id": "K1-C2",
+      "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+      "dimension": "line",
+      "gold_value": "unresectable/metastatic disease; progression after ≥1 prior systemic line; prior fgfr inhibitors excluded in foenix-cca2.",
+      "graph_value": "insufficient_context",
+      "status": "not_modelled_by_schema"
+    }
+  ],
+  "structurally_matching_claims": [],
+  "unmatched_claims": [
+    {
+      "claim_id": "K1-C2",
+      "conflicting_dimensions": [],
+      "field_comparisons": [
+        {
+          "detail": "profilo del grafo non riconducibile al soggetto del gold (gold ['fusion'], grafo ['amplification'])",
+          "dimension": "variant_profile",
+          "gold_value": "fgfr2 fusion/rearrangement",
+          "graph_value": "fgfr1 amplification",
+          "status": "present_and_conflicts"
+        },
+        {
+          "detail": "relazione: distinct",
+          "dimension": "disease",
+          "gold_value": "intrahepatic cholangiocarcinoma",
+          "graph_value": "breast cancer",
+          "status": "present_and_conflicts"
+        },
+        {
+          "detail": "",
+          "dimension": "direction",
+          "gold_value": "supports",
+          "graph_value": "supports",
+          "status": "present_and_agrees"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+          "dimension": "setting",
+          "gold_value": "unresectable/metastatic disease; progression after ≥1 prior systemic line; prior fgfr inhibitors excluded in foenix-cca2.",
+          "graph_value": "insufficient_context",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "ricavato solo per euristica testuale su evidence_statement; span: []",
+          "dimension": "line",
+          "gold_value": "unresectable/metastatic disease; progression after ≥1 prior systemic line; prior fgfr inhibitors excluded in foenix-cca2.",
+          "graph_value": "insufficient_context",
+          "status": "not_modelled_by_schema"
+        },
+        {
+          "detail": "nessun PMID condiviso",
+          "dimension": "source",
+          "gold_value": "36652354",
+          "graph_value": "32973082",
+          "status": "present_and_conflicts"
+        }
+      ],
+      "match_level": "unmatched",
+      "matched_record_ids": [
+        "evidence:12547"
+      ],
+      "note": "nessun record con farmaco e PMID insieme; record con solo farmaco: 1, con solo PMID: 0",
+      "unverifiable_dimensions": []
+    }
+  ],
+  "unverifiable_dimensions": [
+    "line",
+    "setting"
+  ]
+}

@@ -1,0 +1,2832 @@
+{
+  "buckets": {
+    "adjuvant_resected": [
+      {
+        "citation_id": [
+          "22285168"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 3791,
+        "matched_spans": [
+          "adjuvant",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:3791",
+        "structural_class": "adjuvant_resected"
+      },
+      {
+        "citation_id": [
+          "27022112"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 6183,
+        "matched_spans": [
+          "postoperative"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:6183",
+        "structural_class": "adjuvant_resected"
+      },
+      {
+        "citation_id": [
+          "32955177"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 11219,
+        "matched_spans": [
+          "resection",
+          "stage II"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11219",
+        "structural_class": "adjuvant_resected"
+      }
+    ],
+    "first_line_advanced": [
+      {
+        "citation_id": [
+          "24868098"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 2994,
+        "matched_spans": [
+          "first-line",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2994",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "23982599"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "afatinib",
+        "evidence_id": 2997,
+        "matched_spans": [
+          "first-line",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2997",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "27032107"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4290,
+        "matched_spans": [
+          "advanced",
+          "first-line"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4290",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9220,
+        "matched_spans": [
+          "first-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR A767_V769dupASV",
+        "record_id": "evidence:9220",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9221,
+        "matched_spans": [
+          "first-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR N771_P772insL",
+        "record_id": "evidence:9221",
+        "structural_class": "first_line_advanced"
+      }
+    ],
+    "insufficient_context": [
+      {
+        "citation_id": [
+          "24736073"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 229,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:229",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24736073"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 229,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:229",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24457318"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 275,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:275",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24457318"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 275,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:275",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "15118125"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 276,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:276",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24662454"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "",
+        "evidence_id": 347,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:347",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "23816960"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "afatinib",
+        "evidence_id": 879,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:879",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "26515464"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "afatinib",
+        "evidence_id": 968,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:968",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18509184"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 1665,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:1665",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24755888"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 2156,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:2156",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "15329413"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 2624,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2624",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18408761"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "lapatinib",
+        "evidence_id": 2626,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2626",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18089823"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "dacomitinib",
+        "evidence_id": 2627,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2627",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "16818618"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "neratinib maleate",
+        "evidence_id": 2628,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2628",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18408761"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "afatinib",
+        "evidence_id": 2629,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2629",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18408761"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "canertinib",
+        "evidence_id": 2631,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2631",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "15329413"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 2632,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2632",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "22370314"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 2634,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2634",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "19147750"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "erlotinib",
+        "evidence_id": 3811,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:3811",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "19147750"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "gefitinib",
+        "evidence_id": 3811,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:3811",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "19147750"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "multikinase inhibitor aee788",
+        "evidence_id": 3811,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:3811",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "17877814"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "erlotinib",
+        "evidence_id": 4265,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4265",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18408761"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4284,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4284",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "21132006"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "erlotinib",
+        "evidence_id": 4285,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4285",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24353160"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4286,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4286",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "27612423"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4287,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4287",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "27102076"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4291,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4291",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "27102076"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "cetuximab",
+        "evidence_id": 4292,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4292",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24893891"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4293,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4293",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24893891"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 4294,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4294",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "17177598"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "high grade glioma",
+        "drug": "erlotinib",
+        "evidence_id": 4295,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4295",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "26768165"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "dacomitinib",
+        "evidence_id": 4860,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4860",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "20942962"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "erlotinib",
+        "evidence_id": 5922,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:5922",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "28958502"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "dacomitinib",
+        "evidence_id": 11239,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11239",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24263064"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 11241,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11241",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "37937763"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 12015,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12015",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "38942080"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "amivantamab",
+        "evidence_id": 12131,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12131",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "38942080"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "lazertinib",
+        "evidence_id": 12131,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12131",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "28274957"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "breast cancer",
+        "drug": "osimertinib",
+        "evidence_id": 6174,
+        "matched_spans": [],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "ERBB2 T798I",
+        "record_id": "evidence:6174",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "35245845"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 11021,
+        "matched_spans": [],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR::RAD51 Fusion",
+        "record_id": "evidence:11021",
+        "structural_class": "insufficient_context"
+      }
+    ],
+    "other": [
+      {
+        "citation_id": [
+          "22452895"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "afatinib",
+        "evidence_id": 883,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:883",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "22285168"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 885,
+        "matched_spans": [
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:885",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "24439929"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "afatinib",
+        "evidence_id": 982,
+        "matched_spans": [
+          "advanced"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:982",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "31591063"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 11240,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11240",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "31591063"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "ramucirumab",
+        "evidence_id": 11240,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11240",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "37879444"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "amivantamab",
+        "evidence_id": 12156,
+        "matched_spans": [
+          "advanced",
+          "locally advanced",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12156",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "37879444"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "carboplatin",
+        "evidence_id": 12156,
+        "matched_spans": [
+          "advanced",
+          "locally advanced",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12156",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 7610,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR Exon 20 Insertion",
+        "record_id": "evidence:7610",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9224,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR S768_D770dup",
+        "record_id": "evidence:9224",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "35399574"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 12370,
+        "matched_spans": [
+          "metastatic"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR::RAD51 Fusion",
+        "record_id": "evidence:12370",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "38525318"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 12372,
+        "matched_spans": [
+          "metastatic"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR::RAD51 Fusion",
+        "record_id": "evidence:12372",
+        "structural_class": "other"
+      }
+    ],
+    "post_progression_t790m": [
+      {
+        "citation_id": [
+          "20038723"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 2621,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2621",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "22235099"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "crizotinib",
+        "evidence_id": 4288,
+        "matched_spans": [
+          "progressed on"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4288",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "21531810"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4759,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:4759",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "21531810"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 4759,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:4759",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "28958502"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "dacomitinib",
+        "evidence_id": 7363,
+        "matched_spans": [
+          "T790M",
+          "first line",
+          "newly diagnosed"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:7363",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "27959700"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 11599,
+        "matched_spans": [
+          "T790M",
+          "advanced",
+          "first-line",
+          "progressed after",
+          "progressed during"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R AND EGFR T790M",
+        "record_id": "evidence:11599",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "24893891"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 963,
+        "matched_spans": [
+          "T790M",
+          "advanced"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:963",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "25939061"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 964,
+        "matched_spans": [
+          "T790M",
+          "advanced"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR C797S",
+        "record_id": "evidence:964",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "25923549"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 965,
+        "matched_spans": [
+          "T790M",
+          "progressed on"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:965",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26720284"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 966,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:966",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26515464"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 967,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:967",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26181354"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 1396,
+        "matched_spans": [
+          "T790M",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 Deletion AND EGFR C797S",
+        "record_id": "evidence:1396",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26181354"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 1397,
+        "matched_spans": [
+          "T790M",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 Deletion",
+        "record_id": "evidence:1397",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26729184"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 1592,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:1592",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "27959700"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 1867,
+        "matched_spans": [
+          "T790M",
+          "advanced",
+          "first-line",
+          "progression after"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:1867",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26269204"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 2157,
+        "matched_spans": [
+          "T790M",
+          "stage IV"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:2157",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "28202511"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 3015,
+        "matched_spans": [
+          "acquired resistance"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR Amplification",
+        "record_id": "evidence:3015",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "28874593"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "pancreatic adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 6006,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:6006",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9223,
+        "matched_spans": [
+          "second-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR D770_N771insG",
+        "record_id": "evidence:9223",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9225,
+        "matched_spans": [
+          "T790M",
+          "progression after",
+          "second-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR A763_Y764insFQEA",
+        "record_id": "evidence:9225",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "27959700"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 11598,
+        "matched_spans": [
+          "T790M",
+          "advanced",
+          "first-line",
+          "progressed after",
+          "progressed during"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 Deletion",
+        "record_id": "evidence:11598",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "38074875"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 12946,
+        "matched_spans": [
+          "First-line",
+          "T790M",
+          "second-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 del",
+        "record_id": "evidence:12946",
+        "structural_class": "post_progression_t790m"
+      }
+    ]
+  },
+  "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+  "entities": {
+    "class_counts": {
+      "adjuvant_resected": 3,
+      "first_line_advanced": 5,
+      "insufficient_context": 40,
+      "other": 11,
+      "post_progression_t790m": 22
+    },
+    "classification_disclaimer": "Classificazione euristica su testo: lo schema non modella setting, linea di terapia, stadio ne' resezione. L'audit constata i qualificatori presenti e non formula alcuna raccomandazione clinica.",
+    "expected_drugs_found": [
+      {
+        "approved": true,
+        "concept_id": "rxcui:1721560",
+        "drug_name": "OSIMERTINIB"
+      }
+    ],
+    "gene": [
+      {
+        "gene": {
+          "aliases": [
+            "ERBB",
+            "ERBB1",
+            "ERRP"
+          ],
+          "categories": [
+            "CLINICALLY ACTIONABLE",
+            "DRUG RESISTANCE",
+            "DRUGGABLE GENOME",
+            "KINASE",
+            "TYROSINE KINASE",
+            "CELL SURFACE"
+          ],
+          "civic_description": "EGFR is widely recognized for its importance in cancer. Amplification and mutations have been shown to be driving events in many cancer types. Its role in non-small cell lung cancer, glioblastoma and basal-like breast cancers has spurred many research and drug development efforts. Tyrosine kinase inhibitors have shown efficacy in EGFR amplfied tumors, most notably gefitinib and erlotinib. Mutations in EGFR have been shown to confer resistance to these drugs, particularly the variant T790M, which has been functionally characterized as a resistance marker for both of these drugs. The later generation TKI's have seen some success in treating these resistant cases, and targeted sequencing of the EGFR locus has become a common practice in treatment of non-small cell lung cancer. Overproduction of ligands is another possible mechanism of activation of EGFR. ERBB ligands include EGF, TGF-a, AREG, EPG, BTC, HB-EGF, EPR and NRG1-4 (for detailed information please refer to the respective ligand section).",
+          "entrez_id": 1956,
+          "gene_type": "ONCOGENE",
+          "grch38_isoform": "ENST00000275493",
+          "grch38_refseq": "NM_005228.3",
+          "hugo_symbol": "EGFR",
+          "is_oncokb_annotated": true
+        }
+      }
+    ],
+    "pmid_discovery": {
+      "as_evidence_citation": [
+        "15118125",
+        "15329413",
+        "16818618",
+        "17177598",
+        "17877814",
+        "18089823",
+        "18408761",
+        "18509184",
+        "19147750",
+        "20038723",
+        "20942962",
+        "21132006",
+        "21531810",
+        "22235099",
+        "22285168",
+        "22370314",
+        "22452895",
+        "23816960",
+        "23982599",
+        "24263064",
+        "24353160",
+        "24439929",
+        "24457318",
+        "24662454",
+        "24736073",
+        "24755888",
+        "24868098",
+        "24893891",
+        "25923549",
+        "25939061",
+        "26181354",
+        "26269204",
+        "26515464",
+        "26720284",
+        "26729184",
+        "26768165",
+        "27022112",
+        "27032107",
+        "27102076",
+        "27612423",
+        "27959700",
+        "28202511",
+        "28274957",
+        "28874593",
+        "28958502",
+        "31208370",
+        "31591063",
+        "32955177",
+        "35245845",
+        "35399574",
+        "37879444",
+        "37937763",
+        "38074875",
+        "38525318",
+        "38942080"
+      ],
+      "as_publication_node": [
+        "27959700",
+        "32955177"
+      ],
+      "expected_absent_entirely": [
+        "29151359"
+      ],
+      "expected_only_via_citation": [],
+      "implausibly_short_pmids": []
+    },
+    "profiles_with_l858r": [
+      {
+        "molecular_profile": "EGFR L858R",
+        "molecular_profile_id": 33
+      },
+      {
+        "molecular_profile": "EGFR L858R AND EGFR T790M",
+        "molecular_profile_id": 4660
+      },
+      {
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "molecular_profile_id": 4432
+      }
+    ],
+    "profiles_with_t790m": [
+      {
+        "molecular_profile": "EGFR L858R AND EGFR T790M",
+        "molecular_profile_id": 4660
+      },
+      {
+        "molecular_profile": "EGFR T790M",
+        "molecular_profile_id": 34
+      },
+      {
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 Deletion",
+        "molecular_profile_id": 4659
+      },
+      {
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 Deletion AND EGFR C797S",
+        "molecular_profile_id": 5513
+      },
+      {
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 del",
+        "molecular_profile_id": 5927
+      }
+    ],
+    "structural_classification": [
+      {
+        "citation_id": [
+          "24736073"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 229,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:229",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24736073"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 229,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:229",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24457318"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 275,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:275",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24457318"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 275,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:275",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "15118125"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 276,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:276",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24662454"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "",
+        "evidence_id": 347,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:347",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "23816960"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "afatinib",
+        "evidence_id": 879,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:879",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "22452895"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "afatinib",
+        "evidence_id": 883,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:883",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "22285168"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 885,
+        "matched_spans": [
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:885",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "26515464"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "afatinib",
+        "evidence_id": 968,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:968",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24439929"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "afatinib",
+        "evidence_id": 982,
+        "matched_spans": [
+          "advanced"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:982",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "18509184"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 1665,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:1665",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24755888"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 2156,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:2156",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "20038723"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 2621,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2621",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "15329413"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 2624,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2624",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18408761"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "lapatinib",
+        "evidence_id": 2626,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2626",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18089823"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "dacomitinib",
+        "evidence_id": 2627,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2627",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "16818618"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "neratinib maleate",
+        "evidence_id": 2628,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2628",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18408761"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "afatinib",
+        "evidence_id": 2629,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2629",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18408761"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "canertinib",
+        "evidence_id": 2631,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2631",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "15329413"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 2632,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2632",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "22370314"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 2634,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2634",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24868098"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 2994,
+        "matched_spans": [
+          "first-line",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2994",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "23982599"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "afatinib",
+        "evidence_id": 2997,
+        "matched_spans": [
+          "first-line",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:2997",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "22285168"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 3791,
+        "matched_spans": [
+          "adjuvant",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:3791",
+        "structural_class": "adjuvant_resected"
+      },
+      {
+        "citation_id": [
+          "19147750"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "erlotinib",
+        "evidence_id": 3811,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:3811",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "19147750"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "gefitinib",
+        "evidence_id": 3811,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:3811",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "19147750"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "multikinase inhibitor aee788",
+        "evidence_id": 3811,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:3811",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "17877814"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "erlotinib",
+        "evidence_id": 4265,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4265",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "18408761"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4284,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4284",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "21132006"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "erlotinib",
+        "evidence_id": 4285,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4285",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24353160"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4286,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4286",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "27612423"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4287,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4287",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "22235099"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "crizotinib",
+        "evidence_id": 4288,
+        "matched_spans": [
+          "progressed on"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4288",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "27032107"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4290,
+        "matched_spans": [
+          "advanced",
+          "first-line"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4290",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "27102076"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4291,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4291",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "27102076"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "cetuximab",
+        "evidence_id": 4292,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4292",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24893891"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4293,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4293",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "24893891"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 4294,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4294",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "17177598"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "high grade glioma",
+        "drug": "erlotinib",
+        "evidence_id": 4295,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4295",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "21531810"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 4759,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:4759",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "21531810"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 4759,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:4759",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26768165"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "dacomitinib",
+        "evidence_id": 4860,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:4860",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "20942962"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "cancer",
+        "drug": "erlotinib",
+        "evidence_id": 5922,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:5922",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "27022112"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 6183,
+        "matched_spans": [
+          "postoperative"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R",
+        "record_id": "evidence:6183",
+        "structural_class": "adjuvant_resected"
+      },
+      {
+        "citation_id": [
+          "28958502"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "dacomitinib",
+        "evidence_id": 7363,
+        "matched_spans": [
+          "T790M",
+          "first line",
+          "newly diagnosed"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:7363",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "32955177"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 11219,
+        "matched_spans": [
+          "resection",
+          "stage II"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11219",
+        "structural_class": "adjuvant_resected"
+      },
+      {
+        "citation_id": [
+          "28958502"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "dacomitinib",
+        "evidence_id": 11239,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11239",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "31591063"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "erlotinib",
+        "evidence_id": 11240,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11240",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "31591063"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "ramucirumab",
+        "evidence_id": 11240,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11240",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "24263064"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "gefitinib",
+        "evidence_id": 11241,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:11241",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "27959700"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 11599,
+        "matched_spans": [
+          "T790M",
+          "advanced",
+          "first-line",
+          "progressed after",
+          "progressed during"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR L858R AND EGFR T790M",
+        "record_id": "evidence:11599",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "37937763"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 12015,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12015",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "38942080"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "amivantamab",
+        "evidence_id": 12131,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12131",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "38942080"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "lazertinib",
+        "evidence_id": 12131,
+        "matched_spans": [],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12131",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "37879444"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "amivantamab",
+        "evidence_id": 12156,
+        "matched_spans": [
+          "advanced",
+          "locally advanced",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12156",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "37879444"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "carboplatin",
+        "evidence_id": 12156,
+        "matched_spans": [
+          "advanced",
+          "locally advanced",
+          "metastatic"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "record_id": "evidence:12156",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "24893891"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 963,
+        "matched_spans": [
+          "T790M",
+          "advanced"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:963",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "25939061"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 964,
+        "matched_spans": [
+          "T790M",
+          "advanced"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR C797S",
+        "record_id": "evidence:964",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "25923549"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 965,
+        "matched_spans": [
+          "T790M",
+          "progressed on"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:965",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26720284"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 966,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:966",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26515464"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 967,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:967",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26181354"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 1396,
+        "matched_spans": [
+          "T790M",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 Deletion AND EGFR C797S",
+        "record_id": "evidence:1396",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26181354"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 1397,
+        "matched_spans": [
+          "T790M",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 Deletion",
+        "record_id": "evidence:1397",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26729184"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 1592,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:1592",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "27959700"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 1867,
+        "matched_spans": [
+          "T790M",
+          "advanced",
+          "first-line",
+          "progression after"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:1867",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "26269204"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 2157,
+        "matched_spans": [
+          "T790M",
+          "stage IV"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:2157",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "28202511"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 3015,
+        "matched_spans": [
+          "acquired resistance"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR Amplification",
+        "record_id": "evidence:3015",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "28874593"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "pancreatic adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 6006,
+        "matched_spans": [
+          "T790M"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M",
+        "record_id": "evidence:6006",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "28274957"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "breast cancer",
+        "drug": "osimertinib",
+        "evidence_id": 6174,
+        "matched_spans": [],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "ERBB2 T798I",
+        "record_id": "evidence:6174",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 7610,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR Exon 20 Insertion",
+        "record_id": "evidence:7610",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9220,
+        "matched_spans": [
+          "first-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR A767_V769dupASV",
+        "record_id": "evidence:9220",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9221,
+        "matched_spans": [
+          "first-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR N771_P772insL",
+        "record_id": "evidence:9221",
+        "structural_class": "first_line_advanced"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9223,
+        "matched_spans": [
+          "second-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR D770_N771insG",
+        "record_id": "evidence:9223",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9224,
+        "matched_spans": [
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR S768_D770dup",
+        "record_id": "evidence:9224",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "31208370"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 9225,
+        "matched_spans": [
+          "T790M",
+          "progression after",
+          "second-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR A763_Y764insFQEA",
+        "record_id": "evidence:9225",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "35245845"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 11021,
+        "matched_spans": [],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR::RAD51 Fusion",
+        "record_id": "evidence:11021",
+        "structural_class": "insufficient_context"
+      },
+      {
+        "citation_id": [
+          "27959700"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung non-small cell carcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 11598,
+        "matched_spans": [
+          "T790M",
+          "advanced",
+          "first-line",
+          "progressed after",
+          "progressed during"
+        ],
+        "mentions_l858r": true,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 Deletion",
+        "record_id": "evidence:11598",
+        "structural_class": "post_progression_t790m"
+      },
+      {
+        "citation_id": [
+          "35399574"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 12370,
+        "matched_spans": [
+          "metastatic"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR::RAD51 Fusion",
+        "record_id": "evidence:12370",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "38525318"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 12372,
+        "matched_spans": [
+          "metastatic"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": false,
+        "molecular_profile": "EGFR::RAD51 Fusion",
+        "record_id": "evidence:12372",
+        "structural_class": "other"
+      },
+      {
+        "citation_id": [
+          "38074875"
+        ],
+        "classification_basis": "text_heuristic",
+        "disease": "lung adenocarcinoma",
+        "drug": "osimertinib",
+        "evidence_id": 12946,
+        "matched_spans": [
+          "First-line",
+          "T790M",
+          "second-line",
+          "stage IV"
+        ],
+        "mentions_l858r": false,
+        "mentions_t790m": true,
+        "molecular_profile": "EGFR T790M AND EGFR Exon 19 del",
+        "record_id": "evidence:12946",
+        "structural_class": "post_progression_t790m"
+      }
+    ]
+  }
+}

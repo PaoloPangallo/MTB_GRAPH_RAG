@@ -1,0 +1,138 @@
+{
+  "blockers": [],
+  "case_id": "PILOT-N1-RMI2-SNAPSHOT",
+  "gene": "RMI2",
+  "interpretation": "Astensione limitata allo snapshot: il traversal deterministico gene -> variante -> profilo -> evidenza -> farmaco non restituisce alcun percorso. Non e' un'affermazione sull'assenza di evidenza nel mondo.",
+  "is_valid_negative": true,
+  "primary_query": {
+    "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(v:Variant)-[:IN_MOLECULAR_PROFILE]->(mp:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence)-[:TARGETS_DRUG]->(d:Drug) RETURN g.hugo_symbol AS gene, v.variant_name AS variant, mp.name AS molecular_profile, e.evidence_id AS evidence_id, e.significance AS significance, e.disease AS disease, e.citation_id AS citation_id, d.drug_name AS drug",
+    "params": {
+      "gene": "RMI2"
+    },
+    "query_name": "deterministic_gene_to_therapy_path",
+    "record_count": 0,
+    "records": []
+  },
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "supporting_queries": [
+    {
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene}) RETURN g AS gene",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "gene_node",
+      "record_count": 1,
+      "records": [
+        {
+          "gene": {
+            "aliases": [
+              "BLAP18",
+              "C16orf75",
+              "MGC24665"
+            ],
+            "categories": [
+              "CLINICALLY ACTIONABLE",
+              "DNA REPAIR"
+            ],
+            "entrez_id": 116028,
+            "hugo_symbol": "RMI2",
+            "is_oncokb_annotated": false
+          }
+        }
+      ]
+    },
+    {
+      "cypher": "MATCH (g:Gene) WHERE g.hugo_symbol = $gene OR $gene IN coalesce(g.aliases, []) RETURN g.hugo_symbol AS hugo_symbol, g.entrez_id AS entrez_id, g.aliases AS aliases, g.categories AS categories, g.is_oncokb_annotated AS is_oncokb_annotated",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "gene_and_aliases",
+      "record_count": 1,
+      "records": [
+        {
+          "aliases": [
+            "BLAP18",
+            "C16orf75",
+            "MGC24665"
+          ],
+          "categories": [
+            "CLINICALLY ACTIONABLE",
+            "DNA REPAIR"
+          ],
+          "entrez_id": 116028,
+          "hugo_symbol": "RMI2",
+          "is_oncokb_annotated": false
+        }
+      ]
+    },
+    {
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(v:Variant) RETURN v.variant_id AS variant_id, v.variant_name AS variant_name",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "variants",
+      "record_count": 0,
+      "records": []
+    },
+    {
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(:Variant)-[:IN_MOLECULAR_PROFILE]->(mp:MolecularProfile) RETURN DISTINCT mp.molecular_profile_id AS molecular_profile_id, mp.name AS name",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "molecular_profiles",
+      "record_count": 0,
+      "records": []
+    },
+    {
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(:Variant)-[:IN_MOLECULAR_PROFILE]->(:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence) RETURN e.evidence_id AS evidence_id, e.significance AS significance, e.disease AS disease, e.citation_id AS citation_id",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "clinical_evidence",
+      "record_count": 0,
+      "records": []
+    },
+    {
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[r:INTERACTS_WITH]->(d:Drug) RETURN d.drug_name AS drug, r.interaction_type AS interaction_type, r.source_db AS source_db",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "interacts_with_drugs",
+      "record_count": 0,
+      "records": []
+    },
+    {
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[:HAS_VARIANT]->(:Variant)-[:IN_MOLECULAR_PROFILE]->(:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence)-[:CITED_IN]->(p:Publication) RETURN p.pmid AS pmid, p.citation_text AS citation_text",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "publications_via_evidence",
+      "record_count": 0,
+      "records": []
+    },
+    {
+      "cypher": "MATCH (t:ClinicalTrial)-[:ASSOCIATED_GENE]->(g:Gene {hugo_symbol: $gene}) OPTIONAL MATCH (t)-[:TESTS_DRUG]->(d:Drug) RETURN t.nct_id AS nct_id, t.title AS title, t.phase AS phase, t.status AS status, collect(DISTINCT d.drug_name) AS drugs ORDER BY nct_id",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "trials_by_gene",
+      "record_count": 0,
+      "records": []
+    },
+    {
+      "cypher": "MATCH (g:Gene {hugo_symbol: $gene})-[r]-(n) RETURN type(r) AS relationship_type, labels(n) AS neighbour_labels, count(*) AS count",
+      "params": {
+        "gene": "RMI2"
+      },
+      "query_name": "any_relationship",
+      "record_count": 0,
+      "records": []
+    }
+  ],
+  "therapeutic_path_count": 0,
+  "timestamp_utc": "2026-07-21T17:35:58.570517+00:00",
+  "warnings": [
+    "il nodo Gene RMI2 esiste ma non ha alcuna relazione: l'astensione e' un negativo genuino del traversal",
+    "il nodo RMI2 porta le categorie ['CLINICALLY ACTIONABLE', 'DNA REPAIR'] pur non avendo alcun percorso terapeutico: la proprieta' non implica evidenza clinica ed e' una trappola per qualunque euristica che la usasse come segnale"
+  ]
+}

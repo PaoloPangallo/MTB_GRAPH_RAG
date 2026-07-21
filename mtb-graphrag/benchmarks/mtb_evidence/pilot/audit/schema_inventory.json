@@ -1,0 +1,865 @@
+{
+  "constraints": [
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "ClinicalTrial"
+      ],
+      "name": "clinical_trial_nct_id",
+      "properties": [
+        "nct_id"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "CompanionDiagnostic"
+      ],
+      "name": "companion_device_id",
+      "properties": [
+        "device_id"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Disease"
+      ],
+      "name": "disease_id_unique",
+      "properties": [
+        "disease_id"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Disease"
+      ],
+      "name": "disease_name_unique",
+      "properties": [
+        "name"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Drug"
+      ],
+      "name": "drug_concept_id",
+      "properties": [
+        "concept_id"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Evidence"
+      ],
+      "name": "evidence_id",
+      "properties": [
+        "evidence_id"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Gene"
+      ],
+      "name": "gene_entrez_id",
+      "properties": [
+        "entrez_id"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "MolecularProfile"
+      ],
+      "name": "molecular_profile_id",
+      "properties": [
+        "molecular_profile_id"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Publication"
+      ],
+      "name": "publication_pmid_unique",
+      "properties": [
+        "pmid"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Variant"
+      ],
+      "name": "variant_id",
+      "properties": [
+        "variant_id"
+      ],
+      "type": "NODE_PROPERTY_UNIQUENESS"
+    }
+  ],
+  "example_records": {
+    "civic_evidence": {
+      "cypher": "MATCH (e:Evidence) WHERE e.source_type = 'PubMed' RETURN e AS evidence LIMIT 3",
+      "records": [
+        {
+          "evidence": {
+            "citation_id": [
+              "16081687"
+            ],
+            "disease": "Lymphoid Leukemia",
+            "doid": "1037.0",
+            "evidence_direction": "Supports",
+            "evidence_id": 1,
+            "evidence_level": "B",
+            "evidence_statement": "JAK2 V617F is not associated with lymphoid leukemia (B-lineage ALL, T-ALL or CLL).",
+            "evidence_type": "Diagnostic",
+            "rating": 4,
+            "significance": "Negative",
+            "source_type": "PubMed",
+            "variant_origin": "Somatic"
+          }
+        },
+        {
+          "evidence": {
+            "citation_id": [
+              "15146165"
+            ],
+            "disease": "Gastrointestinal Stromal Tumor",
+            "doid": "9253.0",
+            "evidence_direction": "Supports",
+            "evidence_id": 2,
+            "evidence_level": "B",
+            "evidence_statement": "GIST tumors harboring PDGFRA D842V mutation are more likely to be benign than malignant.",
+            "evidence_type": "Diagnostic",
+            "rating": 3,
+            "significance": "Negative",
+            "source_type": "PubMed",
+            "variant_origin": "Somatic"
+          }
+        },
+        {
+          "evidence": {
+            "citation_id": [
+              "22490330"
+            ],
+            "disease": "Acute Myeloid Leukemia",
+            "doid": "9119.0",
+            "evidence_direction": "Supports",
+            "evidence_id": 4,
+            "evidence_level": "B",
+            "evidence_statement": "Young AML patients (<60 years old) with DNMT3A mutations (60% of which were R882) were older in age, had higher white blood cell counts and had higher platelet counts than patients wildtype for DNMT3A.",
+            "evidence_type": "Diagnostic",
+            "rating": 3,
+            "significance": "Positive",
+            "source_type": "PubMed",
+            "variant_origin": "Somatic"
+          }
+        }
+      ]
+    },
+    "clinical_trial": {
+      "cypher": "MATCH (t:ClinicalTrial) RETURN t.nct_id AS nct_id, t.title AS title, t.phase AS phase, t.status AS status LIMIT 3",
+      "records": [
+        {
+          "nct_id": "NCT05020275",
+          "phase": "NA",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "title": "Resistance to the Tyrosine Kinase Inhibitor Osimertinib and Pharmacokinetics in Non-small Cell Lung Cancer"
+        },
+        {
+          "nct_id": "NCT05176665",
+          "phase": "PHASE1, PHASE2",
+          "status": "RECRUITING",
+          "title": "EMB-01 in Patients With Advanced/Metastatic Gastrointestinal Cancers"
+        },
+        {
+          "nct_id": "NCT06314997",
+          "phase": "PHASE2",
+          "status": "RECRUITING",
+          "title": "Dynamic Changes in Circulating Tumour Cells Protein Expression"
+        }
+      ]
+    },
+    "evidence_with_drug": {
+      "cypher": "MATCH (mp:MolecularProfile)-[:HAS_EVIDENCE]->(e:Evidence)-[:TARGETS_DRUG]->(d:Drug) RETURN mp.name AS molecular_profile, e.evidence_id AS evidence_id, e.significance AS significance, d.drug_name AS drug LIMIT 3",
+      "records": [
+        {
+          "drug": "IMATINIB",
+          "evidence_id": 232,
+          "molecular_profile": "BCR::ABL1 Fusion",
+          "significance": "Resistance"
+        },
+        {
+          "drug": "IMATINIB",
+          "evidence_id": 259,
+          "molecular_profile": "BCR::ABL1 Fusion",
+          "significance": "Sensitivity/Response"
+        },
+        {
+          "drug": "IMATINIB",
+          "evidence_id": 260,
+          "molecular_profile": "BCR::ABL1 Fusion",
+          "significance": "Sensitivity/Response"
+        }
+      ]
+    },
+    "resistance_evidence": {
+      "cypher": "MATCH (e:Evidence) WHERE e.significance = 'Resistance' RETURN e.evidence_id AS evidence_id, e.disease AS disease, e.citation_id AS citation_id LIMIT 3",
+      "records": [
+        {
+          "citation_id": [
+            "22081665"
+          ],
+          "disease": "Acute Myeloid Leukemia",
+          "evidence_id": 11
+        },
+        {
+          "citation_id": [
+            "19915144"
+          ],
+          "disease": "Melanoma",
+          "evidence_id": 12
+        },
+        {
+          "citation_id": [
+            "19915144"
+          ],
+          "disease": "Melanoma",
+          "evidence_id": 13
+        }
+      ]
+    }
+  },
+  "indexes": [
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "ClinicalTrial"
+      ],
+      "name": "clinical_trial_nct_id",
+      "properties": [
+        "nct_id"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "CompanionDiagnostic"
+      ],
+      "name": "companion_device_id",
+      "properties": [
+        "device_id"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Disease"
+      ],
+      "name": "disease_doid",
+      "properties": [
+        "doid"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Disease"
+      ],
+      "name": "disease_id_unique",
+      "properties": [
+        "disease_id"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Disease"
+      ],
+      "name": "disease_name_unique",
+      "properties": [
+        "name"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Drug"
+      ],
+      "name": "drug_concept_id",
+      "properties": [
+        "concept_id"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Drug"
+      ],
+      "name": "drug_name",
+      "properties": [
+        "drug_name"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Evidence"
+      ],
+      "name": "evidence_id",
+      "properties": [
+        "evidence_id"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Gene"
+      ],
+      "name": "gene_entrez_id",
+      "properties": [
+        "entrez_id"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Gene"
+      ],
+      "name": "gene_hugo",
+      "properties": [
+        "hugo_symbol"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "RELATIONSHIP",
+      "labelsOrTypes": null,
+      "name": "index_1b9dcc97",
+      "properties": null,
+      "type": "LOOKUP"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": null,
+      "name": "index_460996c0",
+      "properties": null,
+      "type": "LOOKUP"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "MolecularProfile"
+      ],
+      "name": "molecular_profile_id",
+      "properties": [
+        "molecular_profile_id"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Publication"
+      ],
+      "name": "publication_pmid_unique",
+      "properties": [
+        "pmid"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Publication"
+      ],
+      "name": "publication_source_type",
+      "properties": [
+        "source_type"
+      ],
+      "type": "RANGE"
+    },
+    {
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Variant"
+      ],
+      "name": "variant_id",
+      "properties": [
+        "variant_id"
+      ],
+      "type": "RANGE"
+    }
+  ],
+  "labels": [
+    "ClinicalTrial",
+    "CompanionDiagnostic",
+    "Disease",
+    "Drug",
+    "Evidence",
+    "Gene",
+    "MolecularProfile",
+    "Publication",
+    "Variant"
+  ],
+  "properties_by_label": {
+    "ClinicalTrial": [
+      "conditions",
+      "interventions",
+      "keywords",
+      "nct_id",
+      "phase",
+      "status",
+      "title"
+    ],
+    "CompanionDiagnostic": [
+      "associated_drug",
+      "device_id",
+      "device_name",
+      "gene_symbol",
+      "platform_type",
+      "specimen_types"
+    ],
+    "Disease": [
+      "disease_id",
+      "doid",
+      "doid_uri",
+      "name"
+    ],
+    "Drug": [
+      "anti_neoplastic",
+      "approved",
+      "concept_id",
+      "drug_claim_name",
+      "drug_name",
+      "immunotherapy",
+      "nomenclature",
+      "source_db_name",
+      "source_db_version"
+    ],
+    "Evidence": [
+      "citation_id",
+      "disease",
+      "doid",
+      "evidence_direction",
+      "evidence_id",
+      "evidence_level",
+      "evidence_statement",
+      "evidence_type",
+      "rating",
+      "significance",
+      "source_type",
+      "variant_origin"
+    ],
+    "Gene": [
+      "aliases",
+      "categories",
+      "civic_description",
+      "entrez_id",
+      "gene_type",
+      "grch38_isoform",
+      "grch38_refseq",
+      "hugo_symbol",
+      "is_oncokb_annotated"
+    ],
+    "MolecularProfile": [
+      "aliases",
+      "evidence_score",
+      "molecular_profile_id",
+      "name",
+      "summary"
+    ],
+    "Publication": [
+      "citation_text",
+      "pmid",
+      "pubmed_url",
+      "source_type",
+      "year"
+    ],
+    "Variant": [
+      "allele_registry_id",
+      "chromosome",
+      "civic_url",
+      "feature_type",
+      "hgvs_descriptions",
+      "reference_bases",
+      "start",
+      "stop",
+      "variant_bases",
+      "variant_id",
+      "variant_name",
+      "variant_types"
+    ]
+  },
+  "queries_used": {
+    "components": "CALL dbms.components() YIELD name, versions, edition RETURN name, versions, edition",
+    "constraints": "SHOW CONSTRAINTS YIELD name, type, entityType, labelsOrTypes, properties",
+    "database": "CALL db.info() YIELD name RETURN name",
+    "indexes": "SHOW INDEXES YIELD name, type, entityType, labelsOrTypes, properties",
+    "labels": "CALL db.labels() YIELD label RETURN label ORDER BY label",
+    "node_count_template": "MATCH (n:`<label>`) RETURN count(n) AS count",
+    "property_keys_template": "MATCH (n:`<label>`) WITH keys(n) AS ks LIMIT 500 UNWIND ks AS k RETURN DISTINCT k AS property ORDER BY property",
+    "relationship_count_template": "MATCH ()-[r:`<type>`]->() RETURN count(r) AS count",
+    "relationship_types": "CALL db.relationshipTypes() YIELD relationshipType RETURN relationshipType ORDER BY relationshipType"
+  },
+  "relationship_types": [
+    "ASSOCIATED_GENE",
+    "CITED_IN",
+    "DIAGNOSES_GENE",
+    "HAS_COMPANION_DIAGNOSTIC",
+    "HAS_DISEASE",
+    "HAS_EVIDENCE",
+    "HAS_VARIANT",
+    "INTERACTS_WITH",
+    "IN_MOLECULAR_PROFILE",
+    "TARGETS_DRUG",
+    "TESTS_DRUG"
+  ],
+  "samples_by_label": {
+    "ClinicalTrial": [
+      {
+        "node": {
+          "conditions": [
+            "Lung Cancer"
+          ],
+          "interventions": [
+            "Blood Samples"
+          ],
+          "keywords": [
+            "Non-small Cell Lung cancer",
+            "Osimertinib",
+            "Resistance",
+            "Pharmacokinetics"
+          ],
+          "nct_id": "NCT05020275",
+          "phase": "NA",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "title": "Resistance to the Tyrosine Kinase Inhibitor Osimertinib and Pharmacokinetics in Non-small Cell Lung Cancer"
+        }
+      },
+      {
+        "node": {
+          "conditions": [
+            "Neoplasms",
+            "Neoplasm Metastasis",
+            "Metastatic Gastrointestinal Carcinoid Tumor"
+          ],
+          "interventions": [
+            "EMB-01"
+          ],
+          "keywords": [
+            "Human Bispecific antibody",
+            "Epidermal Growth Factor Receptor (EGFR)",
+            "c-Mesenchymal-Epithelial Transition (cMet)",
+            "Neoplasms， Neoplasm Metastasis",
+            "Neoplasm Metastasis",
+            "EMB-01，Tyrosine Kinase Inhibitor (TKI) Resistant"
+          ],
+          "nct_id": "NCT05176665",
+          "phase": "PHASE1, PHASE2",
+          "status": "RECRUITING",
+          "title": "EMB-01 in Patients With Advanced/Metastatic Gastrointestinal Cancers"
+        }
+      }
+    ],
+    "CompanionDiagnostic": [
+      {
+        "node": {
+          "associated_drug": "Ivosidenib",
+          "device_id": "cdx:ABBOTTREALTIMEI:IDH1:IVOSIDENIB",
+          "device_name": "Abbott RealTime IDH1  (Abbott Molecular, Inc.)",
+          "gene_symbol": "IDH1",
+          "platform_type": "PCR",
+          "specimen_types": [
+            "Bone marrow",
+            "Peripheral Blood"
+          ]
+        }
+      },
+      {
+        "node": {
+          "associated_drug": "Olutasidenib",
+          "device_id": "cdx:ABBOTTREALTIMEI:IDH1:OLUTASIDENIB",
+          "device_name": "Abbott RealTime IDH1  (Abbott Molecular, Inc.)",
+          "gene_symbol": "IDH1",
+          "platform_type": "PCR",
+          "specimen_types": [
+            "Bone marrow",
+            "Peripheral Blood"
+          ]
+        }
+      }
+    ],
+    "Disease": [
+      {
+        "node": {
+          "disease_id": 1,
+          "doid": 1037,
+          "doid_uri": "http://purl.obolibrary.org/obo/DOID_1037",
+          "name": "Lymphoid Leukemia"
+        }
+      },
+      {
+        "node": {
+          "disease_id": 2,
+          "doid": 9253,
+          "doid_uri": "http://purl.obolibrary.org/obo/DOID_9253",
+          "name": "Gastrointestinal Stromal Tumor"
+        }
+      }
+    ],
+    "Drug": [
+      {
+        "node": {
+          "anti_neoplastic": false,
+          "approved": false,
+          "concept_id": "iuphar.ligand:6155",
+          "drug_claim_name": "IUPHAR.LIGAND:6155",
+          "drug_name": "CP-195543",
+          "immunotherapy": false,
+          "nomenclature": "GuideToPharmacology Ligand ID",
+          "source_db_name": "GuideToPharmacology",
+          "source_db_version": "2024.1"
+        }
+      },
+      {
+        "node": {
+          "anti_neoplastic": false,
+          "approved": false,
+          "concept_id": "iuphar.ligand:3401",
+          "drug_claim_name": "IUPHAR.LIGAND:3401",
+          "drug_name": "15S-HETE",
+          "immunotherapy": false,
+          "nomenclature": "GuideToPharmacology Ligand ID",
+          "source_db_name": "GuideToPharmacology",
+          "source_db_version": "2024.1"
+        }
+      }
+    ],
+    "Evidence": [
+      {
+        "node": {
+          "citation_id": [
+            "16081687"
+          ],
+          "disease": "Lymphoid Leukemia",
+          "doid": "1037.0",
+          "evidence_direction": "Supports",
+          "evidence_id": 1,
+          "evidence_level": "B",
+          "evidence_statement": "JAK2 V617F is not associated with lymphoid leukemia (B-lineage ALL, T-ALL or CLL).",
+          "evidence_type": "Diagnostic",
+          "rating": 4,
+          "significance": "Negative",
+          "source_type": "PubMed",
+          "variant_origin": "Somatic"
+        }
+      },
+      {
+        "node": {
+          "citation_id": [
+            "15146165"
+          ],
+          "disease": "Gastrointestinal Stromal Tumor",
+          "doid": "9253.0",
+          "evidence_direction": "Supports",
+          "evidence_id": 2,
+          "evidence_level": "B",
+          "evidence_statement": "GIST tumors harboring PDGFRA D842V mutation are more likely to be benign than malignant.",
+          "evidence_type": "Diagnostic",
+          "rating": 3,
+          "significance": "Negative",
+          "source_type": "PubMed",
+          "variant_origin": "Somatic"
+        }
+      }
+    ],
+    "Gene": [
+      {
+        "node": {
+          "aliases": [
+            "ABL",
+            "JTK7",
+            "c-ABL"
+          ],
+          "categories": [
+            "CLINICALLY ACTIONABLE",
+            "KINASE",
+            "TYROSINE KINASE",
+            "TUMOR SUPPRESSOR",
+            "DRUG RESISTANCE",
+            "DRUGGABLE GENOME"
+          ],
+          "civic_description": "ABL1 is most relevant to cancer in its role in the BCR-ABL fusion protein that has become a signature of chronic myeloid leukemia (CML). Cells harboring this fusion have shown sensitivity to imatinib, greatly improving the prognostic outlook of the disease. However, additional mutations in ABL1 have been shown to confer resistance to imatinib. In these resistance cases, second-generation tyrosine kinase inhibitors such as dasatinib and nilotinib have exhibited some efficacy and are currently undergoing clinical trials for treating acquired resistance in CML.",
+          "entrez_id": 25,
+          "gene_type": "ONCOGENE",
+          "grch38_isoform": "ENST00000318560",
+          "grch38_refseq": "NM_005157.4",
+          "hugo_symbol": "ABL1",
+          "is_oncokb_annotated": true
+        }
+      },
+      {
+        "node": {
+          "aliases": [
+            "AKT",
+            "PKB",
+            "PRKBA",
+            "RAC",
+            "RAC-alpha"
+          ],
+          "categories": [
+            "CLINICALLY ACTIONABLE",
+            "KINASE",
+            "SERINE THREONINE KINASE",
+            "DRUGGABLE GENOME",
+            "DRUG RESISTANCE",
+            "ENZYME",
+            "TRANSCRIPTION FACTOR",
+            "TRANSPORTER"
+          ],
+          "civic_description": "AKT1, also referred to as protein kinase B, is a known oncogene. AKT activation relies on the PI3K pathway, and is recognized as a critical node in the pathway. The E17 hotspot is the most characterized of AKT1 mutations, and has been shown to result in activation of the protein. Mutations in AKT1 have also been shown to confer resistance to allosteric kinase inhibitors in vitro.",
+          "entrez_id": 207,
+          "gene_type": "ONCOGENE",
+          "grch38_isoform": "ENST00000349310",
+          "grch38_refseq": "NM_001014431.1",
+          "hugo_symbol": "AKT1",
+          "is_oncokb_annotated": true
+        }
+      }
+    ],
+    "MolecularProfile": [
+      {
+        "node": {
+          "aliases": [
+            "BCR-ABL",
+            "BCR-ABL1",
+            "T(9",
+            "22)(Q34",
+            "Q11)"
+          ],
+          "evidence_score": 433.5,
+          "molecular_profile_id": 1,
+          "name": "BCR::ABL1 Fusion",
+          "summary": "The BCR-ABL fusion protein, commonly referred to as the Philadelphia chromosome, is one of the most studied fusion genes in cancer. It has widely been considered the initiating event in chronic myelogenous leukemia (CML). However, despite its ability to initiate disease in mice, its status as an initiating mutation is in dispute. In what is commonly used as the poster-child for targeted therapeutics, the development and use of imatinib in the clinic has led to profound improvements in the prognosis of the disease. However, imatinib resistance is still seen in patients with mutations in the ABL kinase domain of the fusion, most notably the T315I variant. In patients resistant to imatinib, either acquired or otherwise, second generation BCR-ABL TKI's (dasatinib and nilotinib) have seen some success in delivering a tumor response. Third generation ABL1 inhibitor ponatinib is the only FDA approved drug with activity against T315I . However due to risk of life-threatening blood clots and severe narrowing of blood vessels ponatinib is ONLY approved for T315I-positive CML or T315I-positive Ph+ ALL or in cases of CML, Ph+ ALL with resistance or intolerance to other approved ABL1 inhibitors."
+        }
+      },
+      {
+        "node": {
+          "aliases": [
+            "RS34409589",
+            "GLU17LYS"
+          ],
+          "evidence_score": 33.5,
+          "molecular_profile_id": 4,
+          "name": "AKT1 E17K",
+          "summary": "AKT1 E17K is a recurrent mutation that has been observed in breast, colorectal, lung, and ovarian cancer. It has been convincingly shown to be an activating mutation resulting in PI3K/AKT/mTOR pathway activity. It has been suggested that this mutation decreases the cell's sensitivity to AKT1 allosteric kinase inhibitors. This, and other AKT1 mutations, are the subject of much research and development for therapeutics."
+        }
+      }
+    ],
+    "Publication": [
+      {
+        "node": {
+          "citation_text": "Levine et al., 2005",
+          "pmid": 16081687,
+          "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/16081687",
+          "source_type": "PubMed",
+          "year": 2005
+        }
+      },
+      {
+        "node": {
+          "citation_text": "Lasota et al., 2004",
+          "pmid": 15146165,
+          "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/15146165",
+          "source_type": "PubMed",
+          "year": 2004
+        }
+      }
+    ],
+    "Variant": [
+      {
+        "node": {
+          "civic_url": "https://civicdb.org/links/variants/1",
+          "feature_type": "Fusion",
+          "hgvs_descriptions": [],
+          "variant_id": 1,
+          "variant_name": "Fusion",
+          "variant_types": "transcript_fusion"
+        }
+      },
+      {
+        "node": {
+          "allele_registry_id": "CA122575",
+          "chromosome": "9",
+          "civic_url": "https://civicdb.org/links/variants/2",
+          "feature_type": "Gene",
+          "hgvs_descriptions": [
+            "NM_007313.2:c.1001C>T",
+            "NP_005148.2:p.Thr315Ile",
+            "ENST00000372348.2:c.1001C>T",
+            "NC_000009.11:g.133748283C>T"
+          ],
+          "reference_bases": "C",
+          "start": 133748283,
+          "stop": 133748283,
+          "variant_bases": "T",
+          "variant_id": 2,
+          "variant_name": "T315I",
+          "variant_types": "missense_variant"
+        }
+      }
+    ]
+  },
+  "schema_notes": [
+    "Publication.pmid e' un INTEGER; Evidence.citation_id e' un array di stringhe.",
+    "Evidence non ha proprieta' per setting, linea di terapia, stadio o esposizione precedente: quei qualificatori non sono modellati.",
+    "Evidence.disease e' testo libero, non una relazione verso il nodo Disease.",
+    "evidence_level mescola le scale CIViC (A, B) e OncoKB (LEVEL_1, LEVEL_2)."
+  ],
+  "server": {
+    "components": [
+      {
+        "edition": "enterprise",
+        "name": "Neo4j Kernel",
+        "versions": [
+          "2026.04.0"
+        ]
+      },
+      {
+        "edition": "",
+        "name": "Cypher",
+        "versions": [
+          "5",
+          "25"
+        ]
+      }
+    ],
+    "database_reported": "neo4j",
+    "edition": "enterprise",
+    "neo4j_version": "2026.04.0"
+  }
+}
