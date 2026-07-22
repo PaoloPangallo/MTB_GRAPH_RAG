@@ -101,9 +101,61 @@ def fingerprint(payload: Any) -> str:
 
 
 def _write(path: Path, text: str) -> Path:
+    """Scrittura atomica: file temporaneo, fsync, rename.
+
+    `write_text` diretto lascia il file troncato se il processo muore a meta'. Per gli
+    artefatti di run e' inaccettabile: una riga JSON parziale rende il resume
+    inaffidabile proprio quando serve, cioe' dopo un'interruzione. `os.replace` e'
+    atomico su POSIX e su Windows.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8", newline="\n")
+    temporary = path.with_name(f".{path.name}.tmp")
+    with open(temporary, "w", encoding="utf-8", newline="\n") as handle:
+        handle.write(text)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(temporary, path)
     return path
+
+
+def append_jsonl_atomic(
+    path: Path, row: Any, secrets: Iterable[str] | None = None
+) -> Path:
+    """Aggiunge una riga a un JSONL senza mai lasciarne una parziale.
+
+    Riscrive l'intero file in modo atomico invece di appendere in coda: con file da
+    poche centinaia di righe il costo e' trascurabile, e in cambio non esiste alcuna
+    finestra in cui il file contenga una riga troncata.
+    """
+    existing = ""
+    if path.is_file():
+        existing = path.read_text(encoding="utf-8")
+        if existing and not existing.endswith("\n"):
+            existing += "\n"
+    line = canonical_json(scrub(row, secrets if secrets is not None else secret_values()))
+    return _write(path, existing + line + "\n")
+
+
+def read_jsonl(path: Path) -> list[Any]:
+    """Rilegge un JSONL, ignorando una eventuale riga finale troncata.
+
+    Se un file scritto da una versione precedente contiene una riga parziale, va
+    scartata e non interpretata: meglio rieseguire quella run che fidarsi di dati
+    incompleti.
+    """
+    target = Path(path)
+    if not target.is_file():
+        return []
+    rows: list[Any] = []
+    for line in target.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        try:
+            rows.append(json.loads(stripped))
+        except json.JSONDecodeError:
+            continue
+    return rows
 
 
 def write_json(path: Path, payload: Any, secrets: Iterable[str] | None = None) -> Path:
