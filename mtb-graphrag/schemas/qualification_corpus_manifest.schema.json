@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mtb-graphrag.local/schemas/qualification_corpus_manifest.schema.json",
+  "title": "QualificationCorpusManifest",
+  "description": "Fotografia verificabile del qualification corpus. freeze_status e' calcolato dai fatti e non impostabile su richiesta: un manifest che si lasciasse dichiarare frozen certificherebbe soltanto che qualcuno ha scritto la parola.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "corpus_version",
+    "manifest_version",
+    "source_inventory_hash",
+    "qualification_scope_hash",
+    "statement_repository_hash",
+    "profile_units_hash",
+    "link_gold_hash",
+    "linker_version",
+    "snapshot_fingerprint",
+    "freeze_status",
+    "blockers"
+  ],
+  "properties": {
+    "corpus_version": { "type": "string", "minLength": 1 },
+    "manifest_version": { "type": "string" },
+
+    "source_inventory_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "qualification_scope_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "statement_repository_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "source_profiles_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "profile_units_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "link_gold_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+
+    "linker_version": { "type": "string" },
+    "schema_versions": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "snapshot_fingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+
+    "source_count": { "type": "integer", "minimum": 0 },
+    "scoped_source_count": { "type": "integer", "minimum": 0 },
+    "profile_unit_count": { "type": "integer", "minimum": 0 },
+    "reviewed_count": { "type": "integer", "minimum": 0 },
+    "machine_extracted_count": { "type": "integer", "minimum": 0 },
+    "provisional_count": { "type": "integer", "minimum": 0 },
+    "frozen_count": { "type": "integer", "minimum": 0 },
+    "unresolved_count": { "type": "integer", "minimum": 0 },
+    "evaluated_link_count": { "type": "integer", "minimum": 0 },
+    "not_evaluated_link_count": { "type": "integer", "minimum": 0 },
+
+    "created_at": { "type": "string" },
+    "freeze_status": {
+      "enum": [
+        "draft",
+        "first_review_complete",
+        "awaiting_second_review",
+        "adjudicated",
+        "frozen",
+        "blocked"
+      ]
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tutti i motivi del blocco, non solo il primo: un corpus bloccato per sei motivi va sistemato una volta, non sei."
+    }
+  },
+  "allOf": [
+    {
+      "description": "Un corpus congelato non puo' avere blocker aperti.",
+      "if": { "properties": { "freeze_status": { "const": "frozen" } } },
+      "then": { "properties": { "blockers": { "maxItems": 0 } } }
+    }
+  ]
+}
