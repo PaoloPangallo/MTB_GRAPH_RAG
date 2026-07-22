@@ -1,0 +1,89 @@
+# Revisione BA-c14eefc4be02c3cc — first_review
+
+## Fonte
+
+- **Titolo:** EGFR exon 20 insertion mutations and response to osimertinib in non-small-cell lung cancer.
+- **PMID:** 31208370
+- **Locator:** https://pubmed.ncbi.nlm.nih.gov/31208370/
+- **Tipi di pubblicazione:** Journal Article
+- **Abstract disponibile:** sì
+
+## Domanda sulla struttura delle coorti
+
+> Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.
+
+- Stato automatico: `cohort_resolved`
+- Marcatori di piu' bracci: —
+- Marcatori di braccio unico: —
+- Comparatore rilevato: no
+
+Nulla nella fonte o negli statement suggerisce piu' di una coorte.
+
+## Proposizioni candidate
+
+| statement | intervento | classificazione automatica | supporto |
+| --- | --- | --- | --- |
+| `ES-V2-evidence-7610` | osimertinib | `candidate_valid` | `direct_support` |
+| `ES-V2-evidence-9220` | osimertinib | `candidate_valid` | `direct_support` |
+| `ES-V2-evidence-9221` | osimertinib | `candidate_valid` | `direct_support` |
+| `ES-V2-evidence-9223` | osimertinib | `candidate_valid` | `direct_support` |
+| `ES-V2-evidence-9224` | osimertinib | `candidate_valid` | `direct_support` |
+| `ES-V2-evidence-9225` | osimertinib | `candidate_valid` | `direct_support` |
+
+## Rilevazioni automatiche
+
+**Emesse come valore:**
+
+- `evidence_design` = `retrospective_study` — «retrospectively» (METHODS)
+
+**Rilevate ma NON emesse — da verificare sulla fonte:**
+
+- `setting` ⇒ `advanced`? — «advanced» (CONCLUSIONS)
+- `therapy_line` ⇒ `relapsed or refractory`? — «refractory» (BACKGROUND)
+
+Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.
+
+## Estratti
+
+- **BACKGROUND** — «…r exon 20 insertion (EGFRex20ins) mutations represent approximately 4-12% of EGFR mutations and are generally refractory to the 1st and 2nd generation EGFR tyrosine kinase inhibitors (TKIs). Development of effective therapies for…»
+- **METHODS** — «…rthermore, six patients with specific EGFRexon20ins mutations and receiving osimertinib 80 mg once daily were retrospectively included to assess the antitumor activity and safety of monotherapy osimertinib.»
+- **CONCLUSIONS** — «…ore, our study firstly demonstrated promising antitumor activity of osimertinib in certain EGFRex20ins mutant advanced NSCLC patients, indicating that osimertinib treatment for EGFRex20ins positive patients deserves further stud…»
+
+## Campi da confermare
+
+| campo | indicazione |
+| --- | --- |
+| `disease` | Malattia studiata, con la denominazione della fonte. |
+| `histology` | Istologia, se la fonte la specifica. |
+| `population` | Popolazione arruolata. |
+| `stage` | Stadio di malattia. |
+| `setting` | Adiuvante, neoadiuvante, metastatico, perioperatorio, altro. |
+| `therapy_line` | Linea di terapia. |
+| `resection_status` | Stato di resezione. |
+| `intervention` | Interventi somministrati in questo braccio. |
+| `regimen` | Regime completo, incluse le combinazioni. |
+| `comparator` | Braccio di confronto, se esiste. |
+| `prior_therapies` | Terapie precedenti richieste o ammesse. |
+| `biomarker_requirements` | Alterazioni richieste per l'arruolamento. |
+| `inclusion_criteria` | Criteri di inclusione, in sintesi. |
+| `exclusion_criteria` | Criteri di esclusione, in sintesi. |
+| `study_design` | Disegno dello studio. |
+| `evidence_scope` | Ambito dell'evidenza. |
+| `cohort_notes` | Note sulla struttura delle coorti. |
+
+## Istruzioni
+
+1. Leggi la fonte primaria. Non compilare nulla da memoria.
+2. Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.
+3. Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.
+4. `unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.
+5. Per ogni campo compilato indica sezione o tabella da cui viene il valore.
+6. Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate.
+
+---
+
+Questo pacchetto non contiene il clinical gold, la terapia attesa, le metriche
+della pipeline, le decisioni dell'audit ne' l'indicazione di quale risposta
+migliori il sistema. Se fosse presente anche solo una di queste, la revisione
+non sarebbe indipendente.
+

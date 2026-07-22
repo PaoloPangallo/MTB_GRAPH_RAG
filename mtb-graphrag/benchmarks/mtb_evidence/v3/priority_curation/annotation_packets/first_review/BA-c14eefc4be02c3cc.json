@@ -1,0 +1,297 @@
+{
+  "allowed_values": {
+    "link_status": [
+      "valid_link",
+      "partial_link",
+      "ambiguous_link",
+      "conflicting_link",
+      "invalid_link",
+      "no_profile_available",
+      "source_missing",
+      "insufficient_source_information"
+    ],
+    "not_separable": "la fonte non distingue fra le coorti",
+    "rationale_codes": [
+      "same_study_same_cohort",
+      "same_study_other_cohort",
+      "disease_more_specific_in_statement",
+      "disease_more_specific_in_profile",
+      "disease_incompatible",
+      "intervention_absent_from_study",
+      "intervention_partially_overlapping",
+      "cohort_not_separable",
+      "source_absent_from_snapshot",
+      "source_information_insufficient",
+      "identifier_only_coincidence"
+    ],
+    "unknown": "la fonte non lo afferma"
+  },
+  "automatic_extraction": {
+    "caveat": "Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.",
+    "contradicted": [],
+    "detected_not_emitted": {
+      "setting": {
+        "char_end": 292,
+        "char_start": 284,
+        "confidence": "low",
+        "dimension": "setting",
+        "matched_text": "advanced",
+        "pattern_id": "setting.advanced",
+        "section_label": "CONCLUSIONS",
+        "value": "advanced"
+      },
+      "therapy_line": {
+        "char_end": 151,
+        "char_start": 141,
+        "confidence": "low",
+        "dimension": "therapy_line",
+        "matched_text": "refractory",
+        "pattern_id": "line.relapsed",
+        "section_label": "BACKGROUND",
+        "value": "relapsed or refractory"
+      }
+    },
+    "emitted": {
+      "evidence_design": {
+        "char_end": 356,
+        "char_start": 341,
+        "confidence": "medium",
+        "dimension": "evidence_design",
+        "matched_text": "retrospectively",
+        "pattern_id": "design.retrospective",
+        "section_label": "METHODS",
+        "value": "retrospective_study"
+      }
+    }
+  },
+  "blind_annotation_id": "BA-c14eefc4be02c3cc",
+  "candidate_statements": [
+    {
+      "automatic_classification": "candidate_valid",
+      "explanation": "l'intervento compare in una sezione primaria dell'abstract",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-7610",
+      "support_type": "direct_support"
+    },
+    {
+      "automatic_classification": "candidate_valid",
+      "explanation": "l'intervento compare in una sezione primaria dell'abstract",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-9220",
+      "support_type": "direct_support"
+    },
+    {
+      "automatic_classification": "candidate_valid",
+      "explanation": "l'intervento compare in una sezione primaria dell'abstract",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-9221",
+      "support_type": "direct_support"
+    },
+    {
+      "automatic_classification": "candidate_valid",
+      "explanation": "l'intervento compare in una sezione primaria dell'abstract",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-9223",
+      "support_type": "direct_support"
+    },
+    {
+      "automatic_classification": "candidate_valid",
+      "explanation": "l'intervento compare in una sezione primaria dell'abstract",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-9224",
+      "support_type": "direct_support"
+    },
+    {
+      "automatic_classification": "candidate_valid",
+      "explanation": "l'intervento compare in una sezione primaria dell'abstract",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-9225",
+      "support_type": "direct_support"
+    }
+  ],
+  "cohort_question": {
+    "automatic_state": "cohort_resolved",
+    "comparator_present": false,
+    "explanation": "Nulla nella fonte o negli statement suggerisce piu' di una coorte.",
+    "multi_cohort_markers": [],
+    "question": "Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.",
+    "single_cohort_markers": []
+  },
+  "contains_audit_decision": false,
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_first_review_decision": false,
+  "contains_metric_impact": false,
+  "contains_pipeline_metrics": false,
+  "fields_to_confirm": [
+    {
+      "field": "disease",
+      "guidance": "Malattia studiata, con la denominazione della fonte.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "histology",
+      "guidance": "Istologia, se la fonte la specifica.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "population",
+      "guidance": "Popolazione arruolata.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "stage",
+      "guidance": "Stadio di malattia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "setting",
+      "guidance": "Adiuvante, neoadiuvante, metastatico, perioperatorio, altro.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "therapy_line",
+      "guidance": "Linea di terapia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "resection_status",
+      "guidance": "Stato di resezione.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "intervention",
+      "guidance": "Interventi somministrati in questo braccio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "regimen",
+      "guidance": "Regime completo, incluse le combinazioni.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "comparator",
+      "guidance": "Braccio di confronto, se esiste.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "prior_therapies",
+      "guidance": "Terapie precedenti richieste o ammesse.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "biomarker_requirements",
+      "guidance": "Alterazioni richieste per l'arruolamento.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "inclusion_criteria",
+      "guidance": "Criteri di inclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "exclusion_criteria",
+      "guidance": "Criteri di esclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "study_design",
+      "guidance": "Disegno dello studio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "evidence_scope",
+      "guidance": "Ambito dell'evidenza.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "cohort_notes",
+      "guidance": "Note sulla struttura delle coorti.",
+      "source_locator": "",
+      "value": "unknown"
+    }
+  ],
+  "instructions": [
+    "Leggi la fonte primaria. Non compilare nulla da memoria.",
+    "Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.",
+    "Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.",
+    "`unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.",
+    "Per ogni campo compilato indica sezione o tabella da cui viene il valore.",
+    "Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate."
+  ],
+  "known_conflicts": [],
+  "review_round": "first_review",
+  "source": {
+    "abstract_available": true,
+    "abstract_sha256": "bc76b3a5cab8926c89b22680302bf19baa4f51a5e754aad4169f680b273666b8",
+    "dois": [],
+    "locator": "https://pubmed.ncbi.nlm.nih.gov/31208370/",
+    "mesh_terms": [
+      "Acrylamides",
+      "Adolescent",
+      "Adult",
+      "Aged",
+      "Aged, 80 and over",
+      "Aniline Compounds",
+      "Antineoplastic Agents",
+      "Carcinoma, Non-Small-Cell Lung",
+      "Child",
+      "China",
+      "ErbB Receptors",
+      "Exons",
+      "Female",
+      "Humans",
+      "Indoles",
+      "Lung Neoplasms",
+      "Male",
+      "Middle Aged",
+      "Mutagenesis, Insertional",
+      "Mutation Rate",
+      "Pyrimidines",
+      "Retrospective Studies",
+      "Treatment Outcome",
+      "Young Adult"
+    ],
+    "ncts": [],
+    "pmids": [
+      "31208370"
+    ],
+    "publication_types": [
+      "Journal Article"
+    ],
+    "title": "EGFR exon 20 insertion mutations and response to osimertinib in non-small-cell lung cancer."
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…r exon 20 insertion (EGFRex20ins) mutations represent approximately 4-12% of EGFR mutations and are generally refractory to the 1st and 2nd generation EGFR tyrosine kinase inhibitors (TKIs). Development of effective therapies for…",
+      "matched_text": "refractory",
+      "section_label": "BACKGROUND"
+    },
+    {
+      "excerpt": "…rthermore, six patients with specific EGFRexon20ins mutations and receiving osimertinib 80 mg once daily were retrospectively included to assess the antitumor activity and safety of monotherapy osimertinib.",
+      "matched_text": "retrospectively",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "…ore, our study firstly demonstrated promising antitumor activity of osimertinib in certain EGFRex20ins mutant advanced NSCLC patients, indicating that osimertinib treatment for EGFRex20ins positive patients deserves further stud…",
+      "matched_text": "advanced",
+      "section_label": "CONCLUSIONS"
+    }
+  ]
+}

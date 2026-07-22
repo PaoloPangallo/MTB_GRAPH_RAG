@@ -1,0 +1,246 @@
+{
+  "allowed_values": {
+    "link_status": [
+      "valid_link",
+      "partial_link",
+      "ambiguous_link",
+      "conflicting_link",
+      "invalid_link",
+      "no_profile_available",
+      "source_missing",
+      "insufficient_source_information"
+    ],
+    "not_separable": "la fonte non distingue fra le coorti",
+    "rationale_codes": [
+      "same_study_same_cohort",
+      "same_study_other_cohort",
+      "disease_more_specific_in_statement",
+      "disease_more_specific_in_profile",
+      "disease_incompatible",
+      "intervention_absent_from_study",
+      "intervention_partially_overlapping",
+      "cohort_not_separable",
+      "source_absent_from_snapshot",
+      "source_information_insufficient",
+      "identifier_only_coincidence"
+    ],
+    "unknown": "la fonte non lo afferma"
+  },
+  "automatic_extraction": {
+    "caveat": "Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.",
+    "contradicted": [
+      "evidence_design"
+    ],
+    "detected_not_emitted": {},
+    "emitted": {}
+  },
+  "blind_annotation_id": "BA-e6d9396b071126d9",
+  "candidate_statements": [
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "l'intervento non compare nell'abstract; l'assenza nell'abstract non dimostra che la fonte non lo tratti nel full text",
+      "intervention": "lapatinib",
+      "statement_id": "ES-V2-evidence-2626",
+      "support_type": "unsupported_by_primary_source"
+    },
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "l'intervento non compare nell'abstract; l'assenza nell'abstract non dimostra che la fonte non lo tratti nel full text",
+      "intervention": "afatinib",
+      "statement_id": "ES-V2-evidence-2629",
+      "support_type": "unsupported_by_primary_source"
+    },
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "l'intervento non compare nell'abstract; l'assenza nell'abstract non dimostra che la fonte non lo tratti nel full text",
+      "intervention": "canertinib",
+      "statement_id": "ES-V2-evidence-2631",
+      "support_type": "unsupported_by_primary_source"
+    },
+    {
+      "automatic_classification": "candidate_valid",
+      "explanation": "l'intervento compare in una sezione primaria dell'abstract",
+      "intervention": "erlotinib",
+      "statement_id": "ES-V2-evidence-4284",
+      "support_type": "direct_support"
+    }
+  ],
+  "cohort_question": {
+    "automatic_state": "insufficient_source_information",
+    "comparator_present": false,
+    "explanation": "Gli statement attribuiscono alla fonte piu' interventi o piu' malattie, ma l'abstract non contiene marcatori di struttura. L'assenza di marcatori non dimostra che la coorte sia unica.",
+    "multi_cohort_markers": [],
+    "question": "Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.",
+    "single_cohort_markers": []
+  },
+  "contains_audit_decision": false,
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_first_review_decision": false,
+  "contains_metric_impact": false,
+  "contains_pipeline_metrics": false,
+  "fields_to_confirm": [
+    {
+      "field": "disease",
+      "guidance": "Malattia studiata, con la denominazione della fonte.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "histology",
+      "guidance": "Istologia, se la fonte la specifica.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "population",
+      "guidance": "Popolazione arruolata.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "stage",
+      "guidance": "Stadio di malattia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "setting",
+      "guidance": "Adiuvante, neoadiuvante, metastatico, perioperatorio, altro.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "therapy_line",
+      "guidance": "Linea di terapia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "resection_status",
+      "guidance": "Stato di resezione.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "intervention",
+      "guidance": "Interventi somministrati in questo braccio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "regimen",
+      "guidance": "Regime completo, incluse le combinazioni.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "comparator",
+      "guidance": "Braccio di confronto, se esiste.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "prior_therapies",
+      "guidance": "Terapie precedenti richieste o ammesse.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "biomarker_requirements",
+      "guidance": "Alterazioni richieste per l'arruolamento.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "inclusion_criteria",
+      "guidance": "Criteri di inclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "exclusion_criteria",
+      "guidance": "Criteri di esclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "study_design",
+      "guidance": "Disegno dello studio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "evidence_scope",
+      "guidance": "Ambito dell'evidenza.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "cohort_notes",
+      "guidance": "Note sulla struttura delle coorti.",
+      "source_locator": "",
+      "value": "unknown"
+    }
+  ],
+  "instructions": [
+    "Leggi la fonte primaria. Non compilare nulla da memoria.",
+    "Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.",
+    "Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.",
+    "`unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.",
+    "Per ogni campo compilato indica sezione o tabella da cui viene il valore.",
+    "Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate."
+  ],
+  "known_conflicts": [],
+  "review_round": "first_review",
+  "source": {
+    "abstract_available": true,
+    "abstract_sha256": "5b1f61732db3d9a1f878dacb8208e2ed2b88306e098fd4509a8c7145f59e5e62",
+    "dois": [],
+    "locator": "https://pubmed.ncbi.nlm.nih.gov/18408761/",
+    "mesh_terms": [
+      "Afatinib",
+      "Animals",
+      "Antineoplastic Agents",
+      "Carcinoma, Non-Small-Cell Lung",
+      "Cell Survival",
+      "Disease Models, Animal",
+      "Erb-b2 Receptor Tyrosine Kinases",
+      "ErbB Receptors",
+      "Female",
+      "Humans",
+      "Lung Neoplasms",
+      "Mice",
+      "Mice, Nude",
+      "Mice, Transgenic",
+      "NIH 3T3 Cells",
+      "Phosphorylation",
+      "Quinazolines",
+      "Treatment Outcome",
+      "Tumor Cells, Cultured",
+      "Xenograft Model Antitumor Assays"
+    ],
+    "ncts": [],
+    "pmids": [
+      "18408761"
+    ],
+    "publication_types": [
+      "Journal Article",
+      "Research Support, N.I.H., Extramural",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "title": "BIBW2992, an irreversible EGFR/HER2 inhibitor highly effective in preclinical lung cancer models."
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…this activity, BIBW2992 suppresses transformation in isogenic cell-based assays, inhibits survival of cancer cell lines and induces tumor regression in xenograft and transgenic lung cancer models, with superior activity over erlo…",
+      "matched_text": "cell lines",
+      "section_label": "UNLABELLED"
+    },
+    {
+      "excerpt": "…rmation in isogenic cell-based assays, inhibits survival of cancer cell lines and induces tumor regression in xenograft and transgenic lung cancer models, with superior activity over erlotinib. These findings encourage further te…",
+      "matched_text": "xenograft",
+      "section_label": "UNLABELLED"
+    }
+  ]
+}

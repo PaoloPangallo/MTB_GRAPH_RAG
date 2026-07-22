@@ -1,0 +1,237 @@
+{
+  "allowed_values": {
+    "link_status": [
+      "valid_link",
+      "partial_link",
+      "ambiguous_link",
+      "conflicting_link",
+      "invalid_link",
+      "no_profile_available",
+      "source_missing",
+      "insufficient_source_information"
+    ],
+    "not_separable": "la fonte non distingue fra le coorti",
+    "rationale_codes": [
+      "same_study_same_cohort",
+      "same_study_other_cohort",
+      "disease_more_specific_in_statement",
+      "disease_more_specific_in_profile",
+      "disease_incompatible",
+      "intervention_absent_from_study",
+      "intervention_partially_overlapping",
+      "cohort_not_separable",
+      "source_absent_from_snapshot",
+      "source_information_insufficient",
+      "identifier_only_coincidence"
+    ],
+    "unknown": "la fonte non lo afferma"
+  },
+  "automatic_extraction": {
+    "caveat": "Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.",
+    "contradicted": [],
+    "detected_not_emitted": {},
+    "emitted": {}
+  },
+  "blind_annotation_id": "BB-fbca7aa5ef51e72c",
+  "candidate_statements": [
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "lo statement non nomina un intervento",
+      "intervention": "",
+      "statement_id": "ES-V2-evidence-1846",
+      "support_type": "unsupported_by_primary_source"
+    },
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "lo statement non nomina un intervento",
+      "intervention": "",
+      "statement_id": "ES-V2-evidence-1847",
+      "support_type": "unsupported_by_primary_source"
+    },
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "l'intervento non compare nell'abstract; l'assenza nell'abstract non dimostra che la fonte non lo tratti nel full text",
+      "intervention": "infigratinib",
+      "statement_id": "ES-V2-evidence-1851",
+      "support_type": "unsupported_by_primary_source"
+    },
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "l'intervento non compare nell'abstract; l'assenza nell'abstract non dimostra che la fonte non lo tratti nel full text",
+      "intervention": "infigratinib",
+      "statement_id": "ES-V2-evidence-1853",
+      "support_type": "unsupported_by_primary_source"
+    }
+  ],
+  "cohort_question": {
+    "automatic_state": "cohort_resolved",
+    "comparator_present": false,
+    "explanation": "Nulla nella fonte o negli statement suggerisce piu' di una coorte.",
+    "multi_cohort_markers": [],
+    "question": "Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.",
+    "single_cohort_markers": []
+  },
+  "contains_audit_decision": false,
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_first_review_decision": false,
+  "contains_metric_impact": false,
+  "contains_pipeline_metrics": false,
+  "fields_to_confirm": [
+    {
+      "field": "disease",
+      "guidance": "Malattia studiata, con la denominazione della fonte.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "histology",
+      "guidance": "Istologia, se la fonte la specifica.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "population",
+      "guidance": "Popolazione arruolata.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "stage",
+      "guidance": "Stadio di malattia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "setting",
+      "guidance": "Adiuvante, neoadiuvante, metastatico, perioperatorio, altro.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "therapy_line",
+      "guidance": "Linea di terapia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "resection_status",
+      "guidance": "Stato di resezione.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "intervention",
+      "guidance": "Interventi somministrati in questo braccio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "regimen",
+      "guidance": "Regime completo, incluse le combinazioni.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "comparator",
+      "guidance": "Braccio di confronto, se esiste.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "prior_therapies",
+      "guidance": "Terapie precedenti richieste o ammesse.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "biomarker_requirements",
+      "guidance": "Alterazioni richieste per l'arruolamento.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "inclusion_criteria",
+      "guidance": "Criteri di inclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "exclusion_criteria",
+      "guidance": "Criteri di esclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "study_design",
+      "guidance": "Disegno dello studio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "evidence_scope",
+      "guidance": "Ambito dell'evidenza.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "cohort_notes",
+      "guidance": "Note sulla struttura delle coorti.",
+      "source_locator": "",
+      "value": "unknown"
+    }
+  ],
+  "instructions": [
+    "Leggi la fonte primaria. Non compilare nulla da memoria.",
+    "Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.",
+    "Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.",
+    "`unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.",
+    "Per ogni campo compilato indica sezione o tabella da cui viene il valore.",
+    "Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate."
+  ],
+  "known_conflicts": [],
+  "review_round": "second_review",
+  "source": {
+    "abstract_available": true,
+    "abstract_sha256": "1394c4da90e19d8b00a4ec6382d9a74069de777e8700fa50c7df89577c26b1e0",
+    "dois": [],
+    "locator": "https://pubmed.ncbi.nlm.nih.gov/24122810/",
+    "mesh_terms": [
+      "Adenosylhomocysteinase",
+      "Aged",
+      "Animals",
+      "Bile Duct Neoplasms",
+      "Bile Ducts, Intrahepatic",
+      "Carcinoma, Hepatocellular",
+      "Cholangiocarcinoma",
+      "Colorectal Neoplasms",
+      "Female",
+      "Humans",
+      "In Vitro Techniques",
+      "Liver Neoplasms",
+      "Male",
+      "Mice",
+      "Mice, Nude",
+      "Middle Aged",
+      "Molecular Sequence Data",
+      "NIH 3T3 Cells",
+      "Phenylurea Compounds",
+      "Pyrimidines",
+      "RNA-Binding Proteins",
+      "Receptor, Fibroblast Growth Factor, Type 2",
+      "Receptors, Fibroblast Growth Factor",
+      "Stomach Neoplasms",
+      "Transcriptome"
+    ],
+    "ncts": [],
+    "pmids": [
+      "24122810"
+    ],
+    "publication_types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "title": "Fibroblast growth factor receptor 2 tyrosine kinase fusions define a unique molecular subtype of cholangiocarcinoma."
+  },
+  "source_excerpts": []
+}

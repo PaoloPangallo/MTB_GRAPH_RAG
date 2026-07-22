@@ -1,0 +1,281 @@
+{
+  "allowed_values": {
+    "link_status": [
+      "valid_link",
+      "partial_link",
+      "ambiguous_link",
+      "conflicting_link",
+      "invalid_link",
+      "no_profile_available",
+      "source_missing",
+      "insufficient_source_information"
+    ],
+    "not_separable": "la fonte non distingue fra le coorti",
+    "rationale_codes": [
+      "same_study_same_cohort",
+      "same_study_other_cohort",
+      "disease_more_specific_in_statement",
+      "disease_more_specific_in_profile",
+      "disease_incompatible",
+      "intervention_absent_from_study",
+      "intervention_partially_overlapping",
+      "cohort_not_separable",
+      "source_absent_from_snapshot",
+      "source_information_insufficient",
+      "identifier_only_coincidence"
+    ],
+    "unknown": "la fonte non lo afferma"
+  },
+  "automatic_extraction": {
+    "caveat": "Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.",
+    "contradicted": [
+      "evidence_design"
+    ],
+    "detected_not_emitted": {
+      "setting": {
+        "char_end": 192,
+        "char_start": 184,
+        "confidence": "low",
+        "dimension": "setting",
+        "matched_text": "advanced",
+        "pattern_id": "setting.advanced",
+        "section_label": "METHODS",
+        "value": "advanced"
+      },
+      "therapy_line": {
+        "char_end": 203,
+        "char_start": 193,
+        "confidence": "medium",
+        "dimension": "therapy_line",
+        "matched_text": "first-line",
+        "pattern_id": "line.first",
+        "section_label": "BACKGROUND",
+        "value": "first line"
+      }
+    },
+    "emitted": {}
+  },
+  "blind_annotation_id": "BA-753a830808457cf2",
+  "candidate_statements": [
+    {
+      "automatic_classification": "candidate_ambiguous",
+      "explanation": "l'intervento compare in una sezione primaria, ma la coorte non e' risolta: non si sa a quale braccio lo statement appartenga",
+      "intervention": "dacomitinib",
+      "statement_id": "ES-V2-evidence-11239",
+      "support_type": "direct_support"
+    },
+    {
+      "automatic_classification": "candidate_ambiguous",
+      "explanation": "l'intervento compare in una sezione primaria, ma la coorte non e' risolta: non si sa a quale braccio lo statement appartenga",
+      "intervention": "dacomitinib",
+      "statement_id": "ES-V2-evidence-7363",
+      "support_type": "direct_support"
+    }
+  ],
+  "cohort_question": {
+    "automatic_state": "cohort_partially_resolved",
+    "comparator_present": false,
+    "explanation": "La fonte descrive piu' di un braccio. L'abstract stabilisce che le coorti esistono, ma non permette di assegnare ciascuno statement alla propria: servirebbe il full text. Le unita' non vengono suddivise, perche' una suddivisione basata sugli statement del sistema creerebbe coorti che la fonte non afferma.",
+    "multi_cohort_markers": [
+      "randomly assigned",
+      "randomly assigned",
+      "vs"
+    ],
+    "question": "Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.",
+    "single_cohort_markers": []
+  },
+  "contains_audit_decision": false,
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_first_review_decision": false,
+  "contains_metric_impact": false,
+  "contains_pipeline_metrics": false,
+  "fields_to_confirm": [
+    {
+      "field": "disease",
+      "guidance": "Malattia studiata, con la denominazione della fonte.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "histology",
+      "guidance": "Istologia, se la fonte la specifica.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "population",
+      "guidance": "Popolazione arruolata.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "stage",
+      "guidance": "Stadio di malattia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "setting",
+      "guidance": "Adiuvante, neoadiuvante, metastatico, perioperatorio, altro.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "therapy_line",
+      "guidance": "Linea di terapia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "resection_status",
+      "guidance": "Stato di resezione.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "intervention",
+      "guidance": "Interventi somministrati in questo braccio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "regimen",
+      "guidance": "Regime completo, incluse le combinazioni.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "comparator",
+      "guidance": "Braccio di confronto, se esiste.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "prior_therapies",
+      "guidance": "Terapie precedenti richieste o ammesse.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "biomarker_requirements",
+      "guidance": "Alterazioni richieste per l'arruolamento.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "inclusion_criteria",
+      "guidance": "Criteri di inclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "exclusion_criteria",
+      "guidance": "Criteri di esclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "study_design",
+      "guidance": "Disegno dello studio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "evidence_scope",
+      "guidance": "Ambito dell'evidenza.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "cohort_notes",
+      "guidance": "Note sulla struttura delle coorti.",
+      "source_locator": "",
+      "value": "unknown"
+    }
+  ],
+  "instructions": [
+    "Leggi la fonte primaria. Non compilare nulla da memoria.",
+    "Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.",
+    "Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.",
+    "`unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.",
+    "Per ogni campo compilato indica sezione o tabella da cui viene il valore.",
+    "Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate."
+  ],
+  "known_conflicts": [],
+  "review_round": "first_review",
+  "source": {
+    "abstract_available": true,
+    "abstract_sha256": "307bbb94b0f6130939dd596e631e64ce5033252ef9adc2eb2ab862da0e9c3623",
+    "dois": [],
+    "locator": "https://pubmed.ncbi.nlm.nih.gov/28958502/",
+    "mesh_terms": [
+      "Adult",
+      "Aged",
+      "Carcinoma, Non-Small-Cell Lung",
+      "Confidence Intervals",
+      "Disease-Free Survival",
+      "Dose-Response Relationship, Drug",
+      "Drug Administration Schedule",
+      "Female",
+      "Gefitinib",
+      "Genes, erbB-1",
+      "Humans",
+      "Kaplan-Meier Estimate",
+      "Lung Neoplasms",
+      "Male",
+      "Maximum Tolerated Dose",
+      "Middle Aged",
+      "Mutation",
+      "Prognosis",
+      "Quinazolines",
+      "Quinazolinones",
+      "Survival Analysis",
+      "Treatment Outcome"
+    ],
+    "ncts": [],
+    "pmids": [
+      "28958502"
+    ],
+    "publication_types": [
+      "Clinical Trial, Phase III",
+      "Comparative Study",
+      "Journal Article",
+      "Multicenter Study",
+      "Randomized Controlled Trial"
+    ],
+    "title": "Dacomitinib versus gefitinib as first-line treatment for patients with EGFR-mutation-positive non-small-cell lung cancer (ARCHER 1050): a randomised, open-label, phase 3 trial."
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…that of the reversible EGFR tyrosine kinase inhibitor gefitinib in the first-line treatment of patients with advanced EGFR-mutation-positive non-small-cell lung cancer (NSCLC).",
+      "matched_text": "advanced",
+      "section_label": "BACKGROUND"
+    },
+    {
+      "excerpt": "…compared its efficacy and safety with that of the reversible EGFR tyrosine kinase inhibitor gefitinib in the first-line treatment of patients with advanced EGFR-mutation-positive non-small-cell lung cancer (NSCLC).",
+      "matched_text": "first-line",
+      "section_label": "BACKGROUND"
+    },
+    {
+      "excerpt": "…(ARCHER 1050), we enrolled adults (aged ≥18 years or ≥20 years in Japan and South Korea) with newly diagnosed advanced NSCLC and one EGFR mutation (exon 19 deletion or Leu858Arg) at 71 academic medical centres and university hos…",
+      "matched_text": "advanced",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "In this international, multicentre, randomised, open-label, phase 3 study (ARCHER 1050), we enrolled adults (aged ≥18 years or ≥20 years in Japan and South Korea) with newly dia…",
+      "matched_text": "phase 3",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "In this international, multicentre, randomised, open-label, phase 3 study (ARCHER 1050), we enrolled adults (aged ≥18 years or ≥20 years in Japan and South…",
+      "matched_text": "randomised",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "Dacomitinib significantly improved progression-free survival over gefitinib in first-line treatment of patients with EGFR-mutation-positive NSCLC and should be considered as a new treatment option fo…",
+      "matched_text": "first-line",
+      "section_label": "INTERPRETATION"
+    }
+  ]
+}
