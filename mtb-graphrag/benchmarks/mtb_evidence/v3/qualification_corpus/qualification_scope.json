@@ -1,0 +1,1892 @@
+{
+  "clinical_gold_used": false,
+  "decisions": [
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-85b04b6788702913",
+      "canonical_source_id": "DOI:10.1182/blood-2022-163099",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "doi_identified",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-cdf66af077aaa88a",
+      "canonical_source_id": "PMID:15118125",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-03fc5398575167f5",
+      "canonical_source_id": "PMID:15329413",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "multi_statement",
+        "multi_intervention",
+        "multi_disease",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-103d5b08b6b4edbc",
+      "canonical_source_id": "PMID:160559",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-fc39123e6018b938",
+      "canonical_source_id": "PMID:16818618",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-2fd54dcc3a31ea1e",
+      "canonical_source_id": "PMID:17177598",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-f023905d8be6ddd2",
+      "canonical_source_id": "PMID:17877814",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-9aa3e4d7563db047",
+      "canonical_source_id": "PMID:18089823",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-e6d9396b071126d9",
+      "canonical_source_id": "PMID:18408761",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "multi_statement",
+        "multi_intervention",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-adda377cae193371",
+      "canonical_source_id": "PMID:18509184",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-756b1b01ba8de5cf",
+      "canonical_source_id": "PMID:18757403",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-46ee0dbc8689a536",
+      "canonical_source_id": "PMID:18923525",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-0e20fcd933674401",
+      "canonical_source_id": "PMID:19147750",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-9da28cce330d3f37",
+      "canonical_source_id": "PMID:20038723",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-41d6e782c7729890",
+      "canonical_source_id": "PMID:20942962",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-8c0c171ed72cbb68",
+      "canonical_source_id": "PMID:20979473",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-9f6c3e46b038a39b",
+      "canonical_source_id": "PMID:21030459",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_disease",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-e8289e0895ec83e4",
+      "canonical_source_id": "PMID:21132006",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-2a0863701ecb0823",
+      "canonical_source_id": "PMID:21531810",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-8e1f7289dd471bbf",
+      "canonical_source_id": "PMID:21791641",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-0ff91cb80c763b53",
+      "canonical_source_id": "PMID:22034911",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-ca369f683c4bdd05",
+      "canonical_source_id": "PMID:22072639",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-aafcf903d25ff168",
+      "canonical_source_id": "PMID:22235099",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-22b14dbcbc62e29b",
+      "canonical_source_id": "PMID:22277784",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "multi_disease",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-d6890c470c9709a8",
+      "canonical_source_id": "PMID:22285168",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "multi_statement",
+        "multi_disease",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-4945e0bd583c5014",
+      "canonical_source_id": "PMID:22370314",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-fed1ebaa146feccd",
+      "canonical_source_id": "PMID:22452895",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-d2aee65d7d22c707",
+      "canonical_source_id": "PMID:23344087",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-9ff7a613f49c7102",
+      "canonical_source_id": "PMID:23598171",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-6dfca2abb6987a73",
+      "canonical_source_id": "PMID:23658459",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-94566a44a442c4bf",
+      "canonical_source_id": "PMID:23786770",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-2713d1c3cf997513",
+      "canonical_source_id": "PMID:23816960",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-b36d40966254d3d5",
+      "canonical_source_id": "PMID:23982599",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-0d43441efa066d45",
+      "canonical_source_id": "PMID:24122810",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-c2ffe0553fc7f5a2",
+      "canonical_source_id": "PMID:24263064",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-f7768321e7b0ded2",
+      "canonical_source_id": "PMID:24353160",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-817d504766532ab1",
+      "canonical_source_id": "PMID:24439929",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-25a290a5f8525626",
+      "canonical_source_id": "PMID:24457318",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-3125a92c784a37ea",
+      "canonical_source_id": "PMID:24550739",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-def1bce0dbbbe037",
+      "canonical_source_id": "PMID:24662454",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-887d1dd36c94e184",
+      "canonical_source_id": "PMID:24675041",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "multi_disease",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-2841bc663d2564fd",
+      "canonical_source_id": "PMID:24736073",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-07530558c04f4310",
+      "canonical_source_id": "PMID:24736079",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "known_disease_conflict",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-21aa22a76dac8e99",
+      "canonical_source_id": "PMID:24755888",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-f0ceef3ff0fbe03d",
+      "canonical_source_id": "PMID:24868098",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-9c4f5e9305abbfdd",
+      "canonical_source_id": "PMID:24893891",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "multi_disease",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-1e3ba02e9cf0affb",
+      "canonical_source_id": "PMID:25228534",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-d60a3dd27372acc0",
+      "canonical_source_id": "PMID:25393796",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-4c421b7767ebe3d3",
+      "canonical_source_id": "PMID:25727400",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "multi_disease",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-a9d46d200249b1da",
+      "canonical_source_id": "PMID:25736571",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-881369b74ea93ef4",
+      "canonical_source_id": "PMID:25923549",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-19b4c055fd5343db",
+      "canonical_source_id": "PMID:25939061",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "resistance",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-c7520edb7c9231e7",
+      "canonical_source_id": "PMID:26181354",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-a7be5f0fdfa44bb2",
+      "canonical_source_id": "PMID:26269204",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-9e4ed94dad4adcb4",
+      "canonical_source_id": "PMID:26324363",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_disease",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-e984d0b25166f2c5",
+      "canonical_source_id": "PMID:26515464",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-fc55b02d55700985",
+      "canonical_source_id": "PMID:26574622",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-9248f2ea5c349da8",
+      "canonical_source_id": "PMID:26698910",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "multi_disease",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-87247d2ed711c9b9",
+      "canonical_source_id": "PMID:26720284",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-b391b04e297cc958",
+      "canonical_source_id": "PMID:26729184",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-279891bbaff95c4f",
+      "canonical_source_id": "PMID:26768165",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-64317ec1c6d9a333",
+      "canonical_source_id": "PMID:26775591",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-8b9ba0cac759f1de",
+      "canonical_source_id": "PMID:27022112",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-554aaccef538d9e2",
+      "canonical_source_id": "PMID:27032107",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 2,
+      "blind_annotation_id": "BA-88a54a37d1819dba",
+      "canonical_source_id": "PMID:27045755",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "presence_unknown"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-90c9f9cbfb7717e3",
+      "canonical_source_id": "PMID:27102076",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "negative_polarity",
+        "multi_statement",
+        "multi_intervention",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-c426d2d4f955b6ff",
+      "canonical_source_id": "PMID:27130468",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "known_disease_conflict",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-0823ffc4a58c9987",
+      "canonical_source_id": "PMID:27179038",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 0,
+      "blind_annotation_id": "BA-80319281449288ad",
+      "canonical_source_id": "PMID:27432227",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "known_disease_conflict",
+        "multi_statement",
+        "multi_intervention",
+        "citation_only",
+        "has_reviewed_profile"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-77c0ed526e530f6b",
+      "canonical_source_id": "PMID:27612423",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-b0eec5b0525c34b4",
+      "canonical_source_id": "PMID:27870574",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 0,
+      "blind_annotation_id": "BA-385117aa472d7e0a",
+      "canonical_source_id": "PMID:27959700",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "present_as_node",
+        "has_reviewed_profile"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-03e36c367f8fa3f3",
+      "canonical_source_id": "PMID:28202511",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "resistance",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-4af66a22ec088e48",
+      "canonical_source_id": "PMID:28274957",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "negative_polarity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-5287908cdc1bc190",
+      "canonical_source_id": "PMID:28874593",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "negative_polarity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-753a830808457cf2",
+      "canonical_source_id": "PMID:28958502",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "multi_statement",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-4b4d7d113625365e",
+      "canonical_source_id": "PMID:29182496",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-d409439a07d1af78",
+      "canonical_source_id": "PMID:29373100",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "known_disease_conflict",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-21a093c288994919",
+      "canonical_source_id": "PMID:29376144",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "known_disease_conflict",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 0,
+      "blind_annotation_id": "BA-d9e1cad65f111eec",
+      "canonical_source_id": "PMID:29650534",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "known_disease_conflict",
+        "citation_only",
+        "has_reviewed_profile"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-6b96b41b41ac6488",
+      "canonical_source_id": "PMID:29935304",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-4e3d062a67f19dda",
+      "canonical_source_id": "PMID:30420614",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 0,
+      "blind_annotation_id": "BA-fa1a596060027bc8",
+      "canonical_source_id": "PMID:30892989",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only",
+        "has_reviewed_profile"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-c14eefc4be02c3cc",
+      "canonical_source_id": "PMID:31208370",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-4bea0a5b96fd5502",
+      "canonical_source_id": "PMID:31358542",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "multi_statement",
+        "multi_intervention",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-e35c96cb8a38142b",
+      "canonical_source_id": "PMID:31585938",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "resistance",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-247cf4ef36355ff6",
+      "canonical_source_id": "PMID:31591063",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 0,
+      "blind_annotation_id": "BA-d5f5829b538a64df",
+      "canonical_source_id": "PMID:32203698",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "known_disease_conflict",
+        "present_as_node",
+        "has_reviewed_profile"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-e4423f1d635bbdf2",
+      "canonical_source_id": "PMID:32600123",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "cohort",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "resistance",
+        "non_therapeutic_scope",
+        "multi_statement",
+        "multi_intervention",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 0,
+      "blind_annotation_id": "BA-a3f5d336646e0ad9",
+      "canonical_source_id": "PMID:32955177",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "present_as_node",
+        "has_reviewed_profile"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-13b27992fd893d25",
+      "canonical_source_id": "PMID:32973082",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-f05681ddab1098f6",
+      "canonical_source_id": "PMID:34358484",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-b68b026f46fbf95b",
+      "canonical_source_id": "PMID:35245845",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-619877729db8a638",
+      "canonical_source_id": "PMID:35399574",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-2f31a0d336fd83d0",
+      "canonical_source_id": "PMID:35507888",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-d46a561f302af4c0",
+      "canonical_source_id": "PMID:37879444",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-d349912a9367d7b4",
+      "canonical_source_id": "PMID:37937763",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "reported_therapy",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-3cb60f4102a8fe0b",
+      "canonical_source_id": "PMID:38074875",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-7495c710135f0d12",
+      "canonical_source_id": "PMID:38525318",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "reported_therapy",
+        "sensitivity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-bf212cb3ad77269d",
+      "canonical_source_id": "PMID:38710951",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "negative_polarity",
+        "non_therapeutic_scope",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-066274208440d210",
+      "canonical_source_id": "PMID:38942080",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "cited_in_report",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 1,
+      "blind_annotation_id": "BA-38071cc52408c206",
+      "canonical_source_id": "PMID:39269178",
+      "excluded": false,
+      "exclusion_reason": "",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 1,
+      "included": true,
+      "inclusion_reason": "fonte citata da almeno uno dei 147 EvidenceStatement congelati; lo scope e' un censimento e non ammette esclusioni discrezionali",
+      "stratum": [
+        "retrieved_in_pilot",
+        "sensitivity",
+        "citation_only"
+      ]
+    },
+    {
+      "annotation_priority": 3,
+      "blind_annotation_id": "BA-81f7617824468cf7",
+      "canonical_source_id": "PMID:29151359",
+      "excluded": true,
+      "exclusion_reason": "profilo revisionato S-C1-1 la cui fonte non e' citata da nessuno dei 147 statement: la fonte e' assente dallo snapshot e non viene inserita artificialmente nel repository V3-A",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 0,
+      "included": false,
+      "inclusion_reason": "",
+      "stratum": []
+    },
+    {
+      "annotation_priority": 3,
+      "blind_annotation_id": "BA-7d40056402c3951f",
+      "canonical_source_id": "PMID:36652354",
+      "excluded": true,
+      "exclusion_reason": "profilo revisionato S-K1-3 la cui fonte non e' citata da nessuno dei 147 statement: la fonte e' assente dallo snapshot e non viene inserita artificialmente nel repository V3-A",
+      "expected_annotation_unit": "whole_source",
+      "expected_unit_count": 0,
+      "included": false,
+      "inclusion_reason": "",
+      "stratum": []
+    }
+  ],
+  "excluded_count": 2,
+  "included_count": 102,
+  "qualification_scope_hash": "782e5230628999cb1ef8cb514a7a0c24cbd286a69af7337d8d6bab78f7e2650d",
+  "scope_version": "qualification_scope/1.0",
+  "selection_strategy": "census",
+  "strata": [
+    "retrieved_in_pilot",
+    "cited_in_report",
+    "reported_therapy",
+    "unsupported_report_citation",
+    "sensitivity",
+    "resistance",
+    "negative_polarity",
+    "non_therapeutic_scope",
+    "known_disease_conflict",
+    "multi_statement",
+    "multi_intervention",
+    "multi_disease",
+    "doi_identified",
+    "trial_identified",
+    "present_as_node",
+    "citation_only",
+    "presence_unknown",
+    "has_reviewed_profile"
+  ],
+  "strategy_rationale": "Tutte le fonti citate dai 147 statement entrano nel corpus. Con 102 fonti il censimento e' sostenibile e rende strutturalmente impossibile la selezione opportunistica: non esiste un criterio da cui una fonte scomoda possa essere esclusa, perche' non esiste un criterio.",
+  "stratum_counts": {
+    "citation_only": 85,
+    "cited_in_report": 19,
+    "doi_identified": 1,
+    "has_reviewed_profile": 6,
+    "known_disease_conflict": 7,
+    "multi_disease": 9,
+    "multi_intervention": 14,
+    "multi_statement": 29,
+    "negative_polarity": 4,
+    "non_therapeutic_scope": 49,
+    "presence_unknown": 14,
+    "present_as_node": 3,
+    "reported_therapy": 58,
+    "resistance": 31,
+    "retrieved_in_pilot": 89,
+    "sensitivity": 72,
+    "trial_identified": 0,
+    "unsupported_report_citation": 0
+  },
+  "universe": "147 EvidenceStatement congelati"
+}
