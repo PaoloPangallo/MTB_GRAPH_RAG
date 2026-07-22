@@ -192,9 +192,89 @@ class ModelRegistryTest(TestCase):
         finally:
             os.environ.pop("OLLAMA_PLANNER_MODEL", None)
 
-    def test_cloud_suffix_routes_to_cloud_endpoint(self):
-        self.assertEqual(endpoint_for_model("gemma4:31b-cloud").kind, "cloud")
-        self.assertEqual(endpoint_for_model("qwen3:14b").kind, "local")
+    def test_routing_comes_from_the_server_inventory_not_the_name(self):
+        """Il vecchio routing usava `endswith('-cloud')`: fragile in due direzioni.
+
+        Un modello locale chiamato `qualcosa-cloud` sarebbe finito sul cloud, e un
+        modello remoto servito con un altro nome non sarebbe stato trovato. Ora la
+        destinazione la dichiara il server.
+        """
+        from backend.pipeline.llm.model_resolver import (
+            MODE_LOCAL,
+            MODE_LOCAL_PROXY_TO_CLOUD,
+            ModelResolver,
+        )
+
+        local = OllamaEndpoint("http://localhost:11434")
+
+        class _Client:
+            def __init__(self, endpoint):
+                self.endpoint = endpoint
+
+            def list_models(self):
+                # Il server locale dichiara sia un modello locale sia uno in proxy.
+                return [{"name": "modello-cloud"}, {"name": "modello-locale:7b"}]
+
+            def show(self, model):
+                return {"model": model, "digest": "d1", "capabilities": ["completion"]}
+
+            def version(self):
+                return "0.9.0"
+
+        resolver = ModelResolver([local], client_factory=_Client)
+
+        proxied = resolver.resolve("modello-cloud")
+        self.assertTrue(proxied.resolved)
+        self.assertEqual(proxied.endpoint.kind, "local")
+        self.assertEqual(proxied.endpoint_mode, MODE_LOCAL_PROXY_TO_CLOUD)
+
+        plain = resolver.resolve("modello-locale:7b")
+        self.assertEqual(plain.endpoint_mode, MODE_LOCAL)
+
+    def test_unknown_model_is_unresolved_with_a_reason(self):
+        from backend.pipeline.llm.model_resolver import ModelResolver
+
+        class _Empty:
+            def __init__(self, endpoint):
+                self.endpoint = endpoint
+
+            def list_models(self):
+                return []
+
+            def version(self):
+                return "0.9.0"
+
+        resolution = ModelResolver(
+            [OllamaEndpoint("http://localhost:11434")], client_factory=_Empty
+        ).resolve("assente:1b")
+        self.assertFalse(resolution.resolved)
+        self.assertIn("assente:1b", resolution.reason)
+
+    def test_cloud_endpoint_yields_direct_cloud_api_and_project_alias(self):
+        from backend.pipeline.llm.model_resolver import MODE_DIRECT_CLOUD_API, ModelResolver
+
+        class _Cloud:
+            def __init__(self, endpoint):
+                self.endpoint = endpoint
+
+            def list_models(self):
+                return [{"name": "gemma4:31b", "digest": "221b"}]
+
+            def show(self, model):
+                return {"model": model, "digest": "221b", "capabilities": ["tools"]}
+
+            def version(self):
+                return "0.0.0"
+
+        resolver = ModelResolver(
+            [OllamaEndpoint("https://api.ollama.com", api_key="k")], client_factory=_Cloud
+        )
+        # L'alias `-cloud` e' applicato in base al tipo di endpoint osservato, non a
+        # una regola sul nome richiesto.
+        resolution = resolver.resolve("gemma4:31b-cloud")
+        self.assertTrue(resolution.resolved)
+        self.assertEqual(resolution.effective_api_model, "gemma4:31b")
+        self.assertEqual(resolution.endpoint_mode, MODE_DIRECT_CLOUD_API)
 
     def test_model_revision_uses_digest(self):
         spec = ModelSpec(
