@@ -1,0 +1,26 @@
+{
+  "candidate_states": {
+    "candidate_ambiguous": 12,
+    "candidate_conflicting": 7,
+    "candidate_not_determinable": 40,
+    "candidate_partial": 1,
+    "candidate_valid": 34
+  },
+  "candidates_hash": "1ab3c3263699afcedb1f621387aae1a600f7af77321767ce7f7dbbd21f40e2e8",
+  "cohort_resolution": {
+    "cohort_partially_resolved": 9,
+    "cohort_resolved": 10,
+    "insufficient_source_information": 15,
+    "source_unavailable": 1
+  },
+  "created_at": "2026-07-22T19:24:38.742357+00:00",
+  "curation_version": "source_curation/1.0",
+  "new_units_created": 0,
+  "new_units_note": "Nessuna unita' nuova. Le fonti multi-braccio sono riconosciute ma l'abstract non permette di assegnare gli statement alle coorti; suddividere sulla base degli statement del sistema creerebbe coorti che la fonte non afferma.",
+  "priority_units": 35,
+  "resolved_units_hash": "a0b87c2952dae98134528c5dd6d93e8c274784f752876d0a06b7b0f94fc2eac9",
+  "sources_awaiting_access": 1,
+  "sources_with_abstract": 34,
+  "unresolved_units_hash": "52099d16950dd748255e6e053435456ab2c1418629b65cfec615f2a984409d93",
+  "validation_problems": []
+}
