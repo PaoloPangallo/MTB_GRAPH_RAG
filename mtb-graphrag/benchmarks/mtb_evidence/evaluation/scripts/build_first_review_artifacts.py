@@ -84,6 +84,11 @@ def _materialise(spec: Mapping[str, Any], dimension: str) -> Any:
     value = field.get("value")
     decision = str(field.get("decision") or "unknown")
     if value is None:
+        # Una dimensione a lista non puo' portare il sentinella stringa: finirebbe
+        # spezzata in una lista di caratteri. Resta vuota, e la ragione vive in
+        # `field_decisions`, che e' comunque l'autorita' sulla distinzione.
+        if dimension in LIST_DIMENSIONS:
+            return ()
         return NOT_APPLICABLE if decision == "not_applicable" else UNKNOWN
     if dimension in LIST_DIMENSIONS:
         return tuple(value) if isinstance(value, (list, tuple)) else (value,)

@@ -294,11 +294,20 @@ class SourceClinicalProfileUnit:
         return self.unit_type in PRECLINICAL_UNIT_TYPES
 
     def not_applicable_dimensions(self) -> tuple[str, ...]:
-        return tuple(
-            dimension
-            for dimension in UNIT_DIMENSIONS
-            if getattr(self, dimension, None) == NOT_APPLICABLE
-        )
+        """Dimensioni per cui la domanda non si pone.
+
+        L'autorita' e' `field_decisions`, non il valore. Per una dimensione a
+        lista il sentinella stringa non e' rappresentabile — scriverlo in un
+        campo tupla lo spezzerebbe in una lista di caratteri — quindi il valore
+        resta vuoto e la ragione vive nella decisione.
+        """
+        found: list[str] = []
+        for dimension in UNIT_DIMENSIONS:
+            if self.field_decisions.get(dimension) == NOT_APPLICABLE:
+                found.append(dimension)
+            elif getattr(self, dimension, None) == NOT_APPLICABLE:
+                found.append(dimension)
+        return tuple(found)
 
     def as_dict(self) -> dict[str, Any]:
         return {
