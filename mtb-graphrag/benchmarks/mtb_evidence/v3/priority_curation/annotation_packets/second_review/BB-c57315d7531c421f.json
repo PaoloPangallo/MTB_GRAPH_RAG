@@ -1,0 +1,221 @@
+{
+  "allowed_values": {
+    "link_status": [
+      "valid_link",
+      "partial_link",
+      "ambiguous_link",
+      "conflicting_link",
+      "invalid_link",
+      "no_profile_available",
+      "source_missing",
+      "insufficient_source_information"
+    ],
+    "not_separable": "la fonte non distingue fra le coorti",
+    "rationale_codes": [
+      "same_study_same_cohort",
+      "same_study_other_cohort",
+      "disease_more_specific_in_statement",
+      "disease_more_specific_in_profile",
+      "disease_incompatible",
+      "intervention_absent_from_study",
+      "intervention_partially_overlapping",
+      "cohort_not_separable",
+      "source_absent_from_snapshot",
+      "source_information_insufficient",
+      "identifier_only_coincidence"
+    ],
+    "unknown": "la fonte non lo afferma"
+  },
+  "automatic_extraction": {
+    "caveat": "Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.",
+    "contradicted": [],
+    "detected_not_emitted": {},
+    "emitted": {}
+  },
+  "blind_annotation_id": "BB-c57315d7531c421f",
+  "candidate_statements": [
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "l'intervento non compare nell'abstract; l'assenza nell'abstract non dimostra che la fonte non lo tratti nel full text",
+      "intervention": "crizotinib",
+      "statement_id": "ES-V2-evidence-236",
+      "support_type": "unsupported_by_primary_source"
+    },
+    {
+      "automatic_classification": "candidate_not_determinable",
+      "explanation": "l'intervento non compare nell'abstract; l'assenza nell'abstract non dimostra che la fonte non lo tratti nel full text",
+      "intervention": "crizotinib",
+      "statement_id": "ES-V2-evidence-237",
+      "support_type": "unsupported_by_primary_source"
+    }
+  ],
+  "cohort_question": {
+    "automatic_state": "cohort_resolved",
+    "comparator_present": false,
+    "explanation": "Nulla nella fonte o negli statement suggerisce piu' di una coorte.",
+    "multi_cohort_markers": [],
+    "question": "Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.",
+    "single_cohort_markers": []
+  },
+  "contains_audit_decision": false,
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_first_review_decision": false,
+  "contains_metric_impact": false,
+  "contains_pipeline_metrics": false,
+  "fields_to_confirm": [
+    {
+      "field": "disease",
+      "guidance": "Malattia studiata, con la denominazione della fonte.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "histology",
+      "guidance": "Istologia, se la fonte la specifica.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "population",
+      "guidance": "Popolazione arruolata.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "stage",
+      "guidance": "Stadio di malattia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "setting",
+      "guidance": "Adiuvante, neoadiuvante, metastatico, perioperatorio, altro.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "therapy_line",
+      "guidance": "Linea di terapia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "resection_status",
+      "guidance": "Stato di resezione.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "intervention",
+      "guidance": "Interventi somministrati in questo braccio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "regimen",
+      "guidance": "Regime completo, incluse le combinazioni.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "comparator",
+      "guidance": "Braccio di confronto, se esiste.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "prior_therapies",
+      "guidance": "Terapie precedenti richieste o ammesse.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "biomarker_requirements",
+      "guidance": "Alterazioni richieste per l'arruolamento.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "inclusion_criteria",
+      "guidance": "Criteri di inclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "exclusion_criteria",
+      "guidance": "Criteri di esclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "study_design",
+      "guidance": "Disegno dello studio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "evidence_scope",
+      "guidance": "Ambito dell'evidenza.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "cohort_notes",
+      "guidance": "Note sulla struttura delle coorti.",
+      "source_locator": "",
+      "value": "unknown"
+    }
+  ],
+  "instructions": [
+    "Leggi la fonte primaria. Non compilare nulla da memoria.",
+    "Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.",
+    "Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.",
+    "`unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.",
+    "Per ogni campo compilato indica sezione o tabella da cui viene il valore.",
+    "Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate."
+  ],
+  "known_conflicts": [],
+  "review_round": "second_review",
+  "source": {
+    "abstract_available": true,
+    "abstract_sha256": "a59c693f301e117b9f3564a5fdb8481f350f48be2b6510a301f3083c2b51d623",
+    "dois": [],
+    "locator": "https://pubmed.ncbi.nlm.nih.gov/20979473/",
+    "mesh_terms": [
+      "Adenocarcinoma",
+      "Adult",
+      "Anaplastic Lymphoma Kinase",
+      "Cell Cycle Proteins",
+      "Crizotinib",
+      "DNA, Complementary",
+      "DNA, Neoplasm",
+      "Drug Resistance, Neoplasm",
+      "Humans",
+      "Lung Neoplasms",
+      "Male",
+      "Microtubule-Associated Proteins",
+      "Molecular Structure",
+      "Mutation",
+      "Protein Kinase Inhibitors",
+      "Protein-Tyrosine Kinases",
+      "Pyrazoles",
+      "Pyridines",
+      "RNA, Neoplasm",
+      "Receptor Protein-Tyrosine Kinases",
+      "Sequence Analysis, DNA",
+      "Serine Endopeptidases"
+    ],
+    "ncts": [],
+    "pmids": [
+      "20979473"
+    ],
+    "publication_types": [
+      "Case Reports",
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "title": "EML4-ALK mutations in lung cancer that confer resistance to ALK inhibitors."
+  },
+  "source_excerpts": []
+}

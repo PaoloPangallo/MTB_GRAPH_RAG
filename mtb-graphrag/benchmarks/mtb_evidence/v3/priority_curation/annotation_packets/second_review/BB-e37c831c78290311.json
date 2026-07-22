@@ -1,0 +1,271 @@
+{
+  "allowed_values": {
+    "link_status": [
+      "valid_link",
+      "partial_link",
+      "ambiguous_link",
+      "conflicting_link",
+      "invalid_link",
+      "no_profile_available",
+      "source_missing",
+      "insufficient_source_information"
+    ],
+    "not_separable": "la fonte non distingue fra le coorti",
+    "rationale_codes": [
+      "same_study_same_cohort",
+      "same_study_other_cohort",
+      "disease_more_specific_in_statement",
+      "disease_more_specific_in_profile",
+      "disease_incompatible",
+      "intervention_absent_from_study",
+      "intervention_partially_overlapping",
+      "cohort_not_separable",
+      "source_absent_from_snapshot",
+      "source_information_insufficient",
+      "identifier_only_coincidence"
+    ],
+    "unknown": "la fonte non lo afferma"
+  },
+  "automatic_extraction": {
+    "caveat": "Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.",
+    "contradicted": [],
+    "detected_not_emitted": {},
+    "emitted": {}
+  },
+  "blind_annotation_id": "BB-e37c831c78290311",
+  "candidate_statements": [
+    {
+      "automatic_classification": "candidate_ambiguous",
+      "explanation": "l'intervento compare in una sezione primaria, ma la coorte non e' risolta: non si sa a quale braccio lo statement appartenga",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-11598",
+      "support_type": "direct_support"
+    },
+    {
+      "automatic_classification": "candidate_ambiguous",
+      "explanation": "l'intervento compare in una sezione primaria, ma la coorte non e' risolta: non si sa a quale braccio lo statement appartenga",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-11599",
+      "support_type": "direct_support"
+    },
+    {
+      "automatic_classification": "candidate_ambiguous",
+      "explanation": "l'intervento compare in una sezione primaria, ma la coorte non e' risolta: non si sa a quale braccio lo statement appartenga",
+      "intervention": "osimertinib",
+      "statement_id": "ES-V2-evidence-1867",
+      "support_type": "direct_support"
+    }
+  ],
+  "cohort_question": {
+    "automatic_state": "cohort_partially_resolved",
+    "comparator_present": true,
+    "explanation": "La fonte descrive piu' di un braccio. L'abstract stabilisce che le coorti esistono, ma non permette di assegnare ciascuno statement alla propria: servirebbe il full text. Le unita' non vengono suddivise, perche' una suddivisione basata sugli statement del sistema creerebbe coorti che la fonte non afferma.",
+    "multi_cohort_markers": [
+      "compared with",
+      "vs"
+    ],
+    "question": "Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.",
+    "single_cohort_markers": []
+  },
+  "contains_audit_decision": false,
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_first_review_decision": false,
+  "contains_metric_impact": false,
+  "contains_pipeline_metrics": false,
+  "fields_to_confirm": [
+    {
+      "field": "disease",
+      "guidance": "Malattia studiata, con la denominazione della fonte.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "histology",
+      "guidance": "Istologia, se la fonte la specifica.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "population",
+      "guidance": "Popolazione arruolata.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "stage",
+      "guidance": "Stadio di malattia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "setting",
+      "guidance": "Adiuvante, neoadiuvante, metastatico, perioperatorio, altro.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "therapy_line",
+      "guidance": "Linea di terapia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "resection_status",
+      "guidance": "Stato di resezione.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "intervention",
+      "guidance": "Interventi somministrati in questo braccio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "regimen",
+      "guidance": "Regime completo, incluse le combinazioni.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "comparator",
+      "guidance": "Braccio di confronto, se esiste.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "prior_therapies",
+      "guidance": "Terapie precedenti richieste o ammesse.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "biomarker_requirements",
+      "guidance": "Alterazioni richieste per l'arruolamento.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "inclusion_criteria",
+      "guidance": "Criteri di inclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "exclusion_criteria",
+      "guidance": "Criteri di esclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "study_design",
+      "guidance": "Disegno dello studio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "evidence_scope",
+      "guidance": "Ambito dell'evidenza.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "cohort_notes",
+      "guidance": "Note sulla struttura delle coorti.",
+      "source_locator": "",
+      "value": "unknown"
+    }
+  ],
+  "instructions": [
+    "Leggi la fonte primaria. Non compilare nulla da memoria.",
+    "Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.",
+    "Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.",
+    "`unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.",
+    "Per ogni campo compilato indica sezione o tabella da cui viene il valore.",
+    "Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate."
+  ],
+  "known_conflicts": [],
+  "review_round": "second_review",
+  "source": {
+    "abstract_available": true,
+    "abstract_sha256": "64fbb645dde6971a2aae97933a5884da000bb068c46991c5f22a89c400506d2c",
+    "dois": [],
+    "locator": "https://pubmed.ncbi.nlm.nih.gov/27959700/",
+    "mesh_terms": [
+      "Acrylamides",
+      "Adult",
+      "Aged",
+      "Aged, 80 and over",
+      "Aniline Compounds",
+      "Antineoplastic Combined Chemotherapy Protocols",
+      "Carcinoma, Non-Small-Cell Lung",
+      "Disease-Free Survival",
+      "ErbB Receptors",
+      "Female",
+      "Humans",
+      "Indoles",
+      "Lung Neoplasms",
+      "Male",
+      "Middle Aged",
+      "Mutation",
+      "Pemetrexed",
+      "Piperazines",
+      "Platinum",
+      "Pyrimidines",
+      "Young Adult"
+    ],
+    "ncts": [
+      "NCT02151981"
+    ],
+    "pmids": [
+      "27959700"
+    ],
+    "publication_types": [
+      "Clinical Trial, Phase III",
+      "Comparative Study",
+      "Journal Article",
+      "Multicenter Study",
+      "Randomized Controlled Trial",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "title": "AURA3"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "In this randomized, international, open-label, phase 3 trial, we assigned 419 patients with T790M-positive advanced non-small-cell lung cancer, who had disease progression after first-line EGFR-TKI therapy, in a 2:1 ratio to…",
+      "matched_text": "advanced",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "…igned 419 patients with T790M-positive advanced non-small-cell lung cancer, who had disease progression after first-line EGFR-TKI therapy, in a 2:1 ratio to receive either oral osimertinib (at a dose of 80 mg once daily) or intrav…",
+      "matched_text": "first-line",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "…six cycles; maintenance pemetrexed was allowed. In all the patients, disease had progressed during receipt of first-line EGFR-TKI therapy. The primary end point was investigator-assessed progression-free survival.",
+      "matched_text": "first-line",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "In this randomized, international, open-label, phase 3 trial, we assigned 419 patients with T790M-positive advanced non-small-cell lung cancer, who had disease prog…",
+      "matched_text": "phase 3",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "In this randomized, international, open-label, phase 3 trial, we assigned 419 patients with T790M-positive advanced non-small-ce…",
+      "matched_text": "randomized",
+      "section_label": "METHODS"
+    },
+    {
+      "excerpt": "…inib had significantly greater efficacy than platinum therapy plus pemetrexed in patients with T790M-positive advanced non-small-cell lung cancer (including those with CNS metastases) in whom disease had progressed during first-…",
+      "matched_text": "advanced",
+      "section_label": "CONCLUSIONS"
+    },
+    {
+      "excerpt": "…vanced non-small-cell lung cancer (including those with CNS metastases) in whom disease had progressed during first-line EGFR-TKI therapy. (Funded by AstraZeneca; AURA3 ClinicalTrials.gov number, NCT02151981 .).",
+      "matched_text": "first-line",
+      "section_label": "CONCLUSIONS"
+    }
+  ]
+}

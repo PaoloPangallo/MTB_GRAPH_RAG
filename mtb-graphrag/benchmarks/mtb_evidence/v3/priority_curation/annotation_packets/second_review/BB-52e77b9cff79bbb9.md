@@ -1,0 +1,83 @@
+# Revisione BB-52e77b9cff79bbb9 — second_review
+
+## Fonte
+
+- **Titolo:** Evaluation of BGJ398, a Fibroblast Growth Factor Receptor 1-3 Kinase Inhibitor, in Patients With Advanced Solid Tumors Harboring Genetic Alterations in Fibroblast Growth Factor Receptors: Results of a Global Phase I, Dose-Escalation and Dose-Expansion Study.
+- **PMID:** 27870574
+- **Locator:** https://pubmed.ncbi.nlm.nih.gov/27870574/
+- **Tipi di pubblicazione:** Clinical Trial, Phase I, Journal Article
+- **Abstract disponibile:** sì
+
+## Domanda sulla struttura delle coorti
+
+> Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.
+
+- Stato automatico: `cohort_partially_resolved`
+- Marcatori di piu' bracci: arm 1, versus
+- Marcatori di braccio unico: —
+- Comparatore rilevato: sì
+
+La fonte descrive piu' di un braccio. L'abstract stabilisce che le coorti esistono, ma non permette di assegnare ciascuno statement alla propria: servirebbe il full text. Le unita' non vengono suddivise, perche' una suddivisione basata sugli statement del sistema creerebbe coorti che la fonte non afferma.
+
+## Proposizioni candidate
+
+| statement | intervento | classificazione automatica | supporto |
+| --- | --- | --- | --- |
+| `ES-V2-evidence-1912` | infigratinib | `candidate_not_determinable` | `unsupported_by_primary_source` |
+| `ES-V2-evidence-1913` | infigratinib | `candidate_not_determinable` | `unsupported_by_primary_source` |
+
+## Rilevazioni automatiche
+
+**Emesse come valore:**
+
+- `evidence_design` = `clinical_trial_phase_2` — «phase II» (UNLABELLED)
+
+**Rilevate ma NON emesse — da verificare sulla fonte:**
+
+- `setting` ⇒ `advanced`? — «advanced» (UNLABELLED)
+
+Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.
+
+## Estratti
+
+- **UNLABELLED** — «Purpose This two-part, first-in-human study was initiated in patients with advanced solid tumors harboring genetic alterations in fibroblast growth factor receptors (FGFRs) to determine the max…»
+- **UNLABELLED** — «…in fibroblast growth factor receptors (FGFRs) to determine the maximum tolerated dose (MTD), the recommended phase II dose (RP2D), and the schedule, safety, pharmacokinetics, pharmacodynamics, and antitumor activity of oral BGJ…»
+
+## Campi da confermare
+
+| campo | indicazione |
+| --- | --- |
+| `disease` | Malattia studiata, con la denominazione della fonte. |
+| `histology` | Istologia, se la fonte la specifica. |
+| `population` | Popolazione arruolata. |
+| `stage` | Stadio di malattia. |
+| `setting` | Adiuvante, neoadiuvante, metastatico, perioperatorio, altro. |
+| `therapy_line` | Linea di terapia. |
+| `resection_status` | Stato di resezione. |
+| `intervention` | Interventi somministrati in questo braccio. |
+| `regimen` | Regime completo, incluse le combinazioni. |
+| `comparator` | Braccio di confronto, se esiste. |
+| `prior_therapies` | Terapie precedenti richieste o ammesse. |
+| `biomarker_requirements` | Alterazioni richieste per l'arruolamento. |
+| `inclusion_criteria` | Criteri di inclusione, in sintesi. |
+| `exclusion_criteria` | Criteri di esclusione, in sintesi. |
+| `study_design` | Disegno dello studio. |
+| `evidence_scope` | Ambito dell'evidenza. |
+| `cohort_notes` | Note sulla struttura delle coorti. |
+
+## Istruzioni
+
+1. Leggi la fonte primaria. Non compilare nulla da memoria.
+2. Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.
+3. Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.
+4. `unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.
+5. Per ogni campo compilato indica sezione o tabella da cui viene il valore.
+6. Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate.
+
+---
+
+Questo pacchetto non contiene il clinical gold, la terapia attesa, le metriche
+della pipeline, le decisioni dell'audit ne' l'indicazione di quale risposta
+migliori il sistema. Se fosse presente anche solo una di queste, la revisione
+non sarebbe indipendente.
+

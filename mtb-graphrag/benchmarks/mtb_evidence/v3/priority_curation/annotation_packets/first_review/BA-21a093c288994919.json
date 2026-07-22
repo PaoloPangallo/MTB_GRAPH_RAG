@@ -1,0 +1,225 @@
+{
+  "allowed_values": {
+    "link_status": [
+      "valid_link",
+      "partial_link",
+      "ambiguous_link",
+      "conflicting_link",
+      "invalid_link",
+      "no_profile_available",
+      "source_missing",
+      "insufficient_source_information"
+    ],
+    "not_separable": "la fonte non distingue fra le coorti",
+    "rationale_codes": [
+      "same_study_same_cohort",
+      "same_study_other_cohort",
+      "disease_more_specific_in_statement",
+      "disease_more_specific_in_profile",
+      "disease_incompatible",
+      "intervention_absent_from_study",
+      "intervention_partially_overlapping",
+      "cohort_not_separable",
+      "source_absent_from_snapshot",
+      "source_information_insufficient",
+      "identifier_only_coincidence"
+    ],
+    "unknown": "la fonte non lo afferma"
+  },
+  "automatic_extraction": {
+    "caveat": "Le rilevazioni non emesse provengono da corrispondenze lessicali che possono descrivere i campioni invece dello studio. Vanno confermate sulla fonte.",
+    "contradicted": [],
+    "detected_not_emitted": {
+      "therapy_line": {
+        "char_end": 624,
+        "char_start": 604,
+        "confidence": "medium",
+        "dimension": "therapy_line",
+        "matched_text": "after progression on",
+        "pattern_id": "line.pretreated",
+        "section_label": "RESULTS",
+        "value": "second line or later"
+      }
+    },
+    "emitted": {}
+  },
+  "blind_annotation_id": "BA-21a093c288994919",
+  "candidate_statements": [
+    {
+      "automatic_classification": "candidate_conflicting",
+      "explanation": "conflitto gia' registrato fra la denominazione della fonte e quella dello statement",
+      "intervention": "alectinib hydrochloride",
+      "statement_id": "ES-V2-evidence-100002",
+      "support_type": "unsupported_by_primary_source"
+    }
+  ],
+  "cohort_question": {
+    "automatic_state": "cohort_resolved",
+    "comparator_present": false,
+    "explanation": "Nulla nella fonte o negli statement suggerisce piu' di una coorte.",
+    "multi_cohort_markers": [],
+    "question": "Quante coorti descrive questa fonte? Se piu' di una, quali proposizioni appartengono a ciascuna? Se non e' determinabile, indica `not_separable`.",
+    "single_cohort_markers": []
+  },
+  "contains_audit_decision": false,
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_first_review_decision": false,
+  "contains_metric_impact": false,
+  "contains_pipeline_metrics": false,
+  "fields_to_confirm": [
+    {
+      "field": "disease",
+      "guidance": "Malattia studiata, con la denominazione della fonte.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "histology",
+      "guidance": "Istologia, se la fonte la specifica.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "population",
+      "guidance": "Popolazione arruolata.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "stage",
+      "guidance": "Stadio di malattia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "setting",
+      "guidance": "Adiuvante, neoadiuvante, metastatico, perioperatorio, altro.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "therapy_line",
+      "guidance": "Linea di terapia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "resection_status",
+      "guidance": "Stato di resezione.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "intervention",
+      "guidance": "Interventi somministrati in questo braccio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "regimen",
+      "guidance": "Regime completo, incluse le combinazioni.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "comparator",
+      "guidance": "Braccio di confronto, se esiste.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "prior_therapies",
+      "guidance": "Terapie precedenti richieste o ammesse.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "biomarker_requirements",
+      "guidance": "Alterazioni richieste per l'arruolamento.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "inclusion_criteria",
+      "guidance": "Criteri di inclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "exclusion_criteria",
+      "guidance": "Criteri di esclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "study_design",
+      "guidance": "Disegno dello studio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "evidence_scope",
+      "guidance": "Ambito dell'evidenza.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "cohort_notes",
+      "guidance": "Note sulla struttura delle coorti.",
+      "source_locator": "",
+      "value": "unknown"
+    }
+  ],
+  "instructions": [
+    "Leggi la fonte primaria. Non compilare nulla da memoria.",
+    "Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`.",
+    "Se la fonte descrive piu' coorti e non sai a quale appartiene una proposizione, usa `not_separable`. Non sceglierne una.",
+    "`unknown` e `not_separable` non sono la stessa cosa: il primo dice che non lo sappiamo, il secondo che la fonte non lo distingue.",
+    "Per ogni campo compilato indica sezione o tabella da cui viene il valore.",
+    "Le rilevazioni automatiche allegate sono proposte da verificare, non risposte. Alcune sono note per essere sbagliate."
+  ],
+  "known_conflicts": [
+    {
+      "dimension": "disease",
+      "profile_value": "ALK-positive lung cancer",
+      "qualification_link_id": "QL-ES-V2-evidence-100002-S-A2-4",
+      "reason": "le due denominazioni non indicano la stessa entita'",
+      "statement_id": "ES-V2-evidence-100002",
+      "statement_value": "Non-Small Cell Lung Cancer"
+    },
+    {
+      "dimension": "intervention",
+      "profile_value": [
+        "lorlatinib"
+      ],
+      "qualification_link_id": "QL-ES-V2-evidence-100002-S-A2-4",
+      "reason": "l'intervento della proposizione non e' fra quelli dello studio",
+      "statement_id": "ES-V2-evidence-100002",
+      "statement_value": "alectinib hydrochloride"
+    }
+  ],
+  "review_round": "first_review",
+  "source": {
+    "abstract_available": true,
+    "abstract_sha256": "4bef8b055ccd6834b77e92adb5377043f841575986ae7e31e9160102faf713a7",
+    "dois": [],
+    "locator": "https://pubmed.ncbi.nlm.nih.gov/29376144/",
+    "mesh_terms": [],
+    "ncts": [],
+    "pmids": [
+      "29376144"
+    ],
+    "publication_types": [
+      "Journal Article"
+    ],
+    "title": "Tracking the Evolution of Resistance to ALK Tyrosine Kinase Inhibitors through Longitudinal Analysis of Circulating Tumor DNA."
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…files were dependent on the specific TKI administered. ALK G1202R, the most frequent plasma mutation detected after progression on a second-generation TKI, was consistently suppressed during treatment with lorlatinib.",
+      "matched_text": "after progression on",
+      "section_label": "RESULTS"
+    }
+  ]
+}
