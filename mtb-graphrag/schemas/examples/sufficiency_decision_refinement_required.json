@@ -1,0 +1,56 @@
+{
+  "schema_version": "v3.0.0",
+  "decision_id": "SD-ILLUSTRATIVE-REFINEMENT-001",
+  "rule_version": "gate-v3.0.0-draft",
+  "sufficient": false,
+  "decision_status": "refinement_required",
+  "trigger_codes": [
+    "missing_primary_source",
+    "missing_trial_identifier",
+    "disease_specificity_mismatch"
+  ],
+  "missing_dimensions": ["source_reference", "trial_reference"],
+  "unresolved_conflicts": [],
+  "required_refinement_goals": [
+    {
+      "goal_code": "find_primary_source",
+      "target": "statement su futibatinib in colangiocarcinoma intraepatico",
+      "rationale": "Nessuna fonte primaria recuperata per questa associazione nello snapshot corrente."
+    },
+    {
+      "goal_code": "clarify_disease_context",
+      "target": "intrahepatic cholangiocarcinoma",
+      "rationale": "I record recuperati sono annotati su una categoria di malattia meno specifica: sottotipo e categoria non sono intercambiabili."
+    }
+  ],
+  "allowed_next_actions": [
+    "refine_disease_context",
+    "expand_source",
+    "expand_trial",
+    "stop_insufficient_evidence",
+    "escalate_human_review"
+  ],
+  "stop_reason": null,
+  "human_review_required": false,
+  "coverage_signals": {
+    "statements_retrieved": 2,
+    "statements_with_primary_source": 1,
+    "statements_with_trial_reference": 0,
+    "qualifier_completeness": 0.25,
+    "disease_specificity_matches": 0,
+    "disease_specificity_mismatches": 2,
+    "negative_path_verified": null,
+    "tool_execution_status": "all_completed",
+    "oldest_source_date": "2020-03-01"
+  },
+  "auxiliary_model_signal": null,
+  "budget": {"max_steps": 4, "max_cost_tokens": 20000, "max_latency_ms": 60000, "max_external_calls": 2},
+  "provenance": {
+    "decided_at": "2026-07-22T00:00:00+00:00",
+    "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+    "case_id": "ILLUSTRATIVE-FGFR2-001",
+    "case_version": 1,
+    "retrieval_action_id": null,
+    "run_key": null
+  }
+}

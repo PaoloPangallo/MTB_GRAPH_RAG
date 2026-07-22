@@ -1,0 +1,35 @@
+{
+  "schema_version": "v3.0.0",
+  "decision_id": "SD-ILLUSTRATIVE-BACKEND-FAILURE-001",
+  "rule_version": "gate-v3.0.0-draft",
+  "sufficient": false,
+  "decision_status": "technical_failure",
+  "trigger_codes": ["backend_failure"],
+  "missing_dimensions": [],
+  "unresolved_conflicts": [],
+  "required_refinement_goals": [],
+  "allowed_next_actions": ["escalate_human_review"],
+  "stop_reason": "backend_failure",
+  "human_review_required": true,
+  "coverage_signals": {
+    "statements_retrieved": 0,
+    "statements_with_primary_source": 0,
+    "statements_with_trial_reference": 0,
+    "qualifier_completeness": null,
+    "disease_specificity_matches": 0,
+    "disease_specificity_mismatches": 0,
+    "negative_path_verified": false,
+    "tool_execution_status": "failed",
+    "oldest_source_date": null
+  },
+  "auxiliary_model_signal": null,
+  "budget": {"max_steps": 0, "max_cost_tokens": 0, "max_latency_ms": 0, "max_external_calls": 0},
+  "provenance": {
+    "decided_at": "2026-07-22T00:00:00+00:00",
+    "snapshot_fingerprint": "unavailable",
+    "case_id": "ILLUSTRATIVE-RMI2-001",
+    "case_version": 1,
+    "retrieval_action_id": null,
+    "run_key": null
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "v3.0.0",
+  "decision_id": "SD-ILLUSTRATIVE-SUFFICIENT-001",
+  "rule_version": "gate-v3.0.0-draft",
+  "sufficient": true,
+  "decision_status": "sufficient",
+  "trigger_codes": [],
+  "missing_dimensions": [],
+  "unresolved_conflicts": [],
+  "required_refinement_goals": [],
+  "allowed_next_actions": ["proceed_to_verification"],
+  "stop_reason": "refinement_goal_satisfied",
+  "human_review_required": false,
+  "coverage_signals": {
+    "statements_retrieved": 6,
+    "statements_with_primary_source": 6,
+    "statements_with_trial_reference": 3,
+    "qualifier_completeness": 0.83,
+    "disease_specificity_matches": 6,
+    "disease_specificity_mismatches": 0,
+    "negative_path_verified": null,
+    "tool_execution_status": "all_completed",
+    "oldest_source_date": "2017-11-01"
+  },
+  "auxiliary_model_signal": {
+    "model_revision": "ollama:gpt-oss:20b-cloud:05afbac4bad6",
+    "suggested_sufficient": true,
+    "confidence": 0.8,
+    "agreed_with_rules": true,
+    "was_decisive": false
+  },
+  "budget": {"max_steps": 0, "max_cost_tokens": 0, "max_latency_ms": 0, "max_external_calls": 0},
+  "provenance": {
+    "decided_at": "2026-07-22T00:00:00+00:00",
+    "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+    "case_id": "ILLUSTRATIVE-CONTEXT-DEPENDENT-001",
+    "case_version": 1,
+    "retrieval_action_id": null,
+    "run_key": null
+  }
+}

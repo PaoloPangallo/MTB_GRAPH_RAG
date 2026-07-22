@@ -1,0 +1,124 @@
+{
+  "schema_version": "v3.0.0",
+  "evidence_statement_id": "ES-ILLUSTRATIVE-FGFR2-001",
+  "statement_version": 1,
+  "biomarker": {
+    "label": "FGFR2 fusion or rearrangement",
+    "gene": "FGFR2",
+    "normalized_identifier": null,
+    "identifier_system": null,
+    "is_compound": false,
+    "component_biomarkers": []
+  },
+  "alteration_type": "fusion",
+  "disease": {
+    "label": "intrahepatic cholangiocarcinoma",
+    "ontology": "oncotree",
+    "ontology_id": null,
+    "parent_concept": "cholangiocarcinoma",
+    "specificity": "subtype"
+  },
+  "intervention": {
+    "label": "pemigatinib",
+    "normalized_identifier": "rxcui:2359268",
+    "identifier_system": "rxnorm",
+    "intervention_class": "FGFR inhibitor"
+  },
+  "regimen": {
+    "label": "pemigatinib monotherapy",
+    "components": ["pemigatinib"],
+    "modality": "monotherapy",
+    "combination_complete": "complete"
+  },
+  "direction": "sensitivity",
+  "evidence_scope": "therapeutic",
+  "clinical_context": {
+    "disease_setting": "metastatic",
+    "stage": "locally advanced or metastatic",
+    "resection_status": "unresected",
+    "therapy_line": "second_line",
+    "prior_therapy_requirements": [
+      {"requirement": "required_prior", "therapy_class": "systemic chemotherapy", "agents": []},
+      {"requirement": "excluded_prior", "therapy_class": "selective FGFR inhibitor", "agents": []}
+    ],
+    "biomarker_requirements": ["FGFR2 fusion or rearrangement"],
+    "population": "previously treated locally advanced or metastatic cholangiocarcinoma",
+    "treatment_context": "after progression on at least one prior systemic line",
+    "combination_requirements": [],
+    "inclusion_constraints": ["ECOG 0-2"],
+    "exclusion_constraints": ["prior selective FGFR inhibitor"]
+  },
+  "evidence_type": "non_randomized_trial",
+  "evidence_level": {
+    "system": "unknown",
+    "original_value": "not assigned in this illustrative example",
+    "normalized_tier": null,
+    "interpretation": null,
+    "provenance": "TODO: assegnare dalla knowledge base sorgente dopo verifica bibliografica"
+  },
+  "source_references": [
+    {
+      "source_id": "S-K1-1",
+      "source_type": "pubmed",
+      "external_identifier": "32203698",
+      "title": null,
+      "publication_date": null,
+      "version": null,
+      "access_date": null,
+      "source_hash": null,
+      "presence_in_snapshot": "node"
+    }
+  ],
+  "trial_references": [
+    {
+      "source_id": "S-K1-2",
+      "source_type": "clinicaltrials_gov",
+      "external_identifier": "NCT02924376",
+      "title": null,
+      "publication_date": null,
+      "version": null,
+      "access_date": null,
+      "source_hash": null,
+      "presence_in_snapshot": "absent"
+    }
+  ],
+  "regulatory_context": null,
+  "source_spans": [
+    {
+      "source_id": "S-K1-1",
+      "span_kind": "curated_assertion",
+      "locator": "population and prior-therapy criteria",
+      "text_hash": null,
+      "extraction_method": "human_annotation",
+      "extractor_version": "human_reviewed_v1",
+      "review_status": "human_reviewed"
+    }
+  ],
+  "provenance": {
+    "origin": "reviewed_source_profile",
+    "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+    "graph_record_ids": ["evidence:8173"],
+    "extraction_action_id": null,
+    "retrieval_action_id": null,
+    "reviewer": "annotatore_1",
+    "reviewed_at": null,
+    "promotion": null
+  },
+  "review_status": "human_reviewed",
+  "validity": {
+    "valid_from": null,
+    "valid_until": null,
+    "superseded_by": null,
+    "freshness_checked_at": null
+  },
+  "conflicts": [
+    {
+      "conflict_type": "different_specificity",
+      "with_statement_id": "ES-ILLUSTRATIVE-FGFR2-002",
+      "resolution": "unresolved",
+      "note": "Il record del grafo e' annotato su Cholangiolocellular Carcinoma, non su colangiocarcinoma intraepatico: sottotipo e categoria non sono intercambiabili."
+    }
+  ],
+  "created_at": "2026-07-22T00:00:00+00:00",
+  "updated_at": null
+}

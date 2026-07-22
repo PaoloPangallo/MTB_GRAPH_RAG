@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mtb-graphrag/schemas/case_graph.schema.json",
+  "title": "CaseGraph",
+  "description": "Caso clinico-molecolare de-identificato e strutturato. L'assenza di un campo e' rappresentata esplicitamente come 'unknown' o omettendo il campo opzionale: non va mai inferita ne' sostituita con un valore plausibile. PROPOSTO: non ancora implementato.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "case_version", "schema_version", "disease", "current_question", "provenance", "review_status"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "v3.0.0"},
+    "case_id": {"type": "string", "description": "Identificatore del caso. Non deve contenere dati identificativi del paziente."},
+    "case_version": {"type": "integer", "minimum": 1, "description": "Incrementa a ogni revisione del caso. Entra nell'identita' delle run."},
+    "disease": {"$ref": "#/$defs/DiseaseConcept"},
+    "histology": {"type": ["string", "null"], "description": "Istologia, quando disponibile."},
+    "primary_site": {"type": ["string", "null"]},
+    "stage": {"type": ["string", "null"], "description": "Stadio. Formato libero controllato dal vocabolario dichiarato in provenance."},
+    "disease_setting": {"$ref": "#/$defs/DiseaseSetting"},
+    "resection_status": {"type": "string", "enum": ["resected", "unresected", "partially_resected", "unknown"], "default": "unknown"},
+    "current_therapy_line": {"type": "string", "enum": ["treatment_naive", "first_line", "second_line", "later_line", "adjuvant", "neoadjuvant", "maintenance", "unknown"], "default": "unknown"},
+    "prior_therapies": {"type": "array", "items": {"$ref": "#/$defs/PriorTherapy"}, "default": []},
+    "molecular_findings": {"type": "array", "items": {"$ref": "#/$defs/MolecularFinding"}, "default": []},
+    "diagnostic_tests": {"type": "array", "items": {"$ref": "#/$defs/DiagnosticTest"}, "default": []},
+    "performance_status": {"$ref": "#/$defs/PerformanceStatus"},
+    "relevant_comorbidities": {"type": "array", "items": {"type": "string"}, "default": []},
+    "organ_function_constraints": {"type": "array", "items": {"$ref": "#/$defs/ClinicalConstraint"}, "default": []},
+    "germline_considerations": {"type": ["string", "null"], "description": "Considerazioni germinali rilevanti. Nessun dato familiare identificativo."},
+    "current_question": {"type": "string", "description": "La domanda posta alla board per questo caso."},
+    "missing_context": {
+      "type": "array",
+      "description": "Campi clinici noti come mancanti. Elencarli esplicitamente distingue 'non lo sappiamo' da 'non e' rilevante', ed e' cio' che permette di non collassare insufficient_case_context dentro not_compatible.",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "provenance": {"$ref": "#/$defs/CaseProvenance"},
+    "review_status": {"type": "string", "enum": ["draft", "machine_extracted", "human_reviewed", "adjudicated", "frozen"], "description": "Un caso non revisionato non puo' essere usato in una valutazione congelata."}
+  },
+  "$defs": {
+    "DiseaseConcept": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label"],
+      "description": "Malattia con identificatore controllato quando disponibile. Un sottotipo non e' intercambiabile con la sua categoria: intrahepatic cholangiocarcinoma non e' cholangiocarcinoma.",
+      "properties": {
+        "label": {"type": "string"},
+        "ontology": {"type": ["string", "null"], "enum": ["oncotree", "doid", "ncit", "icd_o_3", null]},
+        "ontology_id": {"type": ["string", "null"]},
+        "parent_concept": {"type": ["string", "null"], "description": "Categoria superiore, quando il concetto e' un sottotipo."},
+        "specificity": {"type": "string", "enum": ["exact", "subtype", "parent", "unknown"], "default": "unknown"}
+      }
+    },
+    "DiseaseSetting": {
+      "type": "string",
+      "enum": ["localized", "locally_advanced", "metastatic", "recurrent", "adjuvant", "neoadjuvant", "unknown"],
+      "default": "unknown"
+    },
+    "PerformanceStatus": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "scale": {"type": "string", "enum": ["ecog", "karnofsky"]},
+        "value": {"type": ["integer", "null"], "minimum": 0},
+        "assessed_at": {"type": ["string", "null"], "format": "date"}
+      }
+    },
+    "MolecularFinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["finding_id", "alteration_type"],
+      "description": "Una alterazione molecolare osservata. alteration_type determina il percorso di traversal: sbagliarlo cambia l'esperimento, non solo l'etichetta.",
+      "properties": {
+        "finding_id": {"type": "string"},
+        "gene": {"type": ["string", "null"], "description": "Simbolo HUGO. Null per biomarcatori non genici come TMB o MSI."},
+        "normalized_identifier": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "description": "Identificatore normalizzato. Se la normalizzazione fallisce il campo resta null e resolution_status lo dichiara: mai sostituito con il piu' vicino.",
+          "properties": {
+            "system": {"type": "string", "enum": ["hgvs_p", "hgvs_c", "hgvs_g", "entrez", "hgnc", "civic_variant", "other"]},
+            "value": {"type": "string"},
+            "resolution_status": {"type": "string", "enum": ["resolved", "ambiguous", "unresolved"]}
+          }
+        },
+        "alteration": {"type": ["string", "null"], "description": "Notazione dell'alterazione, per esempio L858R o EML4::ALK."},
+        "alteration_type": {
+          "type": "string",
+          "enum": ["snv", "indel", "fusion", "rearrangement", "amplification", "deletion", "copy_number_alteration", "expression", "msi", "tmb", "hrd", "compound_mutation", "unknown"]
+        },
+        "zygosity": {"type": ["string", "null"], "enum": ["heterozygous", "homozygous", "hemizygous", "unknown", null]},
+        "allelic_fraction": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "specimen": {"type": ["string", "null"], "enum": ["tissue", "plasma", "bone_marrow", "csf", "other", "unknown", null]},
+        "test_method": {"type": ["string", "null"]},
+        "interpretation_status": {"type": "string", "enum": ["pathogenic", "likely_pathogenic", "vus", "likely_benign", "benign", "not_interpreted", "unknown"], "default": "unknown"},
+        "linked_findings": {"type": "array", "items": {"type": "string"}, "default": [], "description": "finding_id correlati, per esempio la fusione su cui insiste una mutazione di resistenza."},
+        "compound_membership": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "description": "Appartenenza a una mutazione composta. Una mutazione singola e una composta hanno implicazioni terapeutiche opposte e non vanno mai fuse.",
+          "properties": {
+            "compound_id": {"type": "string"},
+            "member_findings": {"type": "array", "items": {"type": "string"}},
+            "confirmed": {"type": "boolean", "default": false}
+          }
+        },
+        "provenance": {"$ref": "#/$defs/FindingProvenance"}
+      }
+    },
+    "PriorTherapy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["therapy_id"],
+      "properties": {
+        "therapy_id": {"type": "string"},
+        "agents": {"type": "array", "items": {"type": "string"}, "default": []},
+        "therapy_class": {"type": ["string", "null"], "description": "Per esempio 'second_generation_alk_inhibitor'."},
+        "line": {"type": ["string", "null"]},
+        "setting": {"$ref": "#/$defs/DiseaseSetting"},
+        "best_response": {"type": ["string", "null"], "enum": ["complete_response", "partial_response", "stable_disease", "progressive_disease", "not_evaluable", "unknown", null]},
+        "reason_for_discontinuation": {"type": ["string", "null"], "enum": ["progression", "toxicity", "patient_choice", "completed", "other", "unknown", null]}
+      }
+    },
+    "DiagnosticTest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["test_id"],
+      "properties": {
+        "test_id": {"type": "string"},
+        "assay_name": {"type": ["string", "null"]},
+        "assay_type": {"type": ["string", "null"], "enum": ["ngs_panel", "wes", "wgs", "rna_seq", "fish", "ihc", "pcr", "other", null]},
+        "specimen": {"type": ["string", "null"]},
+        "performed_at": {"type": ["string", "null"], "format": "date"},
+        "coverage_note": {"type": ["string", "null"], "description": "Limiti noti del pannello: un gene non testato non e' un gene wild-type."}
+      }
+    },
+    "ClinicalConstraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_type"],
+      "properties": {
+        "constraint_type": {"type": "string", "enum": ["renal", "hepatic", "cardiac", "pulmonary", "haematologic", "neurologic", "other"]},
+        "severity": {"type": ["string", "null"], "enum": ["mild", "moderate", "severe", "unknown", null]},
+        "note": {"type": ["string", "null"]}
+      }
+    },
+    "CaseProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["created_at", "source_kind"],
+      "properties": {
+        "created_at": {"type": "string", "format": "date-time"},
+        "source_kind": {"type": "string", "enum": ["synthetic", "benchmark", "deidentified_clinical", "illustrative_example"], "description": "Solo casi sintetici, benchmark o de-identificati possono essere inviati a un endpoint esterno."},
+        "vocabularies": {"type": "object", "additionalProperties": {"type": "string"}, "default": {}},
+        "annotators": {"type": "array", "items": {"type": "string"}, "default": []},
+        "adjudication": {"type": ["string", "null"]},
+        "deidentification_method": {"type": ["string", "null"]}
+      }
+    },
+    "FindingProvenance": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "test_id": {"type": ["string", "null"]},
+        "reported_by": {"type": ["string", "null"]},
+        "report_date": {"type": ["string", "null"], "format": "date"},
+        "extraction_method": {"type": "string", "enum": ["human_annotation", "structured_import", "machine_extracted"], "default": "human_annotation"}
+      }
+    }
+  }
+}
