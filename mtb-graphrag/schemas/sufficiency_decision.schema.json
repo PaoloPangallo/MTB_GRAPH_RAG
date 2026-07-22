@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mtb-graphrag/schemas/sufficiency_decision.schema.json",
+  "title": "SufficiencyDecision",
+  "description": "Decisione del sufficiency gate: il retrieval deterministico basta, oppure serve refinement. La decisione e' prevalentemente rule-based; un LLM puo' contribuire un segnale ausiliario ma non essere l'unico decisore. PROPOSTO: non ancora implementato.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision_id", "schema_version", "rule_version", "sufficient", "decision_status", "trigger_codes", "allowed_next_actions", "provenance"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "v3.0.0"},
+    "decision_id": {"type": "string"},
+    "rule_version": {"type": "string", "description": "Versione del set di regole. Cambiarla invalida il confronto con decisioni precedenti."},
+
+    "sufficient": {"type": "boolean"},
+    "decision_status": {
+      "type": "string",
+      "enum": ["sufficient", "refinement_required", "insufficient_case_context", "conflict_unresolved", "technical_failure", "not_assessed"],
+      "description": "'technical_failure' non e' un'astensione clinica: un backend irraggiungibile deve produrre errore o escalation tecnica, mai un dossier che sembra una risposta negativa legittima."
+    },
+
+    "trigger_codes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "no_evidence_found",
+          "low_evidence_coverage",
+          "missing_primary_source",
+          "missing_trial_identifier",
+          "missing_clinical_qualifiers",
+          "resistance_signal",
+          "compound_mutation_signal",
+          "conflicting_sources",
+          "outdated_source",
+          "trial_status_refresh_required",
+          "disease_specificity_mismatch",
+          "therapy_context_mismatch",
+          "insufficient_case_context",
+          "backend_failure",
+          "schema_failure"
+        ]
+      },
+      "default": []
+    },
+
+    "missing_dimensions": {
+      "type": "array",
+      "items": {"type": "string", "enum": ["disease_setting", "stage", "resection_status", "therapy_line", "prior_therapy", "biomarker_requirements", "population", "regimen", "evidence_level", "source_reference", "trial_reference"]},
+      "default": []
+    },
+    "unresolved_conflicts": {"type": "array", "items": {"type": "string"}, "default": []},
+
+    "required_refinement_goals": {
+      "type": "array",
+      "description": "Obiettivi passati all'agente. Un'attivazione senza obiettivo dichiarato non e' ammessa: senza, non si puo' misurare se il refinement ha ottenuto qualcosa.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["goal_code"],
+        "properties": {
+          "goal_code": {"type": "string", "enum": ["find_primary_source", "find_trial", "clarify_disease_context", "clarify_therapy_line", "check_resistance", "check_compound_mutation", "resolve_conflict", "resolve_identifier", "refresh_trial_status", "request_case_context"]},
+          "target": {"type": ["string", "null"]},
+          "rationale": {"type": ["string", "null"]}
+        }
+      },
+      "default": []
+    },
+
+    "allowed_next_actions": {
+      "type": "array",
+      "description": "Insieme chiuso. L'agente non puo' invocare azioni fuori da questa lista.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "refine_disease_context",
+          "refine_biomarker",
+          "check_resistance",
+          "check_compound_mutation",
+          "expand_source",
+          "expand_trial",
+          "resolve_identifier",
+          "inspect_conflict",
+          "request_missing_case_context",
+          "stop_insufficient_evidence",
+          "escalate_human_review",
+          "proceed_to_verification"
+        ]
+      }
+    },
+
+    "stop_reason": {
+      "type": ["string", "null"],
+      "enum": ["refinement_goal_satisfied", "no_new_evidence", "duplicate_evidence_only", "max_steps_reached", "max_cost_reached", "unresolved_conflict", "missing_case_context", "source_unavailable", "backend_failure", "human_review_required", null]
+    },
+    "human_review_required": {"type": "boolean", "default": false},
+
+    "coverage_signals": {"$ref": "#/$defs/CoverageSignals"},
+    "auxiliary_model_signal": {"$ref": "#/$defs/AuxiliaryModelSignal"},
+    "budget": {"$ref": "#/$defs/Budget"},
+    "provenance": {"$ref": "#/$defs/DecisionProvenance"}
+  },
+
+  "$defs": {
+    "CoverageSignals": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "description": "Segnali quantitativi che alimentano le regole. Sono deterministici e ricalcolabili dagli artefatti della run.",
+      "properties": {
+        "statements_retrieved": {"type": "integer", "minimum": 0},
+        "statements_with_primary_source": {"type": "integer", "minimum": 0},
+        "statements_with_trial_reference": {"type": "integer", "minimum": 0},
+        "qualifier_completeness": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "disease_specificity_matches": {"type": "integer", "minimum": 0},
+        "disease_specificity_mismatches": {"type": "integer", "minimum": 0},
+        "negative_path_verified": {"type": ["boolean", "null"], "description": "True solo se il traversal vuoto e' stato ottenuto su un grafo raggiungibile e con fingerprint verificato."},
+        "tool_execution_status": {"type": "string", "enum": ["all_completed", "partial", "failed"], "default": "all_completed"},
+        "oldest_source_date": {"type": ["string", "null"], "format": "date"}
+      }
+    },
+    "AuxiliaryModelSignal": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "description": "Contributo opzionale di un modello. Non puo' ribaltare da solo una decisione rule-based: e' registrato per poter misurare quanto sarebbe cambiato se lo si fosse ascoltato.",
+      "properties": {
+        "model_revision": {"type": "string"},
+        "suggested_sufficient": {"type": ["boolean", "null"]},
+        "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "agreed_with_rules": {"type": ["boolean", "null"]},
+        "was_decisive": {"type": "boolean", "const": false, "description": "Sempre false per costruzione: se diventasse true, il gate non sarebbe piu' rule-based."}
+      }
+    },
+    "Budget": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "max_steps": {"type": "integer", "minimum": 0},
+        "max_cost_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "max_latency_ms": {"type": ["integer", "null"], "minimum": 0},
+        "max_external_calls": {"type": "integer", "minimum": 0, "default": 0}
+      }
+    },
+    "DecisionProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decided_at", "snapshot_fingerprint"],
+      "properties": {
+        "decided_at": {"type": "string", "format": "date-time"},
+        "snapshot_fingerprint": {"type": "string"},
+        "case_id": {"type": ["string", "null"]},
+        "case_version": {"type": ["integer", "null"]},
+        "retrieval_action_id": {"type": ["string", "null"]},
+        "run_key": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

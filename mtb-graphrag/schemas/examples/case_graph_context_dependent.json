@@ -1,0 +1,80 @@
+{
+  "schema_version": "v3.0.0",
+  "case_id": "ILLUSTRATIVE-CONTEXT-DEPENDENT-001",
+  "case_version": 1,
+  "disease": {
+    "label": "lung adenocarcinoma",
+    "ontology": "oncotree",
+    "ontology_id": null,
+    "parent_concept": "non-small cell lung cancer",
+    "specificity": "subtype"
+  },
+  "histology": "adenocarcinoma",
+  "primary_site": "lung",
+  "stage": "IV",
+  "disease_setting": "metastatic",
+  "resection_status": "unresected",
+  "current_therapy_line": "treatment_naive",
+  "prior_therapies": [],
+  "molecular_findings": [
+    {
+      "finding_id": "MF-1",
+      "gene": "EGFR",
+      "normalized_identifier": {
+        "system": "hgvs_p",
+        "value": "p.Leu858Arg",
+        "resolution_status": "resolved"
+      },
+      "alteration": "L858R",
+      "alteration_type": "snv",
+      "zygosity": "unknown",
+      "allelic_fraction": null,
+      "specimen": "tissue",
+      "test_method": "NGS panel",
+      "interpretation_status": "pathogenic",
+      "linked_findings": [],
+      "compound_membership": null,
+      "provenance": {
+        "test_id": "DT-1",
+        "reported_by": null,
+        "report_date": null,
+        "extraction_method": "human_annotation"
+      }
+    }
+  ],
+  "diagnostic_tests": [
+    {
+      "test_id": "DT-1",
+      "assay_name": null,
+      "assay_type": "ngs_panel",
+      "specimen": "tissue",
+      "performed_at": null,
+      "coverage_note": "Pannello con copertura dell'esone 20 di EGFR: T790M testata e non rilevata. L'assenza e' documentata, non semplicemente ignota, ed e' cio' che separa questo caso dalla popolazione di uno studio post-progressione T790M-positiva."
+    }
+  ],
+  "performance_status": {
+    "scale": "ecog",
+    "value": 1,
+    "assessed_at": null
+  },
+  "relevant_comorbidities": [],
+  "organ_function_constraints": [],
+  "germline_considerations": null,
+  "current_question": "Quali evidenze pubblicate riguardano questo profilo, e quali qualificatori ne delimitano l'uso?",
+  "missing_context": [
+    "presenza di metastasi cerebrali non documentata",
+    "PD-L1 non riportato"
+  ],
+  "provenance": {
+    "created_at": "2026-07-22T00:00:00+00:00",
+    "source_kind": "illustrative_example",
+    "vocabularies": {
+      "disease": "oncotree",
+      "variant": "hgvs"
+    },
+    "annotators": [],
+    "adjudication": null,
+    "deidentification_method": "caso sintetico: nessun dato reale di paziente"
+  },
+  "review_status": "draft"
+}

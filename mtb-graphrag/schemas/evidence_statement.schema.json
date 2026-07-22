@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mtb-graphrag/schemas/evidence_statement.schema.json",
+  "title": "EvidenceStatement",
+  "description": "Proposizione clinicamente qualificata e verificabile. Non rappresenta soltanto che una terapia e una variante sono collegate, ma in quale popolazione, con quale direzione, sostenuta da quali fonti e con quale stato di revisione. E' l'unita' di conoscenza della V3. PROPOSTO: non ancora implementato.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidence_statement_id", "statement_version", "schema_version", "biomarker", "disease", "direction", "evidence_type", "source_references", "provenance", "review_status", "created_at"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "v3.0.0"},
+    "evidence_statement_id": {"type": "string"},
+    "statement_version": {"type": "integer", "minimum": 1},
+
+    "biomarker": {"$ref": "#/$defs/Biomarker"},
+    "alteration_type": {
+      "type": "string",
+      "enum": ["snv", "indel", "fusion", "rearrangement", "amplification", "deletion", "copy_number_alteration", "expression", "msi", "tmb", "hrd", "compound_mutation", "any", "unknown"],
+      "default": "unknown",
+      "description": "'any' e' ammesso solo quando la fonte dichiara esplicitamente di non distinguere. Non e' un sinonimo di 'unknown'."
+    },
+    "disease": {"$ref": "#/$defs/DiseaseConcept"},
+    "intervention": {"$ref": "#/$defs/Intervention"},
+    "regimen": {"$ref": "#/$defs/Regimen"},
+
+    "direction": {
+      "type": "string",
+      "description": "Direzione della proposizione. 'predictive' non sostituisce sensitivity o resistance: dice che il biomarcatore predice l'esito di un trattamento, non in quale verso. Quando entrambe le dimensioni sono note, usare direction per il verso e evidence_scope per il tipo di affermazione.",
+      "enum": ["sensitivity", "resistance", "lack_of_benefit", "diagnostic", "prognostic", "predictive", "predisposition", "eligibility", "unknown"]
+    },
+    "evidence_scope": {
+      "type": "string",
+      "enum": ["therapeutic", "diagnostic", "prognostic", "predisposing", "eligibility", "mechanistic", "unknown"],
+      "default": "unknown",
+      "description": "Tipo di affermazione, ortogonale a direction."
+    },
+
+    "clinical_context": {"$ref": "#/$defs/ClinicalContext"},
+    "evidence_type": {
+      "type": "string",
+      "enum": ["randomized_trial", "non_randomized_trial", "basket_trial", "cohort_study", "case_series", "case_report", "preclinical_in_vivo", "preclinical_in_vitro", "guideline", "regulatory_document", "knowledge_base_assertion", "expert_consensus", "unknown"]
+    },
+    "evidence_level": {"$ref": "#/$defs/EvidenceLevel"},
+
+    "source_references": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/SourceReference"}},
+    "trial_references": {"type": "array", "items": {"$ref": "#/$defs/SourceReference"}, "default": []},
+    "regulatory_context": {"$ref": "#/$defs/RegulatoryContext"},
+    "source_spans": {"type": "array", "items": {"$ref": "#/$defs/SourceSpan"}, "default": []},
+
+    "provenance": {"$ref": "#/$defs/StatementProvenance"},
+    "review_status": {
+      "type": "string",
+      "enum": ["retrieved_external", "machine_extracted", "pending_verification", "human_review_required", "human_reviewed", "adjudicated", "frozen", "rejected", "superseded"],
+      "description": "Uno statement esterno non puo' diventare 'frozen' senza un'azione di promozione esplicita registrata in provenance.promotion."
+    },
+    "validity": {"$ref": "#/$defs/Validity"},
+    "conflicts": {"type": "array", "items": {"$ref": "#/$defs/Conflict"}, "default": []},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": ["string", "null"], "format": "date-time"}
+  },
+
+  "$defs": {
+    "Biomarker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label"],
+      "properties": {
+        "label": {"type": "string"},
+        "gene": {"type": ["string", "null"]},
+        "normalized_identifier": {"type": ["string", "null"]},
+        "identifier_system": {"type": ["string", "null"], "enum": ["hgvs_p", "hgvs_c", "hgnc", "entrez", "civic_variant", "other", null]},
+        "is_compound": {"type": "boolean", "default": false, "description": "Una mutazione composta non e' la somma delle singole: rispetto a lorlatinib G1202R e G1202R/L1196M hanno implicazioni opposte."},
+        "component_biomarkers": {"type": "array", "items": {"type": "string"}, "default": []}
+      }
+    },
+    "DiseaseConcept": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label"],
+      "properties": {
+        "label": {"type": "string"},
+        "ontology": {"type": ["string", "null"], "enum": ["oncotree", "doid", "ncit", "icd_o_3", null]},
+        "ontology_id": {"type": ["string", "null"]},
+        "parent_concept": {"type": ["string", "null"]},
+        "specificity": {"type": "string", "enum": ["exact", "subtype", "parent", "unknown"], "default": "unknown"}
+      }
+    },
+    "Intervention": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "label": {"type": "string"},
+        "normalized_identifier": {"type": ["string", "null"]},
+        "identifier_system": {"type": ["string", "null"], "enum": ["rxnorm", "chembl", "atc", "ncit", "other", null]},
+        "intervention_class": {"type": ["string", "null"]}
+      }
+    },
+    "Regimen": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "description": "Regime terapeutico. combination_complete distingue una monoterapia da un braccio incompleto di combinazione: presentare un componente come se fosse il regime intero e' un travisamento.",
+      "properties": {
+        "label": {"type": ["string", "null"]},
+        "components": {"type": "array", "items": {"type": "string"}, "default": []},
+        "modality": {"type": ["string", "null"], "enum": ["monotherapy", "combination", "sequential", "unknown", null]},
+        "combination_complete": {"type": "string", "enum": ["complete", "partial", "unknown"], "default": "unknown"}
+      }
+    },
+    "ClinicalContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "I qualificatori che il KG V2 non modella affatto. Nel pilota tutti e 24 risultavano assenti perche' lo schema non li rappresenta.",
+      "properties": {
+        "disease_setting": {"type": "string", "enum": ["localized", "locally_advanced", "metastatic", "recurrent", "adjuvant", "neoadjuvant", "unknown"], "default": "unknown"},
+        "stage": {"type": ["string", "null"]},
+        "resection_status": {"type": "string", "enum": ["resected", "unresected", "partially_resected", "any", "unknown"], "default": "unknown"},
+        "therapy_line": {"type": "string", "enum": ["treatment_naive", "first_line", "second_line", "later_line", "adjuvant", "neoadjuvant", "maintenance", "any", "unknown"], "default": "unknown"},
+        "prior_therapy_requirements": {"type": "array", "items": {"$ref": "#/$defs/TherapyRequirement"}, "default": []},
+        "biomarker_requirements": {"type": "array", "items": {"type": "string"}, "default": []},
+        "population": {"type": ["string", "null"]},
+        "treatment_context": {"type": ["string", "null"]},
+        "combination_requirements": {"type": "array", "items": {"type": "string"}, "default": []},
+        "inclusion_constraints": {"type": "array", "items": {"type": "string"}, "default": []},
+        "exclusion_constraints": {"type": "array", "items": {"type": "string"}, "default": []}
+      }
+    },
+    "TherapyRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirement"],
+      "properties": {
+        "requirement": {"type": "string", "enum": ["required_prior", "excluded_prior", "any"]},
+        "therapy_class": {"type": ["string", "null"]},
+        "agents": {"type": "array", "items": {"type": "string"}, "default": []}
+      }
+    },
+    "EvidenceLevel": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "description": "Il valore originale e' preservato sempre. normalized_tier e' una lettura interna e non autorizza a convertire silenziosamente scale incompatibili: due sistemi diversi restano due sistemi diversi.",
+      "required": ["system", "original_value"],
+      "properties": {
+        "system": {"type": "string", "enum": ["oncokb", "escat", "amp_asco_cap", "civic", "nccn", "other", "unknown"]},
+        "original_value": {"type": "string"},
+        "normalized_tier": {"type": ["string", "null"], "enum": ["tier_1", "tier_2", "tier_3", "tier_4", "not_mapped", null]},
+        "interpretation": {"type": ["string", "null"]},
+        "provenance": {"type": ["string", "null"], "description": "Chi ha assegnato il livello: la knowledge base originale, un revisore, o una mappatura dichiarata."}
+      }
+    },
+    "SourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Una fonte e' un oggetto, mai una stringa citation_id. Nel KG V2 le citazioni sono array di stringhe dentro Evidence.citation_id, e questo rende impossibile distinguere un PMID presente come nodo bibliografico da uno presente solo come citazione.",
+      "required": ["source_id", "source_type", "external_identifier"],
+      "properties": {
+        "source_id": {"type": "string"},
+        "source_type": {"type": "string", "enum": ["pubmed", "pmc", "doi", "clinicaltrials_gov", "guideline", "regulatory", "knowledge_base", "other"]},
+        "external_identifier": {"type": "string", "description": "PMID, PMCID, DOI, NCT o identificatore controllato equivalente."},
+        "title": {"type": ["string", "null"]},
+        "publication_date": {"type": ["string", "null"], "format": "date"},
+        "version": {"type": ["string", "null"]},
+        "access_date": {"type": ["string", "null"], "format": "date"},
+        "source_hash": {"type": ["string", "null"]},
+        "presence_in_snapshot": {
+          "type": "string",
+          "enum": ["node", "citation_only", "absent", "unknown"],
+          "default": "unknown",
+          "description": "Distinzione emersa dall'audit V2: un PMID puo' esistere come nodo Publication oppure solo dentro Evidence.citation_id. Sono due gradi di copertura diversi."
+        }
+      }
+    },
+    "SourceSpan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "locator", "extraction_method", "review_status"],
+      "description": "Riferimento puntuale dentro una fonte. Non contiene il testo: solo il localizzatore e l'hash, per non replicare contenuti protetti.",
+      "properties": {
+        "source_id": {"type": "string"},
+        "span_kind": {"type": "string", "enum": ["abstract", "full_text", "table", "figure", "registry_field", "curated_assertion", "graph_record"], "default": "curated_assertion"},
+        "locator": {"type": "string", "description": "Sezione, numero di tabella, campo del registro o identificatore del record."},
+        "text_hash": {"type": ["string", "null"]},
+        "extraction_method": {"type": "string", "enum": ["human_annotation", "structured_import", "machine_extracted"]},
+        "extractor_version": {"type": ["string", "null"]},
+        "review_status": {"type": "string", "enum": ["unreviewed", "machine_extracted", "human_reviewed", "adjudicated", "frozen"]}
+      }
+    },
+    "RegulatoryContext": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "agency": {"type": ["string", "null"], "enum": ["fda", "ema", "aifa", "other", null]},
+        "status": {"type": ["string", "null"], "enum": ["approved", "conditional", "not_approved", "withdrawn", "unknown", null]},
+        "indication_text": {"type": ["string", "null"]},
+        "jurisdiction": {"type": ["string", "null"]},
+        "as_of_date": {"type": ["string", "null"], "format": "date"},
+        "source_id": {"type": ["string", "null"]}
+      }
+    },
+    "StatementProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin"],
+      "description": "Catena completa: statement -> fonte -> span -> estrazione -> revisore -> import -> snapshot -> retrieval -> claim.",
+      "properties": {
+        "origin": {"type": "string", "enum": ["frozen_kg", "reviewed_source_profile", "external_candidate", "derived"], "description": "Da dove viene lo statement. 'external_candidate' non puo' comparire in una claim consolidata del dossier."},
+        "snapshot_fingerprint": {"type": ["string", "null"]},
+        "graph_record_ids": {"type": "array", "items": {"type": "string"}, "default": []},
+        "extraction_action_id": {"type": ["string", "null"]},
+        "retrieval_action_id": {"type": ["string", "null"]},
+        "reviewer": {"type": ["string", "null"]},
+        "reviewed_at": {"type": ["string", "null"], "format": "date-time"},
+        "promotion": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "description": "Obbligatoria per passare a 'frozen' partendo da un'origine esterna.",
+          "properties": {
+            "promoted_by": {"type": "string"},
+            "promoted_at": {"type": "string", "format": "date-time"},
+            "target_snapshot": {"type": ["string", "null"]},
+            "rationale": {"type": "string"}
+          },
+          "required": ["promoted_by", "promoted_at", "rationale"]
+        }
+      }
+    },
+    "Validity": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {"type": ["string", "null"], "format": "date"},
+        "valid_until": {"type": ["string", "null"], "format": "date"},
+        "superseded_by": {"type": ["string", "null"]},
+        "freshness_checked_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "Conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conflict_type", "with_statement_id"],
+      "properties": {
+        "conflict_type": {"type": "string", "enum": ["opposite_direction", "different_population", "different_specificity", "different_level", "superseded", "other"]},
+        "with_statement_id": {"type": "string"},
+        "resolution": {"type": "string", "enum": ["unresolved", "resolved_by_reviewer", "resolved_by_recency", "escalated"], "default": "unresolved"},
+        "note": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

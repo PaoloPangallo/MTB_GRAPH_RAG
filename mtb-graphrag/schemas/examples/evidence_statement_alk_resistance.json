@@ -1,0 +1,106 @@
+{
+  "schema_version": "v3.0.0",
+  "evidence_statement_id": "ES-ILLUSTRATIVE-ALK-COMPOUND-001",
+  "statement_version": 1,
+  "biomarker": {
+    "label": "ALK G1202R plus an additional ALK kinase-domain mutation",
+    "gene": "ALK",
+    "normalized_identifier": null,
+    "identifier_system": null,
+    "is_compound": true,
+    "component_biomarkers": ["ALK G1202R", "ALK L1196M"]
+  },
+  "alteration_type": "compound_mutation",
+  "disease": {
+    "label": "ALK-positive non-small cell lung cancer",
+    "ontology": "oncotree",
+    "ontology_id": null,
+    "parent_concept": null,
+    "specificity": "exact"
+  },
+  "intervention": {
+    "label": "lorlatinib",
+    "normalized_identifier": "rxcui:2103164",
+    "identifier_system": "rxnorm",
+    "intervention_class": "third-generation ALK inhibitor"
+  },
+  "regimen": {
+    "label": "lorlatinib monotherapy",
+    "components": ["lorlatinib"],
+    "modality": "monotherapy",
+    "combination_complete": "complete"
+  },
+  "direction": "resistance",
+  "evidence_scope": "therapeutic",
+  "clinical_context": {
+    "disease_setting": "metastatic",
+    "stage": "advanced",
+    "resection_status": "unresected",
+    "therapy_line": "later_line",
+    "prior_therapy_requirements": [
+      {"requirement": "required_prior", "therapy_class": "sequential ALK inhibitor therapy", "agents": []}
+    ],
+    "biomarker_requirements": ["compound ALK kinase-domain mutation"],
+    "population": "patients developing compound ALK mutations during sequential ALK inhibition",
+    "treatment_context": "post-progression after sequential ALK inhibition",
+    "combination_requirements": [],
+    "inclusion_constraints": ["compound mutation documented"],
+    "exclusion_constraints": ["single ALK resistance mutation is a different population and is not covered by this statement"]
+  },
+  "evidence_type": "preclinical_in_vitro",
+  "evidence_level": {
+    "system": "unknown",
+    "original_value": "not assigned in this illustrative example",
+    "normalized_tier": null,
+    "interpretation": null,
+    "provenance": "TODO: assegnare dopo verifica bibliografica"
+  },
+  "source_references": [
+    {
+      "source_id": "S-A2-4",
+      "source_type": "pubmed",
+      "external_identifier": "29650534",
+      "title": null,
+      "publication_date": null,
+      "version": null,
+      "access_date": null,
+      "source_hash": null,
+      "presence_in_snapshot": "citation_only"
+    }
+  ],
+  "trial_references": [],
+  "regulatory_context": null,
+  "source_spans": [
+    {
+      "source_id": "S-A2-4",
+      "span_kind": "curated_assertion",
+      "locator": "compound mutation emergence after sequential treatment",
+      "text_hash": null,
+      "extraction_method": "human_annotation",
+      "extractor_version": "human_reviewed_v1",
+      "review_status": "human_reviewed"
+    }
+  ],
+  "provenance": {
+    "origin": "reviewed_source_profile",
+    "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+    "graph_record_ids": ["evidence:100002"],
+    "extraction_action_id": null,
+    "retrieval_action_id": null,
+    "reviewer": "annotatore_1",
+    "reviewed_at": null,
+    "promotion": null
+  },
+  "review_status": "human_reviewed",
+  "validity": {"valid_from": null, "valid_until": null, "superseded_by": null, "freshness_checked_at": null},
+  "conflicts": [
+    {
+      "conflict_type": "different_population",
+      "with_statement_id": "ES-ILLUSTRATIVE-ALK-SINGLE-001",
+      "resolution": "resolved_by_reviewer",
+      "note": "Rispetto a lorlatinib la mutazione singola e quella composta hanno implicazioni opposte. Non e' un conflitto da risolvere ma una distinzione da preservare: i due statement descrivono popolazioni diverse."
+    }
+  ],
+  "created_at": "2026-07-22T00:00:00+00:00",
+  "updated_at": null
+}
