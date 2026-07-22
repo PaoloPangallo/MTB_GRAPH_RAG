@@ -1,0 +1,205 @@
+{
+  "audit_state": "split_proposed_by_structural_audit",
+  "audit_version": "cohort_split_audit/1.0",
+  "blind_annotation_id": "BA-4bea0a5b96fd5502",
+  "candidate_units": [
+    {
+      "evidence_design": "unknown",
+      "is_propagatable": false,
+      "proposed_profile_unit_id": "PU-PMID-31358542-clinical-component",
+      "review_status": "awaiting_first_review",
+      "unit_label": "componente clinica proposta dall'audit",
+      "unit_type": "clinical_observational_cohort"
+    },
+    {
+      "evidence_design": "preclinical_in_vitro",
+      "is_propagatable": false,
+      "proposed_profile_unit_id": "PU-PMID-31358542-preclinical-component",
+      "review_status": "awaiting_first_review",
+      "unit_label": "componente preclinica proposta dall'audit",
+      "unit_type": "preclinical_in_vitro"
+    }
+  ],
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_final_decision": false,
+  "contains_other_reviewer_decision": false,
+  "contains_pipeline_metrics": false,
+  "contains_reviewed_packet_outcome": false,
+  "detected_signals": [
+    {
+      "category": "cohort_structure",
+      "matched_text": "treatment groups",
+      "signal_id": "group.plural"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "instructions": [
+    "Questa e' una **proposta strutturale automatica**, non una revisione.",
+    "I campi clinici delle unita' proposte sono deliberatamente vuoti: l'audit propone struttura, non contenuto.",
+    "Respingere la proposta e' un esito legittimo quanto accettarla."
+  ],
+  "non_propagation_warnings": [
+    "non propagare `population` fra componente clinica e preclinica",
+    "non propagare `setting` fra componente clinica e preclinica",
+    "non propagare `therapy_line` fra componente clinica e preclinica",
+    "non propagare `stage` fra componente clinica e preclinica",
+    "non propagare `comparator` fra componente clinica e preclinica"
+  ],
+  "not_separable_dimensions": [
+    "therapy_line",
+    "stage",
+    "regimen"
+  ],
+  "packet_version": "first_review_split_audit/1.0",
+  "proposed_structure": {
+    "arms_detected": 0,
+    "comparators_detected": 6,
+    "documentary_units": 3,
+    "preclinical_models_detected": 1,
+    "rationale": "la fonte contiene sia una componente clinica sia una preclinica",
+    "split_likelihood": "split_required",
+    "structure_state": "clinical_preclinical_split_required"
+  },
+  "reviewer_questions": [
+    "La fonte descrive davvero le unita' proposte, o la partizione e' un artefatto dei segnali lessicali?",
+    "Quali proposizioni appartengono a ciascuna unita'?",
+    "Quali dimensioni sono condivise fra le unita' e quali sono specifiche?",
+    "Esistono dimensioni che la fonte non permette di separare? Marcale `not_separable`, non `unknown`.",
+    "La proposta va accettata, modificata o respinta?"
+  ],
+  "shared_dimensions": [
+    "disease",
+    "biomarker_requirements"
+  ],
+  "source": {
+    "canonical_source_id": "PMID:31358542",
+    "document_hash": "872ca747fedbef05628ed7b84094f144493888c124a3a7ede1c12f84cd7ef1eb",
+    "limitations": "",
+    "locator": "PMC6858956#full_text",
+    "pmids": [
+      "31358542"
+    ],
+    "text_consulted": "full_text"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…stical Analysis Fisher’s exact test was used to compare ALK mutation frequency between specimen and treatment groups. All p-values were based on a two-sided hypothesis and computed using Stata 12.1. RESULTS Study Pop…",
+      "matched_text": "treatment groups",
+      "signal_id": "group.plural"
+    },
+    {
+      "excerpt": "…mutations at relapse on next-generation ALK TKIs. Methods We analyzed 106 plasma specimens from 84 patients with advanced ALK -positive lung cancer treated with second- and third-generation ALK TKIs using a…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…identify ALK mutations. Results By genotyping plasma, we detected an ALK mutation in 46 (66%) of 70 patients relapsing on a second-generation ALK TKI. When post-alectinib plasma and tumor specimens were compa…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…%), but plasma specimens were more likely to harbor ≥2 ALK mutations (24% vs 2%, p=0.004). Among 29 patients relapsing on lorlatinib, plasma genotyping detected an ALK mutation in 22 (76%), including 14 (48%)…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…were G1202R/L1196M and D1203N/1171N. Detection of ≥2 ALK mutations was significantly more common in patients relapsing on lorlatinib compared to second-generation ALK TKIs (48% vs 23%, p=0.017). Among 15 pati…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ents relapsing on lorlatinib compared to second-generation ALK TKIs (48% vs 23%, p=0.017). Among 15 patients who received lorlatinib after a second-generation TKI, serial plasma analysis demonstrated that 8 (…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…he activity of second-generation ALK TKIs (ceritinib, alectinib, and brigatinib) in treatment-naïve patients have positioned these more potent ALK TKIs as the preferred first-line treatment for advanced ALK -…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…s the preferred first-line treatment for advanced ALK -positive NSCLC. 2 – 4 However, virtually all patients will eventually develop resistance to therapy. In patients relapsing on second-generation ALK TKIs,…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "specific_dimensions": [
+    "population",
+    "setting",
+    "evidence_design"
+  ],
+  "statements": [
+    {
+      "candidate_link_status": "candidate_ambiguous",
+      "clinical_or_preclinical": "both",
+      "intervention": "brigatinib",
+      "rationale": "l'intervento compare nel testo consultato ma la fonte contiene evidenza di natura diversa: l'assegnazione alla componente clinica o preclinica richiede lettura umana",
+      "statement_id": "ES-V2-evidence-100003",
+      "support_type": "clinical_observation_with_preclinical_validation"
+    },
+    {
+      "candidate_link_status": "candidate_ambiguous",
+      "clinical_or_preclinical": "both",
+      "intervention": "ceritinib",
+      "rationale": "l'intervento compare nel testo consultato ma la fonte contiene evidenza di natura diversa: l'assegnazione alla componente clinica o preclinica richiede lettura umana",
+      "statement_id": "ES-V2-evidence-100004",
+      "support_type": "clinical_observation_with_preclinical_validation"
+    }
+  ],
+  "supersedes_packet": "BA-4bea0a5b96fd5502"
+}

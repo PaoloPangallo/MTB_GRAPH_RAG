@@ -1,0 +1,174 @@
+{
+  "audit_state": "split_proposed_by_structural_audit",
+  "audit_version": "cohort_split_audit/1.0",
+  "blind_annotation_id": "BA-d6890c470c9709a8",
+  "candidate_units": [],
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_final_decision": false,
+  "contains_other_reviewer_decision": false,
+  "contains_pipeline_metrics": false,
+  "contains_reviewed_packet_outcome": false,
+  "detected_signals": [
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "comparator",
+      "matched_text": "compared with",
+      "signal_id": "comparator.versus"
+    },
+    {
+      "category": "comparator",
+      "matched_text": "compared with",
+      "signal_id": "comparator.versus"
+    },
+    {
+      "category": "arm_structure",
+      "matched_text": "randomly allocated",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "phase 3",
+      "signal_id": "clinical.phase"
+    },
+    {
+      "category": "arm_structure",
+      "matched_text": "randomly assigned",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patient",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "instructions": [
+    "Questa e' una **proposta strutturale automatica**, non una revisione.",
+    "I campi clinici delle unita' proposte sono deliberatamente vuoti: l'audit propone struttura, non contenuto.",
+    "Respingere la proposta e' un esito legittimo quanto accettarla."
+  ],
+  "non_propagation_warnings": [],
+  "not_separable_dimensions": [],
+  "packet_version": "first_review_split_audit/1.0",
+  "proposed_structure": {
+    "arms_detected": 2,
+    "comparators_detected": 4,
+    "documentary_units": 1,
+    "preclinical_models_detected": 0,
+    "rationale": "segnali espliciti di piu' bracci clinici",
+    "split_likelihood": "split_likely",
+    "structure_state": "multi_arm_clinical_split_required"
+  },
+  "reviewer_questions": [
+    "La fonte descrive davvero le unita' proposte, o la partizione e' un artefatto dei segnali lessicali?",
+    "Quali proposizioni appartengono a ciascuna unita'?",
+    "Quali dimensioni sono condivise fra le unita' e quali sono specifiche?",
+    "Esistono dimensioni che la fonte non permette di separare? Marcale `not_separable`, non `unknown`.",
+    "La proposta va accettata, modificata o respinta?"
+  ],
+  "shared_dimensions": [
+    "disease",
+    "biomarker_requirements"
+  ],
+  "source": {
+    "canonical_source_id": "PMID:22285168",
+    "document_hash": "d13503ace027bc6ce9ff76a72e77f1329acadb7a92f97e709aadee8019cb8345",
+    "limitations": "solo abstract: i segnali del full text non sono osservabili",
+    "locator": "pmid:22285168#abstract",
+    "pmids": [
+      "22285168"
+    ],
+    "text_consulted": "abstract_only"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…e progression-free survival compared with chemotherapy when given as first-line treatment for Asian patients with non-small-cell lung cancer (NSCLC) with activating EGFR mutations. We aimed to assess the safe…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…and efficacy of erlotinib compared with standard chemotherapy for first-line treatment of European patients with advanced EGFR-mutation positive NSCLC. We undertook the open-label, randomised phase 3 EURTAC…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "Erlotinib has been shown to improve progression-free survival compared with chemotherapy when given as first-line treatment for Asian patients with non-small-cell lung cancer…",
+      "matched_text": "compared with",
+      "signal_id": "comparator.versus"
+    },
+    {
+      "excerpt": "…cer (NSCLC) with activating EGFR mutations. We aimed to assess the safety and efficacy of erlotinib compared with standard chemotherapy for first-line treatment of European patients with advanced EGFR-mutation pos…",
+      "matched_text": "compared with",
+      "signal_id": "comparator.versus"
+    },
+    {
+      "excerpt": "…d with standard chemotherapy for first-line treatment of European patients with advanced EGFR-mutation positive NSCLC. We undertook the open-label, randomised phase 3 EURTAC trial at 42 hospitals in France, Italy, and…",
+      "matched_text": "randomly allocated",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "excerpt": "…(neoadjuvant or adjuvant chemotherapy ending ≥ 6 months before study entry was allowed). We randomly allocated participants (1:1) according to a computer-generated allocation schedule to receive oral erlotin…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…apy ending ≥ 6 months before study entry was allowed). We randomly allocated participants (1:1) according to a computer-generated allocation schedule to receive oral erlotinib 150 mg per day or 3 week cycles…",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…apy of cisplatin 75 mg/m(2) on day 1 plus docetaxel (75 mg/m(2) on day 1) or gemcitabine (1250 mg/m(2) on days 1 and 8). Carboplatin (AUC 6 with docetaxel 75 mg/m(2) or AUC 5 with gemcitabine 1000 mg/m(2)) wa…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "specific_dimensions": [],
+  "statements": [
+    {
+      "candidate_link_status": "candidate_valid",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "erlotinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-3791",
+      "support_type": "direct_clinical_support"
+    },
+    {
+      "candidate_link_status": "candidate_valid",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "erlotinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-885",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "supersedes_packet": "BA-d6890c470c9709a8"
+}

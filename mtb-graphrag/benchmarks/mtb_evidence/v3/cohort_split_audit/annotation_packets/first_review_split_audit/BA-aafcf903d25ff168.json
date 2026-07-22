@@ -1,0 +1,213 @@
+{
+  "audit_state": "split_proposed_by_structural_audit",
+  "audit_version": "cohort_split_audit/1.0",
+  "blind_annotation_id": "BA-aafcf903d25ff168",
+  "candidate_units": [
+    {
+      "evidence_design": "unknown",
+      "is_propagatable": false,
+      "proposed_profile_unit_id": "PU-PMID-22235099-clinical-component",
+      "review_status": "awaiting_first_review",
+      "unit_label": "componente clinica proposta dall'audit",
+      "unit_type": "clinical_observational_cohort"
+    },
+    {
+      "evidence_design": "preclinical_in_vitro",
+      "is_propagatable": false,
+      "proposed_profile_unit_id": "PU-PMID-22235099-preclinical-component",
+      "review_status": "awaiting_first_review",
+      "unit_label": "componente preclinica proposta dall'audit",
+      "unit_type": "preclinical_in_vitro"
+    }
+  ],
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_final_decision": false,
+  "contains_other_reviewer_decision": false,
+  "contains_pipeline_metrics": false,
+  "contains_reviewed_packet_outcome": false,
+  "detected_signals": [
+    {
+      "category": "clinical",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patient",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patient",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patient",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "instructions": [
+    "Questa e' una **proposta strutturale automatica**, non una revisione.",
+    "I campi clinici delle unita' proposte sono deliberatamente vuoti: l'audit propone struttura, non contenuto.",
+    "Respingere la proposta e' un esito legittimo quanto accettarla."
+  ],
+  "non_propagation_warnings": [
+    "non propagare `population` fra componente clinica e preclinica",
+    "non propagare `setting` fra componente clinica e preclinica",
+    "non propagare `therapy_line` fra componente clinica e preclinica",
+    "non propagare `stage` fra componente clinica e preclinica",
+    "non propagare `comparator` fra componente clinica e preclinica"
+  ],
+  "not_separable_dimensions": [
+    "therapy_line",
+    "stage",
+    "regimen"
+  ],
+  "packet_version": "first_review_split_audit/1.0",
+  "proposed_structure": {
+    "arms_detected": 0,
+    "comparators_detected": 1,
+    "documentary_units": 3,
+    "preclinical_models_detected": 46,
+    "rationale": "la fonte contiene sia una componente clinica sia una preclinica",
+    "split_likelihood": "split_required",
+    "structure_state": "clinical_preclinical_split_required"
+  },
+  "reviewer_questions": [
+    "La fonte descrive davvero le unita' proposte, o la partizione e' un artefatto dei segnali lessicali?",
+    "Quali proposizioni appartengono a ciascuna unita'?",
+    "Quali dimensioni sono condivise fra le unita' e quali sono specifiche?",
+    "Esistono dimensioni che la fonte non permette di separare? Marcale `not_separable`, non `unknown`.",
+    "La proposta va accettata, modificata o respinta?"
+  ],
+  "shared_dimensions": [
+    "disease",
+    "biomarker_requirements"
+  ],
+  "source": {
+    "canonical_source_id": "PMID:22235099",
+    "document_hash": "ff9615e75fe8e274c9cc9656bfee3b4b55d867306102f995bd45c6c6086b3e32",
+    "limitations": "",
+    "locator": "PMC3311875#full_text",
+    "pmids": [
+      "22235099"
+    ],
+    "text_consulted": "full_text"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…8/1078-0432.CCR-11-2906 NIHMS362229 NIHPA362229 1 Article Mechanisms of Resistance to Crizotinib in Patients with ALK Gene Rearranged Non-Small Cell Lung Cancer Doebele Robert C. 1 Pilling Amanda B. 1 Aisner…",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ng. It may also be used consistent with the principles of fair use under the copyright law. Purpose Patients with anaplastic lymphoma kinase ( ALK ) gene rearrangements often manifest dramatic responses to cr…",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…manifest dramatic responses to crizotinib, a small molecule ALK inhibitor. Unfortunately, not every patient responds and acquired drug resistance inevitably develops in those that do respond. This study aime…",
+      "matched_text": "patient",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…define molecular mechanisms of resistance to crizotinib in ALK+ non-small cell lung cancer (NSCLC) patients. Experimental Design We analyzed tissue obtained from 14 ALK+ NSCLC patients demonstrating evidence…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ll lung cancer (NSCLC) patients. Experimental Design We analyzed tissue obtained from 14 ALK+ NSCLC patients demonstrating evidence of radiologic progression while on crizotinib in order to define mechanisms…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ib in order to define mechanisms of intrinsic and acquired resistance to crizotinib. Results Eleven patients had material evaluable for molecular analysis. Four patients (36%) developed secondary mutations in…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…sistance to crizotinib. Results Eleven patients had material evaluable for molecular analysis. Four patients (36%) developed secondary mutations in the tyrosine kinase domain of ALK . A novel mutation in the…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…titution that confers resistance to crizotinib in vitro , was identified in two of these cases. Two patients, one with a resistance mutation, exhibited new onset ALK copy number gain (CNG). One patient demons…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "specific_dimensions": [
+    "population",
+    "setting",
+    "evidence_design"
+  ],
+  "statements": [
+    {
+      "candidate_link_status": "candidate_ambiguous",
+      "clinical_or_preclinical": "both",
+      "intervention": "crizotinib",
+      "rationale": "l'intervento compare nel testo consultato ma la fonte contiene evidenza di natura diversa: l'assegnazione alla componente clinica o preclinica richiede lettura umana",
+      "statement_id": "ES-V2-evidence-4288",
+      "support_type": "clinical_observation_with_preclinical_validation"
+    },
+    {
+      "candidate_link_status": "candidate_ambiguous",
+      "clinical_or_preclinical": "both",
+      "intervention": "crizotinib",
+      "rationale": "l'intervento compare nel testo consultato ma la fonte contiene evidenza di natura diversa: l'assegnazione alla componente clinica o preclinica richiede lettura umana",
+      "statement_id": "ES-V2-evidence-764",
+      "support_type": "clinical_observation_with_preclinical_validation"
+    },
+    {
+      "candidate_link_status": "candidate_ambiguous",
+      "clinical_or_preclinical": "both",
+      "intervention": "crizotinib",
+      "rationale": "l'intervento compare nel testo consultato ma la fonte contiene evidenza di natura diversa: l'assegnazione alla componente clinica o preclinica richiede lettura umana",
+      "statement_id": "ES-V2-evidence-766",
+      "support_type": "clinical_observation_with_preclinical_validation"
+    }
+  ],
+  "supersedes_packet": "BA-aafcf903d25ff168"
+}

@@ -1,0 +1,174 @@
+{
+  "audit_state": "split_proposed_by_structural_audit",
+  "audit_version": "cohort_split_audit/1.0",
+  "blind_annotation_id": "BA-b0eec5b0525c34b4",
+  "candidate_units": [],
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_final_decision": false,
+  "contains_other_reviewer_decision": false,
+  "contains_pipeline_metrics": false,
+  "contains_reviewed_packet_outcome": false,
+  "detected_signals": [
+    {
+      "category": "arm_structure",
+      "matched_text": "arm 1",
+      "signal_id": "arm.named"
+    },
+    {
+      "category": "arm_structure",
+      "matched_text": "arm 2",
+      "signal_id": "arm.named"
+    },
+    {
+      "category": "arm_structure",
+      "matched_text": "arm 3",
+      "signal_id": "arm.named"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "instructions": [
+    "Questa e' una **proposta strutturale automatica**, non una revisione.",
+    "I campi clinici delle unita' proposte sono deliberatamente vuoti: l'audit propone struttura, non contenuto.",
+    "Respingere la proposta e' un esito legittimo quanto accettarla."
+  ],
+  "non_propagation_warnings": [],
+  "not_separable_dimensions": [],
+  "packet_version": "first_review_split_audit/1.0",
+  "proposed_structure": {
+    "arms_detected": 3,
+    "comparators_detected": 1,
+    "documentary_units": 1,
+    "preclinical_models_detected": 0,
+    "rationale": "segnali espliciti di piu' bracci clinici",
+    "split_likelihood": "split_likely",
+    "structure_state": "multi_arm_clinical_split_required"
+  },
+  "reviewer_questions": [
+    "La fonte descrive davvero le unita' proposte, o la partizione e' un artefatto dei segnali lessicali?",
+    "Quali proposizioni appartengono a ciascuna unita'?",
+    "Quali dimensioni sono condivise fra le unita' e quali sono specifiche?",
+    "Esistono dimensioni che la fonte non permette di separare? Marcale `not_separable`, non `unknown`.",
+    "La proposta va accettata, modificata o respinta?"
+  ],
+  "shared_dimensions": [
+    "disease",
+    "biomarker_requirements"
+  ],
+  "source": {
+    "canonical_source_id": "PMID:27870574",
+    "document_hash": "c1fbbc57850cd1f62f6659cf57ccf47d5eb608191bb6b5253292425e8105103d",
+    "limitations": "",
+    "locator": "PMC6865065#full_text",
+    "pmids": [
+      "27870574"
+    ],
+    "text_consulted": "full_text"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…nsion at the MTD, patients with FGFR1 -amplified squamous cell non–small-cell lung cancer (sqNSCLC; arm 1) or other solid tumors with FGFR genetic alterations (mutations/amplifications/fusions) received BG…",
+      "matched_text": "arm 1",
+      "signal_id": "arm.named"
+    },
+    {
+      "excerpt": "…etic alterations (mutations/amplifications/fusions) received BGJ398 daily on a continuous schedule (arm 2), or on a 3-weeks-on/1-week-off schedule (arm 3). Results Data in 132 patients from the escalation…",
+      "matched_text": "arm 2",
+      "signal_id": "arm.named"
+    },
+    {
+      "excerpt": "…ns) received BGJ398 daily on a continuous schedule (arm 2), or on a 3-weeks-on/1-week-off schedule (arm 3). Results Data in 132 patients from the escalation and expansion arms are reported (May 15, 2015, c…",
+      "matched_text": "arm 3",
+      "signal_id": "arm.named"
+    },
+    {
+      "excerpt": "…cal Pharmacology Evaluation of BGJ398, a Fibroblast Growth Factor Receptor 1-3 Kinase Inhibitor, in Patients With Advanced Solid Tumors Harboring Genetic Alterations in Fibroblast Growth Factor Receptors: Res…",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ncol 10.1200/JCO.2016.70.5061 27918716 Purpose This two-part, first-in-human study was initiated in patients with advanced solid tumors harboring genetic alterations in fibroblast growth factor receptors (FGF…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…macodynamics, and antitumor activity of oral BGJ398, a selective FGFR1-3 tyrosine kinase inhibitor. Patients and Methods Adult patients were treated with escalating dosages of BGJ398 5 to 150 mg once daily or…",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…activity of oral BGJ398, a selective FGFR1-3 tyrosine kinase inhibitor. Patients and Methods Adult patients were treated with escalating dosages of BGJ398 5 to 150 mg once daily or 50 mg twice daily continuo…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…150 mg once daily or 50 mg twice daily continuously in 28-day cycles. During expansion at the MTD, patients with FGFR1 -amplified squamous cell non–small-cell lung cancer (sqNSCLC; arm 1) or other solid tumo…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "specific_dimensions": [],
+  "statements": [
+    {
+      "candidate_link_status": "candidate_not_determinable",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "infigratinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-1912",
+      "support_type": "not_determinable"
+    },
+    {
+      "candidate_link_status": "candidate_not_determinable",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "infigratinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-1913",
+      "support_type": "not_determinable"
+    }
+  ],
+  "supersedes_packet": "BA-b0eec5b0525c34b4"
+}
