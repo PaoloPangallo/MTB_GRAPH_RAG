@@ -1,3 +1,11 @@
 role,rank,model,score,admissible
-planner,1,gemma4:31b-cloud,0.9212,True
-planner,2,gpt-oss:20b-cloud,0.902,True
+planner,1,gpt-oss:120b-cloud,0.9434,True
+planner,2,nemotron-3-ultra-cloud,0.9284,True
+planner,3,gemma4:31b-cloud,0.9212,True
+planner,4,gpt-oss:20b-cloud,0.902,True
+verifier,1,gpt-oss:20b-cloud,0.975,True
+verifier,2,gpt-oss:120b-cloud,0.9708,True
+verifier,3,nemotron-3-ultra-cloud,0.95,True
+verifier,4,gemma4:31b-cloud,0.9375,True
+free_report,1,gpt-oss:120b-cloud,0.8361,True
+free_report,2,gemma4:31b-cloud,0.8188,True

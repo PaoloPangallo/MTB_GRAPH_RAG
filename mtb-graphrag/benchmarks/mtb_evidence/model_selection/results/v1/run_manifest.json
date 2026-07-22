@@ -19,7 +19,7 @@
     "PILOT-C1-EGFR-L858R-CONTEXT",
     "PILOT-N1-RMI2-SNAPSHOT"
   ],
-  "generated_at_utc": "2026-07-22T09:48:09.592076+00:00",
+  "generated_at_utc": "2026-07-22T11:41:04.798929+00:00",
   "leakage_overlaps": {
     "PILOT-A2-ALK-G1202R": [],
     "PILOT-C1-EGFR-L858R-CONTEXT": [
@@ -30,23 +30,27 @@
   },
   "models_evaluated": [
     "gemma4:31b-cloud",
+    "gpt-oss:120b-cloud",
     "gpt-oss:20b-cloud",
-    "qwen3.5:397b-cloud"
+    "nemotron-3-ultra-cloud"
   ],
   "models_requested": [
     "gpt-oss:20b-cloud",
     "gemma4:31b-cloud",
-    "qwen3.5:397b-cloud"
+    "gpt-oss:120b-cloud",
+    "nemotron-3-ultra-cloud"
   ],
   "num_ctx": 16384,
   "policy": "Selezione sui soli quattro casi development. Il test set non viene usato: adoperarlo per scegliere lo consumerebbe.",
   "research_question": "Quanto la scelta fra modelli cloud di scala e famiglia differenti influenza planner, verifier e free report sui quattro casi development? Il confronto e' esplorativo: non permette di attribuire causalmente un miglioramento alla sola taglia del modello.",
   "roles": [
-    "planner"
+    "planner",
+    "verifier",
+    "free_report"
   ],
   "runs_executed": 0,
   "runs_preserved_not_reused": 0,
-  "runs_skipped_by_resume": 24,
+  "runs_skipped_by_resume": 192,
   "seeds": [
     20240517,
     13,
@@ -54,7 +58,9 @@
   ],
   "source_profile_hash": "d529de6d15c6ea24b969296885830404ccb55909464cb0fdff317de846ee9d35",
   "task_counts": {
-    "planner": 4
+    "free_report": 4,
+    "planner": 4,
+    "verifier": 8
   },
   "temperature": 0.0
 }
