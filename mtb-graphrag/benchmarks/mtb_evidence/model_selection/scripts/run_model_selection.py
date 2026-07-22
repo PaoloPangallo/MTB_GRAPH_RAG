@@ -512,6 +512,72 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
+def _threshold_caveats(role_metrics, checks, args) -> list[str]:
+    """Avvertenze che i soli numeri nasconderebbero.
+
+    Due situazioni vanno dette a parole. La prima: con dodici run per ruolo, una
+    soglia a 0.95 significa che **un solo output non valido esclude** un modello
+    (11/12 = 0.917). La seconda: un modello puo' vincere una classifica pur essendo
+    l'unico a sbagliare su una metrica che altri hanno perfetta.
+    """
+    lines: list[str] = ["", "## Avvertenze sulle soglie", ""]
+    runs_per_role = {
+        role: len({(m, k) for m, mm in per.items() for k in mm}) and 0
+        for role, per in role_metrics.items()
+    }
+    del runs_per_role  # calcolato sotto in modo esplicito
+
+    excluded = [check for check in checks if not check["passed"]]
+    if excluded:
+        lines.append(
+            "Con dodici run per ruolo (4 casi x 3 seed), un solo output non valido "
+            "porta `valid_output_rate` a 0.917 e fa scattare l'esclusione a 0.95. "
+            "La soglia e' quindi molto grossolana a questo n: distingue zero "
+            "fallimenti da uno, non un modello affidabile da uno inaffidabile."
+        )
+        lines.append("")
+        for check in excluded:
+            model, role = check["model"], check["role"]
+            metrics = role_metrics.get(
+                "free_report" if role == "free_report" else role, {}
+            ).get(model, {})
+            strengths = [
+                f"`{name}` = {float(value):.3f}"
+                for name, value in sorted(metrics.items())
+                if value is not None
+                and name in ("qualifier_preservation", "citation_accuracy",
+                             "claim_precision", "documentary_status_accuracy")
+                and float(value) >= 0.95
+            ]
+            detail = f" pur avendo {', '.join(strengths)}" if strengths else ""
+            lines.append(f"- `{model}` escluso da **{role}**: {check['failures']}{detail}.")
+        lines.append("")
+
+    # Un vincitore che sbaglia dove altri no.
+    for role, per_model in role_metrics.items():
+        for metric in ("citation_accuracy", "unsupported_claim_rate"):
+            values = {
+                model: float(metrics[metric])
+                for model, metrics in per_model.items()
+                if metrics.get(metric) is not None
+            }
+            if len(values) < 2:
+                continue
+            worse_is_lower = metric == "citation_accuracy"
+            outliers = [
+                model for model, value in values.items()
+                if (value < 1.0 if worse_is_lower else value > 0.0)
+            ]
+            if len(outliers) == 1 and len(values) > 1:
+                lines.append(
+                    f"- Su **{role}**, `{outliers[0]}` e' l'unico modello con "
+                    f"`{metric}` = {values[outliers[0]]:.3f} mentre gli altri sono "
+                    f"{'a 1.000' if worse_is_lower else 'a 0.000'}. "
+                    "Se e' il modello selezionato, e' un difetto da dichiarare."
+                )
+    return lines
+
+
 def _report(timestamp, args, manifest, role_metrics, rankings, checks, single_model,
             single_reason, status, failures, cases) -> str:
     lines = [
@@ -561,6 +627,7 @@ def _report(timestamp, args, manifest, role_metrics, rankings, checks, single_mo
         detail = f" — {check['failures']}" if check["failures"] else ""
         lines.append(f"- `{check['model']}` / {check['role']}: {verdict}{detail}")
 
+    lines += _threshold_caveats(role_metrics, checks, args)
     lines += ["", "## Classifiche", ""]
     for role, items in rankings.items():
         lines.append(f"**{role}**")

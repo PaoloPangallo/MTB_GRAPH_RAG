@@ -13,6 +13,80 @@
       "model": "gemma4:31b-cloud",
       "passed": true,
       "role": "planner"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "gpt-oss:120b-cloud",
+      "passed": true,
+      "role": "planner"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "nemotron-3-ultra-cloud",
+      "passed": true,
+      "role": "planner"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "gpt-oss:20b-cloud",
+      "passed": true,
+      "role": "verifier"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "gemma4:31b-cloud",
+      "passed": true,
+      "role": "verifier"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "gpt-oss:120b-cloud",
+      "passed": true,
+      "role": "verifier"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "nemotron-3-ultra-cloud",
+      "passed": true,
+      "role": "verifier"
+    },
+    {
+      "failures": [
+        "valid_output_rate=0.917 sotto la soglia 0.95"
+      ],
+      "missing_metrics": [],
+      "model": "gpt-oss:20b-cloud",
+      "passed": false,
+      "role": "free_report"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "gemma4:31b-cloud",
+      "passed": true,
+      "role": "free_report"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "gpt-oss:120b-cloud",
+      "passed": true,
+      "role": "free_report"
+    },
+    {
+      "failures": [
+        "valid_output_rate=0.917 sotto la soglia 0.95"
+      ],
+      "missing_metrics": [],
+      "model": "nemotron-3-ultra-cloud",
+      "passed": false,
+      "role": "free_report"
     }
   ],
   "config": {
@@ -34,19 +108,97 @@
   ],
   "digests": {
     "gemma4:31b-cloud": "221b330d11a8",
+    "gpt-oss:120b-cloud": "d98fe6ba01e6",
     "gpt-oss:20b-cloud": "05afbac4bad6",
-    "qwen3.5:397b-cloud": "b909ca2f1b7f"
+    "nemotron-3-ultra-cloud": "4eecabff7a75"
   },
   "model_revisions": {
     "gemma4:31b-cloud": "ollama:gemma4:31b:221b330d11a8",
+    "gpt-oss:120b-cloud": "ollama:gpt-oss:120b:d98fe6ba01e6",
     "gpt-oss:20b-cloud": "ollama:gpt-oss:20b:05afbac4bad6",
-    "qwen3.5:397b-cloud": "ollama:qwen3.5:397b:b909ca2f1b7f"
+    "nemotron-3-ultra-cloud": "ollama:nemotron-3-ultra:4eecabff7a75"
   },
-  "optional_single_model": "gemma4:31b-cloud",
-  "planner_model": "gemma4:31b-cloud",
-  "report_model": null,
+  "optional_single_model": "gpt-oss:120b-cloud",
+  "planner_model": "gpt-oss:120b-cloud",
+  "report_model": "gpt-oss:120b-cloud",
   "selection_reason": {
+    "free_report": [
+      {
+        "admissible": true,
+        "components": {
+          "abstention_accuracy": 0.1,
+          "citation_accuracy": 0.1919,
+          "claim_precision": 0.2399,
+          "claim_recall": 0.1919,
+          "qualifier_preservation": 0.1414,
+          "run_to_run_agreement": 0.025
+        },
+        "model": "gpt-oss:120b-cloud",
+        "notes": [],
+        "penalties": {
+          "context_omission_rate": 0.0439,
+          "unsupported_claim_rate": 0.0101
+        },
+        "role": "free_report",
+        "score": 0.8361
+      },
+      {
+        "admissible": true,
+        "components": {
+          "abstention_accuracy": 0.1,
+          "citation_accuracy": 0.2,
+          "claim_precision": 0.25,
+          "claim_recall": 0.2,
+          "qualifier_preservation": 0.0988,
+          "run_to_run_agreement": 0.0458
+        },
+        "model": "gemma4:31b-cloud",
+        "notes": [],
+        "penalties": {
+          "context_omission_rate": 0.0759,
+          "unsupported_claim_rate": 0.0
+        },
+        "role": "free_report",
+        "score": 0.8188
+      }
+    ],
     "planner": [
+      {
+        "admissible": true,
+        "components": {
+          "conditional_step_accuracy": 0.25,
+          "required_tool_recall": 0.1939,
+          "run_to_run_agreement": 0.0833,
+          "stop_condition_accuracy": 0.15,
+          "task_completion": 0.275
+        },
+        "model": "gpt-oss:120b-cloud",
+        "notes": [],
+        "penalties": {
+          "planner_failure_rate": 0.0,
+          "unnecessary_tool_rate": 0.0088
+        },
+        "role": "planner",
+        "score": 0.9434
+      },
+      {
+        "admissible": true,
+        "components": {
+          "conditional_step_accuracy": 0.25,
+          "required_tool_recall": 0.1758,
+          "run_to_run_agreement": 0.0917,
+          "stop_condition_accuracy": 0.15,
+          "task_completion": 0.275
+        },
+        "model": "nemotron-3-ultra-cloud",
+        "notes": [],
+        "penalties": {
+          "planner_failure_rate": 0.0,
+          "unnecessary_tool_rate": 0.0141
+        },
+        "role": "planner",
+        "score": 0.9284
+      },
       {
         "admissible": true,
         "components": {
@@ -83,9 +235,79 @@
         "role": "planner",
         "score": 0.902
       }
+    ],
+    "verifier": [
+      {
+        "admissible": true,
+        "components": {
+          "applicability_status_accuracy": 0.3,
+          "documentary_status_accuracy": 0.3,
+          "missing_context_detection": 0.0875,
+          "qualifier_extraction_accuracy": 0.1875,
+          "run_to_run_agreement": 0.1
+        },
+        "model": "gpt-oss:20b-cloud",
+        "notes": [],
+        "penalties": {
+          "compatible_overstatement_rate": 0.0
+        },
+        "role": "verifier",
+        "score": 0.975
+      },
+      {
+        "admissible": true,
+        "components": {
+          "applicability_status_accuracy": 0.3,
+          "documentary_status_accuracy": 0.3,
+          "missing_context_detection": 0.0917,
+          "qualifier_extraction_accuracy": 0.1792,
+          "run_to_run_agreement": 0.1
+        },
+        "model": "gpt-oss:120b-cloud",
+        "notes": [],
+        "penalties": {
+          "compatible_overstatement_rate": 0.0
+        },
+        "role": "verifier",
+        "score": 0.9708
+      },
+      {
+        "admissible": true,
+        "components": {
+          "applicability_status_accuracy": 0.3,
+          "documentary_status_accuracy": 0.2875,
+          "missing_context_detection": 0.0667,
+          "qualifier_extraction_accuracy": 0.1958,
+          "run_to_run_agreement": 0.1
+        },
+        "model": "nemotron-3-ultra-cloud",
+        "notes": [],
+        "penalties": {
+          "compatible_overstatement_rate": 0.0
+        },
+        "role": "verifier",
+        "score": 0.95
+      },
+      {
+        "admissible": true,
+        "components": {
+          "applicability_status_accuracy": 0.3,
+          "documentary_status_accuracy": 0.3,
+          "missing_context_detection": 0.0625,
+          "qualifier_extraction_accuracy": 0.175,
+          "run_to_run_agreement": 0.1
+        },
+        "model": "gemma4:31b-cloud",
+        "notes": [],
+        "penalties": {
+          "compatible_overstatement_rate": 0.0
+        },
+        "role": "verifier",
+        "score": 0.9375
+      }
     ]
   },
   "selection_status": "qualified",
-  "single_model_reason": "perdita massima 0.000 rispetto al migliore di ogni ruolo",
-  "verifier_model": null
+  "single_model_reason": "perdita massima 0.004 rispetto al migliore di ogni ruolo",
+  "verifier_model": "gpt-oss:20b-cloud"
 }

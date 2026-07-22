@@ -33,6 +33,160 @@
       },
       "model": "gemma4:31b-cloud",
       "role": "planner"
+    },
+    {
+      "metrics": {
+        "conditional_step_accuracy": 1.0,
+        "fallback_rate": 0.0,
+        "median_latency_ms": 7186.879999999999,
+        "planner_failure_rate": 0.0,
+        "required_tool_recall": 0.9696969696969697,
+        "run_to_run_agreement": 0.8333333333333333,
+        "stop_condition_accuracy": 1.0,
+        "task_completion": 0.9166666666666666,
+        "unnecessary_tool_rate": 0.058823529411764705,
+        "valid_action_rate": 1.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "gpt-oss:120b-cloud",
+      "role": "planner"
+    },
+    {
+      "metrics": {
+        "conditional_step_accuracy": 1.0,
+        "fallback_rate": 0.0,
+        "median_latency_ms": 48527.05,
+        "planner_failure_rate": 0.0,
+        "required_tool_recall": 0.8787878787878788,
+        "run_to_run_agreement": 0.9166666666666666,
+        "stop_condition_accuracy": 1.0,
+        "task_completion": 0.9166666666666666,
+        "unnecessary_tool_rate": 0.09375,
+        "valid_action_rate": 1.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "nemotron-3-ultra-cloud",
+      "role": "planner"
+    },
+    {
+      "metrics": {
+        "applicability_status_accuracy": 1.0,
+        "compatible_overstatement_rate": 0.0,
+        "documentary_status_accuracy": 1.0,
+        "median_latency_ms": 6472.17,
+        "missing_context_detection": 0.875,
+        "qualifier_extraction_accuracy": 0.9375,
+        "run_to_run_agreement": 1.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "gpt-oss:20b-cloud",
+      "role": "verifier"
+    },
+    {
+      "metrics": {
+        "applicability_status_accuracy": 1.0,
+        "compatible_overstatement_rate": 0.0,
+        "documentary_status_accuracy": 1.0,
+        "median_latency_ms": 17093.225,
+        "missing_context_detection": 0.625,
+        "qualifier_extraction_accuracy": 0.875,
+        "run_to_run_agreement": 1.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "gemma4:31b-cloud",
+      "role": "verifier"
+    },
+    {
+      "metrics": {
+        "applicability_status_accuracy": 1.0,
+        "compatible_overstatement_rate": 0.0,
+        "documentary_status_accuracy": 1.0,
+        "median_latency_ms": 6584.345,
+        "missing_context_detection": 0.9166666666666666,
+        "qualifier_extraction_accuracy": 0.8958333333333334,
+        "run_to_run_agreement": 1.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "gpt-oss:120b-cloud",
+      "role": "verifier"
+    },
+    {
+      "metrics": {
+        "applicability_status_accuracy": 1.0,
+        "compatible_overstatement_rate": 0.0,
+        "documentary_status_accuracy": 0.9583333333333334,
+        "median_latency_ms": 26563.54,
+        "missing_context_detection": 0.6666666666666666,
+        "qualifier_extraction_accuracy": 0.9791666666666666,
+        "run_to_run_agreement": 1.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "nemotron-3-ultra-cloud",
+      "role": "verifier"
+    },
+    {
+      "metrics": {
+        "abstention_accuracy": 1.0,
+        "citation_accuracy": 1.0,
+        "claim_precision": 1.0,
+        "claim_recall": 1.0,
+        "context_omission_rate": 0.42857142857142855,
+        "median_latency_ms": 19193.019999999997,
+        "qualifier_preservation": 0.5714285714285714,
+        "run_to_run_agreement": 0.5416666666666666,
+        "unsupported_claim_rate": 0.0,
+        "valid_output_rate": 0.9166666666666666
+      },
+      "model": "gpt-oss:20b-cloud",
+      "role": "free_report"
+    },
+    {
+      "metrics": {
+        "abstention_accuracy": 1.0,
+        "citation_accuracy": 1.0,
+        "claim_precision": 1.0,
+        "claim_recall": 1.0,
+        "context_omission_rate": 0.5058823529411764,
+        "median_latency_ms": 81771.09,
+        "qualifier_preservation": 0.49411764705882355,
+        "run_to_run_agreement": 0.9166666666666666,
+        "unsupported_claim_rate": 0.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "gemma4:31b-cloud",
+      "role": "free_report"
+    },
+    {
+      "metrics": {
+        "abstention_accuracy": 1.0,
+        "citation_accuracy": 0.9595959595959596,
+        "claim_precision": 0.9595959595959596,
+        "claim_recall": 0.9595959595959596,
+        "context_omission_rate": 0.29292929292929293,
+        "median_latency_ms": 26100.269999999997,
+        "qualifier_preservation": 0.7070707070707071,
+        "run_to_run_agreement": 0.5,
+        "unsupported_claim_rate": 0.04040404040404041,
+        "valid_output_rate": 1.0
+      },
+      "model": "gpt-oss:120b-cloud",
+      "role": "free_report"
+    },
+    {
+      "metrics": {
+        "abstention_accuracy": 1.0,
+        "citation_accuracy": 1.0,
+        "claim_precision": 1.0,
+        "claim_recall": 1.0,
+        "context_omission_rate": 0.0,
+        "median_latency_ms": 146654.55,
+        "qualifier_preservation": 1.0,
+        "run_to_run_agreement": 0.625,
+        "unsupported_claim_rate": 0.0,
+        "valid_output_rate": 0.9166666666666666
+      },
+      "model": "nemotron-3-ultra-cloud",
+      "role": "free_report"
     }
   ],
   "credential_pool": {
@@ -44,7 +198,7 @@
     "note": "nessun valore di chiave, prefisso, suffisso o hash e' registrato"
   },
   "runs_executed": 0,
-  "runs_skipped_by_resume": 24,
+  "runs_skipped_by_resume": 192,
   "status": "complete",
-  "updated_at_utc": "2026-07-22T09:48:19.887566+00:00"
+  "updated_at_utc": "2026-07-22T11:41:17.596506+00:00"
 }
