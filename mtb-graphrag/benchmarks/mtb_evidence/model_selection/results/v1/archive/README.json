@@ -1,0 +1,21 @@
+{
+  "archived_run_count": 36,
+  "explanation": "Senza questi campi la compatibilita di queste run non e verificabile: non e possibile stabilire se siano state prodotte dagli stessi input. Vengono conservate come archivio e rieseguite, perche mescolare run di provenienza non verificabile costa piu del tempo di rifarle.",
+  "missing_identity_fields": [
+    "run_key",
+    "case_hash",
+    "source_profile_hash",
+    "effective_api_model",
+    "requested_model_tag",
+    "endpoint_mode"
+  ],
+  "models_covered": [
+    "gemma4:31b-cloud"
+  ],
+  "policy": "preserve_but_do_not_reuse",
+  "reason": "prodotte prima dell introduzione di run_key",
+  "roles_covered": [
+    "planner",
+    "verifier"
+  ]
+}
