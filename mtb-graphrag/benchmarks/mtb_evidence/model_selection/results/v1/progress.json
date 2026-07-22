@@ -1,0 +1,50 @@
+{
+  "completed": [
+    {
+      "metrics": {
+        "conditional_step_accuracy": 1.0,
+        "fallback_rate": 0.0,
+        "median_latency_ms": 4912.975,
+        "planner_failure_rate": 0.0,
+        "required_tool_recall": 0.9393939393939394,
+        "run_to_run_agreement": 0.8333333333333333,
+        "stop_condition_accuracy": 1.0,
+        "task_completion": 0.8333333333333334,
+        "unnecessary_tool_rate": 0.1282051282051282,
+        "valid_action_rate": 1.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "gpt-oss:20b-cloud",
+      "role": "planner"
+    },
+    {
+      "metrics": {
+        "conditional_step_accuracy": 1.0,
+        "fallback_rate": 0.0,
+        "median_latency_ms": 2677.0550000000003,
+        "planner_failure_rate": 0.0,
+        "required_tool_recall": 0.9393939393939394,
+        "run_to_run_agreement": 0.8333333333333333,
+        "stop_condition_accuracy": 1.0,
+        "task_completion": 0.8333333333333334,
+        "unnecessary_tool_rate": 0.0,
+        "valid_action_rate": 1.0,
+        "valid_output_rate": 1.0
+      },
+      "model": "gemma4:31b-cloud",
+      "role": "planner"
+    }
+  ],
+  "credential_pool": {
+    "active_slots": [
+      0
+    ],
+    "credential_count": 1,
+    "invalidated": [],
+    "note": "nessun valore di chiave, prefisso, suffisso o hash e' registrato"
+  },
+  "runs_executed": 0,
+  "runs_skipped_by_resume": 24,
+  "status": "complete",
+  "updated_at_utc": "2026-07-22T09:48:19.887566+00:00"
+}

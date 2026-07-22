@@ -1,0 +1,91 @@
+{
+  "admissibility_checks": [
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "gpt-oss:20b-cloud",
+      "passed": true,
+      "role": "planner"
+    },
+    {
+      "failures": [],
+      "missing_metrics": [],
+      "model": "gemma4:31b-cloud",
+      "passed": true,
+      "role": "planner"
+    }
+  ],
+  "config": {
+    "num_ctx": 16384,
+    "prompt_version": "v1",
+    "schema_version": "v1",
+    "seeds": [
+      20240517,
+      13,
+      991
+    ],
+    "temperature": 0.0
+  },
+  "development_cases": [
+    "PILOT-K1-FGFR2-iCCA",
+    "PILOT-A2-ALK-G1202R",
+    "PILOT-C1-EGFR-L858R-CONTEXT",
+    "PILOT-N1-RMI2-SNAPSHOT"
+  ],
+  "digests": {
+    "gemma4:31b-cloud": "221b330d11a8",
+    "gpt-oss:20b-cloud": "05afbac4bad6",
+    "qwen3.5:397b-cloud": "b909ca2f1b7f"
+  },
+  "model_revisions": {
+    "gemma4:31b-cloud": "ollama:gemma4:31b:221b330d11a8",
+    "gpt-oss:20b-cloud": "ollama:gpt-oss:20b:05afbac4bad6",
+    "qwen3.5:397b-cloud": "ollama:qwen3.5:397b:b909ca2f1b7f"
+  },
+  "optional_single_model": "gemma4:31b-cloud",
+  "planner_model": "gemma4:31b-cloud",
+  "report_model": null,
+  "selection_reason": {
+    "planner": [
+      {
+        "admissible": true,
+        "components": {
+          "conditional_step_accuracy": 0.25,
+          "required_tool_recall": 0.1879,
+          "run_to_run_agreement": 0.0833,
+          "stop_condition_accuracy": 0.15,
+          "task_completion": 0.25
+        },
+        "model": "gemma4:31b-cloud",
+        "notes": [],
+        "penalties": {
+          "planner_failure_rate": 0.0,
+          "unnecessary_tool_rate": 0.0
+        },
+        "role": "planner",
+        "score": 0.9212
+      },
+      {
+        "admissible": true,
+        "components": {
+          "conditional_step_accuracy": 0.25,
+          "required_tool_recall": 0.1879,
+          "run_to_run_agreement": 0.0833,
+          "stop_condition_accuracy": 0.15,
+          "task_completion": 0.25
+        },
+        "model": "gpt-oss:20b-cloud",
+        "notes": [],
+        "penalties": {
+          "planner_failure_rate": 0.0,
+          "unnecessary_tool_rate": 0.0192
+        },
+        "role": "planner",
+        "score": 0.902
+      }
+    ]
+  },
+  "selection_status": "qualified",
+  "single_model_reason": "perdita massima 0.000 rispetto al migliore di ogni ruolo",
+  "verifier_model": null
+}

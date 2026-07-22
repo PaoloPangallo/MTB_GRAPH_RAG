@@ -34,16 +34,47 @@ from backend.pipeline.llm.model_registry import (  # noqa: E402
     ModelRegistry,
     assert_experiment_safe,
 )
-from backend.pipeline.llm.ollama_adapter import OllamaClient, OllamaUnavailable  # noqa: E402
+from backend.pipeline.llm.credentials import CredentialPool  # noqa: E402
+from backend.pipeline.llm.ollama_adapter import OllamaClient  # noqa: E402
 from benchmarks.mtb_evidence.evaluation.clinical_gold import load_clinical_gold  # noqa: E402
 from benchmarks.mtb_evidence.evaluation.source_profiles import default_repository  # noqa: E402
 from benchmarks.mtb_evidence.model_selection import harness, roles, scoring  # noqa: E402
+from benchmarks.mtb_evidence.model_selection.run_identity import (  # noqa: E402
+    SKIP,
+    RunLedger,
+    build_identity,
+    case_hash,
+    identity_manifest,
+    source_profile_hash,
+)
 from benchmarks.mtb_evidence.pilot.audit_lib.normalize import norm_pmid_set  # noqa: E402
 from benchmarks.mtb_evidence.pilot.audit_lib.serialize import (  # noqa: E402
+    append_jsonl_atomic,
+    read_jsonl,
     write_json,
     write_jsonl,
     write_text,
 )
+
+
+def _outcome_from_row(row) -> harness.TaskOutcome:
+    """Ricostruisce un esito gia' su disco, per calcolare le metriche senza rieseguire."""
+    return harness.TaskOutcome(
+        task_id=str(row.get("task_id", "")),
+        role=str(row.get("role", "")),
+        case_id=str(row.get("case_id", "")),
+        model=str(row.get("requested_model_tag") or row.get("model") or ""),
+        seed=row.get("seed"),
+        valid_output=bool(row.get("valid_output")),
+        parsed=row.get("parsed"),
+        raw_outputs=tuple(row.get("raw_outputs") or ()),
+        retries=int(row.get("retries") or 0),
+        structured_output_mode=str(row.get("structured_output_mode", "")),
+        latency_ms=float(row.get("latency_ms") or 0.0),
+        error=str(row.get("error", "")),
+        error_class=str(row.get("error_class", "")),
+        completed=True,
+    )
 
 DEFAULT_GOLD = Path("benchmarks/mtb_evidence/evaluation/data/clinical_gold_v1.jsonl")
 DEFAULT_AUDIT = Path("benchmarks/mtb_evidence/pilot/audit")
@@ -68,6 +99,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--clinical-gold", type=Path, default=DEFAULT_GOLD)
     parser.add_argument("--audit-dir", type=Path, default=DEFAULT_AUDIT)
     parser.add_argument("--num-ctx", type=int, default=16384)
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="riusa le run gia' presenti la cui identita' e' compatibile",
+    )
     parser.add_argument("--timestamp", default=None)
     return parser.parse_args(argv)
 
@@ -84,6 +120,26 @@ def _frozen_records(audit_dir: Path, case_id: str) -> list[dict]:
         for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
+
+
+def _probe_entitlement(client, model: str) -> tuple[bool, str]:
+    """Verifica che l'account possa davvero usare il modello.
+
+    Una chiamata minima: se il provider la nega per autorizzazione, il modello va
+    escluso operativamente invece di accumulare fallimenti che sembrerebbero suoi.
+    """
+    from backend.pipeline.llm.ollama_adapter import OllamaUnavailable
+
+    try:
+        client.chat(model, [{"role": "user", "content": "ok"}], temperature=0.0)
+    except OllamaUnavailable as error:
+        message = str(error)
+        if "403" in message or "401" in message:
+            return False, f"accesso non autorizzato al modello: {message[:160]}"
+        return False, f"modello non utilizzabile: {message[:160]}"
+    except Exception as error:  # pragma: no cover - guasto imprevisto
+        return False, f"probe fallito: {type(error).__name__}: {error}"[:200]
+    return True, ""
 
 
 def _write_csv(path: Path, columns, rows) -> Path:
@@ -132,33 +188,44 @@ def main(argv: list[str] | None = None) -> int:
         role: {task.task_id: task for task in items} for role, items in tasks.items()
     }
 
-    raw_runs: list[dict] = []
+    # Hash degli input: entrano nella run_key, così un cambiamento dei dati rende le
+    # run precedenti non compatibili invece di confonderle con le nuove.
+    profiles_digest = source_profile_hash(profiles)
+    case_digests = {case.case_id: case_hash(case) for case in cases}
+
+    ledger = RunLedger(read_jsonl(args.output / "raw_runs.jsonl") if args.resume else [])
+    if ledger.incompatible:
+        print(
+            f"[nota] {len(ledger.incompatible)} run senza identita' verificabile: "
+            "conservate, non riusate"
+        )
+
+    credentials = CredentialPool.from_env()
     failures: list[dict] = []
+    exclusions: list[dict] = []
     role_metrics: dict[str, dict[str, dict]] = {role: {} for role in requested_roles}
     model_manifest: dict[str, dict] = {}
+    outcomes_by_pair: dict[tuple[str, str], list[harness.TaskOutcome]] = {}
+    runs_path = args.output / "raw_runs.jsonl"
+    skipped = executed = 0
 
     for requested in args.models:
         spec = registry.spec(
             "planner", model_name=None if requested == "current" else requested
         )
         model = spec.model_name
-        client = OllamaClient(spec.endpoint, timeout=180.0)
 
-        if not client.reachable():
-            failures.append(
+        if not spec.is_available:
+            # Un modello non servito non ha fallito: non e' stato messo alla prova.
+            exclusions.append(
                 {
                     "model": model,
-                    "stage": "reachability",
-                    "reason": f"endpoint {spec.endpoint.kind} non raggiungibile o non autenticato",
+                    "exclusion_type": "operational_exclusion",
+                    "stage": "resolution",
+                    "reason": spec.unavailable_reason,
                 }
             )
-            print(f"[skip] {model}: endpoint non raggiungibile")
-            continue
-        if spec.capabilities is None:
-            failures.append(
-                {"model": model, "stage": "availability", "reason": "modello non installato"}
-            )
-            print(f"[skip] {model}: non installato su questo endpoint")
+            print(f"[skip] {model}: {spec.unavailable_reason[:70]}")
             continue
 
         model_manifest[model] = spec.as_metadata()
@@ -166,70 +233,120 @@ def main(argv: list[str] | None = None) -> int:
         if safety:
             model_manifest[model]["reproducibility_warnings"] = safety
 
-        print(f"[run ] {model} ({spec.endpoint.kind}, {spec.structured_output_mode})", flush=True)
+        client = OllamaClient(
+            spec.endpoint, timeout=300.0, credential_pool=credentials
+        )
+
+        # Sonda l'abilitazione prima di spendere l'intero protocollo. Un modello
+        # elencato in /api/tags puo' comunque essere negato su /api/chat: e' un
+        # limite di autorizzazione dell'account, non un fallimento del modello, e
+        # scoprirlo alla dodicesima chiamata sprecherebbe undici run.
+        entitled, entitlement_reason = _probe_entitlement(client, spec.effective_api_model)
+        if not entitled:
+            exclusions.append(
+                {
+                    "model": model,
+                    "exclusion_type": "operational_exclusion",
+                    "stage": "entitlement",
+                    "reason": entitlement_reason,
+                }
+            )
+            print(f"[skip] {model}: {entitlement_reason[:70]}")
+            continue
+
+        declared = spec.capabilities.context_length if spec.capabilities else None
+        resolution = spec.resolution.as_dict() if spec.resolution else {}
+
+        print(
+            f"[run ] {model} -> {spec.effective_api_model} "
+            f"({spec.endpoint_mode}, {spec.structured_output_mode})",
+            flush=True,
+        )
         for role in requested_roles:
             outcomes: list[harness.TaskOutcome] = []
             for seed in args.seeds:
                 for task in tasks[role]:
-                    outcome = harness.run_task(
-                        client,
-                        model,
-                        task,
-                        mode=spec.structured_output_mode,
+                    identity = build_identity(
+                        requested_model_tag=model,
+                        resolution=resolution,
+                        role=role,
+                        case_id=task.case_id,
+                        task_id=task.task_id,
                         seed=seed,
+                        case_digest=case_digests.get(task.case_id, ""),
+                        profiles_digest=profiles_digest,
                         temperature=0.0,
                         num_ctx=args.num_ctx,
                     )
+                    decision = ledger.decide(identity)
+                    if decision.action == SKIP:
+                        outcomes.append(_outcome_from_row(decision.existing))
+                        skipped += 1
+                        continue
+
+                    outcome = harness.run_task(
+                        client, spec.effective_api_model, task,
+                        mode=spec.structured_output_mode, seed=seed, temperature=0.0,
+                        num_ctx=args.num_ctx, identity=identity,
+                        declared_context=declared,
+                        screen_privacy=spec.endpoint.is_cloud,
+                    )
                     outcomes.append(outcome)
-                    raw_runs.append(
+                    executed += 1
+                    # endpoint_mode e endpoint_url non entrano nella run_key — non
+                    # cambiano cosa il modello ha ricevuto — ma vanno registrati:
+                    # dicono chi ha imposto lo schema e chi applica i rate limit.
+                    append_jsonl_atomic(
+                        runs_path,
                         {
                             **outcome.as_dict(),
-                            "model_revision": spec.model_revision,
-                            "endpoint_type": spec.endpoint.kind,
-                            "num_ctx": args.num_ctx,
-                            "temperature": 0.0,
-                            "prompt_version": "v1",
-                            "schema_version": "v1",
-                        }
+                            "endpoint_mode": spec.endpoint_mode,
+                            "endpoint_url_sanitized": spec.endpoint.sanitized,
+                        },
                     )
                     if not outcome.valid_output:
                         failures.append(
                             {
                                 "model": model,
+                                "run_key": identity.run_key,
                                 "stage": role,
                                 "task_id": task.task_id,
                                 "seed": seed,
+                                "error_class": outcome.error_class,
                                 "reason": outcome.error[:300],
                             }
                         )
+            outcomes_by_pair[(model, role)] = outcomes
 
-            if role == roles.FREE_REPORT:
-                metrics = harness.evaluate_free_report(
-                    outcomes, task_index[role], available_pmids
-                )
-            else:
-                metrics = harness.ROLE_EVALUATORS[role](outcomes, task_index[role])
-            role_metrics[role][model] = metrics
-            valid = sum(1 for outcome in outcomes if outcome.valid_output)
-            print(f"       {role:14s} output validi {valid}/{len(outcomes)}", flush=True)
-
-            # Checkpoint dopo ogni ruolo. Su CPU una run completa dura ore: se viene
-            # interrotta, i risultati gia' ottenuti devono restare su disco invece di
-            # essere persi insieme al processo.
-            write_jsonl(args.output / "raw_runs.jsonl", raw_runs)
-            write_jsonl(args.output / "failures.jsonl", failures)
-            write_json(
-                args.output / "progress.json",
-                {
-                    "updated_at_utc": datetime.now(timezone.utc).isoformat(),
-                    "completed": [
-                        {"model": m, "role": r, "metrics": mm}
-                        for r, per in role_metrics.items()
-                        for m, mm in per.items()
-                    ],
-                    "status": "in_progress",
-                },
+    # Le metriche si calcolano dopo, quando ogni coppia ha tutte le sue run.
+    for (model, role), outcomes in outcomes_by_pair.items():
+        if role == roles.FREE_REPORT:
+            metrics = harness.evaluate_free_report(
+                outcomes, task_index[role], available_pmids
             )
+        else:
+            metrics = harness.ROLE_EVALUATORS[role](outcomes, task_index[role])
+        role_metrics[role][model] = metrics
+        valid = sum(1 for outcome in outcomes if outcome.valid_output)
+        print(f"       {model:22s} {role:14s} validi {valid}/{len(outcomes)}", flush=True)
+
+    write_jsonl(args.output / "failures.jsonl", failures)
+    write_jsonl(args.output / "exclusions.jsonl", exclusions)
+    write_json(
+        args.output / "progress.json",
+        {
+            "updated_at_utc": datetime.now(timezone.utc).isoformat(),
+            "runs_skipped_by_resume": skipped,
+            "runs_executed": executed,
+            "credential_pool": credentials.report(),
+            "completed": [
+                {"model": m, "role": r, "metrics": mm}
+                for r, per in role_metrics.items()
+                for m, mm in per.items()
+            ],
+            "status": "complete",
+        },
+    )
 
     # ── Ammissibilita' e classifica ────────────────────────────────────────────
     scoring_role = {
@@ -258,8 +375,9 @@ def main(argv: list[str] | None = None) -> int:
     }
 
     output = args.output
-    write_jsonl(output / "raw_runs.jsonl", raw_runs)
-    write_jsonl(output / "failures.jsonl", failures)
+    # `raw_runs.jsonl` e' gia' stato scritto riga per riga in modo atomico durante
+    # l'esecuzione: qui si rilegge, non si riscrive.
+    all_runs = read_jsonl(runs_path)
     write_json(output / "model_manifest.json", model_manifest)
     write_json(
         output / "run_manifest.json",
@@ -273,9 +391,21 @@ def main(argv: list[str] | None = None) -> int:
             "models_requested": args.models,
             "models_evaluated": sorted(model_manifest),
             "task_counts": {role: len(items) for role, items in tasks.items()},
+            "runs_executed": executed,
+            "runs_skipped_by_resume": skipped,
+            "runs_preserved_not_reused": len(ledger.incompatible),
+            "credential_pool": credentials.report(),
+            "source_profile_hash": profiles_digest,
+            "case_hashes": case_digests,
             "leakage_overlaps": {
                 case.case_id: roles.leakage_overlap(case) for case in cases
             },
+            "research_question": (
+                "Quanto la scelta fra modelli cloud di scala e famiglia differenti "
+                "influenza planner, verifier e free report sui quattro casi "
+                "development? Il confronto e' esplorativo: non permette di attribuire "
+                "causalmente un miglioramento alla sola taglia del modello."
+            ),
             "policy": (
                 "Selezione sui soli quattro casi development. Il test set non viene "
                 "usato: adoperarlo per scegliere lo consumerebbe."
@@ -300,12 +430,13 @@ def main(argv: list[str] | None = None) -> int:
          "latency_ms"),
         [
             {
-                "model": run["model"], "role": run["role"], "case_id": run["case_id"],
+                "model": run.get("requested_model_tag") or run.get("model"),
+                "role": run["role"], "case_id": run["case_id"],
                 "task_id": run["task_id"], "seed": run["seed"],
                 "valid_output": run["valid_output"], "retries": run["retries"],
                 "latency_ms": run["latency_ms"],
             }
-            for run in raw_runs
+            for run in all_runs
         ],
     )
     _write_csv(

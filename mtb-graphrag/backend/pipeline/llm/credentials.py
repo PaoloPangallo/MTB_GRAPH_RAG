@@ -161,12 +161,21 @@ def classify_http_failure(
       aggirare la quota del provider.
     - **5xx**: guasto lato server, ritentativo limitato con backoff.
     """
-    if status == 401:
+    if status in (401, 403):
+        # 401 e 403 sono entrambi problemi di autorizzazione: la prima dice che la
+        # credenziale non e' valida, la seconda che non e' abilitata per quella
+        # risorsa. In entrambi i casi ha senso provare un'altra chiave, che puo'
+        # avere abilitazioni diverse. Non e' elusione: e' cercare la credenziale
+        # legittima giusta.
         return RetryOutcome(
             should_retry=pool_size > 1,
             rotate=True,
             invalidate=True,
-            reason="credenziale rifiutata: invalidata, si prova la successiva",
+            reason=(
+                "credenziale rifiutata: invalidata, si prova la successiva"
+                if status == 401
+                else "credenziale non abilitata per la risorsa: si prova la successiva"
+            ),
         )
     if status == 429:
         if attempt >= MAX_ATTEMPTS_RATE_LIMIT:

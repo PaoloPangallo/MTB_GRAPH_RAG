@@ -21,16 +21,61 @@ questo protocollo: **il modello selezionato non e' stato valutato in modo
 indipendente**. Il pilota dice quale modello e' preferibile fra i candidati; non dice
 quanto sara' bravo.
 
+Domanda di ricerca — formulazione ammessa
+-----------------------------------------
+
+Il confronto e' **esplorativo fra famiglie, capacita' e scale differenti**. Non
+permette di attribuire causalmente a una singola variabile — la taglia — un eventuale
+miglioramento: i candidati differiscono anche per famiglia, architettura, dati di
+addestramento e post-training.
+
+> Quanto la scelta fra modelli cloud di scala e famiglia differenti influenza planner,
+> verifier e free report sui quattro casi development?
+
+**Formulazioni vietate**: scaling law, effetto causale della taglia, «il modello piu'
+grande e' migliore perche' e' piu' grande».
+
+I descrittori vanno riportati **separati**, mai collassati in un asse unico: parametri
+totali, parametri attivi quando disponibili, famiglia, architettura, capability.
+`active_parameters` e' registrato come `null` con la ragione — l'API del provider non
+lo espone — invece di essere stimato.
+
 Candidati
 ---------
 
-| Candidato | Ruolo nel protocollo | Endpoint |
-| --- | --- | --- |
-| modello attualmente configurato (`gemma4:31b-cloud`) | obbligatorio, e' il riferimento | cloud |
-| `qwen3:14b` | obbligatorio se disponibile | locale |
-| `gemma4:12b` | obbligatorio se disponibile | locale |
-| `gemma4:31b` cloud | opzionale | cloud |
-| `gemma4:31b` locale | opzionale, solo smoke test se la memoria lo consente | locale |
+I due candidati nominati nella prima stesura del protocollo, `qwen3:14b` e
+`gemma4:12b`, sono modelli **locali**: sul cloud non esistono. La macchina non ha GPU
+(planner su K1 misurato a 117 s contro 5 s sul cloud), e `gemma4:12b` non e' nemmeno
+scaricabile perche' il server Ollama installato e' la 0.9.0 e quel formato richiede
+una versione piu' recente.
+
+Il set e' quindi ridefinito su modelli cloud effettivamente **abilitati per
+l'account**. Su 18 modelli elencati dall'endpoint, 8 rispondono a `/api/chat`: gli
+altri restituiscono 403 pur comparendo in `/api/tags`.
+
+| Candidato | Parametri totali | Famiglia | Ruolo nel confronto |
+| --- | ---: | --- | --- |
+| `gpt-oss:20b-cloud` | 20.9B | gpt-oss | estremo piccolo |
+| `gemma4:31b-cloud` | 32.7B | gemma | **modello attuale del progetto**, baseline |
+| `gpt-oss:120b-cloud` | 116.8B | gpt-oss | stessa famiglia del primo, taglia maggiore |
+| `nemotron-3-ultra-cloud` | 550B | nemotron | estremo grande |
+
+La coppia `gpt-oss:20b` / `gpt-oss:120b` e' l'unico confronto **entro la stessa
+famiglia**, quindi quello in cui la differenza di taglia e' meno confusa da altre
+variabili. Resta comunque non causale: due checkpoint della stessa famiglia
+differiscono anche per dati e post-training.
+
+Esclusi, con la ragione registrata in `exclusions.jsonl` come `operational_exclusion`:
+
+| Modello | Ragione |
+| --- | --- |
+| `qwen3:14b` | nessuna GPU: ~2,5 ore di CPU per i tre ruoli |
+| `gemma4:12b` | server Ollama 0.9.0, formato non supportato |
+| `qwen3.5:397b-cloud` | elencato ma 403 su `/api/chat`: account non abilitato |
+
+**`operational_exclusion` non e' `model_failure`.** Un modello escluso non ha fallito:
+non e' stato messo alla prova. Confonderli farebbe apparire come debolezza del modello
+cio' che e' un limite dell'infrastruttura o dell'account.
 
 L'inventario registra ogni modello **osservato**, non ogni modello nominato. Un
 candidato citato qui ma assente dall'istanza compare come `available: false` con la
@@ -55,6 +100,92 @@ produrrebbe una scelta che non e' la migliore per nessun compito.
 Configurazione via ambiente: `OLLAMA_BASE_URL`, `OLLAMA_PLANNER_MODEL`,
 `OLLAMA_VERIFIER_MODEL`, `OLLAMA_REPORT_MODEL`, `OLLAMA_QUALIFIER_MODEL`,
 `OLLAMA_NUM_CTX`, `OLLAMA_TEMPERATURE`, `OLLAMA_SEED`, `OLLAMA_REQUEST_TIMEOUT`.
+
+Identita' atomica della run
+---------------------------
+
+Ogni run ha una **`run_key`** deterministica: SHA-256 del JSON canonico di tredici
+componenti — `requested_model_tag`, `effective_api_model`, `model_revision`, `role`,
+`case_id`, `task_id`, `seed`, `prompt_version`, `schema_version`, `case_hash`,
+`source_profile_hash`, `temperature`, `num_ctx`.
+
+`case_hash` e `source_profile_hash` sono la parte che conta di piu': senza di essi, un
+cambiamento nei dati di input passerebbe inosservato e run prodotte da materiale
+diverso finirebbero nella stessa media.
+
+Il resume opera per `run_key`, mai per coppia modello-ruolo:
+
+| Stato | Azione |
+| --- | --- |
+| completa e compatibile | skip |
+| mancante | execute |
+| incompleta | replace |
+| incompatibile | preserve but do not reuse |
+| `run_key` duplicata con componenti divergenti | **fail** |
+
+La completezza di una coppia si stabilisce **solo dopo** aver verificato tutte le
+`run_key` attese: contare le righe direbbe quante ce ne sono, non quali.
+
+Gli artefatti si scrivono in modo atomico — file temporaneo, `flush`, `fsync`,
+`os.replace` — perche' una riga JSON parziale renderebbe il resume inaffidabile
+proprio dopo un'interruzione, che e' l'unico momento in cui serve.
+
+Risoluzione del modello
+-----------------------
+
+Il modello si risolve **interrogando l'inventario del server**, non deducendo
+l'endpoint dal nome. La vecchia regola `endswith("-cloud")` era fragile in due
+direzioni: un modello locale chiamato `qualcosa-cloud` sarebbe finito sul cloud, e un
+modello remoto servito con un altro nome non sarebbe stato trovato.
+
+Ogni run registra separatamente `requested_model_tag`, `effective_api_model`,
+`endpoint_mode`, `endpoint_url_sanitized`, `digest`, `model_revision`. Sui candidati
+reali il tag differisce dal nome effettivo: `gemma4:31b-cloud` e' servito come
+`gemma4:31b`.
+
+`endpoint_mode` ammette `local`, `local_proxy_to_cloud`, `direct_cloud_api`, ed e'
+dedotto da cio' che il server dichiara.
+
+Prima di eseguire il protocollo su un modello si sonda l'**abilitazione** con una
+chiamata minima: un modello elencato in `/api/tags` puo' comunque essere negato su
+`/api/chat`, e scoprirlo alla dodicesima chiamata sprecherebbe undici run
+attribuendo al modello un fallimento che e' dell'account.
+
+Credenziali e rate limit
+------------------------
+
+`OLLAMA_API_KEYS` contiene **esclusivamente chiavi autorizzate**, identificate negli
+artefatti solo da un `credential_slot` numerico. Non si registrano chiavi, prefissi,
+suffissi, header `Authorization` ne' hash reversibili.
+
+| Condizione | Comportamento |
+| --- | --- |
+| 401 / 403 | credenziale invalidata, si prova la successiva, fallimento a esaurimento |
+| 429 | `Retry-After` rispettato; backoff esponenziale con jitter; retry limitato |
+| 5xx | retry limitato con backoff |
+
+La rotazione e' **resilienza fra credenziali legittime, non elusione**. Su 429 non si
+cambia chiave per default: aggirare una quota d'account sarebbe un abuso del provider.
+Si abilita solo dichiarando esplicitamente che le quote lo consentono.
+
+Budget del contesto
+-------------------
+
+Prima di ogni chiamata: `input_tokens + reserved_output_tokens <= effective_context_window`,
+dove la finestra effettiva e' il minimo fra `num_ctx` e quella dichiarata dal modello.
+
+**Nessun troncamento silenzioso.** La riduzione dei record e' deterministica e
+identica per tutti i modelli, e registra record iniziali, mantenuti, esclusi, token
+iniziali, finali e motivo. Serve davvero: il free report su C1 ha un prompt da 11.466
+token.
+
+Privacy
+-------
+
+Sul cloud si inviano solo casi sintetici, casi benchmark, fonti pubbliche o dati
+anonimizzati. Ogni prompt e' sottoposto a screening prima dell'invio: se emerge un
+possibile identificatore personale, `cloud_input_rejected = true` e il prompt **non
+parte**. Si registra la categoria rilevata, mai il valore.
 
 Identita' del modello
 ---------------------
