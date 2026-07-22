@@ -1,0 +1,22 @@
+{
+  "clinical_gold_used": false,
+  "created_at": "2026-07-22T19:17:47.129488+00:00",
+  "group_composition": {
+    "a_only": 0,
+    "b_only": 13,
+    "conflict_only": 6,
+    "group_a_unresolved_cohort": 16,
+    "group_b_multi_statement": 29,
+    "overlap_ab": 16,
+    "overlap_note": "A e' interamente contenuto in B, e la relazione e' strutturale, non empirica: requires_cohort_split confronta interventi e malattie fra gli statement di una fonte, quindi non puo' accendersi su una fonte con un solo statement. Una fonte a statement singolo che descrive due coorti resta invisibile a questo rilevatore.",
+    "union_total": 35
+  },
+  "priority_scope_hash": "329975427931f617930d1d481b7f6b618cf55e0aacf4eee39f7b3a9d6416cccc",
+  "priority_unit_count": 35,
+  "qualification_scope_hash": "782e5230628999cb1ef8cb514a7a0c24cbd286a69af7337d8d6bab78f7e2650d",
+  "scope_version": "priority_curation_scope/1.0",
+  "selection_criterion": "rischio di propagazione errata, non guadagno atteso sulle metriche",
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "source_inventory_hash": "3e4e385f61fa8455a4e913b01db41b056a00f9b55b4cc700b2266f5dc3db3001",
+  "statement_repository_hash": "bc7dd6f2473b1ffa69706ef0ecca2d45a2ed6057a39ca3a20fbc4528bb18a28a"
+}
