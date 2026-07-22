@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mtb-graphrag.local/schemas/statement_qualification_gold.schema.json",
+  "title": "StatementQualificationGold",
+  "description": "Verdetto di riferimento su una coppia statement-unita', indipendente dal linker automatico. Se le prediction del linker diventassero il gold, la valutazione misurerebbe la coerenza del linker con se stesso e restituirebbe precision 1.000 qualunque cosa il linker faccia.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "gold_link_id",
+    "statement_id",
+    "profile_unit_id",
+    "state",
+    "is_evaluable",
+    "gold_version"
+  ],
+  "properties": {
+    "gold_link_id": { "type": "string", "minLength": 1 },
+    "statement_id": { "type": "string", "minLength": 1 },
+    "profile_unit_id": { "type": "string", "minLength": 1 },
+
+    "link_status": {
+      "type": "string",
+      "description": "Stringa vuota finche' non esiste un verdetto definitivo. Deliberatamente vuota invece che ottimistica: un gold provvisorio che esponesse un verdetto verrebbe usato come se fosse definitivo.",
+      "enum": [
+        "",
+        "valid_link",
+        "partial_link",
+        "ambiguous_link",
+        "conflicting_link",
+        "invalid_link",
+        "no_profile_available",
+        "source_missing",
+        "insufficient_source_information"
+      ]
+    },
+    "applicable_dimensions": { "type": "array", "items": { "type": "string" } },
+    "excluded_dimensions": { "type": "array", "items": { "type": "string" } },
+    "conflict_dimensions": { "type": "array", "items": { "type": "string" } },
+    "ambiguity_dimensions": { "type": "array", "items": { "type": "string" } },
+    "rationale_codes": { "type": "array", "items": { "type": "string" } },
+    "evidence_locators": { "type": "array", "items": { "type": "string" } },
+
+    "first_annotator": { "type": "string" },
+    "first_annotation": { "$ref": "#/$defs/annotation" },
+    "second_annotator": { "type": "string" },
+    "second_annotation": { "$ref": "#/$defs/annotation" },
+    "agreement": {
+      "type": ["boolean", "null"],
+      "description": "null quando l'accordo non e' definito. Non false: uno 0 verrebbe letto come «gli annotatori non sono mai d'accordo» invece che «non esistono due annotatori»."
+    },
+    "adjudicator": { "type": "string" },
+    "adjudication": { "$ref": "#/$defs/annotation" },
+    "final_status": { "type": "string" },
+    "state": {
+      "enum": [
+        "candidate",
+        "first_review_complete",
+        "awaiting_second_review",
+        "disagreement",
+        "adjudicated",
+        "frozen"
+      ]
+    },
+    "is_evaluable": {
+      "type": "boolean",
+      "description": "Solo i record valutabili entrano nel calcolo di precision e recall."
+    },
+    "gold_version": { "type": "string" },
+    "created_at": { "type": "string" },
+    "frozen_at": { "type": "string" },
+    "note": { "type": "string" }
+  },
+  "$defs": {
+    "annotation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["annotator_id", "link_status"],
+      "properties": {
+        "annotator_id": { "type": "string", "minLength": 1 },
+        "link_status": {
+          "enum": [
+            "valid_link",
+            "partial_link",
+            "ambiguous_link",
+            "conflicting_link",
+            "invalid_link",
+            "no_profile_available",
+            "source_missing",
+            "insufficient_source_information"
+          ]
+        },
+        "applicable_dimensions": { "type": "array", "items": { "type": "string" } },
+        "excluded_dimensions": { "type": "array", "items": { "type": "string" } },
+        "conflict_dimensions": { "type": "array", "items": { "type": "string" } },
+        "ambiguity_dimensions": { "type": "array", "items": { "type": "string" } },
+        "rationale_codes": { "type": "array", "items": { "type": "string" } },
+        "evidence_locators": { "type": "array", "items": { "type": "string" } },
+        "annotated_at": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    }
+  }
+}

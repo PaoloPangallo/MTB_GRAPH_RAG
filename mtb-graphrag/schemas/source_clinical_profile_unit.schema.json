@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mtb-graphrag.local/schemas/source_clinical_profile_unit.schema.json",
+  "title": "SourceClinicalProfileUnit",
+  "description": "Unita' di annotazione di una fonte clinica. L'unita' e' la coorte, non la pubblicazione: una fonte che descrive due bracci con linee di terapia diverse produce due unita', perche' fonderle farebbe ereditare a uno statement il setting dell'altro braccio.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_unit_id",
+    "canonical_source_id",
+    "cohort_id",
+    "cohort_state",
+    "extraction_status",
+    "review_status",
+    "requires_human_review",
+    "provenance",
+    "schema_version"
+  ],
+  "properties": {
+    "profile_unit_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identita' deterministica: fonte canonica piu' coorte."
+    },
+    "canonical_source_id": { "type": "string", "minLength": 1 },
+    "source_profile_id": {
+      "type": "string",
+      "description": "SourceClinicalProfile preesistente da cui l'unita' deriva, se esiste."
+    },
+    "pmids": { "type": "array", "items": { "type": "string" } },
+    "dois": { "type": "array", "items": { "type": "string" } },
+    "ncts": { "type": "array", "items": { "type": "string" } },
+    "title": { "type": "string" },
+    "cohort_id": { "type": "string", "minLength": 1 },
+    "cohort_label": { "type": "string" },
+    "cohort_state": {
+      "enum": ["single_cohort", "resolved_cohort", "unresolved_cohort", "candidate_cohort"],
+      "description": "Solo single_cohort e resolved_cohort possono propagare qualificatori: una coorte non separabile non sa a quale braccio lo statement appartenga."
+    },
+    "cohort_note": { "type": "string" },
+
+    "disease": { "type": "string" },
+    "biomarker_requirements": { "type": "array", "items": { "type": "string" } },
+    "intervention": { "type": "array", "items": { "type": "string" } },
+    "regimen": { "type": "string" },
+    "comparator": { "type": "string" },
+    "population": { "type": "string" },
+    "stage": { "type": "string" },
+    "setting": { "type": "string" },
+    "therapy_line": { "type": "string" },
+    "prior_therapies": { "type": "array", "items": { "type": "string" } },
+    "resection_status": { "type": "string" },
+    "inclusion_criteria": { "type": "string" },
+    "exclusion_criteria": { "type": "string" },
+    "evidence_design": { "type": "string" },
+
+    "statement_ids": { "type": "array", "items": { "type": "string" } },
+    "source_spans": { "type": "array", "items": { "type": "string" } },
+    "extraction_status": {
+      "enum": ["unreviewed", "machine_extracted", "source_checked"]
+    },
+    "review_status": {
+      "enum": [
+        "unreviewed",
+        "awaiting_source_review",
+        "awaiting_first_review",
+        "first_review_complete",
+        "awaiting_second_review",
+        "second_review_complete",
+        "disagreement",
+        "adjudicated",
+        "frozen",
+        "rejected",
+        "human_reviewed"
+      ]
+    },
+    "reviewer": { "type": "string" },
+    "requires_human_review": { "type": "boolean" },
+    "human_review_reasons": { "type": "array", "items": { "type": "string" } },
+    "provenance": {
+      "type": "array",
+      "description": "Provenienza per campo, non per unita': in una stessa unita' il disegno dello studio puo' venire dal registro e la linea di terapia da un revisore.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field_name", "value_origin"],
+        "properties": {
+          "field_name": { "type": "string", "minLength": 1 },
+          "value_origin": {
+            "enum": [
+              "reviewed_source_profile",
+              "registry_metadata",
+              "primary_source_text",
+              "trial_registry_record",
+              "machine_extraction",
+              "adjudication"
+            ]
+          },
+          "source_locator": { "type": "string" },
+          "access_date": { "type": "string" },
+          "asserted_by": { "type": "string" },
+          "span_hash": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "known_dimensions": { "type": "array", "items": { "type": "string" } },
+    "is_propagatable": { "type": "boolean" },
+    "blind_annotation_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "schema_version": { "type": "string", "const": "source_clinical_profile_unit/1.0" }
+  }
+}
