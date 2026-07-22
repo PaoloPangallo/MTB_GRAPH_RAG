@@ -75,7 +75,37 @@ COHORT_SINGLE = "single_cohort"
 COHORT_RESOLVED = "resolved_cohort"
 COHORT_UNRESOLVED = "unresolved_cohort"
 COHORT_CANDIDATE = "candidate_cohort"
-COHORT_STATES = (COHORT_SINGLE, COHORT_RESOLVED, COHORT_UNRESOLVED, COHORT_CANDIDATE)
+# Una unita' che una revisione ha sostituito con piu' unita' derivate. Resta nel
+# repository come record storico — i link e le metriche prodotti prima della
+# revisione la citano, e cancellarla renderebbe illeggibile la loro storia — ma
+# non puo' piu' propagare nulla.
+COHORT_SUPERSEDED = "superseded_by_reviewed_split"
+COHORT_STATES = (
+    COHORT_SINGLE,
+    COHORT_RESOLVED,
+    COHORT_UNRESOLVED,
+    COHORT_CANDIDATE,
+    COHORT_SUPERSEDED,
+)
+
+# Che cosa descrive l'unita'. La distinzione clinico/preclinico non e' una
+# etichetta descrittiva: e' cio' che impedisce a una popolazione di pazienti di
+# qualificare un esperimento su linee cellulari, e viceversa.
+UNIT_TYPE_CLINICAL_COHORT = "clinical_observational_cohort"
+UNIT_TYPE_CLINICAL_TRIAL_ARM = "clinical_trial_arm"
+UNIT_TYPE_PRECLINICAL = "preclinical_in_vitro"
+UNIT_TYPE_PRECLINICAL_COMPARATIVE = "preclinical_in_vitro_comparative_pharmacology"
+UNIT_TYPE_UNSPECIFIED = "unspecified"
+UNIT_TYPES = (
+    UNIT_TYPE_CLINICAL_COHORT,
+    UNIT_TYPE_CLINICAL_TRIAL_ARM,
+    UNIT_TYPE_PRECLINICAL,
+    UNIT_TYPE_PRECLINICAL_COMPARATIVE,
+    UNIT_TYPE_UNSPECIFIED,
+)
+
+CLINICAL_UNIT_TYPES = (UNIT_TYPE_CLINICAL_COHORT, UNIT_TYPE_CLINICAL_TRIAL_ARM)
+PRECLINICAL_UNIT_TYPES = (UNIT_TYPE_PRECLINICAL, UNIT_TYPE_PRECLINICAL_COMPARATIVE)
 
 # Dimensioni cliniche che l'unita' puo' portare. Coincidono con quelle che il
 # grafo congelato non modella: e' il motivo per cui il corpus esiste.
@@ -97,6 +127,14 @@ UNIT_DIMENSIONS = (
 )
 
 UNKNOWN = "unknown"
+
+# Distinto da `unknown`, e la distinzione porta informazione. `unknown` dice che
+# non sappiamo il valore; `not_applicable` dice che la domanda non si pone —
+# chiedere la linea di terapia di un esperimento su linee cellulari non ha
+# risposta, e registrarlo come `unknown` suggerirebbe che qualcuno debba ancora
+# cercarla. Nessuno dei due conta come dimensione nota.
+NOT_APPLICABLE = "not_applicable"
+NON_VALUES = (UNKNOWN, NOT_APPLICABLE, "")
 
 
 class ProfileUnitError(ValueError):
@@ -164,6 +202,11 @@ class SourceClinicalProfileUnit:
     exclusion_criteria: str = UNKNOWN
     evidence_design: str = UNKNOWN
 
+    unit_type: str = UNIT_TYPE_UNSPECIFIED
+    superseded_by: tuple[str, ...] = ()
+    supersedes: str = ""
+    field_decisions: Mapping[str, str] = field(default_factory=dict)
+
     statement_ids: tuple[str, ...] = ()
     source_spans: tuple[str, ...] = ()
     extraction_status: str = UNREVIEWED
@@ -190,6 +233,10 @@ class SourceClinicalProfileUnit:
             raise ProfileUnitError(
                 f"cohort_state non ammesso: {self.cohort_state!r}. Ammessi: {list(COHORT_STATES)}"
             )
+        if self.unit_type not in UNIT_TYPES:
+            raise ProfileUnitError(
+                f"unit_type non ammesso: {self.unit_type!r}. Ammessi: {list(UNIT_TYPES)}"
+            )
         if not self.profile_unit_id:
             raise ProfileUnitError("profile_unit_id obbligatorio")
 
@@ -203,7 +250,7 @@ class SourceClinicalProfileUnit:
             if isinstance(value, (tuple, list)):
                 if value:
                     found.append(dimension)
-            elif value and value != UNKNOWN:
+            elif value not in NON_VALUES:
                 found.append(dimension)
         return tuple(found)
 
@@ -238,6 +285,21 @@ class SourceClinicalProfileUnit:
         """
         return self.cohort_state in (COHORT_SINGLE, COHORT_RESOLVED)
 
+    @property
+    def is_clinical(self) -> bool:
+        return self.unit_type in CLINICAL_UNIT_TYPES
+
+    @property
+    def is_preclinical(self) -> bool:
+        return self.unit_type in PRECLINICAL_UNIT_TYPES
+
+    def not_applicable_dimensions(self) -> tuple[str, ...]:
+        return tuple(
+            dimension
+            for dimension in UNIT_DIMENSIONS
+            if getattr(self, dimension, None) == NOT_APPLICABLE
+        )
+
     def as_dict(self) -> dict[str, Any]:
         return {
             "profile_unit_id": self.profile_unit_id,
@@ -251,6 +313,10 @@ class SourceClinicalProfileUnit:
             "cohort_label": self.cohort_label,
             "cohort_state": self.cohort_state,
             "cohort_note": self.cohort_note,
+            "unit_type": self.unit_type,
+            "superseded_by": list(self.superseded_by),
+            "supersedes": self.supersedes,
+            "field_decisions": dict(self.field_decisions),
             "disease": self.disease,
             "biomarker_requirements": list(self.biomarker_requirements),
             "intervention": list(self.intervention),
@@ -274,7 +340,10 @@ class SourceClinicalProfileUnit:
             "human_review_reasons": list(self.human_review_reasons),
             "provenance": [item.as_dict() for item in self.provenance],
             "known_dimensions": list(self.known_dimensions()),
+            "not_applicable_dimensions": list(self.not_applicable_dimensions()),
             "is_propagatable": self.is_propagatable,
+            "is_clinical": self.is_clinical,
+            "is_preclinical": self.is_preclinical,
             "blind_annotation_id": self.blind_annotation_id,
             "created_at": self.created_at,
             "schema_version": PROFILE_UNIT_VERSION,
@@ -415,6 +484,17 @@ __all__ = [
     "COHORT_RESOLVED",
     "COHORT_UNRESOLVED",
     "COHORT_CANDIDATE",
+    "COHORT_SUPERSEDED",
+    "NOT_APPLICABLE",
+    "NON_VALUES",
+    "UNIT_TYPES",
+    "UNIT_TYPE_CLINICAL_COHORT",
+    "UNIT_TYPE_CLINICAL_TRIAL_ARM",
+    "UNIT_TYPE_PRECLINICAL",
+    "UNIT_TYPE_PRECLINICAL_COMPARATIVE",
+    "UNIT_TYPE_UNSPECIFIED",
+    "CLINICAL_UNIT_TYPES",
+    "PRECLINICAL_UNIT_TYPES",
     "UNREVIEWED",
     "MACHINE_EXTRACTED",
     "SOURCE_CHECKED",
