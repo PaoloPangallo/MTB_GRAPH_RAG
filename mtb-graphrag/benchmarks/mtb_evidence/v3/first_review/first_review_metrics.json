@@ -1,0 +1,29 @@
+{
+  "coverage_by_review_stage": {
+    "final_adjudicated": 0,
+    "first_review_proposed": 31,
+    "second_review_confirmed": 0
+  },
+  "created_at": "2026-07-22T20:06:17.679412+00:00",
+  "final_accuracy": "not_calculated",
+  "first_review_fields_confirmed": 31,
+  "first_review_fields_not_applicable": 20,
+  "first_review_fields_unknown": 5,
+  "first_review_packets_completed": 1,
+  "first_review_partial_link_decisions": 2,
+  "first_review_profile_units_created": 4,
+  "first_review_statements_reviewed": 10,
+  "first_review_valid_link_decisions": 8,
+  "hashes": {
+    "provisional_gold": "bba3bb61c06af81609a7b88be867c92190e2389e353353a7cff6a4a6c30c187b",
+    "reviewed_units": "311a27ab86e74dd46e6518854bf2e9a87f86cc216a5ef3a016d0600a5739ea6f",
+    "statement_decisions": "cf2f3bbb2a9ae80962944759f1731f8a681e3627aaffe3d4c92de272cd9f05b0"
+  },
+  "inter_annotator_agreement": "not_calculated",
+  "linking_f1": "not_calculated",
+  "linking_precision": "not_calculated",
+  "linking_recall": "not_calculated",
+  "not_calculated_reason": "la prima revisione non e' indipendente e non e' clinica; nessuna seconda revisione esiste. Ogni metrica finale calcolata adesso misurerebbe un solo giudizio contro se stesso.",
+  "qualifier_provenance_completeness": 1.0,
+  "second_review_packets_completed": 0
+}
