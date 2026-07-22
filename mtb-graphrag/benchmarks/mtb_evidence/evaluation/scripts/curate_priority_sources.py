@@ -195,6 +195,33 @@ def main(argv: list[str] | None = None) -> int:
                 }
             )
         else:
+            # Il valore derivato dal registro nella fase precedente resta valido se
+            # l'abstract non ne offre uno migliore. Sostituire l'unita' senza
+            # riportarlo farebbe perdere informazione gia' acquisita, che e' il
+            # contrario di cio' che una curation deve fare.
+            inherited: list[FieldProvenance] = []
+            if "evidence_design" not in proposed:
+                previous_design = str(existing.get("evidence_design") or UNKNOWN)
+                if previous_design != UNKNOWN:
+                    inherited_design = previous_design
+                    for item in existing.get("provenance") or []:
+                        if item.get("field_name") == "evidence_design":
+                            inherited.append(
+                                FieldProvenance(
+                                    field_name="evidence_design",
+                                    value_origin=item.get("value_origin", "registry_metadata"),
+                                    source_locator=item.get("source_locator", ""),
+                                    access_date=item.get("access_date", ""),
+                                    asserted_by=item.get("asserted_by", ""),
+                                    span_hash=item.get("span_hash", ""),
+                                    note=item.get("note", ""),
+                                )
+                            )
+                else:
+                    inherited_design = UNKNOWN
+            else:
+                inherited_design = UNKNOWN
+
             provenance = tuple(
                 FieldProvenance(
                     field_name=dimension,
@@ -211,7 +238,7 @@ def main(argv: list[str] | None = None) -> int:
                     ),
                 )
                 for dimension, item in sorted(proposed.items())
-            )
+            ) + tuple(inherited)
             reasons = [
                 "estrazione automatica ancorata all'abstract: da confermare da una persona"
             ]
@@ -243,7 +270,9 @@ def main(argv: list[str] | None = None) -> int:
                 cohort_state=cohort_state,
                 cohort_note=resolution.explanation,
                 evidence_design=(
-                    proposed["evidence_design"].value if "evidence_design" in proposed else UNKNOWN
+                    proposed["evidence_design"].value
+                    if "evidence_design" in proposed
+                    else inherited_design
                 ),
                 statement_ids=tuple(unit.get("statement_ids") or ()),
                 source_spans=tuple(item.locator for item in proposed.values()),
