@@ -26,6 +26,13 @@ import urllib.request
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
+from .credentials import (
+    NoCredentialsAvailable,
+    classify_http_failure,
+    parse_retry_after,
+    sleep_for,
+)
+
 DEFAULT_LOCAL_URL = "http://localhost:11434"
 DEFAULT_CLOUD_URL = "https://api.ollama.com"
 CLOUD_HOST_MARKERS = ("api.ollama.com", "ollama.com")
@@ -96,14 +103,92 @@ def configured_endpoint() -> OllamaEndpoint:
     )
 
 
+class StreamingResponseError(RuntimeError):
+    """Risposta parziale seguita da un errore: la run e' fallita, non degradata."""
+
+
+def _parse_response_body(
+    body: str, endpoint: str, path: str, previous_error: str = ""
+) -> dict[str, Any]:
+    """Interpreta il corpo della risposta, rifiutando quelle parziali.
+
+    Ollama puo' rispondere NDJSON: una sequenza di oggetti seguita, in caso di guasto,
+    da un oggetto con `error`. Una risposta parziale **non va analizzata**: il testo
+    generato fino a quel punto e' incompleto, e usarlo produrrebbe una metrica
+    calcolata su un output che il modello non ha finito di scrivere.
+    """
+    stripped = (body or "").strip()
+    if not stripped:
+        return {}
+
+    try:
+        payload = json.loads(stripped)
+    except json.JSONDecodeError:
+        # NDJSON, oppure corpo troncato.
+        objects: list[dict[str, Any]] = []
+        for line in stripped.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                objects.append(json.loads(line))
+            except json.JSONDecodeError as error:
+                raise StreamingResponseError(
+                    f"risposta troncata da {endpoint}{path}: corpo non decodificabile "
+                    f"({error.msg}). Il testo parziale non viene analizzato."
+                ) from error
+        errored = next((item for item in objects if item.get("error")), None)
+        if errored is not None:
+            raise StreamingResponseError(
+                f"errore NDJSON da {endpoint}{path}: {errored.get('error')}. "
+                "La risposta parziale non viene analizzata."
+            )
+        if not objects:
+            return {}
+        payload = objects[-1]
+
+    if isinstance(payload, dict) and payload.get("error"):
+        raise StreamingResponseError(
+            f"errore da {endpoint}{path}: {payload.get('error')}"
+            + (f" (dopo {previous_error})" if previous_error else "")
+        )
+    if isinstance(payload, dict) and payload.get("done") is False:
+        raise StreamingResponseError(
+            f"risposta incompleta da {endpoint}{path}: done=false"
+        )
+    return payload if isinstance(payload, dict) else {"data": payload}
+
+
 class OllamaClient:
     """Chiamate REST verso una singola istanza Ollama."""
 
-    def __init__(self, endpoint: OllamaEndpoint, *, timeout: float = 60.0) -> None:
+    def __init__(
+        self,
+        endpoint: OllamaEndpoint,
+        *,
+        timeout: float = 60.0,
+        credential_pool: Any = None,
+        sleeper: Any = None,
+    ) -> None:
         self.endpoint = endpoint
         self.timeout = timeout
+        self._pool = credential_pool
+        self._sleeper = sleeper
+        self.last_credential_slot: int | None = None
+        self.retry_log: list[dict[str, Any]] = []
 
-    def _request(self, path: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    def _authorization(self) -> tuple[str, int | None]:
+        """Chiave da usare e il suo slot. Il valore non lascia mai questo metodo."""
+        if self._pool is not None and len(self._pool):
+            credential = self._pool.current()
+            if credential is None:
+                raise NoCredentialsAvailable(
+                    "tutte le credenziali autorizzate sono state invalidate"
+                )
+            return credential.value, credential.slot
+        return self.endpoint.api_key, None
+
+    def _attempt(self, path: str, payload: dict[str, Any] | None) -> tuple[str, int | None]:
         url = f"{self.endpoint.base_url.rstrip('/')}{path}"
         data = json.dumps(payload).encode("utf-8") if payload is not None else None
         request = urllib.request.Request(url, data=data, method="POST" if data else "GET")
@@ -111,22 +196,62 @@ class OllamaClient:
         # Senza User-Agent esplicito l'endpoint cloud risponde 403: urllib si
         # presenta come "Python-urllib/x.y", che viene rifiutato.
         request.add_header("User-Agent", USER_AGENT)
-        if self.endpoint.api_key:
-            request.add_header("Authorization", f"Bearer {self.endpoint.api_key}")
-        try:
-            with urllib.request.urlopen(request, timeout=self.timeout) as response:
-                body = response.read().decode("utf-8")
-        except urllib.error.HTTPError as error:
-            raise OllamaUnavailable(
-                f"Ollama ha risposto {error.code} su {self.endpoint.sanitized}{path}. "
-                "Verifica OLLAMA_API_KEY per gli endpoint cloud."
-            ) from error
-        except (urllib.error.URLError, OSError, TimeoutError) as error:
-            raise OllamaUnavailable(
-                f"Ollama non raggiungibile su {self.endpoint.sanitized}: {error}. "
-                "Avvia il servizio locale oppure configura OLLAMA_BASE_URL."
-            ) from error
-        return json.loads(body) if body.strip() else {}
+        api_key, slot = self._authorization()
+        if api_key:
+            request.add_header("Authorization", f"Bearer {api_key}")
+        with urllib.request.urlopen(request, timeout=self.timeout) as response:
+            return response.read().decode("utf-8"), slot
+
+    def _request(self, path: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Esegue una richiesta applicando la politica di ritentativo.
+
+        401 invalida la credenziale e passa alla successiva; 429 rispetta
+        `Retry-After` e attende; 5xx ritenta con backoff. Il valore della chiave non
+        compare in nessun messaggio d'errore: solo il `credential_slot`.
+        """
+        attempt = 0
+        last_error = ""
+        while True:
+            attempt += 1
+            try:
+                body, slot = self._attempt(path, payload)
+                self.last_credential_slot = slot
+            except urllib.error.HTTPError as error:
+                retry_after = parse_retry_after(error.headers.get("Retry-After"))
+                outcome = classify_http_failure(
+                    error.code,
+                    attempt,
+                    retry_after=retry_after,
+                    pool_size=len(self._pool) if self._pool else 1,
+                )
+                self.retry_log.append(
+                    {
+                        "attempt": attempt,
+                        "status": error.code,
+                        "credential_slot": self.last_credential_slot,
+                        "action": outcome.reason,
+                    }
+                )
+                last_error = f"HTTP {error.code}"
+                if not outcome.should_retry:
+                    raise OllamaUnavailable(
+                        f"Ollama ha risposto {error.code} su {self.endpoint.sanitized}"
+                        f"{path}: {outcome.reason}."
+                    ) from error
+                if outcome.invalidate and self._pool is not None:
+                    self._pool.invalidate_current(f"HTTP {error.code}")
+                if outcome.rotate and self._pool is not None:
+                    self._pool.advance()
+                if outcome.wait_seconds:
+                    sleep_for(outcome.wait_seconds, self._sleeper)
+                continue
+            except (urllib.error.URLError, OSError, TimeoutError) as error:
+                raise OllamaUnavailable(
+                    f"Ollama non raggiungibile su {self.endpoint.sanitized}: {error}. "
+                    "Avvia il servizio locale oppure configura OLLAMA_BASE_URL."
+                ) from error
+
+            return _parse_response_body(body, self.endpoint.sanitized, path, last_error)
 
     def version(self) -> str:
         try:
