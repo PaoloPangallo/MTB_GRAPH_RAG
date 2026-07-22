@@ -166,7 +166,7 @@ def main(argv: list[str] | None = None) -> int:
         if safety:
             model_manifest[model]["reproducibility_warnings"] = safety
 
-        print(f"[run ] {model} ({spec.endpoint.kind}, {spec.structured_output_mode})")
+        print(f"[run ] {model} ({spec.endpoint.kind}, {spec.structured_output_mode})", flush=True)
         for role in requested_roles:
             outcomes: list[harness.TaskOutcome] = []
             for seed in args.seeds:
@@ -211,7 +211,25 @@ def main(argv: list[str] | None = None) -> int:
                 metrics = harness.ROLE_EVALUATORS[role](outcomes, task_index[role])
             role_metrics[role][model] = metrics
             valid = sum(1 for outcome in outcomes if outcome.valid_output)
-            print(f"       {role:14s} output validi {valid}/{len(outcomes)}")
+            print(f"       {role:14s} output validi {valid}/{len(outcomes)}", flush=True)
+
+            # Checkpoint dopo ogni ruolo. Su CPU una run completa dura ore: se viene
+            # interrotta, i risultati gia' ottenuti devono restare su disco invece di
+            # essere persi insieme al processo.
+            write_jsonl(args.output / "raw_runs.jsonl", raw_runs)
+            write_jsonl(args.output / "failures.jsonl", failures)
+            write_json(
+                args.output / "progress.json",
+                {
+                    "updated_at_utc": datetime.now(timezone.utc).isoformat(),
+                    "completed": [
+                        {"model": m, "role": r, "metrics": mm}
+                        for r, per in role_metrics.items()
+                        for m, mm in per.items()
+                    ],
+                    "status": "in_progress",
+                },
+            )
 
     # ── Ammissibilita' e classifica ────────────────────────────────────────────
     scoring_role = {
