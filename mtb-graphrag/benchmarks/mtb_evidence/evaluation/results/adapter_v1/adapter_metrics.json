@@ -1,0 +1,48 @@
+{
+  "acceptance_criterion": "conversion_success_rate >= 0.95 sui record compatibili, source_field_preservation = 1.00 sui campi presenti all'origine, provenance_preservation = 1.00, unknown_field_honesty = 1.00",
+  "accepted": true,
+  "compatible_records": 199,
+  "converted": 147,
+  "failures": [],
+  "generated_at_utc": "2026-07-22T15:08:20.397892+00:00",
+  "measures": {
+    "conversion_success_rate": {
+      "denominator": 147,
+      "detail": [],
+      "name": "conversion_success_rate",
+      "note": "denominatore: record compatibili, non tutti i record del grafo",
+      "numerator": 147,
+      "value": 1.0
+    },
+    "provenance_preservation": {
+      "denominator": 147,
+      "detail": [],
+      "name": "provenance_preservation",
+      "note": "richiede graph_record_ids, origin e extraction_action_id",
+      "numerator": 147,
+      "value": 1.0
+    },
+    "source_field_preservation": {
+      "denominator": 1034,
+      "detail": [],
+      "name": "source_field_preservation",
+      "note": "denominatore: solo i campi effettivamente presenti nel record originale",
+      "numerator": 1034,
+      "value": 1.0
+    },
+    "unknown_field_honesty": {
+      "denominator": 1114,
+      "detail": [],
+      "name": "unknown_field_honesty",
+      "note": "verifica che l'assenza non sia stata riempita ne' dedotta",
+      "numerator": 1114,
+      "value": 1.0
+    }
+  },
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "source_presence_breakdown": {
+    "citation_only": 134,
+    "node": 5,
+    "unknown": 22
+  }
+}
