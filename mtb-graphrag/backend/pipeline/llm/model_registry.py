@@ -105,10 +105,36 @@ class ModelSpec:
     capabilities: ModelCapabilities | None = None
     config: RunConfig = field(default_factory=RunConfig)
     explicit_revision: str = ""
+    resolution: Any = None
 
     @property
     def digest(self) -> str:
+        if self.resolution is not None and self.resolution.digest:
+            return self.resolution.digest
         return (self.capabilities.digest if self.capabilities else "") or ""
+
+    @property
+    def effective_api_model(self) -> str:
+        """Il nome con cui il server conosce il modello, che puo' differire dal tag."""
+        if self.resolution is not None and self.resolution.effective_api_model:
+            return self.resolution.effective_api_model
+        return self.model_name
+
+    @property
+    def endpoint_mode(self) -> str:
+        if self.resolution is not None and self.resolution.endpoint_mode:
+            return self.resolution.endpoint_mode
+        return "direct_cloud_api" if self.endpoint.is_cloud else "local"
+
+    @property
+    def is_available(self) -> bool:
+        return self.resolution is not None and self.resolution.resolved
+
+    @property
+    def unavailable_reason(self) -> str:
+        return "" if self.is_available else (
+            self.resolution.reason if self.resolution is not None else "nessuna risoluzione"
+        )
 
     @property
     def structured_output_mode(self) -> str:
@@ -126,6 +152,11 @@ class ModelSpec:
         override = os.getenv("SOURCE_VERIFIER_MODEL_REVISION", "").strip()
         if override and self.role == ROLE_SOURCE_VERIFIER:
             return override
+        # Una sola definizione: quella del resolver, che usa il nome con cui il server
+        # conosce davvero il modello. Due definizioni divergenti renderebbero la
+        # run_key instabile a seconda di chi la calcola.
+        if self.resolution is not None and self.resolution.resolved:
+            return self.resolution.model_revision
         if self.explicit_revision:
             return f"{PROVIDER}:{self.model_name}:{self.explicit_revision}"
         if self.digest:
@@ -143,8 +174,14 @@ class ModelSpec:
         return {
             "role": self.role,
             "model_name": self.model_name,
+            "requested_model_tag": self.model_name,
+            "effective_api_model": self.effective_api_model,
+            "endpoint_mode": self.endpoint_mode,
+            "endpoint_url_sanitized": self.endpoint.sanitized,
             "model_digest": self.digest,
             "model_revision": self.model_revision,
+            # Non esposto dall'API del provider: registrato assente, non stimato.
+            "active_parameters": None,
             "quantization": capabilities.quantization if capabilities else "",
             "parameter_size": capabilities.parameter_size if capabilities else "",
             "context_length_declared": capabilities.context_length if capabilities else None,
@@ -194,14 +231,23 @@ def resolve_model_name(role: str) -> str:
 
 
 def endpoint_for_model(model_name: str) -> OllamaEndpoint:
-    """Instrada un modello sull'endpoint giusto.
+    """Endpoint che serve un modello, individuato interrogando gli inventari.
 
-    Il suffisso `-cloud` e' la convenzione del progetto per i modelli serviti
-    dall'endpoint remoto; tutto il resto gira sull'istanza locale. Il routing e'
-    deciso dal nome e non dalla configurazione globale, altrimenti un modello locale
-    finirebbe sul cloud solo perche' `OLLAMA_BASE_URL` punta la'.
+    Sostituisce la vecchia regola `model_name.endswith("-cloud")`, che era fragile in
+    entrambe le direzioni: un modello locale chiamato `qualcosa-cloud` sarebbe finito
+    sul cloud, e un modello remoto servito con un altro nome non sarebbe stato
+    trovato. Ora la destinazione la dichiara il server, non il nome.
+
+    Se nessun endpoint dichiara di servirlo, si ricade sull'endpoint configurato: il
+    fallimento arrivera' alla prima chiamata, con un messaggio che dice quale modello
+    non e' stato trovato.
     """
-    return configured_endpoint() if model_name.endswith("-cloud") else local_endpoint()
+    from .model_resolver import ModelResolver
+
+    resolution = ModelResolver().resolve(model_name)
+    if resolution.resolved and resolution.endpoint is not None:
+        return resolution.endpoint
+    return configured_endpoint()
 
 
 class ModelRegistry:
@@ -210,41 +256,25 @@ class ModelRegistry:
     def __init__(self, *, probe: bool = True, seed: int | None = None) -> None:
         self._probe = probe
         self._seed = seed
-        self._capability_cache: dict[tuple[str, str], ModelCapabilities | None] = {}
+        self._resolver = None
+        self._resolution_cache: dict[tuple[str, str], Any] = {}
 
-    def _capabilities(
-        self, model_name: str, endpoint: OllamaEndpoint
-    ) -> ModelCapabilities | None:
-        if not self._probe:
-            return None
-        key = (model_name, endpoint.base_url)
-        if key in self._capability_cache:
-            return self._capability_cache[key]
-        # Sull'endpoint cloud i modelli sono elencati senza suffisso.
-        remote_name = model_name[: -len("-cloud")] if model_name.endswith("-cloud") else model_name
-        client = OllamaClient(endpoint, timeout=30.0)
-        result: ModelCapabilities | None = None
-        try:
-            show = client.show(remote_name)
-            listing = next(
-                (
-                    item
-                    for item in client.list_models()
-                    if (item.get("name") or "") == remote_name
-                ),
-                {},
+    def resolve(self, model_name: str, *, explicit_revision: str = ""):
+        """Risoluzione del modello, con cache per sessione.
+
+        Delegata a `ModelResolver`, che interroga l'inventario dei server invece di
+        dedurre la destinazione dal nome.
+        """
+        from .model_resolver import ModelResolver
+
+        if self._resolver is None:
+            self._resolver = ModelResolver()
+        key = (model_name, explicit_revision)
+        if key not in self._resolution_cache:
+            self._resolution_cache[key] = self._resolver.resolve(
+                model_name, explicit_revision=explicit_revision
             )
-            result = from_show_response(
-                remote_name,
-                listing,
-                show,
-                endpoint=endpoint,
-                ollama_version=client.version(),
-            )
-        except OllamaUnavailable:
-            result = None
-        self._capability_cache[key] = result
-        return result
+        return self._resolution_cache[key]
 
     def spec(
         self,
@@ -254,15 +284,25 @@ class ModelRegistry:
         seed: int | None = None,
         explicit_revision: str = "",
     ) -> ModelSpec:
-        resolved = model_name or resolve_model_name(role)
-        endpoint = endpoint_for_model(resolved)
+        requested = model_name or resolve_model_name(role)
+        if not self._probe:
+            return ModelSpec(
+                role=role,
+                model_name=requested,
+                endpoint=configured_endpoint(),
+                capabilities=None,
+                config=_env_config(seed if seed is not None else self._seed),
+                explicit_revision=explicit_revision,
+            )
+        resolution = self.resolve(requested, explicit_revision=explicit_revision)
         return ModelSpec(
             role=role,
-            model_name=resolved,
-            endpoint=endpoint,
-            capabilities=self._capabilities(resolved, endpoint),
+            model_name=requested,
+            endpoint=resolution.endpoint or configured_endpoint(),
+            capabilities=resolution.capabilities,
             config=_env_config(seed if seed is not None else self._seed),
             explicit_revision=explicit_revision,
+            resolution=resolution,
         )
 
     def all_specs(self) -> dict[str, ModelSpec]:
