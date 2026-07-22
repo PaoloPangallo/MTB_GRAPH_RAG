@@ -1,0 +1,37 @@
+{
+  "created_at": "2026-07-22T20:37:11.542728+00:00",
+  "decisions_checked": 28,
+  "guard_version": "propagation_guards/1.0",
+  "mappings_checked": 2,
+  "note": "Zero violazioni non significa che le regole siano inerti: sono provate su casi deliberatamente scorretti nella suite di test. Qui misurano lo stato reale degli artefatti.",
+  "rules_available": [
+    "clinical_population_to_model",
+    "clinical_dimensions_to_model",
+    "preclinical_setting_to_patients",
+    "model_comparator_to_patients",
+    "cross_cohort_identity",
+    "cross_arm_intervention",
+    "subgroup_to_population",
+    "relative_versus_complete_resistance",
+    "in_vitro_to_clinical_benefit",
+    "mapping_needs_provenance",
+    "absence_is_not_evidence",
+    "case_report_to_population"
+  ],
+  "units_checked": 45,
+  "violations_by_rule": {
+    "absence_is_not_evidence": 0,
+    "case_report_to_population": 0,
+    "clinical_dimensions_to_model": 0,
+    "clinical_population_to_model": 0,
+    "cross_arm_intervention": 0,
+    "cross_cohort_identity": 0,
+    "in_vitro_to_clinical_benefit": 0,
+    "mapping_needs_provenance": 0,
+    "model_comparator_to_patients": 0,
+    "preclinical_setting_to_patients": 0,
+    "relative_versus_complete_resistance": 0,
+    "subgroup_to_population": 0
+  },
+  "violations_total": 0
+}

@@ -64,7 +64,15 @@ def pmc_id_for(pmid: str, *, timeout: int = 25) -> str:
     )
     request = urllib.request.Request(f"{ELINK}?{query}", headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(request, timeout=timeout) as response:
-        payload = json.loads(response.read().decode("utf-8"))
+        raw = response.read().decode("utf-8", errors="replace")
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError:
+        # Il registro puo' rispondere con una pagina di errore invece che con
+        # JSON. Trattarlo come «nessun full text» e' corretto e mantiene la
+        # pipeline riproducibile: una risposta transitoria non deve far fallire
+        # un audit che ha gia' l'abstract come alternativa.
+        return ""
     for linkset in payload.get("linksets") or []:
         for database in linkset.get("linksetdbs") or []:
             if database.get("linkname") == "pubmed_pmc":
