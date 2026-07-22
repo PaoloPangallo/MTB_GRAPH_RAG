@@ -1,0 +1,60 @@
+{
+  "case_hashes": {
+    "PILOT-A2-ALK-G1202R": "a5ead5b6c61eb254d78ea3900017fc8fa5deea980378ed17e226330431cdeac9",
+    "PILOT-C1-EGFR-L858R-CONTEXT": "126db9b5d16435ba013a2e90bac78af3f13fca285dae7d486df5ff9e668d064a",
+    "PILOT-K1-FGFR2-iCCA": "2e1730e2789508c32094252d3aee4a8d7e329f16b410fed8aac4f742b0aa4cfa",
+    "PILOT-N1-RMI2-SNAPSHOT": "3a89e988f6e8ce049e0c984524bc82053495d60963b8312096fd81c0153436e1"
+  },
+  "credential_pool": {
+    "active_slots": [
+      0
+    ],
+    "credential_count": 1,
+    "invalidated": [],
+    "note": "nessun valore di chiave, prefisso, suffisso o hash e' registrato"
+  },
+  "development_cases": [
+    "PILOT-K1-FGFR2-iCCA",
+    "PILOT-A2-ALK-G1202R",
+    "PILOT-C1-EGFR-L858R-CONTEXT",
+    "PILOT-N1-RMI2-SNAPSHOT"
+  ],
+  "generated_at_utc": "2026-07-22T09:48:09.592076+00:00",
+  "leakage_overlaps": {
+    "PILOT-A2-ALK-G1202R": [],
+    "PILOT-C1-EGFR-L858R-CONTEXT": [
+      "osimertinib"
+    ],
+    "PILOT-K1-FGFR2-iCCA": [],
+    "PILOT-N1-RMI2-SNAPSHOT": []
+  },
+  "models_evaluated": [
+    "gemma4:31b-cloud",
+    "gpt-oss:20b-cloud",
+    "qwen3.5:397b-cloud"
+  ],
+  "models_requested": [
+    "gpt-oss:20b-cloud",
+    "gemma4:31b-cloud",
+    "qwen3.5:397b-cloud"
+  ],
+  "num_ctx": 16384,
+  "policy": "Selezione sui soli quattro casi development. Il test set non viene usato: adoperarlo per scegliere lo consumerebbe.",
+  "research_question": "Quanto la scelta fra modelli cloud di scala e famiglia differenti influenza planner, verifier e free report sui quattro casi development? Il confronto e' esplorativo: non permette di attribuire causalmente un miglioramento alla sola taglia del modello.",
+  "roles": [
+    "planner"
+  ],
+  "runs_executed": 0,
+  "runs_preserved_not_reused": 0,
+  "runs_skipped_by_resume": 24,
+  "seeds": [
+    20240517,
+    13,
+    991
+  ],
+  "source_profile_hash": "d529de6d15c6ea24b969296885830404ccb55909464cb0fdff317de846ee9d35",
+  "task_counts": {
+    "planner": 4
+  },
+  "temperature": 0.0
+}

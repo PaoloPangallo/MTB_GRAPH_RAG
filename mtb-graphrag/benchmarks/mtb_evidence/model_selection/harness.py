@@ -10,8 +10,10 @@ import time
 from dataclasses import dataclass, field
 from typing import Any, Mapping, Sequence
 
+from backend.pipeline.llm.context_budget import check_budget, screen_messages
 from backend.pipeline.llm.ollama_adapter import (
     OllamaUnavailable,
+    StreamingResponseError,
     StructuredOutputError,
     request_structured,
 )
@@ -36,22 +38,38 @@ class TaskOutcome:
     structured_output_mode: str = ""
     latency_ms: float = 0.0
     error: str = ""
+    error_class: str = ""
+    completed: bool = True
+    identity: Any = None
+    budget: Mapping[str, Any] | None = None
+    privacy: Mapping[str, Any] | None = None
+    credential_slot: int | None = None
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        payload: dict[str, Any] = {
             "task_id": self.task_id,
             "role": self.role,
             "case_id": self.case_id,
             "model": self.model,
             "seed": self.seed,
             "valid_output": self.valid_output,
+            "completed": self.completed,
             "parsed": self.parsed,
             "raw_outputs": list(self.raw_outputs),
             "retries": self.retries,
             "structured_output_mode": self.structured_output_mode,
             "latency_ms": round(self.latency_ms, 2),
             "error": self.error,
+            "error_class": self.error_class,
+            "credential_slot": self.credential_slot,
         }
+        if self.identity is not None:
+            payload.update(self.identity.as_dict())
+        if self.budget is not None:
+            payload["context_budget"] = dict(self.budget)
+        if self.privacy is not None:
+            payload.update(dict(self.privacy))
+        return payload
 
 
 def run_task(
@@ -63,48 +81,85 @@ def run_task(
     seed: int | None = None,
     temperature: float = 0.0,
     num_ctx: int = 16384,
+    identity: Any = None,
+    declared_context: int | None = None,
+    screen_privacy: bool = True,
 ) -> TaskOutcome:
     """Esegue un compito, catturando i fallimenti invece di propagarli.
 
     Un modello che non produce output valido e' un dato dell'esperimento, non un
     errore dello script: interrompere qui perderebbe le misure degli altri modelli.
+
+    Prima dell'invio si verificano privacy e budget del contesto. Entrambi i controlli
+    possono impedire la chiamata, e in quel caso la run e' registrata come completata
+    e fallita, con la ragione: e' un esito, non un buco nei dati.
     """
+    messages = [dict(message) for message in task.messages]
+    common = dict(
+        task_id=task.task_id, role=task.role, case_id=task.case_id, model=model,
+        seed=seed, structured_output_mode=mode, identity=identity,
+    )
+
+    if screen_privacy:
+        privacy = screen_messages(messages)
+        if privacy.cloud_input_rejected:
+            return TaskOutcome(
+                valid_output=False,
+                completed=True,
+                error=(
+                    "prompt non inviato: possibili identificatori personali "
+                    f"({list(privacy.detections)})"
+                ),
+                error_class="CloudInputRejected",
+                privacy=privacy.as_dict(),
+                **common,
+            )
+
+    budget = check_budget(
+        messages, num_ctx=num_ctx, declared_context=declared_context,
+        record_count=len(task.messages),
+    )
+    if not budget.fits:
+        return TaskOutcome(
+            valid_output=False,
+            completed=True,
+            error=(
+                f"prompt oltre il budget: {budget.initial_tokens} token + "
+                f"{budget.reserved_output_tokens} riservati > "
+                f"{budget.effective_context_window}"
+            ),
+            error_class="ContextBudgetExceeded",
+            budget=budget.as_dict(),
+            **common,
+        )
+
     started = time.perf_counter()
     try:
         result = request_structured(
-            client,
-            model,
-            [dict(message) for message in task.messages],
-            dict(task.schema),
-            mode=mode,
-            seed=seed,
-            temperature=temperature,
-            num_ctx=num_ctx,
+            client, model, messages, dict(task.schema), mode=mode, seed=seed,
+            temperature=temperature, num_ctx=num_ctx,
         )
-    except (StructuredOutputError, OllamaUnavailable) as error:
+    except (StructuredOutputError, OllamaUnavailable, StreamingResponseError) as error:
         return TaskOutcome(
-            task_id=task.task_id,
-            role=task.role,
-            case_id=task.case_id,
-            model=model,
-            seed=seed,
             valid_output=False,
-            structured_output_mode=mode,
+            completed=True,
             latency_ms=(time.perf_counter() - started) * 1000,
-            error=f"{type(error).__name__}: {error}",
+            error=str(error)[:500],
+            error_class=type(error).__name__,
+            budget=budget.as_dict(),
+            credential_slot=getattr(client, "last_credential_slot", None),
+            **common,
         )
     return TaskOutcome(
-        task_id=task.task_id,
-        role=task.role,
-        case_id=task.case_id,
-        model=model,
-        seed=seed,
         valid_output=True,
+        completed=True,
         parsed=result.parsed,
         raw_outputs=tuple(result.raw_outputs),
         retries=result.retries,
-        structured_output_mode=result.mode,
         latency_ms=result.latency_ms,
+        budget=budget.as_dict(),
+        credential_slot=getattr(client, "last_credential_slot", None),
+        **{**common, "structured_output_mode": result.mode},
     )
 
 
