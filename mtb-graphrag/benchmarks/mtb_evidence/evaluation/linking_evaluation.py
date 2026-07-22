@@ -82,6 +82,15 @@ def evaluate_linking(
         for candidate in candidates
     }
 
+    # Diagnostica necessaria: un evaluated_count a zero ha due cause possibili e
+    # opposte. O il gold non e' ancora annotato, oppure le chiavi di join non
+    # combaciano e la valutazione e' rotta. Senza questo conteggio le due
+    # situazioni producono lo stesso numero e nessuno se ne accorge.
+    all_gold_pairs = {
+        (record.statement_id, record.profile_unit_id) for record in gold_records
+    }
+    joinable = len(set(predicted) & all_gold_pairs)
+
     # Il denominatore e' l'insieme delle coppie **con gold**. Una coppia proposta
     # dal linker e priva di gold non e' un falso positivo: e' un caso non
     # giudicato, e contarla come errore inventerebbe una misura.
@@ -131,6 +140,8 @@ def evaluate_linking(
         "evaluation_version": EVALUATION_VERSION,
         "candidate_count": len(candidates),
         "gold_record_count": len(gold_records),
+        "candidates_with_gold_record": joinable,
+        "candidates_without_gold_record": len(candidates) - joinable,
         "evaluated_count": len(judged),
         "not_evaluated_count": len(candidates) - len(judged),
         "provisional_count": sum(1 for record in gold_records if not record.is_evaluable),
