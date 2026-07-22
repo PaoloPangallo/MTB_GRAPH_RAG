@@ -1,0 +1,541 @@
+"""Regole eseguibili che impediscono la propagazione di qualificatori sbagliati.
+
+`check_propagation` in `build_first_review_artifacts` copre il caso concreto di
+PMID 22277784. Queste regole sono la sua generalizzazione: valgono per qualunque
+fonte, non contengono nomi di farmaci ne' di studi, e ciascuna porta un errore
+tipizzato, un esempio che deve fallire e uno che deve passare.
+
+Perche' tipizzare gli errori. Un elenco di stringhe dice *che* qualcosa e'
+andato storto; un tipo dice *cosa*, e permette a chi chiama di decidere se una
+violazione blocca la pipeline o va solo segnalata. La distinzione conta qui:
+propagare una popolazione clinica su un modello cellulare deve bloccare, mentre
+un'assenza dall'abstract trattata come assenza dalla fonte e' un errore di
+ragionamento che si vuole vedere ma non necessariamente fermare.
+
+Il principio comune a tutte: **l'assenza di informazione non e' informazione di
+assenza**, e due cose di natura diversa non si qualificano a vicenda.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+from typing import Any, Callable, Mapping, Sequence
+
+GUARD_VERSION = "propagation_guards/1.0"
+
+# --- errori tipizzati ---------------------------------------------------------
+
+
+class PropagationError(RuntimeError):
+    """Un qualificatore sta per essere applicato dove non vale."""
+
+    rule_id = "propagation"
+
+
+class ClinicalToPreclinicalError(PropagationError):
+    """Una proprieta' di pazienti applicata a un modello sperimentale."""
+
+    rule_id = "clinical_to_preclinical"
+
+
+class PreclinicalToClinicalError(PropagationError):
+    """Una proprieta' di un modello sperimentale applicata a pazienti."""
+
+    rule_id = "preclinical_to_clinical"
+
+
+class CrossCohortError(PropagationError):
+    """Una proprieta' di una coorte applicata a un'altra."""
+
+    rule_id = "cross_cohort"
+
+
+class CrossArmError(PropagationError):
+    """Un intervento di un braccio applicato a un altro."""
+
+    rule_id = "cross_arm"
+
+
+class SubgroupToPopulationError(PropagationError):
+    """Un biomarcatore di sottogruppo esteso alla popolazione globale."""
+
+    rule_id = "subgroup_to_population"
+
+
+class EvidenceStrengthError(PropagationError):
+    """Un'evidenza viene riportata piu' forte di quanto sia."""
+
+    rule_id = "evidence_strength"
+
+
+class ProvenanceError(PropagationError):
+    """Una normalizzazione terminologica senza provenienza."""
+
+    rule_id = "provenance"
+
+
+class AbsenceInferenceError(PropagationError):
+    """L'assenza in una fonte parziale trattata come assenza nella fonte."""
+
+    rule_id = "absence_inference"
+
+
+# --- vocabolario --------------------------------------------------------------
+
+CLINICAL_UNIT_KINDS = frozenset(
+    {"clinical_observational_cohort", "clinical_trial_arm"}
+)
+PRECLINICAL_UNIT_KINDS = frozenset(
+    {"preclinical_in_vitro", "preclinical_in_vitro_comparative_pharmacology"}
+)
+
+_PATIENT_TERMS = re.compile(
+    r"\b(?:patients?|subjects?|participants?|enrolled|cases?)\b", re.IGNORECASE
+)
+_MODEL_TERMS = re.compile(
+    r"\b(?:cell lines?|Ba/?F3|xenograft|PDX|in vitro|in vivo|murine|mouse|mice|"
+    r"parental|transfected|engineered)\b",
+    re.IGNORECASE,
+)
+_PRECLINICAL_SETTING = re.compile(r"\b(?:preclinical|in vitro|in vivo)\b", re.IGNORECASE)
+
+# Dimensioni che non hanno senso su un modello sperimentale.
+CLINICAL_ONLY_DIMENSIONS = (
+    "therapy_line",
+    "prior_therapies",
+    "resection_status",
+    "stage",
+    "inclusion_criteria",
+    "exclusion_criteria",
+)
+
+NON_VALUES = frozenset({"", "unknown", "not_applicable", "not_separable"})
+
+
+@dataclass(frozen=True)
+class GuardViolation:
+    """Una violazione, con la regola che l'ha rilevata."""
+
+    rule_id: str
+    rule_name: str
+    error_type: type[PropagationError]
+    subject: str
+    dimensions: tuple[str, ...]
+    message: str
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "rule_id": self.rule_id,
+            "rule_name": self.rule_name,
+            "error_type": self.error_type.__name__,
+            "subject": self.subject,
+            "dimensions": list(self.dimensions),
+            "message": self.message,
+        }
+
+    def raise_it(self) -> None:
+        raise self.error_type(self.message)
+
+
+def _value(unit: Mapping[str, Any], dimension: str) -> str:
+    value = unit.get(dimension)
+    if isinstance(value, (list, tuple)):
+        return " ".join(str(item) for item in value)
+    return "" if value is None else str(value)
+
+
+def _has_value(unit: Mapping[str, Any], dimension: str) -> bool:
+    value = unit.get(dimension)
+    if isinstance(value, (list, tuple)):
+        return bool(value)
+    return str(value or "").strip().casefold() not in NON_VALUES
+
+
+def _is_clinical(unit: Mapping[str, Any]) -> bool:
+    return str(unit.get("unit_type") or "") in CLINICAL_UNIT_KINDS
+
+
+def _is_preclinical(unit: Mapping[str, Any]) -> bool:
+    return str(unit.get("unit_type") or "") in PRECLINICAL_UNIT_KINDS
+
+
+# --- regole -------------------------------------------------------------------
+
+
+def rule_clinical_population_to_model(unit: Mapping[str, Any]) -> list[GuardViolation]:
+    """Una popolazione di pazienti non descrive un modello sperimentale."""
+    if not _is_preclinical(unit):
+        return []
+    population = _value(unit, "population")
+    if population and _PATIENT_TERMS.search(population):
+        return [
+            GuardViolation(
+                "clinical_population_to_model",
+                "popolazione clinica su modello sperimentale",
+                ClinicalToPreclinicalError,
+                str(unit.get("profile_unit_id") or ""),
+                ("population",),
+                f"unita' preclinica con popolazione di pazienti: «{population}»",
+            )
+        ]
+    return []
+
+
+def rule_clinical_dimensions_to_model(unit: Mapping[str, Any]) -> list[GuardViolation]:
+    """Linea, stadio, resezione e criteri non si pongono su un modello."""
+    if not _is_preclinical(unit):
+        return []
+    offending = tuple(
+        dimension for dimension in CLINICAL_ONLY_DIMENSIONS if _has_value(unit, dimension)
+    )
+    if not offending:
+        return []
+    return [
+        GuardViolation(
+            "clinical_dimensions_to_model",
+            "dimensioni cliniche su modello sperimentale",
+            ClinicalToPreclinicalError,
+            str(unit.get("profile_unit_id") or ""),
+            offending,
+            f"unita' preclinica con dimensioni cliniche valorizzate: {list(offending)}",
+        )
+    ]
+
+
+def rule_preclinical_setting_to_patients(unit: Mapping[str, Any]) -> list[GuardViolation]:
+    """Un setting preclinico non descrive una coorte di pazienti."""
+    if not _is_clinical(unit):
+        return []
+    setting = _value(unit, "setting")
+    if setting and _PRECLINICAL_SETTING.search(setting):
+        return [
+            GuardViolation(
+                "preclinical_setting_to_patients",
+                "setting preclinico su coorte clinica",
+                PreclinicalToClinicalError,
+                str(unit.get("profile_unit_id") or ""),
+                ("setting",),
+                f"coorte clinica con setting preclinico: «{setting}»",
+            )
+        ]
+    return []
+
+
+def rule_model_comparator_to_patients(unit: Mapping[str, Any]) -> list[GuardViolation]:
+    """Un comparatore cellulare non e' un braccio di confronto clinico."""
+    if not _is_clinical(unit):
+        return []
+    comparator = _value(unit, "comparator")
+    if comparator and _MODEL_TERMS.search(comparator):
+        return [
+            GuardViolation(
+                "model_comparator_to_patients",
+                "comparatore cellulare su coorte clinica",
+                PreclinicalToClinicalError,
+                str(unit.get("profile_unit_id") or ""),
+                ("comparator",),
+                f"coorte clinica con comparatore sperimentale: «{comparator}»",
+            )
+        ]
+    return []
+
+
+def rule_cross_cohort(units: Sequence[Mapping[str, Any]]) -> list[GuardViolation]:
+    """Due unita' della stessa fonte non condividono i qualificatori specifici.
+
+    Se due coorti della stessa pubblicazione dichiarano lo stesso identico
+    setting, linea e popolazione, o sono la stessa coorte — e allora non
+    andavano separate — o un valore e' stato copiato dall'una all'altra.
+    """
+    violations: list[GuardViolation] = []
+    by_source: dict[str, list[Mapping[str, Any]]] = {}
+    for unit in units:
+        by_source.setdefault(str(unit.get("canonical_source_id") or ""), []).append(unit)
+
+    for source, group in by_source.items():
+        if len(group) < 2:
+            continue
+        for index, left in enumerate(group):
+            for right in group[index + 1 :]:
+                if str(left.get("cohort_id")) == str(right.get("cohort_id")):
+                    continue
+                shared = tuple(
+                    dimension
+                    for dimension in ("population", "setting", "therapy_line")
+                    if _has_value(left, dimension)
+                    and _value(left, dimension) == _value(right, dimension)
+                )
+                if len(shared) >= 3:
+                    violations.append(
+                        GuardViolation(
+                            "cross_cohort_identity",
+                            "qualificatori identici fra coorti distinte",
+                            CrossCohortError,
+                            f"{left.get('profile_unit_id')} / {right.get('profile_unit_id')}",
+                            shared,
+                            (
+                                f"due unita' di {source} condividono {list(shared)}: o sono "
+                                "la stessa coorte, o un valore e' stato copiato"
+                            ),
+                        )
+                    )
+    return violations
+
+
+def rule_cross_arm_intervention(units: Sequence[Mapping[str, Any]]) -> list[GuardViolation]:
+    """Un braccio non eredita l'intervento di un altro braccio."""
+    violations: list[GuardViolation] = []
+    by_source: dict[str, list[Mapping[str, Any]]] = {}
+    for unit in units:
+        if str(unit.get("unit_type")) == "clinical_trial_arm":
+            by_source.setdefault(str(unit.get("canonical_source_id") or ""), []).append(unit)
+
+    for source, group in by_source.items():
+        if len(group) < 2:
+            continue
+        seen: dict[str, str] = {}
+        for unit in group:
+            for name in unit.get("intervention") or ():
+                key = str(name).casefold()
+                owner = seen.get(key)
+                if owner and owner != str(unit.get("cohort_id")):
+                    violations.append(
+                        GuardViolation(
+                            "cross_arm_intervention",
+                            "intervento condiviso fra bracci distinti",
+                            CrossArmError,
+                            str(unit.get("profile_unit_id") or ""),
+                            ("intervention",),
+                            f"«{name}» compare in due bracci distinti di {source}",
+                        )
+                    )
+                seen.setdefault(key, str(unit.get("cohort_id")))
+    return violations
+
+
+def rule_subgroup_to_population(unit: Mapping[str, Any]) -> list[GuardViolation]:
+    """Un requisito di sottogruppo non descrive la popolazione globale."""
+    label = str(unit.get("cohort_label") or "").casefold()
+    if "subgroup" not in label and "sottogruppo" not in label:
+        return []
+    population = _value(unit, "population").casefold()
+    if population and not any(
+        term in population for term in ("subgroup", "sottogruppo", "subset")
+    ):
+        return [
+            GuardViolation(
+                "subgroup_to_population",
+                "sottogruppo presentato come popolazione globale",
+                SubgroupToPopulationError,
+                str(unit.get("profile_unit_id") or ""),
+                ("population", "biomarker_requirements"),
+                (
+                    "l'unita' descrive un sottogruppo ma la popolazione non lo dichiara: "
+                    "il requisito verrebbe esteso a tutti"
+                ),
+            )
+        ]
+    return []
+
+
+def rule_relative_versus_complete_resistance(
+    decision: Mapping[str, Any]
+) -> list[GuardViolation]:
+    """Sensibilita' ridotta e resistenza completa non sono la stessa cosa."""
+    qualifier = str(decision.get("resistance_qualifier") or "")
+    text = " ".join(
+        str(decision.get(key) or "") for key in ("rationale", "note", "explanation")
+    ).casefold()
+    if qualifier == "complete_resistance" and re.search(
+        r"\b(?:reduced|residual|retain(?:s|ed)?|partial)\b", text
+    ):
+        return [
+            GuardViolation(
+                "relative_versus_complete_resistance",
+                "resistenza relativa riportata come completa",
+                EvidenceStrengthError,
+                str(decision.get("statement_id") or ""),
+                ("resistance_qualifier",),
+                (
+                    "la motivazione descrive attivita' residua ma il qualificatore dichiara "
+                    "resistenza completa"
+                ),
+            )
+        ]
+    return []
+
+
+def rule_in_vitro_to_clinical_benefit(decision: Mapping[str, Any]) -> list[GuardViolation]:
+    """Sensibilita' in vitro non e' beneficio clinico."""
+    if str(decision.get("clinical_or_preclinical") or "") != "preclinical":
+        return []
+    if decision.get("clinical_response_observed") is True:
+        return [
+            GuardViolation(
+                "in_vitro_to_clinical_benefit",
+                "risposta clinica dichiarata su evidenza in vitro",
+                EvidenceStrengthError,
+                str(decision.get("statement_id") or ""),
+                ("clinical_response_observed",),
+                "evidenza solo preclinica ma clinical_response_observed = true",
+            )
+        ]
+    return []
+
+
+def rule_mapping_needs_provenance(mapping: Mapping[str, Any]) -> list[GuardViolation]:
+    """Un codice di sviluppo normalizzato senza provenienza e' una fabbricazione."""
+    if not mapping.get("mapped_term"):
+        return []
+    has_status = bool(mapping.get("mapping_status"))
+    declares_literal = "literal_string_present_in_source" in mapping
+    if has_status and declares_literal:
+        return []
+    return [
+        GuardViolation(
+            "mapping_needs_provenance",
+            "mapping terminologico senza provenienza",
+            ProvenanceError,
+            str(mapping.get("source_term") or ""),
+            ("intervention",),
+            (
+                f"«{mapping.get('source_term')}» → «{mapping.get('mapped_term')}» senza "
+                "mapping_status o senza dichiarare se la stringa compare nella fonte"
+            ),
+        )
+    ]
+
+
+def rule_absence_is_not_evidence(decision: Mapping[str, Any]) -> list[GuardViolation]:
+    """L'assenza in un testo parziale non dimostra assenza nella fonte."""
+    status = str(decision.get("candidate_link_status") or decision.get("candidate_state") or "")
+    text = str(decision.get("rationale") or decision.get("explanation") or "").casefold()
+    if status == "candidate_invalid" and re.search(
+        r"non compare|not (?:present|found|mentioned)|assente", text
+    ):
+        return [
+            GuardViolation(
+                "absence_is_not_evidence",
+                "assenza nel testo trattata come assenza nella fonte",
+                AbsenceInferenceError,
+                str(decision.get("statement_id") or ""),
+                ("support_type",),
+                (
+                    "il collegamento e' dichiarato invalido perche' il termine non compare "
+                    "nel testo consultato; un abstract non nomina tutto cio' che il full "
+                    "text contiene"
+                ),
+            )
+        ]
+    return []
+
+
+def rule_case_report_to_population(unit: Mapping[str, Any]) -> list[GuardViolation]:
+    """Un case report non descrive una popolazione."""
+    design = _value(unit, "evidence_design").casefold()
+    if "case report" not in design and "case_report" not in design:
+        return []
+    if not _has_value(unit, "population"):
+        return []
+    population = _value(unit, "population").casefold()
+    if not re.search(r"\b(?:case|patient|single)\b", population):
+        return [
+            GuardViolation(
+                "case_report_to_population",
+                "case report presentato come popolazione",
+                EvidenceStrengthError,
+                str(unit.get("profile_unit_id") or ""),
+                ("population",),
+                f"case report con popolazione generalizzata: «{population}»",
+            )
+        ]
+    return []
+
+
+UNIT_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] = (
+    rule_clinical_population_to_model,
+    rule_clinical_dimensions_to_model,
+    rule_preclinical_setting_to_patients,
+    rule_model_comparator_to_patients,
+    rule_subgroup_to_population,
+    rule_case_report_to_population,
+)
+
+GROUP_RULES: tuple[Callable[[Sequence[Mapping[str, Any]]], list[GuardViolation]], ...] = (
+    rule_cross_cohort,
+    rule_cross_arm_intervention,
+)
+
+DECISION_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] = (
+    rule_relative_versus_complete_resistance,
+    rule_in_vitro_to_clinical_benefit,
+    rule_absence_is_not_evidence,
+)
+
+MAPPING_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] = (
+    rule_mapping_needs_provenance,
+)
+
+ALL_RULE_IDS = (
+    "clinical_population_to_model",
+    "clinical_dimensions_to_model",
+    "preclinical_setting_to_patients",
+    "model_comparator_to_patients",
+    "cross_cohort_identity",
+    "cross_arm_intervention",
+    "subgroup_to_population",
+    "relative_versus_complete_resistance",
+    "in_vitro_to_clinical_benefit",
+    "mapping_needs_provenance",
+    "absence_is_not_evidence",
+    "case_report_to_population",
+)
+
+
+def run_guards(
+    *,
+    units: Sequence[Mapping[str, Any]] = (),
+    decisions: Sequence[Mapping[str, Any]] = (),
+    mappings: Sequence[Mapping[str, Any]] = (),
+) -> list[GuardViolation]:
+    """Esegue tutte le regole e restituisce le violazioni, senza sollevare.
+
+    Non solleva di sua iniziativa: chi chiama decide se una violazione blocca la
+    pipeline o va soltanto registrata. `GuardViolation.raise_it` resta
+    disponibile per il caso bloccante.
+    """
+    violations: list[GuardViolation] = []
+    for unit in units:
+        for rule in UNIT_RULES:
+            violations.extend(rule(unit))
+    for group_rule in GROUP_RULES:
+        violations.extend(group_rule(units))
+    for decision in decisions:
+        for rule in DECISION_RULES:
+            violations.extend(rule(decision))
+    for mapping in mappings:
+        for rule in MAPPING_RULES:
+            violations.extend(rule(mapping))
+    return violations
+
+
+__all__ = [
+    "GUARD_VERSION",
+    "ALL_RULE_IDS",
+    "PropagationError",
+    "ClinicalToPreclinicalError",
+    "PreclinicalToClinicalError",
+    "CrossCohortError",
+    "CrossArmError",
+    "SubgroupToPopulationError",
+    "EvidenceStrengthError",
+    "ProvenanceError",
+    "AbsenceInferenceError",
+    "GuardViolation",
+    "run_guards",
+    "UNIT_RULES",
+    "GROUP_RULES",
+    "DECISION_RULES",
+    "MAPPING_RULES",
+]

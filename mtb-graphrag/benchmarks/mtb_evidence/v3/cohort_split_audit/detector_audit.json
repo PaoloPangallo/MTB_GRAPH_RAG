@@ -1,0 +1,95 @@
+{
+  "created_at": "2026-07-22T20:38:47.224977+00:00",
+  "guards": {
+    "rule_count": 12,
+    "rules": [
+      "clinical_population_to_model",
+      "clinical_dimensions_to_model",
+      "preclinical_setting_to_patients",
+      "model_comparator_to_patients",
+      "cross_cohort_identity",
+      "cross_arm_intervention",
+      "subgroup_to_population",
+      "relative_versus_complete_resistance",
+      "in_vitro_to_clinical_benefit",
+      "mapping_needs_provenance",
+      "absence_is_not_evidence",
+      "case_report_to_population"
+    ],
+    "version": "propagation_guards/1.0"
+  },
+  "production_detector": {
+    "can_detect": [
+      "fonti con piu' statement che divergono su intervento o malattia"
+    ],
+    "cannot_detect": [
+      "fonti con un solo statement, per costruzione: senza due statement non esiste divergenza da osservare",
+      "fonti con piu' statement che concordano su intervento e malattia ma descrivono coorti diverse",
+      "fonti che mescolano evidenza clinica e preclinica sotto lo stesso intervento",
+      "sottogruppi e analisi secondarie"
+    ],
+    "demonstrated_failure": {
+      "actual_structure": "una coorte clinica di 18 pazienti piu' tre pannelli su cellule Ba/F3, confermati dalla revisione della fonte",
+      "classified_as": "insufficient_source_information",
+      "profile_unit_id": "PU-PMID-22277784-cohort-1",
+      "statement_count": 10,
+      "why_it_failed": "i dieci statement concordavano abbastanza da non produrre divergenza, e il segnale strutturale vive nel full text, che il rilevatore non legge. Il fallimento non e' dovuto al numero di statement"
+    },
+    "depends_on_intervention_count": true,
+    "depends_on_statement_count": true,
+    "false_negative_risk": "alto",
+    "false_positive_risk": "basso",
+    "location": "benchmarks/mtb_evidence/evaluation/source_inventory.py",
+    "name": "requires_cohort_split",
+    "signals_not_used": [
+      "testo della fonte",
+      "termini di coorte, braccio, gruppo",
+      "termini di modello preclinico",
+      "termini di sottogruppo o analisi secondaria",
+      "disegno dello studio",
+      "comparatore"
+    ],
+    "signals_used": [
+      "numero di interventi distinti fra gli statement della fonte",
+      "numero di denominazioni di malattia distinte fra gli statement"
+    ]
+  },
+  "proposed_detector": {
+    "deterministic": true,
+    "independent_of_statement_count": true,
+    "location": "benchmarks/mtb_evidence/evaluation/cohort_split_audit.py",
+    "name": "assess_split",
+    "outputs": [
+      "split_not_indicated",
+      "split_possible",
+      "split_likely",
+      "split_required",
+      "insufficient_information"
+    ],
+    "promoted_to_production": false,
+    "promotion_note": "non promosso in produzione in questa fase: va prima validato contro revisioni umane, che oggi esistono su una sola fonte",
+    "reports_signals": true,
+    "requires_llm": false,
+    "signal_categories": [
+      "arm_structure",
+      "case_level",
+      "clinical",
+      "cohort_structure",
+      "comparator",
+      "in_vitro",
+      "in_vivo",
+      "population",
+      "secondary_analysis",
+      "subgroup"
+    ],
+    "signal_count": 32,
+    "title_alone_sufficient": false,
+    "version": "source_level_split_detector/2.0"
+  },
+  "single_statement_exposure": {
+    "note": "queste unita' sono invisibili al rilevatore in produzione per costruzione, non per difetto di configurazione",
+    "share": 0.7157,
+    "single_statement_units": 73,
+    "total_sources": 102
+  }
+}
