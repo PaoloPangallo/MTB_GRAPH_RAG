@@ -5,7 +5,7 @@
     "structured_report_unverified",
     "structured_report_verified"
   ],
-  "free_report_model": null,
+  "free_report_model": "gpt-oss:120b-cloud",
   "frozen_retrieval": {
     "PILOT-A2-ALK-G1202R": {
       "pmids": [
@@ -283,13 +283,13 @@
       "therapies": []
     }
   },
-  "generated_at_utc": "2026-07-22T08:58:37.554456+00:00",
+  "generated_at_utc": "2026-07-22T11:50:20.778074+00:00",
   "invariant": "I quattro bracci ricevono gli stessi record, nello stesso ordine. Il retrieval non viene rieseguito: record_ids qui sopra e' la prova dell'input condiviso.",
-  "replicates": 0,
+  "replicates": 3,
   "seeds": [
     20240517,
     13,
     991
   ],
-  "structured_output_mode": ""
+  "structured_output_mode": "prompt_validated"
 }

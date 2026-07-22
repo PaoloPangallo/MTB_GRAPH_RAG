@@ -426,6 +426,47 @@ def _summary(rows: Sequence[Mapping[str, Any]], report_model: str | None) -> str
         "che il retrieval non puo' fornire*, non *il report verificato scrive meglio*. "
         "E' un argomento a favore dei profili annotati, non della resa testuale.",
         "",
+    ]
+
+    free = by_branch.get("free_llm_summary", {})
+    structured = by_branch.get("structured_report_unverified", {})
+    if free and structured:
+        def _mean(branch: dict, metric: str) -> float | None:
+            values = branch.get(metric, [])
+            return sum(values) / len(values) if values else None
+
+        coverage = _mean(free, "structural_coverage")
+        unsupported = _mean(free, "unsupported_claim_rate")
+        lines += [
+            "### Dove la sintesi libera perde davvero",
+            "",
+            "Qui il confronto e' pulito, perche' entrambi i bracci ricevono gli stessi "
+            "record e nessuno dei due consulta i profili annotati:",
+            "",
+        ]
+        if coverage is not None:
+            lines.append(
+                f"- **Copertura strutturale {coverage:.3f}** contro 1.000 dei bracci "
+                "deterministici. La sintesi libera menziona una frazione di cio' che "
+                "il retrieval ha trovato: il resto sparisce senza che il testo segnali "
+                "l'omissione."
+            )
+        if unsupported is not None and unsupported > 0:
+            lines.append(
+                f"- **Claim non ancorate {unsupported:.3f}** contro 0.000. Una parte "
+                "delle affermazioni non trova riscontro nei record ricevuti, e su un "
+                "report di evidenza e' il difetto che conta di piu': un lettore non "
+                "puo' distinguerle dalle altre."
+            )
+        lines += [
+            "",
+            "Queste due differenze **sono** attribuibili al modo di scrivere, perche' "
+            "l'input era identico. E' il risultato che sostiene la tesi sul reporting "
+            "strutturato — non il vantaggio sui qualificatori, che viene dai profili.",
+            "",
+        ]
+
+    lines += [
         "Quattro casi: i valori descrivono questo campione e non stimano una popolazione.",
         "",
     ]
