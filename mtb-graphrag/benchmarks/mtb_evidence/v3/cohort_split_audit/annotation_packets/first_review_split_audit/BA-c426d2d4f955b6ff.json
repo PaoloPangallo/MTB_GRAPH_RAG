@@ -1,0 +1,151 @@
+{
+  "audit_state": "split_proposed_by_structural_audit",
+  "audit_version": "cohort_split_audit/1.0",
+  "blind_annotation_id": "BA-c426d2d4f955b6ff",
+  "candidate_units": [],
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_final_decision": false,
+  "contains_other_reviewer_decision": false,
+  "contains_pipeline_metrics": false,
+  "contains_reviewed_packet_outcome": false,
+  "detected_signals": [
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "instructions": [
+    "Questa e' una **proposta strutturale automatica**, non una revisione.",
+    "I campi clinici delle unita' proposte sono deliberatamente vuoti: l'audit propone struttura, non contenuto.",
+    "Respingere la proposta e' un esito legittimo quanto accettarla."
+  ],
+  "non_propagation_warnings": [],
+  "not_separable_dimensions": [],
+  "packet_version": "first_review_split_audit/1.0",
+  "proposed_structure": {
+    "arms_detected": 0,
+    "comparators_detected": 0,
+    "documentary_units": 1,
+    "preclinical_models_detected": 0,
+    "rationale": "nessun segnale di molteplicita' nel solo abstract. Non basta a concludere che la fonte descriva una unita' sola: sul caso gia' revisionato l'abstract taceva e il full text mostrava quattro unita'",
+    "split_likelihood": "split_not_indicated",
+    "structure_state": "insufficient_source_information"
+  },
+  "reviewer_questions": [
+    "La fonte descrive davvero le unita' proposte, o la partizione e' un artefatto dei segnali lessicali?",
+    "Quali proposizioni appartengono a ciascuna unita'?",
+    "Quali dimensioni sono condivise fra le unita' e quali sono specifiche?",
+    "Esistono dimensioni che la fonte non permette di separare? Marcale `not_separable`, non `unknown`.",
+    "La proposta va accettata, modificata o respinta?"
+  ],
+  "shared_dimensions": [
+    "disease",
+    "biomarker_requirements"
+  ],
+  "source": {
+    "canonical_source_id": "PMID:27130468",
+    "document_hash": "46d073bf0d26386b8b62811b4daa21d0ce86438cd079f18e6900fbfdeab88281",
+    "limitations": "solo abstract: i segnali del full text non sono osservabili",
+    "locator": "pmid:27130468#abstract",
+    "pmids": [
+      "27130468"
+    ],
+    "text_consulted": "abstract_only"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "Secondary anaplastic lymphoma kinase (ALK) mutation may occur in patients with advanced ALK-positive non-small cell lung cancer treated with ALK inhibitors, but its nature i…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "Secondary anaplastic lymphoma kinase (ALK) mutation may occur in patients with advanced ALK-positive non-small cell l…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…or(s) (crizotinib, alectinib, and ceritinib) for secondary ALK kinase domain mutation, EGFR, K-ras, and PIK3CA mutations. The literature regarding acquired ALK-inhibitor(s) resistance was also reviewed. Among…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…and ceritinib) for secondary ALK kinase domain mutation, EGFR, K-ras, and PIK3CA mutations. The literature regarding acquired ALK-inhibitor(s) resistance was also reviewed. Among 59 patients who received ALK…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ture regarding acquired ALK-inhibitor(s) resistance was also reviewed. Among 59 patients who received ALK inhibitor(s) during the period of December 2010 to April 2015, 7 had re-biopsied tumor specimens for a…",
+      "matched_text": "Patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…s) during the period of December 2010 to April 2015, 7 had re-biopsied tumor specimens for analyses following ALK inhibitor(s) failure. One had G1202R after crizotinib and alectinib failure, and 6 were wild t…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…tumor specimens for analyses following ALK inhibitor(s) failure. One had G1202R after crizotinib and alectinib failure, and 6 were wild type. No EGFR, K-ras, or PIK3CA mutations were found. In our review of…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…fter crizotinib and alectinib failure, and 6 were wild type. No EGFR, K-ras, or PIK3CA mutations were found. In our review of the literature and taken together with our patients, 25 of the 88 (28%) patients w…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "specific_dimensions": [],
+  "statements": [
+    {
+      "candidate_link_status": "candidate_not_determinable",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "alectinib hydrochloride",
+      "rationale": "nessun segnale di molteplicita' nel testo disponibile; verdetto limitato a cio' che il testo consultato espone",
+      "statement_id": "ES-V2-evidence-100002",
+      "support_type": "not_determinable"
+    }
+  ],
+  "supersedes_packet": "BA-c426d2d4f955b6ff"
+}

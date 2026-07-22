@@ -1,0 +1,166 @@
+{
+  "audit_state": "split_proposed_by_structural_audit",
+  "audit_version": "cohort_split_audit/1.0",
+  "blind_annotation_id": "BA-d5f5829b538a64df",
+  "candidate_units": [],
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_final_decision": false,
+  "contains_other_reviewer_decision": false,
+  "contains_pipeline_metrics": false,
+  "contains_reviewed_packet_outcome": false,
+  "detected_signals": [
+    {
+      "category": "cohort_structure",
+      "matched_text": "three cohorts",
+      "signal_id": "cohort.counted"
+    },
+    {
+      "category": "cohort_structure",
+      "matched_text": "three cohorts",
+      "signal_id": "cohort.counted"
+    },
+    {
+      "category": "cohort_structure",
+      "matched_text": "three cohorts",
+      "signal_id": "cohort.counted"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "instructions": [
+    "Questa e' una **proposta strutturale automatica**, non una revisione.",
+    "I campi clinici delle unita' proposte sono deliberatamente vuoti: l'audit propone struttura, non contenuto.",
+    "Respingere la proposta e' un esito legittimo quanto accettarla."
+  ],
+  "non_propagation_warnings": [],
+  "not_separable_dimensions": [],
+  "packet_version": "first_review_split_audit/1.0",
+  "proposed_structure": {
+    "arms_detected": 0,
+    "comparators_detected": 3,
+    "documentary_units": 1,
+    "preclinical_models_detected": 0,
+    "rationale": "segnali espliciti di piu' coorti cliniche",
+    "split_likelihood": "split_likely",
+    "structure_state": "multi_cohort_clinical_split_required"
+  },
+  "reviewer_questions": [
+    "La fonte descrive davvero le unita' proposte, o la partizione e' un artefatto dei segnali lessicali?",
+    "Quali proposizioni appartengono a ciascuna unita'?",
+    "Quali dimensioni sono condivise fra le unita' e quali sono specifiche?",
+    "Esistono dimensioni che la fonte non permette di separare? Marcale `not_separable`, non `unknown`.",
+    "La proposta va accettata, modificata o respinta?"
+  ],
+  "shared_dimensions": [
+    "disease",
+    "biomarker_requirements"
+  ],
+  "source": {
+    "canonical_source_id": "PMID:32203698",
+    "document_hash": "7e99ed333598e9847067f59cf877d1ac1fa8a04eb66c9e0c2c700a0b6ebb4eff",
+    "limitations": "",
+    "locator": "PMC8461541#full_text",
+    "pmids": [
+      "32203698"
+    ],
+    "text_consulted": "full_text"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…demic or community-based sitesin the USA, Europe, the Middle East, and Asia were assigned to one of three cohorts: patients with FGFR2 fusions or rearrangements, patients with other FGF/FGFR alterations, or patien…",
+      "matched_text": "three cohorts",
+      "signal_id": "cohort.counted"
+    },
+    {
+      "excerpt": "…d for cohort assignment. Based on the centrally confirmed results, patients were assigned to one of three cohorts: patients with FGFR2 fusions or rearrangements, patients with other FGF / FGFR alterations, or pati…",
+      "matched_text": "three cohorts",
+      "signal_id": "cohort.counted"
+    },
+    {
+      "excerpt": "…eived locoregional radio emboli sation immediately after discontinuation of pemigatinib. Across all three cohorts (n=146), the most common adverse event was hyperphosphataemia (occurring in 88 [60%] of 146 patient…",
+      "matched_text": "three cohorts",
+      "signal_id": "cohort.counted"
+    },
+    {
+      "excerpt": "…bitor of FGFR1, 2, and 3. This study evaluated the safety and antitumour activity of pemigatinib in patients with previously treated, locally advanced or metastatic cholangiocarcinoma with and without FGFR2 f…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ments. Methods In this multicentre, open-label, single-arm, multicohort, phase 2 study (FIGHT-202), patients aged 18 years or older with disease progression following at least one previous treatment and an Ea…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ity-based sitesin the USA, Europe, the Middle East, and Asia were assigned to one of three cohorts: patients with FGFR2 fusions or rearrangements, patients with other FGF/FGFR alterations, or patients with no…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ast, and Asia were assigned to one of three cohorts: patients with FGFR2 fusions or rearrangements, patients with other FGF/FGFR alterations, or patients with no FGF/FGFR alterations. All enrolled patients re…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…ohorts: patients with FGFR2 fusions or rearrangements, patients with other FGF/FGFR alterations, or patients with no FGF/FGFR alterations. All enrolled patients received a starting dose of 13·5 mg oral pemiga…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "specific_dimensions": [],
+  "statements": [
+    {
+      "candidate_link_status": "candidate_valid",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "pemigatinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-8173",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "supersedes_packet": "BA-d5f5829b538a64df"
+}

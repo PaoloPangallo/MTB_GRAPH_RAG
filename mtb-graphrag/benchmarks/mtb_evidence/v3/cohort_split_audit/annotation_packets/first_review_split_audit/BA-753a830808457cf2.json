@@ -1,0 +1,174 @@
+{
+  "audit_state": "split_proposed_by_structural_audit",
+  "audit_version": "cohort_split_audit/1.0",
+  "blind_annotation_id": "BA-753a830808457cf2",
+  "candidate_units": [],
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_final_decision": false,
+  "contains_other_reviewer_decision": false,
+  "contains_pipeline_metrics": false,
+  "contains_reviewed_packet_outcome": false,
+  "detected_signals": [
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "arm_structure",
+      "matched_text": "randomly assigned",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "enrolled",
+      "signal_id": "clinical.enrolled"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "phase 3",
+      "signal_id": "clinical.phase"
+    },
+    {
+      "category": "arm_structure",
+      "matched_text": "randomly assigned",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "instructions": [
+    "Questa e' una **proposta strutturale automatica**, non una revisione.",
+    "I campi clinici delle unita' proposte sono deliberatamente vuoti: l'audit propone struttura, non contenuto.",
+    "Respingere la proposta e' un esito legittimo quanto accettarla."
+  ],
+  "non_propagation_warnings": [],
+  "not_separable_dimensions": [],
+  "packet_version": "first_review_split_audit/1.0",
+  "proposed_structure": {
+    "arms_detected": 2,
+    "comparators_detected": 0,
+    "documentary_units": 1,
+    "preclinical_models_detected": 0,
+    "rationale": "segnali espliciti di piu' bracci clinici",
+    "split_likelihood": "split_likely",
+    "structure_state": "multi_arm_clinical_split_required"
+  },
+  "reviewer_questions": [
+    "La fonte descrive davvero le unita' proposte, o la partizione e' un artefatto dei segnali lessicali?",
+    "Quali proposizioni appartengono a ciascuna unita'?",
+    "Quali dimensioni sono condivise fra le unita' e quali sono specifiche?",
+    "Esistono dimensioni che la fonte non permette di separare? Marcale `not_separable`, non `unknown`.",
+    "La proposta va accettata, modificata o respinta?"
+  ],
+  "shared_dimensions": [
+    "disease",
+    "biomarker_requirements"
+  ],
+  "source": {
+    "canonical_source_id": "PMID:28958502",
+    "document_hash": "307bbb94b0f6130939dd596e631e64ce5033252ef9adc2eb2ab862da0e9c3623",
+    "limitations": "solo abstract: i segnali del full text non sono osservabili",
+    "locator": "pmid:28958502#abstract",
+    "pmids": [
+      "28958502"
+    ],
+    "text_consulted": "abstract_only"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…with that of the reversible EGFR tyrosine kinase inhibitor gefitinib in the first-line treatment of patients with advanced EGFR-mutation-positive non-small-cell lung cancer (NSCLC). In this international, mul…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…-small-cell lung cancer (NSCLC). In this international, multicentre, randomised, open-label, phase 3 study (ARCHER 1050), we enrolled adults (aged ≥18 years or ≥20 years in Japan and South Korea) with newly diagnosed…",
+      "matched_text": "randomly assigned",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "excerpt": "…-day cycles) until disease progression or another discontinuation criterion was met. Randomisation, stratified by race and EGFR mutation type, was done with a computer-generated random code assigned by a cent…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…nerated random code assigned by a central interactive web response system. The primary endpoint was progression-free survival assessed by masked independent review in the intention-to-treat population. Safety…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "Dacomitinib is a second-generation, irreversible EGFR tyrosine kinase inhibitor. We compared its efficacy and safety with that of the reversible EGFR tyrosine kinase inhibitor gefitinib in the first-l…",
+      "matched_text": "enrolled",
+      "signal_id": "clinical.enrolled"
+    },
+    {
+      "excerpt": "Dacomitinib is a second-generation, irreversible EGFR tyrosine kinase inhibitor. We compared its efficacy and safety with that of the reversible EGFR tyrosine kinase i…",
+      "matched_text": "phase 3",
+      "signal_id": "clinical.phase"
+    },
+    {
+      "excerpt": "Dacomitinib is a second-generation, irreversible EGFR tyrosine kinase inhibitor. We compared its efficacy and safety with that of the reversible EGFR tyrosine kinase inhibitor gefitinib…",
+      "matched_text": "randomly assigned",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "excerpt": "Dacomitinib is a second-generation, irreversible EGFR tyrosine kinase inhibitor. We compared its efficacy and safety with that of the reversible EGFR tyrosine kin…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "specific_dimensions": [],
+  "statements": [
+    {
+      "candidate_link_status": "candidate_valid",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "dacomitinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-11239",
+      "support_type": "direct_clinical_support"
+    },
+    {
+      "candidate_link_status": "candidate_valid",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "dacomitinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-7363",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "supersedes_packet": "BA-753a830808457cf2"
+}

@@ -1,0 +1,182 @@
+{
+  "audit_state": "split_proposed_by_structural_audit",
+  "audit_version": "cohort_split_audit/1.0",
+  "blind_annotation_id": "BA-385117aa472d7e0a",
+  "candidate_units": [],
+  "contains_clinical_gold": false,
+  "contains_expected_therapy": false,
+  "contains_final_decision": false,
+  "contains_other_reviewer_decision": false,
+  "contains_pipeline_metrics": false,
+  "contains_reviewed_packet_outcome": false,
+  "detected_signals": [
+    {
+      "category": "arm_structure",
+      "matched_text": "randomly assigned",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "category": "arm_structure",
+      "matched_text": "crossover",
+      "signal_id": "arm.crossover"
+    },
+    {
+      "category": "cohort_structure",
+      "matched_text": "treatment groups",
+      "signal_id": "group.plural"
+    },
+    {
+      "category": "cohort_structure",
+      "matched_text": "treatment groups",
+      "signal_id": "group.plural"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "category": "clinical",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "instructions": [
+    "Questa e' una **proposta strutturale automatica**, non una revisione.",
+    "I campi clinici delle unita' proposte sono deliberatamente vuoti: l'audit propone struttura, non contenuto.",
+    "Respingere la proposta e' un esito legittimo quanto accettarla."
+  ],
+  "non_propagation_warnings": [],
+  "not_separable_dimensions": [],
+  "packet_version": "first_review_split_audit/1.0",
+  "proposed_structure": {
+    "arms_detected": 2,
+    "comparators_detected": 13,
+    "documentary_units": 1,
+    "preclinical_models_detected": 0,
+    "rationale": "segnali espliciti di piu' bracci clinici",
+    "split_likelihood": "split_likely",
+    "structure_state": "multi_arm_clinical_split_required"
+  },
+  "reviewer_questions": [
+    "La fonte descrive davvero le unita' proposte, o la partizione e' un artefatto dei segnali lessicali?",
+    "Quali proposizioni appartengono a ciascuna unita'?",
+    "Quali dimensioni sono condivise fra le unita' e quali sono specifiche?",
+    "Esistono dimensioni che la fonte non permette di separare? Marcale `not_separable`, non `unknown`.",
+    "La proposta va accettata, modificata o respinta?"
+  ],
+  "shared_dimensions": [
+    "disease",
+    "biomarker_requirements"
+  ],
+  "source": {
+    "canonical_source_id": "PMID:27959700",
+    "document_hash": "104afb57a1752a3244447bf5d5d5a6f2d2f428650bb4cee2b0bc72a1044c3c0b",
+    "limitations": "",
+    "locator": "PMC6762027#full_text",
+    "pmids": [
+      "27959700"
+    ],
+    "text_consulted": "full_text"
+  },
+  "source_excerpts": [
+    {
+      "excerpt": "…. TRIAL DESIGN AND TREATMENT Patients were stratified according to Asian or non-Asian race and were randomly assigned in a 2:1 ratio to receive oral osimertinib (at a dose of 80 mg once daily) or intravenous pemetrexe…",
+      "matched_text": "randomly assigned",
+      "signal_id": "arm.randomised"
+    },
+    {
+      "excerpt": "…g 28 days after the discontinuation of the trial drug or the day before the first administration of crossover treatment. Some patients had more than one adverse event. † This category represents a grouped term…",
+      "matched_text": "crossover",
+      "signal_id": "arm.crossover"
+    },
+    {
+      "excerpt": "…ing to Asian or non-Asian race to compare the duration of progression-free survival between the two treatment groups. We used the Breslow approach for handling tied events and the Kaplan–Meier method to summarize the…",
+      "matched_text": "treatment groups",
+      "signal_id": "group.plural"
+    },
+    {
+      "excerpt": "…ypothesis of no significant difference in the duration of progression-free survival between the two treatment groups, assuming a treatment effect hazard ratio of 0.67 with a P value of 0.05 indicating two-sided stati…",
+      "matched_text": "treatment groups",
+      "signal_id": "group.plural"
+    },
+    {
+      "excerpt": "…ibitor (EGFR-TKI) that is selective for both EGFR-TKI sensitizing and T790M resistance mutations in patients with non–small-cell lung cancer. The efficacy of osimertinib as compared with platinum-based therap…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…cancer. The efficacy of osimertinib as compared with platinum-based therapy plus pemetrexed in such patients is unknown. METHODS In this randomized, international, open-label, phase 3 trial, we assigned 419 p…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…s is unknown. METHODS In this randomized, international, open-label, phase 3 trial, we assigned 419 patients with T790M-positive advanced non–small-cell lung cancer, who had disease progression after first-li…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    },
+    {
+      "excerpt": "…er square meter) every 3 weeks for up to six cycles; maintenance pemetrexed was allowed. In all the patients, disease had progressed during receipt of first-line EGFR-TKI therapy. The primary end point was in…",
+      "matched_text": "patients",
+      "signal_id": "clinical.patients"
+    }
+  ],
+  "specific_dimensions": [],
+  "statements": [
+    {
+      "candidate_link_status": "candidate_valid",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "osimertinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-11598",
+      "support_type": "direct_clinical_support"
+    },
+    {
+      "candidate_link_status": "candidate_valid",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "osimertinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-11599",
+      "support_type": "direct_clinical_support"
+    },
+    {
+      "candidate_link_status": "candidate_valid",
+      "clinical_or_preclinical": "clinical",
+      "intervention": "osimertinib",
+      "rationale": "segnali espliciti di piu' bracci, coorti, sottogruppi o analisi in una fonte con evidenza identificabile",
+      "statement_id": "ES-V2-evidence-1867",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "supersedes_packet": "BA-385117aa472d7e0a"
+}

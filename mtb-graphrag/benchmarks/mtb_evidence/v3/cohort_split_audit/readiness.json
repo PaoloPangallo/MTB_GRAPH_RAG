@@ -1,0 +1,45 @@
+{
+  "blockers": [],
+  "cohort_structure_audit_complete": true,
+  "created_at": "2026-07-22T20:46:31.699523+00:00",
+  "criteria": [
+    {
+      "criterion": "all_units_classified",
+      "satisfied": true
+    },
+    {
+      "criterion": "all_proposals_have_provenance",
+      "satisfied": true
+    },
+    {
+      "criterion": "no_proposal_is_propagatable",
+      "satisfied": true
+    },
+    {
+      "criterion": "updated_packets_ready",
+      "satisfied": true
+    },
+    {
+      "criterion": "second_review_packets_unchanged",
+      "satisfied": true
+    },
+    {
+      "criterion": "single_statement_risk_quantified",
+      "satisfied": true
+    },
+    {
+      "criterion": "no_undeclared_structural_errors",
+      "satisfied": true
+    }
+  ],
+  "final_evaluation_readiness": "not_ready",
+  "first_review_readiness": "ready",
+  "note": "La readiness per riprendere la coda non e' readiness per il retrieval qualificato ne' per la valutazione finale: dice soltanto che l'audit strutturale non lascia sorprese note a chi riprende le revisioni.",
+  "propagation_guards_ready": true,
+  "qualifier_extraction_readiness": "blocked_by_review",
+  "ready_to_resume_priority_queue": true,
+  "second_review_readiness": "blocked_by_first_review",
+  "single_statement_residual_risk": 0.4216,
+  "source_structure_readiness": "audited",
+  "split_proposals_awaiting_review": 6
+}

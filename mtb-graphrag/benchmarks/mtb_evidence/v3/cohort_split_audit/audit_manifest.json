@@ -1,0 +1,25 @@
+{
+  "audit_status": "complete",
+  "branch": "feat/v3-cohort-split-audit",
+  "detector_version": "source_level_split_detector/2.0",
+  "generated_at": "2026-07-22T20:46:31.699523+00:00",
+  "input_hashes": {
+    "profile_units": "b2df7331e11f31fbdddedece5b882bc7e545d6166485cc8777f34dee9ef74981",
+    "source_inventory": "3e4e385f61fa8455a4e913b01db41b056a00f9b55b4cc700b2266f5dc3db3001",
+    "statement_repository": "bc7dd6f2473b1ffa69706ef0ecca2d45a2ed6057a39ca3a20fbc4528bb18a28a"
+  },
+  "output_hashes": {
+    "audit_scope": "3dbf38590ea0bb2449adacee383fe10f9ba6152178bfc5417ddf5f6c7afb8cba",
+    "classification": "5e1e3347b6541988a04ccace47db51a024721429698ebf9a8452517f1218c2d8",
+    "proposed_units": "0c328f0b5a154fb944007ddf41aaf56d46a24b28fa088ceeb8763a7cf210e504",
+    "screen": "a7333ee5d2a66717015b94c1573040ae02deb9659787b8f7d28626d8dcd20c7a",
+    "statement_mappings": "044047cfe7356d85ab9c854455b3dbb42f05a2e2ae05fb99c88566da909b80dc"
+  },
+  "schema_versions": {
+    "cohort_split_audit": "cohort_split_audit/1.0",
+    "propagation_guards": "propagation_guards/1.0",
+    "source_clinical_profile_unit": "source_clinical_profile_unit/1.0"
+  },
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "source_sha": "e4890e2fdd9083eaca7e2323118b5b8a5bc1b785"
+}
