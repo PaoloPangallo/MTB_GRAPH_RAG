@@ -452,12 +452,23 @@ def screen_source(unit: Mapping[str, Any], record: Mapping[str, Any] | None) -> 
     else:
         priority = SCREEN_PRIORITY_LOW
 
+    # Su quale testo il verdetto e' stato formulato. Serve a non far passare un
+    # `split_not_indicated` ricavato dal solo abstract per un negativo forte:
+    # l'abstract di PMID 22277784 non mostrava nulla e la fonte conteneva
+    # quattro unita'.
+    text_basis = "abstract" if record and record.get("abstract_available") else "none"
+    negative_is_weak = (
+        assessment.likelihood == SPLIT_NOT_INDICATED and text_basis != "full_text"
+    )
+
     return {
         "profile_unit_id": unit.get("profile_unit_id", ""),
         "canonical_source_id": unit.get("canonical_source_id", ""),
         "statement_count": statement_count,
         "is_single_statement": statement_count <= 1,
         "split_likelihood": assessment.likelihood,
+        "text_basis": text_basis,
+        "negative_verdict_is_weak": negative_is_weak,
         "score": assessment.score,
         "signal_categories": list(assessment.categories),
         "signal_ids": sorted({signal.signal_id for signal in assessment.signals}),

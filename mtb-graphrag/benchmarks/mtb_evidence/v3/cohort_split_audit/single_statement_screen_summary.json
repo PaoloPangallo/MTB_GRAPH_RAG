@@ -1,0 +1,24 @@
+{
+  "already_audited": 10,
+  "by_split_likelihood": {
+    "insufficient_information": 6,
+    "split_likely": 19,
+    "split_not_indicated": 47,
+    "split_possible": 0,
+    "split_required": 30
+  },
+  "created_at": "2026-07-22T20:41:26.385710+00:00",
+  "detector_version": "source_level_split_detector/2.0",
+  "note": "screening leggero: nessuna unita' e' stata modificata e nessun profilo generato. I candidati sono fonti da esaminare, non fonti sbagliate.",
+  "residual_split_risk_rate": 0.4216,
+  "single_statement_sources": 73,
+  "single_statement_split_candidates": 32,
+  "sources_screened": 102,
+  "split_candidates": 43,
+  "verdict_text_basis": {
+    "abstract": 98,
+    "full_text": 0,
+    "none": 4
+  },
+  "weak_negative_verdicts": 47
+}
