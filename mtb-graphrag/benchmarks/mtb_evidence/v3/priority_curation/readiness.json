@@ -1,0 +1,189 @@
+{
+  "blockers": [
+    "la seconda revisione esiste su tutte le coppie",
+    "esiste gold valutabile per misurare il linker",
+    "l'accordo fra annotatori e' misurato",
+    "le dimensioni cliniche coprono un sottoinsieme utilizzabile come filtro"
+  ],
+  "created_at": "2026-07-22T19:38:09.060036+00:00",
+  "criteria_declared_before_metrics": true,
+  "dimension_readiness": {
+    "assertion_polarity": {
+      "coverage": "147/147",
+      "origin": "statement V2",
+      "reason": "la dimensione e' nativa nello statement e non dipende dal corpus",
+      "status": "ready"
+    },
+    "biomarker_requirements": {
+      "coverage": "6/102",
+      "origin": "profili umani preesistenti",
+      "reason": "presente solo sulle unita' gia' revisionate a mano; l'abstract non permette un'estrazione ancorata affidabile",
+      "status": "not_ready"
+    },
+    "comparator": {
+      "coverage": "0/102",
+      "origin": "nessuna",
+      "reason": "la presenza di un braccio di confronto e' rilevabile, il suo nome no: estrarlo con una regex sarebbe una fabbricazione",
+      "status": "not_ready"
+    },
+    "direction": {
+      "coverage": "147/147",
+      "origin": "statement V2",
+      "reason": "la dimensione e' nativa nello statement e non dipende dal corpus",
+      "status": "ready"
+    },
+    "disease": {
+      "coverage": "147/147",
+      "origin": "statement V2",
+      "reason": "la dimensione e' nativa nello statement e non dipende dal corpus",
+      "status": "ready"
+    },
+    "evidence_design": {
+      "coverage": "60/102",
+      "origin": "registro e abstract",
+      "reason": "asserito dal registro o da un'affermazione diretta nell'abstract. Utilizzabile per stratificare, non per escludere: nessun valore e' stato confermato da una persona",
+      "status": "partially_ready"
+    },
+    "exclusion_criteria": {
+      "coverage": "4/102",
+      "origin": "profili umani preesistenti",
+      "reason": "presente solo sulle unita' gia' revisionate a mano; l'abstract non permette un'estrazione ancorata affidabile",
+      "status": "not_ready"
+    },
+    "inclusion_criteria": {
+      "coverage": "6/102",
+      "origin": "profili umani preesistenti",
+      "reason": "presente solo sulle unita' gia' revisionate a mano; l'abstract non permette un'estrazione ancorata affidabile",
+      "status": "not_ready"
+    },
+    "intervention": {
+      "coverage": "147/147",
+      "origin": "statement V2",
+      "reason": "la dimensione e' nativa nello statement e non dipende dal corpus",
+      "status": "ready"
+    },
+    "population": {
+      "coverage": "6/102",
+      "origin": "profili umani preesistenti",
+      "reason": "presente solo sulle unita' gia' revisionate a mano; l'abstract non permette un'estrazione ancorata affidabile",
+      "status": "not_ready"
+    },
+    "prior_therapies": {
+      "coverage": "6/102",
+      "origin": "profili umani preesistenti",
+      "reason": "presente solo sulle unita' gia' revisionate a mano; l'abstract non permette un'estrazione ancorata affidabile",
+      "status": "not_ready"
+    },
+    "regimen": {
+      "coverage": "6/102",
+      "origin": "profili umani preesistenti",
+      "reason": "presente solo sulle unita' gia' revisionate a mano; l'abstract non permette un'estrazione ancorata affidabile",
+      "status": "not_ready"
+    },
+    "resection_status": {
+      "coverage": "0/102",
+      "origin": "nessuna",
+      "pending_review_questions": 1,
+      "reason": "1 rilevazioni attendono conferma sulla fonte: sono state soppresse perche' le corrispondenze lessicali possono descrivere i campioni invece dello studio",
+      "status": "blocked_by_review"
+    },
+    "setting": {
+      "coverage": "6/102",
+      "origin": "profili umani preesistenti",
+      "pending_review_questions": 11,
+      "reason": "11 rilevazioni attendono conferma sulla fonte: sono state soppresse perche' le corrispondenze lessicali possono descrivere i campioni invece dello studio",
+      "status": "blocked_by_review"
+    },
+    "stage": {
+      "coverage": "6/102",
+      "origin": "profili umani preesistenti",
+      "pending_review_questions": 1,
+      "reason": "1 rilevazioni attendono conferma sulla fonte: sono state soppresse perche' le corrispondenze lessicali possono descrivere i campioni invece dello studio",
+      "status": "blocked_by_review"
+    },
+    "therapy_line": {
+      "coverage": "6/102",
+      "origin": "profili umani preesistenti",
+      "pending_review_questions": 11,
+      "reason": "11 rilevazioni attendono conferma sulla fonte: sono state soppresse perche' le corrispondenze lessicali possono descrivere i campioni invece dello studio",
+      "status": "blocked_by_review"
+    }
+  },
+  "final_criteria": [
+    {
+      "criterion": "second_review_complete",
+      "description": "la seconda revisione esiste su tutte le coppie",
+      "satisfied": false
+    },
+    {
+      "criterion": "link_gold_evaluable",
+      "description": "esiste gold valutabile per misurare il linker",
+      "satisfied": false
+    },
+    {
+      "criterion": "agreement_measured",
+      "description": "l'accordo fra annotatori e' misurato",
+      "satisfied": false
+    },
+    {
+      "criterion": "clinical_coverage_sufficient",
+      "description": "le dimensioni cliniche coprono un sottoinsieme utilizzabile come filtro",
+      "satisfied": false
+    }
+  ],
+  "note": "La readiness per il prototipo e' distinta dalla readiness per la valutazione finale, e dal freeze del corpus. Un prototipo puo' essere costruito su dimensioni native e su un sottoinsieme dichiarato; pubblicare risultati no.",
+  "prototype_criteria": [
+    {
+      "criterion": "all_priority_units_have_explicit_cohort_state",
+      "description": "ogni unita' prioritaria ha uno stato di coorte esplicito",
+      "satisfied": true
+    },
+    {
+      "criterion": "no_ambiguous_qualifier_propagated",
+      "description": "nessun qualificatore ambiguo viene propagato",
+      "satisfied": true
+    },
+    {
+      "criterion": "no_conflict_overwritten",
+      "description": "nessun conflitto viene sovrascritto",
+      "satisfied": true
+    },
+    {
+      "criterion": "provenance_completeness_is_one",
+      "description": "provenance completeness = 1.000",
+      "satisfied": true
+    },
+    {
+      "criterion": "all_multi_statement_sources_examined",
+      "description": "ogni fonte multi-statement e' source_checked o dichiarata non disponibile",
+      "satisfied": true
+    },
+    {
+      "criterion": "clinical_dimensions_on_a_declared_subset",
+      "description": "setting, linea e popolazione disponibili su un sottoinsieme dichiarato",
+      "satisfied": true
+    },
+    {
+      "criterion": "noisy_sources_retained",
+      "description": "le fonti rumorose restano nel corpus",
+      "satisfied": true
+    },
+    {
+      "criterion": "corpus_not_selected_from_clinical_gold",
+      "description": "il corpus non e' selezionato dal clinical gold",
+      "satisfied": true
+    },
+    {
+      "criterion": "missing_second_review_declared",
+      "description": "la seconda revisione mancante e' dichiarata",
+      "satisfied": true
+    },
+    {
+      "criterion": "readiness_distinct_from_freeze",
+      "description": "la readiness e' distinta dal freeze del corpus",
+      "satisfied": true
+    }
+  ],
+  "ready_for_final_evaluation": false,
+  "ready_for_prototype_retrieval": true
+}
