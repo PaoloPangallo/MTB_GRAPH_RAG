@@ -357,7 +357,11 @@ def structure_flags(assessment: SplitAssessment, unit: Mapping[str, Any]) -> dic
 
 
 def classify_structure(
-    assessment: SplitAssessment, unit: Mapping[str, Any], flags: Mapping[str, bool]
+    assessment: SplitAssessment,
+    unit: Mapping[str, Any],
+    flags: Mapping[str, bool],
+    *,
+    full_text_consulted: bool = False,
 ) -> tuple[str, str]:
     """Stato strutturale principale, uno solo, con la sua motivazione.
 
@@ -402,9 +406,22 @@ def classify_structure(
             PARTIALLY_SEPARABLE,
             "segnali di molteplicita' presenti ma non sufficienti a delimitare le unita'",
         )
+
+    # Concludere «unita' singola» dal solo abstract e' l'errore che questa fase
+    # esiste per non ripetere. L'abstract di PMID 22277784 non conteneva alcun
+    # segnale strutturale, e il full text descriveva una coorte clinica e tre
+    # pannelli su cellule. Un'assenza di segnali in un testo parziale e' assenza
+    # di informazione, non informazione di assenza.
+    if not full_text_consulted:
+        return (
+            INSUFFICIENT_SOURCE_INFORMATION,
+            "nessun segnale di molteplicita' nel solo abstract. Non basta a concludere "
+            "che la fonte descriva una unita' sola: sul caso gia' revisionato l'abstract "
+            "taceva e il full text mostrava quattro unita'",
+        )
     return (
         SINGLE_PROPAGATABLE,
-        "nessun segnale di molteplicita' nel testo consultato",
+        "full text consultato e nessun segnale di molteplicita'",
     )
 
 
