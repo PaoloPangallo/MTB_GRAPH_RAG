@@ -1,0 +1,131 @@
+{
+  "allowed_unknown": true,
+  "blind_annotation_id": "BA-bf212cb3ad77269d",
+  "candidate_statements": [
+    {
+      "assertion_polarity": "does_not_support",
+      "biomarker": "FGFR1 Amplification",
+      "direction": "sensitivity",
+      "disease": "Breast Cancer",
+      "intervention": "pemigatinib",
+      "statement_id": "ES-V2-evidence-12542"
+    }
+  ],
+  "contains_clinical_gold": false,
+  "contains_expected_therapies": false,
+  "contains_keep_amend_reject": false,
+  "contains_system_metrics": false,
+  "detected_issues": [
+    "nessuna lettura umana della fonte primaria"
+  ],
+  "fields_to_fill": [
+    {
+      "field": "disease",
+      "guidance": "Malattia studiata, con la denominazione usata dalla fonte.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "biomarker_requirements",
+      "guidance": "Alterazioni richieste per l'arruolamento.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "intervention",
+      "guidance": "Farmaci o interventi somministrati in questo braccio.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "regimen",
+      "guidance": "Regime completo, incluse le combinazioni.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "comparator",
+      "guidance": "Braccio di confronto, se esiste.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "population",
+      "guidance": "Popolazione arruolata.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "stage",
+      "guidance": "Stadio di malattia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "setting",
+      "guidance": "Setting: adiuvante, neoadiuvante, metastatico, altro.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "therapy_line",
+      "guidance": "Linea di terapia.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "prior_therapies",
+      "guidance": "Terapie precedenti richieste o ammesse.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "resection_status",
+      "guidance": "Stato di resezione, se la fonte lo specifica.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "inclusion_criteria",
+      "guidance": "Criteri di inclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "exclusion_criteria",
+      "guidance": "Criteri di esclusione, in sintesi.",
+      "source_locator": "",
+      "value": "unknown"
+    },
+    {
+      "field": "evidence_design",
+      "guidance": "Disegno dello studio.",
+      "source_locator": "",
+      "value": "unknown"
+    }
+  ],
+  "instructions": [
+    "1. Leggi la fonte primaria. Non compilare nulla da memoria.",
+    "2. Compila un campo solo se la fonte lo afferma. Se non lo afferma, lascia `unknown`: un campo mancante blocca un filtro, un campo sbagliato produce una raccomandazione applicata al paziente sbagliato.",
+    "3. Per ogni campo compilato indica il locator dello span (sezione, tabella, paragrafo). Un valore senza locator non e' verificabile.",
+    "4. Se la fonte descrive piu' coorti, compila una unita' per coorte. Se le coorti non sono separabili con i dati disponibili, non sceglierne una: marca `cohort_not_separable` e spiega il problema.",
+    "5. Non dedurre da titolo o abstract cio' che il testo non afferma."
+  ],
+  "profile_unit_id": "PU-PMID-38710951-cohort-1",
+  "source": {
+    "dois": [],
+    "journal": "Nature medicine",
+    "locator": "https://pubmed.ncbi.nlm.nih.gov/38710951/",
+    "ncts": [],
+    "pmids": [
+      "38710951"
+    ],
+    "publication_types": [
+      "Clinical Trial, Phase II",
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "publication_year": "2024",
+    "title": "Pemigatinib in previously treated solid tumors with activating FGFR1-FGFR3 alterations: phase 2 FIGHT-207 basket trial."
+  }
+}

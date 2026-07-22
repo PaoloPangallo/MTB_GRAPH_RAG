@@ -1,0 +1,34 @@
+{
+  "blockers": [
+    "seconda revisione mancante su 161 coppie su 161 richieste"
+  ],
+  "corpus_version": "qualification_corpus/1.0",
+  "created_at": "2026-07-22T18:47:34.974879+00:00",
+  "evaluated_link_count": 0,
+  "freeze_status": "awaiting_second_review",
+  "frozen_count": 0,
+  "link_gold_hash": "0d007104168cb28b034dea41abfef4a7ddb5897ae440c4232e4fb156f650453d",
+  "linker_version": "qualification_link/1.0",
+  "machine_extracted_count": 96,
+  "manifest_version": "qualification_corpus_manifest/1.0",
+  "not_evaluated_link_count": 161,
+  "profile_unit_count": 102,
+  "profile_units_hash": "df5f3313f1f4542ff55f6c210ab87608d329f0bb5c16f1cf1ef4323eb24607d0",
+  "provisional_count": 161,
+  "qualification_scope_hash": "782e5230628999cb1ef8cb514a7a0c24cbd286a69af7337d8d6bab78f7e2650d",
+  "reviewed_count": 6,
+  "schema_versions": {
+    "evidence_statement": "v3.0.0",
+    "qualification_scope": "qualification_scope/1.0",
+    "source_clinical_profile_unit": "source_clinical_profile_unit/1.0",
+    "source_identity": "source_identity/1.0",
+    "statement_qualification_gold": "statement_qualification_gold/1.0"
+  },
+  "scoped_source_count": 102,
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "source_count": 102,
+  "source_inventory_hash": "3e4e385f61fa8455a4e913b01db41b056a00f9b55b4cc700b2266f5dc3db3001",
+  "source_profiles_hash": "32ec9cef3145a7864fcef34db6a62d92550b0015c69fb52def5d6ffe2d628731",
+  "statement_repository_hash": "bc7dd6f2473b1ffa69706ef0ecca2d45a2ed6057a39ca3a20fbc4528bb18a28a",
+  "unresolved_count": 0
+}

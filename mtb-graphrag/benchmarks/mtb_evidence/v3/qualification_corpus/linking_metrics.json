@@ -1,0 +1,23 @@
+{
+  "agreement_pair_count": 0,
+  "ambiguity_detection_accuracy": "not_evaluable",
+  "candidate_count": 161,
+  "conflict_detection_accuracy": "not_evaluable",
+  "dimension_level_precision": "not_evaluable",
+  "dimension_level_recall": "not_evaluable",
+  "evaluated_count": 0,
+  "evaluation_version": "linking_evaluation/1.0",
+  "exact_match_precision": "not_evaluable",
+  "frozen_count": 0,
+  "gold_record_count": 161,
+  "inter_annotator_agreement": "not_evaluable",
+  "invalid_link_rejection_accuracy": "not_evaluable",
+  "linker_version": "qualification_link/1.0",
+  "linking_f1": "not_evaluable",
+  "linking_precision": "not_evaluable",
+  "linking_recall": "not_evaluable",
+  "not_evaluated_count": 161,
+  "note": "nessun record di gold valutabile: nessuna metrica di linking e' calcolabile. Il gold richiede due annotazioni indipendenti, che questa fase non ha prodotto.",
+  "partial_link_accuracy": "not_evaluable",
+  "provisional_count": 161
+}
