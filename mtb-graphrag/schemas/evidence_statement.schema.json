@@ -33,6 +33,12 @@
       "default": "unknown",
       "description": "Tipo di affermazione, ortogonale a direction."
     },
+    "assertion_polarity": {
+      "type": "string",
+      "enum": ["supports", "does_not_support", "unknown"],
+      "default": "unknown",
+      "description": "Se la fonte sostiene o smentisce la proposizione. Terzo asse, distinto da direction e da evidence_scope. Aggiunto dopo che l'adapter V2 ha incontrato quattro record CIViC con evidence_direction 'Does Not Support' e significance 'Sensitivity/Response': senza questo campo l'unico modo di rappresentarli sarebbe stato mappare la negazione su 'lack_of_benefit', che e' un'affermazione diversa e piu' forte di 'questo studio non sostiene l'associazione'."
+    },
 
     "clinical_context": {"$ref": "#/$defs/ClinicalContext"},
     "evidence_type": {
