@@ -1,0 +1,96 @@
+{
+  "ambiguous_links": 0,
+  "conflicting_links": 2,
+  "coverage": {
+    "after_qualified_view": {
+      "biomarker_requirements": 8,
+      "disease_setting": 8,
+      "exclusion_criteria_summary": 4,
+      "inclusion_criteria_summary": 8,
+      "population": 8,
+      "prior_therapies": 8,
+      "regimen": 8,
+      "resection_status": 0,
+      "stage": 8,
+      "therapy_line": 8
+    },
+    "before_frozen_kg": {
+      "biomarker_requirements": 0,
+      "disease_setting": 0,
+      "exclusion_criteria_summary": 0,
+      "inclusion_criteria_summary": 0,
+      "population": 0,
+      "prior_therapies": 0,
+      "regimen": 0,
+      "resection_status": 0,
+      "stage": 0,
+      "therapy_line": 0
+    },
+    "coverage_after": {
+      "biomarker_requirements": 0.0544,
+      "disease_setting": 0.0544,
+      "exclusion_criteria_summary": 0.0272,
+      "inclusion_criteria_summary": 0.0544,
+      "population": 0.0544,
+      "prior_therapies": 0.0544,
+      "regimen": 0.0544,
+      "resection_status": 0.0,
+      "stage": 0.0544,
+      "therapy_line": 0.0544
+    },
+    "coverage_before": {
+      "biomarker_requirements": 0.0,
+      "disease_setting": 0.0,
+      "exclusion_criteria_summary": 0.0,
+      "inclusion_criteria_summary": 0.0,
+      "population": 0.0,
+      "prior_therapies": 0.0,
+      "regimen": 0.0,
+      "resection_status": 0.0,
+      "stage": 0.0,
+      "therapy_line": 0.0
+    },
+    "still_unknown": {
+      "biomarker_requirements": 139,
+      "disease_setting": 139,
+      "exclusion_criteria_summary": 143,
+      "inclusion_criteria_summary": 139,
+      "population": 139,
+      "prior_therapies": 139,
+      "regimen": 139,
+      "resection_status": 147,
+      "stage": 139,
+      "therapy_line": 139
+    },
+    "total_statements": 147
+  },
+  "exact_doi_links": 0,
+  "exact_nct_links": 0,
+  "exact_pmid_links": 10,
+  "exact_source_match": 8,
+  "generated_at_utc": "2026-07-22T15:22:57.151892+00:00",
+  "linking_evaluation_note": "Non esiste un gold di collegamento indipendente: precision e recall non sono calcolabili senza inventare un denominatore.",
+  "linking_precision": "not_evaluated",
+  "linking_recall": "not_evaluated",
+  "links_total": 10,
+  "multi_source_links": 0,
+  "no_promotion": true,
+  "profiles_loaded": 8,
+  "profiles_unchanged": true,
+  "qualifier_addition_coverage": 0.0463,
+  "qualifier_provenance_completeness": 1.0,
+  "statements_total": 147,
+  "statements_unchanged": true,
+  "statements_with_at_least_one_profile": 9,
+  "statements_with_source_match": 9,
+  "unmatched_profiles": [
+    "S-C1-1",
+    "S-K1-3"
+  ],
+  "unmatched_statements": 138,
+  "view_status_counts": {
+    "conflicting": 2,
+    "partially_qualified": 7,
+    "unqualified": 138
+  }
+}
