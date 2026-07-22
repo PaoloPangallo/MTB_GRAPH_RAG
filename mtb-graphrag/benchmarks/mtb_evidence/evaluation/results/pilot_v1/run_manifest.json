@@ -1,0 +1,92 @@
+{
+  "architectures": [
+    "deterministic",
+    "agentic"
+  ],
+  "case_mapping": {
+    "mappings": {
+      "PILOT-A2-ALK-G1202R": {
+        "alteration_type": "point_mutation",
+        "case_id": "PILOT-A2-ALK-G1202R",
+        "disease_setting": "metastatic",
+        "disease_stage": "advanced",
+        "gene": "ALK",
+        "prior_therapies": [
+          "second-generation ALK inhibitor"
+        ],
+        "rationale": "G1202R e' una mutazione puntiforme singola: il gold lo dice esplicitamente e include una claim di guardrail sulle composte. La progressione dopo un ALK-TKI di seconda generazione colloca il caso oltre la seconda linea.",
+        "therapy_line": "later-line",
+        "tumor_type": "Non-Small Cell Lung Cancer",
+        "variant": "G1202R"
+      },
+      "PILOT-C1-EGFR-L858R-CONTEXT": {
+        "alteration_type": "point_mutation",
+        "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+        "disease_setting": "metastatic",
+        "disease_stage": "advanced",
+        "gene": "EGFR",
+        "prior_therapies": [],
+        "rationale": "Prima linea, treatment-naive, non resecato: prior_therapies resta vuoto e disease_setting e' metastatic, non resected. E' la distinzione su cui il caso si gioca, perche' separa FLAURA da ADAURA.",
+        "therapy_line": "first-line",
+        "tumor_type": "Non-Small Cell Lung Cancer",
+        "variant": "L858R"
+      },
+      "PILOT-K1-FGFR2-iCCA": {
+        "alteration_type": "fusion",
+        "case_id": "PILOT-K1-FGFR2-iCCA",
+        "disease_setting": "metastatic",
+        "disease_stage": "advanced",
+        "gene": "FGFR2",
+        "prior_therapies": [
+          "systemic chemotherapy"
+        ],
+        "rationale": "Il gold specifica fusione/riarrangiamento, quindi alteration_type=fusion: il percorso per point_mutation cercherebbe una variante puntiforme che il caso non ha. `previously treated` con progressione dopo almeno una linea sistemica diventa second-line.",
+        "therapy_line": "second-line",
+        "tumor_type": "Intrahepatic Cholangiocarcinoma",
+        "variant": "Fusion"
+      },
+      "PILOT-N1-RMI2-SNAPSHOT": {
+        "alteration_type": "point_mutation",
+        "case_id": "PILOT-N1-RMI2-SNAPSHOT",
+        "disease_setting": null,
+        "disease_stage": null,
+        "gene": "RMI2",
+        "prior_therapies": [],
+        "rationale": "Il gold lascia variante e malattia vuote: la domanda e' gene->farmaco sullo snapshot. Si usano i valori piu' generici possibili, perche' restringere renderebbe l'assenza di risultati meno informativa: un traversal vuoto su una richiesta generica e' una prova negativa piu' forte.",
+        "therapy_line": "first-line",
+        "tumor_type": "Solid Tumor",
+        "variant": "Mutation"
+      }
+    },
+    "note": "Tradurre il caso clinico in campi tipizzati e' un atto interpretativo. La tabella e' dichiarata come dato perche' sia contestabile senza leggere il codice."
+  },
+  "cases": [
+    "PILOT-K1-FGFR2-iCCA",
+    "PILOT-A2-ALK-G1202R",
+    "PILOT-C1-EGFR-L858R-CONTEXT",
+    "PILOT-N1-RMI2-SNAPSHOT"
+  ],
+  "execution_mode": "live",
+  "generated_at_utc": "2026-07-22T14:07:33.974687+00:00",
+  "pipeline_entrypoint": "backend.comparison.live_runs.build_run -> run_verified_pipeline; nessun runner parallelo",
+  "runs_executed": 24,
+  "runs_failed": 0,
+  "runs_skipped_by_resume": 0,
+  "seeds": [
+    20240517,
+    13,
+    991
+  ],
+  "selected_models": {
+    "planner": "gpt-oss:120b-cloud",
+    "report": "gpt-oss:120b-cloud",
+    "revisions": {
+      "gemma4:31b-cloud": "ollama:gemma4:31b:221b330d11a8",
+      "gpt-oss:120b-cloud": "ollama:gpt-oss:120b:d98fe6ba01e6",
+      "gpt-oss:20b-cloud": "ollama:gpt-oss:20b:05afbac4bad6",
+      "nemotron-3-ultra-cloud": "ollama:nemotron-3-ultra:4eecabff7a75"
+    },
+    "verifier": "gpt-oss:20b-cloud"
+  },
+  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+}

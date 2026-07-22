@@ -1,0 +1,55 @@
+case_id,claim_id,state,stage,explanation
+PILOT-K1-FGFR2-iCCA,K1-C1,partially_modelled_in_kg,knowledge_graph,"il grafo contiene qualcosa di correlato ma con un conflitto che ne impedisce l'equiparazione, per esempio la specificita' della malattia"
+PILOT-K1-FGFR2-iCCA,K1-C2,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-K1-FGFR2-iCCA,K1-C1,partially_modelled_in_kg,knowledge_graph,"il grafo contiene qualcosa di correlato ma con un conflitto che ne impedisce l'equiparazione, per esempio la specificita' della malattia"
+PILOT-K1-FGFR2-iCCA,K1-C2,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-K1-FGFR2-iCCA,K1-C1,partially_modelled_in_kg,knowledge_graph,"il grafo contiene qualcosa di correlato ma con un conflitto che ne impedisce l'equiparazione, per esempio la specificita' della malattia"
+PILOT-K1-FGFR2-iCCA,K1-C2,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-K1-FGFR2-iCCA,K1-C1,partially_modelled_in_kg,knowledge_graph,"il grafo contiene qualcosa di correlato ma con un conflitto che ne impedisce l'equiparazione, per esempio la specificita' della malattia"
+PILOT-K1-FGFR2-iCCA,K1-C2,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-K1-FGFR2-iCCA,K1-C1,partially_modelled_in_kg,knowledge_graph,"il grafo contiene qualcosa di correlato ma con un conflitto che ne impedisce l'equiparazione, per esempio la specificita' della malattia"
+PILOT-K1-FGFR2-iCCA,K1-C2,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-K1-FGFR2-iCCA,K1-C1,partially_modelled_in_kg,knowledge_graph,"il grafo contiene qualcosa di correlato ma con un conflitto che ne impedisce l'equiparazione, per esempio la specificita' della malattia"
+PILOT-K1-FGFR2-iCCA,K1-C2,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C2,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-A2-ALK-G1202R,A2-C3,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C2,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-A2-ALK-G1202R,A2-C3,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C2,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-A2-ALK-G1202R,A2-C3,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C2,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-A2-ALK-G1202R,A2-C3,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C2,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-A2-ALK-G1202R,A2-C3,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-A2-ALK-G1202R,A2-C2,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-A2-ALK-G1202R,A2-C3,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C2,applicability_error,qualification,la claim e' corretta ma l'applicabilita' al caso e' sbagliata
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C3,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C2,applicability_error,qualification,la claim e' corretta ma l'applicabilita' al caso e' sbagliata
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C3,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C2,applicability_error,qualification,la claim e' corretta ma l'applicabilita' al caso e' sbagliata
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C3,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C2,applicability_error,qualification,la claim e' corretta ma l'applicabilita' al caso e' sbagliata
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C3,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C2,applicability_error,qualification,la claim e' corretta ma l'applicabilita' al caso e' sbagliata
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C3,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C1,missing_from_kg,knowledge_graph,nessun record dello snapshot corrisponde a questa claim clinica
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C2,applicability_error,qualification,la claim e' corretta ma l'applicabilita' al caso e' sbagliata
+PILOT-C1-EGFR-L858R-CONTEXT,C1-C3,misrepresented_in_report,report,la claim e' riportata ma diverge dalla fonte
+PILOT-N1-RMI2-SNAPSHOT,N1-C0,correctly_abstained,none,il gold richiede astensione e il sistema si e' astenuto
+PILOT-N1-RMI2-SNAPSHOT,N1-C0,correctly_abstained,none,il gold richiede astensione e il sistema si e' astenuto
+PILOT-N1-RMI2-SNAPSHOT,N1-C0,correctly_abstained,none,il gold richiede astensione e il sistema si e' astenuto
+PILOT-N1-RMI2-SNAPSHOT,N1-C0,correctly_abstained,none,il gold richiede astensione e il sistema si e' astenuto
+PILOT-N1-RMI2-SNAPSHOT,N1-C0,correctly_abstained,none,il gold richiede astensione e il sistema si e' astenuto
+PILOT-N1-RMI2-SNAPSHOT,N1-C0,correctly_abstained,none,il gold richiede astensione e il sistema si e' astenuto
