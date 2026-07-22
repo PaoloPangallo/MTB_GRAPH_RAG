@@ -1,0 +1,48 @@
+{
+  "agreement_note": "Nessuna seconda revisione esiste. Un accordo calcolato adesso descriverebbe una copia, non due giudizi.",
+  "ambiguous_qualification_rate": 0.2157,
+  "candidate_states": {
+    "candidate_ambiguous": 12,
+    "candidate_conflicting": 7,
+    "candidate_not_determinable": 40,
+    "candidate_partial": 1,
+    "candidate_valid": 34
+  },
+  "cohort_resolution": {
+    "cohort_partially_resolved": 9,
+    "cohort_resolved": 10,
+    "insufficient_source_information": 15,
+    "source_unavailable": 1
+  },
+  "conflicting_qualification_rate": 0.0745,
+  "created_at": "2026-07-22T20:00:00+00:00",
+  "evaluable_gold_records": 0,
+  "hashes": {
+    "curated_units": "786a5bbfb61d02cca89f07dcea9f6a978598369203b04804322c36a24a4ce14e",
+    "predictions": "e73a99648bd1a69e746e84e947ea277d454c801686d40a978c5a78f135f6fbe7",
+    "provisional_gold": "79bbc8bc8a5605250656ad1a501956e17c369e70b951423445293ba7a7f63e8f"
+  },
+  "inter_annotator_agreement": "not_evaluated",
+  "linking_precision": "not_evaluated",
+  "linking_predictions": 94,
+  "linking_recall": "not_evaluated",
+  "new_units_created": 0,
+  "not_separable_rate": 0.0,
+  "predictions_with_suppressed_dimensions": 6,
+  "priority_units": 35,
+  "provisional_gold_records": 94,
+  "qualifier_provenance_completeness": 1.0,
+  "source_unavailable_rate": 0.0286,
+  "sources_accessible": 34,
+  "sources_not_accessible": 1,
+  "statement_total": 147,
+  "statements_with_propagatable_qualifier": 62,
+  "support_types": {
+    "direct_support": 46,
+    "indirect_support": 1,
+    "unsupported_by_primary_source": 47
+  },
+  "units_awaiting_review": 31,
+  "units_human_reviewed": 4,
+  "units_source_checked": 34
+}
