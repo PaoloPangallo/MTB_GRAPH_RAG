@@ -91,6 +91,15 @@ _DIMENSION_ATTRIBUTE = {
 BLOCKING_DIMENSIONS = ("disease", "intervention")
 
 
+from .propagation_policy import (  # noqa: E402
+    FINAL,
+    NONE,
+    PROTOTYPE_ONLY,
+    PrototypeHardFilterError,
+    eligibility_for,
+)
+
+
 class QualificationLinkError(RuntimeError):
     """Il collegamento fra statement e profilo non e' costruibile."""
 
@@ -106,6 +115,14 @@ class DimensionValue:
     source_identifier: str
     qualification_link_id: str
     review_status: str
+    # Che cosa si puo' fare con questo valore. Viaggia con il valore e non a
+    # parte, perche' un qualificatore separato dal suo livello di autorizzazione
+    # e' un qualificatore che qualcuno usera' per filtrare.
+    propagation_eligibility: str = PROTOTYPE_ONLY
+
+    @property
+    def may_hard_filter(self) -> bool:
+        return self.propagation_eligibility == FINAL
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -116,6 +133,8 @@ class DimensionValue:
             "source_identifier": self.source_identifier,
             "qualification_link_id": self.qualification_link_id,
             "review_status": self.review_status,
+            "propagation_eligibility": self.propagation_eligibility,
+            "may_hard_filter": self.may_hard_filter,
         }
 
 
@@ -305,6 +324,19 @@ def build_link(
     else:
         status = EXACT_SOURCE_MATCH
 
+    # La politica di propagazione decide se il profilo puo' contribuire, e a
+    # quale titolo. Un profilo mai revisionato non contribuisce affatto: i suoi
+    # valori esistono ma non sono qualificatori di nessuno.
+    decision = eligibility_for(
+        {
+            "profile_unit_id": profile_id,
+            "review_status": str(getattr(profile, "review_status", "") or ""),
+            "cohort_state": str(getattr(profile, "cohort_state", "single_cohort") or "single_cohort"),
+            "independent_review": bool(getattr(profile, "independent_review", False)),
+            "agreement_state": str(getattr(profile, "agreement_state", "") or ""),
+        }
+    )
+
     applicable: list[str] = []
     excluded: list[str] = []
     added: list[DimensionValue] = []
@@ -319,6 +351,10 @@ def build_link(
             # Match ambiguo o conflittuale: la dimensione esiste ma non viene applicata.
             excluded.append(dimension)
             continue
+        if decision.eligibility == NONE:
+            # Nessuna revisione ha confermato il valore: non e' un qualificatore.
+            excluded.append(dimension)
+            continue
         applicable.append(dimension)
         added.append(
             DimensionValue(
@@ -329,6 +365,7 @@ def build_link(
                 source_identifier=shared[0] if shared else "",
                 qualification_link_id=link_id,
                 review_status=str(getattr(profile, "review_status", "unknown")),
+                propagation_eligibility=decision.eligibility,
             )
         )
 
@@ -354,6 +391,8 @@ def build_link(
                 "snapshot_fingerprint"
             ),
             "match_basis": "source identifier only; nessun matching sul titolo",
+            "propagation_eligibility": decision.eligibility,
+            "propagation_reason": decision.reason,
         },
         review_status="machine_linked",
         created_at=timestamp,
@@ -405,6 +444,53 @@ class QualifiedEvidenceView:
     def statement_id(self) -> str:
         return str(self.base_statement.get("evidence_statement_id") or "")
 
+    @property
+    def hard_filterable_dimensions(self) -> tuple[str, ...]:
+        """Le dimensioni con cui e' lecito escludere una evidenza.
+
+        Oggi, sul corpus corrente, e' vuota — e non e' un difetto della vista: e'
+        lo stato reale della revisione, dove nessun qualificatore ha ancora una
+        seconda conferma indipendente.
+        """
+        return tuple(
+            sorted(
+                name
+                for name, value in self.qualified_dimensions.items()
+                if value.may_hard_filter
+            )
+        )
+
+    @property
+    def prototype_only_dimensions(self) -> tuple[str, ...]:
+        """Mostrabili e ispezionabili, mai usabili per filtrare."""
+        return tuple(
+            sorted(
+                name
+                for name, value in self.qualified_dimensions.items()
+                if not value.may_hard_filter
+            )
+        )
+
+    def assert_hard_filterable(self, dimension: str) -> None:
+        """Solleva se qualcuno prova a filtrare con un qualificatore prototipo.
+
+        Esiste perche' il rifiuto sia esplicito nel punto d'uso. Un chiamante che
+        legga `qualified_dimensions` e filtri senza chiedere non trova ostacoli,
+        e questa e' la chiamata che glielo mette davanti.
+        """
+        value = self.qualified_dimensions.get(dimension)
+        if value is None:
+            raise PrototypeHardFilterError(
+                f"{dimension} non e' qualificata su {self.statement_id}: non ci si puo' filtrare"
+            )
+        if not value.may_hard_filter:
+            raise PrototypeHardFilterError(
+                f"{dimension} su {self.statement_id} ha eligibility "
+                f"{value.propagation_eligibility}: puo' essere mostrata e ispezionata, "
+                "non puo' escludere evidenza. Un filtro sbagliato rimuove cio' che "
+                "nessuno potra' piu' vedere"
+            )
+
     def as_dict(self) -> dict[str, Any]:
         return {
             "statement_id": self.statement_id,
@@ -417,6 +503,8 @@ class QualifiedEvidenceView:
             "unresolved_dimensions": list(self.unresolved_dimensions),
             "conflicts": [dict(c) for c in self.conflicts],
             "qualification_status": self.qualification_status,
+            "hard_filterable_dimensions": list(self.hard_filterable_dimensions),
+            "prototype_only_dimensions": list(self.prototype_only_dimensions),
             "provenance_by_dimension": {
                 name: {
                     "value_origin": value.value_origin,
