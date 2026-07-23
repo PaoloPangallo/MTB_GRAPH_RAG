@@ -79,6 +79,10 @@ class ProposedUnit:
     statement_candidates: tuple[str, ...] = ()
     disease: str = UNKNOWN
     biomarker_requirements: tuple[str, ...] = ()
+    # `enrolment_criterion` o `observed_finding`. La differenza decide chi
+    # verrebbe selezionato, e va dichiarata invece che dedotta: una guardia la
+    # richiede ogni volta che `biomarker_requirements` e' popolato.
+    biomarker_role: str = UNKNOWN
     intervention: tuple[str, ...] = ()
     comparator: str = UNKNOWN
     population: str = UNKNOWN
@@ -247,6 +251,7 @@ _A_UNITS = (
         ),
         disease="Lung Non-small Cell Carcinoma",
         biomarker_requirements=("ALK gene rearrangement",),
+        biomarker_role="enrolment_criterion",
         intervention=("crizotinib",),
         population="pazienti ALK+ NSCLC con progressione radiologica in corso di crizotinib",
         evidence_design="serie osservazionale di ri-biopsie entro uno studio di fase I",
@@ -553,6 +558,7 @@ _B_UNITS = (
         statement_candidates=("ES-V2-evidence-765", "ES-V2-evidence-767"),
         disease="Lung Non-small Cell Carcinoma",
         biomarker_requirements=("ALK gene rearrangement",),
+        biomarker_role="enrolment_criterion",
         intervention=("crizotinib",),
         population="pazienti ALK+ NSCLC con resistenza acquisita al crizotinib",
         evidence_design="serie osservazionale su campioni tumorali",
@@ -796,6 +802,7 @@ _C_UNITS = (
         statement_candidates=("ES-V2-evidence-100003", "ES-V2-evidence-100004"),
         disease="Non-Small Cell Lung Cancer",
         biomarker_requirements=("ALK rearrangement",),
+        biomarker_role="enrolment_criterion",
         intervention=("ceritinib", "alectinib", "brigatinib", "lorlatinib"),
         population="pazienti con NSCLC ALK+ avanzato trattati con TKI di seconda e terza generazione",
         evidence_design="genotipizzazione su plasma con NGS, confronto con biopsia tissutale",

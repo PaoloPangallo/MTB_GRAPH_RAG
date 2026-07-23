@@ -14,6 +14,7 @@ from pathlib import Path
 from backend.pipeline.evidence.corpus_manifest import content_hash
 from backend.pipeline.evidence.propagation_guards import (
     ALL_RULE_IDS,
+    GUARD_V1_RULE_IDS,
     AbsenceInferenceError,
     ClinicalToPreclinicalError,
     CrossArmError,
@@ -446,10 +447,20 @@ class TestPropagationGuards(unittest.TestCase):
         self.assertEqual(rows, [])
 
     def test_all_declared_rules_exist(self) -> None:
+        """Ogni regola citata dall'audit esiste ancora.
+
+        L'artefatto elenca le dodici regole che esistevano quando e' stato
+        generato. Confrontarlo con l'insieme corrente lo farebbe fallire ogni
+        volta che una regola viene aggiunta, che non e' cio' che il controllo
+        vuole dire: vuole dire che il summary non e' obsoleto, cioe' che nessuna
+        regola che cita e' sparita.
+        """
         summary = json.loads(
             (AUDIT / "propagation_guard_summary.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(sorted(summary["rules_available"]), sorted(ALL_RULE_IDS))
+        declared = sorted(summary["rules_available"])
+        self.assertEqual(declared, sorted(GUARD_V1_RULE_IDS))
+        self.assertTrue(set(declared) <= set(ALL_RULE_IDS))
 
 
 # ── rilevatore ────────────────────────────────────────────────────────────────

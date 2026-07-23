@@ -22,7 +22,9 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Callable, Mapping, Sequence
 
-GUARD_VERSION = "propagation_guards/1.0"
+from .profile_unit import CLINICAL_UNIT_TYPES, PRECLINICAL_UNIT_TYPES
+
+GUARD_VERSION = "propagation_guards/1.1"
 
 # --- errori tipizzati ---------------------------------------------------------
 
@@ -75,6 +77,18 @@ class ProvenanceError(PropagationError):
     rule_id = "provenance"
 
 
+class CrossModelError(PropagationError):
+    """Una proprieta' di un modello attribuita a un altro modello."""
+
+    rule_id = "cross_model_identity"
+
+
+class BiomarkerRoleError(PropagationError):
+    """Un reperto molecolare trasformato in criterio di arruolamento."""
+
+    rule_id = "observed_biomarker_role"
+
+
 class AbsenceInferenceError(PropagationError):
     """L'assenza in una fonte parziale trattata come assenza nella fonte."""
 
@@ -83,12 +97,12 @@ class AbsenceInferenceError(PropagationError):
 
 # --- vocabolario --------------------------------------------------------------
 
-CLINICAL_UNIT_KINDS = frozenset(
-    {"clinical_observational_cohort", "clinical_trial_arm"}
-)
-PRECLINICAL_UNIT_KINDS = frozenset(
-    {"preclinical_in_vitro", "preclinical_in_vitro_comparative_pharmacology"}
-)
+# I vocabolari vengono dallo schema e non sono riscritti qui. Duplicarli
+# significherebbe che ogni tipo di unita' aggiunto allo schema resterebbe
+# invisibile alle guardie — e una unita' che le guardie non riconoscono passa
+# tutti i controlli senza che nessuno se ne accorga.
+CLINICAL_UNIT_KINDS = frozenset(CLINICAL_UNIT_TYPES)
+PRECLINICAL_UNIT_KINDS = frozenset(PRECLINICAL_UNIT_TYPES)
 
 _PATIENT_TERMS = re.compile(
     r"\b(?:patients?|subjects?|participants?|enrolled|cases?)\b", re.IGNORECASE
@@ -453,6 +467,89 @@ def rule_case_report_to_population(unit: Mapping[str, Any]) -> list[GuardViolati
     return []
 
 
+def rule_cross_model_identity(units: Sequence[Mapping[str, Any]]) -> list[GuardViolation]:
+    """Due modelli distinti della stessa fonte non sono lo stesso modello.
+
+    `cross_cohort_identity` non copre questo caso: confronta popolazione, setting
+    e linea di terapia, che su un modello sono `not_applicable` e quindi non
+    scattano mai. Un modello si descrive con altro — il fondo cellulare, la
+    linea, il saggio — e sono quelle le dimensioni da confrontare.
+
+    Due unita' precliniche che dichiarano lo stesso fondo, la stessa linea e lo
+    stesso saggio o sono lo stesso esperimento, e allora non andavano separate,
+    oppure un valore e' stato copiato dall'una all'altra.
+    """
+    violations: list[GuardViolation] = []
+    by_source: dict[str, list[Mapping[str, Any]]] = {}
+    for unit in units:
+        if _is_preclinical(unit):
+            by_source.setdefault(str(unit.get("canonical_source_id") or ""), []).append(unit)
+
+    for source, group in by_source.items():
+        for index, left in enumerate(group):
+            for right in group[index + 1 :]:
+                if str(left.get("profile_unit_id")) == str(right.get("profile_unit_id")):
+                    continue
+                shared = tuple(
+                    dimension
+                    for dimension in ("model_type", "cell_line", "assay")
+                    if _has_value(left, dimension)
+                    and _value(left, dimension) == _value(right, dimension)
+                )
+                if len(shared) >= 3:
+                    violations.append(
+                        GuardViolation(
+                            "cross_model_identity",
+                            "modelli distinti con la stessa identita'",
+                            CrossModelError,
+                            f"{left.get('profile_unit_id')} / {right.get('profile_unit_id')}",
+                            shared,
+                            (
+                                f"due modelli di {source} condividono {list(shared)}: o sono "
+                                "lo stesso esperimento, o un valore e' stato copiato"
+                            ),
+                        )
+                    )
+    return violations
+
+
+def rule_observed_biomarker_to_requirement(unit: Mapping[str, Any]) -> list[GuardViolation]:
+    """Un'alterazione osservata dopo il trattamento non e' un criterio di ingresso.
+
+    La differenza decide chi verrebbe selezionato. «Pazienti con G1269A» come
+    requisito descrive una popolazione che si potrebbe arruolare; «G1269A
+    comparso alla progressione» descrive un esito. Promuovere il secondo al primo
+    costruisce una coorte che non e' mai esistita.
+
+    La regola chiede che il ruolo del biomarcatore sia dichiarato quando la
+    dimensione e' popolata: senza dichiarazione non si distingue un requisito da
+    un reperto, e il dubbio va reso esplicito invece di essere risolto in
+    silenzio.
+    """
+    if not _has_value(unit, "biomarker_requirements"):
+        return []
+
+    role = str(unit.get("biomarker_role") or "").strip().casefold()
+    if role == "enrolment_criterion":
+        return []
+
+    message = (
+        f"{unit.get('profile_unit_id')} dichiara biomarker_requirements con ruolo "
+        f"{role or 'non dichiarato'!r}: un reperto osservato non e' un criterio di "
+        "arruolamento, e senza il ruolo i due casi non sono distinguibili"
+    )
+    return [
+        GuardViolation(
+            "observed_biomarker_to_requirement",
+            "reperto molecolare promosso a criterio di arruolamento",
+            BiomarkerRoleError,
+            str(unit.get("profile_unit_id") or ""),
+            ("biomarker_requirements",),
+            message,
+        )
+    ]
+
+
 UNIT_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] = (
     rule_clinical_population_to_model,
     rule_clinical_dimensions_to_model,
@@ -460,11 +557,13 @@ UNIT_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] = (
     rule_model_comparator_to_patients,
     rule_subgroup_to_population,
     rule_case_report_to_population,
+    rule_observed_biomarker_to_requirement,
 )
 
 GROUP_RULES: tuple[Callable[[Sequence[Mapping[str, Any]]], list[GuardViolation]], ...] = (
     rule_cross_cohort,
     rule_cross_arm_intervention,
+    rule_cross_model_identity,
 )
 
 DECISION_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] = (
@@ -477,7 +576,11 @@ MAPPING_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] =
     rule_mapping_needs_provenance,
 )
 
-ALL_RULE_IDS = (
+# Le dodici regole della versione 1.0. Congelate perche' gli artefatti
+# dell'audit strutturale le citano per nome: un artefatto che elenca dodici
+# regole non e' obsoleto solo perche' ne sono state aggiunte altre, e il test
+# deve poter distinguere i due casi.
+GUARD_V1_RULE_IDS = (
     "clinical_population_to_model",
     "clinical_dimensions_to_model",
     "preclinical_setting_to_patients",
@@ -491,6 +594,15 @@ ALL_RULE_IDS = (
     "absence_is_not_evidence",
     "case_report_to_population",
 )
+
+# Aggiunte in 1.1 dalla revisione clinico/preclinica, perche' i loro pattern
+# erano generali e nessuna regola esistente li copriva.
+GUARD_V11_RULE_IDS = (
+    "cross_model_identity",
+    "observed_biomarker_to_requirement",
+)
+
+ALL_RULE_IDS = GUARD_V1_RULE_IDS + GUARD_V11_RULE_IDS
 
 
 def run_guards(
@@ -523,6 +635,10 @@ def run_guards(
 __all__ = [
     "GUARD_VERSION",
     "ALL_RULE_IDS",
+    "GUARD_V1_RULE_IDS",
+    "GUARD_V11_RULE_IDS",
+    "CrossModelError",
+    "BiomarkerRoleError",
     "PropagationError",
     "ClinicalToPreclinicalError",
     "PreclinicalToClinicalError",
