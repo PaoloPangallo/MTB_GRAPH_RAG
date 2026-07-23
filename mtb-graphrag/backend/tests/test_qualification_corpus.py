@@ -68,16 +68,27 @@ def decision(annotator: str, status: str = VALID_LINK, **overrides: object) -> A
 
 class TestProfileUnit(unittest.TestCase):
     def test_single_cohort_source_needs_one_unit(self) -> None:
+        """La coorte risolta e' necessaria per propagare, non sufficiente.
+
+        Fino alla politica di propagazione questo test asseriva che bastasse. Una
+        fonte a coorte unica mai revisionata soddisfa la condizione strutturale e
+        nessuna condizione di revisione: trattarla come propagabile rendeva un
+        valore estratto da una macchina indistinguibile da uno confermato da una
+        persona.
+        """
         unit = make_unit(cohort_state=COHORT_SINGLE)
-        self.assertTrue(unit.is_propagatable)
+        self.assertTrue(unit.cohort_is_resolved)
+        self.assertFalse(unit.is_propagatable)
 
     def test_unresolved_cohort_never_propagates(self) -> None:
         """Con due coorti indistinguibili, propagare significa scegliere a caso."""
         unit = make_unit(cohort_state=COHORT_UNRESOLVED, setting="metastatico")
         self.assertFalse(unit.is_propagatable)
 
-    def test_resolved_cohort_propagates(self) -> None:
-        self.assertTrue(make_unit(cohort_state=COHORT_RESOLVED).is_propagatable)
+    def test_resolved_cohort_is_structurally_ready_but_not_propagatable(self) -> None:
+        unit = make_unit(cohort_state=COHORT_RESOLVED)
+        self.assertTrue(unit.cohort_is_resolved)
+        self.assertFalse(unit.is_propagatable)
 
     def test_multi_cohort_source_produces_distinct_unit_ids(self) -> None:
         first = unit_id("PMID:1", "cohort-1")
