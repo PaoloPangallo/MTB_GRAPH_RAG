@@ -25,7 +25,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from ..evidence.source_identity import SourceIdentity
 
-PROFILE_UNIT_VERSION = "source_clinical_profile_unit/1.1"
+PROFILE_UNIT_VERSION = "source_clinical_profile_unit/1.2"
 
 # --- stati di estrazione ------------------------------------------------------
 UNREVIEWED = "unreviewed"
@@ -93,13 +93,24 @@ COHORT_SUPERSEDED = "superseded_by_reviewed_split"
 # blocca senza bisogno di un caso speciale: e' il comportamento voluto, non un
 # effetto collaterale.
 COHORT_SPLIT_REVIEW_PROPOSED = "split_review_proposed"
+# Una revisione puo' concludere che la struttura proposta era sbagliata senza che
+# il risultato sia uno split: se lo split viene respinto la fonte resta una
+# unita' sola, e chiamare «split» quell'esito descriverebbe il contrario di cio'
+# che e' successo.
+COHORT_SUPERSEDED_BY_RESTRUCTURE = "superseded_by_reviewed_restructure"
+# Confermata da una prima revisione, ma non ancora da una revisione indipendente.
+# Non e' fra gli stati propagabili, ed e' il punto: una prima revisione non
+# indipendente non basta a far viaggiare un qualificatore su uno statement.
+COHORT_REVIEWED_PENDING_INDEPENDENT = "reviewed_pending_independent_review"
 COHORT_STATES = (
     COHORT_SINGLE,
     COHORT_RESOLVED,
     COHORT_UNRESOLVED,
     COHORT_CANDIDATE,
     COHORT_SPLIT_REVIEW_PROPOSED,
+    COHORT_REVIEWED_PENDING_INDEPENDENT,
     COHORT_SUPERSEDED,
+    COHORT_SUPERSEDED_BY_RESTRUCTURE,
 )
 
 # Che cosa descrive l'unita'. La distinzione clinico/preclinico non e' una
