@@ -1,0 +1,46 @@
+{
+  "annotated_gold_links": [
+    "GL-82da8fe17f56d61c9ce4",
+    "GL-eb95e1484e3dcad9085c"
+  ],
+  "approval_version": "author_approval/1.0",
+  "author_approval_packets_completed": 1,
+  "coverage_by_review_stage": {
+    "final_adjudicated": 0,
+    "first_review_confirmed": 33,
+    "second_review_confirmed": 0,
+    "source_checked_proposal": 9
+  },
+  "created_at": "2026-07-23T12:00:00+00:00",
+  "cumulative": {
+    "first_review_packets_completed": 2,
+    "first_review_profile_units_created": 5,
+    "first_review_statements_reviewed": 12
+  },
+  "detector_reference_hard_negatives": 1,
+  "first_review_candidate_invalid": 1,
+  "first_review_candidate_partial": 1,
+  "first_review_sources_completed": 1,
+  "first_review_statements_reviewed": 2,
+  "first_review_structural_splits_rejected": 1,
+  "hashes": {
+    "detector_reference_cases": "2381a23f3232c4fbfedebe3f7e830082cbbc16e06dbe6541e2829a3b613fcf01",
+    "provisional_gold": "cd9439acef39d23f9804552de4d06769af2a5875e78cf38b19e3aa678150f727",
+    "statement_decisions": "3df7b9f8b44865416372e5479c198559842315f010c31f79c229ff211025410c"
+  },
+  "metric_kind": "descriptive_first_review_metrics",
+  "metric_kind_note": "Contano decisioni e coperture. Nessuna misura la qualita' del sistema: esiste una sola annotazione per link, non indipendente e non clinica.",
+  "not_calculated": {
+    "clinical_applicability_accuracy": "not_calculated",
+    "detector_accuracy": "not_calculated",
+    "inter_annotator_agreement": "not_calculated",
+    "linking_f1": "not_calculated",
+    "linking_precision": "not_calculated",
+    "linking_recall": "not_calculated",
+    "retrieval_quality": "not_calculated"
+  },
+  "not_calculated_reason": "la prima revisione non e' indipendente e non e' clinica; nessuna seconda revisione esiste. Un solo caso non stima le prestazioni del rilevatore.",
+  "qualifier_provenance_completeness": 1.0,
+  "second_review_packets_completed": 0,
+  "supersedes_gold": "benchmarks/mtb_evidence/v3/first_review/provisional_gold.jsonl"
+}
