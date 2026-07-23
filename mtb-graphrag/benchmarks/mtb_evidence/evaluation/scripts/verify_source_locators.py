@@ -168,6 +168,64 @@ def _find_interpolated(needle: str, haystack: str, *, max_gap: int = 60) -> int 
     return None
 
 
+DEFAULT_MAX_GAP = 60
+
+# Etichette che indicano un riferimento strutturale invece di una citazione
+# testuale. Verificare «Figure 3» significa verificare che quella figura esista,
+# non che la frase compaia: sono due prove diverse e vanno nominate diversamente.
+_FIGURE_LABEL = re.compile(r"(?i)^(?:supplementary\s+|supplemental\s+)?(?:figure|fig\.?)\s")
+_TABLE_LABEL = re.compile(r"(?i)^(?:supplementary\s+|supplemental\s+)?table\s")
+
+
+def locate_query(
+    query: str,
+    text: str,
+    *,
+    labels: Sequence[str] = (),
+    section_hint: str = "",
+    max_gap: int = DEFAULT_MAX_GAP,
+) -> tuple[str, int | None, int]:
+    """`(match_type, offset, max_gap_usato)` per una citazione nel documento.
+
+    L'ordine va dalla prova piu' forte alla piu' debole, e ogni gradino ha un
+    nome proprio: un match `exact` e uno `section_level` non sostengono la stessa
+    affermazione, e collassarli in un booleano «verificato» perderebbe proprio la
+    differenza che serve a chi rilegge.
+    """
+    haystack = _clean(text).casefold()
+    needle = _clean(query).casefold()
+    if not needle or not haystack:
+        return "not_verified", None, 0
+
+    position = haystack.find(needle)
+    if position >= 0:
+        return "exact", position, 0
+
+    interpolated = _find_interpolated(needle, haystack, max_gap=max_gap)
+    if interpolated is not None:
+        return "interpolated", interpolated, max_gap
+
+    for variant in _label_variants(query):
+        found = haystack.find(_clean(variant).casefold())
+        if found >= 0:
+            if _TABLE_LABEL.match(query.strip()):
+                return "table_level", found, 0
+            if _FIGURE_LABEL.match(query.strip()):
+                return "figure_level", found, 0
+            return "normalized_label", found, 0
+
+    for label in labels:
+        if _clean(label).casefold() == needle:
+            return "figure_level" if _FIGURE_LABEL.match(label.strip()) else "table_level", None, 0
+
+    if section_hint:
+        found = haystack.find(_clean(section_hint).casefold())
+        if found >= 0:
+            return "section_level", found, 0
+
+    return "not_verified", None, 0
+
+
 def verify_locator(locator: dict[str, Any], text: str, labels: Sequence[str]) -> dict[str, Any]:
     kind = locator.get("kind", "phrase")
     value = str(locator.get("value") or "")

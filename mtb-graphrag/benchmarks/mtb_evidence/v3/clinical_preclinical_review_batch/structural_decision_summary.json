@@ -1,0 +1,17 @@
+{
+  "audit_units_total": 6,
+  "by_decision": {
+    "audit_split_confirmed": 0,
+    "audit_split_confirmed_with_fewer_units": 0,
+    "audit_split_confirmed_with_more_units": 1,
+    "audit_split_corrected": 0,
+    "audit_split_not_supported": 1,
+    "audit_split_partially_supported": 1,
+    "insufficient_source_information": 0,
+    "requires_clinical_review": 0
+  },
+  "created_at": "2026-07-23T00:00:00+00:00",
+  "review_version": "clinical_preclinical_review/1.0",
+  "reviewed_units_total": 9,
+  "sources_reviewed": 3
+}
