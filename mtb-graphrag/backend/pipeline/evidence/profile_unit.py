@@ -25,7 +25,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from ..evidence.source_identity import SourceIdentity
 
-PROFILE_UNIT_VERSION = "source_clinical_profile_unit/1.2"
+PROFILE_UNIT_VERSION = "source_clinical_profile_unit/1.3"
 
 # --- stati di estrazione ------------------------------------------------------
 UNREVIEWED = "unreviewed"
@@ -289,6 +289,12 @@ class SourceClinicalProfileUnit:
     extraction_status: str = UNREVIEWED
     review_status: str = AWAITING_SOURCE_REVIEW
     reviewer: str = ""
+    # Fatti che la politica di propagazione consulta. Il default e' il caso
+    # prudente: una revisione non dichiarata indipendente non lo e'.
+    independent_review: bool = False
+    clinical_reviewed: bool = False
+    agreement_state: str = ""
+    gold_covered: bool = False
     requires_human_review: bool = True
     human_review_reasons: tuple[str, ...] = ()
     provenance: tuple[FieldProvenance, ...] = ()
@@ -353,14 +359,60 @@ class SourceClinicalProfileUnit:
         )
 
     @property
-    def is_propagatable(self) -> bool:
-        """L'unita' puo' propagare qualificatori su uno statement?
+    def cohort_is_resolved(self) -> bool:
+        """La coorte e' identificata?
 
-        No, se la coorte non e' risolta. Una fonte con due coorti indistinguibili
-        non sa a quale dei due bracci lo statement appartenga, e propagare
-        significherebbe scegliere a caso.
+        No, se la fonte descrive due coorti indistinguibili: non si saprebbe a
+        quale dei due bracci lo statement appartenga, e scegliere significherebbe
+        scegliere a caso. E' una condizione **necessaria** per propagare, e per
+        un periodo e' stata trattata anche come sufficiente — che e' l'errore che
+        `propagation_eligibility` corregge.
         """
         return self.cohort_state in (COHORT_SINGLE, COHORT_RESOLVED)
+
+    @property
+    def propagation_eligibility(self) -> str:
+        """`none`, `prototype_only` o `final`, dalla politica globale."""
+        from .propagation_policy import eligibility_for
+
+        return eligibility_for(self.as_policy_input()).eligibility
+
+    def as_policy_input(self) -> dict[str, Any]:
+        """I soli fatti che la politica di propagazione consulta."""
+        return {
+            "profile_unit_id": self.profile_unit_id,
+            "review_status": self.review_status,
+            "cohort_state": self.cohort_state,
+            "independent_review": self.independent_review,
+            "agreement_state": self.agreement_state,
+            "gold_covered": self.gold_covered,
+        }
+
+    @property
+    def is_propagatable(self) -> bool:
+        """L'unita' puo' far filtrare un qualificatore?
+
+        Servono due cose, e per un periodo ne veniva chiesta una sola: la coorte
+        deve essere identificata **e** la revisione deve autorizzarlo. Una fonte a
+        coorte unica mai revisionata soddisfa la prima e non la seconda, e
+        trattarla come propagabile rende un valore estratto da una macchina
+        indistinguibile da uno confermato da una persona.
+        """
+        from .propagation_policy import FINAL
+
+        return self.cohort_is_resolved and self.propagation_eligibility == FINAL
+
+    @property
+    def may_display_qualifiers(self) -> bool:
+        """I qualificatori possono comparire nella vista?
+
+        Distinto da `is_propagatable`: mostrare un valore sbagliato lo espone a
+        chi puo' correggerlo, filtrare con un valore sbagliato rimuove evidenza
+        che nessuno vedra' piu'.
+        """
+        from .propagation_policy import NONE
+
+        return self.propagation_eligibility != NONE
 
     @property
     def is_clinical(self) -> bool:
@@ -427,6 +479,12 @@ class SourceClinicalProfileUnit:
             "provenance": [item.as_dict() for item in self.provenance],
             "known_dimensions": list(self.known_dimensions()),
             "not_applicable_dimensions": list(self.not_applicable_dimensions()),
+            "independent_review": self.independent_review,
+            "clinical_reviewed": self.clinical_reviewed,
+            "agreement_state": self.agreement_state,
+            "cohort_is_resolved": self.cohort_is_resolved,
+            "propagation_eligibility": self.propagation_eligibility,
+            "may_display_qualifiers": self.may_display_qualifiers,
             "is_propagatable": self.is_propagatable,
             "is_clinical": self.is_clinical,
             "is_preclinical": self.is_preclinical,

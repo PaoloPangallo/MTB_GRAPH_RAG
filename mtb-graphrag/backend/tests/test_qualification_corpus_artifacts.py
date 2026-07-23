@@ -227,11 +227,20 @@ class TestUnitsAndPackets(unittest.TestCase):
                 self.assertEqual(unit.resection_status, "unknown")
 
     def test_ambiguous_units_do_not_propagate(self) -> None:
-        ambiguous = [unit for unit in self.units if not unit.is_propagatable]
+        """Una coorte non identificata resta da chiarire, e non propaga.
+
+        Il criterio e' `cohort_is_resolved` e non `is_propagatable`: dopo la
+        politica di propagazione il secondo e' falso anche per unita' gia'
+        revisionate una volta, che non hanno nulla di ambiguo. Confonderli
+        farebbe passare per irrisolto cio' che e' soltanto non ancora
+        confermato due volte.
+        """
+        ambiguous = [unit for unit in self.units if not unit.cohort_is_resolved]
         self.assertGreater(len(ambiguous), 0)
         for unit in ambiguous:
             with self.subTest(unit=unit.profile_unit_id):
                 self.assertTrue(unit.requires_human_review)
+                self.assertFalse(unit.is_propagatable)
 
     def test_packet_is_blind(self) -> None:
         entries_by_id = {entry.canonical_source_id: entry for entry in self.entries}
