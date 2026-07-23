@@ -1,0 +1,26 @@
+{
+  "cases_reviewed": 3,
+  "component_signal_coverage": 1.0,
+  "components_found_by_reading": 5,
+  "components_signalled": 5,
+  "confirmed_positives": 1,
+  "created_at": "2026-07-23T00:00:00+00:00",
+  "detector_promotion_ready": false,
+  "insufficient_evidence": 0,
+  "metric_kind": "descriptive_small_batch",
+  "metric_kind_note": "Conteggi su tre positivi scelti dal rilevatore stesso. Non sono metriche di qualita' e non sono generalizzabili: il batch non contiene negativi.",
+  "not_calculated": {
+    "accuracy": "not_calculated",
+    "precision": "not_calculated",
+    "recall": "not_calculated",
+    "sensitivity": "not_calculated",
+    "specificity": "not_calculated"
+  },
+  "not_calculated_reason": "il batch contiene soltanto positivi selezionati dal rilevatore: senza negativi nessuna di queste quantita' e' definibile",
+  "partially_confirmed": 1,
+  "rejected_positives": 1,
+  "review_version": "clinical_preclinical_review/1.0",
+  "spurious_components": 1,
+  "unit_count_correct": 0,
+  "unit_count_coverage": 0.0
+}
