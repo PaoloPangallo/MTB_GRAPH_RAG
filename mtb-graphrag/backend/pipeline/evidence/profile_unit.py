@@ -25,7 +25,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from ..evidence.source_identity import SourceIdentity
 
-PROFILE_UNIT_VERSION = "source_clinical_profile_unit/1.0"
+PROFILE_UNIT_VERSION = "source_clinical_profile_unit/1.1"
 
 # --- stati di estrazione ------------------------------------------------------
 UNREVIEWED = "unreviewed"
@@ -45,9 +45,17 @@ REJECTED = "rejected"
 AWAITING_SOURCE_REVIEW = "awaiting_source_review"
 HUMAN_REVIEWED = "human_reviewed"
 
+# Il tetto di una verifica documentale automatica: i valori sono stati letti
+# sulla fonte primaria e ancorati a locator, ma nessun essere umano li ha
+# confermati. Deliberatamente distinto da `source_checked` (che e' uno stato di
+# estrazione) e dagli stati di revisione: una proposta verificata sulla fonte
+# resta una proposta, e deve poter essere respinta senza che nulla vada disfatto.
+SOURCE_CHECKED_REVIEW_PROPOSAL = "source_checked_review_proposal"
+
 REVIEW_STATUSES = (
     UNREVIEWED,
     AWAITING_SOURCE_REVIEW,
+    SOURCE_CHECKED_REVIEW_PROPOSAL,
     AWAITING_FIRST_REVIEW,
     FIRST_REVIEW_COMPLETE,
     AWAITING_SECOND_REVIEW,
@@ -80,11 +88,17 @@ COHORT_CANDIDATE = "candidate_cohort"
 # revisione la citano, e cancellarla renderebbe illeggibile la loro storia — ma
 # non puo' piu' propagare nulla.
 COHORT_SUPERSEDED = "superseded_by_reviewed_split"
+# Unita' derivata da una verifica documentale, in attesa che l'autore approvi lo
+# split. Non compare fra gli stati propagabili, quindi `is_propagatable` la
+# blocca senza bisogno di un caso speciale: e' il comportamento voluto, non un
+# effetto collaterale.
+COHORT_SPLIT_REVIEW_PROPOSED = "split_review_proposed"
 COHORT_STATES = (
     COHORT_SINGLE,
     COHORT_RESOLVED,
     COHORT_UNRESOLVED,
     COHORT_CANDIDATE,
+    COHORT_SPLIT_REVIEW_PROPOSED,
     COHORT_SUPERSEDED,
 )
 
@@ -93,19 +107,71 @@ COHORT_STATES = (
 # qualificare un esperimento su linee cellulari, e viceversa.
 UNIT_TYPE_CLINICAL_COHORT = "clinical_observational_cohort"
 UNIT_TYPE_CLINICAL_TRIAL_ARM = "clinical_trial_arm"
+UNIT_TYPE_CLINICAL_SUBGROUP = "clinical_subgroup"
+UNIT_TYPE_CLINICAL_CASE = "clinical_case"
 UNIT_TYPE_PRECLINICAL = "preclinical_in_vitro"
 UNIT_TYPE_PRECLINICAL_COMPARATIVE = "preclinical_in_vitro_comparative_pharmacology"
+# Un modello ingegnerizzato e un modello derivato dal paziente rispondono a
+# domande diverse: il primo isola l'effetto di una singola alterazione, il
+# secondo porta con se' tutto il resto del tumore. Fonderli farebbe sembrare
+# controllato un esperimento che non lo e'.
+UNIT_TYPE_PRECLINICAL_ENGINEERED = "preclinical_engineered_model"
+UNIT_TYPE_PRECLINICAL_PATIENT_DERIVED = "preclinical_patient_derived_model"
+UNIT_TYPE_PRECLINICAL_IN_VIVO = "preclinical_in_vivo"
+UNIT_TYPE_PRECLINICAL_XENOGRAFT = "preclinical_xenograft"
+UNIT_TYPE_PRECLINICAL_ORGANOID = "preclinical_organoid"
+UNIT_TYPE_PRECLINICAL_PHARMACOLOGY = "preclinical_pharmacology"
+UNIT_TYPE_PRECLINICAL_MOLECULAR = "preclinical_molecular_analysis"
 UNIT_TYPE_UNSPECIFIED = "unspecified"
 UNIT_TYPES = (
     UNIT_TYPE_CLINICAL_COHORT,
     UNIT_TYPE_CLINICAL_TRIAL_ARM,
+    UNIT_TYPE_CLINICAL_SUBGROUP,
+    UNIT_TYPE_CLINICAL_CASE,
     UNIT_TYPE_PRECLINICAL,
     UNIT_TYPE_PRECLINICAL_COMPARATIVE,
+    UNIT_TYPE_PRECLINICAL_ENGINEERED,
+    UNIT_TYPE_PRECLINICAL_PATIENT_DERIVED,
+    UNIT_TYPE_PRECLINICAL_IN_VIVO,
+    UNIT_TYPE_PRECLINICAL_XENOGRAFT,
+    UNIT_TYPE_PRECLINICAL_ORGANOID,
+    UNIT_TYPE_PRECLINICAL_PHARMACOLOGY,
+    UNIT_TYPE_PRECLINICAL_MOLECULAR,
     UNIT_TYPE_UNSPECIFIED,
 )
 
-CLINICAL_UNIT_TYPES = (UNIT_TYPE_CLINICAL_COHORT, UNIT_TYPE_CLINICAL_TRIAL_ARM)
-PRECLINICAL_UNIT_TYPES = (UNIT_TYPE_PRECLINICAL, UNIT_TYPE_PRECLINICAL_COMPARATIVE)
+CLINICAL_UNIT_TYPES = (
+    UNIT_TYPE_CLINICAL_COHORT,
+    UNIT_TYPE_CLINICAL_TRIAL_ARM,
+    UNIT_TYPE_CLINICAL_SUBGROUP,
+    UNIT_TYPE_CLINICAL_CASE,
+)
+PRECLINICAL_UNIT_TYPES = (
+    UNIT_TYPE_PRECLINICAL,
+    UNIT_TYPE_PRECLINICAL_COMPARATIVE,
+    UNIT_TYPE_PRECLINICAL_ENGINEERED,
+    UNIT_TYPE_PRECLINICAL_PATIENT_DERIVED,
+    UNIT_TYPE_PRECLINICAL_IN_VIVO,
+    UNIT_TYPE_PRECLINICAL_XENOGRAFT,
+    UNIT_TYPE_PRECLINICAL_ORGANOID,
+    UNIT_TYPE_PRECLINICAL_PHARMACOLOGY,
+    UNIT_TYPE_PRECLINICAL_MOLECULAR,
+)
+
+# Modelli che non hanno un organismo: le dimensioni cliniche non si applicano,
+# e la differenza fra `not_applicable` e `unknown` dipende da questo.
+IN_VITRO_UNIT_TYPES = (
+    UNIT_TYPE_PRECLINICAL,
+    UNIT_TYPE_PRECLINICAL_COMPARATIVE,
+    UNIT_TYPE_PRECLINICAL_ENGINEERED,
+    UNIT_TYPE_PRECLINICAL_PATIENT_DERIVED,
+    UNIT_TYPE_PRECLINICAL_PHARMACOLOGY,
+    UNIT_TYPE_PRECLINICAL_MOLECULAR,
+)
+IN_VIVO_UNIT_TYPES = (
+    UNIT_TYPE_PRECLINICAL_IN_VIVO,
+    UNIT_TYPE_PRECLINICAL_XENOGRAFT,
+)
 
 # Dimensioni cliniche che l'unita' puo' portare. Coincidono con quelle che il
 # grafo congelato non modella: e' il motivo per cui il corpus esiste.
