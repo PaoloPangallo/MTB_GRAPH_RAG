@@ -1,0 +1,888 @@
+{
+  "created_at": "2026-07-23T14:00:00+00:00",
+  "metrics": {
+    "created_at": "2026-07-23T14:00:00+00:00",
+    "final_propagatable_units": 0,
+    "first_review_units_prototype_only": 16,
+    "hard_filter_eligible_qualifiers": 0,
+    "metric_kind": "descriptive_policy_metrics",
+    "not_recalculated": {
+      "clinical_applicability_accuracy": "not_recalculated",
+      "linking_precision": "not_recalculated",
+      "linking_recall": "not_recalculated",
+      "retrieval_quality": "not_recalculated"
+    },
+    "note": "La riduzione delle unita' propagabili non e' una perdita di dati: i valori restano tutti presenti e tutti visibili. Cambia che cosa e' lecito farne.",
+    "policy_version": "propagation_policy/1.0",
+    "policy_violations_after": 0,
+    "policy_violations_before": 103,
+    "prototype_visible_qualifiers": 142,
+    "stale_serialized_flag_units": [
+      "PU-PMID-20979473-cohort-1",
+      "PU-PMID-24122810-cohort-1",
+      "PU-PMID-24736079-cohort-1",
+      "PU-PMID-25393796-cohort-1",
+      "PU-PMID-27045755-cohort-1",
+      "PU-PMID-27432227-cohort-1",
+      "PU-PMID-27959700-cohort-1",
+      "PU-PMID-29182496-cohort-1",
+      "PU-PMID-29373100-cohort-1",
+      "PU-PMID-29376144-cohort-1",
+      "PU-PMID-29650534-cohort-1",
+      "PU-PMID-31208370-cohort-1"
+    ],
+    "stale_serialized_flags": 99,
+    "units_by_propagation_eligibility": {
+      "final": 0,
+      "none": 142,
+      "prototype_only": 16
+    },
+    "units_by_review_status": {
+      "awaiting_first_review": 37,
+      "awaiting_source_review": 96,
+      "first_review_complete": 6,
+      "human_reviewed": 10,
+      "source_checked_review_proposal": 9
+    },
+    "units_normalized": 4,
+    "units_total": 158
+  },
+  "policy_version": "propagation_policy/1.0",
+  "stale_flag_note": "Flag serializzati in artefatti di fasi precedenti che il codice non onora piu'. Non sono violazioni della politica: caricando l'unita' il valore viene ricalcolato correttamente. Spariranno alla prossima rigenerazione del corpus.",
+  "stale_serialized_flags": 99,
+  "violations_after": [],
+  "violations_after_by_rule": {},
+  "violations_after_count": 0,
+  "violations_after_scope": "comportamento vivo: eligibility ricalcolata dal codice, come a ogni rigenerazione",
+  "violations_before": [
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-22277784-clinical-crizotinib-resistant dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22277784-clinical-crizotinib-resistant",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-22277784-baf3-crizotinib-panel dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22277784-baf3-crizotinib-panel",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-22277784-baf3-next-generation-alk-inhibitors dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22277784-baf3-next-generation-alk-inhibitors",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-22277784-baf3-17aag dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22277784-baf3-17aag",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-20979473-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-20979473-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24122810-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24122810-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24736079-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24736079-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-25393796-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-25393796-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-27045755-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27045755-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-27432227-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27432227-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-27959700-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27959700-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-29182496-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29182496-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-29373100-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29373100-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-29376144-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29376144-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-29650534-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29650534-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-31208370-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-31208370-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-32203698-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-32203698-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-DOI-10.1182/blood-2022-163099-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-DOI-10.1182/blood-2022-163099-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-15118125-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-15118125-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-160559-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-160559-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-16818618-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-16818618-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-17177598-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-17177598-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-17877814-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-17877814-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-18089823-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-18089823-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-18509184-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-18509184-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-18757403-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-18757403-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-18923525-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-18923525-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-19147750-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-19147750-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-20038723-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-20038723-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-20942962-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-20942962-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-20979473-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-20979473-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-21132006-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-21132006-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-21531810-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-21531810-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-21791641-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-21791641-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-22034911-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22034911-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-22072639-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22072639-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-22235099-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22235099-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-22370314-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22370314-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-22452895-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-22452895-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-23344087-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-23344087-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-23598171-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-23598171-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-23658459-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-23658459-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-23786770-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-23786770-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-23816960-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-23816960-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-23982599-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-23982599-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24122810-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24122810-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24263064-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24263064-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24353160-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24353160-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24439929-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24439929-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24457318-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24457318-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24662454-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24662454-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24736073-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24736073-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24736079-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24736079-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24755888-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24755888-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-24868098-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-24868098-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-25393796-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-25393796-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-25736571-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-25736571-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-25923549-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-25923549-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-25939061-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-25939061-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-26181354-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-26181354-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-26269204-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-26269204-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-26574622-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-26574622-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-26720284-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-26720284-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-26729184-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-26729184-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-26768165-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-26768165-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-26775591-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-26775591-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-27022112-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27022112-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-27032107-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27032107-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-27045755-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27045755-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-27130468-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27130468-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-27179038-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27179038-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-27432227-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27432227-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-27612423-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27612423-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-27870574-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27870574-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-27959700-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-27959700-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-28202511-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-28202511-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-28274957-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-28274957-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-28874593-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-28874593-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-28958502-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-28958502-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-29182496-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29182496-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-29373100-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29373100-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-29376144-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29376144-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-29650534-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29650534-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-29935304-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-29935304-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-30420614-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-30420614-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-30892989-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-30892989-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-31208370-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-31208370-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-31585938-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-31585938-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-31591063-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-31591063-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-32203698-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-32203698-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "NonIndependentPropagationError",
+      "expected": "propagation_eligibility=prototype_only",
+      "message": "PU-PMID-32955177-cohort-1 dichiara di poter propagare, ma prima revisione non indipendente: una sola persona, con materiale preparato da una macchina. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-32955177-cohort-1",
+      "rule_id": "non_independent_is_not_final"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-32973082-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-32973082-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-34358484-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-34358484-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-35245845-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-35245845-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-35399574-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-35399574-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-35507888-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-35507888-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-37879444-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-37879444-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-37937763-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-37937763-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-38074875-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-38074875-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-38525318-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-38525318-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-38710951-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-38710951-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-38942080-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-38942080-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    },
+    {
+      "declared": "is_propagatable=true",
+      "error_type": "UnreviewedPropagationError",
+      "expected": "propagation_eligibility=none",
+      "message": "PU-PMID-39269178-cohort-1 dichiara di poter propagare, ma nessuna revisione umana: il valore e' estratto o proposto, non confermato. Propagare significherebbe far filtrare un valore che nessuno ha confermato in modo indipendente",
+      "profile_unit_id": "PU-PMID-39269178-cohort-1",
+      "rule_id": "unreviewed_is_not_propagatable"
+    }
+  ],
+  "violations_before_by_rule": {
+    "non_independent_is_not_final": 14,
+    "unreviewed_is_not_propagatable": 89
+  },
+  "violations_before_count": 103
+}

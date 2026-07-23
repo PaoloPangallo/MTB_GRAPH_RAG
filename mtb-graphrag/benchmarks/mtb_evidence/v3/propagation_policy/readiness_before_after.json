@@ -1,0 +1,26 @@
+{
+  "after": {
+    "final_propagatable_units": 0,
+    "none_units": 142,
+    "prototype_and_final_distinct": true,
+    "prototype_only_units": 16,
+    "review_and_propagation_distinct": true,
+    "single_global_policy": true,
+    "units_declared_propagatable": 0
+  },
+  "before": {
+    "final_propagatable_units": 103,
+    "prototype_and_final_distinct": false,
+    "review_and_propagation_distinct": false,
+    "single_global_policy": false,
+    "units_declared_propagatable": 103
+  },
+  "created_at": "2026-07-23T14:00:00+00:00",
+  "detector_promotion_ready": false,
+  "gold_evaluable": false,
+  "hard_filtering_available": false,
+  "next_step": "approvazione di SOURCE_REVIEW_PMID-22235099.md",
+  "note": "Nessun qualificatore source-derived puo' oggi filtrare, perche' nessuno ha una seconda conferma indipendente. E' lo stato reale della revisione, non una regressione del sistema.",
+  "policy_version": "propagation_policy/1.0",
+  "ready_for_final_evaluation": false
+}
