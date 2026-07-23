@@ -1,0 +1,254 @@
+{
+  "audit_unit_count": 2,
+  "availability": "full_text",
+  "available_decisions": [
+    "approve",
+    "approve_with_corrections",
+    "reject",
+    "defer_to_clinical_reviewer",
+    "insufficient_information"
+  ],
+  "canonical_source_id": "PMID:22235099",
+  "checklist": [
+    "Le unita' proposte corrispondono a cio' che la fonte descrive?",
+    "Il numero di unita' e' giusto, o va aumentato o ridotto?",
+    "Gli statement sono attribuiti alle unita' corrette?",
+    "I campi `unknown` sono davvero ignoti, e non «non applicabili»?",
+    "Le dimensioni non separabili sono segnate come tali?",
+    "I mapping terminologici che richiedono verifica sono accettabili?",
+    "Serve una revisione clinica indipendente prima di procedere?"
+  ],
+  "created_at": "2026-07-23T00:00:00+00:00",
+  "decided_at": null,
+  "decided_by": null,
+  "decision": null,
+  "decision_rationale": "lo split clinico/preclinico e' confermato, ma due unita' non bastano: la componente preclinica sono quattro sistemi distinti, con fondi cellulari e saggi diversi, e uno di essi ha dato esito negativo",
+  "field_level_decisions": [
+    "confirmed",
+    "corrected",
+    "unknown",
+    "not_applicable",
+    "not_separable",
+    "requires_clinical_review"
+  ],
+  "first_review_complete": false,
+  "human_reviewed": false,
+  "is_evaluable": false,
+  "limitations": [
+    "il numero esatto di pazienti per ciascun meccanismo si legge nelle tabelle, non nel testo corrente"
+  ],
+  "packet_id": "AA-PMID-22235099",
+  "parent_profile_unit_id": "PU-PMID-22235099-cohort-1",
+  "pmid": "22235099",
+  "questions_for_author": [
+    "Quattro unita' precliniche sono la granularita' giusta, o Ba/F3 e NIH3T3 vanno tenute insieme come «modelli isogenici ingegnerizzati»?",
+    "L'esperimento su H3122 con KRAS G12V ha esito negativo: va conservato come unita' propria, o registrato come nota della coorte clinica?",
+    "CUTO-1 deriva dal paziente #10 ma ha perso il riarrangiamento di ALK: e' una unita' preclinica autonoma o un prolungamento del caso clinico?",
+    "ES-V2-evidence-4288 poggia su un solo paziente. Va marcato case-level per impedirne la propagazione alla coorte?"
+  ],
+  "requires_author_approval": true,
+  "requires_second_independent_review": true,
+  "residual_risk": "la coorte clinica contiene osservazioni a livello di singolo paziente (#9 per EGFR, #8 per il CNG isolato) che non sono proprieta' della coorte",
+  "review_status": "source_checked_review_proposal",
+  "review_version": "clinical_preclinical_review/1.0",
+  "reviewed_unit_count": 5,
+  "statements": [
+    {
+      "candidate_link_status": "candidate_partial",
+      "non_propagation_rules": [
+        "case_report_to_population"
+      ],
+      "proposed_profile_unit_ids": [
+        "PU-PMID-22235099-clinical-cohort"
+      ],
+      "statement_id": "ES-V2-evidence-4288",
+      "support_type": "direct_clinical_support"
+    },
+    {
+      "candidate_link_status": "candidate_valid",
+      "non_propagation_rules": [
+        "relative_versus_complete_resistance",
+        "clinical_population_to_model"
+      ],
+      "proposed_profile_unit_ids": [
+        "PU-PMID-22235099-clinical-cohort",
+        "PU-PMID-22235099-baf3-engineered",
+        "PU-PMID-22235099-nih3t3-engineered"
+      ],
+      "statement_id": "ES-V2-evidence-764",
+      "support_type": "clinical_observation_with_preclinical_validation"
+    },
+    {
+      "candidate_link_status": "candidate_partial",
+      "non_propagation_rules": [
+        "in_vitro_to_clinical_benefit",
+        "case_report_to_population"
+      ],
+      "proposed_profile_unit_ids": [
+        "PU-PMID-22235099-clinical-cohort"
+      ],
+      "statement_id": "ES-V2-evidence-766",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "structural_decision": "audit_split_confirmed_with_more_units",
+  "units": [
+    {
+      "field_decisions": {
+        "biomarker_requirements": "unknown",
+        "comparator": "confirmed",
+        "disease": "not_applicable",
+        "evidence_design": "confirmed",
+        "exclusion_criteria": "not_applicable",
+        "inclusion_criteria": "not_applicable",
+        "intervention": "confirmed",
+        "population": "not_applicable",
+        "prior_therapies": "not_applicable",
+        "regimen": "unknown",
+        "resection_status": "not_applicable",
+        "setting": "not_applicable",
+        "stage": "not_applicable",
+        "therapy_line": "not_applicable"
+      },
+      "is_clinical": false,
+      "is_in_vitro": true,
+      "is_in_vivo": false,
+      "is_preclinical": true,
+      "proposed_profile_unit_id": "PU-PMID-22235099-baf3-engineered",
+      "source_locators": [
+        "A-pre-baf3",
+        "A-pre-baf3-result"
+      ],
+      "statement_candidates": [
+        "ES-V2-evidence-764"
+      ],
+      "unit_label": "Ba/F3 con EML4-ALK wild-type e mutanti G1269A, C1156Y, L1196M",
+      "unit_type": "preclinical_engineered_model"
+    },
+    {
+      "field_decisions": {
+        "biomarker_requirements": "confirmed",
+        "comparator": "unknown",
+        "disease": "confirmed",
+        "evidence_design": "confirmed",
+        "exclusion_criteria": "unknown",
+        "inclusion_criteria": "unknown",
+        "intervention": "confirmed",
+        "population": "confirmed",
+        "prior_therapies": "unknown",
+        "regimen": "unknown",
+        "resection_status": "unknown",
+        "setting": "unknown",
+        "stage": "unknown",
+        "therapy_line": "unknown"
+      },
+      "is_clinical": true,
+      "is_in_vitro": false,
+      "is_in_vivo": false,
+      "is_preclinical": false,
+      "proposed_profile_unit_id": "PU-PMID-22235099-clinical-cohort",
+      "source_locators": [
+        "A-clin-cohort",
+        "A-clin-evaluable"
+      ],
+      "statement_candidates": [
+        "ES-V2-evidence-4288",
+        "ES-V2-evidence-764",
+        "ES-V2-evidence-766"
+      ],
+      "unit_label": "coorte clinica: 14 pazienti ALK+ ri-biopsiati alla progressione su crizotinib",
+      "unit_type": "clinical_observational_cohort"
+    },
+    {
+      "field_decisions": {
+        "biomarker_requirements": "unknown",
+        "comparator": "confirmed",
+        "disease": "not_applicable",
+        "evidence_design": "confirmed",
+        "exclusion_criteria": "not_applicable",
+        "inclusion_criteria": "not_applicable",
+        "intervention": "confirmed",
+        "population": "not_applicable",
+        "prior_therapies": "not_applicable",
+        "regimen": "unknown",
+        "resection_status": "not_applicable",
+        "setting": "not_applicable",
+        "stage": "not_applicable",
+        "therapy_line": "not_applicable"
+      },
+      "is_clinical": false,
+      "is_in_vitro": true,
+      "is_in_vivo": false,
+      "is_preclinical": true,
+      "proposed_profile_unit_id": "PU-PMID-22235099-cuto1-comparative",
+      "source_locators": [
+        "A-pre-cuto1",
+        "A-pre-cuto1-origin"
+      ],
+      "statement_candidates": [],
+      "unit_label": "CUTO-1 (derivata dal paziente #10) confrontata con H3122 e H2228",
+      "unit_type": "preclinical_in_vitro_comparative_pharmacology"
+    },
+    {
+      "field_decisions": {
+        "biomarker_requirements": "unknown",
+        "comparator": "confirmed",
+        "disease": "not_applicable",
+        "evidence_design": "confirmed",
+        "exclusion_criteria": "not_applicable",
+        "inclusion_criteria": "not_applicable",
+        "intervention": "confirmed",
+        "population": "not_applicable",
+        "prior_therapies": "not_applicable",
+        "regimen": "unknown",
+        "resection_status": "not_applicable",
+        "setting": "not_applicable",
+        "stage": "not_applicable",
+        "therapy_line": "not_applicable"
+      },
+      "is_clinical": false,
+      "is_in_vitro": true,
+      "is_in_vivo": false,
+      "is_preclinical": true,
+      "proposed_profile_unit_id": "PU-PMID-22235099-h3122-kras-engineered",
+      "source_locators": [
+        "A-pre-kras",
+        "A-pre-kras-negative"
+      ],
+      "statement_candidates": [],
+      "unit_label": "H3122 con KRAS G12V introdotto, contro vettore vuoto",
+      "unit_type": "preclinical_engineered_model"
+    },
+    {
+      "field_decisions": {
+        "biomarker_requirements": "unknown",
+        "comparator": "confirmed",
+        "disease": "not_applicable",
+        "evidence_design": "confirmed",
+        "exclusion_criteria": "not_applicable",
+        "inclusion_criteria": "not_applicable",
+        "intervention": "confirmed",
+        "population": "not_applicable",
+        "prior_therapies": "not_applicable",
+        "regimen": "unknown",
+        "resection_status": "not_applicable",
+        "setting": "not_applicable",
+        "stage": "not_applicable",
+        "therapy_line": "not_applicable"
+      },
+      "is_clinical": false,
+      "is_in_vitro": true,
+      "is_in_vivo": false,
+      "is_preclinical": true,
+      "proposed_profile_unit_id": "PU-PMID-22235099-nih3t3-engineered",
+      "source_locators": [
+        "A-pre-nih3t3"
+      ],
+      "statement_candidates": [
+        "ES-V2-evidence-764"
+      ],
+      "unit_label": "NIH3T3 con gli stessi costrutti EML4-ALK: crescita in soft agar e immunoblot",
+      "unit_type": "preclinical_engineered_model"
+    }
+  ]
+}

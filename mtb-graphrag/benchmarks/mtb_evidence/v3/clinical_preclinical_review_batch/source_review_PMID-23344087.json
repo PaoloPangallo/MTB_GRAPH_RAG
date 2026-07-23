@@ -1,0 +1,120 @@
+{
+  "answers": {
+    "alterations_enrolment_or_finding": "il riarrangiamento di ALK precede il trattamento; le mutazioni di resistenza sono reperti successivi",
+    "clinical_only_dimensions": "linea di terapia, setting, stadio; nessuna e' riportata",
+    "clinical_part": "i 7 pazienti con resistenza acquisita e le analisi sui loro campioni",
+    "directly_supported_statements": "entrambi sul piano clinico; solo ES-V2-evidence-765 anche sul piano preclinico",
+    "independent_preclinical_experiments": "non determinabile sull'abstract",
+    "lab_drugs_given_to_patients": "si', crizotinib in entrambi i contesti",
+    "model_only_dimensions": "identita' della linea, clone, saggio di citotossicita'",
+    "preclinical_part": "la citotossicita' in vitro su SNU-2535, H3122 CR1 e i cloni mutanti",
+    "preclinical_validates_clinical": "si' per G1269: SNU-2535 viene da un paziente che portava quella mutazione",
+    "statements_fuse_levels": "si': ES-V2-evidence-765 poggia su entrambi i piani"
+  },
+  "audit_unit_count": 2,
+  "availability": "abstract_only",
+  "canonical_source_id": "PMID:23344087",
+  "created_at": "2026-07-23T00:00:00+00:00",
+  "decision_rationale": "l'abstract nomina esplicitamente sia la coorte clinica sia gli esperimenti in vitro, quindi lo split e' sostenuto. Non e' sostenuta la **composizione** della parte preclinica: i cloni mutanti sono nominati senza il fondo cellulare, e senza full text la loro relazione con SNU-2535 resta indeterminata",
+  "document_map": {
+    "animal_models": [],
+    "arms": [],
+    "cell_models": [
+      "SNU-2535",
+      "H3122 CR1",
+      "cloni mutanti L1196M e G1269A"
+    ],
+    "clinical_cohorts": [
+      "7 pazienti ALK+ con resistenza acquisita al crizotinib"
+    ],
+    "clinical_outcomes": [
+      "resistenza acquisita dopo mediana di 6 mesi (range 4-12)"
+    ],
+    "drugs_tested_in_vitro": [
+      "crizotinib"
+    ],
+    "drugs_tested_in_vivo": [],
+    "figures_and_tables": [
+      "non osservabili: solo abstract"
+    ],
+    "molecular_alterations": [
+      "ALK L1196M (n=2)",
+      "ALK G1269A (n=2)",
+      "copy number gain di ALK (4.1 volte, n=1)",
+      "EGFR L858R con polisomia elevata (n=1)"
+    ],
+    "molecular_analyses": [
+      "analisi di mutazioni ALK, EGFR, KRAS",
+      "amplificazioni geniche di ALK ed EGFR",
+      "segnali a valle di ALK"
+    ],
+    "pharmacological_analyses": [
+      "citotossicita' in vitro del crizotinib"
+    ],
+    "population": "NSCLC ALK+ con risposta iniziale e successiva resistenza al crizotinib",
+    "preclinical_endpoints": [
+      "sopravvivenza cellulare",
+      "soppressione dei segnali a valle"
+    ],
+    "prior_therapies": [
+      "unknown"
+    ],
+    "samples_and_biopsies": [
+      "campioni tumorali",
+      "versamento pleurico"
+    ],
+    "selection_criteria": "unknown",
+    "study_objective": "identificare le alterazioni genetiche associate alla resistenza al crizotinib",
+    "subgroups": [
+      "5 pazienti con versamento pleurico maligno analizzato per anfiregulina"
+    ],
+    "treatments_administered": [
+      "crizotinib"
+    ]
+  },
+  "first_review_complete": false,
+  "human_reviewed": false,
+  "is_evaluable": false,
+  "limitations": [
+    "full text dichiarato «Subscription required» da Europe PMC: non e' in PMC, non e' open access, nessuna via pubblica di accesso",
+    "figure e tabelle non osservabili"
+  ],
+  "not_separable_dimensions": [
+    "preclinical_model_composition"
+  ],
+  "parent_profile_unit_id": "PU-PMID-23344087-cohort-1",
+  "pmc_id": "",
+  "pmid": "23344087",
+  "propagation_violations": 0,
+  "proposed_units": [
+    "PU-PMID-23344087-clinical-cohort",
+    "PU-PMID-23344087-engineered-clones",
+    "PU-PMID-23344087-patient-derived"
+  ],
+  "questions_for_author": [
+    "Senza full text la composizione preclinica resta indeterminata. Si accetta la proposta a tre unita', o si sospende in attesa dell'accesso?",
+    "L'abstract dice «less sensitive» dove lo statement dice «resistance». La differenza va registrata come conflitto o come mapping da verificare?",
+    "L'unico paziente con copy number gain portava anche EGFR L858R: ES-V2-evidence-767 va marcato conflicting invece che ambiguous?"
+  ],
+  "requires_author_approval": true,
+  "requires_second_independent_review": true,
+  "residual_risk": "senza full text non e' possibile sapere quanti sistemi preclinici distinti esistano davvero, ne' su quale fondo cellulare siano costruiti i cloni",
+  "review_status": "source_checked_review_proposal",
+  "review_version": "clinical_preclinical_review/1.0",
+  "reviewed_unit_count": 3,
+  "reviewer": null,
+  "statement_mappings": [
+    {
+      "candidate_link_status": "candidate_partial",
+      "statement_id": "ES-V2-evidence-765",
+      "support_type": "clinical_observation_with_preclinical_validation"
+    },
+    {
+      "candidate_link_status": "candidate_ambiguous",
+      "statement_id": "ES-V2-evidence-767",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "structural_decision": "audit_split_partially_supported",
+  "terminology_mappings": 2
+}
