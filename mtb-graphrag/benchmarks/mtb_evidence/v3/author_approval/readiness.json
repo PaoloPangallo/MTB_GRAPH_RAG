@@ -1,0 +1,24 @@
+{
+  "approval_version": "author_approval/1.0",
+  "author_approvals_completed": 1,
+  "author_approvals_pending": 2,
+  "clinical_preclinical_false_positives_confirmed": 1,
+  "created_at": "2026-07-23T12:00:00+00:00",
+  "detector_promotion_ready": false,
+  "forbidden_statuses_checked": [
+    "clinical_review_complete",
+    "independent_review",
+    "second_review_complete",
+    "adjudicated",
+    "frozen",
+    "final_gold"
+  ],
+  "forbidden_statuses_declared": [],
+  "gold_evaluable": false,
+  "next_report_to_approve": "SOURCE_REVIEW_PMID-22235099.md",
+  "note": "La coda standard non riprende in questo branch. Il passo successivo e' l'approvazione della seconda fonte del batch clinico/preclinico.",
+  "ready_for_final_evaluation": false,
+  "second_review_packets_unchanged": true,
+  "second_review_required": true,
+  "standard_queue_resumed": false
+}
