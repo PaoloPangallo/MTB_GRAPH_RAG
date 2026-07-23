@@ -1,0 +1,112 @@
+{
+  "audit_unit_count": 2,
+  "availability": "full_text",
+  "available_decisions": [
+    "approve",
+    "approve_with_corrections",
+    "reject",
+    "defer_to_clinical_reviewer",
+    "insufficient_information"
+  ],
+  "canonical_source_id": "PMID:31358542",
+  "checklist": [
+    "Le unita' proposte corrispondono a cio' che la fonte descrive?",
+    "Il numero di unita' e' giusto, o va aumentato o ridotto?",
+    "Gli statement sono attribuiti alle unita' corrette?",
+    "I campi `unknown` sono davvero ignoti, e non «non applicabili»?",
+    "Le dimensioni non separabili sono segnate come tali?",
+    "I mapping terminologici che richiedono verifica sono accettabili?",
+    "Serve una revisione clinica indipendente prima di procedere?"
+  ],
+  "created_at": "2026-07-23T00:00:00+00:00",
+  "decided_at": null,
+  "decided_by": null,
+  "decision": null,
+  "decision_rationale": "la fonte non contiene evidenza preclinica. L'unica occorrenza di «in vitro» in tutto il full text sta in una frase che cita modelli di altri (riferimento 23). Nessuna linea cellulare, nessun xenograft, nessun IC50, nessuna trasfezione: lo split clinico/preclinico proposto dall'audit non ha oggetto",
+  "field_level_decisions": [
+    "confirmed",
+    "corrected",
+    "unknown",
+    "not_applicable",
+    "not_separable",
+    "requires_clinical_review"
+  ],
+  "first_review_complete": false,
+  "human_reviewed": false,
+  "is_evaluable": false,
+  "limitations": [],
+  "packet_id": "AA-PMID-31358542",
+  "parent_profile_unit_id": "PU-PMID-31358542-cohort-1",
+  "pmid": "31358542",
+  "questions_for_author": [
+    "Lo split clinico/preclinico e' respinto. Si conferma che l'unita' resta singola, o le otto sottopopolazioni giustificano uno split di sottogruppo?",
+    "ES-V2-evidence-100003 attribuisce a brigatinib una frequenza riportata per l'insieme dei TKI di seconda generazione. Va declassato a candidate_invalid?",
+    "La fonte era un falso positivo del rilevatore: va segnalata come caso di riferimento per la correzione dei segnali?"
+  ],
+  "requires_author_approval": true,
+  "requires_second_independent_review": true,
+  "residual_risk": "il rischio residuo non e' clinico/preclinico ma di sottogruppo: otto sottopopolazioni sovrapposte, e i dati aggregati per i TKI di seconda generazione possono essere attribuiti al singolo farmaco per errore",
+  "review_status": "source_checked_review_proposal",
+  "review_version": "clinical_preclinical_review/1.0",
+  "reviewed_unit_count": 1,
+  "statements": [
+    {
+      "candidate_link_status": "candidate_ambiguous",
+      "non_propagation_rules": [
+        "cross_cohort_identity"
+      ],
+      "proposed_profile_unit_ids": [
+        "PU-PMID-31358542-clinical-cohort"
+      ],
+      "statement_id": "ES-V2-evidence-100003",
+      "support_type": "direct_clinical_support"
+    },
+    {
+      "candidate_link_status": "candidate_partial",
+      "non_propagation_rules": [
+        "cross_cohort_identity"
+      ],
+      "proposed_profile_unit_ids": [
+        "PU-PMID-31358542-clinical-cohort"
+      ],
+      "statement_id": "ES-V2-evidence-100004",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "structural_decision": "audit_split_not_supported",
+  "units": [
+    {
+      "field_decisions": {
+        "biomarker_requirements": "confirmed",
+        "comparator": "unknown",
+        "disease": "confirmed",
+        "evidence_design": "confirmed",
+        "exclusion_criteria": "unknown",
+        "inclusion_criteria": "unknown",
+        "intervention": "not_separable",
+        "population": "confirmed",
+        "prior_therapies": "unknown",
+        "regimen": "unknown",
+        "resection_status": "unknown",
+        "setting": "unknown",
+        "stage": "unknown",
+        "therapy_line": "confirmed"
+      },
+      "is_clinical": true,
+      "is_in_vitro": false,
+      "is_in_vivo": false,
+      "is_preclinical": false,
+      "proposed_profile_unit_id": "PU-PMID-31358542-clinical-cohort",
+      "source_locators": [
+        "C-clin-cohort",
+        "C-clin-g1202r"
+      ],
+      "statement_candidates": [
+        "ES-V2-evidence-100003",
+        "ES-V2-evidence-100004"
+      ],
+      "unit_label": "coorte clinica: 84 pazienti ALK+ con 106 campioni di plasma",
+      "unit_type": "clinical_observational_cohort"
+    }
+  ]
+}

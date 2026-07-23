@@ -1,0 +1,49 @@
+{
+  "author_approvals_pending": 3,
+  "blockers": [],
+  "clinical_preclinical_sources_reviewed": 3,
+  "clinical_preclinical_splits_confirmed": 1,
+  "clinical_preclinical_splits_corrected": 0,
+  "clinical_preclinical_splits_rejected": 1,
+  "clinical_preclinical_units_proposed": 9,
+  "created_at": "2026-07-23T00:00:00+00:00",
+  "criteria": [
+    {
+      "criterion": "all_sources_verified",
+      "satisfied": true
+    },
+    {
+      "criterion": "all_sources_have_a_decision",
+      "satisfied": true
+    },
+    {
+      "criterion": "all_proposals_have_provenance",
+      "satisfied": true
+    },
+    {
+      "criterion": "no_proposal_is_propagatable",
+      "satisfied": true
+    },
+    {
+      "criterion": "author_packets_ready",
+      "satisfied": true
+    },
+    {
+      "criterion": "second_review_packets_unchanged",
+      "satisfied": true
+    },
+    {
+      "criterion": "all_violations_explicit",
+      "satisfied": true
+    },
+    {
+      "criterion": "next_step_is_human_approval",
+      "satisfied": true
+    }
+  ],
+  "detector_positive_cases_reviewed": 3,
+  "detector_promotion_ready": false,
+  "note": "Riprendere la coda non significa che il corpus sia pronto per il retrieval qualificato ne' per la valutazione finale. Significa che il batch non lascia sorprese note, e che il passo successivo e' una decisione umana.",
+  "ready_to_resume_standard_queue": true,
+  "review_version": "clinical_preclinical_review/1.0"
+}

@@ -259,6 +259,7 @@ def build_statement_rows(finding: SourceFinding, *, created_at: str) -> list[dic
                 "support_type": statement.support_type,
                 "candidate_link_status": statement.candidate_link_status,
                 "directness": statement.directness,
+                "resistance_qualifier": statement.resistance_qualifier,
                 "clinical_or_preclinical": _level(statement.support_type),
                 "clinical_support": statement.clinical_support,
                 "preclinical_support": statement.preclinical_support,
@@ -329,6 +330,12 @@ def main(argv: list[str] | None = None) -> int:
                     "canonical_source_id": finding.canonical_source_id,
                     "original_source_term": mapping.original_source_term,
                     "normalized_term": mapping.normalized_term,
+                    # Alias attesi da rule_mapping_needs_provenance. Senza, la
+                    # regola non ispeziona il record e il suo silenzio verrebbe
+                    # letto come assenza di problemi.
+                    "source_term": mapping.original_source_term,
+                    "mapped_term": mapping.normalized_term,
+                    "literal_string_present_in_source": mapping.literal_string_present,
                     "mapping_type": mapping.mapping_type,
                     "mapping_source": mapping.mapping_source,
                     "mapping_status": mapping.mapping_status,

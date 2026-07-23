@@ -1,0 +1,120 @@
+{
+  "answers": {
+    "alterations_enrolment_or_finding": "il riarrangiamento di ALK precede il trattamento; le mutazioni di resistenza sono reperti alla recidiva",
+    "clinical_only_dimensions": "tutte le dimensioni cliniche valgono per i pazienti; non c'e' un modello a cui potrebbero passare",
+    "clinical_part": "tutta la fonte",
+    "directly_supported_statements": "entrambi, ma il legame con il singolo farmaco e' piu' debole di quanto lo statement suggerisca",
+    "independent_preclinical_experiments": "nessuno",
+    "lab_drugs_given_to_patients": "non applicabile: nessun farmaco e' stato testato in laboratorio",
+    "model_only_dimensions": "nessuna",
+    "preclinical_part": "nessuna",
+    "preclinical_validates_clinical": "non applicabile: non esiste una parte preclinica",
+    "statements_fuse_levels": "no: entrambi gli statement sono clinici"
+  },
+  "audit_unit_count": 2,
+  "availability": "full_text",
+  "canonical_source_id": "PMID:31358542",
+  "created_at": "2026-07-23T00:00:00+00:00",
+  "decision_rationale": "la fonte non contiene evidenza preclinica. L'unica occorrenza di «in vitro» in tutto il full text sta in una frase che cita modelli di altri (riferimento 23). Nessuna linea cellulare, nessun xenograft, nessun IC50, nessuna trasfezione: lo split clinico/preclinico proposto dall'audit non ha oggetto",
+  "document_map": {
+    "animal_models": [],
+    "arms": [],
+    "cell_models": [],
+    "clinical_cohorts": [
+      "84 pazienti, 106 campioni di plasma"
+    ],
+    "clinical_outcomes": [
+      "mutazione di ALK in 46 (66%) di 70 pazienti su TKI di seconda generazione",
+      "mutazione di ALK in 22 (76%) di 29 pazienti su lorlatinib"
+    ],
+    "drugs_tested_in_vitro": [],
+    "drugs_tested_in_vivo": [],
+    "figures_and_tables": [
+      "Figure 1-4",
+      "Table 1",
+      "Supplementary Figure 1",
+      "Supplementary Table 4"
+    ],
+    "molecular_alterations": [
+      "ALK G1202R",
+      "ALK I1171X",
+      "ALK L1196M",
+      "ALK V1180L",
+      "ALK D1203N",
+      "mutazioni composte"
+    ],
+    "molecular_analyses": [
+      "NGS su plasma (Guardant360)",
+      "NGS mirato su tessuto"
+    ],
+    "pharmacological_analyses": [],
+    "population": "NSCLC ALK+ avanzato trattato con TKI di seconda e terza generazione",
+    "preclinical_endpoints": [],
+    "prior_therapies": [
+      "crizotinib",
+      "TKI di seconda generazione"
+    ],
+    "samples_and_biopsies": [
+      "plasma",
+      "biopsie tissutali da lesioni resistenti"
+    ],
+    "selection_criteria": "riarrangiamento di ALK e trattamento con TKI di nuova generazione",
+    "study_objective": "valutare l'utilita' della genotipizzazione su plasma per identificare mutazioni di resistenza ad ALK alla recidiva",
+    "subgroups": [
+      "70 pazienti in progressione su TKI di seconda generazione",
+      "29 pazienti in progressione su lorlatinib",
+      "46 pazienti genotipizzati su plasma alla progressione su alectinib",
+      "41 biopsie tissutali alla progressione su alectinib",
+      "12 pazienti con plasma e tessuto appaiati",
+      "6 pazienti alectinib seguito da brigatinib",
+      "15 pazienti con lorlatinib dopo un TKI di seconda generazione",
+      "19 pazienti con recidiva solo cerebrale o toracica"
+    ],
+    "treatments_administered": [
+      "ceritinib",
+      "alectinib",
+      "brigatinib",
+      "lorlatinib"
+    ]
+  },
+  "first_review_complete": false,
+  "human_reviewed": false,
+  "is_evaluable": false,
+  "limitations": [],
+  "not_separable_dimensions": [
+    "intervention"
+  ],
+  "parent_profile_unit_id": "PU-PMID-31358542-cohort-1",
+  "pmc_id": "PMC6858956",
+  "pmid": "31358542",
+  "propagation_violations": 0,
+  "proposed_units": [
+    "PU-PMID-31358542-clinical-cohort"
+  ],
+  "questions_for_author": [
+    "Lo split clinico/preclinico e' respinto. Si conferma che l'unita' resta singola, o le otto sottopopolazioni giustificano uno split di sottogruppo?",
+    "ES-V2-evidence-100003 attribuisce a brigatinib una frequenza riportata per l'insieme dei TKI di seconda generazione. Va declassato a candidate_invalid?",
+    "La fonte era un falso positivo del rilevatore: va segnalata come caso di riferimento per la correzione dei segnali?"
+  ],
+  "requires_author_approval": true,
+  "requires_second_independent_review": true,
+  "residual_risk": "il rischio residuo non e' clinico/preclinico ma di sottogruppo: otto sottopopolazioni sovrapposte, e i dati aggregati per i TKI di seconda generazione possono essere attribuiti al singolo farmaco per errore",
+  "review_status": "source_checked_review_proposal",
+  "review_version": "clinical_preclinical_review/1.0",
+  "reviewed_unit_count": 1,
+  "reviewer": null,
+  "statement_mappings": [
+    {
+      "candidate_link_status": "candidate_ambiguous",
+      "statement_id": "ES-V2-evidence-100003",
+      "support_type": "direct_clinical_support"
+    },
+    {
+      "candidate_link_status": "candidate_partial",
+      "statement_id": "ES-V2-evidence-100004",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "structural_decision": "audit_split_not_supported",
+  "terminology_mappings": 0
+}

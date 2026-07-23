@@ -114,6 +114,9 @@ class StatementFinding:
     locator_ids: tuple[str, ...]
     conflict_dimensions: tuple[str, ...] = ()
     non_propagation_rules: tuple[str, ...] = ()
+    # `relative_resistance` o `complete_resistance`. Dichiararlo permette alla
+    # guardia di confrontarlo con cio' che la motivazione descrive.
+    resistance_qualifier: str = ""
     rationale: str = ""
 
 
@@ -360,6 +363,7 @@ _A_STATEMENTS = (
             "relative_versus_complete_resistance",
             "clinical_population_to_model",
         ),
+        resistance_qualifier="relative_resistance",
         rationale=(
             "e' l'unico dei sette statement in cui osservazione clinica e validazione "
             "funzionale coesistono nella stessa fonte. La resistenza mostrata in vitro "
@@ -619,6 +623,7 @@ _B_STATEMENTS = (
         "SNU-2535 (da paziente G1269) resistente; cloni G1269A meno sensibili",
         ("B-clin-mutations", "B-pre-snu2535", "B-pre-clones"),
         non_propagation_rules=("relative_versus_complete_resistance",),
+        resistance_qualifier="relative_resistance",
         rationale=(
             "clinico e preclinico concordano, ma il preclinico dice «less sensitive». "
             "Lo statement dice «resistance»: la differenza non e' verificabile "

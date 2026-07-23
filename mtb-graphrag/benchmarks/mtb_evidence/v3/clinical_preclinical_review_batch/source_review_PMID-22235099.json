@@ -1,0 +1,145 @@
+{
+  "answers": {
+    "alterations_enrolment_or_finding": "il riarrangiamento di ALK era requisito di arruolamento; tutte le alterazioni di resistenza sono reperti successivi",
+    "clinical_only_dimensions": "linea di terapia, setting, stadio, stato di resezione, terapie precedenti, tempo in trattamento",
+    "clinical_part": "la serie di 14 pazienti ri-biopsiati e le analisi molecolari sui loro campioni",
+    "directly_supported_statements": "tutti e tre sul piano clinico; solo ES-V2-evidence-764 anche sul piano preclinico",
+    "independent_preclinical_experiments": "si': il confronto di fitness fra mutanti e il costrutto C1156Y non corrispondono a nessun paziente della coorte",
+    "lab_drugs_given_to_patients": "si', crizotinib in entrambi i contesti; nessun altro farmaco e' stato testato in laboratorio",
+    "model_only_dimensions": "identita' della linea cellulare, costrutto, dipendenza da IL-3, IC50, conta delle colonie, saggio",
+    "preclinical_part": "quattro sistemi: Ba/F3 ingegnerizzate, NIH3T3 ingegnerizzate, CUTO-1 contro H3122 e H2228, H3122 con KRAS G12V",
+    "preclinical_validates_clinical": "si', per G1269A: la mutazione e' vista in due pazienti e poi validata su Ba/F3 e NIH3T3",
+    "statements_fuse_levels": "si': ES-V2-evidence-764 fonde l'osservazione clinica e la validazione funzionale in un solo statement"
+  },
+  "audit_unit_count": 2,
+  "availability": "full_text",
+  "canonical_source_id": "PMID:22235099",
+  "created_at": "2026-07-23T00:00:00+00:00",
+  "decision_rationale": "lo split clinico/preclinico e' confermato, ma due unita' non bastano: la componente preclinica sono quattro sistemi distinti, con fondi cellulari e saggi diversi, e uno di essi ha dato esito negativo",
+  "document_map": {
+    "animal_models": [],
+    "arms": [],
+    "cell_models": [
+      "Ba/F3",
+      "NIH3T3",
+      "H3122",
+      "H2228",
+      "CUTO-1",
+      "293T"
+    ],
+    "clinical_cohorts": [
+      "14 pazienti ALK+ ri-biopsiati alla progressione, 11 valutabili"
+    ],
+    "clinical_outcomes": [
+      "tempo mediano su crizotinib 8.9 mesi (range 3.8-21.1)"
+    ],
+    "drugs_tested_in_vitro": [
+      "crizotinib"
+    ],
+    "drugs_tested_in_vivo": [],
+    "figures_and_tables": [
+      "Figure 1A-F",
+      "Figure 2A-D",
+      "Figure 3A-B",
+      "Figure 4A-B",
+      "Table 1",
+      "Table 2",
+      "Supplemental Figures S1-S5",
+      "Supplemental Table S1"
+    ],
+    "molecular_alterations": [
+      "ALK L1196M",
+      "ALK G1269A",
+      "copy number gain del riarrangiamento di ALK",
+      "EGFR L858R",
+      "EGFR S768I",
+      "KRAS G12C",
+      "KRAS G12V",
+      "variante di fusione EML4-ALK E6;A19"
+    ],
+    "molecular_analyses": [
+      "FISH",
+      "RT-PCR",
+      "sequenziamento diretto",
+      "SNaPshot",
+      "STR",
+      "immunoblot"
+    ],
+    "pharmacological_analyses": [
+      "proliferazione con IC50",
+      "colonie in soft agar"
+    ],
+    "population": "NSCLC ALK+ trattati con crizotinib in uno studio di fase I",
+    "preclinical_endpoints": [
+      "IC50",
+      "conta delle colonie",
+      "livelli di fosfoproteine"
+    ],
+    "prior_therapies": [
+      "unknown"
+    ],
+    "samples_and_biopsies": [
+      "15 procedure di ri-biopsia",
+      "FFPE, tessuto congelato, tessuto per l'avvio di linee cellulari"
+    ],
+    "selection_criteria": "riarrangiamento di ALK accertato con FISH break-apart",
+    "study_objective": "definire i meccanismi molecolari di resistenza al crizotinib in NSCLC ALK+",
+    "subgroups": [
+      "resistenza intrinseca (2 pazienti)",
+      "resistenza acquisita (12 pazienti)"
+    ],
+    "treatments_administered": [
+      "crizotinib"
+    ]
+  },
+  "first_review_complete": false,
+  "human_reviewed": false,
+  "is_evaluable": false,
+  "limitations": [
+    "il numero esatto di pazienti per ciascun meccanismo si legge nelle tabelle, non nel testo corrente"
+  ],
+  "not_separable_dimensions": [],
+  "parent_profile_unit_id": "PU-PMID-22235099-cohort-1",
+  "pmc_id": "PMC3311875",
+  "pmid": "22235099",
+  "propagation_violations": 0,
+  "proposed_units": [
+    "PU-PMID-22235099-baf3-engineered",
+    "PU-PMID-22235099-clinical-cohort",
+    "PU-PMID-22235099-cuto1-comparative",
+    "PU-PMID-22235099-h3122-kras-engineered",
+    "PU-PMID-22235099-nih3t3-engineered"
+  ],
+  "questions_for_author": [
+    "Quattro unita' precliniche sono la granularita' giusta, o Ba/F3 e NIH3T3 vanno tenute insieme come «modelli isogenici ingegnerizzati»?",
+    "L'esperimento su H3122 con KRAS G12V ha esito negativo: va conservato come unita' propria, o registrato come nota della coorte clinica?",
+    "CUTO-1 deriva dal paziente #10 ma ha perso il riarrangiamento di ALK: e' una unita' preclinica autonoma o un prolungamento del caso clinico?",
+    "ES-V2-evidence-4288 poggia su un solo paziente. Va marcato case-level per impedirne la propagazione alla coorte?"
+  ],
+  "requires_author_approval": true,
+  "requires_second_independent_review": true,
+  "residual_risk": "la coorte clinica contiene osservazioni a livello di singolo paziente (#9 per EGFR, #8 per il CNG isolato) che non sono proprieta' della coorte",
+  "review_status": "source_checked_review_proposal",
+  "review_version": "clinical_preclinical_review/1.0",
+  "reviewed_unit_count": 5,
+  "reviewer": null,
+  "statement_mappings": [
+    {
+      "candidate_link_status": "candidate_partial",
+      "statement_id": "ES-V2-evidence-4288",
+      "support_type": "direct_clinical_support"
+    },
+    {
+      "candidate_link_status": "candidate_valid",
+      "statement_id": "ES-V2-evidence-764",
+      "support_type": "clinical_observation_with_preclinical_validation"
+    },
+    {
+      "candidate_link_status": "candidate_partial",
+      "statement_id": "ES-V2-evidence-766",
+      "support_type": "direct_clinical_support"
+    }
+  ],
+  "structural_decision": "audit_split_confirmed_with_more_units",
+  "terminology_mappings": 1
+}

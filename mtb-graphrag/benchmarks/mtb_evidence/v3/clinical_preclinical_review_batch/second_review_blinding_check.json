@@ -1,28 +1,11 @@
 {
-  "batch_status": "complete",
-  "branch": "feat/v3-clinical-preclinical-review-batch",
-  "clinical_gold_used": false,
+  "byte_identical": true,
+  "changed_files": [],
   "created_at": "2026-07-23T00:00:00+00:00",
-  "detector_version": "source_level_split_detector/2.0",
-  "generated_at": "2026-07-23T00:00:00+00:00",
-  "output_hashes": {
-    "propagation_guard_results": "1367d5823aba352631d8aef50ac9e2d952ed680c3c973133ed524c32520ba6f7",
-    "proposed_profile_units": "be053f7f01c2a463c02755937d4360c654ec1d982dc61d391ad07518db3d385a",
-    "review_batch_scope": "dc98d5468d589138ddf243eabacd99164d83a9db256112d5691bc4ade6fdb90f",
-    "source_access_verification": "af87063efca0d07c4a8b9c38a1dc754041e12ef504333438799490abc6adbf71",
-    "statement_unit_review_proposals": "90c1e95955efd759fe8e61c69c90daffd52baf5916270c9a4acdd0dbce6456f7",
-    "structural_review_decisions": "365b4945dff1994fd056c37f23174f7cf7fbf5187ec883636ac8b34a7249efee",
-    "terminology_mappings": "c4f73c826e483a4709af59801196486487c5adc5cb489132895b3c0779f9c1a7"
-  },
-  "review_batch_scope_hash": "dc98d5468d589138ddf243eabacd99164d83a9db256112d5691bc4ade6fdb90f",
-  "review_version": "clinical_preclinical_review/1.0",
-  "schema_versions": {
-    "clinical_preclinical_review": "clinical_preclinical_review/1.0",
-    "propagation_guards": "propagation_guards/1.1",
-    "source_clinical_profile_unit": "source_clinical_profile_unit/1.1"
-  },
-  "second_review_byte_identical": true,
-  "second_review_hashes_after": {
+  "directory": "annotation_packets/second_review",
+  "file_count_after": 70,
+  "file_count_before": 70,
+  "hashes_after": {
     "BB-200f66da08122a0a.json": "57ff67457ebad3debb387e1e4f37f42d0661f4d81760532a7a02f953add6d5c2",
     "BB-200f66da08122a0a.md": "15d82d0f6b57c71d40866cb8d0c2abd3c3ea96d2d8b80d62ffec96ec0626dc26",
     "BB-2596af0812aad0c6.json": "18d83f39a99d658c43f4c5b8a8b144aecb048fbc71d57c09c80e9fd8bc7f75bf",
@@ -94,7 +77,7 @@
     "BB-fbca7aa5ef51e72c.json": "a5c7e40a23447ed756ea762d4fe70fa995368a2902a0f132ff4e69f018d72d0c",
     "BB-fbca7aa5ef51e72c.md": "b84d5e20453c8e6dcb6c5a3d64cdf6aea4ec3bbb59fb68be09c97d183caf76a1"
   },
-  "second_review_hashes_before": {
+  "hashes_before": {
     "BB-200f66da08122a0a.json": "57ff67457ebad3debb387e1e4f37f42d0661f4d81760532a7a02f953add6d5c2",
     "BB-200f66da08122a0a.md": "15d82d0f6b57c71d40866cb8d0c2abd3c3ea96d2d8b80d62ffec96ec0626dc26",
     "BB-2596af0812aad0c6.json": "18d83f39a99d658c43f4c5b8a8b144aecb048fbc71d57c09c80e9fd8bc7f75bf",
@@ -166,10 +149,5 @@
     "BB-fbca7aa5ef51e72c.json": "a5c7e40a23447ed756ea762d4fe70fa995368a2902a0f132ff4e69f018d72d0c",
     "BB-fbca7aa5ef51e72c.md": "b84d5e20453c8e6dcb6c5a3d64cdf6aea4ec3bbb59fb68be09c97d183caf76a1"
   },
-  "second_review_packet_count": 70,
-  "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
-  "source_count": 3,
-  "source_inventory_hash": "3e4e385f61fa8455a4e913b01db41b056a00f9b55b4cc700b2266f5dc3db3001",
-  "source_sha": "59de800",
-  "statement_repository_hash": "bc7dd6f2473b1ffa69706ef0ecca2d45a2ed6057a39ca3a20fbc4528bb18a28a"
+  "review_version": "clinical_preclinical_review/1.0"
 }
