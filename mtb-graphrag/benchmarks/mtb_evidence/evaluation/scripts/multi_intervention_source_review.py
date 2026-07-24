@@ -1171,7 +1171,11 @@ def generate(
 
     artifact_hashes: dict[str, str] = {}
     for path in sorted(output_dir.rglob("*")):
-        if path.is_file() and path.name != "review_manifest.json":
+        if (
+            path.is_file()
+            and path.name != "review_manifest.json"
+            and path.suffix in {".json", ".jsonl"}
+        ):
             artifact_hashes[path.relative_to(output_dir).as_posix()] = _sha(path)
     decisions_hash = hashlib.sha256(
         _jsonl_bytes(review["decisions"])
