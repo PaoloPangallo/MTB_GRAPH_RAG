@@ -1,0 +1,67 @@
+{
+  "current_single_intervention": {
+    "graph_evidence_id_count": 147,
+    "interventions_hidden": 15,
+    "source_count": 102,
+    "statement_new": 0,
+    "statement_replaced": 0,
+    "statement_total": 147
+  },
+  "id_strategy": {
+    "alias_stability_requires_verified_canonical_intervention": true,
+    "collision_guard": "store and validate the complete canonical claim tuple",
+    "implemented": false,
+    "order_independent": true,
+    "preserves_graph_evidence_id": true,
+    "recommended": "claim_hash",
+    "template": "ES-V3-<sha256(graph_evidence_id|canonical_intervention|direction|assertion_polarity)[:20]>"
+  },
+  "option_A_list_valued": {
+    "graph_evidence_id_count": 147,
+    "qualification_links_requiring_reassessment": 13,
+    "qualified_views_to_regenerate": 13,
+    "risk": "intervention-direction relation remains non-atomic",
+    "source_count": 102,
+    "statement_new": 0,
+    "statement_replaced": 13,
+    "statement_total": 147
+  },
+  "option_B_atomic_per_intervention": {
+    "additional_statement_count": 12,
+    "deferred_graph_evidence_ids": [
+      "evidence:11240",
+      "evidence:12131",
+      "evidence:12156"
+    ],
+    "graph_evidence_id_count": 147,
+    "maximal_unreviewed_statement_total_forbidden": 162,
+    "qualification_links_requiring_reassessment": 10,
+    "qualified_views_to_regenerate": 22,
+    "risk": "shared or aggregate evidence needs a parent identity",
+    "safe_statement_new": 22,
+    "safe_statement_replaced": 10,
+    "safe_statement_total": 159,
+    "source_count": 102
+  },
+  "option_C_parent_plus_atomic_children": {
+    "deferred_parent_only_count": 3,
+    "graph_evidence_id_count": 147,
+    "new_child_statement_count": 22,
+    "new_qualified_views_if_children_qualified": 22,
+    "parent_statement_count": 147,
+    "qualification_links_requiring_reassessment": 10,
+    "risk": "child qualification links cannot be inherited blindly",
+    "safe_statement_total": 169,
+    "source_count": 102
+  },
+  "recommendation_detail": "option C for structurally attributable interventions; keep parent-only records for regimen/aggregate ambiguity until source review",
+  "recommended_architecture": "mixed_policy",
+  "safe_atomizable_group_count": 10,
+  "simulation_contract": {
+    "aggregate_results_atomized": false,
+    "clinical_quality_metrics_computed": false,
+    "frozen_before_gold_access": true,
+    "pending_mappings_merged": false
+  },
+  "source_review_group_count": 3
+}
