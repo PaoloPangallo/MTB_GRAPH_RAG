@@ -1,0 +1,33 @@
+{
+  "branch": "review/v3-multi-intervention-source-batch",
+  "gold_used_for_decision": false,
+  "graph_evidence_group_count": 13,
+  "graph_evidence_ids": [
+    "evidence:229",
+    "evidence:275",
+    "evidence:296",
+    "evidence:841",
+    "evidence:1483",
+    "evidence:1484",
+    "evidence:1851",
+    "evidence:1853",
+    "evidence:3811",
+    "evidence:4759",
+    "evidence:11240",
+    "evidence:12131",
+    "evidence:12156"
+  ],
+  "intervention_count": 28,
+  "llm_completion_used": false,
+  "neo4j_used": false,
+  "network_used": false,
+  "review_version": "multi-intervention-source-review/1.0",
+  "source_count": 11,
+  "source_priority": [
+    "local_full_text",
+    "local_supplement",
+    "local_abstract",
+    "local_structured_metadata"
+  ],
+  "source_sha": "3444d931990b0f5e20a1f0a0ae26313b96071b8f"
+}

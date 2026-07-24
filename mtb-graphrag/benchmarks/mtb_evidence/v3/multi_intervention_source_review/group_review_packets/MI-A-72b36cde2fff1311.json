@@ -1,0 +1,43 @@
+{
+  "assertion_polarities": [
+    "supports"
+  ],
+  "biomarker": "EML4::ALK Fusion AND ALK C1156Y",
+  "blind_annotation_id": "MI-A-72b36cde2fff1311",
+  "candidate_interventions": [
+    "ceritinib",
+    "crizotinib",
+    "luminespib"
+  ],
+  "current_statement_intervention": "ceritinib",
+  "directions": [
+    "resistance"
+  ],
+  "disease": "Lung Non-small Cell Carcinoma",
+  "graph_evidence_id": "evidence:841",
+  "packet_version": "multi-intervention-source-review/1.0",
+  "prohibited_inferences": [
+    "aggregate_to_specific",
+    "class_to_member",
+    "comparator_to_support",
+    "mention_to_tested",
+    "preclinical_to_clinical",
+    "pending_mapping_to_verified_alias"
+  ],
+  "review_assignment": {
+    "review_independence": "non_independent",
+    "reviewer_role": "author_review"
+  },
+  "review_questions": [
+    "Il risultato è attribuibile separatamente a ogni intervento?",
+    "Il risultato è aggregato, un regime, un comparatore o una menzione?",
+    "Il locator identifica l'unità documentale e il biomarcatore?"
+  ],
+  "source_access_status": "full_text",
+  "source_ids": [
+    "PMID:26698910"
+  ],
+  "source_text": "In a patient who had metastatic anaplastic lymphoma kinase (ALK)-rearranged lung cancer, resistance to crizotinib developed because of a mutation in the ALK kinase domain. This mutation is predicted to result in a substitution of cysteine by tyrosine at amino acid residue 1156 (C1156Y). Her tumor did not respond to a second-generation ALK inhibitor, but it did respond to lorlatinib (PF-06463922), a third-generation inhibitor. When her tumor relapsed, sequencing of the resistant tumor revealed an ALK L1198F mutation in addition to the C1156Y mutation. The L1198F substitution confers resistance to lorlatinib through steric interference with drug binding. However, L1198F paradoxically enhances binding to crizotinib, negating the effect of C1156Y and resensitizing resistant cancers to crizotinib. The patient received crizotinib again, and her cancer-related symptoms and liver failure resolved. (Funded by Pfizer and others; ClinicalTrials.gov number, NCT01970865.).",
+  "source_title": "Resensitization to Crizotinib by the Lorlatinib ALK Resistance Mutation L1198F.",
+  "statement_id": "ES-V2-evidence-841"
+}

@@ -1,0 +1,42 @@
+{
+  "assertion_polarities": [
+    "supports"
+  ],
+  "biomarker": "FGFR2::AHCYL1 Fusion",
+  "blind_annotation_id": "MI-A-c9174014bdf40550",
+  "candidate_interventions": [
+    "infigratinib",
+    "pd173074"
+  ],
+  "current_statement_intervention": "infigratinib",
+  "directions": [
+    "sensitivity"
+  ],
+  "disease": "Cholangiocarcinoma",
+  "graph_evidence_id": "evidence:1853",
+  "packet_version": "multi-intervention-source-review/1.0",
+  "prohibited_inferences": [
+    "aggregate_to_specific",
+    "class_to_member",
+    "comparator_to_support",
+    "mention_to_tested",
+    "preclinical_to_clinical",
+    "pending_mapping_to_verified_alias"
+  ],
+  "review_assignment": {
+    "review_independence": "non_independent",
+    "reviewer_role": "author_review"
+  },
+  "review_questions": [
+    "Il risultato è attribuibile separatamente a ogni intervento?",
+    "Il risultato è aggregato, un regime, un comparatore o una menzione?",
+    "Il locator identifica l'unità documentale e il biomarcatore?"
+  ],
+  "source_access_status": "abstract_only",
+  "source_ids": [
+    "PMID:24122810"
+  ],
+  "source_text": "Cholangiocarcinoma is an intractable cancer, with limited therapeutic options, in which the molecular mechanisms underlying tumor development remain poorly understood. Identification of a novel driver oncogene and applying it to targeted therapies for molecularly defined cancers might lead to improvements in the outcome of patients. We performed massively parallel whole transcriptome sequencing in eight specimens from cholangiocarcinoma patients without KRAS/BRAF/ROS1 alterations and identified two fusion kinase genes, FGFR2-AHCYL1 and FGFR2-BICC1. In reverse-transcriptase polymerase chain reaction (RT-PCR) screening, the FGFR2 fusion was detected in nine patients with cholangiocarcinoma (9/102), exclusively in the intrahepatic subtype (9/66, 13.6%), rarely in colorectal (1/149) and hepatocellular carcinoma (1/96), and none in gastric cancer (0/212). The rearrangements were mutually exclusive with KRAS/BRAF mutations. Expression of the fusion kinases in NIH3T3 cells activated MAPK and conferred anchorage-independent growth and in vivo tumorigenesis of subcutaneous transplanted cells in immune-compromised mice. This transforming ability was attributable to its kinase activity. Treatment with the fibroblast growth factor receptor (FGFR) kinase inhibitors BGJ398 and PD173074 effectively suppressed transformation. FGFR2 fusions occur in 13.6% of intrahepatic cholangiocarcinoma. The expression pattern of these fusions in association with sensitivity to FGFR inhibitors warrant a new molecular classification of cholangiocarcinoma and suggest a new therapeutic approach to the disease.",
+  "source_title": "Fibroblast growth factor receptor 2 tyrosine kinase fusions define a unique molecular subtype of cholangiocarcinoma.",
+  "statement_id": "ES-V2-evidence-1853"
+}
