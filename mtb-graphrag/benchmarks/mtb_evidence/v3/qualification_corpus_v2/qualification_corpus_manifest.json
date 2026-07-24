@@ -9,7 +9,7 @@
     "propagation_policy_hash": "a20ad021409f79e2f35e4c539961f8f4127de0c29466b820fd2d560e9a4d4561",
     "provisional_gold_hash": "b7736e4eb77dd087d127c833fc49a746b9d9cba8c2be4f4fe296dd24ed3f0cd9",
     "qualification_links_hash": "1b6d74b908d0cc18b93451ed014a3e14afbc3d6ead26fb02e46380fdd0890845",
-    "qualification_scope_hash": "bf37c7b829511229680ffbf6aa794e88b577477982516813757136acf4bf77de",
+    "qualification_scope_hash": "f021fe9b9506a3839cdf7a255ad9025fe8f518e77c11a30fbd4b02d2e09ac755",
     "qualified_evidence_views_hash": "58ab9f7dc7603b1cc0d04a96b0c5c8a4818b8aeea88572d90ace553fbb11fe32",
     "review_decisions_hash": "a6f99f06da7041659f1cbb0114e7775391d18254df1551f5aeb3828aa479205e",
     "second_review_packets_hash": "8d7be25f9fce61206c7991f626ede6390ad5bb8694b64f56b5075545f31cdf65",
@@ -66,7 +66,8 @@
     "created_at",
     "reviewed_at",
     "access_date",
-    "review_date"
+    "review_date",
+    "reverse_input_order"
   ],
   "obsolete_serialized_flags_after": 0,
   "obsolete_serialized_flags_before": 99,
@@ -90,7 +91,7 @@
   "previous_corpus_manifest": "benchmarks/mtb_evidence/v3/qualification_corpus/qualification_corpus_manifest.json",
   "previous_corpus_version": "qualification_corpus/1.0",
   "propagation_policy_version": "propagation_policy/1.0",
-  "qualification_corpus_fingerprint": "d831c9737cb808739848d63cc052a0a37bfab3b89e926e29dbb60406f1600fc7",
+  "qualification_corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
   "qualified_evidence_snapshot_fingerprint": "e68520d7f827e7031f45ee74bd0c35a0834ff1fcb61b04cece86a993f0793f2a",
   "regeneration_reason": "incorporare la politica di propagazione normalizzata e le quattro prime revisioni approvate in un corpus unico, eliminando i flag serializzati che il codice non onora piu'",
   "regeneration_status": "ready_for_prototype",
