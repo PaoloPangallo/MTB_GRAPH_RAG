@@ -118,6 +118,7 @@ class QualifiedRetrievalOutput:
     rejected_by_native_constraints: tuple[NativeExclusion, ...]
     corpus_fingerprint: str
     scoring_config_hash: str
+    candidate_count: int
 
     @property
     def all_results(self) -> tuple[QualifiedRetrievalResult, ...]:
@@ -128,6 +129,7 @@ class QualifiedRetrievalOutput:
             "query_id": self.query_id,
             "corpus_fingerprint": self.corpus_fingerprint,
             "scoring_config_hash": self.scoring_config_hash,
+            "candidate_count": self.candidate_count,
             "ranked_results": [item.as_dict() for item in self.ranked_results],
             "retained_with_warning": [
                 item.as_dict() for item in self.retained_with_warning
@@ -304,6 +306,7 @@ class QualifiedEvidenceRetriever:
             rejected_by_native_constraints=tuple(exclusions),
             corpus_fingerprint=fingerprint,
             scoring_config_hash=self.scoring_config.hash,
+            candidate_count=len(results),
         )
         self._audit[query.query_id] = output
         return output

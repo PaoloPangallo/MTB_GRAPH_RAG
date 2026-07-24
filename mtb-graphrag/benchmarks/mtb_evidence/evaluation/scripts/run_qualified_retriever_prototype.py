@@ -1,4 +1,4 @@
-"""Esegue il smoke benchmark tecnico V3-A senza consultare clinical gold."""
+"""Smoke tecnico V3-A su query pilot congelate, senza usare outcome gold."""
 
 from __future__ import annotations
 
@@ -139,13 +139,17 @@ def run(root: Path, output: Path) -> dict[str, Any]:
             "negative_evidence_surfaced": 0,
             "warning_counts": {},
         }
+        mode_deterministic = True
         for payload in queries:
-            result = retriever.retrieve(_query(payload, mode))
+            query = _query(payload, mode)
+            result = retriever.retrieve(query)
             serialized = result.as_dict()
+            repeated = retriever.retrieve(query).as_dict()
+            mode_deterministic = mode_deterministic and serialized == repeated
             rows.append(serialized)
             all_results = result.all_results
             mode_metrics["queries"] += 1
-            mode_metrics["candidates_generated"] += len(all_results)
+            mode_metrics["candidates_generated"] += result.candidate_count
             mode_metrics["results_ranked"] += len(result.ranked_results)
             mode_metrics["retained_with_warning"] += len(
                 result.retained_with_warning
@@ -155,7 +159,8 @@ def run(root: Path, output: Path) -> dict[str, Any]:
                 result.rejected_by_native_constraints
             )
             mode_metrics["prototype_qualifier_contributions"] += sum(
-                item.qualified_score != 0 for item in all_results
+                any(component["name"] in {"qualified_context_compatible", "qualified_first_review", "qualified_direct_support"} and float(component["contribution"]) != 0 for component in item.score_breakdown)
+                for item in all_results
             )
             mode_metrics["negative_evidence_surfaced"] += sum(
                 bool(item.negative_evidence_information) for item in all_results
@@ -188,7 +193,9 @@ def run(root: Path, output: Path) -> dict[str, Any]:
         target = output / f"results_{mode}.jsonl"
         _write_jsonl(target, rows)
         mode_metrics["result_hash"] = _sha256(target)
-        mode_metrics["deterministic_runtime"] = True
+        mode_metrics["deterministic_runtime"] = mode_deterministic
+        if not mode_deterministic:
+            raise RuntimeError(f"output non deterministico in modalita {mode}")
         mode_outputs[mode] = rows
         metrics[mode] = mode_metrics
 
@@ -216,12 +223,13 @@ def run(root: Path, output: Path) -> dict[str, Any]:
                 "divergence_cause": (
                     "none: both modes intentionally use the same native offline corpus"
                     if v2_ids == native_ids
-                    else "native representation difference; inspect retrieval_traces.jsonl"
+                    else None
                 ),
+                "divergence_classified": v2_ids == native_ids,
             }
         )
     compatibility["all_divergences_explained"] = all(
-        bool(item["divergence_cause"]) for item in compatibility["cases"]
+        bool(item["divergence_classified"]) for item in compatibility["cases"]
     )
     _write_json(output / "prototype_metrics.json", metrics)
     _write_json(output / "compatibility_metrics.json", compatibility)
@@ -241,6 +249,8 @@ def run(root: Path, output: Path) -> dict[str, Any]:
         "query_count": len(queries),
         "result_hashes": result_hashes,
         "clinical_gold_used_for_weights": False,
+        "pilot_fixture_used_for_query_construction": True,
+        "gold_outcomes_used_for_retrieval_or_metrics": False,
         "clinical_quality_metrics_computed": False,
         "ready_for_exploratory_v2_v3a_comparison": True,
         "ready_for_final_v2_v3a_evaluation": False,
