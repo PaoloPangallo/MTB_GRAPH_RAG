@@ -27,41 +27,52 @@
     "statement_total": 147
   },
   "option_B_atomic_per_intervention": {
-    "additional_statement_count": 12,
+    "additional_statement_count": 0,
     "deferred_graph_evidence_ids": [
+      "evidence:229",
+      "evidence:275",
+      "evidence:296",
+      "evidence:841",
+      "evidence:1483",
+      "evidence:1484",
+      "evidence:1851",
+      "evidence:1853",
+      "evidence:3811",
+      "evidence:4759",
       "evidence:11240",
       "evidence:12131",
       "evidence:12156"
     ],
     "graph_evidence_id_count": 147,
     "maximal_unreviewed_statement_total_forbidden": 162,
-    "qualification_links_requiring_reassessment": 10,
-    "qualified_views_to_regenerate": 22,
+    "qualification_links_requiring_reassessment": 0,
+    "qualified_views_to_regenerate": 0,
     "risk": "shared or aggregate evidence needs a parent identity",
-    "safe_statement_new": 22,
-    "safe_statement_replaced": 10,
-    "safe_statement_total": 159,
+    "safe_statement_new": 0,
+    "safe_statement_replaced": 0,
+    "safe_statement_total": 147,
     "source_count": 102
   },
   "option_C_parent_plus_atomic_children": {
-    "deferred_parent_only_count": 3,
+    "deferred_parent_only_count": 13,
     "graph_evidence_id_count": 147,
-    "new_child_statement_count": 22,
-    "new_qualified_views_if_children_qualified": 22,
+    "new_child_statement_count": 0,
+    "new_qualified_views_if_children_qualified": 0,
     "parent_statement_count": 147,
-    "qualification_links_requiring_reassessment": 10,
+    "qualification_links_requiring_reassessment": 0,
     "risk": "child qualification links cannot be inherited blindly",
-    "safe_statement_total": 169,
+    "safe_statement_total": 147,
     "source_count": 102
   },
-  "recommendation_detail": "option C for structurally attributable interventions; keep parent-only records for regimen/aggregate ambiguity until source review",
-  "recommended_architecture": "mixed_policy",
-  "safe_atomizable_group_count": 10,
+  "preferred_architecture_if_attribution_is_confirmed": "option_C_parent_plus_atomic_children",
+  "recommendation_detail": "keep every multi-intervention graph record parent-only until source review; if attribution is confirmed, option C best preserves graph identity and claim-level atomicity",
+  "recommended_architecture": "insufficient_evidence_for_decision",
+  "safe_atomizable_group_count": 0,
   "simulation_contract": {
     "aggregate_results_atomized": false,
     "clinical_quality_metrics_computed": false,
     "frozen_before_gold_access": true,
     "pending_mappings_merged": false
   },
-  "source_review_group_count": 3
+  "source_review_group_count": 13
 }

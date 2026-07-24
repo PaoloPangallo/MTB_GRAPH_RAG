@@ -42,7 +42,6 @@ def test_every_multi_row_group_is_classified(generated: Path) -> None:
         row["primary_classification"] for row in rows
     } == {
         "duplicated_serialization",
-        "intervention_specific_results",
         "unresolved_without_document_review",
     }
 
@@ -103,13 +102,9 @@ def test_alias_pending_mapping_and_distinct_drugs_are_not_conflated(
 def test_regimen_and_aggregate_ambiguity_is_not_atomized(
     generated: Path,
 ) -> None:
-    groups = {
-        row["graph_evidence_id"]: row
-        for row in _jsonl(generated / "multi_intervention_groups.jsonl")
-    }
-    assert set(review.REGIMEN_AMBIGUOUS_IDS) <= set(groups)
-    for graph_id in review.REGIMEN_AMBIGUOUS_IDS:
-        row = groups[graph_id]
+    groups = _jsonl(generated / "multi_intervention_groups.jsonl")
+    assert len(groups) == 13
+    for row in groups:
         assert row["primary_classification"] == "unresolved_without_document_review"
         assert row["structurally_atomizable"] is False
         assert row["source_review_required"] is True
@@ -125,7 +120,7 @@ def test_named_multikinase_agent_is_not_turned_into_a_drug_class(
         if row["graph_evidence_id"] == "evidence:3811"
     )
     assert "multikinase inhibitor aee788" in group["v2_interventions_normalized"]
-    assert group["primary_classification"] == "intervention_specific_results"
+    assert group["primary_classification"] == "unresolved_without_document_review"
     manifest = json.loads((generated / "review_manifest.json").read_text("utf-8"))
     assert manifest["metrics"]["drug_class_groups"] == 0
 
@@ -150,16 +145,19 @@ def test_representation_simulation_is_non_operational(generated: Path) -> None:
     )
     assert data["current_single_intervention"]["statement_total"] == 147
     assert data["option_A_list_valued"]["statement_total"] == 147
-    assert data["option_B_atomic_per_intervention"]["safe_statement_total"] == 159
-    assert data["option_B_atomic_per_intervention"]["additional_statement_count"] == 12
+    assert data["option_B_atomic_per_intervention"]["safe_statement_total"] == 147
+    assert data["option_B_atomic_per_intervention"]["additional_statement_count"] == 0
     assert (
         data["option_B_atomic_per_intervention"][
             "maximal_unreviewed_statement_total_forbidden"
         ]
         == 162
     )
-    assert data["option_C_parent_plus_atomic_children"]["safe_statement_total"] == 169
-    assert data["recommended_architecture"] == "mixed_policy"
+    assert data["option_C_parent_plus_atomic_children"]["safe_statement_total"] == 147
+    assert data["recommended_architecture"] == "insufficient_evidence_for_decision"
+    assert data["preferred_architecture_if_attribution_is_confirmed"] == (
+        "option_C_parent_plus_atomic_children"
+    )
     assert data["simulation_contract"]["aggregate_results_atomized"] is False
 
 
@@ -208,6 +206,9 @@ def test_adapter_corpus_retriever_scoring_and_prior_audits_are_frozen(
     )
     assert integrity["qualification_corpus"]["aggregate_sha256"] == (
         review.EXPECTED_CORPUS_DIRECTORY_HASH
+    )
+    assert integrity["raw_v2_adapter_inputs"]["aggregate_sha256"] == (
+        review.EXPECTED_RAW_V2_INPUT_HASH
     )
     assert integrity["retriever"]["aggregate_sha256"] == review.EXPECTED_RETRIEVER_HASH
     assert integrity["scoring_config"]["canonical_hash"] == review.EXPECTED_SCORING_HASH
@@ -258,6 +259,26 @@ def test_two_runs_and_reversed_input_are_byte_identical(tmp_path: Path) -> None:
     } == first_bytes
 
 
+def test_raw_adapter_input_guard_rejects_mismatch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(review, "EXPECTED_RAW_V2_INPUT_HASH", "0" * 64)
+    with pytest.raises(RuntimeError, match="raw_v2_adapter_inputs hash mismatch"):
+        review.generate_review(ROOT, tmp_path / "mismatch", GOLD)
+
+
+def test_uncontrolled_output_file_does_not_enter_manifest(tmp_path: Path) -> None:
+    output = tmp_path / "prepopulated"
+    output.mkdir()
+    (output / "stale-uncontrolled.txt").write_text("stale", encoding="utf-8")
+    manifest = review.generate_review(ROOT, output, GOLD)
+    assert "stale-uncontrolled.txt" not in manifest["artifact_hashes"]
+    assert set(manifest["artifact_hashes"]) == set(review.OUTPUT_ARTIFACT_NAMES)
+    assert manifest["generator_source_sha256"] == hashlib.sha256(
+        Path(review.__file__).read_bytes()
+    ).hexdigest()
+
+
 def test_review_requires_no_external_services(generated: Path) -> None:
     manifest = json.loads((generated / "review_manifest.json").read_text("utf-8"))
     assert manifest["network_used"] is False
@@ -274,7 +295,7 @@ def test_readiness_stays_conservative(generated: Path) -> None:
     manifest = json.loads((generated / "review_manifest.json").read_text("utf-8"))
     readiness = manifest["readiness"]
     assert readiness["multi_intervention_root_causes_identified"] is True
-    assert readiness["statement_atomicity_decision_ready"] is True
+    assert readiness["statement_atomicity_decision_ready"] is False
     assert readiness["adapter_schema_revision_required"] is True
     assert readiness["corpus_regeneration_required"] is True
     assert readiness["source_review_required"] is True
