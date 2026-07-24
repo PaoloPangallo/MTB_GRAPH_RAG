@@ -1,0 +1,163 @@
+{
+  "adapter_modified": false,
+  "artifact_hashes": {
+    "EGFR_MULTI_INTERVENTION_AUDIT.md": "1e80a86fa80ffc2bf22e121b7786d7d8f6b90c929774f92953c9e909ead9dcad",
+    "EVIDENCE_STATEMENT_ATOMICITY_OPTIONS.md": "5ae33beb4abb8596ae8b26362e67949bbebaa75c73244551bbfdb5d0201843e8",
+    "FGFR2_MULTI_INTERVENTION_AUDIT.md": "b3705366f6b1e921bca8e198b0d243457eee0a4318ce04f2901fb13410de354b",
+    "MULTI_INTERVENTION_ADAPTER_REVIEW.md": "bad9e302adaaeffe9192f5abc66838979995b75f3abe987c4e52dfb0bd00ff59",
+    "MULTI_INTERVENTION_DECISION_READINESS.md": "03ae40a5097b5a929e2eaf72fe0e86fc208558d1d8979f0cee23be66a8eabd2c",
+    "affected_gold_records.json": "338cec19c2e033bfe82a3f58f87903bc4f099ed87218597222d57491688c04b8",
+    "egfr_multi_intervention_audit.jsonl": "e9521dc4392120311f59083b10cdefb0508d0ac37311a54fb2012a1101c0e915",
+    "fgfr2_multi_intervention_audit.jsonl": "6e29af0606ae2920b8113ab8ace44d1861eeeda699b47922f98e9b02abcd360c",
+    "intervention_lineage.jsonl": "ed92769e7624b18807995b746e51143c924e31ed1e650f2e24392c4ec1d9618b",
+    "intervention_normalization_audit.jsonl": "a109665981cc16b73eaa171f8150166281c23471c40644070da5540f8cbd4ac8",
+    "lost_interventions.jsonl": "acb6114242202e493064230ca1db6f19f019ebaf1693f874fe6d2293d724c516",
+    "multi_intervention_groups.jsonl": "2346f2303c2522dc855513467190c4589883427b2a49ac2216a081092a3c2a9d",
+    "multi_row_graph_evidence_inventory.jsonl": "892f95a82af4abdebe0f15d67a4c04366fe0a7484be55029467cdd460850b969",
+    "proposed_adapter_changes.jsonl": "2985fc22f33b0885d25272fda9f2f894b8852413f935b9649e5099fb293f8b47",
+    "representation_option_simulation.json": "f94bca36ebd0348dfb62a93f3c2ec97eeb821b10b36b2c26118630275a1b50d9"
+  },
+  "branch": "eval/v3-multi-intervention-adapter-review",
+  "classification_artifact_hash": "5b248e2ac93bd79093420e9e2c7c9fda0bf7b6c7a7ee7aa09cea0266446a8968",
+  "classification_frozen_before_gold_access": true,
+  "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+  "corpus_modified": false,
+  "corpus_version": "qualification_corpus/2.0",
+  "frozen_kg_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "gold_loaded_after_classification": true,
+  "gold_used_for_decision": false,
+  "input_integrity": {
+    "adapter_outputs": {
+      "aggregate_sha256": "b5e50a8a1bad72a53357d97b45d6002c4e507a60f5275e217656e60cd1caf0e4",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 4
+    },
+    "author_approval": {
+      "aggregate_sha256": "8bdafc1188d9050898ffdfab69626ad0d8780b2f137de24bb6d0716d2129c278",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 43
+    },
+    "candidate_counts": {
+      "PILOT-A2-ALK-G1202R": 9,
+      "PILOT-C1-EGFR-L858R-CONTEXT": 32,
+      "PILOT-K1-FGFR2-iCCA": 1,
+      "PILOT-N1-RMI2-SNAPSHOT": 0
+    },
+    "candidate_coverage_audit": {
+      "aggregate_sha256": "43396526a701ba1ec7f4e1f0bbc498a798ca02fd9600deedf7ef1ed442ca7273",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 17
+    },
+    "conjunctive_biomarker_fix": {
+      "aggregate_sha256": "cf69886100af3f25f06426ad81a3ae811f9c1e76a08c240b5e2c86f41d88638d",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 7
+    },
+    "disease_normalization_review": {
+      "aggregate_sha256": "1084763a50e63cfe4c19b72defca5c73788a826f5227a0fd4378c7bc1020b71c",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 15
+    },
+    "evidence_statement_repository": {
+      "file_sha256": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "path": "backend/pipeline/evidence/repository.py"
+    },
+    "frozen_v2_serialization": {
+      "aggregate_sha256": "2a22b04abbfcff831b7123165e806cdb49d80fd557b2517d8743f72b010087de",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 4
+    },
+    "gold_bundle": {
+      "aggregate_sha256": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+      "file_sha256": {
+        "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+        "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+        "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+      },
+      "verification_contract": "aggregate identity frozen by preexisting inventory; every member is independently SHA-256 verified"
+    },
+    "qualification_corpus": {
+      "aggregate_sha256": "bf23a06ac8c122d2257487c0109eb8e0226f2b16d2d733740a6cd008ed34e827",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 23
+    },
+    "retriever": {
+      "aggregate_sha256": "3b80765830e67e8d3bd253afb0b08980ed934edb123b8edc745e93d6175f78e7",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 7
+    },
+    "scoring_config": {
+      "canonical_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+      "file_sha256": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "path": "backend/pipeline/evidence/qualified_retriever_scoring_config.json"
+    },
+    "second_review_packets": {
+      "aggregate_sha256": "6bb4ee225e4c273a6f24378dc5c982490cdbf3482a1e780e4c173695fe131bb6",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 70
+    },
+    "v2_adapter": {
+      "file_sha256": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "path": "backend/pipeline/evidence/v2_adapter.py"
+    },
+    "verified_disease_alias_fix": {
+      "aggregate_sha256": "7455f7f9265787f6bce4c87781f924a53962b140d2ad322a375084eab77875da",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 9
+    }
+  },
+  "input_order_invariance_verified_by_test": true,
+  "llm_used": false,
+  "metrics": {
+    "alias_only_groups": 0,
+    "atomizable_groups": 10,
+    "classification_counts": {
+      "duplicated_serialization": 23,
+      "intervention_specific_results": 10,
+      "unresolved_without_document_review": 3
+    },
+    "compatible_v2_rows_analyzed": 199,
+    "confirmed_aggregate_groups": 0,
+    "confirmed_regimen_groups": 0,
+    "current_statements_involved": 36,
+    "drug_class_groups": 0,
+    "egfr_graph_evidence_ids": 7,
+    "egfr_rows": 15,
+    "fgfr2_graph_evidence_ids": 3,
+    "fgfr2_rows": 6,
+    "gold_records_with_exact_lost_intervention_match": 0,
+    "graph_evidence_ids": 147,
+    "lost_distinct_interventions": 15,
+    "multi_intervention_groups": 13,
+    "multi_row_groups": 36,
+    "non_atomizable_groups": 3,
+    "pilot_gold_case_records_in_scope": 3,
+    "pilot_queries_involved": 3,
+    "preserved_distinct_interventions": 13,
+    "raw_v2_rows_analyzed": 1525,
+    "regimen_ambiguous_groups": 3,
+    "simulated_safe_atomic_statements": 159,
+    "source_reviews_required": 3
+  },
+  "neo4j_used": false,
+  "network_used": false,
+  "pmid_content_read": false,
+  "readiness": {
+    "adapter_fix_ready": false,
+    "adapter_schema_revision_required": true,
+    "corpus_regeneration_required": true,
+    "gold_migration_required": false,
+    "multi_intervention_root_causes_identified": true,
+    "ready_for_full_exploratory_rerun": false,
+    "ready_for_hierarchy_policy_implementation": false,
+    "ready_to_implement_adapter_decision": false,
+    "source_review_required": true,
+    "statement_atomicity_decision_ready": true
+  },
+  "recommendation": "mixed_policy",
+  "retriever_modified": false,
+  "review_version": "multi-intervention-adapter-review/1.0",
+  "scoring_config_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+  "scoring_modified": false,
+  "source_sha": "6d784671fad4fdee1759e0ea316154ee2a41b638"
+}
