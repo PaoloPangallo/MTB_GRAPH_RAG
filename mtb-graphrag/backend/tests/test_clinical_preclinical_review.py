@@ -31,6 +31,7 @@ from backend.pipeline.evidence.profile_unit import (
 )
 from backend.pipeline.evidence.propagation_guards import (
     ALL_RULE_IDS,
+    rule_ids_for_version,
     BiomarkerRoleError,
     ClinicalToPreclinicalError,
     CrossModelError,
@@ -500,9 +501,14 @@ class TestPropagationGuards(unittest.TestCase):
         cls.summary = load_json(BATCH / "propagation_guard_summary.json")
 
     def test_every_rule_is_executed_on_every_unit(self) -> None:
+        # Confrontate con le regole della versione che l'artefatto dichiara, non
+        # con quelle di oggi: aggiungere una regola non rende incompleta una
+        # verifica che era completa quando e' stata eseguita.
+        expected = rule_ids_for_version(self.summary["guard_version"])
+        self.assertTrue(set(expected) <= set(ALL_RULE_IDS))
         for row in self.results:
             with self.subTest(unit=row["proposed_profile_unit_id"]):
-                self.assertEqual(sorted(row["rules_executed"]), sorted(ALL_RULE_IDS))
+                self.assertEqual(sorted(row["rules_executed"]), sorted(expected))
 
     def test_every_required_prohibition_is_covered(self) -> None:
         self.assertEqual(self.summary["uncovered_prohibitions"], [])

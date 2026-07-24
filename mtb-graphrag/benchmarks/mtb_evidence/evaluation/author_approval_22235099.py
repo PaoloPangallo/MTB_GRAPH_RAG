@@ -209,6 +209,9 @@ CLINICAL_COHORT = ApprovedUnit(
     statement_ids=("ES-V2-evidence-4288", "ES-V2-evidence-764", "ES-V2-evidence-766"),
     role_fields={
         # Le due meta' che il campo `biomarker_requirements` da solo confonde.
+        # Il ruolo va dichiarato: senza, `rule_observed_biomarker_to_requirement`
+        # non puo' distinguere un requisito da un reperto, e ha ragione a fermarsi.
+        "biomarker_role": "enrolment_criterion",
         "enrollment_biomarker": ["ALK rearrangement"],
         "enrollment_biomarker_assay": "FISH break-apart",
         "acquired_resistance_findings": [
