@@ -81,10 +81,19 @@ DERIVED_POLICY_FIELDS = (
     "requires_second_independent_review",
 )
 
-# Campi che non partecipano all'hash: cambiano a ogni esecuzione senza che cambi
-# il contenuto, e includerli renderebbe ogni rigenerazione diversa dalla
-# precedente per motivi che non riguardano i dati.
-NON_HASHED_FIELDS = ("generated_at", "created_at", "reviewed_at", "access_date", "review_date")
+# Campi che descrivono **l'esecuzione** e non i dati, e che quindi non
+# partecipano all'hash. Includerli renderebbe ogni rigenerazione diversa dalla
+# precedente per motivi che non riguardano il contenuto — e nel caso di
+# `reverse_input_order` renderebbe l'impronta dipendente dall'ordine di lettura,
+# che e' esattamente la proprieta' che la rigenerazione esiste per escludere.
+NON_HASHED_FIELDS = (
+    "generated_at",
+    "created_at",
+    "reviewed_at",
+    "access_date",
+    "review_date",
+    "reverse_input_order",
+)
 
 
 # --- errori tipizzati ---------------------------------------------------------

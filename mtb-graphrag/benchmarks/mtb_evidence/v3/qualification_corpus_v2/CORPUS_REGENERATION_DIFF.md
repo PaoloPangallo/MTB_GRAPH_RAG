@@ -19,7 +19,7 @@
 ```
 frozen_kg_snapshot_fingerprint   ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae  (invariata)
 qualification_corpus_fingerprint 70601662488ba16dea2f416a18156e8886405e08b004cd4308889e065318c104  (prima)
-                                 d831c9737cb808739848d63cc052a0a37bfab3b89e926e29dbb60406f1600fc7  (dopo)
+                                 99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd  (dopo)
 ```
 
 L'impronta del grafo congelato non cambia: nessun dato viene scritto nel KG.
