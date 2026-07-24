@@ -48,6 +48,20 @@ from backend.pipeline.evidence.propagation_guards import (
     rule_ids_for_version,
     run_guards,
 )
+from backend.pipeline.evidence import source_basis as source_basis_module
+from backend.pipeline.evidence.source_basis import (
+    ABSTRACT_ONLY,
+    BASIS_UNKNOWN,
+    CONFIDENCE_FULL,
+    CONFIDENCE_PARTIAL,
+    FULL_TEXT,
+    NOT_SEPARABLE,
+    SOURCE_BASES,
+    STRUCTURAL_CONFIDENCES,
+    confidence_for,
+    constraints_for_basis,
+    is_partial,
+)
 from backend.pipeline.evidence.propagation_policy import (
     AGREEMENT_AGREED,
     FINAL,
@@ -618,6 +632,44 @@ class TestCaseLevelGuards(unittest.TestCase):
     def test_the_rules_do_not_name_a_source(self) -> None:
         text = Path(granularity_module.__file__).read_text(encoding="utf-8")
         for token in ("22235099", "PMID:", "crizotinib", "ALK"):
+            with self.subTest(token=token):
+                self.assertNotIn(token, text)
+
+
+class TestSourceBasisVocabulary(unittest.TestCase):
+    """Quanta fonte ha visto una revisione, e cosa questo le permette di dire."""
+
+    def test_an_abstract_only_review_is_partial(self) -> None:
+        self.assertTrue(is_partial(ABSTRACT_ONLY))
+        self.assertEqual(confidence_for(ABSTRACT_ONLY), CONFIDENCE_PARTIAL)
+
+    def test_a_full_text_review_is_not_capped(self) -> None:
+        self.assertFalse(is_partial(FULL_TEXT))
+        self.assertEqual(confidence_for(FULL_TEXT), CONFIDENCE_FULL)
+
+    def test_an_abstract_only_basis_cannot_claim_full_text_verification(self) -> None:
+        constraints = constraints_for_basis(ABSTRACT_ONLY)
+        self.assertFalse(constraints["full_text_verified"])
+        self.assertFalse(constraints["full_text_stored"])
+        self.assertTrue(constraints["requires_full_text_or_independent_review"])
+
+    def test_the_confidence_is_a_ceiling_not_a_value(self) -> None:
+        # Un full text puo' comunque non risolvere una struttura: la funzione dice
+        # il tetto, e leggerla come garanzia sarebbe l'errore opposto a quello che
+        # il modulo previene.
+        self.assertEqual(confidence_for(FULL_TEXT), CONFIDENCE_FULL)
+        self.assertIn(CONFIDENCE_PARTIAL, STRUCTURAL_CONFIDENCES)
+
+    def test_not_separable_is_not_unknown(self) -> None:
+        # Le due assenze hanno la stessa forma nei campi e significati opposti su
+        # chi debba fare qualcosa: cercare meglio, oppure smettere di cercare.
+        self.assertNotEqual(NOT_SEPARABLE, BASIS_UNKNOWN)
+        self.assertIn(BASIS_UNKNOWN, SOURCE_BASES)
+        self.assertNotIn(NOT_SEPARABLE, SOURCE_BASES)
+
+    def test_the_module_does_not_name_a_source(self) -> None:
+        text = Path(source_basis_module.__file__).read_text(encoding="utf-8")
+        for token in ("23344087", "PMID:", "crizotinib", "SNU-2535"):
             with self.subTest(token=token):
                 self.assertNotIn(token, text)
 
