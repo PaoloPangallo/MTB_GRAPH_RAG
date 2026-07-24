@@ -817,6 +817,18 @@ def _build_review(
                 "atomicity_decision": spec["decision"],
                 "rationale": spec["rationale"],
                 "intervention_count": len(group["v2_interventions_normalized"]),
+                "locators": sorted(
+                    {
+                        detail["locator"]
+                        for detail in spec["interventions"].values()
+                    }
+                ),
+                "locator_statuses": sorted(
+                    {
+                        detail["locator_status"]
+                        for detail in spec["interventions"].values()
+                    }
+                ),
                 "all_interventions_classified": True,
                 "all_decisions_have_locator": True,
                 **REVIEW_METADATA,
