@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
@@ -34,7 +35,7 @@ from benchmarks.mtb_evidence.evaluation.scripts.v2_v3a_exploratory import (
 
 
 AUDIT_VERSION = "candidate-coverage-audit/1.0"
-SOURCE_SHA = "ec2293baed1202edc9027fdb173a0aa25c1961f4"
+BASELINE_SHA = "ec2293baed1202edc9027fdb173a0aa25c1961f4"
 EXPECTED_GOLD_HASH = (
     "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133"
 )
@@ -139,6 +140,25 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _canonical_source_sha(path: Path) -> str:
+    source = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    return hashlib.sha256(source.encode("utf-8")).hexdigest()
+
+
+def _verify_artifact_hashes(
+    output: Path, expected: Mapping[str, str]
+) -> dict[str, str]:
+    actual = {name: _sha(output / name) for name in sorted(expected)}
+    mismatches = {
+        name: {"expected": expected[name], "actual": actual[name]}
+        for name in sorted(expected)
+        if actual[name] != expected[name]
+    }
+    if mismatches:
+        raise RuntimeError(f"causal artifact hash mismatch: {mismatches}")
+    return actual
+
+
 def _aggregate(root: Path, paths: Sequence[Path]) -> dict[str, Any]:
     files = sorted(
         (
@@ -181,6 +201,44 @@ def _graph_ids(statement: Mapping[str, Any]) -> list[str]:
         for item in (statement.get("provenance") or {}).get("graph_record_ids")
         or []
     )
+
+
+def _record_gene(subject: Any, requested_gene: Any) -> str:
+    """Ricava il gene dal testo V2 senza applicare sinonimi."""
+    tokens = re.findall(r"[A-Za-z][A-Za-z0-9-]{1,15}", str(subject or ""))
+    excluded = {
+        "and",
+        "or",
+        "fusion",
+        "mutation",
+        "single",
+        "amplification",
+        "deletion",
+        "exon",
+        "translocation",
+    }
+    candidates = [
+        token
+        for token in tokens
+        if token.casefold() not in excluded
+        and not re.fullmatch(r"[A-Za-z]\d+[A-Za-z]*", token)
+    ]
+    requested = str(requested_gene or "").strip()
+    if requested and any(
+        token.casefold() == requested.casefold() for token in candidates
+    ):
+        return requested.upper()
+    if not candidates:
+        return requested.upper()
+    counts = Counter(token.casefold() for token in candidates)
+    first_position = {
+        token.casefold(): index for index, token in enumerate(candidates)
+    }
+    selected = min(
+        counts,
+        key=lambda token: (-counts[token], first_position[token], token),
+    )
+    return selected.upper()
 
 
 def _statement_projection(statement: Mapping[str, Any]) -> dict[str, Any]:
@@ -816,6 +874,15 @@ def run_no_gold_audit(
                         "biomarker": str(
                             projection.get("biomarker") or ""
                         ),
+                        "gene": _record_gene(
+                            projection.get("biomarker") or "",
+                            (queries_by_id[query_id].get("biomarkers") or [{}])[
+                                0
+                            ].get("gene"),
+                        ),
+                        "alteration": str(
+                            projection.get("biomarker") or ""
+                        ),
                         "intervention": str(
                             projection.get("intervention") or ""
                         ),
@@ -855,13 +922,17 @@ def run_no_gold_audit(
                 "graph_evidence_id": graph_id,
                 "source_ids": sorted(record.get("source_ids") or []),
                 "disease": str(record.get("disease") or ""),
-                "gene": str(
-                    (query.get("biomarkers") or [{}])[0].get("gene") or ""
+                "gene": _record_gene(
+                    record.get("subject") or "",
+                    (query.get("biomarkers") or [{}])[0].get("gene") or "",
                 ),
                 "alteration": str(record.get("subject") or ""),
                 "intervention": str(record.get("drug") or ""),
                 "direction": str(record.get("relation") or ""),
-                "evidence_scope": str(record.get("source_kind") or ""),
+                "evidence_scope": str(
+                    projection.get("evidence_scope") or ""
+                ),
+                "v2_source_kind": str(record.get("source_kind") or ""),
                 "assertion_polarity": str(record.get("direction") or ""),
                 "statement_id": statement_id or None,
                 "statement_present_in_repository": bool(statement),
@@ -964,6 +1035,7 @@ def run_no_gold_audit(
                         "intervention",
                         "direction",
                         "evidence_scope",
+                        "v2_source_kind",
                         "assertion_polarity",
                         "duplicate_group_size",
                     )
@@ -1344,7 +1416,9 @@ def run_no_gold_audit(
     manifest = {
         "audit_version": AUDIT_VERSION,
         "branch": "eval/v3-candidate-coverage-audit",
-        "source_sha": SOURCE_SHA,
+        "baseline_sha": BASELINE_SHA,
+        "source_sha": _canonical_source_sha(Path(__file__)),
+        "source_kind": "canonical_generator_script_sha256",
         "corpus_version": "qualification_corpus/2.0",
         "corpus_fingerprint": integrity["corpus_fingerprint"],
         "frozen_kg_fingerprint": integrity["frozen_kg_fingerprint"],
@@ -1375,14 +1449,22 @@ def annotate_gold_records(
     """Annota i cinque ID solo dopo che diagnosi e hash sono già congelati."""
     if expected_gold_hash != EXPECTED_GOLD_HASH:
         raise RuntimeError("unexpected gold aggregate identity")
+    manifest_path = output / "audit_manifest.json"
+    if not manifest_path.exists():
+        raise RuntimeError("run_no_gold_audit must complete before gold access")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    frozen_artifact_hashes = dict(manifest.get("artifact_hashes") or {})
+    if not frozen_artifact_hashes:
+        raise RuntimeError("manifest has no frozen causal artifact hashes")
+    causal_hashes_before = _verify_artifact_hashes(
+        output, frozen_artifact_hashes
+    )
+    causes_before = causal_hashes_before["root_cause_counts.json"]
     member_hashes = {
         name: _sha(gold_bundle / name) for name in sorted(EXPECTED_GOLD_FILES)
     }
     if member_hashes != dict(sorted(EXPECTED_GOLD_FILES.items())):
         raise RuntimeError("gold member hash mismatch")
-    if not (output / "audit_manifest.json").exists():
-        raise RuntimeError("run_no_gold_audit must complete before gold access")
-    causes_before = _sha(output / "root_cause_counts.json")
     missing = _read_jsonl(output / "missing_v2_candidates.jsonl")
     missing_by_graph = {
         str(row["graph_evidence_id"]): row for row in missing
@@ -1503,15 +1585,18 @@ def annotate_gold_records(
     _write_jsonl(
         output / "gold_missing_candidate_audit.jsonl", output_rows
     )
-    if _sha(output / "root_cause_counts.json") != causes_before:
-        raise RuntimeError("gold access changed root causes")
-    manifest_path = output / "audit_manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    causal_hashes_after = _verify_artifact_hashes(
+        output, frozen_artifact_hashes
+    )
+    if causal_hashes_after != causal_hashes_before:
+        raise RuntimeError("gold access changed frozen causal artifacts")
     manifest["gold_annotation"] = {
         "accessed_after_root_cause_freeze": True,
         "aggregate_identity": expected_gold_hash,
         "member_hashes": member_hashes,
         "root_cause_hash_before_and_after": causes_before,
+        "causal_artifact_hashes_before_and_after": causal_hashes_before,
+        "all_causal_artifacts_authenticated": True,
         "root_causes_unchanged": True,
         "record_count": len(output_rows),
         "artifact_sha256": _sha(

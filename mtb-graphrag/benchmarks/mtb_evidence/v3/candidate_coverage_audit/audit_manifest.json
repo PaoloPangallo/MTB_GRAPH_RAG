@@ -1,6 +1,6 @@
 {
   "artifact_hashes": {
-    "candidate_lineage.jsonl": "51050c556e73137170519ce27590fc1869e928568948cd5a7727287787fe7b59",
+    "candidate_lineage.jsonl": "5b518ca3e252cca9007af2aa86b821032c90458c22e26232f197f66770c08fea",
     "coverage_by_identity_level.json": "31ddd54c8bb5422b593efaaa45b27266906109dce7bfc7c1ffba94f08cba1e26",
     "extra_v3_candidates.jsonl": "cb62520edc2705fa3aff63ef306f5ea3d81355d67cd1ea686605780285b7cc5a",
     "filter_stage_audit.jsonl": "04eededdaff8eb4478a6d18d94479168e451f4cfdbdda195b905419005326199",
@@ -9,10 +9,11 @@
     "per_query_coverage.json": "7b97e766275173e2dfaaaa98cf1a2b48db2f12572de15023bca163a544f7c86b",
     "proposed_corrections.jsonl": "bb656a5f5eabd4e6024ff9add838a0bfcd13d5d26cb87db4e20fad576ca6a61f",
     "root_cause_counts.json": "e867eaeaa8f19f59cbfc7c9b3a9702e8050bde62a12f338e5a974593e54fd5e0",
-    "v2_candidate_inventory.jsonl": "84b51ec7ae5e4c7d08021784c63e802dae92dbd432dcf8dcb483af8ab6dd37a0",
-    "v3_candidate_inventory.jsonl": "5f6ea3f91e9c704c16595123ffb321ce7b5ba28ed3df54a24de03f4533e9f9c8"
+    "v2_candidate_inventory.jsonl": "fa779fdbc512ff82278a5b27dcaa69ea8473ae3ff4a856d48cc8ab9120034dd7",
+    "v3_candidate_inventory.jsonl": "3347856691230a297f0485f98ba3129069fff26b1c681c4f234460c0aea4e247"
   },
   "audit_version": "candidate-coverage-audit/1.0",
+  "baseline_sha": "ec2293baed1202edc9027fdb173a0aa25c1961f4",
   "branch": "eval/v3-candidate-coverage-audit",
   "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
   "corpus_modified": false,
@@ -23,7 +24,21 @@
   "gold_annotation": {
     "accessed_after_root_cause_freeze": true,
     "aggregate_identity": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+    "all_causal_artifacts_authenticated": true,
     "artifact_sha256": "d0f1b7dae156592ca8459d7e53d4769ec7698fee87be97b89f90b3ae9ed66f49",
+    "causal_artifact_hashes_before_and_after": {
+      "candidate_lineage.jsonl": "5b518ca3e252cca9007af2aa86b821032c90458c22e26232f197f66770c08fea",
+      "coverage_by_identity_level.json": "31ddd54c8bb5422b593efaaa45b27266906109dce7bfc7c1ffba94f08cba1e26",
+      "extra_v3_candidates.jsonl": "cb62520edc2705fa3aff63ef306f5ea3d81355d67cd1ea686605780285b7cc5a",
+      "filter_stage_audit.jsonl": "04eededdaff8eb4478a6d18d94479168e451f4cfdbdda195b905419005326199",
+      "missing_v2_candidates.jsonl": "9eae7289b58e4b18f45efcc7155355f4b42c9552cdd6d2da5f17f8fd5497e878",
+      "normalization_audit.jsonl": "b23afa59e3a05873fa1c2e907203a8dbf1759ef51550ca73ac4400652c1ab0b4",
+      "per_query_coverage.json": "7b97e766275173e2dfaaaa98cf1a2b48db2f12572de15023bca163a544f7c86b",
+      "proposed_corrections.jsonl": "bb656a5f5eabd4e6024ff9add838a0bfcd13d5d26cb87db4e20fad576ca6a61f",
+      "root_cause_counts.json": "e867eaeaa8f19f59cbfc7c9b3a9702e8050bde62a12f338e5a974593e54fd5e0",
+      "v2_candidate_inventory.jsonl": "fa779fdbc512ff82278a5b27dcaa69ea8473ae3ff4a856d48cc8ab9120034dd7",
+      "v3_candidate_inventory.jsonl": "3347856691230a297f0485f98ba3129069fff26b1c681c4f234460c0aea4e247"
+    },
     "member_hashes": {
       "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
       "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
@@ -80,5 +95,6 @@
   "retriever_modified": false,
   "scoring_config_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
   "scoring_modified": false,
-  "source_sha": "ec2293baed1202edc9027fdb173a0aa25c1961f4"
+  "source_kind": "canonical_generator_script_sha256",
+  "source_sha": "65991a4bc6f7c3380ccc06e7677fa580f49c01d304898d8b73871665fd198376"
 }
