@@ -1,0 +1,38 @@
+{
+  "assertion_polarities": [
+    "supports"
+  ],
+  "biomarker": "EGFR L858R OR EGFR Exon 19 Deletion",
+  "blind_annotation_id": "MI-B-b4e82c2009b6a061",
+  "candidate_interventions": [
+    "erlotinib",
+    "gefitinib"
+  ],
+  "current_statement_intervention": "erlotinib",
+  "directions": [
+    "sensitivity"
+  ],
+  "disease": "Lung Non-small Cell Carcinoma",
+  "graph_evidence_id": "evidence:4759",
+  "packet_version": "multi-intervention-source-review/1.0",
+  "prohibited_inferences": [
+    "aggregate_to_specific",
+    "class_to_member",
+    "comparator_to_support",
+    "mention_to_tested",
+    "preclinical_to_clinical",
+    "pending_mapping_to_verified_alias"
+  ],
+  "review_questions": [
+    "Il risultato è attribuibile separatamente a ogni intervento?",
+    "Il risultato è aggregato, un regime, un comparatore o una menzione?",
+    "Il locator identifica l'unità documentale e il biomarcatore?"
+  ],
+  "source_access_status": "abstract_only",
+  "source_ids": [
+    "PMID:21531810"
+  ],
+  "source_text": "Clinical features of epidermal growth factor receptor (EGFR) mutations, L858R, deletions in exon 19, T790M, and insertions in exon 20, in non-small cell lung cancer (NSCLC) are well known. The clinical significance of other uncommon EGFR mutations, such as their association with the effectiveness of EGFR tyrosine kinase inhibitors (TKI), is not well understood. This study aimed to improve the understanding of these uncommon EGFR mutations of unknown clinical significance. Specimens from 1,261 patients were tested for EGFR mutations. We surveyed the clinical data and the effectiveness of gefitinib and erlotinib in NSCLC patients with uncommon EGFR mutations. Of the 1,261 patients, 627 (49.8%) had EGFR mutations. This included 258 patients with deletions in exon 19, 260 patients with L858R, 25 patients with insertions or duplications in exon 20, 6 patients with de novo T790M, and 78 (12.4%) patients with uncommon mutations. Of the 78 patients, 62 received either gefitinib or erlotinib treatment. The response rate of TKIs treatment was 48.4%, and the median progression-free survival (PFS) was 5.0 months. Mutations on G719 and L861 composed a major part (28 of 62) of uncommon mutations, and were associated with a favorable effectiveness of EGFR TKIs (response rate, 57.1%; median PFS, 6.0 months). Mutations other than G719 and L861 led to a worse response to EGFR TKIs (response rate, 20.0%; median PFS, 1.6 months). Uncommon EGFR mutations constituted a distinct part of the whole group of EGFR mutations. Their composition was heterogeneous, and their associations with EGFR TKIs differed.",
+  "source_title": "Effectiveness of tyrosine kinase inhibitors on \"uncommon\" epidermal growth factor receptor mutations of unknown clinical significance in non-small cell lung cancer.",
+  "statement_id": "ES-V2-evidence-4759"
+}
