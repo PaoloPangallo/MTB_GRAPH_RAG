@@ -1,0 +1,130 @@
+{
+  "metric_contract_version": "v2-v3a-exploratory/1.0",
+  "modes": {
+    "historical_v2": {
+      "macro_hit_rate_at_k": {
+        "1": 0.0,
+        "10": 0.25,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "macro_mrr": 0.04743871415356152,
+      "macro_precision_at_k": {
+        "1": 0.0,
+        "10": 0.025,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "macro_recall_at_k": {
+        "1": 0.0,
+        "10": 0.1111111111111111,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "micro_recall_at_k": {
+        "1": 0.0,
+        "10": 0.125,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "micro_relevant_denominator": 8,
+      "query_denominator": 4
+    },
+    "native_only": {
+      "macro_hit_rate_at_k": {
+        "1": 0.0,
+        "10": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "macro_mrr": 0.014705882352941176,
+      "macro_precision_at_k": {
+        "1": 0.0,
+        "10": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "macro_recall_at_k": {
+        "1": 0.0,
+        "10": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "micro_recall_at_k": {
+        "1": 0.0,
+        "10": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "micro_relevant_denominator": 8,
+      "query_denominator": 4
+    },
+    "qualified_soft": {
+      "macro_hit_rate_at_k": {
+        "1": 0.0,
+        "10": 0.25,
+        "3": 0.25,
+        "5": 0.25
+      },
+      "macro_mrr": 0.125,
+      "macro_precision_at_k": {
+        "1": 0.0,
+        "10": 0.025,
+        "3": 0.08333333333333333,
+        "5": 0.05
+      },
+      "macro_recall_at_k": {
+        "1": 0.0,
+        "10": 0.1111111111111111,
+        "3": 0.1111111111111111,
+        "5": 0.1111111111111111
+      },
+      "micro_recall_at_k": {
+        "1": 0.0,
+        "10": 0.125,
+        "3": 0.125,
+        "5": 0.125
+      },
+      "micro_relevant_denominator": 8,
+      "query_denominator": 4
+    },
+    "v2_compatibility": {
+      "macro_hit_rate_at_k": {
+        "1": 0.0,
+        "10": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "macro_mrr": 0.014705882352941176,
+      "macro_precision_at_k": {
+        "1": 0.0,
+        "10": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "macro_recall_at_k": {
+        "1": 0.0,
+        "10": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "micro_recall_at_k": {
+        "1": 0.0,
+        "10": 0.0,
+        "3": 0.0,
+        "5": 0.0
+      },
+      "micro_relevant_denominator": 8,
+      "query_denominator": 4
+    }
+  },
+  "nDCG": "not_computed_no_graded_relevance",
+  "p_values_computed": false,
+  "top_k": [
+    1,
+    3,
+    5,
+    10
+  ],
+  "zero_candidate_query_included": true
+}

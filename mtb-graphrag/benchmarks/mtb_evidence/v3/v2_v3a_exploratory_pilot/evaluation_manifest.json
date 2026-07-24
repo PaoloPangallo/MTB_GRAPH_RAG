@@ -1,0 +1,34 @@
+{
+  "branch": "eval/v3-v2-v3a-exploratory-pilot",
+  "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+  "corpus_version": "qualification_corpus/2.0",
+  "evaluation_phase": "exploratory",
+  "expansion_readiness_reason": "only one gold claim projection has a qualifier contribution and V3 native candidate coverage does not preserve the historical V2 gold-source coverage",
+  "final_clinical_evaluation": false,
+  "frozen_kg_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "frozen_v2_result_hash": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981",
+  "gold_bundle_hash": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+  "gold_used_for_evaluation": true,
+  "gold_used_for_retrieval": false,
+  "metric_contract_version": "v2-v3a-exploratory/1.0",
+  "qualification_coverage_too_sparse_for_expansion": true,
+  "query_set_hash": "11f7e54c460443c1a7b5212a95cf37aa0034aacf479979e59647278cd9946a65",
+  "ready_for_expanded_exploratory_evaluation": false,
+  "result_hash_per_mode": {
+    "frozen_v2": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981",
+    "native_only": "b13610b4791681c6759ea761cfac23c81b3e5ddb200cbde43cbfb656a4658a90",
+    "qualified_soft": "a1b7b90cf0e266609c6554a3c84e9a7bf3b4b4c82bb9d5caccf8e3c86bfc992a",
+    "v2_compatibility": "b13610b4791681c6759ea761cfac23c81b3e5ddb200cbde43cbfb656a4658a90"
+  },
+  "run_count": 5,
+  "scoring_config_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+  "scoring_config_version": "qualified_retriever_scoring/1.0",
+  "source_sha": "ec66746010b70701edf630a41b47109283c07f48",
+  "top_k": [
+    1,
+    3,
+    5,
+    10
+  ],
+  "tuning_performed": false
+}

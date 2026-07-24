@@ -1,0 +1,69 @@
+{
+  "modes": {
+    "native_only": {
+      "all_results": {
+        "negative_experiment": 3
+      },
+      "gold_positive_results": {},
+      "non_gold_results": {
+        "negative_experiment": 3
+      },
+      "policy_retention": {
+        "audit_only_results": 0,
+        "prototype_only_results_retained": 17
+      }
+    },
+    "qualified_soft": {
+      "all_results": {
+        "abstract_only_source": 2,
+        "candidate_ambiguous": 1,
+        "candidate_conflicting": 11,
+        "candidate_partial": 3,
+        "negative_experiment": 3,
+        "not_separable_composition": 2,
+        "prototype_only_qualifiers": 16,
+        "qualifier_mismatch_observed_but_not_hard_filtered": 2,
+        "qualifier_unreviewed": 33,
+        "terminology_mapping_pending": 49,
+        "unresolved_profile_unit": 49
+      },
+      "gold_positive_results": {
+        "prototype_only_qualifiers": 1,
+        "qualifier_mismatch_observed_but_not_hard_filtered": 1,
+        "terminology_mapping_pending": 1,
+        "unresolved_profile_unit": 1
+      },
+      "non_gold_results": {
+        "abstract_only_source": 2,
+        "candidate_ambiguous": 1,
+        "candidate_conflicting": 11,
+        "candidate_partial": 3,
+        "negative_experiment": 3,
+        "not_separable_composition": 2,
+        "prototype_only_qualifiers": 15,
+        "qualifier_mismatch_observed_but_not_hard_filtered": 1,
+        "qualifier_unreviewed": 33,
+        "terminology_mapping_pending": 48,
+        "unresolved_profile_unit": 48
+      },
+      "policy_retention": {
+        "audit_only_results": 1,
+        "prototype_only_results_retained": 16,
+        "qualifier_mismatch_not_hard_filtered": 2
+      }
+    },
+    "v2_compatibility": {
+      "all_results": {
+        "negative_experiment": 3
+      },
+      "gold_positive_results": {},
+      "non_gold_results": {
+        "negative_experiment": 3
+      },
+      "policy_retention": {
+        "audit_only_results": 0,
+        "prototype_only_results_retained": 17
+      }
+    }
+  }
+}

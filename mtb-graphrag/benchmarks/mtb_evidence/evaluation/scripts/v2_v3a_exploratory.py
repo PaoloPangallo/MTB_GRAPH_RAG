@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import statistics
 import time
 from collections import Counter
@@ -51,8 +52,8 @@ IMPACT_THRESHOLDS: dict[str, Any] = {
     "moderate": {"maximum_affected_fraction": 0.30},
     "substantial": {"minimum_affected_fraction_exclusive": 0.30},
     "rule": (
-        "affected_fraction=(ranking_swaps+top_k_membership_changes)/"
-        "max(candidate_comparisons,1)"
+        "affected_fraction=unique_affected_query_candidates/"
+        "max(candidate_universe,1)"
     ),
 }
 
@@ -479,24 +480,84 @@ def _pmids(item: Mapping[str, Any]) -> set[str]:
     }
 
 
+def _direction_value(value: Any) -> str:
+    text = normalize_text(value or "")
+    if "resistance" in text:
+        return "resistance"
+    if any(marker in text for marker in ("sensitivity", "response", "benefit", "clinical activity")):
+        return "sensitivity"
+    return text
+
+
+def _claim_direction(claim: Mapping[str, Any]) -> str:
+    return _direction_value(claim.get("relation"))
+
+
+def _biomarker_matches(item_value: Any, claim_value: Any) -> bool:
+    item_text = normalize_text(item_value or "")
+    claim_raw = str(claim_value or "")
+    claim_text = normalize_text(claim_raw)
+    if not item_text or not claim_text:
+        return False
+    gene = claim_text.split()[0]
+    if gene not in item_text:
+        return False
+    variants = [value.casefold() for value in re.findall(r"[A-Z]\d+[A-Z]", claim_raw.upper())]
+    exons = re.findall(r"exon\s+\d+", claim_text)
+    specific = [*variants, *exons]
+    if specific and not any(value in item_text for value in specific):
+        return False
+    if any(value in claim_text for value in ("fusion", "rearrangement")):
+        return any(value in item_text for value in ("fusion", "rearrangement"))
+    return True
+
+def _claim_matches(item: Mapping[str, Any], claim: Mapping[str, Any]) -> bool:
+    if claim.get("documentary_status") != "supported_as_written":
+        return False
+    projection = item.get("evaluation_projection") or {}
+    item_biomarker = normalize_text(
+        projection.get("biomarker") or item.get("subject") or ""
+    )
+    claim_biomarker = normalize_text(claim.get("subject") or "")
+    biomarker_match = _biomarker_matches(item_biomarker, claim_biomarker)
+    item_direction = normalize_text(
+        projection.get("direction") or item.get("relation") or ""
+    )
+    item_polarity = normalize_text(
+        item.get("assertion_polarity")
+        or projection.get("assertion_polarity")
+        or item.get("direction")
+        or ""
+    )
+    return all(
+        (
+            biomarker_match,
+            _therapy(item) == normalize_text(claim.get("object") or ""),
+            _direction_value(item_direction) == _claim_direction(claim),
+            item_polarity == normalize_text(claim.get("direction") or ""),
+            not claim.get("pmid") or str(claim["pmid"]) in _pmids(item),
+        )
+    )
+
+
 def _relevant_statement_ids(
     results: Sequence[Mapping[str, Any]], gold: Mapping[str, Any]
 ) -> set[str]:
-    claims = [
-        (
-            normalize_text(item.get("object") or ""),
-            str(item.get("pmid") or ""),
-        )
-        for item in gold.get("claims") or []
-        if item.get("documentary_status") == "supported_as_written"
-    ]
     return {
         _result_identity(item)
         for item in results
-        if any(
-            _therapy(item) == therapy and (not pmid or pmid in _pmids(item))
-            for therapy, pmid in claims
-        )
+        if any(_claim_matches(item, claim) for claim in gold.get("claims") or [])
+    }
+
+
+def _relevant_evaluation_ids(
+    results: Sequence[Mapping[str, Any]], gold: Mapping[str, Any]
+) -> set[str]:
+    return {
+        identity
+        for item in results
+        if any(_claim_matches(item, claim) for claim in gold.get("claims") or [])
+        for identity in (_graph_ids(item) or {_result_identity(item)})
     }
 
 
@@ -506,11 +567,8 @@ def _matched_claim_ids(
     return sorted(
         str(claim["claim_id"])
         for claim in gold.get("claims") or []
-        if claim.get("documentary_status") == "supported_as_written"
-        and _therapy(item) == normalize_text(claim.get("object") or "")
-        and (not claim.get("pmid") or str(claim["pmid"]) in _pmids(item))
+        if _claim_matches(item, claim)
     )
-
 
 def _claim_ranking_metrics(
     results: Sequence[Mapping[str, Any]],
@@ -537,14 +595,15 @@ def _claim_ranking_metrics(
         for k in top_ks
     }
     return {
-        "unit": "therapeutic_proposition_claim",
+        "unit": "biomarker_intervention_direction_polarity_source_claim_projection",
         "relevant_denominator": len(relevant),
         "retrieved_denominator_at_k": {
             str(k): min(k, len(results)) for k in top_ks
         },
         "precision_at_k": {
             str(k): (
-                len(covered_at_k[str(k)]) / min(k, len(results))
+                sum(bool(matched) for matched in matches[:k])
+                / min(k, len(results))
                 if results[:k]
                 else 0.0
             )
@@ -577,8 +636,16 @@ def compute_rank_shifts(
     qualified_rows: Sequence[Mapping[str, Any]],
 ) -> list[dict[str, Any]]:
     v2_rank = {item: index for index, item in enumerate(v2_ids, 1)}
-    native = {_result_identity(item): item for item in native_rows}
-    qualified = {_result_identity(item): item for item in qualified_rows}
+
+    def index_rows(rows: Sequence[Mapping[str, Any]]) -> dict[str, Mapping[str, Any]]:
+        output: dict[str, Mapping[str, Any]] = {}
+        for item in rows:
+            for identifier in _graph_ids(item) or {_result_identity(item)}:
+                output[identifier] = item
+        return output
+
+    native = index_rows(native_rows)
+    qualified = index_rows(qualified_rows)
     rows: list[dict[str, Any]] = []
     for identifier in sorted(relevant_ids):
         n = native.get(identifier)
@@ -609,25 +676,18 @@ def compute_rank_shifts(
             )
         else:
             classification = "unchanged"
+        rank_v2 = v2_rank.get(identifier)
         rows.append(
             {
                 "query_id": query_id,
-                "item_id": identifier,
-                "rank_v2": min(
-                    (v2_rank[value] for value in _graph_ids(q or n or {}) if value in v2_rank),
-                    default=None,
-                ),
+                "evaluation_identity": identifier,
+                "item_id": _result_identity(q or n or {"record_id": identifier}),
+                "rank_v2": rank_v2,
                 "rank_native_only": n_rank,
                 "rank_qualified_soft": q_rank,
                 "delta_v2_to_qualified_soft": (
-                    min(
-                        v2_rank[value]
-                        for value in _graph_ids(q or n or {})
-                        if value in v2_rank
-                    )
-                    - q_rank
-                    if q_rank is not None
-                    and any(value in v2_rank for value in _graph_ids(q or n or {}))
+                    rank_v2 - q_rank
+                    if rank_v2 is not None and q_rank is not None
                     else None
                 ),
                 "classification": classification,
@@ -646,17 +706,16 @@ def compute_rank_shifts(
 
 
 def classify_qualifier_impact(
-    changes: int, top_k_changes: int, candidate_comparisons: int
+    affected_candidates: int, candidate_universe: int
 ) -> str:
-    fraction = (changes + top_k_changes) / max(candidate_comparisons, 1)
-    if changes == 0 and top_k_changes == 0:
+    fraction = affected_candidates / max(candidate_universe, 1)
+    if affected_candidates == 0:
         return "no measurable ranking impact"
     if fraction <= 0.10:
         return "limited ranking impact"
     if fraction <= 0.30:
         return "moderate ranking impact"
     return "substantial ranking impact"
-
 
 def _bundle_guard(bundle: Path, expected_aggregate: str) -> dict[str, Any]:
     file_hashes = {
@@ -931,6 +990,35 @@ def run_gold_evaluation(
                     mode: data["candidate_count"]
                     for mode, data in modes_metrics.items()
                 },
+                "gold_claim_coverage": {
+                    mode: {
+                        "covered": len({
+                            claim_id
+                            for item in results
+                            for claim_id in _matched_claim_ids(item, gold)
+                        }),
+                        "denominator": sum(
+                            claim.get("documentary_status") == "supported_as_written"
+                            for claim in gold.get("claims") or []
+                        ),
+                        "missing_claim_ids": sorted(
+                            {
+                                str(claim["claim_id"])
+                                for claim in gold.get("claims") or []
+                                if claim.get("documentary_status") == "supported_as_written"
+                            }
+                            - {
+                                claim_id
+                                for item in results
+                                for claim_id in _matched_claim_ids(item, gold)
+                            }
+                        ),
+                        "extra_candidate_rows": sum(
+                            not bool(_matched_claim_ids(item, gold)) for item in results
+                        ),
+                    }
+                    for mode, results in mode_results.items()
+                },
                 "overlap": {
                     "historical_v2_vs_qualified_soft": len(
                         historical_ids & qualified_ids
@@ -946,6 +1034,21 @@ def run_gold_evaluation(
                 "qualified_soft_extra_vs_historical_v2": sorted(
                     qualified_ids - historical_ids
                 ),
+                "historical_v2_divergence_explanation": {
+                    "missing_in_v3_count": len(historical_ids - qualified_ids),
+                    "extra_in_v3_count": len(qualified_ids - historical_ids),
+                    "cause_codes": sorted({
+                        *(
+                            ["historical_v2_broader_graph_traversal_vs_v3_native_constraints"]
+                            if historical_ids - qualified_ids else []
+                        ),
+                        *(
+                            ["v3_statement_corpus_candidates_not_serialized_by_historical_v2"]
+                            if qualified_ids - historical_ids else []
+                        ),
+                    }),
+                    "all_differences_enumerated": True,
+                },
             }
         )
         per_query.append(
@@ -962,15 +1065,17 @@ def run_gold_evaluation(
         )
         native_rows = mode_results["native_only"]
         qualified_rows = mode_results["qualified_soft"]
-        relevant_union = _relevant_statement_ids(native_rows, gold) | _relevant_statement_ids(
-            qualified_rows, gold
+        relevant_union = (
+            _relevant_evaluation_ids(mode_results["historical_v2"], gold)
+            | _relevant_evaluation_ids(native_rows, gold)
+            | _relevant_evaluation_ids(qualified_rows, gold)
         )
         shifts.extend(
             compute_rank_shifts(
                 query_id=query_by_case[case_id]["query_id"],
                 relevant_ids=relevant_union,
                 v2_ids=[
-                    _result_identity(item)
+                    next(iter(_graph_ids(item)), _result_identity(item))
                     for item in mode_results["historical_v2"]
                 ],
                 native_rows=native_rows,
@@ -1023,8 +1128,10 @@ def run_gold_evaluation(
         case: _v3_results(v3_by_case["qualified_soft"][case])
         for case in v3_by_case["qualified_soft"]
     }
-    swaps = 0
-    membership_changes = 0
+    rank_changed_ids: set[str] = set()
+    membership_changed_ids: set[str] = set()
+    membership_changes_by_k: Counter[str] = Counter()
+    candidate_universe_ids: set[str] = set()
     warning_only = 0
     contribution_candidates = 0
     total_contribution = 0.0
@@ -1034,7 +1141,6 @@ def run_gold_evaluation(
     qualifier_fields_neutral: Counter[str] = Counter()
     gold_positive_with_contribution = 0
     units: set[str] = set()
-    comparisons = 0
     for case_id in sorted(native_all):
         n_rank = {
             _result_identity(item): int(item["rank"]) for item in native_all[case_id]
@@ -1044,12 +1150,22 @@ def run_gold_evaluation(
             for item in qualified_all[case_id]
         }
         common = set(n_rank) & set(q_rank)
-        comparisons += len(common)
-        swaps += sum(n_rank[item] != q_rank[item] for item in common)
+        candidate_universe_ids.update(
+            f"{case_id}:{item}" for item in set(n_rank) | set(q_rank)
+        )
+        rank_changed_ids.update(
+            f"{case_id}:{item}"
+            for item in common
+            if n_rank[item] != q_rank[item]
+        )
         for k in TOP_KS:
-            membership_changes += len(
+            changed = (
                 {item for item, rank in n_rank.items() if rank <= k}
                 ^ {item for item, rank in q_rank.items() if rank <= k}
+            )
+            membership_changes_by_k[str(k)] += len(changed)
+            membership_changed_ids.update(
+                f"{case_id}:{item}" for item in changed
             )
         for item in qualified_all[case_id]:
             components = [
@@ -1078,15 +1194,19 @@ def run_gold_evaluation(
                 _result_identity(item)
             ):
                 warning_only += 1
+    affected_ids = rank_changed_ids | membership_changed_ids
     impact = {
         "threshold_contract": IMPACT_THRESHOLDS,
-        "candidate_comparisons": comparisons,
+        "candidate_universe": len(candidate_universe_ids),
+        "unique_affected_query_candidates": len(affected_ids),
+        "affected_fraction": len(affected_ids) / max(len(candidate_universe_ids), 1),
         "candidates_with_qualifier_contribution": contribution_candidates,
-        "gold_positive_with_qualifier_contribution": gold_positive_with_contribution,
+        "gold_projected_positive_with_qualifier_contribution": gold_positive_with_contribution,
         "qualifier_contribution_total": total_contribution,
         "qualifier_contribution_absolute_total": absolute_contribution,
-        "ranking_swaps": swaps,
-        "top_k_membership_changes": membership_changes,
+        "ranking_swaps": len(rank_changed_ids),
+        "top_k_membership_changes_unique": len(membership_changed_ids),
+        "top_k_membership_changes_by_k": dict(sorted(membership_changes_by_k.items())),
         "warning_only_changes": warning_only,
         "qualifier_fields_used": dict(sorted(used_fields.items())),
         "qualifier_fields_present": dict(sorted(qualifier_fields_present.items())),
@@ -1104,7 +1224,7 @@ def run_gold_evaluation(
         ],
         "prototype_only_units_involved": sorted(units),
         "impact_classification": classify_qualifier_impact(
-            swaps, membership_changes, comparisons
+            len(affected_ids), len(candidate_universe_ids)
         ),
     }
     _write_json(output / "qualifier_impact.json", impact)
@@ -1134,6 +1254,10 @@ def run_gold_evaluation(
         / "evidence_statements.jsonl"
     )
     statements = _read_jsonl(corpus_path)
+    active_units = {
+        unit["profile_unit_id"]: unit
+        for unit in _read_jsonl(corpus_path.with_name("active_source_profile_units.jsonl"))
+    }
     zero_case = next(
         row for row in queries if row["case_id"] == "PILOT-N1-RMI2-SNAPSHOT"
     )
@@ -1202,15 +1326,42 @@ def run_gold_evaluation(
         if "22277784" in _pmids(item)
         and "alectinib" in _therapy(item)
     ]
+    units_313 = [
+        unit for unit in active_units.values()
+        if "31358542" in (unit.get("pmids") or [])
+    ]
+    units_233 = [
+        unit for unit in active_units.values()
+        if "23344087" in (unit.get("pmids") or [])
+    ]
+    units_22277784 = [
+        unit for unit in active_units.values()
+        if "22277784" in (unit.get("pmids") or [])
+    ]
+    cuto_unit = active_units.get("PU-PMID-22235099-cuto1-comparative", {})
+    baf3_units = [unit for unit in units_22277784 if unit.get("is_preclinical")]
+    clinical_22277784 = [unit for unit in units_22277784 if unit.get("is_clinical")]
+
     pmid_checks["31358542"]["checks"] = {
-        "candidate_invalid_is_audit_only": invalid.get("bucket") == "audit_only_results",
-        "candidate_invalid_intervention": (invalid.get("evaluation_projection") or {}).get("intervention"),
-        "invalid_not_primary_brigatinib_support": invalid.get("bucket") == "audit_only_results",
-        "partial_statement_warned": "candidate_partial" in (partial.get("warnings") or []),
-        "false_preclinical_unit_count": 0,
+        "candidate_invalid_is_audit_only": bool(invalid)
+        and invalid.get("bucket") == "audit_only_results",
+        "candidate_invalid_intervention": (
+            invalid.get("evaluation_projection") or {}
+        ).get("intervention"),
+        "invalid_not_primary_brigatinib_support": bool(invalid)
+        and invalid.get("bucket") == "audit_only_results"
+        and normalize_text((invalid.get("evaluation_projection") or {}).get("intervention"))
+        == "brigatinib",
+        "partial_statement_warned": bool(partial)
+        and "candidate_partial" in (partial.get("warnings") or []),
+        "false_preclinical_unit_count": sum(
+            bool(unit.get("is_preclinical")) for unit in units_313
+        ),
     }
     pmid_checks["22235099"]["checks"] = {
-        "clinical_and_preclinical_profile_units_distinct": any(
+        "clinical_and_preclinical_profile_units_distinct": bool(alk_negative)
+        and all(bool(item) for item in alk_negative)
+        and any(
             any("clinical-cohort" in unit for unit in item.get("active_profile_unit_ids") or [])
             and any(
                 marker in unit
@@ -1219,25 +1370,43 @@ def run_gold_evaluation(
             )
             for item in alk_negative
         ),
-        "h3122_kras_remains_negative": all(
+        "h3122_kras_remains_negative": bool(alk_negative)
+        and all(bool(item) for item in alk_negative)
+        and all(
             item.get("assertion_polarity") == "does_not_support"
             and bool(item.get("negative_evidence_information"))
             for item in alk_negative
         ),
-        "cuto1_biomarker_inheritance": False,
-        "case_level_frequency_inferred": False,
-        "named_patient_frequency_inferred": False,
+        "cuto1_non_inheritance_verified": bool(cuto_unit)
+        and cuto_unit.get("cross_context_biomarker_propagation") == "forbidden"
+        and cuto_unit.get("ALK_rearrangement_in_CUTO1_model")
+        == "lost_or_not_detected",
+        "case_level_frequency_inferred": any(
+            bool((item.get("case_level_information") or {}).get("frequency_inferred"))
+            for item in alk_negative if item
+        ),
+        "named_patient_frequency_inferred": any(
+            bool((item.get("case_level_information") or {}).get("frequency_inferred"))
+            and bool((item.get("case_level_information") or {}).get("named_patient_subset"))
+            for item in alk_negative if item
+        ),
     }
     pmid_checks["23344087"]["checks"] = {
-        "unresolved_panel_not_separable": all(
+        "unresolved_panel_not_separable": bool(unresolved_panel)
+        and all(bool(item) for item in unresolved_panel)
+        and all(
             "not_separable_composition" in (item.get("warnings") or [])
             for item in unresolved_panel
         ),
-        "abstract_only_warning": all(
+        "abstract_only_warning": bool(unresolved_panel)
+        and all(bool(item) for item in unresolved_panel)
+        and all(
             "abstract_only_source" in (item.get("warnings") or [])
             for item in unresolved_panel
         ),
-        "less_sensitive_not_complete_resistance": all(
+        "less_sensitive_not_complete_resistance": bool(unresolved_panel)
+        and all(bool(item) for item in unresolved_panel)
+        and all(
             any(
                 mapping.get("source_term") == "less sensitive to crizotinib"
                 and mapping.get("match_grade") != "exact"
@@ -1245,7 +1414,9 @@ def run_gold_evaluation(
             )
             for item in unresolved_panel
         ),
-        "cng_amplification_not_exact": all(
+        "cng_amplification_not_exact": bool(unresolved_panel)
+        and all(bool(item) for item in unresolved_panel)
+        and all(
             any(
                 "copy number gain" in str(mapping.get("source_term") or "").casefold()
                 and mapping.get("match_grade") != "exact"
@@ -1253,24 +1424,39 @@ def run_gold_evaluation(
             )
             for item in unresolved_panel
         ),
-        "egfr_l858r_confounder_visibility": "not_separable_composition",
-    }
-    pmid_checks["22277784"]["checks"] = {
-        "clinical_and_baf3_profile_units_distinct": any(
-            any("clinical" in unit for unit in item.get("active_profile_unit_ids") or [])
-            and any("baf3" in unit for unit in item.get("active_profile_unit_ids") or [])
-            for item in alectinib_rows
+        "egfr_l858r_confounder_visible": any(
+            "egfr l858r" in json.dumps(unit, ensure_ascii=False).casefold()
+            for unit in units_233
         ),
-        "ch5424802_alectinib_pending": any(
+    }
+    complete_resistance_text = " ".join(
+        json.dumps(item, ensure_ascii=False).casefold()
+        for item in alectinib_rows
+    )
+    pmid_checks["22277784"]["checks"] = {
+        "clinical_and_baf3_profile_units_distinct": bool(baf3_units)
+        and bool(clinical_22277784)
+        and not ({unit["profile_unit_id"] for unit in baf3_units}
+                 & {unit["profile_unit_id"] for unit in clinical_22277784}),
+        "ch5424802_alectinib_pending": bool(alectinib_rows)
+        and any(
             mapping.get("source_term") == "CH5424802"
             and mapping.get("match_grade") == "pending_terminology_mapping"
             for item in alectinib_rows
             for mapping in item.get("terminology_mappings") or []
         ),
-        "reduced_sensitivity_not_promoted_to_complete_resistance": True,
-        "clinical_population_propagated_to_baf3": False,
+        "complete_resistance_claim_present": "complete resistance" in complete_resistance_text,
+        "clinical_population_non_propagation_verified": bool(baf3_units)
+        and bool(clinical_22277784)
+        and all(
+            "ba/f3" in str(unit.get("population") or "").casefold()
+            for unit in baf3_units
+        )
+        and all(
+            "patient" not in str(unit.get("population") or "").casefold()
+            for unit in baf3_units
+        ),
     }
-
     structural = {
         "pmid_checks": pmid_checks,
         "provenance_complete": all(
@@ -1346,7 +1532,7 @@ def run_gold_evaluation(
         "ready_for_expanded_exploratory_evaluation": False,
         "qualification_coverage_too_sparse_for_expansion": True,
         "expansion_readiness_reason": (
-            "only one gold-positive result has a qualifier contribution and "
+            "only one gold claim projection has a qualifier contribution and "
             "V3 native candidate coverage does not preserve the historical V2 "
             "gold-source coverage"
         ),

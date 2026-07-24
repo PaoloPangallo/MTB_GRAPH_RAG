@@ -1,0 +1,41 @@
+{
+  "event_order": [
+    "scoring_config_verified",
+    "blind_retrieval_completed",
+    "retrieval_results_hashed",
+    "gold_bundle_integrity_verified",
+    "gold_loaded_read_only",
+    "metrics_computed",
+    "result_hashes_reverified"
+  ],
+  "gold_integrity": {
+    "aggregate_sha256": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+    "file_sha256": {
+      "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+      "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+      "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+    },
+    "verification_contract": "aggregate identity frozen by preexisting inventory; every member is independently SHA-256 verified"
+  },
+  "gold_open_mode": "read_only",
+  "gold_used_for_evaluation": true,
+  "gold_used_for_retrieval": false,
+  "parameters_derived_from_gold": [],
+  "result_hashes_after_gold_access": {
+    "frozen_v2": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981",
+    "native_only": "b13610b4791681c6759ea761cfac23c81b3e5ddb200cbde43cbfb656a4658a90",
+    "qualified_soft": "a1b7b90cf0e266609c6554a3c84e9a7bf3b4b4c82bb9d5caccf8e3c86bfc992a",
+    "v2_compatibility": "b13610b4791681c6759ea761cfac23c81b3e5ddb200cbde43cbfb656a4658a90"
+  },
+  "result_hashes_before_gold_access": {
+    "frozen_v2": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981",
+    "native_only": "b13610b4791681c6759ea761cfac23c81b3e5ddb200cbde43cbfb656a4658a90",
+    "qualified_soft": "a1b7b90cf0e266609c6554a3c84e9a7bf3b4b4c82bb9d5caccf8e3c86bfc992a",
+    "v2_compatibility": "b13610b4791681c6759ea761cfac23c81b3e5ddb200cbde43cbfb656a4658a90"
+  },
+  "result_hashes_unchanged_after_gold_access": true,
+  "retrieval_completed_before_gold_access": true,
+  "scoring_config_hash_after_evaluation": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+  "scoring_config_hash_before_retrieval": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+  "tuning_performed": false
+}

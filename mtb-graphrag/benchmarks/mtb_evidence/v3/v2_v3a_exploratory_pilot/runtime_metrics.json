@@ -1,120 +1,120 @@
 {
   "environment_comparison": "not_equivalent_to_historical_agentic_pipeline",
   "load_corpus_and_build_index": {
-    "maximum": 51.461,
-    "median": 45.0686,
-    "minimum": 44.431,
+    "maximum": 50.2708,
+    "median": 43.5495,
+    "minimum": 42.2112,
     "run_count": 5,
     "unit": "milliseconds"
   },
   "modes": {
     "native_only": {
       "candidate_generation": {
-        "maximum": 13.5164,
-        "median": 7.1866,
-        "minimum": 6.467,
+        "maximum": 13.2865,
+        "median": 7.02515,
+        "minimum": 6.7404,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "explanation": {
-        "maximum": 0.0061,
-        "median": 0.00275,
+        "maximum": 0.0066,
+        "median": 0.00245,
         "minimum": 0.0002,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "ranking": {
-        "maximum": 0.0369,
-        "median": 0.0108,
+        "maximum": 0.0414,
+        "median": 0.01055,
         "minimum": 0.0006,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "scoring": {
-        "maximum": 4.1256,
-        "median": 1.1507,
-        "minimum": 0.0006,
+        "maximum": 4.1936,
+        "median": 1.1306,
+        "minimum": 0.0005,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "total_retrieval": {
-        "maximum": 80.7768,
-        "median": 72.6857,
-        "minimum": 70.2489,
+        "maximum": 79.451,
+        "median": 74.3062,
+        "minimum": 71.042,
         "run_count": 5,
         "unit": "milliseconds"
       }
     },
     "qualified_soft": {
       "candidate_generation": {
-        "maximum": 13.3812,
-        "median": 7.1264,
-        "minimum": 6.5556,
+        "maximum": 13.6805,
+        "median": 6.9729,
+        "minimum": 6.5531,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "explanation": {
-        "maximum": 0.0062,
-        "median": 0.0029,
+        "maximum": 0.0064,
+        "median": 0.00245,
         "minimum": 0.0002,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "ranking": {
-        "maximum": 0.0335,
-        "median": 0.01155,
-        "minimum": 0.0007,
+        "maximum": 0.0346,
+        "median": 0.01005,
+        "minimum": 0.0005,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "scoring": {
-        "maximum": 4.4924,
-        "median": 1.1639,
-        "minimum": 0.0006,
+        "maximum": 4.0584,
+        "median": 1.0699,
+        "minimum": 0.0005,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "total_retrieval": {
-        "maximum": 79.0592,
-        "median": 73.3602,
-        "minimum": 71.9626,
+        "maximum": 75.9344,
+        "median": 72.546,
+        "minimum": 71.9866,
         "run_count": 5,
         "unit": "milliseconds"
       }
     },
     "v2_compatibility": {
       "candidate_generation": {
-        "maximum": 7.6457,
-        "median": 7.16765,
-        "minimum": 6.6991,
+        "maximum": 8.4488,
+        "median": 7.2414,
+        "minimum": 6.7215,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "explanation": {
-        "maximum": 0.0059,
-        "median": 0.0025,
+        "maximum": 0.0063,
+        "median": 0.0024,
         "minimum": 0.0002,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "ranking": {
-        "maximum": 0.0366,
-        "median": 0.01065,
-        "minimum": 0.0006,
+        "maximum": 0.0378,
+        "median": 0.01055,
+        "minimum": 0.0007,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "scoring": {
-        "maximum": 4.212,
-        "median": 1.04215,
-        "minimum": 0.0006,
+        "maximum": 4.0872,
+        "median": 1.0804,
+        "minimum": 0.0005,
         "run_count": 20,
         "unit": "milliseconds"
       },
       "total_retrieval": {
-        "maximum": 75.9773,
-        "median": 75.0109,
-        "minimum": 71.4041,
+        "maximum": 79.2349,
+        "median": 76.8324,
+        "minimum": 73.9992,
         "run_count": 5,
         "unit": "milliseconds"
       }

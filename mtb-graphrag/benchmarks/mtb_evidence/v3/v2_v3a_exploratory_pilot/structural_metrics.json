@@ -1,0 +1,62 @@
+{
+  "final_clinical_claim": false,
+  "negative_evidence_preserved": true,
+  "pmid_checks": {
+    "22235099": {
+      "case_level_frequency_inferred": 0,
+      "checks": {
+        "case_level_frequency_inferred": false,
+        "clinical_and_preclinical_profile_units_distinct": true,
+        "cuto1_non_inheritance_verified": true,
+        "h3122_kras_remains_negative": true,
+        "named_patient_frequency_inferred": false
+      },
+      "invalid_primary_results": 0,
+      "negative_preserved": true,
+      "pending_mapping_treated_as_exact": 0,
+      "result_count": 2
+    },
+    "22277784": {
+      "case_level_frequency_inferred": 0,
+      "checks": {
+        "ch5424802_alectinib_pending": true,
+        "clinical_and_baf3_profile_units_distinct": true,
+        "clinical_population_non_propagation_verified": true,
+        "complete_resistance_claim_present": false
+      },
+      "invalid_primary_results": 0,
+      "negative_preserved": true,
+      "pending_mapping_treated_as_exact": 0,
+      "result_count": 9
+    },
+    "23344087": {
+      "case_level_frequency_inferred": 0,
+      "checks": {
+        "abstract_only_warning": true,
+        "cng_amplification_not_exact": true,
+        "egfr_l858r_confounder_visible": true,
+        "less_sensitive_not_complete_resistance": true,
+        "unresolved_panel_not_separable": true
+      },
+      "invalid_primary_results": 0,
+      "negative_preserved": true,
+      "pending_mapping_treated_as_exact": 0,
+      "result_count": 2
+    },
+    "31358542": {
+      "case_level_frequency_inferred": 0,
+      "checks": {
+        "candidate_invalid_intervention": "brigatinib",
+        "candidate_invalid_is_audit_only": true,
+        "false_preclinical_unit_count": 0,
+        "invalid_not_primary_brigatinib_support": true,
+        "partial_statement_warned": true
+      },
+      "invalid_primary_results": 0,
+      "negative_preserved": true,
+      "pending_mapping_treated_as_exact": 0,
+      "result_count": 2
+    }
+  },
+  "provenance_complete": true
+}

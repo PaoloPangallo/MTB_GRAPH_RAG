@@ -1,0 +1,106 @@
+{
+  "affected_fraction": 0.62,
+  "candidate_universe": 50,
+  "candidates_with_qualifier_contribution": 49,
+  "gold_projected_positive_with_qualifier_contribution": 1,
+  "impact_classification": "substantial ranking impact",
+  "prototype_only_units_involved": [
+    "PU-PMID-15329413-cohort-1",
+    "PU-PMID-21030459-cohort-1",
+    "PU-PMID-21791641-cohort-1",
+    "PU-PMID-22235099-clinical-cohort",
+    "PU-PMID-22235099-cuto1-comparative",
+    "PU-PMID-22235099-engineered-isogenic-models",
+    "PU-PMID-22235099-h3122-kras-engineered",
+    "PU-PMID-22277784-baf3-17aag",
+    "PU-PMID-22277784-baf3-crizotinib-panel",
+    "PU-PMID-22277784-baf3-next-generation-alk-inhibitors",
+    "PU-PMID-22277784-clinical-crizotinib-resistant",
+    "PU-PMID-22285168-cohort-1",
+    "PU-PMID-22370314-cohort-1",
+    "PU-PMID-22452895-cohort-1",
+    "PU-PMID-23344087-clinical-cohort",
+    "PU-PMID-23344087-preclinical-unresolved-panel",
+    "PU-PMID-23816960-cohort-1",
+    "PU-PMID-24439929-cohort-1",
+    "PU-PMID-24675041-cohort-1",
+    "PU-PMID-24736079-cohort-1",
+    "PU-PMID-25228534-cohort-1",
+    "PU-PMID-25393796-cohort-1",
+    "PU-PMID-25727400-cohort-1",
+    "PU-PMID-25736571-cohort-1",
+    "PU-PMID-26181354-cohort-1",
+    "PU-PMID-26269204-cohort-1",
+    "PU-PMID-26698910-cohort-1",
+    "PU-PMID-26775591-cohort-1",
+    "PU-PMID-27022112-cohort-1",
+    "PU-PMID-27032107-cohort-1",
+    "PU-PMID-27102076-cohort-1",
+    "PU-PMID-27130468-cohort-1",
+    "PU-PMID-27432227-cohort-1",
+    "PU-PMID-29373100-cohort-1",
+    "PU-PMID-29376144-cohort-1",
+    "PU-PMID-29650534-cohort-1",
+    "PU-PMID-30420614-cohort-1",
+    "PU-PMID-30892989-cohort-1",
+    "PU-PMID-31358542-clinical-cohort",
+    "PU-PMID-31585938-cohort-1",
+    "PU-PMID-35245845-cohort-1",
+    "PU-PMID-35399574-cohort-1",
+    "PU-PMID-38074875-cohort-1",
+    "PU-PMID-38525318-cohort-1",
+    "PU-PMID-39269178-cohort-1"
+  ],
+  "qualifier_contribution_absolute_total": 196.0,
+  "qualifier_contribution_total": -164.0,
+  "qualifier_fields_absent": [
+    "resection_status"
+  ],
+  "qualifier_fields_present": {
+    "biomarker_requirements": 5,
+    "disease_setting": 2,
+    "exclusion_criteria_summary": 1,
+    "inclusion_criteria_summary": 11,
+    "population": 5,
+    "prior_therapies": 11,
+    "regimen": 2,
+    "stage": 3,
+    "therapy_line": 1
+  },
+  "qualifier_fields_present_but_neutral": {},
+  "qualifier_fields_used": {
+    "penalty_abstract_only": 2,
+    "penalty_ambiguous": 1,
+    "penalty_conflicting": 10,
+    "penalty_not_separable": 2,
+    "penalty_partial": 3,
+    "penalty_unresolved": 49,
+    "qualified_first_review": 16
+  },
+  "ranking_swaps": 31,
+  "threshold_contract": {
+    "limited": {
+      "maximum_affected_fraction": 0.1
+    },
+    "moderate": {
+      "maximum_affected_fraction": 0.3
+    },
+    "no_measurable": {
+      "maximum_changes": 0
+    },
+    "rule": "affected_fraction=unique_affected_query_candidates/max(candidate_universe,1)",
+    "substantial": {
+      "minimum_affected_fraction_exclusive": 0.3
+    },
+    "version": "qualifier-impact/1.0"
+  },
+  "top_k_membership_changes_by_k": {
+    "1": 2,
+    "10": 18,
+    "3": 6,
+    "5": 8
+  },
+  "top_k_membership_changes_unique": 19,
+  "unique_affected_query_candidates": 31,
+  "warning_only_changes": 18
+}
