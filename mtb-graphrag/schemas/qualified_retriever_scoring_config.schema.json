@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qualified_retriever_scoring_config.schema.json",
+  "title": "QualifiedRetrieverScoringConfig",
+  "type": "object",
+  "required": ["version", "weights", "thresholds", "tie_break_rules", "missing_field_policy", "prototype_only_policy", "hash"],
+  "properties": {
+    "version": {"type": "string"},
+    "clinical_gold_used_for_weights": {"const": false},
+    "weights": {"type": "object", "additionalProperties": {"type": "number"}},
+    "thresholds": {"type": "object", "additionalProperties": {"type": "number"}},
+    "tie_break_rules": {"type": "array", "items": {"type": "string"}},
+    "missing_field_policy": {"type": "object"},
+    "prototype_only_policy": {
+      "type": "object",
+      "properties": {"hard_filter": {"const": false}},
+      "required": ["hard_filter"]
+    },
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

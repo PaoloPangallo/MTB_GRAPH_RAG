@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qualified_retrieval_result.schema.json",
+  "title": "QualifiedRetrievalResult",
+  "type": "object",
+  "required": [
+    "query_id", "statement_id", "rank", "total_score", "score_breakdown",
+    "warnings", "source_ids", "provenance_references", "explanation"
+  ],
+  "properties": {
+    "query_id": {"type": "string"},
+    "statement_id": {"type": "string"},
+    "rank": {"type": "integer", "minimum": 0},
+    "total_score": {"type": "number"},
+    "native_score": {"type": "number"},
+    "qualified_score": {"type": "number"},
+    "score_breakdown": {"$ref": "qualified_retrieval_score_breakdown.schema.json"},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "source_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "active_profile_unit_ids": {"type": "array", "items": {"type": "string"}},
+    "provenance_references": {"type": "array", "items": {"type": "object"}, "minItems": 1},
+    "explanation": {"type": "string"},
+    "bucket": {"enum": ["ranked_results", "retained_with_warning", "audit_only_results", "rejected_by_native_constraints"]}
+  },
+  "additionalProperties": true
+}

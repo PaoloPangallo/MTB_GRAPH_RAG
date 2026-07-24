@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qualified_retrieval_score_breakdown.schema.json",
+  "title": "RetrievalScoreBreakdown",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["name", "contribution", "category", "reason"],
+    "properties": {
+      "name": {"type": "string"},
+      "contribution": {"type": "number"},
+      "category": {"enum": ["native", "qualified"]},
+      "reason": {"type": "string"}
+    },
+    "additionalProperties": false
+  }
+}
