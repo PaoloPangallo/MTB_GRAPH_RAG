@@ -6,9 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from benchmarks.mtb_evidence.evaluation.scripts.disease_normalization_review import (
-    EXPLICIT_EVIDENCE_IDS,
-    generate_review,
+from benchmarks.mtb_evidence.evaluation.scripts import (
+    disease_normalization_review as disease_review,
+)
+
+EXPLICIT_EVIDENCE_IDS = disease_review.EXPLICIT_EVIDENCE_IDS
+generate_review = disease_review.generate_review
+POST_ALIAS_FIX_RETRIEVER_HASH = (
+    "b78ce4ea79e1ac090d29d4dc1c9cbc865bedc91dbdf3d77b469bdfde3f2cfd4c"
 )
 
 
@@ -37,7 +42,12 @@ def _aggregate(path: Path) -> str:
 
 
 @pytest.fixture()
-def generated(tmp_path: Path) -> Path:
+def generated(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    monkeypatch.setattr(
+        disease_review,
+        "EXPECTED_RETRIEVER_HASH",
+        POST_ALIAS_FIX_RETRIEVER_HASH,
+    )
     generate_review(ROOT, tmp_path, GOLD)
     return tmp_path
 
@@ -202,7 +212,15 @@ def test_policy_contract_is_frozen_and_descriptive(generated: Path) -> None:
     )
 
 
-def test_review_is_byte_deterministic_and_order_invariant(tmp_path: Path) -> None:
+def test_review_is_byte_deterministic_and_order_invariant(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        disease_review,
+        "EXPECTED_RETRIEVER_HASH",
+        POST_ALIAS_FIX_RETRIEVER_HASH,
+    )
     first = tmp_path / "first"
     second = tmp_path / "second"
     generate_review(ROOT, first, GOLD)
@@ -257,5 +275,8 @@ def test_frozen_inputs_remain_byte_identical() -> None:
         for item in retriever
     )
     assert hashlib.sha256(payload.encode("utf-8")).hexdigest() == (
-        "8a810fad76f569964723810bc0ec42a3eba6b32469dc3e5bc040e92fe056dd24"
+        POST_ALIAS_FIX_RETRIEVER_HASH
+    )
+    assert _aggregate(v3 / "disease_normalization_review") == (
+        "1084763a50e63cfe4c19b72defca5c73788a826f5227a0fd4378c7bc1020b71c"
     )

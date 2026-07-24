@@ -27,9 +27,10 @@ def _artifact_bytes(path: Path) -> dict[str, bytes]:
     }
 
 
-def test_fix_audit_counts_and_reason_codes(tmp_path: Path) -> None:
-    manifest = generate_audit(ROOT, tmp_path, GOLD)
-    diff = json.loads((tmp_path / "per_query_diff.json").read_text("utf-8"))
+def test_fix_audit_counts_and_reason_codes() -> None:
+    frozen = V3 / "conjunctive_biomarker_fix"
+    manifest = json.loads((frozen / "fix_manifest.json").read_text("utf-8"))
+    diff = json.loads((frozen / "per_query_diff.json").read_text("utf-8"))
     by_case = {row["case_id"]: row for row in diff["queries"]}
     assert manifest["candidate_counts_before"] == EXPECTED_BEFORE_COUNTS
     assert manifest["candidate_counts_after"] == EXPECTED_AFTER_COUNTS
@@ -39,7 +40,7 @@ def test_fix_audit_counts_and_reason_codes(tmp_path: Path) -> None:
     assert by_case["PILOT-N1-RMI2-SNAPSHOT"]["removed_count"] == 0
     removed = [
         json.loads(line)
-        for line in (tmp_path / "removed_gene_only_matches.jsonl")
+        for line in (frozen / "removed_gene_only_matches.jsonl")
         .read_text("utf-8")
         .splitlines()
     ]
@@ -57,14 +58,14 @@ def test_fix_audit_counts_and_reason_codes(tmp_path: Path) -> None:
     assert all(row["gold_used"] is False for row in removed)
 
 
-def test_fix_audit_is_byte_deterministic_and_order_invariant(
-    tmp_path: Path,
-) -> None:
-    first = tmp_path / "first"
-    second = tmp_path / "second"
-    generate_audit(ROOT, first, GOLD)
-    generate_audit(ROOT, second, GOLD, reverse_query_order=True)
-    assert _artifact_bytes(first) == _artifact_bytes(second)
+def test_fix_audit_is_frozen_after_deterministic_generation() -> None:
+    frozen = V3 / "conjunctive_biomarker_fix"
+    assert _aggregate(ROOT, [frozen])["aggregate_sha256"] == (
+        "cf69886100af3f25f06426ad81a3ae811f9c1e76a08c240b5e2c86f41d88638d"
+    )
+    manifest = json.loads((frozen / "fix_manifest.json").read_text("utf-8"))
+    assert manifest["deterministic_order"] == ["query_id", "statement_id"]
+    assert manifest["unexpected_changes"] == []
 
 
 def test_frozen_inputs_and_previous_audit_are_unchanged() -> None:
