@@ -1,0 +1,54 @@
+{
+  "approval_version": "author_approval/1.1",
+  "artifacts": {
+    "approved_profile_units.jsonl": "d6006413d0f846be6274d67557989a67203d943c73c8c5a603f981fc410d2fcf",
+    "audit_trail.jsonl": "a2afd7465e11d1034c555bdcda934dd180fd4a62d95e1d2025d67ec82c74d2c7",
+    "author_approval_records.jsonl": "af09ed19c093b490ba9b1ddaf2325960b37f6e34e396805e82dc299bf7702d95",
+    "case_level_annotations.jsonl": "2d21897fcc84f304590f8c790e3a35f088916ba70a7d5e17adf0853b257a88c5",
+    "consolidation_records.jsonl": "c0ad026a9738a46d834dc824abbd3760d982e2fd69911a6840211b0c4f31c587",
+    "detector_reference_cases.jsonl": "d8e7d03f6dacba328a8552e8f9adc387c56e724fbf02a278652eeb3893611e98",
+    "negative_experiment_records.jsonl": "55f2b3a01ded0f4140ca6e19284186c39e7586a91bcefc626cb6920302eb9da0",
+    "parent_unit_history.jsonl": "90a96d63b13614fc9d1655cc13773abbec30302a3029d8f81f26c1e4ac7c8595",
+    "provisional_gold.jsonl": "11ec4bb6536f6c355bd3ae2d9f809925c08f2f81807f92a3861bd67829ac97e5",
+    "readiness.json": "33dd2d2a711edb2badbd120d38e8666d01f6423b740fb4885e47cf7c365d8c99",
+    "review_metrics.json": "c20a08509076f2da29eed511358f7333dc0b714ed2cdef41eb22cdc3982c4434",
+    "second_review_blinding_check.json": "2d47a7a44e77d831cc8fc8cb846ef083abc03be5b246fd20f1f9cd9c64e6beeb",
+    "statement_first_review_decisions.jsonl": "364f41725bafb663d4faa370932337b9b6d99adb2df801575025762f5f8ecbc7",
+    "terminology_mappings.jsonl": "c4cfea38a09e436509d9f691b9c96fe378e24e42a0e43b222429e81b5aff3fde"
+  },
+  "audit_proposed_units": 2,
+  "author_approved_units": 4,
+  "brief_discrepancies": [
+    {
+      "author_approved": true,
+      "case_identifier_invented": false,
+      "expected_by_brief": {
+        "case_identifier": "patient_8",
+        "evidence_granularity": "case_level",
+        "population_scope": "single_patient"
+      },
+      "found_in_source": {
+        "locator_id": "A-clin-cng",
+        "patients_named": [
+          "patient_7",
+          "patient_8"
+        ],
+        "quote": "Two patients demonstrated a marked increase in abnormal signal copy number (#7 at 5-fold and #8 at >4 fold), consistent with CNG of the ALK gene fusion",
+        "statement_biomarker": "EML4::ALK Fusion AND ALK Amplification"
+      },
+      "granularity_applied": "named_patient_subset",
+      "resolution": "lo statement copre il reperto CNG su due pazienti nominati, non il caso del solo paziente #8. Il CNG **isolato** — senza mutazione concomitante del dominio chinasico — poggia sul solo #8, perche' #7 portava anche G1269A. Nessun identificatore e' inventato: entrambi compaiono letteralmente nel locator verificato.",
+      "statement_id": "ES-V2-evidence-766"
+    }
+  ],
+  "canonical_source_id": "PMID:22235099",
+  "created_at": "2026-07-24T00:00:00+00:00",
+  "phase": "author_approval",
+  "pmid": "22235099",
+  "replaced_proposal_ids": [
+    "PU-PMID-22235099-baf3-engineered",
+    "PU-PMID-22235099-nih3t3-engineered"
+  ],
+  "source_review_proposed_units": 5,
+  "supersedes_phase": "benchmarks/mtb_evidence/v3/author_approval"
+}

@@ -593,6 +593,13 @@ REVISION_766 = StatementRevision(
             "il paziente #7 portava anche G1269A: il CNG come meccanismo isolato "
             "resta documentato in un solo paziente"
         ),
+        # Gli stessi due fatti in forma generica, perche' il costruttore delle
+        # annotazioni non deve conoscere il nome di un biomarcatore per riportarli.
+        "narrowest_case_identifier": "patient_8",
+        "narrowest_case_rationale": (
+            "uno dei due pazienti portava anche una mutazione del dominio chinasico: "
+            "il meccanismo isolato resta documentato in un solo paziente"
+        ),
         "preclinical_support_in_this_source": False,
         "non_propagation_rules": [
             "in_vitro_to_clinical_benefit",

@@ -1,0 +1,64 @@
+{
+  "annotated_gold_links": [
+    "GL-7fdb595f075551ab7216",
+    "GL-5b3acb2ecdd9a1b3cd5a",
+    "GL-411ffbb04ed147b8b819"
+  ],
+  "approval_version": "author_approval/1.1",
+  "author_approval_packets_completed": 1,
+  "canonical_source_id": "PMID:22235099",
+  "coverage_by_review_stage": {
+    "final_adjudicated": 0,
+    "first_review_confirmed": 36,
+    "second_review_confirmed": 0,
+    "source_checked_proposal": 5
+  },
+  "created_at": "2026-07-24T00:00:00+00:00",
+  "cumulative": {
+    "author_approval_packets_completed": 2,
+    "first_review_packets_completed": 3,
+    "first_review_profile_units_created": 9,
+    "first_review_statements_reviewed": 15
+  },
+  "detector_reference_confirmed_positives": 1,
+  "first_review_candidate_partial": 2,
+  "first_review_candidate_valid": 1,
+  "first_review_case_level_statements": 1,
+  "first_review_clinical_units": 1,
+  "first_review_named_patient_subset_statements": 1,
+  "first_review_negative_experiments": 1,
+  "first_review_non_generalizable_statements": 2,
+  "first_review_preclinical_units": 3,
+  "first_review_profile_units_approved": 4,
+  "first_review_sources_completed": 1,
+  "first_review_statements_reviewed": 3,
+  "first_review_structural_splits_confirmed": 1,
+  "first_review_terminology_mappings_unverified": 1,
+  "first_review_units_consolidated_from": 2,
+  "first_review_units_consolidated_to": 1,
+  "granularity_version": "evidence_granularity/1.0",
+  "guard_version": "propagation_guards/1.2",
+  "hashes": {
+    "case_level_annotations": "2d21897fcc84f304590f8c790e3a35f088916ba70a7d5e17adf0853b257a88c5",
+    "detector_reference_cases": "d8e7d03f6dacba328a8552e8f9adc387c56e724fbf02a278652eeb3893611e98",
+    "negative_experiment_records": "55f2b3a01ded0f4140ca6e19284186c39e7586a91bcefc626cb6920302eb9da0",
+    "provisional_gold": "11ec4bb6536f6c355bd3ae2d9f809925c08f2f81807f92a3861bd67829ac97e5",
+    "statement_decisions": "364f41725bafb663d4faa370932337b9b6d99adb2df801575025762f5f8ecbc7",
+    "terminology_mappings": "c4cfea38a09e436509d9f691b9c96fe378e24e42a0e43b222429e81b5aff3fde"
+  },
+  "metric_kind": "descriptive_first_review_metrics",
+  "metric_kind_note": "Contano decisioni e coperture. Nessuna misura la qualita' del sistema: esiste una sola annotazione per link, non indipendente e non clinica.",
+  "not_calculated": {
+    "clinical_applicability_accuracy": "not_calculated",
+    "detector_accuracy": "not_calculated",
+    "inter_annotator_agreement": "not_calculated",
+    "linking_f1": "not_calculated",
+    "linking_precision": "not_calculated",
+    "linking_recall": "not_calculated",
+    "retrieval_quality": "not_calculated"
+  },
+  "not_calculated_reason": "la prima revisione non e' indipendente e non e' clinica; nessuna seconda revisione esiste. Due casi confermati non stimano le prestazioni del rilevatore.",
+  "qualifier_provenance_completeness": 1.0,
+  "second_review_packets_completed": 0,
+  "supersedes_gold": "benchmarks/mtb_evidence/v3/author_approval/provisional_gold.jsonl"
+}
