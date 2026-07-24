@@ -1,0 +1,119 @@
+{
+  "fix_version": "conjunctive-biomarker-fix/1.0",
+  "queries": [
+    {
+      "added_count": 0,
+      "added_statement_ids": [],
+      "after_count": 9,
+      "before_count": 32,
+      "case_id": "PILOT-A2-ALK-G1202R",
+      "preserved_count": 9,
+      "preserved_statement_ids": [
+        "ES-V2-evidence-100000",
+        "ES-V2-evidence-100001",
+        "ES-V2-evidence-100002",
+        "ES-V2-evidence-100003",
+        "ES-V2-evidence-100004",
+        "ES-V2-evidence-100005",
+        "ES-V2-evidence-1345",
+        "ES-V2-evidence-1352",
+        "ES-V2-evidence-441"
+      ],
+      "query_id": "PILOT-A2-ALK-G1202R:qualified-retrieval",
+      "removed_count": 23,
+      "removed_statement_ids": [
+        "ES-V2-evidence-1283",
+        "ES-V2-evidence-1286",
+        "ES-V2-evidence-1287",
+        "ES-V2-evidence-1288",
+        "ES-V2-evidence-1339",
+        "ES-V2-evidence-1346",
+        "ES-V2-evidence-1347",
+        "ES-V2-evidence-1348",
+        "ES-V2-evidence-1367",
+        "ES-V2-evidence-1483",
+        "ES-V2-evidence-1484",
+        "ES-V2-evidence-33",
+        "ES-V2-evidence-440",
+        "ES-V2-evidence-442",
+        "ES-V2-evidence-443",
+        "ES-V2-evidence-444",
+        "ES-V2-evidence-763",
+        "ES-V2-evidence-764",
+        "ES-V2-evidence-765",
+        "ES-V2-evidence-766",
+        "ES-V2-evidence-767",
+        "ES-V2-evidence-841",
+        "ES-V2-evidence-843"
+      ],
+      "unexpected_change": false
+    },
+    {
+      "added_count": 0,
+      "added_statement_ids": [],
+      "after_count": 10,
+      "before_count": 17,
+      "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+      "preserved_count": 10,
+      "preserved_statement_ids": [
+        "ES-V2-evidence-2624",
+        "ES-V2-evidence-2634",
+        "ES-V2-evidence-3791",
+        "ES-V2-evidence-4290",
+        "ES-V2-evidence-4291",
+        "ES-V2-evidence-4292",
+        "ES-V2-evidence-6183",
+        "ES-V2-evidence-879",
+        "ES-V2-evidence-883",
+        "ES-V2-evidence-982"
+      ],
+      "query_id": "PILOT-C1-EGFR-L858R-CONTEXT:qualified-retrieval",
+      "removed_count": 7,
+      "removed_statement_ids": [
+        "ES-V2-evidence-11021",
+        "ES-V2-evidence-12370",
+        "ES-V2-evidence-12372",
+        "ES-V2-evidence-12946",
+        "ES-V2-evidence-1396",
+        "ES-V2-evidence-1397",
+        "ES-V2-evidence-2157"
+      ],
+      "unexpected_change": false
+    },
+    {
+      "added_count": 0,
+      "added_statement_ids": [],
+      "after_count": 1,
+      "before_count": 1,
+      "case_id": "PILOT-K1-FGFR2-iCCA",
+      "preserved_count": 1,
+      "preserved_statement_ids": [
+        "ES-V2-evidence-7329"
+      ],
+      "query_id": "PILOT-K1-FGFR2-iCCA:qualified-retrieval",
+      "removed_count": 0,
+      "removed_statement_ids": [],
+      "unexpected_change": false
+    },
+    {
+      "added_count": 0,
+      "added_statement_ids": [],
+      "after_count": 0,
+      "before_count": 0,
+      "case_id": "PILOT-N1-RMI2-SNAPSHOT",
+      "preserved_count": 0,
+      "preserved_statement_ids": [],
+      "query_id": "PILOT-N1-RMI2-SNAPSHOT:qualified-retrieval",
+      "removed_count": 0,
+      "removed_statement_ids": [],
+      "unexpected_change": false
+    }
+  ],
+  "totals": {
+    "added": 0,
+    "after": 20,
+    "before": 50,
+    "preserved": 20,
+    "removed": 30
+  }
+}
