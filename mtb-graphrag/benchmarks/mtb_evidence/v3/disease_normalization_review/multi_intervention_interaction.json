@@ -1,0 +1,28 @@
+{
+  "adapter_modified": false,
+  "categories": {
+    "disease + multi-intervention": {
+      "row_count": 21,
+      "unique_graph_evidence_count": 10
+    },
+    "disease-only": {
+      "row_count": 41,
+      "unique_graph_evidence_count": 41
+    },
+    "multi-intervention-only": {
+      "row_count": 0,
+      "unique_graph_evidence_count": 0
+    },
+    "no-interaction": {
+      "row_count": 11,
+      "unique_graph_evidence_count": 11
+    },
+    "traversal-semantics-only": {
+      "row_count": 36,
+      "unique_graph_evidence_count": 36
+    }
+  },
+  "flags_are_independently_recorded": true,
+  "gold_used": false,
+  "version": "disease-multi-intervention-interaction/1.0"
+}

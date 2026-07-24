@@ -1,0 +1,110 @@
+{
+  "aliases_or_mappings_added": false,
+  "artifact_hashes": {
+    "disease_inventory.jsonl": "42d6e7370c515164019782f2f9a4a53c6ebdb760290c3f194910af7577481ca2",
+    "disease_normalization_gaps.jsonl": "32933abdc967d0eac5e493ddeebc345abdbf8fab97dfc733e5a032562bbc85e4",
+    "disease_pair_classification.jsonl": "6e997fee6260d75dc26f4aca2147ed9b9c920c42df9ea74021afd19616d26ef4",
+    "egfr_disease_audit.jsonl": "8bdd54835f4bbb84cf62d47f9a1527f79583ef9598d653be354b8c34e9e6a778",
+    "fgfr2_disease_audit.jsonl": "995572ee58fbe86afa17decdde04f99e73d07684656a6c795bda62d9f1889181",
+    "multi_intervention_interaction.json": "d9b385791c4d15ec7f9a16483fb51bff9c5a75aa19bdb74995b6558472498e46",
+    "policy_simulation.json": "6b53a78241a3216597d2038a0c52e16ca5401038471b372958525c4d3019f671",
+    "proposed_disease_corrections.jsonl": "94284f94a48c7216e6b4473c3c44fcffa08e5029ecad4d7b4ee9c6b72adcf6eb",
+    "v2_traversal_semantics.jsonl": "ec46ca1bb5ce30d3dd1dbc8d501e63e320d807d417e2aec79c8aacc84214bff9"
+  },
+  "branch": "eval/v3-disease-normalization-review",
+  "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+  "corpus_modified": false,
+  "corpus_version": "qualification_corpus/2.0",
+  "corrections_applied": false,
+  "external_services_used": [],
+  "frozen_kg_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "gold_bundle": {
+    "aggregate_identity": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+    "member_hashes": {
+      "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+      "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+      "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+    }
+  },
+  "gold_records_loaded": false,
+  "gold_used_for_classification": false,
+  "input_integrity": {
+    "author_approval": {
+      "aggregate_sha256": "8bdafc1188d9050898ffdfab69626ad0d8780b2f137de24bb6d0716d2129c278",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 43
+    },
+    "candidate_coverage_audit": {
+      "aggregate_sha256": "43396526a701ba1ec7f4e1f0bbc498a798ca02fd9600deedf7ef1ed442ca7273",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 17
+    },
+    "conjunctive_biomarker_fix": {
+      "aggregate_sha256": "cf69886100af3f25f06426ad81a3ae811f9c1e76a08c240b5e2c86f41d88638d",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 7
+    },
+    "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+    "frozen_kg_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+    "frozen_v2_serialization": {
+      "aggregate_sha256": "2a22b04abbfcff831b7123165e806cdb49d80fd557b2517d8743f72b010087de",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 4
+    },
+    "gold_bundle": {
+      "aggregate_sha256": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+      "file_sha256": {
+        "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+        "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+        "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+      },
+      "verification_contract": "aggregate identity frozen by preexisting inventory; every member is independently SHA-256 verified"
+    },
+    "post_fix_candidate_counts": {
+      "PILOT-A2-ALK-G1202R": 9,
+      "PILOT-C1-EGFR-L858R-CONTEXT": 10,
+      "PILOT-K1-FGFR2-iCCA": 1,
+      "PILOT-N1-RMI2-SNAPSHOT": 0
+    },
+    "previous_exploration": {
+      "aggregate_sha256": "f0ca36d81024170a5fe51b32763333468091a1d3b3a15f822bf57694c7f711cd",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 26
+    },
+    "qualification_corpus": {
+      "aggregate_sha256": "bf23a06ac8c122d2257487c0109eb8e0226f2b16d2d733740a6cd008ed34e827",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 23
+    },
+    "retriever": {
+      "aggregate_sha256": "8a810fad76f569964723810bc0ec42a3eba6b32469dc3e5bc040e92fe056dd24",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 7
+    },
+    "scoring_config": {
+      "canonical_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+      "file_sha256": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4"
+    },
+    "second_review_packets": {
+      "aggregate_sha256": "6bb4ee225e4c273a6f24378dc5c982490cdbf3482a1e780e4c173695fe131bb6",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 70
+    }
+  },
+  "normalizers_modified": false,
+  "pmid_content_read": false,
+  "post_fix_candidate_counts": {
+    "PILOT-A2-ALK-G1202R": 9,
+    "PILOT-C1-EGFR-L858R-CONTEXT": 10,
+    "PILOT-K1-FGFR2-iCCA": 1,
+    "PILOT-N1-RMI2-SNAPSHOT": 0
+  },
+  "retriever_modified": false,
+  "review_version": "disease-normalization-review/1.0",
+  "scoring_config_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+  "source_sha": "1262b4484e132f0c8ff96593b04db82bb3eee876",
+  "target_cases": [
+    "PILOT-C1-EGFR-L858R-CONTEXT",
+    "PILOT-K1-FGFR2-iCCA"
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "clinical_metrics_computed": false,
+  "gold_used": false,
+  "p_values_computed": false,
+  "policies": [
+    {
+      "clinical_review_required": false,
+      "corpus_impact": "none",
+      "explainability": "high",
+      "false_positive_risk": "low",
+      "graphrag_compatibility": true,
+      "name": "strict_exact",
+      "policy_id": "A",
+      "queries": [
+        {
+          "biomarker_mismatch_row_count": 0,
+          "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+          "cross_disease_row_count": 0,
+          "cross_gene_row_count": 0,
+          "row_count": 38,
+          "unique_graph_evidence_count": 32
+        },
+        {
+          "biomarker_mismatch_row_count": 0,
+          "case_id": "PILOT-K1-FGFR2-iCCA",
+          "cross_disease_row_count": 0,
+          "cross_gene_row_count": 0,
+          "row_count": 1,
+          "unique_graph_evidence_count": 1
+        }
+      ],
+      "retriever_impact": "verified_alias_contract_and_local_normalizer"
+    },
+    {
+      "clinical_review_required": true,
+      "corpus_impact": "none",
+      "explainability": "high",
+      "false_positive_risk": "bounded_but_requires_review",
+      "graphrag_compatibility": true,
+      "name": "explicit_ontology_aware",
+      "policy_id": "B",
+      "queries": [
+        {
+          "biomarker_mismatch_row_count": 0,
+          "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+          "cross_disease_row_count": 10,
+          "cross_gene_row_count": 0,
+          "row_count": 48,
+          "unique_graph_evidence_count": 42
+        },
+        {
+          "biomarker_mismatch_row_count": 0,
+          "case_id": "PILOT-K1-FGFR2-iCCA",
+          "cross_disease_row_count": 10,
+          "cross_gene_row_count": 0,
+          "row_count": 11,
+          "unique_graph_evidence_count": 8
+        }
+      ],
+      "retriever_impact": "candidate_generation_policy"
+    },
+    {
+      "clinical_review_required": true,
+      "corpus_impact": "none",
+      "explainability": "high_with_warnings",
+      "false_positive_risk": "elevated",
+      "graphrag_compatibility": true,
+      "name": "broad_candidate_generation_soft_disease_ranking",
+      "policy_id": "C",
+      "queries": [
+        {
+          "biomarker_mismatch_row_count": 0,
+          "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+          "cross_disease_row_count": 18,
+          "cross_gene_row_count": 0,
+          "row_count": 56,
+          "unique_graph_evidence_count": 48
+        },
+        {
+          "biomarker_mismatch_row_count": 0,
+          "case_id": "PILOT-K1-FGFR2-iCCA",
+          "cross_disease_row_count": 16,
+          "cross_gene_row_count": 0,
+          "row_count": 17,
+          "unique_graph_evidence_count": 14
+        }
+      ],
+      "retriever_impact": "candidate_generation_policy"
+    },
+    {
+      "clinical_review_required": true,
+      "corpus_impact": "none",
+      "explainability": "high_with_warnings",
+      "false_positive_risk": "elevated",
+      "graphrag_compatibility": true,
+      "name": "v2_high_recall_v3_qualification",
+      "policy_id": "D",
+      "queries": [
+        {
+          "biomarker_mismatch_row_count": 25,
+          "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+          "cross_disease_row_count": 27,
+          "cross_gene_row_count": 1,
+          "row_count": 81,
+          "unique_graph_evidence_count": 73
+        },
+        {
+          "biomarker_mismatch_row_count": 11,
+          "case_id": "PILOT-K1-FGFR2-iCCA",
+          "cross_disease_row_count": 27,
+          "cross_gene_row_count": 4,
+          "row_count": 28,
+          "unique_graph_evidence_count": 25
+        }
+      ],
+      "retriever_impact": "hybrid_candidate_provider"
+    }
+  ],
+  "policy_contract_frozen_before_results": true,
+  "unit_of_count": [
+    "frozen_v2_row",
+    "unique_graph_evidence_id"
+  ],
+  "version": "disease-policy-simulation/1.0"
+}
