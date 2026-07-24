@@ -1,0 +1,52 @@
+{
+  "abstract_only_first_reviews": 1,
+  "approval_version": "author_approval/1.2",
+  "author_approvals_completed": 3,
+  "author_approvals_pending": 0,
+  "case_level_evidence_guard_ready": true,
+  "case_level_guard_rule_ids": [
+    "case_level_to_cohort_population",
+    "case_level_frequency_inference",
+    "case_level_to_enrolment_requirement"
+  ],
+  "clinical_preclinical_author_approval_batch_complete": true,
+  "clinical_preclinical_false_positives_confirmed": 1,
+  "clinical_preclinical_partial_positives_confirmed": 1,
+  "clinical_preclinical_true_positives_confirmed": 1,
+  "created_at": "2026-07-24T12:00:00+00:00",
+  "detector_promotion_ready": false,
+  "forbidden_statuses_checked": [
+    "clinical_review_complete",
+    "independent_review",
+    "second_review_complete",
+    "adjudicated",
+    "frozen",
+    "final_gold"
+  ],
+  "forbidden_statuses_declared": [],
+  "gold_evaluable": false,
+  "hard_filtering_available": false,
+  "limitations": [
+    "la revisione e' documentale e non clinica: l'autore non e' un clinico",
+    "la preparazione del materiale e' assistita da LLM, quindi la prima revisione non e' indipendente",
+    "la fonte e' disponibile soltanto come abstract: il full text e' dichiarato «Subscription required» da Europe PMC, non e' in PMC e non e' open access",
+    "figure e tabelle non sono osservabili",
+    "il fondo cellulare dei cloni mutanti non compare nell'abstract: la composizione del pannello preclinico resta non separabile",
+    "il numero di sistemi preclinici distinti non e' determinabile",
+    "il paziente con copy number gain non e' numerato nell'abstract: il case identifier resta `unknown`",
+    "entrambi i mapping terminologici restano non verificati",
+    "tre casi confermati non permettono di stimare precision, recall o accuratezza del rilevatore"
+  ],
+  "negative_experiments_preserved": 1,
+  "next_report_to_approve": null,
+  "next_step": "versioned_qualification_corpus_regeneration",
+  "note": "Il batch clinico/preclinico e' completo a livello di prima revisione. La coda standard non riprende in questo branch: il passo successivo e' la rigenerazione versionata del qualification corpus, con aggiornamento degli hash e nuovo snapshot fingerprint.",
+  "protected_phases_unchanged": true,
+  "ready_for_final_evaluation": false,
+  "ready_for_versioned_corpus_regeneration": true,
+  "residual_risk": "senza full text non e' possibile sapere quanti sistemi preclinici distinti esistano davvero, ne' su quale fondo cellulare siano costruiti i cloni. Il pannello unico e' la registrazione onesta di questa ignoranza, non una affermazione sulla struttura reale della fonte.",
+  "second_review_packets_unchanged": true,
+  "second_review_required": true,
+  "standard_queue_resumed": false,
+  "unresolved_preclinical_composition_count": 1
+}
