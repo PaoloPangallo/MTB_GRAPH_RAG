@@ -15,6 +15,13 @@
   ],
   "disease": "Cancer",
   "graph_evidence_id": "evidence:3811",
+  "local_material": [
+    {
+      "kind": "abstract",
+      "logical_path": "benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl",
+      "sha256": "18e6c4fde795b1ed85815a142126d5078366ab7856cedb06cffd1a3173745565"
+    }
+  ],
   "packet_version": "multi-intervention-source-review/1.0",
   "prohibited_inferences": [
     "aggregate_to_specific",
@@ -34,6 +41,7 @@
     "PMID:19147750"
   ],
   "source_text": "Epidermal growth factor receptor (EGFR) mutations in non-small cell lung cancer (NSCLC) might be predictive for clinical response to EGFR inhibitor treatment. However, retrospective analyses of EGFR mutations in clinical trials have shown inconclusive results and the effect of EGFR sequencing in NSCLC is still controversial. Because the vast majority of EGFR mutations described have not been functionally characterized, simple correlation of mutational status and treatment response may not provide reliable information about the predictive value of EGFR mutations. Thus, we aimed to characterize a comprehensive panel of clinically observed EGFR mutations. A panel of 30 EGFR mutations was cloned and characterized for kinase activity and the ability to confer growth factor independence. Interestingly, 4 of 30 EGFR mutations showed no kinase activity even after ligand stimulation and were not able to confer growth factor independence. Ba/F3 cells expressing activating EGFR mutants were then used to test the efficacy of EGFR inhibitors in a cell proliferation assay. IC(50) values were calculated for gefitinib, erlotinib, and AEE788. We show that the sensitivity of EGFR mutations toward different inhibitors varies significantly, thus establishing a comprehensive sensitivity profile for each inhibitor. EGFR mutations identified in NSCLC patients display distinct biological features. The variability in kinase activity, transforming potential, and sensitivity to EGFR inhibitors has to be considered in clinical studies aiming to correlate mutational status and drug response. The identification of comprehensive drug resistance profiles opens the opportunity to test alternative EGFR inhibitors in vitro.",
+  "source_text_kind": "abstract",
   "source_title": "Functional analysis of epidermal growth factor receptor (EGFR) mutations and potential implications for EGFR targeted therapy.",
   "statement_id": "ES-V2-evidence-3811"
 }

@@ -115,6 +115,9 @@ def _item(
 REVIEW_SPECS: dict[str, dict[str, Any]] = {
     "evidence:229": {
         "decision": "atomic_children_supported",
+        "source_supported_biomarker": (
+            "EGFR Exon 19 Deletion OR EGFR L858R"
+        ),
         "rationale": (
             "L'abstract riporta coorti gefitinib ed erlotinib distinte e risultati "
             "per ciascun trattamento; il biomarcatore resta il gruppo exon19del/L858R."
@@ -528,6 +531,12 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _canonical_text_sha(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    canonical = text.replace("\r\n", "\n").replace("\r", "\n")
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def _numeric_key(value: str) -> tuple[int, str]:
     suffix = value.rsplit(":", 1)[-1]
     return (int(suffix), value) if suffix.isdigit() else (10**12, value)
@@ -589,6 +598,7 @@ def _source_access(
     rows: list[dict[str, Any]] = []
     lookup: dict[str, dict[str, Any]] = {}
     for source_id in source_ids:
+        review_text = ""
         source = cache.get(source_id)
         if not source or not source.get("abstract_available"):
             row = {
@@ -600,6 +610,7 @@ def _source_access(
             }
         else:
             fulltext = source_id == "26698910"
+            review_text = str(source.get("abstract_text") or "")
             local_material = [
                 {
                     "kind": "abstract",
@@ -611,6 +622,16 @@ def _source_access(
                 }
             ]
             if fulltext:
+                fulltext_path = (
+                    root.parent
+                    / "data_expl/benchmark/benchmark_papers/fulltext_26698910.txt"
+                )
+                fulltext_text = fulltext_path.read_text(encoding="utf-8")
+                start_marker = "Case Report A 52-year-old woman"
+                end_marker = "Methods Patient"
+                start = fulltext_text.index(start_marker)
+                end = fulltext_text.index(end_marker, start)
+                review_text = fulltext_text[start:end].strip()
                 local_material.append(
                     {
                         "kind": "full_text",
@@ -632,7 +653,11 @@ def _source_access(
                 ],
             }
         rows.append(row)
-        lookup[source_id] = {**row, "source_record": source}
+        lookup[source_id] = {
+            **row,
+            "source_record": source,
+            "review_text": review_text,
+        }
     return rows, lookup
 
 
@@ -707,10 +732,9 @@ def _integrity(root: Path, gold_bundle: Path) -> dict[str, Any]:
 
 
 def _source_excerpt(access: dict[str, Any]) -> str:
-    source = access.get("source_record") or {}
     if access["source_access_status"] == "unavailable_locally":
         return ""
-    return str(source.get("abstract_text") or "")
+    return str(access.get("review_text") or "")
 
 
 def _packet(group: dict[str, Any], access: dict[str, Any], *, second: bool) -> dict[str, Any]:
@@ -728,6 +752,12 @@ def _packet(group: dict[str, Any], access: dict[str, Any], *, second: bool) -> d
         "candidate_interventions": group["v2_interventions_normalized"],
         "source_access_status": access["source_access_status"],
         "source_title": access["title"],
+        "local_material": access["local_material"],
+        "source_text_kind": (
+            "full_text_excerpt"
+            if access["source_access_status"] == "full_text"
+            else "abstract"
+        ),
         "source_text": _source_excerpt(access),
         "review_questions": [
             "Il risultato è attribuibile separatamente a ogni intervento?",
@@ -772,7 +802,8 @@ def _build_review(
                 "statement_id": group["statement_id"],
                 "source_id": f"PMID:{source_id}",
                 "source_unit_id": source_unit_id,
-                "biomarker": group["biomarker"],
+                "biomarker": spec.get("source_supported_biomarker", group["biomarker"]),
+                "parent_biomarker": group["biomarker"],
                 "disease": group["disease"],
                 "intervention": intervention,
                 "direction": group["directions"][0],
@@ -981,6 +1012,52 @@ def _architecture(review: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     }
 
 
+def _expected_output_relpaths(
+    groups: list[dict[str, Any]], *, include_docs: bool
+) -> set[str]:
+    names = {
+        "review_scope.json",
+        "source_access_inventory.jsonl",
+        "intervention_level_annotations.jsonl",
+        "source_unit_annotations.jsonl",
+        "group_atomicity_decisions.jsonl",
+        "unsupported_interventions.jsonl",
+        "aggregate_results.jsonl",
+        "combination_regimens.jsonl",
+        "verified_aliases.jsonl",
+        "unresolved_groups.jsonl",
+        "post_review_schema_simulation.json",
+        "architectural_recommendation.json",
+        "review_manifest.json",
+    }
+    for group in groups:
+        graph_id = str(group["graph_evidence_id"])
+        names.add(f"group_review_packets/{_blind_id('MI-A', graph_id)}.json")
+        names.add(f"second_review_packets/{_blind_id('MI-B', graph_id)}.json")
+    if include_docs:
+        names.update(
+            {
+                "MULTI_INTERVENTION_SOURCE_REVIEW.md",
+                "ATOMICITY_DECISION_REPORT.md",
+                "ADAPTER_MIGRATION_READINESS.md",
+            }
+        )
+    return names
+
+
+def _validate_output_inventory(output_dir: Path, expected: set[str]) -> None:
+    if not output_dir.exists():
+        return
+    actual = {
+        path.relative_to(output_dir).as_posix()
+        for path in output_dir.rglob("*")
+        if path.is_file()
+    }
+    unexpected = sorted(actual - expected)
+    if unexpected:
+        raise RuntimeError(f"unexpected output artifacts: {unexpected}")
+
+
 def _markdown_reports(
     output_dir: Path,
     access: list[dict[str, Any]],
@@ -1082,6 +1159,8 @@ def generate(
     integrity = _integrity(root, gold_bundle)
     groups = _groups(root, reverse_inputs=reverse_inputs)
     groups.sort(key=lambda row: _numeric_key(row["graph_evidence_id"]))
+    expected_output = _expected_output_relpaths(groups, include_docs=include_docs)
+    _validate_output_inventory(output_dir, expected_output)
     access, access_by_source = _source_access(root, groups)
     review = _build_review(groups, access_by_source)
     simulation = _simulation(groups, review)
@@ -1168,15 +1247,13 @@ def generate(
     )
     _write_json(output_dir / "post_review_schema_simulation.json", simulation)
     _write_json(output_dir / "architectural_recommendation.json", architecture)
+    if include_docs:
+        _markdown_reports(output_dir, access, review, simulation, architecture)
 
-    artifact_hashes: dict[str, str] = {}
-    for path in sorted(output_dir.rglob("*")):
-        if (
-            path.is_file()
-            and path.name != "review_manifest.json"
-            and path.suffix in {".json", ".jsonl"}
-        ):
-            artifact_hashes[path.relative_to(output_dir).as_posix()] = _sha(path)
+    artifact_hashes = {
+        relative: _sha(output_dir / relative)
+        for relative in sorted(expected_output - {"review_manifest.json"})
+    }
     decisions_hash = hashlib.sha256(
         _jsonl_bytes(review["decisions"])
     ).hexdigest()
@@ -1184,6 +1261,7 @@ def generate(
         "manifest_version": REVIEW_VERSION,
         "branch": TARGET_BRANCH,
         "source_sha": SOURCE_SHA,
+        "generator_sha256": _canonical_text_sha(Path(__file__)),
         "review_phase": "targeted_first_source_review",
         "reviewer_role": "author_review",
         "review_independence": "non_independent",
@@ -1210,8 +1288,6 @@ def generate(
         "artifact_hashes": artifact_hashes,
     }
     _write_json(output_dir / "review_manifest.json", manifest)
-    if include_docs:
-        _markdown_reports(output_dir, access, review, simulation, architecture)
     return {
         "scope": scope,
         "access": access,

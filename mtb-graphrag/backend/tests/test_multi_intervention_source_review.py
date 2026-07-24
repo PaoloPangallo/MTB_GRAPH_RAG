@@ -13,6 +13,7 @@ from benchmarks.mtb_evidence.evaluation.scripts.multi_intervention_source_review
     EXPECTED_GROUP_IDS,
     EXPECTED_PREVIOUS_REVIEW_HASH,
     REVIEW_METADATA,
+    _canonical_text_sha,
     generate,
 )
 
@@ -92,6 +93,15 @@ def test_no_aggregate_or_regimen_is_split_into_specific_children() -> None:
         for row in simulation["simulated_child_statements"]
     )
     assert simulation["combination_regimen_group_count"] == 3
+    evidence_229_children = [
+        row
+        for row in simulation["simulated_child_statements"]
+        if row["parent_graph_evidence_id"] == "evidence:229"
+    ]
+    assert len(evidence_229_children) == 2
+    assert {row["biomarker"] for row in evidence_229_children} == {
+        "EGFR Exon 19 Deletion OR EGFR L858R"
+    }
 
 
 def test_mentions_comparators_and_pending_mappings_are_not_support() -> None:
@@ -180,6 +190,27 @@ def test_second_review_packets_are_blind_and_complete() -> None:
         assert not any(value in serialized for value in prohibited_values)
 
 
+    fulltext_packet = next(
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in packets
+        if json.loads(path.read_text(encoding="utf-8"))["graph_evidence_id"]
+        == "evidence:841"
+    )
+    assert fulltext_packet["source_text_kind"] == "full_text_excerpt"
+    assert "AUY922" in fulltext_packet["source_text"]
+    assert "Case Report" in fulltext_packet["source_text"]
+    assert {item["kind"] for item in fulltext_packet["local_material"]} == {
+        "abstract",
+        "full_text",
+    }
+    fulltext_material = next(
+        item
+        for item in fulltext_packet["local_material"]
+        if item["kind"] == "full_text"
+    )
+    assert fulltext_material["sha256"] == EXPECTED_FULLTEXT_HASH
+
+
 def test_gold_is_not_used_and_operational_components_are_unchanged() -> None:
     manifest = json.loads(
         (COMMITTED / "review_manifest.json").read_text(encoding="utf-8")
@@ -191,6 +222,12 @@ def test_gold_is_not_used_and_operational_components_are_unchanged() -> None:
     assert not manifest["corpus_modified"]
     assert not manifest["retriever_modified"]
     assert not manifest["scoring_modified"]
+    generator = (
+        ROOT
+        / "benchmarks/mtb_evidence/evaluation/scripts"
+        / "multi_intervention_source_review.py"
+    )
+    assert manifest["generator_sha256"] == _canonical_text_sha(generator)
     integrity = manifest["integrity"]
     assert (
         integrity["previous_multi_intervention_review"]["aggregate_sha256"]
@@ -219,24 +256,19 @@ def test_regression_principles_are_encoded_without_modifying_approvals() -> None
     assert recommendation["second_independent_review_required"]
 
 
-def test_generation_matches_committed_machine_artifacts(generated: tuple[Path, dict]) -> None:
+def test_generation_matches_all_committed_artifacts(
+    generated: tuple[Path, dict]
+) -> None:
     output, _ = generated
-    suffixes = {".json", ".jsonl"}
-    committed = {
-        path.relative_to(COMMITTED).as_posix(): hashlib.sha256(
-            path.read_bytes()
-        ).hexdigest()
-        for path in COMMITTED.rglob("*")
-        if path.is_file() and path.suffix in suffixes
-    }
-    actual = {
-        path.relative_to(output).as_posix(): hashlib.sha256(
-            path.read_bytes()
-        ).hexdigest()
-        for path in output.rglob("*")
-        if path.is_file() and path.suffix in suffixes
-    }
-    assert actual == committed
+    assert _snapshot(output) == _snapshot(COMMITTED)
+
+
+def test_dirty_output_directory_is_rejected(tmp_path: Path) -> None:
+    output = tmp_path / "dirty"
+    output.mkdir()
+    (output / "stale.json").write_text("{}\n", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="unexpected output artifacts"):
+        generate(ROOT, output, GOLD)
 
 
 def test_two_runs_and_reversed_input_are_byte_identical(
