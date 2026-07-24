@@ -1,0 +1,1145 @@
+{
+  "active_profile_unit_count": 109,
+  "active_units_by_eligibility": {
+    "none": 92,
+    "prototype_only": 17
+  },
+  "changes": [
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22235099-baf3-engineered"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22235099-clinical-cohort"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22235099-clinical-component"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22235099-cuto1-comparative"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22235099-engineered-isogenic-models"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22235099-h3122-kras-engineered"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22235099-nih3t3-engineered"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22235099-preclinical-component"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22277784-baf3-17aag"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22277784-baf3-crizotinib-panel"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22277784-baf3-next-generation-alk-inhibitors"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-22277784-clinical-crizotinib-resistant"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-23344087-clinical-cohort"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-23344087-clinical-component"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-23344087-engineered-clones"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-23344087-patient-derived"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-23344087-preclinical-component"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-23344087-preclinical-unresolved-panel"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-31358542-clinical-cohort"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-31358542-clinical-component"
+    },
+    {
+      "change": "unit_added",
+      "change_class": "expected_unit_restructure",
+      "detail": "unita' assente dal corpus precedente: viene da una revisione o da una proposta",
+      "entity_id": "PU-PMID-31358542-preclinical-component"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-DOI-10.1182/blood-2022-163099-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-15118125-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-15329413-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-160559-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-16818618-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-17177598-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-17877814-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-18089823-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-18408761-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-18509184-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-18757403-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-18923525-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-19147750-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-20038723-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-20942962-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-20979473-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-20979473-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-21030459-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-21132006-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-21531810-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-21791641-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-22034911-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-22072639-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-22235099-cohort-1"
+    },
+    {
+      "after": "first_review_complete",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_author_approval",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-22235099-cohort-1"
+    },
+    {
+      "after": "first_review_complete",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_author_approval",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-22277784-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-22285168-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-22370314-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-22452895-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-23344087-cohort-1"
+    },
+    {
+      "after": "first_review_complete",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_author_approval",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-23344087-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-23598171-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-23658459-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-23786770-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-23816960-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-23982599-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24122810-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-24122810-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24263064-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24353160-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24439929-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24457318-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-24550739-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24662454-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-24675041-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24736073-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24736079-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-24736079-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24755888-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-24868098-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-24893891-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-25228534-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-25393796-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-25393796-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-25727400-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-25736571-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-25923549-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-25939061-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-26181354-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-26181354-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-26269204-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-26324363-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-26515464-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-26574622-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-26698910-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-26720284-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-26729184-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-26768165-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-26775591-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27022112-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27032107-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27045755-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-27045755-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-27102076-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27130468-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-27130468-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27179038-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27432227-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27612423-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27870574-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-27870574-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-27959700-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-28202511-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-28274957-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-28874593-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-28958502-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-28958502-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-29182496-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-29182496-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-29373100-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-29373100-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-29376144-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-29376144-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-29650534-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-29935304-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-30420614-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-30892989-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-31208370-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-31208370-cohort-1"
+    },
+    {
+      "after": "first_review_complete",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_author_approval",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-31358542-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-31585938-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-31591063-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-32203698-cohort-1"
+    },
+    {
+      "after": "awaiting_first_review",
+      "before": "awaiting_source_review",
+      "change": "review_status",
+      "change_class": "expected_history_update",
+      "detail": "stato aggiornato da una revisione approvata o dallo storico",
+      "entity_id": "PU-PMID-32600123-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-32955177-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-32973082-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-34358484-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-35245845-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-35399574-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-35507888-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-37879444-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-37937763-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-38074875-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-38525318-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-38710951-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-38942080-cohort-1"
+    },
+    {
+      "after": false,
+      "before": true,
+      "change": "is_propagatable",
+      "change_class": "expected_policy_migration",
+      "detail": "flag ricalcolato dalla politica invece che trasportato",
+      "entity_id": "PU-PMID-39269178-cohort-1"
+    },
+    {
+      "after": 0,
+      "before": 99,
+      "change": "obsolete_flags_removed",
+      "change_class": "expected_policy_migration",
+      "detail": "flag serializzati che il codice non onorava piu'",
+      "entity_id": "obsolete_serialized_flags"
+    },
+    {
+      "after": 17,
+      "before": 15,
+      "change": "first_review_annotations",
+      "change_class": "expected_author_approval",
+      "detail": "annotazioni di prima revisione presenti nel gold provvisorio",
+      "entity_id": "provisional_gold"
+    },
+    {
+      "after": 201,
+      "before": 10,
+      "change": "link_count",
+      "change_class": "expected_unit_restructure",
+      "detail": "link ricostruiti dalle sole unita' attive invece che dagli otto profili revisionati",
+      "entity_id": "qualification_links"
+    },
+    {
+      "after": 147,
+      "before": 147,
+      "change": "view_count",
+      "change_class": "expected_hash_change",
+      "detail": "una vista per statement, in modalita' prototipo",
+      "entity_id": "qualified_evidence_views"
+    }
+  ],
+  "corpus_version": "qualification_corpus/2.0",
+  "counts": {
+    "expected_author_approval": 5,
+    "expected_hash_change": 1,
+    "expected_history_update": 27,
+    "expected_policy_migration": 87,
+    "expected_unit_restructure": 22,
+    "unexpected_change": 0,
+    "unresolved_conflict": 0
+  },
+  "final_units": 0,
+  "frozen_kg_snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "gold_count": 94,
+  "hard_filterable_qualifiers": 0,
+  "historical_profile_unit_count": 14,
+  "link_count": 201,
+  "obsolete_serialized_flags_after": 0,
+  "obsolete_serialized_flags_before": 99,
+  "previous_corpus_fingerprint": "70601662488ba16dea2f416a18156e8886405e08b004cd4308889e065318c104",
+  "previous_corpus_version": "qualification_corpus/1.0",
+  "previous_gold_count": 94,
+  "previous_link_count": 10,
+  "previous_profile_unit_count": 102,
+  "previous_view_count": 147,
+  "profile_unit_count": 123,
+  "qualification_corpus_fingerprint": "d831c9737cb808739848d63cc052a0a37bfab3b89e926e29dbb60406f1600fc7",
+  "unexpected_change": 0,
+  "units_by_eligibility": {
+    "none": 102,
+    "prototype_only": 21
+  },
+  "units_by_review_status": {
+    "awaiting_first_review": 31,
+    "awaiting_source_review": 65,
+    "first_review_complete": 15,
+    "human_reviewed": 6,
+    "rejected": 2,
+    "rejected_as_active_unit_due_to_insufficient_source_resolution": 2,
+    "replaced_by_author_approved_consolidation": 2
+  },
+  "unresolved_conflict": 0,
+  "view_count": 147
+}

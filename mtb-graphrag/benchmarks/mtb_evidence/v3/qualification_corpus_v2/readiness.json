@@ -1,0 +1,43 @@
+{
+  "author_approval_batch_complete": true,
+  "biomarker_role_backfill_required": true,
+  "blockers": [],
+  "corpus_version": "qualification_corpus/2.0",
+  "created_at": "2026-07-24T18:00:00+00:00",
+  "detector_promotion_ready": false,
+  "dimension_notes": {
+    "component_level_filtering_23344087": "il pannello preclinico e' not_separable: filtrare per componente richiederebbe una struttura che l'abstract non fornisce",
+    "first_review_qualifiers": "prototype_ready e non final_ready: una sola annotazione, non indipendente e non clinica",
+    "machine_extracted_qualifiers": "eligibility `none`: nessuno ha letto la fonte, quindi non entrano nemmeno nelle viste"
+  },
+  "final_evaluation_ready": false,
+  "final_propagatable_units": 0,
+  "gold_evaluable": false,
+  "hard_filterable_qualifiers": 0,
+  "hard_filtering_available": false,
+  "next_step": "prototype_qualified_evidence_retriever_implementation",
+  "obsolete_serialized_flags": 0,
+  "pre_existing_guard_finding_note": "unita' scritte prima che la regola `observed_biomarker_to_requirement` esistesse dichiarano `biomarker_requirements` senza `biomarker_role`. La rigenerazione le trasporta invariate: riempire il campo a posteriori significherebbe decidere al posto di un revisore che non ha deciso",
+  "pre_existing_guard_findings": 10,
+  "propagation_policy_migration_complete": true,
+  "prototype_qualified_evidence_view_ready": true,
+  "prototype_visible_units": 17,
+  "qualification_corpus_internally_consistent": true,
+  "readiness_by_dimension": {
+    "component_level_filtering_23344087": "not_available",
+    "evidence_statement_native_fields": "ready",
+    "final_qualifiers": "not_available",
+    "first_review_qualifiers": "prototype_ready",
+    "hard_filtering": "not_available",
+    "machine_extracted_qualifiers": "not_ready",
+    "source_checked_qualifiers": "prototype_ready"
+  },
+  "ready_for_prototype_retriever_implementation": true,
+  "regeneration_status": "ready_for_prototype",
+  "regeneration_version": "corpus_regeneration/1.0",
+  "second_review_required": true,
+  "standard_queue_resumed": false,
+  "unexpected_changes": 0,
+  "unresolved_conflicts": 0,
+  "unresolved_panel_component_filtering_available": false
+}

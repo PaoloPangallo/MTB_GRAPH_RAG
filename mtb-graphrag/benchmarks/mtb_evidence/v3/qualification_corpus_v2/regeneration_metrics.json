@@ -1,0 +1,58 @@
+{
+  "abstract_only_units": 2,
+  "active_profile_units": 109,
+  "active_units_by_propagation_eligibility": {
+    "none": 92,
+    "prototype_only": 17
+  },
+  "ambiguities": 1,
+  "author_approved_sources": 3,
+  "case_level_statements": 2,
+  "conflicts": 53,
+  "created_at": "2026-07-24T18:00:00+00:00",
+  "detector_reference_cases": 6,
+  "evidence_statement_count": 147,
+  "final_propagatable_units": 0,
+  "first_review_completed_sources": 4,
+  "hard_filterable_qualifiers": 0,
+  "historical_profile_units": 14,
+  "metric_kind": "descriptive_corpus_metrics",
+  "metric_kind_note": "Contano entita' e stati. Nessuna misura la qualita' del linking o del rilevatore: esiste una sola annotazione per link, non indipendente.",
+  "named_patient_subset_statements": 1,
+  "negative_experiments": 1,
+  "not_calculated": {
+    "clinical_applicability_accuracy": "not_calculated",
+    "detector_accuracy": "not_calculated",
+    "final_retrieval_quality": "not_calculated",
+    "inter_annotator_agreement": "not_calculated",
+    "linking_f1": "not_calculated",
+    "linking_precision": "not_calculated",
+    "linking_recall": "not_calculated"
+  },
+  "not_calculated_reason": "nessuna seconda revisione esiste, nessuna unita' e' final e il gold non e' valutabile. Una metrica di qualita' calcolata qui misurerebbe il sistema contro se stesso.",
+  "not_separable_fields": 4,
+  "obsolete_flags_removed": 99,
+  "prototype_views": 147,
+  "prototype_visible_units": 17,
+  "provisional_gold_records": 94,
+  "qualification_links": 201,
+  "regeneration_version": "corpus_regeneration/1.0",
+  "review_decisions": 17,
+  "source_count": 102,
+  "terminology_mappings_pending": 6,
+  "total_profile_units": 123,
+  "units_by_propagation_eligibility": {
+    "none": 102,
+    "prototype_only": 21
+  },
+  "units_by_review_status": {
+    "awaiting_first_review": 31,
+    "awaiting_source_review": 65,
+    "first_review_complete": 15,
+    "human_reviewed": 6,
+    "rejected": 2,
+    "rejected_as_active_unit_due_to_insufficient_source_resolution": 2,
+    "replaced_by_author_approved_consolidation": 2
+  },
+  "unresolved_units": 19
+}
