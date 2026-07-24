@@ -14,6 +14,13 @@
   ],
   "disease": "Cholangiocarcinoma",
   "graph_evidence_id": "evidence:296",
+  "local_material": [
+    {
+      "kind": "abstract",
+      "logical_path": "benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl",
+      "sha256": "4502f75ce5fe4013e54228f3c98981d6324ea7e493b09178bf28b3f5f42736cf"
+    }
+  ],
   "packet_version": "multi-intervention-source-review/1.0",
   "prohibited_inferences": [
     "aggregate_to_specific",
@@ -33,6 +40,7 @@
     "PMID:24550739"
   ],
   "source_text": "Advanced cholangiocarcinoma continues to harbor a difficult prognosis and therapeutic options have been limited. During the course of a clinical trial of whole genomic sequencing seeking druggable targets, we examined six patients with advanced cholangiocarcinoma. Integrated genome-wide and whole transcriptome sequence analyses were performed on tumors from six patients with advanced, sporadic intrahepatic cholangiocarcinoma (SIC) to identify potential therapeutically actionable events. Among the somatic events captured in our analysis, we uncovered two novel therapeutically relevant genomic contexts that when acted upon, resulted in preliminary evidence of anti-tumor activity. Genome-wide structural analysis of sequence data revealed recurrent translocation events involving the FGFR2 locus in three of six assessed patients. These observations and supporting evidence triggered the use of FGFR inhibitors in these patients. In one example, preliminary anti-tumor activity of pazopanib (in vitro FGFR2 IC50≈350 nM) was noted in a patient with an FGFR2-TACC3 fusion. After progression on pazopanib, the same patient also had stable disease on ponatinib, a pan-FGFR inhibitor (in vitro, FGFR2 IC50≈8 nM). In an independent non-FGFR2 translocation patient, exome and transcriptome analysis revealed an allele specific somatic nonsense mutation (E384X) in ERRFI1, a direct negative regulator of EGFR activation. Rapid and robust disease regression was noted in this ERRFI1 inactivated tumor when treated with erlotinib, an EGFR kinase inhibitor. FGFR2 fusions and ERRFI mutations may represent novel targets in sporadic intrahepatic cholangiocarcinoma and trials should be characterized in larger cohorts of patients with these aberrations.",
+  "source_text_kind": "abstract",
   "source_title": "Integrated genomic characterization reveals novel, therapeutically relevant drug targets in FGFR and EGFR pathways in sporadic intrahepatic cholangiocarcinoma.",
   "statement_id": "ES-V2-evidence-296"
 }

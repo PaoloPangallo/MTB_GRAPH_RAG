@@ -15,6 +15,18 @@
   ],
   "disease": "Lung Non-small Cell Carcinoma",
   "graph_evidence_id": "evidence:841",
+  "local_material": [
+    {
+      "kind": "abstract",
+      "logical_path": "benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl",
+      "sha256": "55515cfdb202df453e41d5d51248a6d0f6d0c260ae76ea2bf6a10937363cf044"
+    },
+    {
+      "kind": "full_text",
+      "logical_path": "local_source://data_expl/benchmark/benchmark_papers/fulltext_26698910.txt",
+      "sha256": "086c0cb4e777b9a187b3a71ef6796f1c27c481a6f4671e0b8b0c90044fbcf90e"
+    }
+  ],
   "packet_version": "multi-intervention-source-review/1.0",
   "prohibited_inferences": [
     "aggregate_to_specific",
@@ -33,7 +45,8 @@
   "source_ids": [
     "PMID:26698910"
   ],
-  "source_text": "In a patient who had metastatic anaplastic lymphoma kinase (ALK)-rearranged lung cancer, resistance to crizotinib developed because of a mutation in the ALK kinase domain. This mutation is predicted to result in a substitution of cysteine by tyrosine at amino acid residue 1156 (C1156Y). Her tumor did not respond to a second-generation ALK inhibitor, but it did respond to lorlatinib (PF-06463922), a third-generation inhibitor. When her tumor relapsed, sequencing of the resistant tumor revealed an ALK L1198F mutation in addition to the C1156Y mutation. The L1198F substitution confers resistance to lorlatinib through steric interference with drug binding. However, L1198F paradoxically enhances binding to crizotinib, negating the effect of C1156Y and resensitizing resistant cancers to crizotinib. The patient received crizotinib again, and her cancer-related symptoms and liver failure resolved. (Funded by Pfizer and others; ClinicalTrials.gov number, NCT01970865.).",
+  "source_text": "Case Report A 52-year-old woman with metastatic ALK -rearranged NSCLC received first-line crizotinib and had a clinically significant response that lasted for 18 months. Computed tomography (CT) at that time revealed new abdominal lymphadenopathy. She underwent biopsy of a lymph node that was enlarging while she was receiving crizotinib; the biopsy specimen showed a crizotinib-resistant ALK C1156Y mutation. 17 Crizotinib was discontinued, and she began to receive ceritinib. First restaging CT scans at 5 weeks showed progressive disease with numerous new metastatic liver lesions. She then received a heat shock protein 90 (HSP90) inhibitor (AUY922) and had rapidly worsening disease. Chemotherapy (carboplatin–pemetrexed) was then administered, and she had a response that lasted for 6 months. After the cancer relapsed while the patient was receiving chemotherapy, she received crizotinib again and had no response. The patient then enrolled in a phase 1 trial of lorlatinib. The first restaging CT after 5 weeks of treatment showed a 41% reduction in tumor burden ( Fig. 1B ). She did well until 8 months later, when CT showed worsening liver metastases. She underwent biopsy of a resistant liver lesion and continued to receive lorlatinib. Two weeks later, nausea and indigestion developed, and her total bilirubin level was 0.8 mg per deci-liter (14 μ mol per liter) (baseline, 0.3 mg per deciliter [5.1 μ mol per liter]). Lorlatinib was discontinued. Three days later, she was admitted to the hospital with progressive nausea, abdominal pain, and fatigue. Laboratory studies were notable for worsening hepatic dysfunction, with an elevated total bilirubin level of 1.4 mg per deciliter (24 μ mol per liter). CT showed markedly worsening disease with nearly confluent metastatic lesions in the liver, splenomegaly, and ascites ( Fig. 1B ). She received a single dose of low-dose vinorelbine (22.5 mg per square meter of body weight). Over the next 5 days, she had further clinical deterioration and impending liver failure, with a total bilirubin level increasing to 4.8 mg per deciliter (82 μ mol per liter) ( Fig. 1C ). At this point, molecular testing revealed two ALK resistance mutations (detailed below). Examination of the structure of the ALK kinase domain suggested that crizotinib could have activity against this compound mutant. Treatment with crizotinib was then restarted. The patient had a rapid and dramatic clinical improvement, with resolution of her liver failure ( Fig. 1C ). She was discharged from the hospital and continued to receive therapy with full-dose crizotinib. She also received intermittent low-dose vinorelbine, but chemotherapy was frequently interrupted, the dose was further reduced, and eventually it was discontinued because of neutropenia. Serial restaging CT showed a clinically significant radiologic response that lasted almost 6 months ( Fig. 1B ).",
+  "source_text_kind": "full_text_excerpt",
   "source_title": "Resensitization to Crizotinib by the Lorlatinib ALK Resistance Mutation L1198F.",
   "statement_id": "ES-V2-evidence-841"
 }

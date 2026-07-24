@@ -14,6 +14,13 @@
   ],
   "disease": "Lung Non-small Cell Carcinoma",
   "graph_evidence_id": "evidence:12156",
+  "local_material": [
+    {
+      "kind": "abstract",
+      "logical_path": "benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl",
+      "sha256": "2b1fb0a3be469d5f1d8f4e16fdd0ab0ce5b8e7eb0d538ae086f44a49c5652d55"
+    }
+  ],
   "packet_version": "multi-intervention-source-review/1.0",
   "prohibited_inferences": [
     "aggregate_to_specific",
@@ -33,6 +40,7 @@
     "PMID:37879444"
   ],
   "source_text": "Amivantamab plus carboplatin-pemetrexed (chemotherapy) with and without lazertinib demonstrated antitumor activity in patients with refractory epidermal growth factor receptor (EGFR)-mutated advanced non-small-cell lung cancer (NSCLC) in phase I studies. These combinations were evaluated in a global phase III trial. A total of 657 patients with EGFR-mutated (exon 19 deletions or L858R) locally advanced or metastatic NSCLC after disease progression on osimertinib were randomized 2 : 2 : 1 to receive amivantamab-lazertinib-chemotherapy, chemotherapy, or amivantamab-chemotherapy. The dual primary endpoints were progression-free survival (PFS) of amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy. During the study, hematologic toxicities observed in the amivantamab-lazertinib-chemotherapy arm necessitated a regimen change to start lazertinib after carboplatin completion. All baseline characteristics were well balanced across the three arms, including by history of brain metastases and prior brain radiation. PFS was significantly longer for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy [hazard ratio (HR) for disease progression or death 0.48 and 0.44, respectively; P < 0.001 for both; median of 6.3 and 8.3 versus 4.2 months, respectively]. Consistent PFS results were seen by investigator assessment (HR for disease progression or death 0.41 and 0.38 for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy, respectively; P < 0.001 for both; median of 8.2 and 8.3 versus 4.2 months, respectively). Objective response rate was significantly higher for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy (64% and 63% versus 36%, respectively; P < 0.001 for both). Median intracranial PFS was 12.5 and 12.8 versus 8.3 months for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy (HR for intracranial disease progression or death 0.55 and 0.58, respectively). Predominant adverse events (AEs) in the amivantamab-containing regimens were hematologic, EGFR-, and MET-related toxicities. Amivantamab-chemotherapy had lower rates of hematologic AEs than amivantamab-lazertinib-chemotherapy. Amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy improved PFS and intracranial PFS versus chemotherapy in a population with limited options after disease progression on osimertinib. Longer follow-up is needed for the modified amivantamab-lazertinib-chemotherapy regimen.",
+  "source_text_kind": "abstract",
   "source_title": "Amivantamab plus chemotherapy with and without lazertinib in EGFR-mutant advanced NSCLC after disease progression on osimertinib: primary results from the phase III MARIPOSA-2 study.",
   "statement_id": "ES-V2-evidence-12156"
 }

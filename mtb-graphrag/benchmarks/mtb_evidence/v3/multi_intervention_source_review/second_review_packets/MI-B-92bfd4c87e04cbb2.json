@@ -14,6 +14,13 @@
   ],
   "disease": "Lung Non-small Cell Carcinoma",
   "graph_evidence_id": "evidence:1484",
+  "local_material": [
+    {
+      "kind": "abstract",
+      "logical_path": "benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl",
+      "sha256": "f11ced50af009fce0af0a0c1fd48a4adee71615758ac6c23466c0f12a723432a"
+    }
+  ],
   "packet_version": "multi-intervention-source-review/1.0",
   "prohibited_inferences": [
     "aggregate_to_specific",
@@ -33,6 +40,7 @@
     "PMID:25393796"
   ],
   "source_text": "Huntingtin-interacting protein 1 (HIP1) has recently been identified as a new fusion partner fused to anaplastic lymphoma kinase (ALK) in non-small-cell lung cancer (NSCLC). To date, two variants of HIP1-ALK (H21; A20) and (H28; A20) have been identified in NSCLC. However, the response of patients with NSCLC harboring HIP1-ALK to ALK inhibitors and potential resistance mechanisms to such remain unknown. Here, we report a patient with NSCLC harboring a novel HIP1-ALK fusion variant (H30; A20). This patient and another patient with EML4-ALK variant 3a/b initially responded sequentially to crizotinib and then alectinib, a next-generation ALK inhibitor, but developed acquired resistance to alectinib with the presence of a mutation in amino acid residue 1171 (I1171N and I1171S respectively) located in the hydrophobic regulatory spine (R-spine) of the ALK kinase in both the cases as identified by a comprehensive next-generation sequencing-based assay performed on biopsies of new liver metastases that developed during alectinib treatment.",
+  "source_text_kind": "abstract",
   "source_title": "Identification of a novel HIP1-ALK fusion variant in Non-Small-Cell Lung Cancer (NSCLC) and discovery of ALK I1171 (I1171N/S) mutations in two ALK-rearranged NSCLC patients with resistance to Alectinib.",
   "statement_id": "ES-V2-evidence-1484"
 }
