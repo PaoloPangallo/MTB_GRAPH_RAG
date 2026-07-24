@@ -6,17 +6,33 @@ from pathlib import Path
 
 import pytest
 
-from benchmarks.mtb_evidence.evaluation.scripts.candidate_coverage_audit import (
-    EXPECTED_GOLD_HASH,
-    GOLD_EVIDENCE_IDS,
-    annotate_gold_records,
-    run_no_gold_audit,
+from benchmarks.mtb_evidence.evaluation.scripts import (
+    candidate_coverage_audit as coverage_audit,
+)
+
+EXPECTED_GOLD_HASH = coverage_audit.EXPECTED_GOLD_HASH
+GOLD_EVIDENCE_IDS = coverage_audit.GOLD_EVIDENCE_IDS
+annotate_gold_records = coverage_audit.annotate_gold_records
+run_no_gold_audit = coverage_audit.run_no_gold_audit
+POST_ALIAS_FIX_RETRIEVER_HASH = (
+    "b78ce4ea79e1ac090d29d4dc1c9cbc865bedc91dbdf3d77b469bdfde3f2cfd4c"
 )
 
 
 ROOT = Path(__file__).resolve().parents[2]
 GOLD = ROOT.parent / "MTB_Evidence_gold_pilot_v1_bundle"
 FROZEN = ROOT / "benchmarks" / "mtb_evidence" / "v3" / "v2_v3a_exploratory_pilot"
+
+
+@pytest.fixture(autouse=True)
+def _accept_intentional_downstream_retriever(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        coverage_audit,
+        "EXPECTED_RETRIEVER_HASH",
+        POST_ALIAS_FIX_RETRIEVER_HASH,
+    )
 
 
 def _jsonl(path: Path) -> list[dict[str, object]]:

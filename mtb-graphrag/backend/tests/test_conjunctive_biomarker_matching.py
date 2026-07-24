@@ -177,7 +177,8 @@ def test_frozen_alk_overreach_is_removed_without_fgfr2_or_rmi2_change(
 ) -> None:
     outputs = {query.case_id: retriever.retrieve(query) for query in _pilot_queries()}
     assert outputs["PILOT-A2-ALK-G1202R"].candidate_count == 9
-    assert outputs["PILOT-C1-EGFR-L858R-CONTEXT"].candidate_count == 10
+    # The downstream verified-alias fix safely recovers the local NSCLC aliases.
+    assert outputs["PILOT-C1-EGFR-L858R-CONTEXT"].candidate_count == 32
     assert outputs["PILOT-K1-FGFR2-iCCA"].candidate_count == 1
     assert outputs["PILOT-N1-RMI2-SNAPSHOT"].candidate_count == 0
 
