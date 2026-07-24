@@ -1,0 +1,23 @@
+{
+  "all_missing_have_one_primary_cause": true,
+  "audit_version": "candidate-coverage-audit/1.0",
+  "gold_used": false,
+  "missing_record_count": 95,
+  "missing_unique_query_graph_count": 84,
+  "primary_cause_record_counts": {
+    "V2_traversal_semantics_not_represented": 41,
+    "disease_normalization_gap": 54
+  },
+  "primary_cause_unique_query_graph_counts": {
+    "V2_traversal_semantics_not_represented": 36,
+    "disease_normalization_gap": 48
+  },
+  "root_causes_identified": true,
+  "secondary_cause_record_counts": {
+    "V2_traversal_semantics_not_represented": 54,
+    "adapter_conversion_loss": 11,
+    "duplicate_canonicalization": 11,
+    "expected_non_equivalence": 41,
+    "native_filter_mismatch": 41
+  }
+}

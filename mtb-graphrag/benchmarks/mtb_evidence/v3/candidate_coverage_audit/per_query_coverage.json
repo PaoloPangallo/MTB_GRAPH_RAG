@@ -1,0 +1,82 @@
+{
+  "audit_version": "candidate-coverage-audit/1.0",
+  "queries": [
+    {
+      "adapter_intervention_conversion_losses": 0,
+      "candidate_counts": {
+        "historical_v2_records": 13,
+        "historical_v2_unique_graph_evidence": 13,
+        "native_only": 32,
+        "qualified_soft": 32,
+        "v2_compatibility": 32
+      },
+      "case_id": "PILOT-A2-ALK-G1202R",
+      "duplicate_record_surplus": 0,
+      "lineage_outcomes": {
+        "excluded": 4,
+        "survives": 9
+      },
+      "missing_v2_records": 4,
+      "query_id": "PILOT-A2-ALK-G1202R:qualified-retrieval",
+      "v3_extra_graph_evidence": 23,
+      "zero_case_classification": null
+    },
+    {
+      "adapter_intervention_conversion_losses": 8,
+      "candidate_counts": {
+        "historical_v2_records": 81,
+        "historical_v2_unique_graph_evidence": 73,
+        "native_only": 17,
+        "qualified_soft": 17,
+        "v2_compatibility": 17
+      },
+      "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+      "duplicate_record_surplus": 8,
+      "lineage_outcomes": {
+        "excluded": 64,
+        "survives": 17
+      },
+      "missing_v2_records": 64,
+      "query_id": "PILOT-C1-EGFR-L858R-CONTEXT:qualified-retrieval",
+      "v3_extra_graph_evidence": 0,
+      "zero_case_classification": null
+    },
+    {
+      "adapter_intervention_conversion_losses": 3,
+      "candidate_counts": {
+        "historical_v2_records": 28,
+        "historical_v2_unique_graph_evidence": 25,
+        "native_only": 1,
+        "qualified_soft": 1,
+        "v2_compatibility": 1
+      },
+      "case_id": "PILOT-K1-FGFR2-iCCA",
+      "duplicate_record_surplus": 3,
+      "lineage_outcomes": {
+        "excluded": 27,
+        "survives": 1
+      },
+      "missing_v2_records": 27,
+      "query_id": "PILOT-K1-FGFR2-iCCA:qualified-retrieval",
+      "v3_extra_graph_evidence": 0,
+      "zero_case_classification": null
+    },
+    {
+      "adapter_intervention_conversion_losses": 0,
+      "candidate_counts": {
+        "historical_v2_records": 0,
+        "historical_v2_unique_graph_evidence": 0,
+        "native_only": 0,
+        "qualified_soft": 0,
+        "v2_compatibility": 0
+      },
+      "case_id": "PILOT-N1-RMI2-SNAPSHOT",
+      "duplicate_record_surplus": 0,
+      "lineage_outcomes": {},
+      "missing_v2_records": 0,
+      "query_id": "PILOT-N1-RMI2-SNAPSHOT:qualified-retrieval",
+      "v3_extra_graph_evidence": 0,
+      "zero_case_classification": "true_no_evidence_in_snapshot"
+    }
+  ]
+}
