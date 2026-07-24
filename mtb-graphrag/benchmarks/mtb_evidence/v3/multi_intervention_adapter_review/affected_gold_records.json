@@ -1,0 +1,33 @@
+{
+  "classification_artifact_hash": "5b248e2ac93bd79093420e9e2c7c9fda0bf7b6c7a7ee7aa09cea0266446a8968",
+  "classification_frozen_before_gold_content_load": true,
+  "denominator_note": "an atomic migration may change therapy-claim denominators; no metric was calculated",
+  "gold_file_sha256": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667",
+  "gold_record_count": 4,
+  "gold_records_with_exact_lost_intervention_match": 0,
+  "pilot_case_records_in_scope": 3,
+  "potentially_affected_records": [
+    {
+      "case_id": "PILOT-K1-FGFR2-iCCA",
+      "gold_record_id": "PILOT-K1-FGFR2-iCCA",
+      "lost_intervention_string_matches": [],
+      "possible_unit_of_count_change": false,
+      "used_for_architecture_decision": false
+    },
+    {
+      "case_id": "PILOT-A2-ALK-G1202R",
+      "gold_record_id": "PILOT-A2-ALK-G1202R",
+      "lost_intervention_string_matches": [],
+      "possible_unit_of_count_change": false,
+      "used_for_architecture_decision": false
+    },
+    {
+      "case_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+      "gold_record_id": "PILOT-C1-EGFR-L858R-CONTEXT",
+      "lost_intervention_string_matches": [],
+      "possible_unit_of_count_change": false,
+      "used_for_architecture_decision": false
+    }
+  ],
+  "quality_metrics_recomputed": false
+}
