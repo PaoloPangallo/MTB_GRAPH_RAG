@@ -1,0 +1,118 @@
+{
+  "artifact_hashes": {
+    "alias_match_audit.jsonl": "cc3292e6f689f955e24ab4b6965addc0eef83e5736fed7e7e1aa3b6155b463d4",
+    "candidate_sets_after.jsonl": "4f89b7e291857df56501f1152e937c7eaca8ff4c7a918a180eadbbb73a9b0889",
+    "candidate_sets_before.jsonl": "accb15831d8836e3f02a8afb7501ad729c5ff5adfdf945aa374c7939a9250e50",
+    "hierarchical_relations_not_applied.jsonl": "2a2e8abcf35c9121be2f5664cac21ee329dcc9d3c0c59f6c487373e40bab8e5b",
+    "newly_matched_verified_aliases.jsonl": "f6aacbec8260a4a95f316ef8bf48d8ee4333bbd88e815b13a29d46a8f132167a",
+    "per_query_diff.json": "c5b599ad24122bd93e3de8fa4b15d1b544445afee2da4fbc9ed0de6afc908521",
+    "still_excluded_biomarker_mismatches.jsonl": "43eadfcacb7a5d4fd37500949a3594ef874ab9d3163c27b2a128e2827008d031"
+  },
+  "branch": "fix/v3-verified-disease-alias-matching",
+  "candidate_counts_after": {
+    "PILOT-A2-ALK-G1202R": 9,
+    "PILOT-C1-EGFR-L858R-CONTEXT": 32,
+    "PILOT-K1-FGFR2-iCCA": 1,
+    "PILOT-N1-RMI2-SNAPSHOT": 0
+  },
+  "candidate_counts_before": {
+    "PILOT-A2-ALK-G1202R": 9,
+    "PILOT-C1-EGFR-L858R-CONTEXT": 10,
+    "PILOT-K1-FGFR2-iCCA": 1,
+    "PILOT-N1-RMI2-SNAPSHOT": 0
+  },
+  "corpus_changed": false,
+  "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+  "deterministic_order": [
+    "query_id",
+    "statement_id"
+  ],
+  "disease_matcher_version": "qualified_disease_matcher/1.0",
+  "expected_verified_alias_recoveries": 32,
+  "fix_commit": "1133ab72e37e10f54c00398e409f9393c8bf0234",
+  "fix_version": "verified-disease-alias-fix/1.0",
+  "frozen_kg_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "generator_source_sha256": "888f569ce1f1075fe595599aa012856701dd27dedb989b73589d8d6555a4e48d",
+  "gold_bundle": {
+    "aggregate_sha256": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+    "file_sha256": {
+      "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+      "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+      "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+    },
+    "verification_contract": "aggregate identity frozen by preexisting inventory; every member is independently SHA-256 verified"
+  },
+  "gold_content_loaded": false,
+  "gold_used_for_fix": false,
+  "hard_match_types": [
+    "exact_string",
+    "normalized_exact",
+    "verified_alias"
+  ],
+  "hierarchy_policy_implemented": false,
+  "implementation_files_sha256": {
+    "qualified_disease_matching.py": "2854d5c23e8502778b343a3e4c989985d356fb3d47520b0d4643a4b5e8449f52",
+    "qualified_retrieval_result.py": "235c5e696d75c3d51f9d9267de6fb769ea96c2047d64be99496b46ad79e41539",
+    "qualified_retriever.py": "0dfefce064dbb5c6bf63b7f012c73075e4b7abc239815b7b4fc56fbc1e54a75e"
+  },
+  "input_integrity": {
+    "author_approval": {
+      "aggregate_sha256": "8bdafc1188d9050898ffdfab69626ad0d8780b2f137de24bb6d0716d2129c278",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 43
+    },
+    "candidate_coverage_audit": {
+      "aggregate_sha256": "43396526a701ba1ec7f4e1f0bbc498a798ca02fd9600deedf7ef1ed442ca7273",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 17
+    },
+    "conjunctive_biomarker_fix": {
+      "aggregate_sha256": "cf69886100af3f25f06426ad81a3ae811f9c1e76a08c240b5e2c86f41d88638d",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 7
+    },
+    "disease_normalization_review": {
+      "aggregate_sha256": "1084763a50e63cfe4c19b72defca5c73788a826f5227a0fd4378c7bc1020b71c",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 15
+    },
+    "disease_normalizer": {
+      "file_sha256": "7e3ab30006ba9c7ccdc80b1d2a4bd544159b3fa0044aee87e3501847986593b7",
+      "hierarchy_edge_count": 6,
+      "semantic_tables_sha256": "6372a0b0f4b24e505266bd061d3997e75aee9cde4a01558ea57e9c3755c9abd4",
+      "synonym_group_count": 4
+    },
+    "qualification_corpus": {
+      "aggregate_sha256": "bf23a06ac8c122d2257487c0109eb8e0226f2b16d2d733740a6cd008ed34e827",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 23
+    },
+    "second_review_packets": {
+      "aggregate_sha256": "6bb4ee225e4c273a6f24378dc5c982490cdbf3482a1e780e4c173695fe131bb6",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 70
+    }
+  },
+  "key_evidence_ids": [
+    "evidence:11219",
+    "evidence:11598",
+    "evidence:11599",
+    "evidence:1867",
+    "evidence:8173"
+  ],
+  "llm_used": false,
+  "multi_intervention_adapter_changed": false,
+  "neo4j_used": false,
+  "network_used": false,
+  "new_aliases_introduced": [],
+  "scoring_changed": false,
+  "scoring_config": {
+    "canonical_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+    "file_sha256": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4"
+  },
+  "source_sha": "ec8aabfb7f8c4d3fe9f0664aa68aa6244be4c964",
+  "unexpected_candidate_additions": 0,
+  "unexpected_candidate_removals": 0,
+  "verified_alias_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+  "verified_alias_version": "verified-local-disease-aliases/1.0"
+}
