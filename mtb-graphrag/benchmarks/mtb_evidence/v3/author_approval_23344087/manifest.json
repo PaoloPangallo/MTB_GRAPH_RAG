@@ -1,0 +1,36 @@
+{
+  "approval_version": "author_approval/1.2",
+  "artifacts": {
+    "approved_profile_units.jsonl": "f71c66e909b8e98d9ad711ece39daa0ce489f7d15d0a07de2044ea62b22d4a4c",
+    "audit_trail.jsonl": "dd128f9459f0497ac5ce213846e62451618b31dbed1a14acd2f0af3ae419b278",
+    "author_approval_records.jsonl": "4c053082e1b9ce266e96e05f08ad9e9361baf23bdca806d87304e3e5663af1b9",
+    "case_level_annotations.jsonl": "25d647ef03c172bdfa7f5ccf680f0bfd2f9ab7d6e47155ec0257da8413a2e96c",
+    "confounding_annotations.jsonl": "18ea2d87668b6ae7076be96437f7401a8e148b3a81c340365465cccd4a038495",
+    "detector_reference_cases.jsonl": "53e66cac12c1b107e408dea149034228f764ab03d52ae125a5e75e43da22fa5e",
+    "parent_unit_history.jsonl": "57c93216961542adcae4b1f048fe793d9d506ca96ac940f7b21170dfafa3e816",
+    "provisional_gold.jsonl": "f288c32e4fc4c54bfd40da2ae3dd200aaef5ce7cfdd7b1edee59f15e09e7eacb",
+    "readiness.json": "670ab7ea884b1c6824276bfac9cbafc28e5659bedeadbf12d8ce71f8ab14b0a2",
+    "review_metrics.json": "ccbb0fd1611ce79662fae6eded2c84446c111dd660371ed27df8b338addda9b7",
+    "second_review_blinding_check.json": "ea0dd9f7f7205e7fc6efce8128350b29486d1797a6289236ab83fff31d434e8d",
+    "statement_first_review_decisions.jsonl": "b921e81319d4ba929a880e4a6d17ff6026e679773e88da8b0f6b97741f9aad22",
+    "terminology_mappings.jsonl": "a831b6213d069943229a6f9c64d9562b4ce9a9e96a0063ef8cd4f8c31467dfaa",
+    "unresolved_structure_records.jsonl": "9fe6688ceb1f6f275d1e45bee899a9e0e68d2cc0adf3b0c9c8ef1bb75f6c0ac0"
+  },
+  "audit_proposed_units": 2,
+  "author_approved_active_units": 2,
+  "batch_complete": true,
+  "canonical_source_id": "PMID:23344087",
+  "created_at": "2026-07-24T12:00:00+00:00",
+  "next_step": "versioned_qualification_corpus_regeneration",
+  "phase": "author_approval",
+  "pmid": "23344087",
+  "preclinical_model_composition": "not_separable",
+  "source_basis": "abstract_only",
+  "source_review_proposed_units": 3,
+  "structural_confidence": "partial",
+  "supersedes_phase": "benchmarks/mtb_evidence/v3/author_approval_22235099",
+  "unapproved_structural_hypotheses": [
+    "PU-PMID-23344087-engineered-clones",
+    "PU-PMID-23344087-patient-derived"
+  ]
+}
