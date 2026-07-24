@@ -10,6 +10,11 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
 from ._normalize import normalize_text
+from .qualified_disease_matching import (
+    BIOMARKER_MISMATCH_DESPITE_DISEASE_ALIAS,
+    MATCH_VERIFIED_ALIAS,
+    match_disease,
+)
 from .qualified_retrieval_errors import (
     FingerprintMismatchError,
     HistoricalUnitInActiveIndexError,
@@ -76,6 +81,18 @@ def _jsonl(path: Path) -> list[dict[str, Any]]:
 
 def _label(value: Any) -> str:
     return str((value or {}).get("label") or "") if isinstance(value, Mapping) else str(value or "")
+
+
+def _canonical_id(value: Any) -> str:
+    if not isinstance(value, Mapping):
+        return ""
+    return str(
+        value.get("canonical_id")
+        or value.get("disease_id")
+        or value.get("identifier")
+        or value.get("id")
+        or ""
+    )
 
 
 def _source_ids(statement: Mapping[str, Any]) -> tuple[str, ...]:
@@ -634,10 +651,17 @@ class QualifiedEvidenceRetriever:
         for statement in self.repository.all():
             statement_id = str(statement["evidence_statement_id"])
             biomarker_match = match_biomarker(query.biomarkers, statement)
+            disease_value = _label(statement.get("disease"))
+            disease_match = match_disease(
+                query.disease,
+                disease_value,
+                query_aliases=query.disease_aliases,
+                statement_canonical_id=_canonical_id(statement.get("disease")),
+            )
             link_polarities = {normalize_text(link.get("assertion_polarity")) for link in self._links_by_statement.get(statement_id, []) if link.get("assertion_polarity")}
             checks = [
                 ("biomarker", biomarker_match.matched, biomarker_match.reason_code or X_BIOMARKER_MISMATCH, query.biomarker_keys(), _label(statement.get("biomarker"))),
-                ("disease", _native_match(tuple(disease_keys), _label(statement.get("disease"))), X_DISEASE_MISMATCH, tuple(disease_keys), _label(statement.get("disease"))),
+                ("disease", disease_match.hard_match_allowed, X_DISEASE_MISMATCH, tuple(disease_keys), disease_value),
                 ("direction", _native_match(tuple(direction_keys), statement.get("direction")), X_DIRECTION_MISMATCH, tuple(direction_keys), statement.get("direction")),
                 ("assertion_polarity", not polarity_keys or normalize_text(statement.get("assertion_polarity")) in polarity_keys or bool(polarity_keys & link_polarities), X_POLARITY_MISMATCH, tuple(sorted(polarity_keys)), sorted({normalize_text(statement.get("assertion_polarity")), *link_polarities})),
                 ("evidence_scope", _native_match(tuple(scope_keys), statement.get("evidence_scope")), X_SCOPE_MISMATCH, tuple(scope_keys), statement.get("evidence_scope")),
@@ -693,6 +717,22 @@ class QualifiedEvidenceRetriever:
                             or "<missing>"
                             if field == "biomarker" else ""
                         ),
+                        disease_match=disease_match.as_dict(),
+                        explanation_codes=tuple(
+                            dict.fromkeys(
+                                (
+                                    code,
+                                    disease_match.explanation_code,
+                                    *(
+                                        (BIOMARKER_MISMATCH_DESPITE_DISEASE_ALIAS,)
+                                        if field == "biomarker"
+                                        and disease_match.match_type
+                                        == MATCH_VERIFIED_ALIAS
+                                        else ()
+                                    ),
+                                )
+                            )
+                        ),
                     )
                 )
                 continue
@@ -712,9 +752,15 @@ class QualifiedEvidenceRetriever:
         units = [self.active_units[str(link["source_profile_unit_id"])] for link in links]
         link_polarities = {str(link.get("assertion_polarity") or "") for link in links if link.get("assertion_polarity")}
         effective_polarity = "does_not_support" if "does_not_support" in link_polarities and (not query.assertion_polarities or "does_not_support" in query.assertion_polarities) else str(statement.get("assertion_polarity") or "")
+        disease_match = match_disease(
+            query.disease,
+            _label(statement.get("disease")),
+            query_aliases=query.disease_aliases,
+            statement_canonical_id=_canonical_id(statement.get("disease")),
+        )
         native_matches = {
             "biomarker": match_biomarker(query.biomarkers, statement).matched,
-            "disease": _native_match(query.disease_keys(), _label(statement.get("disease"))),
+            "disease": disease_match.hard_match_allowed,
             "intervention": _native_match(query.intervention_keys(), _label(statement.get("intervention"))),
             "direction": _native_match(tuple(normalize_text(v) for v in query.directions), statement.get("direction")),
             "assertion_polarity": _native_match(tuple(normalize_text(v) for v in query.assertion_polarities), effective_polarity),
@@ -852,6 +898,7 @@ class QualifiedEvidenceRetriever:
             qualified_score=breakdown.qualified_total,
             score_breakdown=breakdown.as_list(),
             graph_evidence_ids=tuple(sorted((statement.get("provenance") or {}).get("graph_record_ids") or [])),
+            disease_match=disease_match.as_dict(),
             native_matches=native_matches,
             qualified_matches=dict(view.get("qualified_dimensions") or {}),
             mismatches=tuple(sorted(field for field, matched in native_matches.items() if not matched)),

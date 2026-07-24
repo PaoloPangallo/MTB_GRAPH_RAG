@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qualified_disease_match_result.schema.json",
+  "title": "DiseaseMatchResult",
+  "type": "object",
+  "required": [
+    "query_raw",
+    "query_normalized",
+    "statement_raw",
+    "statement_normalized",
+    "query_canonical_id",
+    "statement_canonical_id",
+    "canonical_disease_key",
+    "match_type",
+    "matched",
+    "hard_match_allowed",
+    "alias_source",
+    "alias_version",
+    "relation_source",
+    "warning_code",
+    "explanation_code",
+    "matcher_version"
+  ],
+  "properties": {
+    "query_raw": {"type": "string"},
+    "query_normalized": {"type": "string"},
+    "statement_raw": {"type": "string"},
+    "statement_normalized": {"type": "string"},
+    "query_canonical_id": {"type": "string"},
+    "statement_canonical_id": {"type": "string"},
+    "canonical_disease_key": {"type": "string"},
+    "match_type": {
+      "enum": [
+        "exact_string",
+        "normalized_exact",
+        "verified_alias",
+        "explicit_parent",
+        "explicit_child",
+        "explicit_sibling",
+        "pan_cancer_or_unspecified",
+        "unresolved",
+        "incompatible"
+      ]
+    },
+    "matched": {"type": "boolean"},
+    "hard_match_allowed": {"type": "boolean"},
+    "alias_source": {"type": "string"},
+    "alias_version": {"type": "string"},
+    "relation_source": {"type": "string"},
+    "warning_code": {"type": "string"},
+    "explanation_code": {"type": "string"},
+    "matcher_version": {"const": "qualified_disease_matcher/1.0"}
+  },
+  "additionalProperties": false
+}

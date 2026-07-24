@@ -4,7 +4,7 @@
   "title": "QualifiedRetrievalResult",
   "type": "object",
   "required": [
-    "query_id", "statement_id", "rank", "total_score", "score_breakdown",
+    "query_id", "statement_id", "rank", "total_score", "score_breakdown", "disease_match",
     "warnings", "source_ids", "provenance_references", "explanation"
   ],
   "properties": {
@@ -15,6 +15,7 @@
     "native_score": {"type": "number"},
     "qualified_score": {"type": "number"},
     "score_breakdown": {"$ref": "qualified_retrieval_score_breakdown.schema.json"},
+    "disease_match": {"$ref": "qualified_disease_match_result.schema.json"},
     "warnings": {"type": "array", "items": {"type": "string"}},
     "source_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
     "active_profile_unit_ids": {"type": "array", "items": {"type": "string"}},
