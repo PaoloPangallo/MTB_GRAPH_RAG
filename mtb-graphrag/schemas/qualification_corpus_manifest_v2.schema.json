@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mtb-graphrag.local/schemas/qualification_corpus_manifest_v2.schema.json",
+  "title": "QualificationCorpusManifestV2",
+  "description": "Manifest di una versione rigenerata del qualification corpus. Aggiunge alla versione 1.0 tre cose che quella non poteva esprimere: il legame con la versione precedente, l'impronta del corpus distinta da quella del grafo congelato, e lo stato della rigenerazione. La distinzione fra le due impronte e' il motivo per cui questo schema esiste: frozen_kg_snapshot_fingerprint identifica il grafo e non cambia mai in questa fase, qualification_corpus_fingerprint identifica cio' che la revisione ne ha fatto e cambia a ogni rigenerazione che modifichi unita', stati o policy. Chiamare la seconda 'nuovo snapshot del KG' direbbe che il grafo e' cambiato, e il grafo non viene toccato.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "corpus_version",
+    "manifest_version",
+    "previous_corpus_version",
+    "previous_corpus_fingerprint",
+    "qualification_corpus_fingerprint",
+    "frozen_kg_snapshot_fingerprint",
+    "regeneration_reason",
+    "migration_id",
+    "schema_versions",
+    "propagation_policy_version",
+    "generated_at",
+    "source_sha",
+    "regeneration_status",
+    "component_hashes",
+    "fingerprint_inputs",
+    "non_hashed_fields",
+    "blockers"
+  ],
+  "properties": {
+    "corpus_version": { "type": "string", "minLength": 1 },
+    "manifest_version": { "type": "string", "minLength": 1 },
+    "previous_corpus_version": { "type": "string", "minLength": 1 },
+    "previous_corpus_manifest": { "type": "string" },
+    "previous_corpus_directory": {
+      "type": "string",
+      "description": "Puntatore non distruttivo alla versione precedente: la directory resta invariata e il manifest la cita."
+    },
+
+    "previous_corpus_fingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "qualification_corpus_fingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "frozen_kg_snapshot_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Impronta del grafo congelato. Deve coincidere con quella della versione precedente: nessun dato viene scritto nel KG."
+    },
+    "qualified_evidence_snapshot_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Impronta derivata di statement, unita', link, gold e policy. Non e' uno snapshot del grafo."
+    },
+
+    "regeneration_reason": { "type": "string", "minLength": 1 },
+    "migration_id": { "type": "string", "minLength": 1 },
+    "propagation_policy_version": { "type": "string", "minLength": 1 },
+    "regeneration_version": { "type": "string" },
+    "linker_version": { "type": "string" },
+    "generated_at": { "type": "string" },
+    "source_sha": { "type": "string", "minLength": 7 },
+
+    "regeneration_status": {
+      "enum": ["draft", "validated", "ready_for_prototype", "blocked", "frozen"]
+    },
+
+    "schema_versions": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "component_hashes": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    },
+    "fingerprint_inputs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Quali hash entrano nel fingerprint, in ordine. Elencarli rende l'impronta ricalcolabile da chi non ha lo script."
+    },
+    "non_hashed_fields": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Campi esclusi dall'hash perche' cambiano a ogni esecuzione senza che cambino i dati."
+    },
+
+    "counts": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "obsolete_serialized_flags_before": { "type": "integer", "minimum": 0 },
+    "obsolete_serialized_flags_after": { "type": "integer", "minimum": 0 },
+    "unexpected_changes": { "type": "integer", "minimum": 0 },
+    "unresolved_conflicts": { "type": "integer", "minimum": 0 },
+
+    "integrated_reviews": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "precedence_order": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "L'ordine di autorita' degli artefatti sorgente. Dichiararlo e' cio' che distingue una precedenza da una ricorrenza accidentale."
+    },
+
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tutti i motivi del blocco, non solo il primo."
+    }
+  },
+  "allOf": [
+    {
+      "description": "Un corpus congelato non puo' avere blocker aperti.",
+      "if": { "properties": { "regeneration_status": { "const": "frozen" } } },
+      "then": { "properties": { "blockers": { "maxItems": 0 } } }
+    },
+    {
+      "description": "Una rigenerazione pronta per il prototipo non puo' avere modifiche inattese ne' conflitti irrisolti.",
+      "if": { "properties": { "regeneration_status": { "const": "ready_for_prototype" } } },
+      "then": {
+        "properties": {
+          "unexpected_changes": { "const": 0 },
+          "unresolved_conflicts": { "const": 0 },
+          "obsolete_serialized_flags_after": { "const": 0 }
+        }
+      }
+    }
+  ]
+}
