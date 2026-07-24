@@ -1,0 +1,33 @@
+{
+  "aggregate_contract": "SHA-256 of sorted repository-relative POSIX path:sha256 member lines without trailing newline",
+  "author_approval": {
+    "aggregate_sha256": "8bdafc1188d9050898ffdfab69626ad0d8780b2f137de24bb6d0716d2129c278",
+    "file_count": 43,
+    "size_bytes": 489518
+  },
+  "gold_bundle": {
+    "aggregate_sha256": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+    "file_count": 3,
+    "verification": "member hashes and preexisting inventory identity"
+  },
+  "previous_prototype_results": {
+    "aggregate_sha256": "b0327c77e909817f07c7c059bf341f49afc8078546fb6d5149c5dab09f88762e",
+    "file_count": 12,
+    "size_bytes": 1365580
+  },
+  "qualification_corpus_2_0": {
+    "aggregate_sha256": "bf23a06ac8c122d2257487c0109eb8e0226f2b16d2d733740a6cd008ed34e827",
+    "file_count": 23,
+    "qualification_corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+    "size_bytes": 3108204
+  },
+  "scoring_config": {
+    "canonical_declared_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+    "file_sha256": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4"
+  },
+  "second_review_packets": {
+    "aggregate_sha256": "6bb4ee225e4c273a6f24378dc5c982490cdbf3482a1e780e4c173695fe131bb6",
+    "file_count": 70,
+    "size_bytes": 443358
+  }
+}
