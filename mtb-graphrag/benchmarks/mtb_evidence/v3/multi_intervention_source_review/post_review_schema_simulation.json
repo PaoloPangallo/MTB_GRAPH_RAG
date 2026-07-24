@@ -1,0 +1,285 @@
+{
+  "combination_regimen_group_count": 3,
+  "current_operational_statement_count": 147,
+  "id_strategy": {
+    "alias_stability_condition": "canonical intervention may be used only after verified mapping",
+    "collision_count": 0,
+    "digest_characters": 20,
+    "formula": "sha256(graph_evidence_id + canonical_intervention + direction + polarity + source_unit_id)",
+    "order_independent": true,
+    "parent_graph_evidence_id_preserved": true,
+    "prefix": "ES-CHILD-"
+  },
+  "new_qualification_links_required": 8,
+  "non_materializable_intervention_count": 20,
+  "non_materializable_interventions": [
+    {
+      "atomicity_decision": "aggregate_parent_only",
+      "classification": "directly_tested_in_shared_aggregate_result",
+      "graph_evidence_id": "evidence:275",
+      "intervention": "erlotinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-275"
+    },
+    {
+      "atomicity_decision": "aggregate_parent_only",
+      "classification": "directly_tested_in_shared_aggregate_result",
+      "graph_evidence_id": "evidence:275",
+      "intervention": "gefitinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-275"
+    },
+    {
+      "atomicity_decision": "mixed_parent_and_children",
+      "classification": "possible_alias_not_verified",
+      "graph_evidence_id": "evidence:841",
+      "intervention": "luminespib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-841"
+    },
+    {
+      "atomicity_decision": "should_not_materialize_missing_interventions",
+      "classification": "mentioned_background_only",
+      "graph_evidence_id": "evidence:1483",
+      "intervention": "crizotinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-1483"
+    },
+    {
+      "atomicity_decision": "should_not_materialize_missing_interventions",
+      "classification": "mentioned_background_only",
+      "graph_evidence_id": "evidence:1484",
+      "intervention": "crizotinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-1484"
+    },
+    {
+      "atomicity_decision": "aggregate_parent_only",
+      "classification": "possible_alias_not_verified",
+      "graph_evidence_id": "evidence:1851",
+      "intervention": "infigratinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-1851"
+    },
+    {
+      "atomicity_decision": "aggregate_parent_only",
+      "classification": "directly_tested_in_shared_aggregate_result",
+      "graph_evidence_id": "evidence:1851",
+      "intervention": "pd173074",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-1851"
+    },
+    {
+      "atomicity_decision": "aggregate_parent_only",
+      "classification": "possible_alias_not_verified",
+      "graph_evidence_id": "evidence:1853",
+      "intervention": "infigratinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-1853"
+    },
+    {
+      "atomicity_decision": "aggregate_parent_only",
+      "classification": "directly_tested_in_shared_aggregate_result",
+      "graph_evidence_id": "evidence:1853",
+      "intervention": "pd173074",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-1853"
+    },
+    {
+      "atomicity_decision": "insufficient_for_atomicity_decision",
+      "classification": "directly_tested_with_separate_result",
+      "graph_evidence_id": "evidence:3811",
+      "intervention": "erlotinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-3811"
+    },
+    {
+      "atomicity_decision": "insufficient_for_atomicity_decision",
+      "classification": "directly_tested_with_separate_result",
+      "graph_evidence_id": "evidence:3811",
+      "intervention": "gefitinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-3811"
+    },
+    {
+      "atomicity_decision": "insufficient_for_atomicity_decision",
+      "classification": "directly_tested_with_separate_result",
+      "graph_evidence_id": "evidence:3811",
+      "intervention": "multikinase inhibitor aee788",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-3811"
+    },
+    {
+      "atomicity_decision": "aggregate_parent_only",
+      "classification": "directly_tested_in_shared_aggregate_result",
+      "graph_evidence_id": "evidence:4759",
+      "intervention": "erlotinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-4759"
+    },
+    {
+      "atomicity_decision": "aggregate_parent_only",
+      "classification": "directly_tested_in_shared_aggregate_result",
+      "graph_evidence_id": "evidence:4759",
+      "intervention": "gefitinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-4759"
+    },
+    {
+      "atomicity_decision": "combination_regimen_required",
+      "classification": "directly_tested_in_combination_regimen",
+      "graph_evidence_id": "evidence:11240",
+      "intervention": "erlotinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-11240"
+    },
+    {
+      "atomicity_decision": "combination_regimen_required",
+      "classification": "directly_tested_in_combination_regimen",
+      "graph_evidence_id": "evidence:11240",
+      "intervention": "ramucirumab",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-11240"
+    },
+    {
+      "atomicity_decision": "combination_regimen_required",
+      "classification": "directly_tested_in_combination_regimen",
+      "graph_evidence_id": "evidence:12131",
+      "intervention": "amivantamab",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-12131"
+    },
+    {
+      "atomicity_decision": "combination_regimen_required",
+      "classification": "directly_tested_in_combination_regimen",
+      "graph_evidence_id": "evidence:12131",
+      "intervention": "lazertinib",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-12131"
+    },
+    {
+      "atomicity_decision": "combination_regimen_required",
+      "classification": "directly_tested_in_combination_regimen",
+      "graph_evidence_id": "evidence:12156",
+      "intervention": "amivantamab",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-12156"
+    },
+    {
+      "atomicity_decision": "combination_regimen_required",
+      "classification": "directly_tested_in_combination_regimen",
+      "graph_evidence_id": "evidence:12156",
+      "intervention": "carboplatin",
+      "reason": "no separate claim-level child authorized by first review",
+      "statement_id": "ES-V2-evidence-12156"
+    }
+  ],
+  "operational_corpus_modified": false,
+  "parent_graph_evidence_ids_preserved": 13,
+  "parent_statements_preserved": 13,
+  "qualified_evidence_views_to_regenerate": 8,
+  "simulated_child_statement_count": 8,
+  "simulated_child_statements": [
+    {
+      "biomarker": "EGFR L858R",
+      "direction": "sensitivity",
+      "intervention": "erlotinib",
+      "locator": "abstract#METHODS; abstract#RESULTS",
+      "parent_graph_evidence_id": "evidence:229",
+      "parent_statement_id": "ES-V2-evidence-229",
+      "polarity": "supports",
+      "simulated_child_statement_id": "ES-CHILD-0bdbe53cf29fb2d51dfe",
+      "source_id": "PMID:24736073",
+      "source_unit_id": "PU-PMID-24736073-cohort-1"
+    },
+    {
+      "biomarker": "EGFR L858R",
+      "direction": "sensitivity",
+      "intervention": "gefitinib",
+      "locator": "abstract#METHODS; abstract#RESULTS",
+      "parent_graph_evidence_id": "evidence:229",
+      "parent_statement_id": "ES-V2-evidence-229",
+      "polarity": "supports",
+      "simulated_child_statement_id": "ES-CHILD-65b8bc1b8b6c9c577911",
+      "source_id": "PMID:24736073",
+      "source_unit_id": "PU-PMID-24736073-cohort-1"
+    },
+    {
+      "biomarker": "FGFR2::TACC3 Fusion",
+      "direction": "sensitivity",
+      "intervention": "pazopanib hydrochloride",
+      "locator": "abstract#UNLABELLED, FGFR2-TACC3 patient, pazopanib sentence",
+      "parent_graph_evidence_id": "evidence:296",
+      "parent_statement_id": "ES-V2-evidence-296",
+      "polarity": "supports",
+      "simulated_child_statement_id": "ES-CHILD-0341d496b75e88f7711e",
+      "source_id": "PMID:24550739",
+      "source_unit_id": "PU-PMID-24550739-cohort-1"
+    },
+    {
+      "biomarker": "FGFR2::TACC3 Fusion",
+      "direction": "sensitivity",
+      "intervention": "ponatinib",
+      "locator": "abstract#UNLABELLED, FGFR2-TACC3 patient, post-pazopanib sentence",
+      "parent_graph_evidence_id": "evidence:296",
+      "parent_statement_id": "ES-V2-evidence-296",
+      "polarity": "supports",
+      "simulated_child_statement_id": "ES-CHILD-f4d99fd3bc74c4ccc859",
+      "source_id": "PMID:24550739",
+      "source_unit_id": "PU-PMID-24550739-cohort-1"
+    },
+    {
+      "biomarker": "EML4::ALK Fusion AND ALK C1156Y",
+      "direction": "resistance",
+      "intervention": "ceritinib",
+      "locator": "full_text#Case Report, first restaging CT at 5 weeks",
+      "parent_graph_evidence_id": "evidence:841",
+      "parent_statement_id": "ES-V2-evidence-841",
+      "polarity": "supports",
+      "simulated_child_statement_id": "ES-CHILD-4973c48ab3af8e0517d8",
+      "source_id": "PMID:26698910",
+      "source_unit_id": "PU-PMID-26698910-cohort-1"
+    },
+    {
+      "biomarker": "EML4::ALK Fusion AND ALK C1156Y",
+      "direction": "resistance",
+      "intervention": "crizotinib",
+      "locator": "full_text#Case Report; Figure 1A and 1E",
+      "parent_graph_evidence_id": "evidence:841",
+      "parent_statement_id": "ES-V2-evidence-841",
+      "polarity": "supports",
+      "simulated_child_statement_id": "ES-CHILD-0a9e9bb5e9ffdfef5b50",
+      "source_id": "PMID:26698910",
+      "source_unit_id": "PU-PMID-26698910-cohort-1"
+    },
+    {
+      "biomarker": "ALK I1171N AND HIP1::ALK Fusion",
+      "direction": "resistance",
+      "intervention": "alectinib hydrochloride",
+      "locator": "abstract#UNLABELLED, HIP1-ALK patient and I1171N clause",
+      "parent_graph_evidence_id": "evidence:1483",
+      "parent_statement_id": "ES-V2-evidence-1483",
+      "polarity": "supports",
+      "simulated_child_statement_id": "ES-CHILD-de12a43d65d6ba944394",
+      "source_id": "PMID:25393796",
+      "source_unit_id": "PU-PMID-25393796-cohort-1"
+    },
+    {
+      "biomarker": "EML4::ALK Fusion AND ALK I1171S",
+      "direction": "resistance",
+      "intervention": "alectinib hydrochloride",
+      "locator": "abstract#UNLABELLED, EML4-ALK patient and I1171S clause",
+      "parent_graph_evidence_id": "evidence:1484",
+      "parent_statement_id": "ES-V2-evidence-1484",
+      "polarity": "supports",
+      "simulated_child_statement_id": "ES-CHILD-0834922bc3a08a419d93",
+      "source_id": "PMID:25393796",
+      "source_unit_id": "PU-PMID-25393796-cohort-1"
+    }
+  ],
+  "simulated_resulting_statement_count": 155,
+  "simulation_version": "post-source-review-schema-simulation/1.0",
+  "source_units_involved": 11,
+  "unresolved_group_count": 1,
+  "verified_alias_merge_count": 0
+}
