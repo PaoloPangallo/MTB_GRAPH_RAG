@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qualified_retriever_prototype_manifest.schema.json",
+  "title": "Qualified Retriever Prototype Manifest",
+  "type": "object",
+  "required": ["prototype_version", "corpus_fingerprint", "scoring_config_hash", "modes", "result_hashes"],
+  "properties": {
+    "prototype_version": {"type": "string"},
+    "corpus_fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "scoring_config_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "modes": {"type": "array", "items": {"type": "string"}},
+    "result_hashes": {"type": "object", "additionalProperties": {"type": "string"}},
+    "ready_for_exploratory_v2_v3a_comparison": {"type": "boolean"},
+    "ready_for_final_v2_v3a_evaluation": {"type": "boolean"}
+  }
+}
