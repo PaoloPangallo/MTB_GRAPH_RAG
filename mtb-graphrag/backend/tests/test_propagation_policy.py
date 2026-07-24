@@ -27,6 +27,27 @@ from backend.pipeline.evidence.profile_unit import (
     UNIT_DIMENSIONS,
     SourceClinicalProfileUnit,
 )
+from backend.pipeline.evidence import evidence_granularity as granularity_module
+from backend.pipeline.evidence.evidence_granularity import (
+    GRANULARITY_CASE,
+    GRANULARITY_COHORT,
+    GRANULARITY_LEVELS,
+    GRANULARITY_NAMED_PATIENT_SUBSET,
+    EvidenceGranularityError,
+    constraints_for,
+    granularity_of,
+    is_non_generalizable,
+)
+from backend.pipeline.evidence.propagation_guards import (
+    ALL_RULE_IDS,
+    GUARD_V1_RULE_IDS,
+    GUARD_V12_RULE_IDS,
+    CaseLevelEnrolmentError,
+    CaseLevelPropagationError,
+    PropagationError,
+    rule_ids_for_version,
+    run_guards,
+)
 from backend.pipeline.evidence.propagation_policy import (
     AGREEMENT_AGREED,
     FINAL,
@@ -463,6 +484,162 @@ class TestUnchanged(unittest.TestCase):
         self.assertEqual(len(rows), 1)
         self.assertFalse(rows[0]["is_propagatable"])
         self.assertEqual(len(rows[0]["superseded_by"]), 4)
+
+
+# ── granularita' dell'evidenza ────────────────────────────────────────────────
+
+
+def decision(**overrides) -> dict:
+    payload = {"statement_id": "S-x", "evidence_granularity": GRANULARITY_CASE}
+    payload.update(overrides)
+    return payload
+
+
+class TestEvidenceGranularityVocabulary(unittest.TestCase):
+    """Il vocabolario, prima delle regole che lo usano."""
+
+    def test_only_the_narrow_levels_block_generalization(self) -> None:
+        self.assertTrue(is_non_generalizable(GRANULARITY_CASE))
+        self.assertTrue(is_non_generalizable(GRANULARITY_NAMED_PATIENT_SUBSET))
+        self.assertFalse(is_non_generalizable(GRANULARITY_COHORT))
+
+    def test_a_subset_of_named_patients_is_not_a_single_case(self) -> None:
+        # Due pazienti nominati non sono un caso singolo, e non sono un
+        # sottogruppo: il livello proprio esiste per non doverli chiamare con un
+        # nome che dice il numero sbagliato.
+        self.assertNotEqual(GRANULARITY_NAMED_PATIENT_SUBSET, GRANULARITY_CASE)
+        self.assertIn(GRANULARITY_NAMED_PATIENT_SUBSET, GRANULARITY_LEVELS)
+
+    def test_unknown_granularity_does_not_block(self) -> None:
+        # Non sapere il denominatore non e' sapere che e' piccolo: e' un problema
+        # diverso, e trattarlo come case-level lo nasconderebbe.
+        self.assertFalse(is_non_generalizable("unknown"))
+
+    def test_constraints_are_derived_not_hand_written(self) -> None:
+        constraints = constraints_for(GRANULARITY_NAMED_PATIENT_SUBSET)
+        self.assertFalse(constraints["cohort_generalizable"])
+        self.assertEqual(constraints["population_level_propagation"], "forbidden")
+        self.assertEqual(constraints["frequency_inference"], "forbidden")
+        self.assertEqual(constraints["enrolment_requirement_promotion"], "forbidden")
+
+    def test_the_legacy_boolean_is_still_understood(self) -> None:
+        self.assertEqual(granularity_of({"case_level": True}), GRANULARITY_CASE)
+
+
+class TestCaseLevelGuards(unittest.TestCase):
+    """Una regola che non fallisce mai non protegge niente.
+
+    Ogni regola ha qui un esempio che deve fallire e uno che deve passare: senza
+    il secondo, una regola sempre attiva sembrerebbe corretta quanto una regola
+    giusta.
+    """
+
+    def test_a_case_declared_generalizable_fails(self) -> None:
+        found = run_guards(decisions=[decision(cohort_generalizable=True)])
+        self.assertTrue(any(item.rule_id == "case_level_to_cohort_population" for item in found))
+
+    def test_a_case_scoped_to_the_cohort_fails(self) -> None:
+        found = run_guards(decisions=[decision(population_scope="cohort")])
+        self.assertTrue(any(item.rule_id == "case_level_to_cohort_population" for item in found))
+
+    def test_a_named_subset_scoped_to_the_population_fails(self) -> None:
+        found = run_guards(
+            decisions=[
+                decision(
+                    evidence_granularity=GRANULARITY_NAMED_PATIENT_SUBSET,
+                    population_scope="general_population",
+                    subset_size=2,
+                    cohort_size=14,
+                )
+            ]
+        )
+        self.assertTrue(found)
+        with self.assertRaises(CaseLevelPropagationError):
+            found[0].raise_it()
+
+    def test_a_case_that_stays_a_case_passes(self) -> None:
+        found = run_guards(
+            decisions=[
+                decision(
+                    population_scope="single_patient",
+                    cohort_generalizable=False,
+                    frequency_inference="forbidden",
+                )
+            ]
+        )
+        self.assertEqual(found, [])
+
+    def test_a_frequency_computed_on_named_patients_fails(self) -> None:
+        found = run_guards(decisions=[decision(frequency="2/14")])
+        self.assertTrue(any(item.rule_id == "case_level_frequency_inference" for item in found))
+
+    def test_frequency_inference_declared_allowed_fails(self) -> None:
+        found = run_guards(decisions=[decision(frequency_inference="allowed")])
+        self.assertTrue(any(item.rule_id == "case_level_frequency_inference" for item in found))
+
+    def test_a_cohort_level_frequency_passes(self) -> None:
+        found = run_guards(
+            decisions=[decision(evidence_granularity=GRANULARITY_COHORT, frequency="4/11")]
+        )
+        self.assertEqual(found, [])
+
+    def test_an_acquired_finding_promoted_to_enrolment_fails(self) -> None:
+        found = run_guards(decisions=[decision(biomarker_requirements=["EGFR L858R"])])
+        self.assertTrue(found)
+        with self.assertRaises(CaseLevelEnrolmentError):
+            next(
+                item
+                for item in found
+                if item.rule_id == "case_level_to_enrolment_requirement"
+            ).raise_it()
+
+    def test_an_acquired_finding_left_where_it_was_passes(self) -> None:
+        found = run_guards(
+            decisions=[
+                decision(
+                    acquired_resistance_findings=["EGFR L858R"],
+                    enrolment_requirement_promotion="forbidden",
+                    population_scope="single_patient",
+                )
+            ]
+        )
+        self.assertEqual(found, [])
+
+    def test_the_errors_belong_to_both_families(self) -> None:
+        # Chi esegue la pipeline intercetta PropagationError; chi ragiona sulla
+        # granularita' intercetta EvidenceGranularityError. Entrambi devono
+        # vedere la stessa violazione.
+        found = run_guards(decisions=[decision(cohort_generalizable=True)])
+        with self.assertRaises(PropagationError):
+            found[0].raise_it()
+        with self.assertRaises(EvidenceGranularityError):
+            found[0].raise_it()
+
+    def test_the_rules_do_not_name_a_source(self) -> None:
+        text = Path(granularity_module.__file__).read_text(encoding="utf-8")
+        for token in ("22235099", "PMID:", "crizotinib", "ALK"):
+            with self.subTest(token=token):
+                self.assertNotIn(token, text)
+
+
+class TestGuardVersioning(unittest.TestCase):
+    def test_the_frozen_tuples_stay_frozen(self) -> None:
+        self.assertEqual(len(GUARD_V1_RULE_IDS), 12)
+        self.assertEqual(len(GUARD_V12_RULE_IDS), 3)
+        self.assertEqual(
+            len(ALL_RULE_IDS),
+            len(set(ALL_RULE_IDS)),
+            "un rule_id duplicato renderebbe ambiguo quale regola ha fallito",
+        )
+
+    def test_an_older_artifact_is_read_at_its_own_version(self) -> None:
+        # Aggiungere una regola non deve invalidare retroattivamente una verifica
+        # che era completa quando e' stata eseguita.
+        self.assertEqual(len(rule_ids_for_version("propagation_guards/1.1")), 14)
+        self.assertEqual(len(rule_ids_for_version("propagation_guards/1.2")), 17)
+
+    def test_an_unknown_version_falls_back_to_the_current_rules(self) -> None:
+        self.assertEqual(rule_ids_for_version("propagation_guards/9.9"), ALL_RULE_IDS)
 
 
 if __name__ == "__main__":
