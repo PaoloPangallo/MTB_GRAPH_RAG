@@ -1,0 +1,36 @@
+{
+  "adapter_changes_proposed": [
+    "introduce parent evidence identity distinct from atomic therapeutic claims",
+    "materialize child claims only after claim-level source support",
+    "represent combination regimen as a unit, not independent components",
+    "preserve aggregate-only and unresolved parent records",
+    "store intervention-to-result locator and review status"
+  ],
+  "changes_forbidden_without_further_review": [
+    "aggregate-to-specific attribution",
+    "pending mapping promotion",
+    "automatic atomization of regimen components",
+    "gold-driven representation choice"
+  ],
+  "gold_used": false,
+  "observed_pattern_counts": {
+    "aggregate_parent_only": 4,
+    "atomic_children_supported": 2,
+    "combination_regimen_required": 3,
+    "insufficient_for_atomicity_decision": 1,
+    "mixed_parent_and_children": 1,
+    "should_not_materialize_missing_interventions": 2
+  },
+  "rationale": "Le fonti locali mostrano contemporaneamente risultati separabili, aggregati, regimi di combinazione, esposizioni antecedenti e mapping terminologici non verificati. Conservare un parent evidence record e creare child atomici solo per risultati separati, mantenendo parent-only e regimen negli altri casi, è la rappresentazione più fedele.",
+  "recommendation": "mixed_policy",
+  "recommendation_basis": "documentary_patterns_only",
+  "regenerations_required_if_approved": [
+    "adapter output regeneration",
+    "qualification corpus regeneration",
+    "qualification link regeneration",
+    "QualifiedEvidenceView regeneration",
+    "retrieval benchmark regeneration"
+  ],
+  "retrieval_metrics_used": false,
+  "second_independent_review_required": true
+}
