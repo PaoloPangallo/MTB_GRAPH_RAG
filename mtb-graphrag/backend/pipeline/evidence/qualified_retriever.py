@@ -131,23 +131,6 @@ def _protein_changes(value: Any) -> tuple[str, ...]:
     )
 
 
-def _query_alterations(markers: Sequence[QueryBiomarker]) -> tuple[str, ...]:
-    values: set[str] = set()
-    for marker in markers:
-        raw = marker.alteration
-        if not normalize_text(raw) and marker.has_alteration_constraint:
-            raw = marker.normalized
-        changes = _protein_changes(raw)
-        if changes:
-            values.update(changes)
-            continue
-        for part in str(raw or "").split("/"):
-            normalized = normalize_text(part)
-            if normalized and normalized not in _MISSING_ALTERATION_VALUES:
-                values.add(normalized)
-    return tuple(sorted(values))
-
-
 def _statement_genes(statement: Mapping[str, Any]) -> tuple[str, ...]:
     biomarker = statement.get("biomarker") or {}
     values: set[str] = set()
@@ -172,21 +155,176 @@ def _statement_genes(statement: Mapping[str, Any]) -> tuple[str, ...]:
     return tuple(sorted(values))
 
 
-def _statement_alterations(statement: Mapping[str, Any]) -> tuple[str, ...]:
+def _strip_gene_prefix(value: Any, genes: Sequence[str]) -> str:
+    normalized = normalize_text(value)
+    for gene in sorted(set(genes), key=lambda item: (-len(item), item)):
+        if normalized == gene:
+            return ""
+        if normalized.startswith(f"{gene} "):
+            return normalized[len(gene) :].strip()
+    return normalized
+
+
+def _alteration_shape(
+    value: Any,
+    protein_changes: Sequence[str],
+    *,
+    is_compound: bool = False,
+) -> str:
+    normalized = normalize_text(value)
+    if is_compound or len(set(protein_changes)) > 1 or " plus " in normalized:
+        return "compound"
+    if "deletion" in normalized or re.search(r"(^|[/\s])del($|[/\s])", normalized):
+        return "deletion"
+    if protein_changes:
+        return "single"
+    return ""
+
+
+@dataclass(frozen=True)
+class _AlterationSpec:
+    protein_changes: tuple[str, ...] = ()
+    alternatives: tuple[str, ...] = ()
+    shape: str = ""
+
+    @property
+    def is_empty(self) -> bool:
+        return not (self.protein_changes or self.alternatives)
+
+    @property
+    def display_values(self) -> tuple[str, ...]:
+        return tuple(sorted({*self.protein_changes, *self.alternatives}))
+
+
+def _query_alteration_spec(marker: QueryBiomarker) -> _AlterationSpec:
+    raw = marker.alteration
+    if not normalize_text(raw) and marker.has_alteration_constraint:
+        raw = marker.normalized
+    changes = _protein_changes(raw)
+    if changes:
+        return _AlterationSpec(
+            protein_changes=changes,
+            shape=_alteration_shape(raw, changes),
+        )
+    genes = (normalize_text(marker.gene),) if normalize_text(marker.gene) else ()
+    alternatives = {
+        _strip_gene_prefix(part, genes)
+        for part in str(raw or "").split("/")
+    }
+    alternatives -= _MISSING_ALTERATION_VALUES
+    return _AlterationSpec(alternatives=tuple(sorted(alternatives)))
+
+
+def _statement_alteration_spec(
+    statement: Mapping[str, Any], statement_genes: Sequence[str]
+) -> _AlterationSpec:
     biomarker = statement.get("biomarker") or {}
-    values: set[str] = set(_protein_changes(biomarker.get("label")))
-    for item in biomarker.get("component_biomarkers") or []:
-        changes = _protein_changes(item)
-        if changes:
-            values.update(changes)
-        else:
-            normalized = normalize_text(item)
+    label = str(biomarker.get("label") or "")
+    components = tuple(
+        str(item) for item in biomarker.get("component_biomarkers") or []
+    )
+    changes = tuple(
+        sorted(
+            {
+                change
+                for value in (label, *components)
+                for change in _protein_changes(value)
+            }
+        )
+    )
+    alternatives: set[str] = set()
+    for component in components:
+        if not _protein_changes(component):
+            normalized = _strip_gene_prefix(component, statement_genes)
             if normalized not in _MISSING_ALTERATION_VALUES:
-                values.add(normalized)
+                alternatives.add(normalized)
     alteration_type = normalize_text(statement.get("alteration_type"))
     if alteration_type not in _MISSING_ALTERATION_VALUES:
-        values.add(alteration_type)
-    return tuple(sorted(values))
+        alternatives.add(alteration_type)
+    if not changes:
+        label_without_gene = _strip_gene_prefix(label, statement_genes)
+        if label_without_gene not in _MISSING_ALTERATION_VALUES:
+            alternatives.add(label_without_gene)
+    shape_source = (
+        " ".join(components)
+        if components and any(_protein_changes(item) for item in components)
+        else " ".join((label, *components, alteration_type))
+    )
+    return _AlterationSpec(
+        protein_changes=changes,
+        alternatives=tuple(sorted(alternatives)),
+        shape=_alteration_shape(
+            shape_source,
+            changes,
+            is_compound=bool(biomarker.get("is_compound")),
+        ),
+    )
+
+
+def _alterations_match(query: _AlterationSpec, statement: _AlterationSpec) -> bool:
+    if query.is_empty:
+        return True
+    if statement.is_empty:
+        return False
+    if query.protein_changes:
+        if query.protein_changes != statement.protein_changes:
+            return False
+        return not query.shape or query.shape == statement.shape
+    return bool(set(query.alternatives) & set(statement.alternatives))
+
+
+@dataclass(frozen=True)
+class _MarkerConstraint:
+    gene: str = ""
+    alteration: _AlterationSpec = _AlterationSpec()
+
+
+def _query_constraints(
+    markers: Sequence[QueryBiomarker],
+) -> tuple[_MarkerConstraint, ...]:
+    constraints = tuple(
+        _MarkerConstraint(
+            gene=normalize_text(marker.gene),
+            alteration=_query_alteration_spec(marker),
+        )
+        for marker in markers
+        if not marker.is_empty
+    )
+    gene_only = [item for item in constraints if item.gene and item.alteration.is_empty]
+    alteration_only = [
+        item for item in constraints if not item.gene and not item.alteration.is_empty
+    ]
+    complete = [
+        item for item in constraints if item.gene and not item.alteration.is_empty
+    ]
+    # Compatibilita' con la forma decomposta gia' accettata dal contratto:
+    # un solo marker gene-only e un solo marker alteration-only formano una
+    # coppia. Con piu' coppie, l'associazione resta quella di ogni marker.
+    if not complete and len(gene_only) == 1 and len(alteration_only) == 1:
+        return (
+            _MarkerConstraint(
+                gene=gene_only[0].gene,
+                alteration=alteration_only[0].alteration,
+            ),
+        )
+    return tuple(sorted(constraints, key=lambda item: (item.gene, item.alteration.display_values)))
+
+
+def _query_alterations(markers: Sequence[QueryBiomarker]) -> tuple[str, ...]:
+    return tuple(
+        sorted(
+            {
+                value
+                for constraint in _query_constraints(markers)
+                for value in constraint.alteration.display_values
+            }
+        )
+    )
+
+
+def _statement_alterations(statement: Mapping[str, Any]) -> tuple[str, ...]:
+    genes = _statement_genes(statement)
+    return _statement_alteration_spec(statement, genes).display_values
 
 
 @dataclass(frozen=True)
@@ -207,48 +345,58 @@ class BiomarkerMatch:
 def match_biomarker(
     markers: Sequence[QueryBiomarker], statement: Mapping[str, Any]
 ) -> BiomarkerMatch:
-    """Match nativo congiuntivo, senza sinonimi o mapping terminologici.
-
-    Le barre nella query sono alternative dichiarate, non sinonimi. Le
-    annotazioni parentetiche non cambiano un token proteico come G1202R.
-    """
-    query_genes = tuple(
+    """Match nativo per coppia gene-alterazione, senza mapping o fallback."""
+    constraints = _query_constraints(markers)
+    query_genes = tuple(sorted({item.gene for item in constraints if item.gene}))
+    query_alterations = tuple(
         sorted(
             {
-                normalize_text(marker.gene)
-                for marker in markers
-                if normalize_text(marker.gene)
+                value
+                for item in constraints
+                for value in item.alteration.display_values
             }
         )
     )
-    query_alterations = _query_alterations(markers)
     statement_genes = _statement_genes(statement)
-    statement_alterations = _statement_alterations(statement)
-    gene_match = bool(query_genes) and bool(set(query_genes) & set(statement_genes))
-    if not query_alterations:
-        return BiomarkerMatch(
-            matched=gene_match,
-            mode=BIOMARKER_MATCH_GENE_LEVEL,
-            gene_match=gene_match,
-            alteration_match=None,
-            query_genes=query_genes,
-            query_alterations=(),
-            statement_genes=statement_genes,
-            statement_alterations=statement_alterations,
-            reason_code="" if gene_match else X_BIOMARKER_MISMATCH,
-        )
-    alteration_match = bool(set(query_alterations) & set(statement_alterations))
-    matched = gene_match and alteration_match
+    statement_alteration_spec = _statement_alteration_spec(
+        statement, statement_genes
+    )
+    statement_alterations = statement_alteration_spec.display_values
+    has_alteration = any(not item.alteration.is_empty for item in constraints)
+    gene_matches = [
+        not item.gene or item.gene in statement_genes for item in constraints
+    ]
+    alteration_matches = [
+        _alterations_match(item.alteration, statement_alteration_spec)
+        for item in constraints
+    ]
+    pair_matches = [
+        gene_matches[index] and alteration_matches[index]
+        for index in range(len(constraints))
+    ]
+    matched = any(pair_matches)
+    gene_match = any(gene_matches)
+    alteration_match = any(alteration_matches) if has_alteration else None
+    same_gene_alteration_mismatch = any(
+        gene_matches[index]
+        and not constraints[index].alteration.is_empty
+        and not alteration_matches[index]
+        for index in range(len(constraints))
+    )
     reason_code = ""
     if not matched:
         reason_code = (
             X_ALTERATION_MISMATCH_WITH_MATCHING_GENE
-            if gene_match and not alteration_match
+            if same_gene_alteration_mismatch
             else X_BIOMARKER_MISMATCH
         )
     return BiomarkerMatch(
         matched=matched,
-        mode=BIOMARKER_MATCH_ALTERATION_SPECIFIC,
+        mode=(
+            BIOMARKER_MATCH_ALTERATION_SPECIFIC
+            if has_alteration
+            else BIOMARKER_MATCH_GENE_LEVEL
+        ),
         gene_match=gene_match,
         alteration_match=alteration_match,
         query_genes=query_genes,
@@ -257,7 +405,6 @@ def match_biomarker(
         statement_alterations=statement_alterations,
         reason_code=reason_code,
     )
-
 
 def _native_match(query_values: Sequence[str], statement_value: Any) -> bool:
     if not query_values:
