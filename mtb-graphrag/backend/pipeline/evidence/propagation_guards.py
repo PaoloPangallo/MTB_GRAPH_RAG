@@ -22,9 +22,17 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Callable, Mapping, Sequence
 
+from .evidence_granularity import (
+    CaseLevelGeneralizationError,
+    CaseLevelRequirementError,
+    FrequencyInferenceError,
+    GENERALIZED_SCOPES,
+    is_non_generalizable,
+    granularity_of,
+)
 from .profile_unit import CLINICAL_UNIT_TYPES, PRECLINICAL_UNIT_TYPES
 
-GUARD_VERSION = "propagation_guards/1.1"
+GUARD_VERSION = "propagation_guards/1.2"
 
 # --- errori tipizzati ---------------------------------------------------------
 
@@ -93,6 +101,31 @@ class AbsenceInferenceError(PropagationError):
     """L'assenza in una fonte parziale trattata come assenza nella fonte."""
 
     rule_id = "absence_inference"
+
+
+# I tre errori della granularita' appartengono a due famiglie insieme, e non e'
+# un vezzo: `evidence_granularity` possiede il concetto — che vale anche fuori
+# dalle guardie — mentre `PropagationError` e' la famiglia che chi esegue la
+# pipeline intercetta. Ereditare da una sola costringerebbe a scegliere fra un
+# vocabolario dimezzato e un errore che sfugge al catch esistente.
+
+
+class CaseLevelPropagationError(PropagationError, CaseLevelGeneralizationError):
+    """Osservazioni su singoli pazienti estese alla coorte o alla popolazione."""
+
+    rule_id = CaseLevelGeneralizationError.rule_id
+
+
+class CaseLevelFrequencyError(PropagationError, FrequencyInferenceError):
+    """Una frequenza dedotta da osservazioni senza denominatore."""
+
+    rule_id = FrequencyInferenceError.rule_id
+
+
+class CaseLevelEnrolmentError(PropagationError, CaseLevelRequirementError):
+    """Un reperto acquisito su singoli pazienti promosso a criterio di arruolamento."""
+
+    rule_id = CaseLevelRequirementError.rule_id
 
 
 # --- vocabolario --------------------------------------------------------------
@@ -445,6 +478,137 @@ def rule_absence_is_not_evidence(decision: Mapping[str, Any]) -> list[GuardViola
     return []
 
 
+def _subject_of(decision: Mapping[str, Any]) -> str:
+    return str(
+        decision.get("statement_id")
+        or decision.get("profile_unit_id")
+        or decision.get("gold_link_id")
+        or ""
+    )
+
+
+def _denominator(decision: Mapping[str, Any]) -> str:
+    subset = decision.get("subset_size")
+    cohort = decision.get("cohort_size")
+    if subset is None and cohort is None:
+        return "un denominatore che la fonte non fornisce"
+    return f"{subset if subset is not None else '?'} su {cohort if cohort is not None else '?'}"
+
+
+def rule_case_level_to_cohort_population(decision: Mapping[str, Any]) -> list[GuardViolation]:
+    """Cio' che si e' visto in uno o due pazienti non e' una proprieta' della coorte.
+
+    La regola non guarda quanti pazienti ci sono: guarda che cosa la decisione
+    **dichiara** di poter fare col numero che ha. Un record puo' dire di riguardare
+    un solo paziente e insieme dichiararsi generalizzabile, e allora le due
+    affermazioni non possono essere entrambe vere.
+    """
+    granularity = granularity_of(decision)
+    if not is_non_generalizable(granularity):
+        return []
+
+    scope = str(decision.get("population_scope") or "").strip().casefold()
+    claims_cohort = bool(decision.get("cohort_generalizable"))
+    claims_scope = scope in GENERALIZED_SCOPES
+    if not claims_cohort and not claims_scope:
+        return []
+
+    declared = "cohort_generalizable=true" if claims_cohort else f"population_scope={scope}"
+    return [
+        GuardViolation(
+            CaseLevelPropagationError.rule_id,
+            "evidenza su pazienti nominati estesa al loro denominatore",
+            CaseLevelPropagationError,
+            _subject_of(decision),
+            ("population",),
+            (
+                f"granularita' {granularity!r} ({_denominator(decision)}) ma la decisione "
+                f"dichiara {declared}: estendere l'osservazione al denominatore "
+                "trasformerebbe cio' che si e' visto in pochi in una proprieta' di tutti"
+            ),
+        )
+    ]
+
+
+# I campi che, se valorizzati, dicono che qualcuno ha calcolato una frequenza.
+_FREQUENCY_FIELDS = ("frequency", "prevalence", "rate", "proportion", "percentage")
+
+
+def rule_case_level_frequency_inference(decision: Mapping[str, Any]) -> list[GuardViolation]:
+    """Un paziente su un denominatore ignoto non e' una percentuale.
+
+    Due lo sono ancora meno di uno: sembrano abbastanza da tentare la divisione, e
+    il risultato ha l'aspetto di una stima invece che di un caso.
+    """
+    granularity = granularity_of(decision)
+    if not is_non_generalizable(granularity):
+        return []
+
+    computed = [name for name in _FREQUENCY_FIELDS if _has_value(decision, name)]
+    permitted = str(decision.get("frequency_inference") or "").strip().casefold()
+    allows = permitted not in ("", "forbidden")
+    if not computed and not allows:
+        return []
+
+    declared = ", ".join(computed) if computed else f"frequency_inference={permitted}"
+    return [
+        GuardViolation(
+            CaseLevelFrequencyError.rule_id,
+            "frequenza dedotta da evidenza senza denominatore",
+            CaseLevelFrequencyError,
+            _subject_of(decision),
+            tuple(computed) or ("frequency_inference",),
+            (
+                f"granularita' {granularity!r} ({_denominator(decision)}) ma la decisione "
+                f"porta {declared}: una frequenza richiede un denominatore, e questa "
+                "evidenza non ne ha uno"
+            ),
+        )
+    ]
+
+
+def rule_case_level_to_enrolment_requirement(
+    decision: Mapping[str, Any],
+) -> list[GuardViolation]:
+    """Un reperto trovato dopo il trattamento non e' un criterio di arruolamento.
+
+    La direzione temporale non si inverte. Un requisito di arruolamento seleziona
+    chi entra; una alterazione osservata alla progressione descrive chi e' gia'
+    dentro, e promuoverla farebbe sembrare selezionata una popolazione che non lo
+    era.
+    """
+    granularity = granularity_of(decision)
+    if not is_non_generalizable(granularity):
+        return []
+
+    promoted = bool(decision.get("promoted_to_enrolment_criterion")) or _has_value(
+        decision, "biomarker_requirements"
+    )
+    permitted = str(decision.get("enrolment_requirement_promotion") or "").strip().casefold()
+    if not promoted and permitted in ("", "forbidden"):
+        return []
+
+    declared = (
+        "biomarker_requirements valorizzato"
+        if _has_value(decision, "biomarker_requirements")
+        else f"enrolment_requirement_promotion={permitted or 'true'}"
+    )
+    return [
+        GuardViolation(
+            CaseLevelEnrolmentError.rule_id,
+            "reperto acquisito promosso a criterio di arruolamento",
+            CaseLevelEnrolmentError,
+            _subject_of(decision),
+            ("biomarker_requirements",),
+            (
+                f"granularita' {granularity!r} ma la decisione porta {declared}: una "
+                "alterazione osservata su singoli pazienti dopo il trattamento non "
+                "puo' diventare il criterio con cui quei pazienti erano stati scelti"
+            ),
+        )
+    ]
+
+
 def rule_case_report_to_population(unit: Mapping[str, Any]) -> list[GuardViolation]:
     """Un case report non descrive una popolazione."""
     design = _value(unit, "evidence_design").casefold()
@@ -570,6 +734,9 @@ DECISION_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] 
     rule_relative_versus_complete_resistance,
     rule_in_vitro_to_clinical_benefit,
     rule_absence_is_not_evidence,
+    rule_case_level_to_cohort_population,
+    rule_case_level_frequency_inference,
+    rule_case_level_to_enrolment_requirement,
 )
 
 MAPPING_RULES: tuple[Callable[[Mapping[str, Any]], list[GuardViolation]], ...] = (
@@ -602,7 +769,37 @@ GUARD_V11_RULE_IDS = (
     "observed_biomarker_to_requirement",
 )
 
-ALL_RULE_IDS = GUARD_V1_RULE_IDS + GUARD_V11_RULE_IDS
+# Aggiunte in 1.2 dall'approvazione di una fonte che conteneva osservazioni su
+# singoli pazienti dentro una coorte. Il pattern e' generale: nessuna delle tre
+# nomina una fonte, e tutte e tre leggono soltanto la granularita' dichiarata.
+GUARD_V12_RULE_IDS = (
+    "case_level_to_cohort_population",
+    "case_level_frequency_inference",
+    "case_level_to_enrolment_requirement",
+)
+
+ALL_RULE_IDS = GUARD_V1_RULE_IDS + GUARD_V11_RULE_IDS + GUARD_V12_RULE_IDS
+
+# Quali regole erano eseguibili a ciascuna versione. Serve a leggere gli artefatti
+# gia' scritti: un risultato prodotto a 1.1 elenca quattordici regole, e
+# confrontarlo con l'elenco corrente lo farebbe sembrare incompleto quando invece
+# e' completo per la versione che dichiara. Aggiungere una regola non deve poter
+# invalidare retroattivamente una verifica passata.
+RULE_IDS_BY_VERSION: Mapping[str, tuple[str, ...]] = {
+    "propagation_guards/1.0": GUARD_V1_RULE_IDS,
+    "propagation_guards/1.1": GUARD_V1_RULE_IDS + GUARD_V11_RULE_IDS,
+    "propagation_guards/1.2": ALL_RULE_IDS,
+}
+
+
+def rule_ids_for_version(version: str) -> tuple[str, ...]:
+    """Le regole eseguibili alla versione dichiarata da un artefatto.
+
+    Una versione sconosciuta restituisce l'elenco corrente: e' il caso di un
+    artefatto scritto da una versione futura, e fingere che avesse meno regole
+    sarebbe piu' fuorviante che ammettere di non conoscerla.
+    """
+    return RULE_IDS_BY_VERSION.get(str(version or ""), ALL_RULE_IDS)
 
 
 def run_guards(
@@ -637,6 +834,12 @@ __all__ = [
     "ALL_RULE_IDS",
     "GUARD_V1_RULE_IDS",
     "GUARD_V11_RULE_IDS",
+    "GUARD_V12_RULE_IDS",
+    "RULE_IDS_BY_VERSION",
+    "rule_ids_for_version",
+    "CaseLevelPropagationError",
+    "CaseLevelFrequencyError",
+    "CaseLevelEnrolmentError",
     "CrossModelError",
     "BiomarkerRoleError",
     "PropagationError",
