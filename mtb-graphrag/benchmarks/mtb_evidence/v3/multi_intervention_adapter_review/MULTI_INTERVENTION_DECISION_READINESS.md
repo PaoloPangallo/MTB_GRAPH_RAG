@@ -1,7 +1,7 @@
 # Multi-intervention decision readiness
 
 - `multi_intervention_root_causes_identified`: **true**
-- `statement_atomicity_decision_ready`: **true**
+- `statement_atomicity_decision_ready`: **false**
 - `adapter_fix_ready`: **false**
 - `adapter_schema_revision_required`: **true**
 - `corpus_regeneration_required`: **true**
@@ -11,7 +11,7 @@
 - `ready_for_hierarchy_policy_implementation`: **false**
 - `ready_for_full_exploratory_rerun`: **false**
 
-La decisione di schema è pronta, ma l'implementazione non lo è: occorrono una
-specifica degli ID child, source review dei gruppi ambigui e un piano coordinato
-di rigenerazione di corpus, link e view. La policy gerarchica disease resta
-separata; il rerun esplorativo rimane bloccato.
+La root cause tecnica e' identificata, ma la decisione di schema non e' pronta:
+tutti i gruppi multi-intervento richiedono source review prima di decidere
+l'attribuzione. Solo dopo si potra' pianificare corpus, link e view. La policy
+gerarchica disease resta separata; il rerun esplorativo rimane bloccato.

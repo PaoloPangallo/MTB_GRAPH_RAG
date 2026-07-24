@@ -54,6 +54,9 @@ EXPECTED_RETRIEVER_HASH = (
 EXPECTED_FROZEN_V2_SERIALIZATION_HASH = (
     "2a22b04abbfcff831b7123165e806cdb49d80fd557b2517d8743f72b010087de"
 )
+EXPECTED_RAW_V2_INPUT_HASH = (
+    "92df194f22503d11b0bc218f359388da2ba0871eae3ddd4b461191f453485d2b"
+)
 EXPECTED_ADAPTER_OUTPUT_HASH = (
     "b5e50a8a1bad72a53357d97b45d6002c4e507a60f5275e217656e60cd1caf0e4"
 )
@@ -84,14 +87,29 @@ QUERY_LABELS = {
     "PILOT-N1-RMI2-SNAPSHOT:qualified-retrieval": "PILOT-N1-RMI2-SNAPSHOT",
 }
 
-# I dati strutturati mostrano due archi farmaco ma non distinguono regimen,
-# braccio o risultato separato. Etichettarli come combinazione sarebbe una
-# decisione documentale; rimangono pertanto irrisolti.
-REGIMEN_AMBIGUOUS_IDS = {
-    "evidence:11240",
-    "evidence:12131",
-    "evidence:12156",
-}
+CORE_ARTIFACT_NAMES = (
+    "multi_row_graph_evidence_inventory.jsonl",
+    "multi_intervention_groups.jsonl",
+    "intervention_lineage.jsonl",
+    "lost_interventions.jsonl",
+    "egfr_multi_intervention_audit.jsonl",
+    "fgfr2_multi_intervention_audit.jsonl",
+    "intervention_normalization_audit.jsonl",
+    "representation_option_simulation.json",
+    "proposed_adapter_changes.jsonl",
+)
+REPORT_NAMES = (
+    "MULTI_INTERVENTION_ADAPTER_REVIEW.md",
+    "EGFR_MULTI_INTERVENTION_AUDIT.md",
+    "FGFR2_MULTI_INTERVENTION_AUDIT.md",
+    "EVIDENCE_STATEMENT_ATOMICITY_OPTIONS.md",
+    "MULTI_INTERVENTION_DECISION_READINESS.md",
+)
+OUTPUT_ARTIFACT_NAMES = (
+    *CORE_ARTIFACT_NAMES,
+    "affected_gold_records.json",
+    *REPORT_NAMES,
+)
 
 
 def _json_bytes(value: Any) -> bytes:
@@ -259,6 +277,11 @@ def _integrity(root: Path, gold_bundle: Path) -> dict[str, Any]:
                 root / "benchmarks/mtb_evidence/pilot/audit"
             ).glob("*/normalized_records.jsonl")
         ),
+        "raw_v2_adapter_inputs": sorted(
+            (
+                root / "benchmarks/mtb_evidence/pilot/audit"
+            ).glob("*/raw_records.jsonl")
+        ),
         "adapter_outputs": [
             root / "benchmarks/mtb_evidence/evaluation/results/adapter_v1"
         ],
@@ -284,6 +307,7 @@ def _integrity(root: Path, gold_bundle: Path) -> dict[str, Any]:
         "qualification_corpus": EXPECTED_CORPUS_DIRECTORY_HASH,
         "retriever": EXPECTED_RETRIEVER_HASH,
         "frozen_v2_serialization": EXPECTED_FROZEN_V2_SERIALIZATION_HASH,
+        "raw_v2_adapter_inputs": EXPECTED_RAW_V2_INPUT_HASH,
         "adapter_outputs": EXPECTED_ADAPTER_OUTPUT_HASH,
         "second_review_packets": EXPECTED_SECOND_REVIEW_HASH,
         "candidate_coverage_audit": EXPECTED_CANDIDATE_AUDIT_HASH,
@@ -334,7 +358,7 @@ def _integrity(root: Path, gold_bundle: Path) -> dict[str, Any]:
 
 
 def _group_classification(
-    graph_id: str, distinct_interventions: Sequence[str]
+    _graph_id: str, distinct_interventions: Sequence[str]
 ) -> tuple[str, bool, bool, str]:
     if len(distinct_interventions) == 1:
         return (
@@ -343,20 +367,12 @@ def _group_classification(
             False,
             "righe equivalenti prodotte da traversal/proiezioni diverse",
         )
-    if graph_id in REGIMEN_AMBIGUOUS_IDS:
-        return (
-            "unresolved_without_document_review",
-            False,
-            True,
-            "due archi intervento senza campo strutturato per regimen, braccio o "
-            "attribuzione separata",
-        )
     return (
-        "intervention_specific_results",
-        True,
+        "unresolved_without_document_review",
         False,
-        "ogni riga strutturata associa biomarcatore, intervento, direzione/polarita, "
-        "fonte e graph evidence ID",
+        True,
+        "piu' archi intervento dimostrano una relazione col graph record, ma non "
+        "attribuzione separata del risultato, regimen o braccio sperimentale",
     )
 
 
@@ -646,7 +662,7 @@ def _pilot_audit(
     return output
 
 
-def _simulations(core: Mapping[str, Any], root: Path) -> dict[str, Any]:
+def _simulations(core: Mapping[str, Any]) -> dict[str, Any]:
     multi = core["multi_groups"]
     safe = [row for row in multi if row["structurally_atomizable"]]
     deferred = [row for row in multi if not row["structurally_atomizable"]]
@@ -716,10 +732,14 @@ def _simulations(core: Mapping[str, Any], root: Path) -> dict[str, Any]:
             "new_qualified_views_if_children_qualified": safe_claims,
             "risk": "child qualification links cannot be inherited blindly",
         },
-        "recommended_architecture": "mixed_policy",
+        "recommended_architecture": "insufficient_evidence_for_decision",
+        "preferred_architecture_if_attribution_is_confirmed": (
+            "option_C_parent_plus_atomic_children"
+        ),
         "recommendation_detail": (
-            "option C for structurally attributable interventions; keep parent-only "
-            "records for regimen/aggregate ambiguity until source review"
+            "keep every multi-intervention graph record parent-only until source review; "
+            "if attribution is confirmed, option C best preserves graph identity and "
+            "claim-level atomicity"
         ),
         "safe_atomizable_group_count": len(safe),
         "source_review_group_count": len(deferred),
@@ -739,33 +759,18 @@ def _simulations(core: Mapping[str, Any], root: Path) -> dict[str, Any]:
 
 
 def _proposed_changes(core: Mapping[str, Any]) -> list[dict[str, Any]]:
-    output: list[dict[str, Any]] = []
-    for row in core["multi_groups"]:
-        if row["structurally_atomizable"]:
-            actions = [
-                "adapter_schema_revision",
-                "corpus_regeneration_required",
-                "link_regeneration_required",
-                "view_regeneration_required",
-            ]
-        else:
-            actions = ["source_review_required", "should_not_atomize"]
-        output.append(
-            {
-                "graph_evidence_id": row["graph_evidence_id"],
-                "classification": row["primary_classification"],
-                "actions": actions,
-                "recommended_representation": (
-                    "parent_plus_atomic_children"
-                    if row["structurally_atomizable"]
-                    else "keep_parent_pending_source_review"
-                ),
-                "adapter_bug_fix": False,
-                "adapter_schema_revision": row["structurally_atomizable"],
-                "gold_used": False,
-            }
-        )
-    return output
+    return [
+        {
+            "graph_evidence_id": row["graph_evidence_id"],
+            "classification": row["primary_classification"],
+            "actions": ["source_review_required", "should_not_atomize"],
+            "recommended_representation": "keep_parent_pending_source_review",
+            "adapter_bug_fix": False,
+            "adapter_schema_revision": False,
+            "gold_used": False,
+        }
+        for row in core["multi_groups"]
+    ]
 
 
 def _gold_annotation(
@@ -846,17 +851,17 @@ def _report(core: Mapping[str, Any], simulation: Mapping[str, Any]) -> str:
     lines.extend(f"| `{key}` | {value} |" for key, value in sorted(classes.items()))
     lines += [
         "",
-        "Nessun gruppo è stato promosso a regimen o risultato aggregato senza un campo",
-        "strutturato che lo dimostri. Tre gruppi clinicamente plausibili come regimen",
-        "restano `unresolved_without_document_review`.",
+        "Nessun gruppo è stato promosso a regimen, risultato aggregato o claim atomico",
+        "senza un campo strutturato che ne dimostri l'attribuzione separata. Tutti i",
+        "13 gruppi restano `unresolved_without_document_review`.",
         "",
         "## Decisione",
         "",
-        "Raccomandazione: **mixed_policy**. Usare un parent evidence record e child claim",
-        "atomici soltanto dove la riga V2 associa esplicitamente biomarcatore, intervento,",
-        "direzione/polarità, fonte e graph evidence ID. Conservare parent-only i gruppi",
-        "ambigui fino a source review. I qualification link non devono essere ereditati",
-        "automaticamente dai child.",
+        "Raccomandazione: **insufficient_evidence_for_decision**. Conservare il parent",
+        "e non creare child claim prima della source review. Se l'attribuzione separata",
+        "sarà confermata, l'opzione C (parent + child atomici) è la candidata preferita",
+        "per identità graph, provenance e atomicità. I qualification link non devono",
+        "essere ereditati automaticamente dai child.",
         "",
         "Il caso PMID 31358542/brigatinib resta un principio di regressione:",
         "`aggregate_to_specific_attribution_forbidden`. Nessun artefatto relativo è stato",
@@ -931,7 +936,7 @@ def _options_report(simulation: Mapping[str, Any]) -> str:
 def _readiness_report() -> str:
     states = {
         "multi_intervention_root_causes_identified": True,
-        "statement_atomicity_decision_ready": True,
+        "statement_atomicity_decision_ready": False,
         "adapter_fix_ready": False,
         "adapter_schema_revision_required": True,
         "corpus_regeneration_required": True,
@@ -945,10 +950,10 @@ def _readiness_report() -> str:
     lines.extend(f"- `{key}`: **{str(value).lower()}**" for key, value in states.items())
     lines += [
         "",
-        "La decisione di schema è pronta, ma l'implementazione non lo è: occorrono una",
-        "specifica degli ID child, source review dei gruppi ambigui e un piano coordinato",
-        "di rigenerazione di corpus, link e view. La policy gerarchica disease resta",
-        "separata; il rerun esplorativo rimane bloccato.",
+        "La root cause tecnica e' identificata, ma la decisione di schema non e' pronta:",
+        "tutti i gruppi multi-intervento richiedono source review prima di decidere",
+        "l'attribuzione. Solo dopo si potra' pianificare corpus, link e view. La policy",
+        "gerarchica disease resta separata; il rerun esplorativo rimane bloccato.",
         "",
     ]
     return "\n".join(lines)
@@ -968,7 +973,7 @@ def generate_review(
     by_id = {row["graph_evidence_id"]: row for row in core["multi_groups"]}
     egfr = _pilot_audit(root, "PILOT-C1-EGFR-L858R-CONTEXT", by_id)
     fgfr2 = _pilot_audit(root, "PILOT-K1-FGFR2-iCCA", by_id)
-    simulation = _simulations(core, root)
+    simulation = _simulations(core)
     proposed = _proposed_changes(core)
 
     core_artifacts: dict[str, bytes] = {
@@ -1020,6 +1025,7 @@ def generate_review(
         "review_version": REVIEW_VERSION,
         "branch": TARGET_BRANCH,
         "source_sha": SOURCE_SHA,
+        "generator_source_sha256": _sha(Path(__file__)),
         "input_order_invariance_verified_by_test": True,
         "corpus_version": "qualification_corpus/2.0",
         "corpus_fingerprint": EXPECTED_CORPUS_FINGERPRINT,
@@ -1054,7 +1060,10 @@ def generate_review(
             "multi_intervention_groups": len(core["multi_groups"]),
             "alias_only_groups": 0,
             "confirmed_regimen_groups": 0,
-            "regimen_ambiguous_groups": len(REGIMEN_AMBIGUOUS_IDS),
+            "regimen_ambiguous_groups": 0,
+            "intervention_attribution_ambiguous_groups": len(
+                core["multi_groups"]
+            ),
             "drug_class_groups": 0,
             "confirmed_aggregate_groups": 0,
             "atomizable_groups": simulation["safe_atomizable_group_count"],
@@ -1088,7 +1097,7 @@ def generate_review(
         "recommendation": simulation["recommended_architecture"],
         "readiness": {
             "multi_intervention_root_causes_identified": True,
-            "statement_atomicity_decision_ready": True,
+            "statement_atomicity_decision_ready": False,
             "adapter_fix_ready": False,
             "adapter_schema_revision_required": True,
             "corpus_regeneration_required": True,
@@ -1099,9 +1108,7 @@ def generate_review(
             "ready_for_full_exploratory_rerun": False,
         },
         "artifact_hashes": {
-            path.name: _sha(path)
-            for path in sorted(output.iterdir())
-            if path.is_file() and path.name != "review_manifest.json"
+            name: _sha(output / name) for name in OUTPUT_ARTIFACT_NAMES
         },
     }
     _write_json(output / "review_manifest.json", manifest)

@@ -3,8 +3,8 @@
 | Opzione | Statement simulati | Vantaggio | Rischio |
 | --- | ---: | --- | --- |
 | A — lista | 147 | migrazione semplice | perde la relazione intervento-direzione |
-| B — atomico | 159 | claim therapy-level | perde un parent condiviso |
-| C — parent + child | 169 | provenance condivisa | maggiore complessità e link da rivalutare |
+| B — atomico | 147 | claim therapy-level | perde un parent condiviso |
+| C — parent + child | 147 | provenance condivisa | maggiore complessità e link da rivalutare |
 
 La simulazione sicura non atomizza i gruppi irrisolti. Il massimo non revisionato
 di 162 statement è riportato
@@ -17,4 +17,4 @@ canonica completa resta il collision guard e conserva il graph evidence ID.
 
 ## Raccomandazione
 
-option C for structurally attributable interventions; keep parent-only records for regimen/aggregate ambiguity until source review
+keep every multi-intervention graph record parent-only until source review; if attribution is confirmed, option C best preserves graph identity and claim-level atomicity

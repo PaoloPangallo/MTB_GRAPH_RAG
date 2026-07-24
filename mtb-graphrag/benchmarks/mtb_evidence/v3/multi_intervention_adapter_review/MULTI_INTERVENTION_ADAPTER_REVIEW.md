@@ -10,8 +10,8 @@ abstract/full text e non sono stati modificati adapter, corpus, retriever o gold
 - Gruppi multi-riga: **36**
 - Gruppi multi-intervento: **13**
 - Interventi nascosti dall'adapter corrente: **15**
-- Gruppi atomizzabili dai soli dati strutturati: **10**
-- Gruppi che richiedono source review: **3**
+- Gruppi atomizzabili dai soli dati strutturati: **0**
+- Gruppi che richiedono source review: **13**
 
 La perdita avviene in `merge_duplicate_records`: il graph evidence ID è la
 chiave di merge, `drug` è scalare e il primo valore non vuoto viene conservato.
@@ -22,20 +22,19 @@ chiave di merge, `drug` è scalare e il primo valore non vuoto viene conservato.
 | Classe | Gruppi |
 | --- | ---: |
 | `duplicated_serialization` | 23 |
-| `intervention_specific_results` | 10 |
-| `unresolved_without_document_review` | 3 |
+| `unresolved_without_document_review` | 13 |
 
-Nessun gruppo è stato promosso a regimen o risultato aggregato senza un campo
-strutturato che lo dimostri. Tre gruppi clinicamente plausibili come regimen
-restano `unresolved_without_document_review`.
+Nessun gruppo è stato promosso a regimen, risultato aggregato o claim atomico
+senza un campo strutturato che ne dimostri l'attribuzione separata. Tutti i
+13 gruppi restano `unresolved_without_document_review`.
 
 ## Decisione
 
-Raccomandazione: **mixed_policy**. Usare un parent evidence record e child claim
-atomici soltanto dove la riga V2 associa esplicitamente biomarcatore, intervento,
-direzione/polarità, fonte e graph evidence ID. Conservare parent-only i gruppi
-ambigui fino a source review. I qualification link non devono essere ereditati
-automaticamente dai child.
+Raccomandazione: **insufficient_evidence_for_decision**. Conservare il parent
+e non creare child claim prima della source review. Se l'attribuzione separata
+sarà confermata, l'opzione C (parent + child atomici) è la candidata preferita
+per identità graph, provenance e atomicità. I qualification link non devono
+essere ereditati automaticamente dai child.
 
 Il caso PMID 31358542/brigatinib resta un principio di regressione:
 `aggregate_to_specific_attribution_forbidden`. Nessun artefatto relativo è stato

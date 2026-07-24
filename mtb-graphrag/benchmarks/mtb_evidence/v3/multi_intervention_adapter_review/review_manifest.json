@@ -2,28 +2,29 @@
   "adapter_modified": false,
   "artifact_hashes": {
     "EGFR_MULTI_INTERVENTION_AUDIT.md": "1e80a86fa80ffc2bf22e121b7786d7d8f6b90c929774f92953c9e909ead9dcad",
-    "EVIDENCE_STATEMENT_ATOMICITY_OPTIONS.md": "5ae33beb4abb8596ae8b26362e67949bbebaa75c73244551bbfdb5d0201843e8",
+    "EVIDENCE_STATEMENT_ATOMICITY_OPTIONS.md": "35a47e0e29a53699a40952698cb86719b0f7717a986878fa4cfb879132f8f8a7",
     "FGFR2_MULTI_INTERVENTION_AUDIT.md": "b3705366f6b1e921bca8e198b0d243457eee0a4318ce04f2901fb13410de354b",
-    "MULTI_INTERVENTION_ADAPTER_REVIEW.md": "bad9e302adaaeffe9192f5abc66838979995b75f3abe987c4e52dfb0bd00ff59",
-    "MULTI_INTERVENTION_DECISION_READINESS.md": "03ae40a5097b5a929e2eaf72fe0e86fc208558d1d8979f0cee23be66a8eabd2c",
-    "affected_gold_records.json": "338cec19c2e033bfe82a3f58f87903bc4f099ed87218597222d57491688c04b8",
-    "egfr_multi_intervention_audit.jsonl": "e9521dc4392120311f59083b10cdefb0508d0ac37311a54fb2012a1101c0e915",
-    "fgfr2_multi_intervention_audit.jsonl": "6e29af0606ae2920b8113ab8ace44d1861eeeda699b47922f98e9b02abcd360c",
-    "intervention_lineage.jsonl": "ed92769e7624b18807995b746e51143c924e31ed1e650f2e24392c4ec1d9618b",
+    "MULTI_INTERVENTION_ADAPTER_REVIEW.md": "4d3592cd4d6a6a4d1c4133fb78d3c5e8da501e3e3ee5e778a856cc7925c20fd4",
+    "MULTI_INTERVENTION_DECISION_READINESS.md": "865777f59b5e315fc8bfda1bf45b4709c2cec2fda72143aac75acfc282ba8afe",
+    "affected_gold_records.json": "b7500865a61f3a95f6d9c258404de7610764ff2a07c7ee7747ebb8acc15efa1f",
+    "egfr_multi_intervention_audit.jsonl": "3c442feb00d8f0f1ecba6698a3b09ac189a7a36d480ac373d255b18b10f62767",
+    "fgfr2_multi_intervention_audit.jsonl": "ca6227bdc23e6420921cb657891d00c6f529fbcb3371ca12584945d8cf20d0a5",
+    "intervention_lineage.jsonl": "4699cf40e23d5666423e24f4bddeff17f0b8030adc54f2db76d7c6e195b48c3b",
     "intervention_normalization_audit.jsonl": "a109665981cc16b73eaa171f8150166281c23471c40644070da5540f8cbd4ac8",
-    "lost_interventions.jsonl": "acb6114242202e493064230ca1db6f19f019ebaf1693f874fe6d2293d724c516",
-    "multi_intervention_groups.jsonl": "2346f2303c2522dc855513467190c4589883427b2a49ac2216a081092a3c2a9d",
-    "multi_row_graph_evidence_inventory.jsonl": "892f95a82af4abdebe0f15d67a4c04366fe0a7484be55029467cdd460850b969",
-    "proposed_adapter_changes.jsonl": "2985fc22f33b0885d25272fda9f2f894b8852413f935b9649e5099fb293f8b47",
-    "representation_option_simulation.json": "f94bca36ebd0348dfb62a93f3c2ec97eeb821b10b36b2c26118630275a1b50d9"
+    "lost_interventions.jsonl": "a524885cd5fd5ced78ff25d29c92ef9122e2eafcc8974f68605eacd54eae75d7",
+    "multi_intervention_groups.jsonl": "f6291a900181efb98df0b9a24a9cf6fabfbd318da3c7432e14abef20ef92dce5",
+    "multi_row_graph_evidence_inventory.jsonl": "e5641f7b896be306a1cc203c9273502a3c08c3b29db9293ea4037cf6eda0d65a",
+    "proposed_adapter_changes.jsonl": "c8b1ffac782ae5ef1c8f2821506d8be259bbb0f4f1e898f7a3448363f0fb1986",
+    "representation_option_simulation.json": "5cc3bf353a182158bf78d737c237e3b282a12e25cb9b8a29484e6a76e28ce2ad"
   },
   "branch": "eval/v3-multi-intervention-adapter-review",
-  "classification_artifact_hash": "5b248e2ac93bd79093420e9e2c7c9fda0bf7b6c7a7ee7aa09cea0266446a8968",
+  "classification_artifact_hash": "d95cdde06f5b931d7faaab601c65bf3e4cf34646d2bf0a5128121f6d51a520e2",
   "classification_frozen_before_gold_access": true,
   "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
   "corpus_modified": false,
   "corpus_version": "qualification_corpus/2.0",
   "frozen_kg_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "generator_source_sha256": "48e0371824f1ebca6a6fe2e100b26fa9b3e968fca115c035a4bd61d1439e6f80",
   "gold_loaded_after_classification": true,
   "gold_used_for_decision": false,
   "input_integrity": {
@@ -81,6 +82,11 @@
       "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
       "file_count": 23
     },
+    "raw_v2_adapter_inputs": {
+      "aggregate_sha256": "92df194f22503d11b0bc218f359388da2ba0871eae3ddd4b461191f453485d2b",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 4
+    },
     "retriever": {
       "aggregate_sha256": "3b80765830e67e8d3bd253afb0b08980ed934edb123b8edc745e93d6175f78e7",
       "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
@@ -110,11 +116,10 @@
   "llm_used": false,
   "metrics": {
     "alias_only_groups": 0,
-    "atomizable_groups": 10,
+    "atomizable_groups": 0,
     "classification_counts": {
       "duplicated_serialization": 23,
-      "intervention_specific_results": 10,
-      "unresolved_without_document_review": 3
+      "unresolved_without_document_review": 13
     },
     "compatible_v2_rows_analyzed": 199,
     "confirmed_aggregate_groups": 0,
@@ -127,17 +132,18 @@
     "fgfr2_rows": 6,
     "gold_records_with_exact_lost_intervention_match": 0,
     "graph_evidence_ids": 147,
+    "intervention_attribution_ambiguous_groups": 13,
     "lost_distinct_interventions": 15,
     "multi_intervention_groups": 13,
     "multi_row_groups": 36,
-    "non_atomizable_groups": 3,
+    "non_atomizable_groups": 13,
     "pilot_gold_case_records_in_scope": 3,
     "pilot_queries_involved": 3,
     "preserved_distinct_interventions": 13,
     "raw_v2_rows_analyzed": 1525,
-    "regimen_ambiguous_groups": 3,
-    "simulated_safe_atomic_statements": 159,
-    "source_reviews_required": 3
+    "regimen_ambiguous_groups": 0,
+    "simulated_safe_atomic_statements": 147,
+    "source_reviews_required": 13
   },
   "neo4j_used": false,
   "network_used": false,
@@ -152,9 +158,9 @@
     "ready_for_hierarchy_policy_implementation": false,
     "ready_to_implement_adapter_decision": false,
     "source_review_required": true,
-    "statement_atomicity_decision_ready": true
+    "statement_atomicity_decision_ready": false
   },
-  "recommendation": "mixed_policy",
+  "recommendation": "insufficient_evidence_for_decision",
   "retriever_modified": false,
   "review_version": "multi-intervention-adapter-review/1.0",
   "scoring_config_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
