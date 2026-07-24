@@ -1,0 +1,351 @@
+{
+  "queries": [
+    {
+      "candidate_counts": {
+        "historical_v2": 13,
+        "native_only": 32,
+        "qualified_soft": 32,
+        "v2_compatibility": 32
+      },
+      "gold_claim_coverage": {
+        "historical_v2": {
+          "covered": 1,
+          "denominator": 3,
+          "extra_candidate_rows": 12,
+          "missing_claim_ids": [
+            "A2-C1",
+            "A2-C3"
+          ]
+        },
+        "native_only": {
+          "covered": 1,
+          "denominator": 3,
+          "extra_candidate_rows": 31,
+          "missing_claim_ids": [
+            "A2-C1",
+            "A2-C3"
+          ]
+        },
+        "qualified_soft": {
+          "covered": 1,
+          "denominator": 3,
+          "extra_candidate_rows": 30,
+          "missing_claim_ids": [
+            "A2-C1",
+            "A2-C3"
+          ]
+        },
+        "v2_compatibility": {
+          "covered": 1,
+          "denominator": 3,
+          "extra_candidate_rows": 31,
+          "missing_claim_ids": [
+            "A2-C1",
+            "A2-C3"
+          ]
+        }
+      },
+      "historical_v2_divergence_explanation": {
+        "all_differences_enumerated": true,
+        "cause_codes": [
+          "historical_v2_broader_graph_traversal_vs_v3_native_constraints",
+          "v3_statement_corpus_candidates_not_serialized_by_historical_v2"
+        ],
+        "extra_in_v3_count": 23,
+        "missing_in_v3_count": 4
+      },
+      "overlap": {
+        "historical_v2_vs_qualified_soft": 9,
+        "native_only_vs_qualified_soft": 32,
+        "v2_compatibility_vs_qualified_soft": 32
+      },
+      "qualified_soft_extra_vs_historical_v2": [
+        "evidence:1283",
+        "evidence:1286",
+        "evidence:1287",
+        "evidence:1288",
+        "evidence:1339",
+        "evidence:1346",
+        "evidence:1347",
+        "evidence:1348",
+        "evidence:1367",
+        "evidence:1483",
+        "evidence:1484",
+        "evidence:33",
+        "evidence:440",
+        "evidence:442",
+        "evidence:443",
+        "evidence:444",
+        "evidence:763",
+        "evidence:764",
+        "evidence:765",
+        "evidence:766",
+        "evidence:767",
+        "evidence:841",
+        "evidence:843"
+      ],
+      "qualified_soft_missing_from_historical_v2": [
+        "evidence:11114",
+        "evidence:1350",
+        "evidence:1351",
+        "evidence:1357"
+      ],
+      "query_id": "PILOT-A2-ALK-G1202R:qualified-retrieval"
+    },
+    {
+      "candidate_counts": {
+        "historical_v2": 81,
+        "native_only": 17,
+        "qualified_soft": 17,
+        "v2_compatibility": 17
+      },
+      "gold_claim_coverage": {
+        "historical_v2": {
+          "covered": 2,
+          "denominator": 3,
+          "extra_candidate_rows": 77,
+          "missing_claim_ids": [
+            "C1-C1"
+          ]
+        },
+        "native_only": {
+          "covered": 0,
+          "denominator": 3,
+          "extra_candidate_rows": 17,
+          "missing_claim_ids": [
+            "C1-C1",
+            "C1-C2",
+            "C1-C3"
+          ]
+        },
+        "qualified_soft": {
+          "covered": 0,
+          "denominator": 3,
+          "extra_candidate_rows": 17,
+          "missing_claim_ids": [
+            "C1-C1",
+            "C1-C2",
+            "C1-C3"
+          ]
+        },
+        "v2_compatibility": {
+          "covered": 0,
+          "denominator": 3,
+          "extra_candidate_rows": 17,
+          "missing_claim_ids": [
+            "C1-C1",
+            "C1-C2",
+            "C1-C3"
+          ]
+        }
+      },
+      "historical_v2_divergence_explanation": {
+        "all_differences_enumerated": true,
+        "cause_codes": [
+          "historical_v2_broader_graph_traversal_vs_v3_native_constraints"
+        ],
+        "extra_in_v3_count": 0,
+        "missing_in_v3_count": 56
+      },
+      "overlap": {
+        "historical_v2_vs_qualified_soft": 17,
+        "native_only_vs_qualified_soft": 17,
+        "v2_compatibility_vs_qualified_soft": 17
+      },
+      "qualified_soft_extra_vs_historical_v2": [],
+      "qualified_soft_missing_from_historical_v2": [
+        "evidence:11219",
+        "evidence:11239",
+        "evidence:11240",
+        "evidence:11241",
+        "evidence:11598",
+        "evidence:11599",
+        "evidence:12015",
+        "evidence:12131",
+        "evidence:12156",
+        "evidence:1592",
+        "evidence:1665",
+        "evidence:1867",
+        "evidence:2156",
+        "evidence:229",
+        "evidence:2621",
+        "evidence:2626",
+        "evidence:2627",
+        "evidence:2628",
+        "evidence:2629",
+        "evidence:2631",
+        "evidence:2632",
+        "evidence:275",
+        "evidence:276",
+        "evidence:2994",
+        "evidence:2997",
+        "evidence:3015",
+        "evidence:347",
+        "evidence:3811",
+        "evidence:4265",
+        "evidence:4284",
+        "evidence:4285",
+        "evidence:4286",
+        "evidence:4287",
+        "evidence:4288",
+        "evidence:4293",
+        "evidence:4294",
+        "evidence:4295",
+        "evidence:4759",
+        "evidence:4860",
+        "evidence:5922",
+        "evidence:6006",
+        "evidence:6174",
+        "evidence:7363",
+        "evidence:7610",
+        "evidence:885",
+        "evidence:9220",
+        "evidence:9221",
+        "evidence:9223",
+        "evidence:9224",
+        "evidence:9225",
+        "evidence:963",
+        "evidence:964",
+        "evidence:965",
+        "evidence:966",
+        "evidence:967",
+        "evidence:968"
+      ],
+      "query_id": "PILOT-C1-EGFR-L858R-CONTEXT:qualified-retrieval"
+    },
+    {
+      "candidate_counts": {
+        "historical_v2": 28,
+        "native_only": 1,
+        "qualified_soft": 1,
+        "v2_compatibility": 1
+      },
+      "gold_claim_coverage": {
+        "historical_v2": {
+          "covered": 1,
+          "denominator": 2,
+          "extra_candidate_rows": 27,
+          "missing_claim_ids": [
+            "K1-C2"
+          ]
+        },
+        "native_only": {
+          "covered": 0,
+          "denominator": 2,
+          "extra_candidate_rows": 1,
+          "missing_claim_ids": [
+            "K1-C1",
+            "K1-C2"
+          ]
+        },
+        "qualified_soft": {
+          "covered": 0,
+          "denominator": 2,
+          "extra_candidate_rows": 1,
+          "missing_claim_ids": [
+            "K1-C1",
+            "K1-C2"
+          ]
+        },
+        "v2_compatibility": {
+          "covered": 0,
+          "denominator": 2,
+          "extra_candidate_rows": 1,
+          "missing_claim_ids": [
+            "K1-C1",
+            "K1-C2"
+          ]
+        }
+      },
+      "historical_v2_divergence_explanation": {
+        "all_differences_enumerated": true,
+        "cause_codes": [
+          "historical_v2_broader_graph_traversal_vs_v3_native_constraints"
+        ],
+        "extra_in_v3_count": 0,
+        "missing_in_v3_count": 24
+      },
+      "overlap": {
+        "historical_v2_vs_qualified_soft": 1,
+        "native_only_vs_qualified_soft": 1,
+        "v2_compatibility_vs_qualified_soft": 1
+      },
+      "qualified_soft_extra_vs_historical_v2": [],
+      "qualified_soft_missing_from_historical_v2": [
+        "evidence:10325",
+        "evidence:11230",
+        "evidence:11324",
+        "evidence:1236",
+        "evidence:12542",
+        "evidence:12547",
+        "evidence:1322",
+        "evidence:1605",
+        "evidence:1851",
+        "evidence:1853",
+        "evidence:1912",
+        "evidence:1913",
+        "evidence:1917",
+        "evidence:1918",
+        "evidence:1920",
+        "evidence:1990",
+        "evidence:295",
+        "evidence:296",
+        "evidence:4861",
+        "evidence:5908",
+        "evidence:5912",
+        "evidence:7261",
+        "evidence:7833",
+        "evidence:8173"
+      ],
+      "query_id": "PILOT-K1-FGFR2-iCCA:qualified-retrieval"
+    },
+    {
+      "candidate_counts": {
+        "historical_v2": 0,
+        "native_only": 0,
+        "qualified_soft": 0,
+        "v2_compatibility": 0
+      },
+      "gold_claim_coverage": {
+        "historical_v2": {
+          "covered": 0,
+          "denominator": 0,
+          "extra_candidate_rows": 0,
+          "missing_claim_ids": []
+        },
+        "native_only": {
+          "covered": 0,
+          "denominator": 0,
+          "extra_candidate_rows": 0,
+          "missing_claim_ids": []
+        },
+        "qualified_soft": {
+          "covered": 0,
+          "denominator": 0,
+          "extra_candidate_rows": 0,
+          "missing_claim_ids": []
+        },
+        "v2_compatibility": {
+          "covered": 0,
+          "denominator": 0,
+          "extra_candidate_rows": 0,
+          "missing_claim_ids": []
+        }
+      },
+      "historical_v2_divergence_explanation": {
+        "all_differences_enumerated": true,
+        "cause_codes": [],
+        "extra_in_v3_count": 0,
+        "missing_in_v3_count": 0
+      },
+      "overlap": {
+        "historical_v2_vs_qualified_soft": 0,
+        "native_only_vs_qualified_soft": 0,
+        "v2_compatibility_vs_qualified_soft": 0
+      },
+      "qualified_soft_extra_vs_historical_v2": [],
+      "qualified_soft_missing_from_historical_v2": [],
+      "query_id": "PILOT-N1-RMI2-SNAPSHOT:qualified-retrieval"
+    }
+  ]
+}
