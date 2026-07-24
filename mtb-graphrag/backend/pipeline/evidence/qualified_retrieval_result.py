@@ -213,6 +213,8 @@ class NativeExclusion:
     query_alteration: str = ""
     statement_gene: str = ""
     statement_alteration: str = ""
+    disease_match: Mapping[str, Any] = field(default_factory=dict)
+    explanation_codes: tuple[str, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -227,6 +229,8 @@ class NativeExclusion:
             "query_alteration": self.query_alteration,
             "statement_gene": self.statement_gene,
             "statement_alteration": self.statement_alteration,
+            "disease_match": dict(self.disease_match),
+            "explanation_codes": list(self.explanation_codes),
             "bucket": BUCKET_REJECTED_NATIVE,
         }
 
@@ -243,6 +247,7 @@ class QualifiedRetrievalResult:
     qualified_score: float = 0.0
     score_breakdown: Sequence[Mapping[str, Any]] = ()
     graph_evidence_ids: tuple[str, ...] = ()
+    disease_match: Mapping[str, Any] = field(default_factory=dict)
     native_matches: Mapping[str, Any] = field(default_factory=dict)
     qualified_matches: Mapping[str, Any] = field(default_factory=dict)
     mismatches: tuple[str, ...] = ()
@@ -273,6 +278,7 @@ class QualifiedRetrievalResult:
             "query_id": self.query_id,
             "statement_id": self.statement_id,
             "graph_evidence_ids": list(self.graph_evidence_ids),
+            "disease_match": dict(self.disease_match),
             "rank": self.rank,
             "total_score": round(self.total_score, 6),
             "native_score": round(self.native_score, 6),
