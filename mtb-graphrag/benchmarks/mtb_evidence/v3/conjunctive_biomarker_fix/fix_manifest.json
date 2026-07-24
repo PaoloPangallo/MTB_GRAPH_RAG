@@ -1,0 +1,91 @@
+{
+  "alk_removed_count": 23,
+  "artifact_hashes": {
+    "candidate_set_after.jsonl": "accb15831d8836e3f02a8afb7501ad729c5ff5adfdf945aa374c7939a9250e50",
+    "candidate_set_before.jsonl": "dbeff995e5e81a22a2833c2f1b9dde916c6bf10d40cbe03ed9bd99f0ad750001",
+    "per_query_diff.json": "8e08951050ad98c78b66127ce095ddf17558694d3267054f1e9b759dce82a4bf",
+    "preserved_alteration_matches.jsonl": "599fc370080e589e77af883c7b4212ad753265379f1988696516c944724f792d",
+    "removed_gene_only_matches.jsonl": "e272802c7dd437983ad6d3f080f1115c17e8de02a9ce6efb2f91310adf6b1c97"
+  },
+  "branch": "fix/v3-conjunctive-biomarker-matching",
+  "candidate_counts_after": {
+    "PILOT-A2-ALK-G1202R": 9,
+    "PILOT-C1-EGFR-L858R-CONTEXT": 10,
+    "PILOT-K1-FGFR2-iCCA": 1,
+    "PILOT-N1-RMI2-SNAPSHOT": 0
+  },
+  "candidate_counts_before": {
+    "PILOT-A2-ALK-G1202R": 32,
+    "PILOT-C1-EGFR-L858R-CONTEXT": 17,
+    "PILOT-K1-FGFR2-iCCA": 1,
+    "PILOT-N1-RMI2-SNAPSHOT": 0
+  },
+  "corpus_changed": false,
+  "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+  "deterministic_order": [
+    "query_id",
+    "statement_id"
+  ],
+  "fix_commit": "acba844",
+  "fix_version": "conjunctive-biomarker-fix/1.0",
+  "frozen_kg_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "generator_source_sha256": "c2b576c079fd541521d76dbc5f70581f8f477a6bc73a3d6a6aafb79a02d717f8",
+  "gold_bundle_hash": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+  "gold_content_loaded": false,
+  "gold_used_for_fix": false,
+  "input_integrity": {
+    "author_approval": {
+      "aggregate_sha256": "8bdafc1188d9050898ffdfab69626ad0d8780b2f137de24bb6d0716d2129c278",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 43
+    },
+    "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+    "frozen_kg_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+    "gold_bundle": {
+      "aggregate_sha256": "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133",
+      "file_sha256": {
+        "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+        "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+        "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+      },
+      "verification_contract": "aggregate identity frozen by preexisting inventory; every member is independently SHA-256 verified"
+    },
+    "previous_candidate_audit": {
+      "aggregate_sha256": "43396526a701ba1ec7f4e1f0bbc498a798ca02fd9600deedf7ef1ed442ca7273",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 17
+    },
+    "previous_exploration": {
+      "aggregate_sha256": "f0ca36d81024170a5fe51b32763333468091a1d3b3a15f822bf57694c7f711cd",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 26
+    },
+    "qualification_corpus": {
+      "aggregate_sha256": "bf23a06ac8c122d2257487c0109eb8e0226f2b16d2d733740a6cd008ed34e827",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 23
+    },
+    "retriever_after_fix": {
+      "aggregate_sha256": "8a810fad76f569964723810bc0ec42a3eba6b32469dc3e5bc040e92fe056dd24",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 7
+    },
+    "scoring_config": {
+      "canonical_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+      "file_sha256": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4"
+    },
+    "second_review_packets": {
+      "aggregate_sha256": "6bb4ee225e4c273a6f24378dc5c982490cdbf3482a1e780e4c173695fe131bb6",
+      "contract": "sha256 of sorted repository-relative POSIX path:sha256 lines without trailing newline",
+      "file_count": 70
+    }
+  },
+  "llm_used": false,
+  "neo4j_used": false,
+  "network_used": false,
+  "scoring_changed": false,
+  "scoring_config_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00",
+  "source_sha": "7d4c623709c01ee69467c8ec615841de745f279e",
+  "synonyms_added": false,
+  "unexpected_changes": []
+}
