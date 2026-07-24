@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
@@ -16,9 +17,12 @@ from .qualified_retrieval_errors import (
     UnsupportedCorpusVersionError,
 )
 from .qualified_retrieval_query import (
+    BIOMARKER_MATCH_ALTERATION_SPECIFIC,
+    BIOMARKER_MATCH_GENE_LEVEL,
     MODE_AUDIT_ALL,
     MODE_QUALIFIED_SOFT,
     QualifiedRetrievalQuery,
+    QueryBiomarker,
     require_valid,
 )
 from .qualified_retrieval_result import (
@@ -42,6 +46,7 @@ from .qualified_retrieval_result import (
     W_QUALIFIER_UNREVIEWED,
     W_TERMINOLOGY_PENDING,
     W_UNRESOLVED_UNIT,
+    X_ALTERATION_MISMATCH_WITH_MATCHING_GENE,
     X_BIOMARKER_MISMATCH,
     X_DISEASE_MISMATCH,
     X_DIRECTION_MISMATCH,
@@ -89,6 +94,7 @@ def _source_ids(statement: Mapping[str, Any]) -> tuple[str, ...]:
 
 
 def _contains_marker(statement: Mapping[str, Any], keys: Sequence[str]) -> bool:
+    """Matcher OR storico, mantenuto solo per riprodurre gli audit congelati."""
     biomarker = statement.get("biomarker") or {}
     haystack = " ".join(
         [
@@ -100,6 +106,157 @@ def _contains_marker(statement: Mapping[str, Any], keys: Sequence[str]) -> bool:
     )
     normalized = normalize_text(haystack)
     return any(key in normalized or normalized in key for key in keys)
+
+
+_TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z0-9-]*")
+_PROTEIN_CHANGE_RE = re.compile(
+    r"(?<![A-Za-z0-9])[A-Za-z]\d+[A-Za-z*](?![A-Za-z0-9])"
+)
+_NON_GENE_TOKENS = {
+    "and", "or", "fusion", "mutation", "mutations", "deletion",
+    "insertion", "amplification", "gain", "loss", "exon", "single",
+    "compound", "unknown",
+}
+_MISSING_ALTERATION_VALUES = {"", "unknown", "not applicable", "not_applicable"}
+
+
+def _protein_changes(value: Any) -> tuple[str, ...]:
+    return tuple(
+        sorted(
+            {
+                normalize_text(token)
+                for token in _PROTEIN_CHANGE_RE.findall(str(value or ""))
+            }
+        )
+    )
+
+
+def _query_alterations(markers: Sequence[QueryBiomarker]) -> tuple[str, ...]:
+    values: set[str] = set()
+    for marker in markers:
+        raw = marker.alteration
+        if not normalize_text(raw) and marker.has_alteration_constraint:
+            raw = marker.normalized
+        changes = _protein_changes(raw)
+        if changes:
+            values.update(changes)
+            continue
+        for part in str(raw or "").split("/"):
+            normalized = normalize_text(part)
+            if normalized and normalized not in _MISSING_ALTERATION_VALUES:
+                values.add(normalized)
+    return tuple(sorted(values))
+
+
+def _statement_genes(statement: Mapping[str, Any]) -> tuple[str, ...]:
+    biomarker = statement.get("biomarker") or {}
+    values: set[str] = set()
+    explicit = str(biomarker.get("gene") or "").strip()
+    if explicit:
+        values.add(normalize_text(explicit))
+    texts = [
+        str(biomarker.get("label") or ""),
+        *(str(item) for item in biomarker.get("component_biomarkers") or []),
+    ]
+    for source_text in texts:
+        changes = set(_protein_changes(source_text))
+        for token in _TOKEN_RE.findall(source_text):
+            normalized = normalize_text(token)
+            if (
+                token == token.upper()
+                and len(token) >= 2
+                and normalized not in _NON_GENE_TOKENS
+                and normalized not in changes
+            ):
+                values.add(normalized)
+    return tuple(sorted(values))
+
+
+def _statement_alterations(statement: Mapping[str, Any]) -> tuple[str, ...]:
+    biomarker = statement.get("biomarker") or {}
+    values: set[str] = set(_protein_changes(biomarker.get("label")))
+    for item in biomarker.get("component_biomarkers") or []:
+        changes = _protein_changes(item)
+        if changes:
+            values.update(changes)
+        else:
+            normalized = normalize_text(item)
+            if normalized not in _MISSING_ALTERATION_VALUES:
+                values.add(normalized)
+    alteration_type = normalize_text(statement.get("alteration_type"))
+    if alteration_type not in _MISSING_ALTERATION_VALUES:
+        values.add(alteration_type)
+    return tuple(sorted(values))
+
+
+@dataclass(frozen=True)
+class BiomarkerMatch:
+    """Esito dimensionale del match nativo, serializzabile nell'audit."""
+
+    matched: bool
+    mode: str
+    gene_match: bool
+    alteration_match: bool | None
+    query_genes: tuple[str, ...]
+    query_alterations: tuple[str, ...]
+    statement_genes: tuple[str, ...]
+    statement_alterations: tuple[str, ...]
+    reason_code: str = ""
+
+
+def match_biomarker(
+    markers: Sequence[QueryBiomarker], statement: Mapping[str, Any]
+) -> BiomarkerMatch:
+    """Match nativo congiuntivo, senza sinonimi o mapping terminologici.
+
+    Le barre nella query sono alternative dichiarate, non sinonimi. Le
+    annotazioni parentetiche non cambiano un token proteico come G1202R.
+    """
+    query_genes = tuple(
+        sorted(
+            {
+                normalize_text(marker.gene)
+                for marker in markers
+                if normalize_text(marker.gene)
+            }
+        )
+    )
+    query_alterations = _query_alterations(markers)
+    statement_genes = _statement_genes(statement)
+    statement_alterations = _statement_alterations(statement)
+    gene_match = bool(query_genes) and bool(set(query_genes) & set(statement_genes))
+    if not query_alterations:
+        return BiomarkerMatch(
+            matched=gene_match,
+            mode=BIOMARKER_MATCH_GENE_LEVEL,
+            gene_match=gene_match,
+            alteration_match=None,
+            query_genes=query_genes,
+            query_alterations=(),
+            statement_genes=statement_genes,
+            statement_alterations=statement_alterations,
+            reason_code="" if gene_match else X_BIOMARKER_MISMATCH,
+        )
+    alteration_match = bool(set(query_alterations) & set(statement_alterations))
+    matched = gene_match and alteration_match
+    reason_code = ""
+    if not matched:
+        reason_code = (
+            X_ALTERATION_MISMATCH_WITH_MATCHING_GENE
+            if gene_match and not alteration_match
+            else X_BIOMARKER_MISMATCH
+        )
+    return BiomarkerMatch(
+        matched=matched,
+        mode=BIOMARKER_MATCH_ALTERATION_SPECIFIC,
+        gene_match=gene_match,
+        alteration_match=alteration_match,
+        query_genes=query_genes,
+        query_alterations=query_alterations,
+        statement_genes=statement_genes,
+        statement_alterations=statement_alterations,
+        reason_code=reason_code,
+    )
 
 
 def _native_match(query_values: Sequence[str], statement_value: Any) -> bool:
@@ -329,9 +486,10 @@ class QualifiedEvidenceRetriever:
         scope_keys = tuple(sorted({normalize_text(item) for item in query.evidence_scopes}))
         for statement in self.repository.all():
             statement_id = str(statement["evidence_statement_id"])
+            biomarker_match = match_biomarker(query.biomarkers, statement)
             link_polarities = {normalize_text(link.get("assertion_polarity")) for link in self._links_by_statement.get(statement_id, []) if link.get("assertion_polarity")}
             checks = [
-                ("biomarker", _contains_marker(statement, query.biomarker_keys()), X_BIOMARKER_MISMATCH, query.biomarker_keys(), _label(statement.get("biomarker"))),
+                ("biomarker", biomarker_match.matched, biomarker_match.reason_code or X_BIOMARKER_MISMATCH, query.biomarker_keys(), _label(statement.get("biomarker"))),
                 ("disease", _native_match(tuple(disease_keys), _label(statement.get("disease"))), X_DISEASE_MISMATCH, tuple(disease_keys), _label(statement.get("disease"))),
                 ("direction", _native_match(tuple(direction_keys), statement.get("direction")), X_DIRECTION_MISMATCH, tuple(direction_keys), statement.get("direction")),
                 ("assertion_polarity", not polarity_keys or normalize_text(statement.get("assertion_polarity")) in polarity_keys or bool(polarity_keys & link_polarities), X_POLARITY_MISMATCH, tuple(sorted(polarity_keys)), sorted({normalize_text(statement.get("assertion_polarity")), *link_polarities})),
@@ -349,6 +507,45 @@ class QualifiedEvidenceRetriever:
                         query_value=list(expected),
                         statement_value=actual,
                         reason_code=code,
+                        biomarker_match_mode=(
+                            biomarker_match.mode if field == "biomarker" else ""
+                        ),
+                        query_gene=(
+                            " | ".join(
+                                sorted(
+                                    {
+                                        marker.gene
+                                        for marker in query.biomarkers
+                                        if marker.gene
+                                    }
+                                )
+                            )
+                            if field == "biomarker" else ""
+                        ),
+                        query_alteration=(
+                            " | ".join(
+                                sorted(
+                                    {
+                                        marker.alteration or marker.normalized
+                                        for marker in query.biomarkers
+                                        if marker.has_alteration_constraint
+                                    }
+                                )
+                            )
+                            if field == "biomarker" else ""
+                        ),
+                        statement_gene=(
+                            " | ".join(
+                                value.upper()
+                                for value in biomarker_match.statement_genes
+                            )
+                            if field == "biomarker" else ""
+                        ),
+                        statement_alteration=(
+                            " | ".join(biomarker_match.statement_alterations)
+                            or "<missing>"
+                            if field == "biomarker" else ""
+                        ),
                     )
                 )
                 continue
@@ -369,7 +566,7 @@ class QualifiedEvidenceRetriever:
         link_polarities = {str(link.get("assertion_polarity") or "") for link in links if link.get("assertion_polarity")}
         effective_polarity = "does_not_support" if "does_not_support" in link_polarities and (not query.assertion_polarities or "does_not_support" in query.assertion_polarities) else str(statement.get("assertion_polarity") or "")
         native_matches = {
-            "biomarker": _contains_marker(statement, query.biomarker_keys()),
+            "biomarker": match_biomarker(query.biomarkers, statement).matched,
             "disease": _native_match(query.disease_keys(), _label(statement.get("disease"))),
             "intervention": _native_match(query.intervention_keys(), _label(statement.get("intervention"))),
             "direction": _native_match(tuple(normalize_text(v) for v in query.directions), statement.get("direction")),

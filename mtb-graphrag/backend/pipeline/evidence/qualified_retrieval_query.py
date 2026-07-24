@@ -51,6 +51,16 @@ RETRIEVAL_MODES = (
 # contribuendo nulla, e sarebbe un risultato da sapere.
 QUALIFIER_AWARE_MODES = (MODE_QUALIFIED_SOFT, MODE_AUDIT_ALL)
 
+# --- granularita' del match biomarcatore -------------------------------------
+# Non sono fallback. La modalita' deriva dai campi richiesti: appena la query
+# porta una alterazione, il confronto deve soddisfare gene E alterazione.
+BIOMARKER_MATCH_GENE_LEVEL = "gene_level"
+BIOMARKER_MATCH_ALTERATION_SPECIFIC = "alteration_specific"
+BIOMARKER_MATCH_MODES = (
+    BIOMARKER_MATCH_GENE_LEVEL,
+    BIOMARKER_MATCH_ALTERATION_SPECIFIC,
+)
+
 # --- direzioni e polarita' ----------------------------------------------------
 DIRECTION_SENSITIVITY = "sensitivity"
 DIRECTION_RESISTANCE = "resistance"
@@ -109,6 +119,14 @@ class QueryBiomarker:
         ]
         return tuple(key for key in keys if key)
 
+    @property
+    def has_alteration_constraint(self) -> bool:
+        """True quando la query richiede piu' del solo gene."""
+        if normalize_text(self.alteration):
+            return True
+        normalized = normalize_text(self.normalized)
+        return bool(normalized and normalized != normalize_text(self.gene))
+
     def as_dict(self) -> dict[str, Any]:
         return {
             "gene": self.gene,
@@ -160,6 +178,13 @@ class QualifiedRetrievalQuery:
         return tuple(
             sorted({key for marker in self.biomarkers for key in marker.match_keys()})
         )
+
+    @property
+    def biomarker_match_mode(self) -> str:
+        """Granularita'' nativa, senza fallback automatico."""
+        if any(marker.has_alteration_constraint for marker in self.biomarkers):
+            return BIOMARKER_MATCH_ALTERATION_SPECIFIC
+        return BIOMARKER_MATCH_GENE_LEVEL
 
     def clinical_context_value(self, dimension: str) -> Any:
         return self.clinical_context.get(dimension)
@@ -333,6 +358,9 @@ __all__ = [
     "MODE_AUDIT_ALL",
     "RETRIEVAL_MODES",
     "QUALIFIER_AWARE_MODES",
+    "BIOMARKER_MATCH_GENE_LEVEL",
+    "BIOMARKER_MATCH_ALTERATION_SPECIFIC",
+    "BIOMARKER_MATCH_MODES",
     "DIRECTIONS",
     "POLARITIES",
     "EVIDENCE_CONTEXTS",
