@@ -17,7 +17,13 @@ from backend.pipeline.evidence.qualified_retrieval_query import (
     QualifiedRetrievalQuery,
     QueryBiomarker,
 )
-from backend.pipeline.evidence.qualified_retriever import QualifiedEvidenceRetriever
+from backend.pipeline.evidence.qualified_retriever import (
+    SUPPORTED_CORPUS_VERSION,
+    QualifiedEvidenceRetriever,
+)
+from backend.pipeline.evidence.qualified_retrieval_errors import UnsupportedCorpusVersionError
+from backend.pipeline.evidence.qualified_retrieval_scoring import ScoringConfig
+from backend.pipeline.evidence.repository import EvidenceStatementRepository
 
 
 MODES = ("v2_compatibility", "native_only", "qualified_soft")
@@ -242,6 +248,45 @@ def _runtime_stats(values: Sequence[float]) -> dict[str, Any]:
     }
 
 
+def _load_corpus_snapshot(corpus: Path, config: Path) -> dict[str, Any]:
+    manifest = json.loads(
+        (corpus / "qualification_corpus_manifest.json").read_text(encoding="utf-8")
+    )
+    if manifest.get("corpus_version") != SUPPORTED_CORPUS_VERSION:
+        raise UnsupportedCorpusVersionError(str(manifest.get("corpus_version")))
+    return {
+        "manifest": manifest,
+        "statements": _read_jsonl(corpus / "evidence_statements.jsonl"),
+        "views": _read_jsonl(corpus / "qualified_evidence_views.jsonl"),
+        "active_units": _read_jsonl(corpus / "active_source_profile_units.jsonl"),
+        "historical_units": _read_jsonl(corpus / "historical_source_profile_units.jsonl"),
+        "links": _read_jsonl(corpus / "qualification_links.jsonl"),
+        "qualification_gold": _read_jsonl(corpus / "statement_qualification_gold.jsonl"),
+        "terminology_mappings": _read_jsonl(corpus / "terminology_mappings.jsonl"),
+        "scoring_config": ScoringConfig.load(config),
+    }
+
+
+def _build_retriever_from_snapshot(
+    corpus: Path, snapshot: Mapping[str, Any]
+) -> QualifiedEvidenceRetriever:
+    manifest = snapshot["manifest"]
+    return QualifiedEvidenceRetriever(
+        corpus_dir=corpus,
+        manifest=manifest,
+        repository=EvidenceStatementRepository(
+            snapshot["statements"],
+            created_at=str(manifest.get("generated_at") or ""),
+        ),
+        views={item["statement_id"]: item for item in snapshot["views"]},
+        active_units={item["profile_unit_id"]: item for item in snapshot["active_units"]},
+        historical_units={item["profile_unit_id"]: item for item in snapshot["historical_units"]},
+        links=snapshot["links"],
+        qualification_gold=snapshot["qualification_gold"],
+        terminology_mappings=snapshot["terminology_mappings"],
+        scoring_config=snapshot["scoring_config"],
+    )
+
 def run_blind_retrieval(
     root: Path, output: Path, *, run_count: int = 5
 ) -> dict[str, Any]:
@@ -271,14 +316,16 @@ def run_blind_retrieval(
     _write_jsonl(output / "evaluation_queries.jsonl", queries)
 
     load_samples: list[float] = []
+    index_samples: list[float] = []
     retrieval_samples: dict[str, list[float]] = {mode: [] for mode in MODES}
     retriever: QualifiedEvidenceRetriever | None = None
     for _ in range(run_count):
         started = time.perf_counter_ns()
-        candidate = QualifiedEvidenceRetriever.from_corpus(
-            corpus, scoring_config_path=config
-        )
+        snapshot = _load_corpus_snapshot(corpus, config)
         load_samples.append((time.perf_counter_ns() - started) / 1_000_000)
+        started = time.perf_counter_ns()
+        candidate = _build_retriever_from_snapshot(corpus, snapshot)
+        index_samples.append((time.perf_counter_ns() - started) / 1_000_000)
         if retriever is None:
             retriever = candidate
     assert retriever is not None
@@ -371,7 +418,8 @@ def run_blind_retrieval(
         output / "runtime_metrics.json",
         {
             "environment_comparison": "not_equivalent_to_historical_agentic_pipeline",
-            "load_corpus_and_build_index": _runtime_stats(load_samples),
+            "load_corpus": _runtime_stats(load_samples),
+            "build_index": _runtime_stats(index_samples),
             "modes": {
                 mode: {
                     "candidate_generation": _runtime_stats(
@@ -1523,7 +1571,7 @@ def run_gold_evaluation(
         "top_k": list(TOP_KS),
         "run_count": json.loads(
             (output / "runtime_metrics.json").read_text(encoding="utf-8")
-        )["load_corpus_and_build_index"]["run_count"],
+        )["load_corpus"]["run_count"],
         "evaluation_phase": "exploratory",
         "tuning_performed": False,
         "gold_used_for_retrieval": False,
