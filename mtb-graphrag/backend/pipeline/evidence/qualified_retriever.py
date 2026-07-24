@@ -319,11 +319,11 @@ class QualifiedEvidenceRetriever:
     ) -> tuple[list[Mapping[str, Any]], list[NativeExclusion]]:
         accepted: list[Mapping[str, Any]] = []
         excluded: list[NativeExclusion] = []
-        disease_keys = set(query.disease_keys())
-        intervention_keys = set(query.intervention_keys())
-        direction_keys = {normalize_text(item) for item in query.directions}
+        disease_keys = tuple(sorted(query.disease_keys()))
+        intervention_keys = tuple(sorted(query.intervention_keys()))
+        direction_keys = tuple(sorted({normalize_text(item) for item in query.directions}))
         polarity_keys = {normalize_text(item) for item in query.assertion_polarities}
-        scope_keys = {normalize_text(item) for item in query.evidence_scopes}
+        scope_keys = tuple(sorted({normalize_text(item) for item in query.evidence_scopes}))
         for statement in self.repository.all():
             statement_id = str(statement["evidence_statement_id"])
             link_polarities = {normalize_text(link.get("assertion_polarity")) for link in self._links_by_statement.get(statement_id, []) if link.get("assertion_polarity")}
@@ -331,7 +331,7 @@ class QualifiedEvidenceRetriever:
                 ("biomarker", _contains_marker(statement, query.biomarker_keys()), X_BIOMARKER_MISMATCH, query.biomarker_keys(), _label(statement.get("biomarker"))),
                 ("disease", _native_match(tuple(disease_keys), _label(statement.get("disease"))), X_DISEASE_MISMATCH, tuple(disease_keys), _label(statement.get("disease"))),
                 ("direction", _native_match(tuple(direction_keys), statement.get("direction")), X_DIRECTION_MISMATCH, tuple(direction_keys), statement.get("direction")),
-                ("assertion_polarity", not polarity_keys or normalize_text(statement.get("assertion_polarity")) in polarity_keys or bool(polarity_keys & link_polarities), X_POLARITY_MISMATCH, tuple(polarity_keys), sorted({normalize_text(statement.get("assertion_polarity")), *link_polarities})),
+                ("assertion_polarity", not polarity_keys or normalize_text(statement.get("assertion_polarity")) in polarity_keys or bool(polarity_keys & link_polarities), X_POLARITY_MISMATCH, tuple(sorted(polarity_keys)), sorted({normalize_text(statement.get("assertion_polarity")), *link_polarities})),
                 ("evidence_scope", _native_match(tuple(scope_keys), statement.get("evidence_scope")), X_SCOPE_MISMATCH, tuple(scope_keys), statement.get("evidence_scope")),
                 ("intervention", _native_match(tuple(intervention_keys), _label(statement.get("intervention"))), X_INTERVENTION_MISMATCH, tuple(intervention_keys), _label(statement.get("intervention"))),
             ]
@@ -487,7 +487,7 @@ class QualifiedEvidenceRetriever:
             and str(item.get("canonical_source_id") or "") in {"", *[sid.replace("PUBMED:", "PMID:") for sid in _source_ids(statement)]}
         ]
         pending_mappings = [item for item in mappings if item.get("match_grade") not in {"verified_synonym", "verified_development_code", "exact"}]
-        if pending_mappings:
+        if pending_mappings and query.uses_qualifiers:
             warnings.append(W_TERMINOLOGY_PENDING)
         explanation_codes, explanation = build_explanation(
             native_matches=native_matches,

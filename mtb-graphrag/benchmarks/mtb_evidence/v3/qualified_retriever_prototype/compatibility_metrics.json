@@ -1,0 +1,41 @@
+{
+  "all_divergences_explained": true,
+  "cases": [
+    {
+      "candidate_set_overlap": 1,
+      "divergence_cause": "none: both modes intentionally use the same native offline corpus",
+      "extra_candidates": [],
+      "missing_candidates": [],
+      "native_candidate_count": 1,
+      "query_id": "PILOT-K1-FGFR2-iCCA:qualified-retrieval",
+      "v2_candidate_count": 1
+    },
+    {
+      "candidate_set_overlap": 20,
+      "divergence_cause": "none: both modes intentionally use the same native offline corpus",
+      "extra_candidates": [],
+      "missing_candidates": [],
+      "native_candidate_count": 20,
+      "query_id": "PILOT-A2-ALK-G1202R:qualified-retrieval",
+      "v2_candidate_count": 20
+    },
+    {
+      "candidate_set_overlap": 17,
+      "divergence_cause": "none: both modes intentionally use the same native offline corpus",
+      "extra_candidates": [],
+      "missing_candidates": [],
+      "native_candidate_count": 17,
+      "query_id": "PILOT-C1-EGFR-L858R-CONTEXT:qualified-retrieval",
+      "v2_candidate_count": 17
+    },
+    {
+      "candidate_set_overlap": 0,
+      "divergence_cause": "none: both modes intentionally use the same native offline corpus",
+      "extra_candidates": [],
+      "missing_candidates": [],
+      "native_candidate_count": 0,
+      "query_id": "PILOT-N1-RMI2-SNAPSHOT:qualified-retrieval",
+      "v2_candidate_count": 0
+    }
+  ]
+}

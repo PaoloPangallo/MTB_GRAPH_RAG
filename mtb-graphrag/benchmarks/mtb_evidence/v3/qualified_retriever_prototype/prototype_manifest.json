@@ -1,0 +1,21 @@
+{
+  "clinical_gold_used_for_weights": false,
+  "clinical_quality_metrics_computed": false,
+  "corpus_fingerprint": "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd",
+  "frozen_kg_snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae",
+  "modes": [
+    "v2_compatibility",
+    "native_only",
+    "qualified_soft"
+  ],
+  "prototype_version": "qualified_evidence_retriever/1.0",
+  "query_count": 4,
+  "ready_for_exploratory_v2_v3a_comparison": true,
+  "ready_for_final_v2_v3a_evaluation": false,
+  "result_hashes": {
+    "native_only": "cccc7be789621362e50cd0ab3c015fbfac81b434a7fc9c50a6b98a02b027c50f",
+    "qualified_soft": "902130be5ebd9ea1f8a901731c45e331ec1b01f3458e2e6da7539b81d485e603",
+    "v2_compatibility": "cccc7be789621362e50cd0ab3c015fbfac81b434a7fc9c50a6b98a02b027c50f"
+  },
+  "scoring_config_hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00"
+}
