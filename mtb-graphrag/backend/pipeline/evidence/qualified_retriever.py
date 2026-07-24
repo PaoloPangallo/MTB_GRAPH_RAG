@@ -390,8 +390,10 @@ class QualifiedEvidenceRetriever:
         warnings: list[str] = []
         status = str(view.get("qualification_status") or "")
         reviewed_statuses = {str((row.get("first_review_annotation") or {}).get("candidate_status") or "") for row in self._gold_by_statement.get(statement_id, [])}
-        if "candidate_invalid" in reviewed_statuses:
-            status = "candidate_invalid"
+        for reviewed_status in ("candidate_invalid", "candidate_conflicting", "candidate_ambiguous", "candidate_partial"):
+            if reviewed_status in reviewed_statuses:
+                status = reviewed_status.removeprefix("candidate_") if reviewed_status != "candidate_invalid" else reviewed_status
+                break
         status_warning = {
             "partial": W_CANDIDATE_PARTIAL,
             "ambiguous": W_CANDIDATE_AMBIGUOUS,
@@ -421,6 +423,14 @@ class QualifiedEvidenceRetriever:
             warnings.append(W_ABSTRACT_ONLY_SOURCE)
             components.append(ScoreComponent("penalty_abstract_only", self.scoring_config.weights["penalty_abstract_only"], "qualified", "abstract only"))
         unit_types = {str(unit.get("unit_type") or "") for unit in units}
+        case_level = any("case" in value or "named_patient" in value for value in unit_types)
+        named_patient_subset = any("named_patient" in value for value in unit_types)
+        if case_level:
+            warnings.append(W_CASE_LEVEL)
+            components.append(ScoreComponent("penalty_case_level", self.scoring_config.weights["penalty_case_level"], "qualified", "evidenza case-level non generalizzabile"))
+        if named_patient_subset:
+            warnings.append(W_NAMED_PATIENT_SUBSET)
+            components.append(ScoreComponent("penalty_named_patient_subset", self.scoring_config.weights["penalty_named_patient_subset"], "qualified", "named-patient subset"))
         preclinical = any("preclinical" in value or "in_vitro" in value or "model" in value for value in unit_types)
         clinical = any("clinical" in value or "cohort" in value or "patient" in value for value in unit_types)
         evidence_context = "mixed" if clinical and preclinical else "preclinical" if preclinical else "clinical" if clinical else "unknown"
@@ -512,7 +522,7 @@ class QualifiedEvidenceRetriever:
             hard_filterable=False,
             terminology_mappings=mappings,
             unresolved_dimensions=tuple(sorted(view.get("unresolved_dimensions") or [])),
-            case_level_information={"case_level": any("case" in value or "named_patient" in value for value in unit_types)},
+            case_level_information={"case_level": case_level, "named_patient_subset": named_patient_subset, "frequency_inferred": False},
             negative_evidence_information=negative_info,
             provenance_references=provenance,
             explanation_codes=explanation_codes,

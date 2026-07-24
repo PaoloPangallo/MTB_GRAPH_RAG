@@ -19,6 +19,8 @@
     "penalty_invalid": -50,
     "penalty_abstract_only": -2,
     "penalty_unresolved": -1,
+    "penalty_case_level": -2,
+    "penalty_named_patient_subset": -2,
     "penalty_not_separable": -2,
     "penalty_preclinical_preference": -3,
     "penalty_negative_mismatch": -15
@@ -47,5 +49,5 @@
     "positive_contribution_capped": true,
     "may_determine_applicability": false
   },
-  "hash": "91a143b03be1e03902ae5dfd1bddbf50e7a813440128c898e9bccc6e1f00a444"
+  "hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00"
 }
