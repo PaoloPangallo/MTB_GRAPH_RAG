@@ -1,0 +1,44 @@
+{
+  "approval_version": "author_approval/1.1",
+  "author_approvals_completed": 2,
+  "author_approvals_pending": 1,
+  "case_level_evidence_guard_ready": true,
+  "case_level_guard_rule_ids": [
+    "case_level_to_cohort_population",
+    "case_level_frequency_inference",
+    "case_level_to_enrolment_requirement"
+  ],
+  "clinical_preclinical_false_positives_confirmed": 1,
+  "clinical_preclinical_true_positives_confirmed": 1,
+  "created_at": "2026-07-24T00:00:00+00:00",
+  "detector_promotion_ready": false,
+  "forbidden_statuses_checked": [
+    "clinical_review_complete",
+    "independent_review",
+    "second_review_complete",
+    "adjudicated",
+    "frozen",
+    "final_gold"
+  ],
+  "forbidden_statuses_declared": [],
+  "gold_evaluable": false,
+  "hard_filtering_available": false,
+  "limitations": [
+    "la revisione e' documentale e non clinica: l'autore non e' un clinico",
+    "la preparazione del materiale e' assistita da LLM, quindi la prima revisione non e' indipendente",
+    "il numero esatto di pazienti per ciascun meccanismo si legge nelle tabelle, non nel testo corrente: i conteggi qui registrati vengono dalle frasi ancorate a locator",
+    "la perdita del riarrangiamento di ALK in CUTO-1 e' asserita dalla revisione source-checked e non ancorata a un locator proprio",
+    "il mapping copy number gain / amplification resta non verificato: nessuna soglia condivisa e' stata confrontata",
+    "un solo caso non permette di stimare precision, recall o accuratezza del rilevatore",
+    "le osservazioni su singoli pazienti restano dentro l'unita' della coorte: la granularita' le distingue, ma non esiste una unita' separata per ciascuna"
+  ],
+  "negative_experiments_preserved": 1,
+  "next_report_to_approve": "SOURCE_REVIEW_PMID-23344087.md",
+  "note": "La coda standard non riprende in questo branch. Il passo successivo e' l'approvazione della terza fonte del batch clinico/preclinico.",
+  "previous_phase_unchanged": true,
+  "ready_for_final_evaluation": false,
+  "residual_risk": "la coorte clinica contiene osservazioni a livello di singolo paziente (#9 per EGFR, #8 per il CNG isolato) che non sono proprieta' della coorte. La granularita' dichiarata le protegge; una lettura che la ignorasse le propagherebbe.",
+  "second_review_packets_unchanged": true,
+  "second_review_required": true,
+  "standard_queue_resumed": false
+}
