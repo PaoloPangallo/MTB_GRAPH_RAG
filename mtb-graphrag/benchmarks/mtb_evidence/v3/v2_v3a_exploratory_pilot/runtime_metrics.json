@@ -1,0 +1,123 @@
+{
+  "environment_comparison": "not_equivalent_to_historical_agentic_pipeline",
+  "load_corpus_and_build_index": {
+    "maximum": 51.461,
+    "median": 45.0686,
+    "minimum": 44.431,
+    "run_count": 5,
+    "unit": "milliseconds"
+  },
+  "modes": {
+    "native_only": {
+      "candidate_generation": {
+        "maximum": 13.5164,
+        "median": 7.1866,
+        "minimum": 6.467,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "explanation": {
+        "maximum": 0.0061,
+        "median": 0.00275,
+        "minimum": 0.0002,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "ranking": {
+        "maximum": 0.0369,
+        "median": 0.0108,
+        "minimum": 0.0006,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "scoring": {
+        "maximum": 4.1256,
+        "median": 1.1507,
+        "minimum": 0.0006,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "total_retrieval": {
+        "maximum": 80.7768,
+        "median": 72.6857,
+        "minimum": 70.2489,
+        "run_count": 5,
+        "unit": "milliseconds"
+      }
+    },
+    "qualified_soft": {
+      "candidate_generation": {
+        "maximum": 13.3812,
+        "median": 7.1264,
+        "minimum": 6.5556,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "explanation": {
+        "maximum": 0.0062,
+        "median": 0.0029,
+        "minimum": 0.0002,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "ranking": {
+        "maximum": 0.0335,
+        "median": 0.01155,
+        "minimum": 0.0007,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "scoring": {
+        "maximum": 4.4924,
+        "median": 1.1639,
+        "minimum": 0.0006,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "total_retrieval": {
+        "maximum": 79.0592,
+        "median": 73.3602,
+        "minimum": 71.9626,
+        "run_count": 5,
+        "unit": "milliseconds"
+      }
+    },
+    "v2_compatibility": {
+      "candidate_generation": {
+        "maximum": 7.6457,
+        "median": 7.16765,
+        "minimum": 6.6991,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "explanation": {
+        "maximum": 0.0059,
+        "median": 0.0025,
+        "minimum": 0.0002,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "ranking": {
+        "maximum": 0.0366,
+        "median": 0.01065,
+        "minimum": 0.0006,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "scoring": {
+        "maximum": 4.212,
+        "median": 1.04215,
+        "minimum": 0.0006,
+        "run_count": 20,
+        "unit": "milliseconds"
+      },
+      "total_retrieval": {
+        "maximum": 75.9773,
+        "median": 75.0109,
+        "minimum": 71.4041,
+        "run_count": 5,
+        "unit": "milliseconds"
+      }
+    }
+  }
+}
