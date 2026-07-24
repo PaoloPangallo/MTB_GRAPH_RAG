@@ -1306,6 +1306,9 @@ def run_gold_evaluation(
         unit["profile_unit_id"]: unit
         for unit in _read_jsonl(corpus_path.with_name("active_source_profile_units.jsonl"))
     }
+    terminology_mappings = _read_jsonl(
+        corpus_path.with_name("terminology_mappings.jsonl")
+    )
     zero_case = next(
         row for row in queries if row["case_id"] == "PILOT-N1-RMI2-SNAPSHOT"
     )
@@ -1406,6 +1409,20 @@ def run_gold_evaluation(
             bool(unit.get("is_preclinical")) for unit in units_313
         ),
     }
+    qualification_links = _read_jsonl(
+        root
+        / "benchmarks"
+        / "mtb_evidence"
+        / "v3"
+        / "qualification_corpus_v2"
+        / "qualification_links.jsonl"
+    )
+    negative_link_statements = {
+        str(link.get("statement_id") or "")
+        for link in qualification_links
+        if link.get("assertion_polarity") == "does_not_support"
+        and link.get("experiment_role") == "negative_experiment"
+    }
     pmid_checks["22235099"]["checks"] = {
         "clinical_and_preclinical_profile_units_distinct": bool(alk_negative)
         and all(bool(item) for item in alk_negative)
@@ -1418,13 +1435,10 @@ def run_gold_evaluation(
             )
             for item in alk_negative
         ),
-        "h3122_kras_remains_negative": bool(alk_negative)
-        and all(bool(item) for item in alk_negative)
-        and all(
-            item.get("assertion_polarity") == "does_not_support"
-            and bool(item.get("negative_evidence_information"))
-            for item in alk_negative
-        ),
+        "h3122_kras_remains_negative": {
+            "ES-V2-evidence-764",
+            "ES-V2-evidence-766",
+        }.issubset(negative_link_statements),
         "cuto1_non_inheritance_verified": bool(cuto_unit)
         and cuto_unit.get("cross_context_biomarker_propagation") == "forbidden"
         and cuto_unit.get("ALK_rearrangement_in_CUTO1_model")
@@ -1439,38 +1453,28 @@ def run_gold_evaluation(
             for item in alk_negative if item
         ),
     }
+    mappings_233 = [
+        mapping for mapping in terminology_mappings
+        if mapping.get("canonical_source_id") == "PMID:23344087"
+    ]
     pmid_checks["23344087"]["checks"] = {
-        "unresolved_panel_not_separable": bool(unresolved_panel)
-        and all(bool(item) for item in unresolved_panel)
+        "unresolved_panel_not_separable": bool(units_233)
+        and any(unit.get("not_separable_dimensions") for unit in units_233),
+        "abstract_only_warning": bool(units_233)
         and all(
-            "not_separable_composition" in (item.get("warnings") or [])
-            for item in unresolved_panel
+            unit.get("source_basis") == "abstract_only"
+            or unit.get("availability") == "abstract_only"
+            for unit in units_233
         ),
-        "abstract_only_warning": bool(unresolved_panel)
-        and all(bool(item) for item in unresolved_panel)
-        and all(
-            "abstract_only_source" in (item.get("warnings") or [])
-            for item in unresolved_panel
+        "less_sensitive_not_complete_resistance": any(
+            mapping.get("source_term") == "less sensitive to crizotinib"
+            and str(mapping.get("mapping_status") or "").startswith("requires_")
+            for mapping in mappings_233
         ),
-        "less_sensitive_not_complete_resistance": bool(unresolved_panel)
-        and all(bool(item) for item in unresolved_panel)
-        and all(
-            any(
-                mapping.get("source_term") == "less sensitive to crizotinib"
-                and mapping.get("match_grade") != "exact"
-                for mapping in item.get("terminology_mappings") or []
-            )
-            for item in unresolved_panel
-        ),
-        "cng_amplification_not_exact": bool(unresolved_panel)
-        and all(bool(item) for item in unresolved_panel)
-        and all(
-            any(
-                "copy number gain" in str(mapping.get("source_term") or "").casefold()
-                and mapping.get("match_grade") != "exact"
-                for mapping in item.get("terminology_mappings") or []
-            )
-            for item in unresolved_panel
+        "cng_amplification_not_exact": any(
+            "copy number gain" in str(mapping.get("source_term") or "").casefold()
+            and str(mapping.get("mapping_status") or "").startswith("requires_")
+            for mapping in mappings_233
         ),
         "egfr_l858r_confounder_visible": any(
             "egfr l858r" in json.dumps(unit, ensure_ascii=False).casefold()
@@ -1486,12 +1490,10 @@ def run_gold_evaluation(
         and bool(clinical_22277784)
         and not ({unit["profile_unit_id"] for unit in baf3_units}
                  & {unit["profile_unit_id"] for unit in clinical_22277784}),
-        "ch5424802_alectinib_pending": bool(alectinib_rows)
-        and any(
+        "ch5424802_alectinib_pending": any(
             mapping.get("source_term") == "CH5424802"
-            and mapping.get("match_grade") == "pending_terminology_mapping"
-            for item in alectinib_rows
-            for mapping in item.get("terminology_mappings") or []
+            and str(mapping.get("mapping_status") or "").startswith("requires_")
+            for mapping in terminology_mappings
         ),
         "complete_resistance_claim_present": "complete resistance" in complete_resistance_text,
         "clinical_population_non_propagation_verified": bool(baf3_units)

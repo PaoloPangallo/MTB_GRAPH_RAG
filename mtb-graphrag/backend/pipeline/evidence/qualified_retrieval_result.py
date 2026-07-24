@@ -93,6 +93,9 @@ AUDIT_ONLY_WARNINGS = (W_CANDIDATE_INVALID,)
 
 # --- codici di esclusione nativa ----------------------------------------------
 X_BIOMARKER_MISMATCH = "native_biomarker_mismatch"
+X_ALTERATION_MISMATCH_WITH_MATCHING_GENE = (
+    "ALTERATION_MISMATCH_WITH_MATCHING_GENE"
+)
 X_DISEASE_MISMATCH = "native_disease_mismatch"
 X_DIRECTION_MISMATCH = "native_direction_mismatch"
 X_POLARITY_MISMATCH = "native_assertion_polarity_mismatch"
@@ -101,6 +104,7 @@ X_INTERVENTION_MISMATCH = "native_intervention_mismatch"
 
 NATIVE_EXCLUSION_CODES = (
     X_BIOMARKER_MISMATCH,
+    X_ALTERATION_MISMATCH_WITH_MATCHING_GENE,
     X_DISEASE_MISMATCH,
     X_DIRECTION_MISMATCH,
     X_POLARITY_MISMATCH,
@@ -204,6 +208,11 @@ class NativeExclusion:
     query_value: Any
     statement_value: Any
     reason_code: str
+    biomarker_match_mode: str = ""
+    query_gene: str = ""
+    query_alteration: str = ""
+    statement_gene: str = ""
+    statement_alteration: str = ""
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -213,6 +222,11 @@ class NativeExclusion:
             "query_value": self.query_value,
             "statement_value": self.statement_value,
             "reason_code": self.reason_code,
+            "biomarker_match_mode": self.biomarker_match_mode,
+            "query_gene": self.query_gene,
+            "query_alteration": self.query_alteration,
+            "statement_gene": self.statement_gene,
+            "statement_alteration": self.statement_alteration,
             "bucket": BUCKET_REJECTED_NATIVE,
         }
 
