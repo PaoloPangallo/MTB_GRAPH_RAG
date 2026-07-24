@@ -1,0 +1,56 @@
+{
+  "active_profile_unit_count": 109,
+  "artifact_hashes": {
+    "author_approval_22235099_history": "ec1dadca28738975fa080d6d9ab447ae479d7e4f90d05fe9c0754f8cb963f57a",
+    "author_approval_22235099_units": "831465df885b5d18fec23c2b8abf0ecd40f7a45c22031cc05a8d763c6df256d6",
+    "author_approval_23344087_history": "6c8a784f99ef704e40c41f52a0db1506508929b49d4a591e9570d4317c4bc0d3",
+    "author_approval_23344087_units": "6c1f3d5ee30715e905ed702eede393b6bbf6bfb012d1fc91ad03d8a5857c84c7",
+    "author_approval_31358542_history": "9497ecacf34cf49b0d7a4581a1d08ad34abb2404cf1de55b96c9ee548704bad0",
+    "author_approval_31358542_units": "3a8ee2a60b9151b11830ecd036974b21d7627a3db54aece7ed768ad4aee4f57d",
+    "clinical_preclinical_review_proposals": "a707285abde9ca2da5db5af2da46afea3d39803375e0c1b189e20526c6999d06",
+    "cohort_split_audit_proposals": "b3e8d0d2bf8fef906cc35811405ed4f01d68acc512d250d996f23b1b638396f0",
+    "first_review_22277784_history": "cbe73f8f5b16f3df57cd3f3a715bac15c075608d6786b9a598282bea341069ae",
+    "first_review_22277784_units": "1b48eedfc76a18b333f2012af669a2a36e9d511978bf496f0a8619631e07d0fe",
+    "priority_curation_resolved": "e6589aff5a77d4abbc5f1c03ad6c428e62efbb0a39ebdf92654fc6ccf6a57f48",
+    "priority_curation_unresolved": "ad02a65132c5be1b7ae193b0f21679a98523fe4753efe19fdcbd86210989d992",
+    "qualification_corpus_base": "f2972e31ccbe62d602f6a7a25b909034b185a99a03ed506931c97cc78e5784e2"
+  },
+  "created_at": "2026-07-24T18:00:00+00:00",
+  "derived_policy_fields": [
+    "cohort_is_resolved",
+    "propagation_eligibility",
+    "may_display_qualifiers",
+    "is_propagatable",
+    "is_hard_filterable",
+    "is_evaluable",
+    "requires_second_independent_review"
+  ],
+  "historical_profile_unit_count": 14,
+  "obsolete_serialized_flags_after": 0,
+  "obsolete_serialized_flags_before": 99,
+  "obsolete_serialized_flags_by_artifact": {
+    "priority_curation/resolved_profile_units.jsonl": 13,
+    "qualification_corpus/source_profile_units.jsonl": 86
+  },
+  "precedence_order": [
+    "qualification_corpus_base",
+    "priority_curation_unresolved",
+    "priority_curation_resolved",
+    "cohort_split_audit_proposals",
+    "clinical_preclinical_review_proposals",
+    "first_review_22277784_history",
+    "first_review_22277784_units",
+    "author_approval_31358542_history",
+    "author_approval_31358542_units",
+    "author_approval_22235099_history",
+    "author_approval_22235099_units",
+    "author_approval_23344087_history",
+    "author_approval_23344087_units"
+  ],
+  "profile_unit_count": 123,
+  "regeneration_reason": "incorporare la politica di propagazione normalizzata e le quattro prime revisioni approvate in un corpus unico, eliminando i flag serializzati che il codice non onora piu'",
+  "regeneration_version": "corpus_regeneration/1.0",
+  "reverse_input_order": false,
+  "source_count": 102,
+  "statement_count": 147
+}
