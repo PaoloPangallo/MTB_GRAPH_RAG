@@ -1,0 +1,57 @@
+{
+  "native_only": {
+    "audit_only_results": 0,
+    "candidates_generated": 38,
+    "deterministic_runtime": true,
+    "native_exclusions": 538,
+    "negative_evidence_surfaced": 3,
+    "prototype_qualifier_contributions": 0,
+    "queries": 4,
+    "result_hash": "cccc7be789621362e50cd0ab3c015fbfac81b434a7fc9c50a6b98a02b027c50f",
+    "results_ranked": 35,
+    "retained_with_warning": 3,
+    "warning_counts": {
+      "negative_experiment": 3
+    }
+  },
+  "qualified_soft": {
+    "audit_only_results": 1,
+    "candidates_generated": 39,
+    "deterministic_runtime": true,
+    "native_exclusions": 538,
+    "negative_evidence_surfaced": 3,
+    "prototype_qualifier_contributions": 37,
+    "queries": 4,
+    "result_hash": "902130be5ebd9ea1f8a901731c45e331ec1b01f3458e2e6da7539b81d485e603",
+    "results_ranked": 0,
+    "retained_with_warning": 38,
+    "warning_counts": {
+      "abstract_only_source": 1,
+      "candidate_conflicting": 2,
+      "candidate_invalid": 1,
+      "candidate_partial": 3,
+      "negative_experiment": 3,
+      "not_separable_composition": 1,
+      "prototype_only_qualifiers": 6,
+      "qualifier_mismatch_observed_but_not_hard_filtered": 3,
+      "qualifier_unreviewed": 33,
+      "terminology_mapping_pending": 39,
+      "unresolved_profile_unit": 39
+    }
+  },
+  "v2_compatibility": {
+    "audit_only_results": 0,
+    "candidates_generated": 38,
+    "deterministic_runtime": true,
+    "native_exclusions": 538,
+    "negative_evidence_surfaced": 3,
+    "prototype_qualifier_contributions": 0,
+    "queries": 4,
+    "result_hash": "cccc7be789621362e50cd0ab3c015fbfac81b434a7fc9c50a6b98a02b027c50f",
+    "results_ranked": 35,
+    "retained_with_warning": 3,
+    "warning_counts": {
+      "negative_experiment": 3
+    }
+  }
+}
