@@ -1,0 +1,116 @@
+{
+  "agreement_by_category": {
+    "directly_tested_in_combination_regimen": {
+      "matched": 4,
+      "n": 6
+    },
+    "directly_tested_in_shared_aggregate_result": {
+      "matched": 4,
+      "n": 6
+    },
+    "directly_tested_with_separate_result": {
+      "matched": 8,
+      "n": 11
+    },
+    "mentioned_background_only": {
+      "matched": 2,
+      "n": 2
+    },
+    "possible_alias_not_verified": {
+      "matched": 3,
+      "n": 3
+    }
+  },
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "descriptive_only_due_to_non_independence": true,
+  "group_level": {
+    "exact_agreement": 12,
+    "kappa": {
+      "category_count": 6,
+      "computed": true,
+      "descriptive_only_due_to_non_independence": true,
+      "expected_agreement": 0.1953,
+      "interpretable": false,
+      "interpretation_note": "Valore descrittivo. Non interpretabile come affidabilita' inter-rater: le due codifiche non sono indipendenti, e con questa numerosita' piu' celle attese restano sotto 5, quindi kappa e' instabile rispetto alla prevalenza.",
+      "kappa": 0.9044,
+      "min_expected_cell_count": 0.077,
+      "n": 13,
+      "observed_agreement": 0.9231,
+      "sparse_categories": true
+    },
+    "percent_agreement": {
+      "agreements": 12,
+      "n": 13,
+      "percent_agreement": 0.9231
+    }
+  },
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level": {
+    "classification_kappa": {
+      "category_count": 8,
+      "computed": true,
+      "descriptive_only_due_to_non_independence": true,
+      "expected_agreement": 0.2041,
+      "interpretable": false,
+      "interpretation_note": "Valore descrittivo. Non interpretabile come affidabilita' inter-rater: le due codifiche non sono indipendenti, e con questa numerosita' piu' celle attese restano sotto 5, quindi kappa e' instabile rispetto alla prevalenza.",
+      "kappa": 0.6859,
+      "min_expected_cell_count": 0.0,
+      "n": 28,
+      "observed_agreement": 0.75,
+      "sparse_categories": true
+    },
+    "classification_percent_agreement": {
+      "agreements": 21,
+      "n": 28,
+      "percent_agreement": 0.75
+    },
+    "compatible_agreement": 3,
+    "disagreements": 9,
+    "exact_agreement": 16,
+    "materialization_kappa": {
+      "category_count": 3,
+      "computed": true,
+      "descriptive_only_due_to_non_independence": true,
+      "expected_agreement": 0.3469,
+      "interpretable": false,
+      "interpretation_note": "Valore descrittivo. Non interpretabile come affidabilita' inter-rater: le due codifiche non sono indipendenti, e con questa numerosita' piu' celle attese restano sotto 5, quindi kappa e' instabile rispetto alla prevalenza.",
+      "kappa": 0.7266,
+      "min_expected_cell_count": 0.857,
+      "n": 28,
+      "observed_agreement": 0.8214,
+      "sparse_categories": true
+    },
+    "materialization_percent_agreement": {
+      "agreements": 23,
+      "n": 28,
+      "percent_agreement": 0.8214
+    },
+    "verdict_counts": {
+      "compatible_agreement": 3,
+      "documentary_role_disagreement": 4,
+      "exact_agreement": 16,
+      "materialization_disagreement": 5
+    }
+  },
+  "locator": {
+    "first_sub_document_unit": 13,
+    "granularity_percent_agreement": {
+      "agreements": 13,
+      "n": 28,
+      "percent_agreement": 0.4643
+    },
+    "replicate_sub_document_unit": 28
+  },
+  "source_unit": {
+    "first_distinct_units": 11,
+    "group_segmentation_percent_agreement": {
+      "agreements": 17,
+      "n": 28,
+      "percent_agreement": 0.6071
+    },
+    "replicate_distinct_units": 18
+  },
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}

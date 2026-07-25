@@ -1,0 +1,61 @@
+{
+  "columns": "blinded_replicate",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "descriptive_only_due_to_non_independence": true,
+  "independent_inter_reviewer_agreement": false,
+  "matrix": {
+    "aggregate_parent_only": {
+      "aggregate_parent_only": 4,
+      "atomic_children_supported": 0,
+      "combination_regimen_required": 0,
+      "insufficient_for_atomicity_decision": 0,
+      "mixed_parent_and_children": 0,
+      "should_not_materialize_missing_interventions": 0
+    },
+    "atomic_children_supported": {
+      "aggregate_parent_only": 0,
+      "atomic_children_supported": 2,
+      "combination_regimen_required": 0,
+      "insufficient_for_atomicity_decision": 0,
+      "mixed_parent_and_children": 0,
+      "should_not_materialize_missing_interventions": 0
+    },
+    "combination_regimen_required": {
+      "aggregate_parent_only": 0,
+      "atomic_children_supported": 0,
+      "combination_regimen_required": 2,
+      "insufficient_for_atomicity_decision": 0,
+      "mixed_parent_and_children": 1,
+      "should_not_materialize_missing_interventions": 0
+    },
+    "insufficient_for_atomicity_decision": {
+      "aggregate_parent_only": 0,
+      "atomic_children_supported": 0,
+      "combination_regimen_required": 0,
+      "insufficient_for_atomicity_decision": 1,
+      "mixed_parent_and_children": 0,
+      "should_not_materialize_missing_interventions": 0
+    },
+    "mixed_parent_and_children": {
+      "aggregate_parent_only": 0,
+      "atomic_children_supported": 0,
+      "combination_regimen_required": 0,
+      "insufficient_for_atomicity_decision": 0,
+      "mixed_parent_and_children": 1,
+      "should_not_materialize_missing_interventions": 0
+    },
+    "should_not_materialize_missing_interventions": {
+      "aggregate_parent_only": 0,
+      "atomic_children_supported": 0,
+      "combination_regimen_required": 0,
+      "insufficient_for_atomicity_decision": 0,
+      "mixed_parent_and_children": 0,
+      "should_not_materialize_missing_interventions": 2
+    }
+  },
+  "rows": "first_review",
+  "total": 13,
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}
