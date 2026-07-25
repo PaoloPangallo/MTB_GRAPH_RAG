@@ -55,6 +55,11 @@ ALLOWED_WRITE_PREFIXES = (
     "benchmarks/mtb_evidence/evaluation/scripts/build_review_comparison_artifacts.py",
     "benchmarks/mtb_evidence/evaluation/data/review_comparison_",
     "backend/tests/test_multi_intervention_review_comparison.py",
+    # Il test di perimetro della seconda revisione misurava il proprio intervallo
+    # contro l'albero di lavoro invece che contro la fine della propria fase, e
+    # sarebbe fallito a ogni fase successiva. Corretto qui, dove il difetto e'
+    # emerso; le annotazioni della seconda revisione restano intatte.
+    "backend/tests/test_multi_intervention_second_review.py",
 )
 
 # I mapping che devono restare distinti: fonderli cancellerebbe l'incertezza di
