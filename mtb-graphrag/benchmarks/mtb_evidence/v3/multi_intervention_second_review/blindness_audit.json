@@ -1,0 +1,48 @@
+{
+  "blindness_violation": false,
+  "conclusion": "Cecita' sui file preservata; indipendenza non raggiunta per contaminazione di contesto a monte della revisione.",
+  "context_contamination": [
+    {
+      "channel": "task_prompt",
+      "does_not_leak": "nessuna decisione per gruppo, nessuna annotazione, nessun risultato aggregato",
+      "item": "Il prompt della task nomina la raccomandazione della prima revisione ('la raccomandazione mixed_policy') nell'elenco di cio' che un revisore indipendente non deve aver letto.",
+      "leaks": "il nome della raccomandazione architetturale della prima revisione"
+    },
+    {
+      "channel": "session_git_status",
+      "does_not_leak": "nessun contenuto di decisione",
+      "item": "Il blocco gitStatus iniettato all'avvio della sessione conteneva gli oggetti dei commit descrittivi della prima revisione.",
+      "leaks": "l'esistenza e il tema dei commit della prima revisione"
+    }
+  ],
+  "denied_path_fragments": [
+    "group_atomicity_decisions",
+    "intervention_level_annotations",
+    "architectural_recommendation",
+    "post_review_schema_simulation",
+    "multi_intervention_source_review.md",
+    "atomicity_decision_report",
+    "adapter_migration_readiness",
+    "multi_intervention_adapter_review",
+    "test_multi_intervention_source_review",
+    "scripts/multi_intervention_source_review",
+    "provisional_gold",
+    "snapshot_gold",
+    "clinical_gold",
+    "/gold/",
+    "_gold.jsonl"
+  ],
+  "first_review_artifacts_accessed": false,
+  "gold_accessed": false,
+  "prohibited_files_opened": [],
+  "retrieval_or_metric_results_accessed": false,
+  "search_events": [
+    {
+      "denied_paths_returned_but_not_opened": true,
+      "output_kind": "solo path, nessun contenuto",
+      "pattern": "AUY922|CH5424802|BGJ398",
+      "purpose": "individuare un registro di mapping terminologici approvati",
+      "scope": "repository, solo elenco di path (grep -l)"
+    }
+  ]
+}
