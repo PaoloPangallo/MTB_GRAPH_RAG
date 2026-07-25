@@ -1,0 +1,115 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-296",
+  "adjudicator_questions": [
+    {
+      "kind": "categorial",
+      "options": [
+        "si_il_parent_e_un_contenitore_non_un_claim",
+        "no_il_parent_e_gia_il_claim"
+      ],
+      "question": "Serve un figlio per pazopanib, intervento gia' portato dal parent?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "'Preliminary anti-tumor activity' e 'stable disease' su un solo paziente bastano a sostenere claim atomici?",
+      "question_id": "Q2"
+    }
+  ],
+  "available_source_text": "Advanced cholangiocarcinoma continues to harbor a difficult prognosis and therapeutic options have been limited. During the course of a clinical trial of whole genomic sequencing seeking druggable targets, we examined six patients with advanced cholangiocarcinoma. Integrated genome-wide and whole transcriptome sequence analyses were performed on tumors from six patients with advanced, sporadic intrahepatic cholangiocarcinoma (SIC) to identify potential therapeutically actionable events. Among the somatic events captured in our analysis, we uncovered two novel therapeutically relevant genomic contexts that when acted upon, resulted in preliminary evidence of anti-tumor activity. Genome-wide structural analysis of sequence data revealed recurrent translocation events involving the FGFR2 locus in three of six assessed patients. These observations and supporting evidence triggered the use of FGFR inhibitors in these patients. In one example, preliminary anti-tumor activity of pazopanib (in vitro FGFR2 IC50≈350 nM) was noted in a patient with an FGFR2-TACC3 fusion. After progression on pazopanib, the same patient also had stable disease on ponatinib, a pan-FGFR inhibitor (in vitro, FGFR2 IC50≈8 nM). In an independent non-FGFR2 translocation patient, exome and transcriptome analysis revealed an allele specific somatic nonsense mutation (E384X) in ERRFI1, a direct negative regulator of EGFR activation. Rapid and robust disease regression was noted in this ERRFI1 inactivated tumor when treated with erlotinib, an EGFR kinase inhibitor. FGFR2 fusions and ERRFI mutations may represent novel targets in sporadic intrahepatic cholangiocarcinoma and trials should be characterized in larger cohorts of patients with these aberrations.",
+  "biomarker": "FGFR2::TACC3 Fusion",
+  "blind_annotation_id": "MI-B-cd69de17ac73dc47",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": true,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Cholangiocarcinoma",
+  "first_review_decision": "atomic_children_supported",
+  "first_review_rationale": "Lo stesso paziente FGFR2-TACC3 ha risultati temporali distinti per pazopanib e ponatinib.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:296",
+  "highlighted_differences": [
+    "pazopanib hydrochloride"
+  ],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_new_child",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "single FGFR2-TACC3 patient: pazopanib treatment",
+      "first_locator": "abstract#UNLABELLED, FGFR2-TACC3 patient, pazopanib sentence",
+      "first_result_paraphrase": "È riportata attività antitumorale preliminare con pazopanib.",
+      "first_source_unit_id": "PU-PMID-24550739-cohort-1",
+      "intervention": "pazopanib hydrochloride",
+      "is_parent_intervention": true,
+      "primary_cause": "parent_vs_child_policy_difference",
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "directly_tested_with_separate_result",
+      "replicate_locator": {
+        "abstract_sentence": 7,
+        "patient_id": "paziente con fusione FGFR2-TACC3",
+        "section": "abstract",
+        "source_id": "PMID:24550739",
+        "treatment_line": "pazopanib",
+        "verbatim_probes": [
+          "preliminary anti-tumor activity of pazopanib (in vitro FGFR2 IC50≈350 nM) was noted in a patient with an FGFR2-TACC3 fusion"
+        ]
+      },
+      "replicate_result_paraphrase": "Attivita' antitumorale preliminare di pazopanib in un paziente con fusione FGFR2-TACC3.",
+      "replicate_source_unit_id": "SU-24550739-patient-tacc3-pazopanib-line",
+      "secondary_causes": [],
+      "verdict": "materialization_disagreement"
+    },
+    {
+      "first_claim_outcome": "claim_via_new_child",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "same single patient: ponatinib after pazopanib progression",
+      "first_locator": "abstract#UNLABELLED, FGFR2-TACC3 patient, post-pazopanib sentence",
+      "first_result_paraphrase": "Dopo progressione a pazopanib è riportata malattia stabile con ponatinib.",
+      "first_source_unit_id": "PU-PMID-24550739-cohort-1",
+      "intervention": "ponatinib",
+      "is_parent_intervention": false,
+      "primary_cause": null,
+      "replicate_claim_outcome": "claim_via_new_child",
+      "replicate_classification": "directly_tested_with_separate_result",
+      "replicate_locator": {
+        "abstract_sentence": 8,
+        "patient_id": "paziente con fusione FGFR2-TACC3",
+        "section": "abstract",
+        "source_id": "PMID:24550739",
+        "treatment_line": "ponatinib, dopo progressione su pazopanib",
+        "verbatim_probes": [
+          "After progression on pazopanib, the same patient also had stable disease on ponatinib"
+        ]
+      },
+      "replicate_result_paraphrase": "Dopo progressione su pazopanib, lo stesso paziente ottiene malattia stabile con ponatinib.",
+      "replicate_source_unit_id": "SU-24550739-patient-tacc3-ponatinib-line",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    }
+  ],
+  "interventions": [
+    "pazopanib hydrochloride",
+    "ponatinib"
+  ],
+  "pending_mapping_present": false,
+  "possible_schema_impact": "Oltre alla questione parent/figlio, fissa una soglia minima di forza dell'evidenza per la materializzazione.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "atomic_children_supported",
+  "replicate_rationale": "Lo stesso paziente riceve pazopanib e poi, dopo progressione, ponatinib, con esiti attribuiti esplicitamente e separatamente a ciascuna linea. Due unita' documentali distinte con locator sufficiente. Confidence media perche' n = 1 ed entrambi gli esiti sono deboli.",
+  "retrieval_results_included": false,
+  "scope_issue_present": true,
+  "source_access_status": "abstract_only",
+  "source_id": "PMID:24550739",
+  "source_text_kind": "abstract",
+  "source_title": "Integrated genomic characterization reveals novel, therapeutically relevant drug targets in FGFR and EGFR pathways in sporadic intrahepatic cholangiocarcinoma.",
+  "statement_id": "ES-V2-evidence-296",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}

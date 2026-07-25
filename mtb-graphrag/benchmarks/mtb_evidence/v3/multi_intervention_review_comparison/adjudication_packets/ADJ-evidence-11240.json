@@ -1,0 +1,126 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-11240",
+  "adjudicator_questions": [
+    {
+      "kind": "categorial",
+      "options": [
+        "unita_autonoma",
+        "componente_di_regime",
+        "insufficiente_per_decidere"
+      ],
+      "question": "Il braccio placebo + erlotinib, con PFS mediana 12,4 mesi e intervallo di confidenza propri, e' un'unita' documentale con risultato autonomo o un componente del regime confrontato?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Il risultato di RELAY e' attribuibile separatamente a erlotinib?",
+      "question_id": "Q2"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Ramucirumab deve restare non materializzato in quanto componente di regime?",
+      "question_id": "Q3"
+    }
+  ],
+  "available_source_text": "Dual blockade of the EGFR and VEGF pathways in EGFR-mutated metastatic non-small-cell lung cancer (NSCLC) is supported by preclinical and clinical data, yet the approach is not widely implemented. RELAY assessed erlotinib, an EGFR tyrosine kinase inhibitor (TKI) standard of care, plus ramucirumab, a human IgG1 VEGFR2 antagonist, or placebo in patients with untreated EGFR-mutated metastatic NSCLC. This is a worldwide, double-blind, phase 3 trial done in 100 hospitals, clinics, and medical centres in 13 countries. Eligible patients were aged 18 years or older (20 years or older in Japan and Taiwan) at the time of study entry, had stage IV NSCLC, with an EGFR exon 19 deletion (ex19del) or exon 21 substitution (Leu858Arg) mutation, an Eastern Cooperative Oncology Group performance status of 0 or 1, and no CNS metastases. We randomly assigned eligible patients in a 1:1 ratio to receive oral erlotinib (150 mg/day) plus either intravenous ramucirumab (10 mg/kg) or matching placebo once every 2 weeks. Randomisation was done by an interactive web response system with a computer-generated sequence and stratified by sex, geographical region, EGFR mutation type, and EGFR testing method. The primary endpoint was investigator-assessed progression-free survival in the intention-to-treat population. Safety was assessed in all patients who received at least one dose of study treatment. This trial is registered at ClinicalTrials.gov, NCT02411448, and is ongoing for long-term survival follow-up. Between Jan 28, 2016, and Feb 1, 2018, 449 eligible patients were enrolled and randomly assigned to treatment with ramucirumab plus erlotinib (n=224) or placebo plus erlotinib (n=225). Median duration of follow-up was 20·7 months (IQR 15·8-27·2). At the time of primary analysis, progression-free survival was significantly longer in the ramucirumab plus erlotinib group (19·4 months [95% CI 15·4-21·6]) than in the placebo plus erlotinib group (12·4 months [11·0-13·5]), with a stratified hazard ratio of 0·59 (95% CI 0·46-0·76; p<0·0001). Grade 3-4 treatment-emergent adverse events were reported in 159 (72%) of 221 patients in the ramucirumab plus erlotinib group versus 121 (54%) of 225 in the placebo plus erlotinib group. The most common grade 3-4 treatment-emergent adverse events in the ramucirumab plus erlotinib group were hypertension (52 [24%]; grade 3 only) and dermatitis acneiform (33 [15%]), and in the placebo plus erlotinib group were dermatitis acneiform (20 [9%]) and increased alanine aminotransferase (17 [8%]). Treatment-emergent serious adverse events were reported in 65 (29%) of 221 patients in the ramucirumab plus erlotinib group and 47 (21%) of 225 in the placebo plus erlotinib group. The most common serious adverse events of any grade in the ramucirumab plus erlotinib group were pneumonia (seven [3%]) and cellulitis and pneumothorax (four [2%], each); the most common in the placebo plus erlotinib group were pyrexia (four [2%]) and pneumothorax (three [1%]). One on-study treatment-related death due to an adverse event occurred (haemothorax after a thoracic drainage procedure for a pleural empyema) in the ramucirumab plus erlotinib group. Ramucirumab plus erlotinib demonstrated superior progression-free survival compared with placebo plus erlotinib in patients with untreated EGFR-mutated metastatic NSCLC. Safety was consistent with the safety profiles of the individual compounds in advanced lung cancer. The RELAY regimen is a viable new treatment option for the initial treatment of EGFR-mutated metastatic NSCLC. Eli Lilly.",
+  "biomarker": "EGFR L858R OR EGFR Exon 19 Deletion",
+  "blind_annotation_id": "MI-B-3ded61139bc74e60",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": false,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Lung Non-small Cell Carcinoma",
+  "first_review_decision": "combination_regimen_required",
+  "first_review_rationale": "Il risultato riguarda ramucirumab più erlotinib rispetto a placebo più erlotinib; i componenti non sono claim indipendenti.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:11240",
+  "highlighted_differences": [
+    "erlotinib"
+  ],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_existing_parent",
+      "first_classification": "directly_tested_in_combination_regimen",
+      "first_documentary_unit": "RELAY trial backbone in both arms",
+      "first_locator": "abstract#METHODS; abstract#FINDINGS",
+      "first_result_paraphrase": "Erlotinib è il backbone in entrambi i bracci e non ha un effetto separabile nel confronto.",
+      "first_source_unit_id": "PU-PMID-31591063-cohort-1",
+      "intervention": "erlotinib",
+      "is_parent_intervention": true,
+      "primary_cause": "regimen_vs_mixed_boundary",
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "directly_tested_with_separate_result",
+      "replicate_locator": {
+        "abstract_sentence": 12,
+        "experimental_arm": "placebo plus erlotinib",
+        "section": "abstract",
+        "source_id": "PMID:31591063",
+        "verbatim_probes": [
+          "the placebo plus erlotinib group (12·4 months [11·0-13·5])"
+        ]
+      },
+      "replicate_result_paraphrase": "Nel braccio placebo + erlotinib la PFS mediana e' 12,4 mesi (IC 95% 11,0-13,5). E' un esito di braccio attribuibile a erlotinib come unico agente attivo.",
+      "replicate_source_unit_id": "SU-31591063-arm-placebo-erlotinib",
+      "secondary_causes": [
+        "source_unit_segmentation_difference",
+        "annotation_guideline_ambiguity"
+      ],
+      "verdict": "documentary_role_disagreement"
+    },
+    {
+      "first_claim_outcome": "no_claim",
+      "first_classification": "directly_tested_in_combination_regimen",
+      "first_documentary_unit": "RELAY ramucirumab-plus-erlotinib arm",
+      "first_locator": "abstract#METHODS; abstract#FINDINGS",
+      "first_result_paraphrase": "L'effetto è attribuito al regime ramucirumab più erlotinib.",
+      "first_source_unit_id": "PU-PMID-31591063-cohort-1",
+      "intervention": "ramucirumab",
+      "is_parent_intervention": false,
+      "primary_cause": null,
+      "replicate_claim_outcome": "no_claim",
+      "replicate_classification": "directly_tested_in_combination_regimen",
+      "replicate_locator": {
+        "abstract_sentence": 12,
+        "experimental_arm": "ramucirumab plus erlotinib",
+        "section": "abstract",
+        "source_id": "PMID:31591063",
+        "verbatim_probes": [
+          "progression-free survival was significantly longer in the ramucirumab plus erlotinib group"
+        ]
+      },
+      "replicate_result_paraphrase": "PFS 19,4 mesi con ramucirumab + erlotinib contro 12,4 con placebo + erlotinib (HR 0,59). Il risultato appartiene alla combinazione.",
+      "replicate_source_unit_id": "SU-31591063-arm-ramucirumab-erlotinib",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    }
+  ],
+  "interventions": [
+    "erlotinib",
+    "ramucirumab"
+  ],
+  "pending_mapping_present": false,
+  "possible_schema_impact": "Decide se il gruppo e' combination_regimen_required o mixed_parent_and_children, e fissa la regola per tutti i disegni add-on con backbone comune ai bracci.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "mixed_parent_and_children",
+  "replicate_rationale": "Solo erlotinib ha un esito di braccio proprio (placebo + erlotinib, PFS mediana 12,4 mesi con IC). Ramucirumab esiste solo dentro la combinazione. La decisione e' mista sull'autonomia del risultato, pur non proponendo alcun figlio: l'intervento con risultato autonomo e' gia' il parent.",
+  "retrieval_results_included": false,
+  "scope_issue_present": false,
+  "source_access_status": "abstract_only",
+  "source_id": "PMID:31591063",
+  "source_text_kind": "abstract",
+  "source_title": "Ramucirumab plus erlotinib in patients with untreated, EGFR-mutated, advanced non-small-cell lung cancer (RELAY): a randomised, double-blind, placebo-controlled, phase 3 trial.",
+  "statement_id": "ES-V2-evidence-11240",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}

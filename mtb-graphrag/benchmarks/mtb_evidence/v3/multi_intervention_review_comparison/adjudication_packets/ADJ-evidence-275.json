@@ -1,0 +1,132 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-275",
+  "adjudicator_questions": [
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "La fonte, che nomina solo 'EGFR-TKI' e nessun farmaco, sostiene un claim intervention-level per erlotinib?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "categorial",
+      "options": [
+        "aggregato_condiviso",
+        "membro_di_classe_non_testato",
+        "intervento_assente_dalla_fonte"
+      ],
+      "question": "Come va classificata l'associazione quando il farmaco non compare come stringa nella fonte?",
+      "question_id": "Q2"
+    },
+    {
+      "kind": "categorial",
+      "options": [
+        "mantenuto",
+        "ridotto_a_claim_di_classe",
+        "ritirato",
+        "sospeso_in_attesa_di_full_text"
+      ],
+      "question": "Che ne e' dello statement parent gia' materializzato?",
+      "question_id": "Q3"
+    }
+  ],
+  "available_source_text": "The presence of EGFR (epidermal growth factor receptor) mutations is a robust predictor of EGFR tyrosine kinase inhibitor (TKI) responsiveness. Predictors of EGFR-TKI responsiveness in EGFR-mutant non-small cell lung cancer (NSCLC) patients, however, have not been well investigated. The purpose of this study is to examine predictors of EGFR-TKI responsiveness in EGFR-mutant NSCLC patients. Seventy EGFR-mutant NSCLC patients who received EGFR-TKIs in our institution between April 2007 and March 2013 were analyzed retrospectively. The objective response rate was 50.0% (95% confidence interval, CI, 38.6-61.4%) and the disease control rate was 91.4% (95% CI, 82.5-96.0%). The median progression-free survival (PFS) and overall survival were 9.0 (95% CI, 3.92-14.08) and 20.8 months (95% CI, 14.56-27.04), respectively. In multivariate analysis, adenocarcinoma (hazard ratio, HR, 12.25; 95% CI, 37.7-41.10; p < 0.001) and major mutations (deletions in exon 19 and L858R point mutation in exon 21; HR, 2.46; 95% CI, 1.14-5.28; p = 0.022) were significant predictors of longer PFS. Major mutations and adenocarcinoma histology were independent predictors of better treatment outcome in EGFR-mutant NSCLC patients who received EGFR-TKIs. Further well-controlled prospective studies are warranted to confirm our findings.",
+  "biomarker": "EGFR L858R",
+  "blind_annotation_id": "MI-B-83c70396946a191d",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": true,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Lung Non-small Cell Carcinoma",
+  "first_review_decision": "aggregate_parent_only",
+  "first_review_rationale": "L'abstract riporta outcome per pazienti che hanno ricevuto EGFR-TKI senza separare gefitinib da erlotinib.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:275",
+  "highlighted_differences": [
+    "erlotinib",
+    "gefitinib"
+  ],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_existing_parent",
+      "first_classification": "directly_tested_in_shared_aggregate_result",
+      "first_documentary_unit": "retrospective EGFR-TKI cohort",
+      "first_locator": "abstract#PATIENTS AND METHODS; abstract#RESULTS",
+      "first_result_paraphrase": "Gli outcome sono aggregati a livello di EGFR-TKI e non per singolo farmaco.",
+      "first_source_unit_id": "PU-PMID-24457318-cohort-1",
+      "intervention": "erlotinib",
+      "is_parent_intervention": true,
+      "primary_cause": "intervention_identity_uncertainty",
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "drug_class_member_not_individually_tested",
+      "replicate_locator": {
+        "abstract_sentence": 4,
+        "experimental_arm": "coorte retrospettiva di 70 pazienti trattati con EGFR-TKI",
+        "section": "abstract",
+        "source_id": "PMID:24457318",
+        "verbatim_probes": [
+          "Seventy EGFR-mutant NSCLC patients who received EGFR-TKIs in our institution between April 2007 and March 2013 were analyzed retrospectively."
+        ]
+      },
+      "replicate_result_paraphrase": "La coorte riceve 'EGFR-TKI' come classe; ORR 50%, DCR 91,4%, PFS mediana 9,0 mesi sono esiti di classe. Nessun farmaco e' nominato.",
+      "replicate_source_unit_id": "SU-24457318-cohort-egfr-tki",
+      "secondary_causes": [
+        "aggregate_vs_specific_boundary",
+        "annotation_guideline_ambiguity"
+      ],
+      "verdict": "documentary_role_disagreement"
+    },
+    {
+      "first_claim_outcome": "no_claim",
+      "first_classification": "directly_tested_in_shared_aggregate_result",
+      "first_documentary_unit": "retrospective EGFR-TKI cohort",
+      "first_locator": "abstract#PATIENTS AND METHODS; abstract#RESULTS",
+      "first_result_paraphrase": "Gli outcome sono aggregati a livello di EGFR-TKI e non per singolo farmaco.",
+      "first_source_unit_id": "PU-PMID-24457318-cohort-1",
+      "intervention": "gefitinib",
+      "is_parent_intervention": false,
+      "primary_cause": "intervention_identity_uncertainty",
+      "replicate_claim_outcome": "no_claim",
+      "replicate_classification": "drug_class_member_not_individually_tested",
+      "replicate_locator": {
+        "abstract_sentence": 4,
+        "experimental_arm": "coorte retrospettiva di 70 pazienti trattati con EGFR-TKI",
+        "section": "abstract",
+        "source_id": "PMID:24457318",
+        "verbatim_probes": [
+          "Seventy EGFR-mutant NSCLC patients who received EGFR-TKIs in our institution between April 2007 and March 2013 were analyzed retrospectively."
+        ]
+      },
+      "replicate_result_paraphrase": "Gefitinib non compare nella fonte: e' un membro della classe EGFR-TKI, non un intervento testato individualmente.",
+      "replicate_source_unit_id": "SU-24457318-cohort-egfr-tki",
+      "secondary_causes": [
+        "aggregate_vs_specific_boundary",
+        "annotation_guideline_ambiguity"
+      ],
+      "verdict": "documentary_role_disagreement"
+    }
+  ],
+  "interventions": [
+    "erlotinib",
+    "gefitinib"
+  ],
+  "pending_mapping_present": false,
+  "possible_schema_impact": "Puo' toccare un claim gia' materializzato, non solo la creazione di figli. E' l'unico caso del confronto in cui l'esito potrebbe essere la rimozione di un claim esistente.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "aggregate_parent_only",
+  "replicate_rationale": "La coorte e' trattata con 'EGFR-TKI' come classe e nessuno dei due farmaci e' nominato nella fonte accessibile. L'esito e' di classe, condiviso e non separabile.",
+  "retrieval_results_included": false,
+  "scope_issue_present": true,
+  "source_access_status": "abstract_only",
+  "source_id": "PMID:24457318",
+  "source_text_kind": "abstract",
+  "source_title": "Clinical predictors of response to EGFR tyrosine kinase inhibitors in patients with EGFR-mutant non-small cell lung cancer.",
+  "statement_id": "ES-V2-evidence-275",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}

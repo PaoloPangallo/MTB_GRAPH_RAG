@@ -1,0 +1,121 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-1853",
+  "adjudicator_questions": [
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Infigratinib deve restare non materializzato finche' BGJ398 non e' verificato come lo stesso intervento?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "categorial",
+      "options": [
+        "mantenuto",
+        "sospeso_fino_a_verifica_del_mapping",
+        "ritirato"
+      ],
+      "question": "Che ne e' dello statement parent, che nomina infigratinib mentre la fonte usa solo BGJ398?",
+      "question_id": "Q2"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Un'unica unita' documentale che copre entrambe le fusioni puo' sostenere due claim distinti per biomarcatore?",
+      "question_id": "Q3"
+    }
+  ],
+  "available_source_text": "Cholangiocarcinoma is an intractable cancer, with limited therapeutic options, in which the molecular mechanisms underlying tumor development remain poorly understood. Identification of a novel driver oncogene and applying it to targeted therapies for molecularly defined cancers might lead to improvements in the outcome of patients. We performed massively parallel whole transcriptome sequencing in eight specimens from cholangiocarcinoma patients without KRAS/BRAF/ROS1 alterations and identified two fusion kinase genes, FGFR2-AHCYL1 and FGFR2-BICC1. In reverse-transcriptase polymerase chain reaction (RT-PCR) screening, the FGFR2 fusion was detected in nine patients with cholangiocarcinoma (9/102), exclusively in the intrahepatic subtype (9/66, 13.6%), rarely in colorectal (1/149) and hepatocellular carcinoma (1/96), and none in gastric cancer (0/212). The rearrangements were mutually exclusive with KRAS/BRAF mutations. Expression of the fusion kinases in NIH3T3 cells activated MAPK and conferred anchorage-independent growth and in vivo tumorigenesis of subcutaneous transplanted cells in immune-compromised mice. This transforming ability was attributable to its kinase activity. Treatment with the fibroblast growth factor receptor (FGFR) kinase inhibitors BGJ398 and PD173074 effectively suppressed transformation. FGFR2 fusions occur in 13.6% of intrahepatic cholangiocarcinoma. The expression pattern of these fusions in association with sensitivity to FGFR inhibitors warrant a new molecular classification of cholangiocarcinoma and suggest a new therapeutic approach to the disease.",
+  "biomarker": "FGFR2::AHCYL1 Fusion",
+  "blind_annotation_id": "MI-B-c9174014bdf40550",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": true,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Cholangiocarcinoma",
+  "first_review_decision": "aggregate_parent_only",
+  "first_review_rationale": "L'abstract aggrega BGJ398 e PD173074 come FGFR inhibitors; BGJ398/infigratinib non è un mapping approvato in questo corpus.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:1853",
+  "highlighted_differences": [],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_existing_parent",
+      "first_classification": "possible_alias_not_verified",
+      "first_documentary_unit": "NIH3T3 FGFR2-AHCYL1 transformation experiment",
+      "first_locator": "abstract#UNLABELLED, final transformation-suppression sentence",
+      "first_result_paraphrase": "La fonte nomina BGJ398, non infigratinib, in un risultato condiviso con PD173074.",
+      "first_source_unit_id": "PU-PMID-24122810-cohort-1",
+      "intervention": "infigratinib",
+      "is_parent_intervention": true,
+      "primary_cause": null,
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "possible_alias_not_verified",
+      "replicate_locator": {
+        "abstract_sentence": 8,
+        "cell_line": "NIH3T3",
+        "section": "abstract",
+        "source_id": "PMID:24122810",
+        "verbatim_probes": [
+          "Treatment with the fibroblast growth factor receptor (FGFR) kinase inhibitors BGJ398 and PD173074 effectively suppressed transformation."
+        ]
+      },
+      "replicate_result_paraphrase": "La fonte riporta che BGJ398 sopprime la trasformazione; non nomina mai infigratinib ne' dichiara l'equivalenza dei due termini.",
+      "replicate_source_unit_id": "SU-24122810-nih3t3-fgfr-inhibitor-assay",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    },
+    {
+      "first_claim_outcome": "no_claim",
+      "first_classification": "directly_tested_in_shared_aggregate_result",
+      "first_documentary_unit": "NIH3T3 FGFR2-AHCYL1 transformation experiment",
+      "first_locator": "abstract#UNLABELLED, final transformation-suppression sentence",
+      "first_result_paraphrase": "PD173074 è incluso nel risultato aggregato di soppressione della trasformazione.",
+      "first_source_unit_id": "PU-PMID-24122810-cohort-1",
+      "intervention": "pd173074",
+      "is_parent_intervention": false,
+      "primary_cause": null,
+      "replicate_claim_outcome": "no_claim",
+      "replicate_classification": "directly_tested_in_shared_aggregate_result",
+      "replicate_locator": {
+        "abstract_sentence": 8,
+        "cell_line": "NIH3T3",
+        "section": "abstract",
+        "source_id": "PMID:24122810",
+        "verbatim_probes": [
+          "Treatment with the fibroblast growth factor receptor (FGFR) kinase inhibitors BGJ398 and PD173074 effectively suppressed transformation."
+        ]
+      },
+      "replicate_result_paraphrase": "PD173074 e BGJ398 sopprimono la trasformazione in un unico enunciato congiunto, riferito collettivamente a 'le chinasi di fusione'.",
+      "replicate_source_unit_id": "SU-24122810-nih3t3-fgfr-inhibitor-assay",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    }
+  ],
+  "interventions": [
+    "infigratinib",
+    "pd173074"
+  ],
+  "pending_mapping_present": true,
+  "possible_schema_impact": "Q3 riguarda la deduplicazione: una sola frase sostiene due righe di gruppo. Resta preclinico in ogni scenario.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "aggregate_parent_only",
+  "replicate_rationale": "Sostenuto dalla stessa identica unita' documentale del gruppo FGFR2::BICC1; la fonte non distingue AHCYL1 da BICC1 nel risultato.",
+  "retrieval_results_included": false,
+  "scope_issue_present": true,
+  "source_access_status": "abstract_only",
+  "source_id": "PMID:24122810",
+  "source_text_kind": "abstract",
+  "source_title": "Fibroblast growth factor receptor 2 tyrosine kinase fusions define a unique molecular subtype of cholangiocarcinoma.",
+  "statement_id": "ES-V2-evidence-1853",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}
