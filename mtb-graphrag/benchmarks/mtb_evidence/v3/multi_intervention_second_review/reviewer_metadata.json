@@ -1,0 +1,16 @@
+{
+  "blindness_violation": false,
+  "context_contamination": true,
+  "declaration": "Nessun artefatto della prima revisione e' stato aperto. La revisione non e' comunque indipendente: il prompt della task e il blocco gitStatus iniettato all'avvio della sessione contenevano elementi della prima revisione.",
+  "final_evaluable": false,
+  "hard_filterable": false,
+  "independent_review_valid": false,
+  "packets_reviewed": 13,
+  "propagation_policy": "prototype_only",
+  "review_branch": "review/v3-multi-intervention-second-review",
+  "review_independence": "blinded_non_independent_replicate",
+  "review_status": "second_review_complete",
+  "review_version": "multi-intervention-second-review/1.0",
+  "reviewer_role": "blinded_replicate",
+  "start_sha": "018bdfa7393c773722bb61755c4c5146a9ef98f9"
+}
