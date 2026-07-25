@@ -1,0 +1,122 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-4759",
+  "adjudicator_questions": [
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Il biomarcatore del risultato coincide con quello del claim, dato che l'unico esito riguarda le mutazioni non comuni e non L858R/ex19del?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "categorial",
+      "options": [
+        "mantenuto",
+        "ri-scopato_sulle_mutazioni_non_comuni",
+        "ritirato",
+        "sospeso_in_attesa_di_full_text"
+      ],
+      "question": "Se non coincide, che ne e' dello statement parent?",
+      "question_id": "Q2"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "L'esito aggregato su 'gefitinib o erlotinib' resta non separabile?",
+      "question_id": "Q3"
+    }
+  ],
+  "available_source_text": "Clinical features of epidermal growth factor receptor (EGFR) mutations, L858R, deletions in exon 19, T790M, and insertions in exon 20, in non-small cell lung cancer (NSCLC) are well known. The clinical significance of other uncommon EGFR mutations, such as their association with the effectiveness of EGFR tyrosine kinase inhibitors (TKI), is not well understood. This study aimed to improve the understanding of these uncommon EGFR mutations of unknown clinical significance. Specimens from 1,261 patients were tested for EGFR mutations. We surveyed the clinical data and the effectiveness of gefitinib and erlotinib in NSCLC patients with uncommon EGFR mutations. Of the 1,261 patients, 627 (49.8%) had EGFR mutations. This included 258 patients with deletions in exon 19, 260 patients with L858R, 25 patients with insertions or duplications in exon 20, 6 patients with de novo T790M, and 78 (12.4%) patients with uncommon mutations. Of the 78 patients, 62 received either gefitinib or erlotinib treatment. The response rate of TKIs treatment was 48.4%, and the median progression-free survival (PFS) was 5.0 months. Mutations on G719 and L861 composed a major part (28 of 62) of uncommon mutations, and were associated with a favorable effectiveness of EGFR TKIs (response rate, 57.1%; median PFS, 6.0 months). Mutations other than G719 and L861 led to a worse response to EGFR TKIs (response rate, 20.0%; median PFS, 1.6 months). Uncommon EGFR mutations constituted a distinct part of the whole group of EGFR mutations. Their composition was heterogeneous, and their associations with EGFR TKIs differed.",
+  "biomarker": "EGFR L858R OR EGFR Exon 19 Deletion",
+  "blind_annotation_id": "MI-B-b4e82c2009b6a061",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": true,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Lung Non-small Cell Carcinoma",
+  "first_review_decision": "aggregate_parent_only",
+  "first_review_rationale": "I pazienti ricevono gefitinib oppure erlotinib, ma gli outcome sono riportati come EGFR-TKI aggregati.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:4759",
+  "highlighted_differences": [],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_existing_parent",
+      "first_classification": "directly_tested_in_shared_aggregate_result",
+      "first_documentary_unit": "62-patient uncommon-EGFR-mutation treatment cohort",
+      "first_locator": "abstract#PATIENTS AND METHODS; abstract#RESULTS",
+      "first_result_paraphrase": "Gli outcome sono aggregati per pazienti trattati con uno dei due TKI.",
+      "first_source_unit_id": "PU-PMID-21531810-cohort-1",
+      "intervention": "erlotinib",
+      "is_parent_intervention": true,
+      "primary_cause": null,
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "directly_tested_in_shared_aggregate_result",
+      "replicate_locator": {
+        "abstract_sentence": 8,
+        "experimental_arm": "sottogruppo di 62 pazienti con mutazioni non comuni trattati con gefitinib o erlotinib",
+        "section": "abstract",
+        "source_id": "PMID:21531810",
+        "verbatim_probes": [
+          "Of the 78 patients, 62 received either gefitinib or erlotinib treatment."
+        ]
+      },
+      "replicate_result_paraphrase": "L'esito riportato (ORR 48,4%, PFS mediana 5,0 mesi) e' del sottogruppo trattato con 'gefitinib o erlotinib' in forma aggregata; nessun esito per singolo farmaco.",
+      "replicate_source_unit_id": "SU-21531810-uncommon-mutation-tki-subgroup",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    },
+    {
+      "first_claim_outcome": "no_claim",
+      "first_classification": "directly_tested_in_shared_aggregate_result",
+      "first_documentary_unit": "62-patient uncommon-EGFR-mutation treatment cohort",
+      "first_locator": "abstract#PATIENTS AND METHODS; abstract#RESULTS",
+      "first_result_paraphrase": "Gli outcome sono aggregati per pazienti trattati con uno dei due TKI.",
+      "first_source_unit_id": "PU-PMID-21531810-cohort-1",
+      "intervention": "gefitinib",
+      "is_parent_intervention": false,
+      "primary_cause": null,
+      "replicate_claim_outcome": "no_claim",
+      "replicate_classification": "directly_tested_in_shared_aggregate_result",
+      "replicate_locator": {
+        "abstract_sentence": 8,
+        "experimental_arm": "sottogruppo di 62 pazienti con mutazioni non comuni trattati con gefitinib o erlotinib",
+        "section": "abstract",
+        "source_id": "PMID:21531810",
+        "verbatim_probes": [
+          "Of the 78 patients, 62 received either gefitinib or erlotinib treatment."
+        ]
+      },
+      "replicate_result_paraphrase": "Gefitinib partecipa allo stesso esito aggregato di erlotinib; la fonte scrive 'either gefitinib or erlotinib' senza separare i risultati.",
+      "replicate_source_unit_id": "SU-21531810-uncommon-mutation-tki-subgroup",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    }
+  ],
+  "interventions": [
+    "erlotinib",
+    "gefitinib"
+  ],
+  "pending_mapping_present": false,
+  "possible_schema_impact": "Le due revisioni concordano su tutto l'asse intervento: qui l'adjudication non serve a scegliere fra loro ma a decidere una questione che nessuna delle due aveva mandato di risolvere.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "aggregate_parent_only",
+  "replicate_rationale": "La fonte riporta un unico esito per il sottogruppo trattato con 'either gefitinib or erlotinib', senza separare i farmaci.",
+  "retrieval_results_included": false,
+  "scope_issue_present": true,
+  "source_access_status": "abstract_only",
+  "source_id": "PMID:21531810",
+  "source_text_kind": "abstract",
+  "source_title": "Effectiveness of tyrosine kinase inhibitors on \"uncommon\" epidermal growth factor receptor mutations of unknown clinical significance in non-small cell lung cancer.",
+  "statement_id": "ES-V2-evidence-4759",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}

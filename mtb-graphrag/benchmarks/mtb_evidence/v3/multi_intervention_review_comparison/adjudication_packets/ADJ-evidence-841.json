@@ -1,0 +1,156 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-841",
+  "adjudicator_questions": [
+    {
+      "kind": "categorial",
+      "options": [
+        "si_il_parent_e_un_contenitore_non_un_claim",
+        "no_il_parent_e_gia_il_claim"
+      ],
+      "question": "Serve un figlio per ceritinib, intervento gia' portato dal parent?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "categorial",
+      "options": [
+        "prima_linea_su_cui_la_mutazione_e_emersa",
+        "reintroduzione_senza_risposta",
+        "entrambe_come_unita_distinte"
+      ],
+      "question": "Quale unita' documentale deve ancorare il claim di resistenza a C1156Y per crizotinib?",
+      "question_id": "Q2"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Luminespib deve restare non materializzato finche' AUY922 non e' verificato come lo stesso intervento?",
+      "question_id": "Q3"
+    }
+  ],
+  "available_source_text": "Case Report A 52-year-old woman with metastatic ALK -rearranged NSCLC received first-line crizotinib and had a clinically significant response that lasted for 18 months. Computed tomography (CT) at that time revealed new abdominal lymphadenopathy. She underwent biopsy of a lymph node that was enlarging while she was receiving crizotinib; the biopsy specimen showed a crizotinib-resistant ALK C1156Y mutation. 17 Crizotinib was discontinued, and she began to receive ceritinib. First restaging CT scans at 5 weeks showed progressive disease with numerous new metastatic liver lesions. She then received a heat shock protein 90 (HSP90) inhibitor (AUY922) and had rapidly worsening disease. Chemotherapy (carboplatin–pemetrexed) was then administered, and she had a response that lasted for 6 months. After the cancer relapsed while the patient was receiving chemotherapy, she received crizotinib again and had no response. The patient then enrolled in a phase 1 trial of lorlatinib. The first restaging CT after 5 weeks of treatment showed a 41% reduction in tumor burden ( Fig. 1B ). She did well until 8 months later, when CT showed worsening liver metastases. She underwent biopsy of a resistant liver lesion and continued to receive lorlatinib. Two weeks later, nausea and indigestion developed, and her total bilirubin level was 0.8 mg per deci-liter (14 μ mol per liter) (baseline, 0.3 mg per deciliter [5.1 μ mol per liter]). Lorlatinib was discontinued. Three days later, she was admitted to the hospital with progressive nausea, abdominal pain, and fatigue. Laboratory studies were notable for worsening hepatic dysfunction, with an elevated total bilirubin level of 1.4 mg per deciliter (24 μ mol per liter). CT showed markedly worsening disease with nearly confluent metastatic lesions in the liver, splenomegaly, and ascites ( Fig. 1B ). She received a single dose of low-dose vinorelbine (22.5 mg per square meter of body weight). Over the next 5 days, she had further clinical deterioration and impending liver failure, with a total bilirubin level increasing to 4.8 mg per deciliter (82 μ mol per liter) ( Fig. 1C ). At this point, molecular testing revealed two ALK resistance mutations (detailed below). Examination of the structure of the ALK kinase domain suggested that crizotinib could have activity against this compound mutant. Treatment with crizotinib was then restarted. The patient had a rapid and dramatic clinical improvement, with resolution of her liver failure ( Fig. 1C ). She was discharged from the hospital and continued to receive therapy with full-dose crizotinib. She also received intermittent low-dose vinorelbine, but chemotherapy was frequently interrupted, the dose was further reduced, and eventually it was discontinued because of neutropenia. Serial restaging CT showed a clinically significant radiologic response that lasted almost 6 months ( Fig. 1B ).",
+  "biomarker": "EML4::ALK Fusion AND ALK C1156Y",
+  "blind_annotation_id": "MI-B-72b36cde2fff1311",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": true,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Lung Non-small Cell Carcinoma",
+  "first_review_decision": "mixed_parent_and_children",
+  "first_review_rationale": "Crizotinib e ceritinib hanno risultati clinici separati; la fonte usa AUY922, mentre il record V2 usa luminespib senza mapping locale approvato.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:841",
+  "highlighted_differences": [
+    "ceritinib"
+  ],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_new_child",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "single patient: ceritinib treatment after crizotinib",
+      "first_locator": "full_text#Case Report, first restaging CT at 5 weeks",
+      "first_result_paraphrase": "La prima ristadiazione durante ceritinib mostra progressione con nuove metastasi epatiche.",
+      "first_source_unit_id": "PU-PMID-26698910-cohort-1",
+      "intervention": "ceritinib",
+      "is_parent_intervention": true,
+      "primary_cause": "parent_vs_child_policy_difference",
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "directly_tested_with_separate_result",
+      "replicate_locator": {
+        "paragraph": "estratto Case Report, frase 4",
+        "patient_id": "donna di 52 anni con NSCLC ALK-riarrangiato",
+        "section": "Case Report",
+        "source_id": "PMID:26698910",
+        "treatment_line": "ceritinib, dopo crizotinib di prima linea",
+        "verbatim_probes": [
+          "she began to receive ceritinib",
+          "First restaging CT scans at 5 weeks showed progressive disease with numerous new metastatic liver lesions."
+        ]
+      },
+      "replicate_result_paraphrase": "Iniziato ceritinib dopo sospensione di crizotinib e documentazione di ALK C1156Y; la prima rivalutazione TC a 5 settimane mostra progressione con nuove lesioni epatiche.",
+      "replicate_source_unit_id": "SU-26698910-patient-c1156y-ceritinib-line",
+      "secondary_causes": [],
+      "verdict": "materialization_disagreement"
+    },
+    {
+      "first_claim_outcome": "claim_via_new_child",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "single patient: first crizotinib course",
+      "first_locator": "full_text#Case Report; Figure 1A and 1E",
+      "first_result_paraphrase": "La progressione durante crizotinib è associata alla selezione di ALK C1156Y.",
+      "first_source_unit_id": "PU-PMID-26698910-cohort-1",
+      "intervention": "crizotinib",
+      "is_parent_intervention": false,
+      "primary_cause": "source_unit_segmentation_difference",
+      "replicate_claim_outcome": "claim_via_new_child",
+      "replicate_classification": "directly_tested_with_separate_result",
+      "replicate_locator": {
+        "paragraph": "estratto Case Report, frase 8",
+        "patient_id": "donna di 52 anni con NSCLC ALK-riarrangiato",
+        "section": "Case Report",
+        "source_id": "PMID:26698910",
+        "treatment_line": "reintroduzione di crizotinib dopo chemioterapia",
+        "verbatim_probes": [
+          "she received crizotinib again and had no response"
+        ]
+      },
+      "replicate_result_paraphrase": "Alla reintroduzione dopo chemioterapia, crizotinib non produce alcuna risposta.",
+      "replicate_source_unit_id": "SU-26698910-patient-c1156y-crizotinib-rechallenge",
+      "secondary_causes": [
+        "biomarker_scope_difference"
+      ],
+      "verdict": "exact_agreement"
+    },
+    {
+      "first_claim_outcome": "no_claim",
+      "first_classification": "possible_alias_not_verified",
+      "first_documentary_unit": "single patient: AUY922 exposure",
+      "first_locator": "full_text#Case Report, HSP90 inhibitor paragraph",
+      "first_result_paraphrase": "La fonte nomina AUY922 e progressione rapida, ma non usa il nome luminespib.",
+      "first_source_unit_id": "PU-PMID-26698910-cohort-1",
+      "intervention": "luminespib",
+      "is_parent_intervention": false,
+      "primary_cause": null,
+      "replicate_claim_outcome": "no_claim",
+      "replicate_classification": "possible_alias_not_verified",
+      "replicate_locator": {
+        "paragraph": "estratto Case Report, frase 6",
+        "patient_id": "donna di 52 anni con NSCLC ALK-riarrangiato",
+        "section": "Case Report",
+        "source_id": "PMID:26698910",
+        "treatment_line": "inibitore HSP90 (AUY922), dopo ceritinib",
+        "verbatim_probes": [
+          "She then received a heat shock protein 90 (HSP90) inhibitor (AUY922) and had rapidly worsening disease."
+        ]
+      },
+      "replicate_result_paraphrase": "Dopo ceritinib la paziente riceve un inibitore di HSP90 (AUY922) e la malattia peggiora rapidamente.",
+      "replicate_source_unit_id": "SU-26698910-patient-c1156y-auy922-line",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    }
+  ],
+  "interventions": [
+    "ceritinib",
+    "crizotinib",
+    "luminespib"
+  ],
+  "pending_mapping_present": true,
+  "possible_schema_impact": "Q2 decide se due unita' documentali distinte possano sostenere lo stesso claim, o se una vada scelta. Q3 conferma il blocco da mapping pending.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "mixed_parent_and_children",
+  "replicate_rationale": "Ceritinib e la reintroduzione di crizotinib hanno esiti negativi attribuiti a linee identificate; la linea con AUY922 ha un esito documentale ma l'intervento del grafo (luminespib) resta un alias non verificato e non e' materializzabile. Solo una parte degli interventi produce un figlio.",
+  "retrieval_results_included": false,
+  "scope_issue_present": true,
+  "source_access_status": "full_text",
+  "source_id": "PMID:26698910",
+  "source_text_kind": "full_text_excerpt",
+  "source_title": "Resensitization to Crizotinib by the Lorlatinib ALK Resistance Mutation L1198F.",
+  "statement_id": "ES-V2-evidence-841",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}

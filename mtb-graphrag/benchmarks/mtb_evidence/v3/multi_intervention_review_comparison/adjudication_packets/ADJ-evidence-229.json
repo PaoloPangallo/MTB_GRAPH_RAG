@@ -1,0 +1,122 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-229",
+  "adjudicator_questions": [
+    {
+      "kind": "categorial",
+      "options": [
+        "si_il_parent_e_un_contenitore_non_un_claim",
+        "no_il_parent_e_gia_il_claim"
+      ],
+      "question": "Quando il parent porta gia' l'intervento con risultato separato, serve comunque un figlio?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Il figlio per gefitinib, su cui entrambe le revisioni concordano, e' confermato?",
+      "question_id": "Q2"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Gli esiti riportati sulla popolazione combinata ex19del + L858R sostengono un claim su L858R?",
+      "question_id": "Q3"
+    }
+  ],
+  "available_source_text": "Gefitinib and erlotinib, small-molecule kinase inhibitors that block epidermal growth factor receptor (EGFR) signaling, have demonstrated a dramatic response rate and prolonged progression-free survival (PFS) in patients harboring an activating EGFR mutation. We compared the clinical outcomes in gefitinib- and erlotinib-treated patients harboring EGFR mutations who had recurrent or metastatic non-small-cell lung cancer (NSCLC). A total of 375 patients with recurrent or metastatic stage IIIB/IV NSCLC, who had either exon 19 deletion or the L858R mutation in exon 21, and had received either gefitinib (n = 228) or erlotinib (n = 147), were included in the study. A matched-pair case-control study design was implemented in the analysis, where 121 pairs of gefitinib-treated and erlotinib-treated patients were matched according to sex, smoking history, Eastern Cooperative Oncology Group performance status, and types of EGFR mutation. The median age of all patients was 58 years (range, 30-84), and more than half of patients had never been smokers (63.6%). Most patients had adenocarcinoma (98.3%) and good Eastern Cooperative Oncology Group performance status (0, 1) (90.9%). The median number of cycles of EGFR tyrosine kinase inhibitor (TKI) treatment was 12.7 in the gefitinib group and 10.8 in the erlotinib group. Of the 242 patients, 63 (26%) received EGFR TKI as first-line therapy. The overall response rates and disease control rates in the gefitinib- or erlotinib-treated groups were 76.9% versus 74.4% (p = 0.575) and 90.1% versus 86.8%, respectively (p = 0.305). There was no statistically significant difference with regard to PFS (median, 11.7 versus 9.6; p = 0.056) between the gefitinib- and erlotinib-treated groups. For patients receiving EGFR TKI as the first-line treatment, there was no significant difference between the two treatment groups in overall response rates (76.7% and 90.0%) (p = 0.431) and median PFS (11.7 versus 14.5 months) (p = 0.507). In NSCLC patients harboring EGFR mutation, treatment with gefitinib and erlotinib resulted in similar effectiveness.",
+  "biomarker": "EGFR L858R",
+  "blind_annotation_id": "MI-B-f8fefcc976a5eaa9",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": true,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Lung Non-small Cell Carcinoma",
+  "first_review_decision": "atomic_children_supported",
+  "first_review_rationale": "L'abstract riporta coorti gefitinib ed erlotinib distinte e risultati per ciascun trattamento; il biomarcatore resta il gruppo exon19del/L858R.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:229",
+  "highlighted_differences": [
+    "erlotinib"
+  ],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_new_child",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "matched clinical cohort: erlotinib-treated patients",
+      "first_locator": "abstract#METHODS; abstract#RESULTS",
+      "first_result_paraphrase": "La coorte erlotinib ha un outcome riportato separatamente dalla coorte gefitinib.",
+      "first_source_unit_id": "PU-PMID-24736073-cohort-1",
+      "intervention": "erlotinib",
+      "is_parent_intervention": true,
+      "primary_cause": "parent_vs_child_policy_difference",
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "directly_tested_with_separate_result",
+      "replicate_locator": {
+        "abstract_sentence": 9,
+        "experimental_arm": "erlotinib-treated group (n = 147)",
+        "section": "abstract",
+        "source_id": "PMID:24736073",
+        "verbatim_probes": [
+          "The overall response rates and disease control rates in the gefitinib- or erlotinib-treated groups were 76.9% versus 74.4% (p = 0.575) and 90.1% versus 86.8%, respectively (p = 0.305)."
+        ]
+      },
+      "replicate_result_paraphrase": "Nel gruppo trattato con erlotinib: ORR 74,4%, DCR 86,8%, PFS mediana 9,6 mesi.",
+      "replicate_source_unit_id": "SU-24736073-group-erlotinib",
+      "secondary_causes": [],
+      "verdict": "materialization_disagreement"
+    },
+    {
+      "first_claim_outcome": "claim_via_new_child",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "matched clinical cohort: gefitinib-treated patients",
+      "first_locator": "abstract#METHODS; abstract#RESULTS",
+      "first_result_paraphrase": "La coorte gefitinib ha un outcome riportato separatamente dalla coorte erlotinib.",
+      "first_source_unit_id": "PU-PMID-24736073-cohort-1",
+      "intervention": "gefitinib",
+      "is_parent_intervention": false,
+      "primary_cause": null,
+      "replicate_claim_outcome": "claim_via_new_child",
+      "replicate_classification": "directly_tested_with_separate_result",
+      "replicate_locator": {
+        "abstract_sentence": 9,
+        "experimental_arm": "gefitinib-treated group (n = 228)",
+        "section": "abstract",
+        "source_id": "PMID:24736073",
+        "verbatim_probes": [
+          "The overall response rates and disease control rates in the gefitinib- or erlotinib-treated groups were 76.9% versus 74.4% (p = 0.575) and 90.1% versus 86.8%, respectively (p = 0.305)."
+        ]
+      },
+      "replicate_result_paraphrase": "Nel gruppo trattato con gefitinib: ORR 76,9%, DCR 90,1%, PFS mediana 11,7 mesi.",
+      "replicate_source_unit_id": "SU-24736073-group-gefitinib",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    }
+  ],
+  "interventions": [
+    "erlotinib",
+    "gefitinib"
+  ],
+  "pending_mapping_present": false,
+  "possible_schema_impact": "Q1 e' la domanda strutturale dell'intero confronto: da sola sposta il totale dei figli fra 3 e 8 e decide se il parent resta un claim o diventa un record di evidenza.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "atomic_children_supported",
+  "replicate_rationale": "Gruppi di trattamento distinti e dichiarati (gefitinib n = 228, erlotinib n = 147) con ORR, DCR e PFS riportati separatamente per farmaco. Entrambi gli interventi hanno unita' documentale, risultato, direzione e polarita' propri e locator sufficiente.",
+  "retrieval_results_included": false,
+  "scope_issue_present": true,
+  "source_access_status": "abstract_only",
+  "source_id": "PMID:24736073",
+  "source_text_kind": "abstract",
+  "source_title": "Comparison of clinical outcomes following gefitinib and erlotinib treatment in non-small-cell lung cancer patients harboring an epidermal growth factor receptor mutation in either exon 19 or 21.",
+  "statement_id": "ES-V2-evidence-229",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}

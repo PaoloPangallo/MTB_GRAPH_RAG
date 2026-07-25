@@ -1,0 +1,116 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-12156",
+  "adjudicator_questions": [
+    {
+      "kind": "categorial",
+      "options": [
+        "componente_di_regime",
+        "comparatore",
+        "entrambi_da_registrare"
+      ],
+      "question": "Quale ruolo documentale prevale per il carboplatino, presente sia nel backbone dei bracci sperimentali sia come braccio di controllo?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Il carboplatino deve restare non materializzato?",
+      "question_id": "Q2"
+    }
+  ],
+  "available_source_text": "Amivantamab plus carboplatin-pemetrexed (chemotherapy) with and without lazertinib demonstrated antitumor activity in patients with refractory epidermal growth factor receptor (EGFR)-mutated advanced non-small-cell lung cancer (NSCLC) in phase I studies. These combinations were evaluated in a global phase III trial. A total of 657 patients with EGFR-mutated (exon 19 deletions or L858R) locally advanced or metastatic NSCLC after disease progression on osimertinib were randomized 2 : 2 : 1 to receive amivantamab-lazertinib-chemotherapy, chemotherapy, or amivantamab-chemotherapy. The dual primary endpoints were progression-free survival (PFS) of amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy. During the study, hematologic toxicities observed in the amivantamab-lazertinib-chemotherapy arm necessitated a regimen change to start lazertinib after carboplatin completion. All baseline characteristics were well balanced across the three arms, including by history of brain metastases and prior brain radiation. PFS was significantly longer for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy [hazard ratio (HR) for disease progression or death 0.48 and 0.44, respectively; P < 0.001 for both; median of 6.3 and 8.3 versus 4.2 months, respectively]. Consistent PFS results were seen by investigator assessment (HR for disease progression or death 0.41 and 0.38 for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy, respectively; P < 0.001 for both; median of 8.2 and 8.3 versus 4.2 months, respectively). Objective response rate was significantly higher for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy (64% and 63% versus 36%, respectively; P < 0.001 for both). Median intracranial PFS was 12.5 and 12.8 versus 8.3 months for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy (HR for intracranial disease progression or death 0.55 and 0.58, respectively). Predominant adverse events (AEs) in the amivantamab-containing regimens were hematologic, EGFR-, and MET-related toxicities. Amivantamab-chemotherapy had lower rates of hematologic AEs than amivantamab-lazertinib-chemotherapy. Amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy improved PFS and intracranial PFS versus chemotherapy in a population with limited options after disease progression on osimertinib. Longer follow-up is needed for the modified amivantamab-lazertinib-chemotherapy regimen.",
+  "biomarker": "EGFR L858R OR EGFR Exon 19 Deletion",
+  "blind_annotation_id": "MI-B-1c375f91d580512a",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": true,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Lung Non-small Cell Carcinoma",
+  "first_review_decision": "combination_regimen_required",
+  "first_review_rationale": "Amivantamab e carboplatino appartengono a regimi con carboplatino-pemetrexed, con o senza lazertinib.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:12156",
+  "highlighted_differences": [
+    "carboplatin"
+  ],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_existing_parent",
+      "first_classification": "directly_tested_in_combination_regimen",
+      "first_documentary_unit": "MARIPOSA-2 amivantamab-chemotherapy arms",
+      "first_locator": "abstract#PATIENTS AND METHODS; abstract#RESULTS",
+      "first_result_paraphrase": "Gli outcome sono riportati per regimi contenenti amivantamab e chemioterapia.",
+      "first_source_unit_id": "PU-PMID-37879444-cohort-1",
+      "intervention": "amivantamab",
+      "is_parent_intervention": true,
+      "primary_cause": null,
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "directly_tested_in_combination_regimen",
+      "replicate_locator": {
+        "abstract_sentence": 7,
+        "experimental_arm": "amivantamab-chemotherapy",
+        "section": "abstract",
+        "source_id": "PMID:37879444",
+        "verbatim_probes": [
+          "PFS was significantly longer for amivantamab-chemotherapy and amivantamab-lazertinib-chemotherapy versus chemotherapy"
+        ]
+      },
+      "replicate_result_paraphrase": "Nel braccio amivantamab-chemioterapia la PFS e' significativamente piu' lunga rispetto alla sola chemioterapia (HR 0,48; mediana 6,3 vs 4,2 mesi). Il risultato appartiene al regime amivantamab + carboplatino-pemetrexed.",
+      "replicate_source_unit_id": "SU-37879444-arm-amivantamab-chemotherapy",
+      "secondary_causes": [],
+      "verdict": "exact_agreement"
+    },
+    {
+      "first_claim_outcome": "no_claim",
+      "first_classification": "directly_tested_in_combination_regimen",
+      "first_documentary_unit": "MARIPOSA-2 carboplatin-pemetrexed chemotherapy backbone",
+      "first_locator": "abstract#PATIENTS AND METHODS; abstract#RESULTS",
+      "first_result_paraphrase": "Carboplatino è parte della combinazione carboplatino-pemetrexed, non un claim singolo.",
+      "first_source_unit_id": "PU-PMID-37879444-cohort-1",
+      "intervention": "carboplatin",
+      "is_parent_intervention": false,
+      "primary_cause": "annotation_guideline_ambiguity",
+      "replicate_claim_outcome": "no_claim",
+      "replicate_classification": "comparator_only",
+      "replicate_locator": {
+        "abstract_sentence": 3,
+        "experimental_arm": "chemotherapy (carboplatin-pemetrexed), braccio di controllo",
+        "section": "abstract",
+        "source_id": "PMID:37879444",
+        "verbatim_probes": [
+          "randomized 2 : 2 : 1 to receive amivantamab-lazertinib-chemotherapy, chemotherapy, or amivantamab-chemotherapy"
+        ]
+      },
+      "replicate_result_paraphrase": "Il carboplatino compare solo dentro il backbone 'carboplatin-pemetrexed', che e' il braccio di controllo e la componente chemioterapica dei bracci sperimentali. Nessun risultato di sensibilita' e' attribuito al carboplatino.",
+      "replicate_source_unit_id": "SU-37879444-arm-chemotherapy-comparator",
+      "secondary_causes": [
+        "regimen_vs_mixed_boundary"
+      ],
+      "verdict": "documentary_role_disagreement"
+    }
+  ],
+  "interventions": [
+    "amivantamab",
+    "carboplatin"
+  ],
+  "pending_mapping_present": false,
+  "possible_schema_impact": "Nessun impatto sul numero di claim: entrambe le revisioni non lo materializzano. Fissa la sede dell'annotazione per i farmaci con doppio ruolo.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "combination_regimen_required",
+  "replicate_rationale": "Tutti i bracci sperimentali di MARIPOSA-2 somministrano amivantamab insieme a carboplatino-pemetrexed; il carboplatino compare inoltre come braccio di controllo. Il risultato appartiene al regime, non ai componenti.",
+  "retrieval_results_included": false,
+  "scope_issue_present": true,
+  "source_access_status": "abstract_only",
+  "source_id": "PMID:37879444",
+  "source_text_kind": "abstract",
+  "source_title": "Amivantamab plus chemotherapy with and without lazertinib in EGFR-mutant advanced NSCLC after disease progression on osimertinib: primary results from the phase III MARIPOSA-2 study.",
+  "statement_id": "ES-V2-evidence-12156",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}

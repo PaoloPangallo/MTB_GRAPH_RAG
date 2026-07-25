@@ -1,0 +1,161 @@
+{
+  "adjudication_packet_id": "ADJ-evidence-3811",
+  "adjudicator_questions": [
+    {
+      "kind": "categorial",
+      "options": [
+        "nella_classificazione",
+        "nel_locator",
+        "in_entrambi"
+      ],
+      "question": "Quando il disegno separa gli interventi ma il testo accessibile non riporta il risultato, dove va registrata l'insufficienza?",
+      "question_id": "Q1"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Il locator e' sufficiente per un claim su L858R?",
+      "question_id": "Q2"
+    },
+    {
+      "kind": "binary",
+      "options": [
+        "si",
+        "no"
+      ],
+      "question": "Il gruppo resta insufficient_for_atomicity_decision in attesa del full text?",
+      "question_id": "Q3"
+    }
+  ],
+  "available_source_text": "Epidermal growth factor receptor (EGFR) mutations in non-small cell lung cancer (NSCLC) might be predictive for clinical response to EGFR inhibitor treatment. However, retrospective analyses of EGFR mutations in clinical trials have shown inconclusive results and the effect of EGFR sequencing in NSCLC is still controversial. Because the vast majority of EGFR mutations described have not been functionally characterized, simple correlation of mutational status and treatment response may not provide reliable information about the predictive value of EGFR mutations. Thus, we aimed to characterize a comprehensive panel of clinically observed EGFR mutations. A panel of 30 EGFR mutations was cloned and characterized for kinase activity and the ability to confer growth factor independence. Interestingly, 4 of 30 EGFR mutations showed no kinase activity even after ligand stimulation and were not able to confer growth factor independence. Ba/F3 cells expressing activating EGFR mutants were then used to test the efficacy of EGFR inhibitors in a cell proliferation assay. IC(50) values were calculated for gefitinib, erlotinib, and AEE788. We show that the sensitivity of EGFR mutations toward different inhibitors varies significantly, thus establishing a comprehensive sensitivity profile for each inhibitor. EGFR mutations identified in NSCLC patients display distinct biological features. The variability in kinase activity, transforming potential, and sensitivity to EGFR inhibitors has to be considered in clinical studies aiming to correlate mutational status and drug response. The identification of comprehensive drug resistance profiles opens the opportunity to test alternative EGFR inhibitors in vitro.",
+  "biomarker": "EGFR L858R",
+  "blind_annotation_id": "MI-B-8274e1f9586ef644",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "decision_match": true,
+  "descriptive_only_due_to_non_independence": true,
+  "disease": "Cancer",
+  "first_review_decision": "insufficient_for_atomicity_decision",
+  "first_review_rationale": "L'abstract conferma profili separati per i tre inibitori, ma non localizza il risultato specifico di L858R nel pannello di 30 mutazioni.",
+  "gold_metrics_included": false,
+  "graph_evidence_id": "evidence:3811",
+  "highlighted_differences": [
+    "erlotinib",
+    "gefitinib",
+    "multikinase inhibitor aee788"
+  ],
+  "independent_inter_reviewer_agreement": false,
+  "intervention_level_detail": [
+    {
+      "first_claim_outcome": "claim_via_existing_parent",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "Ba/F3 panel of 30 EGFR mutations",
+      "first_locator": "abstract#EXPERIMENTAL DESIGN AND RESULTS",
+      "first_result_paraphrase": "Sono calcolati IC50 e profili per erlotinib, ma il risultato L858R non è isolato nell'abstract.",
+      "first_source_unit_id": "PU-PMID-19147750-cohort-1",
+      "intervention": "erlotinib",
+      "is_parent_intervention": true,
+      "primary_cause": "annotation_guideline_ambiguity",
+      "replicate_claim_outcome": "claim_via_existing_parent",
+      "replicate_classification": "insufficient_source_access",
+      "replicate_locator": {
+        "abstract_sentence": 8,
+        "cell_line": "Ba/F3",
+        "section": "abstract",
+        "source_id": "PMID:19147750",
+        "verbatim_probes": [
+          "IC(50) values were calculated for gefitinib, erlotinib, and AEE788."
+        ]
+      },
+      "replicate_result_paraphrase": "L'abstract dichiara che sono stati calcolati IC50 per ciascun inibitore e che il profilo di sensibilita' varia, ma non riporta alcun valore ne' alcun risultato specifico per L858R.",
+      "replicate_source_unit_id": "SU-19147750-baf3-inhibitor-panel",
+      "secondary_causes": [
+        "insufficient_abstract_detail",
+        "locator_threshold_difference"
+      ],
+      "verdict": "compatible_agreement"
+    },
+    {
+      "first_claim_outcome": "no_claim",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "Ba/F3 panel of 30 EGFR mutations",
+      "first_locator": "abstract#EXPERIMENTAL DESIGN AND RESULTS",
+      "first_result_paraphrase": "Sono calcolati IC50 e profili per gefitinib, ma il risultato L858R non è isolato nell'abstract.",
+      "first_source_unit_id": "PU-PMID-19147750-cohort-1",
+      "intervention": "gefitinib",
+      "is_parent_intervention": false,
+      "primary_cause": "annotation_guideline_ambiguity",
+      "replicate_claim_outcome": "no_claim",
+      "replicate_classification": "insufficient_source_access",
+      "replicate_locator": {
+        "abstract_sentence": 8,
+        "cell_line": "Ba/F3",
+        "section": "abstract",
+        "source_id": "PMID:19147750",
+        "verbatim_probes": [
+          "IC(50) values were calculated for gefitinib, erlotinib, and AEE788."
+        ]
+      },
+      "replicate_result_paraphrase": "Gefitinib e' uno dei tre inibitori per cui sono stati calcolati IC50; nessun valore per L858R e' riportato nel testo accessibile.",
+      "replicate_source_unit_id": "SU-19147750-baf3-inhibitor-panel",
+      "secondary_causes": [
+        "insufficient_abstract_detail",
+        "locator_threshold_difference"
+      ],
+      "verdict": "compatible_agreement"
+    },
+    {
+      "first_claim_outcome": "no_claim",
+      "first_classification": "directly_tested_with_separate_result",
+      "first_documentary_unit": "Ba/F3 panel of 30 EGFR mutations",
+      "first_locator": "abstract#EXPERIMENTAL DESIGN AND RESULTS",
+      "first_result_paraphrase": "Sono calcolati IC50 e profili per AEE788, ma il risultato L858R non è isolato nell'abstract.",
+      "first_source_unit_id": "PU-PMID-19147750-cohort-1",
+      "intervention": "multikinase inhibitor aee788",
+      "is_parent_intervention": false,
+      "primary_cause": "annotation_guideline_ambiguity",
+      "replicate_claim_outcome": "no_claim",
+      "replicate_classification": "insufficient_source_access",
+      "replicate_locator": {
+        "abstract_sentence": 8,
+        "cell_line": "Ba/F3",
+        "section": "abstract",
+        "source_id": "PMID:19147750",
+        "verbatim_probes": [
+          "IC(50) values were calculated for gefitinib, erlotinib, and AEE788."
+        ]
+      },
+      "replicate_result_paraphrase": "AEE788 e' il terzo inibitore del pannello; nessun valore per L858R e' riportato nel testo accessibile.",
+      "replicate_source_unit_id": "SU-19147750-baf3-inhibitor-panel",
+      "secondary_causes": [
+        "insufficient_abstract_detail",
+        "locator_threshold_difference"
+      ],
+      "verdict": "compatible_agreement"
+    }
+  ],
+  "interventions": [
+    "erlotinib",
+    "gefitinib",
+    "multikinase inhibitor aee788"
+  ],
+  "pending_mapping_present": false,
+  "possible_schema_impact": "Nessun claim creato in nessuno dei due scenari. Determina la forma della traccia lasciata sui gruppi bloccati dall'accesso alla fonte.",
+  "prefilled_decision": null,
+  "recall_based_suggestions_included": false,
+  "replicate_decision": "insufficient_for_atomicity_decision",
+  "replicate_rationale": "Il disegno separa i tre inibitori (IC50 per inibitore) ma l'abstract non riporta alcun valore ne' alcun esito specifico per L858R. Il locator raggiunge la dichiarazione del test, non il risultato: non e' possibile decidere l'atomicita' senza la tabella del full text.",
+  "retrieval_results_included": false,
+  "scope_issue_present": true,
+  "source_access_status": "abstract_only",
+  "source_id": "PMID:19147750",
+  "source_text_kind": "abstract",
+  "source_title": "Functional analysis of epidermal growth factor receptor (EGFR) mutations and potential implications for EGFR targeted therapy.",
+  "statement_id": "ES-V2-evidence-3811",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}
