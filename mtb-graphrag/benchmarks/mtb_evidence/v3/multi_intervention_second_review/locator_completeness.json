@@ -1,0 +1,84 @@
+{
+  "by_status": {
+    "insufficient_for_claim": 9,
+    "sufficient": 19
+  },
+  "children_total": 3,
+  "children_with_sufficient_locator": 3,
+  "every_proposed_child_has_sufficient_locator": true,
+  "locator_unit_kinds": {
+    "cell_model": 7,
+    "experimental_arm": 12,
+    "patient": 4,
+    "patient_treatment_line": 5
+  },
+  "locators_using_source_id_only": 0,
+  "per_group": {
+    "MI-B-1c375f91d580512a": {
+      "insufficient_for_claim": 0,
+      "sufficient": 2,
+      "unavailable": 0
+    },
+    "MI-B-3ded61139bc74e60": {
+      "insufficient_for_claim": 0,
+      "sufficient": 2,
+      "unavailable": 0
+    },
+    "MI-B-72b36cde2fff1311": {
+      "insufficient_for_claim": 0,
+      "sufficient": 3,
+      "unavailable": 0
+    },
+    "MI-B-8274e1f9586ef644": {
+      "insufficient_for_claim": 3,
+      "sufficient": 0,
+      "unavailable": 0
+    },
+    "MI-B-83c70396946a191d": {
+      "insufficient_for_claim": 2,
+      "sufficient": 0,
+      "unavailable": 0
+    },
+    "MI-B-86f8143c879081d2": {
+      "insufficient_for_claim": 1,
+      "sufficient": 1,
+      "unavailable": 0
+    },
+    "MI-B-92bfd4c87e04cbb2": {
+      "insufficient_for_claim": 0,
+      "sufficient": 2,
+      "unavailable": 0
+    },
+    "MI-B-95447460cf63aa6f": {
+      "insufficient_for_claim": 0,
+      "sufficient": 2,
+      "unavailable": 0
+    },
+    "MI-B-b4e82c2009b6a061": {
+      "insufficient_for_claim": 2,
+      "sufficient": 0,
+      "unavailable": 0
+    },
+    "MI-B-c9174014bdf40550": {
+      "insufficient_for_claim": 1,
+      "sufficient": 1,
+      "unavailable": 0
+    },
+    "MI-B-cd69de17ac73dc47": {
+      "insufficient_for_claim": 0,
+      "sufficient": 2,
+      "unavailable": 0
+    },
+    "MI-B-f17288721b33657d": {
+      "insufficient_for_claim": 0,
+      "sufficient": 2,
+      "unavailable": 0
+    },
+    "MI-B-f8fefcc976a5eaa9": {
+      "insufficient_for_claim": 0,
+      "sufficient": 2,
+      "unavailable": 0
+    }
+  },
+  "total_associations": 28
+}
