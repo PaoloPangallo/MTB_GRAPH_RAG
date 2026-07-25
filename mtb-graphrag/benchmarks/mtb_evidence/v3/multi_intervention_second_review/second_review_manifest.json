@@ -1,0 +1,68 @@
+{
+  "artifact_sha256": {
+    "MULTI_INTERVENTION_SECOND_REVIEW.md": "75e1b60cdc9a20232d86c90785a9cdd596ffed015e94f673cea472831b28acd0",
+    "SECOND_REVIEW_READINESS.md": "85f3d03eadb1d09ed5f54f4c2d3ec9486c8c3f74126946c0bb06f313fad894f9",
+    "allowed_file_access_log.jsonl": "82112b829ea205d70bdff2760b2c2c5cf97c2ac1bff2446990f6f636e59ce032",
+    "blindness_audit.json": "36cc80f82397ee3f71e211edc0d50072a007f8a1fb91d49c3653e8e7d23b16d1",
+    "claim_lineage_second.jsonl": "cb109fb74fed629e2351f5a12c206dced984b68213a4857fcaeacf1a9164245a",
+    "group_decisions_second.jsonl": "8f64d11c7502ecb38ba8b086364d5329da6894f4c13de054f67c84f527ed564a",
+    "intervention_annotations_second.jsonl": "a96ec07cc59c91f80cd6f973e32ebc565a803b659de42df355df8d581e5571ec",
+    "locator_completeness.json": "a293c0f39070f6701d596d50e51c9a015e3e9358420672a754a1e57249a97f64",
+    "packet_hashes.json": "d878c7755e9cdd263fd741175fbfeea28dc81aee77df87eb5dfb6b3380e49e84",
+    "reviewer_metadata.json": "cf698a81aeb33e0caca76614bfc558607e6b4053223e1e7273b0d416645183f6",
+    "source_access_inventory.jsonl": "7301a9d42244b3edfdad8510b7cc446483d090ca3576075c7201167d12558b12",
+    "source_unit_annotations_second.jsonl": "98aa8388ceef04147f0ddf114d1fffebfc084549164289c18cdb637d702b02fe",
+    "unresolved_second.jsonl": "6a6da84447cd4dc3ba84fba2e5fbb897af71269f565b7c04f4f3cb87699183ad"
+  },
+  "readiness": {
+    "all_interventions_classified": true,
+    "all_packets_reviewed": true,
+    "blindness_preserved": true,
+    "independent_review_valid": false,
+    "locator_requirements_satisfied": true,
+    "ready_for_adapter_migration": false,
+    "ready_for_adjudication": false,
+    "ready_for_inter_reviewer_comparison": true,
+    "unresolved_groups_remaining": [
+      "MI-B-8274e1f9586ef644"
+    ]
+  },
+  "review_version": "multi-intervention-second-review/1.0",
+  "summary": {
+    "classification_counts": {
+      "comparator_only": 1,
+      "directly_tested_in_combination_regimen": 4,
+      "directly_tested_in_shared_aggregate_result": 4,
+      "directly_tested_with_separate_result": 9,
+      "drug_class_member_not_individually_tested": 2,
+      "insufficient_source_access": 3,
+      "mentioned_background_only": 2,
+      "possible_alias_not_verified": 3
+    },
+    "clinical_associations": 21,
+    "distinct_source_units": 18,
+    "distinct_sources": 11,
+    "group_decision_counts": {
+      "aggregate_parent_only": 4,
+      "atomic_children_supported": 2,
+      "combination_regimen_required": 2,
+      "insufficient_for_atomicity_decision": 1,
+      "mixed_parent_and_children": 2,
+      "should_not_materialize_missing_interventions": 2
+    },
+    "intervention_associations": 28,
+    "intervention_specific_results": 9,
+    "interventions_classified": 28,
+    "packets_reviewed": 13,
+    "pending_alias_associations": 3,
+    "preclinical_associations": 7,
+    "resistance_associations": 7,
+    "separate_results_on_parent_intervention": 6,
+    "source_units_shared_across_groups": 1,
+    "sources_abstract_only": 10,
+    "sources_full_text": 1,
+    "sources_unavailable": 0,
+    "unique_proposed_child_claims": 3,
+    "verified_alias_merges": 0
+  }
+}
