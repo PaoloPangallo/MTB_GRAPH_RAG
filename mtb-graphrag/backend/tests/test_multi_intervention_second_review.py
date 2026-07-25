@@ -46,6 +46,12 @@ PACKETS = (
     / "benchmarks/mtb_evidence/v3/multi_intervention_source_review/second_review_packets"
 )
 START_SHA = "018bdfa7393c773722bb61755c4c5146a9ef98f9"
+# La fase di seconda revisione si chiude qui. Il perimetro va misurato su questo
+# intervallo chiuso e non contro l'albero di lavoro: le fasi successive vivono
+# su discendenti di questo commit, e confrontarle con lo stato attuale farebbe
+# fallire il test ogni volta che il lavoro prosegue, invece che quando questa
+# fase ha scritto dove non doveva.
+PHASE_END_SHA = "1e9d6b0d767ad3fac02e43d0186d948251b6349c"
 
 # Cio' che questa fase non puo' aver toccato. Adapter, corpus, retriever e
 # scoring restano fuori dal perimetro: la revisione e' documentale.
@@ -717,7 +723,7 @@ class TestUntouchedArtifacts(unittest.TestCase):
             raise unittest.SkipTest("git non disponibile")
         try:
             result = subprocess.run(
-                ["git", "diff", "--name-only", START_SHA],
+                ["git", "diff", "--name-only", START_SHA, PHASE_END_SHA],
                 cwd=REPO_ROOT.parent,
                 capture_output=True,
                 text=True,
@@ -727,7 +733,7 @@ class TestUntouchedArtifacts(unittest.TestCase):
         except (OSError, subprocess.SubprocessError) as error:  # pragma: no cover
             raise unittest.SkipTest(f"git non utilizzabile: {error}")
         if result.returncode != 0:
-            raise unittest.SkipTest("lo SHA di partenza non e' raggiungibile in questo checkout")
+            raise unittest.SkipTest("gli SHA della fase non sono raggiungibili in questo checkout")
         cls.changed = {
             line.strip().removeprefix("mtb-graphrag/")
             for line in result.stdout.splitlines()
