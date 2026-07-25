@@ -1,0 +1,129 @@
+{
+  "alignment_keys": {
+    "group_level": [
+      "graph_evidence_id",
+      "source_id"
+    ],
+    "intervention_level": [
+      "graph_evidence_id",
+      "source_id",
+      "normalized_intervention",
+      "source_unit_id (registrato, non usato per l'allineamento perche' le due revisioni segmentano le unita' in modo diverso)"
+    ],
+    "positional_alignment_used": false
+  },
+  "comparison_branch": "review/v3-multi-intervention-review-comparison",
+  "comparison_type": "first_review_vs_blinded_non_independent_replicate",
+  "comparison_version": "multi-intervention-review-comparison/1.0",
+  "descriptive_only_due_to_non_independence": true,
+  "environment": {
+    "iniconfig_version": "2.3.0",
+    "interpreter": "python di sistema (WindowsApps PythonSoftwareFoundation.Python.3.12)",
+    "packaging_version": "25.0",
+    "pluggy_version": "1.6.0",
+    "pytest_subtests_installed": false,
+    "pytest_version": "9.0.2",
+    "python_version": "3.12.10",
+    "subtest_support": "nativo in pytest 9 per unittest.TestCase.subTest",
+    "venv_not_used_reason": "Il .venv del progetto non ha pytest installato: con quell'interprete otto moduli di test falliscono in ImportError su `import pytest`. La replica cieca era stata dichiarata verde con l'interprete di sistema e il confronto usa lo stesso, per non cambiare la base di paragone."
+  },
+  "gold_content_read": false,
+  "gold_hashed_for_integrity_only": true,
+  "independent_inter_reviewer_agreement": false,
+  "input_hashes": {
+    "blinded_replicate": {
+      "aggregate_sha256": "989b35c0b5fb263522d385775c086f7ce07d13f86350c1ce83eec59304fccb70",
+      "file_count": 14,
+      "files": {
+        "MULTI_INTERVENTION_SECOND_REVIEW.md": "75e1b60cdc9a20232d86c90785a9cdd596ffed015e94f673cea472831b28acd0",
+        "SECOND_REVIEW_READINESS.md": "85f3d03eadb1d09ed5f54f4c2d3ec9486c8c3f74126946c0bb06f313fad894f9",
+        "allowed_file_access_log.jsonl": "82112b829ea205d70bdff2760b2c2c5cf97c2ac1bff2446990f6f636e59ce032",
+        "blindness_audit.json": "36cc80f82397ee3f71e211edc0d50072a007f8a1fb91d49c3653e8e7d23b16d1",
+        "claim_lineage_second.jsonl": "cb109fb74fed629e2351f5a12c206dced984b68213a4857fcaeacf1a9164245a",
+        "group_decisions_second.jsonl": "8f64d11c7502ecb38ba8b086364d5329da6894f4c13de054f67c84f527ed564a",
+        "intervention_annotations_second.jsonl": "a96ec07cc59c91f80cd6f973e32ebc565a803b659de42df355df8d581e5571ec",
+        "locator_completeness.json": "a293c0f39070f6701d596d50e51c9a015e3e9358420672a754a1e57249a97f64",
+        "packet_hashes.json": "d878c7755e9cdd263fd741175fbfeea28dc81aee77df87eb5dfb6b3380e49e84",
+        "reviewer_metadata.json": "cf698a81aeb33e0caca76614bfc558607e6b4053223e1e7273b0d416645183f6",
+        "second_review_manifest.json": "025032e0c6b24a04b61832d4334604b028868476a189a498e31a855349beacae",
+        "source_access_inventory.jsonl": "7301a9d42244b3edfdad8510b7cc446483d090ca3576075c7201167d12558b12",
+        "source_unit_annotations_second.jsonl": "98aa8388ceef04147f0ddf114d1fffebfc084549164289c18cdb637d702b02fe",
+        "unresolved_second.jsonl": "6a6da84447cd4dc3ba84fba2e5fbb897af71269f565b7c04f4f3cb87699183ad"
+      }
+    },
+    "first_review": {
+      "aggregate_sha256": "f100d384c9d730fb659db772559f440495c754b0683824f214a32b0d214fcca6",
+      "file_count": 16,
+      "files": {
+        "ADAPTER_MIGRATION_READINESS.md": "6160a15f77c5a45ddeda5eb53c1c2b3f73e352643c742943fb47a51e62328445",
+        "ATOMICITY_DECISION_REPORT.md": "fa00af229080bbd049da7f3b2633d7f3512b9093f0d94b20a64881cadabe0d09",
+        "MULTI_INTERVENTION_SOURCE_REVIEW.md": "3403ea88782240ecaa310ae1ff101dc16d194251c893c18be10e391b5f2befaa",
+        "aggregate_results.jsonl": "d0f2fd08e0f43693b0a9bb85ad1a539270752f101671f9db939372d7360b23b6",
+        "architectural_recommendation.json": "0f10ad36d89105817876d16b1da9cecbc3f7296951476f858f2afb63eefd7f03",
+        "combination_regimens.jsonl": "82ca5502c63b97dfe11cc6f47fe6f86d7cf07c176d8374b72191fa3f8db57dcd",
+        "group_atomicity_decisions.jsonl": "394e676cd830f969c01b76b37497a57a218c6add85adb2d657a402faca34e28e",
+        "intervention_level_annotations.jsonl": "7e178b232a353b7c6d4b7e71b321f871f79f345a1f4a7dd210206feb688e391a",
+        "post_review_schema_simulation.json": "c848109be9976aee15fd6b8b759ec87914a82e2a6ba58a95bd0dc2154d949e46",
+        "review_manifest.json": "f7a7b70670cd59a1b8d7143c48ef9815988094d6ffe2f00cda215553a7fcda1a",
+        "review_scope.json": "5a01718ef97261c9b90ef5c295b220b105ea65afa70eafb3e516ea305c74c67b",
+        "source_access_inventory.jsonl": "9f6f8e22352656ae6377565933896c4a4ac9132de9478a90231f55c5d5708deb",
+        "source_unit_annotations.jsonl": "ddab137b8c5b264657795eef9f51e8fc0b66826cd6a8b44cef47270c7bc33cf4",
+        "unresolved_groups.jsonl": "d93a4bd3d5f7f18c069ca0c7b3b02e3f5d22b874e75335dbc9fbf522a5701ec4",
+        "unsupported_interventions.jsonl": "615ee3424008901111512797a819e8830aa9bdf091c222d0324ab0bed6708c39",
+        "verified_aliases.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "frozen_artifacts": {
+      "backend/pipeline/evidence/corpus_manifest.py": "90b1dd50454363747cec973c0191f7b5f06aaf126c5f2f8cf9de17509267f4dc",
+      "backend/pipeline/evidence/corpus_regeneration.py": "84eb6549f1ab7d3a00fdd44584a6f319dac24d36e67109311ae3d8ddc111f292",
+      "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+      "backend/pipeline/evidence/qualified_retriever.py": "0dfefce064dbb5c6bf63b7f012c73075e4b7abc239815b7b4fc56fbc1e54a75e",
+      "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "benchmarks/mtb_evidence/evaluation/scripts/run_qualified_retriever_prototype.py": "9cc99edb9510286ebb0f2c73c580e49a7aa90009a81cbf974a3f8b8d73eb1a51",
+      "benchmarks/mtb_evidence/evaluation/scripts/run_v2_adapter.py": "46815a329f1e748ce31cc37bccc1f936d5cda8061d423b59cf5801dbeeecfb5d"
+    },
+    "gold_artifacts": {
+      "benchmarks/mtb_evidence/evaluation/data/clinical_gold_v1.jsonl": "c26e526883912b3613a795fb286dd602ff81204f3ca25bbecddf83886bc11c2d",
+      "benchmarks/mtb_evidence/evaluation/data/snapshot_gold_ffc97bc7c660f194.jsonl": "02b64780ddbbd3d5bd92326b39596c76f16644599bcdbccfd8c578c1d800c845",
+      "benchmarks/mtb_evidence/v3/author_approval/provisional_gold.jsonl": "daa8d0246bec7f188964df2e154a144c14bae497d5013a9912c9d090716456f4",
+      "benchmarks/mtb_evidence/v3/first_review/provisional_gold.jsonl": "dc43ef9e07753dd28af2a33ad6c8fb69c544f6ae215a54f8b6fdcbc8bf79b2a1"
+    },
+    "local_sources": {
+      "../data_expl/benchmark/benchmark_papers/fulltext_26698910.txt": "086c0cb4e777b9a187b3a71ef6796f1c27c481a6f4671e0b8b0c90044fbcf90e",
+      "benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl": "61d13274d774f6a24f347aee275f00641fd9e3ae8f8f8dfa53b501cc17465a47"
+    },
+    "second_review_packets": {
+      "aggregate_sha256": "b0d229c5638411a34f5d2e4c5118400c7fb41146ae96d423af9fe56a4efe1436",
+      "file_count": 13,
+      "files": {
+        "MI-B-1c375f91d580512a.json": "63c90b5e253421fd8b97ee7d266eb9f3c71eaad0d3d70d30109cae9e8d4db740",
+        "MI-B-3ded61139bc74e60.json": "42767e17890a6f38ad09ee89c8c5ff6c1fa4ccb6b08a8f810f85c97c4bd1b77c",
+        "MI-B-72b36cde2fff1311.json": "2acf0e0887ed894873bbf6be5b9c4d935af6beffb2b071f7191505ec688c5241",
+        "MI-B-8274e1f9586ef644.json": "8b559a0dd0758d5170644e2390876d5e9910b1a6adb17243bd10419415e86cfa",
+        "MI-B-83c70396946a191d.json": "dd3ac0b4c4c02627fe2ea47a80ecb60e9ecadaea8194ddbecf293f7dd5b54dcf",
+        "MI-B-86f8143c879081d2.json": "3c4e1b4010d2e1a351209666f4815b930d11887ed576edfd75e1cf3651612a7e",
+        "MI-B-92bfd4c87e04cbb2.json": "dbed86362ab0ddb7fc37484c3d384aab3e5ad3616d8c5fb90af079a5615c2d14",
+        "MI-B-95447460cf63aa6f.json": "9a5afc53b9e47aa7d68d39ca0b52f6d1191a2e96a2c76b442e606a467bd6e899",
+        "MI-B-b4e82c2009b6a061.json": "a27b3718a32b0f656463254bdb73f683e4125cbd0d17cb21183ab3948e495cb6",
+        "MI-B-c9174014bdf40550.json": "8b284d2ba41d46330b61b4b4e6f5e6d99bdd5ae0c2235088815e4f815d732383",
+        "MI-B-cd69de17ac73dc47.json": "73469f8bba2af8e4f54c5e3df13f1d328002605e99bc268be0892ea99558f8d1",
+        "MI-B-f17288721b33657d.json": "b48260fbc3ca75f9c4870eee1f87fcabcdb3a63637d4bb3544934a27a735a544",
+        "MI-B-f8fefcc976a5eaa9.json": "e490dd6f1205700a4f12bc399c05afa2bbce9efb10c678230568c7c53e679918"
+      }
+    }
+  },
+  "new_sources_read": false,
+  "original_annotations_modified": false,
+  "scope_check": {
+    "alignment_deterministic": true,
+    "first_review_associations": 28,
+    "first_review_groups": 13,
+    "replicate_associations": 28,
+    "replicate_groups": 13
+  },
+  "start_sha": "1e9d6b0d767ad3fac02e43d0186d948251b6349c",
+  "valid_for_adjudication_preparation": true,
+  "valid_for_external_reliability_claim": false,
+  "valid_for_guideline_refinement": true
+}
