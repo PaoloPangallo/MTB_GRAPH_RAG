@@ -1,0 +1,50 @@
+{
+  "abstract_only": true,
+  "contract_version": "non-therapeutic-claim-contract/1.0",
+  "full_text_used": false,
+  "gold_used": false,
+  "interventions_invented": 0,
+  "materials_used": [
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/active_source_profile_units.jsonl",
+    "benchmarks/mtb_evidence/v3/multi_intervention_adapter_review/intervention_lineage.jsonl",
+    "benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl"
+  ],
+  "network_used": false,
+  "records_audited": [
+    "evidence:1846",
+    "evidence:1847",
+    "evidence:347"
+  ],
+  "records_in_scope": [
+    "evidence:347",
+    "evidence:1846",
+    "evidence:1847"
+  ],
+  "required_for_any_approved_claim": [
+    "source_id",
+    "subject",
+    "disease_scope",
+    "direction_or_interpretation",
+    "source_unit_id",
+    "locators",
+    "polarity",
+    "provenance"
+  ],
+  "scope": "I tre graph evidence ID che la migrazione shadow ha lasciato senza claim perche' la tassonomia aveva soltanto tipi di intervento.",
+  "scope_is_complete": true,
+  "selection_criterion": "direction non terapeutica (diagnostic o prognostic) e nessun intervento ne' nello statement ne' nelle righe V2",
+  "verdict_vocabulary": [
+    "diagnostic_claim_supported",
+    "prognostic_claim_supported",
+    "diagnostic_and_prognostic_claims_supported",
+    "non_therapeutic_claim_unresolved",
+    "metadata_only_not_claim",
+    "insufficient_source_support"
+  ],
+  "verdicts": {
+    "evidence:1846": "diagnostic_claim_supported",
+    "evidence:1847": "diagnostic_claim_supported",
+    "evidence:347": "non_therapeutic_claim_unresolved"
+  }
+}
