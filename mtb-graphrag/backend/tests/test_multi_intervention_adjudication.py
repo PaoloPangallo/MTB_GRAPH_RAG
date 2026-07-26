@@ -42,6 +42,11 @@ FIRST = V3 / "multi_intervention_source_review"
 REPLICATE = V3 / "multi_intervention_second_review"
 COMPARISON = V3 / "multi_intervention_review_comparison"
 START_SHA = "3ef3e99a9ec0491aab37384f336e857ea08aa8a2"
+# La fase di adjudication si chiude qui. Come per le due fasi precedenti, il
+# perimetro va misurato su un intervallo chiuso: confrontarlo con l'albero di
+# lavoro lo farebbe fallire a ogni fase successiva invece che quando questa fase
+# ha scritto dove non doveva.
+PHASE_END_SHA = "6341d12088c4b856320eae3ece90936b9bbdd64b"
 
 MANDATORY_GROUPS = (
     "evidence:275",
@@ -708,7 +713,7 @@ class TestUntouchedArtifacts(unittest.TestCase):
             raise unittest.SkipTest("git non disponibile")
         try:
             result = subprocess.run(
-                ["git", "diff", "--name-only", START_SHA],
+                ["git", "diff", "--name-only", START_SHA, PHASE_END_SHA],
                 cwd=REPO_ROOT.parent,
                 capture_output=True,
                 text=True,
