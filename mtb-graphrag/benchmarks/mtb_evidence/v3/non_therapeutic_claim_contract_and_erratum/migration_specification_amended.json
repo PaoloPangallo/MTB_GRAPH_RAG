@@ -1,0 +1,60 @@
+{
+  "adjudication_decisions_unchanged": true,
+  "amended_sections": {
+    "16_deprecation": {
+      "breaking_change": true,
+      "content": "I 13 statement operativi corrispondenti ai gruppi adjudicati vanno deprecati come claim, non cancellati: restano leggibili come record storici con un puntatore al parent che li sostituisce. Due di essi (evidence:3811 ed evidence:4759) non hanno alcun claim sostitutivo e la deprecazione va motivata col reason code. evidence:275 ha invece un claim sostitutivo, aggregato sulla classe EGFR-TKI: cio' che non ha e' un sostituto atomico su erlotinib, ed e' esattamente il punto dell'adjudication.",
+      "supersedes_original_content": true,
+      "title": "Deprecazione degli statement esistenti"
+    },
+    "21_object_taxonomy": {
+      "breaking_change": true,
+      "content": "Il repository contiene cinque categorie distinte e non sovrapponibili. I *claim terapeutici* portano un intervento e ricevono therapy score: atomici, aggregati, di regime. I *claim non terapeutici* non portano intervento e non ricevono therapy score: diagnostici e prognostici. Le *associazioni unsupported* sono conclusioni negative auditabili. Le *associazioni unresolved* sono sospensioni riapribili. I *parent senza claim* sono contenitori di provenienza per i quali nessun claim e' sostenuto, ed e' un esito legittimo. Le cinque categorie hanno denominatori separati: nessuna metrica le somma.",
+      "new_section": true,
+      "title": "Tassonomia degli oggetti del repository"
+    },
+    "22_non_therapeutic_claims": {
+      "breaking_change": true,
+      "content": "DiagnosticClaim e PrognosticClaim sono fratelli di TherapeuticClaim sotto EvidenceClaim, non suoi sottotipi: non hanno intervento, e metterli sotto un nodo che lo richiede costringerebbe a inventarlo. Non ricevono therapy score, non entrano nelle metriche therapy-level, non vengono appiattiti in `intervention` e non sono confrontabili con regimi o classi di farmaci. PredictiveClaim non viene introdotto: non esiste un caso materializzabile nel corpus e il modello lo esprime gia' come TherapeuticClaim con direzione.",
+      "new_section": true,
+      "title": "Claim non terapeutici"
+    }
+  },
+  "erratum": "adjudication_erratum/1.0",
+  "gold_used": false,
+  "object_categories": {
+    "non_therapeutic_claims": 2,
+    "parents_without_claims": 3,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "original_preserved_at": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/migration_specification.json",
+  "resulting_claim_count": 148,
+  "resulting_claim_count_is_derived": true,
+  "specification_version": "migration_specification_amended/1.1",
+  "status": "amended_not_promoted",
+  "supersedes": "adapter-claim-migration/1.0",
+  "supersedes_sha256": "20d6399634e577a72b06bac5bb0943e29bf548b96e4ad47107180dcb4423ed3b",
+  "unchanged_sections": [
+    "01_graph_evidence_record",
+    "02_claim_schema",
+    "03_parent_child_relationship",
+    "04_aggregate_claim",
+    "05_regimen_claim",
+    "06_unsupported_and_unresolved",
+    "07_id_strategy",
+    "08_adapter_v2_to_parent",
+    "09_adapter_to_claims",
+    "10_provenance",
+    "11_qualification_link",
+    "12_qualified_evidence_view",
+    "13_retrieval_index",
+    "14_scoring_compatibility",
+    "15_metric_migration",
+    "17_backward_compatibility",
+    "18_corpus_version_bump",
+    "19_migration_manifest",
+    "20_rollback_plan"
+  ]
+}

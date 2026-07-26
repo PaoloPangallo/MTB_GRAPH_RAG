@@ -1,0 +1,70 @@
+{
+  "adjudication_decisions_revisited": false,
+  "corrections": [
+    {
+      "cause": "La proiezione 147 - 13 + 15 assumeva che ognuno dei 134 record non adjudicati portasse un claim. Tre non ne portavano, perche' la tassonomia aveva soltanto tipi di intervento e quei tre record non affermano una terapia. Il numero non era sbagliato per un errore di conto: era sbagliato perche' la tassonomia era incompleta.",
+      "corrected_value": 148,
+      "correction_basis": "derived_from_audit",
+      "correction_id": "ERR-A-claim-count",
+      "documentary_decisions_unchanged": true,
+      "field": "resulting_claim_count",
+      "impact_on_counts": {
+        "non_therapeutic_claims": 2,
+        "parents_without_claims": 3,
+        "therapeutic_claims": 146,
+        "total_claims": 148
+      },
+      "impact_on_documentary_decisions": "none",
+      "impact_on_migration": "Il denominatore claim-level cambia e va etichettato con la versione del corpus. Due statement legacy passano da 'preservato' a 'sostituito da claim diagnostico'.",
+      "original_artifact": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/post_adjudication_schema_simulation.json",
+      "original_sha256": "ddd7bcf04b45c60ea89f230918c0ee46277068b248934b4c6cb57a778ceba95f",
+      "original_value": 149,
+      "structured_source_of_correction": [
+        "benchmarks/mtb_evidence/v3/typed_claim_shadow_migration/typed_claims.jsonl",
+        "benchmarks/mtb_evidence/v3/non_therapeutic_claim_contract_and_erratum/claim_id_simulation.jsonl"
+      ]
+    },
+    {
+      "also_appears_in": {
+        "artifact": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/ADAPTER_MIGRATION_SPECIFICATION.md",
+        "line": 68,
+        "sha256": "b92a3dafb2bef0e396fabd0270d9ac33b8daa00fe6ca48c78188e820cfca4124"
+      },
+      "cause": "Errore di redazione nella prosa: evidence:275 e' il gruppo il cui claim *atomico* e' stato rifiutato, e nella frase e' stato scambiato con il gruppo che non ha alcun claim. Quattro artefatti strutturati concordano contro quella frase, e la migrazione shadow ha seguito i dati.",
+      "corrected_value": "I 13 statement operativi corrispondenti ai gruppi adjudicati vanno deprecati come claim, non cancellati: restano leggibili come record storici con un puntatore al parent che li sostituisce. Due di essi (evidence:3811 ed evidence:4759) non hanno alcun claim sostitutivo e la deprecazione va motivata col reason code. evidence:275 ha invece un claim sostitutivo, aggregato sulla classe EGFR-TKI: cio' che non ha e' un sostituto atomico su erlotinib, ed e' esattamente il punto dell'adjudication.",
+      "correction_basis": "structured_data_disagrees_with_prose",
+      "correction_id": "ERR-B-groups-without-replacement",
+      "documentary_decisions_unchanged": true,
+      "field": "sections.16_deprecation.content",
+      "impact_on_counts": {
+        "affected_groups": [
+          "evidence:3811",
+          "evidence:4759"
+        ],
+        "evidence_275_has_replacement": true,
+        "evidence_275_replacement_claim_id": "CLM-4ffe85304f3ef5533b58",
+        "evidence_275_replacement_claim_type": "aggregate_intervention_claim",
+        "statements_deprecated_without_replacement": 2
+      },
+      "impact_on_documentary_decisions": "none",
+      "impact_on_migration": "Nessuno: la migrazione shadow aveva gia' seguito i dati strutturati. L'impatto e' su chi legge la specification e ne trarrebbe una conclusione sbagliata su evidence:275.",
+      "original_artifact": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/migration_specification.json",
+      "original_claim": "evidence:275 ed evidence:4759 non hanno alcun claim sostitutivo",
+      "original_sha256": "20d6399634e577a72b06bac5bb0943e29bf548b96e4ad47107180dcb4423ed3b",
+      "original_value": "I 13 statement operativi corrispondenti ai gruppi adjudicati vanno deprecati come claim, non cancellati: restano leggibili come record storici con un puntatore al parent che li sostituisce. Due di essi (evidence:275 ed evidence:4759) non hanno alcun claim sostitutivo e la deprecazione va motivata col reason code.",
+      "structured_source_of_correction": [
+        "packet_adjudications.jsonl: evidence:275 approved_claims=['CLM-4ffe85304f3ef5533b58'], evidence:3811 approved_claims=[], evidence:4759 approved_claims=[]",
+        "post_adjudication_schema_simulation.json: groups_without_any_claim=['evidence:3811','evidence:4759']",
+        "MULTI_INTERVENTION_ADJUDICATION.md riga 23: gruppi che non producono alcun claim: 2 (evidence:3811, evidence:4759)",
+        "PARENT_SEMANTICS_DECISION.md riga 67: evidence:3811 e evidence:4759 senza alcun claim"
+      ]
+    }
+  ],
+  "erratum_version": "adjudication_erratum/1.0",
+  "gold_used": false,
+  "issued_by_phase": "arch/v3-non-therapeutic-claim-contract-and-erratum",
+  "issued_on": "2026-07-26",
+  "note": "L'erratum non modifica gli artefatti congelati. Li cita per hash e dichiara la correzione accanto, cosi' che chi legge l'originale possa risalire alla rettifica e chi legge la rettifica possa verificare l'originale.",
+  "originals_preserved": true,
+  "originals_rewritten": false
+}
