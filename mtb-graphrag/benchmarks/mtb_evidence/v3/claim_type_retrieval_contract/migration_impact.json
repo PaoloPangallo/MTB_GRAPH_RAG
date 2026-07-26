@@ -1,0 +1,88 @@
+{
+  "areas": {
+    "adapter_output": {
+      "blocked_by": "implementazione dell'adapter",
+      "breaking": true,
+      "change": "Emette GraphEvidenceRecord invece di statement scalari; i claim arrivano dalla revisione, non dalla promozione del primo valore multi-valore."
+    },
+    "audit_log": {
+      "blocked_by": null,
+      "breaking": false,
+      "change": "Deve registrare il match type, il bucket e i reason code per ogni candidato valutato, inclusi quelli respinti: e' cio' che rende verificabile che il gate abbia agito prima del punteggio."
+    },
+    "backward_compatibility": {
+      "blocked_by": null,
+      "breaking": true,
+      "change": "Nessuna compatibilita' sul contratto di claim: un consumatore che si aspetta un intervento scalare per record va aggiornato. Resta la compatibilita' di provenienza attraverso graph_record_ids."
+    },
+    "benchmark": {
+      "blocked_by": "corpus e scoring",
+      "breaking": true,
+      "change": "Le query del pilot restano valide come input, ma l'atteso va riespresso per tipo di claim: una query su un farmaco non deve piu' attendersi un risultato dove il farmaco e' solo un componente."
+    },
+    "candidate_generation": {
+      "blocked_by": "contratto (completo) e repository",
+      "breaking": true,
+      "change": "Filtro per tipo prima del matching, poi match strutturale tipizzato che restituisce un match type invece di un booleano."
+    },
+    "corpus": {
+      "blocked_by": "adapter e repository",
+      "breaking": true,
+      "change": "Version bump con nuovo fingerprint. I 13 statement dei gruppi adjudicati diventano 15 claim piu' 13 parent; due gruppi non producono alcun claim."
+    },
+    "metrics": {
+      "blocked_by": "corpus",
+      "breaking": true,
+      "change": "Il denominatore claim-level cambia. Le metriche prodotte prima della migrazione non sono confrontabili con quelle successive e vanno etichettate con la versione del corpus."
+    },
+    "qualification_links": {
+      "blocked_by": "corpus",
+      "breaking": true,
+      "change": "Si spostano dallo statement al claim: 13 link da ritirare, 15 da creare. I parent senza claim non ricevono link."
+    },
+    "qualified_evidence_view": {
+      "blocked_by": "corpus",
+      "breaking": true,
+      "change": "Espone claim tipizzati. Non deve appiattire regimi e aggregati in una stringa `intervention` unica: il tipo va conservato fino all'output."
+    },
+    "ranking": {
+      "blocked_by": "scoring",
+      "breaking": true,
+      "change": "Il ranking primario contiene solo match strutturalmente equivalenti. I correlati ordinano dentro il proprio bucket e non competono con i primari."
+    },
+    "report_renderer": {
+      "blocked_by": "output contract",
+      "breaking": true,
+      "change": "Deve mostrare `intervention_representation` tipizzata (atomic, regimen, class, aggregate, none) e i warning associati. Un regime reso come farmaco singolo ricreerebbe nel dossier l'errore che il modello elimina nei dati."
+    },
+    "repository": {
+      "blocked_by": "implementazione dell'adapter",
+      "breaking": true,
+      "change": "Contiene oggetti di tipo diverso: parent, claim tipizzati, associazioni. `all()` non e' piu' una sorgente di candidati terapeutici e va sostituita da un accesso filtrato per tipo."
+    },
+    "retrieval_indices": {
+      "blocked_by": "corpus",
+      "breaking": true,
+      "change": "Indicizzano i claim, non i parent. L'indice per intervento diventa multi-valore per i regimi e per gli aggregati."
+    },
+    "scoring": {
+      "blocked_by": "nuove feature e pesi, non definiti in questa fase",
+      "breaking": true,
+      "change": "Tre penalita' diventano gate (pending terminology, not separable, unresolved) e una quarta va rimossa (penalty_invalid). Il contributo dell'intervento si calcola per tipo di match."
+    },
+    "warnings": {
+      "blocked_by": null,
+      "breaking": false,
+      "change": "Dieci codici di warning tipizzati, fra cui la distinzione fra risultato di combinazione, di classe e non separabile, oggi assente."
+    }
+  },
+  "contract_version": "claim-type-retrieval-contract/1.0",
+  "impact_version": "claim-type-retrieval-migration-impact/1.0",
+  "not_applied": [
+    "nessuna modifica ad adapter, corpus, repository, retriever o scoring",
+    "nessuna rigenerazione delle QualifiedEvidenceView",
+    "nessun nuovo peso",
+    "nessuna valutazione esplorativa"
+  ],
+  "status": "described_not_applied"
+}

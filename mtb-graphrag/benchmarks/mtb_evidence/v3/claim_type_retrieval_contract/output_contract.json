@@ -1,0 +1,30 @@
+{
+  "contract_version": "claim-type-retrieval-contract/1.0",
+  "fields": {
+    "audit_status": "enum(active, audit_only, rejected)",
+    "biomarker": "string",
+    "claim_id": "string",
+    "claim_type": "enum(atomic_intervention_claim, aggregate_intervention_claim, regimen_claim)",
+    "deprecated": "boolean",
+    "direction": "enum(sensitivity, resistance, reduced_sensitivity, unknown)",
+    "disease": "string",
+    "intervention_representation": "typed(atomic | regimen | class | aggregate | none)",
+    "locators": "list(locator)",
+    "parent_graph_evidence_id": "string",
+    "polarity": "enum(supports, does_not_support, conflicting, unknown)",
+    "provenance": "object(graph_record_ids, adapter_lineage, review_state, adjudication_reference)",
+    "qualification_links": "list(link_id)",
+    "review_status": "enum(adjudicated, reviewed, unreviewed)",
+    "score_breakdown": "list(ScoreComponent)",
+    "score_eligibility": "object(structural, qualified, final_ranking)",
+    "source_units": "list(source_unit_id)",
+    "structural_match": "StructuralMatchResult",
+    "warnings": "list(warning_code)"
+  },
+  "intervention_representation_contract": {
+    "flattening_to_single_string_forbidden": true,
+    "reason": "Un regime reso come farmaco singolo ricreerebbe nel dossier l'errore che il modello elimina nei dati.",
+    "typed": true
+  },
+  "result_type": "QualifiedClaimRetrievalResult"
+}
