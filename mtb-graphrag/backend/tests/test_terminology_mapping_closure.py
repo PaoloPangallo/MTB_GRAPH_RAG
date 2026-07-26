@@ -63,30 +63,27 @@ START_SHA = "154528358ee05f95fc523c41058d1c7e7839bd94"
 # La fase termina sull'ultimo commit di contenuto. L'estremo resta fisso anche
 # quando fasi successive aggiungono nuovi commit: il perimetro di una fase e'
 # una proprieta' storica e chiusa.
-PHASE_END_SHA = ""
+PHASE_END_SHA = "18961312dba1b3f083a2a313c1f1b4e549dc0d68"
 
+# PhaseScope restituisce percorsi relativi al pacchetto: il prefisso del repo
+# viene gia' rimosso una volta dal helper condiviso.
 ALLOWED_WRITE_PREFIXES = (
-    "mtb-graphrag/benchmarks/mtb_evidence/v3/terminology_mapping_closure/",
-    "mtb-graphrag/benchmarks/mtb_evidence/evaluation/terminology_mapping_closure.py",
-    "mtb-graphrag/benchmarks/mtb_evidence/evaluation/"
-    "terminology_mapping_closure_simulation.py",
-    "mtb-graphrag/benchmarks/mtb_evidence/evaluation/"
-    "terminology_mapping_closure_reports.py",
-    "mtb-graphrag/benchmarks/mtb_evidence/evaluation/scripts/"
-    "build_terminology_mapping_closure.py",
-    "mtb-graphrag/backend/tests/test_terminology_mapping_closure.py",
+    "benchmarks/mtb_evidence/v3/terminology_mapping_closure/",
+    "benchmarks/mtb_evidence/evaluation/terminology_mapping_closure.py",
+    "benchmarks/mtb_evidence/evaluation/terminology_mapping_closure_simulation.py",
+    "benchmarks/mtb_evidence/evaluation/terminology_mapping_closure_reports.py",
+    "benchmarks/mtb_evidence/evaluation/scripts/build_terminology_mapping_closure.py",
+    "backend/tests/test_terminology_mapping_closure.py",
 )
 
 FROZEN_OPERATIONAL_PATHS = (
-    "mtb-graphrag/backend/pipeline/evidence/v2_adapter.py",
-    "mtb-graphrag/backend/pipeline/evidence/repository.py",
-    "mtb-graphrag/backend/pipeline/evidence/qualified_retriever.py",
-    "mtb-graphrag/backend/pipeline/evidence/qualified_retrieval_scoring.py",
-    "mtb-graphrag/backend/pipeline/evidence/qualified_retriever_scoring_config.json",
-    "mtb-graphrag/benchmarks/mtb_evidence/v3/qualification_corpus_v2/"
-    "evidence_statements.jsonl",
-    "mtb-graphrag/benchmarks/mtb_evidence/v3/qualification_corpus_v2/"
-    "qualified_evidence_views.jsonl",
+    "backend/pipeline/evidence/v2_adapter.py",
+    "backend/pipeline/evidence/repository.py",
+    "backend/pipeline/evidence/qualified_retriever.py",
+    "backend/pipeline/evidence/qualified_retrieval_scoring.py",
+    "backend/pipeline/evidence/qualified_retriever_scoring_config.json",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl",
 )
 
 ICCA_DIAGNOSTIC_CLAIMS = {
