@@ -163,18 +163,31 @@ def evaluate(query: Mapping[str, Any], obj: Any) -> StructuralMatchResult:
         "bucket": base.bucket,
     }
 
+    # Due condizioni dipendono dall'oggetto e non dalla query, e vanno applicate
+    # dopo il match ma sempre prima di qualunque punteggio.
+    #
     # Un claim deprecato non e' un candidato, qualunque sia il suo match type.
-    # E' una condizione dell'oggetto, non della query, e va applicata dopo il
-    # match ma sempre prima di qualunque punteggio.
+    #
+    # Un'associazione porta `audit_only = True` come invariante dichiarato del
+    # modello. La tabella dei match type e' piu' permissiva — `unresolved` e'
+    # anche warning-eligible, perche' quel match type puo' descrivere anche un
+    # claim la cui attribuzione documentale e' sospesa — ma un'associazione non
+    # e' un claim e non entra nel bucket dei risultati trattenuti con avviso.
+    # L'invariante dell'oggetto ha la precedenza sull'eleggibilita' del tipo di
+    # match; la tabella congelata non viene toccata.
     deprecated = bool(getattr(obj, "deprecated", False))
-    primary = base.primary_candidate_eligible and not deprecated
-    warning_eligible = base.warning_eligible and not deprecated
-    audit_only = base.audit_only or (deprecated and not rejected)
+    audit_only_object = bool(getattr(obj, "audit_only", False))
+    demoted = deprecated or audit_only_object
+
+    primary = base.primary_candidate_eligible and not demoted
+    warning_eligible = base.warning_eligible and not demoted
+    audit_only = base.audit_only or (demoted and not rejected)
     bucket = base.bucket
     exclusions = base.exclusion_reason_codes
-    if deprecated and not rejected:
+    if demoted and not rejected:
         bucket = AUDIT_BUCKET
-        exclusions = exclusions + ("CLAIM_DEPRECATED",)
+        if deprecated:
+            exclusions = exclusions + ("CLAIM_DEPRECATED",)
         eligibility.update(
             {
                 "structural_score_eligible": False,

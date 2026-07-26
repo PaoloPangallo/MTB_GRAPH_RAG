@@ -48,6 +48,7 @@ AGGREGATE_TYPES = (
 AGGREGATE_KIND_TO_TYPE = {
     "drug_class": "intervention_class",
     "non_separable_set": "non_separable_intervention_set",
+    "non_separable_inhibitor_set": "non_separable_intervention_set",
     "panel": "panel",
 }
 

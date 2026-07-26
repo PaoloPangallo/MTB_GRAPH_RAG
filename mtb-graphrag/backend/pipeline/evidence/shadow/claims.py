@@ -149,7 +149,19 @@ class AggregateInterventionClaim(_ClaimBase):
 
     @property
     def intervention_members(self) -> tuple[str, ...]:
-        return (self.aggregate_label,)
+        """Cosa il match strutturale confronta, e dipende dal tipo di aggregato.
+
+        Per una classe il confronto e' con l'etichetta della classe: la query
+        chiede `EGFR tyrosine kinase inhibitor`, non i suoi membri, e la
+        relazione farmaco-classe resta non verificata. Per un insieme non
+        separabile il confronto e' con i membri letterali, perche' un farmaco
+        nominato dentro l'insieme *e'* raggiungibile — solo che il risultato non
+        gli e' attribuibile, ed e' per questo che finisce in warning e non in
+        primario.
+        """
+        if self.aggregate_type == "intervention_class":
+            return (self.aggregate_label,)
+        return self.aggregate_members_literal or (self.aggregate_label,)
 
     def to_dict(self) -> dict[str, Any]:
         payload = self._base_dict()
