@@ -1,0 +1,58 @@
+{
+  "amendments": [
+    {
+      "artifact": "non_therapeutic_claim_contract_and_erratum/migration_specification_amended.json",
+      "promoted": false,
+      "role": "amended",
+      "supersedes": "migration-specification/1.0",
+      "version": "migration_specification_amended/1.1"
+    },
+    {
+      "artifact": "non_therapeutic_claim_contract_and_erratum/adjudication_erratum.json",
+      "promoted": false,
+      "role": "erratum",
+      "version": "adjudication_erratum/1.0"
+    }
+  ],
+  "lineage_version": "artifact_version_lineage/1.0",
+  "originals": [
+    {
+      "artifact": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/migration_specification.json",
+      "corrected_by": "adjudication_erratum/1.0",
+      "modified_by_this_phase": false,
+      "role": "original_frozen",
+      "sha256": "20d6399634e577a72b06bac5bb0943e29bf548b96e4ad47107180dcb4423ed3b",
+      "superseded_by": "migration_specification_amended/1.1"
+    },
+    {
+      "artifact": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/ADAPTER_MIGRATION_SPECIFICATION.md",
+      "corrected_by": "adjudication_erratum/1.0",
+      "modified_by_this_phase": false,
+      "role": "original_frozen",
+      "sha256": "b92a3dafb2bef0e396fabd0270d9ac33b8daa00fe6ca48c78188e820cfca4124",
+      "superseded_by": null
+    },
+    {
+      "artifact": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/post_adjudication_schema_simulation.json",
+      "corrected_by": "adjudication_erratum/1.0",
+      "modified_by_this_phase": false,
+      "role": "original_frozen",
+      "sha256": "ddd7bcf04b45c60ea89f230918c0ee46277068b248934b4c6cb57a778ceba95f",
+      "superseded_by": null
+    },
+    {
+      "artifact": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/adjudication_manifest.json",
+      "corrected_by": "adjudication_erratum/1.0",
+      "modified_by_this_phase": false,
+      "role": "original_frozen",
+      "sha256": "38427bfc492464dfff2509ebc6c1b6fdaeda39c9fb61e3f172181f9018875cd7",
+      "superseded_by": null
+    }
+  ],
+  "rule": "Un artefatto congelato non viene mai riscritto. La correzione vive accanto, con l'hash dell'originale, e il lineage tiene i due collegati.",
+  "shadow_repository": {
+    "artifact": "benchmarks/mtb_evidence/v3/typed_claim_shadow_migration",
+    "modified_by_this_phase": false,
+    "regenerated": false
+  }
+}
