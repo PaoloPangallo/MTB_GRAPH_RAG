@@ -1,0 +1,76 @@
+{
+  "adapter_version": "v2_to_typed_claim_shadow_adapter/1.0",
+  "artifact_sha256": {
+    "aggregate_claims.jsonl": "de10b8abb188eb2bf8c87a6e5b07a3d77a080e3f02bd6d1af007df3d7b7f2d15",
+    "atomic_claims.jsonl": "54aa98c12f508bc364445386a7752a1d29492b52c18f7ae1fff5b0461a70a108",
+    "claim_id_manifest.json": "69b67945c0852f14e790fc6897eb9cabd7d4cf9ab9f91c8866dca7bcbfc391e9",
+    "graph_evidence_parents.jsonl": "8c6679c113577853e1fefdd516216d3d2d11fe33ab208a826a2d97f9a563c6a8",
+    "legacy_penalty_bypass_tests.json": "3354405f24eaa54e218cd69b4084fee03623b589dce3cb5b6495c1488da70db4",
+    "legacy_statement_deprecation_map.jsonl": "25a75853baba36272bbb3042aa18031dcb2dc10b6e70df7b9a524eb38a522b02",
+    "migration_blockers.jsonl": "65c0ba1caf53aa7fd30dcf6cfa4a123b6f2168a454ce434da7442d4d2f6cbc07",
+    "operational_vs_shadow_inventory.json": "616ab5ad5e1d7f052f53f41e4a6dcbb57f296ffcb8eb9f811e57b10bc745f7ac",
+    "qualification_link_regeneration_plan.jsonl": "7666df9fd48e01e1d62664ed85f6b84b2f24be7a12c2b1f7302101346732bae4",
+    "qualified_view_regeneration_plan.jsonl": "7e9c075559edebdf1bd9a9c0373e38f049bfc1006d8920722edc85f94d5642a0",
+    "regimen_claims.jsonl": "79ce29c36f58818cc51c1a0aae23d45690218a43c479c39963bf396806bcee67",
+    "shadow_gate_simulation.jsonl": "59c9e2564f8bbd435c630a1ce184f54067958a6217b9d14e5a5d2afeb33de39b",
+    "typed_claims.jsonl": "b3a766c5a92080ad60a3acf789c860c697df38ef9ff642dcadf38e798598eb15",
+    "unresolved_associations.jsonl": "5013fd853dc5c5f2702e2fcd32ab4a848a6c5524faab51f12d6d9b882d5ecd7a",
+    "unsupported_associations.jsonl": "95b4eabca69c9ba9ed816e5a0ea44785297aaff812f21a64dba6a62258087aaf"
+  },
+  "counts": {
+    "aggregate_claims_adjudicated": 3,
+    "atomic_claims_adjudicated": 9,
+    "blockers_blocking_promotion": 0,
+    "bucket_counts": {
+      "audit_only_results": 281,
+      "primary_ranked_results": 42,
+      "retained_with_warning": 8
+    },
+    "claims_adjudicated": 15,
+    "claims_legacy_migrated": 131,
+    "claims_total": 146,
+    "deprecated_without_replacement": 2,
+    "legacy_statements_deprecated": 13,
+    "migration_blockers": 3,
+    "parents": 147,
+    "parents_in_primary_ranking": 0,
+    "parents_without_claims": 5,
+    "regimen_claims_adjudicated": 3,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6,
+    "v2_intervention_associations_preserved": 159,
+    "v2_rows_read": 199
+  },
+  "exploratory_evaluation_executed": false,
+  "gate_version": "claim_structural_gate/1.0",
+  "gold_used": false,
+  "hierarchy_policy_applied": false,
+  "llm_used": false,
+  "mandatory_cases": {
+    "evidence:11240": [
+      "atomic_intervention_claim",
+      "regimen_claim"
+    ],
+    "evidence:12131": [
+      "regimen_claim"
+    ],
+    "evidence:275": [
+      "aggregate_intervention_claim"
+    ],
+    "evidence:3811": [],
+    "evidence:4759": []
+  },
+  "migration_status": "shadow_not_promoted",
+  "migration_version": "qualified_claim_model/1.0",
+  "neo4j_used": false,
+  "network_used": false,
+  "operational_adapter_modified": false,
+  "operational_corpus_modified": false,
+  "operational_retriever_modified": false,
+  "operational_scoring_modified": false,
+  "output_contract_version": "qualified_claim_retrieval_result/1.0",
+  "pending_mappings_promoted": false,
+  "qualified_views_regenerated": false,
+  "repository_version": "qualified_claim_repository/1.0",
+  "scoring_version": "claim_shadow_scoring/1.0"
+}
