@@ -1,0 +1,57 @@
+{
+  "adapter_modified": false,
+  "adjudication_independence": "non_independent",
+  "adjudication_status": "completed",
+  "adjudication_version": "multi-intervention-adjudication/1.0",
+  "adjudicator_role": "author_adjudicator",
+  "aggregate_claims_approved": 3,
+  "atomic_claims_approved": 9,
+  "current_operational_statement_count": 147,
+  "current_statements_to_replace": 13,
+  "final_clinical_gold": false,
+  "gold_records_inventory": {
+    "gold_case_records": 4,
+    "gold_read_after_decisions_frozen": true,
+    "gold_used_for_decisions": false,
+    "granularity": "case-level, non statement-level: non esiste una corrispondenza diretta con i 13 parent"
+  },
+  "gold_used_for_decisions": false,
+  "groups_without_any_claim": [
+    "evidence:3811",
+    "evidence:4759"
+  ],
+  "hard_filterable": false,
+  "id_strategy": {
+    "claim_count": 15,
+    "collision_count": 0,
+    "digest_characters": 20,
+    "distinct_identities": 15,
+    "distinct_ids": 15,
+    "formula": "sha256(graph_evidence_id + claim_type + canonical_intervention_or_regimen + biomarker + direction + polarity + source_unit_id)",
+    "order_independent": true,
+    "stable_on_recomputation": true
+  },
+  "new_claims_total": 15,
+  "new_retrieval_metrics_computed": false,
+  "operational_corpus_modified": false,
+  "parents_preserved": 13,
+  "parents_total": 13,
+  "pending_mappings": [
+    "infigratinib",
+    "luminespib"
+  ],
+  "pilot_queries_impacted": "non determinabile senza eseguire il retrieval; l'insieme esatto va calcolato alla migrazione sull'indice rigenerato. Nessuna metrica di retrieval e' stata calcolata.",
+  "pilot_queries_total": 4,
+  "propagation_policy": "prototype_only",
+  "qualification_links_to_regenerate": 15,
+  "qualification_links_to_retire": 13,
+  "qualified_evidence_views_to_regenerate": 13,
+  "regimen_claims_approved": 3,
+  "resulting_claim_count": 149,
+  "retriever_modified": false,
+  "scoring_modified": false,
+  "statements_deprecated_without_replacement": 2,
+  "statements_to_deprecate": 13,
+  "unresolved_associations": 6,
+  "unsupported_associations": 6
+}
