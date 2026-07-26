@@ -1,0 +1,56 @@
+{
+  "abstract_sections": [
+    {
+      "label": "INTRODUCTION",
+      "text": "The phase III FLEX study (NCT00148798) in advanced non-small-cell lung cancer indicated that the survival benefit associated with the addition of cetuximab to cisplatin and vinorelbine was limited to patients whose tumors expressed high levels of epidermal growth factor receptor (EGFR) (immunohistochemistry score of ≥200; scale 0-300). We assessed whether the treatment effect was also modulated in FLEX study patients by tumor EGFR mutation status."
+    },
+    {
+      "label": "METHODS",
+      "text": "A tumor mutation screen of EGFR exons 18 to 21 included 971 of 1125 (86%) FLEX study patients. Treatment outcome in low and high EGFR expression groups was analyzed across efficacy endpoints according to tumor EGFR mutation status."
+    },
+    {
+      "label": "RESULTS",
+      "text": "Mutations in EGFR exons 18 to 21 were detected in 133 of 971 tumors (14%), 970 of which were also evaluable for EGFR expression level. The most common mutations were exon 19 deletions and L858R (124 of 133 patients; 93%). In the high EGFR expression group (immunohistochemistry score of ≥200), a survival benefit for the addition of cetuximab to chemotherapy was demonstrated in patients with EGFR wild-type (including T790M mutant) tumors. Although patient numbers were small, those in the high EGFR expression group whose tumors carried EGFR mutations may also have derived a survival benefit from the addition of cetuximab to chemotherapy. Response data suggested a cetuximab benefit in the high EGFR expression group regardless of EGFR mutation status."
+    },
+    {
+      "label": "CONCLUSIONS",
+      "text": "The survival benefit associated with the addition of cetuximab to first-line chemotherapy for advanced non-small-cell lung cancer expressing high levels of EGFR is not limited by EGFR mutation status."
+    }
+  ],
+  "allowed_decisions": [
+    "therapeutic_predictive_claim_proposal_supported",
+    "predictive_scope_unresolved",
+    "graph_prognostic_direction_rejected",
+    "insufficient_source_access"
+  ],
+  "blind": true,
+  "first_reviewer_decision_included": false,
+  "graph_assertion": {
+    "biomarker": "EGFR L858R",
+    "direction": "prognostic",
+    "disease": "Lung Non-small Cell Carcinoma",
+    "intervention": null
+  },
+  "graph_evidence_id": "evidence:347",
+  "instructions": "Rispondere dalle sole frasi dell'abstract fornito, indicando per ogni risposta sezione e indice di frase. Non usare conoscenza generale, non usare il titolo come prova, non ricostruire contenuto assente.",
+  "material_provided": "abstract",
+  "material_sha256": "69fcd4af71ddb5dcf1fc139220b1f8957431265e013f8f47712e704fbddc8abe",
+  "packet_id": "SR-evidence-347",
+  "packet_version": "non-therapeutic-source-closure/1.0",
+  "questions_to_answer": [
+    "Quale trattamento viene studiato?",
+    "L'intervento e' esplicito nella fonte? E nel record del grafo?",
+    "Quale popolazione e' analizzata?",
+    "Quale biomarcatore o gruppo mutazionale e' valutato?",
+    "L858R ha un risultato separato?",
+    "Exon 19 deletion ha un risultato separato?",
+    "Il risultato riguarda prognosi indipendente dal trattamento, interazione biomarcatore-trattamento, risposta, overall survival, progression-free survival o altro?",
+    "Lo studio consente un'interpretazione predittiva?",
+    "Il risultato e' statisticamente separabile per L858R?",
+    "Il record del grafo e' correggibile senza modificare biomarcatore, intervento o popolazione?"
+  ],
+  "recommendation_included": false,
+  "source_access_status": "full_text_unavailable",
+  "source_id": "PMID:24662454",
+  "source_title": "Relationship between EGFR expression, EGFR mutation status, and the efficacy of chemotherapy plus cetuximab in FLEX study patients with advanced non-small-cell lung cancer."
+}
