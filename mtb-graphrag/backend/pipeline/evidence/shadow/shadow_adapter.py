@@ -271,11 +271,22 @@ def build_adjudicated_claim(
         )
     if claim_type == "aggregate_intervention_claim":
         kind = record.get("aggregate_kind", "other")
+        if kind not in AGGREGATE_KIND_TO_TYPE:
+            raise ShadowAdapterError(
+                f"{record.get('claim_ref')}: aggregate_kind {kind!r} non mappato; "
+                "assegnarlo a 'other' cambierebbe il comportamento al gate"
+            )
+        members = tuple(record["aggregate_members"])
+        aggregate_type = AGGREGATE_KIND_TO_TYPE[kind]
+        # Per una classe l'etichetta e' il termine unico della classe; per un
+        # insieme non separabile e' la forma canonica dell'insieme, e prendere il
+        # primo membro perderebbe gli altri.
+        label = members[0] if aggregate_type == "intervention_class" else " + ".join(members)
         return AggregateInterventionClaim(
             claim_id=new_id,
-            aggregate_type=AGGREGATE_KIND_TO_TYPE.get(kind, "other"),
-            aggregate_label=record["aggregate_members"][0],
-            aggregate_members_literal=tuple(record.get("source_literal_terms") or ()),
+            aggregate_type=aggregate_type,
+            aggregate_label=label,
+            aggregate_members_literal=members,
             permits_member_specific_claims=False,
             migration_origin=MIGRATION_ORIGIN_ADJUDICATED,
             **common,
