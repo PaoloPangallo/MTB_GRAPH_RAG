@@ -1,0 +1,41 @@
+{
+  "all_hashes_match": true,
+  "entries": {
+    "PMID:24122810": {
+      "access_date": "2026-07-22",
+      "declared_sha256": "1394c4da90e19d8b00a4ec6382d9a74069de777e8700fa50c7df89577c26b1e0",
+      "full_text_file_present": false,
+      "full_text_sha256": null,
+      "hash_matches": true,
+      "length": 1603,
+      "material": "abstract",
+      "recomputed_sha256": "1394c4da90e19d8b00a4ec6382d9a74069de777e8700fa50c7df89577c26b1e0",
+      "retrieved_from": "pubmed_efetch",
+      "sections": [
+        "UNLABELLED",
+        "CONCLUSION"
+      ],
+      "supplement_present": false
+    },
+    "PMID:24662454": {
+      "access_date": "2026-07-22",
+      "declared_sha256": "69fcd4af71ddb5dcf1fc139220b1f8957431265e013f8f47712e704fbddc8abe",
+      "full_text_file_present": false,
+      "full_text_sha256": null,
+      "hash_matches": true,
+      "length": 1641,
+      "material": "abstract",
+      "recomputed_sha256": "69fcd4af71ddb5dcf1fc139220b1f8957431265e013f8f47712e704fbddc8abe",
+      "retrieved_from": "pubmed_efetch",
+      "sections": [
+        "INTRODUCTION",
+        "METHODS",
+        "RESULTS",
+        "CONCLUSIONS"
+      ],
+      "supplement_present": false
+    }
+  },
+  "note": "Nessun file di full text e' stato acquisito, quindi nessun hash di full text esiste. Gli hash qui sono quelli del materiale realmente letto — l'abstract indicizzato — ricalcolati dalla cache locale e confrontati con quelli dichiarati.",
+  "review_version": "non-therapeutic-source-closure/1.0"
+}
