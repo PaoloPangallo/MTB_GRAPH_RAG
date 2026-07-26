@@ -1,0 +1,35 @@
+{
+  "coexistence": {
+    "operational_statements_still_authoritative": true,
+    "shadow_imports_into_operational_modules": 0,
+    "shadow_objects_queryable_by_operational_pipeline": false
+  },
+  "operational": {
+    "artifact_sha256": {
+      "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+      "backend/pipeline/evidence/qualified_retriever.py": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+      "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_corpus_manifest.json": "fa9c35fec0831e16b66eea138fba790bcd60cd8e7eec1b49a878b6a80893b255",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+      "benchmarks/mtb_evidence/v3/v2_v3a_exploratory_pilot/frozen_v2_results.jsonl": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981"
+    },
+    "corpus_version": "qualification_corpus/2.0",
+    "evidence_statements": 147,
+    "modified_by_this_phase": false
+  },
+  "shadow": {
+    "adapter_version": "v2_to_typed_claim_shadow_adapter/1.0",
+    "claims": 146,
+    "migration_status": "shadow_not_promoted",
+    "model_schema": "qualified_claim_model/1.0",
+    "parents": 147,
+    "promoted": false,
+    "repository_schema": "qualified_claim_repository/1.0",
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "adjudicated_ids_reproduced": true,
+  "claim_count": 146,
+  "claim_id_prefix": "CLM-",
+  "collision_count": 0,
+  "digest_characters": 20,
+  "distinct_ids": 146,
+  "formula": "sha256(graph_evidence_id | claim_type | canonical_intervention_or_regimen | biomarker | direction | polarity | source_unit_id)",
+  "formula_version": "claim_id_formula/1.0",
+  "frozen_adjudicated_ids": 15,
+  "legacy_identity_note": "I claim legacy non hanno un'unita' di fonte revisionata. L'identita' usa un token esplicito derivato dallo statement, riconoscibile come tale, invece di inventare una source unit documentale.",
+  "order_independent": true,
+  "parent_ids": 147,
+  "pending_aliases_merged": false,
+  "regimen_order_invariant": true,
+  "separator": "|",
+  "stable_on_recomputation": true,
+  "unresolved_ids": 6,
+  "unsupported_ids": 6
+}
