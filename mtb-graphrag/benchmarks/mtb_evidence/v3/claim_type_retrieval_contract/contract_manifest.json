@@ -1,0 +1,107 @@
+{
+  "artifact_sha256": {
+    "CLAIM_RETRIEVAL_IMPLEMENTATION_READINESS.md": "2d6a6940082f8216d8cdfe8dd20c59ac75ca80888328b032d8aa35162264c926",
+    "CLAIM_TYPE_RETRIEVAL_CONTRACT.md": "0097c0f91c8f9b9f168c62c60164e5fce4ed2162c92d0daf10007ddb7363425d",
+    "REGIMEN_AND_AGGREGATE_MATCHING.md": "6b2cd77afda73abbab6fdcf393224716b7d900251b16732240177d7b752763ff",
+    "SCORING_COMPATIBILITY_AUDIT.md": "4e12fbfbc513a978757e61eaa1849b40f226e8ffc6da803c517db0754a366125",
+    "adjudicated_claim_query_simulation.jsonl": "ef7e95d656f10b5c1e3539c5d0002d95c1d80691d27371d12dda0d36b8641bf4",
+    "candidate_bucket_contract.json": "a595cb2dd37e19523c317ad2a4053c902a5d6bbd9d7aedd00eb5cb80953cc821",
+    "claim_type_definitions.json": "8027d716dcd120f805119b3e6714d64ba8d950b9c4edc1784e3623cab24deacf",
+    "current_scoring_assumption_audit.jsonl": "951f10a9bdbd7ecf53cb700b04ba74fc1c674356d67c98ccf79d05b2b8c54429",
+    "migration_impact.json": "47e1c0a4d0e846a4d4f2349bc9485c6a1b4591eed75c7a29fe6da2d7d9908e44",
+    "output_contract.json": "3fc111b5cfc63a0470382c140b77b2db7c4e98553b80ec64174e83eb3b057226",
+    "proposed_scoring_features.jsonl": "ec1bfdaf44aac834d7262989f7ee18719ac7c188529a0108cc160145bd0afd68",
+    "query_type_definitions.json": "1f1027650b90f996f0e695fb476f3d6c9a4769181c42bcfa62b3cbb8dd5ad94d",
+    "regression_case_simulation.jsonl": "7cc2f6812ec80972a197630e0a21a0e91b386eb4dfd195ab12718e8d989ca87a",
+    "score_eligibility_contract.json": "d9dd5e983266ea7b3313106f35b1fc005f980ce4c4aa8b3667bd5e60a7804c67",
+    "structural_match_contract.json": "a19c1d9203bf55da46f708997ca716443946f89847f2d0a9eab977b7e51b38ee",
+    "warning_reason_codes.json": "78478693f545b5e143b259ae0c7ef34f14c74ea8ba92ceeb111bee97f4dae3e8"
+  },
+  "contract_branch": "arch/v3-claim-type-retrieval-contract",
+  "contract_version": "claim-type-retrieval-contract/1.0",
+  "environment": {
+    "iniconfig_version": "2.3.0",
+    "interpreter": "python di sistema (WindowsApps PythonSoftwareFoundation.Python.3.12)",
+    "packaging_version": "25.0",
+    "pluggy_version": "1.6.0",
+    "pytest_subtests_installed": false,
+    "pytest_version": "9.0.2",
+    "python_version": "3.12.10",
+    "venv_contains_pytest": false,
+    "venv_modified_in_this_phase": false
+  },
+  "gold_used_for_rules_or_weights": false,
+  "input_hashes": {
+    "adjudication": {
+      "aggregate_sha256": "fc466fd9131e4ee44504c0a9d8cb72b855fa3f1e2c8b16e00f3728f0376c4a3b",
+      "file_count": 22
+    },
+    "frozen_artifacts": {
+      "backend/pipeline/evidence/corpus_manifest.py": "90b1dd50454363747cec973c0191f7b5f06aaf126c5f2f8cf9de17509267f4dc",
+      "backend/pipeline/evidence/corpus_regeneration.py": "84eb6549f1ab7d3a00fdd44584a6f319dac24d36e67109311ae3d8ddc111f292",
+      "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+      "backend/pipeline/evidence/qualified_retriever.py": "0dfefce064dbb5c6bf63b7f012c73075e4b7abc239815b7b4fc56fbc1e54a75e",
+      "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4"
+    },
+    "gold_artifacts": {
+      "benchmarks/mtb_evidence/evaluation/data/clinical_gold_v1.jsonl": "c26e526883912b3613a795fb286dd602ff81204f3ca25bbecddf83886bc11c2d",
+      "benchmarks/mtb_evidence/evaluation/data/snapshot_gold_ffc97bc7c660f194.jsonl": "02b64780ddbbd3d5bd92326b39596c76f16644599bcdbccfd8c578c1d800c845"
+    }
+  },
+  "operational_components_modified": false,
+  "readiness": {
+    "adapter_migration_ready": true,
+    "candidate_bucket_rules_frozen": true,
+    "claim_types_frozen": true,
+    "corpus_regeneration_ready": false,
+    "current_scoring_audited": true,
+    "full_exploratory_rerun_ready": false,
+    "hierarchy_policy_ready": false,
+    "new_weights_required": true,
+    "query_types_frozen": true,
+    "retriever_migration_ready": true,
+    "score_eligibility_rules_frozen": true,
+    "scoring_migration_ready": true,
+    "structural_match_rules_frozen": true,
+    "warning_codes_frozen": true
+  },
+  "simulation_summary": {
+    "bucket_counts": {
+      "audit_only_results": 233,
+      "primary_ranked_results": 11,
+      "rejected_by_native_constraints": 382,
+      "retained_with_warning": 14
+    },
+    "evaluations": 640,
+    "match_type_counts": {
+      "aggregate_member_related": 2,
+      "exact_atomic_intervention": 11,
+      "exact_intervention_class": 1,
+      "exact_regimen": 2,
+      "incompatible": 190,
+      "mapping_pending": 2,
+      "no_intervention_constraint": 15,
+      "parent_not_claim": 208,
+      "regimen_component_related": 5,
+      "regimen_subset_mismatch": 1,
+      "regimen_superset_mismatch": 1,
+      "unresolved": 96,
+      "unresolved_class_relation": 10,
+      "unsupported": 96
+    },
+    "parent_in_primary": 0,
+    "primary_claim_types": {
+      "aggregate_intervention_claim": 2,
+      "atomic_intervention_claim": 7,
+      "regimen_claim": 2
+    },
+    "primary_results": 11,
+    "unresolved_in_primary": 0,
+    "unsupported_in_primary": 0
+  },
+  "start_sha": "6341d12088c4b856320eae3ece90936b9bbdd64b",
+  "weights_defined": false
+}
