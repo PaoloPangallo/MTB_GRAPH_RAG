@@ -1,0 +1,67 @@
+{
+  "expected_count_forced": false,
+  "legacy_statements": {
+    "deprecated_after": 15,
+    "deprecated_before": 13,
+    "newly_replaced_by_non_therapeutic_claim": 2,
+    "still_unresolved": [
+      "evidence:347"
+    ],
+    "without_positive_replacement": [
+      "evidence:3811",
+      "evidence:4759"
+    ]
+  },
+  "materialised_in_shadow_repository": false,
+  "non_therapeutic_claims": {
+    "diagnostic_claim": 2,
+    "prognostic_claim": 0,
+    "total": 2
+  },
+  "parents": 147,
+  "parents_without_claims": {
+    "before_this_phase": [
+      "evidence:1846",
+      "evidence:1847",
+      "evidence:347",
+      "evidence:3811",
+      "evidence:4759"
+    ],
+    "count": 3,
+    "gained_a_claim_in_this_phase": [
+      "evidence:1846",
+      "evidence:1847"
+    ],
+    "graph_evidence_ids": [
+      "evidence:347",
+      "evidence:3811",
+      "evidence:4759"
+    ]
+  },
+  "promoted": false,
+  "qualification_links": {
+    "additional_to_create": 2,
+    "additional_to_retire": 2,
+    "executed": false,
+    "to_create_before": 15,
+    "to_retire_before": 13
+  },
+  "qualified_views": {
+    "additional_to_regenerate": 2,
+    "executed": false,
+    "to_regenerate_after": 15,
+    "to_regenerate_before": 13
+  },
+  "simulation_version": "migration_specification_amended/1.1",
+  "therapeutic_claims": {
+    "aggregate_intervention_claim": 3,
+    "atomic_intervention_claim": 140,
+    "regimen_claim": 3,
+    "total": 146,
+    "unchanged_from_shadow_repository": true
+  },
+  "total_claims_amended": 148,
+  "total_claims_derivation": "146 terapeutici (invariati dal repository shadow) + 2 non terapeutici approvati dall'audit",
+  "unresolved_associations": 6,
+  "unsupported_associations": 6
+}
