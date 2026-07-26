@@ -11,11 +11,10 @@ from __future__ import annotations
 
 import hashlib
 import json
-import shutil
-import subprocess
 import unittest
 from pathlib import Path
 
+from backend.tests.phase_scope import PhaseScope
 from benchmarks.mtb_evidence.evaluation.claim_type_retrieval_contract import (
     BUCKETS,
     CLAIM_TYPES,
@@ -41,6 +40,11 @@ V3 = REPO_ROOT / "benchmarks/mtb_evidence/v3"
 CONTRACT = V3 / "claim_type_retrieval_contract"
 ADJ = V3 / "multi_intervention_adjudication"
 START_SHA = "6341d12088c4b856320eae3ece90936b9bbdd64b"
+# La fase del contratto si chiude qui. Il controllo era rimasto aperto
+# sull'albero di lavoro, come annotato allora: convertito in intervallo chiuso
+# alla chiusura della fase, cosi' non fallisce quando la fase successiva scrive
+# dentro al proprio perimetro.
+PHASE_END_SHA = "f7749eaa674042bfd232c4b06f1b019c645e6c99"
 
 FROZEN_PATHS = (
     "backend/pipeline/evidence/v2_adapter.py",
@@ -64,12 +68,6 @@ ALLOWED_WRITE_PREFIXES = (
     # separato; gli artefatti dell'adjudication restano intatti.
     "backend/tests/test_multi_intervention_adjudication.py",
 )
-
-# Nota per la fase successiva: questo controllo confronta lo SHA iniziale con
-# l'albero di lavoro perche' la fase e' ancora aperta e il suo commit finale non
-# esiste. Alla chiusura va convertito in intervallo chiuso, come e' stato fatto
-# per la seconda revisione, il confronto e l'adjudication: altrimenti fallira'
-# non appena la fase seguente scrivera' dentro al proprio perimetro.
 
 
 def load_jsonl(path: Path) -> list[dict]:
@@ -826,26 +824,10 @@ class TestDeterminism(ContractCase):
 class TestUntouchedArtifacts(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        if shutil.which("git") is None:
-            raise unittest.SkipTest("git non disponibile")
-        try:
-            result = subprocess.run(
-                ["git", "diff", "--name-only", START_SHA],
-                cwd=REPO_ROOT.parent,
-                capture_output=True,
-                text=True,
-                timeout=60,
-                check=False,
-            )
-        except (OSError, subprocess.SubprocessError) as error:  # pragma: no cover
-            raise unittest.SkipTest(f"git non utilizzabile: {error}")
-        if result.returncode != 0:
-            raise unittest.SkipTest("lo SHA di partenza non e' raggiungibile in questo checkout")
-        cls.changed = {
-            line.strip().removeprefix("mtb-graphrag/")
-            for line in result.stdout.splitlines()
-            if line.strip()
-        }
+        cls.scope = PhaseScope(
+            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
+        )
+        cls.changed = cls.scope.changed_paths()
 
     def test_adapter_corpus_retriever_and_scoring_are_unchanged(self) -> None:
         for path in FROZEN_PATHS:
@@ -870,12 +852,11 @@ class TestUntouchedArtifacts(unittest.TestCase):
                 self.assertNotIn("qualification_corpus", path)
 
     def test_the_branch_only_wrote_inside_the_contract_perimeter(self) -> None:
-        for path in sorted(self.changed):
-            with self.subTest(path=path):
-                self.assertTrue(
-                    any(path.startswith(prefix) for prefix in ALLOWED_WRITE_PREFIXES),
-                    f"modifica fuori dal perimetro del contratto: {path}",
-                )
+        self.assertEqual(
+            self.scope.violations(self.changed),
+            [],
+            "modifica fuori dal perimetro del contratto",
+        )
 
 
 if __name__ == "__main__":  # pragma: no cover
