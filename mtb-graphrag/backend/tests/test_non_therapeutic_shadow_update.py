@@ -57,6 +57,10 @@ OUT_DIR = V3 / "non_therapeutic_shadow_update"
 SHADOW_V10 = V3 / "typed_claim_shadow_migration"
 
 START_SHA = "a692ec06e6f48cde0b82f758013b247bc83f2c64"
+# La fase si chiude sull'ultimo commit di contenuto. L'estremo e' fisso e non
+# `HEAD`, che cresce a ogni commit successivo e riporterebbe il controllo a
+# essere aperto.
+PHASE_END_SHA = "9104af2f8b6f3583fa14afc703b094d30a85ec4c"
 
 FROZEN_OPERATIONAL_PATHS = (
     "backend/pipeline/evidence/v2_adapter.py",
@@ -709,7 +713,7 @@ class TestOperationalUnchanged(unittest.TestCase):
         cls.scope = PhaseScope(
             REPO_ROOT.parent,
             START_SHA,
-            "HEAD",
+            PHASE_END_SHA,
             (
                 "benchmarks/mtb_evidence/v3/non_therapeutic_shadow_update/",
                 "benchmarks/mtb_evidence/evaluation/scripts/build_non_therapeutic_shadow_update.py",
