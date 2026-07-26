@@ -1,0 +1,42 @@
+{
+  "lineage_version": "repository_version_lineage/1.0",
+  "rule": "Una versione shadow non viene sovrascritta. La successiva vive in un percorso proprio e dichiara quale sostituisce, cosi' che entrambe restino leggibili e confrontabili.",
+  "versions": [
+    {
+      "artifact_sha256": {
+        "SHADOW_REPOSITORY_READINESS.md": "6d1d047106e8743d226a3d1f73fd76f0a7581c337e46e085520c00144ee0dfe9",
+        "STRUCTURAL_GATE_IMPLEMENTATION.md": "cb9a57b03afbe6ad60b3120124749b5c1f86e4e1d260aefe053dc5b4a7e211bc",
+        "TYPED_CLAIM_SHADOW_MIGRATION.md": "183315040bc94eebec21812887111ca4870d09894023958a3d221e6eef957ebd",
+        "aggregate_claims.jsonl": "de10b8abb188eb2bf8c87a6e5b07a3d77a080e3f02bd6d1af007df3d7b7f2d15",
+        "atomic_claims.jsonl": "54aa98c12f508bc364445386a7752a1d29492b52c18f7ae1fff5b0461a70a108",
+        "claim_id_manifest.json": "69b67945c0852f14e790fc6897eb9cabd7d4cf9ab9f91c8866dca7bcbfc391e9",
+        "graph_evidence_parents.jsonl": "8c6679c113577853e1fefdd516216d3d2d11fe33ab208a826a2d97f9a563c6a8",
+        "legacy_penalty_bypass_tests.json": "3354405f24eaa54e218cd69b4084fee03623b589dce3cb5b6495c1488da70db4",
+        "legacy_statement_deprecation_map.jsonl": "25a75853baba36272bbb3042aa18031dcb2dc10b6e70df7b9a524eb38a522b02",
+        "migration_blockers.jsonl": "65c0ba1caf53aa7fd30dcf6cfa4a123b6f2168a454ce434da7442d4d2f6cbc07",
+        "operational_vs_shadow_inventory.json": "616ab5ad5e1d7f052f53f41e4a6dcbb57f296ffcb8eb9f811e57b10bc745f7ac",
+        "qualification_link_regeneration_plan.jsonl": "7666df9fd48e01e1d62664ed85f6b84b2f24be7a12c2b1f7302101346732bae4",
+        "qualified_view_regeneration_plan.jsonl": "7e9c075559edebdf1bd9a9c0373e38f049bfc1006d8920722edc85f94d5642a0",
+        "regimen_claims.jsonl": "79ce29c36f58818cc51c1a0aae23d45690218a43c479c39963bf396806bcee67",
+        "shadow_gate_simulation.jsonl": "59c9e2564f8bbd435c630a1ce184f54067958a6217b9d14e5a5d2afeb33de39b",
+        "shadow_repository_manifest.json": "4cc41df934adab5cfacec2330a1349396e45db7042c3c53a8292ca283ec80f9d",
+        "typed_claims.jsonl": "b3a766c5a92080ad60a3acf789c860c697df38ef9ff642dcadf38e798598eb15",
+        "unresolved_associations.jsonl": "5013fd853dc5c5f2702e2fcd32ab4a848a6c5524faab51f12d6d9b882d5ecd7a",
+        "unsupported_associations.jsonl": "95b4eabca69c9ba9ed816e5a0ea44785297aaff812f21a64dba6a62258087aaf"
+      },
+      "model_schema": "qualified_claim_model/1.0",
+      "modified_by_this_phase": false,
+      "path": "benchmarks/mtb_evidence/v3/typed_claim_shadow_migration",
+      "repository_schema": "qualified_claim_repository/1.0",
+      "status": "superseded_but_preserved"
+    },
+    {
+      "model_schema": "qualified_claim_model/1.1",
+      "path": "benchmarks/mtb_evidence/v3/non_therapeutic_shadow_update",
+      "promoted": false,
+      "repository_schema": "qualified_claim_repository/1.1",
+      "status": "current_shadow",
+      "supersedes": "qualified_claim_repository/1.0"
+    }
+  ]
+}

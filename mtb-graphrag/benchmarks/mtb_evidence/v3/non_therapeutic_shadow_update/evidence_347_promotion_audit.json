@@ -1,0 +1,32 @@
+{
+  "audit_status": "audited_no_claim",
+  "blocks_promotion": true,
+  "claim_types_created": [],
+  "claims_created": 0,
+  "full_text_retrieved": false,
+  "graph_evidence_id": "evidence:347",
+  "incoherence_found_at_phase_start": "Lo statement legacy era attivo come claim prognostico, preservato, non deprecato e privo di qualunque decisione: la mappa 1.0 lo dichiarava 'ancora valido e leggibile', affermazione che l'audit della fase precedente aveva gia' contraddetto. In una promozione sarebbe rientrato come claim prognostico recuperabile.",
+  "legacy_deprecation_state_after": "promotion_blocked_pending_full_text",
+  "legacy_deprecation_state_before": "preserved_as_legacy_migrated_claim",
+  "legacy_statement_active_before": true,
+  "legacy_statement_id": "ES-V2-evidence-347",
+  "legacy_statement_promotable_after": false,
+  "legacy_statement_promotable_before": true,
+  "no_claim_reason": "SOURCE_CONTRADICTS_GRAPH_PROGNOSTIC_DIRECTION",
+  "operational_statement_modified": false,
+  "operational_statement_still_readable": true,
+  "parent_id": "GEP-93065c9b63c4dd9c7059",
+  "provenance": {
+    "adapter_version": "v2_to_typed_claim_shadow_adapter/1.0",
+    "graph_record_ids": [
+      "evidence:347"
+    ],
+    "operational_extraction_action_id": "v2_to_v3_adapter/1.0",
+    "origin": "frozen_kg",
+    "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+  },
+  "requires_full_text": true,
+  "resolution": "Il piano shadow lo porta a promotion_blocked_pending_full_text. Non ha un sostituto e non ne viene inventato uno; non viene nemmeno dichiarato chiuso, perche' la questione e' aperta e serve il full text di PMID:24662454.",
+  "source_id": "PMID:24662454",
+  "unresolved_reason": "FULL_TEXT_REQUIRED_FOR_PREDICTIVE_SCOPE"
+}
