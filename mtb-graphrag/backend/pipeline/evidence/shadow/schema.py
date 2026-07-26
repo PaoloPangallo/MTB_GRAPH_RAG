@@ -12,6 +12,14 @@ MODEL_SCHEMA_VERSION = "qualified_claim_model/1.0"
 SHADOW_REPOSITORY_VERSION = "qualified_claim_repository/1.0"
 MIGRATION_STATUS = "shadow_not_promoted"
 
+# Versioni 1.1: aggiungono i domini diagnostico e prognostico. Le costanti 1.0
+# restano quelle che erano e continuano a governare la generazione del
+# repository 1.0, che deve restare byte per byte quello gia' emesso.
+MODEL_SCHEMA_VERSION_V11 = "qualified_claim_model/1.1"
+SHADOW_REPOSITORY_VERSION_V11 = "qualified_claim_repository/1.1"
+STRUCTURAL_GATE_VERSION_V11 = "claim_structural_gate/1.1"
+OUTPUT_CONTRACT_VERSION_V11 = "qualified_claim_retrieval_result/1.1"
+
 # Versioni operative che questa fase non tocca. Sono qui per essere asserite, non
 # per essere usate: se una di queste cambiasse, la migrazione shadow avrebbe
 # invaso il corpus operativo.

@@ -26,10 +26,32 @@ DEPRECATION_STATES = (
     "preserved_as_legacy_migrated_claim",
 )
 
+# Stati aggiunti dal modello 1.1. Il primo copre i claim non terapeutici; il
+# secondo copre il caso che il modello 1.0 non sapeva esprimere: uno statement
+# che non ha un sostituto ma che non puo' nemmeno restare com'e', perche' la
+# fonte contraddice cio' che afferma. `preserved_as_legacy_migrated_claim` lo
+# avrebbe lasciato attivo e promuovibile.
+DEPRECATION_STATES_V11 = DEPRECATION_STATES + (
+    "replaced_by_diagnostic_claim",
+    "replaced_by_prognostic_claim",
+    "promotion_blocked_pending_full_text",
+)
+
+# Stati che impediscono allo statement di essere promosso come claim.
+PROMOTION_BLOCKING_STATES = (
+    "deprecated_without_replacement",
+    "promotion_blocked_pending_full_text",
+)
+
 CLAIM_TYPE_TO_STATE = {
     "atomic_intervention_claim": "replaced_by_atomic_claim",
     "aggregate_intervention_claim": "replaced_by_aggregate_claim",
     "regimen_claim": "replaced_by_regimen_claim",
+}
+
+CLAIM_TYPE_TO_STATE_V11 = dict(CLAIM_TYPE_TO_STATE) | {
+    "diagnostic_claim": "replaced_by_diagnostic_claim",
+    "prognostic_claim": "replaced_by_prognostic_claim",
 }
 
 
