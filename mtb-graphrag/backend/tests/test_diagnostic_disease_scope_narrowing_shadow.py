@@ -43,7 +43,7 @@ OUT = DEFAULT_OUTPUT
 START_SHA = "6f5d643f48c845ea9b18bf097315e392436414f2"
 # La fase termina sull'ultimo commit di contenuto. L'estremo resta fisso anche
 # quando fasi successive aggiungono nuovi commit.
-PHASE_END_SHA = "1639568cb299b1b8975dce854f1f9e1fdc3181c2"
+PHASE_END_SHA = "84d9ab425b1ba85a75e3e8be4739aa8197febf45"
 
 OLD_IDS = {
     "evidence:1846": "CLM-2175b95ae3113c4f5d97",
