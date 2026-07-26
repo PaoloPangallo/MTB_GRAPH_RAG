@@ -130,6 +130,58 @@ def claim_id(**kwargs: str) -> str:
     return CLAIM_ID_PREFIX + claim_identity_sha256(**kwargs)[:ID_HEX_LENGTH]
 
 
+NON_THERAPEUTIC_CLAIM_ID_FORMULA_VERSION = "non_therapeutic_claim_id_formula/1.0"
+
+NON_THERAPEUTIC_IDENTITY_FIELDS = (
+    "graph_evidence_id",
+    "claim_type",
+    "canonical_subject",
+    "biomarker",
+    "disease_scope",
+    "direction_or_interpretation",
+    "polarity",
+    "source_unit_id",
+)
+
+
+def non_therapeutic_identity_payload(
+    *,
+    graph_evidence_id: str,
+    claim_type: str,
+    canonical_subject: str,
+    biomarker: str,
+    disease_scope: str,
+    direction_or_interpretation: str,
+    polarity: str,
+    source_unit_id: str,
+) -> str:
+    """Identita' di un claim diagnostico o prognostico.
+
+    Otto campi invece di sette. Sparisce `canonical_intervention_or_regimen` —
+    non c'e' intervento da mettere, e un segnaposto al suo posto sarebbe un campo
+    artificiale che finisce nell'hash — e compaiono `canonical_subject` e
+    `disease_scope`, che per questi claim portano l'informazione che li
+    distingue.
+    """
+    return canonical_serialization(
+        (
+            ("graph_evidence_id", graph_evidence_id),
+            ("claim_type", claim_type),
+            ("canonical_subject", canonical_subject),
+            ("biomarker", biomarker),
+            ("disease_scope", disease_scope),
+            ("direction_or_interpretation", direction_or_interpretation),
+            ("polarity", polarity),
+            ("source_unit_id", source_unit_id),
+        )
+    )
+
+
+def non_therapeutic_claim_id(**kwargs: str) -> str:
+    payload = non_therapeutic_identity_payload(**kwargs)
+    return CLAIM_ID_PREFIX + _digest(payload)[:ID_HEX_LENGTH]
+
+
 def parent_id(graph_evidence_id: str) -> str:
     """ID del contenitore di provenienza.
 
