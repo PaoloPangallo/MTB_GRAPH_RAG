@@ -38,6 +38,10 @@ ADJ = V3 / "multi_intervention_adjudication"
 SHADOW = V3 / "typed_claim_shadow_migration"
 
 START_SHA = "b9773757a79fbdea639525aff2f26bdbf15bb2d1"
+# La fase si chiude sull'ultimo commit di contenuto. L'estremo e' fisso e non
+# `HEAD`: `HEAD` cresce a ogni commit successivo e riporterebbe il controllo a
+# essere aperto, che e' il difetto corretto dall'helper di perimetro.
+PHASE_END_SHA = "9723d2779a86899ebd9fce8d585a358b8d3fbe56"
 
 AUDITED = ("evidence:347", "evidence:1846", "evidence:1847")
 
@@ -572,7 +576,7 @@ class TestOperationalAndShadowUnchanged(unittest.TestCase):
         cls.scope = PhaseScope(
             REPO_ROOT.parent,
             START_SHA,
-            "HEAD",
+            PHASE_END_SHA,
             (
                 "benchmarks/mtb_evidence/v3/non_therapeutic_claim_contract_and_erratum/",
                 "benchmarks/mtb_evidence/evaluation/non_therapeutic_claim_contract.py",
