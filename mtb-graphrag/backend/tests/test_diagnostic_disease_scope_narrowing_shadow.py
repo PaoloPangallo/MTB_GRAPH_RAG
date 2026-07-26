@@ -17,6 +17,7 @@ from backend.pipeline.evidence.shadow.identity import (
     NON_THERAPEUTIC_CLAIM_ID_FORMULA_VERSION,
     non_therapeutic_claim_id,
 )
+from backend.pipeline.evidence.shadow.non_therapeutic_claims import LIMITATION_CODES
 from backend.pipeline.evidence.shadow.schema import (
     MODEL_SCHEMA_VERSION_V11,
     OUTPUT_CONTRACT_VERSION_V11,
@@ -182,6 +183,16 @@ class TestNarrowedClaims(NarrowingCase):
                 self.assertFalse(claim["receives_therapy_score"])
                 self.assertIn("CLINICAL_UTILITY_NOT_ASSERTED", claim["limitation_codes"])
 
+    def test_reviewed_claims_use_only_model_1_1_limitation_codes(self) -> None:
+        allowed = set(LIMITATION_CODES)
+        for claim in self.active.values():
+            with self.subTest(claim=claim["claim_id"]):
+                self.assertLessEqual(set(claim["limitation_codes"]), allowed)
+                self.assertNotIn(
+                    "SOURCE_UNIT_AWAITING_HUMAN_REVIEW",
+                    claim["limitation_codes"],
+                )
+
     def test_parent_locator_and_original_provenance_are_preserved(self) -> None:
         old = {
             row["graph_evidence_id"]: row
@@ -279,6 +290,37 @@ class TestIdentityAndRetirement(NarrowingCase):
                 self.assertTrue(row["reversible"])
                 self.assertEqual(row["review_status"], "first_review_complete")
                 self.assertEqual(row["propagation_policy"], "prototype_only")
+
+    def test_legacy_statement_map_resolves_directly_to_active_claims(self) -> None:
+        rows = json.loads(
+            "["
+            + self.artifacts["legacy_statement_deprecation_map_v1_2.jsonl"].replace(
+                "\n", ","
+            )[:-1]
+            + "]"
+        )
+        self.assertTrue(rows)
+        self.assertEqual(len({frozenset(row) for row in rows}), 1)
+        self.assertTrue(all("legacy_statement_id" in row for row in rows))
+        self.assertTrue(
+            all("legacy_or_shadow_claim_id" not in row for row in rows)
+        )
+        by_evidence = {row["graph_evidence_id"]: row for row in rows}
+        for graph_evidence_id in OLD_IDS:
+            with self.subTest(graph_evidence_id=graph_evidence_id):
+                row = by_evidence[graph_evidence_id]
+                self.assertEqual(
+                    row["replacement_claim_ids"],
+                    [NEW_IDS[graph_evidence_id]],
+                )
+                self.assertEqual(
+                    row["previous_replacement_claim_ids"],
+                    [OLD_IDS[graph_evidence_id]],
+                )
+                self.assertEqual(
+                    row["deprecation_state"],
+                    "replaced_by_diagnostic_claim",
+                )
 
 
 class TestPlans(NarrowingCase):
