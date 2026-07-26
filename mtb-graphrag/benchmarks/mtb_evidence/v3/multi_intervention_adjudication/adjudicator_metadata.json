@@ -1,0 +1,21 @@
+{
+  "adjudication_branch": "review/v3-multi-intervention-adjudication",
+  "adjudication_independence": "non_independent",
+  "adjudication_status": "completed",
+  "adjudication_version": "multi-intervention-adjudication/1.0",
+  "adjudicator_role": "author_adjudicator",
+  "environment": {
+    "interpreter": "python di sistema (WindowsApps PythonSoftwareFoundation.Python.3.12)",
+    "pytest_version": "9.0.2",
+    "python_version": "3.12.10",
+    "venv_contains_pytest": false,
+    "venv_modified_in_this_phase": false,
+    "venv_not_used_reason": "Il .venv del progetto non ha pytest installato e non viene modificato in questa fase: con quell'interprete otto moduli di test falliscono in ImportError su `import pytest`. Si usa lo stesso interprete di sistema della fase precedente, per non cambiare la base di paragone."
+  },
+  "final_clinical_gold": false,
+  "gold_used_for_decisions": false,
+  "hard_filterable": false,
+  "independence_declaration": "L'adjudication e' stata eseguita dall'autore sugli stessi artefatti che ha prodotto. Non esiste un revisore esterno di dominio, quindi l'etichetta independent_domain_adjudicator non e' utilizzabile.",
+  "propagation_policy": "prototype_only",
+  "start_sha": "3ef3e99a9ec0491aab37384f336e857ea08aa8a2"
+}
