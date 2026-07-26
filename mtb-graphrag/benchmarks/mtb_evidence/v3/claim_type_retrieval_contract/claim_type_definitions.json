@@ -1,0 +1,43 @@
+{
+  "claim_types": [
+    "atomic_intervention_claim",
+    "aggregate_intervention_claim",
+    "regimen_claim"
+  ],
+  "contract_version": "claim-type-retrieval-contract/1.0",
+  "non_claim_association_states": [
+    "unsupported_association",
+    "unresolved_association"
+  ],
+  "parent": {
+    "allowed_uses": [
+      "graph_lineage",
+      "source_resolution",
+      "raw_record_inspection",
+      "adapter_provenance",
+      "audit_trail"
+    ],
+    "forbidden_uses": [
+      "claim_level_candidate_ranking",
+      "therapy_score_assignment",
+      "therapy_level_metrics",
+      "primary_therapeutic_evidence_result"
+    ],
+    "is_claim": false,
+    "kind": "graph_evidence_record",
+    "reason_code": "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM"
+  },
+  "retrievable_object_kinds": [
+    "graph_evidence_record",
+    "atomic_intervention_claim",
+    "aggregate_intervention_claim",
+    "regimen_claim",
+    "unsupported_association",
+    "unresolved_association"
+  ],
+  "verified_class_membership_registry": {
+    "empty_by_design": true,
+    "entries": {},
+    "note": "Senza una voce approvata la relazione farmaco-classe resta unresolved_class_relation. Dedurla dalla stringa ripeterebbe a un livello diverso l'inferenza rifiutata in evidence:275."
+  }
+}

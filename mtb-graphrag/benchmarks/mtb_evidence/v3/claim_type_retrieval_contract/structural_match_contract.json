@@ -1,0 +1,253 @@
+{
+  "contract_version": "claim-type-retrieval-contract/1.0",
+  "direction_rules": {
+    "conflicting_never_becomes_positive": true,
+    "does_not_support_never_becomes_positive": true,
+    "reduced_sensitivity_is_not_resistance": true,
+    "unknown_not_assumed_compatible": true
+  },
+  "directions": [
+    "sensitivity",
+    "resistance",
+    "reduced_sensitivity",
+    "unknown"
+  ],
+  "disease_relations": {
+    "exact": {
+      "active": true,
+      "primary_hard_match": true
+    },
+    "explicit_child": {
+      "active": false,
+      "primary_hard_match": false
+    },
+    "explicit_parent": {
+      "active": false,
+      "primary_hard_match": false
+    },
+    "explicit_sibling": {
+      "active": false,
+      "primary_hard_match": false
+    },
+    "normalized_exact": {
+      "active": true,
+      "primary_hard_match": true
+    },
+    "unresolved_disease_relation": {
+      "active": false,
+      "primary_hard_match": false
+    },
+    "verified_alias": {
+      "active": true,
+      "primary_hard_match": true
+    }
+  },
+  "hierarchy_policy_active": false,
+  "match_types": {
+    "aggregate_member_related": {
+      "audit_eligible": false,
+      "definition": "La query chiede un farmaco nominato dentro un aggregato non separabile.",
+      "explanation_template": "{query_intervention} compare in {claim_intervention}, ma il risultato non e' separabile per farmaco.",
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "AGGREGATE_RESULT_NOT_SEPARABLE_BY_INTERVENTION",
+      "structural_score_eligible": false,
+      "warning_eligible": true
+    },
+    "aggregate_not_separable": {
+      "audit_eligible": false,
+      "definition": "Il claim aggregato e' pertinente al biomarcatore ma nessun vincolo di intervento della query lo raggiunge in modo separabile.",
+      "explanation_template": "Il risultato di {claim_intervention} non e' attribuibile a un singolo farmaco.",
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "AGGREGATE_RESULT_NOT_SEPARABLE_BY_INTERVENTION",
+      "structural_score_eligible": false,
+      "warning_eligible": true
+    },
+    "class_member_related": {
+      "audit_eligible": false,
+      "definition": "La query chiede un farmaco appartenente, per relazione verificata, alla classe del claim aggregato.",
+      "explanation_template": "Il risultato e' di classe ({claim_intervention}) e non specifico per {query_intervention}.",
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "CLASS_LEVEL_EVIDENCE_NOT_DRUG_SPECIFIC",
+      "structural_score_eligible": false,
+      "warning_eligible": true
+    },
+    "exact_atomic_intervention": {
+      "audit_eligible": false,
+      "definition": "La query chiede un singolo intervento e il claim atomico porta lo stesso intervento canonico.",
+      "explanation_template": "Il claim attribuisce il risultato esattamente a {claim_intervention}.",
+      "primary_eligible": true,
+      "qualified_score_eligible": true,
+      "reason_code": "ATOMIC_EXACT_INTERVENTION_MATCH",
+      "structural_score_eligible": true,
+      "warning_eligible": false
+    },
+    "exact_intervention_class": {
+      "audit_eligible": false,
+      "definition": "La query chiede una classe e il claim aggregato riguarda la stessa classe canonica, o un suo alias verificato.",
+      "explanation_template": "Il claim riguarda la classe {claim_intervention}, la stessa chiesta dalla query.",
+      "primary_eligible": true,
+      "qualified_score_eligible": true,
+      "reason_code": "CLASS_EXACT_MATCH",
+      "structural_score_eligible": true,
+      "warning_eligible": false
+    },
+    "exact_regimen": {
+      "audit_eligible": false,
+      "definition": "L'insieme dei componenti della query coincide con quello del claim dopo normalizzazione verificata. L'ordine non conta.",
+      "explanation_template": "Il claim riguarda esattamente la combinazione {claim_intervention}.",
+      "primary_eligible": true,
+      "qualified_score_eligible": true,
+      "reason_code": "REGIMEN_EXACT_MATCH",
+      "structural_score_eligible": true,
+      "warning_eligible": false
+    },
+    "incompatible": {
+      "audit_eligible": false,
+      "definition": "Nessuna relazione fra l'intervento della query e quello del claim.",
+      "explanation_template": "{query_intervention} non ha relazione con {claim_intervention}.",
+      "primary_eligible": false,
+      "qualified_score_eligible": false,
+      "reason_code": "NATIVE_INTERVENTION_MISMATCH",
+      "structural_score_eligible": false,
+      "warning_eligible": false
+    },
+    "mapping_pending": {
+      "audit_eligible": true,
+      "definition": "Il termine della query e quello del claim differiscono per un mapping terminologico non approvato.",
+      "explanation_template": "{query_intervention} e {claim_intervention} non sono verificati come lo stesso intervento.",
+      "primary_eligible": false,
+      "qualified_score_eligible": false,
+      "reason_code": "INTERVENTION_MAPPING_PENDING",
+      "structural_score_eligible": false,
+      "warning_eligible": false
+    },
+    "no_intervention_constraint": {
+      "audit_eligible": false,
+      "definition": "La query non specifica alcuna terapia: il vincolo di intervento non si applica.",
+      "explanation_template": "La query non vincola l'intervento; il claim resta distinto per tipo.",
+      "primary_eligible": true,
+      "qualified_score_eligible": true,
+      "reason_code": "NO_INTERVENTION_CONSTRAINT",
+      "structural_score_eligible": false,
+      "warning_eligible": false
+    },
+    "normalized_atomic_intervention": {
+      "audit_eligible": false,
+      "definition": "Stesso intervento dopo normalizzazione di forma (spazi, maiuscole, forma salina dello stesso principio attivo).",
+      "explanation_template": "{query_intervention} e {claim_intervention} sono lo stesso principio attivo dopo normalizzazione.",
+      "primary_eligible": true,
+      "qualified_score_eligible": true,
+      "reason_code": "ATOMIC_NORMALIZED_INTERVENTION_MATCH",
+      "structural_score_eligible": true,
+      "warning_eligible": false
+    },
+    "parent_not_claim": {
+      "audit_eligible": true,
+      "definition": "L'oggetto e' un GraphEvidenceRecord: provenienza, non proposizione terapeutica.",
+      "explanation_template": "Questo record e' un contenitore di provenienza e non porta una terapia.",
+      "primary_eligible": false,
+      "qualified_score_eligible": false,
+      "reason_code": "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM",
+      "structural_score_eligible": false,
+      "warning_eligible": false
+    },
+    "regimen_component_related": {
+      "audit_eligible": false,
+      "definition": "La query chiede un componente del regime. Il risultato appartiene alla combinazione e non al componente.",
+      "explanation_template": "{query_intervention} e' un componente di {claim_intervention}: il risultato e' della combinazione.",
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "ATOMIC_COMPONENT_NOT_REGIMEN_MATCH",
+      "structural_score_eligible": false,
+      "warning_eligible": true
+    },
+    "regimen_subset_mismatch": {
+      "audit_eligible": false,
+      "definition": "La combinazione chiesta e' un sottoinsieme proprio di quella del claim.",
+      "explanation_template": "La combinazione chiesta e' contenuta in {claim_intervention} ma non coincide.",
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "QUERY_REGIMEN_IS_PROPER_SUBSET",
+      "structural_score_eligible": false,
+      "warning_eligible": true
+    },
+    "regimen_superset_mismatch": {
+      "audit_eligible": false,
+      "definition": "La combinazione chiesta e' un sovrainsieme proprio di quella del claim.",
+      "explanation_template": "La combinazione chiesta contiene {claim_intervention} ma aggiunge altri componenti.",
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "QUERY_REGIMEN_IS_PROPER_SUPERSET",
+      "structural_score_eligible": false,
+      "warning_eligible": true
+    },
+    "unresolved": {
+      "audit_eligible": true,
+      "definition": "Il supporto non e' determinabile: testo insufficiente, locator insufficiente, mapping pending o scope incerto.",
+      "explanation_template": "Il supporto documentale per {query_intervention} non e' determinabile.",
+      "primary_eligible": false,
+      "qualified_score_eligible": false,
+      "reason_code": "DOCUMENTARY_ATTRIBUTION_UNRESOLVED",
+      "structural_score_eligible": false,
+      "warning_eligible": true
+    },
+    "unresolved_class_relation": {
+      "audit_eligible": true,
+      "definition": "La relazione farmaco-classe non e' verificata localmente. Non si inferisce dalla sola stringa.",
+      "explanation_template": "Non e' verificato che {query_intervention} appartenga a {claim_intervention}.",
+      "primary_eligible": false,
+      "qualified_score_eligible": false,
+      "reason_code": "CLASS_RELATION_UNVERIFIED",
+      "structural_score_eligible": false,
+      "warning_eligible": false
+    },
+    "unsupported": {
+      "audit_eligible": true,
+      "definition": "L'associazione fra intervento e record non e' sostenuta dalla fonte primaria.",
+      "explanation_template": "La fonte non sostiene l'associazione fra {query_intervention} e questo record.",
+      "primary_eligible": false,
+      "qualified_score_eligible": false,
+      "reason_code": "INTERVENTION_ASSOCIATION_UNSUPPORTED_BY_SOURCE",
+      "structural_score_eligible": false,
+      "warning_eligible": false
+    },
+    "verified_atomic_alias": {
+      "audit_eligible": false,
+      "definition": "Alias approvato localmente o identificato esplicitamente nella fonte come lo stesso intervento.",
+      "explanation_template": "{query_intervention} e' un alias verificato di {claim_intervention}.",
+      "primary_eligible": true,
+      "qualified_score_eligible": true,
+      "reason_code": "ATOMIC_VERIFIED_ALIAS_MATCH",
+      "structural_score_eligible": true,
+      "warning_eligible": false
+    }
+  },
+  "polarities": [
+    "supports",
+    "does_not_support",
+    "conflicting",
+    "unknown"
+  ],
+  "structural_match_result_fields": [
+    "claim_id",
+    "parent_graph_evidence_id",
+    "claim_type",
+    "query_intervention_type",
+    "query_interventions",
+    "claim_interventions",
+    "intervention_match_type",
+    "biomarker_match_type",
+    "disease_match_type",
+    "direction_match_type",
+    "polarity_match_type",
+    "primary_candidate_eligible",
+    "warning_eligible",
+    "audit_only",
+    "exclusion_reason_codes",
+    "warning_codes",
+    "explanation_codes"
+  ]
+}

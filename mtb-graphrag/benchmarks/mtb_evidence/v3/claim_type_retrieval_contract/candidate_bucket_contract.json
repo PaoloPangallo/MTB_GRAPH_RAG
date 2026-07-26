@@ -1,0 +1,16 @@
+{
+  "audit_objects_are_never_deleted": true,
+  "bucket_rules": {
+    "audit_only_results": "unsupported, mapping pending, relazione di classe non verificata, parent, claim deprecati",
+    "primary_ranked_results": "match strutturalmente equivalente e vincoli nativi soddisfatti",
+    "rejected_by_native_constraints": "biomarcatore, disease, direzione o polarita' incompatibili, o intervento senza alcuna relazione",
+    "retained_with_warning": "match correlato ma non equivalente: componente di regime, membro di classe, membro di aggregato, direzione correlata, unresolved"
+  },
+  "buckets": [
+    "primary_ranked_results",
+    "retained_with_warning",
+    "audit_only_results",
+    "rejected_by_native_constraints"
+  ],
+  "contract_version": "claim-type-retrieval-contract/1.0"
+}
