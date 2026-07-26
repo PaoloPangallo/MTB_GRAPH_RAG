@@ -1,0 +1,90 @@
+{
+  "adapter_version": "v2_to_typed_claim_shadow_adapter/1.1",
+  "artifact_sha256": {
+    "claim_domain_gate_simulation.jsonl": "24e6cf298321603a1f9d3bc6bcde85afbf13eadcb1f818b2c531a8e0d13658eb",
+    "diagnostic_claims_v1_1.jsonl": "93f88c51c5b43afea42808d6f436d17493e5edc42aa947e4a07d883ab9c297da",
+    "evidence_347_promotion_audit.json": "9e716a5b8ca638e60a221099d8aab845d8de3001bbff06971fd38f9a7fd42dce",
+    "evidence_claims_v1_1.jsonl": "b2ec5098f02552447a098d8d84e48de509cb50be2c7a5132cb431a18628ad7ac",
+    "graph_evidence_parents_v1_1.jsonl": "8ebb6ca37f060038b23802e6d031e75593a04cabc69112440442e1492e8d41b5",
+    "legacy_statement_deprecation_map_v1_1.jsonl": "38160903dba2a48304bc67fa80561aae83fc36930cd2397370a7df719da956a2",
+    "parent_without_claim_v1_1.jsonl": "0f136dec0c43e48177c43938db0a018c2ae35e3a718065b4681d523d5d1cb441",
+    "prognostic_claims_v1_1.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualification_link_regeneration_plan_v1_1.jsonl": "3df5af052ee84f9a635b9b3585efc983d734049b19044ca93528f3f2eef0f1c6",
+    "qualified_view_regeneration_plan_v1_1.jsonl": "83af8bf51fc40342ba0c1a62cb2d19224311f7781b522265926f97648f1aa741",
+    "repository_version_lineage.json": "ca8a37548d44898ae4e603fcf63b21e8badd82d17b47e3823b5632cfb1da5eb9",
+    "therapeutic_claims_v1_1.jsonl": "3d4ff365ae4471cbc1a6d92c6b8cbc45c49b0765f89d3dd88d02143630849d97",
+    "untyped_sectioned_output_simulation.json": "4adf6c13fad8d21152d4dc004d8df9f26db876216e7d1cf28972157476b1a45f"
+  },
+  "claim_id_formula": {
+    "collisions": 0,
+    "distinct_claim_ids": 148,
+    "non_therapeutic": "non_therapeutic_claim_id_formula/1.0",
+    "therapeutic": "claim_id_formula/1.0"
+  },
+  "counts": {
+    "by_claim_type": {
+      "aggregate_intervention_claim": 3,
+      "atomic_intervention_claim": 140,
+      "diagnostic_claim": 2,
+      "regimen_claim": 3
+    },
+    "diagnostic_claims": 2,
+    "evidence_claims_total": 148,
+    "gate_buckets": {
+      "audit_only_results": 204,
+      "primary_ranked_results": 51,
+      "retained_with_warning": 1
+    },
+    "parents": 147,
+    "parents_without_claims": 3,
+    "parents_without_claims_ids": [
+      "evidence:347",
+      "evidence:3811",
+      "evidence:4759"
+    ],
+    "prognostic_claims": 0,
+    "statements_promotion_blocked": 3,
+    "statements_to_retire": 16,
+    "statements_with_replacement": 13,
+    "statements_without_replacement": 3,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "gold_used": false,
+  "invariants": {
+    "cross_domain_ranking": false,
+    "expected_count_forced": false,
+    "full_text_retrieved": false,
+    "hierarchy_policy_applied": false,
+    "operational_adapter_modified": false,
+    "operational_corpus_modified": false,
+    "operational_retriever_modified": false,
+    "operational_scoring_modified": false,
+    "promoted": false,
+    "qualified_views_regenerated": false,
+    "shadow_1_0_modified": false,
+    "terminology_mappings_resolved": false,
+    "therapy_score_on_non_therapeutic_claims": 0
+  },
+  "llm_used": false,
+  "migration_status": "shadow_not_promoted",
+  "model_schema": "qualified_claim_model/1.1",
+  "neo4j_used": false,
+  "network_used": false,
+  "operational_artifact_sha256": {
+    "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+    "backend/pipeline/evidence/qualified_retriever.py": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+    "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+    "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+    "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+    "benchmarks/mtb_evidence/v3/v2_v3a_exploratory_pilot/frozen_v2_results.jsonl": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981"
+  },
+  "output_contract": "qualified_claim_retrieval_result/1.1",
+  "repository_schema": "qualified_claim_repository/1.1",
+  "structural_gate": "claim_structural_gate/1.1",
+  "supersedes": "qualified_claim_repository/1.0"
+}

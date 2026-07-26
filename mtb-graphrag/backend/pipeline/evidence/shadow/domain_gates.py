@@ -152,6 +152,18 @@ class DomainMatchResult:
         }
 
 
+def _within_native_perimeter(query: Mapping[str, Any], claim: Any) -> bool:
+    """Il claim parla del biomarcatore che la query chiede.
+
+    E' il vincolo nativo piu' grossolano e basta a decidere se un oggetto sia in
+    perimetro: gli altri vincoli dipendono dal dominio e vengono dopo.
+    """
+    wanted = normalize(query.get("biomarker"))
+    if not wanted:
+        return True
+    return normalize(getattr(claim, "biomarker", "")) == wanted
+
+
 def _non_therapeutic_structural_match(
     query: Mapping[str, Any], claim: Any
 ) -> tuple[bool, tuple[str, ...], dict[str, Any]]:
@@ -242,6 +254,39 @@ def evaluate(query: Mapping[str, Any], obj: Any) -> DomainMatchResult:
         code = SPECIFIC_MISMATCH.get(
             (qdomain, cdomain), "CLAIM_DOMAIN_QUERY_DOMAIN_MISMATCH"
         )
+        # Il perimetro nativo vale comunque. Un claim di dominio sbagliato che
+        # parla anche di un altro biomarcatore non e' materiale di audit per
+        # questa query: e' semplicemente fuori perimetro, e tenerlo in audit
+        # riempirebbe il bucket di 146 oggetti irrilevanti per ogni query
+        # diagnostica. E' lo stesso argomento che il contratto 1.0 usa per i
+        # claim fuori perimetro, applicato prima della differenza di dominio.
+        if not _within_native_perimeter(query, obj):
+            return DomainMatchResult(
+                claim_id=obj.claim_id,
+                parent_graph_evidence_id=obj.graph_evidence_id,
+                claim_domain=cdomain,
+                claim_type=claim_type,
+                query_domain=qdomain,
+                domain_match=False,
+                section=section,
+                bucket=REJECTED_BUCKET,
+                primary_candidate_eligible=False,
+                warning_eligible=False,
+                audit_only=False,
+                rejected_by_native_constraints=True,
+                structural_match={"intervention_match_type": "not_evaluated_out_of_perimeter"},
+                score_eligibility={
+                    "structural_score_eligible": False,
+                    "qualified_score_eligible": False,
+                    "final_ranking_eligible": False,
+                    "positive_score_forbidden": True,
+                    "ranks_within_bucket_only": False,
+                    "bucket": REJECTED_BUCKET,
+                },
+                therapy_score_allowed=False,
+                exclusion_reason_codes=("NATIVE_BIOMARKER_MISMATCH", code),
+                explanation_codes=(code,),
+            )
         return DomainMatchResult(
             claim_id=obj.claim_id,
             parent_graph_evidence_id=obj.graph_evidence_id,
