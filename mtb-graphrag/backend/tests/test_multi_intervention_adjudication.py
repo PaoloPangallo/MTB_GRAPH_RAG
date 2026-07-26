@@ -9,11 +9,10 @@ from __future__ import annotations
 
 import hashlib
 import json
-import shutil
-import subprocess
 import unittest
 from pathlib import Path
 
+from backend.tests.phase_scope import PhaseScope
 from benchmarks.mtb_evidence.evaluation.multi_intervention_adjudication import (
     ADJUDICATOR_LABELS,
     ASSOCIATION_OUTCOMES,
@@ -709,26 +708,10 @@ class TestDeterminism(AdjudicationCase):
 class TestUntouchedArtifacts(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        if shutil.which("git") is None:
-            raise unittest.SkipTest("git non disponibile")
-        try:
-            result = subprocess.run(
-                ["git", "diff", "--name-only", START_SHA, PHASE_END_SHA],
-                cwd=REPO_ROOT.parent,
-                capture_output=True,
-                text=True,
-                timeout=60,
-                check=False,
-            )
-        except (OSError, subprocess.SubprocessError) as error:  # pragma: no cover
-            raise unittest.SkipTest(f"git non utilizzabile: {error}")
-        if result.returncode != 0:
-            raise unittest.SkipTest("lo SHA di partenza non e' raggiungibile in questo checkout")
-        cls.changed = {
-            line.strip().removeprefix("mtb-graphrag/")
-            for line in result.stdout.splitlines()
-            if line.strip()
-        }
+        cls.scope = PhaseScope(
+            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
+        )
+        cls.changed = cls.scope.changed_paths()
 
     def test_adapter_corpus_retriever_and_scoring_are_unchanged(self) -> None:
         for path in FROZEN_PATHS:
@@ -752,12 +735,11 @@ class TestUntouchedArtifacts(unittest.TestCase):
                 self.assertNotIn("evidence_statements", path)
 
     def test_the_branch_only_wrote_inside_the_adjudication_perimeter(self) -> None:
-        for path in sorted(self.changed):
-            with self.subTest(path=path):
-                self.assertTrue(
-                    any(path.startswith(prefix) for prefix in ALLOWED_WRITE_PREFIXES),
-                    f"modifica fuori dal perimetro dell'adjudication: {path}",
-                )
+        self.assertEqual(
+            self.scope.violations(self.changed),
+            [],
+            "modifica fuori dal perimetro dell'adjudication",
+        )
 
 
 if __name__ == "__main__":  # pragma: no cover
