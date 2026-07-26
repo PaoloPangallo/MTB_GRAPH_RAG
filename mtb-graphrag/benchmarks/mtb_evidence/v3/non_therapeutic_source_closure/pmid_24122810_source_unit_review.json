@@ -1,0 +1,112 @@
+{
+  "access_type": "indexed_abstract",
+  "assay_or_method": "massively parallel whole transcriptome sequencing per la scoperta; RT-PCR per lo screening di prevalenza",
+  "biomarkers": [
+    "FGFR2::AHCYL1 Fusion",
+    "FGFR2::BICC1 Fusion"
+  ],
+  "disease": "Cholangiocarcinoma, con risultato ristretto al sottotipo intraepatico",
+  "evaluability_reason": "Revisione ancorata al solo abstract; il full text non e' stato recuperato e la seconda revisione indipendente non e' avvenuta.",
+  "final_evaluable": false,
+  "findings": [
+    {
+      "finding": "Identificate due fusioni kinasi, FGFR2-AHCYL1 e FGFR2-BICC1",
+      "locator": {
+        "abstract_sentence": 2,
+        "section": "UNLABELLED"
+      }
+    },
+    {
+      "finding": "Fusione FGFR2 rilevata in 9/102 colangiocarcinomi, esclusivamente nel sottotipo intraepatico (9/66, 13,6%)",
+      "locator": {
+        "abstract_sentence": 3,
+        "section": "UNLABELLED"
+      }
+    },
+    {
+      "finding": "Rara in colorettale (1/149) ed epatocellulare (1/96), assente in gastrico (0/212)",
+      "locator": {
+        "abstract_sentence": 3,
+        "section": "UNLABELLED"
+      }
+    },
+    {
+      "finding": "Mutuamente esclusiva con mutazioni KRAS/BRAF",
+      "locator": {
+        "abstract_sentence": 4,
+        "section": "UNLABELLED"
+      }
+    },
+    {
+      "finding": "Le fusioni FGFR2 ricorrono nel 13,6% dei colangiocarcinomi intraepatici e giustificano una nuova classificazione molecolare",
+      "locator": {
+        "abstract_sentence": 0,
+        "section": "CONCLUSION"
+      }
+    }
+  ],
+  "first_reviewer": "author_first_reviewer",
+  "gold_used": false,
+  "hard_filterable": false,
+  "limitations": [
+    {
+      "code": "PREVALENCE_AGGREGATE_ONLY_NOT_PARTNER_SPECIFIC",
+      "detail": "La prevalenza del 13,6% e' riportata per 'the FGFR2 fusion' nel suo insieme. L'abstract non fornisce alcuna ripartizione fra BICC1 e AHCYL1."
+    },
+    {
+      "code": "DISEASE_SCOPE_NARROWER_THAN_GRAPH",
+      "detail": "La fonte restringe il risultato al sottotipo intraepatico: 'exclusively in the intrahepatic subtype' e 'FGFR2 fusions occur in 13.6% of intrahepatic cholangiocarcinoma'. Il claim shadow porta invece disease_scope 'Cholangiocarcinoma'."
+    },
+    {
+      "code": "CLINICAL_UTILITY_NOT_ASSERTED",
+      "detail": "La fonte propone una classificazione molecolare. Non afferma un test diagnostico validato, ne' sensibilita' o specificita'."
+    },
+    {
+      "code": "NO_DIAGNOSTIC_PERFORMANCE_REPORTED",
+      "detail": "Nessuna metrica di performance diagnostica compare nell'abstract."
+    },
+    {
+      "code": "NO_PROGNOSTIC_OUTCOME_REPORTED",
+      "detail": "Nessun esito clinico e' associato alle fusioni."
+    },
+    {
+      "code": "THERAPEUTIC_ASSOCIATION_IS_PRECLINICAL",
+      "detail": "La sensibilita' agli inibitori FGFR e' mostrata in NIH3T3, non nei pazienti, e appartiene ai claim aggregati di evidence:1851 e evidence:1853, non a questi claim diagnostici."
+    },
+    {
+      "code": "ABSTRACT_ONLY_NO_FULL_TEXT",
+      "detail": "Full text non recuperabile: nessun record PMC, editore 402."
+    },
+    {
+      "code": "DISCOVERY_COHORT_SELECTED_FOR_ABSENCE_OF_KRAS_BRAF_ROS1",
+      "detail": "Gli 8 specimen sequenziati erano selezionati per assenza di alterazioni KRAS/BRAF/ROS1, il che condiziona la mutua esclusivita' osservata."
+    }
+  ],
+  "locator": {
+    "kind": "abstract_sentence",
+    "sections": [
+      "UNLABELLED",
+      "CONCLUSION"
+    ],
+    "source_id": "PMID:24122810"
+  },
+  "material_sha256": "1394c4da90e19d8b00a4ec6382d9a74069de777e8700fa50c7df89577c26b1e0",
+  "operational_unit_modification_note": "La revisione e' registrata qui e non nel corpus: promuovere lo stato della unit operativa richiederebbe la seconda revisione indipendente, che non e' avvenuta.",
+  "operational_unit_modified": false,
+  "operational_unit_state_before": {
+    "is_evaluable": false,
+    "review_status": "awaiting_first_review",
+    "source_spans": 0
+  },
+  "population": "102 pazienti con colangiocarcinoma sottoposti a screening RT-PCR, di cui 66 con sottotipo intraepatico; coorte di scoperta di 8 specimen senza alterazioni KRAS/BRAF/ROS1 sottoposti a whole transcriptome sequencing",
+  "propagation_policy": "prototype_only",
+  "requires_second_independent_review": true,
+  "review_independence": "non_independent",
+  "review_status": "first_review_complete",
+  "review_version": "non-therapeutic-source-closure/1.0",
+  "sample_scope": "tessuto tumorale; confronto con colorettale (149), epatocellulare (96), gastrico (212)",
+  "source_access_status": "full_text_unavailable",
+  "source_id": "PMID:24122810",
+  "source_unit_id": "PU-PMID-24122810-cohort-1",
+  "unit_type": "molecular_prevalence_screen_cohort"
+}
