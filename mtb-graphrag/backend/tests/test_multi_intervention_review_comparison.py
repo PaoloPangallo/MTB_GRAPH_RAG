@@ -39,6 +39,11 @@ COMPARISON = V3 / "multi_intervention_review_comparison"
 FIRST = V3 / "multi_intervention_source_review"
 REPLICATE = V3 / "multi_intervention_second_review"
 START_SHA = "1e9d6b0d767ad3fac02e43d0186d948251b6349c"
+# La fase di confronto si chiude qui. Come per la seconda revisione, il perimetro
+# va misurato su un intervallo chiuso: confrontarlo con l'albero di lavoro lo
+# farebbe fallire a ogni fase successiva invece che quando questa fase ha
+# scritto dove non doveva.
+PHASE_END_SHA = "3ef3e99a9ec0491aab37384f336e857ea08aa8a2"
 
 FROZEN_PATHS = (
     "backend/pipeline/evidence/v2_adapter.py",
@@ -687,7 +692,7 @@ class TestUntouchedArtifacts(unittest.TestCase):
             raise unittest.SkipTest("git non disponibile")
         try:
             result = subprocess.run(
-                ["git", "diff", "--name-only", START_SHA],
+                ["git", "diff", "--name-only", START_SHA, PHASE_END_SHA],
                 cwd=REPO_ROOT.parent,
                 capture_output=True,
                 text=True,
