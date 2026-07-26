@@ -1,0 +1,82 @@
+{
+  "applied": false,
+  "current_state": {
+    "diagnostic_claims": 2,
+    "evidence_claims_total": 148,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "therapeutic_claims": 146
+  },
+  "derived_counts": {
+    "claims_confirmed_as_is": 0,
+    "claims_to_create_after_narrowing": 2,
+    "claims_to_modify": 2,
+    "claims_to_retire": 2,
+    "evidence_claims_total_after": 148,
+    "total_unchanged_reason": "Il restringimento non cambia il numero di claim: ogni claim ristretto sostituisce se stesso con un ID nuovo. Il totale resta quello che e'."
+  },
+  "diagnostic_claims": {
+    "confirmed": 0,
+    "details": [
+      {
+        "claim_id": "CLM-2175b95ae3113c4f5d97",
+        "claim_id_would_change": true,
+        "decision": "diagnostic_claim_requires_narrowing",
+        "graph_evidence_id": "evidence:1846",
+        "narrowing": [
+          {
+            "current": "Cholangiocarcinoma",
+            "field": "disease_scope",
+            "narrowed_to": "Intrahepatic Cholangiocarcinoma"
+          }
+        ]
+      },
+      {
+        "claim_id": "CLM-7056003a9bdef747f514",
+        "claim_id_would_change": true,
+        "decision": "diagnostic_claim_requires_narrowing",
+        "graph_evidence_id": "evidence:1847",
+        "narrowing": [
+          {
+            "current": "Cholangiocarcinoma",
+            "field": "disease_scope",
+            "narrowed_to": "Intrahepatic Cholangiocarcinoma"
+          }
+        ]
+      }
+    ],
+    "identity_affected_by_narrowing": 2,
+    "insufficient": 0,
+    "partial": 0,
+    "rejected": 0,
+    "requires_narrowing": 2
+  },
+  "evidence_347": {
+    "claim_proposal": null,
+    "full_text_blocker_retained": true,
+    "graph_prognostic_direction": "rejected",
+    "legacy_statement_status": "promotion_blocked_pending_full_text",
+    "legacy_statement_status_changes": false,
+    "note": "La direzione prognostica e' rifiutata sulla base dell'abstract, ma il record non acquisisce alcun claim: il rifiuto chiude una domanda e non ne apre un'altra.",
+    "outcome": "remains_parent_without_claim"
+  },
+  "link_impact": {
+    "executed": false,
+    "links_to_create": 2,
+    "links_to_retire": 2,
+    "links_unchanged": 0
+  },
+  "repository_1_1_readiness_after_review": {
+    "corpus_promotion_ready": false,
+    "reason": "I due claim diagnostici richiedono un restringimento del disease scope prima di poter essere considerati stabili, e la seconda revisione indipendente non e' avvenuta.",
+    "revision_required": true,
+    "shadow_repository_revision_ready": true
+  },
+  "review_version": "non-therapeutic-source-closure/1.0",
+  "shadow_repository_modified": false,
+  "view_impact": {
+    "executed": false,
+    "views_to_regenerate": 2,
+    "views_to_retire": 0
+  }
+}
