@@ -1,0 +1,62 @@
+{
+  "adjudication_independence": "non_independent",
+  "adjudication_status": "completed",
+  "adjudication_version": "multi-intervention-adjudication/1.0",
+  "adjudicator_role": "author_adjudicator",
+  "artifact_sha256": {
+    "ADAPTER_MIGRATION_READINESS.md": "73a994b59d22d4e41f8d4f59fb336569eadeb025804dc37ace0ae062cc9b0f46",
+    "ADAPTER_MIGRATION_SPECIFICATION.md": "b92a3dafb2bef0e396fabd0270d9ac33b8daa00fe6ca48c78188e820cfca4124",
+    "ADJUDICATED_CLAIM_MODEL.md": "6db414ba5a3dbdbaacb0f8f7ee73215ae5b10924e710b52a427af9dd0bed8d0a",
+    "MULTI_INTERVENTION_ADJUDICATION.md": "22ca1ceb86b3f8bfc3d5ad9117e9741645f799a98805978bf5bb7d681a49961f",
+    "PARENT_SEMANTICS_DECISION.md": "40d641cf19e9df55be87debc751c3450c7c24a85f2151f89c2afd8a51bfcfd2b",
+    "adjudication_scope.json": "50e771930a8a57269853c9cdc8d9214d77d0e499b2815165aeeacd47b4f05795",
+    "adjudicator_metadata.json": "9a70ec75ee86260ffd11221bde47cfe4156759a2bb7486d8edd78b8b8bb47eab",
+    "aggregate_adjudications.jsonl": "3445e21a9a68eae696cab434b9e4ed42d3721d91a0f11584fcc52335a5d267fc",
+    "approved_claim_simulation.jsonl": "57f4395154bc771b63287cb06bbd67c1b12b641930e8fd46c49dbe546432d7f6",
+    "child_claim_adjudications.jsonl": "77a3730fd403719ee7eaf91a5e71437df50401f3ebb992038bcabc5e5aee619f",
+    "claim_id_simulation.jsonl": "bc30e4f1584216b26d974ceb8b01f359a92777306f09c200b3df497a9aa21100",
+    "intervention_adjudications.jsonl": "dcc3663a1780d23614502c8b733e5b98924f5418c08abfd1d7270e7557041d1b",
+    "migration_specification.json": "20d6399634e577a72b06bac5bb0943e29bf548b96e4ad47107180dcb4423ed3b",
+    "packet_adjudications.jsonl": "da8011b4aa1bf44f257300105585d75f051f2d3d87cc7025a81f7bfc1ea8945c",
+    "post_adjudication_schema_simulation.json": "ddd7bcf04b45c60ea89f230918c0ee46277068b248934b4c6cb57a778ceba95f",
+    "priority_concordant_case_adjudications.jsonl": "e61187d40134177520ce6c9ccb3e4346fbd680ddc14b770bb1638c726e309aa3",
+    "regimen_adjudications.jsonl": "ea5de98ede16cc20d70fdc1b69f260aeef684dee05ad78d57b2177a46d8837a9",
+    "schema_semantics_decision.json": "afd8b026e63a6f8661adbf84339460e0a069841b075c7f5bc6ff2c1cc83b0d21",
+    "terminology_review_queue.jsonl": "da5f7252e8ecdb2cd935fda8fda46113bb1dd110c707a0db8d8081b5b10fdfb1",
+    "unresolved_associations.jsonl": "529b8b1435d4bf885df676c64f24363be04ef9146968a7896bbddb9b74768bdf",
+    "unsupported_associations.jsonl": "45a80d96d83dc9774bb38043c8b0e428075c4b9b052f94b828ff63571833436f"
+  },
+  "counts": {
+    "associations_decided": 28,
+    "claims_approved": 15,
+    "groups_adjudicated": 13,
+    "priority_cases": 5
+  },
+  "final_clinical_gold": false,
+  "gold_used_for_decisions": false,
+  "hard_filterable": false,
+  "propagation_policy": "prototype_only",
+  "readiness": {
+    "adapter_schema_revision_ready": true,
+    "aggregate_claims_decided": true,
+    "all_packets_adjudicated": true,
+    "child_claims_decided": true,
+    "claim_types_decided": true,
+    "corpus_regeneration_ready": false,
+    "full_exploratory_rerun_ready": false,
+    "hierarchy_policy_ready": false,
+    "migration_specification_complete": true,
+    "parent_semantics_decided": true,
+    "priority_concordant_cases_adjudicated": true,
+    "regimen_claims_decided": true,
+    "terminology_review_remaining": [
+      "evidence:12156",
+      "evidence:1851",
+      "evidence:1853",
+      "evidence:841"
+    ],
+    "unresolved_groups_remaining": [
+      "evidence:3811"
+    ]
+  }
+}
