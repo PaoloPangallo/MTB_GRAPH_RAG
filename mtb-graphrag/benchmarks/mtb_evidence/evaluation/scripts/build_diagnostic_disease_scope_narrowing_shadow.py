@@ -755,6 +755,32 @@ false.
 """
 
 
+def _legacy_statement_deprecation_map(result: Any) -> list[dict[str, Any]]:
+    """Mantiene lo schema legacy e risolve ogni statement al claim attivo."""
+    replacement_by_evidence = {
+        row["parent_id"]: row for row in result.replacement_map
+    }
+    rows = [
+        json.loads(line)
+        for line in (
+            SHADOW_V11 / "legacy_statement_deprecation_map_v1_1.jsonl"
+        ).read_text(encoding="utf-8").splitlines()
+        if line
+    ]
+    for row in rows:
+        previous = list(row.get("replacement_claim_ids") or ())
+        row["previous_replacement_claim_ids"] = previous
+        replacement = replacement_by_evidence.get(row["graph_evidence_id"])
+        if replacement is None:
+            continue
+        if previous != [replacement["legacy_or_shadow_claim_id"]]:
+            raise RuntimeError(
+                f"{row['graph_evidence_id']}: lineage legacy inattesa"
+            )
+        row["replacement_claim_ids"] = [replacement["replacement_claim_id"]]
+    return rows
+
+
 def build(reverse: bool = False) -> dict[str, str]:
     """Genera tutti gli artefatti in memoria, in ordine canonico."""
     base, result, reviews = _inputs(reverse)
@@ -825,11 +851,9 @@ def build(reverse: bool = False) -> dict[str, str]:
         "operational_vs_shadow_inventory_v1_2.json": canonical_dumps(inventory),
         "evidence_347_audit_v1_2.json": canonical_dumps(_evidence_347_audit()),
     }
-    artifacts["legacy_statement_deprecation_map_v1_2.jsonl"] = (
-        SHADOW_V11 / "legacy_statement_deprecation_map_v1_1.jsonl"
-    ).read_text(encoding="utf-8") + canonical_jsonl(
-        list(result.replacement_map),
-        key="legacy_or_shadow_claim_id",
+    artifacts["legacy_statement_deprecation_map_v1_2.jsonl"] = canonical_jsonl(
+        _legacy_statement_deprecation_map(result),
+        key="legacy_statement_id",
     )
 
     repository_manifest = _manifest(

@@ -148,7 +148,7 @@ def _replacement_claim(
         code
         for code in claim.limitation_codes
         if code != "SOURCE_UNIT_AWAITING_HUMAN_REVIEW"
-    ) + ("SECOND_INDEPENDENT_REVIEW_PENDING",)
+    )
     provenance = dict(claim.provenance)
     provenance["scope_narrowing"] = {
         "old_claim_id": claim.claim_id,
