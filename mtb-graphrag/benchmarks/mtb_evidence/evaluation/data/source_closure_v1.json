@@ -1,0 +1,276 @@
+{
+  "review_version": "non-therapeutic-source-closure/1.0",
+  "reviewer_role": "author_first_reviewer",
+  "review_independence": "non_independent",
+  "gold_used": false,
+  "review_date": "2026-07-26",
+
+  "source_access": [
+    {
+      "source_id": "PMID:24662454",
+      "doi": "10.1097/JTO.0000000000000141",
+      "journal": "Journal of Thoracic Oncology",
+      "publication_date": "2014-05",
+      "title": "Relationship between EGFR expression, EGFR mutation status, and the efficacy of chemotherapy plus cetuximab in FLEX study patients with advanced non-small-cell lung cancer.",
+      "attempts": [
+        {"priority": 1, "channel": "local_full_text", "locator": "repository scan", "access_date": "2026-07-26", "outcome": "not_present", "detail": "Nessun file di full text nel repository: la ricerca su tutti i path non ha trovato PDF, XML o testo integrale per questo PMID."},
+        {"priority": 2, "channel": "local_supplement", "locator": "repository scan", "access_date": "2026-07-26", "outcome": "not_present", "detail": "Nessun supplemento locale."},
+        {"priority": 3, "channel": "pmc_open_access", "locator": "https://pmc.ncbi.nlm.nih.gov/tools/idconv/api/v1/articles/?ids=24662454", "access_date": "2026-07-26", "outcome": "not_found", "detail": "L'ID converter ufficiale PMC risponde 'Identifier not found in PMC': nessun record PMC, nessuna versione open access depositata."},
+        {"priority": 3, "channel": "publisher_oa_index", "locator": "https://api.unpaywall.org/v2/10.1097/JTO.0000000000000141", "access_date": "2026-07-26", "outcome": "listed_bronze_not_retrievable", "detail": "Unpaywall dichiara is_oa true con oa_status 'bronze', cioe' gratuito sul sito dell'editore senza licenza esplicita. Il PDF indicato non e' risultato scaricabile."},
+        {"priority": 4, "channel": "publisher_site", "locator": "https://www.sciencedirect.com/science/article/pii/S1556086415302884", "access_date": "2026-07-26", "outcome": "http_403", "detail": "Accesso negato dall'editore."},
+        {"priority": 4, "channel": "publisher_pdf", "locator": "http://www.jto.org/article/S1556086415302884/pdf", "access_date": "2026-07-26", "outcome": "http_403", "detail": "Accesso negato dall'editore."},
+        {"priority": 5, "channel": "indexed_abstract", "locator": "https://pubmed.ncbi.nlm.nih.gov/24662454/", "access_date": "2026-07-22", "outcome": "available", "detail": "Abstract strutturato in cache locale, ottenuto via pubmed_efetch, con hash verificabile."}
+      ],
+      "source_access_status": "full_text_unavailable",
+      "source_text_kind": "abstract",
+      "material_used": "abstract",
+      "abstract_sha256": "69fcd4af71ddb5dcf1fc139220b1f8957431265e013f8f47712e704fbddc8abe",
+      "abstract_length": 1641,
+      "abstract_sections": ["INTRODUCTION", "METHODS", "RESULTS", "CONCLUSIONS"],
+      "abstract_access_date": "2026-07-22",
+      "abstract_retrieved_from": "pubmed_efetch",
+      "licence_or_accessibility": "bronze open access dichiarato, non recuperabile in pratica; abstract indicizzato liberamente accessibile",
+      "completeness": "abstract_only",
+      "missing_sections": ["Materials and Methods completi", "Results completi", "tabelle", "figure", "analisi di sottogruppo", "supplementi"],
+      "secondary_sources_used": false,
+      "content_reconstructed": false
+    },
+    {
+      "source_id": "PMID:24122810",
+      "doi": "10.1002/hep.26890",
+      "journal": "Hepatology",
+      "publication_date": "2014-04",
+      "title": "Fibroblast growth factor receptor 2 tyrosine kinase fusions define a unique molecular subtype of cholangiocarcinoma.",
+      "attempts": [
+        {"priority": 1, "channel": "local_full_text", "locator": "repository scan", "access_date": "2026-07-26", "outcome": "not_present", "detail": "Nessun full text locale."},
+        {"priority": 2, "channel": "local_supplement", "locator": "repository scan", "access_date": "2026-07-26", "outcome": "not_present", "detail": "Nessun supplemento locale."},
+        {"priority": 3, "channel": "pmc_open_access", "locator": "https://pmc.ncbi.nlm.nih.gov/tools/idconv/api/v1/articles/?ids=24122810", "access_date": "2026-07-26", "outcome": "not_found", "detail": "Nessun record PMC."},
+        {"priority": 3, "channel": "publisher_oa_index", "locator": "https://api.unpaywall.org/v2/10.1002/hep.26890", "access_date": "2026-07-26", "outcome": "listed_bronze_not_retrievable", "detail": "Unpaywall dichiara is_oa true, oa_status 'bronze'. Il PDF indicato non e' risultato scaricabile."},
+        {"priority": 4, "channel": "publisher_site", "locator": "https://onlinelibrary.wiley.com/doi/10.1002/hep.26890", "access_date": "2026-07-26", "outcome": "http_402", "detail": "Payment Required."},
+        {"priority": 4, "channel": "publisher_pdf", "locator": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/hep.26890", "access_date": "2026-07-26", "outcome": "http_402", "detail": "Payment Required."},
+        {"priority": 5, "channel": "indexed_abstract", "locator": "https://pubmed.ncbi.nlm.nih.gov/24122810/", "access_date": "2026-07-22", "outcome": "available", "detail": "Abstract in cache locale via pubmed_efetch, hash verificabile."}
+      ],
+      "source_access_status": "full_text_unavailable",
+      "source_text_kind": "abstract",
+      "material_used": "abstract",
+      "abstract_sha256": "1394c4da90e19d8b00a4ec6382d9a74069de777e8700fa50c7df89577c26b1e0",
+      "abstract_length": 1603,
+      "abstract_sections": ["UNLABELLED", "CONCLUSION"],
+      "abstract_access_date": "2026-07-22",
+      "abstract_retrieved_from": "pubmed_efetch",
+      "licence_or_accessibility": "bronze open access dichiarato, non recuperabile in pratica; abstract indicizzato liberamente accessibile",
+      "completeness": "abstract_only",
+      "missing_sections": ["Materials and Methods", "Results completi", "tabelle", "figure", "supplementi", "dati per singolo partner di fusione"],
+      "secondary_sources_used": false,
+      "content_reconstructed": false
+    }
+  ],
+
+  "evidence_347": {
+    "graph_evidence_id": "evidence:347",
+    "legacy_statement_id": "ES-V2-evidence-347",
+    "source_id": "PMID:24662454",
+    "graph_direction": "prognostic",
+    "graph_biomarker": "EGFR L858R",
+    "graph_disease": "Lung Non-small Cell Carcinoma",
+    "graph_intervention": null,
+    "questions": {
+      "q1_treatment_studied": {
+        "answer": "cetuximab aggiunto a cisplatino e vinorelbina, in prima linea",
+        "locator": {"section": "INTRODUCTION", "abstract_sentence": 0},
+        "verbatim": "the survival benefit associated with the addition of cetuximab to cisplatin and vinorelbine was limited to patients whose tumors expressed high levels of epidermal growth factor receptor (EGFR)"
+      },
+      "q2_cetuximab_is_explicit_intervention": {
+        "answer": true,
+        "locator": {"section": "INTRODUCTION", "abstract_sentence": 0},
+        "note": "L'intervento e' esplicito nella fonte ma assente dal record del grafo, che non porta alcun intervento."
+      },
+      "q3_population": {
+        "answer": "pazienti dello studio di fase III FLEX (NCT00148798) con NSCLC avanzato; screening mutazionale su 971 di 1125 (86%)",
+        "locator": {"section": "METHODS", "abstract_sentence": 0},
+        "verbatim": "A tumor mutation screen of EGFR exons 18 to 21 included 971 of 1125 (86%) FLEX study patients."
+      },
+      "q4_biomarker_assessed": {
+        "answer": "stato mutazionale di EGFR esoni 18-21 come gruppo, incrociato con il livello di espressione EGFR in immunoistochimica",
+        "locator": {"section": "METHODS", "abstract_sentence": 1},
+        "verbatim": "Treatment outcome in low and high EGFR expression groups was analyzed across efficacy endpoints according to tumor EGFR mutation status."
+      },
+      "q5_l858r_separate_result": {
+        "answer": false,
+        "locator": {"section": "RESULTS", "abstract_sentence": 1},
+        "verbatim": "The most common mutations were exon 19 deletions and L858R (124 of 133 patients; 93%).",
+        "note": "L858R compare una sola volta, in una frase che descrive la composizione mutazionale della popolazione. Non e' un esito: e' una frequenza, e per di piu' congiunta con exon 19 deletion."
+      },
+      "q6_exon19_separate_result": {
+        "answer": false,
+        "locator": {"section": "RESULTS", "abstract_sentence": 1},
+        "note": "Stessa frase: i due tipi di mutazione sono riportati insieme come 124 su 133."
+      },
+      "q7_result_concerns": {
+        "answer": "interazione biomarcatore-trattamento sulla sopravvivenza, piu' un dato di risposta",
+        "outcomes_named": ["overall survival", "response"],
+        "treatment_independent_prognosis": false,
+        "locator": {"section": "RESULTS", "abstract_sentence": 2}
+      },
+      "q8_predictive_interpretation_possible": {
+        "answer": "solo a livello di espressione EGFR, non di stato mutazionale",
+        "locator": {"section": "CONCLUSIONS", "abstract_sentence": 0},
+        "verbatim": "The survival benefit associated with the addition of cetuximab to first-line chemotherapy for advanced non-small-cell lung cancer expressing high levels of EGFR is not limited by EGFR mutation status.",
+        "note": "La conclusione sullo stato mutazionale e' di *assenza* di modificazione dell'effetto: il beneficio non e' limitato dallo stato mutazionale. Non e' un effetto differenziale su L858R."
+      },
+      "q9_statistically_separable_for_l858r": {
+        "answer": false,
+        "locator": {"section": "RESULTS", "abstract_sentence": 3},
+        "verbatim": "Although patient numbers were small, those in the high EGFR expression group whose tumors carried EGFR mutations may also have derived a survival benefit from the addition of cetuximab to chemotherapy.",
+        "note": "Il gruppo mutato e' trattato come un unico blocco, i numeri sono dichiarati piccoli e il linguaggio e' condizionale ('may also have derived'). Nessuna stima separata per L858R."
+      },
+      "q10_record_correctable_without_changing_fields": {
+        "answer": false,
+        "note": "Il record non porta alcun intervento. Renderlo una proposizione terapeutica richiederebbe di aggiungere cetuximab, cioe' cambiare l'intervento; restringerlo al risultato realmente riportato richiederebbe di cambiare il biomarcatore da L858R al gruppo 'EGFR mutato' e la popolazione al sottogruppo ad alta espressione. Nessuna delle tre modifiche e' ammessa da questa fase."
+      }
+    },
+    "decisions": ["graph_prognostic_direction_rejected", "predictive_scope_unresolved", "insufficient_source_access"],
+    "prognostic_direction_supported": false,
+    "predictive_claim_proposal_supported": false,
+    "claim_created": false,
+    "intervention_invented": false,
+    "reason_codes": [
+      "SOURCE_REPORTS_TREATMENT_EFFECT_NOT_PROGNOSIS",
+      "BIOMARKER_APPEARS_ONLY_AS_POPULATION_FREQUENCY",
+      "NO_SEPARATE_RESULT_FOR_L858R",
+      "MUTATION_GROUP_NOT_SEPARABLE_INTO_SINGLE_VARIANT",
+      "EFFECT_MODIFICATION_REPORTED_AS_ABSENT",
+      "FULL_TEXT_REQUIRED_FOR_PREDICTIVE_SCOPE",
+      "PREDICTIVE_RETYPING_WOULD_REQUIRE_INVENTING_INTERVENTION"
+    ],
+    "legacy_statement_status": "promotion_blocked_pending_full_text",
+    "legacy_statement_status_changed_by_this_phase": false,
+    "locator_status": "sufficient_for_rejection_insufficient_for_claim"
+  },
+
+  "pmid_24122810_source_unit": {
+    "source_unit_id": "PU-PMID-24122810-cohort-1",
+    "unit_type": "molecular_prevalence_screen_cohort",
+    "population": "102 pazienti con colangiocarcinoma sottoposti a screening RT-PCR, di cui 66 con sottotipo intraepatico; coorte di scoperta di 8 specimen senza alterazioni KRAS/BRAF/ROS1 sottoposti a whole transcriptome sequencing",
+    "disease": "Cholangiocarcinoma, con risultato ristretto al sottotipo intraepatico",
+    "sample_scope": "tessuto tumorale; confronto con colorettale (149), epatocellulare (96), gastrico (212)",
+    "assay_or_method": "massively parallel whole transcriptome sequencing per la scoperta; RT-PCR per lo screening di prevalenza",
+    "biomarkers": ["FGFR2::AHCYL1 Fusion", "FGFR2::BICC1 Fusion"],
+    "findings": [
+      {"finding": "Identificate due fusioni kinasi, FGFR2-AHCYL1 e FGFR2-BICC1", "locator": {"section": "UNLABELLED", "abstract_sentence": 2}},
+      {"finding": "Fusione FGFR2 rilevata in 9/102 colangiocarcinomi, esclusivamente nel sottotipo intraepatico (9/66, 13,6%)", "locator": {"section": "UNLABELLED", "abstract_sentence": 3}},
+      {"finding": "Rara in colorettale (1/149) ed epatocellulare (1/96), assente in gastrico (0/212)", "locator": {"section": "UNLABELLED", "abstract_sentence": 3}},
+      {"finding": "Mutuamente esclusiva con mutazioni KRAS/BRAF", "locator": {"section": "UNLABELLED", "abstract_sentence": 4}},
+      {"finding": "Le fusioni FGFR2 ricorrono nel 13,6% dei colangiocarcinomi intraepatici e giustificano una nuova classificazione molecolare", "locator": {"section": "CONCLUSION", "abstract_sentence": 0}}
+    ],
+    "limitations": [
+      {"code": "PREVALENCE_AGGREGATE_ONLY_NOT_PARTNER_SPECIFIC", "detail": "La prevalenza del 13,6% e' riportata per 'the FGFR2 fusion' nel suo insieme. L'abstract non fornisce alcuna ripartizione fra BICC1 e AHCYL1."},
+      {"code": "DISEASE_SCOPE_NARROWER_THAN_GRAPH", "detail": "La fonte restringe il risultato al sottotipo intraepatico: 'exclusively in the intrahepatic subtype' e 'FGFR2 fusions occur in 13.6% of intrahepatic cholangiocarcinoma'. Il claim shadow porta invece disease_scope 'Cholangiocarcinoma'."},
+      {"code": "CLINICAL_UTILITY_NOT_ASSERTED", "detail": "La fonte propone una classificazione molecolare. Non afferma un test diagnostico validato, ne' sensibilita' o specificita'."},
+      {"code": "NO_DIAGNOSTIC_PERFORMANCE_REPORTED", "detail": "Nessuna metrica di performance diagnostica compare nell'abstract."},
+      {"code": "NO_PROGNOSTIC_OUTCOME_REPORTED", "detail": "Nessun esito clinico e' associato alle fusioni."},
+      {"code": "THERAPEUTIC_ASSOCIATION_IS_PRECLINICAL", "detail": "La sensibilita' agli inibitori FGFR e' mostrata in NIH3T3, non nei pazienti, e appartiene ai claim aggregati di evidence:1851 e evidence:1853, non a questi claim diagnostici."},
+      {"code": "ABSTRACT_ONLY_NO_FULL_TEXT", "detail": "Full text non recuperabile: nessun record PMC, editore 402."},
+      {"code": "DISCOVERY_COHORT_SELECTED_FOR_ABSENCE_OF_KRAS_BRAF_ROS1", "detail": "Gli 8 specimen sequenziati erano selezionati per assenza di alterazioni KRAS/BRAF/ROS1, il che condiziona la mutua esclusivita' osservata."}
+    ],
+    "locator": {"kind": "abstract_sentence", "source_id": "PMID:24122810", "sections": ["UNLABELLED", "CONCLUSION"]},
+    "access_type": "indexed_abstract",
+    "first_reviewer": "author_first_reviewer",
+    "review_status": "first_review_complete",
+    "review_independence": "non_independent",
+    "propagation_policy": "prototype_only",
+    "hard_filterable": false,
+    "final_evaluable": false,
+    "evaluability_reason": "Revisione ancorata al solo abstract; il full text non e' stato recuperato e la seconda revisione indipendente non e' avvenuta.",
+    "requires_second_independent_review": true
+  },
+
+  "diagnostic_claim_reviews": [
+    {
+      "review_id": "DCR-evidence-1846",
+      "graph_evidence_id": "evidence:1846",
+      "claim_id": "CLM-2175b95ae3113c4f5d97",
+      "biomarker": "FGFR2::BICC1 Fusion",
+      "current_disease_scope": "Cholangiocarcinoma",
+      "current_interpretation": "subtype_defining_alteration",
+      "decision": "diagnostic_claim_requires_narrowing",
+      "supported_content": [
+        {"item": "La fusione FGFR2-BICC1 e' identificata per nome nella fonte", "locator": {"section": "UNLABELLED", "abstract_sentence": 2}},
+        {"item": "Le fusioni FGFR2 definiscono un sottotipo molecolare e giustificano una nuova classificazione", "locator": {"section": "CONCLUSION", "abstract_sentence": 1}},
+        {"item": "Presenza esclusiva nel sottotipo intraepatico fra i colangiocarcinomi", "locator": {"section": "UNLABELLED", "abstract_sentence": 3}},
+        {"item": "Rarita' o assenza negli altri tumori esaminati", "locator": {"section": "UNLABELLED", "abstract_sentence": 3}},
+        {"item": "Mutua esclusivita' con KRAS/BRAF", "locator": {"section": "UNLABELLED", "abstract_sentence": 4}}
+      ],
+      "required_narrowing": [
+        {
+          "field": "disease_scope",
+          "current": "Cholangiocarcinoma",
+          "narrowed_to": "Intrahepatic Cholangiocarcinoma",
+          "reason": "La fonte riporta le fusioni esclusivamente nel sottotipo intraepatico e conclude sul 13,6% dei colangiocarcinomi intraepatici. Lasciare lo scope al colangiocarcinoma in generale affermerebbe una definizione di sottotipo per una malattia piu' ampia di quella misurata.",
+          "locator": {"section": "CONCLUSION", "abstract_sentence": 0}
+        }
+      ],
+      "content_not_attributable": [
+        "prevalenza partner-specifica per BICC1",
+        "test diagnostico clinicamente validato",
+        "sensibilita' o specificita' diagnostica",
+        "utilita' clinica",
+        "scelta terapeutica",
+        "prognosi"
+      ],
+      "limitation_codes": [
+        "PREVALENCE_AGGREGATE_ONLY_NOT_PARTNER_SPECIFIC",
+        "CLINICAL_UTILITY_NOT_ASSERTED",
+        "ABSTRACT_ONLY_NO_FULL_TEXT",
+        "SOURCE_UNIT_AWAITING_HUMAN_REVIEW",
+        "DISEASE_SCOPE_NARROWER_THAN_GRAPH"
+      ],
+      "locator_status": "sufficient",
+      "can_become_final": false,
+      "final_blocked_by": ["ABSTRACT_ONLY_NO_FULL_TEXT", "SECOND_REVIEW_PENDING"]
+    },
+    {
+      "review_id": "DCR-evidence-1847",
+      "graph_evidence_id": "evidence:1847",
+      "claim_id": "CLM-7056003a9bdef747f514",
+      "biomarker": "FGFR2::AHCYL1 Fusion",
+      "current_disease_scope": "Cholangiocarcinoma",
+      "current_interpretation": "subtype_defining_alteration",
+      "decision": "diagnostic_claim_requires_narrowing",
+      "supported_content": [
+        {"item": "La fusione FGFR2-AHCYL1 e' identificata per nome nella fonte", "locator": {"section": "UNLABELLED", "abstract_sentence": 2}},
+        {"item": "Le fusioni FGFR2 definiscono un sottotipo molecolare e giustificano una nuova classificazione", "locator": {"section": "CONCLUSION", "abstract_sentence": 1}},
+        {"item": "Presenza esclusiva nel sottotipo intraepatico fra i colangiocarcinomi", "locator": {"section": "UNLABELLED", "abstract_sentence": 3}},
+        {"item": "Rarita' o assenza negli altri tumori esaminati", "locator": {"section": "UNLABELLED", "abstract_sentence": 3}},
+        {"item": "Mutua esclusivita' con KRAS/BRAF", "locator": {"section": "UNLABELLED", "abstract_sentence": 4}}
+      ],
+      "required_narrowing": [
+        {
+          "field": "disease_scope",
+          "current": "Cholangiocarcinoma",
+          "narrowed_to": "Intrahepatic Cholangiocarcinoma",
+          "reason": "Stessa ragione di evidence:1846: la fonte misura e conclude sul sottotipo intraepatico.",
+          "locator": {"section": "CONCLUSION", "abstract_sentence": 0}
+        }
+      ],
+      "content_not_attributable": [
+        "prevalenza partner-specifica per AHCYL1",
+        "test diagnostico clinicamente validato",
+        "sensibilita' o specificita' diagnostica",
+        "utilita' clinica",
+        "scelta terapeutica",
+        "prognosi"
+      ],
+      "limitation_codes": [
+        "PREVALENCE_AGGREGATE_ONLY_NOT_PARTNER_SPECIFIC",
+        "CLINICAL_UTILITY_NOT_ASSERTED",
+        "ABSTRACT_ONLY_NO_FULL_TEXT",
+        "SOURCE_UNIT_AWAITING_HUMAN_REVIEW",
+        "DISEASE_SCOPE_NARROWER_THAN_GRAPH"
+      ],
+      "locator_status": "sufficient",
+      "can_become_final": false,
+      "final_blocked_by": ["ABSTRACT_ONLY_NO_FULL_TEXT", "SECOND_REVIEW_PENDING"]
+    }
+  ]
+}

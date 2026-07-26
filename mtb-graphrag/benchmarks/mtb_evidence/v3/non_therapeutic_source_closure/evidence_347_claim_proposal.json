@@ -1,0 +1,41 @@
+{
+  "decisions": [
+    "graph_prognostic_direction_rejected",
+    "predictive_scope_unresolved",
+    "insufficient_source_access"
+  ],
+  "evidence_role": null,
+  "forbidden_transformations_avoided": [
+    "trattamento_dello_studio_to_intervento_del_claim_senza_locator",
+    "analisi_di_sottogruppo_to_effetto_individuale_su_L858R",
+    "composizione_della_popolazione_to_risultato_sul_biomarcatore",
+    "interazione_non_significativa_to_beneficio",
+    "prognostic_to_predictive_automatico",
+    "predictive_design_to_predictive_claim_specifico",
+    "cetuximab_citato_to_supporto_terapeutico_per_L858R"
+  ],
+  "graph_evidence_id": "evidence:347",
+  "materialised": false,
+  "new_claim_type_introduced": false,
+  "preconditions": {
+    "biomarker_specific_result": false,
+    "differential_treatment_effect_for_biomarker": false,
+    "explicit_intervention_in_graph_record": false,
+    "explicit_intervention_in_source": true,
+    "locator_sufficient_for_claim": false,
+    "outcome_defined": true,
+    "population_defined": true
+  },
+  "proposal_made": false,
+  "proposed_claim": null,
+  "proposed_claim_type": null,
+  "reopen_when": "Il full text di PMID:24662454 diventa disponibile e riporta un esito separato per L858R, oppure il record del grafo acquisisce un intervento documentato.",
+  "review_version": "non-therapeutic-source-closure/1.0",
+  "unmet_preconditions": [
+    "explicit_intervention_in_graph_record",
+    "biomarker_specific_result",
+    "differential_treatment_effect_for_biomarker",
+    "locator_sufficient_for_claim"
+  ],
+  "why_not": "La fonte nomina cetuximab, ma il record del grafo non porta alcun intervento: costruirvi sopra una proposizione terapeutica significherebbe aggiungere l'intervento, cioe' inventarlo. E anche se l'intervento ci fosse, l'abstract non riporta un risultato separato per L858R — la variante compare una sola volta, in una frase sulla composizione della popolazione, e per di piu' congiunta con exon 19 deletion. La conclusione sullo stato mutazionale e' per di piu' di *assenza* di modificazione dell'effetto."
+}

@@ -1,0 +1,123 @@
+{
+  "claim_created": false,
+  "content_reconstructed": false,
+  "decisions": [
+    "graph_prognostic_direction_rejected",
+    "predictive_scope_unresolved",
+    "insufficient_source_access"
+  ],
+  "gold_used": false,
+  "graph_assertion": {
+    "biomarker": "EGFR L858R",
+    "direction": "prognostic",
+    "disease": "Lung Non-small Cell Carcinoma",
+    "intervention": null
+  },
+  "graph_evidence_id": "evidence:347",
+  "intervention_invented": false,
+  "legacy_statement_id": "ES-V2-evidence-347",
+  "legacy_statement_status": "promotion_blocked_pending_full_text",
+  "legacy_statement_status_changed_by_this_phase": false,
+  "locator_status": "sufficient_for_rejection_insufficient_for_claim",
+  "material_sha256": "69fcd4af71ddb5dcf1fc139220b1f8957431265e013f8f47712e704fbddc8abe",
+  "material_used": "abstract",
+  "predictive_claim_proposal_supported": false,
+  "prognostic_direction_supported": false,
+  "questions": {
+    "q10_record_correctable_without_changing_fields": {
+      "answer": false,
+      "note": "Il record non porta alcun intervento. Renderlo una proposizione terapeutica richiederebbe di aggiungere cetuximab, cioe' cambiare l'intervento; restringerlo al risultato realmente riportato richiederebbe di cambiare il biomarcatore da L858R al gruppo 'EGFR mutato' e la popolazione al sottogruppo ad alta espressione. Nessuna delle tre modifiche e' ammessa da questa fase."
+    },
+    "q1_treatment_studied": {
+      "answer": "cetuximab aggiunto a cisplatino e vinorelbina, in prima linea",
+      "locator": {
+        "abstract_sentence": 0,
+        "section": "INTRODUCTION"
+      },
+      "verbatim": "the survival benefit associated with the addition of cetuximab to cisplatin and vinorelbine was limited to patients whose tumors expressed high levels of epidermal growth factor receptor (EGFR)"
+    },
+    "q2_cetuximab_is_explicit_intervention": {
+      "answer": true,
+      "locator": {
+        "abstract_sentence": 0,
+        "section": "INTRODUCTION"
+      },
+      "note": "L'intervento e' esplicito nella fonte ma assente dal record del grafo, che non porta alcun intervento."
+    },
+    "q3_population": {
+      "answer": "pazienti dello studio di fase III FLEX (NCT00148798) con NSCLC avanzato; screening mutazionale su 971 di 1125 (86%)",
+      "locator": {
+        "abstract_sentence": 0,
+        "section": "METHODS"
+      },
+      "verbatim": "A tumor mutation screen of EGFR exons 18 to 21 included 971 of 1125 (86%) FLEX study patients."
+    },
+    "q4_biomarker_assessed": {
+      "answer": "stato mutazionale di EGFR esoni 18-21 come gruppo, incrociato con il livello di espressione EGFR in immunoistochimica",
+      "locator": {
+        "abstract_sentence": 1,
+        "section": "METHODS"
+      },
+      "verbatim": "Treatment outcome in low and high EGFR expression groups was analyzed across efficacy endpoints according to tumor EGFR mutation status."
+    },
+    "q5_l858r_separate_result": {
+      "answer": false,
+      "locator": {
+        "abstract_sentence": 1,
+        "section": "RESULTS"
+      },
+      "note": "L858R compare una sola volta, in una frase che descrive la composizione mutazionale della popolazione. Non e' un esito: e' una frequenza, e per di piu' congiunta con exon 19 deletion.",
+      "verbatim": "The most common mutations were exon 19 deletions and L858R (124 of 133 patients; 93%)."
+    },
+    "q6_exon19_separate_result": {
+      "answer": false,
+      "locator": {
+        "abstract_sentence": 1,
+        "section": "RESULTS"
+      },
+      "note": "Stessa frase: i due tipi di mutazione sono riportati insieme come 124 su 133."
+    },
+    "q7_result_concerns": {
+      "answer": "interazione biomarcatore-trattamento sulla sopravvivenza, piu' un dato di risposta",
+      "locator": {
+        "abstract_sentence": 2,
+        "section": "RESULTS"
+      },
+      "outcomes_named": [
+        "overall survival",
+        "response"
+      ],
+      "treatment_independent_prognosis": false
+    },
+    "q8_predictive_interpretation_possible": {
+      "answer": "solo a livello di espressione EGFR, non di stato mutazionale",
+      "locator": {
+        "abstract_sentence": 0,
+        "section": "CONCLUSIONS"
+      },
+      "note": "La conclusione sullo stato mutazionale e' di *assenza* di modificazione dell'effetto: il beneficio non e' limitato dallo stato mutazionale. Non e' un effetto differenziale su L858R.",
+      "verbatim": "The survival benefit associated with the addition of cetuximab to first-line chemotherapy for advanced non-small-cell lung cancer expressing high levels of EGFR is not limited by EGFR mutation status."
+    },
+    "q9_statistically_separable_for_l858r": {
+      "answer": false,
+      "locator": {
+        "abstract_sentence": 3,
+        "section": "RESULTS"
+      },
+      "note": "Il gruppo mutato e' trattato come un unico blocco, i numeri sono dichiarati piccoli e il linguaggio e' condizionale ('may also have derived'). Nessuna stima separata per L858R.",
+      "verbatim": "Although patient numbers were small, those in the high EGFR expression group whose tumors carried EGFR mutations may also have derived a survival benefit from the addition of cetuximab to chemotherapy."
+    }
+  },
+  "reason_codes": [
+    "SOURCE_REPORTS_TREATMENT_EFFECT_NOT_PROGNOSIS",
+    "BIOMARKER_APPEARS_ONLY_AS_POPULATION_FREQUENCY",
+    "NO_SEPARATE_RESULT_FOR_L858R",
+    "MUTATION_GROUP_NOT_SEPARABLE_INTO_SINGLE_VARIANT",
+    "EFFECT_MODIFICATION_REPORTED_AS_ABSENT",
+    "FULL_TEXT_REQUIRED_FOR_PREDICTIVE_SCOPE",
+    "PREDICTIVE_RETYPING_WOULD_REQUIRE_INVENTING_INTERVENTION"
+  ],
+  "review_version": "non-therapeutic-source-closure/1.0",
+  "source_access_status": "full_text_unavailable",
+  "source_id": "PMID:24662454"
+}

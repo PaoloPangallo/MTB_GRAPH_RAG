@@ -1,0 +1,41 @@
+{
+  "content_reconstructed": false,
+  "disease_hierarchy_modified": false,
+  "gold_used": false,
+  "materials_priority_order": [
+    "full_text_locale",
+    "supplementi_locali",
+    "versione_open_access",
+    "repository_istituzionale_o_archivio_ufficiale",
+    "abstract_indicizzato",
+    "metadati_locali"
+  ],
+  "new_claim_types_introduced": 0,
+  "operational_corpus_modified": false,
+  "questions_closed": [
+    {
+      "goal": "stabilire se la fonte consenta una proposizione terapeutica con ruolo predittivo, o confermi soltanto un disegno esplorativo non materializzabile, o mantenga il caso unresolved, o rifiuti la direzione prognostic del grafo",
+      "graph_evidence_id": "evidence:347",
+      "question": "A",
+      "source_id": "PMID:24662454"
+    },
+    {
+      "claims_reviewed": [
+        "evidence:1846",
+        "evidence:1847"
+      ],
+      "goal": "completare la prima revisione umana della source unit e verificare che i due DiagnosticClaim siano realmente sostenuti e correttamente limitati",
+      "question": "B",
+      "source_id": "PMID:24122810",
+      "source_unit_id": "PU-PMID-24122810-cohort-1"
+    }
+  ],
+  "review_date": "2026-07-26",
+  "review_independence": "non_independent",
+  "review_version": "non-therapeutic-source-closure/1.0",
+  "reviewer_role": "author_first_reviewer",
+  "secondary_sources_policy": "blog, pagine commerciali e riassunti secondari non sono ammessi come fonte documentale primaria",
+  "secondary_sources_used": false,
+  "shadow_repository_modified": false,
+  "terminology_mappings_promoted": 0
+}
