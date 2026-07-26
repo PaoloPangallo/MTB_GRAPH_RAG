@@ -1,0 +1,52 @@
+{
+  "claim_id_formula_version": "claim_id_formula/1.0",
+  "claim_identity_fields": [
+    "graph_evidence_id",
+    "claim_type",
+    "canonical_intervention_or_regimen",
+    "biomarker",
+    "direction",
+    "polarity",
+    "source_unit_id"
+  ],
+  "disease_hierarchy_activated": false,
+  "expected_group_count": 4,
+  "expected_groups": [
+    "evidence:12156",
+    "evidence:1851",
+    "evidence:1853",
+    "evidence:841"
+  ],
+  "gold_used": false,
+  "groups_outside_queue": [
+    "evidence:12156"
+  ],
+  "pending_association_count": 3,
+  "perimeter_matches_expectation": true,
+  "phase": "terminology-mapping-closure/1.0",
+  "propagation_policy": "prototype_only",
+  "queue_affected_groups": [
+    "evidence:1851",
+    "evidence:1853",
+    "evidence:841"
+  ],
+  "queue_ids": [
+    "TRQ-AUY922",
+    "TRQ-BGJ398"
+  ],
+  "queue_pair_count": 2,
+  "queue_sha256": "da5f7252e8ecdb2cd935fda8fda46113bb1dd110c707a0db8d8081b5b10fdfb1",
+  "queue_source": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/terminology_review_queue.jsonl",
+  "retrieval_metrics_used": false,
+  "review_independence": "non_independent",
+  "review_status": "first_review_complete",
+  "reviewed_group_count": 4,
+  "reviewed_groups": [
+    "evidence:12156",
+    "evidence:1851",
+    "evidence:1853",
+    "evidence:841"
+  ],
+  "reviewer_role": "author_terminology_reviewer",
+  "start_sha": "154528358ee05f95fc523c41058d1c7e7839bd94"
+}
