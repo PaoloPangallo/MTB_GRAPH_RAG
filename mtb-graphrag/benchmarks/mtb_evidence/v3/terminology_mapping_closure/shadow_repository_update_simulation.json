@@ -1,0 +1,65 @@
+{
+  "aggregate_claims_remaining_aggregate": [
+    "CLM-a7c903cf8d423f015e29",
+    "CLM-aae818bbc8ec735a255d"
+  ],
+  "aggregates_atomized": 0,
+  "applied": false,
+  "claim_ids_to_replace": [
+    {
+      "new_claim_id": "CLM-90e863f00f134fc3cd3d",
+      "old_claim_id": "CLM-a7c903cf8d423f015e29"
+    },
+    {
+      "new_claim_id": "CLM-5071bb2d8657ac0fbed0",
+      "old_claim_id": "CLM-aae818bbc8ec735a255d"
+    }
+  ],
+  "claims_affected": [
+    "CLM-a7c903cf8d423f015e29",
+    "CLM-aae818bbc8ec735a255d"
+  ],
+  "claims_unchanged": [
+    "CLM-5ce49705979f72f174e9",
+    "CLM-5ce532268b4aa1661311",
+    "CLM-99ae092a3018b5b91808"
+  ],
+  "collisions": [],
+  "counts_after": {
+    "diagnostic_claims": 2,
+    "evidence_claims": 148,
+    "prognostic_claims": 0,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "counts_before": {
+    "diagnostic_claims": 2,
+    "evidence_claims": 148,
+    "prognostic_claims": 0,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "deduplications": [],
+  "documentary_support_created": false,
+  "note": "Il mapping cambia una rappresentazione canonica. Non crea, non fonde e non scompone proposizioni, quindi i conteggi terapeutici restano quelli della 1.2.",
+  "regimen_claims_remaining_regimen": [
+    "CLM-5ce49705979f72f174e9"
+  ],
+  "regimens_separated": 0,
+  "shadow_repository_1_2_modified": false,
+  "simulation_version": "terminology-mapping-closure/1.0",
+  "source_repository": "qualified_claim_repository/1.2",
+  "suggested_model_version": "qualified_claim_model/1.1",
+  "suggested_repository_version": "qualified_claim_repository/1.3",
+  "therapeutic_proposition_count_changed": false,
+  "unresolved_associations_unchanged": true,
+  "unresolved_mappings": [
+    "TP-AUY922-LUMINESPIB"
+  ],
+  "unsupported_associations_unchanged": true,
+  "verified_mappings": [
+    "TP-BGJ398-INFIGRATINIB"
+  ]
+}
