@@ -1,0 +1,101 @@
+{
+  "affected_groups": [
+    "evidence:1851",
+    "evidence:1853"
+  ],
+  "allowed_decisions": [
+    "different_interventions",
+    "insufficient_authoritative_evidence",
+    "possible_alias_not_verified",
+    "source_local_equivalence_only",
+    "terminology_conflict",
+    "verified_brand_or_nonproprietary_name",
+    "verified_development_code_for_same_intervention",
+    "verified_same_active_moiety_different_form",
+    "verified_same_intervention"
+  ],
+  "blind": true,
+  "evaluation_reference_included": false,
+  "first_reviewer_decision_included": false,
+  "graph_term": "infigratinib",
+  "instructions": "Decidere se i due termini denotano la stessa entita' farmacologica usando soltanto il materiale allegato. Indicare per ogni affermazione la fonte e il locator. Non dedurre l'equivalenza dalla somiglianza delle stringhe. Segnalare separatamente se la relazione riguarda una forma o un sale. Non decidere sulla separabilita' del risultato: non e' oggetto di questa revisione.",
+  "material_provided": [
+    {
+      "document_type": "indexed_bibliographic_record",
+      "locator": "record bibliografico, campo title, apertura del titolo",
+      "source_id": "PMID:34358484",
+      "stable_identifier": "pmid:34358484",
+      "supporting_field": "title",
+      "supporting_text": "Infigratinib (BGJ398) in previously treated patients with advanced or metastatic cholangiocarcinoma with FGFR2 fusions or rearrangements: mature results from a multicentre, open-label, single-arm, phase 2 study.",
+      "term_a": "BGJ398",
+      "term_b": "infigratinib"
+    },
+    {
+      "document_type": "indexed_abstract",
+      "locator": "abstract, sezione BACKGROUND",
+      "source_id": "PMID:34358484",
+      "stable_identifier": "bcec9820e372cf6af69f23f39ef1fef6b8cd1b4753246a8261935ba19f5ed2f7",
+      "supporting_field": "abstract_text",
+      "supporting_text": "Infigratinib is a selective, ATP-competitive inhibitor of fibroblast growth factor receptors.",
+      "term_a": "infigratinib",
+      "term_b": "FGFR2 fusions, cholangiocarcinoma"
+    },
+    {
+      "document_type": "indexed_bibliographic_record",
+      "locator": "record bibliografico, campo title",
+      "source_id": "PMID:29182496",
+      "stable_identifier": "pmid:29182496",
+      "supporting_field": "title",
+      "supporting_text": "Phase II Study of BGJ398 in Patients With FGFR-Altered Advanced Cholangiocarcinoma.",
+      "term_a": "BGJ398",
+      "term_b": "FGFR-altered advanced cholangiocarcinoma"
+    },
+    {
+      "document_type": "indexed_bibliographic_record",
+      "locator": "record bibliografico, campo title",
+      "source_id": "PMID:27870574",
+      "stable_identifier": "pmid:27870574",
+      "supporting_field": "title",
+      "supporting_text": "Evaluation of BGJ398, a Fibroblast Growth Factor Receptor 1-3 Kinase Inhibitor, in Patients With Advanced Solid Tumors Harboring Genetic Alterations in Fibroblast Growth Factor Receptors: Results of a Global Phase I, Dose-Escalation and Dose-Expansion Study.",
+      "term_a": "BGJ398",
+      "term_b": "FGFR1-3 kinase inhibitor"
+    },
+    {
+      "document_type": "drug_vocabulary_table",
+      "locator": "drugs.tsv, righe con drug_claim_name BGJ398",
+      "source_id": "DGIdb:drug_claims",
+      "stable_identifier": "rxcui:2550729",
+      "supporting_field": "concept_id",
+      "supporting_text": "[{\"asserted_by\": [\"CancerCommons\", \"MyCancerGenome\", \"MyCancerGenomeClinicalTrial\", \"OncoKB\", \"TALC\", \"TTD\"], \"claim_name\": \"BGJ398\", \"concept_id\": \"rxcui:2550729\", \"curator_count\": 6, \"normalized_drug_name\": \"INFIGRATINIB\"}]",
+      "term_a": "BGJ398",
+      "term_b": "INFIGRATINIB"
+    },
+    {
+      "document_type": "drug_vocabulary_table",
+      "locator": "drugs.tsv, righe con drug_claim_name Infigratinib Phosphate",
+      "source_id": "DGIdb:drug_claims",
+      "stable_identifier": "ncit:C175088",
+      "supporting_field": "concept_id",
+      "supporting_text": "[{\"asserted_by\": [\"CIViC\", \"ChEMBL\"], \"claim_name\": \"INFIGRATINIB\", \"concept_id\": \"rxcui:2550729\", \"curator_count\": 2, \"normalized_drug_name\": \"INFIGRATINIB\"}, {\"asserted_by\": [\"ChEMBL\"], \"claim_name\": \"INFIGRATINIB PHOSPHATE\", \"concept_id\": \"ncit:C175088\", \"curator_count\": 1, \"normalized_drug_name\": \"INFIGRATINIB PHOSPHATE\"}, {\"asserted_by\": [\"ChemIDplus\", \"DrugBank\", \"HemOnc\", \"JAX-CKB\", \"NCIt\"], \"claim_name\": \"Infigratinib\", \"concept_id\": \"rxcui:2550729\", \"curator_count\": 5, \"normalized_drug_name\": \"INFIGRATINIB\"}, {\"asserted_by\": [\"NCIt\"], \"claim_name\": \"Infigratinib Phosphate\", \"concept_id\": \"ncit:C175088\", \"curator_count\": 1, \"normalized_drug_name\": \"INFIGRATINIB PHOSPHATE\"}, {\"asserted_by\": [\"ChemIDplus\"], \"claim_name\": \"Infigratinib phosphate\", \"concept_id\": \"ncit:C175088\", \"curator_count\": 1, \"normalized_drug_name\": \"INFIGRATINIB PHOSPHATE\"}, {\"asserted_by\": [\"PharmGKB\", \"RxNorm\", \"Wikidata\"], \"claim_name\": \"infigratinib\", \"concept_id\": \"rxcui:2550729\", \"curator_count\": 3, \"normalized_drug_name\": \"INFIGRATINIB\"}]",
+      "term_a": "infigratinib",
+      "term_b": "Infigratinib Phosphate"
+    }
+  ],
+  "material_sha256": "3df23ff2b076c97c6cbf1afce29e00e440c1241fbf7085a7358997877667f22d",
+  "metrics_included": false,
+  "packet_id": "TSR-TRQ-BGJ398",
+  "packet_version": "terminology-mapping-closure-second-review/1.0",
+  "questions_to_answer": [
+    "La fonte usa il termine letterale, e in quale forma esatta?",
+    "Una fonte ammissibile identifica espressamente i due termini?",
+    "L'identificazione proviene da materiale indipendente dal grafo?",
+    "Il mapping vale per la versione temporale dello studio?",
+    "Formulazione o sale richiedono una distinzione?",
+    "La relazione e' globale o soltanto locale alla fonte?",
+    "Quale forma dovrebbe fare da etichetta canonica, se una?",
+    "Quale letterale deve essere comunque preservato?"
+  ],
+  "queue_id": "TRQ-BGJ398",
+  "recommendation_included": false,
+  "source_literal_term": "BGJ398"
+}

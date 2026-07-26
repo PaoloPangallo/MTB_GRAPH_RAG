@@ -1,0 +1,60 @@
+{
+  "affected_groups": [
+    "evidence:841"
+  ],
+  "allowed_decisions": [
+    "different_interventions",
+    "insufficient_authoritative_evidence",
+    "possible_alias_not_verified",
+    "source_local_equivalence_only",
+    "terminology_conflict",
+    "verified_brand_or_nonproprietary_name",
+    "verified_development_code_for_same_intervention",
+    "verified_same_active_moiety_different_form",
+    "verified_same_intervention"
+  ],
+  "blind": true,
+  "evaluation_reference_included": false,
+  "first_reviewer_decision_included": false,
+  "graph_term": "luminespib",
+  "instructions": "Decidere se i due termini denotano la stessa entita' farmacologica usando soltanto il materiale allegato. Indicare per ogni affermazione la fonte e il locator. Non dedurre l'equivalenza dalla somiglianza delle stringhe. Segnalare separatamente se la relazione riguarda una forma o un sale. Non decidere sulla separabilita' del risultato: non e' oggetto di questa revisione.",
+  "material_provided": [
+    {
+      "document_type": "full_text",
+      "locator": "full text, Case Report, frase sulla linea con inibitore HSP90",
+      "source_id": "PMID:26698910",
+      "stable_identifier": "086c0cb4e777b9a187b3a71ef6796f1c27c481a6f4671e0b8b0c90044fbcf90e",
+      "supporting_field": "full_text",
+      "supporting_text": "She then received a heat shock protein 90 (HSP90) inhibitor (AUY922) and had rapidly worsening disease.",
+      "term_a": "AUY922",
+      "term_b": "(nessun nome generico dichiarato)"
+    },
+    {
+      "document_type": "drug_vocabulary_table",
+      "locator": "drugs.tsv, righe con drug_claim_name AUY922 e NVP-AUY922",
+      "source_id": "DGIdb:drug_claims",
+      "stable_identifier": "drugbank:DB11881|iuphar.ligand:9261",
+      "supporting_field": "concept_id",
+      "supporting_text": "[{\"asserted_by\": [\"CancerCommons\", \"MyCancerGenome\", \"MyCancerGenomeClinicalTrial\", \"TALC\"], \"claim_name\": \"AUY922\", \"concept_id\": \"drugbank:DB11881\", \"curator_count\": 4, \"normalized_drug_name\": \"AUY922\"}, {\"asserted_by\": [\"DTC\", \"TTD\"], \"claim_name\": \"NVP-AUY922\", \"concept_id\": \"iuphar.ligand:9261\", \"curator_count\": 2, \"normalized_drug_name\": \"LUMINESPIB\"}]",
+      "term_a": "AUY922",
+      "term_b": "NVP-AUY922"
+    }
+  ],
+  "material_sha256": "aff4160eddc771ec388282fd5f70efc9aa0277b83a8fcb0940f5058505fc87e5",
+  "metrics_included": false,
+  "packet_id": "TSR-TRQ-AUY922",
+  "packet_version": "terminology-mapping-closure-second-review/1.0",
+  "questions_to_answer": [
+    "La fonte usa il termine letterale, e in quale forma esatta?",
+    "Una fonte ammissibile identifica espressamente i due termini?",
+    "L'identificazione proviene da materiale indipendente dal grafo?",
+    "Il mapping vale per la versione temporale dello studio?",
+    "Formulazione o sale richiedono una distinzione?",
+    "La relazione e' globale o soltanto locale alla fonte?",
+    "Quale forma dovrebbe fare da etichetta canonica, se una?",
+    "Quale letterale deve essere comunque preservato?"
+  ],
+  "queue_id": "TRQ-AUY922",
+  "recommendation_included": false,
+  "source_literal_term": "AUY922"
+}
