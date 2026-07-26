@@ -1,0 +1,161 @@
+{
+  "artifact_sha256": {
+    "AUY922_LUMINESPIB_REVIEW.md": "98d64e79a569f15d8295b7b8c91bcc225d3baf2c3fa3b25cf5a6cc4258c10911",
+    "BGJ398_INFIGRATINIB_REVIEW.md": "3c44328424e30ff816b739f6ce405cbc20f4de89292b6548f3b7d3f1ac03a43c",
+    "TERMINOLOGY_CANONICALIZATION_CONTRACT.md": "203e0d5fc505af305186e76c1c60ef8237c35739870402d484dc638eb8d9aa66",
+    "TERMINOLOGY_CLOSURE_READINESS.md": "6400acfbd4c3e8bf5aec3cc5063cd81ca7e6c945d368a22898fe8bef2014a511",
+    "authoritative_mapping_evidence.jsonl": "b339e28a41f629a6e7841a115e6123693ae209c8a0bfb620e720a1f93f155909",
+    "canonicalization_contract.json": "a6ca5fbc3c1dbade761021d23b85571c973eddbec1a7be204e2e39d0a0ac1650",
+    "claim_id_impact_simulation.jsonl": "8302fe14db7c04b9863de3cfd067ba9cedbb4ccfcd896902be380588af04975b",
+    "group_terminology_reviews.jsonl": "877989aac3325c69eaea926ede0a80e0470f251a21f92b11cc2e4fe95c3dea11",
+    "mapping_decisions.jsonl": "3ebd3f9d6715ee5976f90efa7dedfa8a02e1d258019de80162cab88f962f7e7d",
+    "qualification_link_impact.jsonl": "962a907fc468e9272f5026dfc7f87eaa396297019bbb17f65eb6af0db8b26403",
+    "qualified_view_impact.jsonl": "a976d5dfb6a6e015036c9152fbac48978fa04b65c8357ebb5597b964a1e32c5e",
+    "review_scope.json": "612d766c2fb7e3d95b7dd90938e4f26b871fffedfe11a112e2293ac11b533cdd",
+    "second_review_packets/TSR-TRQ-AUY922.json": "b208671f6b2ba99069d948831fe28c6ae60c9c52dd08ccb4db0a0321152e2e9f",
+    "second_review_packets/TSR-TRQ-BGJ398.json": "afd8c93ab43072d645aa2c1921c5c92ea9fb2cd5eaff543070bf0ba2b250a285",
+    "shadow_repository_update_simulation.json": "2eb6874ba478c45023f3992dd50bf7a9dd261c7f1598691ff5410f7e0728ca0d",
+    "source_access_inventory.jsonl": "1037c724f4a8fcaadfe027cc43ff1fb75e9e755e50f49fefe3f28b3cd9657bfa",
+    "source_literal_preservation.jsonl": "e300129a482027f107cac4568e9105952d14722b6b3f987ffc73fb8f228abf60",
+    "terminology_queue_snapshot.jsonl": "da5f7252e8ecdb2cd935fda8fda46113bb1dd110c707a0db8d8081b5b10fdfb1",
+    "unresolved_terminology.jsonl": "5f4de0254066b59f07a92b379aba9c2c43e68b8b84b58fd51981c94816e9e947"
+  },
+  "claim_id_changes_required": 2,
+  "collisions": [],
+  "contract_version": "intervention-canonicalization-contract/1.0",
+  "decisions": {
+    "TP-AUY922-LUMINESPIB": {
+      "canonical_label": "",
+      "decision": "insufficient_authoritative_evidence",
+      "mapping_scope": "none",
+      "recommendation": "require_external_review"
+    },
+    "TP-BGJ398-INFIGRATINIB": {
+      "canonical_label": "infigratinib",
+      "decision": "verified_development_code_for_same_intervention",
+      "mapping_scope": "global",
+      "recommendation": "approve_for_shadow_update"
+    }
+  },
+  "declared_test_dependencies": [],
+  "generated_by": "benchmarks/mtb_evidence/evaluation/scripts/build_terminology_mapping_closure.py",
+  "integrity": {
+    "claim_ids_modified": false,
+    "evaluation_reference_deserialized": false,
+    "evaluation_reference_used": false,
+    "frozen_scientific_artifact_sha256": {
+      "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/contract_manifest.json": "38d5ebc40fb0c1c82c91fb7708af71b072ff28313f03d4398e672cde7c60e8c8",
+      "benchmarks/mtb_evidence/v3/diagnostic_disease_scope_narrowing_shadow/repository_v1_2_manifest.json": "37864b2d2fd185c988ea0be574933dee76c70233678eb50ff583bc146120b39d",
+      "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/adjudication_manifest.json": "38427bfc492464dfff2509ebc6c1b6fdaeda39c9fb61e3f172181f9018875cd7",
+      "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/terminology_review_queue.jsonl": "da5f7252e8ecdb2cd935fda8fda46113bb1dd110c707a0db8d8081b5b10fdfb1",
+      "benchmarks/mtb_evidence/v3/non_therapeutic_claim_contract_and_erratum/adjudication_erratum.json": "a0dd37f1c57e6b42c60788283a1889c461b0ca7533b5aa1d64546e60bf16d2ae",
+      "benchmarks/mtb_evidence/v3/non_therapeutic_claim_contract_and_erratum/migration_specification_amended.json": "46261e1edd47f774bfdd76047be2fc22aaaa409431d46fec04042c61e18cc66f",
+      "benchmarks/mtb_evidence/v3/non_therapeutic_shadow_update/shadow_update_manifest.json": "4d37a8c2c5d1a0e79d28b3e2b92b0c381fc41a54c2c324e40981fd00aabd0fac",
+      "benchmarks/mtb_evidence/v3/non_therapeutic_source_closure/review_manifest.json": "26fba49056330e9695c10bf46b0d585fbe8204d71745f622f9b5cee012423273",
+      "benchmarks/mtb_evidence/v3/typed_claim_shadow_migration/shadow_repository_manifest.json": "4cc41df934adab5cfacec2330a1349396e45db7042c3c53a8292ca283ec80f9d"
+    },
+    "operational_artifact_sha256_after": {
+      "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+      "backend/pipeline/evidence/qualified_retriever.py": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+      "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+      "benchmarks/mtb_evidence/v3/v2_v3a_exploratory_pilot/frozen_v2_results.jsonl": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981"
+    },
+    "operational_artifact_sha256_before": {
+      "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+      "backend/pipeline/evidence/qualified_retriever.py": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+      "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+      "benchmarks/mtb_evidence/v3/v2_v3a_exploratory_pilot/frozen_v2_results.jsonl": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981"
+    },
+    "operational_corpus_modified": false,
+    "operational_hash_parity": true,
+    "operational_modules_modified": false,
+    "shadow_repositories_modified": false,
+    "shadow_repository_manifest_sha256": {
+      "1.0": "4cc41df934adab5cfacec2330a1349396e45db7042c3c53a8292ca283ec80f9d",
+      "1.1": "4d37a8c2c5d1a0e79d28b3e2b92b0c381fc41a54c2c324e40981fd00aabd0fac",
+      "1.2": "37864b2d2fd185c988ea0be574933dee76c70233678eb50ff583bc146120b39d"
+    }
+  },
+  "packet_version": "terminology-mapping-closure-second-review/1.0",
+  "phase": "terminology-mapping-closure/1.0",
+  "python_version": "3.12",
+  "readiness": {
+    "all_mapping_candidates_reviewed": true,
+    "all_mapping_pairs_decided": true,
+    "claim_id_changes_required": 2,
+    "corpus_promotion_ready": false,
+    "disease_hierarchy_policy_ready": true,
+    "full_exploratory_rerun_ready": false,
+    "operational_retriever_migration_ready": false,
+    "rejected_mappings": 0,
+    "second_review_packets_ready": true,
+    "shadow_repository_terminology_update_ready": true,
+    "terminology_queue_complete": true,
+    "unresolved_mappings": 1,
+    "verified_global_mappings": 1,
+    "verified_source_local_mappings": 0
+  },
+  "scope": {
+    "claim_id_formula_version": "claim_id_formula/1.0",
+    "claim_identity_fields": [
+      "graph_evidence_id",
+      "claim_type",
+      "canonical_intervention_or_regimen",
+      "biomarker",
+      "direction",
+      "polarity",
+      "source_unit_id"
+    ],
+    "disease_hierarchy_activated": false,
+    "expected_group_count": 4,
+    "expected_groups": [
+      "evidence:12156",
+      "evidence:1851",
+      "evidence:1853",
+      "evidence:841"
+    ],
+    "gold_used": false,
+    "groups_outside_queue": [
+      "evidence:12156"
+    ],
+    "pending_association_count": 3,
+    "perimeter_matches_expectation": true,
+    "phase": "terminology-mapping-closure/1.0",
+    "propagation_policy": "prototype_only",
+    "queue_affected_groups": [
+      "evidence:1851",
+      "evidence:1853",
+      "evidence:841"
+    ],
+    "queue_ids": [
+      "TRQ-AUY922",
+      "TRQ-BGJ398"
+    ],
+    "queue_pair_count": 2,
+    "queue_sha256": "da5f7252e8ecdb2cd935fda8fda46113bb1dd110c707a0db8d8081b5b10fdfb1",
+    "queue_source": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/terminology_review_queue.jsonl",
+    "retrieval_metrics_used": false,
+    "review_independence": "non_independent",
+    "review_status": "first_review_complete",
+    "reviewed_group_count": 4,
+    "reviewed_groups": [
+      "evidence:12156",
+      "evidence:1851",
+      "evidence:1853",
+      "evidence:841"
+    ],
+    "reviewer_role": "author_terminology_reviewer",
+    "start_sha": "154528358ee05f95fc523c41058d1c7e7839bd94"
+  },
+  "test_framework": "unittest (stdlib)"
+}
