@@ -1,0 +1,54 @@
+{
+  "authenticated_evaluation_reference_sha256": {
+    "clinical_reference": "c26e526883912b3613a795fb286dd602ff81204f3ca25bbecddf83886bc11c2d",
+    "snapshot_reference": "02b64780ddbbd3d5bd92326b39596c76f16644599bcdbccfd8c578c1d800c845"
+  },
+  "evaluation_reference_authentication_only": true,
+  "evaluation_reference_deserialized": false,
+  "frozen_scientific_artifact_sha256": {
+    "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/contract_manifest.json": "38d5ebc40fb0c1c82c91fb7708af71b072ff28313f03d4398e672cde7c60e8c8",
+    "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/adjudication_manifest.json": "38427bfc492464dfff2509ebc6c1b6fdaeda39c9fb61e3f172181f9018875cd7",
+    "benchmarks/mtb_evidence/v3/non_therapeutic_claim_contract_and_erratum/adjudication_erratum.json": "a0dd37f1c57e6b42c60788283a1889c461b0ca7533b5aa1d64546e60bf16d2ae",
+    "benchmarks/mtb_evidence/v3/non_therapeutic_claim_contract_and_erratum/migration_specification_amended.json": "46261e1edd47f774bfdd76047be2fc22aaaa409431d46fec04042c61e18cc66f",
+    "benchmarks/mtb_evidence/v3/non_therapeutic_source_closure/review_manifest.json": "26fba49056330e9695c10bf46b0d585fbe8204d71745f622f9b5cee012423273",
+    "benchmarks/mtb_evidence/v3/qualified_retriever_prototype/prototype_manifest.json": "7196b3d706abd473f45b2169a033d1caceed21fd65c370d38a03aadb7f7f1add"
+  },
+  "inventory_version": "operational_vs_shadow_inventory/1.2",
+  "operational_artifact_sha256_after": {
+    "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+    "backend/pipeline/evidence/qualified_retriever.py": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+    "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+    "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+    "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+    "benchmarks/mtb_evidence/v3/v2_v3a_exploratory_pilot/frozen_v2_results.jsonl": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981"
+  },
+  "operational_artifact_sha256_before": {
+    "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+    "backend/pipeline/evidence/qualified_retriever.py": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+    "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+    "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+    "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+    "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+    "benchmarks/mtb_evidence/v3/v2_v3a_exploratory_pilot/frozen_v2_results.jsonl": "900a2c6afb61be728cfbebfa5784aeeb87b6478a1bd4153cd044c7f89775f981"
+  },
+  "operational_hash_parity": true,
+  "operational_query": {
+    "after_sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124",
+    "before_sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124",
+    "parity": true,
+    "query_id": "scope-narrowing-operational-parity",
+    "result_count": 21
+  },
+  "operational_statements_still_authoritative": true,
+  "shadow_imports_into_operational_modules": 0,
+  "shadow_objects_queryable_by_operational_pipeline": false,
+  "shadow_repository_manifest_sha256": {
+    "1.0": "4cc41df934adab5cfacec2330a1349396e45db7042c3c53a8292ca283ec80f9d",
+    "1.1": "4d37a8c2c5d1a0e79d28b3e2b92b0c381fc41a54c2c324e40981fd00aabd0fac"
+  }
+}

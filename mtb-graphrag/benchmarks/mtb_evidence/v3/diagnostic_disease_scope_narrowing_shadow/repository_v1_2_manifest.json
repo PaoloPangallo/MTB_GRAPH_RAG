@@ -1,0 +1,123 @@
+{
+  "artifact_sha256": {
+    "audit_associations_v1_2.jsonl": "f1d7d5661fe1a80b3fea9f4401863876212f6c6b8d8ad95138e7458004661647",
+    "deprecated_diagnostic_claims.jsonl": "12d07da83969fd231ebff02681447425ebbae8d3b1635836e9c44ec443c8a821",
+    "diagnostic_claim_replacement_map.jsonl": "81d83bbdd872a93e02b522c2976defb58dfa1fc3051c060729d3e9ca7707973e",
+    "diagnostic_claims_v1_2.jsonl": "819d3402badea3797d71324e4149ec0c0ebba32ca83a16dc7b23d9404630b94a",
+    "disease_scope_gate_simulation.jsonl": "81237b3978c34ba8d3f975e5b21be2028279873af3edd7cb1783bdec68599875",
+    "evidence_347_audit_v1_2.json": "dc578fb53879a09f75dbdd0efd79faf5cc895517c5325addeb420e2f6208ecb3",
+    "evidence_claims_v1_2.jsonl": "d0e4d87a1ff61bb2664c462c4b1e623bde8753d0d80fc005d3c6356b97f8c713",
+    "graph_evidence_parents_v1_2.jsonl": "d8fabb349a74e8a627483d631437a16401e429076d412221c4610416b9f3f125",
+    "legacy_statement_deprecation_map_v1_2.jsonl": "aef42644db9aeba9f750485f580648bc9bfc76b1619e0b86f7f421f61e4c61ce",
+    "operational_vs_shadow_inventory_v1_2.json": "d217239753197c96f3f92f6c24807984faccac7c5ed002b1d04cf33d18109b52",
+    "parent_without_claim_v1_2.jsonl": "0f136dec0c43e48177c43938db0a018c2ae35e3a718065b4681d523d5d1cb441",
+    "prognostic_claims_v1_2.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualification_link_regeneration_plan_v1_2.jsonl": "c7b5245d88087dd70e97180138eb71ac72f30f223dbbffa4866d6ad1a76c2c99",
+    "qualified_view_regeneration_plan_v1_2.jsonl": "0fc2da2c066f62f5cd9ae16b32815e5d2adfd8cdb6ec2ee5a6f1235095a15df5",
+    "repository_version_lineage.json": "23ad26a6ad24c8b7a9c95455d004c6e81aa3631f7a7df5431b35852b693c7b06",
+    "scope_narrowing_audit.jsonl": "426fb1bfba04a9dc87e81d2111d6e115974d6a9e8423e9d3fba079c9188e65f6",
+    "therapeutic_claims_v1_2.jsonl": "3d4ff365ae4471cbc1a6d92c6b8cbc45c49b0765f89d3dd88d02143630849d97"
+  },
+  "claim_id_formula": {
+    "collisions": 0,
+    "fields": [
+      "graph_evidence_id",
+      "claim_type",
+      "canonical_subject",
+      "biomarker",
+      "disease_scope",
+      "direction_or_interpretation",
+      "polarity",
+      "source_unit_id"
+    ],
+    "new_ids": {
+      "evidence:1846": "CLM-8941c177da91f66ff93a",
+      "evidence:1847": "CLM-a7e1c40b794d2c4d4ca8"
+    },
+    "separator": "|",
+    "version": "non_therapeutic_claim_id_formula/1.0"
+  },
+  "counts": {
+    "active_claims_total": 148,
+    "by_claim_type": {
+      "aggregate_intervention_claim": 3,
+      "atomic_intervention_claim": 140,
+      "diagnostic_claim": 2,
+      "regimen_claim": 3
+    },
+    "diagnostic_claims_active": 2,
+    "diagnostic_claims_deprecated": 2,
+    "diagnostic_views_to_regenerate_local": 2,
+    "expected_count_forced": false,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "parents_without_claims_ids": [
+      "evidence:347",
+      "evidence:3811",
+      "evidence:4759"
+    ],
+    "prognostic_claims": 0,
+    "qualification_links_to_create_local": 2,
+    "qualification_links_to_retire_local": 2,
+    "qualification_plan_actions_total": 35,
+    "therapeutic_claims": 146
+  },
+  "evaluation_reference_deserialized": false,
+  "evaluation_reference_used_for_decisions": false,
+  "invariants": {
+    "aggregate_prevalence_remains_non_partner_specific": true,
+    "deprecated_claims_primary": 0,
+    "diagnostic_evidence_is_not_therapy_evidence": true,
+    "disease_hierarchy_applied": false,
+    "local_narrowing_only": true,
+    "operational_artifacts_modified": false,
+    "plans_executed": false,
+    "repository_promoted": false,
+    "shadow_1_0_modified": false,
+    "shadow_1_1_modified": false,
+    "subtype_defining_is_not_validated_diagnostic_test": true,
+    "terminology_mapping_resolved": false
+  },
+  "llm_used": false,
+  "migration_status": "shadow_not_promoted",
+  "model_schema": "qualified_claim_model/1.1",
+  "neo4j_used": false,
+  "network_used": false,
+  "operational_query_sha256": {
+    "after_sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124",
+    "before_sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124",
+    "parity": true,
+    "query_id": "scope-narrowing-operational-parity",
+    "result_count": 21
+  },
+  "output_contract": "qualified_claim_retrieval_result/1.1",
+  "readiness": {
+    "claim_ids_recomputed": true,
+    "corpus_promotion_ready": false,
+    "diagnostic_scope_narrowing_applied": true,
+    "disease_hierarchy_policy_required": true,
+    "evidence_347_unchanged": true,
+    "full_exploratory_rerun_ready": false,
+    "old_diagnostic_claims_retired": true,
+    "operational_artifacts_unchanged": true,
+    "operational_retriever_migration_ready": false,
+    "replacement_claims_created": true,
+    "repository_v1_2_ready": true,
+    "source_review_status_preserved": true,
+    "terminology_review_required": true
+  },
+  "repository_schema": "qualified_claim_repository/1.2",
+  "source_review": {
+    "access_type": "abstract_only",
+    "final_evaluable": false,
+    "full_text_available": false,
+    "hard_filterable": false,
+    "propagation_policy": "prototype_only",
+    "review_independence": "non_independent",
+    "review_status": "first_review_complete",
+    "source_unit_id": "PU-PMID-24122810-cohort-1"
+  },
+  "structural_gate": "claim_structural_gate/1.1",
+  "supersedes": "qualified_claim_repository/1.1",
+  "version_bump_reason": "documentary disease-scope narrowing of reviewed diagnostic claims"
+}
