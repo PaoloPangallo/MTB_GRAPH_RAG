@@ -71,13 +71,16 @@ class LegacyStatementDeprecation:
     migration_version: str = MODEL_SCHEMA_VERSION
 
     def __post_init__(self) -> None:
-        if self.deprecation_state not in DEPRECATION_STATES:
+        # Il vocabolario accettato e' quello 1.1, che estende il 1.0 senza
+        # toglierne nulla: gli stati 1.0 restano validi e significano quello che
+        # significavano.
+        if self.deprecation_state not in DEPRECATION_STATES_V11:
             raise DeprecationError(
                 f"{self.legacy_statement_id}: stato sconosciuto "
                 f"{self.deprecation_state!r}"
             )
         has_replacement = bool(self.replacement_claim_ids)
-        if self.deprecation_state == "deprecated_without_replacement" and has_replacement:
+        if self.deprecation_state in PROMOTION_BLOCKING_STATES and has_replacement:
             raise DeprecationError(
                 f"{self.legacy_statement_id}: dichiarato senza sostituto ma ne ha "
                 f"{len(self.replacement_claim_ids)}"
@@ -92,8 +95,25 @@ class LegacyStatementDeprecation:
         """Lo statement portato avanti come legacy migrato non e' deprecato."""
         return self.deprecation_state != "preserved_as_legacy_migrated_claim"
 
-    def to_dict(self) -> dict[str, Any]:
-        return {
+    @property
+    def blocks_promotion(self) -> bool:
+        """Lo statement non puo' essere promosso come claim.
+
+        Vale per chi non ha sostituto e per chi e' bloccato in attesa del full
+        text: in entrambi i casi promuoverlo rimetterebbe in circolo
+        un'affermazione che nessuno sostiene.
+        """
+        return self.deprecation_state in PROMOTION_BLOCKING_STATES
+
+    def to_dict(self, *, include_promotion_status: bool = False) -> dict[str, Any]:
+        """Serializzazione. `blocks_promotion` e' opt-in di proposito.
+
+        Il repository 1.0 e' gia' stato emesso e deve restare byte per byte
+        quello che era: aggiungere un campo alla sua mappa di deprecazione ne
+        cambierebbe l'hash. Il campo esiste dal 1.1 in poi, e lo chiede chi
+        serializza il 1.1.
+        """
+        payload = {
             "legacy_statement_id": self.legacy_statement_id,
             "parent_id": self.parent_id,
             "graph_evidence_id": self.graph_evidence_id,
@@ -105,6 +125,9 @@ class LegacyStatementDeprecation:
             "is_deprecated": self.is_deprecated,
             "statement_still_readable": True,
         }
+        if include_promotion_status:
+            payload["blocks_promotion"] = self.blocks_promotion
+        return payload
 
 
 def state_for(claim_types: tuple[str, ...]) -> str:
