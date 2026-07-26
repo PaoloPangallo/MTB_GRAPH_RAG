@@ -1,0 +1,44 @@
+{
+  "claim_type": "prognostic_claim",
+  "comparable_with_regimen_or_class": false,
+  "contract_version": "non-therapeutic-claim-contract/1.0",
+  "counted_in_therapy_level_metrics": false,
+  "directions": [
+    "better_outcome",
+    "poor_outcome",
+    "no_association",
+    "unknown"
+  ],
+  "flattened_into_intervention": false,
+  "forbidden_inferences": {
+    "correlation_to_clinical_utility": "Una correlazione non e' utilita' clinica: perche' lo diventi serve che cambi una decisione, e che qualcuno lo abbia mostrato.",
+    "generic_outcome_to_survival_benefit": "Un esito generico non e' un beneficio di sopravvivenza specifico: l'endpoint va conservato come la fonte lo nomina.",
+    "observational_association_to_causality": "Un'associazione osservazionale non e' una relazione causale: il disegno che la produce non puo' stabilirla.",
+    "prognostic_to_predictive": "Un'associazione prognostica non e' un effetto predittivo del trattamento: la prima descrive come va il paziente, la seconda come risponde alla terapia, e confonderle e' il modo piu' diretto di attribuire a un farmaco un beneficio che nessuno ha misurato."
+  },
+  "intervention_field_present": false,
+  "outcome_semantics": "`outcome` conserva l'endpoint come la fonte lo nomina. Un endpoint normalizzato a 'survival' quando la fonte diceva 'recurrence-free survival' e' un endpoint diverso.",
+  "parent_class": "EvidenceClaim",
+  "receives_therapy_score": false,
+  "required_fields": [
+    "claim_id",
+    "parent_id",
+    "claim_type",
+    "prognostic_subject",
+    "biomarker",
+    "disease_scope",
+    "outcome",
+    "direction",
+    "polarity",
+    "population_scope",
+    "source_unit_ids",
+    "locators",
+    "qualification_link_ids",
+    "review_status",
+    "provenance",
+    "legacy_statement_ids",
+    "deprecated",
+    "schema_version"
+  ],
+  "requires_intervention": false
+}

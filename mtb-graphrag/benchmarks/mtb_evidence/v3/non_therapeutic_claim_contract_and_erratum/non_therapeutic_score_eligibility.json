@@ -1,0 +1,43 @@
+{
+  "by_claim_type": {
+    "diagnostic_claim": {
+      "compared_with_regimen_or_class": false,
+      "enters_therapy_level_metrics": false,
+      "flattened_into_intervention": false,
+      "primary_conditions": [
+        "biomarker_or_subject_compatible",
+        "disease_compatible",
+        "diagnostic_role_supported_by_source"
+      ],
+      "primary_eligible_for": [
+        "diagnostic_evidence_query",
+        "untyped_evidence_query"
+      ],
+      "receives_therapy_score": false
+    },
+    "prognostic_claim": {
+      "compared_with_regimen_or_class": false,
+      "enters_therapy_level_metrics": false,
+      "flattened_into_intervention": false,
+      "primary_conditions": [
+        "biomarker_compatible",
+        "disease_compatible",
+        "outcome_and_direction_compatible"
+      ],
+      "primary_eligible_for": [
+        "prognostic_evidence_query",
+        "untyped_evidence_query"
+      ],
+      "receives_therapy_score": false
+    }
+  },
+  "contract_version": "non-therapeutic-claim-contract/1.0",
+  "note": "Il contratto e' strutturale. Nessun peso viene assegnato qui: assegnarli prima che i tipi siano stabili produrrebbe una taratura su una tassonomia che sta ancora cambiando.",
+  "shared_invariants": [
+    "un claim non terapeutico non riceve therapy score",
+    "un claim non terapeutico non entra nelle metriche therapy-level",
+    "un claim non terapeutico non viene appiattito in `intervention`",
+    "un claim non terapeutico non viene confrontato con regimi o classi"
+  ],
+  "weights_assigned": false
+}

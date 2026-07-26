@@ -1,0 +1,70 @@
+{
+  "contract_version": "non-therapeutic-claim-contract/1.0",
+  "corpus_version_label_required": true,
+  "cross_family_comparison_allowed": false,
+  "families": {
+    "diagnostic_claim_metrics": {
+      "denominator_excludes": [
+        "atomic_intervention_claim",
+        "aggregate_intervention_claim",
+        "regimen_claim",
+        "prognostic_claim"
+      ],
+      "denominator_includes": [
+        "diagnostic_claim"
+      ]
+    },
+    "prognostic_claim_metrics": {
+      "denominator_excludes": [
+        "atomic_intervention_claim",
+        "aggregate_intervention_claim",
+        "regimen_claim",
+        "diagnostic_claim"
+      ],
+      "denominator_includes": [
+        "prognostic_claim"
+      ]
+    },
+    "source_provenance_metrics": {
+      "denominator_excludes": [
+        "atomic_intervention_claim",
+        "aggregate_intervention_claim",
+        "regimen_claim",
+        "diagnostic_claim",
+        "prognostic_claim"
+      ],
+      "denominator_includes": [
+        "graph_evidence_record"
+      ]
+    },
+    "structural_coverage": {
+      "denominator_excludes": [],
+      "denominator_includes": [
+        "atomic_intervention_claim",
+        "aggregate_intervention_claim",
+        "regimen_claim",
+        "diagnostic_claim",
+        "prognostic_claim",
+        "graph_evidence_record",
+        "unsupported_association",
+        "unresolved_association"
+      ],
+      "note": "E' l'unica famiglia che guarda tutto insieme, e serve a misurare la copertura del modello, non la qualita' clinica."
+    },
+    "therapeutic_claim_metrics": {
+      "denominator_excludes": [
+        "diagnostic_claim",
+        "prognostic_claim",
+        "graph_evidence_record",
+        "unsupported_association",
+        "unresolved_association"
+      ],
+      "denominator_includes": [
+        "atomic_intervention_claim",
+        "aggregate_intervention_claim",
+        "regimen_claim"
+      ]
+    }
+  },
+  "metrics_computed_in_this_phase": false
+}
