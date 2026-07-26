@@ -1,0 +1,45 @@
+{
+  "claim_type": "diagnostic_claim",
+  "comparable_with_regimen_or_class": false,
+  "contract_version": "non-therapeutic-claim-contract/1.0",
+  "counted_in_therapy_level_metrics": false,
+  "diagnostic_interpretations": [
+    "subtype_defining_alteration",
+    "disease_associated_marker",
+    "differential_diagnosis_support",
+    "diagnostic_exclusion",
+    "unknown"
+  ],
+  "direction_semantics": "`direction` non e' una direzione terapeutica. Per un claim diagnostico vale `diagnostic` e il contenuto informativo sta in `diagnostic_interpretation`.",
+  "flattened_into_intervention": false,
+  "forbidden_inferences": {
+    "disease_association_to_diagnostic_utility": "Un'associazione con una malattia non e' utilita' diagnostica: dice che l'alterazione si trova in quel tumore, non che serva a diagnosticarlo.",
+    "experimental_assay_to_approved_procedure": "Un assay sperimentale non e' una procedura diagnostica approvata: il metodo con cui si e' misurato non e' il metodo con cui si diagnostica.",
+    "observed_biomarker_to_validated_test": "Un biomarcatore osservato non e' un test clinicamente validato: la validazione e' un'affermazione sulla performance, che la fonte deve fare."
+  },
+  "intervention_field_present": false,
+  "parent_class": "EvidenceClaim",
+  "receives_therapy_score": false,
+  "required_fields": [
+    "claim_id",
+    "parent_id",
+    "claim_type",
+    "diagnostic_subject",
+    "biomarker",
+    "disease_scope",
+    "diagnostic_interpretation",
+    "assay_or_method",
+    "population_or_sample_scope",
+    "direction",
+    "polarity",
+    "source_unit_ids",
+    "locators",
+    "qualification_link_ids",
+    "review_status",
+    "provenance",
+    "legacy_statement_ids",
+    "deprecated",
+    "schema_version"
+  ],
+  "requires_intervention": false
+}

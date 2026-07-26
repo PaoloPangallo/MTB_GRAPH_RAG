@@ -1,0 +1,78 @@
+{
+  "associations_are_evidence_claims": false,
+  "associations_note": "UnsupportedAssociation e UnresolvedAssociation restano oggetti auditabili e non entrano nella gerarchia di EvidenceClaim: non sono claim positivi meno buoni, sono cose che non affermano.",
+  "contract_version": "non-therapeutic-claim-contract/1.0",
+  "graph_evidence_record_is_claim": false,
+  "graph_evidence_record_role": "provenance_container",
+  "hierarchy": {
+    "EvidenceClaim": {
+      "abstract": true,
+      "children": {
+        "DiagnosticClaim": {
+          "abstract": false,
+          "children": {},
+          "counted_in_therapy_metrics": false,
+          "receives_therapy_score": false,
+          "requires_intervention": false
+        },
+        "PrognosticClaim": {
+          "abstract": false,
+          "children": {},
+          "counted_in_therapy_metrics": false,
+          "receives_therapy_score": false,
+          "requires_intervention": false
+        },
+        "TherapeuticClaim": {
+          "abstract": true,
+          "children": {
+            "AggregateInterventionClaim": {
+              "abstract": false
+            },
+            "AtomicInterventionClaim": {
+              "abstract": false
+            },
+            "RegimenClaim": {
+              "abstract": false
+            }
+          },
+          "counted_in_therapy_metrics": true,
+          "receives_therapy_score": true,
+          "requires_intervention": true
+        }
+      },
+      "is_claim": true,
+      "requires": [
+        "claim_id",
+        "parent_id",
+        "biomarker_or_subject",
+        "disease_scope",
+        "polarity",
+        "source_unit_ids",
+        "locators",
+        "provenance"
+      ]
+    }
+  },
+  "non_claim_object_kinds": [
+    "graph_evidence_record",
+    "unsupported_association",
+    "unresolved_association"
+  ],
+  "non_therapeutic_claim_types": [
+    "diagnostic_claim",
+    "prognostic_claim"
+  ],
+  "predictive_claim": {
+    "concrete_case_in_corpus": false,
+    "nearest_case": "evidence:347",
+    "reconsider_when": "Un record porta un intervento documentato e la fonte riporta una modificazione dell'effetto per stato del biomarcatore, senza che il risultato sia esprimibile come direzione di sensibilita' o resistenza.",
+    "required": false,
+    "why_the_nearest_case_does_not_qualify": "La fonte di evidence:347 e' davvero un'analisi predittiva — misura se l'effetto di cetuximab sia modulato dallo stato mutazionale di EGFR — ma il record del grafo non porta alcun intervento. Materializzarlo come claim predittivo richiederebbe di attribuirgli cetuximab, cioe' inventare l'intervento che tutta questa linea di lavoro esiste per non inventare. Il caso e' vicino e non utilizzabile.",
+    "why_the_type_would_be_redundant": "Un claim predittivo e' un'affermazione su un biomarcatore che modula l'effetto di un intervento, e nel modello attuale si scrive gia': e' un TherapeuticClaim con `direction` sensitivity o resistance. Introdurre PredictiveClaim come fratello creerebbe due modi di dire la stessa cosa, e due modi di dire la stessa cosa diventano due denominatori diversi."
+  },
+  "therapeutic_claim_types": [
+    "atomic_intervention_claim",
+    "aggregate_intervention_claim",
+    "regimen_claim"
+  ]
+}

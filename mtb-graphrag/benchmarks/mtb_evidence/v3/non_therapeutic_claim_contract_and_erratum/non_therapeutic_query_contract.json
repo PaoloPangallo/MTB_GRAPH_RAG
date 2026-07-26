@@ -1,0 +1,123 @@
+{
+  "contract_version": "non-therapeutic-claim-contract/1.0",
+  "implemented_operationally": false,
+  "invariants": [
+    "diagnostic_evidence_query non recupera claim terapeutici come diagnostici",
+    "prognostic_evidence_query non recupera claim predittivi o terapeutici come equivalenti",
+    "untyped_evidence_query mantiene i tipi in sezioni e bucket distinti"
+  ],
+  "primary_eligibility_matrix": {
+    "diagnostic_evidence_query": {
+      "aggregate_intervention_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "THERAPEUTIC_CLAIM_NOT_DIAGNOSTIC_EVIDENCE"
+      },
+      "atomic_intervention_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "THERAPEUTIC_CLAIM_NOT_DIAGNOSTIC_EVIDENCE"
+      },
+      "diagnostic_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      },
+      "prognostic_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "CLAIM_TYPE_NOT_ELIGIBLE_FOR_QUERY_TYPE"
+      },
+      "regimen_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "THERAPEUTIC_CLAIM_NOT_DIAGNOSTIC_EVIDENCE"
+      }
+    },
+    "prognostic_evidence_query": {
+      "aggregate_intervention_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "THERAPEUTIC_CLAIM_NOT_PROGNOSTIC_EVIDENCE"
+      },
+      "atomic_intervention_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "THERAPEUTIC_CLAIM_NOT_PROGNOSTIC_EVIDENCE"
+      },
+      "diagnostic_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "CLAIM_TYPE_NOT_ELIGIBLE_FOR_QUERY_TYPE"
+      },
+      "prognostic_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      },
+      "regimen_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "THERAPEUTIC_CLAIM_NOT_PROGNOSTIC_EVIDENCE"
+      }
+    },
+    "therapeutic_evidence_query": {
+      "aggregate_intervention_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      },
+      "atomic_intervention_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      },
+      "diagnostic_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "DIAGNOSTIC_CLAIM_NOT_THERAPEUTIC_EVIDENCE"
+      },
+      "prognostic_claim": {
+        "primary_eligible": false,
+        "rejection_reason_code": "DIAGNOSTIC_CLAIM_NOT_THERAPEUTIC_EVIDENCE"
+      },
+      "regimen_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      }
+    },
+    "untyped_evidence_query": {
+      "aggregate_intervention_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      },
+      "atomic_intervention_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      },
+      "diagnostic_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      },
+      "prognostic_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      },
+      "regimen_claim": {
+        "primary_eligible": true,
+        "rejection_reason_code": null
+      }
+    }
+  },
+  "query_types": [
+    "diagnostic_evidence_query",
+    "prognostic_evidence_query",
+    "therapeutic_evidence_query",
+    "untyped_evidence_query"
+  ],
+  "rejection_reason_codes": [
+    "CLAIM_TYPE_NOT_ELIGIBLE_FOR_QUERY_TYPE",
+    "THERAPEUTIC_CLAIM_NOT_DIAGNOSTIC_EVIDENCE",
+    "THERAPEUTIC_CLAIM_NOT_PROGNOSTIC_EVIDENCE",
+    "PROGNOSTIC_CLAIM_NOT_PREDICTIVE_EVIDENCE",
+    "DIAGNOSTIC_CLAIM_NOT_THERAPEUTIC_EVIDENCE",
+    "NON_THERAPEUTIC_CLAIM_HAS_NO_INTERVENTION_TO_MATCH"
+  ],
+  "untyped_query_sectioning": {
+    "buckets_are_per_section": true,
+    "cross_type_ranking": false,
+    "sections": [
+      "therapeutic",
+      "diagnostic",
+      "prognostic"
+    ],
+    "sections_are_separate": true
+  }
+}
