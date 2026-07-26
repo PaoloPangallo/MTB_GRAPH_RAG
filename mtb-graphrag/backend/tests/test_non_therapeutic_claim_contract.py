@@ -666,10 +666,41 @@ class TestIsolation(unittest.TestCase):
                         self.assertNotIn(fragment, line)
 
     def test_no_operational_module_imports_this_contract(self) -> None:
+        """Nessun modulo *operativo* importa il contratto dei benchmark.
+
+        Il controllo guarda gli import del modulo del contratto, non la
+        sottostringa `non_therapeutic`, e salta il package shadow. La versione
+        precedente faceva entrambe le cose in modo troppo largo: il package
+        shadow non e' operativo — nessun modulo operativo lo importa, ed e' un
+        test a parte a dirlo — e da quando implementa i claim non terapeutici
+        contiene legittimamente quella parola.
+        """
         evidence = REPO_ROOT / "backend/pipeline/evidence"
         for path in sorted(evidence.rglob("*.py")):
-            with self.subTest(module=str(path.relative_to(evidence))):
-                self.assertNotIn("non_therapeutic", path.read_text(encoding="utf-8"))
+            relative = path.relative_to(evidence)
+            if relative.parts and relative.parts[0] == "shadow":
+                continue
+            imports = [
+                line.strip()
+                for line in path.read_text(encoding="utf-8").splitlines()
+                if line.strip().startswith(("import ", "from "))
+            ]
+            with self.subTest(module=str(relative)):
+                for line in imports:
+                    self.assertNotIn("non_therapeutic_claim_contract", line)
+
+    def test_no_operational_module_imports_the_shadow_package(self) -> None:
+        """Il package shadow resta invisibile alla pipeline operativa."""
+        evidence = REPO_ROOT / "backend/pipeline/evidence"
+        for path in sorted(evidence.glob("*.py")):
+            imports = [
+                line.strip()
+                for line in path.read_text(encoding="utf-8").splitlines()
+                if line.strip().startswith(("import ", "from "))
+            ]
+            with self.subTest(module=path.name):
+                for line in imports:
+                    self.assertNotIn("shadow", line)
 
 
 if __name__ == "__main__":  # pragma: no cover
