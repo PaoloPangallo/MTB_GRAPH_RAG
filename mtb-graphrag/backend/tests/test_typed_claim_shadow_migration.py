@@ -50,6 +50,11 @@ ADJ = V3 / "multi_intervention_adjudication"
 CORPUS = V3 / "qualification_corpus_v2"
 
 START_SHA = "f7749eaa674042bfd232c4b06f1b019c645e6c99"
+# La fase della migrazione shadow si chiude qui. Era rimasta con `HEAD` come
+# estremo finale, che non e' un estremo fisso: cresce a ogni commit successivo, e
+# il controllo tornava a essere aperto proprio come quello che la fase 0 aveva
+# corretto. Pinnato alla chiusura della fase.
+PHASE_END_SHA = "b9773757a79fbdea639525aff2f26bdbf15bb2d1"
 
 FROZEN_OPERATIONAL_PATHS = (
     "backend/pipeline/evidence/v2_adapter.py",
@@ -882,7 +887,7 @@ class TestOperationalArtifactsUnchanged(unittest.TestCase):
         cls.scope = PhaseScope(
             REPO_ROOT.parent,
             START_SHA,
-            "HEAD",
+            PHASE_END_SHA,
             (
                 "benchmarks/mtb_evidence/v3/typed_claim_shadow_migration/",
                 "benchmarks/mtb_evidence/evaluation/scripts/build_typed_claim_shadow_migration.py",
