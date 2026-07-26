@@ -1,0 +1,88 @@
+{
+  "contract_version": "intervention-canonicalization-contract/1.0",
+  "interventions": [
+    {
+      "authoritative_sources": [],
+      "canonical_intervention_id": "",
+      "canonical_label": "",
+      "development_codes": [],
+      "effective_from": "",
+      "effective_to": "",
+      "eligible_for_exact_match": false,
+      "final_evaluable": false,
+      "formulation_or_salt_relations": [],
+      "hard_filterable": false,
+      "mapping_scope": "none",
+      "mapping_status": "unresolved_pending_external_review",
+      "pending_aliases": [
+        "luminespib"
+      ],
+      "propagation_policy": "prototype_only",
+      "provenance": {
+        "circularity_control_passed": false,
+        "decided_by_string_similarity": false,
+        "gold_used_for_decisions": false,
+        "pair_id": "TP-AUY922-LUMINESPIB",
+        "phase": "terminology-mapping-closure/1.0",
+        "queue_id": "TRQ-AUY922",
+        "review_independence": "non_independent",
+        "reviewer_role": "author_terminology_reviewer"
+      },
+      "review_status": "first_review_complete",
+      "source_literals": [
+        "AUY922"
+      ],
+      "verified_aliases": []
+    },
+    {
+      "authoritative_sources": [
+        "EV-BGJ398-01",
+        "EV-BGJ398-05"
+      ],
+      "canonical_intervention_id": "TIV-INFIGRATINIB",
+      "canonical_label": "infigratinib",
+      "development_codes": [
+        "BGJ398"
+      ],
+      "effective_from": "2021",
+      "effective_to": "",
+      "eligible_for_exact_match": false,
+      "final_evaluable": false,
+      "formulation_or_salt_relations": [
+        "infigratinib fosfato (ncit:C175088) e' una forma salificata distinta dalla moiety infigratinib (rxcui:2550729) e non viene fusa con essa"
+      ],
+      "hard_filterable": false,
+      "mapping_scope": "global",
+      "mapping_status": "verified_pending_second_review",
+      "pending_aliases": [],
+      "propagation_policy": "prototype_only",
+      "provenance": {
+        "circularity_control_passed": true,
+        "decided_by_string_similarity": false,
+        "gold_used_for_decisions": false,
+        "pair_id": "TP-BGJ398-INFIGRATINIB",
+        "phase": "terminology-mapping-closure/1.0",
+        "queue_id": "TRQ-BGJ398",
+        "review_independence": "non_independent",
+        "reviewer_role": "author_terminology_reviewer"
+      },
+      "review_status": "first_review_complete",
+      "source_literals": [
+        "BGJ398"
+      ],
+      "verified_aliases": [
+        "infigratinib"
+      ]
+    }
+  ],
+  "invariants": [
+    "Un alias pending non entra negli exact match.",
+    "Un mapping verificato non cancella il source literal.",
+    "Un development code non e' un farmaco diverso quando l'identita' e' verificata, ma resta registrato come letterale della fonte.",
+    "Forme realmente differenti, come un sale, non vengono fuse senza un qualificatore esplicito.",
+    "La canonicalizzazione e' deterministica e non consulta il grafo.",
+    "Il mapping non produce supporto documentale dove non esiste.",
+    "Mapping globale e mapping source-local restano distinti."
+  ],
+  "phase": "terminology-mapping-closure/1.0"
+}
