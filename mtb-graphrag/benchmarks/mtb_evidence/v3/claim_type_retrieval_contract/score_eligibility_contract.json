@@ -1,0 +1,107 @@
+{
+  "contract_version": "claim-type-retrieval-contract/1.0",
+  "decision_rationale": {
+    "related_types_go_to_warning_not_primary": "Il claim e' pertinente e va mostrato, ma presentarlo nel primario direbbe che sostiene il farmaco chiesto, che e' cio' che l'adjudication ha negato.",
+    "related_types_keep_qualified_score": "Il punteggio qualificato serve a ordinare dentro il bucket warning, non a competere con i primari.",
+    "unsupported_and_unresolved_forbid_positive_score": "Sono gate, non penalita': un valore negativo piccolo resta compensabile."
+  },
+  "levels": [
+    "structural_score_eligibility",
+    "qualified_score_eligibility",
+    "final_ranking_eligibility"
+  ],
+  "no_numerical_compensation_invariant": "Un match regimen_component_related, class_member_related, aggregate_member_related, unsupported o unresolved non puo' diventare exact o primary eligible per alta provenance, bonus di first review, qualita' della fonte, disease exact o biomarker exact. Il tipo strutturale precede i pesi.",
+  "per_match_type": {
+    "aggregate_member_related": {
+      "primary_ranking": false,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": false
+    },
+    "aggregate_not_separable": {
+      "primary_ranking": false,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": false
+    },
+    "class_member_related": {
+      "primary_ranking": false,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": false
+    },
+    "exact_atomic_intervention": {
+      "primary_ranking": true,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": true
+    },
+    "exact_intervention_class": {
+      "primary_ranking": true,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": true
+    },
+    "exact_regimen": {
+      "primary_ranking": true,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": true
+    },
+    "incompatible": {
+      "primary_ranking": false,
+      "qualified_score_eligible": false,
+      "structural_score_eligible": false
+    },
+    "mapping_pending": {
+      "primary_ranking": false,
+      "qualified_score_eligible": false,
+      "structural_score_eligible": false
+    },
+    "no_intervention_constraint": {
+      "primary_ranking": true,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": false
+    },
+    "normalized_atomic_intervention": {
+      "primary_ranking": true,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": true
+    },
+    "parent_not_claim": {
+      "primary_ranking": false,
+      "qualified_score_eligible": false,
+      "structural_score_eligible": false
+    },
+    "regimen_component_related": {
+      "primary_ranking": false,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": false
+    },
+    "regimen_subset_mismatch": {
+      "primary_ranking": false,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": false
+    },
+    "regimen_superset_mismatch": {
+      "primary_ranking": false,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": false
+    },
+    "unresolved": {
+      "primary_ranking": false,
+      "qualified_score_eligible": false,
+      "structural_score_eligible": false
+    },
+    "unresolved_class_relation": {
+      "primary_ranking": false,
+      "qualified_score_eligible": false,
+      "structural_score_eligible": false
+    },
+    "unsupported": {
+      "primary_ranking": false,
+      "qualified_score_eligible": false,
+      "structural_score_eligible": false
+    },
+    "verified_atomic_alias": {
+      "primary_ranking": true,
+      "qualified_score_eligible": true,
+      "structural_score_eligible": true
+    }
+  },
+  "weights_defined_in_this_phase": false
+}

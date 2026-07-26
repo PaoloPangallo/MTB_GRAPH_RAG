@@ -1,0 +1,12 @@
+{
+  "contract_version": "claim-type-retrieval-contract/1.0",
+  "note": "Due interventi senza `intervention_combination` non formano un regime: restano vincoli alternativi. Inferire la combinazione dalla cardinalita' produrrebbe exact regimen match su combinazioni mai chieste.",
+  "query_types": [
+    "no_intervention_query",
+    "single_intervention_query",
+    "regimen_query",
+    "intervention_class_query",
+    "unspecified_multi_intervention_query"
+  ],
+  "regimen_requires_structured_indicator": true
+}
