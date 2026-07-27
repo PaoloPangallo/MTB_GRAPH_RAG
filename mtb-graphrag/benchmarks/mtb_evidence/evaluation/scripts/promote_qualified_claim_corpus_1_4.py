@@ -389,7 +389,7 @@ def build_audit_artifacts(result: Mapping[str, Any], *, corpus_path: Path) -> di
         write_log=result["write_log"],
     )
 
-    return {
+    data_artifacts = {
         "operational_integrity.json": SCOPE.canonical_dumps(result["integrity"]),
         "promotion_diff.json": SCOPE.canonical_dumps(diff),
         "promotion_readiness.json": SCOPE.canonical_dumps(readiness),
@@ -410,6 +410,18 @@ def build_audit_artifacts(result: Mapping[str, Any], *, corpus_path: Path) -> di
         ),
         "rollback_rehearsal.json": SCOPE.canonical_dumps(rollback_report),
     }
+
+    try:
+        from benchmarks.mtb_evidence.evaluation.prototype_promotion_reports import (
+            build_reports,
+        )
+    except ImportError:  # pragma: no cover - i report arrivano con il commit docs
+        return dict(sorted(data_artifacts.items()))
+    return dict(
+        sorted(
+            (data_artifacts | build_reports(data_artifacts, corpus.manifest)).items()
+        )
+    )
 
 
 def write_audit(output: Path, artifacts: Mapping[str, str]) -> None:
