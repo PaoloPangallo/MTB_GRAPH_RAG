@@ -21,11 +21,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import tempfile
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
 from backend.pipeline.evidence.corpus import atomic_write as ATOMIC
+from backend.pipeline.evidence.corpus import loader as LOADER
 from backend.pipeline.evidence.corpus import materialization as MAT
 from backend.pipeline.evidence.corpus import promotion as PROMOTION
 from backend.pipeline.evidence.corpus import promotion_contract as CONTRACT
@@ -36,6 +38,7 @@ from backend.pipeline.evidence.qualified_retrieval_query import (
     QueryBiomarker,
 )
 from backend.pipeline.evidence.qualified_retriever import QualifiedEvidenceRetriever
+from benchmarks.mtb_evidence.evaluation import prototype_promotion_audit as AUDIT
 from benchmarks.mtb_evidence.evaluation import required_fixes_1_4 as FIXES
 from benchmarks.mtb_evidence.evaluation.pre_promotion_audit import scope as SCOPE
 
@@ -47,6 +50,7 @@ SHADOW_V12 = SCOPE.SHADOW_V12
 SHADOW_V13 = SCOPE.SHADOW_V13
 SHADOW_V14 = V3 / CONTRACT.SOURCE_SHADOW_DIRNAME
 DISEASE_POLICY = SCOPE.DISEASE_POLICY
+DEFAULT_AUDIT_OUTPUT = V3 / "prototype_corpus_promotion_1_4"
 
 CORPUS_FINGERPRINT = "99a1a575a813676bb3d2658a3ab103cf396755f4b0cdbd9a8c26f09ea6c77ffd"
 OPERATIONAL_QUERY_BASELINE_SHA256 = (
@@ -342,26 +346,112 @@ def promote(
     }
 
 
+# --------------------------------------------------------------------------
+# artefatti di audit della fase
+# --------------------------------------------------------------------------
+
+
+def build_audit_artifacts(result: Mapping[str, Any], *, corpus_path: Path) -> dict[str, str]:
+    """Gli artefatti che rendono verificabile dall'esterno cio' che il corpus dichiara."""
+    corpus = LOADER.load(corpus_path)
+    shadow_plan = SCOPE.read_jsonl(SOURCE_FILES["link plan 1.4"])
+    shadow_view_plan = SCOPE.read_jsonl(SOURCE_FILES["view plan 1.3"])
+    shadow_claims = SCOPE.read_jsonl(SOURCE_FILES["claims 1.4"])
+    shadow_deprecated = SCOPE.read_jsonl(SOURCE_FILES["deprecated 1.3"])
+
+    links = AUDIT.link_application_rows(
+        promoted_links=corpus.links, shadow_plan=shadow_plan
+    )
+    views = AUDIT.view_materialization_rows(
+        promoted_views=corpus.views, shadow_plan=shadow_view_plan
+    )
+    diff = AUDIT.promotion_diff(
+        corpus,
+        shadow_claims=shadow_claims,
+        shadow_deprecated=shadow_deprecated,
+        file_sha256=result["file_sha256"],
+        integrity=result["integrity"],
+    )
+
+    with tempfile.TemporaryDirectory(prefix="rollback-rehearsal-") as workspace:
+        rollback_report = AUDIT.rehearse_rollback(
+            corpus_path=corpus_path,
+            registry_path=Path(result["registry_path"]),
+            workspace=Path(workspace),
+        )
+
+    readiness = AUDIT.readiness(
+        corpus=corpus,
+        registry=result["registry"],
+        diff=diff,
+        integrity=result["integrity"],
+        rollback_report=rollback_report,
+        write_log=result["write_log"],
+    )
+
+    return {
+        "operational_integrity.json": SCOPE.canonical_dumps(result["integrity"]),
+        "promotion_diff.json": SCOPE.canonical_dumps(diff),
+        "promotion_readiness.json": SCOPE.canonical_dumps(readiness),
+        "promotion_write_log.json": SCOPE.canonical_dumps(
+            {
+                "audit_version": AUDIT.AUDIT_VERSION,
+                "corpus_file_sha256": dict(sorted(result["file_sha256"].items())),
+                "failure_points_available": list(ATOMIC.FAILURE_POINTS),
+                "preconditions": result["preconditions"],
+                "steps": result["write_log"]["steps"],
+            }
+        ),
+        "qualification_link_application.jsonl": SCOPE.canonical_jsonl(
+            links, key="plan_id"
+        ),
+        "qualified_view_materialization.jsonl": SCOPE.canonical_jsonl(
+            views, key="plan_id"
+        ),
+        "rollback_rehearsal.json": SCOPE.canonical_dumps(rollback_report),
+    }
+
+
+def write_audit(output: Path, artifacts: Mapping[str, str]) -> None:
+    output.mkdir(parents=True, exist_ok=True)
+    unexpected = {path.name for path in output.iterdir() if path.is_file()} - set(
+        artifacts
+    )
+    if unexpected:
+        raise PromotionScriptError(
+            f"l'output di audit contiene artefatti non controllati: {sorted(unexpected)}"
+        )
+    for name, text in sorted(artifacts.items()):
+        (output / name).write_text(text, encoding="utf-8", newline="\n")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--corpus", type=Path, default=CONTRACT.PROMOTED_CORPUS)
     parser.add_argument("--registry", type=Path, default=CONTRACT.REGISTRY_PATH)
+    parser.add_argument("--audit-output", type=Path, default=DEFAULT_AUDIT_OUTPUT)
     args = parser.parse_args()
 
     result = promote(corpus_path=args.corpus, registry_path=args.registry)
+    audit = build_audit_artifacts(result, corpus_path=args.corpus)
+    write_audit(args.audit_output, audit)
+    readiness = json.loads(audit["promotion_readiness.json"])
     print(
         SCOPE.canonical_dumps(
             {
                 "artifacts": result["artifacts"],
                 "corpus_path": CONTRACT.PROMOTED_CORPUS_RELPATH,
-                "operational_query_parity": result["integrity"]["operational_query"][
-                    "parity"
+                "atomic_write_verified": readiness["atomic_write_verified"],
+                "audit_output": args.audit_output.name,
+                "operational_pipeline_unchanged": readiness[
+                    "operational_pipeline_unchanged"
                 ],
                 "operational_retriever_bound": result["registry"][
                     "operational_retriever_bound"
                 ],
                 "promotion_status": CONTRACT.PROMOTION_STATUS,
                 "repository_version": CONTRACT.REPOSITORY_VERSION,
+                "rollback_tested": readiness["rollback_tested"],
             }
         ),
         end="",
