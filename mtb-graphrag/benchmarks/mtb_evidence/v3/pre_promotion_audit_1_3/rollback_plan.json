@@ -1,0 +1,83 @@
+{
+  "atomicity": "la promozione scrive in una directory nuova e sostituisce il puntatore in un solo passo: non esiste uno stato in cui meta' del corpus e' promossa",
+  "deprecated_claims_preserved": true,
+  "executed": false,
+  "logs_retained": true,
+  "preconditions": {
+    "operational_hashes": {
+      "QualifiedEvidenceView": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+      "adapter operativo": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "corpus operativo": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+      "disease matcher del pilot": "7e3ab30006ba9c7ccdc80b1d2a4bd544159b3fa0044aee87e3501847986593b7",
+      "disease matcher operativo": "2854d5c23e8502778b343a3e4c989985d356fb3d47520b0d4643a4b5e8449f52",
+      "qualification links": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+      "qualification operativa": "61ccd455cf6502b68a9917e72cdd57a874036647f71954b709eba9a8bdb22dfa",
+      "repository operativo": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "retriever operativo": "0dfefce064dbb5c6bf63b7f012c73075e4b7abc239815b7b4fc56fbc1e54a75e",
+      "scoring config operativa": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "scoring operativo": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19"
+    },
+    "shadow_tree_hashes": {
+      "adjudication": "c0ab851750cc40242f57c21b0c39dfaa96da1ca0f25e1b1e7761bf2bb80862ce",
+      "disease hierarchy policy": "5dccbf1431a894dc1c70679377332e4bce0f43866344d73cb1edb454aa7f1233",
+      "shadow repository 1.0": "f09622f78c00b305afb6f6a7a91d3bc69fa168546c574e28e69103a9a07e00e2",
+      "shadow repository 1.1": "34fdffa078ea5addb53841af9403ecb46fb778488be045484ad0f5531e6eba81",
+      "shadow repository 1.2": "4c76081de50d643461d3765c7305211c997a801badfef1b453a1eb417567acbe",
+      "shadow repository 1.3": "302133e968de1945ef9974cc8a670fd02097d459ea4b988f318862794f394253",
+      "terminology closure": "ea87d3fa4020b68faf3dfea0037f9d0d68c12129786e78f00c28f9b7fbce21bb"
+    }
+  },
+  "rollback_plan_complete": true,
+  "steps": [
+    {
+      "failure_mode_prevented": "verificare l'hash dopo aver gia' perso lo stato precedente",
+      "reversible": true,
+      "step": 1,
+      "title": "snapshot degli artefatti operativi",
+      "what": "copiare corpus, link e view operativi in una directory di snapshot e registrarne gli hash prima di qualunque scrittura"
+    },
+    {
+      "failure_mode_prevented": "promozione parziale",
+      "reversible": true,
+      "step": 2,
+      "title": "promozione atomica",
+      "what": "scrivere il corpus promosso in una directory nuova e spostare il puntatore in un'unica operazione"
+    },
+    {
+      "failure_mode_prevented": "scrittura riuscita ma contenuto diverso",
+      "reversible": true,
+      "step": 3,
+      "title": "verifica post-write",
+      "what": "ricalcolare gli hash dei file scritti e confrontarli con quelli attesi dal manifest della promozione"
+    },
+    {
+      "failure_mode_prevented": "rollback deciso a occhio",
+      "reversible": true,
+      "step": 4,
+      "title": "rollback su hash mismatch",
+      "what": "un solo hash discordante riporta il puntatore allo stato precedente senza altre valutazioni"
+    },
+    {
+      "failure_mode_prevented": "corpus operativo perso",
+      "reversible": true,
+      "step": 5,
+      "title": "ripristino del corpus precedente",
+      "what": "ripristinare i file dallo snapshot del passo 1 e riverificarne gli hash"
+    },
+    {
+      "failure_mode_prevented": "corpus ripristinato ma link e view rimasti al nuovo stato",
+      "reversible": true,
+      "step": 6,
+      "title": "ripristino di link e view",
+      "what": "ripristinare qualification_links.jsonl e qualified_evidence_views.jsonl dallo stesso snapshot"
+    },
+    {
+      "failure_mode_prevented": "rollback senza traccia di cosa sia successo",
+      "reversible": true,
+      "step": 7,
+      "title": "conservazione dei log",
+      "what": "i log della promozione e del rollback restano anche quando il rollback riesce: sono l'unica prova di cosa e' stato tentato"
+    }
+  ],
+  "steps_total": 7
+}

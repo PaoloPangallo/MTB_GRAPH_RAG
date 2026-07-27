@@ -1,0 +1,161 @@
+{
+  "artifact_sha256": {
+    "audit_scope.json": "c7d650e877fab4ef85bbfc23530de8332a64497c93c575807ddbc6aa21df60b4",
+    "backward_compatibility_audit.json": "b59a7f780f51579e2cb0e8219b12419f026a84fc28e4004051890b91e2ed1698",
+    "claim_id_recomputation.jsonl": "a907df1832878a8b7ad51cda92df0b1c90e831b5c7769738e6fbdb4c5ddb4de4",
+    "findings.jsonl": "c6e77bd496bf61fb652960a7b14a74cadc1a5507d52a3544c5950c92c45acc72",
+    "integrated_gate_audit.jsonl": "e38fab6df5bbea0f437797d4359b41df29f98171c3741e7d8beedb8755e5807c",
+    "lineage_audit.jsonl": "fde315dd7504d85eb43618e0cc9615b1ef8e610573e3f04ce85be56a93e1f66c",
+    "novelty_handling_cases.jsonl": "ed8f6a1f43739af92796f227e4eebcd60be5ad6510077c2606a5c233ac71c975",
+    "novelty_handling_summary.json": "34196f2f9c9ed8821c13526f670cd24a5d410ddc46ccf96f3487f978a39e68b1",
+    "parent_claim_reconciliation.jsonl": "25f6b32e5a88efcb6745d394d5542189db69ad22879b7e82826323f43515f346",
+    "promotion_diff_simulation.json": "21717693247b77e06599c12eeb7a269dd953f4be26373468cff6bccd0217ffa3",
+    "provenance_completeness_audit.jsonl": "ef63136d0574f1088bcfd8bc94a5ccc3118c612e10be4152fcb67e09fcef0369",
+    "qualification_link_plan_audit.json": "a08ce2dd4fe4adbc270fc47a74fefeea4b780027ade59157a6ba3adf7dd806f0",
+    "qualified_view_plan_audit.json": "aa66f4f882bec5b4908d878bf43f704338e4e7b93dd7b0a2d05f7bc479bffa57",
+    "readiness_decision.json": "fac0c1b683202e1fcc068bd87d2fe3fb1cad80634bea22b697b8dfcb701846a9",
+    "repository_inventory_audit.json": "5ef3857f7546e823b2b61e98b5a4e94c9a2ce002ec217a89e446e581cf210d7c",
+    "rollback_plan.json": "20c759dd22185ca8820366ef45d4e3489b205f27c37c678c2b9d1b51efa4ce02"
+  },
+  "audit_version": "pre_promotion_audit/1.0",
+  "audited_repository": "qualified_claim_repository/1.3",
+  "counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "by_claim_domain": {
+      "diagnostic": 2,
+      "therapeutic": 146
+    },
+    "by_claim_type": {
+      "aggregate_intervention_claim": 3,
+      "atomic_intervention_claim": 140,
+      "diagnostic_claim": 2,
+      "regimen_claim": 3
+    },
+    "deprecated_claims": 4,
+    "diagnostic_claims": 2,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "regimen_claims": 3,
+    "replacement_lineage_rows": 2,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "findings": {
+    "critical": 0,
+    "informational": 2,
+    "major": 2,
+    "minor": 3
+  },
+  "gold": {
+    "bundle_path": "MTB_Evidence_gold_pilot_v1_bundle",
+    "bundle_present": true,
+    "checksum_only_no_deserialization": true,
+    "gold_records_read": 0,
+    "sha256": "07400b77abd8b6c36f035662038f402ab7790581043e00de4c324fcba1b57454",
+    "used_for_any_decision": false
+  },
+  "integrity": {
+    "all_frozen_artifacts_unchanged": true,
+    "changed": [],
+    "frozen_sha256": {
+      "QualifiedEvidenceView": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+      "adapter operativo": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "corpus operativo": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+      "disease matcher del pilot": "7e3ab30006ba9c7ccdc80b1d2a4bd544159b3fa0044aee87e3501847986593b7",
+      "disease matcher operativo": "2854d5c23e8502778b343a3e4c989985d356fb3d47520b0d4643a4b5e8449f52",
+      "qualification links": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+      "qualification operativa": "61ccd455cf6502b68a9917e72cdd57a874036647f71954b709eba9a8bdb22dfa",
+      "repository operativo": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "retriever operativo": "0dfefce064dbb5c6bf63b7f012c73075e4b7abc239815b7b4fc56fbc1e54a75e",
+      "scoring config operativa": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "scoring operativo": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19"
+    },
+    "frozen_tree_sha256": {
+      "adjudication": "c0ab851750cc40242f57c21b0c39dfaa96da1ca0f25e1b1e7761bf2bb80862ce",
+      "disease hierarchy policy": "5dccbf1431a894dc1c70679377332e4bce0f43866344d73cb1edb454aa7f1233",
+      "shadow repository 1.0": "f09622f78c00b305afb6f6a7a91d3bc69fa168546c574e28e69103a9a07e00e2",
+      "shadow repository 1.1": "34fdffa078ea5addb53841af9403ecb46fb778488be045484ad0f5531e6eba81",
+      "shadow repository 1.2": "4c76081de50d643461d3765c7305211c997a801badfef1b453a1eb417567acbe",
+      "shadow repository 1.3": "302133e968de1945ef9974cc8a670fd02097d459ea4b988f318862794f394253",
+      "terminology closure": "ea87d3fa4020b68faf3dfea0037f9d0d68c12129786e78f00c28f9b7fbce21bb"
+    },
+    "operational_query": {
+      "baseline_sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124",
+      "parity": true,
+      "query_id": "scope-narrowing-operational-parity",
+      "result_count": 21,
+      "sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124"
+    }
+  },
+  "invariants": {
+    "false_automatic_merges": 0,
+    "gate_bypasses": 0,
+    "gold_artifacts_read": 0,
+    "operational_artifacts_modified": false,
+    "plans_executed": false,
+    "promotion_applied": false,
+    "score_flags_leaked_outside_rankable_buckets": 0,
+    "shadow_1_3_modified": false
+  },
+  "phase": "pre-promotion-audit/1.3",
+  "policy": {
+    "behaviour_default_mode": "strict_verified",
+    "behaviour_rejects_unknown_mode": true,
+    "declared_default_mode": "strict_verified",
+    "declared_default_mode_field": "policy.default_mode",
+    "declared_modes": [
+      "strict_verified",
+      "ontology_aware_warning",
+      "audit_all"
+    ],
+    "declared_strict_policy_default_flag": true,
+    "default_matches_behaviour": true,
+    "expected_default_mode": "strict_verified",
+    "fallback_to_broader_mode_declared": false,
+    "modes_match_contract": true,
+    "required_pipeline_behaviour": {
+      "reject_unknown_modes": true,
+      "silent_fallback_to_audit_all": false,
+      "silent_fallback_to_ontology_aware_warning": false,
+      "use_strict_verified_when_unspecified": true
+    },
+    "strict_default_explicit": true,
+    "unknown_mode_rejection_declared": false
+  },
+  "python_version": "3.12",
+  "readiness": {
+    "backward_compatibility_plan_complete": true,
+    "claim_ids_recomputable": true,
+    "corpus_promotion_ready": false,
+    "corpus_promotion_ready_after_required_fixes": true,
+    "corpus_promotion_ready_scope": "readiness per una fase separata di promozione prototipale, non per un uso operativo del corpus",
+    "critical_findings": 0,
+    "false_automatic_merges": 0,
+    "full_exploratory_rerun_ready": false,
+    "gate_bypasses": 0,
+    "informational_findings": 2,
+    "integrated_gate_invariants_hold": true,
+    "inventory_consistent": true,
+    "major_findings": 2,
+    "minor_findings": 3,
+    "novelty_diagnostics_complete": true,
+    "operational_retriever_migration_ready": false,
+    "parent_claim_lineage_complete": true,
+    "promotion_decision": "ready_with_required_promotion_fixes",
+    "promotion_diff_complete": true,
+    "provenance_sufficient_for_prototype": false,
+    "qualification_link_plan_consistent": true,
+    "qualified_view_plan_consistent": true,
+    "rollback_plan_complete": true,
+    "strict_default_explicit": true
+  },
+  "review_independence": "non_independent",
+  "review_status": "first_review_complete",
+  "reviewer_role": "author_pre_promotion_auditor",
+  "start_sha": "bdc88f12ffb0f4f4ec6c01e6a7db9fd7dd7c97a9",
+  "test_framework": "unittest (stdlib)"
+}

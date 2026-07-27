@@ -1,0 +1,105 @@
+{
+  "claim_ids_changed": [
+    {
+      "graph_evidence_id": "evidence:1846",
+      "new_claim_id": "CLM-8941c177da91f66ff93a",
+      "old_claim_id": "CLM-2175b95ae3113c4f5d97",
+      "reason": "diagnostic_disease_scope_narrowing"
+    },
+    {
+      "graph_evidence_id": "evidence:1847",
+      "new_claim_id": "CLM-a7e1c40b794d2c4d4ca8",
+      "old_claim_id": "CLM-7056003a9bdef747f514",
+      "reason": "diagnostic_disease_scope_narrowing"
+    },
+    {
+      "graph_evidence_id": "evidence:1851",
+      "new_claim_id": "CLM-90e863f00f134fc3cd3d",
+      "old_claim_id": "CLM-a7c903cf8d423f015e29",
+      "reason": "terminology_canonicalization"
+    },
+    {
+      "graph_evidence_id": "evidence:1853",
+      "new_claim_id": "CLM-5071bb2d8657ac0fbed0",
+      "old_claim_id": "CLM-aae818bbc8ec735a255d",
+      "reason": "terminology_canonicalization"
+    }
+  ],
+  "claim_ids_changed_count": 4,
+  "files_created": [
+    "claim_replacement_lineage.jsonl",
+    "deprecated_claims.jsonl",
+    "evidence_claims.jsonl",
+    "graph_evidence_parents.jsonl",
+    "promoted_corpus_manifest.json",
+    "terminology_registry.json",
+    "unresolved_associations.jsonl",
+    "unsupported_associations.jsonl"
+  ],
+  "files_replaced": [],
+  "metric_schema_changes": [
+    {
+      "change": "i bucket diventano quattro e non piu' due",
+      "consumer": "report renderer",
+      "detail": "primary/warning/audit/rejected sostituiscono la distinzione binaria fra risultato incluso e risultato penalizzato"
+    },
+    {
+      "change": "il conteggio dei risultati non e' piu' il conteggio dei claim",
+      "consumer": "metriche di copertura",
+      "detail": "un parent puo' avere piu' claim, e un claim aggregato non conta come i propri membri"
+    }
+  ],
+  "operational_corpus_statements": 147,
+  "operational_files_modified": [],
+  "promotion_diff_complete": true,
+  "promotion_mode": "separate_prototype_promotion",
+  "promotion_target": "promoted_claim_corpus_candidate",
+  "qualification_links_modified": {
+    "creations": 17,
+    "retirements": 20,
+    "total": 37
+  },
+  "referenced_statements_absent_from_operational_corpus": [],
+  "report_renderer_changes": [
+    "l'intervento non e' sempre una stringa: aggregati e regimi vanno resi come insiemi",
+    "i claim diagnostici non ricevono therapy score e non vanno ordinati con i terapeutici",
+    "il bucket va mostrato, perche' un risultato in warning non e' un risultato in primary"
+  ],
+  "retriever_incompatibilities": [
+    {
+      "detail": "il retriever operativo indicizza `evidence_statement_id`; i claim tipizzati hanno `claim_id` e un parent intermedio",
+      "resolved_by_this_promotion": false,
+      "surface": "chiave di indicizzazione"
+    },
+    {
+      "detail": "il matcher operativo conosce una nozione binaria di disease match e non le undici relazioni direzionali",
+      "resolved_by_this_promotion": false,
+      "surface": "disease matching"
+    },
+    {
+      "detail": "il retriever non conosce i quattro bucket e non sa dove collocare un risultato audit-only",
+      "resolved_by_this_promotion": false,
+      "surface": "bucket di uscita"
+    }
+  ],
+  "rows_to_create": 17,
+  "rows_to_retire": 20,
+  "scoring_incompatibilities": [
+    {
+      "detail": "lo scoring operativo penalizza dopo il ranking; il gate integrato esclude prima, e una penalita' non e' un'esclusione",
+      "resolved_by_this_promotion": false,
+      "surface": "ordine gate/scoring"
+    },
+    {
+      "detail": "nessun peso operativo conosce `structural_score_eligible`: i flag del gate non hanno un consumatore",
+      "resolved_by_this_promotion": false,
+      "surface": "flag di eleggibilita'"
+    }
+  ],
+  "typed_objects_promoted": {
+    "aggregate_intervention_claim": 3,
+    "atomic_intervention_claim": 140,
+    "diagnostic_claim": 2,
+    "regimen_claim": 3
+  }
+}
