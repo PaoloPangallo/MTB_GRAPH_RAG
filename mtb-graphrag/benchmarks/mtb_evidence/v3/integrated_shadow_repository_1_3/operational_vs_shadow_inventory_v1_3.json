@@ -7,6 +7,22 @@
     "benchmarks/mtb_evidence/v3/terminology_mapping_closure/terminology_review_manifest.json": "61b03bfd06b8542b3098b3be76a44b58747075cd95263a5925703b8a10d19315",
     "benchmarks/mtb_evidence/v3/verified_disease_alias_fix/fix_manifest.json": "c9bef2c107d69480756aec978e3f16bca425795ee4687e75361e583ad2ec2a0c"
   },
+  "gate_simulation_scope": {
+    "bucket_totals_over_all_evaluations": {
+      "audit_only_results": 195,
+      "primary_ranked_results": 120,
+      "rejected_by_native_constraints": 7379,
+      "retained_with_warning": 82
+    },
+    "emission_rule": "Ogni valutazione non respinta, piu' ogni rifiuto dentro il perimetro del biomarcatore. I rifiuti per biomarcatore diverso sono contati e non emessi.",
+    "objects": 162,
+    "pairs_emitted": 741,
+    "pairs_evaluated": 7776,
+    "primary_bucket_mode_invariant": true,
+    "primary_with_blocking_gate": 0,
+    "queries": 48,
+    "score_flags_leaked_outside_rankable_buckets": 0
+  },
   "gold_artifacts_read": 0,
   "inventory_version": "operational_vs_shadow_inventory/1.3",
   "operational_artifact_sha256_after": {
