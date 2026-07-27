@@ -1,0 +1,66 @@
+{
+  "a_single_incompatible_gate_cancels_residual_eligibility": true,
+  "buckets_most_to_least_restrictive": [
+    "rejected_by_native_constraints",
+    "audit_only_results",
+    "retained_with_warning",
+    "primary_ranked_results"
+  ],
+  "gate_version": "qualified_claim_structural_gate/1.1",
+  "order": [
+    {
+      "position": 1,
+      "step": "active_claim_loading"
+    },
+    {
+      "position": 2,
+      "step": "claim_status_gate"
+    },
+    {
+      "position": 3,
+      "step": "domain_gate"
+    },
+    {
+      "position": 4,
+      "step": "biomarker_gate"
+    },
+    {
+      "position": 5,
+      "step": "disease_gate"
+    },
+    {
+      "position": 6,
+      "step": "intervention_identity_gate"
+    },
+    {
+      "position": 7,
+      "step": "formulation_gate"
+    },
+    {
+      "position": 8,
+      "step": "regimen_class_aggregate_gate"
+    },
+    {
+      "position": 9,
+      "step": "direction_polarity_gate"
+    },
+    {
+      "position": 10,
+      "step": "bucket_composition"
+    },
+    {
+      "position": 11,
+      "step": "scoring_where_permitted"
+    },
+    {
+      "position": 12,
+      "step": "within_bucket_ranking"
+    },
+    {
+      "position": 13,
+      "step": "result_rendering"
+    }
+  ],
+  "scoring_position": 11,
+  "structural_gates_precede_scoring": true
+}

@@ -1,0 +1,23 @@
+{
+  "allowed_policy_modes": [
+    "strict_verified",
+    "ontology_aware_warning",
+    "audit_all"
+  ],
+  "automatic_latest_corpus_selection": false,
+  "available_backends": [
+    "legacy",
+    "qualified_claim_v3"
+  ],
+  "contract_version": "evidence_retrieval_backend_contract/1.0",
+  "default_policy_mode": "strict_verified",
+  "default_retrieval_backend": "legacy",
+  "silent_fallback_permitted": false,
+  "supported_repository_versions": [
+    "qualified_claim_repository/1.4"
+  ],
+  "unknown_backend_behavior": "reject",
+  "unknown_policy_mode_behavior": "reject",
+  "unknown_repository_version_behavior": "reject",
+  "v3_is_selectable_not_default": true
+}

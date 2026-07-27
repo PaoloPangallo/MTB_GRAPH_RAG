@@ -1,0 +1,38 @@
+{
+  "claim_domains": [
+    "therapeutic",
+    "diagnostic",
+    "prognostic",
+    "untyped"
+  ],
+  "default_result_limit": 50,
+  "fields": {
+    "alteration": "alterazione; con il gene forma un unico vincolo congiunto",
+    "biomarker": "forma gia' composta; quando presente ha la precedenza",
+    "claim_domain": "dominio richiesto oppure untyped",
+    "direction": "direzione, se specificata",
+    "disease": "malattia della domanda",
+    "gene": "gene; con l'alterazione forma un unico vincolo congiunto",
+    "include_audit": "rendering del bucket audit; default escluso",
+    "include_rejected": "rendering del bucket rejected; default escluso",
+    "include_warning": "rendering del bucket warning; default incluso",
+    "intervention_class": "classe di intervento; esclude gli interventi",
+    "intervention_combination": "dichiara che gli interventi sono un regime",
+    "interventions": "interventi richiesti; assente, singolo o regime",
+    "polarity": "polarita', se specificata",
+    "policy_mode": "modalita' di disease policy",
+    "query_id": "identificatore della query",
+    "result_limit": "limite per bucket"
+  },
+  "intervention_forms": [
+    "absent",
+    "single",
+    "regimen",
+    "class",
+    "unspecified_multi"
+  ],
+  "llm_used_for_structural_matching": false,
+  "max_result_limit": 500,
+  "original_query_preserved": true,
+  "schema_version": "qualified_claim_query/1.0"
+}

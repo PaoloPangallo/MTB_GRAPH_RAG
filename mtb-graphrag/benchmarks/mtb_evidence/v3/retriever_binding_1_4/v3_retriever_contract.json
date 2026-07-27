@@ -1,0 +1,33 @@
+{
+  "backend_name": "qualified_claim_v3",
+  "backend_version": "qualified_claim_retriever/1.0",
+  "candidate_object_kinds": [
+    "active_claim",
+    "deprecated_claim",
+    "unsupported_association",
+    "unresolved_association",
+    "graph_evidence_record"
+  ],
+  "corpus_mutated_by_retriever": false,
+  "cross_domain_ranking": false,
+  "excluded_candidates_recoverable_in_audit_mode": true,
+  "gate_module": "backend.pipeline.evidence.shadow.integrated_gates_v11",
+  "loader_module": "backend.pipeline.evidence.corpus.loader",
+  "loader_reused_not_duplicated": [
+    "hash_verification",
+    "schema_validation",
+    "redirect_lineage",
+    "parent_claim_lookup",
+    "policy_mode_validation"
+  ],
+  "repository_version": "qualified_claim_repository/1.4",
+  "result_limit_is_a_rendering_limit": true,
+  "run_timestamp_is_a_phase_constant": true,
+  "startup_checks": [
+    "active_registry_entry",
+    "promotion_status_is_prototype_promoted",
+    "operational_retriever_bound_may_be_false",
+    "repository_and_schema_versions_compatible",
+    "manifest_and_files_intact"
+  ]
+}

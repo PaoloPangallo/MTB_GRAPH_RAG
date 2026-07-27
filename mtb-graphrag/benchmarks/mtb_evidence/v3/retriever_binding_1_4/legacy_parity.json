@@ -1,0 +1,50 @@
+{
+  "adapter_output_digests": {
+    "RB-01-EGFR-L858R-NSCLC": "e07cc8e1e4026ac1d3d036973fbe6f51e20fa0331b5774a12642010d60d91d83",
+    "RB-02-EGFR-L858R-LUAD": "24bc510f32678b68b913e2ab7f041707cc203dc34399c32bc23b8fc3b00fae09",
+    "RB-03-ALK-G1202R-NSCLC": "d34f20c71de90cf3e5ae3f2c3175f13fa9aab813332ece2816185312b1a15884",
+    "RB-04-FGFR2-ICCA": "c286f975fc362d9d51d5cbb6535bd41f2b0c460a03cb99a0248baa9050a2e7ce",
+    "RB-05-FGFR2-CCA": "4dd6eebea895b9992a9b037f39a05fff4fce7dc802888516ab0bf72750d79ca7",
+    "RB-06-DIAGNOSTIC-FGFR2-BICC1-ICCA": "ec63371b2931ed9451dd4955b8179eb4e96d3437d7e5adbbc041945abc054830",
+    "RB-07-INFIGRATINIB-FGFR2-ICCA": "e22f76125299659acdc32c81be42f3ef8cb21f207489754a7e242e0f4847fea6",
+    "RB-08-BGJ398-FGFR2-ICCA": "87aa281311682c691050eab38c258a1255cbce0b5914419ae2347453298bf1fe",
+    "RB-09-AUY922": "34c160e544e5455af9d52ecdec639a3c74487c12128e5944fb2fabdb753e9e46",
+    "RB-10-INFIGRATINIB-PHOSPHATE": "f314ca29e95e835d01a82a47c210eb16331ef10f5d7440fe5b121a8f69ef6c0e",
+    "RB-11-INFIGRATINIB-HYDROCHLORIDE": "3c07c5098b2659d2bd34aec629864bb5222b4d4940d5d21836910156cee89c94",
+    "RB-12-UNKNOWN-DRUG-CODE": "b0da9a60d0c91dc8ebd006d6b7c32159e0857b969cc009a30e3996a51fe8a58d",
+    "RB-13-UNKNOWN-DISEASE": "88f40dec185159b047cb388f9f52ee5ce7ed4b999ba6850a4e3966fa1f048eb0",
+    "RB-14-UNTYPED-FGFR2-ICCA": "964b6c3c624b3fed04cc7b3c0a2c6a9a360e13058cd9e0550cd0d2be2071f8b5"
+  },
+  "configured_default_backend": "legacy",
+  "default_backend_is_legacy": true,
+  "direct_output_digests": {
+    "RB-01-EGFR-L858R-NSCLC": "e07cc8e1e4026ac1d3d036973fbe6f51e20fa0331b5774a12642010d60d91d83",
+    "RB-02-EGFR-L858R-LUAD": "24bc510f32678b68b913e2ab7f041707cc203dc34399c32bc23b8fc3b00fae09",
+    "RB-03-ALK-G1202R-NSCLC": "d34f20c71de90cf3e5ae3f2c3175f13fa9aab813332ece2816185312b1a15884",
+    "RB-04-FGFR2-ICCA": "c286f975fc362d9d51d5cbb6535bd41f2b0c460a03cb99a0248baa9050a2e7ce",
+    "RB-05-FGFR2-CCA": "4dd6eebea895b9992a9b037f39a05fff4fce7dc802888516ab0bf72750d79ca7",
+    "RB-06-DIAGNOSTIC-FGFR2-BICC1-ICCA": "ec63371b2931ed9451dd4955b8179eb4e96d3437d7e5adbbc041945abc054830",
+    "RB-07-INFIGRATINIB-FGFR2-ICCA": "e22f76125299659acdc32c81be42f3ef8cb21f207489754a7e242e0f4847fea6",
+    "RB-08-BGJ398-FGFR2-ICCA": "87aa281311682c691050eab38c258a1255cbce0b5914419ae2347453298bf1fe",
+    "RB-09-AUY922": "34c160e544e5455af9d52ecdec639a3c74487c12128e5944fb2fabdb753e9e46",
+    "RB-10-INFIGRATINIB-PHOSPHATE": "f314ca29e95e835d01a82a47c210eb16331ef10f5d7440fe5b121a8f69ef6c0e",
+    "RB-11-INFIGRATINIB-HYDROCHLORIDE": "3c07c5098b2659d2bd34aec629864bb5222b4d4940d5d21836910156cee89c94",
+    "RB-12-UNKNOWN-DRUG-CODE": "b0da9a60d0c91dc8ebd006d6b7c32159e0857b969cc009a30e3996a51fe8a58d",
+    "RB-13-UNKNOWN-DISEASE": "88f40dec185159b047cb388f9f52ee5ce7ed4b999ba6850a4e3966fa1f048eb0",
+    "RB-14-UNTYPED-FGFR2-ICCA": "964b6c3c624b3fed04cc7b3c0a2c6a9a360e13058cd9e0550cd0d2be2071f8b5"
+  },
+  "isolation_probe": {
+    "default_backend": "legacy",
+    "imported": [],
+    "instantiated_backends": [
+      "legacy"
+    ]
+  },
+  "legacy_output_converted_to_v3": false,
+  "mismatched_queries": [],
+  "phase": "v3-retriever-binding/1.4",
+  "serialization_identical": true,
+  "v3_corpus_modules_imported_during_legacy_run": [],
+  "v3_loader_invocations_during_legacy_run": 0,
+  "v3_loader_not_initialized_under_legacy": true
+}
