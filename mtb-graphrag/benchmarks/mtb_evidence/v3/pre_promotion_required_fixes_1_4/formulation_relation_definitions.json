@@ -1,0 +1,150 @@
+{
+  "contract_version": "intervention_formulation_contract/1.0",
+  "edit_distance_can_produce_exact": false,
+  "exact_form_relations": [
+    "exact_intervention_form",
+    "normalized_exact_intervention_form"
+  ],
+  "exact_rule": "Primary exact soltanto quando la active moiety coincide e la forma canonica coincide, oppure quando un alias exact gia' verificato esiste per la stessa forma.",
+  "form_kinds": [
+    "active_moiety",
+    "salt",
+    "formulation",
+    "hydration_state",
+    "unknown_form"
+  ],
+  "form_tokens": {
+    "acetate": "salt",
+    "anhydrous": "hydration_state",
+    "citrate": "salt",
+    "extended release": "formulation",
+    "fumarate": "salt",
+    "hcl": "salt",
+    "hydrate": "hydration_state",
+    "hydrochloride": "salt",
+    "liposomal": "formulation",
+    "maleate": "salt",
+    "mesylate": "salt",
+    "phosphate": "salt",
+    "potassium": "salt",
+    "sodium": "salt",
+    "succinate": "salt",
+    "sulfate": "salt",
+    "tartrate": "salt",
+    "tosylate": "salt"
+  },
+  "form_tokens_are_candidates_not_proof": true,
+  "never_exact": [
+    "active moiety contro sale",
+    "sale contro active moiety",
+    "due sali differenti",
+    "due formulazioni differenti"
+  ],
+  "registry_version": "verified_formulation_registry/1.0",
+  "relations": [
+    {
+      "audit_eligible": false,
+      "bucket": "primary_ranked_results",
+      "is_exact": true,
+      "primary_eligible": true,
+      "qualified_score_eligible": true,
+      "reason_code": "INTERVENTION_FORM_EXACT_MATCH",
+      "relation_type": "exact_intervention_form",
+      "structural_score_eligible": true,
+      "warning_code": null,
+      "warning_eligible": false
+    },
+    {
+      "audit_eligible": false,
+      "bucket": "primary_ranked_results",
+      "is_exact": true,
+      "primary_eligible": true,
+      "qualified_score_eligible": true,
+      "reason_code": "INTERVENTION_FORM_EXACT_MATCH",
+      "relation_type": "normalized_exact_intervention_form",
+      "structural_score_eligible": true,
+      "warning_code": null,
+      "warning_eligible": false
+    },
+    {
+      "audit_eligible": false,
+      "bucket": "retained_with_warning",
+      "is_exact": false,
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "EVIDENCE_USES_DIFFERENT_VERIFIED_FORMULATION",
+      "relation_type": "verified_same_active_moiety_different_form",
+      "structural_score_eligible": false,
+      "warning_code": "EVIDENCE_USES_DIFFERENT_VERIFIED_FORMULATION",
+      "warning_eligible": true
+    },
+    {
+      "audit_eligible": false,
+      "bucket": "retained_with_warning",
+      "is_exact": false,
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "SALT_IS_NOT_THE_ACTIVE_MOIETY",
+      "relation_type": "verified_salt_of_active_moiety",
+      "structural_score_eligible": false,
+      "warning_code": "EVIDENCE_USES_DIFFERENT_VERIFIED_FORMULATION",
+      "warning_eligible": true
+    },
+    {
+      "audit_eligible": false,
+      "bucket": "retained_with_warning",
+      "is_exact": false,
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "EVIDENCE_USES_DIFFERENT_VERIFIED_FORMULATION",
+      "relation_type": "verified_formulation_variant",
+      "structural_score_eligible": false,
+      "warning_code": "EVIDENCE_USES_DIFFERENT_VERIFIED_FORMULATION",
+      "warning_eligible": true
+    },
+    {
+      "audit_eligible": true,
+      "bucket": "audit_only_results",
+      "is_exact": false,
+      "primary_eligible": false,
+      "qualified_score_eligible": false,
+      "reason_code": "INTERVENTION_FORMULATION_RELATION_UNRESOLVED",
+      "relation_type": "unresolved_formulation_relation",
+      "structural_score_eligible": false,
+      "warning_code": null,
+      "warning_eligible": false
+    },
+    {
+      "audit_eligible": false,
+      "bucket": "retained_with_warning",
+      "is_exact": false,
+      "primary_eligible": false,
+      "qualified_score_eligible": true,
+      "reason_code": "EVIDENCE_USES_DIFFERENT_VERIFIED_FORMULATION",
+      "relation_type": "different_intervention_form",
+      "structural_score_eligible": false,
+      "warning_code": "EVIDENCE_USES_DIFFERENT_VERIFIED_FORMULATION",
+      "warning_eligible": true
+    },
+    {
+      "audit_eligible": false,
+      "bucket": "rejected_by_native_constraints",
+      "is_exact": false,
+      "primary_eligible": false,
+      "qualified_score_eligible": false,
+      "reason_code": "ACTIVE_MOIETY_MISMATCH",
+      "relation_type": "incompatible_active_moiety",
+      "structural_score_eligible": false,
+      "warning_code": null,
+      "warning_eligible": false
+    }
+  ],
+  "substring_can_produce_exact": false,
+  "suffix_stripping_can_produce_exact": false,
+  "verified_different_form_relations": [
+    "different_intervention_form",
+    "verified_formulation_variant",
+    "verified_salt_of_active_moiety",
+    "verified_same_active_moiety_different_form"
+  ]
+}

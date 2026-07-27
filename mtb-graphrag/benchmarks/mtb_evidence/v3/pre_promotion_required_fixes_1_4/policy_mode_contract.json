@@ -1,0 +1,16 @@
+{
+  "allowed_policy_modes": [
+    "strict_verified",
+    "ontology_aware_warning",
+    "audit_all"
+  ],
+  "default_policy_mode": "strict_verified",
+  "error_type": "DiseaseGateError",
+  "fallback_to_audit_all": false,
+  "fallback_to_broader_mode": false,
+  "fallback_to_ontology_aware_warning": false,
+  "measured_behaviour_rejects_unknown_mode": true,
+  "silent_fallback_permitted": false,
+  "unknown_policy_mode_behavior": "reject",
+  "unspecified_mode_resolves_to": "strict_verified"
+}

@@ -1,0 +1,63 @@
+{
+  "claim_ids_unchanged": true,
+  "formulation_behaviour_change": {
+    "affects_claim_identity": false,
+    "affects_retrieval": true,
+    "claims_becoming_visible": 1,
+    "claims_leaving_primary_bucket": [
+      "CLM-0e59264facd7b2df0e67",
+      "CLM-0f234bc9c53847910521",
+      "CLM-43229efd0cd8f2fd58d5",
+      "CLM-464501e94094614459f5",
+      "CLM-68b84650d65add6c5696",
+      "CLM-75b47fea10f5fe62aeb9",
+      "CLM-8a0fde4cfe059b58dc01",
+      "CLM-a7de634d04f61036f3ec",
+      "CLM-af5265811e7ab991e7b1",
+      "CLM-bd4e24be0a4719119976",
+      "CLM-cf53824b662b10f776df",
+      "CLM-d3951a629938118cac1b"
+    ]
+  },
+  "link_plan": {
+    "actions_after": 37,
+    "actions_before": 37,
+    "actions_executed": 0,
+    "field_map": {
+      "claim_id": "new_target_id",
+      "legacy_statement_id": "old_target_id",
+      "locator_count": "locator",
+      "locators": "locator",
+      "replacement_claim_id": "new_target_id",
+      "replaces_claim_id": "old_target_id",
+      "source_unit_id": "source_unit_id",
+      "source_unit_ids": "source_unit_id"
+    },
+    "legacy_fields_retained_in_original_artifact": true,
+    "meaning_changed": false,
+    "plan_ids_unchanged": true,
+    "schema_version": "qualification_link_plan/1.1",
+    "source_unit_id_is_always_a_list": true,
+    "source_unit_id_note": "Il campo conserva il nome singolare dello schema richiesto e ha sempre valore di lista. Un'azione ne porta legittimamente due (prima linea e rechallenge dello stesso paziente): sceglierne una sarebbe la perdita silenziosa che la normalizzazione impedisce.",
+    "unified_fields": [
+      "action_type",
+      "old_target_id",
+      "new_target_id",
+      "source_unit_id",
+      "locator",
+      "reason_code",
+      "executed"
+    ]
+  },
+  "model_schema_after": "qualified_claim_model/1.2",
+  "model_schema_before": "qualified_claim_model/1.1",
+  "new_required_fields": [
+    "propagation_policy",
+    "hard_filterable",
+    "final_evaluable"
+  ],
+  "readers_of_1_3_records": "un lettore della 1.3 continua a funzionare: i campi aggiunti sono nuovi e nessun campo esistente e' cambiato di nome o di significato",
+  "readers_requiring_1_4": "un lettore che validi con qualified_claim_model/1.2 rifiuta i record 1.3, ed e' il comportamento voluto: quei record non dichiarano la propria propagazione",
+  "repository_version_after": "qualified_claim_repository/1.4",
+  "repository_version_before": "qualified_claim_repository/1.3"
+}
