@@ -1,0 +1,207 @@
+{
+  "artifact_sha256": {
+    "aggregate_propagation_audit.jsonl": "103cb4ac39d2fb16d596af1e11e49b30402cc044e9b480a7a8ab3bd661f023f5",
+    "backward_compatibility_addendum.json": "59a0aaba53df2a0ceac29066997551f6f6180df992c04f04dd0ac5679fd71bac",
+    "claim_id_impact.jsonl": "61dce8eec1d1ae1a775a8e7acd588da2e9510133cd931b6faa8705a8e4893890",
+    "evidence_claims_v1_4.jsonl": "28c2614840e3a51be45de189088fde4108a732c6c68e0e6c5dc3edf712dce517",
+    "formulation_claim_audit.jsonl": "c45a117673b84b0dceafc52cbe573c52062e53516caade360120d8bc64747e05",
+    "formulation_gate_simulation.jsonl": "6375c3deec74cd30f1ce9b6ac2d4fcaa4a5f5eda8099ef9e44fd2ccfa7580118",
+    "formulation_registry_snapshot.jsonl": "9bfaf03b4ec142aa6f2ab91ac8627b2ef3557c65acc37821bc5f4c500532d8e0",
+    "formulation_relation_definitions.json": "c9d9d81a6577e155a6d663e4ebaf249e353b3125e53a6296f02267fa788df3b6",
+    "integrated_gate_regression.jsonl": "10855d7ee35f0334503f4e82566dbb1cd47f732cc7fa5528f2f4409620bda5bb",
+    "policy_mode_contract.json": "e9b8e7991f504dac0eee378f03a9304232f8f758d08da7b01363fe51155c9ebb",
+    "post_fix_findings.jsonl": "b9ff29710ae9a3f60497de70b028c7f42bf6ac515ac73656e36e766e7ec0eb09",
+    "post_fix_readiness.json": "4e9eaa7627e6c168e184a91c8db76f538338bb97cf2a74f49100890c370c46b9",
+    "propagation_policy_matrix.jsonl": "b31cf4cabbd0f9eb226962f3327caa70a0971eafe0df0cbe919b0e538361f516",
+    "qualification_link_plan_v1_4.jsonl": "598dfa0c5b4d0bf26310b2abbeef71021ffcaa92a10c7071f9b61c05029a839a",
+    "regimen_propagation_audit.jsonl": "3d6705c8c109d031428cd6aeaabd6ecdb80c263a2e8fd3d8857e6dd43c1cfb3a",
+    "repository_version_lineage.json": "25a29813497c0cb2a4794196abb0a0d7841c5a9bd5340fa86892cb23918e036c"
+  },
+  "counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "by_claim_type": {
+      "aggregate_intervention_claim": 3,
+      "atomic_intervention_claim": 140,
+      "diagnostic_claim": 2,
+      "regimen_claim": 3
+    },
+    "diagnostic_claims": 2,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "regimen_claims": 3,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "counts_match_expected": true,
+  "expected_counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "diagnostic_claims": 2,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "regimen_claims": 3,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "formulation": {
+    "contract": "intervention_formulation_contract/1.0",
+    "registry": "verified_formulation_registry/1.0",
+    "registry_entries": 1,
+    "suffix_normalization_used": false
+  },
+  "gold_used": false,
+  "integrated_structural_gate": "qualified_claim_structural_gate/1.1",
+  "integrity": {
+    "all_frozen_artifacts_unchanged": true,
+    "changed": [],
+    "frozen_sha256": {
+      "QualifiedEvidenceView": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed",
+      "adapter operativo": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "corpus operativo": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+      "disease matcher del pilot": "7e3ab30006ba9c7ccdc80b1d2a4bd544159b3fa0044aee87e3501847986593b7",
+      "disease matcher operativo": "2854d5c23e8502778b343a3e4c989985d356fb3d47520b0d4643a4b5e8449f52",
+      "qualification links": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+      "qualification operativa": "61ccd455cf6502b68a9917e72cdd57a874036647f71954b709eba9a8bdb22dfa",
+      "repository operativo": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "retriever operativo": "0dfefce064dbb5c6bf63b7f012c73075e4b7abc239815b7b4fc56fbc1e54a75e",
+      "scoring config operativa": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "scoring operativo": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19"
+    },
+    "frozen_tree_sha256": {
+      "adjudication": "c0ab851750cc40242f57c21b0c39dfaa96da1ca0f25e1b1e7761bf2bb80862ce",
+      "disease hierarchy policy": "5dccbf1431a894dc1c70679377332e4bce0f43866344d73cb1edb454aa7f1233",
+      "pre-promotion audit 1.3": "3cd0d73526fe146405348200a5f313539cefa414cd9b0b7b6c0be666272b7d24",
+      "shadow repository 1.0": "f09622f78c00b305afb6f6a7a91d3bc69fa168546c574e28e69103a9a07e00e2",
+      "shadow repository 1.1": "34fdffa078ea5addb53841af9403ecb46fb778488be045484ad0f5531e6eba81",
+      "shadow repository 1.2": "4c76081de50d643461d3765c7305211c997a801badfef1b453a1eb417567acbe",
+      "shadow repository 1.3": "302133e968de1945ef9974cc8a670fd02097d459ea4b988f318862794f394253",
+      "terminology closure": "ea87d3fa4020b68faf3dfea0037f9d0d68c12129786e78f00c28f9b7fbce21bb"
+    },
+    "gold": {
+      "bundle_path": "MTB_Evidence_gold_pilot_v1_bundle",
+      "bundle_present": true,
+      "checksum_only_no_deserialization": true,
+      "gold_records_read": 0,
+      "sha256": "07400b77abd8b6c36f035662038f402ab7790581043e00de4c324fcba1b57454",
+      "used_for_any_decision": false
+    },
+    "operational_query": {
+      "baseline_sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124",
+      "parity": true,
+      "query_id": "scope-narrowing-operational-parity",
+      "result_count": 21,
+      "sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124"
+    }
+  },
+  "invariants": {
+    "aggregates_atomized": 0,
+    "claim_ids_changed": 0,
+    "gate_bypasses": 0,
+    "gold_artifacts_read": 0,
+    "member_propagation_allowed": 0,
+    "operational_artifacts_modified": false,
+    "plans_executed": false,
+    "regimens_split": 0,
+    "repository_promoted": false,
+    "shadow_1_3_modified": false
+  },
+  "llm_used": false,
+  "migration_status": "shadow_not_promoted",
+  "model_schema": "qualified_claim_model/1.2",
+  "neo4j_used": false,
+  "network_used": false,
+  "output_contract": "qualified_claim_retrieval_result/1.3",
+  "phase": "pre-promotion-required-fixes/1.4",
+  "policy": {
+    "allowed_policy_modes": [
+      "strict_verified",
+      "ontology_aware_warning",
+      "audit_all"
+    ],
+    "default_policy_mode": "strict_verified",
+    "error_type": "DiseaseGateError",
+    "fallback_to_audit_all": false,
+    "fallback_to_broader_mode": false,
+    "fallback_to_ontology_aware_warning": false,
+    "measured_behaviour_rejects_unknown_mode": true,
+    "silent_fallback_permitted": false,
+    "unknown_policy_mode_behavior": "reject",
+    "unspecified_mode_resolves_to": "strict_verified"
+  },
+  "propagation": {
+    "aggregate_required_fields": [
+      "member_propagation_allowed",
+      "permits_member_specific_claims"
+    ],
+    "allowed_propagation_policies": [
+      "none",
+      "prototype_only",
+      "final"
+    ],
+    "contract_version": "claim_propagation_contract/1.0",
+    "deserialization_default": null,
+    "implicit_defaults_permitted": false,
+    "model_schema_version": "qualified_claim_model/1.2",
+    "reason_codes": {
+      "aggregate_member": "AGGREGATE_RESULT_NOT_SEPARABLE_BY_MEMBER",
+      "member_propagation": "MEMBER_PROPAGATION_FORBIDDEN",
+      "missing": "PROPAGATION_POLICY_MISSING",
+      "regimen_component": "COMPONENT_PROPAGATION_FORBIDDEN",
+      "regimen_result": "REGIMEN_RESULT_APPLIES_TO_COMBINATION",
+      "unknown": "PROPAGATION_POLICY_UNKNOWN"
+    },
+    "record_without_policy_is_rejected": true,
+    "regimen_required_fields": [
+      "member_propagation_allowed",
+      "result_applies_to_combination"
+    ],
+    "required_fields": [
+      "propagation_policy",
+      "hard_filterable",
+      "final_evaluable"
+    ],
+    "rule": "Ogni claim tipizzato dichiara propagation_policy, hard_filterable e final_evaluable. La deserializzazione rifiuta un record che non li porta invece di assegnarne uno: un default in lettura farebbe decidere al parser cio' che deve decidere la revisione."
+  },
+  "python_version": "3.12",
+  "readiness": {
+    "claim_ids_stable": true,
+    "corpus_promotion_ready": true,
+    "corpus_promotion_ready_scope": "readiness per una fase separata di promozione prototipale, non per un uso operativo del corpus ne' per una validita' clinica",
+    "critical_findings": 0,
+    "formulation_contract_frozen": true,
+    "formulation_contradiction_resolved": true,
+    "full_exploratory_rerun_ready": false,
+    "integrated_gate_regressions_green": true,
+    "link_plan_schema_normalized": true,
+    "major_findings": 0,
+    "minor_findings": 0,
+    "non_atomic_propagation_explicitly_blocked": true,
+    "operational_retriever_migration_ready": false,
+    "propagation_policy_schema_uniform": true,
+    "required_promotion_fixes_resolved": true,
+    "shadow_repository_v1_4_ready": true,
+    "unknown_policy_mode_rejected": true
+  },
+  "repository_schema": "qualified_claim_repository/1.4",
+  "resolved_audit_findings": {
+    "LINK_PLAN_SCHEMA_HETEROGENEOUS": "minor",
+    "NO_DISTINCT_FORMULATION_OUTCOME": "minor",
+    "PROPAGATION_POLICY_MISSING_ON_NON_ATOMIC_CLAIMS": "major",
+    "SALT_FORM_TABLE_CONTRADICTS_FORMULATION_CAVEAT": "major",
+    "UNKNOWN_MODE_REJECTION_NOT_DECLARED": "minor"
+  },
+  "review_independence": "non_independent",
+  "review_status": "first_review_complete",
+  "reviewer_role": "author_required_fixes_implementer",
+  "start_sha": "29ad5250b1119ad3d70717e9a2670bd134feab16",
+  "supersedes": "qualified_claim_repository/1.3",
+  "test_framework": "unittest (stdlib)",
+  "version_bump_reason": "mandatory propagation policy schema plus explicit active moiety, salt and formulation contract"
+}

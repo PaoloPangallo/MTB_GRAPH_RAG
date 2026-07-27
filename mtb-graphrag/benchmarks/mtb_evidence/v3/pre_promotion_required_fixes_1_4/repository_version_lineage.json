@@ -1,0 +1,41 @@
+{
+  "current": "qualified_claim_repository/1.4",
+  "migration_status": "shadow_not_promoted",
+  "model_schema": "qualified_claim_model/1.2",
+  "resolved_audit_findings": [
+    "PROPAGATION_POLICY_MISSING_ON_NON_ATOMIC_CLAIMS",
+    "SALT_FORM_TABLE_CONTRADICTS_FORMULATION_CAVEAT",
+    "UNKNOWN_MODE_REJECTION_NOT_DECLARED",
+    "LINK_PLAN_SCHEMA_HETEROGENEOUS"
+  ],
+  "supersedes": "qualified_claim_repository/1.3",
+  "version_bump_reason": "mandatory propagation policy schema plus explicit active moiety, salt and formulation contract",
+  "versions": [
+    {
+      "added": "modello tipizzato, parent di provenienza, tre tipi di claim",
+      "model_schema": "qualified_claim_model/1.0",
+      "repository_version": "qualified_claim_repository/1.0"
+    },
+    {
+      "added": "domini diagnostico e prognostico",
+      "model_schema": "qualified_claim_model/1.1",
+      "repository_version": "qualified_claim_repository/1.1"
+    },
+    {
+      "added": "restringimento del disease scope diagnostico",
+      "model_schema": "qualified_claim_model/1.1",
+      "repository_version": "qualified_claim_repository/1.2"
+    },
+    {
+      "added": "terminologia verificata e gate direzionale di malattia",
+      "model_schema": "qualified_claim_model/1.1",
+      "repository_version": "qualified_claim_repository/1.3"
+    },
+    {
+      "added": "propagation policy obbligatoria e contratto di forma dell'intervento",
+      "formulation_contract": "intervention_formulation_contract/1.0",
+      "model_schema": "qualified_claim_model/1.2",
+      "repository_version": "qualified_claim_repository/1.4"
+    }
+  ]
+}
