@@ -1,0 +1,54 @@
+{
+  "alias_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+  "alias_version": "verified-local-disease-aliases/1.0",
+  "aliases_created_in_this_phase": 0,
+  "contract_version": "directional-disease-match-contract/1.0",
+  "group_count": 4,
+  "groups": [
+    {
+      "canonical_key": "cca",
+      "eligible_for_primary": true,
+      "members": [
+        "bile duct cancer",
+        "biliary tract cancer",
+        "cca",
+        "cholangiocarcinoma"
+      ],
+      "parent_key": ""
+    },
+    {
+      "canonical_key": "icca",
+      "eligible_for_primary": true,
+      "members": [
+        "icca",
+        "intrahepatic bile duct carcinoma",
+        "intrahepatic cholangiocarcinoma"
+      ],
+      "parent_key": "cca"
+    },
+    {
+      "canonical_key": "lung adenocarcinoma",
+      "eligible_for_primary": true,
+      "members": [
+        "adenocarcinoma of the lung",
+        "lung adenocarcinoma"
+      ],
+      "parent_key": "nsclc"
+    },
+    {
+      "canonical_key": "nsclc",
+      "eligible_for_primary": true,
+      "members": [
+        "lung non-small cell carcinoma",
+        "non small cell lung cancer",
+        "non-small cell lung cancer",
+        "non-small cell lung carcinoma",
+        "nsclc",
+        "nsclc lung cancer"
+      ],
+      "parent_key": ""
+    }
+  ],
+  "phase": "disease-hierarchy-policy/1.0",
+  "policy": "Un gruppo di sinonimi e' equivalenza di vocabolario e resta eligible per il primary bucket. Un sottotipo non e' un sinonimo e non lo diventa."
+}

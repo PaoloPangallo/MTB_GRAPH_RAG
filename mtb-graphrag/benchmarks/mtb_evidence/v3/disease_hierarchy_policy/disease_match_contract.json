@@ -1,0 +1,50 @@
+{
+  "claim_domains_covered": [
+    "atomic_intervention_claim",
+    "aggregate_intervention_claim",
+    "regimen_claim",
+    "diagnostic_claim",
+    "prognostic_claim"
+  ],
+  "contract_version": "directional-disease-match-contract/1.0",
+  "gate_precedes_scoring": true,
+  "invariants": [
+    "La relazione disease e' la stessa per ogni claim type e claim domain.",
+    "Il contratto non modifica claim type, claim domain, rappresentazione dell'intervento, direzione o polarita'.",
+    "Per una query untyped le sezioni terapeutica, diagnostica e prognostica restano separate e non esiste ranking cross-domain.",
+    "Il tipo di relazione non dipende dalla modalita'.",
+    "Il primary bucket e' identico nelle tre modalita'.",
+    "Nessun segnale numerico successivo puo' cambiare l'esito del gate."
+  ],
+  "phase": "disease-hierarchy-policy/1.0",
+  "primary_relations": [
+    "exact_disease",
+    "normalized_exact_disease",
+    "verified_disease_alias"
+  ],
+  "result_fields": [
+    "query_disease",
+    "claim_disease_scope",
+    "normalized_query_disease",
+    "normalized_claim_disease",
+    "relation_type",
+    "relation_direction",
+    "relation_source",
+    "relation_verified",
+    "primary_candidate_eligible",
+    "warning_eligible",
+    "audit_only",
+    "rejected_by_native_constraints",
+    "score_eligibility",
+    "reason_codes",
+    "warning_codes",
+    "explanation_codes"
+  ],
+  "unregistered_inference_forbidden": [
+    "fuzzy_matching",
+    "substring_matching",
+    "embedding_similarity",
+    "llm_inference",
+    "unregistered_domain_knowledge"
+  ]
+}
