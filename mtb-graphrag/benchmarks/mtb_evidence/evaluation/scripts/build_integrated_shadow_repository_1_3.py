@@ -774,15 +774,41 @@ def _gate_row(
     }
 
 
+def _is_informative(row: Mapping[str, Any]) -> bool:
+    """Vero se la riga dice qualcosa sul comportamento del gate.
+
+    Un claim che parla di un altro biomarcatore e' fuori perimetro per la query,
+    e la sua riga ripete un'unica informazione — "biomarcatore diverso" — una
+    volta per ogni coppia. Il novantacinque per cento delle valutazioni ricade
+    qui, e tenerle tutte renderebbe illeggibile cio' che invece va guardato: e'
+    lo stesso argomento che il gate 1.0 usa per non riempire il bucket di audit
+    con oggetti irrilevanti.
+
+    Restano tutte le righe non respinte e tutte le righe respinte *dentro* il
+    perimetro del biomarcatore: sono quelle in cui il rifiuto viene dal disease,
+    dalla direzione o dalla polarita', cioe' esattamente le composizioni che
+    questa fase deve dimostrare.
+    """
+    return (
+        row["final_bucket"] != "rejected_by_native_constraints"
+        or row["biomarker_compatible"]
+    )
+
+
 def simulate_gate(
     result: Any,
     queries: Sequence[Mapping[str, Any]],
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Matrice del gate integrato su claim e associazioni, nelle tre modalita'.
 
+    Restituisce la matrice intera piu' i totali che la descrivono. La selezione
+    delle righe da emettere avviene al momento della scrittura: le regressioni
+    ragionano su tutte le valutazioni, il file ne porta la parte leggibile, e la
+    differenza fra i due numeri e' dichiarata invece che nascosta.
+
     I parent restano fuori da questa matrice e sono coperti da una sonda
-    dedicata: aggiungerli qui moltiplicherebbe per tre il file con 147 righe di
-    audit identiche per query, che dicono una cosa sola gia' detta una volta.
+    dedicata: aggiungerli qui aggiungerebbe 147 righe di audit identiche per
+    query, che dicono una cosa sola gia' detta una volta.
     """
     objects = [
         obj
@@ -790,6 +816,7 @@ def simulate_gate(
         if getattr(obj, "kind", None) != "graph_evidence_record"
     ]
     rows: list[dict[str, Any]] = []
+    totals: Counter[str] = Counter()
     for query in queries:
         gate_query = _gate_query(query)
         for obj in objects:
@@ -798,8 +825,50 @@ def simulate_gate(
             }
             match = by_mode[DEFAULT_MODE]
             GATE.check_no_score_survives_a_blocking_gate(match, 999.0)
-            rows.append(_gate_row(query, obj, match, by_mode))
-    return sorted(rows, key=lambda row: (row["query_id"], row["object_id"]))
+            row = _gate_row(query, obj, match, by_mode)
+            totals[row["final_bucket"]] += 1
+            rows.append(row)
+    ordered = sorted(rows, key=lambda row: (row["query_id"], row["object_id"]))
+    # Gli invarianti vengono contati qui, sulla matrice intera, e non a valle sul
+    # sottoinsieme emesso: un invariante misurato su cio' che si e' scelto di
+    # scrivere non dice nulla su cio' che si e' scelto di non scrivere.
+    scope = {
+        "bucket_totals_over_all_evaluations": dict(sorted(totals.items())),
+        "primary_bucket_mode_invariant": all(
+            len(
+                {
+                    detail["primary_candidate_eligible"]
+                    for detail in row["by_mode"].values()
+                }
+            )
+            == 1
+            for row in ordered
+        ),
+        "primary_with_blocking_gate": sum(
+            bool(row["primary_candidate_eligible"] and row["blocking_gates"])
+            for row in ordered
+        ),
+        "score_flags_leaked_outside_rankable_buckets": sum(
+            row["final_bucket"]
+            in (GATE.AUDIT_BUCKET, GATE.REJECTED_BUCKET)
+            and (
+                row["structural_score_eligible"]
+                or row["qualified_score_eligible"]
+                or row["final_ranking_eligible"]
+            )
+            for row in ordered
+        ),
+        "emission_rule": (
+            "Ogni valutazione non respinta, piu' ogni rifiuto dentro il perimetro "
+            "del biomarcatore. I rifiuti per biomarcatore diverso sono contati e "
+            "non emessi."
+        ),
+        "objects": len(objects),
+        "pairs_emitted": sum(_is_informative(row) for row in ordered),
+        "pairs_evaluated": len(ordered),
+        "queries": len(queries),
+    }
+    return ordered, scope
 
 
 def simulate_queries(
@@ -1150,7 +1219,7 @@ def build_data_artifacts(reverse: bool = False) -> dict[str, str]:
 
     qualification_plan = _qualification_plan(result)
     view_plan = _view_plan(result)
-    gate_rows = simulate_gate(result, queries)
+    gate_rows, gate_scope = simulate_gate(result, queries)
     query_rows = simulate_queries(result, queries)
     regression_rows = simulate_regressions(result, gate_rows)
     probe = parent_probe(result, queries)
@@ -1159,7 +1228,10 @@ def build_data_artifacts(reverse: bool = False) -> dict[str, str]:
 
     claim_rows = _claim_rows(result)
     after = {path: _sha256_file(REPO_ROOT / path) for path in OPERATIONAL_ARTIFACTS}
-    inventory = _inventory(before, after) | {"parent_probe": probe}
+    inventory = _inventory(before, after) | {
+        "gate_simulation_scope": gate_scope,
+        "parent_probe": probe,
+    }
 
     by_domain = {
         domain: [row for row in claim_rows if row["claim_domain"] == domain]
@@ -1215,7 +1287,8 @@ def build_data_artifacts(reverse: bool = False) -> dict[str, str]:
             view_plan, key="plan_id"
         ),
         "integrated_structural_gate_simulation.jsonl": canonical_jsonl(
-            gate_rows, key=["query_id", "object_id"]
+            [row for row in gate_rows if _is_informative(row)],
+            key=["query_id", "object_id"],
         ),
         "query_retrieval_simulation_v1_3.jsonl": canonical_jsonl(
             query_rows, key=["query_id", "policy_mode"]

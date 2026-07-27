@@ -1,0 +1,183 @@
+{
+  "artifact_sha256": {
+    "claim_replacement_lineage_v1_3.jsonl": "87353880fdfa4dbd1a871f05a233ce295d61ea13d2a87a26f9ce5c8c02bf3108",
+    "deprecated_claims_v1_3.jsonl": "7ab92d0bbeae6007d6ab6af426e682c38e8d6fc7aa3821f7a88ad789ad8f5ba5",
+    "diagnostic_claims_v1_3.jsonl": "c1e5fee64e15c49267ed24e19a5333e7c8874435e99ebb79fecc29bd612ee93f",
+    "evidence_claims_v1_3.jsonl": "221efccd3d69dda13ce6a9f1cc64bfa13fc58b681c24217ff960997379764188",
+    "graph_evidence_parents_v1_3.jsonl": "683b8e1e18254800c3612f6dc871588b12594ab915e72b91021ab269933b349e",
+    "integrated_structural_gate_simulation.jsonl": "ba13b631d33da994ab3a568113bce89bb9b614d19c376b06bf8af1546e101d62",
+    "operational_vs_shadow_inventory_v1_3.json": "64e0d5cab5f610c17d15f61e91d4f8b4b77cb238ba923d11fd0187af34220c9a",
+    "prognostic_claims_v1_3.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualification_link_regeneration_plan_v1_3.jsonl": "086fca3efd3c32107e73876a8bd137a2e93e536d64ead266015ec95289c5743d",
+    "qualified_view_regeneration_plan_v1_3.jsonl": "a7286c1c05d935a5600b401c55ff6385988b06ec60220df429cefdc773e7f417",
+    "query_retrieval_simulation_v1_3.jsonl": "278a104469b251a8f342f85dc6695e9a03e25bec0976cfca022a84af755c2af2",
+    "regression_case_simulation_v1_3.jsonl": "68d3007bcb32dcb10949857ca79218bf94cb73ffc6251f4a56c0a00941d61902",
+    "repository_version_lineage.json": "29189b5f64f29500ba5773c2eb57150ba4062fad4f2993b062ecdbbfbb98ce5b",
+    "terminology_registry_v1_3.json": "0fb3ba96d51d6f45bfa1fcafb99c0cacc43b27610babc80f5dd075c849846778",
+    "therapeutic_claims_v1_3.jsonl": "7f1139b6853ed026a9d9cabe02a2ed924520a2e169380b80f3807db7d1c2bbe0",
+    "unresolved_associations_v1_3.jsonl": "5013fd853dc5c5f2702e2fcd32ab4a848a6c5524faab51f12d6d9b882d5ecd7a",
+    "unsupported_associations_v1_3.jsonl": "95b4eabca69c9ba9ed816e5a0ea44785297aaff812f21a64dba6a62258087aaf"
+  },
+  "claim_id_formula": {
+    "collisions": 0,
+    "deduplications": 0,
+    "fields": [
+      "graph_evidence_id",
+      "claim_type",
+      "canonical_intervention_or_regimen",
+      "biomarker",
+      "direction",
+      "polarity",
+      "source_unit_id"
+    ],
+    "new_ids": {
+      "evidence:1851": "CLM-90e863f00f134fc3cd3d",
+      "evidence:1853": "CLM-5071bb2d8657ac0fbed0"
+    },
+    "old_ids": {
+      "evidence:1851": "CLM-a7c903cf8d423f015e29",
+      "evidence:1853": "CLM-aae818bbc8ec735a255d"
+    },
+    "separator": "|",
+    "version": "claim_id_formula/1.0"
+  },
+  "counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "by_claim_type": {
+      "aggregate_intervention_claim": 3,
+      "atomic_intervention_claim": 140,
+      "diagnostic_claim": 2,
+      "regimen_claim": 3
+    },
+    "deprecated_aggregate_claims": 2,
+    "deprecated_diagnostic_claims_in_lineage_only": 2,
+    "diagnostic_claims": 2,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "qualification_plan_actions_total": 37,
+    "regimen_claims": 3,
+    "replacement_aggregate_claims": 2,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6,
+    "view_plan_actions_total": 4
+  },
+  "disease_gate": "claim_disease_gate/1.0",
+  "evaluation_reference_deserialized": false,
+  "gold_used": false,
+  "integrated_structural_gate": "qualified_claim_structural_gate/1.0",
+  "invariants": {
+    "aggregates_atomized": 0,
+    "bucket_precedence": [
+      "rejected_by_native_constraints",
+      "audit_only_results",
+      "retained_with_warning",
+      "primary_ranked_results"
+    ],
+    "gold_artifacts_read": 0,
+    "operational_artifacts_modified": false,
+    "parents_ever_primary": 0,
+    "plans_executed": false,
+    "primary_with_blocking_gate": 0,
+    "repository_promoted": false,
+    "score_flags_leaked_outside_rankable_buckets": 0,
+    "shadow_1_0_modified": false,
+    "shadow_1_1_modified": false,
+    "shadow_1_2_modified": false,
+    "therapeutic_proposition_count_changed": false
+  },
+  "llm_used": false,
+  "migration_status": "shadow_not_promoted",
+  "model_schema": "qualified_claim_model/1.1",
+  "neo4j_used": false,
+  "network_used": false,
+  "operational_query_sha256": {
+    "after_sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124",
+    "before_sha256": "af0389673a9a8b0566bce20bf68685b3abc04baf8542e183888d9a84cb365124",
+    "parity": true,
+    "query_id": "scope-narrowing-operational-parity",
+    "result_count": 21
+  },
+  "output_contract": "qualified_claim_retrieval_result/1.2",
+  "phase": "integrated-shadow-repository/1.3",
+  "policy": {
+    "default_mode": "strict_verified",
+    "modes": [
+      "strict_verified",
+      "ontology_aware_warning",
+      "audit_all"
+    ],
+    "primary_bucket_is_mode_invariant": true,
+    "relation_types": [
+      "exact_disease",
+      "normalized_exact_disease",
+      "verified_disease_alias",
+      "claim_is_child_of_query",
+      "claim_is_parent_of_query",
+      "disease_sibling",
+      "generic_cancer_scope",
+      "cross_disease",
+      "unresolved_disease_relation",
+      "missing_query_disease",
+      "missing_claim_disease"
+    ]
+  },
+  "propagation_policy": "prototype_only",
+  "python_version": "3.12",
+  "readiness": {
+    "audit_all_available": true,
+    "claim_ids_recomputed": true,
+    "corpus_promotion_ready": false,
+    "disease_gate_implemented": true,
+    "full_exploratory_rerun_ready": false,
+    "integrated_gate_implemented": true,
+    "ontology_warning_available": true,
+    "operational_retriever_migration_ready": false,
+    "pre_promotion_audit_ready": true,
+    "replacement_lineage_complete": true,
+    "shadow_repository_v1_3_ready": true,
+    "source_literals_preserved": true,
+    "strict_policy_default": true,
+    "terminology_mapping_applied": true,
+    "unresolved_terminology_preserved": true
+  },
+  "repository_schema": "qualified_claim_repository/1.3",
+  "review_independence": "non_independent",
+  "review_status": "first_review_complete",
+  "reviewer_role": "author_shadow_repository_integrator",
+  "simulation": {
+    "bucket_totals_emitted": {
+      "audit_only_results": 195,
+      "primary_ranked_results": 120,
+      "rejected_by_native_constraints": 344,
+      "retained_with_warning": 82
+    },
+    "bucket_totals_over_all_evaluations": {
+      "audit_only_results": 195,
+      "primary_ranked_results": 120,
+      "rejected_by_native_constraints": 7379,
+      "retained_with_warning": 82
+    },
+    "gate_pairs_emitted": 741,
+    "gate_pairs_evaluated": 7776,
+    "modes": 3,
+    "queries": 48,
+    "query_outputs": 144,
+    "regression_cases": 12
+  },
+  "supersedes": "qualified_claim_repository/1.2",
+  "terminology": {
+    "applied_decision_id": "TP-BGJ398-INFIGRATINIB",
+    "canonical_label": "infigratinib",
+    "collisions": 0,
+    "deduplications": 0,
+    "queue_fully_resolved": false,
+    "source_literal_term": "BGJ398",
+    "unresolved_source_literal": "AUY922"
+  },
+  "test_framework": "unittest (stdlib)",
+  "version_bump_reason": "verified intervention terminology update plus directional disease policy integration"
+}
