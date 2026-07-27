@@ -1,0 +1,326 @@
+{
+  "contract_version": "directional-disease-match-contract/1.0",
+  "gate_precedes_scoring": true,
+  "gate_reason_code": "DISEASE_GATE_PRECEDES_SCORING",
+  "levels": [
+    "structural_score_eligibility",
+    "qualified_score_eligibility",
+    "final_ranking_eligibility"
+  ],
+  "no_numerical_compensation_invariant": "Un claim in relazione claim_is_child_of_query, claim_is_parent_of_query, disease_sibling, generic_cancer_scope, unresolved_disease_relation, missing_query_disease, missing_claim_disease o cross_disease non puo' diventare exact o primary grazie a biomarker exact, intervention exact, source quality, qualification, provenance o punteggio arbitrariamente elevato. Il disease gate precede ogni scoring numerico.",
+  "non_compensating_signals": [
+    "biomarker_exact_match",
+    "intervention_exact_match",
+    "provenance_level",
+    "qualification_completeness",
+    "source_quality",
+    "arbitrarily_high_score"
+  ],
+  "non_exact_relations": [
+    "claim_is_child_of_query",
+    "claim_is_parent_of_query",
+    "disease_sibling",
+    "generic_cancer_scope",
+    "cross_disease",
+    "unresolved_disease_relation",
+    "missing_query_disease",
+    "missing_claim_disease"
+  ],
+  "per_relation_per_mode": {
+    "claim_is_child_of_query": {
+      "audit_all": {
+        "bucket": "retained_with_warning",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": true,
+        "structural_score_eligible": false
+      },
+      "ontology_aware_warning": {
+        "bucket": "retained_with_warning",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": true,
+        "structural_score_eligible": false
+      },
+      "strict_verified": {
+        "bucket": "retained_with_warning",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      }
+    },
+    "claim_is_parent_of_query": {
+      "audit_all": {
+        "bucket": "retained_with_warning",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": true,
+        "structural_score_eligible": false
+      },
+      "ontology_aware_warning": {
+        "bucket": "retained_with_warning",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": true,
+        "structural_score_eligible": false
+      },
+      "strict_verified": {
+        "bucket": "retained_with_warning",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      }
+    },
+    "cross_disease": {
+      "audit_all": {
+        "bucket": "rejected_by_native_constraints",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "ontology_aware_warning": {
+        "bucket": "rejected_by_native_constraints",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "strict_verified": {
+        "bucket": "rejected_by_native_constraints",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      }
+    },
+    "disease_sibling": {
+      "audit_all": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "ontology_aware_warning": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "strict_verified": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      }
+    },
+    "exact_disease": {
+      "audit_all": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      },
+      "ontology_aware_warning": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      },
+      "strict_verified": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      }
+    },
+    "generic_cancer_scope": {
+      "audit_all": {
+        "bucket": "retained_with_warning",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": true,
+        "structural_score_eligible": false
+      },
+      "ontology_aware_warning": {
+        "bucket": "retained_with_warning",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": true,
+        "structural_score_eligible": false
+      },
+      "strict_verified": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      }
+    },
+    "missing_claim_disease": {
+      "audit_all": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "ontology_aware_warning": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "strict_verified": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      }
+    },
+    "missing_query_disease": {
+      "audit_all": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "ontology_aware_warning": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "strict_verified": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      }
+    },
+    "normalized_exact_disease": {
+      "audit_all": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      },
+      "ontology_aware_warning": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      },
+      "strict_verified": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      }
+    },
+    "unresolved_disease_relation": {
+      "audit_all": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "ontology_aware_warning": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      },
+      "strict_verified": {
+        "bucket": "audit_only_results",
+        "final_ranking_eligible": false,
+        "positive_score_forbidden": true,
+        "qualified_score_eligible": false,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": false
+      }
+    },
+    "verified_disease_alias": {
+      "audit_all": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      },
+      "ontology_aware_warning": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      },
+      "strict_verified": {
+        "bucket": "primary_ranked_results",
+        "final_ranking_eligible": true,
+        "positive_score_forbidden": false,
+        "qualified_score_eligible": true,
+        "ranks_within_bucket_only": false,
+        "structural_score_eligible": true
+      }
+    }
+  },
+  "phase": "disease-hierarchy-policy/1.0",
+  "positive_score_forbidden_relations": [
+    "cross_disease",
+    "disease_sibling",
+    "missing_claim_disease",
+    "missing_query_disease",
+    "unresolved_disease_relation"
+  ],
+  "structural_score_reserved_to_exact_relations": true
+}

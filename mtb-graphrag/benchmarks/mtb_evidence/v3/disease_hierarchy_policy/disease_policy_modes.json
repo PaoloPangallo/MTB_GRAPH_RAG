@@ -1,0 +1,548 @@
+{
+  "buckets": [
+    "primary_ranked_results",
+    "retained_with_warning",
+    "audit_only_results",
+    "rejected_by_native_constraints"
+  ],
+  "contract_version": "directional-disease-match-contract/1.0",
+  "default_mode_proposed_for_promotion": "strict_verified",
+  "invariants": [
+    "Il primary bucket e' identico nelle tre modalita': exact, normalized exact e verified alias soltanto.",
+    "Nessuna modalita' broad e' definita: parent e child non tornano mai nel primary bucket.",
+    "Il tipo di relazione non dipende dalla modalita': cambia solo che cosa se ne fa.",
+    "audit_all espone ed etichetta, non promuove.",
+    "qualified_score_eligible nel bucket warning ordina dentro il bucket e non compete con il primario."
+  ],
+  "modes": [
+    {
+      "description": "Primary soltanto per identita' verificata. Parent e child restano visibili nel bucket warning ma non ricevono alcun punteggio: la modalita' proposta come default per la futura promozione.",
+      "mode": "strict_verified",
+      "per_relation": {
+        "claim_is_child_of_query": {
+          "audit_only": false,
+          "bucket": "retained_with_warning",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "retained_with_warning",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": true
+        },
+        "claim_is_parent_of_query": {
+          "audit_only": false,
+          "bucket": "retained_with_warning",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "retained_with_warning",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": true
+        },
+        "cross_disease": {
+          "audit_only": false,
+          "bucket": "rejected_by_native_constraints",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": true,
+          "score_eligibility": {
+            "bucket": "rejected_by_native_constraints",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "disease_sibling": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "exact_disease": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        },
+        "generic_cancer_scope": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "missing_claim_disease": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "missing_query_disease": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "normalized_exact_disease": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        },
+        "unresolved_disease_relation": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "verified_disease_alias": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        }
+      },
+      "primary_relations": [
+        "exact_disease",
+        "normalized_exact_disease",
+        "verified_disease_alias"
+      ]
+    },
+    {
+      "description": "Primary invariato. Parent e child restano nel bucket warning e possono essere ordinati fra loro; generic scope passa da audit a warning. Nessuna relazione diventa exact.",
+      "mode": "ontology_aware_warning",
+      "per_relation": {
+        "claim_is_child_of_query": {
+          "audit_only": false,
+          "bucket": "retained_with_warning",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "retained_with_warning",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": true,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": true
+        },
+        "claim_is_parent_of_query": {
+          "audit_only": false,
+          "bucket": "retained_with_warning",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "retained_with_warning",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": true,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": true
+        },
+        "cross_disease": {
+          "audit_only": false,
+          "bucket": "rejected_by_native_constraints",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": true,
+          "score_eligibility": {
+            "bucket": "rejected_by_native_constraints",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "disease_sibling": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "exact_disease": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        },
+        "generic_cancer_scope": {
+          "audit_only": false,
+          "bucket": "retained_with_warning",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "retained_with_warning",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": true,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": true
+        },
+        "missing_claim_disease": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "missing_query_disease": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "normalized_exact_disease": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        },
+        "unresolved_disease_relation": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "verified_disease_alias": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        }
+      },
+      "primary_relations": [
+        "exact_disease",
+        "normalized_exact_disease",
+        "verified_disease_alias"
+      ]
+    },
+    {
+      "description": "Espone parent, child, sibling, generic, unresolved e missing conservando sempre il tipo di relazione. Il primario non cambia.",
+      "mode": "audit_all",
+      "per_relation": {
+        "claim_is_child_of_query": {
+          "audit_only": false,
+          "bucket": "retained_with_warning",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "retained_with_warning",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": true,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": true
+        },
+        "claim_is_parent_of_query": {
+          "audit_only": false,
+          "bucket": "retained_with_warning",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "retained_with_warning",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": true,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": true
+        },
+        "cross_disease": {
+          "audit_only": false,
+          "bucket": "rejected_by_native_constraints",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": true,
+          "score_eligibility": {
+            "bucket": "rejected_by_native_constraints",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "disease_sibling": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "exact_disease": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        },
+        "generic_cancer_scope": {
+          "audit_only": false,
+          "bucket": "retained_with_warning",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "retained_with_warning",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": true,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": true
+        },
+        "missing_claim_disease": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "missing_query_disease": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "normalized_exact_disease": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        },
+        "unresolved_disease_relation": {
+          "audit_only": true,
+          "bucket": "audit_only_results",
+          "primary_candidate_eligible": false,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "warning_eligible": false
+        },
+        "verified_disease_alias": {
+          "audit_only": false,
+          "bucket": "primary_ranked_results",
+          "primary_candidate_eligible": true,
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": true
+          },
+          "warning_eligible": false
+        }
+      },
+      "primary_relations": [
+        "exact_disease",
+        "normalized_exact_disease",
+        "verified_disease_alias"
+      ]
+    }
+  ],
+  "phase": "disease-hierarchy-policy/1.0"
+}
