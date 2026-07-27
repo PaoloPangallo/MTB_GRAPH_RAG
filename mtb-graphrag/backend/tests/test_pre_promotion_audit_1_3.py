@@ -72,7 +72,7 @@ START_SHA = SCOPE.START_SHA
 # Estremo di fase: il commit che chiude la fase, mai HEAD. Il perimetro di una
 # fase e' una proprieta' storica e chiusa, e misurarlo contro l'albero di lavoro
 # lo farebbe crescere con la fase successiva, fallendo per la ragione sbagliata.
-PHASE_END_SHA = ""
+PHASE_END_SHA = "61627448e01d277e2aa27ae1c04f90885a68869f"
 
 ALLOWED_WRITE_PREFIXES = (
     "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/",
