@@ -1,0 +1,159 @@
+{
+  "already_compatible": 3,
+  "categories": [
+    {
+      "category": "comportamento gia' compatibile",
+      "findings": [
+        {
+          "change_required": false,
+          "current": "exact_string, normalized_exact, verified_alias",
+          "item": "HARD_MATCH_TYPES",
+          "proposed": "coincide con il primary bucket di strict_verified",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::HARD_MATCH_TYPES"
+        },
+        {
+          "change_required": false,
+          "current": "hard_match_allowed e' un vincolo nativo valutato prima dello scoring",
+          "item": "precedenza del gate",
+          "proposed": "invariante esplicito DISEASE_GATE_PRECEDES_SCORING",
+          "reference": "backend/pipeline/evidence/qualified_retriever.py::_native_constraints"
+        },
+        {
+          "change_required": false,
+          "current": "riconosciuti e mai hard match",
+          "item": "parent, child e sibling",
+          "proposed": "invariato quanto all'esclusione dal primario",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::_relation_type"
+        }
+      ],
+      "summary": "Il matcher operativo esclude gia' tutto cio' che non e' identita' verificata, e il retriever applica quell'esito come vincolo nativo prima di qualunque punteggio. La precedenza del gate sullo scoring non va introdotta: va nominata."
+    },
+    {
+      "category": "vocabolario da rinominare",
+      "findings": [
+        {
+          "change_required": true,
+          "current": "explicit_child",
+          "item": "explicit_child",
+          "proposed": "claim_is_child_of_query",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::MATCH_EXPLICIT_CHILD"
+        },
+        {
+          "change_required": true,
+          "current": "explicit_parent",
+          "item": "explicit_parent",
+          "proposed": "claim_is_parent_of_query",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::MATCH_EXPLICIT_PARENT"
+        },
+        {
+          "change_required": true,
+          "current": "explicit_sibling",
+          "item": "explicit_sibling",
+          "proposed": "disease_sibling",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::MATCH_EXPLICIT_SIBLING"
+        },
+        {
+          "change_required": true,
+          "current": "pan_cancer_or_unspecified",
+          "item": "pan_cancer_or_unspecified",
+          "proposed": "generic_cancer_scope",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::MATCH_PAN_CANCER_OR_UNSPECIFIED"
+        }
+      ],
+      "summary": "I nomi attuali non dicono la direzione, che e' esattamente cio' che il caso K1 chiede di preservare. Sono rinomine, non cambi di comportamento."
+    },
+    {
+      "category": "nuove categorie richieste",
+      "findings": [
+        {
+          "change_required": true,
+          "current": "collassato in unresolved",
+          "item": "cross_disease",
+          "proposed": "categoria propria, rejected_by_native_constraints",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::_relation_type ramo finale"
+        },
+        {
+          "change_required": true,
+          "current": "raccoglie anche cross-disease e disease mancanti",
+          "item": "unresolved_disease_relation",
+          "proposed": "riservato ai casi senza alcun termine registrato",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::MATCH_UNRESOLVED"
+        },
+        {
+          "change_required": true,
+          "current": "assente da DiseaseMatchResult",
+          "item": "relation_direction",
+          "proposed": "campo obbligatorio, calcolato dalle tabelle congelate",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::DiseaseMatchResult"
+        },
+        {
+          "change_required": true,
+          "current": "il bucket non e' raggiungibile dall'asse disease",
+          "item": "retained_with_warning",
+          "proposed": "parent e child vi ricadono in tutte le modalita'",
+          "reference": "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/candidate_bucket_contract.json"
+        }
+      ],
+      "summary": "Oggi cross-disease, relazione irrisolta e disease mancante cadono tutte in unresolved. Sono tre situazioni diverse e portano a spiegazioni diverse."
+    },
+    {
+      "category": "generic scope mancanti",
+      "findings": [
+        {
+          "change_required": true,
+          "current": "assente da _PAN_CANCER_KEYS",
+          "item": "solid tumor",
+          "proposed": "presente in generic_scope_keys",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::_PAN_CANCER_KEYS"
+        },
+        {
+          "change_required": true,
+          "current": "assente da _PAN_CANCER_KEYS",
+          "item": "unspecified tumor",
+          "proposed": "presente in generic_scope_keys",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::_PAN_CANCER_KEYS"
+        },
+        {
+          "change_required": true,
+          "current": "DISEASE_RELATION_UNRESOLVED",
+          "item": "reason code dello scope generico",
+          "proposed": "GENERIC_DISEASE_SCOPE_NOT_CASE_SPECIFIC",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::_REASON_BY_MATCH_TYPE"
+        }
+      ],
+      "summary": "Il registro operativo degli scope generici e' piu' stretto di quello del contratto, e il reason code che emette e' lo stesso di unresolved: a valle i due casi diventano indistinguibili."
+    },
+    {
+      "category": "missing disease oggi collassati in unresolved",
+      "findings": [
+        {
+          "change_required": true,
+          "current": "unresolved",
+          "item": "missing_query_disease",
+          "proposed": "categoria propria, QUERY_DISEASE_MISSING",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::match_disease ramo else finale"
+        },
+        {
+          "change_required": true,
+          "current": "unresolved",
+          "item": "missing_claim_disease",
+          "proposed": "categoria propria, CLAIM_DISEASE_SCOPE_MISSING",
+          "reference": "backend/pipeline/evidence/qualified_disease_matching.py::match_disease ramo else finale"
+        }
+      ],
+      "summary": "Un core vuoto produce unresolved senza dire quale dei due lati manchi. Non sapere che cosa chiede la query e non sapere su che cosa vale il claim sono difetti diversi, e vanno riparati altrove."
+    }
+  ],
+  "changes_required": 13,
+  "contract_version": "directional-disease-match-contract/1.0",
+  "finding_count": 16,
+  "migration_applied": false,
+  "operational_matcher": "backend/pipeline/evidence/qualified_disease_matching.py",
+  "operational_matcher_modified": false,
+  "phase": "disease-hierarchy-policy/1.0",
+  "sequencing": [
+    "aggiornare il gate disease dello shadow repository",
+    "verificare le regressioni sullo shadow",
+    "solo dopo, migrare il matcher operativo"
+  ]
+}
