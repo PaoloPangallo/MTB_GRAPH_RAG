@@ -298,8 +298,14 @@ def validate_written_corpus(directory: Path) -> dict[str, Any]:
     links = _read_jsonl(directory / "qualification_links.jsonl")
     views = _read_jsonl(directory / "qualified_evidence_views.jsonl")
 
+    # L'errore di schema viene riavvolto invece di essere lasciato passare: chi
+    # chiama la validazione non deve conoscere due famiglie di eccezioni per
+    # sapere che il corpus non e' promuovibile.
     for record in claims + deprecated:
-        PROP.validate_record(record)
+        try:
+            PROP.validate_record(record)
+        except PROP.PropagationSchemaError as error:
+            raise PromotionValidationError(str(error)) from error
 
     final_evaluable = sorted(
         str(claim["claim_id"]) for claim in claims if claim.get("final_evaluable")
