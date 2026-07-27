@@ -1,0 +1,46 @@
+{
+  "bucket_precedence_most_to_least_restrictive": [
+    "rejected_by_native_constraints",
+    "audit_only_results",
+    "retained_with_warning",
+    "primary_ranked_results"
+  ],
+  "buckets": [
+    "primary_ranked_results",
+    "retained_with_warning",
+    "audit_only_results",
+    "rejected_by_native_constraints"
+  ],
+  "cross_domain_ranking": false,
+  "default_rendered_buckets": [
+    "primary_ranked_results",
+    "retained_with_warning"
+  ],
+  "excluded_candidates_retained_internally": true,
+  "gate_version": "qualified_claim_structural_gate/1.1",
+  "provenance_fields": [
+    "adapter_lineage",
+    "claim_id",
+    "deprecated_redirect",
+    "disease_relation_provenance",
+    "formulation_provenance",
+    "graph_evidence_provenance",
+    "legacy_statement_ids",
+    "locators",
+    "parent_id",
+    "propagation_policy",
+    "qualification_status",
+    "reason_codes",
+    "review_status",
+    "source_ids",
+    "source_unit_ids",
+    "terminology_provenance",
+    "warnings"
+  ],
+  "schema_version": "qualified_claim_retrieval_result/1.4",
+  "sections": [
+    "therapeutic_results",
+    "diagnostic_results",
+    "prognostic_results"
+  ]
+}

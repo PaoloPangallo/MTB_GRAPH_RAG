@@ -1,0 +1,255 @@
+{
+  "backend_selection": {
+    "allowed_policy_modes": [
+      "strict_verified",
+      "ontology_aware_warning",
+      "audit_all"
+    ],
+    "automatic_latest_corpus_selection": false,
+    "available_backends": [
+      "legacy",
+      "qualified_claim_v3"
+    ],
+    "contract_version": "evidence_retrieval_backend_contract/1.0",
+    "default_policy_mode": "strict_verified",
+    "default_retrieval_backend": "legacy",
+    "silent_fallback_permitted": false,
+    "supported_repository_versions": [
+      "qualified_claim_repository/1.4"
+    ],
+    "unknown_backend_behavior": "reject",
+    "unknown_policy_mode_behavior": "reject",
+    "unknown_repository_version_behavior": "reject",
+    "v3_is_selectable_not_default": true
+  },
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "gate_execution_order": {
+    "a_single_incompatible_gate_cancels_residual_eligibility": true,
+    "buckets_most_to_least_restrictive": [
+      "rejected_by_native_constraints",
+      "audit_only_results",
+      "retained_with_warning",
+      "primary_ranked_results"
+    ],
+    "gate_version": "qualified_claim_structural_gate/1.1",
+    "order": [
+      {
+        "position": 1,
+        "step": "active_claim_loading"
+      },
+      {
+        "position": 2,
+        "step": "claim_status_gate"
+      },
+      {
+        "position": 3,
+        "step": "domain_gate"
+      },
+      {
+        "position": 4,
+        "step": "biomarker_gate"
+      },
+      {
+        "position": 5,
+        "step": "disease_gate"
+      },
+      {
+        "position": 6,
+        "step": "intervention_identity_gate"
+      },
+      {
+        "position": 7,
+        "step": "formulation_gate"
+      },
+      {
+        "position": 8,
+        "step": "regimen_class_aggregate_gate"
+      },
+      {
+        "position": 9,
+        "step": "direction_polarity_gate"
+      },
+      {
+        "position": 10,
+        "step": "bucket_composition"
+      },
+      {
+        "position": 11,
+        "step": "scoring_where_permitted"
+      },
+      {
+        "position": 12,
+        "step": "within_bucket_ranking"
+      },
+      {
+        "position": 13,
+        "step": "result_rendering"
+      }
+    ],
+    "scoring_position": 11,
+    "structural_gates_precede_scoring": true
+  },
+  "phase": "v3-retriever-binding/1.4",
+  "pipeline_binding": {
+    "available_backends": [
+      "legacy",
+      "qualified_claim_v3"
+    ],
+    "backend_constructed_lazily": true,
+    "binding_layer": "backend.pipeline.evidence.retrieval.pipeline",
+    "binding_lives_in_corpus": false,
+    "default_backend": "legacy",
+    "legacy_output_converted_to_v3": false,
+    "legacy_path_imports_v3_corpus": false,
+    "pipeline_version": "evidence_retrieval_pipeline/1.0",
+    "result_is_a_typed_union": true,
+    "v3_is_default": false
+  },
+  "provenance_summary": {
+    "backend_name": "qualified_claim_v3",
+    "backend_version": "qualified_claim_retriever/1.0",
+    "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+    "corpus_path": "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4",
+    "gate_version": "qualified_claim_structural_gate/1.1",
+    "loader": "backend.pipeline.evidence.corpus.loader",
+    "model_version": "qualified_claim_model/1.2",
+    "policy_mode": "strict_verified",
+    "promoted_at": "2026-07-27T00:00:00Z",
+    "promotion_commit": "78647dd9566679df458bfc561b7e6412d01ae64c",
+    "reads_promoted_v3_corpus": true,
+    "repository_version": "qualified_claim_repository/1.4",
+    "result_contract": "qualified_claim_retrieval_result/1.3",
+    "schema_version": "promoted_corpus_schema/1.0",
+    "scoring_version": "qualified_claim_retrieval_scoring/1.0",
+    "source_shadow_version": "qualified_claim_repository/1.4"
+  },
+  "queries": 14,
+  "readiness": {
+    "backend_selection_explicit": true,
+    "clinical_readiness": false,
+    "dual_run_diagnostic_ready": true,
+    "four_bucket_output_implemented": true,
+    "full_exploratory_rerun_ready": true,
+    "integrated_gates_applied": true,
+    "legacy_default_preserved": true,
+    "operational_pipeline_unchanged_for_legacy": true,
+    "operational_retriever_bound_to_v3": false,
+    "promoted_corpus_loadable_by_v3_retriever": true,
+    "provenance_complete": true,
+    "strict_default_preserved": true,
+    "unknown_backend_rejected": true,
+    "unknown_policy_rejected": true,
+    "v3_prototype_endpoint_ready": true,
+    "v3_retriever_implemented": true
+  },
+  "scoring": {
+    "axis_weight_names": {
+      "biomarker": "native_biomarker",
+      "direction": "native_direction",
+      "disease": "native_disease",
+      "formulation": "native_intervention",
+      "intervention_identity": "native_intervention"
+    },
+    "bucket_rules": {
+      "audit_only_results": "feature registrate, nessun ranking clinico",
+      "primary_ranked_results": "ranking score consentito",
+      "rejected_by_native_constraints": "tutti gli score disabilitati",
+      "retained_with_warning": "score interno al bucket quando il gate lo consente"
+    },
+    "gold_used_for_weights": false,
+    "legacy_penalties_registered_not_applied": [
+      "penalty_pending_terminology",
+      "penalty_not_separable",
+      "penalty_unresolved",
+      "penalty_invalid"
+    ],
+    "operational_weights_source": "qualified_retriever_scoring_config.json",
+    "records_per_feature": [
+      "raw_value",
+      "eligible",
+      "weight",
+      "contribution",
+      "exclusion_reason"
+    ],
+    "scoring_subordinate_to_gates": true,
+    "scoring_version": "qualified_claim_retrieval_scoring/1.0",
+    "weights_retuned_in_this_phase": false
+  },
+  "selection_cases": [
+    {
+      "accepted": true,
+      "case": "known_backend_legacy",
+      "error_type": "",
+      "rejected": false,
+      "silent_fallback": false
+    },
+    {
+      "accepted": true,
+      "case": "known_backend_v3",
+      "error_type": "",
+      "rejected": false,
+      "silent_fallback": false
+    },
+    {
+      "accepted": true,
+      "case": "known_policy_mode_audit_all",
+      "error_type": "",
+      "rejected": false,
+      "silent_fallback": false
+    },
+    {
+      "accepted": false,
+      "case": "unknown_backend",
+      "error_type": "UnknownRetrievalBackendError",
+      "rejected": true,
+      "silent_fallback": false
+    },
+    {
+      "accepted": false,
+      "case": "unknown_policy_mode",
+      "error_type": "UnknownPolicyModeError",
+      "rejected": true,
+      "silent_fallback": false
+    },
+    {
+      "accepted": false,
+      "case": "unknown_repository_version",
+      "error_type": "UnknownRepositoryVersionError",
+      "rejected": true,
+      "silent_fallback": false
+    }
+  ],
+  "v3_retriever": {
+    "backend_name": "qualified_claim_v3",
+    "backend_version": "qualified_claim_retriever/1.0",
+    "candidate_object_kinds": [
+      "active_claim",
+      "deprecated_claim",
+      "unsupported_association",
+      "unresolved_association",
+      "graph_evidence_record"
+    ],
+    "corpus_mutated_by_retriever": false,
+    "cross_domain_ranking": false,
+    "excluded_candidates_recoverable_in_audit_mode": true,
+    "gate_module": "backend.pipeline.evidence.shadow.integrated_gates_v11",
+    "loader_module": "backend.pipeline.evidence.corpus.loader",
+    "loader_reused_not_duplicated": [
+      "hash_verification",
+      "schema_validation",
+      "redirect_lineage",
+      "parent_claim_lookup",
+      "policy_mode_validation"
+    ],
+    "repository_version": "qualified_claim_repository/1.4",
+    "result_limit_is_a_rendering_limit": true,
+    "run_timestamp_is_a_phase_constant": true,
+    "startup_checks": [
+      "active_registry_entry",
+      "promotion_status_is_prototype_promoted",
+      "operational_retriever_bound_may_be_false",
+      "repository_and_schema_versions_compatible",
+      "manifest_and_files_intact"
+    ]
+  }
+}
