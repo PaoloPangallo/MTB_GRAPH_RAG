@@ -1,0 +1,88 @@
+{
+  "by_relation": {
+    "claim_is_child_of_query": {
+      "explanation_code": "EVIDENCE_APPLIES_ONLY_TO_QUERY_SUBTYPE",
+      "reason_code": "CLAIM_DISEASE_SCOPE_NARROWER_THAN_QUERY"
+    },
+    "claim_is_parent_of_query": {
+      "explanation_code": "RESULT_NOT_SEPARABLE_FOR_QUERY_SUBTYPE",
+      "reason_code": "CLAIM_DISEASE_SCOPE_BROADER_THAN_QUERY"
+    },
+    "cross_disease": {
+      "explanation_code": "NO_VERIFIED_RELATION_BETWEEN_DISEASES",
+      "reason_code": "CROSS_DISEASE_MISMATCH"
+    },
+    "disease_sibling": {
+      "explanation_code": "SIBLING_EVIDENCE_NOT_TRANSFERABLE",
+      "reason_code": "DISEASE_SIBLING_NOT_APPLICABLE"
+    },
+    "exact_disease": {
+      "explanation_code": "DISEASE_IDENTITY_CONFIRMED",
+      "reason_code": "DISEASE_EXACT_MATCH"
+    },
+    "generic_cancer_scope": {
+      "explanation_code": "GENERIC_SCOPE_NOT_SUBSTITUTABLE_FOR_QUERY_DISEASE",
+      "reason_code": "GENERIC_DISEASE_SCOPE_NOT_CASE_SPECIFIC"
+    },
+    "missing_claim_disease": {
+      "explanation_code": "CLAIM_DISEASE_SCOPE_NOT_PROVIDED",
+      "reason_code": "CLAIM_DISEASE_SCOPE_MISSING"
+    },
+    "missing_query_disease": {
+      "explanation_code": "QUERY_DISEASE_NOT_PROVIDED",
+      "reason_code": "QUERY_DISEASE_MISSING"
+    },
+    "normalized_exact_disease": {
+      "explanation_code": "DISEASE_IDENTITY_CONFIRMED_AFTER_NORMALIZATION",
+      "reason_code": "DISEASE_NORMALIZED_EXACT_MATCH"
+    },
+    "unresolved_disease_relation": {
+      "explanation_code": "RELATION_NOT_DECIDABLE_ON_FROZEN_VOCABULARY",
+      "reason_code": "DISEASE_RELATION_UNRESOLVED"
+    },
+    "verified_disease_alias": {
+      "explanation_code": "DISEASE_IDENTITY_CONFIRMED_BY_VERIFIED_ALIAS",
+      "reason_code": "DISEASE_VERIFIED_ALIAS_MATCH"
+    }
+  },
+  "contract_version": "directional-disease-match-contract/1.0",
+  "explanation_codes": [
+    "CLAIM_DISEASE_SCOPE_NOT_PROVIDED",
+    "DISEASE_IDENTITY_CONFIRMED",
+    "DISEASE_IDENTITY_CONFIRMED_AFTER_NORMALIZATION",
+    "DISEASE_IDENTITY_CONFIRMED_BY_VERIFIED_ALIAS",
+    "EVIDENCE_APPLIES_ONLY_TO_QUERY_SUBTYPE",
+    "GENERIC_SCOPE_NOT_SUBSTITUTABLE_FOR_QUERY_DISEASE",
+    "NO_VERIFIED_RELATION_BETWEEN_DISEASES",
+    "QUERY_DISEASE_NOT_PROVIDED",
+    "RELATION_NOT_DECIDABLE_ON_FROZEN_VOCABULARY",
+    "RESULT_NOT_SEPARABLE_FOR_QUERY_SUBTYPE",
+    "SIBLING_EVIDENCE_NOT_TRANSFERABLE"
+  ],
+  "gate_codes": [
+    "DISEASE_GATE_PRECEDES_SCORING"
+  ],
+  "interaction_codes": [
+    "BIOMARKER_MISMATCH_DESPITE_DISEASE_ALIAS"
+  ],
+  "phase": "disease-hierarchy-policy/1.0",
+  "reason_codes": [
+    "CLAIM_DISEASE_SCOPE_BROADER_THAN_QUERY",
+    "CLAIM_DISEASE_SCOPE_MISSING",
+    "CLAIM_DISEASE_SCOPE_NARROWER_THAN_QUERY",
+    "CROSS_DISEASE_MISMATCH",
+    "DISEASE_EXACT_MATCH",
+    "DISEASE_GATE_PRECEDES_SCORING",
+    "DISEASE_NORMALIZED_EXACT_MATCH",
+    "DISEASE_RELATION_UNRESOLVED",
+    "DISEASE_SIBLING_NOT_APPLICABLE",
+    "DISEASE_VERIFIED_ALIAS_MATCH",
+    "GENERIC_DISEASE_SCOPE_NOT_CASE_SPECIFIC",
+    "QUERY_DISEASE_MISSING"
+  ],
+  "warning_codes": [
+    "CLAIM_DISEASE_SCOPE_BROADER_THAN_QUERY",
+    "CLAIM_DISEASE_SCOPE_NARROWER_THAN_QUERY",
+    "GENERIC_DISEASE_SCOPE_RETAINED_WITH_WARNING"
+  ]
+}

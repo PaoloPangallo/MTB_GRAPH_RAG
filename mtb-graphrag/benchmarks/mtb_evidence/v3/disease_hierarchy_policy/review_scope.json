@@ -1,0 +1,59 @@
+{
+  "aliases_created": 0,
+  "claim_source": "benchmarks/mtb_evidence/v3/diagnostic_disease_scope_narrowing_shadow/evidence_claims_v1_2.jsonl",
+  "claim_source_sha256": "f951a01feb2ed00fb694d31c455043817458563e6f3f2aab96e688b4594d047a",
+  "claims_simulated": 148,
+  "combination_count": 4440,
+  "contract_version": "directional-disease-match-contract/1.0",
+  "default_mode_proposed_for_promotion": "strict_verified",
+  "disease_hierarchy_activated_in_operational_retriever": false,
+  "embedding_used": false,
+  "expected_claim_count": 148,
+  "frozen_query_count": 10,
+  "fuzzy_matching_used": false,
+  "gate_implemented_in_operational_retriever": false,
+  "gold_used": false,
+  "llm_used": false,
+  "mode_count": 3,
+  "parent_and_child_never_primary": true,
+  "perimeter_matches_expectation": true,
+  "phase": "disease-hierarchy-policy/1.0",
+  "primary_bucket_is_mode_invariant": true,
+  "propagation_policy": "prototype_only",
+  "relation_coverage": {
+    "covered_by_contract_probe": [
+      "normalized_exact_disease",
+      "missing_claim_disease"
+    ],
+    "relation_types_observed": {
+      "claim_is_child_of_query": 48,
+      "claim_is_parent_of_query": 111,
+      "cross_disease": 732,
+      "disease_sibling": 5,
+      "exact_disease": 51,
+      "generic_cancer_scope": 204,
+      "missing_query_disease": 148,
+      "unresolved_disease_relation": 19,
+      "verified_disease_alias": 162
+    },
+    "relation_types_without_corpus_occurrence": [
+      "normalized_exact_disease",
+      "missing_claim_disease"
+    ]
+  },
+  "relation_sources": [
+    "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SUBTYPE_OF",
+    "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+    "verified-local-disease-aliases/1.0",
+    "benchmarks/mtb_evidence/v3/disease_normalization_review/review_manifest.json",
+    "benchmarks/mtb_evidence/v3/verified_disease_alias_fix/fix_manifest.json"
+  ],
+  "relations_created": 0,
+  "retrieval_metrics_used": false,
+  "review_independence": "non_independent",
+  "review_status": "first_review_complete",
+  "reviewer_role": "author_disease_policy_reviewer",
+  "start_sha": "f9a7160174b7f20e7be7bd9fe3ee3b73b4c27903",
+  "substring_matching_used": false,
+  "unregistered_knowledge_used": false
+}
