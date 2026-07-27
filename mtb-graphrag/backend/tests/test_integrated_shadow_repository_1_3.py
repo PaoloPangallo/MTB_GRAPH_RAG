@@ -79,9 +79,10 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 V3 = REPO_ROOT / "benchmarks/mtb_evidence/v3"
 OUTPUT = DEFAULT_OUTPUT
 
-# Estremo di fase: fissato al commit che chiude la fase, mai HEAD. Il perimetro
-# di una fase e' una proprieta' storica e chiusa.
-PHASE_END_SHA = ""
+# Estremo di fase: il commit che chiude la fase, mai HEAD. Il perimetro di una
+# fase e' una proprieta' storica e chiusa, e misurarlo contro l'albero di lavoro
+# lo farebbe crescere con la fase successiva, fallendo per la ragione sbagliata.
+PHASE_END_SHA = "6b62108e110d78235556e17bb31815a31b619609"
 
 ALLOWED_WRITE_PREFIXES = (
     "benchmarks/mtb_evidence/v3/integrated_shadow_repository_1_3/",
