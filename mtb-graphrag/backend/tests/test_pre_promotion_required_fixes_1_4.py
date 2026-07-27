@@ -54,7 +54,7 @@ OUTPUT = DEFAULT_OUTPUT
 # Estremo di fase: il commit che chiude la fase, mai HEAD. Il perimetro di una
 # fase e' una proprieta' storica e chiusa, e misurarlo contro l'albero di lavoro
 # lo farebbe crescere con la fase successiva, fallendo per la ragione sbagliata.
-PHASE_END_SHA = ""
+PHASE_END_SHA = "ba75417b06dda8535e5f13a3c4ec354243d291e3"
 
 ALLOWED_WRITE_PREFIXES = (
     "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/",
