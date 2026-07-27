@@ -78,7 +78,7 @@ PHASE_MODULES = (
 # La fase termina sull'ultimo commit di contenuto. L'estremo resta fisso anche
 # quando fasi successive aggiungono nuovi commit: il perimetro di una fase e' una
 # proprieta' storica e chiusa.
-PHASE_END_SHA = ""
+PHASE_END_SHA = "acc5c3016333a28ea6e107defd4ab05dca90b0d9"
 
 # PhaseScope restituisce percorsi relativi al pacchetto: il prefisso del repo viene
 # gia' rimosso una volta dal helper condiviso.
