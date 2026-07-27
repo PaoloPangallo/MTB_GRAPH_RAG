@@ -1,0 +1,9 @@
+# Stati transitori della scrittura atomica e del rollback. Una staging, una
+# promozione fallita o un corpus messo in stato inattivo sono materiale di
+# audit locale: nessuno dei tre e' un contenuto versionato, e committarne uno
+# per sbaglio metterebbe nel repository una seconda copia del corpus che il
+# registro prototipale non cita.
+*.staging-*
+*.failed-*
+*.superseded-*
+*.inactive

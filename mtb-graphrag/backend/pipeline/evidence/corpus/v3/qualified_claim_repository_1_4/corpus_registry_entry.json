@@ -1,0 +1,25 @@
+{
+  "allowed_policy_modes": [
+    "strict_verified",
+    "ontology_aware_warning",
+    "audit_all"
+  ],
+  "clinical_readiness": false,
+  "corpus_path": "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4",
+  "corpus_sha256": "754a3dd7477cb86e54b5820d4211fa1b37fd58c0959eca36402f7f1857720f59",
+  "default_policy_mode": "strict_verified",
+  "final_evaluable": false,
+  "model_version": "qualified_claim_model/1.2",
+  "operational_retriever_bound": false,
+  "promoted_at": "2026-07-27T00:00:00Z",
+  "promotion_commit": "78647dd9566679df458bfc561b7e6412d01ae64c",
+  "promotion_status": "prototype_promoted",
+  "prototype_promoted": true,
+  "repository_version": "qualified_claim_repository/1.4",
+  "rollback_target": null,
+  "schema_version": "promoted_corpus_schema/1.0",
+  "source_shadow_sha256": "22d5d730969277eab7c470ebed02e8a6503a3500ab537ec547425d3d99bfb72d",
+  "source_shadow_version": "qualified_claim_repository/1.4",
+  "status": "active",
+  "unknown_policy_mode_behavior": "reject"
+}
