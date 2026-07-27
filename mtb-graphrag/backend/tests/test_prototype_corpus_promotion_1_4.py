@@ -65,14 +65,18 @@ REGISTRY_PATH = CONTRACT.REGISTRY_PATH
 AUDIT_OUTPUT = DEFAULT_AUDIT_OUTPUT
 SHADOW_V14 = SCOPE.V3 / CONTRACT.SOURCE_SHADOW_DIRNAME
 
-# Estremo di fase: il commit che la chiude, mai HEAD. Finche' e' vuoto il
-# controllo di perimetro si salta invece di misurare l'intervallo sbagliato.
-PHASE_END_SHA = ""
+# Estremo di fase: il commit che la chiude, mai HEAD. Il perimetro di una fase
+# e' una proprieta' storica e chiusa e va misurato sull'intervallo
+# 78647dd..fc9a8cd. Misurato contro l'albero di lavoro crescerebbe con la fase
+# successiva, e il test fallirebbe non perche' questa fase abbia sconfinato ma
+# perche' starebbe misurando l'intervallo sbagliato.
+PHASE_END_SHA = "fc9a8cd7d9598e8cef0775aa76e40f2d4ed8d7aa"
 
 ALLOWED_WRITE_PREFIXES = (
     "backend/pipeline/evidence/corpus/",
     "backend/tests/test_prototype_corpus_promotion_1_4.py",
     "benchmarks/mtb_evidence/evaluation/prototype_promotion_audit.py",
+    "benchmarks/mtb_evidence/evaluation/prototype_promotion_reports.py",
     "benchmarks/mtb_evidence/evaluation/scripts/promote_qualified_claim_corpus_1_4.py",
     "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/",
 )
