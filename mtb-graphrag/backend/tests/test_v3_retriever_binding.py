@@ -83,9 +83,12 @@ PROMOTED_CORPUS = REPO_ROOT / CONTRACT.PROMOTED_CORPUS_RELPATH
 
 START_SHA = "ee89352045e20b121e7ae0e636b3a3ba772f68c6"
 
-# Vuoto finche' la fase e' aperta: il perimetro si misura su un intervallo
-# chiuso, e senza estremo finale non c'e' nulla da misurare.
-PHASE_END_SHA = ""
+# Estremo di fase: il commit che la chiude, mai HEAD. Il perimetro di una fase
+# e' una proprieta' storica e chiusa e va misurato sull'intervallo
+# ee89352..5d8fff2. Misurato contro l'albero di lavoro crescerebbe con la fase
+# successiva, e il test fallirebbe non perche' questa fase abbia sconfinato ma
+# perche' starebbe misurando l'intervallo sbagliato.
+PHASE_END_SHA = "5d8fff2a67abbc42e3e09a35a13d38e131458542"
 
 ALLOWED_WRITE_PREFIXES = (
     "backend/pipeline/evidence/retrieval/",
