@@ -1,0 +1,63 @@
+{
+  "clinical_readiness_declared": false,
+  "counts": {
+    "critical": 0,
+    "informational": 2,
+    "major": 2,
+    "minor": 3
+  },
+  "decision": "ready_with_required_promotion_fixes",
+  "decision_scope": "promozione prototipale separata degli artefatti; non riguarda la validita' clinica del contenuto ne' la migrazione del retriever",
+  "gates": {
+    "claim_ids_recomputable": true,
+    "frozen_artifacts_unchanged": true,
+    "integrated_gate_invariants_hold": true,
+    "inventory_consistent": true,
+    "lineage_complete": true,
+    "novelty_diagnostics_complete": true,
+    "operational_query_parity": true,
+    "promotion_diff_complete": true,
+    "qualification_link_plan_consistent": true,
+    "qualified_view_plan_consistent": true,
+    "rollback_plan_complete": true,
+    "strict_default_explicit": true
+  },
+  "gates_not_green": [],
+  "readiness": {
+    "backward_compatibility_plan_complete": true,
+    "claim_ids_recomputable": true,
+    "corpus_promotion_ready": false,
+    "corpus_promotion_ready_after_required_fixes": true,
+    "corpus_promotion_ready_scope": "readiness per una fase separata di promozione prototipale, non per un uso operativo del corpus",
+    "critical_findings": 0,
+    "false_automatic_merges": 0,
+    "full_exploratory_rerun_ready": false,
+    "gate_bypasses": 0,
+    "informational_findings": 2,
+    "integrated_gate_invariants_hold": true,
+    "inventory_consistent": true,
+    "major_findings": 2,
+    "minor_findings": 3,
+    "novelty_diagnostics_complete": true,
+    "operational_retriever_migration_ready": false,
+    "parent_claim_lineage_complete": true,
+    "promotion_decision": "ready_with_required_promotion_fixes",
+    "promotion_diff_complete": true,
+    "provenance_sufficient_for_prototype": false,
+    "qualification_link_plan_consistent": true,
+    "qualified_view_plan_consistent": true,
+    "rollback_plan_complete": true,
+    "strict_default_explicit": true
+  },
+  "required_promotion_fixes": [
+    "aggiungere al manifest promosso `unknown_policy_mode_behaviour: reject` e `fallback_to_broader_mode: false`",
+    "decidere esplicitamente, prima della promozione, se la forma salina sia normalizzazione o entita' distinta, e allineare `SALT_FORM_SUFFIXES` al caveat oppure il caveat alla tabella",
+    "normalizzare le 37 azioni su un solo schema di riga prima di eseguirle",
+    "prevedere un match type `different_formulation` non primario, cosi' che la ragione del rifiuto resti leggibile",
+    "serializzare `propagation_policy: prototype_only` su aggregate_intervention_claim e regimen_claim prima di scrivere il corpus promosso"
+  ],
+  "unaccepted_major_findings": [
+    "PROPAGATION_POLICY_MISSING_ON_NON_ATOMIC_CLAIMS",
+    "SALT_FORM_TABLE_CONTRADICTS_FORMULATION_CAVEAT"
+  ]
+}

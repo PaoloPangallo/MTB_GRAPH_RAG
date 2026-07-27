@@ -1,0 +1,18 @@
+{
+  "action_breakdown": {
+    "regenerate_diagnostic_view": 2,
+    "verify_no_view_references_replaced_claim": 2
+  },
+  "actions_executed": [],
+  "duplicate_plan_ids": [],
+  "expected_total_actions": 4,
+  "flattened_domain_or_score": [],
+  "operational_views_keyed_by_legacy_statement": true,
+  "orphan_views": [],
+  "qualified_view_plan_consistent": true,
+  "regenerated_claims_are_active": true,
+  "terminology_claims_absent_from_operational_views": true,
+  "total_actions": 4,
+  "views_towards_retired_claim": [],
+  "why_four_actions": "Due rigenerazioni diagnostiche, portate dalla 1.2, per i claim il cui disease scope e' stato ristretto. Due verifiche, non rigenerazioni, per i claim terminologici: le view operative sono indicizzate per legacy statement e non per claim ID, quindi ne il vecchio ne il nuovo ID vi compaiono, e le due azioni contano le occorrenze invece di assumerne l'assenza."
+}

@@ -1,0 +1,103 @@
+{
+  "audit_derived_counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "by_claim_domain": {
+      "diagnostic": 2,
+      "therapeutic": 146
+    },
+    "by_claim_type": {
+      "aggregate_intervention_claim": 3,
+      "atomic_intervention_claim": 140,
+      "diagnostic_claim": 2,
+      "regimen_claim": 3
+    },
+    "deprecated_claims": 4,
+    "diagnostic_claims": 2,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "regimen_claims": 3,
+    "replacement_lineage_rows": 2,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "count_mismatches_vs_expected": {},
+  "count_mismatches_vs_manifest": {},
+  "counts_match_expected": true,
+  "counts_match_manifest": true,
+  "declared_manifest_counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "by_claim_type": {
+      "aggregate_intervention_claim": 3,
+      "atomic_intervention_claim": 140,
+      "diagnostic_claim": 2,
+      "regimen_claim": 3
+    },
+    "deprecated_aggregate_claims": 2,
+    "deprecated_diagnostic_claims_in_lineage_only": 2,
+    "diagnostic_claims": 2,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "qualification_plan_actions_total": 37,
+    "regimen_claims": 3,
+    "replacement_aggregate_claims": 2,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6,
+    "view_plan_actions_total": 4
+  },
+  "domain_file_partition": {
+    "domain_files_partition_active_claims": true,
+    "in_active_not_in_domain_files": [],
+    "in_domain_files_not_in_active": [],
+    "overlapping_between_domain_files": []
+  },
+  "expected_counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "diagnostic_claims": 2,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "regimen_claims": 3,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "inventory_consistent": true,
+  "parents_without_claims_expected": [
+    "evidence:347",
+    "evidence:3811",
+    "evidence:4759"
+  ],
+  "parents_without_claims_match": true,
+  "parents_without_claims_observed": [
+    "evidence:347",
+    "evidence:3811",
+    "evidence:4759"
+  ],
+  "reconciliation_totals": {
+    "active_claims": 148,
+    "parents": 147,
+    "parents_without_active_claim": 3,
+    "retired_claims": 4,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "structural_integrity": {
+    "claims_flagged_deprecated_inside_active_set": [],
+    "claims_not_listed_by_their_parent": [],
+    "dangling_child_references": [],
+    "deprecated_claims_present_in_active_set": [],
+    "no_orphan_claims": true,
+    "orphan_claims": [],
+    "parent_child_graph_consistent": true
+  }
+}

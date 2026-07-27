@@ -1,0 +1,34 @@
+{
+  "diagnostics_name": "conservative novelty-handling diagnostics",
+  "diagnostics_version": "conservative_novelty_handling_diagnostics/1.0",
+  "disease_cases": 9,
+  "exact_promotions": 3,
+  "false_automatic_merge_cases": [],
+  "false_automatic_merges": 0,
+  "gate_bypasses_observed": 0,
+  "mappings_created_by_these_diagnostics": 0,
+  "not_a_measure_of": [
+    "clinical accuracy",
+    "generalization accuracy",
+    "recall on unseen entities"
+  ],
+  "novelty_diagnostics_complete": true,
+  "outcomes": {
+    "candidate_unresolved": 4,
+    "normalized_exact": 2,
+    "rejected": 13,
+    "verified_mapping": 1
+  },
+  "registered_normalization_merges": [
+    "salt-form-in-registered-suffix-table"
+  ],
+  "rejected_outcomes": 13,
+  "source_literal_preservation": {
+    "query_literals_rewritten": 0,
+    "query_literals_tested": 11
+  },
+  "terminology_cases": 11,
+  "unexpected_outcomes": [],
+  "unresolved_outcomes": 4,
+  "unseen_terms_tested": 20
+}

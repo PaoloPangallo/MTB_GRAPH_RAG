@@ -1,0 +1,77 @@
+{
+  "audit_of_retired_claims": {
+    "queryable": true,
+    "retired_claims": 4,
+    "retrieval_path": "deprecated_claims.jsonl per claim_id",
+    "returns_reason_and_replacement": true
+  },
+  "backward_compatibility_plan_complete": true,
+  "graph_evidence_id_lookup": {
+    "records_with_more_than_one_claim": [
+      "evidence:11240",
+      "evidence:229",
+      "evidence:296",
+      "evidence:841"
+    ],
+    "resolvable": true,
+    "returns": "parent piu' i suoi claim, non un singolo statement"
+  },
+  "intervention_contract": {
+    "affected_claims": 8,
+    "breaks": [
+      {
+        "claim_type": "aggregate_intervention_claim",
+        "claims_of_this_type": 3,
+        "correct_behaviour": "restituire l'insieme e il flag di non separabilita'; il client deve sapere che il risultato non e' attribuibile a un membro",
+        "count_key": "aggregate_intervention_claim",
+        "flattening_would": "attribuire a un singolo farmaco un risultato che la fonte attribuisce all'insieme",
+        "what_client_expects": "intervention: string",
+        "what_it_receives": "insieme non separabile di membri"
+      },
+      {
+        "claim_type": "regimen_claim",
+        "claims_of_this_type": 3,
+        "correct_behaviour": "restituire l'insieme ordinato dei componenti e `propagates_to_components: false`",
+        "count_key": "regimen_claim",
+        "flattening_would": "trasformare un risultato di combinazione in un risultato di monoterapia",
+        "what_client_expects": "intervention: string",
+        "what_it_receives": "combinazione di componenti"
+      },
+      {
+        "claim_type": "diagnostic_claim",
+        "claims_of_this_type": 2,
+        "correct_behaviour": "restituire `intervention: null` e il dominio, cosi' che il client non lo ordini insieme ai terapeutici",
+        "count_key": "diagnostic_claim",
+        "flattening_would": "far comparire un claim diagnostico in una lista di opzioni terapeutiche",
+        "what_client_expects": "intervention: string",
+        "what_it_receives": "nessun intervento: il claim non ne ha uno"
+      }
+    ],
+    "flattening_permitted_by_promotion": false
+  },
+  "legacy_statement_id_lookup": {
+    "distinct_statements": 146,
+    "resolvable": true,
+    "returns": "claim tipizzato che sostituisce lo statement, o il ritiro che lo spiega"
+  },
+  "old_claim_id_redirect": {
+    "redirects": {
+      "CLM-2175b95ae3113c4f5d97": "CLM-8941c177da91f66ff93a",
+      "CLM-7056003a9bdef747f514": "CLM-a7e1c40b794d2c4d4ca8",
+      "CLM-a7c903cf8d423f015e29": "CLM-90e863f00f134fc3cd3d",
+      "CLM-aae818bbc8ec735a255d": "CLM-5071bb2d8657ac0fbed0"
+    },
+    "redirects_declared": 4,
+    "resolvable": true
+  },
+  "operational_statement_vs_typed_claim": {
+    "distinction_preserved": true,
+    "operational_statement": "unita' del corpus v2, indicizzata per evidence_statement_id, con un solo intervento come stringa",
+    "typed_claim": "proposizione tipizzata sotto un parent di provenienza, con un tipo che decide come l'intervento va letto"
+  },
+  "parent_provenance": {
+    "parents": 147,
+    "parents_survive_replacement": true,
+    "reason": "il parent e' identificato dal solo graph_evidence_id: una sostituzione di claim non lo tocca"
+  }
+}

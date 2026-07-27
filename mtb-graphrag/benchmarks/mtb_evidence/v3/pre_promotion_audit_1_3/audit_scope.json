@@ -1,0 +1,85 @@
+{
+  "audit_version": "pre_promotion_audit/1.0",
+  "audited_repository": "qualified_claim_repository/1.3",
+  "decisions_this_phase_does_not_take": [
+    "promuovere il corpus",
+    "migrare il retriever operativo",
+    "rieseguire l'esplorazione completa",
+    "dichiarare una readiness clinica"
+  ],
+  "default_policy": {
+    "behaviour_default_mode": "strict_verified",
+    "behaviour_rejects_unknown_mode": true,
+    "declared_default_mode": "strict_verified",
+    "declared_default_mode_field": "policy.default_mode",
+    "declared_modes": [
+      "strict_verified",
+      "ontology_aware_warning",
+      "audit_all"
+    ],
+    "declared_strict_policy_default_flag": true,
+    "default_matches_behaviour": true,
+    "expected_default_mode": "strict_verified",
+    "fallback_to_broader_mode_declared": false,
+    "modes_match_contract": true,
+    "required_pipeline_behaviour": {
+      "reject_unknown_modes": true,
+      "silent_fallback_to_audit_all": false,
+      "silent_fallback_to_ontology_aware_warning": false,
+      "use_strict_verified_when_unspecified": true
+    },
+    "strict_default_explicit": true,
+    "unknown_mode_rejection_declared": false
+  },
+  "gold_used": false,
+  "llm_used": false,
+  "neo4j_used": false,
+  "network_used": false,
+  "not_modified": {
+    "operational_artifacts": [
+      "backend/pipeline/evidence/qualification.py",
+      "backend/pipeline/evidence/qualified_disease_matching.py",
+      "backend/pipeline/evidence/qualified_retrieval_scoring.py",
+      "backend/pipeline/evidence/qualified_retriever.py",
+      "backend/pipeline/evidence/qualified_retriever_scoring_config.json",
+      "backend/pipeline/evidence/repository.py",
+      "backend/pipeline/evidence/v2_adapter.py",
+      "benchmarks/mtb_evidence/pilot/audit_lib/disease.py",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl"
+    ],
+    "shadow_repositories": [
+      "benchmarks/mtb_evidence/v3/diagnostic_disease_scope_narrowing_shadow",
+      "benchmarks/mtb_evidence/v3/disease_hierarchy_policy",
+      "benchmarks/mtb_evidence/v3/integrated_shadow_repository_1_3",
+      "benchmarks/mtb_evidence/v3/multi_intervention_adjudication",
+      "benchmarks/mtb_evidence/v3/non_therapeutic_shadow_update",
+      "benchmarks/mtb_evidence/v3/terminology_mapping_closure",
+      "benchmarks/mtb_evidence/v3/typed_claim_shadow_migration"
+    ]
+  },
+  "phase": "pre-promotion-audit/1.3",
+  "plans_executed": false,
+  "promotion_applied": false,
+  "propagation_policy": "prototype_only",
+  "python_version": "3.12",
+  "read_only": true,
+  "review_independence": "non_independent",
+  "review_status": "first_review_complete",
+  "reviewer_role": "author_pre_promotion_auditor",
+  "start_sha": "bdc88f12ffb0f4f4ec6c01e6a7db9fd7dd7c97a9",
+  "test_framework": "unittest (stdlib)",
+  "verifications": [
+    "integrita' del modello parent/claim",
+    "correttezza dei conteggi",
+    "completezza della provenance",
+    "coerenza degli ID e dei lineage",
+    "coerenza fra claim, link e view plan",
+    "composizione dei gate",
+    "gestione di unsupported e unresolved",
+    "comportamento su termini e relazioni mai viste",
+    "compatibilita' della futura promozione",
+    "rollback e reversibilita'"
+  ]
+}
