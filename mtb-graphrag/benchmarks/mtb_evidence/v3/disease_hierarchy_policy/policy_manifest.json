@@ -1,0 +1,283 @@
+{
+  "artifact_sha256": {
+    "DISEASE_HIERARCHY_POLICY.md": "ea7816503c2ffb562cb7145d063614a92311d838d5fb836f4bd786b7d7c16945",
+    "DISEASE_POLICY_IMPLEMENTATION_READINESS.md": "cf80c9cd6cdee651f5c17a16d9721139284017ab61fcaaf40f1ef54ef6a4d911",
+    "STRICT_VS_ONTOLOGY_AWARE_DISEASE_MATCHING.md": "9aafacf1f482b3d1cf1577351399630f0c1b3c7709d1ea2cc4ae074ef4a4e111",
+    "claim_disease_relation_simulation.jsonl": "e4b9225b04f40d949e055a45f4f695f8e2c1a6ba65bb803da905a4750afdd955",
+    "disease_match_contract.json": "3a6ce14ee69c633e1092c8cd302735580bb18b405c0dcd20132faf51b9a8e5bc",
+    "disease_policy_modes.json": "62427b58a93129b76184cbddb6bebd21160321fa6025a92b7b327d4b36679332",
+    "disease_reason_warning_codes.json": "204a9ad8ce7465f220dbb9925d218ffebe9466be14145e0a1049c3b3a11dfaa1",
+    "disease_relation_definitions.json": "272e89e871d47b36023eb2edb595c4c4b562347c200dec04468d0ec3695357b5",
+    "explicit_hierarchy_relations.jsonl": "3ca3adf41f304232b5673919d3a1afcb8478d2c65243b0571e8c4fa791f34042",
+    "migration_impact.json": "1419cd1d3c79f426e7e144fc6dc4b61c4053288377deb169339e5fcde8989c8e",
+    "query_policy_simulation.jsonl": "3381de02b846d7b3fc637b1c67621782fc1cbb30e8e1db1702abab8917318551",
+    "regression_case_simulation.jsonl": "51b8faac365cb79ae30f2c9e650dbb407f14235a1fddd8b9430963d8d08bae19",
+    "review_scope.json": "aebab9a5f4957ef36e1e71098aa76464167172dc158929c5d75aacc7274e0dc0",
+    "scoring_gate_invariants.json": "b16756245a36d416b4de00981b1e99c41156af023becd45ce50dbb57135b7f8c",
+    "verified_alias_registry_snapshot.json": "0f5093fc1311915421e0f6030a403a2af49b3f57b79a35de0d31529423475a0e"
+  },
+  "contract_version": "directional-disease-match-contract/1.0",
+  "declared_test_dependencies": [],
+  "frozen_queries": [
+    {
+      "biomarker": "EGFR L858R",
+      "disease": "NSCLC",
+      "expectation": "I quattro letterali NSCLC restano verified alias e primary.",
+      "label": "EGFR-L858R / NSCLC",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-01-EGFR-L858R-NSCLC",
+      "scenario": "verified_alias_primary"
+    },
+    {
+      "biomarker": "EGFR L858R",
+      "disease": "Lung Adenocarcinoma",
+      "expectation": "I claim NSCLC sono parent della query e restano warning, mai exact.",
+      "label": "EGFR-L858R / Lung Adenocarcinoma",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-02-EGFR-L858R-LUAD",
+      "scenario": "claim_parent_of_query_directional"
+    },
+    {
+      "biomarker": "FGFR2::BICC1 Fusion",
+      "disease": "Intrahepatic Cholangiocarcinoma",
+      "expectation": "I claim iCCA sono exact primary; i claim CCA sono parent con warning.",
+      "label": "FGFR2 fusion / Intrahepatic Cholangiocarcinoma",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-03-FGFR2-ICCA",
+      "scenario": "icca_exact_primary"
+    },
+    {
+      "biomarker": "FGFR2::BICC1 Fusion",
+      "disease": "Cholangiocarcinoma",
+      "expectation": "I claim iCCA sono child della query: warning, mai exact, mai generalizzati.",
+      "label": "FGFR2 fusion / Cholangiocarcinoma",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-04-FGFR2-CCA",
+      "scenario": "claim_child_of_query_not_generalized"
+    },
+    {
+      "biomarker": "ALK G1202R",
+      "disease": "NSCLC",
+      "expectation": "Alias disease compatibile: l'esclusione, dove avviene, e' del biomarcatore.",
+      "label": "ALK-G1202R / NSCLC",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-05-ALK-G1202R-NSCLC",
+      "scenario": "verified_alias_with_biomarker_gate"
+    },
+    {
+      "biomarker": "FGFR2 Fusion",
+      "disease": "Cholangiolocellular Carcinoma",
+      "expectation": "I claim iCCA sono sibling: audit-only in tutte le modalita'.",
+      "label": "FGFR2 fusion / Cholangiolocellular Carcinoma",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-06-SIBLING-CCC",
+      "scenario": "sibling_never_exact"
+    },
+    {
+      "biomarker": "FGFR2 Fusion",
+      "disease": "Cancer",
+      "expectation": "Uno scope generico non e' un alias della disease della query.",
+      "label": "generic cancer",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-07-GENERIC-CANCER",
+      "scenario": "generic_scope_not_case_specific"
+    },
+    {
+      "biomarker": "EGFR L858R",
+      "disease": "",
+      "expectation": "Senza disease nella query non c'e' domanda: audit-only, mai primary.",
+      "label": "missing disease",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-08-MISSING-DISEASE",
+      "scenario": "missing_query_disease"
+    },
+    {
+      "biomarker": "EGFR L858R",
+      "disease": "Breast Cancer",
+      "expectation": "Nessun biomarcatore o intervento exact compensa il mismatch disease.",
+      "label": "cross-disease",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "DQ-09-CROSS-DISEASE",
+      "scenario": "cross_disease_rejected"
+    },
+    {
+      "biomarker": "FGFR2::BICC1 Fusion",
+      "disease": "Intrahepatic Cholangiocarcinoma",
+      "expectation": "Sezioni separate per dominio, senza ranking cross-domain.",
+      "label": "diagnostic FGFR2-BICC1 / iCCA",
+      "query_domain": "untyped_evidence_query",
+      "query_id": "DQ-10-DIAGNOSTIC-FGFR2-BICC1-ICCA",
+      "scenario": "untyped_query_sectioned"
+    }
+  ],
+  "generated_by": "benchmarks/mtb_evidence/evaluation/scripts/build_disease_hierarchy_policy.py",
+  "generic_scope_keys": [
+    "cancer",
+    "malignancy",
+    "pan cancer",
+    "pan-cancer",
+    "solid tumor",
+    "solid tumour",
+    "unspecified cancer",
+    "unspecified malignancy",
+    "unspecified tumor",
+    "unspecified tumour"
+  ],
+  "integrity": {
+    "evaluation_reference_deserialized": false,
+    "evaluation_reference_used": false,
+    "frozen_scientific_artifact_sha256": {
+      "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/contract_manifest.json": "38d5ebc40fb0c1c82c91fb7708af71b072ff28313f03d4398e672cde7c60e8c8",
+      "benchmarks/mtb_evidence/v3/disease_normalization_review/review_manifest.json": "bf3c9ba681f84a8923f47e597c4226d6ec84f2b8bcce92aa0f7b276e3b70aab7",
+      "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/adjudication_manifest.json": "38427bfc492464dfff2509ebc6c1b6fdaeda39c9fb61e3f172181f9018875cd7",
+      "benchmarks/mtb_evidence/v3/terminology_mapping_closure/terminology_review_manifest.json": "61b03bfd06b8542b3098b3be76a44b58747075cd95263a5925703b8a10d19315",
+      "benchmarks/mtb_evidence/v3/verified_disease_alias_fix/fix_manifest.json": "c9bef2c107d69480756aec978e3f16bca425795ee4687e75361e583ad2ec2a0c"
+    },
+    "operational_artifact_sha256_after": {
+      "backend/pipeline/evidence/qualification.py": "c1a12dd45d6b81c2f1b7583a60a204befe01494562e9668a44098811ac8abd4e",
+      "backend/pipeline/evidence/qualified_disease_matching.py": "2854d5c23e8502778b343a3e4c989985d356fb3d47520b0d4643a4b5e8449f52",
+      "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+      "backend/pipeline/evidence/qualified_retriever.py": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+      "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "benchmarks/mtb_evidence/pilot/audit_lib/disease.py": "7e3ab30006ba9c7ccdc80b1d2a4bd544159b3fa0044aee87e3501847986593b7",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed"
+    },
+    "operational_artifact_sha256_before": {
+      "backend/pipeline/evidence/qualification.py": "c1a12dd45d6b81c2f1b7583a60a204befe01494562e9668a44098811ac8abd4e",
+      "backend/pipeline/evidence/qualified_disease_matching.py": "2854d5c23e8502778b343a3e4c989985d356fb3d47520b0d4643a4b5e8449f52",
+      "backend/pipeline/evidence/qualified_retrieval_scoring.py": "bb9d9ddf4add6882be4c26d6a97542ba80a130bbff5cf191b4a6e12e324dde19",
+      "backend/pipeline/evidence/qualified_retriever.py": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+      "backend/pipeline/evidence/qualified_retriever_scoring_config.json": "57d76d377029ba5c92cf4785d8143e2d06d02b6dc0e0c1d7ef57ea118e553fd4",
+      "backend/pipeline/evidence/repository.py": "c6fdc1a3f0a0b5cd7187e7d4c702d20188538957954386ec8f091fe33ca07749",
+      "backend/pipeline/evidence/v2_adapter.py": "5eb000fe2825138a92bec98cd9c6b4c41c6a547c6964cddf701f303ffb953aac",
+      "benchmarks/mtb_evidence/pilot/audit_lib/disease.py": "7e3ab30006ba9c7ccdc80b1d2a4bd544159b3fa0044aee87e3501847986593b7",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/evidence_statements.jsonl": "379a06c14c01424892d205fc2fbf89c2516c960bb07123645a76172ba6b6c4f4",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualification_links.jsonl": "b4a98346ab493aa7be90874bf6e78de1f83f6e16e5cc8387a9538b9e0f23e68f",
+      "benchmarks/mtb_evidence/v3/qualification_corpus_v2/qualified_evidence_views.jsonl": "eef0308740309088436c0f406497a194009a6270293c6784100670c6f2d225ed"
+    },
+    "operational_corpus_modified": false,
+    "operational_disease_matcher_modified": false,
+    "operational_hash_parity": true,
+    "operational_modules_modified": false,
+    "shadow_repositories_modified": false,
+    "shadow_repository_manifest_sha256": {
+      "1.0": "4cc41df934adab5cfacec2330a1349396e45db7042c3c53a8292ca283ec80f9d",
+      "1.1": "4d37a8c2c5d1a0e79d28b3e2b92b0c381fc41a54c2c324e40981fd00aabd0fac",
+      "1.2": "37864b2d2fd185c988ea0be574933dee76c70233678eb50ff583bc146120b39d"
+    },
+    "terminology_closure_manifest_sha256": "61b03bfd06b8542b3098b3be76a44b58747075cd95263a5925703b8a10d19315"
+  },
+  "migration": {
+    "already_compatible": 3,
+    "changes_required": 13,
+    "finding_count": 16
+  },
+  "phase": "disease-hierarchy-policy/1.0",
+  "python_version": "3.12",
+  "readiness": {
+    "corpus_promotion_ready": false,
+    "current_retriever_compatibility_audited": true,
+    "directional_relation_contract_frozen": true,
+    "explicit_hierarchy_relations_frozen": true,
+    "full_exploratory_rerun_ready": false,
+    "generic_scope_policy_frozen": true,
+    "migration_findings": 16,
+    "modes_defined": 3,
+    "ontology_warning_policy_frozen": true,
+    "operational_retriever_migration_ready": false,
+    "primary_bucket_identical_across_modes": true,
+    "regression_cases": 17,
+    "relation_types_defined": 11,
+    "shadow_disease_gate_update_ready": true,
+    "sibling_policy_frozen": true,
+    "simulated_pairs": 1480,
+    "strict_policy_frozen": true,
+    "terminology_shadow_update_ready": true,
+    "verified_alias_policy_frozen": true
+  },
+  "regression_case_count": 17,
+  "relation_types": [
+    "exact_disease",
+    "normalized_exact_disease",
+    "verified_disease_alias",
+    "claim_is_child_of_query",
+    "claim_is_parent_of_query",
+    "disease_sibling",
+    "generic_cancer_scope",
+    "cross_disease",
+    "unresolved_disease_relation",
+    "missing_query_disease",
+    "missing_claim_disease"
+  ],
+  "scope": {
+    "aliases_created": 0,
+    "claim_source": "benchmarks/mtb_evidence/v3/diagnostic_disease_scope_narrowing_shadow/evidence_claims_v1_2.jsonl",
+    "claim_source_sha256": "f951a01feb2ed00fb694d31c455043817458563e6f3f2aab96e688b4594d047a",
+    "claims_simulated": 148,
+    "combination_count": 4440,
+    "contract_version": "directional-disease-match-contract/1.0",
+    "default_mode_proposed_for_promotion": "strict_verified",
+    "disease_hierarchy_activated_in_operational_retriever": false,
+    "embedding_used": false,
+    "expected_claim_count": 148,
+    "frozen_query_count": 10,
+    "fuzzy_matching_used": false,
+    "gate_implemented_in_operational_retriever": false,
+    "gold_used": false,
+    "llm_used": false,
+    "mode_count": 3,
+    "parent_and_child_never_primary": true,
+    "perimeter_matches_expectation": true,
+    "phase": "disease-hierarchy-policy/1.0",
+    "primary_bucket_is_mode_invariant": true,
+    "propagation_policy": "prototype_only",
+    "relation_coverage": {
+      "covered_by_contract_probe": [
+        "normalized_exact_disease",
+        "missing_claim_disease"
+      ],
+      "relation_types_observed": {
+        "claim_is_child_of_query": 48,
+        "claim_is_parent_of_query": 111,
+        "cross_disease": 732,
+        "disease_sibling": 5,
+        "exact_disease": 51,
+        "generic_cancer_scope": 204,
+        "missing_query_disease": 148,
+        "unresolved_disease_relation": 19,
+        "verified_disease_alias": 162
+      },
+      "relation_types_without_corpus_occurrence": [
+        "normalized_exact_disease",
+        "missing_claim_disease"
+      ]
+    },
+    "relation_sources": [
+      "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SUBTYPE_OF",
+      "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+      "verified-local-disease-aliases/1.0",
+      "benchmarks/mtb_evidence/v3/disease_normalization_review/review_manifest.json",
+      "benchmarks/mtb_evidence/v3/verified_disease_alias_fix/fix_manifest.json"
+    ],
+    "relations_created": 0,
+    "retrieval_metrics_used": false,
+    "review_independence": "non_independent",
+    "review_status": "first_review_complete",
+    "reviewer_role": "author_disease_policy_reviewer",
+    "start_sha": "f9a7160174b7f20e7be7bd9fe3ee3b73b4c27903",
+    "substring_matching_used": false,
+    "unregistered_knowledge_used": false
+  },
+  "simulation": {
+    "claims": 148,
+    "combinations": 4440,
+    "modes": 3,
+    "pairs": 1480,
+    "queries": 10
+  },
+  "test_framework": "unittest (stdlib)"
+}
