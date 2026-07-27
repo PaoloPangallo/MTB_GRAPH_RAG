@@ -1,0 +1,360 @@
+{
+  "artifact_sha256": {
+    "claim_replacement_lineage.jsonl": "5f6bfe9cc69cf5e441d5d2eb1eb7dad00d0faba8f13cc24bbe463d5ef421bd89",
+    "deprecated_claims.jsonl": "4fc60c1e52f3850edaba7096b538b74c3fe3f2f19bdefd011490d4aed3b99f7c",
+    "diagnostic_claims.jsonl": "9fe1ec838639250feaa93b9f6791d68d64ef2875a63ddb68f2ba99e92b3fe912",
+    "disease_relation_registry.json": "eb9d3431eb3294318f0b0f3ee694e92591a0e8917e5e5e7de0b312c66f116395",
+    "evidence_claims.jsonl": "28c2614840e3a51be45de189088fde4108a732c6c68e0e6c5dc3edf712dce517",
+    "formulation_registry.jsonl": "9bfaf03b4ec142aa6f2ab91ac8627b2ef3557c65acc37821bc5f4c500532d8e0",
+    "graph_evidence_parents.jsonl": "152327cc74801806b6916a26f99b7c220ff2eb0c84599a2c59827a04c8a3926d",
+    "prognostic_claims.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualification_links.jsonl": "6856a3cc631f149d44e0bc3104ec8db11392e6003ea73a580fff49de799d624c",
+    "qualified_evidence_views.jsonl": "266076f24771c5c4f5f9dd6cc0ce00a220fd46e89930437115076ebaa9dc79ea",
+    "terminology_registry.json": "0fb3ba96d51d6f45bfa1fcafb99c0cacc43b27610babc80f5dd075c849846778",
+    "therapeutic_claims.jsonl": "512c17918c4283591525b21a4d34cc781aa2a3c45bf15ddc982e9ecce0eedaa0",
+    "unresolved_associations.jsonl": "5013fd853dc5c5f2702e2fcd32ab4a848a6c5524faab51f12d6d9b882d5ecd7a",
+    "unsupported_associations.jsonl": "95b4eabca69c9ba9ed816e5a0ea44785297aaff812f21a64dba6a62258087aaf"
+  },
+  "clinical_readiness": false,
+  "corpus_path": "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4",
+  "counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "by_claim_type": {
+      "aggregate_intervention_claim": 3,
+      "atomic_intervention_claim": 140,
+      "diagnostic_claim": 2,
+      "regimen_claim": 3
+    },
+    "deduplications": 0,
+    "deprecated_claims": 4,
+    "deprecated_claims_present_among_active": 0,
+    "diagnostic_claims": 2,
+    "id_collisions": 0,
+    "orphan_claims": 0,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "regimen_claims": 3,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "counts_match_expected": true,
+  "expected_counts": {
+    "active_claims_total": 148,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "deduplications": 0,
+    "deprecated_claims": 4,
+    "diagnostic_claims": 2,
+    "id_collisions": 0,
+    "orphan_claims": 0,
+    "parents": 147,
+    "parents_without_claims": 3,
+    "prognostic_claims": 0,
+    "regimen_claims": 3,
+    "therapeutic_claims": 146,
+    "unresolved_associations": 6,
+    "unsupported_associations": 6
+  },
+  "final_evaluable": false,
+  "formulation": {
+    "audit_only_forms": [
+      "alectinib hydrochloride",
+      "infigratinib hydrochloride",
+      "neratinib maleate"
+    ],
+    "contract": "intervention_formulation_contract/1.0",
+    "external_terminology_review_pending": true,
+    "new_forms_resolved_by_promotion": 0,
+    "registry_entries": 1,
+    "registry_version": "verified_formulation_registry/1.0",
+    "retained_with_warning_forms": [
+      "infigratinib phosphate"
+    ],
+    "salt_form_claim_ids": [
+      "CLM-0e59264facd7b2df0e67",
+      "CLM-0f234bc9c53847910521",
+      "CLM-43229efd0cd8f2fd58d5",
+      "CLM-464501e94094614459f5",
+      "CLM-68b84650d65add6c5696",
+      "CLM-75b47fea10f5fe62aeb9",
+      "CLM-8a0fde4cfe059b58dc01",
+      "CLM-a7de634d04f61036f3ec",
+      "CLM-af5265811e7ab991e7b1",
+      "CLM-bd4e24be0a4719119976",
+      "CLM-cf53824b662b10f776df",
+      "CLM-d3951a629938118cac1b"
+    ],
+    "salt_form_claims_outside_primary_for_bare_moiety_query": 12,
+    "salt_gate_relaxed_by_promotion": false,
+    "suffix_normalization_used": false,
+    "verified_relations": 1
+  },
+  "gold_used": false,
+  "lineage": {
+    "graph_evidence_ids": 144,
+    "legacy_statement_ids": 133,
+    "parents_without_claims": [
+      "GEP-196852cad6cdb8afba03",
+      "GEP-8c4b0c587c4a16c2e690",
+      "GEP-93065c9b63c4dd9c7059"
+    ],
+    "probes": {
+      "evidence:11240": {
+        "active_claim_ids": [
+          "CLM-9ab06b6945feea941252",
+          "CLM-ac64c0e56246f6ea29ca"
+        ],
+        "parent_ids": [
+          "GEP-d8e0a9d42a7e653f4a53"
+        ],
+        "retired_claim_ids": [],
+        "unresolved_association_ids": [],
+        "unsupported_association_ids": []
+      },
+      "evidence:1846": {
+        "active_claim_ids": [
+          "CLM-8941c177da91f66ff93a"
+        ],
+        "parent_ids": [
+          "GEP-f73a180a63fd22932198"
+        ],
+        "retired_claim_ids": [
+          "CLM-2175b95ae3113c4f5d97"
+        ],
+        "unresolved_association_ids": [],
+        "unsupported_association_ids": []
+      },
+      "evidence:1847": {
+        "active_claim_ids": [
+          "CLM-a7e1c40b794d2c4d4ca8"
+        ],
+        "parent_ids": [
+          "GEP-1b7a5d64d605bc2a92c1"
+        ],
+        "retired_claim_ids": [
+          "CLM-7056003a9bdef747f514"
+        ],
+        "unresolved_association_ids": [],
+        "unsupported_association_ids": []
+      },
+      "evidence:1851": {
+        "active_claim_ids": [
+          "CLM-90e863f00f134fc3cd3d"
+        ],
+        "parent_ids": [
+          "GEP-d7085106bdd9a024ff4c"
+        ],
+        "retired_claim_ids": [
+          "CLM-a7c903cf8d423f015e29"
+        ],
+        "unresolved_association_ids": [
+          "UNR-45adc52a7eb9696c1aca"
+        ],
+        "unsupported_association_ids": []
+      },
+      "evidence:1853": {
+        "active_claim_ids": [
+          "CLM-5071bb2d8657ac0fbed0"
+        ],
+        "parent_ids": [
+          "GEP-ee90f3e190e6ca617027"
+        ],
+        "retired_claim_ids": [
+          "CLM-aae818bbc8ec735a255d"
+        ],
+        "unresolved_association_ids": [
+          "UNR-0735290c4b6f33a27c79"
+        ],
+        "unsupported_association_ids": []
+      },
+      "evidence:347": {
+        "active_claim_ids": [],
+        "parent_ids": [
+          "GEP-93065c9b63c4dd9c7059"
+        ],
+        "retired_claim_ids": [],
+        "unresolved_association_ids": [],
+        "unsupported_association_ids": []
+      },
+      "evidence:3811": {
+        "active_claim_ids": [],
+        "parent_ids": [
+          "GEP-8c4b0c587c4a16c2e690"
+        ],
+        "retired_claim_ids": [],
+        "unresolved_association_ids": [
+          "UNR-bc192774b66116745142",
+          "UNR-cc554dd0543c62b87120",
+          "UNR-daa72cbff92e7435e1dc"
+        ],
+        "unsupported_association_ids": []
+      },
+      "evidence:4759": {
+        "active_claim_ids": [],
+        "parent_ids": [
+          "GEP-196852cad6cdb8afba03"
+        ],
+        "retired_claim_ids": [],
+        "unresolved_association_ids": [],
+        "unsupported_association_ids": [
+          "UNS-f48e93e6069b8e3da21e",
+          "UNS-fb9ef28c06cdd1fb8352"
+        ]
+      }
+    },
+    "redirect_targets_not_active": [],
+    "redirects": {
+      "CLM-2175b95ae3113c4f5d97": "CLM-8941c177da91f66ff93a",
+      "CLM-7056003a9bdef747f514": "CLM-a7e1c40b794d2c4d4ca8",
+      "CLM-a7c903cf8d423f015e29": "CLM-90e863f00f134fc3cd3d",
+      "CLM-aae818bbc8ec735a255d": "CLM-5071bb2d8657ac0fbed0"
+    },
+    "retired_claims_present_in_primary_lookup": [],
+    "retired_claims_without_redirect": [],
+    "unresolved_association_ids": [
+      "UNR-0735290c4b6f33a27c79",
+      "UNR-1d3077c5adcc0166fbe9",
+      "UNR-45adc52a7eb9696c1aca",
+      "UNR-bc192774b66116745142",
+      "UNR-cc554dd0543c62b87120",
+      "UNR-daa72cbff92e7435e1dc"
+    ],
+    "unsupported_association_ids": [
+      "UNS-053b68a4981433283a52",
+      "UNS-2e6043e59bb1641df142",
+      "UNS-a0ba144f095b8a755066",
+      "UNS-cab528def2c605071a5e",
+      "UNS-f48e93e6069b8e3da21e",
+      "UNS-fb9ef28c06cdd1fb8352"
+    ]
+  },
+  "links": {
+    "actions_applied": 37,
+    "active_links": 17,
+    "active_links_targeting_deprecated_claims": 0,
+    "active_links_without_active_target": 0,
+    "all_executed_in_promoted_namespace": true,
+    "by_action_type": {
+      "create_claim_link": 17,
+      "retire_claim_link": 4,
+      "retire_statement_link": 16
+    },
+    "duplicate_link_ids": [],
+    "historical_plan_left_unexecuted": true,
+    "locators_preserved": 21,
+    "retired_links": 20,
+    "schema_uniform": true,
+    "source_units_preserved": 21
+  },
+  "llm_used": false,
+  "model_version": "qualified_claim_model/1.2",
+  "neo4j_used": false,
+  "network_used": false,
+  "operational_retriever_bound": false,
+  "phase": "prototype-corpus-promotion/1.4",
+  "policy": {
+    "allowed_policy_modes": [
+      "strict_verified",
+      "ontology_aware_warning",
+      "audit_all"
+    ],
+    "default_policy_mode": "strict_verified",
+    "silent_fallback_permitted": false,
+    "unknown_policy_mode_behavior": "reject",
+    "unspecified_mode_resolves_to": "strict_verified"
+  },
+  "promoted_at": "2026-07-27T00:00:00Z",
+  "promotion_commit": "78647dd9566679df458bfc561b7e6412d01ae64c",
+  "promotion_status": "prototype_promoted",
+  "propagation": {
+    "aggregate_required_fields": [
+      "member_propagation_allowed",
+      "permits_member_specific_claims"
+    ],
+    "allowed_propagation_policies": [
+      "none",
+      "prototype_only",
+      "final"
+    ],
+    "contract_version": "claim_propagation_contract/1.0",
+    "deserialization_default": null,
+    "implicit_defaults_permitted": false,
+    "model_schema_version": "qualified_claim_model/1.2",
+    "reason_codes": {
+      "aggregate_member": "AGGREGATE_RESULT_NOT_SEPARABLE_BY_MEMBER",
+      "member_propagation": "MEMBER_PROPAGATION_FORBIDDEN",
+      "missing": "PROPAGATION_POLICY_MISSING",
+      "regimen_component": "COMPONENT_PROPAGATION_FORBIDDEN",
+      "regimen_result": "REGIMEN_RESULT_APPLIES_TO_COMBINATION",
+      "unknown": "PROPAGATION_POLICY_UNKNOWN"
+    },
+    "record_without_policy_is_rejected": true,
+    "regimen_required_fields": [
+      "member_propagation_allowed",
+      "result_applies_to_combination"
+    ],
+    "required_fields": [
+      "propagation_policy",
+      "hard_filterable",
+      "final_evaluable"
+    ],
+    "rule": "Ogni claim tipizzato dichiara propagation_policy, hard_filterable e final_evaluable. La deserializzazione rifiuta un record che non li porta invece di assegnarne uno: un default in lettura farebbe decidere al parser cio' che deve decidere la revisione."
+  },
+  "prototype_promoted": true,
+  "repository_version": "qualified_claim_repository/1.4",
+  "schema_version": "promoted_corpus_schema/1.0",
+  "source_artifact_sha256": {
+    "backward compatibility 1.4": "59a0aaba53df2a0ceac29066997551f6f6180df992c04f04dd0ac5679fd71bac",
+    "claims 1.4": "28c2614840e3a51be45de189088fde4108a732c6c68e0e6c5dc3edf712dce517",
+    "deprecated 1.3": "7ab92d0bbeae6007d6ab6af426e682c38e8d6fc7aa3821f7a88ad789ad8f5ba5",
+    "disease match contract": "88150c7b75d09ffbc77dab7915cc64de73ab119c4b186742f44bd21ffe5c0d21",
+    "disease policy modes": "bf360891f0a2a4315aff4e00c5f38459dcd01b97424450fcf54a834a05c45c08",
+    "disease relation definitions": "ac1773d7310139c1370d1b767f5557a28a19cbff2d46ea33b600f040f26310bb",
+    "formulation gate simulation 1.4": "6375c3deec74cd30f1ce9b6ac2d4fcaa4a5f5eda8099ef9e44fd2ccfa7580118",
+    "formulation registry 1.4": "9bfaf03b4ec142aa6f2ab91ac8627b2ef3557c65acc37821bc5f4c500532d8e0",
+    "lineage 1.3": "87353880fdfa4dbd1a871f05a233ce295d61ea13d2a87a26f9ce5c8c02bf3108",
+    "link plan 1.4": "598dfa0c5b4d0bf26310b2abbeef71021ffcaa92a10c7071f9b61c05029a839a",
+    "manifest 1.4": "83fcb9bb86577f917ff75b7812592ffda8def228eae6764668435beedee83d3c",
+    "parents 1.3": "683b8e1e18254800c3612f6dc871588b12594ab915e72b91021ab269933b349e",
+    "replacement map 1.2": "81d83bbdd872a93e02b522c2976defb58dfa1fc3051c060729d3e9ca7707973e",
+    "terminology registry 1.3": "0fb3ba96d51d6f45bfa1fcafb99c0cacc43b27610babc80f5dd075c849846778",
+    "unresolved 1.3": "5013fd853dc5c5f2702e2fcd32ab4a848a6c5524faab51f12d6d9b882d5ecd7a",
+    "unsupported 1.3": "95b4eabca69c9ba9ed816e5a0ea44785297aaff812f21a64dba6a62258087aaf",
+    "verified alias registry": "90da6d1688bd5e8622cdc176785d3ead202d490e6d7dd8dba1715b09b93208f0",
+    "view plan 1.3": "a7286c1c05d935a5600b401c55ff6385988b06ec60220df429cefdc773e7f417"
+  },
+  "source_shadow_sha256": "22d5d730969277eab7c470ebed02e8a6503a3500ab537ec547425d3d99bfb72d",
+  "source_shadow_version": "qualified_claim_repository/1.4",
+  "terminology": {
+    "auy922_recommendation": "require_external_review",
+    "auy922_unresolved": true,
+    "bgj398_source_literal_preserved": true,
+    "bgj398_verified_mapping": "infigratinib",
+    "collisions": 0,
+    "deduplications": 0,
+    "external_terminology_review_pending": true,
+    "new_mappings_introduced_by_promotion": 0,
+    "queue_fully_resolved": false,
+    "registry_version": "shadow_terminology_registry/1.0",
+    "source_literals_preserved": true,
+    "suffix_normalization_used": false
+  },
+  "views": {
+    "actions_applied": 4,
+    "cross_domain_ranking_present": false,
+    "diagnostic_views_in_diagnostic_section": 2,
+    "materialized_views": 2,
+    "members_flattened_into_separate_views": 0,
+    "non_flattenable_claims_referenced": [
+      "CLM-5071bb2d8657ac0fbed0",
+      "CLM-90e863f00f134fc3cd3d"
+    ],
+    "orphan_views": [],
+    "therapy_score_on_diagnostic_views": 0,
+    "verified_without_regeneration": 2
+  }
+}
