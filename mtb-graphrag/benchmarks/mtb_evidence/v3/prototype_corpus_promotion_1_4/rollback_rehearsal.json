@@ -1,0 +1,61 @@
+{
+  "active_prototype_corpus_after": null,
+  "corpus_loadable_after_rollback": false,
+  "first_run": {
+    "active_prototype_corpus_after": null,
+    "changed": true,
+    "corpus_files_retained": true,
+    "corpus_path_after": "qualified_claim_repository_1_4",
+    "mode": "retain_for_audit",
+    "operational_binding_observed": false,
+    "preserved_files_present": [
+      "claim_replacement_lineage.jsonl",
+      "promotion_log.json",
+      "rollback_metadata.json"
+    ],
+    "previous_pointer_restored": null,
+    "registry_entry_deactivated": true
+  },
+  "idempotent": true,
+  "move_to_inactive_run": {
+    "active_prototype_corpus_after": null,
+    "changed": true,
+    "corpus_files_retained": true,
+    "corpus_path_after": "qualified_claim_repository_1_4.inactive",
+    "mode": "move_to_inactive",
+    "operational_binding_observed": false,
+    "preserved_files_present": [
+      "claim_replacement_lineage.jsonl",
+      "promotion_log.json",
+      "rollback_metadata.json"
+    ],
+    "previous_pointer_restored": null,
+    "registry_entry_deactivated": true
+  },
+  "operational_artifacts_unchanged": true,
+  "operational_retriever_was_never_bound": true,
+  "performed_on_copy": true,
+  "performed_on_promoted_corpus": false,
+  "preserved_files": [
+    "claim_replacement_lineage.jsonl",
+    "promotion_log.json",
+    "rollback_metadata.json"
+  ],
+  "registry_entry_status_after": "inactive",
+  "second_run": {
+    "active_prototype_corpus_after": null,
+    "changed": false,
+    "corpus_files_retained": true,
+    "corpus_path_after": "qualified_claim_repository_1_4",
+    "mode": "retain_for_audit",
+    "operational_binding_observed": false,
+    "preserved_files_present": [
+      "claim_replacement_lineage.jsonl",
+      "promotion_log.json",
+      "rollback_metadata.json"
+    ],
+    "previous_pointer_restored": null,
+    "registry_entry_deactivated": true
+  },
+  "workspace_kind": "temporary_directory_outside_the_repository"
+}

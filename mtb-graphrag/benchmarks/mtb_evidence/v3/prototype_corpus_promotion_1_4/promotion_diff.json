@@ -1,0 +1,63 @@
+{
+  "active_rows": 148,
+  "claim_ids_added": [],
+  "claim_ids_changed": 0,
+  "claim_ids_removed": [],
+  "deprecated_rows": 4,
+  "derived_from": "qualified_claim_repository/1.4",
+  "derived_from_previous_diff": false,
+  "files_created": [
+    "claim_replacement_lineage.jsonl",
+    "corpus_manifest.json",
+    "corpus_registry_entry.json",
+    "deprecated_claims.jsonl",
+    "diagnostic_claims.jsonl",
+    "disease_relation_registry.json",
+    "evidence_claims.jsonl",
+    "formulation_registry.jsonl",
+    "graph_evidence_parents.jsonl",
+    "prognostic_claims.jsonl",
+    "promotion_log.json",
+    "qualification_links.jsonl",
+    "qualified_evidence_views.jsonl",
+    "rollback_metadata.json",
+    "terminology_registry.json",
+    "therapeutic_claims.jsonl",
+    "unresolved_associations.jsonl",
+    "unsupported_associations.jsonl"
+  ],
+  "files_created_count": 18,
+  "lineage_rows": 4,
+  "links_applied": 37,
+  "links_left_active": 17,
+  "operational_files_changed": 0,
+  "operational_query_behavior_changed": false,
+  "propositions_added": 0,
+  "propositions_removed": 0,
+  "registry_changes": {
+    "active_prototype_corpus_after": "qualified_claim_repository/1.4",
+    "active_prototype_corpus_before": null,
+    "entries_added": [
+      "qualified_claim_repository/1.4"
+    ],
+    "operational_configuration_changed": false,
+    "operational_retriever_bound_after": false,
+    "registry_created": true,
+    "registry_relpath": "backend/pipeline/evidence/corpus/v3/prototype_corpus_registry.json"
+  },
+  "schema_changes": {
+    "claim_model_version": "qualified_claim_model/1.2",
+    "corpus_schema_version": "promoted_corpus_schema/1.0",
+    "deprecated_claims_declared_propagation_fields": [
+      "CLM-a7c903cf8d423f015e29",
+      "CLM-aae818bbc8ec735a255d"
+    ],
+    "deprecated_schema_version_after": "qualified_claim_model/1.2",
+    "link_schema_version": "promoted_qualification_link/1.0",
+    "propositions_affected_by_schema_change": 0,
+    "view_schema_version": "promoted_qualified_evidence_view/1.0"
+  },
+  "shadow_deprecated_rows": 4,
+  "views_materialized": 2,
+  "views_verified_without_regeneration": 2
+}
