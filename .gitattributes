@@ -1,0 +1,26 @@
+# Fine riga normalizzata a LF in checkout, su ogni piattaforma.
+#
+# Senza questo file il checkout dipende da `core.autocrlf` della macchina, e su
+# Windows produce CRLF. Gli audit congelati verificano l'integrita' dei sorgenti
+# con lo sha256 dei byte del file: un checkout CRLF cambia quei byte, e ogni
+# hash congelato risulta violato. Su un clone pulito fallivano 66 test, tutti
+# per questa ragione e nessuno per un difetto del codice.
+#
+# La normalizzazione va dichiarata qui e non risolta caso per caso: un hash di
+# integrita' e' una promessa sui byte, e i byte devono essere gli stessi ovunque
+# il repository venga aperto.
+* text=auto eol=lf
+
+# Binari: nessuna conversione, nemmeno tentata.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.xlsx binary
+*.xls binary
+*.zip binary
+*.gz binary
+*.db binary
+*.sqlite3 binary
+*.pyc binary
