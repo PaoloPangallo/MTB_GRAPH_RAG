@@ -36,6 +36,7 @@ from typing import Any
 
 from backend.pipeline.evidence.shadow import integrated_gates_v11 as GATE
 from backend.pipeline.evidence.shadow import integrated_gates_v12 as GATE_V12
+from backend.pipeline.evidence.shadow import integrated_gates_v13 as GATE_V13
 
 RESULT_SCHEMA_VERSION = "qualified_claim_retrieval_result/1.4"
 
@@ -44,10 +45,12 @@ RESULT_SCHEMA_VERSION = "qualified_claim_retrieval_result/1.4"
 # resta fuori dal payload canonico. E' cio' che permette di rieseguire una misura
 # della fase precedente senza rigenerarne un solo artefatto.
 RESULT_SCHEMA_VERSION_V15 = GATE_V12.OUTPUT_CONTRACT_VERSION
+RESULT_SCHEMA_VERSION_V16 = GATE_V13.OUTPUT_CONTRACT_VERSION
 
 SCHEMA_FOR_GATE = {
     GATE.GATE_VERSION: RESULT_SCHEMA_VERSION,
     GATE_V12.GATE_VERSION: RESULT_SCHEMA_VERSION_V15,
+    GATE_V13.GATE_VERSION: RESULT_SCHEMA_VERSION_V16,
 }
 
 # I campi della traccia dei gate, dichiarati una volta sola.
@@ -58,6 +61,10 @@ GATE_TRACE_FIELDS = (
     "gate_local_buckets",
     "gate_version",
 )
+
+# Il campo che il solo gate 1.3 aggiunge alla traccia: la direzione con cui la
+# relazione booleana e' stata decisa.
+GATE_TRACE_FIELDS_V16 = GATE_TRACE_FIELDS + ("biomarker_direction",)
 
 PRIMARY_BUCKET = GATE.PRIMARY_BUCKET
 WARNING_BUCKET = GATE.WARNING_BUCKET
@@ -415,7 +422,10 @@ def result_schema(gate: Any = None) -> dict[str, Any]:
         "schema_version": schema_version,
         "sections": list(SECTIONS),
     }
-    if schema_version != RESULT_SCHEMA_VERSION:
+    if schema_version == RESULT_SCHEMA_VERSION_V16:
+        payload["gate_trace_fields"] = list(GATE_TRACE_FIELDS_V16)
+        payload["supersedes"] = RESULT_SCHEMA_VERSION_V15
+    elif schema_version != RESULT_SCHEMA_VERSION:
         payload["gate_trace_fields"] = list(GATE_TRACE_FIELDS)
         payload["supersedes"] = RESULT_SCHEMA_VERSION
     return payload
@@ -426,10 +436,12 @@ __all__ = [
     "BUCKETS",
     "DEFAULT_RENDERED_BUCKETS",
     "GATE_TRACE_FIELDS",
+    "GATE_TRACE_FIELDS_V16",
     "PRIMARY_BUCKET",
     "REJECTED_BUCKET",
     "RESULT_SCHEMA_VERSION",
     "RESULT_SCHEMA_VERSION_V15",
+    "RESULT_SCHEMA_VERSION_V16",
     "SCHEMA_FOR_GATE",
     "SECTIONS",
     "SECTION_FOR_DOMAIN",
