@@ -11,6 +11,30 @@
 # il repository venga aperto.
 * text=auto eol=lf
 
+# --- eccezioni: file la cui fine riga fa parte di una promessa gia' congelata ---
+#
+# Dodici artefatti congelati, di otto fasi chiuse, registrano lo sha256 dei byte
+# di questi file. Su questa macchina sono stati misurati nella loro forma CRLF;
+# la regola generale qui sopra li consegnerebbe in LF, e ogni hash congelato
+# risulterebbe violato in qualunque checkout pulito. Fra gli artefatti coinvolti
+# ci sono `corpus_manifest.json`, `promotion_log.json` e
+# `disease_relation_registry.json` del corpus promosso, che ogni fase dichiara
+# congelato: rigenerarli non e' un'opzione, e la convenzione va dichiarata qui.
+#
+# Non e' una preferenza di stile. E' la registrazione della forma sotto cui
+# l'impronta e' stata presa: cambiarla significherebbe rompere la verifica, non
+# migliorarla.
+mtb-graphrag/backend/pipeline/evidence/qualification.py eol=crlf
+mtb-graphrag/benchmarks/mtb_evidence/v3/disease_hierarchy_policy/*.json eol=crlf
+mtb-graphrag/benchmarks/mtb_evidence/v3/first_review/FIRST_REVIEW_QUEUE.md eol=crlf
+mtb-graphrag/benchmarks/mtb_evidence/v3/first_review/first_review_queue.csv eol=crlf
+
+# Forma mista: 949 fine riga LF e uno CRLF. Nessuna conversione puo' produrre un
+# CRLF isolato, quindi i byte vanno conservati come sono. E' l'unico modo di
+# rendere verificabile in un clone pulito l'hash che otto artefatti congelati
+# registrano — l'alternativa sarebbe rigenerare quegli otto artefatti.
+mtb-graphrag/backend/pipeline/evidence/qualified_retriever.py -text
+
 # Binari: nessuna conversione, nemmeno tentata.
 *.png binary
 *.jpg binary
