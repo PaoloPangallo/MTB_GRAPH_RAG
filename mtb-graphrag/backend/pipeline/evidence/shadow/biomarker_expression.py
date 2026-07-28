@@ -91,8 +91,19 @@ COMPATIBLE_MATCH_TYPES = frozenset(
 # I match type in cui la query raggiunge il claim per una relazione booleana e non
 # per il letterale: il gate 1.1 va interrogato con l'espressione del claim, non
 # con quella della query, altrimenti risponderebbe alla domanda sbagliata.
+#
+# `exact_boolean_set` e' in questo insieme e non fra le identita' letterali, ed e'
+# una distinzione che costa un bug se la si sbaglia: `A AND B` e `B AND A` sono
+# la stessa espressione per questo modulo ma due stringhe diverse per il gate
+# 1.1, e dichiarare la coppia compatibile senza sostituire lascerebbe il gate a
+# valle a respingerla sull'ordine delle parole. La compatibilita' dichiarata
+# dev'essere anche la compatibilita' esercitata.
 SUBSTITUTING_MATCH_TYPES = frozenset(
-    {MATCH_DISJUNCT_MEMBER, MATCH_CONJUNCTION_SATISFIED}
+    {
+        MATCH_EXACT_BOOLEAN_SET,
+        MATCH_DISJUNCT_MEMBER,
+        MATCH_CONJUNCTION_SATISFIED,
+    }
 )
 
 # --- reason code --------------------------------------------------------------
@@ -227,10 +238,31 @@ class BiomarkerMatch:
         }
 
 
+_OPERATOR_WORDS = ("or", "and")
+
+
+def _is_malformed(term: str) -> bool:
+    """Un termine che porta ancora un operatore non e' un termine.
+
+    Un operatore doppio (`A OR OR B`) non produce un termine vuoto: lo split
+    consuma il primo separatore e lascia `or b`, che passerebbe per il nome di un
+    biomarcatore. Accettarlo significherebbe confrontare `or b` con i letterali
+    del corpus e concludere che non corrisponde a niente — una risposta
+    plausibile alla domanda sbagliata.
+    """
+    if not term:
+        return True
+    if term in _OPERATOR_WORDS:
+        return True
+    first, _, _ = term.partition(" ")
+    *_, last = term.rpartition(" ")
+    return first in _OPERATOR_WORDS or last in _OPERATOR_WORDS
+
+
 def _split_terms(text: str, separator: str) -> tuple[str, ...]:
-    """Termini deduplicati e ordinati. Un termine vuoto rende l'espressione illeggibile."""
+    """Termini deduplicati e ordinati. Un termine malformato rende l'espressione illeggibile."""
     parts = [part.strip() for part in text.split(separator)]
-    if any(not part for part in parts):
+    if any(_is_malformed(part) for part in parts):
         return ()
     return tuple(sorted(set(parts)))
 
@@ -258,6 +290,11 @@ def canonical(value: Any) -> BiomarkerExpression:
         return BiomarkerExpression(OP_UNRESOLVED, (), literal)
 
     if not has_or and not has_and:
+        # Un operatore in testa o in coda non produce un separatore — non ha
+        # spazi da entrambi i lati — e l'espressione sembrerebbe un termine solo
+        # con un pezzo di sintassi attaccato.
+        if _is_malformed(literal):
+            return BiomarkerExpression(OP_UNRESOLVED, (), literal)
         return BiomarkerExpression(OP_SINGLE, (literal,), literal)
 
     separator = _OR_SEPARATOR if has_or else _AND_SEPARATOR
