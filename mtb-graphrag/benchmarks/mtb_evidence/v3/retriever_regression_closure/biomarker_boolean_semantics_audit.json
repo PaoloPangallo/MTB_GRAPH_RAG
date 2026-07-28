@@ -1,0 +1,1260 @@
+{
+  "cases": [
+    {
+      "axis_bucket": "primary_ranked_results",
+      "claim": "EGFR L858R OR EGFR Exon 19 Deletion",
+      "claim_expression": {
+        "literal": "egfr l858r or egfr exon 19 deletion",
+        "operator": "or",
+        "terms": [
+          "egfr exon 19 deletion",
+          "egfr l858r"
+        ]
+      },
+      "compatible": true,
+      "match_type": "disjunct_member",
+      "query": "EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r",
+        "operator": "single",
+        "terms": [
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT"
+      ],
+      "scenario": "A OR B con query A",
+      "substitution_applied": true
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "claim": "EGFR L858R OR EGFR Exon 19 Deletion",
+      "claim_expression": {
+        "literal": "egfr l858r or egfr exon 19 deletion",
+        "operator": "or",
+        "terms": [
+          "egfr exon 19 deletion",
+          "egfr l858r"
+        ]
+      },
+      "compatible": true,
+      "match_type": "disjunct_member",
+      "query": "EGFR Exon 19 Deletion",
+      "query_expression": {
+        "literal": "egfr exon 19 deletion",
+        "operator": "single",
+        "terms": [
+          "egfr exon 19 deletion"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT"
+      ],
+      "scenario": "A OR B con query B",
+      "substitution_applied": true
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "claim": "EGFR L858R OR EGFR Exon 19 Deletion",
+      "claim_expression": {
+        "literal": "egfr l858r or egfr exon 19 deletion",
+        "operator": "or",
+        "terms": [
+          "egfr exon 19 deletion",
+          "egfr l858r"
+        ]
+      },
+      "compatible": true,
+      "match_type": "exact_boolean_set",
+      "query": "EGFR Exon 19 Deletion OR EGFR L858R",
+      "query_expression": {
+        "literal": "egfr exon 19 deletion or egfr l858r",
+        "operator": "or",
+        "terms": [
+          "egfr exon 19 deletion",
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+      ],
+      "scenario": "A OR B con query B OR A: ordine invertito",
+      "substitution_applied": true
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "claim": "EGFR L858R OR EGFR Exon 19 Deletion",
+      "claim_expression": {
+        "literal": "egfr l858r or egfr exon 19 deletion",
+        "operator": "or",
+        "terms": [
+          "egfr exon 19 deletion",
+          "egfr l858r"
+        ]
+      },
+      "compatible": true,
+      "match_type": "exact_boolean_set",
+      "query": "EGFR L858R OR EGFR Exon 19 Deletion OR EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r or egfr exon 19 deletion or egfr l858r",
+        "operator": "or",
+        "terms": [
+          "egfr exon 19 deletion",
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+      ],
+      "scenario": "A OR B con query duplicata",
+      "substitution_applied": true
+    },
+    {
+      "axis_bucket": "rejected_by_native_constraints",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": false,
+      "match_type": "conjunction_partially_satisfied",
+      "query": "EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r",
+        "operator": "single",
+        "terms": [
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_CONJUNCTION_ONLY_PARTIALLY_SATISFIED",
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "scenario": "A AND B con solo A",
+      "substitution_applied": false
+    },
+    {
+      "axis_bucket": "rejected_by_native_constraints",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": false,
+      "match_type": "conjunction_partially_satisfied",
+      "query": "EGFR T790M",
+      "query_expression": {
+        "literal": "egfr t790m",
+        "operator": "single",
+        "terms": [
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_CONJUNCTION_ONLY_PARTIALLY_SATISFIED",
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "scenario": "A AND B con solo B",
+      "substitution_applied": false
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": true,
+      "match_type": "exact",
+      "query": "EGFR L858R AND EGFR T790M",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_EXACT_LITERAL_MATCH"
+      ],
+      "scenario": "A AND B con A+B",
+      "substitution_applied": false
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": true,
+      "match_type": "exact_boolean_set",
+      "query": "EGFR T790M AND EGFR L858R",
+      "query_expression": {
+        "literal": "egfr t790m and egfr l858r",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+      ],
+      "scenario": "A AND B con B AND A: ordine invertito",
+      "substitution_applied": true
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": true,
+      "match_type": "exact_boolean_set",
+      "query": "EGFR L858R AND EGFR T790M AND EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m and egfr l858r",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+      ],
+      "scenario": "A AND B con query duplicata",
+      "substitution_applied": true
+    },
+    {
+      "axis_bucket": "rejected_by_native_constraints",
+      "claim": "EGFR L858R",
+      "claim_expression": {
+        "literal": "egfr l858r",
+        "operator": "single",
+        "terms": [
+          "egfr l858r"
+        ]
+      },
+      "compatible": false,
+      "match_type": "incompatible",
+      "query": "EGFR L858R OR EGFR Exon 19 Deletion",
+      "query_expression": {
+        "literal": "egfr l858r or egfr exon 19 deletion",
+        "operator": "or",
+        "terms": [
+          "egfr exon 19 deletion",
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "scenario": "query disgiuntiva contro claim singolo",
+      "substitution_applied": false
+    },
+    {
+      "axis_bucket": "rejected_by_native_constraints",
+      "claim": "FGFR2::v Fusion OR FGFR2::? Fusion",
+      "claim_expression": {
+        "literal": "fgfr2::v fusion or fgfr2::? fusion",
+        "operator": "or",
+        "terms": [
+          "fgfr2::? fusion",
+          "fgfr2::v fusion"
+        ]
+      },
+      "compatible": false,
+      "match_type": "incompatible",
+      "query": "FGFR2::BICC1 Fusion",
+      "query_expression": {
+        "literal": "fgfr2::bicc1 fusion",
+        "operator": "single",
+        "terms": [
+          "fgfr2::bicc1 fusion"
+        ]
+      },
+      "reason_codes": [
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "scenario": "i segnaposto v e ? non sono wildcard",
+      "substitution_applied": false
+    },
+    {
+      "axis_bucket": "audit_only_results",
+      "claim": "EGFR L858R AND EGFR T790M OR EGFR C797S",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m or egfr c797s",
+        "operator": "unresolved",
+        "terms": []
+      },
+      "compatible": false,
+      "match_type": "unresolved_boolean_expression",
+      "query": "EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r",
+        "operator": "single",
+        "terms": [
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_BOOLEAN_EXPRESSION_NOT_INTERPRETABLE"
+      ],
+      "scenario": "espressione mista: non interpretabile",
+      "substitution_applied": false
+    },
+    {
+      "axis_bucket": "audit_only_results",
+      "claim": "(EGFR L858R OR EGFR T790M) AND EGFR C797S",
+      "claim_expression": {
+        "literal": "(egfr l858r or egfr t790m) and egfr c797s",
+        "operator": "unresolved",
+        "terms": []
+      },
+      "compatible": false,
+      "match_type": "unresolved_boolean_expression",
+      "query": "EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r",
+        "operator": "single",
+        "terms": [
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_BOOLEAN_EXPRESSION_NOT_INTERPRETABLE"
+      ],
+      "scenario": "espressione annidata: non interpretabile",
+      "substitution_applied": false
+    }
+  ],
+  "closure_version": "v3-retriever-regression-closure/1.0",
+  "contract": {
+    "canonicalization_steps": [
+      "normalizzazione: spazi collassati, minuscole",
+      "split sull'operatore, uno solo per espressione",
+      "deduplicazione dei termini",
+      "ordinamento dei termini",
+      "identita' = (operatore, insieme dei termini), mai la stringa"
+    ],
+    "compatible_match_types": [
+      "conjunction_satisfied",
+      "disjunct_member",
+      "exact",
+      "exact_boolean_set",
+      "not_constrained"
+    ],
+    "contract_version": "biomarker-boolean-semantics/1.0",
+    "degenerate_single_term_collapses_operator": true,
+    "match_type_axis_bucket": {
+      "conjunction_partially_satisfied": "rejected_by_native_constraints",
+      "conjunction_satisfied": "primary_ranked_results",
+      "disjunct_member": "primary_ranked_results",
+      "exact": "primary_ranked_results",
+      "exact_boolean_set": "primary_ranked_results",
+      "incompatible": "rejected_by_native_constraints",
+      "not_constrained": "primary_ranked_results",
+      "unresolved_boolean_expression": "audit_only_results"
+    },
+    "match_type_reason_codes": {
+      "conjunction_partially_satisfied": [
+        "BIOMARKER_CONJUNCTION_ONLY_PARTIALLY_SATISFIED",
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "conjunction_satisfied": [
+        "BIOMARKER_QUERY_SATISFIES_EVERY_CONJUNCT"
+      ],
+      "disjunct_member": [
+        "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT"
+      ],
+      "exact": [
+        "BIOMARKER_EXACT_LITERAL_MATCH"
+      ],
+      "exact_boolean_set": [
+        "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+      ],
+      "incompatible": [
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "not_constrained": [
+        "BIOMARKER_NOT_CONSTRAINED"
+      ],
+      "unresolved_boolean_expression": [
+        "BIOMARKER_BOOLEAN_EXPRESSION_NOT_INTERPRETABLE"
+      ]
+    },
+    "match_types": [
+      "not_constrained",
+      "exact",
+      "exact_boolean_set",
+      "disjunct_member",
+      "conjunction_satisfied",
+      "conjunction_partially_satisfied",
+      "unresolved_boolean_expression",
+      "incompatible"
+    ],
+    "operators": [
+      "empty",
+      "single",
+      "or",
+      "and",
+      "unresolved"
+    ],
+    "placeholders_are_never_wildcards": [
+      "il confronto fra termini e' uguaglianza esatta normalizzata",
+      "FGFR2::v Fusion e FGFR2::? Fusion non raggiungono FGFR2::BICC1 Fusion"
+    ],
+    "query_disjunction_requires_set_equality": true,
+    "substituting_match_types": [
+      "conjunction_satisfied",
+      "disjunct_member",
+      "exact_boolean_set"
+    ],
+    "unresolved_expressions_go_to_audit_never_rejected": true,
+    "unresolved_when": [
+      "operatori misti nella stessa espressione, senza parentesi che ne fissino la precedenza",
+      "parentesi o parentesi quadre, che indicano un annidamento non letto",
+      "un termine vuoto fra due separatori"
+    ]
+  },
+  "corpus_expressions": [
+    {
+      "graph_evidence_id": "evidence:33",
+      "interpretable": true,
+      "literal": "ALK F1174L",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "alk f1174l"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1333",
+      "interpretable": true,
+      "literal": "ALK F1245C",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "alk f1245c"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:100001",
+      "interpretable": true,
+      "literal": "ALK G1202R AND v::ALK Fusion",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk g1202r",
+        "v::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1354",
+      "interpretable": true,
+      "literal": "ALK G1269A AND v::ALK Fusion",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk g1269a",
+        "v::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1283",
+      "interpretable": true,
+      "literal": "ALK I1171",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "alk i1171"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1483",
+      "interpretable": true,
+      "literal": "ALK I1171N AND HIP1::ALK Fusion",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk i1171n",
+        "hip1::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:48",
+      "interpretable": true,
+      "literal": "ALK R1275Q",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "alk r1275q"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:9225",
+      "interpretable": true,
+      "literal": "EGFR A763_Y764insFQEA",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr a763_y764insfqea"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:9220",
+      "interpretable": true,
+      "literal": "EGFR A767_V769dupASV",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr a767_v769dupasv"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:3015",
+      "interpretable": true,
+      "literal": "EGFR Amplification",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr amplification"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:964",
+      "interpretable": true,
+      "literal": "EGFR C797S",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr c797s"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:9223",
+      "interpretable": true,
+      "literal": "EGFR D770_N771insG",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr d770_n771insg"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:7610",
+      "interpretable": true,
+      "literal": "EGFR Exon 20 Insertion",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr exon 20 insertion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:276",
+      "interpretable": true,
+      "literal": "EGFR L858R",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr l858r"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:11599",
+      "interpretable": true,
+      "literal": "EGFR L858R AND EGFR T790M",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "egfr l858r",
+        "egfr t790m"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:7363",
+      "interpretable": true,
+      "literal": "EGFR L858R OR EGFR Exon 19 Deletion",
+      "operator": "or",
+      "term_count": 2,
+      "terms": [
+        "egfr exon 19 deletion",
+        "egfr l858r"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:9221",
+      "interpretable": true,
+      "literal": "EGFR N771_P772insL",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr n771_p772insl"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:9224",
+      "interpretable": true,
+      "literal": "EGFR S768_D770dup",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr s768_d770dup"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:963",
+      "interpretable": true,
+      "literal": "EGFR T790M",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr t790m"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:11598",
+      "interpretable": true,
+      "literal": "EGFR T790M AND EGFR Exon 19 Deletion",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "egfr exon 19 deletion",
+        "egfr t790m"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1396",
+      "interpretable": true,
+      "literal": "EGFR T790M AND EGFR Exon 19 Deletion AND EGFR C797S",
+      "operator": "and",
+      "term_count": 3,
+      "terms": [
+        "egfr c797s",
+        "egfr exon 19 deletion",
+        "egfr t790m"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:12946",
+      "interpretable": true,
+      "literal": "EGFR T790M AND EGFR Exon 19 del",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "egfr exon 19 del",
+        "egfr t790m"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:12370",
+      "interpretable": true,
+      "literal": "EGFR::RAD51 Fusion",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "egfr::rad51 fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:766",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK Amplification",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk amplification",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:841",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK C1156Y",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk c1156y",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1339",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK F1245C",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk f1245c",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1352",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK G1202R",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk g1202r",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:11114",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK G1202R AND ALK I1171N AND ALK L1196M",
+      "operator": "and",
+      "term_count": 4,
+      "terms": [
+        "alk g1202r",
+        "alk i1171n",
+        "alk l1196m",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:765",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK G1269A",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk g1269a",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:11115",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK I1171N AND ALK L1196M",
+      "operator": "and",
+      "term_count": 3,
+      "terms": [
+        "alk i1171n",
+        "alk l1196m",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1484",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK I1171S",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk i1171s",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:763",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK L1152R",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk l1152r",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:237",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK L1196M",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk l1196m",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:843",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK L1198F AND ALK C1156Y",
+      "operator": "and",
+      "term_count": 3,
+      "terms": [
+        "alk c1156y",
+        "alk l1198f",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:443",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK S1206Y",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk s1206y",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1347",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK T1151dup",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk t1151dup",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1288",
+      "interpretable": true,
+      "literal": "EML4::ALK Fusion AND ALK V1180L",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "alk v1180l",
+        "eml4::alk fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:6174",
+      "interpretable": true,
+      "literal": "ERBB2 T798I",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "erbb2 t798i"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:12542",
+      "interpretable": true,
+      "literal": "FGFR1 Amplification",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr1 amplification"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:10325",
+      "interpretable": true,
+      "literal": "FGFR1 N546K",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr1 n546k"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1605",
+      "interpretable": true,
+      "literal": "FGFR2 Amplification",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2 amplification"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1236",
+      "interpretable": true,
+      "literal": "FGFR2 Mutation",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2 mutation"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:7261",
+      "interpretable": true,
+      "literal": "FGFR2 Mutation OR FGFR2::v Fusion OR FGFR2::? Fusion",
+      "operator": "or",
+      "term_count": 3,
+      "terms": [
+        "fgfr2 mutation",
+        "fgfr2::? fusion",
+        "fgfr2::v fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1322",
+      "interpretable": true,
+      "literal": "FGFR2 N550K",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2 n550k"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:7833",
+      "interpretable": true,
+      "literal": "FGFR2 P253R",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2 p253r"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1853",
+      "interpretable": true,
+      "literal": "FGFR2::AHCYL1 Fusion",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2::ahcyl1 fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1846",
+      "interpretable": true,
+      "literal": "FGFR2::BICC1 Fusion",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2::bicc1 fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:295",
+      "interpretable": true,
+      "literal": "FGFR2::OGA Fusion",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2::oga fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:296",
+      "interpretable": true,
+      "literal": "FGFR2::TACC3 Fusion",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2::tacc3 fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:1918",
+      "interpretable": true,
+      "literal": "FGFR2::v Fusion",
+      "operator": "single",
+      "term_count": 1,
+      "terms": [
+        "fgfr2::v fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:7329",
+      "interpretable": true,
+      "literal": "FGFR2::v Fusion OR FGFR2::? Fusion",
+      "operator": "or",
+      "term_count": 2,
+      "terms": [
+        "fgfr2::? fusion",
+        "fgfr2::v fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:4861",
+      "interpretable": true,
+      "literal": "FGFR3::TACC3 Fusion AND FGFR2::CCDC6 Fusion",
+      "operator": "and",
+      "term_count": 2,
+      "terms": [
+        "fgfr2::ccdc6 fusion",
+        "fgfr3::tacc3 fusion"
+      ]
+    },
+    {
+      "graph_evidence_id": "evidence:11324",
+      "interpretable": true,
+      "literal": "ZMYM2::FGFR1 Fusion OR BCR::FGFR1 Fusion OR CEP43::FGFR1 Fusion OR TRIM24::FGFR1 Fusion OR FGFR1 Translocation",
+      "operator": "or",
+      "term_count": 5,
+      "terms": [
+        "bcr::fgfr1 fusion",
+        "cep43::fgfr1 fusion",
+        "fgfr1 translocation",
+        "trim24::fgfr1 fusion",
+        "zmym2::fgfr1 fusion"
+      ]
+    }
+  ],
+  "gate_contract": {
+    "biomarker_axis": {
+      "canonicalization_steps": [
+        "normalizzazione: spazi collassati, minuscole",
+        "split sull'operatore, uno solo per espressione",
+        "deduplicazione dei termini",
+        "ordinamento dei termini",
+        "identita' = (operatore, insieme dei termini), mai la stringa"
+      ],
+      "compatible_match_types": [
+        "conjunction_satisfied",
+        "disjunct_member",
+        "exact",
+        "exact_boolean_set",
+        "not_constrained"
+      ],
+      "contract_version": "biomarker-boolean-semantics/1.0",
+      "degenerate_single_term_collapses_operator": true,
+      "match_type_axis_bucket": {
+        "conjunction_partially_satisfied": "rejected_by_native_constraints",
+        "conjunction_satisfied": "primary_ranked_results",
+        "disjunct_member": "primary_ranked_results",
+        "exact": "primary_ranked_results",
+        "exact_boolean_set": "primary_ranked_results",
+        "incompatible": "rejected_by_native_constraints",
+        "not_constrained": "primary_ranked_results",
+        "unresolved_boolean_expression": "audit_only_results"
+      },
+      "match_type_reason_codes": {
+        "conjunction_partially_satisfied": [
+          "BIOMARKER_CONJUNCTION_ONLY_PARTIALLY_SATISFIED",
+          "NATIVE_BIOMARKER_MISMATCH"
+        ],
+        "conjunction_satisfied": [
+          "BIOMARKER_QUERY_SATISFIES_EVERY_CONJUNCT"
+        ],
+        "disjunct_member": [
+          "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT"
+        ],
+        "exact": [
+          "BIOMARKER_EXACT_LITERAL_MATCH"
+        ],
+        "exact_boolean_set": [
+          "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+        ],
+        "incompatible": [
+          "NATIVE_BIOMARKER_MISMATCH"
+        ],
+        "not_constrained": [
+          "BIOMARKER_NOT_CONSTRAINED"
+        ],
+        "unresolved_boolean_expression": [
+          "BIOMARKER_BOOLEAN_EXPRESSION_NOT_INTERPRETABLE"
+        ]
+      },
+      "match_types": [
+        "not_constrained",
+        "exact",
+        "exact_boolean_set",
+        "disjunct_member",
+        "conjunction_satisfied",
+        "conjunction_partially_satisfied",
+        "unresolved_boolean_expression",
+        "incompatible"
+      ],
+      "operators": [
+        "empty",
+        "single",
+        "or",
+        "and",
+        "unresolved"
+      ],
+      "placeholders_are_never_wildcards": [
+        "il confronto fra termini e' uguaglianza esatta normalizzata",
+        "FGFR2::v Fusion e FGFR2::? Fusion non raggiungono FGFR2::BICC1 Fusion"
+      ],
+      "query_disjunction_requires_set_equality": true,
+      "substituting_match_types": [
+        "conjunction_satisfied",
+        "disjunct_member",
+        "exact_boolean_set"
+      ],
+      "unresolved_expressions_go_to_audit_never_rejected": true,
+      "unresolved_when": [
+        "operatori misti nella stessa espressione, senza parentesi che ne fissino la precedenza",
+        "parentesi o parentesi quadre, che indicano un annidamento non letto",
+        "un termine vuoto fra due separatori"
+      ]
+    },
+    "biomarker_substitution_fields": [
+      "claim_biomarker_expression",
+      "effective_biomarker_passed_to_v11",
+      "original_query_biomarker",
+      "substitution_reason"
+    ],
+    "buckets_most_to_least_restrictive": [
+      "rejected_by_native_constraints",
+      "audit_only_results",
+      "retained_with_warning",
+      "primary_ranked_results"
+    ],
+    "conjunction_rule": "L'eleggibilita' finale e' la congiunzione dei gate: un solo gate incompatibile impedisce il primary ranking, e un solo gate compatibile non promuove nulla.",
+    "dominant_gate_rule": "Il gate piu' restrittivo fra quelli valutati; i pareggi si risolvono nell'ordine in cui i gate vengono applicati.",
+    "explicit_exceptions": [
+      {
+        "applies_to": [
+          "different_intervention_form",
+          "verified_formulation_variant",
+          "verified_salt_of_active_moiety",
+          "verified_same_active_moiety_different_form"
+        ],
+        "cannot_reach_primary": true,
+        "exception": "Quando il registro delle forme dichiara una relazione verificata ma diversa, il bucket dell'asse intervento e' retained_with_warning anche se il confronto di stringhe aveva respinto la coppia.",
+        "rationale": "Il registro sa che le due forme sono correlate e diverse. Respingerle come estranee perderebbe l'informazione; renderle primarie la falsificherebbe."
+      }
+    ],
+    "final_bucket_equals_axis_composition": true,
+    "formulation_mismatch_is_not_compensable_by": [
+      "disease exact",
+      "biomarker exact",
+      "provenance",
+      "source quality",
+      "punteggio elevato"
+    ],
+    "gate_local_buckets_preserved": true,
+    "gate_names": [
+      "claim_status",
+      "claim_domain",
+      "biomarker",
+      "disease",
+      "intervention_identity",
+      "formulation",
+      "direction"
+    ],
+    "gate_version": "qualified_claim_structural_gate/1.2",
+    "inherited_score_flags_cleared_outside_rankable_buckets": true,
+    "observable_query_is_never_mutated": true,
+    "output_contract": "qualified_claim_retrieval_result/1.5",
+    "primary_requires_exact_form_relation": true,
+    "score_flags_cleared_in_buckets": [
+      "rejected_by_native_constraints",
+      "audit_only_results"
+    ],
+    "supersedes": "qualified_claim_structural_gate/1.1",
+    "unresolved_boolean_expression_bucket": "audit_only_results",
+    "unsupported_or_deprecated_stays_audit_with_all_axes_exact": true
+  },
+  "result_schema_after": {
+    "bucket_precedence_most_to_least_restrictive": [
+      "rejected_by_native_constraints",
+      "audit_only_results",
+      "retained_with_warning",
+      "primary_ranked_results"
+    ],
+    "buckets": [
+      "primary_ranked_results",
+      "retained_with_warning",
+      "audit_only_results",
+      "rejected_by_native_constraints"
+    ],
+    "cross_domain_ranking": false,
+    "default_rendered_buckets": [
+      "primary_ranked_results",
+      "retained_with_warning"
+    ],
+    "excluded_candidates_retained_internally": true,
+    "gate_trace_fields": [
+      "biomarker_match",
+      "biomarker_substitution",
+      "dominant_gate",
+      "gate_local_buckets",
+      "gate_version"
+    ],
+    "gate_version": "qualified_claim_structural_gate/1.2",
+    "provenance_fields": [
+      "adapter_lineage",
+      "claim_id",
+      "deprecated_redirect",
+      "disease_relation_provenance",
+      "formulation_provenance",
+      "graph_evidence_provenance",
+      "legacy_statement_ids",
+      "locators",
+      "parent_id",
+      "propagation_policy",
+      "qualification_status",
+      "reason_codes",
+      "review_status",
+      "source_ids",
+      "source_unit_ids",
+      "terminology_provenance",
+      "warnings"
+    ],
+    "schema_version": "qualified_claim_retrieval_result/1.5",
+    "sections": [
+      "therapeutic_results",
+      "diagnostic_results",
+      "prognostic_results"
+    ],
+    "supersedes": "qualified_claim_retrieval_result/1.4"
+  },
+  "result_schema_before": {
+    "bucket_precedence_most_to_least_restrictive": [
+      "rejected_by_native_constraints",
+      "audit_only_results",
+      "retained_with_warning",
+      "primary_ranked_results"
+    ],
+    "buckets": [
+      "primary_ranked_results",
+      "retained_with_warning",
+      "audit_only_results",
+      "rejected_by_native_constraints"
+    ],
+    "cross_domain_ranking": false,
+    "default_rendered_buckets": [
+      "primary_ranked_results",
+      "retained_with_warning"
+    ],
+    "excluded_candidates_retained_internally": true,
+    "gate_version": "qualified_claim_structural_gate/1.1",
+    "provenance_fields": [
+      "adapter_lineage",
+      "claim_id",
+      "deprecated_redirect",
+      "disease_relation_provenance",
+      "formulation_provenance",
+      "graph_evidence_provenance",
+      "legacy_statement_ids",
+      "locators",
+      "parent_id",
+      "propagation_policy",
+      "qualification_status",
+      "reason_codes",
+      "review_status",
+      "source_ids",
+      "source_unit_ids",
+      "terminology_provenance",
+      "warnings"
+    ],
+    "schema_version": "qualified_claim_retrieval_result/1.4",
+    "sections": [
+      "therapeutic_results",
+      "diagnostic_results",
+      "prognostic_results"
+    ]
+  },
+  "supersedes": "v3-retriever-binding/1.4"
+}

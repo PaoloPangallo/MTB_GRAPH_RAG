@@ -1,0 +1,69 @@
+{
+  "closure_version": "v3-retriever-regression-closure/1.0",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_unchanged": true,
+  "frozen_in_this_phase": [
+    "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/",
+    "backend/pipeline/evidence/qualified_retriever.py",
+    "backend/pipeline/evidence/qualified_retrieval_scoring.py",
+    "backend/pipeline/evidence/shadow/integrated_gates.py",
+    "backend/pipeline/evidence/shadow/integrated_gates_v11.py",
+    "benchmarks/mtb_evidence/evaluation/claim_type_retrieval_contract.py",
+    "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/",
+    "benchmarks/mtb_evidence/v3/retriever_binding_1_4/"
+  ],
+  "gate_after": "qualified_claim_structural_gate/1.2",
+  "gate_before": "qualified_claim_structural_gate/1.1",
+  "gold_read": false,
+  "queries": [
+    "RB-01-EGFR-L858R-NSCLC",
+    "RB-02-EGFR-L858R-LUAD",
+    "RB-03-ALK-G1202R-NSCLC",
+    "RB-04-FGFR2-ICCA",
+    "RB-05-FGFR2-CCA",
+    "RB-06-DIAGNOSTIC-FGFR2-BICC1-ICCA",
+    "RB-07-INFIGRATINIB-FGFR2-ICCA",
+    "RB-08-BGJ398-FGFR2-ICCA",
+    "RB-09-AUY922",
+    "RB-10-INFIGRATINIB-PHOSPHATE",
+    "RB-11-INFIGRATINIB-HYDROCHLORIDE",
+    "RB-12-UNKNOWN-DRUG-CODE",
+    "RB-13-UNKNOWN-DISEASE",
+    "RB-14-UNTYPED-FGFR2-ICCA",
+    "RC-01-EGFR-T790M-NSCLC",
+    "RC-02-EGFR-EXON19-NSCLC",
+    "RC-03-EGFR-L858R-AND-T790M",
+    "RC-04-EGFR-T790M-AND-L858R"
+  ],
+  "query_count": 18,
+  "questions": [
+    {
+      "answered_by": "evidence_11219_gate_trace.json",
+      "question": "Quale gate ha respinto evidence:11219 su EGFR L858R?"
+    },
+    {
+      "answered_by": "biomarker_boolean_semantics_audit.json",
+      "question": "La semantica OR e' corretta o errata?"
+    },
+    {
+      "answered_by": "regression_results.jsonl",
+      "question": "Che cosa cambia, e che cosa resta fermo, sulle diciotto query?"
+    },
+    {
+      "answered_by": "evidence_8173_gate_trace.json",
+      "question": "Il bucket finale di evidence:8173 conserva la relazione di malattia e nomina il gate dominante?"
+    }
+  ],
+  "regression_endpoints": [
+    "evidence:11219",
+    "evidence:11598",
+    "evidence:11599",
+    "evidence:1867",
+    "evidence:8173",
+    "evidence:1846",
+    "evidence:1847"
+  ],
+  "repository_version": "qualified_claim_repository/1.4",
+  "scoring_weights_retuned": false,
+  "supersedes": "v3-retriever-binding/1.4"
+}

@@ -1,0 +1,59 @@
+{
+  "closure_version": "v3-retriever-regression-closure/1.0",
+  "findings": [
+    {
+      "cause": "Il gate biomarcatore confrontava le espressioni per uguaglianza di stringa normalizzata e non aveva nessuna nozione di operatore booleano: la disgiunzione conteneva il letterale chiesto, la stringa non gli era uguale, e il claim veniva respinto.",
+      "finding_id": "RC-F-01",
+      "first_restrictive_gate_before": "",
+      "resolution": "boolean_biomarker_axis_in_gate_1_2",
+      "state_after": {
+        "bucket_on_luad": "retained_with_warning",
+        "bucket_on_nsclc": "primary_ranked_results",
+        "match_type": "disjunct_member"
+      },
+      "state_before": {
+        "bucket_on_nsclc": "rejected_by_native_constraints",
+        "match_type": "",
+        "reason_codes": [
+          "DISEASE_VERIFIED_ALIAS_MATCH",
+          "INTEGRATED_GATE_PRECEDES_SCORING",
+          "NATIVE_BIOMARKER_MISMATCH",
+          "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+        ]
+      },
+      "status": "resolved",
+      "title": "evidence:11219 respinto su EGFR L858R"
+    },
+    {
+      "cause": "Il bucket finale non esponeva il bucket dei singoli assi: un risultato respinto non diceva quale gate lo avesse deciso.",
+      "finding_id": "RC-F-02",
+      "resolution": "gate_local_buckets_and_dominant_gate_in_the_result",
+      "state_after": {
+        "biomarker_match_type": "incompatible",
+        "disease_local_bucket": "audit_only_results",
+        "disease_relation": "disease_sibling",
+        "dominant_gate": "biomarker",
+        "final_bucket": "rejected_by_native_constraints"
+      },
+      "status": "resolved",
+      "title": "evidence:8173: i risultati dei singoli gate devono sopravvivere al bucket finale"
+    },
+    {
+      "cause": "Il test chiamava congiuntivo evidence:11219, che porta una disgiunzione, e attribuiva a una sola ragione due esiti che avevano ragioni diverse.",
+      "finding_id": "RC-F-03",
+      "resolution": "test_renamed_and_split_by_actual_operator",
+      "status": "resolved",
+      "title": "Il vocabolario dei test dichiarava un gate diverso da quello reale"
+    },
+    {
+      "cause": "`exact_boolean_set` era dichiarato compatibile ma non sostituiva l'espressione passata al gate 1.1, che respingeva la coppia sull'ordine delle parole.",
+      "detected_by": "RC-04-EGFR-T790M-AND-L858R",
+      "finding_id": "RC-F-04",
+      "resolution": "exact_boolean_set_added_to_the_substituting_match_types",
+      "status": "resolved",
+      "title": "Ordine invertito dei termini cambiava il bucket"
+    }
+  ],
+  "residual_blockers": [],
+  "supersedes": "v3-retriever-binding/1.4"
+}
