@@ -10,13 +10,14 @@ esce.
 
 Quattro scelte meritano di essere lette come scelte.
 
-**Il gate e' iniettabile, e il suo default e' il 1.2.** La fase precedente ha
-misurato i propri artefatti sotto il gate 1.1, e riprodurre quella misura deve
-restare possibile senza rigenerarne nemmeno uno: un retriever costruito con
-`gate=integrated_gates_v11` ricalcola quei digest byte per byte. Il default e' il
-1.2, che legge gli operatori booleani del biomarcatore. La differenza fra i due
-si vede in un campo — `gate_trace` — che il 1.1 non produce e che, assente, resta
-fuori dalla serializzazione.
+**Il gate e' iniettabile, e il suo default e' il 1.3.** Ogni fase ha misurato i
+propri artefatti sotto il gate del momento, e riprodurre quelle misure deve
+restare possibile senza rigenerarne nemmeno una: un retriever costruito con
+`gate=integrated_gates_v11` ricalcola i digest della fase 1.4 byte per byte, e
+uno costruito con `gate=integrated_gates_v12` quelli della chiusura delle
+regressioni. Il default e' il 1.3, che legge la direzione delle congiunzioni. La
+differenza fra il 1.1 e i successivi si vede in un campo — `gate_trace` — che il
+1.1 non produce e che, assente, resta fuori dalla serializzazione.
 
 **Gli oggetti che entrano non sono solo i claim attivi.** Entrano anche i claim
 ritirati, le associazioni non sostenute, quelle non risolte e i contenitori di
@@ -73,7 +74,8 @@ from backend.pipeline.evidence.retrieval.v3_result import (
     build_provenance,
 )
 from backend.pipeline.evidence.shadow import integrated_gates_v11 as GATE_V11
-from backend.pipeline.evidence.shadow import integrated_gates_v12 as GATE
+from backend.pipeline.evidence.shadow import integrated_gates_v12 as GATE_V12
+from backend.pipeline.evidence.shadow import integrated_gates_v13 as GATE
 
 BACKEND_VERSION = "qualified_claim_retriever/1.0"
 
