@@ -51,10 +51,16 @@ ARTIFACTS = (
 )
 
 START_SHA = "ce33812b506538b3bb69882c21a662915d032fc4"
-PHASE_END_SHA = "3fb931ed87f3852586e3eacd767f1955c9e3ea98"
+PHASE_END_SHA = "a0b0adcb7fcde05748a06b54f687ae37939f96b8"
+
+# L'unico path congelato che questa fase tocca, e lo tocca di un carattere `\r`.
+# E' nominato qui e non lasciato passare da una regola generale: la deroga
+# dev'essere leggibile come deroga.
+DECLARED_BYTE_EXCEPTION = "backend/pipeline/evidence/qualified_retriever.py"
 
 ALLOWED_WRITE_PREFIXES = (
     ".gitattributes",
+    DECLARED_BYTE_EXCEPTION,
     "backend/pipeline/evidence/retrieval/v3_backend.py",
     "backend/pipeline/evidence/retrieval/v3_result.py",
     "backend/pipeline/evidence/shadow/biomarker_query_direction.py",
@@ -622,9 +628,20 @@ class PhasePerimeterTests(unittest.TestCase):
         self.assertEqual(scope.violations(scope.changed_paths()), [])
 
     def test_no_frozen_path_is_writable(self) -> None:
+        # Con l'unica eccezione dichiarata, che e' scrivibile per un carattere e
+        # il cui contenuto resta verificato da `PriorPhaseTests`. Escluderla in
+        # silenzio la renderebbe indistinguibile da un perimetro allargato.
         for path in FROZEN_PATHS:
+            if path == DECLARED_BYTE_EXCEPTION:
+                continue
             with self.subTest(path=path):
                 self.assertFalse(path.startswith(ALLOWED_WRITE_PREFIXES))
+
+    def test_the_declared_exception_is_the_only_writable_frozen_path(self) -> None:
+        writable = {
+            path for path in FROZEN_PATHS if path.startswith(ALLOWED_WRITE_PREFIXES)
+        }
+        self.assertEqual(writable, {DECLARED_BYTE_EXCEPTION})
 
 
 if __name__ == "__main__":  # pragma: no cover
