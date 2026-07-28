@@ -25,9 +25,16 @@
 # l'impronta e' stata presa: cambiarla significherebbe rompere la verifica, non
 # migliorarla.
 mtb-graphrag/backend/pipeline/evidence/qualification.py eol=crlf
-mtb-graphrag/benchmarks/mtb_evidence/v3/disease_hierarchy_policy/*.json eol=crlf
-mtb-graphrag/benchmarks/mtb_evidence/v3/first_review/FIRST_REVIEW_QUEUE.md eol=crlf
-mtb-graphrag/benchmarks/mtb_evidence/v3/first_review/first_review_queue.csv eol=crlf
+
+# Sotto `mtb-graphrag/benchmarks/` non si dichiara niente qui. Quella sottodirectory
+# ha un `.gitattributes` proprio, aggiunto apposta dal commit 63ed143 per
+# vincolare gli artefatti di audit a LF, e un file annidato ha la precedenza su
+# questo. Sei file di quell'albero — quattro in `disease_hierarchy_policy/` e due
+# in `first_review/` — hanno un hash congelato preso sulla loro forma CRLF, cioe'
+# su una forma che quella politica esclude. Scrivere qui un'eccezione sarebbe una
+# riga morta; scriverla la' significherebbe rovesciare una decisione presa.
+# Il disallineamento resta, ed e' registrato in CONJUNCTIVE_QUERY_CLOSURE.md
+# invece di essere nascosto sotto una regola che non si applica.
 
 # Forma mista: 949 fine riga LF e uno CRLF. Nessuna conversione puo' produrre un
 # CRLF isolato, quindi i byte vanno conservati come sono. E' l'unico modo di

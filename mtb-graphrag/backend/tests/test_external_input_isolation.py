@@ -306,6 +306,163 @@ class CoreIndependenceTests(unittest.TestCase):
                 )
 
 
+class FrozenBytesAreCommittedTests(unittest.TestCase):
+    """Cio' che un audit ha misurato dev'essere cio' che git conserva.
+
+    Il difetto che questo test impedisce e' rimasto invisibile per otto fasi. Gli
+    audit congelano l'integrita' di un sorgente con lo sha256 dei suoi **byte**,
+    e verificavano quell'hash contro il file sul disco. Nessuno verificava che il
+    file sul disco fosse anche cio' che era stato committato: su una macchina
+    Windows la forma CRLF sul disco e la forma LF nel blob sono due sequenze di
+    byte diverse, git le considera equivalenti, e l'hash congelato descriveva la
+    prima mentre il repository conservava la seconda.
+
+    L'effetto era che dodici artefatti di otto fasi chiuse promettevano
+    un'impronta che nessun clone poteva riprodurre. Il controllo qui guarda solo
+    il blob, mai l'albero di lavoro: e' esattamente la differenza fra i due che
+    il difetto sfruttava.
+    """
+
+    # Ogni riga: artefatto che registra l'impronta, e il file impronto'ato. I
+    # path sono relativi alla radice del repository, come li scrive git.
+    # Le coppie che un checkout pulito riproduce. Sono quelle sotto
+    # `backend/`, dove la convenzione di fine riga e' dichiarabile senza
+    # rovesciare la politica LF che `mtb-graphrag/benchmarks/.gitattributes`
+    # impone al proprio albero.
+    FROZEN = (
+        (
+            "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+            "backend/pipeline/evidence/qualification.py",
+        ),
+        (
+            "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+            "backend/pipeline/evidence/qualified_retriever.py",
+        ),
+        (
+            "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/contract_manifest.json",
+            "backend/pipeline/evidence/qualified_retriever.py",
+        ),
+        (
+            "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json",
+            "backend/pipeline/evidence/qualification.py",
+        ),
+        (
+            "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+            "backend/pipeline/evidence/qualified_retriever.py",
+        ),
+        (
+            "benchmarks/mtb_evidence/v3/verified_disease_alias_fix/fix_manifest.json",
+            "backend/pipeline/evidence/qualified_retriever.py",
+        ),
+    )
+
+    # Coppie che un checkout pulito **non** riproduce, e la ragione. Sono
+    # elencate perche' il disallineamento sia una constatazione registrata e non
+    # una scoperta che qualcun altro dovra' rifare: l'artefatto congelato porta
+    # l'hash della forma CRLF di un file che
+    # `mtb-graphrag/benchmarks/.gitattributes` dichiara LF dal commit 63ed143.
+    # Chiuderle richiede di rigenerare quegli artefatti — tre dei quali stanno
+    # nel corpus promosso — e non appartiene a una fase di test.
+    KNOWN_UNREPRODUCIBLE = (
+        (
+            "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/corpus_manifest.json",
+            "benchmarks/mtb_evidence/v3/disease_hierarchy_policy/disease_match_contract.json",
+        ),
+        (
+            "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/promotion_log.json",
+            "benchmarks/mtb_evidence/v3/disease_hierarchy_policy/disease_policy_modes.json",
+        ),
+        (
+            "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/disease_relation_registry.json",
+            "benchmarks/mtb_evidence/v3/disease_hierarchy_policy/disease_relation_definitions.json",
+        ),
+        (
+            "benchmarks/mtb_evidence/v3/author_approval_23344087/second_review_blinding_check.json",
+            "benchmarks/mtb_evidence/v3/first_review/first_review_queue.csv",
+        ),
+    )
+
+    def _git(self, *args: str) -> subprocess.CompletedProcess:
+        result = subprocess.run(
+            ["git", *args], cwd=REPO_ROOT.parent, capture_output=True, check=False
+        )
+        if result.returncode != 0:
+            self.skipTest("git non utilizzabile in questo checkout")
+        return result
+
+    def _checkout_bytes(self, relative: str) -> bytes:
+        """I byte che un checkout pulito scriverebbe su disco.
+
+        Non i byte del blob: fra il blob e il disco c'e' la conversione di fine
+        riga dichiarata in `.gitattributes`, ed e' proprio quella conversione che
+        l'hash congelato deve sopravvivere. Confrontare il blob nudo misurerebbe
+        qualcosa che nessuno scrive mai.
+        """
+        path = f"mtb-graphrag/{relative}"
+        blob = self._git("show", f"HEAD:{path}").stdout
+        attrs = self._git("check-attr", "text", "eol", "--", path).stdout.decode()
+        declared = {
+            line.rsplit(": ", 2)[-2]: line.rsplit(": ", 1)[-1].strip()
+            for line in attrs.splitlines()
+            if line.count(": ") >= 2
+        }
+        if declared.get("text") in ("unset", "false"):
+            return blob
+        if declared.get("eol") == "crlf":
+            return blob.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+        return blob
+
+    def _checkout_sha256(self, relative: str) -> str:
+        import hashlib
+
+        return hashlib.sha256(self._checkout_bytes(relative)).hexdigest()
+
+    def test_every_frozen_hash_is_reproducible_from_the_committed_bytes(self) -> None:
+        import json as _json
+        import re
+
+        for artifact, source in self.FROZEN:
+            with self.subTest(artifact=artifact, source=source):
+                declared = (REPO_ROOT / artifact).read_text(encoding="utf-8")
+                digest = self._checkout_sha256(source)
+                # L'hash puo' comparire sotto chiavi diverse a seconda della
+                # fase: cio' che conta e' che l'artefatto lo nomini.
+                self.assertIn(
+                    digest,
+                    set(re.findall(r"\b[0-9a-f]{64}\b", declared)),
+                    f"{artifact} non registra l'impronta dei byte committati di "
+                    f"{source}: l'audit ha misurato qualcosa che il repository "
+                    f"non conserva",
+                )
+                _json.loads(declared)
+
+    def test_the_declared_sources_are_tracked(self) -> None:
+        for _artifact, source in self.FROZEN + self.KNOWN_UNREPRODUCIBLE:
+            with self.subTest(source=source):
+                self.assertTrue((REPO_ROOT / source).is_file())
+
+    def test_the_known_unreproducible_list_is_still_accurate(self) -> None:
+        """Se una coppia diventa riproducibile, va spostata, non lasciata qui.
+
+        Una lista di eccezioni che nessuno rivede diventa una lista di cose
+        vere una volta sola. Questo controllo fallisce quando il disallineamento
+        e' stato chiuso, e chiede di registrarlo fra le coppie verificate.
+        """
+        import re
+
+        for artifact, source in self.KNOWN_UNREPRODUCIBLE:
+            with self.subTest(artifact=artifact, source=source):
+                declared = (REPO_ROOT / artifact).read_text(encoding="utf-8")
+                digest = self._checkout_sha256(source)
+                self.assertNotIn(
+                    digest,
+                    set(re.findall(r"\b[0-9a-f]{64}\b", declared)),
+                    f"{artifact} ora registra l'impronta dei byte di checkout di "
+                    f"{source}: il disallineamento e' chiuso, sposta la coppia "
+                    f"in FROZEN",
+                )
+
+
 class NotTrackedTests(unittest.TestCase):
     """Gli ingressi esterni non sono entrati nel repository."""
 
