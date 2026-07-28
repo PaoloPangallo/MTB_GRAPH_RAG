@@ -1,0 +1,19 @@
+{
+  "aggregate_contract": "sha256 of sorted input-relative POSIX path:sha256 lines without trailing newline",
+  "availability": "external_private_input",
+  "bundle_version": "priority_curation_source_abstract_cache_v1",
+  "checksum_only_no_deserialization": true,
+  "contract_version": "external-private-input/1.0",
+  "default_relative_path": "mtb-graphrag/benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl",
+  "description": "Cache degli abstract delle fonti. Testo protetto da copyright: e' escluso dal versionamento da .gitignore, non per dimenticanza.",
+  "environment_variable": "MTB_SOURCE_ABSTRACT_CACHE",
+  "expected_aggregate_hash": "8f6c7786120a6c9717fd1701494eb3685d8bfed7db5c1136fcd11535f9220f27",
+  "expected_file_hashes": {
+    "source_abstract_cache.jsonl": "61d13274d774f6a24f347aee275f00641fd9e3ae8f8f8dfa53b501cc17465a47"
+  },
+  "file_count": 1,
+  "kind": "file",
+  "name": "source_abstract_cache",
+  "schema_version": "source_abstract_cache/1.0",
+  "tracked_in_repository": false
+}

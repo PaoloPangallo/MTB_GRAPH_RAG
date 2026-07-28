@@ -1,0 +1,634 @@
+{
+  "claims": [
+    {
+      "claim_id": "CLM-0269a5c7db107cd8a893",
+      "graph_evidence_id": "evidence:963",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-02e4c1aec896020b2f8a",
+      "graph_evidence_id": "evidence:276",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-074de0af80e7ed34d41a",
+      "graph_evidence_id": "evidence:982",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-1da32e197ff9793e6508",
+      "graph_evidence_id": "evidence:885",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-1e701d1f8bedef0977f8",
+      "graph_evidence_id": "evidence:6183",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-1ebe76eee72069c364bc",
+      "graph_evidence_id": "evidence:5922",
+      "new_bucket": "audit_only_results",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "audit_only_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-1ee5f9a16a678cebf993",
+      "graph_evidence_id": "evidence:4294",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-1fc4af943701d57d45ad",
+      "graph_evidence_id": "evidence:229",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-2f29179857d3b3953834",
+      "graph_evidence_id": "evidence:2621",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-311fb18411303def51f1",
+      "graph_evidence_id": "evidence:883",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-32754dd8ee5d24de665b",
+      "graph_evidence_id": "evidence:4285",
+      "new_bucket": "audit_only_results",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "audit_only_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-395b56e071be2f1cd458",
+      "graph_evidence_id": "evidence:2629",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-3d26401c2cabcad4b409",
+      "graph_evidence_id": "evidence:2157",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-402da0a110fc725a7357",
+      "graph_evidence_id": "evidence:4292",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-4ffe85304f3ef5533b58",
+      "graph_evidence_id": "evidence:275",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-54e1fcd65c57bfbf8d04",
+      "graph_evidence_id": "evidence:4291",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-5842e19f516c618ca369",
+      "graph_evidence_id": "evidence:6006",
+      "new_bucket": "rejected_by_native_constraints",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "rejected_by_native_constraints",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-623fbb47cebad8976328",
+      "graph_evidence_id": "evidence:966",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-6b6cb6d60b7c31270339",
+      "graph_evidence_id": "evidence:2628",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-6dd643580d90e3256418",
+      "graph_evidence_id": "evidence:2634",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-728f11e9dc850967c300",
+      "graph_evidence_id": "evidence:964",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-72a72763b0c1ccf3512c",
+      "graph_evidence_id": "evidence:4288",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-77fca870f09f851d4f72",
+      "graph_evidence_id": "evidence:968",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-790948a83c30124a2f34",
+      "graph_evidence_id": "evidence:1867",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-8123f39d601ee9937db7",
+      "graph_evidence_id": "evidence:4290",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-843e89b50964ca33770c",
+      "graph_evidence_id": "evidence:4293",
+      "new_bucket": "rejected_by_native_constraints",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "rejected_by_native_constraints",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-887e2a4a92b7333f70e8",
+      "graph_evidence_id": "evidence:4265",
+      "new_bucket": "audit_only_results",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "audit_only_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-89ea67ee7946d9ccd552",
+      "graph_evidence_id": "evidence:229",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-8f624d07e5180f958196",
+      "graph_evidence_id": "evidence:4295",
+      "new_bucket": "rejected_by_native_constraints",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "rejected_by_native_constraints",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-9809edffaf78c6bd7d9c",
+      "graph_evidence_id": "evidence:4287",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-a20827c84bba1b0473e6",
+      "graph_evidence_id": "evidence:879",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-a72d16a37bdcdd84496b",
+      "graph_evidence_id": "evidence:1665",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-a8076dedab5ae6db17c1",
+      "graph_evidence_id": "evidence:4860",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-a9c010ef9db01551395e",
+      "graph_evidence_id": "evidence:2626",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-b26b5c1d60afee769d70",
+      "graph_evidence_id": "evidence:4286",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-b30bfbffc36ec6a23cfc",
+      "graph_evidence_id": "evidence:2997",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-c0b6cac2d322040eefe6",
+      "graph_evidence_id": "evidence:2632",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-c8f2a725bf5cfc8e98ca",
+      "graph_evidence_id": "evidence:1592",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-d2a8d38b226371178d2a",
+      "graph_evidence_id": "evidence:2631",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-dda6b2c59b86fba7999a",
+      "graph_evidence_id": "evidence:965",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-e13e6bfa052b0b6f49fe",
+      "graph_evidence_id": "evidence:2994",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-e565f65d73cb1d4aa67b",
+      "graph_evidence_id": "evidence:2624",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "retained_with_warning",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-eba06f8e66bfc2749100",
+      "graph_evidence_id": "evidence:4284",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "CLM-f099dc5a29b516efbd00",
+      "graph_evidence_id": "evidence:967",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+        "CQ-02-PARTIAL-OVERLAP"
+      ]
+    },
+    {
+      "claim_id": "CLM-f52eacf8dde60d7af27f",
+      "graph_evidence_id": "evidence:2627",
+      "new_bucket": "retained_with_warning",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "primary_ranked_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "UNR-bc192774b66116745142",
+      "graph_evidence_id": "evidence:3811",
+      "new_bucket": "audit_only_results",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "audit_only_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "UNR-cc554dd0543c62b87120",
+      "graph_evidence_id": "evidence:3811",
+      "new_bucket": "audit_only_results",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "audit_only_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "UNR-daa72cbff92e7435e1dc",
+      "graph_evidence_id": "evidence:3811",
+      "new_bucket": "audit_only_results",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "audit_only_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "UNS-053b68a4981433283a52",
+      "graph_evidence_id": "evidence:275",
+      "new_bucket": "audit_only_results",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "audit_only_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    },
+    {
+      "claim_id": "UNS-a0ba144f095b8a755066",
+      "graph_evidence_id": "evidence:275",
+      "new_bucket": "audit_only_results",
+      "new_match_type": "query_more_specific_than_claim",
+      "old_bucket": "audit_only_results",
+      "queries": [
+        "RC-03-EGFR-L858R-AND-T790M",
+        "RC-04-EGFR-T790M-AND-L858R",
+        "CQ-03-DISJUNCTIVE-CLAIM"
+      ]
+    }
+  ],
+  "distinct_claims": 50,
+  "new_bucket_tally": {
+    "audit_only_results": 8,
+    "rejected_by_native_constraints": 3,
+    "retained_with_warning": 39
+  },
+  "new_match_type_tally": {
+    "query_more_specific_than_claim": 50
+  },
+  "none_reaches_primary": true,
+  "old_bucket_tally": {
+    "audit_only_results": 8,
+    "primary_ranked_results": 29,
+    "rejected_by_native_constraints": 3,
+    "retained_with_warning": 10
+  },
+  "per_query_hits": {
+    "CQ-01-CLAIM-REQUIRES-ADDITIONAL": 8,
+    "CQ-02-PARTIAL-OVERLAP": 9,
+    "CQ-03-DISJUNCTIVE-CLAIM": 41,
+    "RC-03-EGFR-L858R-AND-T790M": 49,
+    "RC-04-EGFR-T790M-AND-L858R": 49
+  },
+  "superseded_match_type": "conjunction_satisfied"
+}

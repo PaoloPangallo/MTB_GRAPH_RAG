@@ -1,0 +1,63 @@
+{
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_unchanged": true,
+  "frozen_in_this_phase": [
+    "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/",
+    "backend/pipeline/evidence/qualified_retriever.py",
+    "backend/pipeline/evidence/shadow/biomarker_expression.py",
+    "backend/pipeline/evidence/shadow/integrated_gates.py",
+    "backend/pipeline/evidence/shadow/integrated_gates_v11.py",
+    "backend/pipeline/evidence/shadow/integrated_gates_v12.py",
+    "benchmarks/mtb_evidence/evaluation/claim_type_retrieval_contract.py",
+    "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/",
+    "benchmarks/mtb_evidence/v3/retriever_binding_1_4/",
+    "benchmarks/mtb_evidence/v3/retriever_regression_closure/"
+  ],
+  "gate_after": "qualified_claim_structural_gate/1.3",
+  "gate_before": "qualified_claim_structural_gate/1.2",
+  "gold_read": false,
+  "phase_version": "v3-conjunctive-query-closure/1.0",
+  "queries": [
+    "RB-01-EGFR-L858R-NSCLC",
+    "RB-02-EGFR-L858R-LUAD",
+    "RB-03-ALK-G1202R-NSCLC",
+    "RB-04-FGFR2-ICCA",
+    "RB-05-FGFR2-CCA",
+    "RB-06-DIAGNOSTIC-FGFR2-BICC1-ICCA",
+    "RB-07-INFIGRATINIB-FGFR2-ICCA",
+    "RB-08-BGJ398-FGFR2-ICCA",
+    "RB-09-AUY922",
+    "RB-10-INFIGRATINIB-PHOSPHATE",
+    "RB-11-INFIGRATINIB-HYDROCHLORIDE",
+    "RB-12-UNKNOWN-DRUG-CODE",
+    "RB-13-UNKNOWN-DISEASE",
+    "RB-14-UNTYPED-FGFR2-ICCA",
+    "RC-01-EGFR-T790M-NSCLC",
+    "RC-02-EGFR-EXON19-NSCLC",
+    "RC-03-EGFR-L858R-AND-T790M",
+    "RC-04-EGFR-T790M-AND-L858R",
+    "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+    "CQ-02-PARTIAL-OVERLAP",
+    "CQ-03-DISJUNCTIVE-CLAIM"
+  ],
+  "queries_with_changed_decisions": [
+    "CQ-01-CLAIM-REQUIRES-ADDITIONAL",
+    "CQ-02-PARTIAL-OVERLAP",
+    "CQ-03-DISJUNCTIVE-CLAIM",
+    "RC-03-EGFR-L858R-AND-T790M",
+    "RC-04-EGFR-T790M-AND-L858R"
+  ],
+  "query_count": 21,
+  "regression_endpoints": [
+    "evidence:11219",
+    "evidence:11598",
+    "evidence:11599",
+    "evidence:1867",
+    "evidence:8173",
+    "evidence:1846",
+    "evidence:1847"
+  ],
+  "repository_version": "qualified_claim_repository/1.4",
+  "scoring_weights_retuned": false,
+  "supersedes": "v3-retriever-regression-closure/1.0"
+}

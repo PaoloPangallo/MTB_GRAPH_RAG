@@ -1,0 +1,835 @@
+{
+  "cases": [
+    {
+      "axis_bucket": "primary_ranked_results",
+      "boolean_match_type": "exact",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": true,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_boolean_semantics",
+      "explanation_codes": [],
+      "match_type": "exact",
+      "primary_eligible": true,
+      "query": "EGFR L858R AND EGFR T790M",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_EXACT_LITERAL_MATCH"
+      ],
+      "scenario": "1 stesso insieme",
+      "substitution_applied": false,
+      "warning_codes": []
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "boolean_match_type": "exact_boolean_set",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": true,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_boolean_semantics",
+      "explanation_codes": [],
+      "match_type": "exact_boolean_set",
+      "primary_eligible": true,
+      "query": "EGFR T790M AND EGFR L858R",
+      "query_expression": {
+        "literal": "egfr t790m and egfr l858r",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+      ],
+      "scenario": "1 ordine invertito",
+      "substitution_applied": true,
+      "warning_codes": []
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "boolean_match_type": "exact_boolean_set",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": true,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_boolean_semantics",
+      "explanation_codes": [],
+      "match_type": "exact_boolean_set",
+      "primary_eligible": true,
+      "query": "EGFR L858R AND EGFR T790M AND EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m and egfr l858r",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+      ],
+      "scenario": "1 duplicati",
+      "substitution_applied": true,
+      "warning_codes": []
+    },
+    {
+      "axis_bucket": "retained_with_warning",
+      "boolean_match_type": "conjunction_satisfied",
+      "claim": "EGFR L858R",
+      "claim_expression": {
+        "literal": "egfr l858r",
+        "operator": "single",
+        "terms": [
+          "egfr l858r"
+        ]
+      },
+      "compatible": false,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_directional_semantics",
+      "explanation_codes": [
+        "RESULT_NOT_SEPARABLE_FOR_COALTERED_CASE"
+      ],
+      "match_type": "query_more_specific_than_claim",
+      "primary_eligible": false,
+      "query": "EGFR L858R AND EGFR T790M",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "CLAIM_BIOMARKER_SCOPE_BROADER_THAN_QUERY"
+      ],
+      "scenario": "2 claim A",
+      "substitution_applied": true,
+      "warning_codes": [
+        "CLAIM_BIOMARKER_SCOPE_BROADER_THAN_QUERY"
+      ]
+    },
+    {
+      "axis_bucket": "retained_with_warning",
+      "boolean_match_type": "conjunction_satisfied",
+      "claim": "EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr t790m",
+        "operator": "single",
+        "terms": [
+          "egfr t790m"
+        ]
+      },
+      "compatible": false,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_directional_semantics",
+      "explanation_codes": [
+        "RESULT_NOT_SEPARABLE_FOR_COALTERED_CASE"
+      ],
+      "match_type": "query_more_specific_than_claim",
+      "primary_eligible": false,
+      "query": "EGFR L858R AND EGFR T790M",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "CLAIM_BIOMARKER_SCOPE_BROADER_THAN_QUERY"
+      ],
+      "scenario": "2 claim B",
+      "substitution_applied": true,
+      "warning_codes": [
+        "CLAIM_BIOMARKER_SCOPE_BROADER_THAN_QUERY"
+      ]
+    },
+    {
+      "axis_bucket": "rejected_by_native_constraints",
+      "boolean_match_type": "conjunction_partially_satisfied",
+      "claim": "EGFR L858R AND EGFR T790M AND EGFR C797S",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m and egfr c797s",
+        "operator": "and",
+        "terms": [
+          "egfr c797s",
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": false,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_directional_semantics",
+      "explanation_codes": [],
+      "match_type": "claim_requires_additional_conjunct",
+      "primary_eligible": false,
+      "query": "EGFR L858R AND EGFR T790M",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "CLAIM_REQUIRES_ADDITIONAL_CONJUNCT",
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "scenario": "3 il claim chiede un congiunto in piu'",
+      "substitution_applied": false,
+      "warning_codes": []
+    },
+    {
+      "axis_bucket": "rejected_by_native_constraints",
+      "boolean_match_type": "conjunction_partially_satisfied",
+      "claim": "EGFR L858R AND EGFR C797S",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr c797s",
+        "operator": "and",
+        "terms": [
+          "egfr c797s",
+          "egfr l858r"
+        ]
+      },
+      "compatible": false,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_directional_semantics",
+      "explanation_codes": [],
+      "match_type": "boolean_partial_overlap",
+      "primary_eligible": false,
+      "query": "EGFR L858R AND EGFR T790M",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BOOLEAN_PARTIAL_OVERLAP",
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "scenario": "4 overlap parziale",
+      "substitution_applied": false,
+      "warning_codes": []
+    },
+    {
+      "axis_bucket": "retained_with_warning",
+      "boolean_match_type": "disjunct_member",
+      "claim": "EGFR L858R OR EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r or egfr t790m",
+        "operator": "or",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": false,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_directional_semantics",
+      "explanation_codes": [
+        "RESULT_NOT_SEPARABLE_FOR_COALTERED_CASE"
+      ],
+      "match_type": "result_not_separable_for_coaltered_query",
+      "primary_eligible": false,
+      "query": "EGFR L858R AND EGFR T790M",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "DISJUNCTIVE_CLAIM_NOT_SEPARABLE_UNDER_CONJUNCTIVE_QUERY"
+      ],
+      "scenario": "5 claim disgiuntivo",
+      "substitution_applied": true,
+      "warning_codes": [
+        "DISJUNCTIVE_CLAIM_NOT_SEPARABLE_UNDER_CONJUNCTIVE_QUERY"
+      ]
+    },
+    {
+      "axis_bucket": "audit_only_results",
+      "boolean_match_type": "unresolved_boolean_expression",
+      "claim": "EGFR L858R AND EGFR T790M OR EGFR C797S",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m or egfr c797s",
+        "operator": "unresolved",
+        "terms": []
+      },
+      "compatible": false,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_boolean_semantics",
+      "explanation_codes": [],
+      "match_type": "unresolved_boolean_expression",
+      "primary_eligible": false,
+      "query": "EGFR L858R AND EGFR T790M",
+      "query_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_BOOLEAN_EXPRESSION_NOT_INTERPRETABLE"
+      ],
+      "scenario": "6 espressione mista",
+      "substitution_applied": false,
+      "warning_codes": []
+    },
+    {
+      "axis_bucket": "primary_ranked_results",
+      "boolean_match_type": "disjunct_member",
+      "claim": "EGFR L858R OR EGFR Exon 19 Deletion",
+      "claim_expression": {
+        "literal": "egfr l858r or egfr exon 19 deletion",
+        "operator": "or",
+        "terms": [
+          "egfr exon 19 deletion",
+          "egfr l858r"
+        ]
+      },
+      "compatible": true,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_boolean_semantics",
+      "explanation_codes": [],
+      "match_type": "disjunct_member",
+      "primary_eligible": true,
+      "query": "EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r",
+        "operator": "single",
+        "terms": [
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT"
+      ],
+      "scenario": "query non congiuntiva: decisa dal 1.2",
+      "substitution_applied": true,
+      "warning_codes": []
+    },
+    {
+      "axis_bucket": "rejected_by_native_constraints",
+      "boolean_match_type": "conjunction_partially_satisfied",
+      "claim": "EGFR L858R AND EGFR T790M",
+      "claim_expression": {
+        "literal": "egfr l858r and egfr t790m",
+        "operator": "and",
+        "terms": [
+          "egfr l858r",
+          "egfr t790m"
+        ]
+      },
+      "compatible": false,
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "decided_by": "biomarker_boolean_semantics",
+      "explanation_codes": [],
+      "match_type": "conjunction_partially_satisfied",
+      "primary_eligible": false,
+      "query": "EGFR L858R",
+      "query_expression": {
+        "literal": "egfr l858r",
+        "operator": "single",
+        "terms": [
+          "egfr l858r"
+        ]
+      },
+      "reason_codes": [
+        "BIOMARKER_CONJUNCTION_ONLY_PARTIALLY_SATISFIED",
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "scenario": "query non congiuntiva: decisa dal 1.2",
+      "substitution_applied": false,
+      "warning_codes": []
+    }
+  ],
+  "contract": {
+    "applies_only_to_query_operator": "and",
+    "boolean_contract": "biomarker-boolean-semantics/1.0",
+    "contract_version": "biomarker-directional-semantics/1.0",
+    "directional_match_types": [
+      "query_more_specific_than_claim",
+      "claim_requires_additional_conjunct",
+      "boolean_partial_overlap",
+      "result_not_separable_for_coaltered_query"
+    ],
+    "match_type_axis_bucket": {
+      "boolean_partial_overlap": "rejected_by_native_constraints",
+      "claim_requires_additional_conjunct": "rejected_by_native_constraints",
+      "query_more_specific_than_claim": "retained_with_warning",
+      "result_not_separable_for_coaltered_query": "retained_with_warning"
+    },
+    "match_type_explanation_codes": {
+      "query_more_specific_than_claim": [
+        "RESULT_NOT_SEPARABLE_FOR_COALTERED_CASE"
+      ],
+      "result_not_separable_for_coaltered_query": [
+        "RESULT_NOT_SEPARABLE_FOR_COALTERED_CASE"
+      ]
+    },
+    "match_type_reason_codes": {
+      "boolean_partial_overlap": [
+        "BOOLEAN_PARTIAL_OVERLAP",
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "claim_requires_additional_conjunct": [
+        "CLAIM_REQUIRES_ADDITIONAL_CONJUNCT",
+        "NATIVE_BIOMARKER_MISMATCH"
+      ],
+      "query_more_specific_than_claim": [
+        "CLAIM_BIOMARKER_SCOPE_BROADER_THAN_QUERY"
+      ],
+      "result_not_separable_for_coaltered_query": [
+        "DISJUNCTIVE_CLAIM_NOT_SEPARABLE_UNDER_CONJUNCTIVE_QUERY"
+      ]
+    },
+    "match_type_warning_codes": {
+      "query_more_specific_than_claim": [
+        "CLAIM_BIOMARKER_SCOPE_BROADER_THAN_QUERY"
+      ],
+      "result_not_separable_for_coaltered_query": [
+        "DISJUNCTIVE_CLAIM_NOT_SEPARABLE_UNDER_CONJUNCTIVE_QUERY"
+      ]
+    },
+    "non_conjunctive_queries_are_decided_by": "biomarker-boolean-semantics/1.0",
+    "query_superset_of_claim_does_not_grant_primary": true,
+    "rules": [
+      {
+        "bucket": "primary_ranked_results",
+        "example": "query A AND B, claim A AND B",
+        "match_type": "exact_boolean_set",
+        "rule": "stesso operatore e stesso insieme canonico"
+      },
+      {
+        "bucket": "retained_with_warning",
+        "example": "query A AND B, claim A",
+        "match_type": "query_more_specific_than_claim",
+        "rule": "insieme del claim strettamente contenuto in quello della query"
+      },
+      {
+        "bucket": "rejected_by_native_constraints",
+        "example": "query A AND B, claim A AND B AND C",
+        "match_type": "claim_requires_additional_conjunct",
+        "rule": "il claim richiede un congiunto che la query non afferma"
+      },
+      {
+        "bucket": "rejected_by_native_constraints",
+        "example": "query A AND B, claim A AND C",
+        "match_type": "boolean_partial_overlap",
+        "rule": "insiemi che si intersecano senza contenersi"
+      },
+      {
+        "bucket": "retained_with_warning",
+        "example": "query A AND B, claim A OR B",
+        "match_type": "result_not_separable_for_coaltered_query",
+        "rule": "claim disgiuntivo sotto una query congiuntiva"
+      },
+      {
+        "bucket": "audit_only_results",
+        "example": "claim A AND B OR C",
+        "match_type": "unresolved_boolean_expression",
+        "rule": "espressione mista, annidata o non interpretabile"
+      }
+    ],
+    "strict_mode_forbids_qualified_score_on_directional_warning": true,
+    "superseded_match_types": [
+      "conjunction_satisfied"
+    ],
+    "supersedes": "biomarker-boolean-semantics/1.0"
+  },
+  "gate_contract": {
+    "biomarker_axis": {
+      "canonicalization_steps": [
+        "normalizzazione: spazi collassati, minuscole",
+        "split sull'operatore, uno solo per espressione",
+        "deduplicazione dei termini",
+        "ordinamento dei termini",
+        "identita' = (operatore, insieme dei termini), mai la stringa"
+      ],
+      "compatible_match_types": [
+        "conjunction_satisfied",
+        "disjunct_member",
+        "exact",
+        "exact_boolean_set",
+        "not_constrained"
+      ],
+      "contract_version": "biomarker-boolean-semantics/1.0",
+      "degenerate_single_term_collapses_operator": true,
+      "match_type_axis_bucket": {
+        "conjunction_partially_satisfied": "rejected_by_native_constraints",
+        "conjunction_satisfied": "primary_ranked_results",
+        "disjunct_member": "primary_ranked_results",
+        "exact": "primary_ranked_results",
+        "exact_boolean_set": "primary_ranked_results",
+        "incompatible": "rejected_by_native_constraints",
+        "not_constrained": "primary_ranked_results",
+        "unresolved_boolean_expression": "audit_only_results"
+      },
+      "match_type_reason_codes": {
+        "conjunction_partially_satisfied": [
+          "BIOMARKER_CONJUNCTION_ONLY_PARTIALLY_SATISFIED",
+          "NATIVE_BIOMARKER_MISMATCH"
+        ],
+        "conjunction_satisfied": [
+          "BIOMARKER_QUERY_SATISFIES_EVERY_CONJUNCT"
+        ],
+        "disjunct_member": [
+          "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT"
+        ],
+        "exact": [
+          "BIOMARKER_EXACT_LITERAL_MATCH"
+        ],
+        "exact_boolean_set": [
+          "BIOMARKER_EXACT_BOOLEAN_SET_MATCH"
+        ],
+        "incompatible": [
+          "NATIVE_BIOMARKER_MISMATCH"
+        ],
+        "not_constrained": [
+          "BIOMARKER_NOT_CONSTRAINED"
+        ],
+        "unresolved_boolean_expression": [
+          "BIOMARKER_BOOLEAN_EXPRESSION_NOT_INTERPRETABLE"
+        ]
+      },
+      "match_types": [
+        "not_constrained",
+        "exact",
+        "exact_boolean_set",
+        "disjunct_member",
+        "conjunction_satisfied",
+        "conjunction_partially_satisfied",
+        "unresolved_boolean_expression",
+        "incompatible"
+      ],
+      "operators": [
+        "empty",
+        "single",
+        "or",
+        "and",
+        "unresolved"
+      ],
+      "placeholders_are_never_wildcards": [
+        "il confronto fra termini e' uguaglianza esatta normalizzata",
+        "FGFR2::v Fusion e FGFR2::? Fusion non raggiungono FGFR2::BICC1 Fusion"
+      ],
+      "query_disjunction_requires_set_equality": true,
+      "substituting_match_types": [
+        "conjunction_satisfied",
+        "disjunct_member",
+        "exact_boolean_set"
+      ],
+      "unresolved_expressions_go_to_audit_never_rejected": true,
+      "unresolved_when": [
+        "operatori misti nella stessa espressione, senza parentesi che ne fissino la precedenza",
+        "parentesi o parentesi quadre, che indicano un annidamento non letto",
+        "un termine vuoto fra due separatori"
+      ]
+    },
+    "biomarker_axis_direction": {
+      "applies_only_to_query_operator": "and",
+      "boolean_contract": "biomarker-boolean-semantics/1.0",
+      "contract_version": "biomarker-directional-semantics/1.0",
+      "directional_match_types": [
+        "query_more_specific_than_claim",
+        "claim_requires_additional_conjunct",
+        "boolean_partial_overlap",
+        "result_not_separable_for_coaltered_query"
+      ],
+      "match_type_axis_bucket": {
+        "boolean_partial_overlap": "rejected_by_native_constraints",
+        "claim_requires_additional_conjunct": "rejected_by_native_constraints",
+        "query_more_specific_than_claim": "retained_with_warning",
+        "result_not_separable_for_coaltered_query": "retained_with_warning"
+      },
+      "match_type_explanation_codes": {
+        "query_more_specific_than_claim": [
+          "RESULT_NOT_SEPARABLE_FOR_COALTERED_CASE"
+        ],
+        "result_not_separable_for_coaltered_query": [
+          "RESULT_NOT_SEPARABLE_FOR_COALTERED_CASE"
+        ]
+      },
+      "match_type_reason_codes": {
+        "boolean_partial_overlap": [
+          "BOOLEAN_PARTIAL_OVERLAP",
+          "NATIVE_BIOMARKER_MISMATCH"
+        ],
+        "claim_requires_additional_conjunct": [
+          "CLAIM_REQUIRES_ADDITIONAL_CONJUNCT",
+          "NATIVE_BIOMARKER_MISMATCH"
+        ],
+        "query_more_specific_than_claim": [
+          "CLAIM_BIOMARKER_SCOPE_BROADER_THAN_QUERY"
+        ],
+        "result_not_separable_for_coaltered_query": [
+          "DISJUNCTIVE_CLAIM_NOT_SEPARABLE_UNDER_CONJUNCTIVE_QUERY"
+        ]
+      },
+      "match_type_warning_codes": {
+        "query_more_specific_than_claim": [
+          "CLAIM_BIOMARKER_SCOPE_BROADER_THAN_QUERY"
+        ],
+        "result_not_separable_for_coaltered_query": [
+          "DISJUNCTIVE_CLAIM_NOT_SEPARABLE_UNDER_CONJUNCTIVE_QUERY"
+        ]
+      },
+      "non_conjunctive_queries_are_decided_by": "biomarker-boolean-semantics/1.0",
+      "query_superset_of_claim_does_not_grant_primary": true,
+      "rules": [
+        {
+          "bucket": "primary_ranked_results",
+          "example": "query A AND B, claim A AND B",
+          "match_type": "exact_boolean_set",
+          "rule": "stesso operatore e stesso insieme canonico"
+        },
+        {
+          "bucket": "retained_with_warning",
+          "example": "query A AND B, claim A",
+          "match_type": "query_more_specific_than_claim",
+          "rule": "insieme del claim strettamente contenuto in quello della query"
+        },
+        {
+          "bucket": "rejected_by_native_constraints",
+          "example": "query A AND B, claim A AND B AND C",
+          "match_type": "claim_requires_additional_conjunct",
+          "rule": "il claim richiede un congiunto che la query non afferma"
+        },
+        {
+          "bucket": "rejected_by_native_constraints",
+          "example": "query A AND B, claim A AND C",
+          "match_type": "boolean_partial_overlap",
+          "rule": "insiemi che si intersecano senza contenersi"
+        },
+        {
+          "bucket": "retained_with_warning",
+          "example": "query A AND B, claim A OR B",
+          "match_type": "result_not_separable_for_coaltered_query",
+          "rule": "claim disgiuntivo sotto una query congiuntiva"
+        },
+        {
+          "bucket": "audit_only_results",
+          "example": "claim A AND B OR C",
+          "match_type": "unresolved_boolean_expression",
+          "rule": "espressione mista, annidata o non interpretabile"
+        }
+      ],
+      "strict_mode_forbids_qualified_score_on_directional_warning": true,
+      "superseded_match_types": [
+        "conjunction_satisfied"
+      ],
+      "supersedes": "biomarker-boolean-semantics/1.0"
+    },
+    "biomarker_substitution_fields": [
+      "claim_biomarker_expression",
+      "effective_biomarker_passed_to_v12",
+      "original_query_biomarker",
+      "substitution_reason"
+    ],
+    "buckets_most_to_least_restrictive": [
+      "rejected_by_native_constraints",
+      "audit_only_results",
+      "retained_with_warning",
+      "primary_ranked_results"
+    ],
+    "conjunction_rule": "L'eleggibilita' finale e' la congiunzione dei gate: un solo gate incompatibile impedisce il primary ranking, e un solo gate compatibile non promuove nulla.",
+    "directional_outcomes_never_reach_primary": true,
+    "dominant_gate_rule": "Il gate piu' restrittivo fra quelli valutati; i pareggi si risolvono nell'ordine in cui i gate vengono applicati.",
+    "explicit_exceptions": [
+      {
+        "applies_to": [
+          "different_intervention_form",
+          "verified_formulation_variant",
+          "verified_salt_of_active_moiety",
+          "verified_same_active_moiety_different_form"
+        ],
+        "cannot_reach_primary": true,
+        "exception": "Quando il registro delle forme dichiara una relazione verificata ma diversa, il bucket dell'asse intervento e' retained_with_warning anche se il confronto di stringhe aveva respinto la coppia.",
+        "rationale": "Il registro sa che le due forme sono correlate e diverse. Respingerle come estranee perderebbe l'informazione; renderle primarie la falsificherebbe."
+      }
+    ],
+    "final_bucket_equals_axis_composition": true,
+    "formulation_mismatch_is_not_compensable_by": [
+      "disease exact",
+      "biomarker exact",
+      "provenance",
+      "source quality",
+      "punteggio elevato"
+    ],
+    "gate_local_buckets_preserved": true,
+    "gate_names": [
+      "claim_status",
+      "claim_domain",
+      "biomarker",
+      "disease",
+      "intervention_identity",
+      "formulation",
+      "direction"
+    ],
+    "gate_version": "qualified_claim_structural_gate/1.3",
+    "inherited_score_flags_cleared_outside_rankable_buckets": true,
+    "observable_query_is_never_mutated": true,
+    "output_contract": "qualified_claim_retrieval_result/1.6",
+    "primary_requires_exact_form_relation": true,
+    "query_superset_of_claim_does_not_grant_primary": true,
+    "score_flags_cleared_in_buckets": [
+      "rejected_by_native_constraints",
+      "audit_only_results"
+    ],
+    "supersedes": "qualified_claim_structural_gate/1.2",
+    "unresolved_boolean_expression_bucket": "audit_only_results",
+    "unsupported_or_deprecated_stays_audit_with_all_axes_exact": true
+  },
+  "phase_version": "v3-conjunctive-query-closure/1.0",
+  "result_schema_after": {
+    "bucket_precedence_most_to_least_restrictive": [
+      "rejected_by_native_constraints",
+      "audit_only_results",
+      "retained_with_warning",
+      "primary_ranked_results"
+    ],
+    "buckets": [
+      "primary_ranked_results",
+      "retained_with_warning",
+      "audit_only_results",
+      "rejected_by_native_constraints"
+    ],
+    "cross_domain_ranking": false,
+    "default_rendered_buckets": [
+      "primary_ranked_results",
+      "retained_with_warning"
+    ],
+    "excluded_candidates_retained_internally": true,
+    "gate_trace_fields": [
+      "biomarker_match",
+      "biomarker_substitution",
+      "dominant_gate",
+      "gate_local_buckets",
+      "gate_version",
+      "biomarker_direction"
+    ],
+    "gate_version": "qualified_claim_structural_gate/1.3",
+    "provenance_fields": [
+      "adapter_lineage",
+      "claim_id",
+      "deprecated_redirect",
+      "disease_relation_provenance",
+      "formulation_provenance",
+      "graph_evidence_provenance",
+      "legacy_statement_ids",
+      "locators",
+      "parent_id",
+      "propagation_policy",
+      "qualification_status",
+      "reason_codes",
+      "review_status",
+      "source_ids",
+      "source_unit_ids",
+      "terminology_provenance",
+      "warnings"
+    ],
+    "schema_version": "qualified_claim_retrieval_result/1.6",
+    "sections": [
+      "therapeutic_results",
+      "diagnostic_results",
+      "prognostic_results"
+    ],
+    "supersedes": "qualified_claim_retrieval_result/1.5"
+  },
+  "result_schema_before": {
+    "bucket_precedence_most_to_least_restrictive": [
+      "rejected_by_native_constraints",
+      "audit_only_results",
+      "retained_with_warning",
+      "primary_ranked_results"
+    ],
+    "buckets": [
+      "primary_ranked_results",
+      "retained_with_warning",
+      "audit_only_results",
+      "rejected_by_native_constraints"
+    ],
+    "cross_domain_ranking": false,
+    "default_rendered_buckets": [
+      "primary_ranked_results",
+      "retained_with_warning"
+    ],
+    "excluded_candidates_retained_internally": true,
+    "gate_trace_fields": [
+      "biomarker_match",
+      "biomarker_substitution",
+      "dominant_gate",
+      "gate_local_buckets",
+      "gate_version"
+    ],
+    "gate_version": "qualified_claim_structural_gate/1.2",
+    "provenance_fields": [
+      "adapter_lineage",
+      "claim_id",
+      "deprecated_redirect",
+      "disease_relation_provenance",
+      "formulation_provenance",
+      "graph_evidence_provenance",
+      "legacy_statement_ids",
+      "locators",
+      "parent_id",
+      "propagation_policy",
+      "qualification_status",
+      "reason_codes",
+      "review_status",
+      "source_ids",
+      "source_unit_ids",
+      "terminology_provenance",
+      "warnings"
+    ],
+    "schema_version": "qualified_claim_retrieval_result/1.5",
+    "sections": [
+      "therapeutic_results",
+      "diagnostic_results",
+      "prognostic_results"
+    ],
+    "supersedes": "qualified_claim_retrieval_result/1.4"
+  },
+  "supersedes": "v3-retriever-regression-closure/1.0"
+}

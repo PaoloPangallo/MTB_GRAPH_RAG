@@ -11,6 +11,8 @@ from __future__ import annotations
 import hashlib
 import json
 import unittest
+
+from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
 from pathlib import Path
 
 from backend.tests.phase_scope import PhaseScope
@@ -58,6 +60,11 @@ def load_jsonl(path: Path) -> list[dict]:
 class ClosureCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
+        # La cache degli abstract e' un ingresso esterno privato: testo protetto
+        # da copyright, escluso dal versionamento per disegno e non per
+        # dimenticanza. Senza di essa `build()` non ha un soggetto, e saltare e'
+        # l'esito corretto — fallire direbbe che il codice e' rotto.
+        EXTERNAL.require_or_skip(EXTERNAL.SOURCE_ABSTRACT_CACHE)
         cls.artifacts = build()
         cls.scope = load_json(OUT / "review_scope.json")
         cls.access = {
