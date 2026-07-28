@@ -134,7 +134,19 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 class V3Fixture(unittest.TestCase):
-    """Un solo retriever V3 per classe: il corpus e' read-only e non cambia."""
+    """Un solo retriever V3 per classe: il corpus e' read-only e non cambia.
+
+    Il retriever e' pinnato al **gate 1.1**, che e' il gate sotto cui questa fase
+    ha misurato i propri artefatti. La fase successiva ha corretto l'asse del
+    biomarcatore in un gate 1.2 — `EGFR L858R` raggiunge ora il claim disgiuntivo
+    `EGFR L858R OR EGFR Exon 19 Deletion` — e con il gate corrente questi test
+    misurerebbero un comportamento diverso da quello che descrivono, facendo
+    fallire i digest registrati non perche' la fase abbia sbagliato ma perche'
+    starebbe misurando un altro gate. E' lo stesso argomento per cui il perimetro
+    di fase si misura su un intervallo chiuso di commit.
+
+    Il gate 1.2 e' coperto da `test_v3_retriever_regression_closure.py`.
+    """
 
     pipeline: EvidenceRetrievalPipeline
     retriever: V3.QualifiedClaimRetrieverV3
@@ -142,7 +154,7 @@ class V3Fixture(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.pipeline = EvidenceRetrievalPipeline()
-        cls.retriever = cls.pipeline.backend(BACKEND_QUALIFIED_CLAIM_V3)
+        cls.retriever = V3.QualifiedClaimRetrieverV3.from_registry(gate=GATE)
 
     def query(self, **overrides: Any) -> dict[str, Any]:
         payload: dict[str, Any] = {
@@ -730,7 +742,14 @@ class DiseaseAndDomainTests(V3Fixture):
         self.assertEqual(len(sections["therapeutic_results"]), 1)
         self.assertEqual(len(sections["prognostic_results"]), 0)
 
-    def test_the_conjunctive_biomarker_match_is_preserved(self) -> None:
+    def test_a_single_member_does_not_reach_a_multi_member_expression(self) -> None:
+        # Il nome precedente diceva "congiuntivo" di tutti e tre gli endpoint,
+        # ma `evidence:11219` porta una *disgiunzione*
+        # (`EGFR L858R OR EGFR Exon 19 Deletion`), non una congiunzione. Sotto il
+        # gate 1.1 i tre finiscono insieme perche' il confronto e' fra stringhe e
+        # non distingue l'operatore: e' il comportamento di questa fase, ed e'
+        # cio' che il test misura. La distinzione fra i due operatori arriva con
+        # il gate 1.2, dove i tre endpoint si separano.
         gene_only = self.retriever.retrieve(
             self.query(
                 query_id="T-GENE",
@@ -750,7 +769,11 @@ class DiseaseAndDomainTests(V3Fixture):
         )
         reached = {item.graph_evidence_id for item in t790m.primary_ranked_results}
         self.assertIn("evidence:1867", reached)
-        # I claim congiuntivi non sono raggiunti da un solo membro della congiunzione.
+        # Nessuno dei tre e' raggiunto da `EGFR T790M` da solo. Le ragioni pero'
+        # sono due, e il gate 1.1 non le distingue: `11598` e `11599` sono
+        # congiunzioni di cui T790M e' un membro solo, `11219` e' una disgiunzione
+        # di cui T790M non e' membro affatto. Sotto il gate 1.2 la prima ragione
+        # resta un rifiuto e la seconda diventa un'incompatibilita' dichiarata.
         self.assertNotIn("evidence:11598", reached)
         self.assertNotIn("evidence:11599", reached)
         self.assertNotIn("evidence:11219", reached)
@@ -1203,7 +1226,9 @@ class DeterminismTests(V3Fixture):
         self.assertEqual(first.run_id, second.run_id)
 
     def test_a_second_retriever_on_the_same_corpus_agrees(self) -> None:
-        other = V3.QualifiedClaimRetrieverV3.from_registry()
+        # Stesso corpus e stesso gate: e' il determinismo a essere misurato, non
+        # l'accordo fra due gate diversi.
+        other = V3.QualifiedClaimRetrieverV3.from_registry(gate=GATE)
         payload = self.query(query_id="T-DET2", biomarker="EGFR T790M", disease="NSCLC")
         self.assertEqual(
             self.retriever.retrieve(payload).canonical_digest(),
