@@ -4,6 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
+
 import pytest
 
 from benchmarks.mtb_evidence.evaluation.scripts import (
@@ -20,7 +22,20 @@ POST_ALIAS_FIX_RETRIEVER_HASH = (
 
 
 ROOT = Path(__file__).resolve().parents[2]
-GOLD = ROOT.parent / "MTB_Evidence_gold_pilot_v1_bundle"
+# Il bundle gold e' un ingresso esterno privato: non sta nel repository e
+# manca in qualunque checkout pulito. Risolverlo qui invece di comporne il
+# path rende l'assenza una condizione dichiarata invece di un errore di
+# apertura, e `GOLD` resta `None` quando non c'e'.
+GOLD = EXTERNAL.resolve(EXTERNAL.GOLD_BUNDLE)
+
+# L'intero modulo e' un test di valutazione contro il gold: senza il bundle non
+# ha un soggetto, e saltarlo e' l'esito corretto. Non e' un test architetturale
+# reso permissivo — quelli stanno altrove e non toccano il bundle.
+pytestmark = pytest.mark.skipif(
+    GOLD is None,
+    reason=EXTERNAL.GOLD_BUNDLE.description,
+)
+
 FROZEN = ROOT / "benchmarks" / "mtb_evidence" / "v3" / "v2_v3a_exploratory_pilot"
 
 
@@ -164,7 +179,6 @@ def test_filter_and_normalization_audits_expose_first_failure(tmp_path: Path) ->
     assert alk_extra["pending_mapping_promoted"] is False
 
 
-@pytest.mark.skipif(not GOLD.exists(), reason="bundle gold esterno non disponibile")
 def test_gold_annotation_is_late_and_does_not_change_root_causes(
     tmp_path: Path,
 ) -> None:
@@ -198,7 +212,6 @@ def test_gold_annotation_is_late_and_does_not_change_root_causes(
     )
 
 
-@pytest.mark.skipif(not GOLD.exists(), reason="bundle gold esterno non disponibile")
 def test_gold_phase_authenticates_every_causal_artifact_first(
     tmp_path: Path,
 ) -> None:

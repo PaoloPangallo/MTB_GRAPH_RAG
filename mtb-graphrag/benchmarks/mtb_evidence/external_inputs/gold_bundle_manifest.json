@@ -1,0 +1,21 @@
+{
+  "aggregate_contract": "sha256 of sorted input-relative POSIX path:sha256 lines without trailing newline",
+  "availability": "external_private_input",
+  "bundle_version": "MTB_Evidence_gold_pilot_v1",
+  "checksum_only_no_deserialization": true,
+  "contract_version": "external-private-input/1.0",
+  "default_relative_path": "MTB_Evidence_gold_pilot_v1_bundle",
+  "description": "Bundle gold pilota v1. Materiale clinico riservato: non viene copiato nel repository e non viene tracciato.",
+  "environment_variable": "MTB_GOLD_BUNDLE",
+  "expected_aggregate_hash": "5e6d79f04eeaecbabd573a0eb5a636f51bcba55010e2af5f560419479149ac1f",
+  "expected_file_hashes": {
+    "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+    "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+    "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+  },
+  "file_count": 3,
+  "kind": "directory",
+  "name": "gold_bundle",
+  "schema_version": "mtb_evidence_gold_pilot/1.0",
+  "tracked_in_repository": false
+}

@@ -4,6 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
+
 import pytest
 
 from benchmarks.mtb_evidence.evaluation.scripts import (
@@ -12,7 +14,20 @@ from benchmarks.mtb_evidence.evaluation.scripts import (
 
 
 ROOT = Path(__file__).resolve().parents[2]
-GOLD = ROOT.parent / "MTB_Evidence_gold_pilot_v1_bundle"
+# Il bundle gold e' un ingresso esterno privato: non sta nel repository e
+# manca in qualunque checkout pulito. Risolverlo qui invece di comporne il
+# path rende l'assenza una condizione dichiarata invece di un errore di
+# apertura, e `GOLD` resta `None` quando non c'e'.
+GOLD = EXTERNAL.resolve(EXTERNAL.GOLD_BUNDLE)
+
+# L'intero modulo e' un test di valutazione contro il gold: senza il bundle non
+# ha un soggetto, e saltarlo e' l'esito corretto. Non e' un test architetturale
+# reso permissivo — quelli stanno altrove e non toccano il bundle.
+pytestmark = pytest.mark.skipif(
+    GOLD is None,
+    reason=EXTERNAL.GOLD_BUNDLE.description,
+)
+
 COMMITTED = (
     ROOT / "benchmarks/mtb_evidence/v3/multi_intervention_adapter_review"
 )

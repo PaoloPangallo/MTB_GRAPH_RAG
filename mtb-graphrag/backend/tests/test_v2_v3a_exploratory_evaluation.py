@@ -4,6 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
+
 import pytest
 
 from benchmarks.mtb_evidence.evaluation.scripts.v2_v3a_exploratory import (
@@ -21,7 +23,20 @@ from benchmarks.mtb_evidence.evaluation.scripts.v2_v3a_exploratory import (
 
 
 ROOT = Path(__file__).resolve().parents[2]
-GOLD = ROOT.parent / "MTB_Evidence_gold_pilot_v1_bundle"
+# Il bundle gold e' un ingresso esterno privato: non sta nel repository e
+# manca in qualunque checkout pulito. Risolverlo qui invece di comporne il
+# path rende l'assenza una condizione dichiarata invece di un errore di
+# apertura, e `GOLD` resta `None` quando non c'e'.
+GOLD = EXTERNAL.resolve(EXTERNAL.GOLD_BUNDLE)
+
+# L'intero modulo e' un test di valutazione contro il gold: senza il bundle non
+# ha un soggetto, e saltarlo e' l'esito corretto. Non e' un test architetturale
+# reso permissivo — quelli stanno altrove e non toccano il bundle.
+pytestmark = pytest.mark.skipif(
+    GOLD is None,
+    reason=EXTERNAL.GOLD_BUNDLE.description,
+)
+
 EXPECTED_GOLD_HASH = (
     "05bc53c2ba0baec1c5264fdce74a4ea247808791877d4675b9ae4e32c8997133"
 )
@@ -144,7 +159,6 @@ def test_gold_evaluator_refuses_unfrozen_retrieval(tmp_path: Path) -> None:
         )
 
 
-@pytest.mark.skipif(not GOLD.exists(), reason="bundle gold esterno non disponibile")
 def test_blind_then_gold_is_deterministic_and_separated(tmp_path: Path) -> None:
     first = tmp_path / "first"
     second = tmp_path / "second"
@@ -224,7 +238,7 @@ def test_frozen_inputs_remain_byte_identical() -> None:
 
 
 def test_generated_metrics_preserve_units_and_structural_policy(tmp_path: Path) -> None:
-    if not GOLD.exists():
+    if GOLD is None:
         pytest.skip("bundle gold esterno non disponibile")
     run_blind_retrieval(ROOT, tmp_path, run_count=2)
     run_gold_evaluation(
