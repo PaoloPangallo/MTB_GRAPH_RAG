@@ -49,6 +49,18 @@ ABSTRACT_CACHE_DEPENDENT_MODULES = (
     "test_terminology_mapping_closure.py",
 )
 
+# I moduli che rigenerano un artefatto in cui il checksum dell'albero del gold
+# e' *incorporato*. Non leggono il gold e non lo usano per decidere: registrano
+# che c'era e con quale impronta. Senza il bundle la rigenerazione produce
+# `bundle_present: false`, e il confronto con l'artefatto committato non ha
+# soggetto — la dipendenza e' reale anche se nessuna riga di gold entra.
+GOLD_CHECKSUM_EMBEDDING_MODULES = (
+    "test_multi_intervention_adjudication.py",
+    "test_multi_intervention_review_comparison.py",
+    "test_pre_promotion_audit_1_3.py",
+    "test_pre_promotion_required_fixes_1_4.py",
+)
+
 # I moduli architetturali della catena di retrieval. Nessuno di loro puo'
 # nominare un ingresso esterno: se lo facesse, la suite core tornerebbe a
 # dipendere da una macchina.
@@ -269,6 +281,16 @@ class CoreIndependenceTests(unittest.TestCase):
             with self.subTest(module=name):
                 self.assertIn(
                     "EXTERNAL.require_or_skip(EXTERNAL.SOURCE_ABSTRACT_CACHE)", body
+                )
+
+    def test_every_checksum_embedding_module_skips_without_the_bundle(self) -> None:
+        for name in GOLD_CHECKSUM_EMBEDDING_MODULES:
+            body = (REPO_ROOT / "backend" / "tests" / name).read_text(
+                encoding="utf-8"
+            )
+            with self.subTest(module=name):
+                self.assertIn(
+                    "EXTERNAL.require_or_skip(EXTERNAL.GOLD_BUNDLE)", body
                 )
 
     def test_no_gold_dependent_module_builds_the_path_by_hand(self) -> None:

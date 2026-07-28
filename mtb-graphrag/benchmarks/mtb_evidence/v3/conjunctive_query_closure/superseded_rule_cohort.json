@@ -630,5 +630,7 @@
     "RC-03-EGFR-L858R-AND-T790M": 49,
     "RC-04-EGFR-T790M-AND-L858R": 49
   },
-  "superseded_match_type": "conjunction_satisfied"
+  "phase_version": "v3-conjunctive-query-closure/1.0",
+  "superseded_match_type": "conjunction_satisfied",
+  "supersedes": "v3-retriever-regression-closure/1.0"
 }
