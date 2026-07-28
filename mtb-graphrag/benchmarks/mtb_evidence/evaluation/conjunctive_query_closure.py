@@ -27,6 +27,10 @@ from backend.pipeline.evidence.shadow import integrated_gates_v12 as GATE_V12
 from backend.pipeline.evidence.shadow import integrated_gates_v13 as GATE_V13
 from benchmarks.mtb_evidence.evaluation import retriever_regression_closure as CLOSURE
 
+# Riesportato: i test della fase citano la fase precedente attraverso questo
+# modulo invece di importarla due volte.
+CLOSURE = CLOSURE
+
 PHASE_VERSION = "v3-conjunctive-query-closure/1.0"
 SUPERSEDES = "v3-retriever-regression-closure/1.0"
 
@@ -189,7 +193,9 @@ def superseded_cohort() -> dict[str, Any]:
         ),
         "old_bucket_tally": tally("old_bucket"),
         "per_query_hits": dict(sorted(per_query.items())),
+        "phase_version": PHASE_VERSION,
         "superseded_match_type": SUPERSEDED_MATCH_TYPE,
+        "supersedes": SUPERSEDES,
     }
 
 
