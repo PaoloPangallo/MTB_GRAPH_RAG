@@ -2,13 +2,21 @@
 
 Il retriever non reimplementa niente di cio' che e' gia' congelato. Il corpus lo
 apre il loader promosso — con la sua verifica degli hash, il suo schema, il suo
-lineage e il suo rifiuto delle modalita' sconosciute; i gate li applica
-`integrated_gates_v11`, nell'ordine che quel modulo dichiara; i pesi li legge
-dalla configurazione operativa senza toccarli. Cio' che questo modulo aggiunge e'
-il giro: quali oggetti entrano, come i quattro bucket vengono composti, e che
-cosa esce.
+lineage e il suo rifiuto delle modalita' sconosciute; i gate li applica il gate
+integrato, nell'ordine che quel modulo dichiara; i pesi li legge dalla
+configurazione operativa senza toccarli. Cio' che questo modulo aggiunge e' il
+giro: quali oggetti entrano, come i quattro bucket vengono composti, e che cosa
+esce.
 
-Tre scelte meritano di essere lette come scelte.
+Quattro scelte meritano di essere lette come scelte.
+
+**Il gate e' iniettabile, e il suo default e' il 1.2.** La fase precedente ha
+misurato i propri artefatti sotto il gate 1.1, e riprodurre quella misura deve
+restare possibile senza rigenerarne nemmeno uno: un retriever costruito con
+`gate=integrated_gates_v11` ricalcola quei digest byte per byte. Il default e' il
+1.2, che legge gli operatori booleani del biomarcatore. La differenza fra i due
+si vede in un campo — `gate_trace` — che il 1.1 non produce e che, assente, resta
+fuori dalla serializzazione.
 
 **Gli oggetti che entrano non sono solo i claim attivi.** Entrano anche i claim
 ritirati, le associazioni non sostenute, quelle non risolte e i contenitori di
@@ -53,6 +61,7 @@ from backend.pipeline.evidence.retrieval.v3_query import (
     QualifiedClaimQuery,
     build_query,
 )
+from backend.pipeline.evidence.retrieval import v3_result as RESULT
 from backend.pipeline.evidence.retrieval.v3_result import (
     AUDIT_BUCKET,
     PRIMARY_BUCKET,
@@ -63,7 +72,8 @@ from backend.pipeline.evidence.retrieval.v3_result import (
     QualifiedClaimRetrievalResult,
     build_provenance,
 )
-from backend.pipeline.evidence.shadow import integrated_gates_v11 as GATE
+from backend.pipeline.evidence.shadow import integrated_gates_v11 as GATE_V11
+from backend.pipeline.evidence.shadow import integrated_gates_v12 as GATE
 
 BACKEND_VERSION = "qualified_claim_retriever/1.0"
 
@@ -140,8 +150,10 @@ class QualifiedClaimRetrieverV3:
         *,
         policy_mode: str | None = None,
         repository_version: str | None = None,
+        gate: Any = None,
     ) -> None:
         self._corpus = corpus
+        self._gate = gate if gate is not None else GATE
         self._policy_mode = validate_policy_mode(
             policy_mode if policy_mode is not None else corpus.policy_mode
         )
@@ -161,6 +173,7 @@ class QualifiedClaimRetrieverV3:
         policy_mode: str | None = None,
         repository_version: str | None = None,
         verify_hashes: bool = True,
+        gate: Any = None,
     ) -> "QualifiedClaimRetrieverV3":
         """Carica il corpus che il registro prototipale dichiara attivo.
 
@@ -175,7 +188,10 @@ class QualifiedClaimRetrieverV3:
             registry_path, policy_mode=mode, verify_hashes=verify_hashes
         )
         return cls(
-            corpus, policy_mode=mode, repository_version=repository_version
+            corpus,
+            policy_mode=mode,
+            repository_version=repository_version,
+            gate=gate,
         )
 
     def _verify_bindable(self) -> None:
@@ -242,6 +258,27 @@ class QualifiedClaimRetrieverV3:
     def corpus_hash(self) -> str:
         return self._corpus_hash
 
+    @property
+    def gate(self) -> Any:
+        """Il gate strutturale con cui questo retriever decide i bucket.
+
+        E' iniettabile perche' la fase precedente ha misurato i propri artefatti
+        sotto il gate 1.1, e riprodurre quella misura deve restare possibile
+        senza rigenerarli. Il default e' il 1.2: il gate che legge gli operatori
+        booleani del biomarcatore.
+        """
+        return self._gate
+
+    @property
+    def gate_version(self) -> str:
+        return str(getattr(self._gate, "GATE_VERSION", GATE.GATE_VERSION))
+
+    @property
+    def result_schema_version(self) -> str:
+        return RESULT.SCHEMA_FOR_GATE.get(
+            self.gate_version, RESULT.RESULT_SCHEMA_VERSION
+        )
+
     # --- retrieval ------------------------------------------------------------
 
     def build_native_query(self, query: Mapping[str, Any]) -> QualifiedClaimQuery:
@@ -271,7 +308,7 @@ class QualifiedClaimRetrieverV3:
         warnings: set[str] = set()
 
         for obj, record in self._objects:
-            gate_result = GATE.evaluate(gate_query, obj, mode=typed.policy_mode)
+            gate_result = self._gate.evaluate(gate_query, obj, mode=typed.policy_mode)
             claim_score = SCORING.score(gate_result, weights=self._weights)
             for gate_name in gate_result.blocking_gates:
                 blocking_counts[gate_name] = blocking_counts.get(gate_name, 0) + 1
@@ -306,9 +343,11 @@ class QualifiedClaimRetrieverV3:
             gate_decisions={
                 "blocking_gate_counts": dict(sorted(blocking_counts.items())),
                 "gate_execution_order": list(GATE_EXECUTION_ORDER),
-                "gate_version": GATE.GATE_VERSION,
+                "gate_version": self.gate_version,
                 "policy_mode": typed.policy_mode,
             },
+            gate_version=self.gate_version,
+            schema_version=self.result_schema_version,
             latency_ms={
                 "gating": int((gated_at - normalized_at) * 1000),
                 "normalization": int((normalized_at - started) * 1000),
@@ -398,6 +437,11 @@ class QualifiedClaimRetrieverV3:
             warnings=tuple(gate_result.warning_codes),
             reason_codes=tuple(gate_result.reason_codes),
             explanation_codes=tuple(gate_result.explanation_codes),
+            gate_trace=(
+                trace() if callable(trace := getattr(gate_result, "gate_trace", None))
+                else None
+            ),
+            schema_version=self.result_schema_version,
         )
 
     # --- osservabilita' -------------------------------------------------------
@@ -432,7 +476,7 @@ class QualifiedClaimRetrieverV3:
             "backend_version": BACKEND_VERSION,
             "corpus_hash": self._corpus_hash,
             "corpus_path": CONTRACT.PROMOTED_CORPUS_RELPATH,
-            "gate_version": GATE.GATE_VERSION,
+            "gate_version": self.gate_version,
             "loader": "backend.pipeline.evidence.corpus.loader",
             "model_version": self._corpus.model_version,
             "policy_mode": self._policy_mode,
@@ -440,19 +484,25 @@ class QualifiedClaimRetrieverV3:
             "promotion_commit": str(entry.get("promotion_commit") or ""),
             "reads_promoted_v3_corpus": True,
             "repository_version": self._repository_version,
-            "result_contract": GATE.OUTPUT_CONTRACT_VERSION,
+            "result_contract": self.result_schema_version,
             "schema_version": self._corpus.schema_version,
             "scoring_version": SCORING.SCORING_VERSION,
             "source_shadow_version": str(entry.get("source_shadow_version") or ""),
         }
 
 
-def gate_execution_order() -> dict[str, Any]:
-    """Descrizione serializzabile dell'ordine dei gate, per gli artefatti."""
+def gate_execution_order(gate: Any = None) -> dict[str, Any]:
+    """Descrizione serializzabile dell'ordine dei gate, per gli artefatti.
+
+    L'ordine e' lo stesso per il 1.1 e per il 1.2 — il 1.2 corregge un asse, non
+    ne sposta nessuno — ma la versione dichiarata no, e un artefatto deve dire
+    sotto quale gate e' stato misurato.
+    """
+    resolved = gate if gate is not None else GATE
     return {
         "a_single_incompatible_gate_cancels_residual_eligibility": True,
         "buckets_most_to_least_restrictive": list(GATE.BUCKET_PRECEDENCE),
-        "gate_version": GATE.GATE_VERSION,
+        "gate_version": resolved.GATE_VERSION,
         "order": [
             {"position": index, "step": name}
             for index, name in enumerate(GATE_EXECUTION_ORDER, 1)
@@ -462,8 +512,9 @@ def gate_execution_order() -> dict[str, Any]:
     }
 
 
-def v3_retriever_contract() -> dict[str, Any]:
+def v3_retriever_contract(gate: Any = None) -> dict[str, Any]:
     """Descrizione serializzabile del retriever, per gli artefatti della fase."""
+    resolved = gate if gate is not None else GATE
     return {
         "backend_name": BACKEND_QUALIFIED_CLAIM_V3,
         "backend_version": BACKEND_VERSION,
@@ -477,7 +528,9 @@ def v3_retriever_contract() -> dict[str, Any]:
         "corpus_mutated_by_retriever": False,
         "cross_domain_ranking": False,
         "excluded_candidates_recoverable_in_audit_mode": True,
-        "gate_module": "backend.pipeline.evidence.shadow.integrated_gates_v11",
+        "gate_module": resolved.__name__,
+        "gate_version": resolved.GATE_VERSION,
+        "gate_is_selectable": True,
         "loader_module": "backend.pipeline.evidence.corpus.loader",
         "loader_reused_not_duplicated": [
             "hash_verification",

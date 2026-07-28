@@ -35,8 +35,29 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from backend.pipeline.evidence.shadow import integrated_gates_v11 as GATE
+from backend.pipeline.evidence.shadow import integrated_gates_v12 as GATE_V12
 
 RESULT_SCHEMA_VERSION = "qualified_claim_retrieval_result/1.4"
+
+# Lo schema che il gate 1.2 pubblica. Il 1.4 resta leggibile e riproducibile: un
+# risultato prodotto sotto il gate 1.1 non porta `gate_trace`, e il campo assente
+# resta fuori dal payload canonico. E' cio' che permette di rieseguire una misura
+# della fase precedente senza rigenerarne un solo artefatto.
+RESULT_SCHEMA_VERSION_V15 = GATE_V12.OUTPUT_CONTRACT_VERSION
+
+SCHEMA_FOR_GATE = {
+    GATE.GATE_VERSION: RESULT_SCHEMA_VERSION,
+    GATE_V12.GATE_VERSION: RESULT_SCHEMA_VERSION_V15,
+}
+
+# I campi della traccia dei gate, dichiarati una volta sola.
+GATE_TRACE_FIELDS = (
+    "biomarker_match",
+    "biomarker_substitution",
+    "dominant_gate",
+    "gate_local_buckets",
+    "gate_version",
+)
 
 PRIMARY_BUCKET = GATE.PRIMARY_BUCKET
 WARNING_BUCKET = GATE.WARNING_BUCKET
@@ -165,9 +186,22 @@ class QualifiedClaimResult:
     warnings: tuple[str, ...] = ()
     reason_codes: tuple[str, ...] = ()
     explanation_codes: tuple[str, ...] = ()
+    # Il bucket di ogni asse, il gate dominante e la sostituzione booleana. Sta
+    # qui e non dentro `provenance` perche' non e' un riferimento alla fonte ma
+    # una decisione, e perche' la provenance dichiara un insieme chiuso di
+    # chiavi. Assente sotto il gate 1.1, che non lo produce: in quel caso il
+    # campo resta fuori dalla serializzazione e il risultato e' identico a
+    # quello della fase precedente, byte per byte.
+    gate_trace: dict[str, Any] | None = None
     schema_version: str = RESULT_SCHEMA_VERSION
 
     def to_dict(self) -> dict[str, Any]:
+        payload = self._payload()
+        if self.gate_trace is not None:
+            payload["gate_trace"] = dict(self.gate_trace)
+        return payload
+
+    def _payload(self) -> dict[str, Any]:
         return {
             "biomarker": self.biomarker,
             "bucket": self.bucket,
@@ -343,15 +377,22 @@ class QualifiedClaimRetrievalResult:
         return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 
 
-def result_schema() -> dict[str, Any]:
-    """Descrizione serializzabile dello schema, per gli artefatti della fase."""
-    return {
+def result_schema(gate: Any = None) -> dict[str, Any]:
+    """Descrizione serializzabile dello schema, per gli artefatti della fase.
+
+    Lo schema dipende dal gate perche' e' il gate a decidere se il risultato
+    porti una traccia. Chiamata senza argomenti risponde per il gate 1.1, che e'
+    la forma con cui la fase precedente ha misurato i propri artefatti.
+    """
+    gate_version = getattr(gate, "GATE_VERSION", GATE.GATE_VERSION)
+    schema_version = SCHEMA_FOR_GATE.get(gate_version, RESULT_SCHEMA_VERSION)
+    payload = {
         "buckets": list(BUCKETS),
         "bucket_precedence_most_to_least_restrictive": list(GATE.BUCKET_PRECEDENCE),
         "cross_domain_ranking": False,
         "default_rendered_buckets": list(DEFAULT_RENDERED_BUCKETS),
         "excluded_candidates_retained_internally": True,
-        "gate_version": GATE.GATE_VERSION,
+        "gate_version": gate_version,
         "provenance_fields": [
             "adapter_lineage",
             "claim_id",
@@ -371,18 +412,25 @@ def result_schema() -> dict[str, Any]:
             "terminology_provenance",
             "warnings",
         ],
-        "schema_version": RESULT_SCHEMA_VERSION,
+        "schema_version": schema_version,
         "sections": list(SECTIONS),
     }
+    if schema_version != RESULT_SCHEMA_VERSION:
+        payload["gate_trace_fields"] = list(GATE_TRACE_FIELDS)
+        payload["supersedes"] = RESULT_SCHEMA_VERSION
+    return payload
 
 
 __all__ = [
     "AUDIT_BUCKET",
     "BUCKETS",
     "DEFAULT_RENDERED_BUCKETS",
+    "GATE_TRACE_FIELDS",
     "PRIMARY_BUCKET",
     "REJECTED_BUCKET",
     "RESULT_SCHEMA_VERSION",
+    "RESULT_SCHEMA_VERSION_V15",
+    "SCHEMA_FOR_GATE",
     "SECTIONS",
     "SECTION_FOR_DOMAIN",
     "WARNING_BUCKET",
