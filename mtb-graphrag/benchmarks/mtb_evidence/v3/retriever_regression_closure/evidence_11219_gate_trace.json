@@ -1,0 +1,1485 @@
+{
+  "after": {
+    "claims": [
+      {
+        "biomarker": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "bucket": "primary_ranked_results",
+        "canonical_intervention": "osimertinib",
+        "claim_domain": "therapeutic",
+        "claim_id": "CLM-382985ec558808784e70",
+        "claim_type": "atomic_intervention_claim",
+        "disease_scope": "Lung Non-small Cell Carcinoma",
+        "explanation_codes": [
+          "DISEASE_IDENTITY_CONFIRMED_BY_VERIFIED_ALIAS",
+          "NO_INTERVENTION_CONSTRAINT"
+        ],
+        "gate": {
+          "audit_only": false,
+          "biomarker_match_result": {
+            "axis_bucket": "primary_ranked_results",
+            "claim_expression": {
+              "literal": "egfr l858r or egfr exon 19 deletion",
+              "operator": "or",
+              "terms": [
+                "egfr exon 19 deletion",
+                "egfr l858r"
+              ]
+            },
+            "compatible": true,
+            "contract_version": "biomarker-boolean-semantics/1.0",
+            "match_type": "disjunct_member",
+            "query_expression": {
+              "literal": "egfr l858r",
+              "operator": "single",
+              "terms": [
+                "egfr l858r"
+              ]
+            },
+            "reason_codes": [
+              "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT"
+            ],
+            "substitution_applied": true
+          },
+          "biomarker_substitution": {
+            "claim_biomarker_expression": "egfr l858r or egfr exon 19 deletion",
+            "effective_biomarker_passed_to_v11": "egfr l858r or egfr exon 19 deletion",
+            "original_query_biomarker": "egfr l858r",
+            "substitution_reason": "disjunct_member"
+          },
+          "blocking_gates": [],
+          "claim_domain": "therapeutic",
+          "claim_id": "CLM-382985ec558808784e70",
+          "claim_status_result": {
+            "audit_only_object": false,
+            "deprecated": false,
+            "eligible_for_primary": true,
+            "is_claim": true,
+            "reason_codes": [],
+            "status": "active_claim"
+          },
+          "claim_type": "atomic_intervention_claim",
+          "direction_match_result": {
+            "compatible": true,
+            "direction_match_type": "not_constrained",
+            "polarity_match_type": "not_constrained",
+            "reason_codes": []
+          },
+          "disease_match_result": {
+            "audit_only": false,
+            "bucket": "primary_ranked_results",
+            "claim_disease_scope": "Lung Non-small Cell Carcinoma",
+            "claim_id": "CLM-382985ec558808784e70",
+            "contract_version": "directional-disease-match-contract/1.0",
+            "explanation_codes": [
+              "DISEASE_IDENTITY_CONFIRMED_BY_VERIFIED_ALIAS"
+            ],
+            "gate_version": "claim_disease_gate/1.0",
+            "is_exact_relation": true,
+            "normalized_claim_disease": "lung non-small cell carcinoma",
+            "normalized_query_disease": "nsclc",
+            "object_carries_disease_scope": true,
+            "policy_mode": "strict_verified",
+            "primary_candidate_eligible": true,
+            "provenance": {
+              "contract_version": "directional-disease-match-contract/1.0",
+              "gate_version": "claim_disease_gate/1.0",
+              "relation_provenance": "verified_local_alias_table",
+              "relation_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+              "relation_source_version": "verified-local-disease-aliases/1.0",
+              "relation_verified": true
+            },
+            "query_disease": "NSCLC",
+            "query_id": "RB-01-EGFR-L858R-NSCLC",
+            "reason_codes": [
+              "DISEASE_VERIFIED_ALIAS_MATCH"
+            ],
+            "rejected_by_native_constraints": false,
+            "relation_direction": "none",
+            "relation_provenance": "verified_local_alias_table",
+            "relation_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+            "relation_source_version": "verified-local-disease-aliases/1.0",
+            "relation_type": "verified_disease_alias",
+            "relation_verified": true,
+            "score_eligibility": {
+              "bucket": "primary_ranked_results",
+              "final_ranking_eligible": true,
+              "positive_score_forbidden": false,
+              "qualified_score_eligible": true,
+              "ranks_within_bucket_only": false,
+              "structural_score_eligible": true
+            },
+            "warning_codes": [],
+            "warning_eligible": false
+          },
+          "domain_match_result": {
+            "claim_domain": "therapeutic",
+            "domain_match": true,
+            "query_domain": "therapeutic_evidence_query",
+            "section": "therapeutic_results",
+            "therapy_score_allowed": true
+          },
+          "dominant_gate": "claim_status",
+          "explanation_codes": [
+            "DISEASE_IDENTITY_CONFIRMED_BY_VERIFIED_ALIAS",
+            "NO_INTERVENTION_CONSTRAINT"
+          ],
+          "final_bucket": "primary_ranked_results",
+          "final_ranking_eligible": true,
+          "formulation_match_result": {
+            "axis_bucket": "primary_ranked_results",
+            "axis_bucket_decided_by": "no_intervention_constraint",
+            "axis_evaluated": false,
+            "contract_version": "intervention_formulation_contract/1.0",
+            "is_exact_form": false,
+            "relation_type": "not_applicable_no_intervention_constraint"
+          },
+          "gate_local_buckets": {
+            "biomarker": "primary_ranked_results",
+            "claim_domain": "primary_ranked_results",
+            "claim_status": "primary_ranked_results",
+            "direction": "primary_ranked_results",
+            "disease": "primary_ranked_results",
+            "formulation": "primary_ranked_results",
+            "intervention_identity": "primary_ranked_results"
+          },
+          "gate_version": "qualified_claim_structural_gate/1.2",
+          "intervention_match_result": {
+            "claim_interventions": [
+              "osimertinib"
+            ],
+            "compatible": true,
+            "identity_bucket": "primary_ranked_results",
+            "match_type": "no_intervention_constraint",
+            "query_interventions": [],
+            "reason_codes": []
+          },
+          "output_contract": "qualified_claim_retrieval_result/1.5",
+          "policy_mode": "strict_verified",
+          "primary_candidate_eligible": true,
+          "provenance": {
+            "biomarker_boolean_contract": "biomarker-boolean-semantics/1.0",
+            "claim_type_contract": "claim-type-retrieval-contract/1.0",
+            "disease_contract": "directional-disease-match-contract/1.0",
+            "disease_gate": "claim_disease_gate/1.0",
+            "domain_gate": "claim_structural_gate/1.1",
+            "formulation_contract": "intervention_formulation_contract/1.0",
+            "formulation_registry": "verified_formulation_registry/1.0",
+            "integrated_gate": "qualified_claim_structural_gate/1.2",
+            "output_contract": "qualified_claim_retrieval_result/1.5",
+            "relation_provenance": "verified_local_alias_table",
+            "relation_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+            "relation_verified": true
+          },
+          "qualified_score_eligible": true,
+          "query_id": "RB-01-EGFR-L858R-NSCLC",
+          "reason_codes": [
+            "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT",
+            "BOOLEAN_BIOMARKER_AXIS_RESOLVED",
+            "DISEASE_VERIFIED_ALIAS_MATCH"
+          ],
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "structural_score_eligible": false,
+          "warning_codes": [],
+          "warning_eligible": false
+        },
+        "gate_trace": {
+          "biomarker_match": {
+            "axis_bucket": "primary_ranked_results",
+            "claim_expression": {
+              "literal": "egfr l858r or egfr exon 19 deletion",
+              "operator": "or",
+              "terms": [
+                "egfr exon 19 deletion",
+                "egfr l858r"
+              ]
+            },
+            "compatible": true,
+            "contract_version": "biomarker-boolean-semantics/1.0",
+            "match_type": "disjunct_member",
+            "query_expression": {
+              "literal": "egfr l858r",
+              "operator": "single",
+              "terms": [
+                "egfr l858r"
+              ]
+            },
+            "reason_codes": [
+              "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT"
+            ],
+            "substitution_applied": true
+          },
+          "biomarker_substitution": {
+            "claim_biomarker_expression": "egfr l858r or egfr exon 19 deletion",
+            "effective_biomarker_passed_to_v11": "egfr l858r or egfr exon 19 deletion",
+            "original_query_biomarker": "egfr l858r",
+            "substitution_reason": "disjunct_member"
+          },
+          "dominant_gate": "claim_status",
+          "gate_local_buckets": {
+            "biomarker": "primary_ranked_results",
+            "claim_domain": "primary_ranked_results",
+            "claim_status": "primary_ranked_results",
+            "direction": "primary_ranked_results",
+            "disease": "primary_ranked_results",
+            "formulation": "primary_ranked_results",
+            "intervention_identity": "primary_ranked_results"
+          },
+          "gate_version": "qualified_claim_structural_gate/1.2"
+        },
+        "graph_evidence_id": "evidence:11219",
+        "intervention_members": [
+          "osimertinib"
+        ],
+        "parent_id": "GEP-0d4f2ac1784f2bf98fb0",
+        "provenance": {
+          "adapter_lineage": {
+            "adapter_version": "v2_to_typed_claim_shadow_adapter/1.0",
+            "migration_origin": "legacy_single_statement",
+            "operational_extraction_action_id": "v2_to_v3_adapter/1.0",
+            "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+          },
+          "claim_id": "CLM-382985ec558808784e70",
+          "deprecated_redirect": "",
+          "disease_relation_provenance": {
+            "contract_version": "directional-disease-match-contract/1.0",
+            "relation_direction": "none",
+            "relation_provenance": "verified_local_alias_table",
+            "relation_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+            "relation_source_version": "verified-local-disease-aliases/1.0",
+            "relation_type": "verified_disease_alias",
+            "relation_verified": true
+          },
+          "formulation_provenance": {
+            "authoritative_source": "",
+            "claim_form": "",
+            "contract_version": "intervention_formulation_contract/1.0",
+            "query_form": "",
+            "relation_status": "",
+            "relation_type": "not_applicable_no_intervention_constraint"
+          },
+          "graph_evidence_provenance": {
+            "graph_evidence_id": "evidence:11219",
+            "graph_record_ids": [
+              "evidence:11219"
+            ],
+            "parent_id": "GEP-0d4f2ac1784f2bf98fb0"
+          },
+          "legacy_statement_ids": [
+            "ES-V2-evidence-11219"
+          ],
+          "locators": [],
+          "parent_id": "GEP-0d4f2ac1784f2bf98fb0",
+          "propagation_policy": "prototype_only",
+          "qualification_status": {
+            "final_evaluable": false,
+            "hard_filterable": false,
+            "qualification_link_ids": [],
+            "qualification_links": [],
+            "qualified_view_ids": []
+          },
+          "reason_codes": [
+            "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT",
+            "BOOLEAN_BIOMARKER_AXIS_RESOLVED",
+            "DISEASE_VERIFIED_ALIAS_MATCH"
+          ],
+          "review_status": "pending_verification",
+          "source_ids": [],
+          "source_unit_ids": [],
+          "terminology_provenance": {},
+          "warnings": []
+        },
+        "rank": 2,
+        "reason_codes": [
+          "BIOMARKER_QUERY_SATISFIES_ONE_DISJUNCT",
+          "BOOLEAN_BIOMARKER_AXIS_RESOLVED",
+          "DISEASE_VERIFIED_ALIAS_MATCH"
+        ],
+        "schema_version": "qualified_claim_retrieval_result/1.5",
+        "score": {
+          "all_scores_disabled": false,
+          "bucket": "primary_ranked_results",
+          "claim_id": "CLM-382985ec558808784e70",
+          "eligibility": {
+            "bucket": "primary_ranked_results",
+            "final_ranking_eligible": true,
+            "positive_score_forbidden": false,
+            "qualified_score_eligible": true,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "features": [
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "structural_score_not_eligible_in_this_bucket",
+              "name": "biomarker",
+              "raw_value": "disjunct_member",
+              "weight": 40.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "structural_score_not_eligible_in_this_bucket",
+              "name": "direction",
+              "raw_value": "not_constrained",
+              "weight": 8.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "structural_score_not_eligible_in_this_bucket",
+              "name": "disease",
+              "raw_value": "verified_disease_alias",
+              "weight": 30.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "axis_not_constrained_by_query",
+              "name": "formulation",
+              "raw_value": "not_applicable_no_intervention_constraint",
+              "weight": 15.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "structural_score_not_eligible_in_this_bucket",
+              "name": "intervention_identity",
+              "raw_value": "no_intervention_constraint",
+              "weight": 15.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:mapping_pending -> audit_only_results",
+              "name": "penalty_pending_terminology",
+              "raw_value": -3,
+              "weight": -3.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:aggregate_member_related -> retained_with_warning",
+              "name": "penalty_not_separable",
+              "raw_value": -2,
+              "weight": -2.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:unresolved -> audit_only_results",
+              "name": "penalty_unresolved",
+              "raw_value": -1,
+              "weight": -1.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:unsupported -> audit_only_results",
+              "name": "penalty_invalid",
+              "raw_value": -50,
+              "weight": -50.0
+            }
+          ],
+          "ranking_score_allowed": false,
+          "ranks_within_bucket_only": false,
+          "scoring_version": "qualified_claim_retrieval_scoring/1.0",
+          "total": 0.0,
+          "used_for_clinical_ranking": false,
+          "weights_retuned_in_this_phase": false
+        },
+        "section": "therapeutic_results",
+        "source_literal_members": [],
+        "warnings": []
+      },
+      {
+        "biomarker": "",
+        "bucket": "audit_only_results",
+        "canonical_intervention": "",
+        "claim_domain": "not_applicable",
+        "claim_id": "GEP-0d4f2ac1784f2bf98fb0",
+        "claim_type": "graph_evidence_record",
+        "disease_scope": "",
+        "explanation_codes": [
+          "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM"
+        ],
+        "gate": {
+          "audit_only": true,
+          "biomarker_match_result": {
+            "axis_bucket": "rejected_by_native_constraints",
+            "claim_expression": {
+              "literal": "",
+              "operator": "empty",
+              "terms": []
+            },
+            "compatible": false,
+            "contract_version": "biomarker-boolean-semantics/1.0",
+            "match_type": "incompatible",
+            "query_expression": {
+              "literal": "egfr l858r",
+              "operator": "single",
+              "terms": [
+                "egfr l858r"
+              ]
+            },
+            "reason_codes": [
+              "NATIVE_BIOMARKER_MISMATCH"
+            ],
+            "substitution_applied": false
+          },
+          "biomarker_substitution": {
+            "claim_biomarker_expression": "",
+            "effective_biomarker_passed_to_v11": "egfr l858r",
+            "original_query_biomarker": "egfr l858r",
+            "substitution_reason": "none"
+          },
+          "blocking_gates": [
+            "claim_status",
+            "claim_domain",
+            "biomarker"
+          ],
+          "claim_domain": "not_applicable",
+          "claim_id": "GEP-0d4f2ac1784f2bf98fb0",
+          "claim_status_result": {
+            "audit_only_object": true,
+            "deprecated": false,
+            "eligible_for_primary": false,
+            "is_claim": false,
+            "reason_codes": [
+              "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM"
+            ],
+            "status": "parent_provenance_container"
+          },
+          "claim_type": "graph_evidence_record",
+          "direction_match_result": {
+            "compatible": true,
+            "direction_match_type": "not_applicable",
+            "polarity_match_type": "not_applicable",
+            "reason_codes": []
+          },
+          "disease_match_result": {
+            "audit_only": true,
+            "bucket": "audit_only_results",
+            "claim_disease_scope": "",
+            "claim_id": "GEP-0d4f2ac1784f2bf98fb0",
+            "contract_version": "directional-disease-match-contract/1.0",
+            "explanation_codes": [
+              "CLAIM_DISEASE_SCOPE_NOT_PROVIDED"
+            ],
+            "gate_version": "claim_disease_gate/1.0",
+            "is_exact_relation": false,
+            "normalized_claim_disease": "",
+            "normalized_query_disease": "nsclc",
+            "object_carries_disease_scope": false,
+            "policy_mode": "strict_verified",
+            "primary_candidate_eligible": false,
+            "provenance": {
+              "contract_version": "directional-disease-match-contract/1.0",
+              "gate_version": "claim_disease_gate/1.0",
+              "relation_provenance": "claim_disease_scope_absent",
+              "relation_source": "absence_of_frozen_relation",
+              "relation_source_version": "disease-literal-identity/1.0",
+              "relation_verified": false
+            },
+            "query_disease": "NSCLC",
+            "query_id": "RB-01-EGFR-L858R-NSCLC",
+            "reason_codes": [
+              "CLAIM_DISEASE_SCOPE_MISSING",
+              "DISEASE_GATE_PRECEDES_SCORING"
+            ],
+            "rejected_by_native_constraints": false,
+            "relation_direction": "unknown",
+            "relation_provenance": "claim_disease_scope_absent",
+            "relation_source": "absence_of_frozen_relation",
+            "relation_source_version": "disease-literal-identity/1.0",
+            "relation_type": "missing_claim_disease",
+            "relation_verified": false,
+            "score_eligibility": {
+              "bucket": "audit_only_results",
+              "final_ranking_eligible": false,
+              "positive_score_forbidden": true,
+              "qualified_score_eligible": false,
+              "ranks_within_bucket_only": false,
+              "structural_score_eligible": false
+            },
+            "warning_codes": [],
+            "warning_eligible": false
+          },
+          "domain_match_result": {
+            "claim_domain": "not_applicable",
+            "domain_match": false,
+            "query_domain": "therapeutic_evidence_query",
+            "section": null,
+            "therapy_score_allowed": false
+          },
+          "dominant_gate": "biomarker",
+          "explanation_codes": [
+            "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM"
+          ],
+          "final_bucket": "audit_only_results",
+          "final_ranking_eligible": false,
+          "formulation_match_result": {
+            "axis_bucket": "primary_ranked_results",
+            "axis_bucket_decided_by": "no_intervention_constraint",
+            "axis_evaluated": false,
+            "contract_version": "intervention_formulation_contract/1.0",
+            "is_exact_form": false,
+            "relation_type": "not_applicable_no_intervention_constraint"
+          },
+          "gate_local_buckets": {
+            "biomarker": "rejected_by_native_constraints",
+            "claim_domain": "audit_only_results",
+            "claim_status": "audit_only_results",
+            "direction": "primary_ranked_results",
+            "disease": "audit_only_results",
+            "formulation": "primary_ranked_results",
+            "intervention_identity": "primary_ranked_results"
+          },
+          "gate_version": "qualified_claim_structural_gate/1.2",
+          "intervention_match_result": {
+            "claim_interventions": [],
+            "compatible": true,
+            "identity_bucket": "primary_ranked_results",
+            "match_type": "parent_not_claim",
+            "query_interventions": [],
+            "reason_codes": []
+          },
+          "output_contract": "qualified_claim_retrieval_result/1.5",
+          "policy_mode": "strict_verified",
+          "primary_candidate_eligible": false,
+          "provenance": {
+            "biomarker_boolean_contract": "biomarker-boolean-semantics/1.0",
+            "claim_type_contract": "claim-type-retrieval-contract/1.0",
+            "disease_contract": "directional-disease-match-contract/1.0",
+            "disease_gate": "claim_disease_gate/1.0",
+            "domain_gate": "claim_structural_gate/1.1",
+            "formulation_contract": "intervention_formulation_contract/1.0",
+            "formulation_registry": "verified_formulation_registry/1.0",
+            "integrated_gate": "qualified_claim_structural_gate/1.2",
+            "output_contract": "qualified_claim_retrieval_result/1.5",
+            "relation_provenance": "claim_disease_scope_absent",
+            "relation_source": "absence_of_frozen_relation",
+            "relation_verified": false
+          },
+          "qualified_score_eligible": false,
+          "query_id": "RB-01-EGFR-L858R-NSCLC",
+          "reason_codes": [
+            "INTEGRATED_GATE_PRECEDES_SCORING",
+            "NATIVE_BIOMARKER_MISMATCH",
+            "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM",
+            "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+          ],
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "structural_score_eligible": false,
+          "warning_codes": [],
+          "warning_eligible": false
+        },
+        "gate_trace": {
+          "biomarker_match": {
+            "axis_bucket": "rejected_by_native_constraints",
+            "claim_expression": {
+              "literal": "",
+              "operator": "empty",
+              "terms": []
+            },
+            "compatible": false,
+            "contract_version": "biomarker-boolean-semantics/1.0",
+            "match_type": "incompatible",
+            "query_expression": {
+              "literal": "egfr l858r",
+              "operator": "single",
+              "terms": [
+                "egfr l858r"
+              ]
+            },
+            "reason_codes": [
+              "NATIVE_BIOMARKER_MISMATCH"
+            ],
+            "substitution_applied": false
+          },
+          "biomarker_substitution": {
+            "claim_biomarker_expression": "",
+            "effective_biomarker_passed_to_v11": "egfr l858r",
+            "original_query_biomarker": "egfr l858r",
+            "substitution_reason": "none"
+          },
+          "dominant_gate": "biomarker",
+          "gate_local_buckets": {
+            "biomarker": "rejected_by_native_constraints",
+            "claim_domain": "audit_only_results",
+            "claim_status": "audit_only_results",
+            "direction": "primary_ranked_results",
+            "disease": "audit_only_results",
+            "formulation": "primary_ranked_results",
+            "intervention_identity": "primary_ranked_results"
+          },
+          "gate_version": "qualified_claim_structural_gate/1.2"
+        },
+        "graph_evidence_id": "evidence:11219",
+        "intervention_members": [],
+        "parent_id": "GEP-0d4f2ac1784f2bf98fb0",
+        "provenance": {
+          "adapter_lineage": {
+            "adapter_version": "v2_to_typed_claim_shadow_adapter/1.0",
+            "migration_origin": "",
+            "operational_extraction_action_id": "v2_to_v3_adapter/1.0",
+            "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+          },
+          "claim_id": "",
+          "deprecated_redirect": "",
+          "disease_relation_provenance": {
+            "contract_version": "directional-disease-match-contract/1.0",
+            "relation_direction": "unknown",
+            "relation_provenance": "claim_disease_scope_absent",
+            "relation_source": "absence_of_frozen_relation",
+            "relation_source_version": "disease-literal-identity/1.0",
+            "relation_type": "missing_claim_disease",
+            "relation_verified": false
+          },
+          "formulation_provenance": {
+            "authoritative_source": "",
+            "claim_form": "",
+            "contract_version": "intervention_formulation_contract/1.0",
+            "query_form": "",
+            "relation_status": "",
+            "relation_type": "not_applicable_no_intervention_constraint"
+          },
+          "graph_evidence_provenance": {
+            "graph_evidence_id": "evidence:11219",
+            "graph_record_ids": [
+              "evidence:11219"
+            ],
+            "parent_id": "GEP-0d4f2ac1784f2bf98fb0"
+          },
+          "legacy_statement_ids": [],
+          "locators": [],
+          "parent_id": "GEP-0d4f2ac1784f2bf98fb0",
+          "propagation_policy": "",
+          "qualification_status": {
+            "final_evaluable": false,
+            "hard_filterable": false,
+            "qualification_link_ids": [],
+            "qualification_links": [],
+            "qualified_view_ids": []
+          },
+          "reason_codes": [
+            "INTEGRATED_GATE_PRECEDES_SCORING",
+            "NATIVE_BIOMARKER_MISMATCH",
+            "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM",
+            "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+          ],
+          "review_status": "not_reviewed",
+          "source_ids": [],
+          "source_unit_ids": [],
+          "terminology_provenance": {},
+          "warnings": []
+        },
+        "rank": 14,
+        "reason_codes": [
+          "INTEGRATED_GATE_PRECEDES_SCORING",
+          "NATIVE_BIOMARKER_MISMATCH",
+          "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM",
+          "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+        ],
+        "schema_version": "qualified_claim_retrieval_result/1.5",
+        "score": {
+          "all_scores_disabled": false,
+          "bucket": "audit_only_results",
+          "claim_id": "GEP-0d4f2ac1784f2bf98fb0",
+          "eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "features": [
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "biomarker",
+              "raw_value": "incompatible",
+              "weight": 40.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "direction",
+              "raw_value": "not_applicable",
+              "weight": 8.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "disease",
+              "raw_value": "missing_claim_disease",
+              "weight": 30.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "formulation",
+              "raw_value": "not_applicable_no_intervention_constraint",
+              "weight": 15.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "intervention_identity",
+              "raw_value": "parent_not_claim",
+              "weight": 15.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:mapping_pending -> audit_only_results",
+              "name": "penalty_pending_terminology",
+              "raw_value": -3,
+              "weight": -3.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:aggregate_member_related -> retained_with_warning",
+              "name": "penalty_not_separable",
+              "raw_value": -2,
+              "weight": -2.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:unresolved -> audit_only_results",
+              "name": "penalty_unresolved",
+              "raw_value": -1,
+              "weight": -1.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:unsupported -> audit_only_results",
+              "name": "penalty_invalid",
+              "raw_value": -50,
+              "weight": -50.0
+            }
+          ],
+          "ranking_score_allowed": false,
+          "ranks_within_bucket_only": false,
+          "scoring_version": "qualified_claim_retrieval_scoring/1.0",
+          "total": 0.0,
+          "used_for_clinical_ranking": false,
+          "weights_retuned_in_this_phase": false
+        },
+        "section": "",
+        "source_literal_members": [],
+        "warnings": []
+      }
+    ],
+    "gate_version": "qualified_claim_structural_gate/1.2",
+    "result_schema_version": "qualified_claim_retrieval_result/1.5"
+  },
+  "before": {
+    "claims": [
+      {
+        "biomarker": "",
+        "bucket": "audit_only_results",
+        "canonical_intervention": "",
+        "claim_domain": "not_applicable",
+        "claim_id": "GEP-0d4f2ac1784f2bf98fb0",
+        "claim_type": "graph_evidence_record",
+        "disease_scope": "",
+        "explanation_codes": [
+          "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM"
+        ],
+        "gate": {
+          "audit_only": true,
+          "biomarker_match_result": {
+            "compatible": true,
+            "match_type": "not_applicable",
+            "reason_codes": []
+          },
+          "blocking_gates": [
+            "claim_status",
+            "claim_domain"
+          ],
+          "claim_domain": "not_applicable",
+          "claim_id": "GEP-0d4f2ac1784f2bf98fb0",
+          "claim_status_result": {
+            "audit_only_object": true,
+            "deprecated": false,
+            "eligible_for_primary": false,
+            "is_claim": false,
+            "reason_codes": [
+              "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM"
+            ],
+            "status": "parent_provenance_container"
+          },
+          "claim_type": "graph_evidence_record",
+          "direction_match_result": {
+            "compatible": true,
+            "direction_match_type": "not_applicable",
+            "polarity_match_type": "not_applicable",
+            "reason_codes": []
+          },
+          "disease_match_result": {
+            "audit_only": true,
+            "bucket": "audit_only_results",
+            "claim_disease_scope": "",
+            "claim_id": "GEP-0d4f2ac1784f2bf98fb0",
+            "contract_version": "directional-disease-match-contract/1.0",
+            "explanation_codes": [
+              "CLAIM_DISEASE_SCOPE_NOT_PROVIDED"
+            ],
+            "gate_version": "claim_disease_gate/1.0",
+            "is_exact_relation": false,
+            "normalized_claim_disease": "",
+            "normalized_query_disease": "nsclc",
+            "object_carries_disease_scope": false,
+            "policy_mode": "strict_verified",
+            "primary_candidate_eligible": false,
+            "provenance": {
+              "contract_version": "directional-disease-match-contract/1.0",
+              "gate_version": "claim_disease_gate/1.0",
+              "relation_provenance": "claim_disease_scope_absent",
+              "relation_source": "absence_of_frozen_relation",
+              "relation_source_version": "disease-literal-identity/1.0",
+              "relation_verified": false
+            },
+            "query_disease": "NSCLC",
+            "query_id": "RB-01-EGFR-L858R-NSCLC",
+            "reason_codes": [
+              "CLAIM_DISEASE_SCOPE_MISSING",
+              "DISEASE_GATE_PRECEDES_SCORING"
+            ],
+            "rejected_by_native_constraints": false,
+            "relation_direction": "unknown",
+            "relation_provenance": "claim_disease_scope_absent",
+            "relation_source": "absence_of_frozen_relation",
+            "relation_source_version": "disease-literal-identity/1.0",
+            "relation_type": "missing_claim_disease",
+            "relation_verified": false,
+            "score_eligibility": {
+              "bucket": "audit_only_results",
+              "final_ranking_eligible": false,
+              "positive_score_forbidden": true,
+              "qualified_score_eligible": false,
+              "ranks_within_bucket_only": false,
+              "structural_score_eligible": false
+            },
+            "warning_codes": [],
+            "warning_eligible": false
+          },
+          "domain_match_result": {
+            "claim_domain": "not_applicable",
+            "domain_match": false,
+            "query_domain": "therapeutic_evidence_query",
+            "section": null,
+            "therapy_score_allowed": false
+          },
+          "explanation_codes": [
+            "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM"
+          ],
+          "final_bucket": "audit_only_results",
+          "final_ranking_eligible": false,
+          "formulation_match_result": {
+            "axis_bucket": "primary_ranked_results",
+            "axis_bucket_decided_by": "no_intervention_constraint",
+            "axis_evaluated": false,
+            "contract_version": "intervention_formulation_contract/1.0",
+            "is_exact_form": false,
+            "relation_type": "not_applicable_no_intervention_constraint"
+          },
+          "gate_version": "qualified_claim_structural_gate/1.1",
+          "intervention_match_result": {
+            "claim_interventions": [],
+            "compatible": true,
+            "identity_bucket": "primary_ranked_results",
+            "match_type": "parent_not_claim",
+            "query_interventions": [],
+            "reason_codes": []
+          },
+          "output_contract": "qualified_claim_retrieval_result/1.3",
+          "policy_mode": "strict_verified",
+          "primary_candidate_eligible": false,
+          "provenance": {
+            "claim_type_contract": "claim-type-retrieval-contract/1.0",
+            "disease_contract": "directional-disease-match-contract/1.0",
+            "disease_gate": "claim_disease_gate/1.0",
+            "domain_gate": "claim_structural_gate/1.1",
+            "formulation_contract": "intervention_formulation_contract/1.0",
+            "formulation_registry": "verified_formulation_registry/1.0",
+            "integrated_gate": "qualified_claim_structural_gate/1.1",
+            "output_contract": "qualified_claim_retrieval_result/1.3",
+            "relation_provenance": "claim_disease_scope_absent",
+            "relation_source": "absence_of_frozen_relation",
+            "relation_verified": false
+          },
+          "qualified_score_eligible": false,
+          "query_id": "RB-01-EGFR-L858R-NSCLC",
+          "reason_codes": [
+            "INTEGRATED_GATE_PRECEDES_SCORING",
+            "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM",
+            "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+          ],
+          "rejected_by_native_constraints": false,
+          "score_eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "structural_score_eligible": false,
+          "warning_codes": [],
+          "warning_eligible": false
+        },
+        "graph_evidence_id": "evidence:11219",
+        "intervention_members": [],
+        "parent_id": "GEP-0d4f2ac1784f2bf98fb0",
+        "provenance": {
+          "adapter_lineage": {
+            "adapter_version": "v2_to_typed_claim_shadow_adapter/1.0",
+            "migration_origin": "",
+            "operational_extraction_action_id": "v2_to_v3_adapter/1.0",
+            "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+          },
+          "claim_id": "",
+          "deprecated_redirect": "",
+          "disease_relation_provenance": {
+            "contract_version": "directional-disease-match-contract/1.0",
+            "relation_direction": "unknown",
+            "relation_provenance": "claim_disease_scope_absent",
+            "relation_source": "absence_of_frozen_relation",
+            "relation_source_version": "disease-literal-identity/1.0",
+            "relation_type": "missing_claim_disease",
+            "relation_verified": false
+          },
+          "formulation_provenance": {
+            "authoritative_source": "",
+            "claim_form": "",
+            "contract_version": "intervention_formulation_contract/1.0",
+            "query_form": "",
+            "relation_status": "",
+            "relation_type": "not_applicable_no_intervention_constraint"
+          },
+          "graph_evidence_provenance": {
+            "graph_evidence_id": "evidence:11219",
+            "graph_record_ids": [
+              "evidence:11219"
+            ],
+            "parent_id": "GEP-0d4f2ac1784f2bf98fb0"
+          },
+          "legacy_statement_ids": [],
+          "locators": [],
+          "parent_id": "GEP-0d4f2ac1784f2bf98fb0",
+          "propagation_policy": "",
+          "qualification_status": {
+            "final_evaluable": false,
+            "hard_filterable": false,
+            "qualification_link_ids": [],
+            "qualification_links": [],
+            "qualified_view_ids": []
+          },
+          "reason_codes": [
+            "INTEGRATED_GATE_PRECEDES_SCORING",
+            "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM",
+            "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+          ],
+          "review_status": "not_reviewed",
+          "source_ids": [],
+          "source_unit_ids": [],
+          "terminology_provenance": {},
+          "warnings": []
+        },
+        "rank": 14,
+        "reason_codes": [
+          "INTEGRATED_GATE_PRECEDES_SCORING",
+          "PARENT_PROVENANCE_CONTAINER_NOT_CLAIM",
+          "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+        ],
+        "schema_version": "qualified_claim_retrieval_result/1.4",
+        "score": {
+          "all_scores_disabled": false,
+          "bucket": "audit_only_results",
+          "claim_id": "GEP-0d4f2ac1784f2bf98fb0",
+          "eligibility": {
+            "bucket": "audit_only_results",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "features": [
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "biomarker",
+              "raw_value": "not_applicable",
+              "weight": 40.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "direction",
+              "raw_value": "not_applicable",
+              "weight": 8.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "disease",
+              "raw_value": "missing_claim_disease",
+              "weight": 30.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "formulation",
+              "raw_value": "not_applicable_no_intervention_constraint",
+              "weight": 15.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_audit_score_not_used_for_clinical_ranking",
+              "name": "intervention_identity",
+              "raw_value": "parent_not_claim",
+              "weight": 15.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:mapping_pending -> audit_only_results",
+              "name": "penalty_pending_terminology",
+              "raw_value": -3,
+              "weight": -3.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:aggregate_member_related -> retained_with_warning",
+              "name": "penalty_not_separable",
+              "raw_value": -2,
+              "weight": -2.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:unresolved -> audit_only_results",
+              "name": "penalty_unresolved",
+              "raw_value": -1,
+              "weight": -1.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:unsupported -> audit_only_results",
+              "name": "penalty_invalid",
+              "raw_value": -50,
+              "weight": -50.0
+            }
+          ],
+          "ranking_score_allowed": false,
+          "ranks_within_bucket_only": false,
+          "scoring_version": "qualified_claim_retrieval_scoring/1.0",
+          "total": 0.0,
+          "used_for_clinical_ranking": false,
+          "weights_retuned_in_this_phase": false
+        },
+        "section": "",
+        "source_literal_members": [],
+        "warnings": []
+      },
+      {
+        "biomarker": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "bucket": "rejected_by_native_constraints",
+        "canonical_intervention": "osimertinib",
+        "claim_domain": "therapeutic",
+        "claim_id": "CLM-382985ec558808784e70",
+        "claim_type": "atomic_intervention_claim",
+        "disease_scope": "Lung Non-small Cell Carcinoma",
+        "explanation_codes": [
+          "DISEASE_IDENTITY_CONFIRMED_BY_VERIFIED_ALIAS",
+          "NO_INTERVENTION_CONSTRAINT"
+        ],
+        "gate": {
+          "audit_only": false,
+          "biomarker_match_result": {
+            "compatible": false,
+            "match_type": "incompatible",
+            "reason_codes": [
+              "NATIVE_BIOMARKER_MISMATCH"
+            ]
+          },
+          "blocking_gates": [
+            "biomarker"
+          ],
+          "claim_domain": "therapeutic",
+          "claim_id": "CLM-382985ec558808784e70",
+          "claim_status_result": {
+            "audit_only_object": false,
+            "deprecated": false,
+            "eligible_for_primary": true,
+            "is_claim": true,
+            "reason_codes": [],
+            "status": "active_claim"
+          },
+          "claim_type": "atomic_intervention_claim",
+          "direction_match_result": {
+            "compatible": true,
+            "direction_match_type": "not_constrained",
+            "polarity_match_type": "not_constrained",
+            "reason_codes": []
+          },
+          "disease_match_result": {
+            "audit_only": false,
+            "bucket": "primary_ranked_results",
+            "claim_disease_scope": "Lung Non-small Cell Carcinoma",
+            "claim_id": "CLM-382985ec558808784e70",
+            "contract_version": "directional-disease-match-contract/1.0",
+            "explanation_codes": [
+              "DISEASE_IDENTITY_CONFIRMED_BY_VERIFIED_ALIAS"
+            ],
+            "gate_version": "claim_disease_gate/1.0",
+            "is_exact_relation": true,
+            "normalized_claim_disease": "lung non-small cell carcinoma",
+            "normalized_query_disease": "nsclc",
+            "object_carries_disease_scope": true,
+            "policy_mode": "strict_verified",
+            "primary_candidate_eligible": true,
+            "provenance": {
+              "contract_version": "directional-disease-match-contract/1.0",
+              "gate_version": "claim_disease_gate/1.0",
+              "relation_provenance": "verified_local_alias_table",
+              "relation_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+              "relation_source_version": "verified-local-disease-aliases/1.0",
+              "relation_verified": true
+            },
+            "query_disease": "NSCLC",
+            "query_id": "RB-01-EGFR-L858R-NSCLC",
+            "reason_codes": [
+              "DISEASE_VERIFIED_ALIAS_MATCH"
+            ],
+            "rejected_by_native_constraints": false,
+            "relation_direction": "none",
+            "relation_provenance": "verified_local_alias_table",
+            "relation_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+            "relation_source_version": "verified-local-disease-aliases/1.0",
+            "relation_type": "verified_disease_alias",
+            "relation_verified": true,
+            "score_eligibility": {
+              "bucket": "primary_ranked_results",
+              "final_ranking_eligible": true,
+              "positive_score_forbidden": false,
+              "qualified_score_eligible": true,
+              "ranks_within_bucket_only": false,
+              "structural_score_eligible": true
+            },
+            "warning_codes": [],
+            "warning_eligible": false
+          },
+          "domain_match_result": {
+            "claim_domain": "therapeutic",
+            "domain_match": true,
+            "query_domain": "therapeutic_evidence_query",
+            "section": "therapeutic_results",
+            "therapy_score_allowed": true
+          },
+          "explanation_codes": [
+            "DISEASE_IDENTITY_CONFIRMED_BY_VERIFIED_ALIAS",
+            "NO_INTERVENTION_CONSTRAINT"
+          ],
+          "final_bucket": "rejected_by_native_constraints",
+          "final_ranking_eligible": false,
+          "formulation_match_result": {
+            "axis_bucket": "primary_ranked_results",
+            "axis_bucket_decided_by": "no_intervention_constraint",
+            "axis_evaluated": false,
+            "contract_version": "intervention_formulation_contract/1.0",
+            "is_exact_form": false,
+            "relation_type": "not_applicable_no_intervention_constraint"
+          },
+          "gate_version": "qualified_claim_structural_gate/1.1",
+          "intervention_match_result": {
+            "claim_interventions": [
+              "osimertinib"
+            ],
+            "compatible": true,
+            "identity_bucket": "primary_ranked_results",
+            "match_type": "no_intervention_constraint",
+            "query_interventions": [],
+            "reason_codes": []
+          },
+          "output_contract": "qualified_claim_retrieval_result/1.3",
+          "policy_mode": "strict_verified",
+          "primary_candidate_eligible": false,
+          "provenance": {
+            "claim_type_contract": "claim-type-retrieval-contract/1.0",
+            "disease_contract": "directional-disease-match-contract/1.0",
+            "disease_gate": "claim_disease_gate/1.0",
+            "domain_gate": "claim_structural_gate/1.1",
+            "formulation_contract": "intervention_formulation_contract/1.0",
+            "formulation_registry": "verified_formulation_registry/1.0",
+            "integrated_gate": "qualified_claim_structural_gate/1.1",
+            "output_contract": "qualified_claim_retrieval_result/1.3",
+            "relation_provenance": "verified_local_alias_table",
+            "relation_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+            "relation_verified": true
+          },
+          "qualified_score_eligible": false,
+          "query_id": "RB-01-EGFR-L858R-NSCLC",
+          "reason_codes": [
+            "DISEASE_VERIFIED_ALIAS_MATCH",
+            "INTEGRATED_GATE_PRECEDES_SCORING",
+            "NATIVE_BIOMARKER_MISMATCH",
+            "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+          ],
+          "rejected_by_native_constraints": true,
+          "score_eligibility": {
+            "bucket": "rejected_by_native_constraints",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "structural_score_eligible": false,
+          "warning_codes": [],
+          "warning_eligible": false
+        },
+        "graph_evidence_id": "evidence:11219",
+        "intervention_members": [
+          "osimertinib"
+        ],
+        "parent_id": "GEP-0d4f2ac1784f2bf98fb0",
+        "provenance": {
+          "adapter_lineage": {
+            "adapter_version": "v2_to_typed_claim_shadow_adapter/1.0",
+            "migration_origin": "legacy_single_statement",
+            "operational_extraction_action_id": "v2_to_v3_adapter/1.0",
+            "snapshot_fingerprint": "ffc97bc7c660f19478c33d28d1599b70e442525f0fae34b512e5efbf0796a9ae"
+          },
+          "claim_id": "CLM-382985ec558808784e70",
+          "deprecated_redirect": "",
+          "disease_relation_provenance": {
+            "contract_version": "directional-disease-match-contract/1.0",
+            "relation_direction": "none",
+            "relation_provenance": "verified_local_alias_table",
+            "relation_source": "benchmarks/mtb_evidence/pilot/audit_lib/disease.py::_SYNONYM_GROUPS",
+            "relation_source_version": "verified-local-disease-aliases/1.0",
+            "relation_type": "verified_disease_alias",
+            "relation_verified": true
+          },
+          "formulation_provenance": {
+            "authoritative_source": "",
+            "claim_form": "",
+            "contract_version": "intervention_formulation_contract/1.0",
+            "query_form": "",
+            "relation_status": "",
+            "relation_type": "not_applicable_no_intervention_constraint"
+          },
+          "graph_evidence_provenance": {
+            "graph_evidence_id": "evidence:11219",
+            "graph_record_ids": [
+              "evidence:11219"
+            ],
+            "parent_id": "GEP-0d4f2ac1784f2bf98fb0"
+          },
+          "legacy_statement_ids": [
+            "ES-V2-evidence-11219"
+          ],
+          "locators": [],
+          "parent_id": "GEP-0d4f2ac1784f2bf98fb0",
+          "propagation_policy": "prototype_only",
+          "qualification_status": {
+            "final_evaluable": false,
+            "hard_filterable": false,
+            "qualification_link_ids": [],
+            "qualification_links": [],
+            "qualified_view_ids": []
+          },
+          "reason_codes": [
+            "DISEASE_VERIFIED_ALIAS_MATCH",
+            "INTEGRATED_GATE_PRECEDES_SCORING",
+            "NATIVE_BIOMARKER_MISMATCH",
+            "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+          ],
+          "review_status": "pending_verification",
+          "source_ids": [],
+          "source_unit_ids": [],
+          "terminology_provenance": {},
+          "warnings": []
+        },
+        "rank": 15,
+        "reason_codes": [
+          "DISEASE_VERIFIED_ALIAS_MATCH",
+          "INTEGRATED_GATE_PRECEDES_SCORING",
+          "NATIVE_BIOMARKER_MISMATCH",
+          "SINGLE_INCOMPATIBLE_GATE_BLOCKS_PRIMARY"
+        ],
+        "schema_version": "qualified_claim_retrieval_result/1.4",
+        "score": {
+          "all_scores_disabled": true,
+          "bucket": "rejected_by_native_constraints",
+          "claim_id": "CLM-382985ec558808784e70",
+          "eligibility": {
+            "bucket": "rejected_by_native_constraints",
+            "final_ranking_eligible": false,
+            "positive_score_forbidden": true,
+            "qualified_score_eligible": false,
+            "ranks_within_bucket_only": false,
+            "structural_score_eligible": false
+          },
+          "features": [
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_rejected_all_scores_disabled",
+              "name": "biomarker",
+              "raw_value": "incompatible",
+              "weight": 40.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_rejected_all_scores_disabled",
+              "name": "direction",
+              "raw_value": "not_constrained",
+              "weight": 8.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_rejected_all_scores_disabled",
+              "name": "disease",
+              "raw_value": "verified_disease_alias",
+              "weight": 30.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_rejected_all_scores_disabled",
+              "name": "formulation",
+              "raw_value": "not_applicable_no_intervention_constraint",
+              "weight": 15.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "bucket_rejected_all_scores_disabled",
+              "name": "intervention_identity",
+              "raw_value": "no_intervention_constraint",
+              "weight": 15.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:mapping_pending -> audit_only_results",
+              "name": "penalty_pending_terminology",
+              "raw_value": -3,
+              "weight": -3.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:aggregate_member_related -> retained_with_warning",
+              "name": "penalty_not_separable",
+              "raw_value": -2,
+              "weight": -2.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:unresolved -> audit_only_results",
+              "name": "penalty_unresolved",
+              "raw_value": -1,
+              "weight": -1.0
+            },
+            {
+              "contribution": 0.0,
+              "eligible": false,
+              "exclusion_reason": "gate_decision_supersedes_penalty:unsupported -> audit_only_results",
+              "name": "penalty_invalid",
+              "raw_value": -50,
+              "weight": -50.0
+            }
+          ],
+          "ranking_score_allowed": false,
+          "ranks_within_bucket_only": false,
+          "scoring_version": "qualified_claim_retrieval_scoring/1.0",
+          "total": 0.0,
+          "used_for_clinical_ranking": false,
+          "weights_retuned_in_this_phase": false
+        },
+        "section": "therapeutic_results",
+        "source_literal_members": [],
+        "warnings": []
+      }
+    ],
+    "gate_version": "qualified_claim_structural_gate/1.1",
+    "result_schema_version": "qualified_claim_retrieval_result/1.4"
+  },
+  "closure_version": "v3-retriever-regression-closure/1.0",
+  "expectation": "I letterali NSCLC restano verified alias e primary.",
+  "graph_evidence_id": "evidence:11219",
+  "normalized_query": {
+    "claim_domain": "therapeutic",
+    "gate_query": {
+      "biomarker": "EGFR L858R",
+      "disease": "NSCLC",
+      "policy_mode": "strict_verified",
+      "query_domain": "therapeutic_evidence_query",
+      "query_id": "RB-01-EGFR-L858R-NSCLC"
+    },
+    "include_audit": false,
+    "include_rejected": false,
+    "include_warning": true,
+    "intervention_form": "absent",
+    "normalized_biomarker": "EGFR L858R",
+    "normalized_biomarker_key": "egfr l858r",
+    "normalized_disease": "NSCLC",
+    "normalized_disease_key": "nsclc",
+    "normalized_interventions": [],
+    "policy_mode": "strict_verified",
+    "query_id": "RB-01-EGFR-L858R-NSCLC",
+    "result_limit": 50,
+    "schema_version": "qualified_claim_query/1.0"
+  },
+  "original_query": {
+    "alteration": "L858R",
+    "claim_domain": "therapeutic",
+    "disease": "NSCLC",
+    "gene": "EGFR",
+    "policy_mode": "strict_verified",
+    "query_id": "RB-01-EGFR-L858R-NSCLC"
+  },
+  "query_id": "RB-01-EGFR-L858R-NSCLC",
+  "supersedes": "v3-retriever-binding/1.4"
+}
