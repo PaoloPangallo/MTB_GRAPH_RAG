@@ -58,6 +58,41 @@ def readiness(rows: list[dict[str, Any]], cohort: Mapping[str, Any]) -> dict[str
         "reclassified_claims": cohort["distinct_claims"],
         "strict_subset_never_primary": bool(cohort["none_reaches_primary"]),
         "superseded_rule_leaves_no_primary": bool(cohort["none_reaches_primary"]),
+        # Misurato, non dichiarato: in un worktree pulito senza gli ingressi
+        # esterni restano 20 fallimenti, tutti della stessa famiglia e tutti
+        # precedenti a questa fase. Vedi `hermetic_residual` piu' sotto.
+        "isolated_worktree_green": False,
+        "core_suite_independent_of_external_inputs": True,
+    }
+
+
+def hermetic_residual() -> dict[str, Any]:
+    """Il residuo dell'ermeticita', descritto invece che dichiarato chiuso."""
+    return {
+        "cause": (
+            "Hash congelati di alberi e file registrati sulla loro forma CRLF, "
+            "mentre mtb-graphrag/benchmarks/.gitattributes vincola quell'albero "
+            "a LF dal commit 63ed143. Un checkout pulito consegna LF e ogni "
+            "impronta presa su CRLF risulta violata."
+        ),
+        "closed_in_this_phase": [
+            "checkout deterministico su ogni piattaforma (.gitattributes di radice)",
+            "backend/pipeline/evidence/qualification.py",
+            "backend/pipeline/evidence/qualified_retriever.py",
+        ],
+        "failing_in_a_clean_worktree": 20,
+        "fix_requires": (
+            "rigenerare gli artefatti congelati che registrano quelle impronte, "
+            "tre dei quali nel corpus promosso: fuori dal perimetro di questa fase"
+        ),
+        "not_caused_by_external_inputs": True,
+        "predates_this_phase": True,
+        "residual_trees": [
+            "benchmarks/mtb_evidence/v3/disease_hierarchy_policy",
+            "benchmarks/mtb_evidence/v3/first_review",
+            "benchmarks/mtb_evidence/v3/integrated_shadow_repository_1_3",
+            "benchmarks/mtb_evidence/v3/terminology_mapping_closure",
+        ],
     }
 
 
@@ -74,7 +109,10 @@ def build(output: Path = DEFAULT_OUTPUT) -> dict[str, Path]:
         _write(path, payload)
         written[name] = path
 
-    emit("conjunctive_scope.json", _json_bytes(CQ.scope()))
+    emit(
+        "conjunctive_scope.json",
+        _json_bytes(dict(CQ.scope()) | {"hermetic_residual": hermetic_residual()}),
+    )
     emit("directional_semantics_audit.json", _json_bytes(CQ.semantics_audit()))
     emit("conjunctive_directional_delta.jsonl", _jsonl_bytes(delta))
     emit("superseded_rule_cohort.json", _json_bytes(cohort))

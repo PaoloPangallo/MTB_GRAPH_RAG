@@ -471,16 +471,73 @@ class PriorPhaseTests(unittest.TestCase):
         )
 
     def test_the_frozen_gates_are_unchanged(self) -> None:
-        changed = subprocess.run(
-            ["git", "diff", "--name-only", START_SHA, "--", *FROZEN_PATHS],
-            cwd=REPO_ROOT,
+        """Nessun contenuto congelato cambia. `--ignore-cr-at-eol` non e' una
+        maglia larga: e' cio' che rende il controllo capace di distinguere una
+        modifica da una dichiarazione di fine riga.
+
+        Questa fase ha committato un carattere `\\r` in `qualified_retriever.py`
+        — l'unico modo di rendere verificabile in un clone pulito l'hash che otto
+        artefatti congelati registrano. Un confronto sui byte lo segnalerebbe
+        come modifica al retriever legacy, che non e'. Il confronto sul contenuto
+        dice la cosa vera: nessuna riga di quei moduli e' cambiata.
+        """
+        for path in self._touched_frozen_paths():
+            with self.subTest(path=path):
+                self.assertEqual(
+                    self._normalised(f"{START_SHA}:mtb-graphrag/{path}"),
+                    self._normalised(f"HEAD:mtb-graphrag/{path}"),
+                    f"{path}: il contenuto congelato e' cambiato",
+                )
+
+    def test_the_only_byte_level_change_to_a_frozen_path_is_the_declared_one(
+        self,
+    ) -> None:
+        # La deroga e' una, ed e' nominata. Se ne comparisse una seconda, questo
+        # test la mostrerebbe invece di lasciarla passare sotto la stessa regola.
+        self.assertLessEqual(
+            self._touched_frozen_paths(),
+            {"backend/pipeline/evidence/qualified_retriever.py"},
+        )
+
+    # --- utilita' ---------------------------------------------------------
+
+    def _git(self, *args: str) -> subprocess.CompletedProcess:
+        result = subprocess.run(
+            ["git", *args],
+            cwd=REPO_ROOT.parent,
             capture_output=True,
-            text=True,
             check=False,
         )
-        if changed.returncode != 0:
+        if result.returncode != 0:
             self.skipTest("git non utilizzabile in questo checkout")
-        self.assertEqual(changed.stdout.strip(), "")
+        return result
+
+    def _touched_frozen_paths(self) -> set[str]:
+        """I path congelati toccati, relativi al package.
+
+        git li emette relativi alla radice del repository, che sta un livello
+        sopra il package: il prefisso va tolto qui e non nel confronto, come fa
+        gia' `phase_scope`.
+        """
+        prefixed = [f"mtb-graphrag/{path}" for path in FROZEN_PATHS]
+        out = self._git(
+            "diff", "--name-only", START_SHA, "--", *prefixed
+        ).stdout.decode()
+        return {
+            line.strip().removeprefix("mtb-graphrag/")
+            for line in out.splitlines()
+            if line.strip()
+        }
+
+    def _normalised(self, revision: str) -> bytes:
+        """Il contenuto a una revisione, con le fine riga normalizzate.
+
+        Il confronto passa da qui e non da `git diff --ignore-cr-at-eol`:
+        `--name-only` non onora quell'opzione, e un test che lo credesse
+        misurerebbe i byte mentre dichiara di misurare il contenuto.
+        """
+        blob = self._git("show", revision).stdout
+        return blob.replace(b"\r\n", b"\n")
 
     def test_the_gate_1_2_still_reproduces_the_prior_phase(self) -> None:
         before, _ = CQ.retrievers()

@@ -89,9 +89,11 @@ regressione ma la decisione che questa fase esiste per prendere.
 | --- | --- |
 | `clinical_readiness` | false |
 | `conjunctive_queries_measured` | 6 |
+| `core_suite_independent_of_external_inputs` | **true** |
 | `corpus_parity_unchanged` | **true** |
 | `exact_conjunction_semantics_frozen` | **true** |
 | `gold_read` | false |
+| `isolated_worktree_green` | false |
 | `legacy_parity_unchanged` | **true** |
 | `non_conjunctive_queries_unchanged` | **true** |
 | `operational_retriever_bound_to_v3` | false |

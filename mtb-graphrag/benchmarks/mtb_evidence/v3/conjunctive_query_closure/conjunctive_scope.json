@@ -16,6 +16,24 @@
   "gate_after": "qualified_claim_structural_gate/1.3",
   "gate_before": "qualified_claim_structural_gate/1.2",
   "gold_read": false,
+  "hermetic_residual": {
+    "cause": "Hash congelati di alberi e file registrati sulla loro forma CRLF, mentre mtb-graphrag/benchmarks/.gitattributes vincola quell'albero a LF dal commit 63ed143. Un checkout pulito consegna LF e ogni impronta presa su CRLF risulta violata.",
+    "closed_in_this_phase": [
+      "checkout deterministico su ogni piattaforma (.gitattributes di radice)",
+      "backend/pipeline/evidence/qualification.py",
+      "backend/pipeline/evidence/qualified_retriever.py"
+    ],
+    "failing_in_a_clean_worktree": 20,
+    "fix_requires": "rigenerare gli artefatti congelati che registrano quelle impronte, tre dei quali nel corpus promosso: fuori dal perimetro di questa fase",
+    "not_caused_by_external_inputs": true,
+    "predates_this_phase": true,
+    "residual_trees": [
+      "benchmarks/mtb_evidence/v3/disease_hierarchy_policy",
+      "benchmarks/mtb_evidence/v3/first_review",
+      "benchmarks/mtb_evidence/v3/integrated_shadow_repository_1_3",
+      "benchmarks/mtb_evidence/v3/terminology_mapping_closure"
+    ]
+  },
   "phase_version": "v3-conjunctive-query-closure/1.0",
   "queries": [
     "RB-01-EGFR-L858R-NSCLC",
