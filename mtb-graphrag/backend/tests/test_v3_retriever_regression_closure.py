@@ -60,7 +60,7 @@ START_SHA = "637a3e33c76f379c61ff67aac742994bcdd7be23"
 # Estremo di fase: il commit che la chiude, mai HEAD. Vale la stessa ragione
 # annotata dalle fasi precedenti — un perimetro misurato contro l'albero di
 # lavoro cresce con la fase successiva e fallisce per l'intervallo sbagliato.
-PHASE_END_SHA = ""
+PHASE_END_SHA = "8f933906fd51ab3528ff2462e0908615d3ab4f0e"
 
 ALLOWED_WRITE_PREFIXES = (
     "backend/pipeline/evidence/retrieval/v3_backend.py",
