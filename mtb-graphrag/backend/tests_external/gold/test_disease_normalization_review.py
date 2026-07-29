@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
+from benchmarks.mtb_evidence.evaluation import legacy_hash_erratum as ERRATUM
 
 import pytest
 
@@ -277,8 +278,13 @@ def test_frozen_inputs_remain_byte_identical() -> None:
     retriever = sorted(
         (ROOT / "backend" / "pipeline" / "evidence").glob("qualified_retriev*")
     )
+    # `qualified_retriever.py` e' fra gli otto sorgenti la cui impronta fu presa
+    # nella forma CRLF di una macchina Windows: l'aggregato congelato la contiene,
+    # e un checkout pulito consegna LF. L'erratum restituisce l'impronta storica
+    # per i soli path registrati, e solo finche' il file ha ancora la forma
+    # canonica che gli attribuisce — se cambiasse davvero, questo test fallirebbe.
     payload = "\n".join(
-        f"{item.relative_to(ROOT).as_posix()}:{hashlib.sha256(item.read_bytes()).hexdigest()}"
+        f"{item.relative_to(ROOT).as_posix()}:{ERRATUM.recorded_sha256(item)}"
         for item in retriever
     )
     assert hashlib.sha256(payload.encode("utf-8")).hexdigest() == (
