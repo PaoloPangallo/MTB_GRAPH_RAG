@@ -106,6 +106,70 @@ confrontava la lista con il repository.
   restare indietro rispetto al repository;
 - nessun sorgente operativo porta piu' un CR aggiunto per far tornare un hash.
 
+## Il secondo erratum: provenance dei generatori
+
+`generator_provenance_erratum/1.0` registra un fatto **diverso** da quello del
+primo erratum, ed e' per questo che e' un file separato.
+
+`artifact_hash_erratum` dice: *l'impronta di un sorgente fu presa in una forma di
+byte che un checkout pulito non riproduce*. Il file e' lo stesso, cambia la forma.
+
+`generator_provenance_erratum` dice: *un artefatto congelato registra l'impronta
+del generatore che lo produsse, e quel generatore e' cambiato dopo*. Qui il file
+e' proprio un altro, e nessuna normalizzazione lo riporta indietro.
+
+### Il punto fisso che si sposta
+
+Un manifest che dichiara `generator_sha256` registra l'impronta del file che lo
+sta scrivendo. E' un auto-riferimento: modificare il generatore cambia quel
+valore, e **nessuna** versione successiva puo' riprodurre cio' che una versione
+precedente aveva scritto — non perche' produca artefatti diversi, ma perche' *e'*
+un file diverso.
+
+Due manifest lo dichiarano, e due generatori sono cambiati in questa fase quando
+i loro `_sha` sono passati dall'erratum delle impronte legacy:
+
+| artefatto | campo | convenzione | versione |
+|---|---|---|---|
+| `multi_intervention_adapter_review/review_manifest.json` | `generator_source_sha256` | byte grezzi | `multi-intervention-adapter-review/1.0` |
+| `multi_intervention_source_review/review_manifest.json` | `generator_sha256` | testo canonico LF | `multi-intervention-source-review/1.0` |
+
+Le due convenzioni non sono state uniformate: cambiare il modo in cui un
+artefatto congelato e' stato misurato non lo renderebbe piu' vero.
+
+### Tre nozioni, tre controlli
+
+Il test unico che falliva ne confondeva tre, e le confondeva in un solo `assert`:
+
+**Integrita' storica** — il manifest conserva ancora l'impronta del generatore
+originale. E' il controllo che impedisce di «chiudere» il caso riscrivendo
+l'artefatto congelato: se qualcuno aggiornasse il manifest all'impronta corrente,
+qui fallirebbe.
+
+**Integrita' corrente** — il generatore di oggi ha la propria impronta e la
+scrive negli artefatti che produce adesso. Non basta constatare che le due
+impronte differiscono: se il generatore lasciasse indietro un valore vecchio,
+passerebbe per una divergenza legittima.
+
+**Compatibilita'** — non e' obbligatorio che un generatore corrente riproduca
+byte per byte un artefatto prodotto da una versione precedente. Qui il contratto
+richiede tutto **tranne** l'auto-riferimento dichiarato: `non_reproducible_fields`
+elenca la deroga, e tutto cio' che non e' elencato deve tornare.
+
+### Perche' non e' una whitelist
+
+`check_compatible` fallisce in due direzioni. Se un campo **non dichiarato**
+diverge, la deroga non lo copre e il test lo dice. Se una deroga **smette di
+coprire una divergenza**, e' una riga morta e il test chiede di toglierla —
+perche' una deroga inerte nasconderebbe la prossima differenza vera.
+
+Verificato con due prove: riscrivere il manifest storico all'impronta corrente
+fa fallire due test; cambiare `source_count` nel manifest committato fa fallire
+la compatibilita' nominando il campo.
+
+Nessuno `skip`, nessun `xfail`, nessuna whitelist generica. Gli artefatti storici
+non sono stati toccati.
+
 ## Cosa resta aperto
 
 Nulla di questa fase. Le dodici impronte restano non riproducibili **per

@@ -301,5 +301,86 @@ class NoLoneCarriageReturnTests(ErratumCase):
                 self.assertEqual(POLICY.canonical_lf_bytes(blob), blob)
 
 
+class GeneratorProvenanceErratumTests(unittest.TestCase):
+    """L'erratum di provenance e' distinto, e resta vero.
+
+    Separato da `artifact_hash_erratum` perche' registra un fatto diverso: la'
+    il file e' lo stesso e cambia la forma dei byte, qui il file e' proprio un
+    altro e nessuna normalizzazione lo riporta indietro. Due cose che si
+    chiudono in modi diversi non stanno bene sotto lo stesso nome.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        from benchmarks.mtb_evidence.evaluation import (
+            generator_provenance as PROVENANCE,
+        )
+
+        cls.provenance = PROVENANCE
+        cls.erratum = PROVENANCE.erratum()
+
+    def test_it_declares_its_own_schema(self) -> None:
+        self.assertEqual(
+            self.erratum["schema_version"], "generator_provenance_erratum/1.0"
+        )
+        # E' un file distinto da `artifact_hash_erratum.json`, non lo stesso
+        # sotto altro nome: i due registrano fatti che si chiudono in modi
+        # diversi.
+        self.assertNotEqual(self.provenance.ERRATUM_PATH, ERRATUM_PATH)
+
+    def test_every_entry_carries_the_declared_fields(self) -> None:
+        required = {
+            "artifact_generation_version",
+            "current_generator_compatibility",
+            "current_generator_sha256",
+            "historical_artifact_path",
+            "historical_generator_path",
+            "historical_generator_sha256",
+            "historical_reproducibility_status",
+            "reason_code",
+        }
+        for entry in self.erratum["entries"]:
+            with self.subTest(artifact=entry["historical_artifact_path"]):
+                self.assertEqual(required - set(entry), set())
+                self.assertIsNotNone(entry["artifact_generation_version"])
+
+    def test_every_diverging_entry_carries_the_declared_reason_code(self) -> None:
+        for entry in self.erratum["entries"]:
+            if entry["historical_generator_sha256"] == entry["current_generator_sha256"]:
+                continue
+            with self.subTest(artifact=entry["historical_artifact_path"]):
+                self.assertEqual(
+                    entry["reason_code"],
+                    "GENERATOR_SOURCE_EVOLVED_AFTER_FROZEN_ARTIFACT",
+                )
+
+    def test_the_current_hash_is_the_generator_as_it_is_now(self) -> None:
+        """Se il generatore cambia ancora, l'erratum lo deve dire."""
+        for entry in self.erratum["entries"]:
+            with self.subTest(generator=entry["historical_generator_path"]):
+                self.assertEqual(
+                    entry["current_generator_sha256"],
+                    self.provenance.current_generator_sha256(entry),
+                )
+
+    def test_the_historical_artifact_still_declares_the_historical_hash(self) -> None:
+        """Prova che nessun manifest storico e' stato riscritto per chiudere il caso."""
+        for entry in self.erratum["entries"]:
+            with self.subTest(artifact=entry["historical_artifact_path"]):
+                self.provenance.check_historical_integrity(
+                    entry["historical_artifact_path"]
+                )
+
+    def test_a_declared_exception_covers_a_real_divergence(self) -> None:
+        """Una deroga su un campo che coincide sarebbe una riga morta."""
+        for entry in self.erratum["entries"]:
+            with self.subTest(artifact=entry["historical_artifact_path"]):
+                if entry["non_reproducible_fields"]:
+                    self.assertNotEqual(
+                        entry["historical_generator_sha256"],
+                        entry["current_generator_sha256"],
+                    )
+
+
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

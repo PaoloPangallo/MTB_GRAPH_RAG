@@ -6,6 +6,7 @@ from collections import Counter
 from pathlib import Path
 
 from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
+from benchmarks.mtb_evidence.evaluation import generator_provenance as PROVENANCE
 
 import pytest
 
@@ -27,6 +28,11 @@ ROOT = Path(__file__).resolve().parents[3]
 # si propaga fino a un TypeError trenta righe piu' sotto.
 GOLD = EXTERNAL.require(EXTERNAL.GOLD_BUNDLE)
 
+
+ARTIFACT = (
+    "benchmarks/mtb_evidence/v3/multi_intervention_source_review/"
+    "review_manifest.json"
+)
 
 COMMITTED = (
     ROOT / "benchmarks/mtb_evidence/v3/multi_intervention_source_review"
@@ -230,12 +236,11 @@ def test_gold_is_not_used_and_operational_components_are_unchanged() -> None:
     assert not manifest["corpus_modified"]
     assert not manifest["retriever_modified"]
     assert not manifest["scoring_modified"]
-    generator = (
-        ROOT
-        / "benchmarks/mtb_evidence/evaluation/scripts"
-        / "multi_intervention_source_review.py"
-    )
-    assert manifest["generator_sha256"] == _canonical_text_sha(generator)
+    # Integrita' storica: il manifest conserva l'impronta del generatore che lo
+    # scrisse. Confrontarla con il generatore *corrente* — com'era scritto qui
+    # prima — misura se il generatore e' cambiato, non se l'artefatto e' intatto,
+    # e sono due domande diverse. Quella corrente ha il suo test.
+    PROVENANCE.check_historical_integrity(ARTIFACT)
     integrity = manifest["integrity"]
     assert (
         integrity["previous_multi_intervention_review"]["aggregate_sha256"]
@@ -267,8 +272,40 @@ def test_regression_principles_are_encoded_without_modifying_approvals() -> None
 def test_generation_matches_all_committed_artifacts(
     generated: tuple[Path, dict]
 ) -> None:
+    """Compatibilita': l'artefatto committato appartiene alla versione corrente.
+
+    La domanda da porsi prima di confrontare e' se l'artefatto sia riproducibile
+    dal generatore di oggi. Qui la risposta e' si', per tutti i file e per ogni
+    campo del manifest, con **una** eccezione dichiarata: l'auto-riferimento del
+    generatore alla propria impronta, che nessuna versione successiva puo'
+    riscrivere com'era. Non e' una deroga di comodo — `check_compatible` fallisce
+    sia se un campo non dichiarato diverge, sia se una deroga smette di coprire
+    una divergenza vera.
+    """
     output, _ = generated
-    assert _snapshot(output) == _snapshot(COMMITTED)
+    manifest = "review_manifest.json"
+
+    produced, committed = _snapshot(output), _snapshot(COMMITTED)
+    assert {k: v for k, v in produced.items() if k != manifest} == {
+        k: v for k, v in committed.items() if k != manifest
+    }
+
+    PROVENANCE.check_compatible(
+        ARTIFACT,
+        json.loads((COMMITTED / manifest).read_text(encoding="utf-8")),
+        json.loads((output / manifest).read_text(encoding="utf-8")),
+    )
+
+
+def test_the_current_generator_records_its_own_hash(
+    generated: tuple[Path, dict]
+) -> None:
+    """Integrita' corrente: il generatore di oggi dichiara la propria impronta."""
+    output, _ = generated
+    PROVENANCE.check_current_integrity(
+        ARTIFACT,
+        json.loads((output / "review_manifest.json").read_text(encoding="utf-8")),
+    )
 
 
 def test_dirty_output_directory_is_rejected(tmp_path: Path) -> None:

@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
+from benchmarks.mtb_evidence.evaluation import generator_provenance as PROVENANCE
 
 import pytest
 
@@ -239,7 +240,21 @@ def test_adapter_corpus_retriever_scoring_and_prior_audits_are_frozen(
     assert integrity["candidate_counts"] == review.EXPECTED_CANDIDATE_COUNTS
 
 
+ARTIFACT = (
+    "benchmarks/mtb_evidence/v3/multi_intervention_adapter_review/"
+    "review_manifest.json"
+)
+
+
 def test_committed_artifacts_are_fresh(generated: Path) -> None:
+    """Ogni artefatto torna byte per byte, tranne dove la provenance non puo'.
+
+    Il manifest dichiara l'impronta del generatore che lo scrive. E' un
+    auto-riferimento: da quando il generatore e' cambiato, nessuna sua versione
+    puo' riscrivere il valore che una versione precedente aveva messo li'. Il
+    campo e' escluso qui e verificato per intero dai due test che seguono — su
+    entrambi i lati, storico e corrente.
+    """
     expected = {
         path.name: hashlib.sha256(path.read_bytes()).hexdigest()
         for path in generated.iterdir()
@@ -250,7 +265,33 @@ def test_committed_artifacts_are_fresh(generated: Path) -> None:
         for path in COMMITTED.iterdir()
         if path.is_file()
     }
-    assert actual == expected
+    manifest = "review_manifest.json"
+    assert {k: v for k, v in actual.items() if k != manifest} == {
+        k: v for k, v in expected.items() if k != manifest
+    }
+
+    committed_manifest = json.loads(
+        (COMMITTED / manifest).read_text(encoding="utf-8")
+    )
+    regenerated_manifest = json.loads(
+        (generated / manifest).read_text(encoding="utf-8")
+    )
+    PROVENANCE.check_compatible(
+        ARTIFACT, committed_manifest, regenerated_manifest
+    )
+
+
+def test_the_manifest_still_records_the_original_generator(generated: Path) -> None:
+    """Integrita' storica: l'artefatto congelato non e' stato riscritto."""
+    PROVENANCE.check_historical_integrity(ARTIFACT)
+
+
+def test_the_current_generator_records_its_own_hash(generated: Path) -> None:
+    """Integrita' corrente: il generatore di oggi dichiara la propria impronta."""
+    regenerated = json.loads(
+        (generated / "review_manifest.json").read_text(encoding="utf-8")
+    )
+    PROVENANCE.check_current_integrity(ARTIFACT, regenerated)
 
 
 def test_two_runs_and_reversed_input_are_byte_identical(tmp_path: Path) -> None:

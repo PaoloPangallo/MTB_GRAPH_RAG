@@ -1,0 +1,43 @@
+{
+  "counts": {
+    "declared": 2,
+    "diverging": 2
+  },
+  "entries": [
+    {
+      "artifact_generation_version": "multi-intervention-adapter-review/1.0",
+      "current_generator_compatibility": "byte_identical_except_declared_provenance_field",
+      "current_generator_sha256": "e925445862e4d05b74345002bcc4c971de1260f018a53e51167c88997763715b",
+      "declared_field": "generator_source_sha256",
+      "frozen_revision": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "hash_algorithm": "raw_bytes",
+      "historical_artifact_path": "benchmarks/mtb_evidence/v3/multi_intervention_adapter_review/review_manifest.json",
+      "historical_generator_path": "benchmarks/mtb_evidence/evaluation/scripts/multi_intervention_adapter_review.py",
+      "historical_generator_sha256": "48e0371824f1ebca6a6fe2e100b26fa9b3e968fca115c035a4bd61d1439e6f80",
+      "historical_reproducibility_status": "reproducible_modulo_generator_self_reference",
+      "non_reproducible_fields": [
+        "generator_source_sha256"
+      ],
+      "reason_code": "GENERATOR_SOURCE_EVOLVED_AFTER_FROZEN_ARTIFACT"
+    },
+    {
+      "artifact_generation_version": "multi-intervention-source-review/1.0",
+      "current_generator_compatibility": "byte_identical_except_declared_provenance_field",
+      "current_generator_sha256": "22e74fabc2fe9fef58f7daf282bdc305c617218c96ff6c500290100fa84fc0b7",
+      "declared_field": "generator_sha256",
+      "frozen_revision": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "hash_algorithm": "canonical_text_lf",
+      "historical_artifact_path": "benchmarks/mtb_evidence/v3/multi_intervention_source_review/review_manifest.json",
+      "historical_generator_path": "benchmarks/mtb_evidence/evaluation/scripts/multi_intervention_source_review.py",
+      "historical_generator_sha256": "5f63083520bb1910850dcabcc629bf0a29b4e7c41f3b0b22cdc4781a65264c0f",
+      "historical_reproducibility_status": "reproducible_modulo_generator_self_reference",
+      "non_reproducible_fields": [
+        "generator_sha256"
+      ],
+      "reason_code": "GENERATOR_SOURCE_EVOLVED_AFTER_FROZEN_ARTIFACT"
+    }
+  ],
+  "hash_policy_version": "artifact_hash_policy/2.0",
+  "phase": "hermetic-reproducibility-closure/1.0",
+  "schema_version": "generator_provenance_erratum/1.0"
+}
