@@ -1,0 +1,146 @@
+{
+  "core_suite": {
+    "collected": 2652,
+    "discovery_root": "backend/tests",
+    "environments": {
+      "1_working_tree": {
+        "external_inputs_present": true,
+        "pytest": {
+          "failed": 0,
+          "passed": 2647,
+          "skipped": 5,
+          "subtests_passed": 37269
+        },
+        "unittest": {
+          "outcome": "OK",
+          "ran": 2606,
+          "skipped": 5
+        }
+      },
+      "2_worktree_detached": {
+        "external_inputs_present": false,
+        "pytest": {
+          "failed": 15,
+          "passed": 2647,
+          "skipped": 5,
+          "subtests_passed": 37249
+        },
+        "unittest": {
+          "failures": 15,
+          "outcome": "FAILED",
+          "ran": 2606,
+          "skipped": 5
+        }
+      },
+      "3_clone": {
+        "external_inputs_present": false,
+        "pytest": {
+          "failed": 15,
+          "passed": 2647,
+          "skipped": 5,
+          "subtests_passed": 37249
+        },
+        "unittest": {
+          "failures": 15,
+          "outcome": "FAILED",
+          "ran": 2606,
+          "skipped": 5
+        }
+      },
+      "4_archive": {
+        "external_inputs_present": false,
+        "note": "un archivio estratto non ha storia git: i test che la interrogano si dichiarano saltati, da cui 51 skip invece di 5 e 2577 test invece di 2606. Le identita' dei test falliti coincidono con quelle del clone.",
+        "pytest": {
+          "failed": 18,
+          "passed": 2601,
+          "skipped": 72,
+          "subtests_passed": 36636
+        },
+        "unittest": {
+          "failures": 18,
+          "outcome": "FAILED",
+          "ran": 2577,
+          "skipped": 51
+        }
+      },
+      "open_defect": {
+        "affected_environments": [
+          "2_worktree_detached",
+          "3_clone",
+          "4_archive"
+        ],
+        "description": "Gli hash di albero congelati furono misurati su un working tree in cui 65 file sono CRLF su disco, perche' vi furono estratti prima che mtb-graphrag/benchmarks/.gitattributes imponesse LF (commit 63ed143). Un checkout pulito li consegna in LF e l'hash di albero cambia. Identici in forma LF: nessuna differenza di contenuto.",
+        "distinct_tests": 5,
+        "families": [
+          "test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged",
+          "test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+          "test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
+          "test_author_approval_23344087.py::TestBlinding::test_the_previous_phases_are_untouched",
+          "test_author_approval_23344087.py::TestDeterminism::test_the_committed_artifacts_match_a_fresh_run"
+        ],
+        "pre_existing_at": "b6694ba",
+        "reason_code_candidate": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+        "scope_note": "fuori dal perimetro dichiarato per questo turno, che chiude esclusivamente i tre failure della suite gold",
+        "status": "open_out_of_scope"
+      }
+    },
+    "opens_external_input": false
+  },
+  "external_suites": {
+    "gold": {
+      "collected": 102,
+      "command": "python -m benchmarks.mtb_evidence.evaluation.run_gold_evaluation --gold-bundle <PATH>",
+      "modules": [
+        "test_candidate_coverage_audit.py",
+        "test_clinical_gold_against_pilot.py",
+        "test_conjunctive_biomarker_fix_audit.py",
+        "test_disease_normalization_review.py",
+        "test_multi_intervention_adapter_review.py",
+        "test_multi_intervention_adjudication_rebuild.py",
+        "test_multi_intervention_review_comparison_rebuild.py",
+        "test_multi_intervention_source_review.py",
+        "test_pilot_gold_audit_gold.py",
+        "test_pilot_gold_audit_integration.py",
+        "test_pre_promotion_audit_1_3_rebuild.py",
+        "test_pre_promotion_required_fixes_1_4_rebuild.py",
+        "test_v2_v3a_exploratory_evaluation.py",
+        "test_verified_disease_alias_fix_audit.py"
+      ],
+      "not_run_by_core_suite": true,
+      "tree": "backend/tests_external/gold"
+    },
+    "source_cache": {
+      "collected": 84,
+      "command": "python -m benchmarks.mtb_evidence.evaluation.run_source_cache_validation --source-abstract-cache <PATH>",
+      "modules": [
+        "test_non_therapeutic_source_closure_cache.py",
+        "test_terminology_mapping_closure.py"
+      ],
+      "not_run_by_core_suite": true,
+      "tree": "backend/tests_external/source_cache"
+    }
+  },
+  "hash_policy": {
+    "computed_from": "read_bytes",
+    "lone_carriage_return": "rejected",
+    "normalization": "lf",
+    "version": "artifact_hash_policy/2.0"
+  },
+  "phase": "hermetic-reproducibility-closure/1.0",
+  "schema_version": "hermetic_closure_report/1.0",
+  "verified_through_erratum": {
+    "artifact_hash_erratum": {
+      "artifacts": 12,
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "references": 26,
+      "schema_version": "artifact_hash_erratum/1.0",
+      "sources": 8
+    },
+    "generator_provenance_erratum": {
+      "declared": 2,
+      "diverging": 2,
+      "reason_code": "GENERATOR_SOURCE_EVOLVED_AFTER_FROZEN_ARTIFACT",
+      "schema_version": "generator_provenance_erratum/1.0"
+    }
+  }
+}

@@ -170,10 +170,61 @@ la compatibilita' nominando il campo.
 Nessuno `skip`, nessun `xfail`, nessuna whitelist generica. Gli artefatti storici
 non sono stati toccati.
 
+## La matrice dei quattro ambienti
+
+Misurata sul commit finale, con entrambi i runner. Gli ambienti 2, 3 e 4 non
+hanno ne' il bundle gold ne' la cache degli abstract, e le due variabili
+d'ambiente sono esplicitamente non impostate.
+
+| ambiente | ingressi | unittest | pytest |
+|---|---|---|---|
+| working tree | presenti | 2606 OK, 5 skip | 2647 passati, 5 skip |
+| worktree `--detach` | assenti | 2606, **15 failure**, 5 skip | 2647 passati, 15 failed |
+| clone locale | assenti | 2606, **15 failure**, 5 skip | 2647 passati, 15 failed |
+| `git archive` estratto | assenti | 2577, **18 failure**, 51 skip | 2601 passati, 18 failed |
+
+I 2647 passati sono **identici** nei primi tre ambienti, con e senza gli
+ingressi esterni: e' la prova che la suite core non li legge. L'archivio ne
+conta meno perche' non ha storia git — i test che la interrogano si dichiarano
+saltati, ed e' una differenza motivata, non un difetto.
+
+I cinque skip residui del core sono tutti integrazioni opzionali
+(`RUN_LLM_INTEGRATION`, `RUN_CLOUD_MODEL_INTEGRATION`, `MTB_ALLOW_NETWORK_TESTS`).
+**Nessuno** per un ingresso esterno mancante.
+
 ## Cosa resta aperto
 
-Nulla di questa fase. Le dodici impronte restano non riproducibili **per
-costruzione**: e' cio' che significa registrarle in un erratum invece di sanarle.
-Chiuderle davvero richiede di rigenerare gli artefatti che le contengono, e
-quella e' una decisione scientifica sulle fasi, non una manutenzione del
-repository.
+### Gli hash di albero congelati (difetto pre-esistente, aperto)
+
+Quindici test falliscono in ogni checkout pulito, e fallivano gia' a `b6694ba`.
+Non sono un effetto di questa fase: sono **lo stesso difetto un livello piu'
+su**.
+
+`sha256_tree` calcola l'hash di una directory come elenco ordinato di
+`path:hash`. Gli hash di albero congelati furono misurati su un working tree in
+cui 65 file sono CRLF sul disco — vi furono estratti prima che
+`mtb-graphrag/benchmarks/.gitattributes` imponesse LF, dal commit `63ed143`, e
+nessuno li ha piu' toccati da allora. Un checkout pulito li consegna in LF, e
+l'hash di albero cambia. In forma LF i 65 file sono **identici**: non c'e'
+nessuna differenza di contenuto.
+
+Cinque test distinti, in quattro moduli:
+
+    test_prototype_corpus_promotion_1_4  OperationalIntegrityTests
+    test_pre_promotion_required_fixes_1_4 IntegrityTests
+    test_pre_promotion_audit_1_3         IntegrityTests
+    test_author_approval_23344087        TestBlinding, TestDeterminism
+
+La chiusura naturale e' la stessa gia' applicata al livello dei file: un erratum
+che registri l'impronta storica di albero accanto a quella canonica, con
+`reason_code` `LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH`, e `sha256_tree` che
+misuri sotto `artifact_hash_policy/2.0`. Non e' stata fatta qui perche' il
+perimetro dichiarato per questo turno chiude **esclusivamente** i tre failure
+della suite gold, ed estenderlo sarebbe stata una decisione non richiesta.
+
+### Le dodici impronte legacy
+
+Restano non riproducibili **per costruzione**: e' cio' che significa registrarle
+in un erratum invece di sanarle. Chiuderle davvero richiede di rigenerare gli
+artefatti che le contengono, e quella e' una decisione scientifica sulle fasi,
+non una manutenzione del repository.
