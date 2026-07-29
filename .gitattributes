@@ -11,36 +11,38 @@
 # il repository venga aperto.
 * text=auto eol=lf
 
-# --- eccezioni: file la cui fine riga fa parte di una promessa gia' congelata ---
+# --- nessuna eccezione, e perche' ---
 #
-# Dodici artefatti congelati, di otto fasi chiuse, registrano lo sha256 dei byte
-# di questi file. Su questa macchina sono stati misurati nella loro forma CRLF;
-# la regola generale qui sopra li consegnerebbe in LF, e ogni hash congelato
-# risulterebbe violato in qualunque checkout pulito. Fra gli artefatti coinvolti
-# ci sono `corpus_manifest.json`, `promotion_log.json` e
-# `disease_relation_registry.json` del corpus promosso, che ogni fase dichiara
-# congelato: rigenerarli non e' un'opzione, e la convenzione va dichiarata qui.
+# Dodici artefatti congelati, di otto fasi chiuse, registrano lo sha256 di otto
+# sorgenti misurati nella forma CRLF che una macchina Windows aveva sul disco.
+# La regola qui sopra li consegna in LF, quindi nessuno di quei dodici hash e'
+# riproducibile da un checkout pulito.
 #
-# Non e' una preferenza di stile. E' la registrazione della forma sotto cui
-# l'impronta e' stata presa: cambiarla significherebbe rompere la verifica, non
-# migliorarla.
-mtb-graphrag/backend/pipeline/evidence/qualification.py eol=crlf
-
-# Sotto `mtb-graphrag/benchmarks/` non si dichiara niente qui. Quella sottodirectory
-# ha un `.gitattributes` proprio, aggiunto apposta dal commit 63ed143 per
-# vincolare gli artefatti di audit a LF, e un file annidato ha la precedenza su
-# questo. Sei file di quell'albero — quattro in `disease_hierarchy_policy/` e due
-# in `first_review/` — hanno un hash congelato preso sulla loro forma CRLF, cioe'
-# su una forma che quella politica esclude. Scrivere qui un'eccezione sarebbe una
-# riga morta; scriverla la' significherebbe rovesciare una decisione presa.
-# Il disallineamento resta, ed e' registrato in CONJUNCTIVE_QUERY_CLOSURE.md
-# invece di essere nascosto sotto una regola che non si applica.
-
-# Forma mista: 949 fine riga LF e uno CRLF. Nessuna conversione puo' produrre un
-# CRLF isolato, quindi i byte vanno conservati come sono. E' l'unico modo di
-# rendere verificabile in un clone pulito l'hash che otto artefatti congelati
-# registrano — l'alternativa sarebbe rigenerare quegli otto artefatti.
-mtb-graphrag/backend/pipeline/evidence/qualified_retriever.py -text
+# Per due di quegli otto sorgenti questo file dichiarava un'eccezione — `eol=crlf`
+# su `qualification.py`, `-text` su `qualified_retriever.py` — e il secondo era
+# accompagnato da un `\r` aggiunto al sorgente per far tornare l'impronta. Sono
+# state rimosse entrambe. Adattare il codice operativo, o la forma in cui viene
+# consegnato, a un'impronta storica significa cambiare cio' che il repository
+# distribuisce per non dover cambiare cio' che un artefatto afferma: e' il verso
+# sbagliato. Un artefatto congelato registra una misura del passato, non impone
+# una forma al presente.
+#
+# Le eccezioni erano anche incomplete per costruzione. Sei degli otto sorgenti
+# stanno sotto `mtb-graphrag/benchmarks/`, che dal commit 63ed143 ha un
+# `.gitattributes` proprio con `* text eol=lf`; un file annidato ha la precedenza,
+# quindi per quei sei un'eccezione scritta qui sarebbe stata una riga morta.
+# Una convenzione che puo' coprire due casi su otto non e' una convenzione.
+#
+# La forma canonica e' LF, per tutti e otto, senza deroghe. La discrepanza fra
+# la forma canonica e la forma storicamente misurata e' registrata — sorgente per
+# sorgente, con l'impronta di entrambe le forme e il codice della ragione — in
+#
+#   mtb-graphrag/benchmarks/mtb_evidence/v3/hermetic_reproducibility_closure/
+#       artifact_hash_erratum.json
+#
+# sotto `artifact_hash_policy/2.0`. Gli artefatti storici non vengono riscritti:
+# l'erratum e' una registrazione esterna, ed e' verificato da un test che fallisce
+# se una delle due impronte smette di essere vera.
 
 # Binari: nessuna conversione, nemmeno tentata.
 *.png binary
