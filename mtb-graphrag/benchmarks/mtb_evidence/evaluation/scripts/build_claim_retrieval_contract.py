@@ -101,7 +101,18 @@ def jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def digest(path: Path) -> str | None:
-    return sha256_bytes(path.read_bytes()) if path.exists() else None
+    """L'impronta di un artefatto congelato, come questa fase la registro'.
+
+    Passa dall'erratum: otto sorgenti furono misurati nella forma CRLF di una
+    macchina Windows, e un checkout pulito consegna LF. Senza la mediazione,
+    rigenerare questo artefatto produrrebbe un digest diverso da quello
+    committato e la fase smetterebbe di essere riproducibile. La sostituzione
+    vale solo per i path registrati, e solo finche' il loro contenuto e' quello
+    che l'erratum descrive.
+    """
+    from benchmarks.mtb_evidence.evaluation import legacy_hash_erratum as ERRATUM
+
+    return ERRATUM.recorded_sha256(path) if path.exists() else None
 
 
 def tree_digest(directory: Path) -> dict[str, Any]:

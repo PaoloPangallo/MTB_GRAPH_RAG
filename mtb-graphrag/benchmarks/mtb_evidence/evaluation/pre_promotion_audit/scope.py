@@ -125,7 +125,21 @@ class AuditScopeError(RuntimeError):
 
 
 def sha256_file(path: Path) -> str:
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    """L'impronta di un file, come gli artefatti congelati la registrano.
+
+    Per quasi tutti i file sono i byte cosi' come stanno. Per gli otto sorgenti
+    che l'erratum registra e' l'impronta storica: quelle fasi la misurarono nella
+    forma CRLF di una macchina Windows, e un checkout pulito consegna LF. Senza
+    questa mediazione rigenerare uno di quegli artefatti produrrebbe un digest
+    diverso da quello committato, e dodici artefatti di otto fasi chiuse
+    smetterebbero di essere riproducibili.
+
+    La sostituzione vale solo per i path registrati e solo finche' il loro
+    contenuto e' quello che l'erratum descrive: vedi `legacy_hash_erratum`.
+    """
+    from benchmarks.mtb_evidence.evaluation import legacy_hash_erratum as ERRATUM
+
+    return ERRATUM.recorded_sha256(path)
 
 
 def sha256_text(text: str) -> str:

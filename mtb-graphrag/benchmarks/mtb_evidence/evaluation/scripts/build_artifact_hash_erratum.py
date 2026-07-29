@@ -56,6 +56,17 @@ PHASE = "hermetic-reproducibility-closure/1.0"
 # congelata su un altro file.
 ARTIFACT_SUFFIXES = (".json", ".jsonl", ".md", ".csv")
 
+# I due registri della politica citano le impronte storiche per mestiere: sono
+# il posto dove sono registrate, non un'altra fase che le congela. Contarli
+# renderebbe l'erratum una voce di se stesso, e ogni rigenerazione lo farebbe
+# crescere.
+EXCLUDED_FROM_SCAN = (
+    "benchmarks/mtb_evidence/v3/hermetic_reproducibility_closure/"
+    "artifact_hash_erratum.json",
+    "backend/pipeline/evidence/corpus/v3/integrity/"
+    "qualified_claim_repository_1_4.overlay.json",
+)
+
 _HEX64 = re.compile(rb"\b[0-9a-f]{64}\b")
 _EMPTY_SHA256 = hashlib.sha256(b"").hexdigest()
 
@@ -206,7 +217,12 @@ def discover() -> dict[str, Any]:
     index = build_index(as_set)
 
     at_head = head_blobs()
-    artifact_paths = [p for p in text_files if p.endswith(ARTIFACT_SUFFIXES)]
+    excluded = {PACKAGE_PREFIX + path for path in EXCLUDED_FROM_SCAN}
+    artifact_paths = [
+        p
+        for p in text_files
+        if p.endswith(ARTIFACT_SUFFIXES) and p not in excluded
+    ]
     bodies = _read_blobs(sorted({at_head[p] for p in artifact_paths if p in at_head}))
 
     references: dict[str, list[tuple[str, str, str, str]]] = defaultdict(list)

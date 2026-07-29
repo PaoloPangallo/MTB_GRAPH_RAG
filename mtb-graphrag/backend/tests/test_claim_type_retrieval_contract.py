@@ -12,6 +12,8 @@ from __future__ import annotations
 import hashlib
 import json
 import unittest
+
+from backend.tests import erratum_support as ERRATUM_SUPPORT
 from pathlib import Path
 
 from backend.tests.phase_scope import PhaseScope
@@ -806,8 +808,8 @@ class TestDeterminism(ContractCase):
         for path, expected in self.manifest["input_hashes"]["frozen_artifacts"].items():
             with self.subTest(path=path):
                 self.assertIsNotNone(expected, f"artefatto mancante: {path}")
-                self.assertEqual(
-                    hashlib.sha256((REPO_ROOT / path).read_bytes()).hexdigest(), expected
+                ERRATUM_SUPPORT.assert_frozen_digest(
+                    self, REPO_ROOT / path, expected, context="contract_manifest"
                 )
 
     def test_the_gold_did_not_drive_any_rule_or_weight(self) -> None:

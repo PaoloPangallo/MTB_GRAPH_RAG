@@ -25,7 +25,6 @@ configurazione in una query piu' permissiva di quella chiesta.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -33,6 +32,7 @@ from pathlib import Path
 from typing import Any
 
 from backend.pipeline.evidence.corpus import promotion_contract as CONTRACT
+from backend.pipeline.evidence.integrity import hash_policy as POLICY
 from backend.pipeline.evidence.shadow import propagation as PROP
 
 
@@ -46,6 +46,14 @@ class CorpusSchemaError(PromotedCorpusError):
 
 class CorpusHashMismatch(PromotedCorpusError):
     """Un file non coincide con l'hash che il manifest gli attribuisce."""
+
+
+class CorpusSourceHashMismatch(CorpusHashMismatch):
+    """Un sorgente della promozione non coincide con la propria forma canonica.
+
+    Distinta dal caso generale perche' descrive un file *fuori* dal corpus: il
+    corpus e' intatto, e' cambiato cio' da cui e' stato prodotto.
+    """
 
 
 class CorpusPolicyModeError(PromotedCorpusError):
@@ -223,14 +231,98 @@ def _verify_hashes(root: Path, manifest: Mapping[str, Any]) -> None:
         raise CorpusSchemaError("il manifest non dichiara nessun hash di artefatto")
     mismatched = []
     for name, digest in sorted(declared.items()):
-        actual = hashlib.sha256(
-            _read_text(root / name).encode("utf-8")
-        ).hexdigest()
-        if actual != digest:
+        path = root / name
+        if not path.exists():
+            raise PromotedCorpusError(
+                f"file assente dal corpus promosso: {name}"
+            )
+        if POLICY.canonical_lf_sha256(path) != digest:
             mismatched.append(name)
     if mismatched:
         raise CorpusHashMismatch(
             f"hash non coincidenti con il manifest: {mismatched}"
+        )
+
+
+def _read_overlay() -> Mapping[str, Any]:
+    """L'overlay di integrita', o un errore che dice cosa manca.
+
+    Il path e' quello del contratto e non uno derivato dalla radice passata a
+    `load()`: una copia temporanea del corpus deve verificare contro l'overlay
+    del repository, non contro un file che quella copia non ha.
+    """
+    path = CONTRACT.OVERLAY_PATH
+    if not path.is_file():
+        raise CorpusSchemaError(
+            f"overlay di integrita' assente: {CONTRACT.OVERLAY_RELPATH}. "
+            f"Rigeneralo con benchmarks.mtb_evidence.evaluation.scripts."
+            f"build_corpus_integrity_overlay"
+        )
+    overlay = json.loads(path.read_text(encoding="utf-8"))
+    if overlay.get("hash_policy_version") != POLICY.POLICY_VERSION:
+        raise CorpusSchemaError(
+            f"overlay scritto sotto {overlay.get('hash_policy_version')!r}, "
+            f"questo loader verifica sotto {POLICY.POLICY_VERSION!r}"
+        )
+    if overlay.get("normalization") != POLICY.NORMALIZATION:
+        raise CorpusSchemaError(
+            f"overlay normalizzato a {overlay.get('normalization')!r}, "
+            f"atteso {POLICY.NORMALIZATION!r}"
+        )
+    return overlay
+
+
+def _verify_source_artifacts(manifest: Mapping[str, Any]) -> None:
+    """I sorgenti della promozione, verificati nella forma canonica LF.
+
+    Il manifest dichiara l'impronta di diciotto sorgenti, e quattro di quelle
+    impronte furono prese nella forma CRLF: nessun checkout pulito le riproduce.
+    Confrontare i sorgenti direttamente con il manifest fallirebbe sempre, e
+    riscrivere il manifest significherebbe cancellare cio' che la promozione
+    misuro' davvero.
+
+    L'overlay tiene le due cose separate: l'impronta storica resta nel manifest,
+    quella canonica sta nell'overlay, e la verifica passa da quest'ultima. Le
+    quattro divergenze sono dichiarate una per una con il proprio `reason_code`,
+    non assorbite in un confronto piu' debole.
+    """
+    declared = manifest.get("source_artifact_sha256") or {}
+    if not declared:
+        raise CorpusSchemaError(
+            "il manifest non dichiara nessun hash di artefatto sorgente"
+        )
+    overlay = _read_overlay()
+    entries = overlay.get("source_artifact_sha256") or {}
+
+    uncovered = sorted(set(declared) - set(entries))
+    if uncovered:
+        raise CorpusSchemaError(
+            f"l'overlay non copre etichette che il manifest dichiara: {uncovered}"
+        )
+
+    mismatched: list[str] = []
+    drifted: list[str] = []
+    for label, digest in sorted(declared.items()):
+        entry = entries[label]
+        # L'overlay deve continuare a descrivere *questo* manifest: se il
+        # manifest cambiasse, l'overlay diventerebbe una promessa su un altro.
+        if entry["declared_sha256"] != digest:
+            drifted.append(label)
+            continue
+        path = CONTRACT.REPO_ROOT / str(entry["path"])
+        if not path.is_file():
+            raise PromotedCorpusError(f"sorgente della promozione assente: {path}")
+        if POLICY.canonical_lf_sha256(path) != entry["canonical_lf_sha256"]:
+            mismatched.append(label)
+
+    if drifted:
+        raise CorpusHashMismatch(
+            f"l'overlay non descrive questo manifest, etichette: {drifted}"
+        )
+    if mismatched:
+        raise CorpusSourceHashMismatch(
+            f"sorgenti della promozione non coincidenti con l'overlay nella "
+            f"forma canonica {POLICY.NORMALIZATION}: {mismatched}"
         )
 
 
@@ -257,6 +349,7 @@ def load(
     *,
     policy_mode: str | None = None,
     verify_hashes: bool = True,
+    verify_sources: bool = True,
 ) -> PromotedCorpus:
     """Carica il corpus promosso, o solleva. Non scrive nulla e non ordina nulla."""
     root = Path(root)
@@ -272,6 +365,8 @@ def load(
     _check_versions(manifest)
     if verify_hashes:
         _verify_hashes(root, manifest)
+    if verify_sources:
+        _verify_source_artifacts(manifest)
 
     claims = _read_jsonl(root / "evidence_claims.jsonl")
     deprecated = _read_jsonl(root / "deprecated_claims.jsonl")
@@ -314,6 +409,7 @@ def load_from_registry(
     *,
     policy_mode: str | None = None,
     verify_hashes: bool = True,
+    verify_sources: bool = True,
 ) -> PromotedCorpus:
     """Carica il corpus che il registro prototipale dichiara attivo.
 
@@ -331,13 +427,19 @@ def load_from_registry(
         )
     entry = (registry.get("entries") or {})[version]
     root = CONTRACT.REPO_ROOT / str(entry["corpus_path"])
-    return load(root, policy_mode=policy_mode, verify_hashes=verify_hashes)
+    return load(
+        root,
+        policy_mode=policy_mode,
+        verify_hashes=verify_hashes,
+        verify_sources=verify_sources,
+    )
 
 
 __all__ = [
     "CorpusHashMismatch",
     "CorpusPolicyModeError",
     "CorpusSchemaError",
+    "CorpusSourceHashMismatch",
     "PromotedCorpus",
     "PromotedCorpusError",
     "load",

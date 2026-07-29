@@ -11,6 +11,8 @@ import hashlib
 import json
 import unittest
 
+from backend.tests import erratum_support as ERRATUM_SUPPORT
+
 from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
 from pathlib import Path
 
@@ -683,8 +685,8 @@ class TestLabelsAndGold(AdjudicationCase):
         for path, expected in self.scope["input_hashes"]["frozen_artifacts"].items():
             with self.subTest(path=path):
                 self.assertIsNotNone(expected)
-                self.assertEqual(
-                    hashlib.sha256((REPO_ROOT / path).read_bytes()).hexdigest(), expected
+                ERRATUM_SUPPORT.assert_frozen_digest(
+                    self, REPO_ROOT / path, expected, context="adjudication_scope"
                 )
 
 

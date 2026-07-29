@@ -10,6 +10,8 @@ import hashlib
 import json
 import unittest
 
+from backend.tests import erratum_support as ERRATUM_SUPPORT
+
 from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
 from pathlib import Path
 
@@ -194,8 +196,8 @@ class TestOriginalAnnotationsUntouched(ComparisonCase):
         for path, digest in self.scope["input_hashes"]["frozen_artifacts"].items():
             with self.subTest(path=path):
                 self.assertIsNotNone(digest, f"artefatto congelato mancante: {path}")
-                self.assertEqual(
-                    hashlib.sha256((REPO_ROOT / path).read_bytes()).hexdigest(), digest
+                ERRATUM_SUPPORT.assert_frozen_digest(
+                    self, REPO_ROOT / path, digest, context="comparison_scope"
                 )
 
 

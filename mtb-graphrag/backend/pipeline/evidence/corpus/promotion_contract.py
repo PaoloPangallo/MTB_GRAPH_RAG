@@ -76,6 +76,19 @@ PROMOTED_CORPUS_RELPATH = (
 )
 REGISTRY_RELPATH = "backend/pipeline/evidence/corpus/v3/prototype_corpus_registry.json"
 
+# L'overlay di integrita' sta accanto al corpus, non dentro: la directory del
+# corpus e' congelata, e aggiungerci un file la cambierebbe. Il path e' fisso e
+# non derivato dalla radice passata a `load()`, cosi' che una copia temporanea
+# del corpus verifichi contro l'overlay del repository invece che contro niente.
+INTEGRITY_DIRNAME = "integrity"
+OVERLAY_PATH = (
+    PROMOTED_NAMESPACE / INTEGRITY_DIRNAME / f"{CORPUS_DIRNAME}.overlay.json"
+)
+OVERLAY_RELPATH = (
+    "backend/pipeline/evidence/corpus/v3/integrity/"
+    f"{CORPUS_DIRNAME}.overlay.json"
+)
+
 # --- contenuto -----------------------------------------------------------------
 
 CLAIM_FILES = (
@@ -215,10 +228,13 @@ __all__ = [
     "EXPECTED_LINK_ACTIONS",
     "EXPECTED_VIEW_ACTIONS",
     "FINAL_EVALUABLE",
+    "INTEGRITY_DIRNAME",
     "LINEAGE_PROBE_IDS",
     "MANIFEST_FILE",
     "MODEL_VERSION",
     "OPERATIONAL_RETRIEVER_BOUND",
+    "OVERLAY_PATH",
+    "OVERLAY_RELPATH",
     "PACKAGE_ROOT",
     "PHASE",
     "PROMOTED_AT",
