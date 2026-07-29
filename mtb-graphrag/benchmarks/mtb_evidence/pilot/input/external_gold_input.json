@@ -1,0 +1,16 @@
+{
+  "aggregate_sha256": "5e6d79f04eeaecbabd573a0eb5a636f51bcba55010e2af5f560419479149ac1f",
+  "availability": "external_private_input",
+  "bundle_version": "MTB_Evidence_gold_pilot_v1",
+  "expected_sha256": {
+    "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+    "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+    "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+  },
+  "files": [
+    "MTB_Evidence_annotation_notes_v1.md",
+    "MTB_Evidence_gold_pilot_v1.xlsx",
+    "mtb_evidence_gold_pilot_v1.jsonl"
+  ],
+  "schema_version": "mtb_evidence_gold_pilot/1.0"
+}

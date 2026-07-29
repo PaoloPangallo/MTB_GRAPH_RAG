@@ -41,7 +41,7 @@ from benchmarks.mtb_evidence.evaluation.terminology_mapping_closure_simulation i
     aggregate_claim_id,
 )
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 V3 = REPO_ROOT / "benchmarks/mtb_evidence/v3"
 SHADOW_V10 = V3 / "typed_claim_shadow_migration"
 SHADOW_V11 = V3 / "non_therapeutic_shadow_update"

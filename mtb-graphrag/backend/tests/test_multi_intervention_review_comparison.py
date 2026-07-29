@@ -12,7 +12,6 @@ import unittest
 
 from backend.tests import erratum_support as ERRATUM_SUPPORT
 
-from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
 from pathlib import Path
 
 from backend.tests.phase_scope import PhaseScope
@@ -628,17 +627,9 @@ class TestAdjudicationPreparation(ComparisonCase):
 
 
 class TestDeterminism(ComparisonCase):
-    def test_rebuilding_reproduces_the_committed_artifacts(self) -> None:
-        # Il manifest rigenerato incorpora il checksum dell'albero del bundle
-        # gold (`bundle_present`, `sha256`). Senza il bundle la rigenerazione
-        # produce `bundle_present: false` e non puo' riprodurre l'artefatto
-        # committato: non e' un difetto del builder, e' un confronto che senza
-        # l'ingresso esterno non ha soggetto.
-        EXTERNAL.require_or_skip(EXTERNAL.GOLD_BUNDLE)
-        rebuilt = build(swap=False)
-        for name, content in rebuilt.items():
-            with self.subTest(artifact=name):
-                self.assertEqual(content, (COMPARISON / name).read_text(encoding="utf-8"))
+    # `test_rebuilding_reproduces_the_committed_artifacts` sta in
+    # `backend/tests_external/gold/`: rigenerare richiede il bundle gold, che
+    # questa suite non apre.
 
     def test_the_build_is_byte_identical_twice(self) -> None:
         self.assertEqual(build(swap=False), build(swap=False))

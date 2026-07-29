@@ -27,7 +27,6 @@ from __future__ import annotations
 import json
 import unittest
 
-from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
 from pathlib import Path
 
 from backend.pipeline.evidence.shadow import disease_gate as DISEASE
@@ -743,16 +742,9 @@ class ArtifactTests(unittest.TestCase):
         written = {path.name for path in OUTPUT.iterdir() if path.is_file()}
         self.assertEqual(written, set(self.artifacts))
 
-    def test_the_artifacts_on_disk_match_the_generated_ones(self) -> None:
-        # Il manifest rigenerato incorpora il checksum dell'albero del bundle
-        # gold (`bundle_present`, `sha256`). Senza il bundle la rigenerazione
-        # produce `bundle_present: false` e non puo' riprodurre l'artefatto
-        # committato: non e' un difetto del builder, e' un confronto che senza
-        # l'ingresso esterno non ha soggetto.
-        EXTERNAL.require_or_skip(EXTERNAL.GOLD_BUNDLE)
-        for name, text in self.artifacts.items():
-            with self.subTest(artifact=name):
-                self.assertEqual((OUTPUT / name).read_text(encoding="utf-8"), text)
+    # `test_rebuilding_reproduces_the_committed_artifacts` sta in
+    # `backend/tests_external/gold/`: rigenerare richiede il bundle gold, che
+    # questa suite non apre.
 
     def test_double_generation_is_identical(self) -> None:
         self.assertEqual(build_data_artifacts(), build_data_artifacts())

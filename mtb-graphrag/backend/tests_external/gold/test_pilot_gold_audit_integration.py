@@ -13,7 +13,7 @@ import unittest
 from pathlib import Path
 from unittest import TestCase
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 GOLD_PATH = (
     PROJECT_ROOT / "benchmarks" / "mtb_evidence" / "pilot" / "input"
     / "mtb_evidence_gold_pilot_v1.jsonl"

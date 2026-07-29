@@ -113,10 +113,6 @@ from benchmarks.mtb_evidence.model_selection.scoring import (
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 EVAL_DATA = PROJECT_ROOT / "benchmarks" / "mtb_evidence" / "evaluation" / "data"
-PILOT_GOLD = (
-    PROJECT_ROOT / "benchmarks" / "mtb_evidence" / "pilot" / "input"
-    / "mtb_evidence_gold_pilot_v1.jsonl"
-)
 AUDIT_DIR = PROJECT_ROOT / "benchmarks" / "mtb_evidence" / "pilot" / "audit"
 
 
@@ -465,13 +461,9 @@ class StructuredOutputTest(TestCase):
 
 
 class GoldSeparationTest(TestCase):
-    def test_clinical_gold_matches_the_pilot_without_loss(self):
-        records = [
-            json.loads(line)
-            for line in PILOT_GOLD.read_text(encoding="utf-8").splitlines()
-            if line.strip()
-        ]
-        self.assertEqual(verify_no_loss(records, build_from_pilot(PILOT_GOLD)), [])
+    # `test_clinical_gold_matches_the_pilot_without_loss` sta in
+    # `backend/tests_external/gold/`: confronta il clinical gold con il gold
+    # pilota, che e' un ingresso esterno privato e non sta nel repository.
 
     def test_clinical_gold_is_independent_of_the_snapshot(self):
         """Il clinical gold non contiene alcun riferimento al grafo."""
