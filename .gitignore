@@ -35,3 +35,18 @@ debug_err.txt
 debug_out.txt
 debug_step.txt
 pandas_test.txt
+
+# --- ingressi esterni privati -------------------------------------------------
+#
+# Materiale clinico riservato. Il repository ne conserva il manifest — versione,
+# schema, hash attesi, hash aggregato — e non i byte: il manifest basta a
+# verificare un bundle quando c'e' e a descriverlo quando non c'e', e non basta a
+# ricostruirlo. E' esattamente la proprieta' che serve.
+#
+# Ignorati per posizione e per nome: il bundle e' stato tracciato per sbaglio
+# sotto `pilot/input/` da cce87f1 fino a questa fase, e un `git add -A` distratto
+# lo rimetterebbe dentro. Una regola qui costa meno di una rimozione.
+MTB_Evidence_gold_pilot_v1_bundle/
+mtb-graphrag/benchmarks/mtb_evidence/pilot/input/MTB_Evidence_gold_pilot_v1.xlsx
+mtb-graphrag/benchmarks/mtb_evidence/pilot/input/mtb_evidence_gold_pilot_v1.jsonl
+mtb-graphrag/benchmarks/mtb_evidence/pilot/input/MTB_Evidence_annotation_notes_v1.md

@@ -88,7 +88,15 @@ KEY_EVIDENCE_IDS = (
 
 
 def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """I byte del file, o l'impronta storica se l'erratum la registra.
+
+    `qualified_retriever.py` e' fra i sorgenti misurati nella forma CRLF: senza
+    questa mediazione `fix_manifest.json` non sarebbe piu' riproducibile da un
+    checkout pulito.
+    """
+    from benchmarks.mtb_evidence.evaluation import legacy_hash_erratum as ERRATUM
+
+    return ERRATUM.recorded_sha256(path)
 
 
 def _canonical_source_sha(path: Path) -> str:
