@@ -1,0 +1,149 @@
+{
+  "artifacts": [
+    "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/corpus_manifest.json",
+    "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/disease_relation_registry.json",
+    "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/promotion_log.json",
+    "benchmarks/mtb_evidence/v3/author_approval_23344087/second_review_blinding_check.json",
+    "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/contract_manifest.json",
+    "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/adjudication_scope.json",
+    "benchmarks/mtb_evidence/v3/multi_intervention_review_comparison/comparison_scope.json",
+    "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+    "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/rollback_plan.json",
+    "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+    "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json",
+    "benchmarks/mtb_evidence/v3/verified_disease_alias_fix/fix_manifest.json"
+  ],
+  "counts": {
+    "artifacts": 12,
+    "references": 26,
+    "sources": 8
+  },
+  "hash_policy_version": "artifact_hash_policy/2.0",
+  "normalization": "lf",
+  "phase": "hermetic-reproducibility-closure/1.0",
+  "schema_version": "artifact_hash_erratum/1.0",
+  "sources": {
+    "backend/pipeline/evidence/qualification.py": {
+      "canonical_lf_sha256": "c1a12dd45d6b81c2f1b7583a60a204befe01494562e9668a44098811ac8abd4e",
+      "hash_policy_version": "artifact_hash_policy/2.0",
+      "historical_blob": "6bf3e21a29b1d118ff5e159753796ca08ba57571",
+      "historical_blob_is_head": true,
+      "historical_form": "crlf",
+      "historical_raw_sha256": "61ccd455cf6502b68a9917e72cdd57a874036647f71954b709eba9a8bdb22dfa",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "recorded_by": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/rollback_plan.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ]
+    },
+    "backend/pipeline/evidence/qualified_retriever.py": {
+      "canonical_lf_sha256": "573200ecc6fc93520781a2906830172e32c2a7a7aa818b56138143d0847ea629",
+      "hash_policy_version": "artifact_hash_policy/2.0",
+      "historical_blob": "7c57d5ca2804b104370ff8e00baacbc9c5bc180b",
+      "historical_blob_is_head": false,
+      "historical_form": "raw",
+      "historical_raw_sha256": "0dfefce064dbb5c6bf63b7f012c73075e4b7abc239815b7b4fc56fbc1e54a75e",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "recorded_by": [
+        "benchmarks/mtb_evidence/v3/claim_type_retrieval_contract/contract_manifest.json",
+        "benchmarks/mtb_evidence/v3/multi_intervention_adjudication/adjudication_scope.json",
+        "benchmarks/mtb_evidence/v3/multi_intervention_review_comparison/comparison_scope.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/rollback_plan.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json",
+        "benchmarks/mtb_evidence/v3/verified_disease_alias_fix/fix_manifest.json"
+      ]
+    },
+    "benchmarks/mtb_evidence/v3/disease_hierarchy_policy/disease_match_contract.json": {
+      "canonical_lf_sha256": "3a6ce14ee69c633e1092c8cd302735580bb18b405c0dcd20132faf51b9a8e5bc",
+      "hash_policy_version": "artifact_hash_policy/2.0",
+      "historical_blob": "58acd19faf0d62fba73b983dcd4c238022dec288",
+      "historical_blob_is_head": true,
+      "historical_form": "crlf",
+      "historical_raw_sha256": "88150c7b75d09ffbc77dab7915cc64de73ab119c4b186742f44bd21ffe5c0d21",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "recorded_by": [
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/corpus_manifest.json",
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/disease_relation_registry.json",
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/promotion_log.json"
+      ]
+    },
+    "benchmarks/mtb_evidence/v3/disease_hierarchy_policy/disease_policy_modes.json": {
+      "canonical_lf_sha256": "62427b58a93129b76184cbddb6bebd21160321fa6025a92b7b327d4b36679332",
+      "hash_policy_version": "artifact_hash_policy/2.0",
+      "historical_blob": "cceeb4b28747c6d526a55abda3bc79e30f7dd592",
+      "historical_blob_is_head": true,
+      "historical_form": "crlf",
+      "historical_raw_sha256": "bf360891f0a2a4315aff4e00c5f38459dcd01b97424450fcf54a834a05c45c08",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "recorded_by": [
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/corpus_manifest.json",
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/disease_relation_registry.json",
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/promotion_log.json"
+      ]
+    },
+    "benchmarks/mtb_evidence/v3/disease_hierarchy_policy/disease_relation_definitions.json": {
+      "canonical_lf_sha256": "272e89e871d47b36023eb2edb595c4c4b562347c200dec04468d0ec3695357b5",
+      "hash_policy_version": "artifact_hash_policy/2.0",
+      "historical_blob": "d30a7c34c4dc9434d294d1a104dbc31deca667b4",
+      "historical_blob_is_head": true,
+      "historical_form": "crlf",
+      "historical_raw_sha256": "ac1773d7310139c1370d1b767f5557a28a19cbff2d46ea33b600f040f26310bb",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "recorded_by": [
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/corpus_manifest.json",
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/disease_relation_registry.json",
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/promotion_log.json"
+      ]
+    },
+    "benchmarks/mtb_evidence/v3/disease_hierarchy_policy/verified_alias_registry_snapshot.json": {
+      "canonical_lf_sha256": "0f5093fc1311915421e0f6030a403a2af49b3f57b79a35de0d31529423475a0e",
+      "hash_policy_version": "artifact_hash_policy/2.0",
+      "historical_blob": "d0d2856af7348eeafb5dcbc2cf2d334aeee6de8b",
+      "historical_blob_is_head": true,
+      "historical_form": "crlf",
+      "historical_raw_sha256": "90da6d1688bd5e8622cdc176785d3ead202d490e6d7dd8dba1715b09b93208f0",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "recorded_by": [
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/corpus_manifest.json",
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/disease_relation_registry.json",
+        "backend/pipeline/evidence/corpus/v3/qualified_claim_repository_1_4/promotion_log.json"
+      ]
+    },
+    "benchmarks/mtb_evidence/v3/first_review/FIRST_REVIEW_QUEUE.md": {
+      "canonical_lf_sha256": "3ef446a1d735c49b8df5bbf0bc99cf7ce8e0d46a2eabb6d00a9ccf899af6e00c",
+      "hash_policy_version": "artifact_hash_policy/2.0",
+      "historical_blob": "625c653e8872659d28a191c947d57d8c45a83cf4",
+      "historical_blob_is_head": true,
+      "historical_form": "crlf",
+      "historical_raw_sha256": "69119d96227eb1f94c3067b787513abb1e2f0deac860042804cd85d7089d300d",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "recorded_by": [
+        "benchmarks/mtb_evidence/v3/author_approval_23344087/second_review_blinding_check.json"
+      ]
+    },
+    "benchmarks/mtb_evidence/v3/first_review/first_review_queue.csv": {
+      "canonical_lf_sha256": "1c3da57dfee459db847384d7ac6f8019dd19a5e566c2a88238928a4375701fac",
+      "hash_policy_version": "artifact_hash_policy/2.0",
+      "historical_blob": "35580a5eb8ea2c49ce1c4bb519c84253cb2f3b9f",
+      "historical_blob_is_head": true,
+      "historical_form": "crlf",
+      "historical_raw_sha256": "5ec3a1a789825f3d1a01290f1cfc9a0823006ebb616b0e1888228ff81a36fc33",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_HASH",
+      "recorded_by": [
+        "benchmarks/mtb_evidence/v3/author_approval_23344087/second_review_blinding_check.json"
+      ]
+    }
+  }
+}
