@@ -73,6 +73,10 @@ class ExternalInput:
     environment_variable: str
     description: str
     kind: str = "directory"
+    # Il flag del comando che possiede questo ingresso. Sta nel descrittore e non
+    # in un messaggio, perche' un errore che suggerisce il flag di un altro
+    # comando manda chi legge nella direzione sbagliata.
+    cli_flag: str = "--gold-bundle"
 
     @property
     def manifest_path(self) -> Path:
@@ -103,6 +107,7 @@ SOURCE_ABSTRACT_CACHE = ExternalInput(
         "escluso dal versionamento da .gitignore, non per dimenticanza."
     ),
     kind="file",
+    cli_flag="--source-abstract-cache",
 )
 
 EXTERNAL_INPUTS = (GOLD_BUNDLE, SOURCE_ABSTRACT_CACHE)
@@ -236,7 +241,7 @@ def _missing_message(
         f"ingresso esterno '{descriptor.name}' non trovato.\n"
         f"{descriptor.description}\n"
         f"Cercato in:\n{looked}\n"
-        f"Indicalo con --gold-bundle <PATH> oppure con la variabile "
+        f"Indicalo con {descriptor.cli_flag} <PATH> oppure con la variabile "
         f"d'ambiente {descriptor.environment_variable}."
     )
 

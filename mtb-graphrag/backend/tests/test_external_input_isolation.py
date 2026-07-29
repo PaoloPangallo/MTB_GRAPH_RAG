@@ -27,6 +27,9 @@ from pathlib import Path
 
 from benchmarks.mtb_evidence.evaluation import external_inputs as EXTERNAL
 from benchmarks.mtb_evidence.evaluation import run_gold_evaluation as RUNNER
+from benchmarks.mtb_evidence.evaluation import (
+    run_source_cache_validation as CACHE_RUNNER,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -404,22 +407,85 @@ class PointerManifestTests(unittest.TestCase):
 
 
 class EntrypointTests(unittest.TestCase):
-    """Il comando di valutazione e' separato e fallisce in modo chiaro."""
+    """Un ingresso, un comando, una suite. E fallire in modo distinguibile."""
+
+    # comando -> (flag, suite che deve eseguire, suite che non deve toccare)
+    COMMANDS = {
+        "run_gold_evaluation.py": (
+            "--gold-bundle",
+            "backend/tests_external/gold",
+            "backend/tests_external/source_cache",
+        ),
+        "run_source_cache_validation.py": (
+            "--source-abstract-cache",
+            "backend/tests_external/source_cache",
+            "backend/tests_external/gold",
+        ),
+    }
+
+    def _entrypoint(self, name: str) -> str:
+        return (
+            REPO_ROOT / "benchmarks" / "mtb_evidence" / "evaluation" / name
+        ).read_text(encoding="utf-8")
 
     def test_a_missing_bundle_fails_with_its_own_exit_code(self) -> None:
         code = RUNNER.main(["--gold-bundle", str(REPO_ROOT / "no_such_bundle")])
         self.assertEqual(code, RUNNER.EXIT_MISSING_BUNDLE)
 
-    def test_the_entrypoint_declares_it_is_not_run_by_the_core_suite(self) -> None:
-        body = (
-            REPO_ROOT
-            / "benchmarks"
-            / "mtb_evidence"
-            / "evaluation"
-            / "run_gold_evaluation.py"
-        ).read_text(encoding="utf-8")
-        self.assertIn("--gold-bundle", body)
-        self.assertIn("run_from_core_suite", body)
+    def test_a_missing_cache_fails_with_its_own_exit_code(self) -> None:
+        code = CACHE_RUNNER.main(
+            ["--source-abstract-cache", str(REPO_ROOT / "no_such_cache")]
+        )
+        self.assertEqual(code, CACHE_RUNNER.EXIT_MISSING_BUNDLE)
+
+    def test_the_three_ways_of_failing_are_distinguishable(self) -> None:
+        """«Non ha funzionato» non e' una diagnosi.
+
+        Ingresso assente, ingresso sbagliato e test falliti chiedono tre
+        reazioni diverse. Il terzo confuso col secondo e' il piu' costoso: una
+        metrica calcolata su un gold diverso da quello dichiarato non e'
+        sbagliata, e' inconfrontabile, ed e' peggio.
+        """
+        codes = {
+            RUNNER.EXIT_OK,
+            RUNNER.EXIT_MISSING_BUNDLE,
+            RUNNER.EXIT_BUNDLE_MISMATCH,
+            RUNNER.EXIT_TESTS_FAILED,
+        }
+        self.assertEqual(len(codes), 4)
+
+    def test_each_entrypoint_names_its_own_input_and_its_own_suite(self) -> None:
+        for name, (flag, own, foreign) in self.COMMANDS.items():
+            body = self._entrypoint(name)
+            with self.subTest(command=name):
+                self.assertIn(flag, body)
+                self.assertIn(own, body)
+                self.assertNotIn(foreign, body)
+
+    def test_the_report_declares_it_was_not_produced_by_the_core_suite(self) -> None:
+        """La dichiarazione sta nel report, non nel commento di un modulo.
+
+        Prima era una stringa nel sorgente dell'entrypoint, e il controllo
+        verificava che quella stringa ci fosse. Cercare una stringa in un
+        sorgente non e' verificare un comportamento: qui il report viene
+        prodotto davvero — dal manifest tracciato, senza aprire nessun bundle —
+        e si guarda cosa dice.
+        """
+        for name, module in (
+            ("gold", RUNNER),
+            ("source_cache", CACHE_RUNNER),
+        ):
+            with self.subTest(command=name):
+                report = module.describe(
+                    Path("percorso/non/aperto"), {"verified": True}
+                )
+                self.assertFalse(report["run_from_core_suite"])
+                self.assertEqual(report["suite"], f"backend/tests_external/{name}")
+
+    def test_every_entrypoint_routes_through_the_shared_runner(self) -> None:
+        for name in self.COMMANDS:
+            with self.subTest(command=name):
+                self.assertIn("external_suite_runner", self._entrypoint(name))
 
     def test_no_test_module_imports_the_entrypoint_to_run_it(self) -> None:
         # Questo modulo lo importa per verificarne il codice d'uscita, non per
