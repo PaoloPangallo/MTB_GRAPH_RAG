@@ -528,7 +528,16 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """I byte del file, o l'impronta storica se l'erratum la registra.
+
+    Otto sorgenti furono misurati nella forma CRLF di una macchina Windows, e un
+    checkout pulito consegna LF. Gli aggregati congelati che li contengono non
+    tornerebbero piu'. La sostituzione vale solo per i path registrati, e solo
+    finche' il loro contenuto e' quello che l'erratum descrive.
+    """
+    from benchmarks.mtb_evidence.evaluation import legacy_hash_erratum as ERRATUM
+
+    return ERRATUM.recorded_sha256(path)
 
 
 def _canonical_text_sha(path: Path) -> str:
