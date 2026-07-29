@@ -95,13 +95,51 @@ raccomandazioni terapeutiche.
 
 ## Verifica
 
+La suite **core** gira su qualunque checkout pulito, senza ingressi esterni e
+senza saltare niente per la loro assenza:
+
 ```bash
 # Test backend (unittest stdlib, nessun runner aggiuntivo configurato)
 cd mtb-graphrag && PYTHONPATH=. python -m unittest discover -s backend/tests -t .
+cd mtb-graphrag && PYTHONPATH=. python -m pytest backend/tests -q
 
 # Frontend
 cd frontend && npm run lint && npm run typecheck && npm test && npm run build
 ```
+
+### Ingressi esterni privati
+
+Due ingressi non stanno nel repository e non ci staranno mai: il **bundle gold
+pilota**, materiale clinico riservato, e la **cache degli abstract**, testo
+protetto da copyright. Di entrambi il repository conserva il manifest — versione,
+schema, hash attesi file per file, hash aggregato — che basta a verificarli
+quando ci sono e a descriverli quando non ci sono.
+
+I test che li aprono stanno fuori dalla discovery core, un albero per ingresso, e
+si eseguono con un comando esplicito ciascuno:
+
+```bash
+python -m benchmarks.mtb_evidence.evaluation.run_gold_evaluation \
+  --gold-bundle <PATH>
+
+python -m benchmarks.mtb_evidence.evaluation.run_source_cache_validation \
+  --source-abstract-cache <PATH>
+```
+
+Ogni comando verifica il **proprio** ingresso contro il manifest e poi esegue la
+**propria** suite. Codici d'uscita: `2` ingresso assente (il messaggio dice dove
+ha cercato), `3` ingresso presente ma diverso da quello dichiarato, `4` test
+falliti. Il 3 e il 4 restano distinti apposta: un risultato calcolato su un
+ingresso diverso da quello dichiarato non e' sbagliato, e' inconfrontabile.
+
+### Impronte di integrità
+
+`artifact_hash_policy/2.0` dichiara come si misura l'integrità di un file:
+sempre da `read_bytes()`, forma canonica LF, e un CR isolato viene rifiutato
+invece di essere convertito in silenzio. Dodici artefatti di otto fasi chiuse
+portano impronte prese sotto la convenzione implicita precedente: non vengono
+riscritte, sono registrate in
+`benchmarks/mtb_evidence/v3/hermetic_reproducibility_closure/`.
 
 ## Migrazione del ledger
 
