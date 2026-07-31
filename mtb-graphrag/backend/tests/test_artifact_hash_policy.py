@@ -185,17 +185,23 @@ class ErratumIsTrueTests(ErratumCase):
             with self.subTest(source=source):
                 self.assertTrue((REPO_ROOT / source).is_file())
 
-    def test_the_canonical_hash_is_what_a_clean_checkout_writes(self) -> None:
-        """Il lato «presente» dell'erratum.
+    def test_the_canonical_hash_is_reproduced_from_the_files_on_disk(self) -> None:
+        """Il lato «presente» dell'erratum, misurabile ovunque.
 
-        Se questo fallisce, la forma canonica dichiarata non e' quella che il
-        repository consegna, e l'erratum descrive una macchina invece del
-        repository — lo stesso difetto, di nuovo.
+        Legge il file dal disco, non il blob: la normalizzazione canonica rende
+        il valore identico in un working tree CRLF e in un checkout LF, quindi
+        questo controllo da' la stessa risposta nei quattro ambienti — compreso
+        un archivio estratto, che una storia non ce l'ha.
+
+        Il confronto fra il disco e cio' che git *consegnerebbe* — la differenza
+        che il difetto originale sfruttava — resta verificato, in
+        `backend/tests_history/test_frozen_blobs.py`, dove entrambi i termini
+        esistono.
         """
         for source, payload in self.erratum["sources"].items():
             with self.subTest(source=source):
                 self.assertEqual(
-                    POLICY.canonical_lf_sha256(self._checkout_bytes(source)),
+                    POLICY.canonical_lf_sha256(REPO_ROOT / source),
                     payload["canonical_lf_sha256"],
                 )
 
@@ -219,19 +225,8 @@ class ErratumIsTrueTests(ErratumCase):
                         f"{source}: l'artefatto e' stato riscritto",
                     )
 
-    def test_the_historical_blob_still_reproduces_the_historical_hash(self) -> None:
-        """L'impronta storica e' ancora rifacibile, non solo ricordata."""
-        for source, payload in self.erratum["sources"].items():
-            with self.subTest(source=source):
-                blob = self._git("cat-file", "blob", payload["historical_blob"])
-                form = payload["historical_form"]
-                if form == "crlf":
-                    measured = POLICY.raw_sha256(
-                        POLICY.canonical_lf_bytes(blob).replace(b"\n", b"\r\n")
-                    )
-                else:
-                    measured = POLICY.raw_sha256(blob)
-                self.assertEqual(measured, payload["historical_raw_sha256"])
+    # Il lato blob sta in `backend/tests_history/test_frozen_blobs.py`.
+
 
     def test_no_canonical_hash_is_already_written_in_its_artifacts(self) -> None:
         """Se una coppia si chiudesse, la voce andrebbe tolta, non lasciata qui.
@@ -254,51 +249,26 @@ class ErratumIsTrueTests(ErratumCase):
                     )
 
 
-class ErratumIsCompleteTests(ErratumCase):
-    """L'erratum e' cio' che il repository contiene, non cio' che ricordiamo."""
-
-    def test_it_matches_what_a_fresh_scan_discovers(self) -> None:
-        """La completezza e' la proprieta' che una lista scritta a mano non ha.
-
-        Le due costanti che questo erratum sostituisce coprivano 10 referenze su
-        26 e omettevano due sorgenti interi, e nessuno se n'era accorto perche'
-        nessun controllo confrontava la lista con il repository. Qui la lista
-        viene rifatta da zero e confrontata: se qualcuno congela una nuova
-        impronta non riproducibile, o ne chiude una, il test lo dice.
-        """
-        try:
-            from benchmarks.mtb_evidence.evaluation.scripts import (
-                build_artifact_hash_erratum as BUILDER,
-            )
-        except ImportError as error:  # pragma: no cover
-            self.skipTest(f"generatore non importabile: {error}")
-
-        try:
-            discovered = BUILDER.discover()
-        except subprocess.SubprocessError as error:
-            self.skipTest(f"git non utilizzabile in questo checkout: {error}")
-
-        self.assertEqual(discovered["counts"], self.erratum["counts"])
-        self.assertEqual(
-            sorted(discovered["sources"]), sorted(self.erratum["sources"])
-        )
-        self.assertEqual(discovered["artifacts"], self.erratum["artifacts"])
-        for source, payload in discovered["sources"].items():
-            with self.subTest(source=source):
-                self.assertEqual(payload, self.erratum["sources"][source])
-
 
 class NoLoneCarriageReturnTests(ErratumCase):
     """Nessun sorgente operativo porta piu' un CR aggiunto per far tornare un hash."""
 
-    def test_the_operational_sources_are_canonical(self) -> None:
+    def test_no_operational_source_carries_a_lone_carriage_return(self) -> None:
+        """Un CR isolato sul disco non e' spiegabile con un checkout.
+
+        Un file puo' essere CRLF perche' cosi' e' stato estratto; un CR **non**
+        seguito da LF no — nessuna conversione lo produce. Se ne comparisse uno
+        sarebbe un byte entrato a mano, ed e' esattamente cio' che il commit
+        `29bda1d` aveva fatto e `33b92ec` ha revertito.
+
+        Che il blob sia gia' canonico e' una promessa piu' forte, e sta in
+        `backend/tests_history/test_frozen_blobs.py`: richiede il blob.
+        """
         for source in self.erratum["sources"]:
             if not source.startswith("backend/"):
                 continue
             with self.subTest(source=source):
-                blob = self._git("show", f"HEAD:mtb-graphrag/{source}")
-                # Non solleva: se sollevasse, un CR isolato sarebbe tornato.
-                self.assertEqual(POLICY.canonical_lf_bytes(blob), blob)
+                POLICY.canonical_lf_bytes((REPO_ROOT / source).read_bytes())
 
 
 class GeneratorProvenanceErratumTests(unittest.TestCase):

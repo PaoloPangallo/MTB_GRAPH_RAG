@@ -714,32 +714,10 @@ class TestIntegrity(ArtifactCase):
             shutil.rmtree(second, ignore_errors=True)
 
 
-class TestUntouchedArtifacts(unittest.TestCase):
-    """Adapter, corpus, retriever e scoring non appartengono a questa fase."""
+# La verifica «nulla di congelato e' stato toccato» sta in
+# `backend/tests_history/test_untouched_artifacts.py`: confronta con una
+# revisione di partenza, e senza storia git quel termine non esiste.
 
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.scope = PhaseScope(
-            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
-        )
-        cls.changed = cls.scope.changed_paths()
-
-    def test_the_frozen_modules_were_not_modified(self) -> None:
-        for path in FROZEN_PATHS:
-            with self.subTest(path=path):
-                self.assertNotIn(path, self.changed)
-
-    def test_the_second_review_packets_were_not_modified(self) -> None:
-        for path in self.changed:
-            with self.subTest(path=path):
-                self.assertNotIn("second_review_packets", path)
-
-    def test_the_branch_only_wrote_inside_its_own_perimeter(self) -> None:
-        self.assertEqual(
-            self.scope.violations(self.changed),
-            [],
-            "modifica fuori dal perimetro della seconda revisione",
-        )
 
 
 if __name__ == "__main__":  # pragma: no cover

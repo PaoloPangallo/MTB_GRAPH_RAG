@@ -56,6 +56,15 @@ NEW_IDS = {
 ICCA = "Intrahepatic Cholangiocarcinoma"
 GENERIC = "Cholangiocarcinoma"
 
+ALLOWED_WRITE_PREFIXES = (
+    "benchmarks/mtb_evidence/v3/diagnostic_disease_scope_narrowing_shadow/",
+    "benchmarks/mtb_evidence/evaluation/scripts/"
+    "build_diagnostic_disease_scope_narrowing_shadow.py",
+    "backend/pipeline/evidence/shadow/migration_v12.py",
+    "backend/pipeline/evidence/shadow/migration_v12_logic.py",
+    "backend/tests/test_diagnostic_disease_scope_narrowing_shadow.py",
+)
+
 FROZEN_OPERATIONAL_PATHS = (
     "backend/pipeline/evidence/v2_adapter.py",
     "backend/pipeline/evidence/repository.py",
@@ -621,26 +630,13 @@ class TestIsolation(unittest.TestCase):
                 with self.subTest(path=path.name, forbidden=forbidden):
                     self.assertFalse(any(forbidden in line for line in imports))
 
-    def test_phase_writes_only_inside_the_shadow_perimeter(self) -> None:
-        scope = PhaseScope(
-            REPO_ROOT.parent,
-            START_SHA,
-            PHASE_END_SHA,
-            (
-                "benchmarks/mtb_evidence/v3/diagnostic_disease_scope_narrowing_shadow/",
-                "benchmarks/mtb_evidence/evaluation/scripts/"
-                "build_diagnostic_disease_scope_narrowing_shadow.py",
-                "backend/pipeline/evidence/shadow/migration_v12.py",
-                "backend/pipeline/evidence/shadow/migration_v12_logic.py",
-                "backend/tests/test_diagnostic_disease_scope_narrowing_shadow.py",
-            ),
-        )
+    def test_the_phase_end_is_a_commit_and_not_head(self) -> None:
+        """Un perimetro misurato contro HEAD crescerebbe con la fase seguente."""
         self.assertNotEqual(PHASE_END_SHA, "HEAD")
-        changed = scope.changed_paths()
-        self.assertEqual(scope.violations(changed), [])
-        for path in FROZEN_OPERATIONAL_PATHS:
-            with self.subTest(path=path):
-                self.assertNotIn(path, changed)
+
+    # La misura del perimetro — `git diff START..END` — sta in
+    # `backend/tests_history/test_phase_perimeters.py`: richiede la storia del
+    # repository, che un archivio estratto non ha.
 
 
 if __name__ == "__main__":  # pragma: no cover

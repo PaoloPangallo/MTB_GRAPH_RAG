@@ -881,52 +881,10 @@ class TestArtifacts(unittest.TestCase):
 # ── compatibilita' operativa ──────────────────────────────────────────────────
 
 
-class TestOperationalArtifactsUnchanged(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.scope = PhaseScope(
-            REPO_ROOT.parent,
-            START_SHA,
-            PHASE_END_SHA,
-            (
-                "benchmarks/mtb_evidence/v3/typed_claim_shadow_migration/",
-                "benchmarks/mtb_evidence/evaluation/scripts/build_typed_claim_shadow_migration.py",
-                "backend/pipeline/evidence/shadow/",
-                "backend/tests/phase_scope.py",
-                "backend/tests/test_phase_scope_guard.py",
-                "backend/tests/test_typed_claim_shadow_migration.py",
-                "backend/tests/test_claim_type_retrieval_contract.py",
-                "backend/tests/test_multi_intervention_adjudication.py",
-                "backend/tests/test_multi_intervention_review_comparison.py",
-                "backend/tests/test_multi_intervention_second_review.py",
-            ),
-        )
-        cls.changed = cls.scope.changed_paths()
+# La verifica «nulla di congelato e' stato toccato» sta in
+# `backend/tests_history/test_untouched_artifacts.py`: confronta con una
+# revisione di partenza, e senza storia git quel termine non esiste.
 
-    def test_no_operational_module_or_artifact_was_modified(self) -> None:
-        for path in FROZEN_OPERATIONAL_PATHS:
-            with self.subTest(path=path):
-                self.assertNotIn(path, self.changed)
-
-    def test_the_branch_only_wrote_inside_the_shadow_perimeter(self) -> None:
-        self.assertEqual(
-            self.scope.violations(self.changed),
-            [],
-            "modifica fuori dal perimetro della migrazione shadow",
-        )
-
-    def test_no_upstream_scientific_artifact_was_modified(self) -> None:
-        for path in sorted(self.changed):
-            with self.subTest(path=path):
-                for prefix in (
-                    "multi_intervention_source_review/",
-                    "multi_intervention_second_review/",
-                    "multi_intervention_review_comparison/",
-                    "multi_intervention_adjudication/",
-                    "claim_type_retrieval_contract/",
-                    "qualification_corpus_v2/",
-                ):
-                    self.assertNotIn(prefix, path)
 
 
 class TestIsolationFromOperationalCode(unittest.TestCase):

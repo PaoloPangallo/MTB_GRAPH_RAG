@@ -923,14 +923,9 @@ class IntegrityTests(unittest.TestCase):
 class PhasePerimeterTests(unittest.TestCase):
     """Il perimetro della fase, misurato su un intervallo chiuso di commit."""
 
-    def test_the_phase_wrote_only_inside_its_own_perimeter(self) -> None:
-        if not PHASE_END_SHA:
-            self.skipTest("la fase non e' ancora chiusa: nessun estremo da misurare")
-        scope_ = PhaseScope(
-            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
-        )
-        violations = scope_.violations(scope_.changed_paths())
-        self.assertEqual(violations, [])
+    # La misura del perimetro — `git diff START..END` — sta in
+    # `backend/tests_history/test_phase_perimeters.py`: richiede la storia del
+    # repository, che un archivio estratto non ha.
 
     def test_the_frozen_paths_are_not_in_the_allowed_write_prefixes(self) -> None:
         """L'elenco dei path scrivibili non deve poter contenere un congelato."""

@@ -278,31 +278,9 @@ class CanonicalIntegrityTests(ErratumCase):
 class CompletenessTests(ErratumCase):
     """C. L'erratum e' cio' che il repository contiene, non cio' che ricordiamo."""
 
-    def test_it_matches_what_a_fresh_scan_discovers(self) -> None:
-        try:
-            from benchmarks.mtb_evidence.evaluation.scripts import (
-                build_tree_hash_erratum as BUILDER,
-            )
-        except ImportError as error:  # pragma: no cover
-            self.skipTest(f"generatore non importabile: {error}")
+    # La discovery da zero indicizza l'object database: sta in
+    # `backend/tests_history/test_erratum_discovery.py`.
 
-        try:
-            discovered = BUILDER.build()
-        except Exception as error:  # noqa: BLE001
-            self.skipTest(f"discovery non eseguibile in questo checkout: {error}")
-
-        self.assertEqual(discovered["counts"], self.erratum["counts"])
-        self.assertEqual(
-            [tree["tree_root"] for tree in discovered["trees"]],
-            [tree["tree_root"] for tree in self.trees],
-        )
-        for found, declared in zip(discovered["trees"], self.trees, strict=True):
-            with self.subTest(tree=declared["tree_root"]):
-                self.assertEqual(found["affected_paths"], declared["affected_paths"])
-                self.assertEqual(
-                    found["canonical_lf_tree_sha256"],
-                    declared["canonical_lf_tree_sha256"],
-                )
 
     def test_the_file_hash_erratum_covers_the_three_remaining_failures(self) -> None:
         """La riclassificazione della discovery, resa verificabile.
@@ -377,8 +355,15 @@ class AdversarialTests(ErratumCase):
         self.assertNotEqual(self._hash(), self.tree["canonical_lf_tree_sha256"])
 
     def test_a_lone_carriage_return_is_caught(self) -> None:
+        """Il CR va scritto, non ricavato sostituendo un LF esistente.
+
+        Sostituire il primo `\\n` funziona in un working tree CRLF e non in un
+        checkout LF, dove il file potrebbe non averne nessuno: il test
+        dipenderebbe dalle fini riga dell'ambiente, che e' esattamente il
+        difetto che questa fase chiude.
+        """
         target = self.copy / self.text[0]
-        target.write_bytes(target.read_bytes().replace(b"\n", b"\r", 1))
+        target.write_bytes(target.read_bytes() + b"coda\rspuria\n")
         with self.assertRaises(FILE_POLICY.LoneCarriageReturnError):
             self._hash()
 
