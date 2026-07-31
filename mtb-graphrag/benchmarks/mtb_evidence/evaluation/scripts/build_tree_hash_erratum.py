@@ -226,6 +226,15 @@ def _clean_checkout_legacy_tree_sha256(root: Path, text_files: set[str]) -> str:
 def build() -> dict[str, Any]:
     from benchmarks.mtb_evidence.evaluation.pre_promotion_audit import scope as SCOPE
 
+    # L'erratum precedente e' la fonte del candidato: e' dato registrato, e
+    # sopravvive dove l'osservazione dal disco non arriva.
+    previous: dict[str, dict[str, Any]] = {}
+    if ERRATUM_PATH.exists():
+        previous = {
+            tree["tree_root"]: tree
+            for tree in json.loads(ERRATUM_PATH.read_text(encoding="utf-8"))["trees"]
+        }
+
     declared = declared_tree_hashes()
     gitattributes = {
         path: FILE_POLICY.canonical_lf_sha256(GIT_ROOT / path)
@@ -275,7 +284,13 @@ def build() -> dict[str, Any]:
             historical
         )
 
-        affected = _affected_paths(root, files, set(text_files))
+        affected = _affected_paths(
+            root,
+            files,
+            set(text_files),
+            historical,
+            (previous.get(relative) or {}).get("affected_paths"),
+        )
 
         record = TREE.TreeHashRecord(
             tree_root=relative,
@@ -325,21 +340,81 @@ def build() -> dict[str, Any]:
     }
 
 
-def _affected_paths(root: Path, files: list[str], text_files: set[str]) -> list[str]:
-    """I file testuali che sul disco hanno CRLF.
+def _legacy_tree_with(root: Path, text_files: set[str], crlf: set[str]) -> str:
+    """L'impronta che `sha256_tree` darebbe se `crlf` fosse in forma CRLF.
 
-    Sono quelli per cui la forma su disco e quella canonica differiscono, cioe'
-    quelli che rendono l'impronta storica di questo albero irriproducibile
-    altrove. Misurati, non elencati.
+    Ricostruisce la misura storica invece di osservarla: e' cio' che permette di
+    **dimostrare** quali file erano CRLF quando l'impronta fu presa, invece di
+    dedurlo da come sono sul disco di chi esegue il generatore adesso.
     """
-    affected = []
-    for name in files:
-        if name not in text_files:
+    from benchmarks.mtb_evidence.evaluation import legacy_hash_erratum as FILE_ERRATUM
+
+    rows = []
+    for item in sorted(root.rglob("*")):
+        if not item.is_file() or any(part in EXCLUDE for part in item.parts):
             continue
-        data = (root / name).read_bytes()
-        if b"\r\n" in data:
-            affected.append(name)
-    return sorted(affected)
+        relative = item.relative_to(root).as_posix()
+        if FILE_ERRATUM.is_registered(item):
+            digest = FILE_ERRATUM.recorded_sha256(item)
+        elif relative in text_files:
+            data = FILE_POLICY.canonical_lf_bytes(item.read_bytes())
+            if relative in crlf:
+                data = data.replace(b"\n", b"\r\n")
+            digest = hashlib.sha256(data).hexdigest()
+        else:
+            digest = FILE_POLICY.raw_sha256(item)
+        rows.append(f"{relative}:{digest}")
+    return hashlib.sha256("\n".join(rows).encode("utf-8")).hexdigest()
+
+
+def _affected_paths(
+    root: Path,
+    files: list[str],
+    text_files: set[str],
+    historical: str,
+    recorded: list[str] | None,
+) -> list[str]:
+    """I file la cui forma CRLF spiega l'impronta storica di questo albero.
+
+    **Dimostrati, non osservati.** La prima stesura li misurava dal disco — «i
+    file che adesso hanno CRLF» — e su un checkout pulito ne trovava zero: la
+    scoperta diceva allora che nessun albero divergeva, cioe' descriveva
+    l'ambiente invece del repository. E' lo stesso difetto che questa fase
+    chiude, ricomparso dentro lo strumento che doveva chiuderlo.
+
+    Qui l'insieme si **verifica**: si ricostruisce l'impronta storica assumendo
+    che quei file fossero CRLF, e la si confronta con quella che l'artefatto
+    congelato dichiara. Un insieme che riproduce l'impronta e' l'insieme giusto,
+    e la prova vale identica in ogni ambiente.
+
+    I candidati sono provati in ordine: quello gia' registrato nell'erratum —
+    che e' dato, e sopravvive a un checkout pulito — poi quello osservabile sul
+    disco, che serve alla prima costruzione, poi l'insieme vuoto per gli alberi
+    che non divergono. Se nessuno riproduce l'impronta, il generatore non
+    indovina: solleva.
+    """
+    candidates: list[list[str]] = []
+    if recorded is not None:
+        candidates.append(sorted(set(recorded) & text_files))
+    from_disk = sorted(
+        name
+        for name in files
+        if name in text_files and b"\r\n" in (root / name).read_bytes()
+    )
+    if from_disk not in candidates:
+        candidates.append(from_disk)
+    if [] not in candidates:
+        candidates.append([])
+
+    for candidate in candidates:
+        if _legacy_tree_with(root, text_files, set(candidate)) == historical:
+            return candidate
+
+    raise RuntimeError(
+        f"nessun insieme di file CRLF riproduce l'impronta storica di {root}: "
+        f"{historical}. L'albero e' cambiato, oppure l'impronta fu presa sotto "
+        f"una convenzione che questo generatore non conosce."
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
