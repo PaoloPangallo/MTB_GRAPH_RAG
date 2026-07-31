@@ -58,6 +58,7 @@ from benchmarks.mtb_evidence.evaluation.pre_promotion_audit import (
     provenance_audit as PROVENANCE,
 )
 from benchmarks.mtb_evidence.evaluation.pre_promotion_audit import scope as SCOPE
+from benchmarks.mtb_evidence.evaluation import tree_hash_erratum as TREE_ERRATUM
 from benchmarks.mtb_evidence.evaluation.scripts.build_pre_promotion_audit_1_3 import (
     DEFAULT_OUTPUT,
     build,
@@ -872,7 +873,9 @@ class IntegrityTests(unittest.TestCase):
                 self.assertEqual(observed["files"][role]["sha256"], digest)
         for role, digest in self.manifest["integrity"]["frozen_tree_sha256"].items():
             with self.subTest(tree=role):
-                self.assertEqual(observed["trees"][role]["sha256"], digest)
+                TREE_ERRATUM.assert_frozen_tree(
+                    role, REPO_ROOT / observed["trees"][role]["path"], digest
+                )
 
     def test_the_shadow_repository_1_3_is_unchanged(self) -> None:
         self.assertEqual(

@@ -109,10 +109,26 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 
 def hash_directory(directory: Path) -> dict[str, str]:
+    """L'impronta di ogni file della directory, come questa fase la registro'.
+
+    Passa dall'erratum delle impronte di file: due sorgenti di
+    `v3/first_review/` furono misurati nella forma CRLF di una macchina Windows,
+    e un checkout pulito consegna LF. Senza la mediazione, rigenerare
+    `second_review_blinding_check.json` produrrebbe impronte diverse da quelle
+    committate, e la fase smetterebbe di essere riproducibile.
+
+    E' la stessa mediazione gia' applicata agli altri generatori, e vale solo
+    per i path che l'erratum registra: per tutti gli altri sono i byte cosi'
+    come stanno. Il caso e' quello del **file**, non quello dell'albero: dargli
+    il reason code di albero lo classificherebbe sotto una causa che non e' la
+    sua.
+    """
+    from benchmarks.mtb_evidence.evaluation import legacy_hash_erratum as ERRATUM
+
     if not directory.is_dir():
         return {}
     return {
-        path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+        path.name: ERRATUM.recorded_sha256(path)
         for path in sorted(directory.iterdir())
         if path.is_file()
     }

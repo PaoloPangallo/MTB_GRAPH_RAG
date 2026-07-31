@@ -39,6 +39,7 @@ from backend.tests.phase_scope import PhaseScope
 from benchmarks.mtb_evidence.evaluation import formulation_audit as FA
 from benchmarks.mtb_evidence.evaluation import required_fixes_1_4 as FIXES
 from benchmarks.mtb_evidence.evaluation.pre_promotion_audit import scope as SCOPE
+from benchmarks.mtb_evidence.evaluation import tree_hash_erratum as TREE_ERRATUM
 from benchmarks.mtb_evidence.evaluation.scripts.build_pre_promotion_required_fixes_1_4 import (
     DEFAULT_OUTPUT,
     EXPECTED_COUNTS,
@@ -821,13 +822,13 @@ class IntegrityTests(unittest.TestCase):
     def test_the_shadow_repositories_are_unchanged(self) -> None:
         observed = SCOPE.frozen_hashes()
         for role, digest in self.manifest["integrity"]["frozen_tree_sha256"].items():
-            if role == "pre-promotion audit 1.3":
-                self.assertEqual(
-                    SCOPE.sha256_tree(SCOPE.V3 / "pre_promotion_audit_1_3"), digest
-                )
-                continue
+            path = (
+                SCOPE.V3 / "pre_promotion_audit_1_3"
+                if role == "pre-promotion audit 1.3"
+                else REPO_ROOT / observed["trees"][role]["path"]
+            )
             with self.subTest(tree=role):
-                self.assertEqual(observed["trees"][role]["sha256"], digest)
+                TREE_ERRATUM.assert_frozen_tree(role, path, digest)
 
     def test_the_operational_pipeline_is_unchanged(self) -> None:
         observed = SCOPE.frozen_hashes()

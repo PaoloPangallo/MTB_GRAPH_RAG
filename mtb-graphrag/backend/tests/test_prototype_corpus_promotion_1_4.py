@@ -51,6 +51,7 @@ from backend.pipeline.evidence.shadow import propagation as PROP
 from backend.tests.phase_scope import PhaseScope
 from benchmarks.mtb_evidence.evaluation import prototype_promotion_audit as AUDIT
 from benchmarks.mtb_evidence.evaluation.pre_promotion_audit import scope as SCOPE
+from benchmarks.mtb_evidence.evaluation import tree_hash_erratum as TREE_ERRATUM
 from benchmarks.mtb_evidence.evaluation.scripts.promote_qualified_claim_corpus_1_4 import (
     DEFAULT_AUDIT_OUTPUT,
     SOURCE_FILES,
@@ -971,10 +972,19 @@ class OperationalIntegrityTests(unittest.TestCase):
                 )
 
     def test_the_shadow_repositories_are_unchanged(self) -> None:
+        """Gli alberi congelati sono ancora quelli che l'artefatto descriveva.
+
+        Quattro di essi non sono riproducibili da un checkout pulito: le loro
+        impronte furono prese su un disco dove i file erano CRLF. La divergenza
+        e' registrata in `tree_hash_erratum`, e l'helper la accetta solo se
+        l'albero ha ancora l'impronta canonica che l'erratum gli attribuisce —
+        se un file cambiasse davvero, questo test fallirebbe comunque.
+        """
         for role, path in sorted(SCOPE.FROZEN_SHADOW_DIRS.items()):
             with self.subTest(role=role):
-                self.assertEqual(
-                    SCOPE.sha256_tree(REPO_ROOT / path),
+                TREE_ERRATUM.assert_frozen_tree(
+                    role,
+                    REPO_ROOT / path,
                     self.integrity["frozen_tree_sha256"][role],
                 )
 
