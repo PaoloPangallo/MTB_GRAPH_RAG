@@ -667,17 +667,9 @@ class PriorPhaseTests(ClosureFixture):
                 self.assertEqual(result.canonical_digest(), recorded["result_digest"])
                 self.assertEqual(result.bucket_counts(), recorded["bucket_counts"])
 
-    def test_the_1_4_artifacts_are_untouched(self) -> None:
-        changed = subprocess.run(
-            ["git", "diff", "--name-only", START_SHA, "--", "."],
-            cwd=BINDING_ARTIFACTS,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        if changed.returncode != 0:
-            self.skipTest("git non utilizzabile in questo checkout")
-        self.assertEqual(changed.stdout.strip(), "")
+    # Il confronto con la revisione di partenza sta in
+    # `backend/tests_history/test_frozen_gates.py`: richiede la storia.
+
 
     def test_the_two_gates_declare_different_result_schemas(self) -> None:
         self.assertEqual(self.before.result_schema_version, "qualified_claim_retrieval_result/1.4")
@@ -701,32 +693,7 @@ class PriorPhaseTests(ClosureFixture):
                 self.assertIsNone(item.gate_trace)
                 self.assertNotIn("gate_trace", item.to_dict())
 
-    def test_the_gate_1_1_module_is_unchanged(self) -> None:
-        changed = subprocess.run(
-            [
-                "git",
-                "diff",
-                "--name-only",
-                START_SHA,
-                "--",
-                "backend/pipeline/evidence/shadow/integrated_gates_v11.py",
-                "backend/pipeline/evidence/shadow/integrated_gates.py",
-                "backend/pipeline/evidence/shadow/structural_gates.py",
-                "benchmarks/mtb_evidence/evaluation/claim_type_retrieval_contract.py",
-            ],
-            cwd=REPO_ROOT,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        if changed.returncode != 0:
-            self.skipTest("git non utilizzabile in questo checkout")
-        self.assertEqual(changed.stdout.strip(), "")
-
-
-# --------------------------------------------------------------------------
-# che cosa si muove, e che cosa no
-# --------------------------------------------------------------------------
+    # Idem.
 
 
 class RegressionScopeTests(ClosureFixture):
@@ -911,13 +878,9 @@ class CorpusUntouchedTests(unittest.TestCase):
 class PhasePerimeterTests(unittest.TestCase):
     """Il perimetro della fase, misurato su un intervallo chiuso di commit."""
 
-    def test_the_phase_wrote_only_inside_its_own_perimeter(self) -> None:
-        if not PHASE_END_SHA:
-            self.skipTest("la fase non e' ancora chiusa: nessun estremo da misurare")
-        scope = PhaseScope(
-            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
-        )
-        self.assertEqual(scope.violations(scope.changed_paths()), [])
+    # La misura del perimetro — `git diff START..END` — sta in
+    # `backend/tests_history/test_phase_perimeters.py`: richiede la storia del
+    # repository, che un archivio estratto non ha.
 
     def test_no_frozen_path_is_writable(self) -> None:
         for path in FROZEN_PATHS:

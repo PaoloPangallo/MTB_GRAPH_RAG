@@ -1364,13 +1364,9 @@ class CorpusUntouchedTests(unittest.TestCase):
 class PhasePerimeterTests(unittest.TestCase):
     """Il perimetro della fase, misurato su un intervallo chiuso di commit."""
 
-    def test_the_phase_wrote_only_inside_its_own_perimeter(self) -> None:
-        if not PHASE_END_SHA:
-            self.skipTest("la fase non e' ancora chiusa: nessun estremo da misurare")
-        scope = PhaseScope(
-            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
-        )
-        self.assertEqual(scope.violations(scope.changed_paths()), [])
+    # La misura del perimetro — `git diff START..END` — sta in
+    # `backend/tests_history/test_phase_perimeters.py`: richiede la storia del
+    # repository, che un archivio estratto non ha.
 
     def test_no_frozen_path_is_writable(self) -> None:
         for path in FROZEN_PATHS:

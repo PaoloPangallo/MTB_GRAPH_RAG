@@ -297,59 +297,9 @@ class SuitesDoNotBorrowEachOthersInputTests(unittest.TestCase):
                     self.assertNotIn(foreign, path.read_text(encoding="utf-8"))
 
 
-class NotTrackedTests(unittest.TestCase):
-    """Gli ingressi esterni non sono nel repository."""
+# `NotTrackedTests` sta in `backend/tests_history/test_repository_tracking.py`:
+# «non e' tracciato» e' una proprieta' del repository, e si verifica con git.
 
-    # I tre file del bundle, per path esatto. Il glob da solo non basta: le note
-    # di annotazione sono materiale dello stesso bundle e portano un nome che
-    # `*gold_pilot*` non intercetta. Un test che si fida di un glob afferma meno
-    # di quel che sembra.
-    PRIVATE_COPIES = (
-        "mtb-graphrag/benchmarks/mtb_evidence/pilot/input/"
-        "MTB_Evidence_gold_pilot_v1.xlsx",
-        "mtb-graphrag/benchmarks/mtb_evidence/pilot/input/"
-        "mtb_evidence_gold_pilot_v1.jsonl",
-        "mtb-graphrag/benchmarks/mtb_evidence/pilot/input/"
-        "MTB_Evidence_annotation_notes_v1.md",
-    )
-
-    def _tracked(self, pattern: str) -> list[str]:
-        result = subprocess.run(
-            ["git", "ls-files", pattern],
-            cwd=REPO_ROOT.parent,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            self.skipTest("git non utilizzabile in questo checkout")
-        return [line for line in result.stdout.splitlines() if line.strip()]
-
-    def test_the_gold_bundle_is_not_tracked(self) -> None:
-        self.assertEqual(self._tracked("MTB_Evidence_gold_pilot_v1_bundle/*"), [])
-
-    def test_the_abstract_cache_is_not_tracked(self) -> None:
-        self.assertEqual(self._tracked("*source_abstract_cache.jsonl"), [])
-
-    def test_no_private_copy_is_tracked_under_the_package(self) -> None:
-        for path in self.PRIVATE_COPIES:
-            with self.subTest(path=path):
-                self.assertEqual(self._tracked(path), [])
-
-    def test_no_copy_of_the_gold_is_tracked_at_all(self) -> None:
-        self.assertEqual(self._tracked("*gold_pilot*"), [])
-
-    def test_the_private_copies_are_ignored_so_they_cannot_return(self) -> None:
-        """Rimuoverle non basta: un `git add -A` distratto le rimetterebbe."""
-        for path in self.PRIVATE_COPIES:
-            with self.subTest(path=path):
-                result = subprocess.run(
-                    ["git", "check-ignore", "-q", path],
-                    cwd=REPO_ROOT.parent,
-                    capture_output=True,
-                    check=False,
-                )
-                self.assertEqual(result.returncode, 0, f"{path} non e' ignorato")
 
 
 class PointerManifestTests(unittest.TestCase):

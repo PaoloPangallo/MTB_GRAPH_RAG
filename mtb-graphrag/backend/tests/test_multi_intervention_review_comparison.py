@@ -685,31 +685,10 @@ class TestDeterminism(ComparisonCase):
         )
 
 
-class TestUntouchedArtifacts(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.scope = PhaseScope(
-            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
-        )
-        cls.changed = cls.scope.changed_paths()
+# La verifica «nulla di congelato e' stato toccato» sta in
+# `backend/tests_history/test_untouched_artifacts.py`: confronta con una
+# revisione di partenza, e senza storia git quel termine non esiste.
 
-    def test_adapter_corpus_retriever_and_scoring_are_unchanged(self) -> None:
-        for path in FROZEN_PATHS:
-            with self.subTest(path=path):
-                self.assertNotIn(path, self.changed)
-
-    def test_neither_review_was_modified(self) -> None:
-        for path in sorted(self.changed):
-            with self.subTest(path=path):
-                self.assertNotIn("multi_intervention_source_review/", path)
-                self.assertNotIn("multi_intervention_second_review/", path)
-
-    def test_the_branch_only_wrote_inside_the_comparison_perimeter(self) -> None:
-        self.assertEqual(
-            self.scope.violations(self.changed),
-            [],
-            "modifica fuori dal perimetro del confronto",
-        )
 
 
 if __name__ == "__main__":  # pragma: no cover

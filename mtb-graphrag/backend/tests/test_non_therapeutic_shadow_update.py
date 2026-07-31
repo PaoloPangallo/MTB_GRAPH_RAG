@@ -707,50 +707,10 @@ class TestShadowV10Unchanged(unittest.TestCase):
                 self.assertNotIn("blocks_promotion", row)
 
 
-class TestOperationalUnchanged(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.scope = PhaseScope(
-            REPO_ROOT.parent,
-            START_SHA,
-            PHASE_END_SHA,
-            (
-                "benchmarks/mtb_evidence/v3/non_therapeutic_shadow_update/",
-                "benchmarks/mtb_evidence/evaluation/scripts/build_non_therapeutic_shadow_update.py",
-                "backend/pipeline/evidence/shadow/",
-                "backend/tests/test_non_therapeutic_shadow_update.py",
-                "backend/tests/test_non_therapeutic_claim_contract.py",
-            ),
-        )
-        cls.changed = cls.scope.changed_paths()
+# La verifica «nulla di congelato e' stato toccato» sta in
+# `backend/tests_history/test_untouched_artifacts.py`: confronta con una
+# revisione di partenza, e senza storia git quel termine non esiste.
 
-    def test_no_operational_artifact_was_modified(self) -> None:
-        for path in FROZEN_OPERATIONAL_PATHS:
-            with self.subTest(path=path):
-                self.assertNotIn(path, self.changed)
-
-    def test_the_shadow_1_0_artifacts_were_not_rewritten(self) -> None:
-        for path in sorted(self.changed):
-            with self.subTest(path=path):
-                self.assertNotIn("typed_claim_shadow_migration/", path)
-
-    def test_no_frozen_scientific_artifact_was_modified(self) -> None:
-        for path in sorted(self.changed):
-            with self.subTest(path=path):
-                for prefix in (
-                    "multi_intervention_adjudication/",
-                    "claim_type_retrieval_contract/",
-                    "qualification_corpus_v2/",
-                    "non_therapeutic_claim_contract_and_erratum/",
-                ):
-                    self.assertNotIn(prefix, path)
-
-    def test_the_branch_only_wrote_inside_its_own_perimeter(self) -> None:
-        self.assertEqual(
-            self.scope.violations(self.changed),
-            [],
-            "modifica fuori dal perimetro dell'aggiornamento shadow",
-        )
 
 
 class TestIsolation(unittest.TestCase):

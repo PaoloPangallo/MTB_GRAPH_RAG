@@ -476,36 +476,13 @@ class PriorPhaseTests(unittest.TestCase):
             RESULT.result_schema(GATE12)["schema_version"],
         )
 
-    def test_the_frozen_gates_are_unchanged(self) -> None:
-        """Nessun contenuto congelato cambia. `--ignore-cr-at-eol` non e' una
-        maglia larga: e' cio' che rende il controllo capace di distinguere una
-        modifica da una dichiarazione di fine riga.
+    # Il confronto con la revisione di partenza sta in
+    # `backend/tests_history/test_frozen_gates.py`: richiede la storia.
 
-        Questa fase ha committato un carattere `\\r` in `qualified_retriever.py`
-        — l'unico modo di rendere verificabile in un clone pulito l'hash che otto
-        artefatti congelati registrano. Un confronto sui byte lo segnalerebbe
-        come modifica al retriever legacy, che non e'. Il confronto sul contenuto
-        dice la cosa vera: nessuna riga di quei moduli e' cambiata.
-        """
-        for path in self._touched_frozen_paths():
-            with self.subTest(path=path):
-                self.assertEqual(
-                    self._normalised(f"{START_SHA}:mtb-graphrag/{path}"),
-                    self._normalised(f"HEAD:mtb-graphrag/{path}"),
-                    f"{path}: il contenuto congelato e' cambiato",
-                )
 
-    def test_the_only_byte_level_change_to_a_frozen_path_is_the_declared_one(
-        self,
-    ) -> None:
-        # La deroga e' una, ed e' nominata. Se ne comparisse una seconda, questo
-        # test la mostrerebbe invece di lasciarla passare sotto la stessa regola.
-        self.assertLessEqual(
-            self._touched_frozen_paths(),
-            {"backend/pipeline/evidence/qualified_retriever.py"},
-        )
+    # Idem: vedi `test_no_frozen_path_differs_even_by_a_byte`, che dopo il
+    # revert del carattere CR afferma qualcosa di piu' forte.
 
-    # --- utilita' ---------------------------------------------------------
 
     def _git(self, *args: str) -> subprocess.CompletedProcess:
         result = subprocess.run(
@@ -619,13 +596,9 @@ class ArtifactTests(unittest.TestCase):
 
 
 class PhasePerimeterTests(unittest.TestCase):
-    def test_the_phase_wrote_only_inside_its_own_perimeter(self) -> None:
-        if not PHASE_END_SHA:
-            self.skipTest("la fase non e' ancora chiusa: nessun estremo da misurare")
-        scope = PhaseScope(
-            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
-        )
-        self.assertEqual(scope.violations(scope.changed_paths()), [])
+    # La misura del perimetro — `git diff START..END` — sta in
+    # `backend/tests_history/test_phase_perimeters.py`: richiede la storia del
+    # repository, che un archivio estratto non ha.
 
     def test_no_frozen_path_is_writable(self) -> None:
         # Con l'unica eccezione dichiarata, che e' scrivibile per un carattere e

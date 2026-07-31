@@ -737,20 +737,9 @@ class TestPerimeter(PolicyCase):
         self.assertEqual(self.scope["start_sha"], START_SHA)
         self.assertEqual(len(START_SHA), 40)
 
-    def test_phase_writes_only_inside_the_disease_policy_perimeter(self) -> None:
-        if not PHASE_END_SHA:
-            raise unittest.SkipTest("estremo di fase non ancora fissato")
-        self.assertNotEqual(PHASE_END_SHA, "HEAD")
-        self.assertEqual(len(PHASE_END_SHA), 40)
-        scope = PhaseScope(
-            REPO_ROOT.parent, START_SHA, PHASE_END_SHA, ALLOWED_WRITE_PREFIXES
-        )
-        changed = scope.changed_paths()
-        self.assertEqual(scope.violations(changed), [])
-        for path in FROZEN_OPERATIONAL_PATHS:
-            with self.subTest(path=path):
-                self.assertNotIn(path, changed)
-
+    # La misura del perimetro — `git diff START..END` — sta in
+    # `backend/tests_history/test_phase_perimeters.py`: richiede la storia del
+    # repository, che un archivio estratto non ha.
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
