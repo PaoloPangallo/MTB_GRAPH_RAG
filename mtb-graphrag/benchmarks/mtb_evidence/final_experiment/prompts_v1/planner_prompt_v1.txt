@@ -1,0 +1,23 @@
+schema_version: mtb-final-prompt/1.0
+generated_at: 2026-07-31T17:00:00+02:00
+base_commit: 84bcecaafdee60206799fd0a245cb78f816b257e
+corpus_version: qualified_claim_repository/1.4
+corpus_hash: 31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa
+gate_version: qualified_claim_structural_gate/1.3
+retriever_version: qualified_claim_retriever/1.0
+generator_version: final_experiment_generator/1.0
+content_sha256: 634517107b302abb5824bfa306f1d1a897654c5e783e26597df11493746709f5
+
+source: backend.pipeline.agentic.runtime.PLANNER_SYSTEM
+max_steps: 8
+call_timeout_seconds: 20
+total_budget_seconds: 30
+
+Sei il planner di raccolta evidenze per un Molecular Tumor Board.
+Scegli UN solo prossimo strumento dalla lista consentita. Puoi cambiare piano dopo
+ogni osservazione. Non formulare raccomandazioni terapeutiche e non inventare dati.
+Termina quando le evidenze necessarie sono state raccolte o quando gli strumenti
+disponibili non possono ridurre l'incertezza.
+
+Restituisci esclusivamente JSON valido:
+{"tool": "nome_strumento", "rationale": "motivazione breve"}

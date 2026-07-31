@@ -1,0 +1,141 @@
+{
+  "ablations": [],
+  "artifact_hash_convention": "JSON/JSONL blank the top-level content_sha256 value before canonical serialization; Markdown/text blank only the content_sha256 value and retain the metadata line",
+  "base_commit": "84bcecaafdee60206799fd0a245cb78f816b257e",
+  "content_sha256": "6863fb7c8a1d2a19e07ed73ebd7e45f1131d638646e05d36adb9f104d7d4d6ed",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "environment": {
+    "available_backends": [
+      "legacy",
+      "qualified_claim_v3"
+    ],
+    "dependency_snapshot": {
+      "package_count": 180,
+      "pip_freeze_sha256": "21e8fe48ff91309d81a422752edf01c654e9e16c6179adbf1bc9a610fc043966",
+      "requirements_file": "backend/config/requirements.txt",
+      "requirements_sha256": "7fe6024dbd4a7b353baae8d2d556a33f1e5c762ec122bd11c384ff8c5c869de2"
+    },
+    "external_services": {
+      "neo4j": {
+        "reachable": false,
+        "required_for_official_v2": true
+      },
+      "ollama_cloud": {
+        "reachable": true
+      },
+      "oncokb": {
+        "connectivity_not_probed": true,
+        "credential_present": true
+      }
+    },
+    "hardware": {
+      "gpu": "not detected; nvidia-smi unavailable",
+      "logical_cores": 16,
+      "physical_cores": 10,
+      "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+      "ram_bytes": 34049417216
+    },
+    "os": {
+      "architecture": "AMD64",
+      "name": "Windows 11",
+      "version": "10.0.26200"
+    },
+    "python": "3.12.10"
+  },
+  "exploratory": [
+    "V3-specific capability tests",
+    "judge scores",
+    "failure-stage decomposition"
+  ],
+  "failure_classification": [
+    "candidate_generation",
+    "retrieval",
+    "qualification",
+    "ranking",
+    "llm_rendering",
+    "infrastructure",
+    "timeout",
+    "schema",
+    "gold_boundary"
+  ],
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-07-31T17:00:00+02:00",
+  "generator_version": "final_experiment_generator/1.0",
+  "gold_state": "NOT_OPENED_FOR_FINAL_EXPERIMENT",
+  "hypotheses": [
+    "H1 V3 increases claim-level precision",
+    "H2 V3 better preserves disease, biomarker, intervention and separability qualifiers",
+    "H3 V3 reduces unsupported claims and false atomic attribution",
+    "H4 V3 improves provenance and auditability",
+    "H5 conservative V3 policy may reduce primary-bucket recall",
+    "H6 agentic V2 does not stably improve quality over deterministic V2 but increases latency and variability"
+  ],
+  "llm_budget": {
+    "estimated_elapsed_hours_sequential": [
+      6,
+      12
+    ],
+    "estimated_input_tokens": 6800000,
+    "estimated_output_tokens": 1250000,
+    "expected_calls_including_one_source_verifier_batch_per_v2_run": 690,
+    "monetary_cost": "not computable from local/provider API; no price contract exposed",
+    "token_estimate_not_quota": true,
+    "upper_bound_calls_with_bounded_retries": 1042
+  },
+  "missing_data_policy": "retain failed/missing run as classified missing; no silent imputation; paired endpoint uses predeclared available-pair analysis plus missingness table",
+  "official_runs_enabled": false,
+  "post_gold_immutability": [
+    "no gate changes",
+    "no scoring changes",
+    "no mapping changes",
+    "no query changes",
+    "no primary prompt changes",
+    "no result-driven tuning"
+  ],
+  "post_hoc_policy": "any later correction is labelled post_hoc and excluded from the primary result",
+  "primary_endpoint": "paired claim-level primary precision",
+  "research_question": "Does evidence-centric V3 improve claim-level precision, qualifier preservation, and verifiability over V2 without excessive coverage loss?",
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "retry_policy": {
+    "infrastructure_retry_after_manual_authorization": 1,
+    "official_run_retries": 0,
+    "planner_first_decision_retries": 1
+  },
+  "run_plan": {
+    "blocked_system_runs": 98,
+    "currently_executable_system_runs": 98,
+    "evaluation_models": 2,
+    "per_evaluation_model": {
+      "S1": 16,
+      "S2": 40,
+      "S3": 42,
+      "total": 98
+    },
+    "report_rendering": "one report for replica 1; replicas otherwise retrieval/control determinism only",
+    "supplementary_judge_calls": 24,
+    "system_runs_total": 196
+  },
+  "schema_version": "mtb-final-protocol/1.0",
+  "secondary_endpoints": [
+    "retrieval",
+    "claim_qualification",
+    "bucket",
+    "abstention",
+    "provenance",
+    "efficiency",
+    "report"
+  ],
+  "stopping_conditions": [
+    "gold state not authorized",
+    "frozen artifact hash mismatch",
+    "corpus/gate/model mismatch",
+    "three repeated identical infrastructure failures"
+  ],
+  "timeout_policy": {
+    "model_call_seconds": 60,
+    "planner_call_seconds": 20,
+    "planner_total_seconds": 30,
+    "system_run_seconds": 600
+  }
+}

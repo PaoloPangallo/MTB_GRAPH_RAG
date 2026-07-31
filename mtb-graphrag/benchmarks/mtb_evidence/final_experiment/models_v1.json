@@ -1,0 +1,42 @@
+{
+  "base_commit": "84bcecaafdee60206799fd0a245cb78f816b257e",
+  "content_sha256": "f78d6a644ca9ac052e66d71f0c4af9c3d5916c6fe80536e0750b773fb9f32516",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-07-31T17:00:00+02:00",
+  "generator_version": "final_experiment_generator/1.0",
+  "judge_controls_primary_conclusion": false,
+  "judge_is_gold": false,
+  "primary": {
+    "completion_tokens": 2,
+    "effective": "gemma4:31b-cloud",
+    "http_status": 200,
+    "latency_ms": 1397,
+    "prompt_tokens": 18,
+    "requested": "gemma4:31b-cloud",
+    "status": "verified"
+  },
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "robustness": {
+    "http_status": 410,
+    "readiness": "blocked",
+    "requested": "qwen3-coder-next",
+    "retired_at": "2026-07-15T00:00:00-07:00",
+    "status": "retired",
+    "successor_probe": "qwen3.5:397b",
+    "successor_status": "subscription_required"
+  },
+  "schema_version": "mtb-final-models/1.0",
+  "supplementary_judge": {
+    "http_status": 410,
+    "latency_ms": 1641,
+    "replacement": "minimax-m3",
+    "replacement_http_status": 200,
+    "replacement_status": "verified",
+    "requested": "minimax-m2.5",
+    "retired_at": "2026-07-31T00:00:00-07:00",
+    "status": "retired"
+  },
+  "temperature": 0
+}

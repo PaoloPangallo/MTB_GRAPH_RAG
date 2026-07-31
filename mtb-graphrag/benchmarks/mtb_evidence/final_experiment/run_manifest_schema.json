@@ -1,0 +1,145 @@
+{
+  "$id": "urn:mtb-graphrag:final-experiment:run-manifest:1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "result_content_sha256",
+          "result"
+        ]
+      }
+    }
+  ],
+  "base_commit": "84bcecaafdee60206799fd0a245cb78f816b257e",
+  "content_sha256": "358ad6c65b30a3a7d19373cc48316812be594022ef0574da728df11856fecea1",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-07-31T17:00:00+02:00",
+  "generator_version": "final_experiment_generator/1.0",
+  "properties": {
+    "base_commit": {
+      "const": "84bcecaafdee60206799fd0a245cb78f816b257e"
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "corpus_hash": {
+      "const": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa"
+    },
+    "corpus_version": {
+      "const": "qualified_claim_repository/1.4"
+    },
+    "failure_stage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "final_evaluable": {
+      "type": "boolean"
+    },
+    "gate_version": {
+      "const": "qualified_claim_structural_gate/1.3"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "generator_version": {
+      "const": "final_experiment_generator/1.0"
+    },
+    "pilot_only": {
+      "type": "boolean"
+    },
+    "result": {
+      "type": "object"
+    },
+    "result_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retriever_version": {
+      "const": "qualified_claim_retriever/1.0"
+    },
+    "run_key": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "run_spec": {
+      "required": [
+        "system",
+        "query_id",
+        "model",
+        "replica",
+        "base_commit",
+        "corpus_hash",
+        "gate_version",
+        "retriever_version",
+        "generator_version",
+        "systems_config_sha256",
+        "query_config_sha256",
+        "prompt_bundle_version",
+        "prompt_bundle_sha256",
+        "source_bundle_sha256"
+      ],
+      "type": "object"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "blocked",
+        "running",
+        "complete",
+        "failed"
+      ]
+    }
+  },
+  "required": [
+    "run_key",
+    "run_spec",
+    "status",
+    "pilot_only",
+    "final_evaluable",
+    "schema_version",
+    "generated_at",
+    "base_commit",
+    "corpus_version",
+    "corpus_hash",
+    "gate_version",
+    "retriever_version",
+    "generator_version",
+    "content_sha256"
+  ],
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "schema_version": "mtb-final-run-manifest-schema/1.0",
+  "title": "Frozen final-experiment run manifest record",
+  "type": "object"
+}

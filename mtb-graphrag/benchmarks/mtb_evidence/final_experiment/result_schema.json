@@ -1,0 +1,183 @@
+{
+  "$id": "urn:mtb-graphrag:final-experiment:result:1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "base_commit": "84bcecaafdee60206799fd0a245cb78f816b257e",
+  "content_sha256": "841ea326c0efaba420af997e8a2febb96d52f6b3ddbd44590ce5457d66abadfa",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-07-31T17:00:00+02:00",
+  "generator_version": "final_experiment_generator/1.0",
+  "native_envelopes": {
+    "S1": "ArchitectureRun + PipelineResult",
+    "S2": "ArchitectureRun + PipelineResult",
+    "S3": "RetrievalOutcome + QualifiedClaimRetrievalResult"
+  },
+  "properties": {
+    "base_commit": {
+      "const": "84bcecaafdee60206799fd0a245cb78f816b257e"
+    },
+    "content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "corpus_hash": {
+      "const": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa"
+    },
+    "corpus_version": {
+      "const": "qualified_claim_repository/1.4"
+    },
+    "failure_stage": {
+      "enum": [
+        null,
+        "candidate_generation",
+        "retrieval",
+        "qualification",
+        "ranking",
+        "llm_rendering",
+        "infrastructure",
+        "timeout",
+        "schema",
+        "gold_boundary"
+      ]
+    },
+    "final_evaluable": {
+      "type": "boolean"
+    },
+    "gate_version": {
+      "const": "qualified_claim_structural_gate/1.3"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "generator_version": {
+      "const": "final_experiment_generator/1.0"
+    },
+    "measurements": {
+      "properties": {
+        "bucket": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "candidate_records": {
+          "type": "array"
+        },
+        "claims": {
+          "type": "array"
+        },
+        "cost": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "gate_trace": {
+          "type": [
+            "object",
+            "array",
+            "null"
+          ]
+        },
+        "graph_evidence_records": {
+          "type": "array"
+        },
+        "latency_ms": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "provenance": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "ranking": {
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "token_usage": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "tool_calls": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "warnings": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "candidate_records",
+        "graph_evidence_records",
+        "claims",
+        "bucket",
+        "ranking",
+        "provenance",
+        "warnings",
+        "gate_trace",
+        "latency_ms",
+        "tool_calls",
+        "token_usage",
+        "cost"
+      ],
+      "type": "object"
+    },
+    "native_result": {
+      "type": "object"
+    },
+    "pilot_only": {
+      "type": "boolean"
+    },
+    "query_id": {
+      "type": "string"
+    },
+    "retriever_version": {
+      "const": "qualified_claim_retriever/1.0"
+    },
+    "run_key": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "system_id": {
+      "enum": [
+        "S1",
+        "S2",
+        "S3"
+      ]
+    }
+  },
+  "required": [
+    "run_key",
+    "system_id",
+    "query_id",
+    "pilot_only",
+    "final_evaluable",
+    "native_result",
+    "measurements",
+    "failure_stage",
+    "schema_version",
+    "generated_at",
+    "base_commit",
+    "corpus_version",
+    "corpus_hash",
+    "gate_version",
+    "retriever_version",
+    "generator_version",
+    "content_sha256"
+  ],
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "schema_version": "mtb-final-result-schema/1.0",
+  "title": "Native final-experiment result envelope",
+  "type": "object"
+}
