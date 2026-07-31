@@ -389,6 +389,71 @@ class AdversarialTests(ErratumCase):
                 path.touch()
         self.assertEqual(self._hash(), self.tree["canonical_lf_tree_sha256"])
 
+    def test_the_affected_set_reproduces_the_historical_hash(self) -> None:
+        """L'insieme dichiarato e' dimostrabile, non osservato.
+
+        E' il controllo che manca alla prima stesura del generatore, che li
+        misurava dal disco: su un checkout pulito non trovava nessun file CRLF e
+        concludeva che nessun albero divergeva — descrivendo l'ambiente invece
+        del repository, cioe' ricadendo nel difetto che l'erratum registra.
+
+        Qui l'impronta storica viene **ricostruita** assumendo che i file
+        dichiarati fossero CRLF, e deve tornare. La prova non dipende da come
+        sono le fini riga sul disco di chi esegue il test.
+        """
+        import hashlib
+
+        from benchmarks.mtb_evidence.evaluation import legacy_hash_erratum as FILES
+
+        for tree in self.diverging:
+            root = REPO_ROOT / tree["tree_root"]
+            crlf = set(tree["affected_paths"])
+            declared_text = set(tree["text_files"])
+            rows = []
+            for item in sorted(root.rglob("*")):
+                if not item.is_file() or "__pycache__" in item.parts:
+                    continue
+                relative = item.relative_to(root).as_posix()
+                if FILES.is_registered(item):
+                    digest = FILES.recorded_sha256(item)
+                elif relative in declared_text:
+                    data = FILE_POLICY.canonical_lf_bytes(item.read_bytes())
+                    if relative in crlf:
+                        data = data.replace(b"\n", b"\r\n")
+                    digest = hashlib.sha256(data).hexdigest()
+                else:
+                    digest = FILE_POLICY.raw_sha256(item)
+                rows.append(f"{relative}:{digest}")
+            with self.subTest(tree=tree["tree_root"]):
+                self.assertEqual(
+                    hashlib.sha256("\n".join(rows).encode("utf-8")).hexdigest(),
+                    tree["historical_raw_tree_sha256"],
+                    f"{tree['tree_root']}: i file dichiarati CRLF non "
+                    f"riproducono l'impronta storica",
+                )
+
+    def test_a_wrong_affected_set_is_caught(self) -> None:
+        """Togliere un file dall'insieme rompe la ricostruzione."""
+        import hashlib
+
+        tree = self.diverging[0]
+        root = REPO_ROOT / tree["tree_root"]
+        crlf = set(tree["affected_paths"][1:])  # uno in meno
+        declared_text = set(tree["text_files"])
+        rows = []
+        for item in sorted(root.rglob("*")):
+            if not item.is_file() or "__pycache__" in item.parts:
+                continue
+            relative = item.relative_to(root).as_posix()
+            data = FILE_POLICY.canonical_lf_bytes(item.read_bytes())
+            if relative in crlf:
+                data = data.replace(b"\n", b"\r\n")
+            rows.append(f"{relative}:{hashlib.sha256(data).hexdigest()}")
+        self.assertNotEqual(
+            hashlib.sha256("\n".join(rows).encode("utf-8")).hexdigest(),
+            tree["historical_raw_tree_sha256"],
+        )
+
     def test_an_uncovered_tree_is_caught(self) -> None:
         with self.assertRaises(ERRATUM.TreeErratumError):
             ERRATUM.check_canonical("benchmarks/mtb_evidence/v3/albero_inesistente")
