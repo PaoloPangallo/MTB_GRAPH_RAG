@@ -1,0 +1,599 @@
+{
+  "counts": {
+    "affected_files": 65,
+    "declared_trees": 9,
+    "diverging_trees": 4
+  },
+  "exclude": [
+    "__pycache__"
+  ],
+  "hash_policy_version": "artifact_tree_hash_policy/1.0",
+  "normalization": "lf",
+  "phase": "hermetic-reproducibility-closure/1.0",
+  "schema_version": "tree_hash_erratum/1.0",
+  "trees": [
+    {
+      "affected_paths": [],
+      "affected_text_file_count": 0,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "b5d88948edb86bfbe8be63c2fed02f6f67509ad32a38fbbb4a064485c7be223a",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "reproducible_from_a_clean_checkout",
+      "file_count": 22,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "c0ab851750cc40242f57c21b0c39dfaa96da1ca0f25e1b1e7761bf2bb80862ce",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
+        "backend/tests/test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "adjudication",
+      "text_files": [
+        "ADAPTER_MIGRATION_READINESS.md",
+        "ADAPTER_MIGRATION_SPECIFICATION.md",
+        "ADJUDICATED_CLAIM_MODEL.md",
+        "MULTI_INTERVENTION_ADJUDICATION.md",
+        "PARENT_SEMANTICS_DECISION.md",
+        "adjudication_manifest.json",
+        "adjudication_scope.json",
+        "adjudicator_metadata.json",
+        "aggregate_adjudications.jsonl",
+        "approved_claim_simulation.jsonl",
+        "child_claim_adjudications.jsonl",
+        "claim_id_simulation.jsonl",
+        "intervention_adjudications.jsonl",
+        "migration_specification.json",
+        "packet_adjudications.jsonl",
+        "post_adjudication_schema_simulation.json",
+        "priority_concordant_case_adjudications.jsonl",
+        "regimen_adjudications.jsonl",
+        "schema_semantics_decision.json",
+        "terminology_review_queue.jsonl",
+        "unresolved_associations.jsonl",
+        "unsupported_associations.jsonl"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/multi_intervention_adjudication"
+    },
+    {
+      "affected_paths": [
+        "DISEASE_HIERARCHY_POLICY.md",
+        "DISEASE_POLICY_IMPLEMENTATION_READINESS.md",
+        "STRICT_VS_ONTOLOGY_AWARE_DISEASE_MATCHING.md",
+        "claim_disease_relation_simulation.jsonl",
+        "disease_match_contract.json",
+        "disease_policy_modes.json",
+        "disease_reason_warning_codes.json",
+        "disease_relation_definitions.json",
+        "explicit_hierarchy_relations.jsonl",
+        "migration_impact.json",
+        "policy_manifest.json",
+        "query_policy_simulation.jsonl",
+        "regression_case_simulation.jsonl",
+        "review_scope.json",
+        "scoring_gate_invariants.json",
+        "verified_alias_registry_snapshot.json"
+      ],
+      "affected_text_file_count": 16,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "f991eafeae358e6bb5d061d7790e76008e0da78239b5fa0b3340085c9292b816",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "not_reproducible_from_a_clean_checkout",
+      "file_count": 16,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "5dccbf1431a894dc1c70679377332e4bce0f43866344d73cb1edb454aa7f1233",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
+        "backend/tests/test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "disease hierarchy policy",
+      "text_files": [
+        "DISEASE_HIERARCHY_POLICY.md",
+        "DISEASE_POLICY_IMPLEMENTATION_READINESS.md",
+        "STRICT_VS_ONTOLOGY_AWARE_DISEASE_MATCHING.md",
+        "claim_disease_relation_simulation.jsonl",
+        "disease_match_contract.json",
+        "disease_policy_modes.json",
+        "disease_reason_warning_codes.json",
+        "disease_relation_definitions.json",
+        "explicit_hierarchy_relations.jsonl",
+        "migration_impact.json",
+        "policy_manifest.json",
+        "query_policy_simulation.jsonl",
+        "regression_case_simulation.jsonl",
+        "review_scope.json",
+        "scoring_gate_invariants.json",
+        "verified_alias_registry_snapshot.json"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/disease_hierarchy_policy"
+    },
+    {
+      "affected_paths": [],
+      "affected_text_file_count": 0,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "a6e2c6539a64da128ad262faf64939553e91c38835bfd1fb492e355d9adddf98",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "reproducible_from_a_clean_checkout",
+      "file_count": 21,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "3cd0d73526fe146405348200a5f313539cefa414cd9b0b7b6c0be666272b7d24",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "pre-promotion audit 1.3",
+      "text_files": [
+        "NOVELTY_HANDLING_DIAGNOSTICS.md",
+        "PRE_PROMOTION_AUDIT_1_3.md",
+        "PRE_PROMOTION_READINESS.md",
+        "PROMOTION_DIFF_AND_ROLLBACK.md",
+        "audit_manifest.json",
+        "audit_scope.json",
+        "backward_compatibility_audit.json",
+        "claim_id_recomputation.jsonl",
+        "findings.jsonl",
+        "integrated_gate_audit.jsonl",
+        "lineage_audit.jsonl",
+        "novelty_handling_cases.jsonl",
+        "novelty_handling_summary.json",
+        "parent_claim_reconciliation.jsonl",
+        "promotion_diff_simulation.json",
+        "provenance_completeness_audit.jsonl",
+        "qualification_link_plan_audit.json",
+        "qualified_view_plan_audit.json",
+        "readiness_decision.json",
+        "repository_inventory_audit.json",
+        "rollback_plan.json"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3"
+    },
+    {
+      "affected_paths": [
+        "aggregate_claims.jsonl",
+        "atomic_claims.jsonl",
+        "claim_id_manifest.json",
+        "graph_evidence_parents.jsonl",
+        "legacy_penalty_bypass_tests.json",
+        "legacy_statement_deprecation_map.jsonl",
+        "migration_blockers.jsonl",
+        "operational_vs_shadow_inventory.json",
+        "qualification_link_regeneration_plan.jsonl",
+        "qualified_view_regeneration_plan.jsonl",
+        "regimen_claims.jsonl",
+        "shadow_gate_simulation.jsonl",
+        "shadow_repository_manifest.json",
+        "typed_claims.jsonl",
+        "unresolved_associations.jsonl",
+        "unsupported_associations.jsonl"
+      ],
+      "affected_text_file_count": 16,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "4d0372716c737b59ba99335eea0dc9568ec2d347f5558ef5308913aaf9cd6454",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "not_reproducible_from_a_clean_checkout",
+      "file_count": 19,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "f09622f78c00b305afb6f6a7a91d3bc69fa168546c574e28e69103a9a07e00e2",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
+        "backend/tests/test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "shadow repository 1.0",
+      "text_files": [
+        "SHADOW_REPOSITORY_READINESS.md",
+        "STRUCTURAL_GATE_IMPLEMENTATION.md",
+        "TYPED_CLAIM_SHADOW_MIGRATION.md",
+        "aggregate_claims.jsonl",
+        "atomic_claims.jsonl",
+        "claim_id_manifest.json",
+        "graph_evidence_parents.jsonl",
+        "legacy_penalty_bypass_tests.json",
+        "legacy_statement_deprecation_map.jsonl",
+        "migration_blockers.jsonl",
+        "operational_vs_shadow_inventory.json",
+        "qualification_link_regeneration_plan.jsonl",
+        "qualified_view_regeneration_plan.jsonl",
+        "regimen_claims.jsonl",
+        "shadow_gate_simulation.jsonl",
+        "shadow_repository_manifest.json",
+        "typed_claims.jsonl",
+        "unresolved_associations.jsonl",
+        "unsupported_associations.jsonl"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/typed_claim_shadow_migration"
+    },
+    {
+      "affected_paths": [
+        "claim_domain_gate_simulation.jsonl",
+        "diagnostic_claims_v1_1.jsonl",
+        "evidence_347_promotion_audit.json",
+        "evidence_claims_v1_1.jsonl",
+        "graph_evidence_parents_v1_1.jsonl",
+        "legacy_statement_deprecation_map_v1_1.jsonl",
+        "parent_without_claim_v1_1.jsonl",
+        "qualification_link_regeneration_plan_v1_1.jsonl",
+        "qualified_view_regeneration_plan_v1_1.jsonl",
+        "repository_version_lineage.json",
+        "shadow_update_manifest.json",
+        "therapeutic_claims_v1_1.jsonl",
+        "untyped_sectioned_output_simulation.json"
+      ],
+      "affected_text_file_count": 13,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "b41612b51fe4b792bc809446610cb8dbc65537a3de38b4fead88c34df3da2b51",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "not_reproducible_from_a_clean_checkout",
+      "file_count": 17,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "34fdffa078ea5addb53841af9403ecb46fb778488be045484ad0f5531e6eba81",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
+        "backend/tests/test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "shadow repository 1.1",
+      "text_files": [
+        "CLAIM_DOMAIN_GATE_IMPLEMENTATION.md",
+        "NON_THERAPEUTIC_SHADOW_UPDATE.md",
+        "SHADOW_REPOSITORY_V1_1_READINESS.md",
+        "claim_domain_gate_simulation.jsonl",
+        "diagnostic_claims_v1_1.jsonl",
+        "evidence_347_promotion_audit.json",
+        "evidence_claims_v1_1.jsonl",
+        "graph_evidence_parents_v1_1.jsonl",
+        "legacy_statement_deprecation_map_v1_1.jsonl",
+        "parent_without_claim_v1_1.jsonl",
+        "prognostic_claims_v1_1.jsonl",
+        "qualification_link_regeneration_plan_v1_1.jsonl",
+        "qualified_view_regeneration_plan_v1_1.jsonl",
+        "repository_version_lineage.json",
+        "shadow_update_manifest.json",
+        "therapeutic_claims_v1_1.jsonl",
+        "untyped_sectioned_output_simulation.json"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/non_therapeutic_shadow_update"
+    },
+    {
+      "affected_paths": [],
+      "affected_text_file_count": 0,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "d79f3c4e3b8a9204699debd8008f79a4afcc9d62e592e506193eecb34c9b2407",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "reproducible_from_a_clean_checkout",
+      "file_count": 21,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "4c76081de50d643461d3765c7305211c997a801badfef1b453a1eb417567acbe",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
+        "backend/tests/test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "shadow repository 1.2",
+      "text_files": [
+        "DIAGNOSTIC_DISEASE_SCOPE_NARROWING.md",
+        "SHADOW_REPOSITORY_V1_2_READINESS.md",
+        "audit_associations_v1_2.jsonl",
+        "deprecated_diagnostic_claims.jsonl",
+        "diagnostic_claim_replacement_map.jsonl",
+        "diagnostic_claims_v1_2.jsonl",
+        "disease_scope_gate_simulation.jsonl",
+        "evidence_347_audit_v1_2.json",
+        "evidence_claims_v1_2.jsonl",
+        "graph_evidence_parents_v1_2.jsonl",
+        "legacy_statement_deprecation_map_v1_2.jsonl",
+        "operational_vs_shadow_inventory_v1_2.json",
+        "parent_without_claim_v1_2.jsonl",
+        "prognostic_claims_v1_2.jsonl",
+        "qualification_link_regeneration_plan_v1_2.jsonl",
+        "qualified_view_regeneration_plan_v1_2.jsonl",
+        "repository_v1_2_manifest.json",
+        "repository_version_lineage.json",
+        "scope_narrowing_audit.jsonl",
+        "shadow_update_manifest.json",
+        "therapeutic_claims_v1_2.jsonl"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/diagnostic_disease_scope_narrowing_shadow"
+    },
+    {
+      "affected_paths": [],
+      "affected_text_file_count": 0,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "a16072bd8469d50f7e50de98850b02f56c79ff64800783f026829b03172bcca8",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "reproducible_from_a_clean_checkout",
+      "file_count": 21,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "302133e968de1945ef9974cc8a670fd02097d459ea4b988f318862794f394253",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
+        "backend/tests/test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "shadow repository 1.3",
+      "text_files": [
+        "INTEGRATED_GATE_IMPLEMENTATION.md",
+        "INTEGRATED_SHADOW_REPOSITORY_1_3.md",
+        "SHADOW_REPOSITORY_1_3_READINESS.md",
+        "claim_replacement_lineage_v1_3.jsonl",
+        "deprecated_claims_v1_3.jsonl",
+        "diagnostic_claims_v1_3.jsonl",
+        "evidence_claims_v1_3.jsonl",
+        "graph_evidence_parents_v1_3.jsonl",
+        "integrated_structural_gate_simulation.jsonl",
+        "operational_vs_shadow_inventory_v1_3.json",
+        "prognostic_claims_v1_3.jsonl",
+        "qualification_link_regeneration_plan_v1_3.jsonl",
+        "qualified_view_regeneration_plan_v1_3.jsonl",
+        "query_retrieval_simulation_v1_3.jsonl",
+        "regression_case_simulation_v1_3.jsonl",
+        "repository_v1_3_manifest.json",
+        "repository_version_lineage.json",
+        "terminology_registry_v1_3.json",
+        "therapeutic_claims_v1_3.jsonl",
+        "unresolved_associations_v1_3.jsonl",
+        "unsupported_associations_v1_3.jsonl"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/integrated_shadow_repository_1_3"
+    },
+    {
+      "affected_paths": [],
+      "affected_text_file_count": 0,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "29b94ee2d7e5a5d586ed95562949784af248ff1d70349faf1c733f7bf14ed65a",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "reproducible_from_a_clean_checkout",
+      "file_count": 21,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "22d5d730969277eab7c470ebed02e8a6503a3500ab537ec547425d3d99bfb72d",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "shadow repository 1.4",
+      "text_files": [
+        "FORMULATION_MATCHING_CONTRACT.md",
+        "PRE_PROMOTION_REQUIRED_FIXES_1_4.md",
+        "PROPAGATION_POLICY_CONTRACT.md",
+        "SHADOW_REPOSITORY_1_4_READINESS.md",
+        "aggregate_propagation_audit.jsonl",
+        "backward_compatibility_addendum.json",
+        "claim_id_impact.jsonl",
+        "evidence_claims_v1_4.jsonl",
+        "formulation_claim_audit.jsonl",
+        "formulation_gate_simulation.jsonl",
+        "formulation_registry_snapshot.jsonl",
+        "formulation_relation_definitions.json",
+        "integrated_gate_regression.jsonl",
+        "policy_mode_contract.json",
+        "post_fix_findings.jsonl",
+        "post_fix_readiness.json",
+        "propagation_policy_matrix.jsonl",
+        "qualification_link_plan_v1_4.jsonl",
+        "regimen_propagation_audit.jsonl",
+        "repository_v1_4_manifest.json",
+        "repository_version_lineage.json"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4"
+    },
+    {
+      "affected_paths": [
+        "AUY922_LUMINESPIB_REVIEW.md",
+        "BGJ398_INFIGRATINIB_REVIEW.md",
+        "TERMINOLOGY_CANONICALIZATION_CONTRACT.md",
+        "TERMINOLOGY_CLOSURE_READINESS.md",
+        "authoritative_mapping_evidence.jsonl",
+        "canonicalization_contract.json",
+        "claim_id_impact_simulation.jsonl",
+        "group_terminology_reviews.jsonl",
+        "mapping_decisions.jsonl",
+        "qualification_link_impact.jsonl",
+        "qualified_view_impact.jsonl",
+        "review_scope.json",
+        "second_review_packets/TSR-TRQ-AUY922.json",
+        "second_review_packets/TSR-TRQ-BGJ398.json",
+        "shadow_repository_update_simulation.json",
+        "source_access_inventory.jsonl",
+        "source_literal_preservation.jsonl",
+        "terminology_queue_snapshot.jsonl",
+        "terminology_review_manifest.json",
+        "unresolved_terminology.jsonl"
+      ],
+      "affected_text_file_count": 20,
+      "binary_files": [],
+      "canonical_lf_tree_sha256": "b33003f81cc7cedda2db757bb7053ba7a24ba4170af15ca63413607ced4bdfe7",
+      "classification_commit": "d6389b43fd84531c64434d2b9c0337bd7e13998a",
+      "classification_source": "git check-attr text",
+      "current_reproducibility_status": "not_reproducible_from_a_clean_checkout",
+      "file_count": 20,
+      "gitattributes_paths": [
+        ".gitattributes",
+        "mtb-graphrag/benchmarks/.gitattributes"
+      ],
+      "gitattributes_sha256": {
+        ".gitattributes": "db29aa8360f8844b4bc82c9b8e3baccc45d40e9f75dae47530c2b0045d5e1778",
+        "mtb-graphrag/benchmarks/.gitattributes": "8fc3d695732872564a842071a8a5e8feaf8ab22d499746383b5ad0503e74fde3"
+      },
+      "hash_policy_version": "artifact_tree_hash_policy/1.0",
+      "historical_commit": "b6694ba23d189b17a9ca87a5a3e86990db4445a8",
+      "historical_form": "crlf_on_disk",
+      "historical_raw_tree_sha256": "ea87d3fa4020b68faf3dfea0037f9d0d68c12129786e78f00c28f9b7fbce21bb",
+      "normalization": "lf",
+      "reason_code": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
+      "recorded_by_artifacts": [
+        "benchmarks/mtb_evidence/v3/pre_promotion_audit_1_3/audit_manifest.json",
+        "benchmarks/mtb_evidence/v3/pre_promotion_required_fixes_1_4/repository_v1_4_manifest.json",
+        "benchmarks/mtb_evidence/v3/prototype_corpus_promotion_1_4/operational_integrity.json"
+      ],
+      "recorded_by_tests": [
+        "backend/tests/test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
+        "backend/tests/test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
+        "backend/tests/test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged"
+      ],
+      "role": "terminology closure",
+      "text_files": [
+        "AUY922_LUMINESPIB_REVIEW.md",
+        "BGJ398_INFIGRATINIB_REVIEW.md",
+        "TERMINOLOGY_CANONICALIZATION_CONTRACT.md",
+        "TERMINOLOGY_CLOSURE_READINESS.md",
+        "authoritative_mapping_evidence.jsonl",
+        "canonicalization_contract.json",
+        "claim_id_impact_simulation.jsonl",
+        "group_terminology_reviews.jsonl",
+        "mapping_decisions.jsonl",
+        "qualification_link_impact.jsonl",
+        "qualified_view_impact.jsonl",
+        "review_scope.json",
+        "second_review_packets/TSR-TRQ-AUY922.json",
+        "second_review_packets/TSR-TRQ-BGJ398.json",
+        "shadow_repository_update_simulation.json",
+        "source_access_inventory.jsonl",
+        "source_literal_preservation.jsonl",
+        "terminology_queue_snapshot.jsonl",
+        "terminology_review_manifest.json",
+        "unresolved_terminology.jsonl"
+      ],
+      "tree_root": "benchmarks/mtb_evidence/v3/terminology_mapping_closure"
+    }
+  ]
+}

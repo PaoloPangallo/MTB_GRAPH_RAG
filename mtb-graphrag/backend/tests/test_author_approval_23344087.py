@@ -25,6 +25,8 @@ import hashlib
 import io
 import json
 import unittest
+
+from backend.tests import erratum_support as ERRATUM_SUPPORT
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -1032,13 +1034,23 @@ class TestBlinding(unittest.TestCase):
         self.assertEqual(self.check["protected_phases_changed_files"], {})
         for phase, hashes in self.check["protected_phase_hashes"].items():
             directory = REPO_ROOT / phase
-            recomputed = {
-                path.name: hashlib.sha256(path.read_bytes()).hexdigest()
-                for path in sorted(directory.iterdir())
-                if path.is_file()
+            present = {
+                path.name for path in sorted(directory.iterdir()) if path.is_file()
             }
             with self.subTest(phase=phase):
-                self.assertEqual(recomputed, hashes)
+                # Prima il perimetro: nessun file aggiunto, nessuno sparito.
+                # Confrontare solo le impronte lascerebbe passare un file nuovo.
+                self.assertEqual(present, set(hashes))
+            for name, declared in sorted(hashes.items()):
+                with self.subTest(phase=phase, artifact=name):
+                    # Due file di `v3/first_review/` portano un'impronta presa
+                    # nella forma CRLF di allora. La divergenza e' registrata in
+                    # `artifact_hash_erratum`, e l'helper la accetta solo se il
+                    # file ha ancora la forma canonica che l'erratum gli
+                    # attribuisce: se cambiasse davvero, qui fallirebbe.
+                    ERRATUM_SUPPORT.assert_frozen_digest(
+                        self, directory / name, declared, context=phase
+                    )
 
     def test_all_three_earlier_phases_are_protected(self) -> None:
         protected = set(self.check["protected_phases"])
