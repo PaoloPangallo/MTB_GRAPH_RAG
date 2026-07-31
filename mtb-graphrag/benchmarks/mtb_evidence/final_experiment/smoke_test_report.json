@@ -1,0 +1,78 @@
+{
+  "base_commit": "84bcecaafdee60206799fd0a245cb78f816b257e",
+  "checks": {
+    "all_three_systems_startable": true,
+    "gold_read_count": 0,
+    "legacy_backend_isolation": true,
+    "logging_complete": true,
+    "provenance_serializable": true,
+    "resume_safe": true,
+    "run_isolation": true,
+    "s1_deterministic": true,
+    "s3_deterministic": true,
+    "timeout_contract_functional": true
+  },
+  "content_sha256": "f0f4c339c47ec96b3382f668602530dacf8c8db39c4a250192f1ebb0cc16fb09",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "final_evaluable": false,
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-07-31T17:00:00+02:00",
+  "generator_version": "final_experiment_generator/1.0",
+  "gold_payload_reads": 0,
+  "known_pilot_contamination": "an early pre-freeze smoke appended synthetic events to the default append-only ledger; current smoke uses isolated temporary ledgers",
+  "model_probes": {
+    "gemma4:31b-cloud": "verified",
+    "minimax-m2.5": "retired",
+    "minimax-m3": "verified",
+    "qwen3-coder-next": "retired"
+  },
+  "official_runs_executed": 0,
+  "pilot_only": true,
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "schema_version": "mtb-final-smoke-report/1.0",
+  "systems": {
+    "S1": {
+      "architecture": "deterministic",
+      "events": 18,
+      "ledger_path_name": "s1a.sqlite3",
+      "ledger_valid": true,
+      "output_serializable": true,
+      "planner_calls": 0,
+      "planning_mode": "fixed_plan",
+      "provenance_events_serializable": true,
+      "stable_output_sha256": "3e9f1cd24ce4c29e744eb04c7f6b6679691546bc72b47ece067bc3f5e3663b3e",
+      "tool_path": [
+        "interpret_variant",
+        "identify_targets"
+      ]
+    },
+    "S2": {
+      "architecture": "agentic",
+      "events": 20,
+      "ledger_path_name": "s2.sqlite3",
+      "ledger_valid": true,
+      "output_serializable": true,
+      "planner_calls": 3,
+      "planning_mode": "llm_dynamic",
+      "provenance_events_serializable": true,
+      "stable_output_sha256": "d495042b0ef3bd72980d0081259f1e5332a4c1ea113d92ce3dc168f9a2dd78ea",
+      "tool_path": [
+        "interpret_variant",
+        "identify_targets"
+      ]
+    },
+    "S3": {
+      "backend": "qualified_claim_v3",
+      "bucket_counts": {
+        "audit_only_results": 148,
+        "primary_ranked_results": 3,
+        "rejected_by_native_constraints": 158,
+        "retained_with_warning": 2
+      },
+      "candidate_count": 311,
+      "output_serializable": true,
+      "repository_version": "qualified_claim_repository/1.4"
+    }
+  }
+}

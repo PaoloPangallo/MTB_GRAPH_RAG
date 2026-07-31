@@ -1,0 +1,499 @@
+{
+  "base_commit": "84bcecaafdee60206799fd0a245cb78f816b257e",
+  "content_sha256": "b031b67383a8c43fbc215710f2c52ade933a2984fbae76e24c0fb6273cf7c671",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "definitions": [
+    {
+      "denominator": "all relevant gold GraphEvidenceRecord",
+      "formula": "numerator / denominator",
+      "group": "retrieval",
+      "higher_is_better": true,
+      "name": "GraphEvidenceRecord recall",
+      "numerator": "relevant gold GraphEvidenceRecord retrieved",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all relevant gold unique sources",
+      "formula": "numerator / denominator",
+      "group": "retrieval",
+      "higher_is_better": true,
+      "name": "PMID/source recall",
+      "numerator": "relevant gold unique sources retrieved",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all relevant gold candidates",
+      "formula": "numerator / denominator",
+      "group": "retrieval",
+      "higher_is_better": true,
+      "name": "candidate recall",
+      "numerator": "relevant gold candidates generated",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "fixed k positions; absent positions count nonrelevant",
+      "formula": "numerator / k",
+      "group": "retrieval",
+      "higher_is_better": true,
+      "name": "Precision@k",
+      "numerator": "relevant items in ranks 1..k",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all relevant gold items",
+      "formula": "numerator / denominator",
+      "group": "retrieval",
+      "higher_is_better": true,
+      "name": "Recall@k",
+      "numerator": "relevant gold items in ranks 1..k",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "evaluated queries",
+      "formula": "numerator / denominator",
+      "group": "retrieval",
+      "higher_is_better": true,
+      "name": "MRR",
+      "numerator": "sum reciprocal rank of first relevant item, or zero per query",
+      "unit": "reciprocal-rank mean"
+    },
+    {
+      "denominator": "all emitted primary claims",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "primary claim precision",
+      "numerator": "gold-supported emitted primary claims",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all emitted primary or warning claims",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "overall claim precision",
+      "numerator": "gold-supported emitted primary or warning claims",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "gold-supported emitted claims with qualifiers",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "qualifier preservation",
+      "numerator": "emitted claims preserving every gold qualifier",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "claims requiring disease-scope judgement",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "disease-scope accuracy",
+      "numerator": "claims with correct disease scope",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "claims requiring biomarker-logic judgement",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "biomarker-logic accuracy",
+      "numerator": "claims preserving exact terms and AND/OR operator",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "claims requiring intervention judgement",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "intervention-type accuracy",
+      "numerator": "claims with correct intervention identity and type",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "gold regimen claim-query units",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "regimen preservation",
+      "numerator": "regimen claims preserving all and only arm members",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "aggregate/separability judgement units",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "aggregate-separability accuracy",
+      "numerator": "aggregate claims correctly retained or separated",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "formulation judgement units",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "formulation accuracy",
+      "numerator": "claims with correct formulation relation",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "applicability judgement units",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": true,
+      "name": "applicability accuracy",
+      "numerator": "claims with correct applicability class",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all emitted claims",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": false,
+      "name": "unsupported claim rate",
+      "numerator": "emitted claims unsupported by gold source",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "atomic claims sourced from aggregate evidence",
+      "formula": "numerator / denominator",
+      "group": "claim_qualification",
+      "higher_is_better": false,
+      "name": "false atomic attribution rate",
+      "numerator": "false atomic claims derived from aggregate evidence",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all gold bucket-labelled claim-query pairs",
+      "formula": "numerator / denominator",
+      "group": "bucket",
+      "higher_is_better": true,
+      "name": "four-bucket accuracy",
+      "numerator": "correct primary/warning/audit/rejected assignments",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all gold bucket-labelled claim-query pairs",
+      "formula": "cell counts; no scalar collapse",
+      "group": "bucket",
+      "higher_is_better": null,
+      "name": "bucket confusion matrix",
+      "numerator": "count in each predicted/gold bucket cell",
+      "unit": "count matrix"
+    },
+    {
+      "denominator": "gold non-primary items returned",
+      "formula": "numerator / denominator",
+      "group": "bucket",
+      "higher_is_better": false,
+      "name": "over-promotion rate",
+      "numerator": "gold non-primary items placed in primary",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all gold-primary items",
+      "formula": "numerator / denominator",
+      "group": "bucket",
+      "higher_is_better": false,
+      "name": "excessive-conservatism rate",
+      "numerator": "gold-primary items withheld from primary",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all gold negative queries",
+      "formula": "numerator / denominator",
+      "group": "abstention",
+      "higher_is_better": true,
+      "name": "correct abstention rate",
+      "numerator": "negative queries with no unsupported positive",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all gold positive queries",
+      "formula": "numerator / denominator",
+      "group": "abstention",
+      "higher_is_better": false,
+      "name": "false abstention rate",
+      "numerator": "positive queries with no supported positive",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all gold unresolved items",
+      "formula": "numerator / denominator",
+      "group": "abstention",
+      "higher_is_better": true,
+      "name": "unresolved handling accuracy",
+      "numerator": "unresolved items only in permitted non-primary state",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all gold negative queries",
+      "formula": "numerator / denominator",
+      "group": "abstention",
+      "higher_is_better": true,
+      "name": "negative-case accuracy",
+      "numerator": "negative queries classified negative or abstain",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all automatic merge decisions",
+      "formula": "numerator / denominator",
+      "group": "abstention",
+      "higher_is_better": false,
+      "name": "false automatic merge rate",
+      "numerator": "distinct gold items automatically merged",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all emitted citations",
+      "formula": "numerator / denominator",
+      "group": "provenance",
+      "higher_is_better": true,
+      "name": "citation accuracy",
+      "numerator": "citations whose locator supports attached claim",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all emitted factual claims",
+      "formula": "numerator / denominator",
+      "group": "provenance",
+      "higher_is_better": true,
+      "name": "source locator coverage",
+      "numerator": "claims with a resolvable source locator",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all emitted factual claims",
+      "formula": "numerator / denominator",
+      "group": "provenance",
+      "higher_is_better": true,
+      "name": "claim-to-source traceability",
+      "numerator": "claims tracing to source unit and GraphEvidenceRecord",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all returned V3 items",
+      "formula": "numerator / denominator",
+      "group": "provenance",
+      "higher_is_better": true,
+      "name": "gate-explanation completeness",
+      "numerator": "V3 items with every gate represented or not applicable",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all returned items",
+      "formula": "numerator / denominator",
+      "group": "provenance",
+      "higher_is_better": true,
+      "name": "lineage completeness",
+      "numerator": "items with complete claim-parent-record lineage",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all returned items",
+      "formula": "numerator / denominator",
+      "group": "provenance",
+      "higher_is_better": true,
+      "name": "provenance completeness",
+      "numerator": "items satisfying locator, traceability and lineage",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "attempted run",
+      "formula": "median, mean, sample SD, min, max",
+      "group": "efficiency",
+      "higher_is_better": false,
+      "name": "latency",
+      "numerator": "wall-clock milliseconds entry to serialized result",
+      "unit": "milliseconds"
+    },
+    {
+      "denominator": "attempted run",
+      "formula": "mean and distribution",
+      "group": "efficiency",
+      "higher_is_better": false,
+      "name": "tool calls",
+      "numerator": "completed plus failed tool invocations",
+      "unit": "count"
+    },
+    {
+      "denominator": "attempted run",
+      "formula": "mean and distribution",
+      "group": "efficiency",
+      "higher_is_better": false,
+      "name": "traversal count",
+      "numerator": "graph traversal/query operations",
+      "unit": "count"
+    },
+    {
+      "denominator": "LLM-bearing attempted run",
+      "formula": "sum and distribution; missing stays null",
+      "group": "efficiency",
+      "higher_is_better": false,
+      "name": "token usage",
+      "numerator": "provider prompt plus completion tokens",
+      "unit": "tokens"
+    },
+    {
+      "denominator": "attempted run",
+      "formula": "sum in provider currency; unavailable stays null",
+      "group": "efficiency",
+      "higher_is_better": false,
+      "name": "cost",
+      "numerator": "provider-billed amount when exposed",
+      "unit": "currency"
+    },
+    {
+      "denominator": "query-model cell with five valid replicas",
+      "formula": "sample SD using n-1",
+      "group": "efficiency",
+      "higher_is_better": false,
+      "name": "agentic run variability",
+      "numerator": "sample SD across five S2 replicas",
+      "unit": "metric-native unit"
+    },
+    {
+      "denominator": "all factual report sentences",
+      "formula": "numerator / denominator",
+      "group": "report",
+      "higher_is_better": true,
+      "name": "supported sentence rate",
+      "numerator": "fully gold-supported factual sentences",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all factual report sentences",
+      "formula": "numerator / denominator",
+      "group": "report",
+      "higher_is_better": false,
+      "name": "partially supported rate",
+      "numerator": "partially gold-supported factual sentences",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "all factual report sentences",
+      "formula": "numerator / denominator",
+      "group": "report",
+      "higher_is_better": false,
+      "name": "unsupported sentence rate",
+      "numerator": "unsupported factual sentences",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "sentences narrating qualified claims",
+      "formula": "numerator / denominator",
+      "group": "report",
+      "higher_is_better": false,
+      "name": "qualifier loss",
+      "numerator": "sentences dropping a required qualifier",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "factual sentences with scoped source",
+      "formula": "numerator / denominator",
+      "group": "report",
+      "higher_is_better": false,
+      "name": "scope broadening",
+      "numerator": "sentences broader than source scope",
+      "unit": "proportion"
+    },
+    {
+      "denominator": "sentences narrating aggregate/regimen claims",
+      "formula": "numerator / denominator",
+      "group": "report",
+      "higher_is_better": false,
+      "name": "aggregate/regimen atomization in narration",
+      "numerator": "sentences falsely atomizing aggregate/regimen evidence",
+      "unit": "proportion"
+    }
+  ],
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-07-31T17:00:00+02:00",
+  "generator_version": "final_experiment_generator/1.0",
+  "groups": {
+    "abstention": [
+      "correct abstention rate",
+      "false abstention rate",
+      "unresolved handling accuracy",
+      "negative-case accuracy",
+      "false automatic merge rate"
+    ],
+    "bucket": [
+      "four-bucket accuracy",
+      "bucket confusion matrix",
+      "over-promotion rate",
+      "excessive-conservatism rate"
+    ],
+    "claim_qualification": [
+      "primary claim precision",
+      "overall claim precision",
+      "qualifier preservation",
+      "disease-scope accuracy",
+      "biomarker-logic accuracy",
+      "intervention-type accuracy",
+      "regimen preservation",
+      "aggregate-separability accuracy",
+      "formulation accuracy",
+      "applicability accuracy",
+      "unsupported claim rate",
+      "false atomic attribution rate"
+    ],
+    "efficiency": [
+      "latency",
+      "tool calls",
+      "traversal count",
+      "token usage",
+      "cost",
+      "agentic run variability"
+    ],
+    "provenance": [
+      "citation accuracy",
+      "source locator coverage",
+      "claim-to-source traceability",
+      "gate-explanation completeness",
+      "lineage completeness",
+      "provenance completeness"
+    ],
+    "report": [
+      "supported sentence rate",
+      "partially supported rate",
+      "unsupported sentence rate",
+      "qualifier loss",
+      "scope broadening",
+      "citation accuracy",
+      "aggregate/regimen atomization in narration"
+    ],
+    "retrieval": [
+      "GraphEvidenceRecord recall",
+      "PMID/source recall",
+      "candidate recall",
+      "Precision@k",
+      "Recall@k",
+      "MRR"
+    ]
+  },
+  "ndcg": {
+    "condition": "enable only if the unopened gold contains valid graded relevance",
+    "enabled": false
+  },
+  "primary_endpoint": "paired claim-level primary precision on the 8-query fair comparative subset",
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "schema_version": "mtb-final-metrics/1.0",
+  "statistics": {
+    "agentic_summary": [
+      "mean",
+      "sample_sd",
+      "min",
+      "max"
+    ],
+    "bootstrap_ci": 0.95,
+    "bootstrap_unit": "query",
+    "claim": "exploratory; not general clinical validation",
+    "effect_size": "paired standardized mean difference plus raw mean difference",
+    "paired_by_query": true
+  },
+  "zero_denominator_policy": "undefined/null with numerator and denominator retained; never coerce to zero"
+}

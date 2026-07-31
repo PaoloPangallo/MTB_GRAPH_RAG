@@ -1,0 +1,21 @@
+{
+  "aggregate_sha256": "5e6d79f04eeaecbabd573a0eb5a636f51bcba55010e2af5f560419479149ac1f",
+  "base_commit": "84bcecaafdee60206799fd0a245cb78f816b257e",
+  "content_read": false,
+  "content_sha256": "212414f09a3ac0d0eed030ab1dd0a31185bc44ffd5c68373962530537c58b4e1",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "expected_files": {
+    "MTB_Evidence_annotation_notes_v1.md": "72ee84c53bfb5d6634f238a771d6b52b1a8f03bfe36b4ab3e577932be7b72520",
+    "MTB_Evidence_gold_pilot_v1.xlsx": "128a68c5aa324ef8a4f033d2a2721c251583b9ac0a8d83d6b603ba1aad662124",
+    "mtb_evidence_gold_pilot_v1.jsonl": "30e64dc5f3dffde3d1d43c316f6bc75f1afafab41567fa8657214a10fa16c667"
+  },
+  "external_identifier": "MTB_Evidence_gold_pilot_v1",
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-07-31T17:00:00+02:00",
+  "generator_version": "final_experiment_generator/1.0",
+  "gold_schema": "mtb_evidence_gold_pilot/1.0",
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "schema_version": "mtb-final-gold-manifest/1.0",
+  "state": "NOT_OPENED_FOR_FINAL_EXPERIMENT"
+}
