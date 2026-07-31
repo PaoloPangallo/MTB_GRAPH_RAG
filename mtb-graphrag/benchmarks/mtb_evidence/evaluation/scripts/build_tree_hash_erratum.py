@@ -231,7 +231,13 @@ def build() -> dict[str, Any]:
         path: FILE_POLICY.canonical_lf_sha256(GIT_ROOT / path)
         for path in GITATTRIBUTES
     }
-    classification_commit = _git("rev-parse", "HEAD").decode().strip()
+    # Non HEAD: l'ultimo commit che ha toccato i `.gitattributes` da cui la
+    # classificazione deriva. HEAD renderebbe l'erratum stale a ogni commit,
+    # anche a quelli che con la classificazione non c'entrano niente — e un
+    # erratum che va rigenerato di continuo smette di essere letto.
+    classification_commit = (
+        _git("log", "-1", "--format=%H", "--", *GITATTRIBUTES).decode().strip()
+    )
 
     trees = []
     for role in sorted(ROLES):
