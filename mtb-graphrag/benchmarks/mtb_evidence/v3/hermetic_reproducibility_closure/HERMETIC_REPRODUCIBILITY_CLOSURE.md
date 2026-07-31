@@ -170,6 +170,122 @@ la compatibilita' nominando il campo.
 Nessuno `skip`, nessun `xfail`, nessuna whitelist generica. Gli artefatti storici
 non sono stati toccati.
 
+## Il terzo erratum: hash di albero
+
+Lo stesso difetto delle impronte di file, **un livello piu' su**.
+`sha256_tree` compone l'impronta di una directory dall'elenco ordinato dei suoi
+`path:hash`. Gli hash di albero congelati furono misurati su un disco dove 65
+file erano CRLF — estratti prima che `mtb-graphrag/benchmarks/.gitattributes`
+imponesse LF dal commit `63ed143`, e mai piu' toccati. Un checkout pulito li
+consegna in LF, e l'impronta cambia.
+
+Erano quindici test rossi in **ogni** checkout pulito, gia' a `b6694ba`, e
+invisibili nel working tree — che e' precisamente il modo in cui questo difetto
+si nasconde.
+
+### La discovery ha riclassificato le quindici righe
+
+| meccanismo | righe | dove sono chiuse |
+|---|---|---|
+| hash di **albero** | **12** | `tree_hash_erratum/1.0` |
+| hash di **file** | **3** | `artifact_hash_erratum`, gia' esistente |
+
+`test_author_approval_23344087` non chiama mai `sha256_tree`: confronta le
+impronte **per file** di `v3/first_review/`, e i due sorgenti coinvolti —
+`FIRST_REVIEW_QUEUE.md` e `first_review_queue.csv` — erano gia' registrati nel
+primo erratum. Dare loro il `reason_code` di albero li avrebbe classificati sotto
+una causa che non e' la loro, quindi sono chiusi dove appartengono: instradando
+`hash_directory` del generatore per l'erratum dei file, e facendo usare a
+`TestBlinding` lo stesso helper degli altri.
+
+### Il perimetro, misurato
+
+Una scansione ingenua dava **nove** alberi non riproducibili. Con la funzione
+reale sono **quattro**: `sha256_tree` chiama `sha256_file`, che dal commit
+`f49897d` passa dall'erratum delle impronte legacy, e cinque alberi tornano gia'
+grazie a quella mediazione. La prima misura ordinava anche per `Path` invece che
+per path relativo POSIX — un errore che la nuova politica esclude per
+costruzione, e che ha un test avverso dedicato.
+
+| albero | file | di cui CRLF |
+|---|---|---|
+| `v3/typed_claim_shadow_migration` | 19 | 16 |
+| `v3/non_therapeutic_shadow_update` | 17 | 13 |
+| `v3/terminology_mapping_closure` | 20 | 20 |
+| `v3/disease_hierarchy_policy` | 16 | 16 |
+| **totale** | **72** | **65** |
+
+Verificato con assert: le 65 differenze sono **di sola fine riga**, zero binari,
+zero CR isolati.
+
+### `artifact_tree_hash_policy/1.0`
+
+Dichiara le quattro decisioni che al livello del file non esistono:
+
+**L'ordine.** Lessicografico sul path relativo **POSIX**. `sorted(rglob("*"))`
+ordina oggetti `Path`, e il confronto passa dal separatore della piattaforma:
+lo stesso albero puo' dare due impronte su due macchine.
+
+**Il separatore.** `NUL`, non `:`. Comporre `f"{path}:{digest}"` e' ambiguo —
+un path che contenesse `:` potrebbe produrre la riga di un'altra coppia. In un
+nome di file `NUL` non puo' comparire.
+
+**I binari.** Non si indovinano: i file testuali sono **dichiarati**, e cio' che
+non e' dichiarato testuale viene misurato sui byte grezzi. Normalizzare le fini
+riga di un `.png` lo corrompe, e un'euristica sbaglia in silenzio proprio sui
+casi che contano.
+
+**Le esclusioni.** Solo i path che il contratto dichiara.
+
+### La provenance della classificazione
+
+La classificazione testo/binario viene da `git check-attr text` — la stessa
+dichiarazione che governa il checkout — ed e' **registrata** nell'erratum path
+per path, con `classification_source`, `classification_commit`,
+`gitattributes_paths` e `gitattributes_sha256`.
+
+Registrarla e' cio' che rende la verifica canonica eseguibile in un archivio
+estratto, che `git` non ce l'ha. E `gitattributes_sha256` e' cio' che permette
+di accorgersi che la regola e' cambiata, invece di scoprirlo quando un hash
+smette di tornare. `classification_commit` punta all'ultimo commit che ha toccato
+quei `.gitattributes`, non a HEAD: ancorarlo a HEAD avrebbe reso l'erratum stale
+a ogni commit, e un erratum da rigenerare di continuo smette di essere letto.
+
+### I test avversi
+
+Sette, e ognuno verificato facendolo fallire davvero: hash storico manomesso,
+file omesso, contenuto semantico cambiato, CR isolato, ordine di enumerazione,
+albero non coperto, conteggio dichiarato errato. La prima stesura ne mancava
+uno — il controllo di provenance iterava solo gli alberi divergenti, e una
+regola manomessa su un albero sano passava.
+
+## La suite di storia del repository
+
+Difetto indipendente, trovato dalla stessa matrice: **la suite core interrogava
+git in ventidue punti**. In un archivio estratto quarantasei test in piu' si
+dichiaravano saltati, e i conteggi core divergevano fra un clone e un archivio.
+
+I test si dividono in due, e il trattamento segue la natura:
+
+**Chi non aveva bisogno di git** ora ne fa a meno, e il controllo ne esce piu'
+forte. L'impronta canonica si ricalcola dai file su disco: la normalizzazione LF
+la rende identica in un working tree CRLF e in un checkout LF. Il controllo sul
+CR isolato idem — un file puo' essere CRLF perche' cosi' e' stato estratto, ma un
+CR non seguito da LF nessuna conversione lo produce.
+
+**Chi ne aveva bisogno per definizione** sta in `backend/tests_history/`. Il
+perimetro di fase misura `git diff START..END`: senza storia non e'
+ricalcolabile. Le due alternative sono peggiori — un manifest che ne registri il
+risultato verificherebbe soltanto se stesso, e una fixture sintetica proverebbe
+che `PhaseScope` funziona, non che *questa* fase ha scritto dentro il proprio
+perimetro.
+
+    python -m benchmarks.mtb_evidence.evaluation.run_repository_history_validation
+
+**Obbligatoria** dove una storia c'e'. Nell'archivio e' `not_applicable` con un
+codice d'uscita suo (5), non «saltata»: uno skip dice che un test non e' stato
+eseguito, `not_applicable` dice che in quell'ambiente il test non ha soggetto.
+
 ## La matrice dei quattro ambienti
 
 Misurata sul commit finale, con entrambi i runner. Gli ambienti 2, 3 e 4 non
