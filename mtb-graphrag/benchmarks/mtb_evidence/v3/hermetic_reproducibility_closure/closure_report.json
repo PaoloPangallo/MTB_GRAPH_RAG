@@ -1,87 +1,108 @@
 {
+  "content_sha256": {
+    "artifact_hash_erratum.json": "bfdb0d0ae0176e777daf16671cbbd4e74b5a56ac6cd81ef1bfc2ae2ba1fbd239",
+    "generator_provenance_erratum.json": "1d71d1c2bd67d19d183ab9872da157a8ef1b2883d79b1e23c4ff07e239724804",
+    "hash_policy.py": "3c5336a91db364de5cb7aafd003091c7692a535a3cd1d348e777cc9308a9ddd4",
+    "tree_hash_erratum.json": "b5cd0acd25c4a8b89b201fbc6ce7565bd314fb9ce94cb497f78e7d570b76ecbf",
+    "tree_hash_policy.py": "bd93e194b2f9da9cc1ba8fe310e59d66f33567e21f22dcefbda08c4d30689e2d"
+  },
   "core_suite": {
-    "collected": 2652,
+    "collected": 2631,
     "discovery_root": "backend/tests",
     "environments": {
       "1_working_tree": {
         "external_inputs_present": true,
+        "git_history": true,
+        "history_suite": {
+          "exit": 0,
+          "passed": 18,
+          "status": "applicable"
+        },
         "pytest": {
+          "errors": 0,
           "failed": 0,
-          "passed": 2647,
-          "skipped": 5,
-          "subtests_passed": 37269
+          "passed": 2626,
+          "skipped": 5
         },
         "unittest": {
           "outcome": "OK",
-          "ran": 2606,
+          "ran": 2585,
           "skipped": 5
         }
       },
       "2_worktree_detached": {
         "external_inputs_present": false,
+        "git_history": true,
+        "history_suite": {
+          "exit": 0,
+          "passed": 18,
+          "status": "applicable"
+        },
         "pytest": {
-          "failed": 15,
-          "passed": 2647,
-          "skipped": 5,
-          "subtests_passed": 37249
+          "errors": 0,
+          "failed": 0,
+          "passed": 2626,
+          "skipped": 5
         },
         "unittest": {
-          "failures": 15,
-          "outcome": "FAILED",
-          "ran": 2606,
+          "outcome": "OK",
+          "ran": 2585,
           "skipped": 5
         }
       },
       "3_clone": {
         "external_inputs_present": false,
+        "git_history": true,
+        "history_suite": {
+          "exit": 0,
+          "passed": 18,
+          "status": "applicable"
+        },
         "pytest": {
-          "failed": 15,
-          "passed": 2647,
-          "skipped": 5,
-          "subtests_passed": 37249
+          "errors": 0,
+          "failed": 0,
+          "passed": 2626,
+          "skipped": 5
         },
         "unittest": {
-          "failures": 15,
-          "outcome": "FAILED",
-          "ran": 2606,
+          "outcome": "OK",
+          "ran": 2585,
           "skipped": 5
         }
       },
       "4_archive": {
         "external_inputs_present": false,
-        "note": "un archivio estratto non ha storia git: i test che la interrogano si dichiarano saltati, da cui 51 skip invece di 5 e 2577 test invece di 2606. Le identita' dei test falliti coincidono con quelle del clone.",
+        "git_history": false,
+        "history_suite": {
+          "exit": 5,
+          "note": "un archivio estratto non ha storia: la suite non e' saltata, non ha soggetto",
+          "status": "not_applicable"
+        },
         "pytest": {
-          "failed": 18,
-          "passed": 2601,
-          "skipped": 72,
-          "subtests_passed": 36636
+          "errors": 0,
+          "failed": 0,
+          "passed": 2626,
+          "skipped": 5
         },
         "unittest": {
-          "failures": 18,
-          "outcome": "FAILED",
-          "ran": 2577,
-          "skipped": 51
+          "outcome": "OK",
+          "ran": 2585,
+          "skipped": 5
         }
       },
-      "open_defect": {
-        "affected_environments": [
-          "2_worktree_detached",
-          "3_clone",
-          "4_archive"
-        ],
-        "description": "Gli hash di albero congelati furono misurati su un working tree in cui 65 file sono CRLF su disco, perche' vi furono estratti prima che mtb-graphrag/benchmarks/.gitattributes imponesse LF (commit 63ed143). Un checkout pulito li consegna in LF e l'hash di albero cambia. Identici in forma LF: nessuna differenza di contenuto.",
-        "distinct_tests": 5,
-        "families": [
-          "test_prototype_corpus_promotion_1_4.py::OperationalIntegrityTests::test_the_shadow_repositories_are_unchanged",
-          "test_pre_promotion_required_fixes_1_4.py::IntegrityTests::test_the_shadow_repositories_are_unchanged",
-          "test_pre_promotion_audit_1_3.py::IntegrityTests::test_the_current_hashes_still_match_the_recorded_ones",
-          "test_author_approval_23344087.py::TestBlinding::test_the_previous_phases_are_untouched",
-          "test_author_approval_23344087.py::TestDeterminism::test_the_committed_artifacts_match_a_fresh_run"
-        ],
-        "pre_existing_at": "b6694ba",
-        "reason_code_candidate": "LEGACY_LINE_ENDING_DEPENDENT_TREE_HASH",
-        "scope_note": "fuori dal perimetro dichiarato per questo turno, che chiude esclusivamente i tre failure della suite gold",
-        "status": "open_out_of_scope"
+      "core_skips": [
+        "test_model_integration_optional.py:60 RUN_LLM_INTEGRATION",
+        "test_model_integration_optional.py:68 RUN_LLM_INTEGRATION",
+        "test_model_integration_optional.py:87 RUN_CLOUD_MODEL_INTEGRATION",
+        "test_model_integration_optional.py:98 RUN_CLOUD_MODEL_INTEGRATION",
+        "test_qualification_corpus_artifacts.py:367 MTB_ALLOW_NETWORK_TESTS"
+      ],
+      "criterion": "parita' verificata per runner separatamente: unittest identico nei quattro ambienti, pytest identico nei quattro. Non e' richiesto che i due runner concordino fra loro.",
+      "discovery_reclassification": {
+        "file_hash_related": 3,
+        "note": "delle quindici failure osservate in un checkout pulito, la discovery ha stabilito che dodici dipendono da hash di albero e tre da hash di file. Le tre sono chiuse sotto artifact_hash_erratum, non sotto il reason code di albero.",
+        "total": 15,
+        "tree_hash_related": 12
       }
     },
     "opens_external_input": false
@@ -120,6 +141,21 @@
       "tree": "backend/tests_external/source_cache"
     }
   },
+  "external_suites_measured": {
+    "gold": {
+      "exit": 0,
+      "failed": 0,
+      "passed": 100,
+      "skipped": 2
+    },
+    "source_cache": {
+      "exit": 0,
+      "failed": 0,
+      "passed": 84,
+      "skipped": 0
+    }
+  },
+  "final_commit": "0fd5d1bae64f765f571d4d5ebbb3700cbf491aa5",
   "hash_policy": {
     "computed_from": "read_bytes",
     "lone_carriage_return": "rejected",
@@ -127,6 +163,23 @@
     "version": "artifact_hash_policy/2.0"
   },
   "phase": "hermetic-reproducibility-closure/1.0",
+  "readiness": {
+    "archive_green": true,
+    "artifact_tree_hash_policy_frozen": true,
+    "canonical_tree_hashes_reproducible": true,
+    "clone_green": true,
+    "core_counts_identical_per_runner": true,
+    "detached_worktree_green": true,
+    "gold_suite_green": true,
+    "historical_tree_hashes_preserved": true,
+    "history_suite_green_where_applicable": true,
+    "rerun_ready": true,
+    "residual_blockers": 0,
+    "retrieval_behavior_unchanged": true,
+    "source_cache_suite_green": true,
+    "tree_hash_erratum_complete": true,
+    "working_tree_green": true
+  },
   "schema_version": "hermetic_closure_report/1.0",
   "verified_through_erratum": {
     "artifact_hash_erratum": {
