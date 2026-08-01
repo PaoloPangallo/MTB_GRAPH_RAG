@@ -1,0 +1,62 @@
+{
+  "allowed_buckets": [
+    "primary",
+    "warning",
+    "audit",
+    "rejected",
+    null
+  ],
+  "allowed_fields": [
+    "annotated_at",
+    "annotation_protocol_version",
+    "annotation_unit_id",
+    "applicability_status",
+    "biomarker_match",
+    "bucket",
+    "direction_match",
+    "disease_scope_match",
+    "evaluable",
+    "formulation_match",
+    "intervention_match",
+    "provenance_status",
+    "rationale_codes",
+    "regimen_or_aggregate_status",
+    "reviewer_id",
+    "separability_status",
+    "short_note",
+    "source_available",
+    "source_checked",
+    "uncertainty"
+  ],
+  "allowed_uncertainty": [
+    "none",
+    "low",
+    "material"
+  ],
+  "modes": {
+    "complete": "all batch units required",
+    "partial": "missing units allowed"
+  },
+  "required_fields": [
+    "annotated_at",
+    "annotation_protocol_version",
+    "annotation_unit_id",
+    "applicability_status",
+    "biomarker_match",
+    "bucket",
+    "direction_match",
+    "disease_scope_match",
+    "evaluable",
+    "formulation_match",
+    "intervention_match",
+    "provenance_status",
+    "rationale_codes",
+    "regimen_or_aggregate_status",
+    "reviewer_id",
+    "separability_status",
+    "source_available",
+    "source_checked",
+    "uncertainty"
+  ],
+  "schema_version": "g1.1-response-validation/1.0"
+}
