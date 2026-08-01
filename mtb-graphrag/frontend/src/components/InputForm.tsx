@@ -23,10 +23,11 @@ import type { MTBRequest, AlterationType } from '../types';
 interface InputFormProps {
   onSubmit: (req: MTBRequest, isZeroShot: boolean) => void;
   onCompare: (req: MTBRequest, conditions: string[]) => void;
+  onV3Retrieve?: (req: MTBRequest) => void;
   disabled: boolean;
 }
 
-export default function InputForm({ onSubmit, onCompare, disabled }: InputFormProps) {
+export default function InputForm({ onSubmit, onCompare, onV3Retrieve, disabled }: InputFormProps) {
   const [gene, setGene] = useState('EGFR');
   const [variant, setVariant] = useState('L858R');
   const [tumorType, setTumorType] = useState('Lung Adenocarcinoma');
@@ -213,6 +214,29 @@ export default function InputForm({ onSubmit, onCompare, disabled }: InputFormPr
             >
               Genera Baseline Zero-Shot
             </Button>
+
+            {onV3Retrieve && (
+              <Button
+                type="button"
+                variant="outlined"
+                color="success"
+                size="medium"
+                disabled={disabled}
+                onClick={() => onV3Retrieve({
+                  gene,
+                  variant,
+                  tumor_type: tumorType,
+                  alteration_type: alterationType,
+                  therapy_line: therapyLine,
+                  enrich_with_oncokb: false,
+                  driver_variant: driverVariant || undefined,
+                  mtb_goal: 'treatment-evidence',
+                })}
+                disableElevation
+              >
+                Recupera evidenze V3 strutturate
+              </Button>
+            )}
 
             <Divider sx={{ my: 0.5 }}>
               <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>

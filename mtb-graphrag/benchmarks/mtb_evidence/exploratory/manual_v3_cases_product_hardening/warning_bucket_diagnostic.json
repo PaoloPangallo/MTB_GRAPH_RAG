@@ -1,0 +1,74 @@
+{
+  "diagnostic_version": "v3_product_warning_diagnostic/1.0",
+  "scope": "exploratory product hardening; no protocol or gate changes",
+  "static_search_files": [
+    "backend/pipeline/evidence/shadow/integrated_gates_v13.py",
+    "backend/pipeline/evidence/shadow/integrated_gates_v12.py",
+    "backend/pipeline/evidence/shadow/structural_gates.py"
+  ],
+  "observed_cases": [
+    {
+      "case": 1,
+      "warning": 0,
+      "warnings": [
+        "CLAIM_DISEASE_SCOPE_BROADER_THAN_QUERY",
+        "DIRECTION_UNKNOWN_NOT_ASSUMED_COMPATIBLE",
+        "NEGATIVE_DIRECTION_PRESERVED",
+        "PRECLINICAL_NOT_CLINICAL_BENEFIT"
+      ]
+    },
+    {
+      "case": 2,
+      "warning": 0,
+      "warnings": [
+        "CLAIM_DISEASE_SCOPE_NARROWER_THAN_QUERY",
+        "DIRECTION_UNKNOWN_NOT_ASSUMED_COMPATIBLE",
+        "NEGATIVE_DIRECTION_PRESERVED",
+        "PRECLINICAL_NOT_CLINICAL_BENEFIT"
+      ]
+    },
+    {
+      "case": 3,
+      "warning": 0,
+      "warnings": [
+        "CLAIM_DISEASE_SCOPE_NARROWER_THAN_QUERY",
+        "DIRECTION_UNKNOWN_NOT_ASSUMED_COMPATIBLE",
+        "NEGATIVE_DIRECTION_PRESERVED",
+        "PRECLINICAL_NOT_CLINICAL_BENEFIT"
+      ]
+    },
+    {
+      "case": 4,
+      "warning": 0,
+      "warnings": [
+        "CLAIM_DISEASE_SCOPE_NARROWER_THAN_QUERY",
+        "NEGATIVE_DIRECTION_PRESERVED",
+        "PRECLINICAL_NOT_CLINICAL_BENEFIT"
+      ]
+    }
+  ],
+  "static_findings": [
+    {
+      "finding": "warning bucket is assigned from final_bucket == WARNING_BUCKET in integrated_gates_v13.py",
+      "evidence": "warning = final_bucket == WARNING_BUCKET"
+    },
+    {
+      "finding": "objects demoted to audit/rejected have warning eligibility disabled",
+      "evidence": "if final_bucket in (REJECTED_BUCKET, AUDIT_BUCKET): primary = warning = False"
+    },
+    {
+      "finding": "provenance containers and associations are classified by object invariants before score promotion",
+      "evidence": "structural_gates.py demotes deprecated/audit_only objects"
+    },
+    {
+      "finding": "warning codes can be emitted without a warning bucket",
+      "evidence": "warnings are accumulated independently from final_bucket"
+    }
+  ],
+  "conclusion": {
+    "warning_logic_reachable": true,
+    "warning_bucket_bug_demonstrated": false,
+    "correction_applied": false,
+    "interpretation": "Il valore zero nei quattro casi non dimostra un bug. Le limitazioni osservate ricadono in audit/rejected perch? un gate incompatibile o un record tecnico prevale sul warning."
+  }
+}
