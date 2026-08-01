@@ -27,7 +27,8 @@ import ReportView from './components/ReportView';
 import StructuredData from './components/StructuredData';
 import JudgePanel from './components/JudgePanel';
 import ArchitectureComparison from './components/ArchitectureComparison';
-import type { MTBRequest, ReportResponse, JudgeResponse } from './types';
+import V3EvidenceView from './components/V3EvidenceView';
+import type { MTBRequest, ReportResponse, JudgeResponse, V3RetrieveResponse } from './types';
 
 function App() {
   const [architectureView, setArchitectureView] = useState(false);
@@ -36,6 +37,8 @@ function App() {
   const [isZeroShotMode, setIsZeroShotMode] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reportData, setReportData] = useState<ReportResponse | null>(null);
+  const [v3Data, setV3Data] = useState<V3RetrieveResponse | null>(null);
+  const [v3Loading, setV3Loading] = useState(false);
   const [, setZeroShotData] = useState<ReportResponse | null>(null);
   const [judgeData, setJudgeData] = useState<JudgeResponse | null>(null);
   const [lastRequest, setLastRequest] = useState<MTBRequest | null>(null);
@@ -152,6 +155,37 @@ function App() {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleV3Retrieve = async (req: MTBRequest) => {
+    setV3Loading(true);
+    setError(null);
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/v3/retrieve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query_id: 'ui-v3-retrieve',
+          claim_domain: 'therapeutic',
+          gene: req.gene || '',
+          alteration: req.variant,
+          disease: req.tumor_type,
+          interventions: [],
+          direction: req.mtb_goal === 'resistance' ? 'resistance' : '',
+          policy_mode: 'strict_verified',
+          include_warning: true,
+          include_audit: true,
+          include_rejected: true,
+          result_limit: 50,
+        }),
+      });
+      if (!response.ok) throw new Error(`Errore V3 HTTP ${response.status}`);
+      setV3Data(await response.json() as V3RetrieveResponse);
+    } catch (err: any) {
+      setError(err.message || 'Errore durante il recupero V3');
+    } finally {
+      setV3Loading(false);
     }
   };
 
@@ -301,7 +335,8 @@ function App() {
             <InputForm
               onSubmit={handleAnalyze}
               onCompare={handleCompare}
-              disabled={loading || isCompareLoading}
+              onV3Retrieve={handleV3Retrieve}
+              disabled={loading || isCompareLoading || v3Loading}
             />
           </Grid>
 
@@ -311,6 +346,13 @@ function App() {
                 {error}
               </Alert>
             )}
+
+            {v3Loading && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+                <CircularProgress size={32} />
+              </Box>
+            )}
+            {v3Data && !v3Loading && <Box sx={{ mb: 3 }}><V3EvidenceView data={v3Data} /></Box>}
 
             {compareMode ? (
               (() => {

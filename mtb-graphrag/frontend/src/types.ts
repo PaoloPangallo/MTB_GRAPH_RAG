@@ -324,3 +324,54 @@ export interface SubGraphData {
   nodes: GraphNode[];
   links: GraphLink[];
 }
+
+export interface V3ReasonCode {
+  code: string;
+  human_message: string;
+}
+
+export interface V3EvidenceRecord {
+  claim_id: string;
+  candidate_kind: string;
+  subject: string | null;
+  relation: string | null;
+  object: string | null;
+  structured_tuple_complete: boolean;
+  claim_text: string | null;
+  disease: string | null;
+  biomarker: string | null;
+  intervention: string | null;
+  formulation: string | null;
+  regimen: string[] | null;
+  direction: string | null;
+  evidence_type: string | null;
+  applicability: string;
+  separability: string | null;
+  status: string | null;
+  bucket: string;
+  score: Record<string, unknown>;
+  rank: number;
+  reason_codes: V3ReasonCode[];
+  gate_trace: Array<Record<string, unknown>>;
+  qualifiers: string[];
+  parent_graph_evidence_record: Record<string, unknown>;
+  source_unit: string | null;
+  provenance: Record<string, unknown>;
+}
+
+export interface V3RetrieveResponse {
+  case_context: Record<string, unknown>;
+  summary: {
+    total_records: number;
+    claim_records: number;
+    technical_records: number;
+    primary: number;
+    warning: number;
+    audit_claims: number;
+    rejected_claims: number;
+  };
+  evidence: Record<'primary' | 'warning' | 'audit' | 'rejected', V3EvidenceRecord[]>;
+  technical_records: Record<string, V3EvidenceRecord[]>;
+  abstention: boolean;
+  metadata: Record<string, unknown>;
+}

@@ -1,0 +1,106 @@
+{
+  "exploratory_only": true,
+  "backend": "qualified_claim_v3",
+  "repository_version": "qualified_claim_repository/1.4",
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "cases": [
+    {
+      "case": 1,
+      "query_id": "manual-01-fgfr2-direct",
+      "summary": {
+        "total_records": 311,
+        "claim_records": 148,
+        "technical_records": 163,
+        "primary": 1,
+        "warning": 0,
+        "audit_claims": 0,
+        "rejected_claims": 147
+      },
+      "technical_breakdown": {
+        "provenance_containers": 147,
+        "unresolved_associations": 6,
+        "unsupported_associations": 6,
+        "deprecated_claims": 4,
+        "other": 0
+      },
+      "latency_ms": 156,
+      "abstention": false,
+      "missing_provenance_claims": 131
+    },
+    {
+      "case": 2,
+      "query_id": "manual-02-alk-resistance",
+      "summary": {
+        "total_records": 311,
+        "claim_records": 148,
+        "technical_records": 163,
+        "primary": 1,
+        "warning": 0,
+        "audit_claims": 0,
+        "rejected_claims": 147
+      },
+      "technical_breakdown": {
+        "provenance_containers": 147,
+        "unresolved_associations": 6,
+        "unsupported_associations": 6,
+        "deprecated_claims": 4,
+        "other": 0
+      },
+      "latency_ms": 151,
+      "abstention": false,
+      "missing_provenance_claims": 131
+    },
+    {
+      "case": 3,
+      "query_id": "manual-03-egfr-limitation",
+      "summary": {
+        "total_records": 311,
+        "claim_records": 148,
+        "technical_records": 163,
+        "primary": 3,
+        "warning": 0,
+        "audit_claims": 1,
+        "rejected_claims": 144
+      },
+      "technical_breakdown": {
+        "provenance_containers": 147,
+        "unresolved_associations": 6,
+        "unsupported_associations": 6,
+        "deprecated_claims": 4,
+        "other": 0
+      },
+      "latency_ms": 158,
+      "abstention": false,
+      "missing_provenance_claims": 131
+    },
+    {
+      "case": 4,
+      "query_id": "manual-04-rmi2-no-direct",
+      "summary": {
+        "total_records": 311,
+        "claim_records": 148,
+        "technical_records": 163,
+        "primary": 0,
+        "warning": 0,
+        "audit_claims": 0,
+        "rejected_claims": 148
+      },
+      "technical_breakdown": {
+        "provenance_containers": 147,
+        "unresolved_associations": 6,
+        "unsupported_associations": 6,
+        "deprecated_claims": 4,
+        "other": 0
+      },
+      "latency_ms": 157,
+      "abstention": true,
+      "missing_provenance_claims": 131
+    }
+  ],
+  "official_ledgers_modified": false,
+  "gold_read_count": 0,
+  "endpoint": "/api/v1/v3/retrieve",
+  "entrypoint": "EvidenceRetrievalPipeline.run(retrieval_backend=qualified_claim_v3)",
+  "llm_used_for_classification": false,
+  "planner_used": false
+}
