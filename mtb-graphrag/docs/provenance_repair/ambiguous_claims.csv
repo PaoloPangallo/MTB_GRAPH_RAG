@@ -1,0 +1,2 @@
+claim_id,parent_id,claim_type,candidate_source_unit_count,candidate_publication_count,first_ambiguous_point,status,reason,recommendation
+CLM-0f234bc9c53847910521,GEP-e85a4cca147f64591ac6,atomic_intervention_claim,6,6,parent -> publication/source-unit mapping,AMBIGUOUS_PARENT_PROVENANCE,Multiple parent publications have no claim-specific mapping.,investigate manually; do not promote

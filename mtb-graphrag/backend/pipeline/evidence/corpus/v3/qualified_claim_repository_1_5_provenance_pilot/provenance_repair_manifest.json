@@ -1,0 +1,311 @@
+{
+  "bucket_semantics_modified": false,
+  "decisions": {
+    "CLM-0269a5c7db107cd8a893": {
+      "confidence": "high",
+      "locators": [],
+      "reason": "One parent publication is available without claim-specific mapping.",
+      "rule": "PARENT_PUBLICATION_ONLY",
+      "source_ids": [],
+      "source_unit_ids": [],
+      "status": "PARENT_PUBLICATION_AVAILABLE"
+    },
+    "CLM-091cf6602db85e2a2d41": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:24550739",
+          "text": "abstract, frase sulla linea con ponatinib dopo progressione su pazopanib"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:24550739"
+      ],
+      "source_unit_ids": [
+        "SU-24550739-patient-tacc3-ponatinib-line"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-0e59264facd7b2df0e67": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:25393796",
+          "text": "abstract, clausola sulla resistenza acquisita ad alectinib, paziente con EML4-ALK variante 3a/b"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:25393796"
+      ],
+      "source_unit_ids": [
+        "SU-25393796-patient-eml4-alk-i1171s"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-0f234bc9c53847910521": {
+      "confidence": "high",
+      "locators": [],
+      "reason": "Multiple parent publications have no claim-specific mapping.",
+      "rule": "PARENT_HAS_MULTIPLE_PUBLICATIONS",
+      "source_ids": [],
+      "source_unit_ids": [],
+      "status": "AMBIGUOUS_PARENT_PROVENANCE"
+    },
+    "CLM-1d3ba8b6ae49232969c7": {
+      "confidence": "high",
+      "locators": [],
+      "reason": "One parent publication is available without claim-specific mapping.",
+      "rule": "PARENT_PUBLICATION_ONLY",
+      "source_ids": [],
+      "source_unit_ids": [],
+      "status": "PARENT_PUBLICATION_AVAILABLE"
+    },
+    "CLM-1ee5f9a16a678cebf993": {
+      "confidence": "high",
+      "locators": [],
+      "reason": "One parent publication is available without claim-specific mapping.",
+      "rule": "PARENT_PUBLICATION_ONLY",
+      "source_ids": [],
+      "source_unit_ids": [],
+      "status": "PARENT_PUBLICATION_AVAILABLE"
+    },
+    "CLM-1fc4af943701d57d45ad": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:24736073",
+          "text": "abstract, frase dei risultati, gruppo trattato con gefitinib (n = 228)"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:24736073"
+      ],
+      "source_unit_ids": [
+        "SU-24736073-group-gefitinib"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-382985ec558808784e70": {
+      "confidence": "high",
+      "locators": [],
+      "reason": "One parent publication is available without claim-specific mapping.",
+      "rule": "PARENT_PUBLICATION_ONLY",
+      "source_ids": [],
+      "source_unit_ids": [],
+      "status": "PARENT_PUBLICATION_AVAILABLE"
+    },
+    "CLM-4a89bb28592af7ebaccf": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:38942080",
+          "text": "abstract, braccio amivantamab-lazertinib contro osimertinib"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:38942080"
+      ],
+      "source_unit_ids": [
+        "SU-38942080-arm-amivantamab-lazertinib"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-4ffe85304f3ef5533b58": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:24457318",
+          "text": "abstract, coorte retrospettiva di 70 pazienti trattati con EGFR-TKI"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:24457318"
+      ],
+      "source_unit_ids": [
+        "SU-24457318-cohort-egfr-tki"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-5071bb2d8657ac0fbed0": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:24122810",
+          "text": "abstract, enunciato finale sulla soppressione della trasformazione, cellule NIH3T3"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:24122810"
+      ],
+      "source_unit_ids": [
+        "SU-24122810-nih3t3-fgfr-inhibitor-assay"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-5ce532268b4aa1661311": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:26698910",
+          "text": "full_text, Case Report, biopsia del linfonodo in progressione durante crizotinib con riscontro di ALK C1156Y"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:26698910"
+      ],
+      "source_unit_ids": [
+        "SU-26698910-patient-c1156y-crizotinib-first-line",
+        "SU-26698910-patient-c1156y-crizotinib-rechallenge"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-6016e0878e055658200e": {
+      "confidence": "high",
+      "locators": [],
+      "reason": "One parent publication is available without claim-specific mapping.",
+      "rule": "PARENT_PUBLICATION_ONLY",
+      "source_ids": [],
+      "source_unit_ids": [],
+      "status": "PARENT_PUBLICATION_AVAILABLE"
+    },
+    "CLM-8941c177da91f66ff93a": {
+      "confidence": "high",
+      "locators": [
+        {
+          "abstract_sentence": 2,
+          "section": "UNLABELLED",
+          "source_id": "PMID:24122810"
+        },
+        {
+          "abstract_sentence": 3,
+          "section": "UNLABELLED",
+          "source_id": "PMID:24122810"
+        },
+        {
+          "abstract_sentence": 4,
+          "section": "UNLABELLED",
+          "source_id": "PMID:24122810"
+        },
+        {
+          "abstract_sentence": 0,
+          "section": "CONCLUSION",
+          "source_id": "PMID:24122810"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:24122810",
+        "PMID:24122810",
+        "PMID:24122810",
+        "PMID:24122810"
+      ],
+      "source_unit_ids": [
+        "PU-PMID-24122810-cohort-1"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-89ea67ee7946d9ccd552": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:24736073",
+          "text": "abstract, frase dei risultati, gruppo trattato con erlotinib (n = 147)"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:24736073"
+      ],
+      "source_unit_ids": [
+        "SU-24736073-group-erlotinib"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-90e863f00f134fc3cd3d": {
+      "confidence": "high",
+      "locators": [
+        {
+          "source_id": "PMID:24122810",
+          "text": "abstract, enunciato finale sulla soppressione della trasformazione, cellule NIH3T3"
+        }
+      ],
+      "reason": "Claim already contains source unit and locator.",
+      "rule": "EXISTING_CLAIM_MAPPING",
+      "source_ids": [
+        "PMID:24122810"
+      ],
+      "source_unit_ids": [
+        "SU-24122810-nih3t3-fgfr-inhibitor-assay"
+      ],
+      "status": "CLAIM_VERIFIED_LOCATOR"
+    },
+    "CLM-d4bee44e07efb6ccca9f": {
+      "confidence": "high",
+      "locators": [],
+      "reason": "One parent publication is available without claim-specific mapping.",
+      "rule": "PARENT_PUBLICATION_ONLY",
+      "source_ids": [],
+      "source_unit_ids": [],
+      "status": "PARENT_PUBLICATION_AVAILABLE"
+    },
+    "CLM-e565f65d73cb1d4aa67b": {
+      "confidence": "high",
+      "locators": [],
+      "reason": "One parent publication is available without claim-specific mapping.",
+      "rule": "PARENT_PUBLICATION_ONLY",
+      "source_ids": [],
+      "source_unit_ids": [],
+      "status": "PARENT_PUBLICATION_AVAILABLE"
+    }
+  },
+  "explicit_mapping_source": "benchmarks\\mtb_evidence\\v3\\integrated_shadow_repository_1_3\\qualification_link_regeneration_plan_v1_3.jsonl",
+  "gate_semantics_modified": false,
+  "knowledge_graph_modified": false,
+  "materialization_status": "pilot_overlay_not_default",
+  "operational_retriever_bound": false,
+  "pilot_claim_ids": [
+    "CLM-1d3ba8b6ae49232969c7",
+    "CLM-0f234bc9c53847910521",
+    "CLM-1ee5f9a16a678cebf993",
+    "CLM-382985ec558808784e70",
+    "CLM-d4bee44e07efb6ccca9f",
+    "CLM-e565f65d73cb1d4aa67b",
+    "CLM-0269a5c7db107cd8a893",
+    "CLM-6016e0878e055658200e",
+    "CLM-0e59264facd7b2df0e67",
+    "CLM-5ce532268b4aa1661311",
+    "CLM-4ffe85304f3ef5533b58",
+    "CLM-5071bb2d8657ac0fbed0",
+    "CLM-90e863f00f134fc3cd3d",
+    "CLM-8941c177da91f66ff93a",
+    "CLM-1fc4af943701d57d45ad",
+    "CLM-89ea67ee7946d9ccd552",
+    "CLM-091cf6602db85e2a2d41",
+    "CLM-4a89bb28592af7ebaccf"
+  ],
+  "repository_version": "qualified_claim_repository/1.5-provenance-pilot",
+  "scoring_semantics_modified": false,
+  "sha256": {
+    "diagnostic_claims.jsonl": "0e58d51ebff6175c17404f22c67560de51816d603c1428378fec40e9b8e1ba1f",
+    "evidence_claims.jsonl": "4612055a8a88d2e59af4e2d8c299d834ac6ac883451cd0cba30fb76db272549a",
+    "graph_evidence_parents.jsonl": "152327cc74801806b6916a26f99b7c220ff2eb0c84599a2c59827a04c8a3926d",
+    "therapeutic_claims.jsonl": "598448099ba080701dfbf81c872ba2e1ba2d2af437269da21e9794849c2af81a"
+  },
+  "source_repository_version": "qualified_claim_repository/1.4"
+}
