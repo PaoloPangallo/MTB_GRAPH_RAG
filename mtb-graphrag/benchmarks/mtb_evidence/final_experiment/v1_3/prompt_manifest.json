@@ -1,0 +1,21 @@
+{
+  "content_sha256": "4da19d46bffc1fb640c7f12af9ede84be935dd88e49c5cae5ab478484343187c",
+  "model_identifiers": [
+    "gemma4:31b-cloud",
+    "nemotron-3-nano:30b",
+    "minimax-m3"
+  ],
+  "prompt_files": {
+    "gemma_renderer_system.txt": "6b6aebf915bf6a1f5ac6a938fbf2c910dd566f59e168467d0e35f7af14b1b099",
+    "gemma_renderer_user_template.txt": "a7ef180d8aa1ccd3a093c3b9c0dbee50da3e14321b65a115fc976ac88d3ed9a4",
+    "judge_input_schema.json": "e37720ab68fd755e3c7cda1b97ccec120e4c7ea8598727ab77a9ceb618feb4d7",
+    "judge_output_schema.json": "e37720ab68fd755e3c7cda1b97ccec120e4c7ea8598727ab77a9ceb618feb4d7",
+    "minimax_m3_judge_rubric.json": "9fabb6c9ce3ddaf6a1cb8ca076d763a8779d1050ee31caffef0e4346a72bd9d7",
+    "minimax_m3_judge_system.txt": "224dd5f90fdc696a22b497bc0c2c8c03a348df0fbf9be8d66c3011b83d7e6df9",
+    "nemotron_renderer_system.txt": "d5d250089a2cb6601b62dde564c6a781137a31775ac4c1233e9ae328f90f94fa",
+    "nemotron_renderer_user_template.txt": "ce23ea65b37aab935fcc36d00fd8712848b040b53d1c04cf160431494194ceaf",
+    "rendering_input_schema.json": "e37720ab68fd755e3c7cda1b97ccec120e4c7ea8598727ab77a9ceb618feb4d7",
+    "rendering_output_schema.json": "e37720ab68fd755e3c7cda1b97ccec120e4c7ea8598727ab77a9ceb618feb4d7"
+  },
+  "temperature": 0
+}

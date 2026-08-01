@@ -1,0 +1,16 @@
+{
+  "content_sha256": "37fc6d81ff6db163d16182c8280973c510a5d61c8e3fc6b640eb1b3c1216ce37",
+  "parent_protocol_commit": "9fd14cb6917be0e0d765b996ef839529aa0b17ec",
+  "parent_protocol_version": "1.2",
+  "query_changes": false,
+  "replacement_reasons": [
+    "builder ancestry check",
+    "formal primary endpoint",
+    "canonical hash policy",
+    "prompt/rubric bundle"
+  ],
+  "semantic_changes": false,
+  "v1_2_gold_reads": 0,
+  "v1_2_official_runs": 0,
+  "v1_2_status": "superseded_before_execution"
+}
