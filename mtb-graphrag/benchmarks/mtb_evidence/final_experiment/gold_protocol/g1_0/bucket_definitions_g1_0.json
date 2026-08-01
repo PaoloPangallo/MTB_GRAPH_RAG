@@ -1,0 +1,11 @@
+{
+  "schema_version": "gold-bucket-definitions/1.0",
+  "buckets": {
+    "primary": "Directly compatible evidence with all required query dimensions and qualifiers.",
+    "warning": "Relevant evidence with an explicit limitation preventing unqualified primary use.",
+    "audit": "Traceable information useful for review but insufficient for the primary result.",
+    "rejected": "Evidence structurally incompatible with one or more query requirements."
+  },
+  "non_bucket_states": ["unknown", "unresolved", "not_applicable", "not_separable", "source_missing", "provenance_incomplete"],
+  "source_missing_is_not_automatic_rejection": true
+}

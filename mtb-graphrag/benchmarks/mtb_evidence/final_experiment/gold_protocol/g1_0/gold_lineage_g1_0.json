@@ -1,0 +1,15 @@
+{
+  "schema_version": "gold-lineage/1.0",
+  "gold_protocol_version": "G1.0",
+  "parent_system_protocol_version": "1.6",
+  "parent_protocol_commit": "00bb7982fd897e4dfc5856732acaf01ae99aea46",
+  "structured_output_commit": "f8c44e5035cff210527fa7491b50781a6d8d1cf2",
+  "execution_branch": "run/v3-final-structured-v1.6",
+  "pilot_gold_reference": "MTB_Evidence_gold_pilot_v1",
+  "pilot_only": true,
+  "final_evaluable": false,
+  "gold_labels_generated_automatically": false,
+  "llm_annotation_used": false,
+  "annotation_status": "not_started",
+  "adjudication_status": "not_started"
+}

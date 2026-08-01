@@ -1,0 +1,482 @@
+{
+  "annotation_unit_count": 3256,
+  "candidate_count_per_query": [
+    311
+  ],
+  "candidate_universe_complete": false,
+  "corpus_claim_count": 148,
+  "corpus_version": "qualified_claim_repository/1.4",
+  "excluded_annotation_unit_count": 3586,
+  "generated_at": "2026-08-01T08:36:16.610841+00:00",
+  "gold_coverage_mode_eligible": false,
+  "notes": "The frozen corpus marks final_evaluable=false for its 148 active records; G1.0 does not convert that readiness flag into a gold label. Reviewers decide evaluable in the blind annotation response.",
+  "protocol_commit": "00bb7982fd897e4dfc5856732acaf01ae99aea46",
+  "protocol_version": "1.6",
+  "queries": [
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A01",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A02",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A03",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A04",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A05",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A06",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A07",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A08",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_core_applicability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "A09",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B01",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B02",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B03",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B04",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B05",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B06",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B07",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B08",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B09",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B10",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B11",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B12",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    },
+    {
+      "benchmark_id": "v3_advanced_capability",
+      "corpus_claim_count": 148,
+      "corpus_claim_evaluable_metadata_false": 148,
+      "corpus_claim_missing_in_output": [],
+      "duplicate_claim_ids": [],
+      "other_nonclaim_count": 4,
+      "output_candidate_count": 311,
+      "output_claim_count": 148,
+      "output_claims_outside_corpus": [
+        "CLM-2175b95ae3113c4f5d97",
+        "CLM-7056003a9bdef747f514",
+        "CLM-a7c903cf8d423f015e29",
+        "CLM-aae818bbc8ec735a255d"
+      ],
+      "provenance_container_count": 147,
+      "query_id": "B13",
+      "universe_complete": false,
+      "unresolved_association_count": 6,
+      "unsupported_association_count": 6
+    }
+  ],
+  "query_count": 22,
+  "schema_version": "candidate-universe-audit/1.0",
+  "structured_output_commit": "f8c44e5035cff210527fa7491b50781a6d8d1cf2"
+}
