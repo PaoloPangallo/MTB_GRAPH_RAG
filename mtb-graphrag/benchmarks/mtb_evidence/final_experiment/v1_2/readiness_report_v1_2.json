@@ -1,0 +1,47 @@
+{
+  "artifact_hashes_before_readiness": {
+    "all_queries_v1_2.jsonl": "a414ba968910429d58c63b11aa75ac999c301a2ab557bb6f60e31bb8402bf251",
+    "analysis_plan_v1_2.md": "edd057e129d7d1445925666ecc402b5a5d8b0b4946167601c49d06c3ca0b3531",
+    "metrics_v1_2.json": "bf249f69be252046da376f0d966b37a294d286613bbb8599654e5f2b1fdb6369",
+    "models_v1_2.json": "a399b877f086198e6cd1265a3074cac726fe54a6dde9b50fdbea7e1fc6449de5",
+    "official_ledger_manifest_v1_2.json": "58a0c97f3831f209236621e01210fe7e77c1b5bc2de564090d2ba05c9f918a07",
+    "protocol_v1_2.json": "4caa3cef234d17ec8a4300a8ec3ba1d9bd76875a4381dfad4cf0266611736121",
+    "protocol_v1_2.md": "bbc80d8c48f2da06e6af375a159906b47803587d88ae19f67d204f488f14803b",
+    "readiness_report_v1_2.json": "e2b63e66c154a62b5bea3d143da4ad34d202d9d5d037d8da4ed965fb681c70ce",
+    "run_plan_schema_v1_2.json": "6144ac539c26de45228b63cbdf53ba49802f637a127f8897cf54a3ae9d3d3724",
+    "run_plan_v1_2.jsonl": "10b75c9ee368e6c94852bdf7cd190964e7b8b8d4d01c4aa98bb3ecaf0a1b9cd2",
+    "v3_advanced_queries_v1_2.jsonl": "ce9b2f7174f23c88ea113838d1e78eb0de5d7a35c15ece445d34ce85fd9eb1e5",
+    "v3_core_queries_v1_2.jsonl": "8ef6126eccbb82695f404b4e3953533f1ae17349afa8a8eeefe0a6b6ae2cbf39"
+  },
+  "base_commit": "63940203498db23c3cdc5a400cd78575489dcfe2",
+  "blocker_count": 0,
+  "content_sha256": "c6f462c256e597b2382db3b24dcd16b45adee800cc86d28ca685b593d9b5e052",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "criteria": {
+    "132_slots": true,
+    "22_v3_queries": true,
+    "artifacts_validated": true,
+    "blocker_count": 0,
+    "gold_read_count_zero": true,
+    "ledger_empty": true,
+    "models_verified": true,
+    "no_v2_slots": true
+  },
+  "final_experiment_protocol_frozen": true,
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-08-01T12:00:00+02:00",
+  "gold_opening_authorized": false,
+  "gold_read_count": 0,
+  "graph_snapshot_digest": "2b4a1d6e731f4f490f5be134267a0801ec25c6e954a0e8958424e12b3f48899d",
+  "model_identifiers": [
+    "gemma4:31b-cloud",
+    "nemotron-3-nano:30b",
+    "minimax-m3"
+  ],
+  "official_runs_authorized": false,
+  "official_runs_executed": 0,
+  "parent_protocol_v1_1_hash": "e8e9acc14eab365f1010d48bb5833de75d2842f843344a0e35e7c413613af9c7",
+  "schema_version": "mtb-v3-readiness/1.2",
+  "status": "FROZEN_PRE_GOLD"
+}

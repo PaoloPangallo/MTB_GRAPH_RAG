@@ -1,0 +1,69 @@
+{
+  "base_commit": "63940203498db23c3cdc5a400cd78575489dcfe2",
+  "benchmarks": {
+    "total": 22,
+    "v3_advanced_capability": 13,
+    "v3_core_applicability": 9
+  },
+  "content_sha256": "6d5bbfddb85d378e0041888ccea678ec4a9b3fd1101c49defc3c90746be4a83a",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "final_experiment_protocol_frozen": true,
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-08-01T12:00:00+02:00",
+  "gold_opening_authorized": false,
+  "gold_read_count": 0,
+  "graph_snapshot_digest": "2b4a1d6e731f4f490f5be134267a0801ec25c6e954a0e8958424e12b3f48899d",
+  "hypotheses": [
+    "H1 bucket assignment correctness",
+    "H2 qualifier and separability preservation",
+    "H3 no unsupported/incompatible promotion",
+    "H4 source and GraphEvidenceRecord traceability",
+    "H5 LLM rendering preserves structured limitations",
+    "H6 correct abstention without undue recommendation"
+  ],
+  "model_identifiers": [
+    "gemma4:31b-cloud",
+    "nemotron-3-nano:30b",
+    "minimax-m3"
+  ],
+  "official_runs_authorized": false,
+  "parent_protocol_v1_1_hash": "e8e9acc14eab365f1010d48bb5833de75d2842f843344a0e35e7c413613af9c7",
+  "primary_endpoint": {
+    "formula": "mean query-level bucket_accuracy_q",
+    "name": "macro-averaged bucket decision accuracy",
+    "query_count": 22
+  },
+  "research_question": "La V3 evidence-centric riesce a recuperare, qualificare, classificare e presentare evidenze oncologiche in modo corretto, prudente, tracciabile e verificabile?",
+  "robustness_is_exploratory": true,
+  "run_plan": {
+    "cost": null,
+    "estimated_hours_sequential": [
+      2,
+      5
+    ],
+    "estimated_input_tokens": 867000,
+    "estimated_output_tokens": 159000,
+    "expected_llm_calls": 88,
+    "gemma_rendering": 44,
+    "mandatory_slots": 110,
+    "minimax_judge": 22,
+    "nemotron_rendering": 22,
+    "official_retries": 0,
+    "structured_retrieval": 44,
+    "timeouts_seconds": {
+      "judge": 60,
+      "rendering": 60,
+      "structured": 600
+    },
+    "total_slots": 132,
+    "upper_bound_llm_calls": 110
+  },
+  "schema_version": "mtb-v3-protocol/1.2",
+  "status": "FROZEN_PRE_GOLD",
+  "systems": [
+    "S3"
+  ],
+  "title": "MTB-GraphRAG V3-only final evaluation protocol V1.2",
+  "v2_slots": 0
+}

@@ -1,0 +1,56 @@
+{
+  "base_commit": "63940203498db23c3cdc5a400cd78575489dcfe2",
+  "composite_metric": false,
+  "content_sha256": "837b27388d8e2d87c9a998e0f76344ad733b53e01e04569fc9319fd77e00d4e3",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-08-01T12:00:00+02:00",
+  "gold_read_count": 0,
+  "graph_snapshot_digest": "2b4a1d6e731f4f490f5be134267a0801ec25c6e954a0e8958424e12b3f48899d",
+  "model_identifiers": [
+    "gemma4:31b-cloud",
+    "nemotron-3-nano:30b",
+    "minimax-m3"
+  ],
+  "other_metrics_analysis_class": "exploratory",
+  "parent_protocol_v1_1_hash": "e8e9acc14eab365f1010d48bb5833de75d2842f843344a0e35e7c413613af9c7",
+  "primary_endpoint": {
+    "formula": "mean(bucket_accuracy_q over evaluable queries)",
+    "macro_unit": "query",
+    "name": "macro-averaged bucket decision accuracy",
+    "query_count": 22
+  },
+  "report_endpoints": [
+    "supported sentence rate",
+    "partially supported sentence rate",
+    "unsupported sentence rate",
+    "qualifier preservation",
+    "scope broadening",
+    "citation accuracy",
+    "warning-to-assertion conversion rate",
+    "regimen/aggregate atomization rate"
+  ],
+  "schema_version": "mtb-v3-metrics/1.2",
+  "secondary_endpoints": [
+    "primary claim precision",
+    "warning precision",
+    "audit appropriateness",
+    "rejection recall",
+    "correct abstention rate",
+    "false abstention rate",
+    "applicability accuracy",
+    "qualifier preservation",
+    "disease-scope accuracy",
+    "biomarker-logic accuracy",
+    "intervention/formulation accuracy",
+    "regimen preservation",
+    "aggregate-separability accuracy",
+    "unsupported promotion rate",
+    "false atomic attribution rate",
+    "provenance completeness",
+    "gate-trace completeness",
+    "latency"
+  ],
+  "status": "FROZEN_PRE_GOLD"
+}
