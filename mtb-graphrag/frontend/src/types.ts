@@ -325,6 +325,55 @@ export interface SubGraphData {
   links: GraphLink[];
 }
 
+export interface V3Request {
+  query_id: string;
+  claim_domain: string;
+  gene: string;
+  alteration: string;
+  biomarker: string;
+  disease: string;
+  interventions: string[];
+  intervention_class: string;
+  intervention_combination: boolean;
+  direction: string;
+  policy_mode: string;
+  include_warning: boolean;
+  include_audit: boolean;
+  include_rejected: boolean;
+  result_limit: number;
+}
+
+export interface V3PipelineStage {
+  id: string;
+  label: string;
+  status: string;
+  input_count: number | null;
+  output_count: number | null;
+  latency_ms: number | null;
+  details: Record<string, unknown>;
+}
+
+export interface V3GateSummary {
+  gate: string;
+  label: string;
+  pass_count: number | null;
+  fail_count: number | null;
+  not_applicable_count: number | null;
+  warning_count: number | null;
+  counts_available: boolean;
+  reason_codes: string[];
+  explanations: string[];
+  note: string | null;
+}
+
+export interface V3PipelineObservability {
+  stages: V3PipelineStage[];
+  gate_summary: V3GateSummary[];
+  bucket_summary: Record<string, unknown>;
+  provenance_summary: Record<string, unknown>;
+  dossier_summary: Record<string, unknown>;
+}
+
 export interface V3ReasonCode {
   code: string;
   human_message: string;
@@ -374,4 +423,5 @@ export interface V3RetrieveResponse {
   technical_records: Record<string, V3EvidenceRecord[]>;
   abstention: boolean;
   metadata: Record<string, unknown>;
+  pipeline?: V3PipelineObservability;
 }

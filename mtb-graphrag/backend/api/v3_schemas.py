@@ -35,6 +35,37 @@ class V3RetrieveRequest(BaseModel):
         return payload
 
 
+class PipelineStage(BaseModel):
+    id: str
+    label: str
+    status: str
+    input_count: int | None = None
+    output_count: int | None = None
+    latency_ms: int | None = None
+    details: dict[str, Any] = Field(default_factory=dict)
+
+
+class GateSummary(BaseModel):
+    gate: str
+    label: str
+    pass_count: int | None = None
+    fail_count: int | None = None
+    not_applicable_count: int | None = None
+    warning_count: int | None = None
+    counts_available: bool = False
+    reason_codes: list[str] = Field(default_factory=list)
+    explanations: list[str] = Field(default_factory=list)
+    note: str | None = None
+
+
+class PipelineObservability(BaseModel):
+    stages: list[PipelineStage] = Field(default_factory=list)
+    gate_summary: list[GateSummary] = Field(default_factory=list)
+    bucket_summary: dict[str, Any] = Field(default_factory=dict)
+    provenance_summary: dict[str, Any] = Field(default_factory=dict)
+    dossier_summary: dict[str, Any] = Field(default_factory=dict)
+
+
 class V3RetrieveResponse(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -44,3 +75,4 @@ class V3RetrieveResponse(BaseModel):
     technical_records: dict[str, list[dict[str, Any]]]
     abstention: bool
     metadata: dict[str, Any]
+    pipeline: PipelineObservability

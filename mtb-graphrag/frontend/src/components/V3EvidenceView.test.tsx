@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import V3EvidenceView from './V3EvidenceView';
 import type { V3RetrieveResponse } from '../types';
@@ -33,5 +33,20 @@ describe('V3EvidenceView', () => {
   it('shows abstention when there are no primary or warning claims', () => {
     render(<V3EvidenceView data={{ ...response, abstention: true, summary: { ...response.summary, primary: 0 }, evidence: { ...response.evidence, primary: [] } }} />);
     expect(screen.getByText(/Nessuna evidenza direttamente applicabile/)).toBeInTheDocument();
+  });
+
+  it('offers the coordinated pipeline, provenance and technical views', () => {
+    render(<V3EvidenceView data={response} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Pipeline' }));
+    expect(screen.getByText('CaseContext normalizzato')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('tab', { name: 'Provenienza' }));
+    expect(screen.getByText(/Catena verificabile/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('tab', { name: 'Dati tecnici' }));
+    expect(screen.getByText(/non sono evidenze cliniche/)).toBeInTheDocument();
+  });
+
+  it('renders missing native score as unavailable instead of zero', () => {
+    render(<V3EvidenceView data={{ ...response, evidence: { ...response.evidence, primary: [{ ...response.evidence.primary[0], score: {} }] } }} />);
+    expect(screen.getByText('Punteggio strutturale: non disponibile')).toBeInTheDocument();
   });
 });
