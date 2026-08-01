@@ -1,0 +1,18 @@
+{
+  "schema_version": "gold-annotation-protocol/1.0",
+  "gold_protocol_version": "G1.0",
+  "unit": "(query_id, claim_id)",
+  "query_count": 22,
+  "source_protocol_commit": "00bb7982fd897e4dfc5856732acaf01ae99aea46",
+  "structured_output_commit": "f8c44e5035cff210527fa7491b50781a6d8d1cf2",
+  "candidate_universe": "frozen_primary_replica",
+  "blind": true,
+  "independent_double_review": true,
+  "automatic_label_generation": false,
+  "llm_annotation": false,
+  "pilot_calibration_excluded": true,
+  "buckets": ["primary", "warning", "audit", "rejected"],
+  "gold_coverage_mode": "exhaustive_candidate_universe",
+  "randomization_seed": 20260801,
+  "reviewers": ["reviewer_A", "reviewer_B", "adjudicator_C"]
+}

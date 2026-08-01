@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["annotation_unit_id", "reviewer_id", "evaluable", "bucket", "source_checked", "source_available", "biomarker_match", "disease_scope_match", "intervention_match", "formulation_match", "direction_match", "regimen_or_aggregate_status", "separability_status", "applicability_status", "provenance_status", "uncertainty", "rationale_codes", "annotated_at", "annotation_protocol_version"],
+  "properties": {
+    "annotation_unit_id": {"type": "string"},
+    "reviewer_id": {"type": "string", "pattern": "^(reviewer_A|reviewer_B|adjudicator_C)$"},
+    "evaluable": {"type": "boolean"},
+    "bucket": {"type": ["string", "null"], "enum": ["primary", "warning", "audit", "rejected", null]},
+    "source_checked": {"type": "boolean"},
+    "source_available": {"type": "boolean"},
+    "biomarker_match": {"type": "string"},
+    "disease_scope_match": {"type": "string"},
+    "intervention_match": {"type": "string"},
+    "formulation_match": {"type": "string"},
+    "direction_match": {"type": "string"},
+    "regimen_or_aggregate_status": {"type": "string"},
+    "separability_status": {"type": "string"},
+    "applicability_status": {"type": "string"},
+    "provenance_status": {"type": "string"},
+    "uncertainty": {"type": "string", "enum": ["none", "low", "material"]},
+    "rationale_codes": {"type": "array", "items": {"type": "string"}},
+    "short_note": {"type": "string"},
+    "annotated_at": {"type": "string"},
+    "annotation_protocol_version": {"const": "G1.0"}
+  },
+  "allOf": [{"if": {"properties": {"evaluable": {"const": false}}}, "then": {"properties": {"bucket": {"const": null}}}}]
+}
