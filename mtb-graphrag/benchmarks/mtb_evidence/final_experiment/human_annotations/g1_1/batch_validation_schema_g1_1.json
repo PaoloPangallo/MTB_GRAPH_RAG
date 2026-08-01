@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "audit_log_present": {
+      "type": "boolean"
+    },
+    "checksum_valid": {
+      "type": "boolean"
+    },
+    "duplicate_units": {
+      "type": "integer"
+    },
+    "expected_unit_count": {
+      "type": "integer"
+    },
+    "extra_units": {
+      "type": "integer"
+    },
+    "missing_units": {
+      "type": "integer"
+    },
+    "observed_unit_count": {
+      "type": "integer"
+    },
+    "protocol_valid": {
+      "type": "boolean"
+    },
+    "reviewer_valid": {
+      "type": "boolean"
+    },
+    "schema_errors": {
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "not_started",
+        "in_progress",
+        "completed",
+        "validated"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "batch_id",
+    "reviewer_id",
+    "expected_unit_count",
+    "observed_unit_count",
+    "duplicate_units",
+    "missing_units",
+    "extra_units",
+    "schema_errors",
+    "checksum_valid",
+    "reviewer_valid",
+    "protocol_valid",
+    "audit_log_present",
+    "status"
+  ],
+  "type": "object"
+}

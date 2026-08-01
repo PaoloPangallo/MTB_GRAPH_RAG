@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "batch_count": {
+      "type": "integer"
+    },
+    "completed_batches": {
+      "type": "integer"
+    },
+    "completed_units": {
+      "maximum": 3256,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "in_progress_batches": {
+      "type": "integer"
+    },
+    "remaining_units": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "reviewer_id": {
+      "enum": [
+        "reviewer_A",
+        "reviewer_B"
+      ],
+      "type": "string"
+    },
+    "total_units": {
+      "const": 3256
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "validation_errors": {
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "reviewer_id",
+    "total_units",
+    "completed_units",
+    "remaining_units",
+    "batch_count",
+    "completed_batches",
+    "in_progress_batches",
+    "validation_errors",
+    "updated_at"
+  ],
+  "type": "object"
+}
