@@ -1,0 +1,19 @@
+{
+  "content_sha256": "c07430bba44288effdc9ad86ff09cbe454b9e88e41927ac92ba58c6290354b7f",
+  "normalization_required_behaviors_covered": 12,
+  "required_behaviors": {
+    "bucket": true,
+    "candidate_order": true,
+    "latency_all_together": true,
+    "latency_observability": true,
+    "latency_payload": true,
+    "latency_result": true,
+    "optional_path": true,
+    "qualifier": true,
+    "rank": true,
+    "runtime_only": true,
+    "score": true,
+    "source": true,
+    "unknown_runtime_error": true
+  }
+}
