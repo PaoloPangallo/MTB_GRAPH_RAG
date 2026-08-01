@@ -1,0 +1,26 @@
+{
+  "coverage": "exhaustive_active_claim_universe",
+  "created_at": "2026-08-01T09:17:02.318313+00:00",
+  "excluded_audit_present": true,
+  "gold_labels_generated": 0,
+  "gold_protocol_commit": "7458f6262460c6fb6ec58b3e2118ad55501a8537",
+  "gold_protocol_version": "G1.1",
+  "human_annotation_started": false,
+  "mapping_sealed": true,
+  "packet_A_sha256": "1b5984ab0e2c00c22cc3030caa192b1a3d4022bab64b851a9e7575765681d1a1",
+  "packet_B_sha256": "b4cb1af7dd48cf7ac89716a7c28a6cc301d54cce5697f54a2d7cc38ddc620c87",
+  "packet_order_different": true,
+  "packet_seed": 20260801,
+  "packet_set_equal": true,
+  "reviewers": [
+    "reviewer_A",
+    "reviewer_B",
+    "adjudicator_C"
+  ],
+  "schema_version": "annotation-campaign-manifest/1.1",
+  "scoring_executed": false,
+  "structured_output_commit": "f8c44e5035cff210527fa7491b50781a6d8d1cf2",
+  "structured_scoring_authorized": false,
+  "system_protocol_commit": "00bb7982fd897e4dfc5856732acaf01ae99aea46",
+  "unit_count": 3256
+}
