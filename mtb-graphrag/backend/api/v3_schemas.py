@@ -66,13 +66,68 @@ class PipelineObservability(BaseModel):
     dossier_summary: dict[str, Any] = Field(default_factory=dict)
 
 
+class V3ClaimProjection(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    claim_text: str | None = None
+    subject: str | None = None
+    relation: str | None = None
+    object: str | None = None
+    biomarker: str | None = None
+    disease: str | None = None
+    intervention: str | None = None
+    direction: str | None = None
+    evidence_type: str | None = None
+    structured_tuple_complete: bool = False
+
+
+class V3Decision(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    bucket: str | None = None
+    applicability: str | None = None
+    structural_score: float | None = None
+    structural_score_eligible: bool | None = None
+
+
+class V3CaseComparisonValue(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    query_value_original: Any = None
+    query_value_normalized: Any = None
+    claim_value: Any = None
+    comparison_result: Any = None
+    not_applicable_reason: str | None = None
+    availability: str | None = None
+
+
+class V3CaseComparison(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    biomarker: V3CaseComparisonValue | None = None
+    disease: V3CaseComparisonValue | None = None
+    intervention: V3CaseComparisonValue | None = None
+    formulation: V3CaseComparisonValue | None = None
+    direction: V3CaseComparisonValue | None = None
+    claim_status: V3CaseComparisonValue | None = None
+    domain: V3CaseComparisonValue | None = None
+
+
+class V3EvidenceRecord(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    claim: V3ClaimProjection | None = None
+    decision: V3Decision | None = None
+    case_comparison: V3CaseComparison | None = None
+
+
 class V3RetrieveResponse(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     case_context: dict[str, Any]
     summary: dict[str, int]
-    evidence: dict[str, list[dict[str, Any]]]
-    technical_records: dict[str, list[dict[str, Any]]]
+    evidence: dict[str, list[V3EvidenceRecord]]
+    technical_records: dict[str, list[V3EvidenceRecord]]
     abstention: bool
     metadata: dict[str, Any]
     pipeline: PipelineObservability

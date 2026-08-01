@@ -8,8 +8,10 @@ and internal reason codes receive stable human-readable messages.
 from __future__ import annotations
 
 from collections.abc import Mapping
+from functools import lru_cache
 from typing import Any
 
+from backend.pipeline.evidence.corpus import loader as CORPUS_LOADER
 from backend.pipeline.evidence.retrieval.pipeline import RetrievalOutcome
 
 _BUCKETS = {
@@ -59,6 +61,15 @@ _GATE_ORDER = (
     ("direction_match_result", "direction"),
 )
 
+_COMPARISON_AXIS_KEYS = {
+    "claim_status": "claim_status_result",
+    "domain": "domain_match_result",
+    "biomarker": "biomarker_match_result",
+    "disease": "disease_match_result",
+    "intervention_identity": "intervention_match_result",
+    "formulation": "formulation_match_result",
+    "direction": "direction_match_result",
+}
 
 def _as_dict(value: Any) -> dict[str, Any]:
     if isinstance(value, Mapping):
@@ -66,13 +77,54 @@ def _as_dict(value: Any) -> dict[str, Any]:
     return {}
 
 
+@lru_cache(maxsize=1)
+def _source_records(repository_version: str) -> dict[str, Mapping[str, Any]]:
+    if repository_version != "qualified_claim_repository/1.4":
+        return {}
+    corpus = CORPUS_LOADER.load_from_registry(
+        policy_mode="strict_verified",
+        verify_hashes=True,
+        verify_sources=True,
+    )
+    return {
+        str(record.get("claim_id")): record
+        for record in corpus.claims
+        if record.get("claim_id")
+    }
+
+
+def _source_record(result: Any, repository_version: str) -> Mapping[str, Any]:
+    claim_id = str(getattr(result, "claim_id", "") or "")
+    return _source_records(repository_version).get(claim_id, {})
+
+
+def _source_value(source_record: Mapping[str, Any], field: str) -> Any:
+    value = source_record.get(field)
+    if value in (None, ""):
+        return None
+    return value
+
+
 def _message(code: str) -> str:
     return _REASON_MESSAGES.get(code, "Decisione strutturale registrata dal gate V3")
 
 
+def _reason_gate(result: Any, code: str) -> str:
+    gate = _as_dict(getattr(result, "gate", {}))
+    for gate_name, axis_key in _COMPARISON_AXIS_KEYS.items():
+        axis = _as_dict(gate.get(axis_key))
+        if code in {str(item) for item in (axis.get("reason_codes") or ())}:
+            return gate_name
+    return str(gate.get("dominant_gate") or "structural_gate")
+
+
 def _reason_codes(result: Any) -> list[dict[str, str]]:
     return [
-        {"code": str(code), "human_message": _message(str(code))}
+        {
+            "code": str(code),
+            "gate": _reason_gate(result, str(code)),
+            "human_message": _message(str(code)),
+        }
         for code in (getattr(result, "reason_codes", ()) or ())
     ]
 
@@ -87,23 +139,200 @@ def _status_for_gate(axis: Mapping[str, Any], bucket: str) -> str:
     return "pass"
 
 
-def _gate_trace(result: Any, query: Mapping[str, Any] | None = None) -> list[dict[str, Any]]:
+def _query_forms(query: Mapping[str, Any] | None) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    payload = dict(query or {})
+    if "original" in payload or "normalized" in payload:
+        original = _as_dict(payload.get("original"))
+        normalized = _as_dict(payload.get("normalized"))
+        gate_query = _as_dict(normalized.get("gate_query"))
+        return original, normalized, gate_query
+    return payload, payload, _as_dict(payload.get("gate_query")) or payload
+
+
+def _is_empty(value: Any) -> bool:
+    return value is None or value == "" or value == [] or value == ()
+
+
+def _comparison_value(
+    *,
+    original: Any,
+    normalized: Any,
+    claim: Any,
+    native_result: Any,
+    not_applicable_reason: str | None = None,
+) -> dict[str, Any]:
+    reason = not_applicable_reason
+    if reason is None and _is_empty(original):
+        reason = "NOT_PROVIDED_BY_CASE"
+    if reason is None and _is_empty(claim):
+        reason = "MISSING_IN_CLAIM"
+    if reason is None and native_result is None:
+        reason = "NOT_EXPOSED_BY_GATE"
+    availability = "AVAILABLE" if reason is None else reason
+    return {
+        "query_value_original": original,
+        "query_value_normalized": normalized,
+        "claim_value": claim,
+        "comparison_result": native_result,
+        "not_applicable_reason": reason,
+        "availability": availability,
+    }
+
+
+def _native_axis(result: Any, name: str) -> dict[str, Any]:
+    gate = _as_dict(getattr(result, "gate", {}))
+    return _as_dict(gate.get(_COMPARISON_AXIS_KEYS[name]))
+
+
+def _claim_fields(result: Any, source_record: Mapping[str, Any]) -> dict[str, Any]:
+    subject = _source_value(source_record, "subject")
+    relation = _source_value(source_record, "relation")
+    obj = _source_value(source_record, "object")
+    return {
+        "claim_text": _source_value(source_record, "claim_text"),
+        "subject": subject,
+        "relation": relation,
+        "object": obj,
+        "biomarker": _source_value(source_record, "biomarker")
+        or str(getattr(result, "biomarker", "") or "")
+        or None,
+        "disease": _source_value(source_record, "disease_scope")
+        or str(getattr(result, "disease_scope", "") or "")
+        or None,
+        "intervention": _source_value(source_record, "intervention")
+        or str(getattr(result, "canonical_intervention", "") or "")
+        or None,
+        "direction": _source_value(source_record, "direction"),
+        "evidence_type": _source_value(source_record, "claim_type")
+        or str(getattr(result, "claim_type", "") or "")
+        or None,
+        "structured_tuple_complete": all(
+            value not in (None, "") for value in (subject, relation, obj)
+        ),
+    }
+
+
+def _case_comparison(
+    result: Any,
+    query: Mapping[str, Any] | None,
+    source_record: Mapping[str, Any],
+) -> dict[str, dict[str, Any]]:
+    original, normalized, gate_query = _query_forms(query)
+    fields = _claim_fields(result, source_record)
+    biomarker_original = original.get("biomarker") or original.get("alteration")
+    biomarker_normalized = (
+        normalized.get("normalized_biomarker")
+        or gate_query.get("biomarker")
+    )
+    intervention_axis = _native_axis(result, "intervention_identity")
+    formulation_axis = _native_axis(result, "formulation")
+    direction_axis = _native_axis(result, "direction")
+    return {
+        "biomarker": _comparison_value(
+            original=biomarker_original,
+            normalized=biomarker_normalized,
+            claim=fields["biomarker"],
+            native_result=_native_axis(result, "biomarker").get("match_type"),
+        ),
+        "disease": _comparison_value(
+            original=original.get("disease"),
+            normalized=normalized.get("normalized_disease")
+            or gate_query.get("disease"),
+            claim=fields["disease"],
+            native_result=_native_axis(result, "disease").get("relation_type"),
+        ),
+        "intervention": _comparison_value(
+            original=original.get("interventions", []),
+            normalized=normalized.get("normalized_interventions", []),
+            claim=fields["intervention"],
+            native_result=intervention_axis.get("match_type"),
+        ),
+        "formulation": _comparison_value(
+            original=original.get("intervention_class"),
+            normalized=gate_query.get("intervention_class"),
+            claim=_as_dict(formulation_axis).get("claim_form"),
+            native_result=formulation_axis.get("relation_type"),
+            not_applicable_reason=(
+                "NOT_APPLICABLE"
+                if formulation_axis.get("axis_evaluated") is False
+                else None
+            ),
+        ),
+        "direction": _comparison_value(
+            original=original.get("direction"),
+            normalized=gate_query.get("direction"),
+            claim=fields["direction"],
+            native_result=direction_axis.get("direction_match_type"),
+        ),
+        "claim_status": _comparison_value(
+            original=None,
+            normalized=None,
+            claim=_as_dict(_native_axis(result, "claim_status")).get("status"),
+            native_result=_as_dict(_native_axis(result, "claim_status")).get(
+                "status"
+            ),
+            not_applicable_reason="NOT_EXPOSED_BY_GATE",
+        ),
+        "domain": _comparison_value(
+            original=original.get("claim_domain"),
+            normalized=normalized.get("claim_domain"),
+            claim=_as_dict(_native_axis(result, "domain")).get("claim_domain"),
+            native_result=_as_dict(_native_axis(result, "domain")).get(
+                "domain_match"
+            ),
+        ),
+    }
+
+
+def _decision(result: Any, source_record: Mapping[str, Any]) -> dict[str, Any]:
+    score = _as_dict(getattr(result, "score", {}))
+    eligibility = _as_dict(score.get("eligibility"))
+    gate = _as_dict(getattr(result, "gate", {}))
+    structural_eligible = eligibility.get("structural_score_eligible")
+    if structural_eligible is None:
+        structural_eligible = gate.get("structural_score_eligible")
+    total = score.get("total") if "total" in score else None
+    return {
+        "bucket": _BUCKETS.get(str(getattr(result, "bucket", "")), None),
+        "applicability": _source_value(source_record, "applicability"),
+        "structural_score": total,
+        "structural_score_eligible": structural_eligible,
+    }
+
+
+def _gate_message(name: str, axis: Mapping[str, Any], codes: list[str]) -> str:
+    if codes:
+        return _message(codes[0])
+    if name == "claim_status" and axis.get("status") == "active_claim":
+        return "Lo stato della claim e ammesso."
+    if name == "domain" and axis.get("domain_match") is True:
+        return "Il dominio della claim e compatibile."
+    if name == "intervention_identity" and axis.get("match_type") == "no_intervention_constraint":
+        return "Nessun intervento e stato imposto dal caso."
+    if name == "formulation" and axis.get("axis_evaluated") is False:
+        return "La formulazione non e applicabile senza un vincolo di intervento."
+    if name == "direction" and axis.get("direction_match_type") == "not_constrained":
+        return "La direzione non e stata imposta dal caso."
+    return "Esito del gate disponibile nei dati nativi."
+
+
+def _gate_trace(
+    result: Any,
+    query: Mapping[str, Any] | None = None,
+    source_record: Mapping[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     gate = _as_dict(getattr(result, "gate", {}))
     final_bucket = _BUCKETS.get(str(getattr(result, "bucket", "")), "audit")
-    query_values = dict(query or {})
+    source = source_record or {}
+    comparisons = _case_comparison(result, query, source)
     claim_values = {
         'biomarker': getattr(result, 'biomarker', None),
         'disease': getattr(result, 'disease_scope', None),
         'intervention_identity': getattr(result, 'canonical_intervention', None),
         'formulation': _as_dict(gate.get('formulation_match_result')).get('claim_form'),
-        'direction': _as_dict(gate.get('direction_match_result')).get('direction_match_type'),
-    }
-    case_values = {
-        'biomarker': query_values.get('biomarker'),
-        'disease': query_values.get('disease'),
-        'intervention_identity': query_values.get('interventions'),
-        'formulation': query_values.get('intervention_class'),
-        'direction': query_values.get('direction'),
+        'direction': _source_value(source, "direction"),
+        "claim_status": _as_dict(gate.get("claim_status_result")).get("status"),
+        "domain": _as_dict(gate.get("domain_match_result")).get("claim_domain"),
     }
     trace: list[dict[str, Any]] = []
     for key, name in _GATE_ORDER:
@@ -111,15 +340,24 @@ def _gate_trace(result: Any, query: Mapping[str, Any] | None = None) -> list[dic
         if not axis:
             continue
         codes = [str(code) for code in (axis.get("reason_codes") or ())]
+        comparison_name = name
+        if name == "intervention_identity":
+            comparison_name = "intervention"
+        comparison = comparisons.get(comparison_name, {})
         trace.append(
             {
-                'case_value': case_values.get(name),
-                'claim_value': claim_values.get(name),
+                'case_value': comparison.get("query_value_normalized"),
+                'claim_value': comparison.get("claim_value", claim_values.get(name)),
                 "gate": name,
                 "status": _status_for_gate(axis, final_bucket),
                 "reason_code": codes[0] if codes else None,
                 "reason_codes": codes,
-                "message": _message(codes[0]) if codes else "Gate valutato senza reason code",
+                "message": _gate_message(name, axis, codes),
+                "query_value_original": comparison.get("query_value_original"),
+                "query_value_normalized": comparison.get("query_value_normalized"),
+                "comparison_result": comparison.get("comparison_result"),
+                "not_applicable_reason": comparison.get("not_applicable_reason"),
+                "availability": comparison.get("availability"),
             }
         )
     if not trace and gate:
@@ -186,40 +424,45 @@ def _candidate_kind(result: Any) -> str:
     return "evidence_claim"
 
 
-def _claim_record(result: Any, query: Mapping[str, Any] | None = None) -> dict[str, Any]:
+def _claim_record(
+    result: Any,
+    query: Mapping[str, Any] | None = None,
+    repository_version: str = "",
+) -> dict[str, Any]:
     gate = _as_dict(getattr(result, "gate", {}))
-    direction = _as_dict(gate.get("direction_match_result"))
     formulation = _as_dict(gate.get("formulation_match_result"))
     status = _as_dict(gate.get("claim_status_result"))
     bucket = _BUCKETS.get(str(getattr(result, "bucket", "")), "audit")
     intervention = str(getattr(result, "canonical_intervention", "") or "") or None
     members = [str(item) for item in (getattr(result, "intervention_members", ()) or ())]
-    # The native V3 result has no source claim text. Never synthesize a clinical
-    # sentence from tuple fields; the UI can use the structured fields and ID.
-    claim_text = None
+    source_record = _source_record(result, repository_version)
+    fields = _claim_fields(result, source_record)
     record = {
         "claim_id": str(getattr(result, "claim_id", "")),
         "candidate_kind": _candidate_kind(result),
-        "subject": None,
-        "relation": None,
-        "object": None,
-        "structured_tuple_complete": False,
-        "claim_text": claim_text,
-        "disease": str(getattr(result, "disease_scope", "") or "") or None,
-        "biomarker": str(getattr(result, "biomarker", "") or "") or None,
-        "intervention": intervention,
+        "subject": fields["subject"],
+        "relation": fields["relation"],
+        "object": fields["object"],
+        "structured_tuple_complete": fields["structured_tuple_complete"],
+        "claim_text": fields["claim_text"],
+        "disease": fields["disease"],
+        "biomarker": fields["biomarker"],
+        "intervention": fields["intervention"] or intervention,
         "formulation": formulation.get("claim_form"),
         "regimen": members if len(members) > 1 else None,
-        "direction": direction.get("direction_match_type"),
-        "evidence_type": str(getattr(result, "claim_type", "") or "") or None,
-        "applicability": bucket,
+        "direction": fields["direction"],
+        "evidence_type": fields["evidence_type"],
+        "applicability": _source_value(source_record, "applicability"),
         "separability": formulation.get("relation_status"),
         "status": status.get("status"),
         "bucket": bucket,
         "score": _as_dict(getattr(result, "score", {})),
         "rank": int(getattr(result, "rank", 0) or 0),
         "reason_codes": _reason_codes(result),
-        "gate_trace": _gate_trace(result),
+        "gate_trace": _gate_trace(result, query, source_record),
+        "claim": fields,
+        "decision": _decision(result, source_record),
+        "case_comparison": _case_comparison(result, query, source_record),
         "qualifiers": [str(item) for item in (getattr(result, "warnings", ()) or ())],
         "parent_graph_evidence_record": {
             "parent_id": str(getattr(result, "parent_id", "") or "") or None,
@@ -228,13 +471,15 @@ def _claim_record(result: Any, query: Mapping[str, Any] | None = None) -> dict[s
         "source_unit": _provenance(result).get("source_unit_id"),
         "provenance": _provenance(result),
     }
-
-
-    record['gate_trace'] = _gate_trace(result, query)
     return record
 
-def _technical_record(result: Any, query: Mapping[str, Any] | None = None) -> dict[str, Any]:
-    record = _claim_record(result, query)
+
+def _technical_record(
+    result: Any,
+    query: Mapping[str, Any] | None = None,
+    repository_version: str = "",
+) -> dict[str, Any]:
+    record = _claim_record(result, query, repository_version)
     kind = record["candidate_kind"]
     record["technical_kind"] = kind
     return record
@@ -565,23 +810,31 @@ def present_retrieval_outcome(outcome: RetrievalOutcome) -> dict[str, Any]:
         "other": [],
     }
     native_query = _as_dict(getattr(payload, 'query', {}))
-    normalized_query = _as_dict(native_query.get('normalized'))
-    gate_query = _as_dict(normalized_query.get('gate_query'))
     for result in results:
-        record = _claim_record(result, gate_query)
+        record = _claim_record(result, native_query, outcome.repository_version)
         kind = record["candidate_kind"]
         if kind == "evidence_claim":
             evidence[record["bucket"]].append(record)
         elif kind == "provenance_container":
-            technical["provenance_containers"].append(_technical_record(result))
+            technical["provenance_containers"].append(
+                _technical_record(result, native_query, outcome.repository_version)
+            )
         elif kind == "unresolved_association":
-            technical["unresolved_associations"].append(_technical_record(result))
+            technical["unresolved_associations"].append(
+                _technical_record(result, native_query, outcome.repository_version)
+            )
         elif kind == "unsupported_association":
-            technical["unsupported_associations"].append(_technical_record(result))
+            technical["unsupported_associations"].append(
+                _technical_record(result, native_query, outcome.repository_version)
+            )
         elif kind == "deprecated_claim":
-            technical["deprecated_claims"].append(_technical_record(result))
+            technical["deprecated_claims"].append(
+                _technical_record(result, native_query, outcome.repository_version)
+            )
         else:
-            technical["other"].append(_technical_record(result))
+            technical["other"].append(
+                _technical_record(result, native_query, outcome.repository_version)
+            )
     claim_records = sum(len(items) for items in evidence.values())
     technical_count = sum(len(items) for items in technical.values())
     native_query = dict(getattr(payload, "query", {}) or {})
