@@ -1,0 +1,13 @@
+{
+  "added_exact_json_pointers": [
+    "/result/latency_ms",
+    "/result/observability/latency_ms",
+    "/result/payload/latency_ms"
+  ],
+  "content_sha256": "a418be514511b106fb093e70876d978906316b3bcfbc3e9e462ad88c1e02bf56",
+  "normalization_spec_version": "structured_semantic_normalization/1.2",
+  "optional_paths_allowed": true,
+  "parent_exclusions": "V1.4 exact metadata exclusions",
+  "unregistered_runtime_field": "error",
+  "wildcards": false
+}
