@@ -1,0 +1,25 @@
+{
+  "base_commit": "63940203498db23c3cdc5a400cd78575489dcfe2",
+  "content_sha256": "a58dcaed470a757ac3a3832cc7e7a1e724c965c16f946f93bd1dd7ac0b6cdb2d",
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "events": 0,
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "generated_at": "2026-08-01T12:00:00+02:00",
+  "gold_read_count": 0,
+  "graph_snapshot_digest": "2b4a1d6e731f4f490f5be134267a0801ec25c6e954a0e8958424e12b3f48899d",
+  "historical_path_forbidden": "data/agent_events.sqlite3",
+  "initial_sha256": "e60ee5de50e09a7a41d23c7bf6093b6f065287d4e944b1432cb3ad6eacd0ad17",
+  "model_identifiers": [
+    "gemma4:31b-cloud",
+    "nemotron-3-nano:30b",
+    "minimax-m3"
+  ],
+  "namespace": "FINAL-V3-EVAL-*",
+  "parent_protocol_v1_1_hash": "e8e9acc14eab365f1010d48bb5833de75d2842f843344a0e35e7c413613af9c7",
+  "path": "data/final_v3_eval_events.sqlite3",
+  "resume_identity": "run_spec digest plus result digest",
+  "schema_version": "mtb-v3-ledger/1.2",
+  "sidecars_required_absent_at_freeze": true,
+  "status": "FROZEN_PRE_GOLD"
+}
