@@ -1,0 +1,197 @@
+{
+  "bucket_counts_by_query": {
+    "A01": {
+      "audit_only_results": 157,
+      "primary_ranked_results": 32,
+      "rejected_by_native_constraints": 112,
+      "retained_with_warning": 10
+    },
+    "A02": {
+      "audit_only_results": 157,
+      "primary_ranked_results": 10,
+      "rejected_by_native_constraints": 112,
+      "retained_with_warning": 32
+    },
+    "A03": {
+      "audit_only_results": 147,
+      "primary_ranked_results": 6,
+      "rejected_by_native_constraints": 157,
+      "retained_with_warning": 1
+    },
+    "A04": {
+      "audit_only_results": 147,
+      "primary_ranked_results": 1,
+      "rejected_by_native_constraints": 157,
+      "retained_with_warning": 6
+    },
+    "A05": {
+      "audit_only_results": 147,
+      "primary_ranked_results": 2,
+      "rejected_by_native_constraints": 162,
+      "retained_with_warning": 0
+    },
+    "A06": {
+      "audit_only_results": 198,
+      "primary_ranked_results": 3,
+      "rejected_by_native_constraints": 110,
+      "retained_with_warning": 0
+    },
+    "A07": {
+      "audit_only_results": 159,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 152,
+      "retained_with_warning": 0
+    },
+    "A08": {
+      "audit_only_results": 148,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 163,
+      "retained_with_warning": 0
+    },
+    "A09": {
+      "audit_only_results": 147,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 164,
+      "retained_with_warning": 0
+    },
+    "B01": {
+      "audit_only_results": 149,
+      "primary_ranked_results": 10,
+      "rejected_by_native_constraints": 151,
+      "retained_with_warning": 1
+    },
+    "B02": {
+      "audit_only_results": 157,
+      "primary_ranked_results": 1,
+      "rejected_by_native_constraints": 104,
+      "retained_with_warning": 49
+    },
+    "B03": {
+      "audit_only_results": 149,
+      "primary_ranked_results": 1,
+      "rejected_by_native_constraints": 142,
+      "retained_with_warning": 19
+    },
+    "B04": {
+      "audit_only_results": 151,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 159,
+      "retained_with_warning": 1
+    },
+    "B05": {
+      "audit_only_results": 150,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 160,
+      "retained_with_warning": 1
+    },
+    "B06": {
+      "audit_only_results": 150,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 161,
+      "retained_with_warning": 0
+    },
+    "B07": {
+      "audit_only_results": 151,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 159,
+      "retained_with_warning": 1
+    },
+    "B08": {
+      "audit_only_results": 149,
+      "primary_ranked_results": 1,
+      "rejected_by_native_constraints": 161,
+      "retained_with_warning": 0
+    },
+    "B09": {
+      "audit_only_results": 149,
+      "primary_ranked_results": 1,
+      "rejected_by_native_constraints": 159,
+      "retained_with_warning": 2
+    },
+    "B10": {
+      "audit_only_results": 151,
+      "primary_ranked_results": 1,
+      "rejected_by_native_constraints": 159,
+      "retained_with_warning": 0
+    },
+    "B11": {
+      "audit_only_results": 151,
+      "primary_ranked_results": 1,
+      "rejected_by_native_constraints": 159,
+      "retained_with_warning": 0
+    },
+    "B12": {
+      "audit_only_results": 151,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 159,
+      "retained_with_warning": 1
+    },
+    "B13": {
+      "audit_only_results": 152,
+      "primary_ranked_results": 0,
+      "rejected_by_native_constraints": 159,
+      "retained_with_warning": 0
+    }
+  },
+  "candidate_counts_by_query": {
+    "A01": 311,
+    "A02": 311,
+    "A03": 311,
+    "A04": 311,
+    "A05": 311,
+    "A06": 311,
+    "A07": 311,
+    "A08": 311,
+    "A09": 311,
+    "B01": 311,
+    "B02": 311,
+    "B03": 311,
+    "B04": 311,
+    "B05": 311,
+    "B06": 311,
+    "B07": 311,
+    "B08": 311,
+    "B09": 311,
+    "B10": 311,
+    "B11": 311,
+    "B12": 311,
+    "B13": 311
+  },
+  "completed_runs": 44,
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "execution_branch": "run/v3-final-structured-v1.6",
+  "expected_runs": 44,
+  "failed_runs": 0,
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "gold_read_count": 0,
+  "normalization_version": "structured_semantic_normalization/1.3",
+  "protocol_commit": "00bb7982fd897e4dfc5856732acaf01ae99aea46",
+  "protocol_tag": "v3-final-evaluation-protocol-v1.6",
+  "query_count": 22,
+  "replicas_per_query": {
+    "A01": 2,
+    "A02": 2,
+    "A03": 2,
+    "A04": 2,
+    "A05": 2,
+    "A06": 2,
+    "A07": 2,
+    "A08": 2,
+    "A09": 2,
+    "B01": 2,
+    "B02": 2,
+    "B03": 2,
+    "B04": 2,
+    "B05": 2,
+    "B06": 2,
+    "B07": 2,
+    "B08": 2,
+    "B09": 2,
+    "B10": 2,
+    "B11": 2,
+    "B12": 2,
+    "B13": 2
+  },
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "schema_errors": []
+}

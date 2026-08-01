@@ -1,0 +1,42 @@
+{
+  "benchmark_id": "v3_core_applicability",
+  "bucket_counts": {
+    "audit_only_results": 147,
+    "primary_ranked_results": 2,
+    "rejected_by_native_constraints": 162,
+    "retained_with_warning": 0
+  },
+  "candidate_count": 311,
+  "corpus_hash": "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa",
+  "corpus_version": "qualified_claim_repository/1.4",
+  "elapsed_ms": 123,
+  "end_time": "2026-08-01T08:14:22.319788+00:00",
+  "execution_branch": "run/v3-final-structured-v1.6",
+  "failure_class": null,
+  "gate_version": "qualified_claim_structural_gate/1.3",
+  "gold_read_count": 0,
+  "host": "PaoloPangallo",
+  "ledger_event_range": [
+    1,
+    2
+  ],
+  "normalization_version": "structured_semantic_normalization/1.3",
+  "normalized_output": "benchmarks\\mtb_evidence\\final_experiment\\official_runs\\structured_v1_6\\normalized_results\\a4859eb5-b301-51eb-909b-8ec5c5e40fd4.json",
+  "normalized_semantic_sha256": "d8e9ee699db47a7ba7ebaa2ca96177352b9f172319ea940d3679882b4e1bc27c",
+  "os": "Windows-11-10.0.26200-SP0",
+  "protocol_commit": "00bb7982fd897e4dfc5856732acaf01ae99aea46",
+  "protocol_tag": "v3-final-evaluation-protocol-v1.6",
+  "python": "3.12.10",
+  "query_id": "A05",
+  "raw_output": "benchmarks\\mtb_evidence\\final_experiment\\official_runs\\structured_v1_6\\raw_results\\a4859eb5-b301-51eb-909b-8ec5c5e40fd4.json",
+  "raw_sha256": "b392e1f1633c5b8fd6879c3965f7bd4b02c54411775b3071847e56ccd6b84bfc",
+  "replica": 2,
+  "retriever_version": "qualified_claim_retriever/1.0",
+  "run_id": "a4859eb5-b301-51eb-909b-8ec5c5e40fd4",
+  "run_id_namespace_version": "v3_run_id_namespace/1.0",
+  "run_key": "rk_86d86f98fb4d53b3a81bc46f56467ff7469a729aa21542da8f2e899d27b0e6e5",
+  "run_key_spec_version": "v3_run_key/1.0",
+  "scoring_version": "v1.6",
+  "start_time": "2026-08-01T08:14:22.195930+00:00",
+  "status": "complete"
+}
