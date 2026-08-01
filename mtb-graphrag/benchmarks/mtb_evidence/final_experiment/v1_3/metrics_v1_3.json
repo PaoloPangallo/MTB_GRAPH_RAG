@@ -1,0 +1,40 @@
+{
+  "composite_metric": false,
+  "content_sha256": "8f2036960f24afbb689c8158cc5f88812247c2039818239cdc40d646e9ede14a",
+  "primary_endpoint": {
+    "formula": "mean_q(correct_q/|G_q union P_q|) over defined queries",
+    "gold_coverage_mode": "exhaustive_candidate_universe",
+    "matching": "exact stable claim_id only",
+    "name": "macro-averaged bucket decision accuracy",
+    "unit": [
+      "query_id",
+      "claim_id"
+    ],
+    "zero_denominator": {
+      "expected_abstention": true,
+      "no_predicted_claims": true,
+      "otherwise": "undefined_invalid_empty_evaluation_universe",
+      "value": 1.0
+    }
+  },
+  "secondary_endpoints": [
+    "primary claim precision",
+    "warning precision",
+    "audit appropriateness",
+    "rejection recall",
+    "correct abstention rate",
+    "false abstention rate",
+    "applicability accuracy",
+    "qualifier preservation",
+    "disease-scope accuracy",
+    "biomarker-logic accuracy",
+    "intervention/formulation accuracy",
+    "regimen preservation",
+    "aggregate-separability accuracy",
+    "unsupported promotion rate",
+    "false atomic attribution rate",
+    "provenance completeness",
+    "gate-trace completeness",
+    "latency"
+  ]
+}
