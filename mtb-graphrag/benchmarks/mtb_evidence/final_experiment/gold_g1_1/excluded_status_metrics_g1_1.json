@@ -1,0 +1,33 @@
+{
+  "deprecated": {
+    "audit_count": 14,
+    "containment_rate": 1.0,
+    "count": 88,
+    "missing_count": 0,
+    "primary_count": 0,
+    "rejected_count": 74,
+    "warning_count": 0
+  },
+  "deprecated_promotion_rate": 0.0,
+  "generated_at": "2026-08-01T08:43:05.209753+00:00",
+  "not_primary_endpoint": true,
+  "schema_version": "excluded-status-metrics/1.1",
+  "unresolved": {
+    "audit_count": 23,
+    "containment_rate": 1.0,
+    "count": 132,
+    "missing_count": 0,
+    "primary_count": 0,
+    "rejected_count": 109,
+    "warning_count": 0
+  },
+  "unsupported": {
+    "audit_count": 28,
+    "containment_rate": 1.0,
+    "count": 132,
+    "missing_count": 0,
+    "primary_count": 0,
+    "rejected_count": 104,
+    "warning_count": 0
+  }
+}

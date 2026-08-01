@@ -1,0 +1,21 @@
+{
+  "schema_version": "gold-annotation-protocol/1.1",
+  "gold_protocol_version": "G1.1",
+  "parent_gold_protocol_version": "G1.0",
+  "parent_gold_protocol_commit": "d02de55cbb0d6b3fd05769509a8f0a1985c50418",
+  "gold_coverage_mode": "exhaustive_active_claim_universe",
+  "unit": "(query_id, claim_id)",
+  "query_count": 22,
+  "expected_active_claims_per_query": 148,
+  "expected_annotation_units": 3256,
+  "active_status_required": true,
+  "candidate_kind_required": "claim",
+  "evaluable_by_schema_required": true,
+  "randomization_seed": 20260801,
+  "automatic_label_generation": false,
+  "llm_annotation": false,
+  "independent_double_review": true,
+  "system_changes": false,
+  "query_changes": false,
+  "structured_output_changes": false
+}

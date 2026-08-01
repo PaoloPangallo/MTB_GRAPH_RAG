@@ -1,0 +1,8 @@
+{
+  "schema_version": "candidate-kind-policy/1.1",
+  "claim_active": {"primary_gold_evaluable": true, "audit_destination": "primary_annotation_packet"},
+  "claim_deprecated": {"primary_gold_evaluable": false, "exclusion_reason": "DEPRECATED_OUTSIDE_ACTIVE_CORPUS", "audit_destination": "deprecated_claim_audit_g1_1.jsonl"},
+  "provenance_container": {"primary_gold_evaluable": false, "exclusion_reason": "PROVENANCE_CONTAINER_NOT_CLAIM", "audit_destination": "provenance_container_audit_g1_1.jsonl"},
+  "unresolved_association": {"primary_gold_evaluable": false, "exclusion_reason": "UNRESOLVED_ASSOCIATION_NOT_QUALIFIED_CLAIM", "audit_destination": "unresolved_association_audit_g1_1.jsonl"},
+  "unsupported_association": {"primary_gold_evaluable": false, "exclusion_reason": "UNSUPPORTED_ASSOCIATION_NOT_QUALIFIED_CLAIM", "audit_destination": "unsupported_association_audit_g1_1.jsonl"}
+}
