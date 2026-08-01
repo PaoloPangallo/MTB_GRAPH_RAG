@@ -1,0 +1,20 @@
+{
+  "final_evaluable": false,
+  "gold_read_count": 0,
+  "ledger_chain_valid": true,
+  "pilot_only": true,
+  "raw_hash_different": true,
+  "runs": [
+    {
+      "raw_sha256": "994dba9cc93052ade6136170992087a5e9efa598e3f6315c91282f3c024b44e7",
+      "run_id": "V3-V1.6-CONFORMANCE-PILOT-1",
+      "semantic_sha256": "1a9f727a560a3b393e843de8466bd590ac0e97fbaaee8eae7ced9098f13c4da7"
+    },
+    {
+      "raw_sha256": "7eae6343dc437120aead3a037c185f4c79aab496e85183891360d85dc9bd55aa",
+      "run_id": "V3-V1.6-CONFORMANCE-PILOT-2",
+      "semantic_sha256": "1a9f727a560a3b393e843de8466bd590ac0e97fbaaee8eae7ced9098f13c4da7"
+    }
+  ],
+  "semantic_hash_equal": true
+}

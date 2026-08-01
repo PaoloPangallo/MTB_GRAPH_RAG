@@ -1,0 +1,308 @@
+{
+  "content_sha256": "8066af06107c72e09af022aeead70b1dc8a4713b32b4b0dc4c0845077227742d",
+  "fields": {
+    "benchmark_id": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/benchmark_id",
+      "field_name": "benchmark_id",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "corpus_hash": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/corpus_hash",
+      "field_name": "corpus_hash",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "corpus_version": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/corpus_version",
+      "field_name": "corpus_version",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "elapsed_ms": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/elapsed_ms",
+      "field_name": "elapsed_ms",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "end_time": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/end_time",
+      "field_name": "end_time",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "gate_version": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/gate_version",
+      "field_name": "gate_version",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "gold_read_count": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/gold_read_count",
+      "field_name": "gold_read_count",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "host": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/host",
+      "field_name": "host",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "ledger_event_end": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/ledger_event_end",
+      "field_name": "ledger_event_end",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "ledger_event_start": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/ledger_event_start",
+      "field_name": "ledger_event_start",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "normalization_version": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/normalization_version",
+      "field_name": "normalization_version",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "os": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/os",
+      "field_name": "os",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "output_path": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/output_path",
+      "field_name": "output_path",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "process_id": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/process_id",
+      "field_name": "process_id",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "protocol_commit": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/protocol_commit",
+      "field_name": "protocol_commit",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "protocol_tag": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/protocol_tag",
+      "field_name": "protocol_tag",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "python": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/python",
+      "field_name": "python",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "query_id": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/query_id",
+      "field_name": "query_id",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "replica": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/replica",
+      "field_name": "replica",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "retriever_version": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/retriever_version",
+      "field_name": "retriever_version",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "run_id": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/run_id",
+      "field_name": "run_id",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "run_id_namespace_version": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/run_id_namespace_version",
+      "field_name": "run_id_namespace_version",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "run_key": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/run_key",
+      "field_name": "run_key",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "run_key_spec_version": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/run_key_spec_version",
+      "field_name": "run_key_spec_version",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "scoring_version": {
+      "classification": "SEMANTIC_OR_PROTOCOL_PRESERVED",
+      "exact_json_pointer": "/metadata/scoring_version",
+      "field_name": "scoring_version",
+      "included_in_normalized": true,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": true,
+      "required": true,
+      "version_introduced": "1.6"
+    },
+    "start_time": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/start_time",
+      "field_name": "start_time",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    },
+    "temporary_path": {
+      "classification": "REGISTERED_RUNTIME_EXCLUDED",
+      "exact_json_pointer": "/metadata/temporary_path",
+      "field_name": "temporary_path",
+      "included_in_normalized": false,
+      "included_in_raw": true,
+      "included_in_run_manifest": true,
+      "included_in_semantic_hash": false,
+      "required": false,
+      "version_introduced": "1.6"
+    }
+  },
+  "normalization_spec_version": "structured_semantic_normalization/1.3",
+  "protocol_values": {
+    "normalization_version": "structured_semantic_normalization/1.3",
+    "run_id_namespace_version": "v3_run_id_namespace/1.0",
+    "run_key_spec_version": "v3_run_key/1.0"
+  }
+}
