@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "benchmark_id": "pilot_only",
+    "corpus_hash": "h",
+    "corpus_version": "qualified_claim_repository/1.4",
+    "gate_version": "g",
+    "gold_read_count": 0,
+    "normalization_version": "structured_semantic_normalization/1.3",
+    "protocol_commit": "6381d89f",
+    "protocol_tag": "v3-final-evaluation-protocol-v1.6",
+    "query_id": "PILOT",
+    "retriever_version": "r",
+    "run_id_namespace_version": "v3_run_id_namespace/1.0",
+    "run_key_spec_version": "v3_run_key/1.0",
+    "scoring_version": "s"
+  },
+  "result": {
+    "payload": {
+      "primary_ranked_results": [
+        {
+          "bucket": "primary",
+          "claim_id": "pilot",
+          "rank": 1,
+          "score": 1
+        }
+      ]
+    }
+  }
+}

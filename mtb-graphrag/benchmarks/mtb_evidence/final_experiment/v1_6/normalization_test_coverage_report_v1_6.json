@@ -1,0 +1,16 @@
+{
+  "content_sha256": "6eb5ca33e03ffb90491234db2730b566fcc6e1413136daf6cd863c09b310c4be",
+  "metadata_behaviors": 8,
+  "normalization_required_behaviors_covered": 20,
+  "tests": {
+    "envelope_registry_parity": true,
+    "os_runtime_excluded": true,
+    "protocol_mismatch_normalization_version": true,
+    "protocol_mismatch_run_id_namespace_version": true,
+    "protocol_mismatch_run_key_spec_version": true,
+    "python_runtime_excluded": true,
+    "registry_parity_mutation": true,
+    "unknown_field_error": true
+  },
+  "v1_5_behaviors": 12
+}
