@@ -1,0 +1,19 @@
+{
+  "blinding_leak_count": 0,
+  "packet_A": {
+    "blinding_leak_count": 0,
+    "leaked_fields": [],
+    "packet": "annotation_packet_A_g1_1.jsonl",
+    "passed": true,
+    "unit_count": 3256
+  },
+  "packet_B": {
+    "blinding_leak_count": 0,
+    "leaked_fields": [],
+    "packet": "annotation_packet_B_g1_1.jsonl",
+    "passed": true,
+    "unit_count": 3256
+  },
+  "randomization_seed": 20260801,
+  "schema_version": "blinding-report/1.1"
+}
