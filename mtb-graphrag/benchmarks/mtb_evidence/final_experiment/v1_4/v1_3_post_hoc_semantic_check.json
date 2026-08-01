@@ -1,0 +1,17 @@
+{
+  "differing_fields": [
+    "/metadata/start_time",
+    "/metadata/end_time",
+    "/metadata/replica",
+    "/metadata/run_id",
+    "/metadata/run_key",
+    "/metadata/elapsed_ms"
+  ],
+  "official_determinism_result": "not_evaluable_under_v1_3_contract",
+  "pairs_compared": 22,
+  "post_hoc_forensic_check": true,
+  "real_retriever_nondeterminism_detected": false,
+  "semantic_matches": 22,
+  "semantic_mismatches": 0,
+  "v1_3_mismatch_cause": "normalization_false_positive"
+}

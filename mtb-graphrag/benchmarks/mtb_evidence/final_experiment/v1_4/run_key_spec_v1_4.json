@@ -1,0 +1,7 @@
+{
+  "algorithm": "rk_ + sha256(canonical_json(payload))",
+  "canonicalization": "canonical_json_sha256/1.0",
+  "content_sha256": "833406d0737a0eef6be24ce957ff48094771c1518be6126da0b8093f108fbf3c",
+  "run_key_spec_version": "v3_run_key/1.0",
+  "timestamp_independent": true
+}
