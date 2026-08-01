@@ -1,0 +1,21 @@
+{
+  "final_evaluable": false,
+  "gold_labels_included": false,
+  "order_different": true,
+  "packet_A": {
+    "path": "calibration_packet_A_g1_1.jsonl",
+    "sha256": "2e3aaf362e2ea5d6c502603bea175b11fd1d28716378d6ec9db518a70bdc2886",
+    "unit_ids_sha256": "3b0190098bde48792142ceb49e1ff76c827f44345eecf555887935cf9b7b7dda"
+  },
+  "packet_B": {
+    "path": "calibration_packet_B_g1_1.jsonl",
+    "sha256": "be3fdfa59febeb1689ae9a6c581bcd44776130373fc32e2526d6322ea53c9357",
+    "unit_ids_sha256": "e6521e545772f9e568f0751a4e782b902fd231b2e001bd5b8fc09906df0fb900"
+  },
+  "packet_seed": 20260801,
+  "pilot_only": true,
+  "schema_version": "g1.1-calibration-manifest/1.0",
+  "set_equal": true,
+  "source_bundle": "C:\\Users\\paolo\\Desktop\\IspezioneDatasetTesi\\MTB_Evidence_gold_pilot_v1_bundle",
+  "unit_count": 9
+}
