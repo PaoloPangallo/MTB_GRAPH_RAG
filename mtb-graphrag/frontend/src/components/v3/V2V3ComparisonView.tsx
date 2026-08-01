@@ -57,6 +57,7 @@ export const V2V3ComparisonView: React.FC = () => {
           gene: biomarker.split(' ')[0] || 'EGFR',
           variant: biomarker,
           tumor_type: disease,
+          alteration_type: biomarker.toLowerCase().includes('fusion') ? 'fusion' : 'point_mutation',
         }),
       });
       const endTimeV2 = performance.now();

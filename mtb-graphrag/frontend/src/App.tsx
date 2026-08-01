@@ -16,21 +16,33 @@ import {
   TableBody,
   TableCell,
   TableRow,
+  ToggleButtonGroup,
+  ToggleButton,
 } from '@mui/material';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import GavelIcon from '@mui/icons-material/Gavel';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+
 import InputForm from './components/InputForm';
 import ReportView from './components/ReportView';
 import StructuredData from './components/StructuredData';
 import JudgePanel from './components/JudgePanel';
 import ArchitectureComparison from './components/ArchitectureComparison';
+
+import V3EvidenceExplorer from './components/v3/V3EvidenceExplorer';
+import V2V3ComparisonView from './components/v3/V2V3ComparisonView';
+
 import type { MTBRequest, ReportResponse, JudgeResponse } from './types';
 
+type MainViewMode = 'v3' | 'v2_v3_compare' | 'v2_legacy' | 'arch_compare';
+
 function App() {
-  const [architectureView, setArchitectureView] = useState(false);
+  const [viewMode, setViewMode] = useState<MainViewMode>('v3');
+
   const [loading, setLoading] = useState(false);
   const [enriching, setEnriching] = useState(false);
   const [isZeroShotMode, setIsZeroShotMode] = useState(false);
@@ -271,361 +283,395 @@ function App() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <AppBar position="static">
-        <Toolbar>
-          <LocalHospitalIcon sx={{ mr: 2 }} />
-          <Box>
-            <Typography variant="h6" component="div" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
-              MTB GraphRAG Assistant
-            </Typography>
-            <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.75)', letterSpacing: '0.03em' }}>
-              Sistema di supporto alle decisioni oncologiche
-            </Typography>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', bgcolor: '#F8FAFC' }}>
+      <AppBar position="static" sx={{ bgcolor: '#0F172A', borderBottom: '1px solid #1E293B' }}>
+        <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 3 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <LocalHospitalIcon sx={{ mr: 1.5, color: '#38BDF8' }} />
+            <Box>
+              <Typography variant="h6" component="div" sx={{ fontWeight: 700, lineHeight: 1.2, color: '#F8FAFC' }}>
+                MTB GraphRAG Assistant
+              </Typography>
+              <Typography variant="caption" sx={{ color: '#94A3B8', letterSpacing: '0.03em' }}>
+                Sistema di Supporto Decisionale Oncologico
+              </Typography>
+            </Box>
           </Box>
-          <Button
-            color="inherit"
-            variant={architectureView ? 'outlined' : 'text'}
-            startIcon={<CompareArrowsIcon />}
-            onClick={() => setArchitectureView(current => !current)}
-            sx={{ ml: 'auto', borderColor: architectureView ? 'rgba(255,255,255,0.7)' : undefined }}
+
+          {/* MAIN APPLICATION NAVIGATION MODES */}
+          <ToggleButtonGroup
+            value={viewMode}
+            exclusive
+            onChange={(_, val) => val && setViewMode(val)}
+            size="small"
+            sx={{
+              bgcolor: '#1E293B',
+              borderRadius: 1.5,
+              p: 0.5,
+              '& .MuiToggleButton-root': {
+                color: '#94A3B8',
+                border: 'none',
+                fontWeight: 600,
+                fontSize: '0.78rem',
+                textTransform: 'none',
+                px: 2,
+                py: 0.5,
+                borderRadius: 1,
+                '&.Mui-selected': {
+                  bgcolor: '#0284C7',
+                  color: '#FFFFFF',
+                  '&:hover': { bgcolor: '#0369A1' },
+                },
+              },
+            }}
           >
-            {architectureView ? 'Torna al report' : 'Confronta architetture'}
-          </Button>
+            <ToggleButton value="v3">
+              <VerifiedIcon sx={{ mr: 0.75, fontSize: '1rem' }} /> V3 Evidence Explorer (Principale)
+            </ToggleButton>
+            <ToggleButton value="v2_v3_compare">
+              <CompareArrowsIcon sx={{ mr: 0.75, fontSize: '1rem' }} /> Confronto V2 ↔ V3
+            </ToggleButton>
+            <ToggleButton value="v2_legacy">
+              <AssessmentIcon sx={{ mr: 0.75, fontSize: '1rem' }} /> Analisi V2 (Legacy)
+            </ToggleButton>
+            <ToggleButton value="arch_compare">
+              Confronto Architettura
+            </ToggleButton>
+          </ToggleButtonGroup>
         </Toolbar>
       </AppBar>
 
-      {architectureView ? <ArchitectureComparison /> : <Container maxWidth="xl" sx={{ flexGrow: 1, py: 4 }}>
-        <Grid container spacing={4}>
-          <Grid size={{ xs: 12, md: 4, lg: 3 }}>
-            <InputForm
-              onSubmit={handleAnalyze}
-              onCompare={handleCompare}
-              disabled={loading || isCompareLoading}
-            />
-          </Grid>
+      {/* CONTENT AREA BASED ON VIEW MODE */}
+      <Container maxWidth="xl" sx={{ flexGrow: 1, py: 2.5 }}>
+        {viewMode === 'v3' && <V3EvidenceExplorer />}
+        {viewMode === 'v2_v3_compare' && <V2V3ComparisonView />}
+        {viewMode === 'arch_compare' && <ArchitectureComparison />}
 
-          <Grid size={{ xs: 12, md: 8, lg: 9 }}>
-            {error && (
-              <Alert severity="error" sx={{ mb: 3 }}>
-                {error}
-              </Alert>
-            )}
+        {viewMode === 'v2_legacy' && (
+          <Grid container spacing={4}>
+            <Grid size={{ xs: 12, md: 4, lg: 3 }}>
+              <InputForm
+                onSubmit={handleAnalyze}
+                onCompare={handleCompare}
+                disabled={loading || isCompareLoading}
+              />
+            </Grid>
 
-            {compareMode ? (
-              (() => {
-                const completedConditions = selectedConditions.filter(
-                  cond => compareResults[cond] !== null && !compareLoadings[cond]
-                );
-                const hasAnySummary = completedConditions.length > 0;
-                // Fixed column width so each report is always readable
-                const COL_WIDTH = 480;
+            <Grid size={{ xs: 12, md: 8, lg: 9 }}>
+              {error && (
+                <Alert severity="error" sx={{ mb: 3 }}>
+                  {error}
+                </Alert>
+              )}
 
-                return (
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                    {/* SUMMARY BANNER SINOTTICO */}
-                    {hasAnySummary && (
-                      <Card variant="outlined" sx={{ borderTop: '3px solid #1E40AF' }}>
-                        <Box sx={{
-                          px: 2.5, py: 1.5,
-                          borderBottom: '1px solid #E2E8F0',
-                          background: 'linear-gradient(to right, #EFF6FF, #FFFFFF)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 1.5,
-                        }}>
-                          <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'primary.dark' }}>
-                            Confronto Sinottico
-                          </Typography>
-                          <Chip
-                            label={`${completedConditions.length} / ${selectedConditions.length} condizioni`}
-                            size="small"
-                            variant="outlined"
-                            sx={{ fontSize: '0.7rem' }}
-                          />
-                        </Box>
-                        <Box sx={{ overflowX: 'auto' }}>
-                          <Table size="small">
-                            <TableBody>
-                              <TableRow sx={{ bgcolor: '#F8FAFC' }}>
-                                <TableCell sx={{ fontWeight: 700, fontSize: '0.72rem', color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', width: 110, borderRight: '1px solid #E2E8F0' }}>
-                                  Metrica
-                                </TableCell>
-                                {selectedConditions.map(cond => {
-                                  const meta = conditionMeta[cond] || { title: cond, color: '#000', shortLabel: cond };
-                                  return (
-                                    <TableCell key={cond} align="center" sx={{ fontWeight: 700, fontSize: '0.75rem', color: meta.color, borderBottom: `2px solid ${meta.color}` }}>
-                                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.75 }}>
-                                        <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: meta.color, flexShrink: 0 }} />
-                                        {meta.shortLabel}
-                                      </Box>
-                                    </TableCell>
-                                  );
-                                })}
-                              </TableRow>
-                              <TableRow>
-                                <TableCell sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'text.secondary', borderRight: '1px solid #E2E8F0' }}>ESCAT Tier</TableCell>
-                                {selectedConditions.map(cond => {
-                                  const data = compareResults[cond];
-                                  const isLoading = compareLoadings[cond];
-                                  return (
-                                    <TableCell key={cond} align="center">
-                                      {isLoading ? <CircularProgress size={14} /> : data ? (
-                                        <Chip label={getEscatTier(data.report, data.escat_tier)} size="small" color={getEscatColor(getEscatTier(data.report, data.escat_tier)) as any} sx={{ fontWeight: 700, fontSize: '0.7rem' }} />
-                                      ) : '—'}
-                                    </TableCell>
-                                  );
-                                })}
-                              </TableRow>
-                              <TableRow sx={{ bgcolor: '#F8FAFC' }}>
-                                <TableCell sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'text.secondary', borderRight: '1px solid #E2E8F0' }}>Farmaci</TableCell>
-                                {selectedConditions.map(cond => {
-                                  const data = compareResults[cond];
-                                  const isLoading = compareLoadings[cond];
-                                  return (
-                                    <TableCell key={cond} align="center">
-                                      {isLoading ? <CircularProgress size={14} /> : data ? (
-                                        <Typography variant="body2" sx={{ fontWeight: 700 }}>{getExtractedDrugs(data.report, data.drug_candidates).length}</Typography>
-                                      ) : '—'}
-                                    </TableCell>
-                                  );
-                                })}
-                              </TableRow>
-                              <TableRow>
-                                <TableCell sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'text.secondary', borderRight: '1px solid #E2E8F0' }}>PMID Citati</TableCell>
-                                {selectedConditions.map(cond => {
-                                  const data = compareResults[cond];
-                                  const isLoading = compareLoadings[cond];
-                                  return (
-                                    <TableCell key={cond} align="center">
-                                      {isLoading ? <CircularProgress size={14} /> : data ? (
-                                        <Typography variant="body2" sx={{ fontWeight: 700 }}>{data.cited_pmids.length}</Typography>
-                                      ) : '—'}
-                                    </TableCell>
-                                  );
-                                })}
-                              </TableRow>
-                              <TableRow sx={{ bgcolor: '#F8FAFC' }}>
-                                <TableCell sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'text.secondary', borderRight: '1px solid #E2E8F0' }}>Complexity</TableCell>
-                                {selectedConditions.map(cond => {
-                                  const data = compareResults[cond];
-                                  const isLoading = compareLoadings[cond];
-                                  return (
-                                    <TableCell key={cond} align="center">
-                                      {isLoading ? <CircularProgress size={14} /> : data ? (
-                                        <Chip label={data.complexity.toUpperCase()} size="small" color={getComplexityColor(data.complexity) as any} variant="outlined" sx={{ fontWeight: 700, fontSize: '0.68rem' }} />
-                                      ) : '—'}
-                                    </TableCell>
-                                  );
-                                })}
-                              </TableRow>
-                            </TableBody>
-                          </Table>
-                        </Box>
-                      </Card>
-                    )}
+              {compareMode ? (
+                (() => {
+                  const completedConditions = selectedConditions.filter(
+                    cond => compareResults[cond] !== null && !compareLoadings[cond]
+                  );
+                  const hasAnySummary = completedConditions.length > 0;
+                  const COL_WIDTH = 480;
 
-                    {/* COLONNE CON SCROLL ORIZZONTALE */}
-                    <Box sx={{ overflowX: 'auto', pb: 1 }}>
-                      <Box sx={{ display: 'flex', gap: 3, minWidth: 'max-content', alignItems: 'flex-start' }}>
-                        {selectedConditions.map((cond) => {
-                          const meta = conditionMeta[cond] || { title: cond, color: '#000000', shortLabel: cond };
-                          const data = compareResults[cond];
-                          const isLoading = compareLoadings[cond];
-                          const colError = compareErrors[cond];
+                  return (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                      {hasAnySummary && (
+                        <Card variant="outlined" sx={{ borderTop: '3px solid #1E40AF' }}>
+                          <Box sx={{
+                            px: 2.5, py: 1.5,
+                            borderBottom: '1px solid #E2E8F0',
+                            background: 'linear-gradient(to right, #EFF6FF, #FFFFFF)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1.5,
+                          }}>
+                            <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'primary.dark' }}>
+                              Confronto Sinottico
+                            </Typography>
+                            <Chip
+                              label={`${completedConditions.length} / ${selectedConditions.length} condizioni`}
+                              size="small"
+                              variant="outlined"
+                              sx={{ fontSize: '0.7rem' }}
+                            />
+                          </Box>
+                          <Box sx={{ overflowX: 'auto' }}>
+                            <Table size="small">
+                              <TableBody>
+                                <TableRow sx={{ bgcolor: '#F8FAFC' }}>
+                                  <TableCell sx={{ fontWeight: 700, fontSize: '0.72rem', color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', width: 110, borderRight: '1px solid #E2E8F0' }}>
+                                    Metrica
+                                  </TableCell>
+                                  {selectedConditions.map(cond => {
+                                    const meta = conditionMeta[cond] || { title: cond, color: '#000', shortLabel: cond };
+                                    return (
+                                      <TableCell key={cond} align="center" sx={{ fontWeight: 700, fontSize: '0.75rem', color: meta.color, borderBottom: `2px solid ${meta.color}` }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.75 }}>
+                                          <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: meta.color, flexShrink: 0 }} />
+                                          {meta.shortLabel}
+                                        </Box>
+                                      </TableCell>
+                                    );
+                                  })}
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'text.secondary', borderRight: '1px solid #E2E8F0' }}>ESCAT Tier</TableCell>
+                                  {selectedConditions.map(cond => {
+                                    const data = compareResults[cond];
+                                    const isLoading = compareLoadings[cond];
+                                    return (
+                                      <TableCell key={cond} align="center">
+                                        {isLoading ? <CircularProgress size={14} /> : data ? (
+                                          <Chip label={getEscatTier(data.report, data.escat_tier)} size="small" color={getEscatColor(getEscatTier(data.report, data.escat_tier)) as any} sx={{ fontWeight: 700, fontSize: '0.7rem' }} />
+                                        ) : '—'}
+                                      </TableCell>
+                                    );
+                                  })}
+                                </TableRow>
+                                <TableRow sx={{ bgcolor: '#F8FAFC' }}>
+                                  <TableCell sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'text.secondary', borderRight: '1px solid #E2E8F0' }}>Farmaci</TableCell>
+                                  {selectedConditions.map(cond => {
+                                    const data = compareResults[cond];
+                                    const isLoading = compareLoadings[cond];
+                                    return (
+                                      <TableCell key={cond} align="center">
+                                        {isLoading ? <CircularProgress size={14} /> : data ? (
+                                          <Typography variant="body2" sx={{ fontWeight: 700 }}>{getExtractedDrugs(data.report, data.drug_candidates).length}</Typography>
+                                        ) : '—'}
+                                      </TableCell>
+                                    );
+                                  })}
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'text.secondary', borderRight: '1px solid #E2E8F0' }}>PMID Citati</TableCell>
+                                  {selectedConditions.map(cond => {
+                                    const data = compareResults[cond];
+                                    const isLoading = compareLoadings[cond];
+                                    return (
+                                      <TableCell key={cond} align="center">
+                                        {isLoading ? <CircularProgress size={14} /> : data ? (
+                                          <Typography variant="body2" sx={{ fontWeight: 700 }}>{data.cited_pmids.length}</Typography>
+                                        ) : '—'}
+                                      </TableCell>
+                                    );
+                                  })}
+                                </TableRow>
+                                <TableRow sx={{ bgcolor: '#F8FAFC' }}>
+                                  <TableCell sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'text.secondary', borderRight: '1px solid #E2E8F0' }}>Complexity</TableCell>
+                                  {selectedConditions.map(cond => {
+                                    const data = compareResults[cond];
+                                    const isLoading = compareLoadings[cond];
+                                    return (
+                                      <TableCell key={cond} align="center">
+                                        {isLoading ? <CircularProgress size={14} /> : data ? (
+                                          <Chip label={data.complexity.toUpperCase()} size="small" color={getComplexityColor(data.complexity) as any} variant="outlined" sx={{ fontWeight: 700, fontSize: '0.68rem' }} />
+                                        ) : '—'}
+                                      </TableCell>
+                                    );
+                                  })}
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </Box>
+                        </Card>
+                      )}
 
-                          return (
-                            <Box key={cond} sx={{ width: COL_WIDTH, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                              {/* Condition Header */}
-                              <Box sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 1,
-                                pb: 1,
-                                borderBottom: `3px solid ${meta.color}`,
-                              }}>
-                                <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: meta.color, flexShrink: 0, boxShadow: `0 0 6px ${meta.color}80` }} />
-                                <Typography variant="subtitle1" sx={{ fontWeight: 700, color: meta.color }}>
-                                  {meta.title}
-                                </Typography>
-                              </Box>
+                      <Box sx={{ overflowX: 'auto', pb: 1 }}>
+                        <Box sx={{ display: 'flex', gap: 3, minWidth: 'max-content', alignItems: 'flex-start' }}>
+                          {selectedConditions.map((cond) => {
+                            const meta = conditionMeta[cond] || { title: cond, color: '#000000', shortLabel: cond };
+                            const data = compareResults[cond];
+                            const isLoading = compareLoadings[cond];
+                            const colError = compareErrors[cond];
 
-                              {isLoading && (
+                            return (
+                              <Box key={cond} sx={{ width: COL_WIDTH, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                                 <Box sx={{
                                   display: 'flex',
-                                  flexDirection: 'column',
                                   alignItems: 'center',
-                                  py: 14,
-                                  border: '1px dashed #CBD5E1',
-                                  borderRadius: 2,
-                                  bgcolor: '#FAFBFC',
-                                  boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.03)',
+                                  gap: 1,
+                                  pb: 1,
+                                  borderBottom: `3px solid ${meta.color}`,
                                 }}>
-                                  <CircularProgress size={40} thickness={4} sx={{ color: meta.color }} />
-                                  <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 600 }}>
-                                    Generazione in corso…
-                                  </Typography>
-                                  <Typography variant="caption" sx={{ mt: 0.5, color: '#94A3B8' }}>
-                                    {meta.shortLabel}
+                                  <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: meta.color, flexShrink: 0, boxShadow: `0 0 6px ${meta.color}80` }} />
+                                  <Typography variant="subtitle1" sx={{ fontWeight: 700, color: meta.color }}>
+                                    {meta.title}
                                   </Typography>
                                 </Box>
-                              )}
 
-                              {colError && (
-                                <Alert severity="error">{colError}</Alert>
-                              )}
+                                {isLoading && (
+                                  <Box sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    py: 14,
+                                    border: '1px dashed #CBD5E1',
+                                    borderRadius: 2,
+                                    bgcolor: '#FAFBFC',
+                                    boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.03)',
+                                  }}>
+                                    <CircularProgress size={40} thickness={4} sx={{ color: meta.color }} />
+                                    <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 600 }}>
+                                      Generazione in corso…
+                                    </Typography>
+                                    <Typography variant="caption" sx={{ mt: 0.5, color: '#94A3B8' }}>
+                                      {meta.shortLabel}
+                                    </Typography>
+                                  </Box>
+                                )}
 
-                              {data && !isLoading && (
-                                <>
-                                  {/* HIGHLIGHTS CARD */}
-                                  <Card variant="outlined" sx={{ bgcolor: '#F8FAFC', borderTop: `3px solid ${meta.color}`, overflow: 'visible' }}>
-                                    <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
-                                      <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, color: '#475569', fontSize: '0.68rem', letterSpacing: '0.07em', textTransform: 'uppercase' }}>
-                                        Elementi Chiave
-                                      </Typography>
-                                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
-                                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                          <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>ESCAT Tier:</Typography>
-                                          <Chip
-                                            label={getEscatTier(data.report, data.escat_tier)}
-                                            size="small"
-                                            sx={{
-                                              fontWeight: 700,
-                                              bgcolor: getEscatTier(data.report, data.escat_tier) !== 'N/D' ? `${meta.color}15` : '#E2E8F0',
-                                              color: getEscatTier(data.report, data.escat_tier) !== 'N/D' ? meta.color : 'text.secondary'
-                                            }}
-                                          />
-                                        </Box>
-                                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                                          <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>Farmaci Raccomandati:</Typography>
-                                          <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-                                            {getExtractedDrugs(data.report, data.drug_candidates).length === 0 ? (
-                                              <Typography variant="caption" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>Nessuno individuato</Typography>
-                                            ) : (
-                                              getExtractedDrugs(data.report, data.drug_candidates).map((d, i) => (
-                                                <Chip key={i} label={d} size="small" variant="outlined" sx={{ fontSize: '0.67rem', fontWeight: 500, borderColor: `${meta.color}40`, color: meta.color }} />
-                                              ))
-                                            )}
+                                {colError && (
+                                  <Alert severity="error">{colError}</Alert>
+                                )}
+
+                                {data && !isLoading && (
+                                  <>
+                                    <Card variant="outlined" sx={{ bgcolor: '#F8FAFC', borderTop: `3px solid ${meta.color}`, overflow: 'visible' }}>
+                                      <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
+                                        <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, color: '#475569', fontSize: '0.68rem', letterSpacing: '0.07em', textTransform: 'uppercase' }}>
+                                          Elementi Chiave
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
+                                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>ESCAT Tier:</Typography>
+                                            <Chip
+                                              label={getEscatTier(data.report, data.escat_tier)}
+                                              size="small"
+                                              sx={{
+                                                fontWeight: 700,
+                                                bgcolor: getEscatTier(data.report, data.escat_tier) !== 'N/D' ? `${meta.color}15` : '#E2E8F0',
+                                                color: getEscatTier(data.report, data.escat_tier) !== 'N/D' ? meta.color : 'text.secondary'
+                                              }}
+                                            />
+                                          </Box>
+                                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                                            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>Farmaci Raccomandati:</Typography>
+                                            <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                                              {getExtractedDrugs(data.report, data.drug_candidates).length === 0 ? (
+                                                <Typography variant="caption" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>Nessuno individuato</Typography>
+                                              ) : (
+                                                getExtractedDrugs(data.report, data.drug_candidates).map((d, i) => (
+                                                  <Chip key={i} label={d} size="small" variant="outlined" sx={{ fontSize: '0.67rem', fontWeight: 500, borderColor: `${meta.color}40`, color: meta.color }} />
+                                                ))
+                                              )}
+                                            </Box>
+                                          </Box>
+                                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                                            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>PMID Citati ({data.cited_pmids.length}):</Typography>
+                                            <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                                              {data.cited_pmids.length === 0 ? (
+                                                <Typography variant="caption" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>Nessuna citazione</Typography>
+                                              ) : (
+                                                data.cited_pmids.map((pmid, i) => (
+                                                  <Chip key={i} label={pmid} size="small" variant="outlined" component="a" href={`https://pubmed.ncbi.nlm.nih.gov/${pmid}`} target="_blank" clickable sx={{ fontSize: '0.67rem', height: 20 }} />
+                                                ))
+                                              )}
+                                            </Box>
                                           </Box>
                                         </Box>
-                                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                                          <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>PMID Citati ({data.cited_pmids.length}):</Typography>
-                                          <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-                                            {data.cited_pmids.length === 0 ? (
-                                              <Typography variant="caption" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>Nessuna citazione</Typography>
-                                            ) : (
-                                              data.cited_pmids.map((pmid, i) => (
-                                                <Chip key={i} label={pmid} size="small" variant="outlined" component="a" href={`https://pubmed.ncbi.nlm.nih.gov/${pmid}`} target="_blank" clickable sx={{ fontSize: '0.67rem', height: 20 }} />
-                                              ))
-                                            )}
-                                          </Box>
-                                        </Box>
-                                      </Box>
-                                    </CardContent>
-                                  </Card>
+                                      </CardContent>
+                                    </Card>
 
-                                  {/* REPORT VIEW */}
-                                  <ReportView
-                                    data={data}
-                                    onEnrich={cond === 'full_graphrag' ? handleEnrich : undefined}
-                                    enriching={cond === 'full_graphrag' ? enriching : false}
-                                  />
-
-                                  {/* STRUCTURED DATA — collassato di default in compare mode */}
-                                  <Button
-                                    size="small"
-                                    variant="outlined"
-                                    onClick={() => toggleDetails(cond)}
-                                    endIcon={expandedDetails[cond] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                                    sx={{
-                                      color: meta.color,
-                                      borderColor: `${meta.color}60`,
-                                      fontSize: '0.75rem',
-                                      fontWeight: 600,
-                                      '&:hover': { borderColor: meta.color, bgcolor: `${meta.color}08` }
-                                    }}
-                                  >
-                                    {expandedDetails[cond] ? 'Nascondi dettagli (Graph, Tabelle)' : 'Mostra dettagli (Graph, Tabelle)'}
-                                  </Button>
-
-                                  {expandedDetails[cond] && (
-                                    <StructuredData
+                                    <ReportView
                                       data={data}
                                       onEnrich={cond === 'full_graphrag' ? handleEnrich : undefined}
                                       enriching={cond === 'full_graphrag' ? enriching : false}
                                     />
-                                  )}
-                                </>
-                              )}
-                            </Box>
-                          );
-                        })}
+
+                                    <Button
+                                      size="small"
+                                      variant="outlined"
+                                      onClick={() => toggleDetails(cond)}
+                                      endIcon={expandedDetails[cond] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                                      sx={{
+                                        color: meta.color,
+                                        borderColor: `${meta.color}60`,
+                                        fontSize: '0.75rem',
+                                        fontWeight: 600,
+                                        '&:hover': { borderColor: meta.color, bgcolor: `${meta.color}08` }
+                                      }}
+                                    >
+                                      {expandedDetails[cond] ? 'Nascondi dettagli (Graph, Tabelle)' : 'Mostra dettagli (Graph, Tabelle)'}
+                                    </Button>
+
+                                    {expandedDetails[cond] && (
+                                      <StructuredData
+                                        data={data}
+                                        onEnrich={cond === 'full_graphrag' ? handleEnrich : undefined}
+                                        enriching={cond === 'full_graphrag' ? enriching : false}
+                                      />
+                                    )}
+                                  </>
+                                )}
+                              </Box>
+                            );
+                          })}
+                        </Box>
                       </Box>
                     </Box>
-                  </Box>
-                );
-              })()
-            ) : loading ? (
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 10 }}>
-                <CircularProgress size={60} thickness={4} color={isZeroShotMode ? 'secondary' : 'primary'} />
-                <Typography variant="h6" sx={{ mt: 3, color: 'text.secondary', fontWeight: 600 }}>
-                  {isZeroShotMode ? 'Generazione report Zero-Shot…' : 'Elaborazione pipeline agentica GraphRAG…'}
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1, maxWidth: 480, textAlign: 'center' }}>
-                  {isZeroShotMode
-                    ? "L'LLM sta generando il report basandosi unicamente sulla sua memoria parametrica."
-                    : "L'agente sta consultando il Knowledge Graph e sintetizzando le evidenze."}
-                </Typography>
-              </Box>
-            ) : reportData ? (
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <ReportView
-                  data={reportData}
-                  onEnrich={handleEnrich}
-                  enriching={enriching}
-                />
-                <StructuredData data={reportData} onEnrich={handleEnrich} enriching={enriching} />
-                {judgeData ? (
-                  <JudgePanel judgeData={judgeData} />
-                ) : (
-                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={handleJudge}
-                      startIcon={<GavelIcon />}
-                      sx={{ px: 3 }}
-                    >
-                      Richiedi valutazione indipendente LLM-as-judge
-                    </Button>
-                  </Box>
-                )}
-              </Box>
-            ) : (
-              <Box sx={{
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1px dashed #CBD5E1',
-                borderRadius: 3,
-                bgcolor: 'background.paper',
-                p: 6,
-                gap: 2,
-              }}>
-                <LocalHospitalIcon sx={{ fontSize: 72, color: '#CBD5E1' }} />
-                <Typography variant="h4" color="text.secondary" align="center" sx={{ fontWeight: 300 }}>
-                  Inserisci i dati clinici nel modulo a sinistra per generare un report MTB.
-                </Typography>
-                <Typography variant="body1" color="text.secondary" align="center" sx={{ maxWidth: 420 }}>
-                  Supporta modalità single-case, baseline zero-shot e confronto ablativo multi-condizione.
-                </Typography>
-              </Box>
-            )}
+                  );
+                })()
+              ) : loading ? (
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 10 }}>
+                  <CircularProgress size={60} thickness={4} color={isZeroShotMode ? 'secondary' : 'primary'} />
+                  <Typography variant="h6" sx={{ mt: 3, color: 'text.secondary', fontWeight: 600 }}>
+                    {isZeroShotMode ? 'Generazione report Zero-Shot…' : 'Elaborazione pipeline agentica GraphRAG…'}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1, maxWidth: 480, textAlign: 'center' }}>
+                    {isZeroShotMode
+                      ? "L'LLM sta generando il report basandosi unicamente sulla sua memoria parametrica."
+                      : "L'agente sta consultando il Knowledge Graph e sintetizzando le evidenze."}
+                  </Typography>
+                </Box>
+              ) : reportData ? (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <ReportView
+                    data={reportData}
+                    onEnrich={handleEnrich}
+                    enriching={enriching}
+                  />
+                  <StructuredData data={reportData} onEnrich={handleEnrich} enriching={enriching} />
+                  {judgeData ? (
+                    <JudgePanel judgeData={judgeData} />
+                  ) : (
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleJudge}
+                        startIcon={<GavelIcon />}
+                        sx={{ px: 3 }}
+                      >
+                        Richiedi valutazione indipendente LLM-as-judge
+                      </Button>
+                    </Box>
+                  )}
+                </Box>
+              ) : (
+                <Box sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px dashed #CBD5E1',
+                  borderRadius: 3,
+                  bgcolor: 'background.paper',
+                  p: 6,
+                  gap: 2,
+                }}>
+                  <LocalHospitalIcon sx={{ fontSize: 72, color: '#CBD5E1' }} />
+                  <Typography variant="h4" color="text.secondary" align="center" sx={{ fontWeight: 300 }}>
+                    Inserisci i dati clinici nel modulo a sinistra per generare un report MTB.
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" align="center" sx={{ maxWidth: 420 }}>
+                    Supporta modalità single-case, baseline zero-shot e confronto ablativo multi-condizione.
+                  </Typography>
+                </Box>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>}
+        )}
+      </Container>
     </Box>
   );
 }
