@@ -1,0 +1,19 @@
+{
+  "content_sha256": "cd154e1445bb982778b9eb5feea75fa40ac18d27eecdd20a3d66907dbb54681d",
+  "corpus_changes": false,
+  "gate_changes": false,
+  "metric_changes": false,
+  "parent_protocol_commit": "0f6a30cf39c03fb277bd67a476d949e0028da5df",
+  "parent_protocol_version": "1.3",
+  "retriever_changes": false,
+  "semantic_query_changes": false,
+  "supersession_reasons": [
+    "missing_run_key_in_run_plan",
+    "incomplete_semantic_normalization_contract"
+  ],
+  "v1_3_gold_reads": 0,
+  "v1_3_runtime_failures": 0,
+  "v1_3_status": "superseded_before_output_freeze",
+  "v1_3_structured_outputs_frozen": false,
+  "v1_3_structured_runs_completed": 44
+}

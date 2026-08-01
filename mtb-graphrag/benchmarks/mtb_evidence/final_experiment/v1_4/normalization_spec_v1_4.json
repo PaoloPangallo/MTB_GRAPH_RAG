@@ -1,0 +1,21 @@
+{
+  "array_order_preserved": true,
+  "content_sha256": "6c1f5328696e67196994422eb63d51e231438c5f197fd9350bf6f69fc9a52781",
+  "excluded_json_pointers": [
+    "/metadata/start_time",
+    "/metadata/end_time",
+    "/metadata/elapsed_ms",
+    "/metadata/replica",
+    "/metadata/run_id",
+    "/metadata/run_key",
+    "/metadata/host",
+    "/metadata/process_id",
+    "/metadata/ledger_event_start",
+    "/metadata/ledger_event_end",
+    "/metadata/output_path",
+    "/metadata/temporary_path"
+  ],
+  "normalization_spec_version": "structured_semantic_normalization/1.1",
+  "null_preserved": true,
+  "unregistered_runtime_field": "fail"
+}
