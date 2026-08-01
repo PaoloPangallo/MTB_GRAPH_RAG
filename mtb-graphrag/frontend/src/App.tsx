@@ -28,7 +28,10 @@ import StructuredData from './components/StructuredData';
 import JudgePanel from './components/JudgePanel';
 import ArchitectureComparison from './components/ArchitectureComparison';
 import V3EvidenceView from './components/V3EvidenceView';
-import type { MTBRequest, ReportResponse, JudgeResponse, V3RetrieveResponse } from './types';
+import V3RunForm from './components/V3RunForm';
+import type { MTBRequest, ReportResponse, JudgeResponse, V3Request, V3RetrieveResponse } from './types';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
 function App() {
   const [architectureView, setArchitectureView] = useState(false);
@@ -158,11 +161,29 @@ function App() {
     }
   };
 
+  const handleV3Run = async (payload: V3Request) => {
+    setV3Loading(true);
+    setError(null);
+    try {
+      const response = await fetch(API_BASE_URL + '/api/v1/v3/retrieve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) throw new Error('Errore V3 HTTP ' + response.status);
+      setV3Data(await response.json() as V3RetrieveResponse);
+    } catch (err: any) {
+      setError(err.message || 'Errore durante il recupero V3');
+    } finally {
+      setV3Loading(false);
+    }
+  };
+
   const handleV3Retrieve = async (req: MTBRequest) => {
     setV3Loading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:8000/api/v1/v3/retrieve', {
+      const response = await fetch(`${API_BASE_URL}/api/v1/v3/retrieve`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -332,6 +353,17 @@ function App() {
       {architectureView ? <ArchitectureComparison /> : <Container maxWidth="xl" sx={{ flexGrow: 1, py: 4 }}>
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, md: 4, lg: 3 }}>
+            <Card variant='outlined' sx={{ mb: 2, borderTop: '3px solid #176B5B' }}>
+              <CardContent>
+                <V3RunForm
+                  onSubmit={handleV3Run}
+                  disabled={loading || isCompareLoading || v3Loading}
+                />
+              </CardContent>
+            </Card>
+            <Typography variant='caption' color='text.secondary' sx={{ display: 'block', mb: 1 }}>
+              Form legacy GraphRAG e confronto architetture
+            </Typography>
             <InputForm
               onSubmit={handleAnalyze}
               onCompare={handleCompare}

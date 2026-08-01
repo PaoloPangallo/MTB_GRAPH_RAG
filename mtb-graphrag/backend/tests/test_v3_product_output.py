@@ -29,6 +29,45 @@ def _query(**overrides: object) -> dict[str, object]:
 
 
 class V3ProductPresentationTests(unittest.TestCase):
+    def test_pipeline_projection_preserves_native_counts_and_order(self) -> None:
+        response = present_retrieval_outcome(self.run_query())
+        pipeline = response['pipeline']
+        stage_ids = [stage['id'] for stage in pipeline['stages']]
+
+        self.assertEqual(stage_ids[0], 'clinical_input')
+        self.assertEqual(stage_ids[1], 'case_normalization')
+        self.assertEqual(
+            pipeline['stages'][2]['details']['repository_version'],
+            'qualified_claim_repository/1.4',
+        )
+        self.assertEqual(pipeline['stages'][2]['output_count'], 311)
+        self.assertEqual(
+            pipeline['stages'][4]['details']['buckets']['primary'],
+            response['summary']['primary'],
+        )
+        self.assertEqual(
+            sum(item['count'] for item in pipeline['provenance_summary'].values()),
+            response['summary']['claim_records'],
+        )
+        self.assertEqual(pipeline['gate_summary'][0]['gate'], 'active_claim_loading')
+        self.assertEqual(pipeline['gate_summary'][1]['gate'], 'claim_status_gate')
+
+    def test_pipeline_stage_and_trace_details_are_real(self) -> None:
+        response = present_retrieval_outcome(self.run_query())
+        provenance_stage = response['pipeline']['stages'][5]
+        self.assertEqual(
+            provenance_stage['details']['status_counts']['PARENT_ONLY'],
+            response['pipeline']['provenance_summary']['PARENT_ONLY']['count'],
+        )
+        trace = response['evidence']['primary'][0]['gate_trace']
+        biomarker = next(item for item in trace if item['gate'] == 'biomarker')
+        self.assertEqual(biomarker['case_value'], 'FGFR2::v Fusion OR FGFR2::? Fusion')
+        self.assertTrue(biomarker['claim_value'])
+
+    def test_pipeline_exposes_native_score_without_coercion(self) -> None:
+        response = present_retrieval_outcome(self.run_query())
+        primary = response['evidence']['primary'][0]
+        self.assertEqual(primary['score']['total'], 108.0)
     @classmethod
     def setUpClass(cls) -> None:
         cls.pipeline = EvidenceRetrievalPipeline.from_config(
@@ -94,6 +133,12 @@ class V3ProductPresentationTests(unittest.TestCase):
 
 
 class V3ProductEndpointTests(unittest.TestCase):
+    def test_endpoint_contains_pipeline_projection(self) -> None:
+        response = self.client.post('/api/v1/v3/retrieve', json=_query())
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertIn('pipeline', payload)
+        self.assertIn('stages', payload['pipeline'])
     @classmethod
     def setUpClass(cls) -> None:
         cls.client = TestClient(app)
