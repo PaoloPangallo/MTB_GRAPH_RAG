@@ -377,6 +377,46 @@ export interface V3PipelineObservability {
 export interface V3ReasonCode {
   code: string;
   human_message: string;
+  gate?: string;
+}
+
+export interface V3ClaimProjection {
+  claim_text: string | null;
+  subject: string | null;
+  relation: string | null;
+  object: string | null;
+  biomarker?: string | null;
+  disease?: string | null;
+  intervention?: string | null;
+  direction?: string | null;
+  evidence_type?: string | null;
+  structured_tuple_complete: boolean;
+}
+
+export interface V3Decision {
+  bucket: string | null;
+  applicability: string | null;
+  structural_score: number | null;
+  structural_score_eligible: boolean | null;
+}
+
+export interface V3CaseComparisonValue {
+  query_value_original: unknown;
+  query_value_normalized: unknown;
+  claim_value: unknown;
+  comparison_result: unknown;
+  not_applicable_reason: string | null;
+  availability?: string | null;
+}
+
+export interface V3CaseComparison {
+  biomarker?: V3CaseComparisonValue | null;
+  disease?: V3CaseComparisonValue | null;
+  intervention?: V3CaseComparisonValue | null;
+  formulation?: V3CaseComparisonValue | null;
+  direction?: V3CaseComparisonValue | null;
+  claim_status?: V3CaseComparisonValue | null;
+  domain?: V3CaseComparisonValue | null;
 }
 
 export interface V3EvidenceRecord {
@@ -394,7 +434,7 @@ export interface V3EvidenceRecord {
   regimen: string[] | null;
   direction: string | null;
   evidence_type: string | null;
-  applicability: string;
+  applicability: string | null;
   separability: string | null;
   status: string | null;
   bucket: string;
@@ -406,6 +446,9 @@ export interface V3EvidenceRecord {
   parent_graph_evidence_record: Record<string, unknown>;
   source_unit: string | null;
   provenance: Record<string, unknown>;
+  claim?: V3ClaimProjection | null;
+  decision?: V3Decision | null;
+  case_comparison?: V3CaseComparison | null;
 }
 
 export interface V3RetrieveResponse {

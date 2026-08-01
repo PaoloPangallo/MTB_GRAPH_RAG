@@ -44,6 +44,53 @@ function value(value: unknown, fallback = 'non specificato'): string {
   return Array.isArray(value) ? value.join(', ') : String(value);
 }
 
+function directionLabel(direction: unknown): string {
+  if (direction === 'not_constrained') return 'Non vincolata dal caso';
+  if (direction === 'sensitivity') return 'Sensibilità';
+  if (direction === 'resistance') return 'Resistenza';
+  return value(direction);
+}
+
+function comparisonLabel(result: unknown): string {
+  if (result === 'not_constrained') return 'Non vincolata dal caso';
+  if (result === 'exact') return 'esatto';
+  if (result === true) return 'compatibile';
+  if (result === false) return 'non compatibile';
+  return value(result, 'non esposto');
+}
+
+function caseValue(raw: unknown, gate: string): string {
+  if (Array.isArray(raw) && raw.length === 0 && gate === 'intervention') {
+    return 'nessun intervento richiesto';
+  }
+  if (raw === '' && gate === 'direction') return 'nessuna direzione richiesta';
+  return gate === 'direction' ? directionLabel(raw) : value(raw);
+}
+
+function claimTitleV3(item: V3EvidenceRecord): string {
+  const claim = item.claim;
+  if (claim?.claim_text || item.claim_text) return claim?.claim_text || item.claim_text || item.claim_id;
+  if (
+    (claim?.structured_tuple_complete || item.structured_tuple_complete)
+    && (claim?.subject || item.subject)
+    && (claim?.relation || item.relation)
+    && (claim?.object || item.object)
+  ) {
+    return [
+      claim?.subject || item.subject,
+      claim?.relation || item.relation,
+      claim?.object || item.object,
+    ].join(' · ');
+  }
+  const biomarker = claim?.biomarker || item.biomarker;
+  const direction = claim?.direction || item.direction;
+  const intervention = claim?.intervention || item.intervention;
+  if (biomarker || direction || intervention) {
+    return [biomarker, directionLabel(direction), intervention].filter(Boolean).join(' · ');
+  }
+  return claimTitle(item);
+}
+
 function claimTitle(item: V3EvidenceRecord): string {
   if (item.claim_text) return item.claim_text;
   if (item.structured_tuple_complete && item.subject && item.relation && item.object) {
@@ -56,6 +103,19 @@ function claimTitle(item: V3EvidenceRecord): string {
 }
 
 function Score({ item }: { item: V3EvidenceRecord }) {
+  if (item.decision) {
+    const score = item.decision.structural_score;
+    const shown = score === null || score === undefined
+      ? 'non disponibile'
+      : item.decision.structural_score_eligible === false
+        ? 'Non applicabile'
+        : String(score);
+    return (
+      <Tooltip title='Il punteggio strutturale non è una probabilità clinica.'>
+        <Chip label={'Punteggio strutturale: ' + shown} size='small' variant='outlined' />
+      </Tooltip>
+    );
+  }
   const score = item.score?.total;
   const shown = typeof score === 'number' ? String(score) : 'non disponibile';
   return (
@@ -70,6 +130,7 @@ function GateTrace({ item }: { item: V3EvidenceRecord }) {
     <Box sx={{ mt: 1 }}>
       {item.gate_trace.length === 0 && <Typography variant='caption' color='text.secondary'>Gate trace non esposto.</Typography>}
       {item.gate_trace.map((trace, index) => {
+        const gate = String(trace.gate || '');
         const status = String(trace.status || 'not_applicable');
         const color = status === 'pass' ? 'success' : status === 'fail' ? 'error' : status === 'warning' ? 'warning' : 'default';
         return (
@@ -78,11 +139,70 @@ function GateTrace({ item }: { item: V3EvidenceRecord }) {
             <Chip label={status} color={color} size='small' />
             <Box>
               <Typography variant='caption'>{value(trace.message, value(trace.reason_code))}</Typography>
-              <Typography variant='caption' sx={{ display: 'block' }} color='text.secondary'>Caso: {value(trace.case_value)} · Claim: {value(trace.claim_value)}</Typography>
+              <Typography variant='caption' sx={{ display: 'block' }} color='text.secondary'>Caso: {caseValue(trace.query_value_original ?? trace.case_value, gate)} / Claim: {gate === 'direction' ? directionLabel(trace.claim_value) : value(trace.claim_value)}</Typography>
+              {trace.query_value_normalized !== null && trace.query_value_normalized !== undefined && String(trace.query_value_normalized) !== String(trace.query_value_original ?? trace.case_value) && (
+                <Typography variant='caption' sx={{ display: 'block' }} color='text.secondary'>Normalizzato: {caseValue(trace.query_value_normalized, gate)}</Typography>
+              )}
+              {trace.comparison_result !== undefined && <Typography variant='caption' sx={{ display: 'block' }} color='text.secondary'>Esito: {comparisonLabel(trace.comparison_result)}</Typography>}
+              {Boolean(trace.not_applicable_reason) && <Typography variant='caption' sx={{ display: 'block' }} color='text.secondary'>Stato: {String(trace.not_applicable_reason)}</Typography>}
             </Box>
           </Box>
         );
       })}
+    </Box>
+  );
+}
+
+function applicabilityLabel(item: V3EvidenceRecord): string {
+  if (item.decision) {
+    return item.decision.applicability || 'Applicabilità non valutata separatamente';
+  }
+  return item.applicability && item.applicability !== item.bucket
+    ? item.applicability
+    : 'Applicabilità non valutata separatamente';
+}
+
+function ComparisonRows({ item }: { item: V3EvidenceRecord }) {
+  const comparison = item.case_comparison || {};
+  const labels: Record<string, string> = {
+    biomarker: 'Biomarcatore',
+    disease: 'Malattia',
+    intervention: 'Intervento',
+    formulation: 'Formulazione',
+    direction: 'Direzione',
+    claim_status: 'Stato claim',
+    domain: 'Dominio',
+  };
+  return (
+    <Box sx={{ mt: 1 }}>
+      {Object.entries(comparison).map(([gate, raw]) => {
+        if (!raw) return null;
+        const row = raw;
+        const reason = row.not_applicable_reason;
+        return (
+          <Box key={gate} sx={{ py: 0.75, borderBottom: '1px solid', borderColor: 'divider' }}>
+            <Typography variant='caption' sx={{ fontWeight: 800 }}>{labels[gate] || gate}</Typography>
+            <Typography variant='caption' component='div'>Caso: {caseValue(row.query_value_original, gate)} · Claim: {gate === 'direction' ? directionLabel(row.claim_value) : value(row.claim_value)}</Typography>
+            {row.query_value_normalized !== null && row.query_value_normalized !== undefined && String(row.query_value_normalized) !== String(row.query_value_original) && (
+              <Typography variant='caption' component='div' color='text.secondary'>Normalizzato: {caseValue(row.query_value_normalized, gate)}</Typography>
+            )}
+            <Typography variant='caption' component='div' color='text.secondary'>Esito: {comparisonLabel(row.comparison_result)}</Typography>
+            {reason && <Typography variant='caption' component='div' color='text.secondary'>Stato: {reason}</Typography>}
+          </Box>
+        );
+      })}
+    </Box>
+  );
+}
+
+function ReasonDetails({ item }: { item: V3EvidenceRecord }) {
+  return (
+    <Box sx={{ mt: 1 }}>
+      {item.reason_codes.map(reason => (
+        <Typography key={reason.code + '-' + String(reason.gate || 'structural')} variant='caption' component='div'>
+          {reason.gate || 'Gate strutturale'} · {reason.code} · {reason.human_message}
+        </Typography>
+      ))}
     </Box>
   );
 }
@@ -94,34 +214,33 @@ function EvidenceCard({ item }: { item: V3EvidenceRecord }) {
       <CardContent sx={{ '&:last-child': { pb: 2 } }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1, alignItems: 'flex-start', flexWrap: 'wrap' }}>
           <Box sx={{ minWidth: 0, flex: 1 }}>
-            <Typography variant='subtitle1' sx={{ fontWeight: 800, overflowWrap: 'anywhere' }}>{claimTitle(item)}</Typography>
+            <Typography variant='subtitle1' sx={{ fontWeight: 800, overflowWrap: 'anywhere' }}>{claimTitleV3(item)}</Typography>
+            {!(item.claim?.claim_text || item.claim_text) && !(item.claim?.structured_tuple_complete || item.structured_tuple_complete) && (
+              <Typography variant='caption' color='text.secondary'>Tripla strutturata non disponibile nel record sorgente</Typography>
+            )}
             <Typography variant='caption' color='text.secondary'>{item.claim_id} · {value(item.evidence_type, 'record')}</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-            <Chip label={item.bucket} size='small' color={item.bucket === 'primary' ? 'success' : item.bucket === 'warning' ? 'warning' : 'default'} />
+            <Chip label={'Bucket: ' + value(item.decision?.bucket || item.bucket)} size='small' color={item.bucket === 'primary' ? 'success' : item.bucket === 'warning' ? 'warning' : 'default'} />
             <Score item={item} />
           </Box>
         </Box>
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 1, mt: 1.5 }}>
-          <Typography variant='caption'><b>Subject:</b> {value(item.subject)}</Typography>
-          <Typography variant='caption'><b>Relation:</b> {value(item.relation)}</Typography>
-          <Typography variant='caption'><b>Object:</b> {value(item.object)}</Typography>
-          <Typography variant='caption'><b>Biomarcatore:</b> {value(item.biomarker)}</Typography>
-          <Typography variant='caption'><b>Malattia:</b> {value(item.disease)}</Typography>
-          <Typography variant='caption'><b>Intervento:</b> {value(item.intervention)}</Typography>
-          <Typography variant='caption'><b>Direzione:</b> {value(item.direction)}</Typography>
-          <Typography variant='caption'><b>Applicabilità:</b> {value(item.applicability)}</Typography>
-          <Typography variant='caption'><b>Regimen:</b> {value(item.regimen)}</Typography>
-        </Box>
+        <Typography variant='caption'><b>Biomarcatore:</b> {value(item.claim?.biomarker || item.biomarker)}</Typography>
+        <Typography variant='caption' component='div'><b>Malattia:</b> {value(item.claim?.disease || item.disease)}</Typography>
+        <Typography variant='caption' component='div'><b>Intervento:</b> {value(item.claim?.intervention || item.intervention)}</Typography>
+        <Typography variant='caption' component='div'><b>Direzione:</b> {directionLabel(item.claim?.direction || item.direction)}</Typography>
+        <Typography variant='caption' component='div'><b>Applicabilità:</b> {applicabilityLabel(item)}</Typography>
+        <ComparisonRows item={item} />
         <Divider sx={{ my: 1.5 }} />
         <Typography variant='body2'><b>Motivo:</b> {reason?.human_message || 'Motivazione non esposta.'}</Typography>
-        {reason && <Typography variant='caption' color='text.secondary'>Reason code: {reason.code}</Typography>}
+        {reason && <Typography variant='caption' color='text.secondary'>Reason code: {reason.gate || 'Gate strutturale'} · {reason.code}</Typography>}
         <Accordion disableGutters elevation={0} sx={{ mt: 1, bgcolor: 'transparent' }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ minHeight: 32, px: 0 }}>
             <Typography variant='caption' sx={{ fontWeight: 800 }}>Gate trace e provenienza</Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ px: 0 }}>
             <GateTrace item={item} />
+            <ReasonDetails item={item} />
             <Divider sx={{ my: 1 }} />
             <Typography variant='caption' component='div'>Parent GraphEvidenceRecord: {value(item.parent_graph_evidence_record?.parent_id)}</Typography>
             <Typography variant='caption' component='div'>Source unit: {value(item.source_unit)}</Typography>
@@ -221,6 +340,31 @@ function TechnicalTab({ data }: { data: V3RetrieveResponse }) {
   </Box>;
 }
 
+function contextValue(raw: unknown): string {
+  if (raw === null || raw === undefined || raw === '') return 'non specificato';
+  if (Array.isArray(raw)) return raw.length === 0 ? 'nessuno' : raw.join(', ');
+  if (typeof raw === 'object') {
+    return Object.entries(raw as Record<string, unknown>)
+      .map(([key, item]) => `${key}: ${contextValue(item)}`)
+      .join(' / ');
+  }
+  return String(raw);
+}
+
+function CaseContextSummary({ context }: { context: Record<string, unknown> }) {
+  const original = (context.original || {}) as Record<string, unknown>;
+  const normalized = Object.fromEntries(
+    Object.entries(context).filter(([key]) => key !== 'original' && key !== 'gate_query'),
+  );
+  return (
+    <Box sx={{ mb: 2, p: 1.5, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
+      <Typography variant='subtitle1' sx={{ fontWeight: 800 }}>CaseContext</Typography>
+      <Typography variant='body2'><b>Originale:</b> {contextValue(original)}</Typography>
+      <Typography variant='body2'><b>Normalizzato:</b> {contextValue(normalized)}</Typography>
+    </Box>
+  );
+}
+
 export default function V3EvidenceView({ data }: { data: V3RetrieveResponse }) {
   const [tab, setTab] = useState(0);
   const context = data.case_context || {};
@@ -263,7 +407,7 @@ export default function V3EvidenceView({ data }: { data: V3RetrieveResponse }) {
           <Tab label='Provenienza' />
           <Tab label='Dati tecnici' />
         </Tabs>
-        {tab === 0 && <Box><Typography variant='h6' sx={{ fontWeight: 800 }}>Caso interpretato</Typography><Typography variant='body2' sx={{ mb: 2 }}>{Object.entries(context).slice(0, 12).map(([key, item]) => key + ': ' + value(item)).join(' · ')}</Typography><Typography variant='body2' color='text.secondary' sx={{ mb: 2 }}>Dossier strutturato deterministico. Nessuna narrazione generativa è stata utilizzata.</Typography><EvidenceSections data={data} /><Typography variant='caption' color='text.secondary'>Claim nel dossier strutturato: {value(dossier.included_claims, String(primary))}.</Typography></Box>}
+        {tab === 0 && <Box><Typography variant='h6' sx={{ fontWeight: 800 }}>Caso interpretato</Typography><CaseContextSummary context={context} /><Typography variant='body2' color='text.secondary' sx={{ mb: 2 }}>Dossier strutturato deterministico. Nessuna narrazione generativa è stata utilizzata.</Typography><EvidenceSections data={data} /><Typography variant='caption' color='text.secondary'>Claim nel dossier strutturato: {value(dossier.included_claims, String(primary))}.</Typography></Box>}
         {tab === 1 && <PipelineTab data={data} />}
         {tab === 2 && <EvidenceSections data={data} />}
         {tab === 3 && <ProvenanceTab data={data} />}
