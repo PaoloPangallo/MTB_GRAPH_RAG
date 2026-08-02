@@ -1,0 +1,67 @@
+{
+  "mode": "ONTOLOGY_SHADOW_MODE",
+  "claims_evaluated": 148,
+  "claim_rows_evaluated": 444,
+  "active_claims_expected": 148,
+  "active_claim_count_matches_expected": true,
+  "local_concepts": 14,
+  "local_relations": 6,
+  "local_registry_coverage_by_entity_type": {
+    "diagnostic": {
+      "mapped_rows": 2,
+      "total_rows": 2,
+      "percentage": 100.0
+    },
+    "disease": {
+      "mapped_rows": 117,
+      "total_rows": 148,
+      "percentage": 79.05
+    },
+    "intervention": {
+      "mapped_rows": 36,
+      "total_rows": 146,
+      "percentage": 24.66
+    },
+    "variant": {
+      "mapped_rows": 0,
+      "total_rows": 148,
+      "percentage": 0.0
+    }
+  },
+  "canonical_id_coverage_by_entity_type": {
+    "diagnostic": {
+      "mapped_rows": 0,
+      "total_rows": 2,
+      "percentage": 0.0
+    },
+    "disease": {
+      "mapped_rows": 0,
+      "total_rows": 148,
+      "percentage": 0.0
+    },
+    "intervention": {
+      "mapped_rows": 0,
+      "total_rows": 146,
+      "percentage": 0.0
+    },
+    "variant": {
+      "mapped_rows": 0,
+      "total_rows": 148,
+      "percentage": 0.0
+    }
+  },
+  "match_distribution": {
+    "DESCENDANT": 2,
+    "EXACT": 402,
+    "UNKNOWN": 40
+  },
+  "disagreement_distribution": {
+    "LITERAL_FAIL_ONTOLOGY_HIERARCHICAL": 2,
+    "NO_DISAGREEMENT": 402,
+    "ONTOLOGY_DATA_MISSING": 40
+  },
+  "runtime_integration": "none",
+  "external_ontology_service_used": false,
+  "llm_used_for_normalization": false,
+  "gold_read_count": 0
+}
