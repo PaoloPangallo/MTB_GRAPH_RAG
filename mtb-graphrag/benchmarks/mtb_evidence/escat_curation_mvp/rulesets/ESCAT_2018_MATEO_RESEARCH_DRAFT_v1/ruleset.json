@@ -1,0 +1,518 @@
+{
+  "framework": "ESCAT",
+  "version": "ESCAT-2018-MATEO-v1",
+  "status": "RESEARCH_DRAFT",
+  "classification": "RESEARCH_DRAFT",
+  "source": {
+    "source_path": "C:\\Users\\paolo\\Desktop\\IspezioneDatasetTesi\\Mateo.pdf",
+    "sha256": "56660fd9c3d929a3f2e2744ca3b53687cff0954f609e65d267c1bb3b94c3c910",
+    "file_size_bytes": 155821,
+    "pdf_pages": 8,
+    "citation": "Mateo J et al. A framework to rank genomic alterations as targets for cancer precision medicine: the ESMO Scale for Clinical Actionability of molecular Targets (ESCAT). Annals of Oncology. 2018;29:1895-1902.",
+    "doi": "10.1093/annonc/mdy263",
+    "page_pdf": 1,
+    "page_journal": 1895,
+    "section": "Results; The ESMO Scale of Clinical Actionability for molecular Targets",
+    "table": null,
+    "figure": null,
+    "source_kind": "LOCAL_PDF_ONLY"
+  },
+  "ambiguity_registry_path": "ambiguities.json",
+  "rules": [
+    {
+      "rule_id": "ESCAT-I-A",
+      "tier": "I",
+      "subtier": "A",
+      "label": "Prospective randomised evidence with a clinically meaningful survival improvement",
+      "requirements": [
+        {
+          "id": "prospective_randomised_trial",
+          "kind": "condition",
+          "statement": "Prospective randomised clinical trial data are available for the alteration-drug match.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "specific_tumour_type",
+          "kind": "condition",
+          "statement": "The evidence concerns a specified tumour type.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "molecularly_altered_population",
+          "kind": "condition",
+          "statement": "Patients with the molecular alteration received the matching drug.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "survival_endpoint_improved",
+          "kind": "condition",
+          "statement": "A survival endpoint shows clinically meaningful improvement.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 2,
+          "page_journal": 1896,
+          "section": "The ESMO Scale of Clinical Actionability for molecular Targets",
+          "table": null,
+          "figure": null
+        },
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Drug administered to patients with the specific molecular alteration has led to improved clinical outcome in prospective clinical trial(s).",
+      "clinical_implication": "Access to the treatment should be considered standard of care."
+    },
+    {
+      "rule_id": "ESCAT-I-B",
+      "tier": "I",
+      "subtier": "B",
+      "label": "Prospective non-randomised evidence with clinically meaningful benefit",
+      "requirements": [
+        {
+          "id": "prospective_non_randomised_trial",
+          "kind": "condition",
+          "statement": "Prospective non-randomised clinical trial data are available.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "specific_tumour_type",
+          "kind": "condition",
+          "statement": "The evidence concerns a specified tumour type.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "biomarker_selected_population",
+          "kind": "condition",
+          "statement": "The benefit is observed in a biomarker-selected subpopulation treated with the matched drug.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "mcbs_1_1_benefit",
+          "kind": "condition",
+          "statement": "Clinically meaningful benefit is defined by ESMO MCBS 1.1.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "no_survival_improvement",
+          "kind": "condition",
+          "statement": "The evidence does not provide survival improvement.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 2,
+          "page_journal": 1896,
+          "section": "The ESMO Scale of Clinical Actionability for molecular Targets",
+          "table": null,
+          "figure": null
+        },
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Drug administered to patients with the specific molecular alteration has led to improved clinical outcome in prospective clinical trial(s).",
+      "clinical_implication": "Access to the treatment should be considered standard of care."
+    },
+    {
+      "rule_id": "ESCAT-I-C",
+      "tier": "I",
+      "subtier": "C",
+      "label": "Cross-tumour or basket evidence with similar clinical benefit",
+      "requirements": [
+        {
+          "id": "multiple_tumour_or_basket_trials",
+          "kind": "condition",
+          "statement": "Clinical trials cover multiple tumour types or use a basket design.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "alteration_drug_benefit",
+          "kind": "condition",
+          "statement": "The target-drug pair shows clinical benefit.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "similar_benefit_across_types",
+          "kind": "condition",
+          "statement": "Similar benefit is observed across tumour types.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 2,
+          "page_journal": 1896,
+          "section": "The ESMO Scale of Clinical Actionability for molecular Targets",
+          "table": null,
+          "figure": null
+        },
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Drug administered to patients with the specific molecular alteration has led to improved clinical outcome in prospective clinical trial(s).",
+      "clinical_implication": "Access to the treatment should be considered standard of care."
+    },
+    {
+      "rule_id": "ESCAT-II-A",
+      "tier": "II",
+      "subtier": "A",
+      "label": "Retrospective evidence of clinically meaningful benefit versus alteration-negative patients",
+      "requirements": [
+        {
+          "id": "retrospective_studies",
+          "kind": "condition",
+          "statement": "Retrospective studies are available.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "specific_tumour_type",
+          "kind": "condition",
+          "statement": "The evidence concerns a specified tumour type.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "alteration_positive_benefit",
+          "kind": "condition",
+          "statement": "Patients with the alteration experience clinically meaningful benefit with the matched drug.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "alteration_negative_comparator",
+          "kind": "condition",
+          "statement": "Benefit is compared with alteration-negative patients.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Matched drug is likely to result in clinical benefit in a given tumour type, but additional data are needed.",
+      "clinical_implication": "Treatment may be considered preferable in evidence collection."
+    },
+    {
+      "rule_id": "ESCAT-II-B",
+      "tier": "II",
+      "subtier": "B",
+      "label": "Prospective responsiveness evidence without survival endpoint data",
+      "requirements": [
+        {
+          "id": "prospective_clinical_trial",
+          "kind": "condition",
+          "statement": "Prospective clinical trial data are available.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "specific_tumour_type",
+          "kind": "condition",
+          "statement": "The evidence concerns a specified tumour type.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "increased_responsiveness",
+          "kind": "condition",
+          "statement": "The alteration-drug match results in increased responsiveness.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "survival_data_unavailable",
+          "kind": "condition",
+          "statement": "No survival endpoint data are currently available.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Matched drug is likely to result in clinical benefit in a given tumour type, but additional data are needed.",
+      "clinical_implication": "Treatment may be considered preferable in evidence collection."
+    },
+    {
+      "rule_id": "ESCAT-III-A",
+      "tier": "III",
+      "subtier": "A",
+      "label": "Clinical benefit in another tumour type",
+      "requirements": [
+        {
+          "id": "benefit_in_specific_alteration",
+          "kind": "condition",
+          "statement": "Clinical benefit has been demonstrated for the specific alteration in another tumour type.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "different_tumour_type",
+          "kind": "condition",
+          "statement": "The current tumour type differs from the studied tumour type.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "limited_or_absent_current_type_data",
+          "kind": "condition",
+          "statement": "Clinical evidence for the patient-specific tumour type is limited or absent.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        },
+        {
+          "page_pdf": 5,
+          "page_journal": 1899,
+          "section": "ESCAT Tier III",
+          "table": null,
+          "figure": null
+        },
+        {
+          "page_pdf": 6,
+          "page_journal": 1900,
+          "section": "ESCAT Tier III",
+          "table": null,
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Drug previously shown to benefit the molecularly defined subset in another tumour type; efficacy is anticipated but not proved.",
+      "clinical_implication": "Clinical trials should be discussed with patients."
+    },
+    {
+      "rule_id": "ESCAT-III-B",
+      "tier": "III",
+      "subtier": "B",
+      "label": "Similar predicted functional impact without supportive clinical data",
+      "requirements": [
+        {
+          "id": "similar_predicted_function",
+          "kind": "condition",
+          "statement": "The alteration has a similar predicted functional impact to a studied tier I abnormality in the same gene or pathway.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "no_supportive_clinical_data",
+          "kind": "condition",
+          "statement": "Supportive clinical data are absent.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        },
+        {
+          "page_pdf": 6,
+          "page_journal": 1900,
+          "section": "ESCAT Tier III",
+          "table": null,
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Efficacy is anticipated but not proved.",
+      "clinical_implication": "Clinical trials should be discussed with patients."
+    },
+    {
+      "rule_id": "ESCAT-IV-A",
+      "tier": "IV",
+      "subtier": "A",
+      "label": "Preclinical in vitro or in vivo sensitivity evidence",
+      "requirements": [
+        {
+          "id": "preclinical_model",
+          "kind": "condition",
+          "statement": "Evidence comes from preclinical in vitro or in vivo models.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "alteration_influences_sensitivity",
+          "kind": "condition",
+          "statement": "The alteration or a functionally similar alteration influences drug sensitivity.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "no_conclusive_clinical_data",
+          "kind": "condition",
+          "statement": "Conclusive clinical data are unavailable.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        },
+        {
+          "page_pdf": 6,
+          "page_journal": 1900,
+          "section": "ESCAT Tier IV",
+          "table": null,
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Actionability is predicted based on preclinical studies, with no conclusive clinical data.",
+      "clinical_implication": "Treatment should only be considered in early clinical trials; lack of clinical data should be stressed."
+    },
+    {
+      "rule_id": "ESCAT-IV-B",
+      "tier": "IV",
+      "subtier": "B",
+      "label": "In silico prediction of actionability",
+      "requirements": [
+        {
+          "id": "in_silico_prediction",
+          "kind": "condition",
+          "statement": "Actionability is predicted in silico by bioinformatic analysis.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "no_conclusive_clinical_data",
+          "kind": "condition",
+          "statement": "Conclusive clinical data are unavailable.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        },
+        {
+          "page_pdf": 6,
+          "page_journal": 1900,
+          "section": "ESCAT Tier IV",
+          "table": null,
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Actionability is predicted based on preclinical studies, with no conclusive clinical data.",
+      "clinical_implication": "Treatment should only be considered in early clinical trials; lack of clinical data should be stressed."
+    },
+    {
+      "rule_id": "ESCAT-V",
+      "tier": "V",
+      "subtier": null,
+      "label": "Objective response without clinically meaningful outcome improvement",
+      "requirements": [
+        {
+          "id": "prospective_studies",
+          "kind": "condition",
+          "statement": "Prospective studies are available.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "objective_response",
+          "kind": "condition",
+          "statement": "The targeted therapy is associated with objective responses.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "no_improved_outcome",
+          "kind": "condition",
+          "statement": "Objective responses do not lead to improved outcome or clinically meaningful benefit as single treatment.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        },
+        {
+          "page_pdf": 6,
+          "page_journal": 1900,
+          "section": "ESCAT Tier V",
+          "table": null,
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "Drug is active but does not prolong PFS or OS, probably in part due to mechanisms of adaptation.",
+      "clinical_implication": "Clinical trials assessing drug combination strategies could be considered."
+    },
+    {
+      "rule_id": "ESCAT-X",
+      "tier": "X",
+      "subtier": null,
+      "label": "No evidence for therapeutic actionability",
+      "requirements": [
+        {
+          "id": "no_clinical_evidence",
+          "kind": "condition",
+          "statement": "No clinical evidence supports therapeutic actionability.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "no_preclinical_evidence",
+          "kind": "condition",
+          "statement": "No preclinical evidence supports therapeutic actionability.",
+          "manual_interpretation_required": true
+        },
+        {
+          "id": "not_a_therapeutic_target",
+          "kind": "condition",
+          "statement": "The alteration is not supported as a potential therapeutic target.",
+          "manual_interpretation_required": true
+        }
+      ],
+      "source_locators": [
+        {
+          "page_pdf": 4,
+          "page_journal": 1898,
+          "section": "The ESCAT",
+          "table": "Table 2",
+          "figure": null
+        },
+        {
+          "page_pdf": 6,
+          "page_journal": 1900,
+          "section": "ESCAT Tier X",
+          "table": null,
+          "figure": null
+        }
+      ],
+      "clinical_value_class": "There is no clinical or preclinical evidence that the alteration is a potential therapeutic target.",
+      "clinical_implication": "The finding should not be taken into account for clinical decisions."
+    }
+  ]
+}

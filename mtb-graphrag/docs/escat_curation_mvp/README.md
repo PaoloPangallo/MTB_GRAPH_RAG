@@ -6,10 +6,10 @@ modifica qualified claim, gate, score, bucket, Knowledge Graph o API.
 
 ## Stato del framework
 
-`OFFICIAL_RULESET_NOT_AVAILABLE`. Nei percorsi locali espliciti verificati
-(`docs/references/`, `references/`, `literature/`, `papers/`) non ? presente
-una fonte normativa ESCAT versionata e verificabile. Nessuna regola ESCAT
-ufficiale ? stata codificata.
+RESEARCH_DRAFT. La fonte locale Mateo.pdf e stata verificata e formalizzata
+in un ruleset versionato di ricerca. Il ruleset non e clinicamente validato e
+non puo rendere CURATED alcun assessment: la promozione a ruleset clinico
+richiederebbe revisione indipendente e approvazione esplicita.
 
 ## Risultato reale del pilota
 
@@ -54,5 +54,8 @@ python -m benchmarks.mtb_evidence.escat_curation_mvp.cli create-draft <claim_id>
 python -m benchmarks.mtb_evidence.escat_curation_mvp.cli show-history <assessment_id>
 ```
 
-I dati generati sono sotto `benchmarks/mtb_evidence/escat_curation_mvp/` e
-non sono artefatti ufficiali.
+Il ruleset di ricerca ? sotto
+`benchmarks/mtb_evidence/escat_curation_mvp/rulesets/ESCAT_2018_MATEO_RESEARCH_DRAFT_v1/`.
+Il confronto con i 15 draft ? read-only; nessuna regola ? selezionata e nessun
+tier/subtier ? assegnato. Tutti gli artefatti restano separati dal runtime e
+dagli artefatti clinicamente ufficiali.

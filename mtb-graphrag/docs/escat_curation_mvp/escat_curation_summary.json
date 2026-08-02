@@ -1,6 +1,6 @@
 {
   "framework": "ESCAT",
-  "framework_status": "OFFICIAL_RULESET_NOT_AVAILABLE",
+  "framework_status": "RESEARCH_DRAFT",
   "mode": "MANUAL_CURATION_ASSISTED_OFFLINE",
   "source_of_pilot_claims": "docs/escat_shadow_feasibility/claim_data_availability.csv",
   "active_claims_inspected": 148,
@@ -44,13 +44,22 @@
   "llm_used_for_escat_assignment": false,
   "external_knowledge_used_as_evidence": false,
   "test_fixture_presented_as_official": false,
-  "official_rule_set_ready_for_import": true,
-  "official_rule_set_present_locally": false,
+  "official_rule_set_ready_for_import": false,
+  "official_rule_set_present_locally": true,
   "runtime_modified": false,
   "frontend_modified": false,
   "knowledge_graph_modified": false,
   "qualified_claim_repository_modified": false,
   "gate_modified": false,
   "scoring_modified": false,
-  "bucket_modified": false
+  "bucket_modified": false,
+  "ruleset_classification": "RESEARCH_DRAFT",
+  "ruleset_version": "ESCAT-2018-MATEO-v1",
+  "ruleset_source_sha256": "56660fd9c3d929a3f2e2744ca3b53687cff0954f609e65d267c1bb3b94c3c910",
+  "official_rule_set_clinically_validated": false,
+  "official_rule_set_ready_for_clinical_import": false,
+  "read_only_draft_comparison": true,
+  "automatic_tier_assignment": false,
+  "source_pdf_copied": false,
+  "draft_reason_code_at_creation": "OFFICIAL_RULESET_NOT_AVAILABLE"
 }

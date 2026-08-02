@@ -7,10 +7,13 @@ o pagina, data di validit?, tier, subtier e requisiti. Ogni regola deve avere
 `required_fields`, `required_conditions`, `exclusion_conditions`, eventuali
 `alternative_conditions` e requisiti specifici del subtier.
 
-Il repository corrente non contiene questo asset in forma verificabile. La
-citazione bibliografica presente in `docs/V3_POSITIONING.md` non ? importata
-come regola. Il modello ? pronto a riceverlo in futuro, ma il validatore
-mantiene `OFFICIAL_RULESET_NOT_AVAILABLE` fino a quel momento.
+La fonte locale `Mateo.pdf` ? ora formalizzata in
+`ESCAT_2018_MATEO_RESEARCH_DRAFT_v1`. Il suo stato ? `RESEARCH_DRAFT`, non
+`OFFICIAL_RULESET_AVAILABLE`: ? un artefatto tracciabile per revisione e non
+una validazione clinica. Il validatore non pu? usare questo stato per rendere
+CURATED un assessment con tier. La promozione richieder? revisione, versione
+approvata e separazione esplicita della fonte della regola dalle supporting
+sources.
 
 `test_fixture_ruleset.json` ? esclusivamente tecnico, marcato
 `TEST_FIXTURE_ONLY` e `NOT_AN_OFFICIAL_ESCAT_RULESET`; non ? una fonte ESCAT e
