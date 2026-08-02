@@ -10,9 +10,11 @@ Campi principali:
 `rationale`, `curator`, `curated_at`, `created_at` e
 `supersedes_assessment_id`.
 
-Gli stati ammessi sono `DRAFT`, `INCOMPLETE`, `READY_FOR_REVIEW`, `CURATED`,
-`REJECTED`, `CONFLICTING_EVIDENCE`, `NOT_APPLICABLE` e `SUPERSEDED`.
+Stati ammessi: `DRAFT`, `INCOMPLETE`, `READY_FOR_REVIEW`, `CURATED`,
+`REJECTED`, `CONFLICTING_EVIDENCE`, `NOT_APPLICABLE`, `SUPERSEDED`.
 
-Un tier è ammesso soltanto in presenza di rule set ufficiale disponibile,
-versione, rule id, fonte della regola, source di supporto e audit curatoriale.
-Un subtier richiede anche i requisiti specifici della regola.
+La serializzazione ignora campi legacy estranei come `evidence_level`; non li
+converte in tier ESCAT. Un tier richiede rule set, framework version, rule id,
+fonte della regola, source di supporto distinta, requisiti, motivazione,
+curator e timestamp. Un subtier richiede i requisiti specifici della regola.
+In assenza del rule set ufficiale il tier resta nullo e `CURATED` ? rifiutato.
