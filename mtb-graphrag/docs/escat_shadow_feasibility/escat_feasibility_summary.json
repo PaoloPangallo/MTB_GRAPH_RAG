@@ -1,0 +1,73 @@
+{
+  "pilot": "escat_shadow_feasibility",
+  "mode": "read_only_shadow",
+  "base_audit_commit": "4b75145",
+  "branch": "research/v3-escat-shadow-feasibility",
+  "framework_rules": {
+    "official_definition_locally_verified": false,
+    "tier_assignment_executed": false,
+    "rule_source_status": "V3_POSITIONING_R6_REQUIRES_BIBLIOGRAPHIC_VERIFICATION"
+  },
+  "claims": {
+    "total_active": 148,
+    "therapeutic": 146,
+    "resistance": 49,
+    "diagnostic": 2,
+    "aggregate": 3,
+    "complete_biomarker_disease_intervention": 146,
+    "with_source": 17,
+    "with_locator": 17,
+    "with_local_text": 17,
+    "with_study_design": 0,
+    "with_outcome": 0,
+    "tier_sufficient": 0,
+    "assignable": 0,
+    "partially_assignable": 15,
+    "unassignable": 131,
+    "not_applicable": 2,
+    "tier_assigned": 0
+  },
+  "pilot": {
+    "selected_claims": 16,
+    "egfr_l858r": true,
+    "alk_g1202r": true,
+    "fgfr2_fusion": true,
+    "sensitivity": true,
+    "resistance": true,
+    "preclinical": true,
+    "aggregate": true,
+    "diagnostic": true,
+    "locator_and_parent_only_cases": true
+  },
+  "legacy": {
+    "implementation": "backend/pipeline/agents/variant_interpreter.py",
+    "output_field": "MTBState.escat_tier",
+    "llm_used_by_legacy": true,
+    "temperature_configured": 0.0,
+    "claim_level_outputs_observed": 0,
+    "legacy_ground_truth": false,
+    "supported_explicit_escat_rules": 0,
+    "heuristic_or_generic_rules": 8
+  },
+  "recommendation": "D_MANUAL_CURATION",
+  "provenance_rule": "legacy derived value is not explicit ESCAT annotation",
+  "flags": {
+    "runtime_modified": false,
+    "knowledge_graph_modified": false,
+    "qualified_claim_repository_modified": false,
+    "gate_modified": false,
+    "scoring_modified": false,
+    "bucket_modified": false,
+    "companion_diagnostic_discovery_modified": false,
+    "ontology_mvp_modified": false,
+    "pmid_pilot_modified": false,
+    "generic_evidence_levels_mapped_to_escat": false,
+    "unsupported_escat_tiers_assigned": false,
+    "external_knowledge_used_as_evidence": false,
+    "official_experiment_modified": false,
+    "official_ledgers_modified": false,
+    "gold_read_count": 0,
+    "push_executed": false,
+    "merge_executed": false
+  }
+}
