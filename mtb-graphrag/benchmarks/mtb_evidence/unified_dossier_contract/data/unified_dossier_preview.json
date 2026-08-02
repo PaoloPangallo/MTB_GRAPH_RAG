@@ -1,0 +1,866 @@
+{
+  "preview_mode": "OFFLINE_READ_ONLY",
+  "ruleset_status": "RESEARCH_DRAFT",
+  "ruleset_available": false,
+  "automatic_escat_tiers_assigned": false,
+  "difference_between_populations": {
+    "pilot_drafts": "15 persisted ESCAT curation drafts from the approved pilot; not rewritten here.",
+    "exploratory_cases": "4 canonical dossier previews; only FGFR2 uses an in-memory draft-shaped assessment for presentation."
+  },
+  "cases": {
+    "FGFR2_iCCA_derazantinib": {
+      "dossier_version": "unified_dossier_contract/1.0",
+      "run": {
+        "run_id": "SHADOW-FGFR2_iCCA_derazantinib",
+        "source": "offline_contract_preview",
+        "execution_mode": "OFFLINE",
+        "core_snapshot_integrity": {
+          "before_hash": "84b90534c657b07ec5228e76bd414a11d694e9b2965f45ede478c97ca5ca6046",
+          "after_hash": "84b90534c657b07ec5228e76bd414a11d694e9b2965f45ede478c97ca5ca6046",
+          "unchanged": true
+        }
+      },
+      "case_context": {
+        "case_id": "FGFR2_iCCA_derazantinib",
+        "disease": "Intrahepatic Cholangiocarcinoma",
+        "biomarker": "FGFR2::v Fusion OR FGFR2::? Fusion",
+        "intervention": "derazantinib",
+        "claim_id_available": true
+      },
+      "core_result": {
+        "bucket_summary": {
+          "primary": 1,
+          "abstained": 0
+        },
+        "bucket": "primary",
+        "abstention": false,
+        "claims": [
+          {
+            "claim_id": "CLM-1d3ba8b6ae49232969c7",
+            "rank": 1
+          }
+        ],
+        "score": {
+          "total": 0,
+          "source": "OFFLINE_CORE_SNAPSHOT"
+        },
+        "gate_trace": [],
+        "reason_codes": [
+          "OFFLINE_CORE_SNAPSHOT"
+        ],
+        "evidence": [
+          {
+            "graph_evidence_id": "evidence:7329",
+            "rank": 1
+          }
+        ],
+        "technical_records": [
+          {
+            "record_id": "CORE-FGFR2_iCCA_derazantinib",
+            "source": "OFFLINE_CORE_SNAPSHOT"
+          }
+        ]
+      },
+      "claim_extensions": {
+        "CLM-1d3ba8b6ae49232969c7": {
+          "provenance": {
+            "claim_level_sources": [],
+            "parent_level_publications": [
+              {
+                "source_id": "PUBMED:30420614",
+                "scope": "parent",
+                "parent_id": "GEP-a49c49f450628b94e307"
+              }
+            ],
+            "source_unit": [],
+            "locators": [],
+            "provenance_status": "PARENT_PUBLICATION_AVAILABLE",
+            "first_missing_link": "claim_level_source",
+            "ambiguities": []
+          },
+          "document_support": {
+            "status": "PARTIALLY_AVAILABLE",
+            "document_identifier": "PMID:30420614",
+            "identifier_scope": "PMID",
+            "text_availability": "ABSTRACT_CACHE",
+            "supporting_passage": "Derazantinib ... has shown preliminary therapeutic activity against FGFR2 fusion-positive iCCA. This multicentre, phase 1/2, open-label study enrolled adult patients with unresectable iCCA with FGFR2 fusion ... Overall response rate was 20.7%, disease control rate was 82.8% ... Derazantinib demonstrated encouraging anti-tumour activity ...",
+            "locator": "ABSTRACT",
+            "support_level": "DIRECT_SUPPORT",
+            "supported_fields": [
+              "claim_statement"
+            ],
+            "unsupported_fields": [
+              "ESCAT tier",
+              "ESCAT subtier",
+              "clinical actionability"
+            ],
+            "method": "local PMID pilot alignment",
+            "limitations": [
+              "pilot passage is not a clinical validation"
+            ]
+          },
+          "ontology_alignment": {
+            "disease": {},
+            "biomarker": {},
+            "intervention": {},
+            "diagnostic_entity": {
+              "query_value": null,
+              "claim_value": null,
+              "match_type": "UNKNOWN",
+              "distance": null,
+              "path": [],
+              "confidence": "low",
+              "explanation": "No CompanionDiagnostic entity was loaded for this preview case."
+            },
+            "shadow_only": true
+          },
+          "clinical_actionability": {
+            "framework": "ESCAT",
+            "framework_version": null,
+            "status": "INCOMPLETE",
+            "tier": null,
+            "subtier": null,
+            "origin": "MANUAL_REVIEW",
+            "ruleset_status": "RESEARCH_DRAFT",
+            "assessment_id": "PREVIEW-ESCAT-FGFR2_iCCA_derazantinib",
+            "rule_ids": [],
+            "candidate_rule_ids": [],
+            "supporting_sources": [
+              {
+                "source_id": "PMID:30420614",
+                "origin": "document_alignment",
+                "level": "document",
+                "claim_specific_support": "DIRECT_SUPPORT"
+              }
+            ],
+            "supporting_passages": [
+              {
+                "text": "Derazantinib ... has shown preliminary therapeutic activity against FGFR2 fusion-positive iCCA. This multicentre, phase 1/2, open-label study enrolled adult patients with unresectable iCCA with FGFR2 fusion ... Overall response rate was 20.7%, disease control rate was 82.8% ... Derazantinib demonstrated encouraging anti-tumour activity ...",
+                "locator": "ABSTRACT",
+                "section": "BACKGROUND/METHODS/RESULTS/CONCLUSION",
+                "origin": "abstract_cache",
+                "support_status": "DIRECT_SUPPORT"
+              }
+            ],
+            "missing_requirements": [
+              "OFFICIAL_RULESET_NOT_AVAILABLE",
+              "FRAMEWORK_VERSION",
+              "RULE_ID",
+              "tumour_context_status:MISSING",
+              "study_design_status:MISSING",
+              "endpoint_status:MISSING",
+              "clinical_response_status:MISSING",
+              "source_status:MISSING",
+              "source_unit_status:MISSING",
+              "locator_status:MISSING",
+              "text_status:MISSING"
+            ],
+            "manual_review_required": true,
+            "curator": null,
+            "curated_at": null,
+            "notes": [
+              "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+            ]
+          }
+        }
+      },
+      "diagnostic_context": {
+        "records": [],
+        "status": "STRUCTURAL_DATA_ONLY",
+        "limitations": [
+          "disease context missing for CompanionDiagnostic records",
+          "provenance missing for CompanionDiagnostic records",
+          "regulatory status unavailable",
+          "therapy association does not imply therapy requirement",
+          "no CompanionDiagnostic graph records were loaded in this preview"
+        ]
+      },
+      "technical_records": [
+        {
+          "record_id": "CORE-FGFR2_iCCA_derazantinib",
+          "source": "OFFLINE_CORE_SNAPSHOT"
+        }
+      ],
+      "module_status": {
+        "v3_core": {
+          "module_name": "V3 core",
+          "module_version": "v3-core/1.0",
+          "maturity": "PRODUCTION",
+          "execution_mode": "ACTIVE",
+          "status": "EXECUTED",
+          "data_scope": "frozen deterministic V3 result supplied to the adapter",
+          "limitations": [
+            "The shadow contract does not invoke or recalculate the runtime."
+          ]
+        },
+        "provenance_audit": {
+          "module_name": "Provenance audit",
+          "module_version": "qualified-claim-provenance/1.4",
+          "maturity": "FROZEN_EXPERIMENT",
+          "execution_mode": "OFFLINE",
+          "status": "PARTIALLY_AVAILABLE",
+          "data_scope": "local qualified claim and parent records",
+          "limitations": [
+            "Parent publication availability is not claim-level verification."
+          ]
+        },
+        "document_support": {
+          "module_name": "Document support pilot",
+          "module_version": "pmid-pilot/1.0",
+          "maturity": "FROZEN_EXPERIMENT",
+          "execution_mode": "OFFLINE",
+          "status": "PARTIALLY_AVAILABLE",
+          "data_scope": "local PMID pilot alignments when present",
+          "limitations": [
+            "Unexecuted analysis is reported as NOT_ASSESSED."
+          ]
+        },
+        "ontology": {
+          "module_name": "Ontology alignment MVP",
+          "module_version": "ontology-shadow-mvp/1.0",
+          "maturity": "RESEARCH_DRAFT",
+          "execution_mode": "SHADOW",
+          "status": "SHADOW",
+          "data_scope": "local normalization and ontology registry",
+          "limitations": [
+            "Matches are evidence only and cannot alter V3 compatibility."
+          ]
+        },
+        "companion_diagnostic": {
+          "module_name": "Companion diagnostic context",
+          "module_version": "companion-diagnostic/0.1",
+          "maturity": "DISCOVERY_ONLY",
+          "execution_mode": "OFFLINE",
+          "status": "STRUCTURAL_DATA_ONLY",
+          "data_scope": "graph diagnostic records without qualified claim promotion",
+          "limitations": [
+            "Disease context, provenance, and regulatory status may be unavailable."
+          ]
+        },
+        "escat": {
+          "module_name": "ESCAT clinical actionability",
+          "module_version": "escat-shadow/1.0",
+          "maturity": "RESEARCH_DRAFT",
+          "execution_mode": "SHADOW",
+          "status": "NOT_ASSESSED",
+          "data_scope": "existing EscatAssessmentRecord values only",
+          "limitations": [
+            "Ruleset is not clinically validated and no tier is assigned automatically."
+          ],
+          "available": false
+        }
+      },
+      "limitations": [
+        "Four-case exploratory preview; not a new V3 runtime execution."
+      ],
+      "generated_at": "2026-08-02T00:00:00+00:00",
+      "association_diagnostics": {
+        "orphan_records": [],
+        "missing_references": []
+      }
+    },
+    "ALK_G1202R_NSCLC_alectinib": {
+      "dossier_version": "unified_dossier_contract/1.0",
+      "run": {
+        "run_id": "SHADOW-ALK_G1202R_NSCLC_alectinib",
+        "source": "offline_contract_preview",
+        "execution_mode": "OFFLINE",
+        "core_snapshot_integrity": {
+          "before_hash": "5cb4173f39a1775525f6c5b681022728ab5dca3c49844f23ff2f76a529972344",
+          "after_hash": "5cb4173f39a1775525f6c5b681022728ab5dca3c49844f23ff2f76a529972344",
+          "unchanged": true
+        }
+      },
+      "case_context": {
+        "case_id": "ALK_G1202R_NSCLC_alectinib",
+        "disease": "NSCLC",
+        "biomarker": "ALK G1202R",
+        "intervention": "alectinib",
+        "claim_id_available": true
+      },
+      "core_result": {
+        "bucket_summary": {
+          "primary": 1,
+          "abstained": 0
+        },
+        "bucket": "primary",
+        "abstention": false,
+        "claims": [
+          {
+            "claim_id": "CLM-0f234bc9c53847910521",
+            "rank": 1
+          }
+        ],
+        "score": {
+          "total": 0,
+          "source": "OFFLINE_CORE_SNAPSHOT"
+        },
+        "gate_trace": [],
+        "reason_codes": [
+          "OFFLINE_CORE_SNAPSHOT"
+        ],
+        "evidence": [
+          {
+            "graph_evidence_id": "evidence:100002",
+            "rank": 1
+          }
+        ],
+        "technical_records": [
+          {
+            "record_id": "CORE-ALK_G1202R_NSCLC_alectinib",
+            "source": "OFFLINE_CORE_SNAPSHOT"
+          }
+        ]
+      },
+      "claim_extensions": {
+        "CLM-0f234bc9c53847910521": {
+          "provenance": {
+            "claim_level_sources": [],
+            "parent_level_publications": [
+              {
+                "source_id": "PUBMED:24736079",
+                "scope": "parent",
+                "parent_id": "GEP-e85a4cca147f64591ac6"
+              },
+              {
+                "source_id": "PUBMED:27130468",
+                "scope": "parent",
+                "parent_id": "GEP-e85a4cca147f64591ac6"
+              },
+              {
+                "source_id": "PUBMED:27432227",
+                "scope": "parent",
+                "parent_id": "GEP-e85a4cca147f64591ac6"
+              },
+              {
+                "source_id": "PUBMED:29373100",
+                "scope": "parent",
+                "parent_id": "GEP-e85a4cca147f64591ac6"
+              },
+              {
+                "source_id": "PUBMED:29376144",
+                "scope": "parent",
+                "parent_id": "GEP-e85a4cca147f64591ac6"
+              },
+              {
+                "source_id": "PUBMED:29650534",
+                "scope": "parent",
+                "parent_id": "GEP-e85a4cca147f64591ac6"
+              }
+            ],
+            "source_unit": [],
+            "locators": [],
+            "provenance_status": "PARENT_PUBLICATION_AVAILABLE",
+            "first_missing_link": "claim_level_source",
+            "ambiguities": []
+          },
+          "document_support": {
+            "status": "PARTIALLY_AVAILABLE",
+            "document_identifier": "PMID:24736079",
+            "identifier_scope": "PMID",
+            "text_availability": "ABSTRACT_CACHE",
+            "supporting_passage": "In a second case, we identified a secondary acquired ALK G1202R, which also confers resistance to alectinib (CH5424802/RO5424802), a second-generation ALK inhibitor.",
+            "locator": "ABSTRACT",
+            "support_level": "AMBIGUOUS",
+            "supported_fields": [
+              "claim_statement"
+            ],
+            "unsupported_fields": [
+              "ESCAT tier",
+              "ESCAT subtier",
+              "clinical actionability"
+            ],
+            "method": "local PMID pilot alignment",
+            "limitations": [
+              "pilot passage is not a clinical validation"
+            ]
+          },
+          "ontology_alignment": {
+            "disease": {},
+            "biomarker": {},
+            "intervention": {},
+            "diagnostic_entity": {
+              "query_value": null,
+              "claim_value": null,
+              "match_type": "UNKNOWN",
+              "distance": null,
+              "path": [],
+              "confidence": "low",
+              "explanation": "No CompanionDiagnostic entity was loaded for this preview case."
+            },
+            "shadow_only": true
+          },
+          "clinical_actionability": {
+            "framework": "ESCAT",
+            "framework_version": null,
+            "status": "NOT_ASSESSED",
+            "tier": null,
+            "subtier": null,
+            "origin": null,
+            "ruleset_status": "RESEARCH_DRAFT",
+            "assessment_id": null,
+            "rule_ids": [],
+            "candidate_rule_ids": [],
+            "supporting_sources": [],
+            "supporting_passages": [],
+            "missing_requirements": [],
+            "manual_review_required": true,
+            "curator": null,
+            "curated_at": null,
+            "notes": []
+          }
+        }
+      },
+      "diagnostic_context": {
+        "records": [],
+        "status": "STRUCTURAL_DATA_ONLY",
+        "limitations": [
+          "disease context missing for CompanionDiagnostic records",
+          "provenance missing for CompanionDiagnostic records",
+          "regulatory status unavailable",
+          "therapy association does not imply therapy requirement",
+          "no CompanionDiagnostic graph records were loaded in this preview"
+        ]
+      },
+      "technical_records": [
+        {
+          "record_id": "CORE-ALK_G1202R_NSCLC_alectinib",
+          "source": "OFFLINE_CORE_SNAPSHOT"
+        }
+      ],
+      "module_status": {
+        "v3_core": {
+          "module_name": "V3 core",
+          "module_version": "v3-core/1.0",
+          "maturity": "PRODUCTION",
+          "execution_mode": "ACTIVE",
+          "status": "EXECUTED",
+          "data_scope": "frozen deterministic V3 result supplied to the adapter",
+          "limitations": [
+            "The shadow contract does not invoke or recalculate the runtime."
+          ]
+        },
+        "provenance_audit": {
+          "module_name": "Provenance audit",
+          "module_version": "qualified-claim-provenance/1.4",
+          "maturity": "FROZEN_EXPERIMENT",
+          "execution_mode": "OFFLINE",
+          "status": "PARTIALLY_AVAILABLE",
+          "data_scope": "local qualified claim and parent records",
+          "limitations": [
+            "Parent publication availability is not claim-level verification."
+          ]
+        },
+        "document_support": {
+          "module_name": "Document support pilot",
+          "module_version": "pmid-pilot/1.0",
+          "maturity": "FROZEN_EXPERIMENT",
+          "execution_mode": "OFFLINE",
+          "status": "PARTIALLY_AVAILABLE",
+          "data_scope": "local PMID pilot alignments when present",
+          "limitations": [
+            "Unexecuted analysis is reported as NOT_ASSESSED."
+          ]
+        },
+        "ontology": {
+          "module_name": "Ontology alignment MVP",
+          "module_version": "ontology-shadow-mvp/1.0",
+          "maturity": "RESEARCH_DRAFT",
+          "execution_mode": "SHADOW",
+          "status": "SHADOW",
+          "data_scope": "local normalization and ontology registry",
+          "limitations": [
+            "Matches are evidence only and cannot alter V3 compatibility."
+          ]
+        },
+        "companion_diagnostic": {
+          "module_name": "Companion diagnostic context",
+          "module_version": "companion-diagnostic/0.1",
+          "maturity": "DISCOVERY_ONLY",
+          "execution_mode": "OFFLINE",
+          "status": "STRUCTURAL_DATA_ONLY",
+          "data_scope": "graph diagnostic records without qualified claim promotion",
+          "limitations": [
+            "Disease context, provenance, and regulatory status may be unavailable."
+          ]
+        },
+        "escat": {
+          "module_name": "ESCAT clinical actionability",
+          "module_version": "escat-shadow/1.0",
+          "maturity": "RESEARCH_DRAFT",
+          "execution_mode": "SHADOW",
+          "status": "NOT_ASSESSED",
+          "data_scope": "existing EscatAssessmentRecord values only",
+          "limitations": [
+            "Ruleset is not clinically validated and no tier is assigned automatically."
+          ],
+          "available": false
+        }
+      },
+      "limitations": [
+        "Four-case exploratory preview; not a new V3 runtime execution."
+      ],
+      "generated_at": "2026-08-02T00:00:00+00:00",
+      "association_diagnostics": {
+        "orphan_records": [],
+        "missing_references": []
+      }
+    },
+    "EGFR_L858R_NSCLC_osimertinib": {
+      "dossier_version": "unified_dossier_contract/1.0",
+      "run": {
+        "run_id": "SHADOW-EGFR_L858R_NSCLC_osimertinib",
+        "source": "offline_contract_preview",
+        "execution_mode": "OFFLINE",
+        "core_snapshot_integrity": {
+          "before_hash": "371d1a57cdb99bd12d0173bdac1ab6b21e76a20b1133dd08caaede35ed917fe8",
+          "after_hash": "371d1a57cdb99bd12d0173bdac1ab6b21e76a20b1133dd08caaede35ed917fe8",
+          "unchanged": true
+        }
+      },
+      "case_context": {
+        "case_id": "EGFR_L858R_NSCLC_osimertinib",
+        "disease": "NSCLC",
+        "biomarker": "EGFR L858R",
+        "intervention": "osimertinib",
+        "claim_id_available": true
+      },
+      "core_result": {
+        "bucket_summary": {
+          "primary": 1,
+          "abstained": 0
+        },
+        "bucket": "primary",
+        "abstention": false,
+        "claims": [
+          {
+            "claim_id": "CLM-1ee5f9a16a678cebf993",
+            "rank": 1
+          }
+        ],
+        "score": {
+          "total": 0,
+          "source": "OFFLINE_CORE_SNAPSHOT"
+        },
+        "gate_trace": [],
+        "reason_codes": [
+          "OFFLINE_CORE_SNAPSHOT"
+        ],
+        "evidence": [
+          {
+            "graph_evidence_id": "evidence:4294",
+            "rank": 1
+          }
+        ],
+        "technical_records": [
+          {
+            "record_id": "CORE-EGFR_L858R_NSCLC_osimertinib",
+            "source": "OFFLINE_CORE_SNAPSHOT"
+          }
+        ]
+      },
+      "claim_extensions": {
+        "CLM-1ee5f9a16a678cebf993": {
+          "provenance": {
+            "claim_level_sources": [],
+            "parent_level_publications": [
+              {
+                "source_id": "PUBMED:24893891",
+                "scope": "parent",
+                "parent_id": "GEP-d1fd81616ff16e60d884"
+              }
+            ],
+            "source_unit": [],
+            "locators": [],
+            "provenance_status": "PARENT_PUBLICATION_AVAILABLE",
+            "first_missing_link": "claim_level_source",
+            "ambiguities": []
+          },
+          "document_support": {
+            "status": "NOT_ASSESSED",
+            "document_identifier": null,
+            "identifier_scope": null,
+            "text_availability": null,
+            "supporting_passage": null,
+            "locator": null,
+            "support_level": null,
+            "supported_fields": [],
+            "unsupported_fields": [],
+            "method": null,
+            "limitations": [
+              "document_support_module_not_executed"
+            ]
+          },
+          "ontology_alignment": {
+            "disease": {},
+            "biomarker": {},
+            "intervention": {},
+            "diagnostic_entity": {
+              "query_value": null,
+              "claim_value": null,
+              "match_type": "UNKNOWN",
+              "distance": null,
+              "path": [],
+              "confidence": "low",
+              "explanation": "No CompanionDiagnostic entity was loaded for this preview case."
+            },
+            "shadow_only": true
+          },
+          "clinical_actionability": {
+            "framework": "ESCAT",
+            "framework_version": null,
+            "status": "NOT_ASSESSED",
+            "tier": null,
+            "subtier": null,
+            "origin": null,
+            "ruleset_status": "RESEARCH_DRAFT",
+            "assessment_id": null,
+            "rule_ids": [],
+            "candidate_rule_ids": [],
+            "supporting_sources": [],
+            "supporting_passages": [],
+            "missing_requirements": [],
+            "manual_review_required": true,
+            "curator": null,
+            "curated_at": null,
+            "notes": []
+          }
+        }
+      },
+      "diagnostic_context": {
+        "records": [],
+        "status": "STRUCTURAL_DATA_ONLY",
+        "limitations": [
+          "disease context missing for CompanionDiagnostic records",
+          "provenance missing for CompanionDiagnostic records",
+          "regulatory status unavailable",
+          "therapy association does not imply therapy requirement",
+          "no CompanionDiagnostic graph records were loaded in this preview"
+        ]
+      },
+      "technical_records": [
+        {
+          "record_id": "CORE-EGFR_L858R_NSCLC_osimertinib",
+          "source": "OFFLINE_CORE_SNAPSHOT"
+        }
+      ],
+      "module_status": {
+        "v3_core": {
+          "module_name": "V3 core",
+          "module_version": "v3-core/1.0",
+          "maturity": "PRODUCTION",
+          "execution_mode": "ACTIVE",
+          "status": "EXECUTED",
+          "data_scope": "frozen deterministic V3 result supplied to the adapter",
+          "limitations": [
+            "The shadow contract does not invoke or recalculate the runtime."
+          ]
+        },
+        "provenance_audit": {
+          "module_name": "Provenance audit",
+          "module_version": "qualified-claim-provenance/1.4",
+          "maturity": "FROZEN_EXPERIMENT",
+          "execution_mode": "OFFLINE",
+          "status": "PARTIALLY_AVAILABLE",
+          "data_scope": "local qualified claim and parent records",
+          "limitations": [
+            "Parent publication availability is not claim-level verification."
+          ]
+        },
+        "document_support": {
+          "module_name": "Document support pilot",
+          "module_version": "pmid-pilot/1.0",
+          "maturity": "FROZEN_EXPERIMENT",
+          "execution_mode": "OFFLINE",
+          "status": "PARTIALLY_AVAILABLE",
+          "data_scope": "local PMID pilot alignments when present",
+          "limitations": [
+            "Unexecuted analysis is reported as NOT_ASSESSED."
+          ]
+        },
+        "ontology": {
+          "module_name": "Ontology alignment MVP",
+          "module_version": "ontology-shadow-mvp/1.0",
+          "maturity": "RESEARCH_DRAFT",
+          "execution_mode": "SHADOW",
+          "status": "SHADOW",
+          "data_scope": "local normalization and ontology registry",
+          "limitations": [
+            "Matches are evidence only and cannot alter V3 compatibility."
+          ]
+        },
+        "companion_diagnostic": {
+          "module_name": "Companion diagnostic context",
+          "module_version": "companion-diagnostic/0.1",
+          "maturity": "DISCOVERY_ONLY",
+          "execution_mode": "OFFLINE",
+          "status": "STRUCTURAL_DATA_ONLY",
+          "data_scope": "graph diagnostic records without qualified claim promotion",
+          "limitations": [
+            "Disease context, provenance, and regulatory status may be unavailable."
+          ]
+        },
+        "escat": {
+          "module_name": "ESCAT clinical actionability",
+          "module_version": "escat-shadow/1.0",
+          "maturity": "RESEARCH_DRAFT",
+          "execution_mode": "SHADOW",
+          "status": "NOT_ASSESSED",
+          "data_scope": "existing EscatAssessmentRecord values only",
+          "limitations": [
+            "Ruleset is not clinically validated and no tier is assigned automatically."
+          ],
+          "available": false
+        }
+      },
+      "limitations": [
+        "Four-case exploratory preview; not a new V3 runtime execution."
+      ],
+      "generated_at": "2026-08-02T00:00:00+00:00",
+      "association_diagnostics": {
+        "orphan_records": [],
+        "missing_references": []
+      }
+    },
+    "RMI2_NSCLC": {
+      "dossier_version": "unified_dossier_contract/1.0",
+      "run": {
+        "run_id": "SHADOW-RMI2_NSCLC",
+        "source": "offline_contract_preview",
+        "execution_mode": "OFFLINE",
+        "core_snapshot_integrity": {
+          "before_hash": "99ee2c0994fcbc6e661c6d70161b0f74ba75dc4c305b0b56ec95bab5607ffb88",
+          "after_hash": "99ee2c0994fcbc6e661c6d70161b0f74ba75dc4c305b0b56ec95bab5607ffb88",
+          "unchanged": true
+        }
+      },
+      "case_context": {
+        "case_id": "RMI2_NSCLC",
+        "disease": "NSCLC",
+        "biomarker": "RMI2",
+        "intervention": "unknown",
+        "escat_status": "NOT_ASSESSED",
+        "claim_id_available": false
+      },
+      "core_result": {
+        "bucket_summary": {
+          "primary": 0,
+          "abstained": 1
+        },
+        "bucket": "abstain",
+        "abstention": true,
+        "claims": [],
+        "score": {
+          "total": 0,
+          "source": "OFFLINE_CORE_SNAPSHOT"
+        },
+        "gate_trace": [],
+        "reason_codes": [
+          "OFFLINE_CORE_SNAPSHOT"
+        ],
+        "evidence": [],
+        "technical_records": [
+          {
+            "record_id": "CORE-RMI2_NSCLC",
+            "source": "OFFLINE_CORE_SNAPSHOT"
+          }
+        ]
+      },
+      "claim_extensions": {},
+      "diagnostic_context": {
+        "records": [],
+        "status": "STRUCTURAL_DATA_ONLY",
+        "limitations": [
+          "disease context missing for CompanionDiagnostic records",
+          "provenance missing for CompanionDiagnostic records",
+          "regulatory status unavailable",
+          "therapy association does not imply therapy requirement",
+          "no CompanionDiagnostic graph records were loaded in this preview"
+        ]
+      },
+      "technical_records": [
+        {
+          "record_id": "CORE-RMI2_NSCLC",
+          "source": "OFFLINE_CORE_SNAPSHOT"
+        }
+      ],
+      "module_status": {
+        "v3_core": {
+          "module_name": "V3 core",
+          "module_version": "v3-core/1.0",
+          "maturity": "PRODUCTION",
+          "execution_mode": "ACTIVE",
+          "status": "EXECUTED",
+          "data_scope": "frozen deterministic V3 result supplied to the adapter",
+          "limitations": [
+            "The shadow contract does not invoke or recalculate the runtime."
+          ]
+        },
+        "provenance_audit": {
+          "module_name": "Provenance audit",
+          "module_version": "qualified-claim-provenance/1.4",
+          "maturity": "FROZEN_EXPERIMENT",
+          "execution_mode": "OFFLINE",
+          "status": "PARTIALLY_AVAILABLE",
+          "data_scope": "local qualified claim and parent records",
+          "limitations": [
+            "Parent publication availability is not claim-level verification."
+          ]
+        },
+        "document_support": {
+          "module_name": "Document support pilot",
+          "module_version": "pmid-pilot/1.0",
+          "maturity": "FROZEN_EXPERIMENT",
+          "execution_mode": "OFFLINE",
+          "status": "PARTIALLY_AVAILABLE",
+          "data_scope": "local PMID pilot alignments when present",
+          "limitations": [
+            "Unexecuted analysis is reported as NOT_ASSESSED."
+          ]
+        },
+        "ontology": {
+          "module_name": "Ontology alignment MVP",
+          "module_version": "ontology-shadow-mvp/1.0",
+          "maturity": "RESEARCH_DRAFT",
+          "execution_mode": "SHADOW",
+          "status": "SHADOW",
+          "data_scope": "local normalization and ontology registry",
+          "limitations": [
+            "Matches are evidence only and cannot alter V3 compatibility."
+          ]
+        },
+        "companion_diagnostic": {
+          "module_name": "Companion diagnostic context",
+          "module_version": "companion-diagnostic/0.1",
+          "maturity": "DISCOVERY_ONLY",
+          "execution_mode": "OFFLINE",
+          "status": "STRUCTURAL_DATA_ONLY",
+          "data_scope": "graph diagnostic records without qualified claim promotion",
+          "limitations": [
+            "Disease context, provenance, and regulatory status may be unavailable."
+          ]
+        },
+        "escat": {
+          "module_name": "ESCAT clinical actionability",
+          "module_version": "escat-shadow/1.0",
+          "maturity": "RESEARCH_DRAFT",
+          "execution_mode": "SHADOW",
+          "status": "NOT_ASSESSED",
+          "data_scope": "existing EscatAssessmentRecord values only",
+          "limitations": [
+            "Ruleset is not clinically validated and no tier is assigned automatically."
+          ],
+          "available": false
+        }
+      },
+      "limitations": [
+        "No qualified claim_id is available; no claim extension can be associated."
+      ],
+      "generated_at": "2026-08-02T00:00:00+00:00",
+      "association_diagnostics": {
+        "orphan_records": [],
+        "missing_references": []
+      }
+    }
+  }
+}
