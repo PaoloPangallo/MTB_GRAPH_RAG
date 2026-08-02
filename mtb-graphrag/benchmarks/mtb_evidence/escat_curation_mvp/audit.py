@@ -14,6 +14,9 @@ AUDIT_ACTIONS = frozenset(
         "DRAFT_CREATED",
         "FIELD_PREFILLED",
         "FIELD_EDITED",
+        "CURATOR_SET",
+        "RATIONALE_SET",
+        "STATUS_CHANGED",
         "SOURCE_ATTACHED",
         "PASSAGE_ATTACHED",
         "RULE_SELECTED",
@@ -33,9 +36,11 @@ def make_event(
     previous_value: Any = None,
     new_value: Any = None,
     reason: str | None = None,
+    rationale: str | None = None,
 ) -> EscatAssessmentEvent:
     if action not in AUDIT_ACTIONS:
         raise ValueError(f"unsupported audit action: {action}")
+    explanation = rationale or reason
     return EscatAssessmentEvent(
         event_id=f"EV-{uuid4().hex}",
         assessment_id=assessment_id,
@@ -45,7 +50,8 @@ def make_event(
         field=field,
         previous_value=previous_value,
         new_value=new_value,
-        reason=reason,
+        reason=explanation,
+        rationale=explanation,
     )
 
 

@@ -5,14 +5,21 @@
   "source_of_pilot_claims": "docs/escat_shadow_feasibility/claim_data_availability.csv",
   "active_claims_inspected": 148,
   "pilot_drafts_created": 15,
+  "pilot_domains": {
+    "therapeutic": 15,
+    "diagnostic": 0
+  },
   "pilot_draft_status": {
     "INCOMPLETE": 15,
+    "NOT_APPLICABLE": 0,
     "CURATED": 0,
     "tier_assigned": 0,
     "subtier_assigned": 0
   },
   "diagnostic_claims": {
-    "not_applicable": 2
+    "in_pilot": 0,
+    "not_applicable_drafts": 0,
+    "note": "Diagnostic claims are excluded from the PARTIALLY_ASSIGNABLE pilot sample."
   },
   "prefillable_fields": [
     "biomarker",
@@ -27,6 +34,7 @@
     "OFFICIAL_RULESET_NOT_AVAILABLE",
     "FRAMEWORK_VERSION",
     "RULE_ID",
+    "tumour_context_status:AMBIGUOUS",
     "study_design_status:MISSING",
     "endpoint_status:MISSING",
     "clinical_response_status:MISSING",
@@ -35,7 +43,14 @@
   "legacy_status": "UNVERIFIED_LEGACY_DERIVATION",
   "llm_used_for_escat_assignment": false,
   "external_knowledge_used_as_evidence": false,
-  "runtime_modified": false,
+  "test_fixture_presented_as_official": false,
   "official_rule_set_ready_for_import": true,
-  "official_rule_set_present_locally": false
+  "official_rule_set_present_locally": false,
+  "runtime_modified": false,
+  "frontend_modified": false,
+  "knowledge_graph_modified": false,
+  "qualified_claim_repository_modified": false,
+  "gate_modified": false,
+  "scoring_modified": false,
+  "bucket_modified": false
 }

@@ -1,0 +1,66 @@
+{
+  "framework": "ESCAT",
+  "version": "TEST-1",
+  "status": "TEST_FIXTURE_ONLY",
+  "label": "TEST_FIXTURE_ONLY",
+  "disclaimer": "NOT_AN_OFFICIAL_ESCAT_RULESET",
+  "reference": {
+    "framework": "ESCAT",
+    "version": "TEST-1",
+    "citation": "TEST_FIXTURE_ONLY",
+    "doi": "10.0000/test-fixture-reference",
+    "locator": "fixture",
+    "source_path": "test_fixture_ruleset.json",
+    "valid_from": "2026-08-02"
+  },
+  "rules": [
+    {
+      "rule_id": "TEST-R1",
+      "framework_version": "TEST-1",
+      "tier": "TEST-TIER-1",
+      "subtier": "A",
+      "required_fields": [
+        "biomarker",
+        "disease",
+        "intervention",
+        "study_design"
+      ],
+      "required_conditions": [
+        {
+          "field": "study_design",
+          "equals": "prospective"
+        }
+      ],
+      "exclusion_conditions": [
+        {
+          "field": "direction",
+          "equals": "resistance"
+        }
+      ],
+      "alternative_conditions": [
+        {
+          "field": "tumour_context_relation",
+          "equals": "same_tumour"
+        },
+        {
+          "field": "tumour_context_relation",
+          "equals": "tissue_agnostic"
+        }
+      ],
+      "subtier_requirements": {
+        "A": [
+          "outcome_basis"
+        ]
+      },
+      "source": {
+        "framework": "ESCAT",
+        "version": "TEST-1",
+        "citation": "TEST_FIXTURE_ONLY",
+        "doi": "10.0000/test-fixture-rule",
+        "locator": "fixture-rule",
+        "source_path": "test_fixture_ruleset.json",
+        "valid_from": "2026-08-02"
+      }
+    }
+  ]
+}

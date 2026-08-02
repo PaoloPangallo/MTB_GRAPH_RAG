@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, fields
 from datetime import datetime, timezone
 from typing import Any, ClassVar
 
@@ -71,16 +71,28 @@ class EscatRule:
     requirements: list[str] = field(default_factory=list)
     source: EscatFrameworkReference = field(default_factory=EscatFrameworkReference)
     notes: str | None = None
+    required_fields: list[str] = field(default_factory=list)
+    required_conditions: list[dict[str, Any]] = field(default_factory=list)
+    exclusion_conditions: list[dict[str, Any]] = field(default_factory=list)
+    alternative_conditions: list[dict[str, Any]] = field(default_factory=list)
+    subtier_requirements: dict[str, list[str]] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not self.required_fields and self.requirements:
+            object.__setattr__(self, "required_fields", list(self.requirements))
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
         value["source"] = self.source.to_dict()
+        value["requirements"] = list(self.required_fields or self.requirements)
         return value
 
     @classmethod
     def from_dict(cls, value: dict[str, Any]) -> "EscatRule":
         data = dict(value)
         data["source"] = EscatFrameworkReference.from_dict(data.get("source"))
+        if "required_fields" not in data:
+            data["required_fields"] = list(data.get("requirements", []))
         return cls(**data)
 
 
@@ -88,11 +100,13 @@ class EscatRule:
 class EscatRuleSet:
     framework: str = "ESCAT"
     version: str | None = None
-    reference: EscatFrameworkReference = field(
-        default_factory=EscatFrameworkReference
-    )
+    reference: EscatFrameworkReference = field(default_factory=EscatFrameworkReference)
     rules: list[EscatRule] = field(default_factory=list)
     status: str = "OFFICIAL_RULESET_NOT_AVAILABLE"
+
+    @property
+    def is_test_fixture(self) -> bool:
+        return self.status == "TEST_FIXTURE_ONLY"
 
     @property
     def available(self) -> bool:
@@ -102,6 +116,25 @@ class EscatRuleSet:
             and self.version
             and self.reference.available
             and self.rules
+        )
+
+    @property
+    def structurally_available(self) -> bool:
+        return bool(
+            self.status in {"OFFICIAL_RULESET_AVAILABLE", "TEST_FIXTURE_ONLY"}
+            and self.framework == "ESCAT"
+            and self.version
+            and self.reference.available
+            and self.reference.framework == self.framework
+            and self.reference.version == self.version
+            and self.rules
+            and all(
+                rule.framework_version == self.version
+                and rule.source.available
+                and rule.source.framework == self.framework
+                and rule.source.version == self.version
+                for rule in self.rules
+            )
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -171,7 +204,8 @@ class EscatAssessmentRecord:
 
     @classmethod
     def from_dict(cls, value: dict[str, Any]) -> "EscatAssessmentRecord":
-        data = dict(value)
+        allowed = {item.name for item in fields(cls) if item.init}
+        data = {key: item for key, item in value.items() if key in allowed}
         data["curated_at"] = _datetime_from_json(data.get("curated_at"))
         data["created_at"] = _datetime_from_json(data.get("created_at")) or _utc_now()
         return cls(**data)
@@ -210,14 +244,17 @@ class EscatAssessmentEvent:
     previous_value: Any = None
     new_value: Any = None
     reason: str | None = None
+    rationale: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
         value["timestamp"] = _datetime_to_json(self.timestamp)
+        value["rationale"] = self.rationale or self.reason
         return value
 
     @classmethod
     def from_dict(cls, value: dict[str, Any]) -> "EscatAssessmentEvent":
         data = dict(value)
         data["timestamp"] = _datetime_from_json(data.get("timestamp")) or _utc_now()
+        data.setdefault("rationale", data.get("reason"))
         return cls(**data)
