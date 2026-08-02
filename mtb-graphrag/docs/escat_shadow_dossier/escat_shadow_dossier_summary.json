@@ -1,0 +1,35 @@
+{
+  "framework": "ESCAT",
+  "ruleset_status": "RESEARCH_DRAFT",
+  "ruleset_available": false,
+  "mode": "OFFLINE_READ_ONLY_DOSSIER_LAYER",
+  "pilot_draft_assessments_associated": 15,
+  "pilot_state_counts": {
+    "INCOMPLETE": 15
+  },
+  "pilot_tier_assigned": 0,
+  "pilot_subtier_assigned": 0,
+  "preview_case_states": {
+    "FGFR2_iCCA": "INCOMPLETE",
+    "ALK_G1202R_NSCLC": "NOT_ASSESSED",
+    "EGFR_L858R_NSCLC_osimertinib": "NOT_ASSESSED",
+    "RMI2": "NOT_ASSESSED",
+    "diagnostic_explicit_not_applicable": "NOT_APPLICABLE",
+    "superseded_fixture": "NOT_ASSESSED",
+    "conflicting_fixture": "CONFLICTING_EVIDENCE",
+    "curated_fixture": "CURATED"
+  },
+  "automatic_escat_tiers_assigned": false,
+  "test_fixture_presented_as_clinical": false,
+  "runtime_modified": false,
+  "production_endpoint_modified": false,
+  "frontend_modified": false,
+  "knowledge_graph_modified": false,
+  "qualified_claim_repository_modified": false,
+  "gate_modified": false,
+  "scoring_modified": false,
+  "bucket_modified": false,
+  "official_experiment_modified": false,
+  "official_ledgers_modified": false,
+  "gold_read_count": 0
+}

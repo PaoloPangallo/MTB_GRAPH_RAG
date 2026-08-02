@@ -1,0 +1,213 @@
+{
+  "preview_mode": "OFFLINE_READ_ONLY",
+  "ruleset_status": "RESEARCH_DRAFT",
+  "ruleset_available": false,
+  "automatic_assignment": false,
+  "cases": {
+    "FGFR2_iCCA": {
+      "claim_relevance": {
+        "claim_id": "CLM-091cf6602db85e2a2d41",
+        "domain": "therapeutic",
+        "biomarker": "FGFR2::TACC3 Fusion",
+        "disease": "Cholangiocarcinoma",
+        "intervention": "ponatinib"
+      },
+      "provenance": {
+        "claim_sources": [],
+        "rule_sources": []
+      },
+      "assessment_supporting_sources": [
+        {
+          "source_id": "SU-24550739-patient-tacc3-ponatinib-line",
+          "origin": "qualified_claim",
+          "level": "source_unit",
+          "claim_specific_support": "PARTIAL_SUPPORT"
+        },
+        {
+          "source_id": "PMID:24550739",
+          "origin": "document_alignment",
+          "level": "document",
+          "claim_specific_support": "PARTIAL_SUPPORT"
+        }
+      ],
+      "supporting_passages": [
+        {
+          "text": "In one example, preliminary anti-tumor activity of pazopanib (in vitro FGFR2 IC50≈350 nM) was noted in a patient with an FGFR2-TACC3 fusion. After progression on pazopanib, the same patient also had stable disease on ponatinib, a pan-FGFR inhibitor (in vitro, FGFR2 IC50≈8 nM).",
+          "locator": "ABSTRACT",
+          "section": "UNLABELLED",
+          "origin": "abstract_cache",
+          "support_status": "PARTIAL_SUPPORT"
+        }
+      ],
+      "document_support": {},
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "INCOMPLETE",
+        "tier": null,
+        "subtier": null,
+        "origin": "MANUAL_REVIEW",
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": "ESCAT-AS-b5a16c5fabee4a03aa09c03d53395832",
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [
+          {
+            "source_id": "SU-24550739-patient-tacc3-ponatinib-line",
+            "origin": "qualified_claim",
+            "level": "source_unit",
+            "claim_specific_support": "PARTIAL_SUPPORT"
+          },
+          {
+            "source_id": "PMID:24550739",
+            "origin": "document_alignment",
+            "level": "document",
+            "claim_specific_support": "PARTIAL_SUPPORT"
+          }
+        ],
+        "supporting_passages": [
+          {
+            "text": "In one example, preliminary anti-tumor activity of pazopanib (in vitro FGFR2 IC50≈350 nM) was noted in a patient with an FGFR2-TACC3 fusion. After progression on pazopanib, the same patient also had stable disease on ponatinib, a pan-FGFR inhibitor (in vitro, FGFR2 IC50≈8 nM).",
+            "locator": "ABSTRACT",
+            "section": "UNLABELLED",
+            "origin": "abstract_cache",
+            "support_status": "PARTIAL_SUPPORT"
+          }
+        ],
+        "missing_requirements": [
+          "OFFICIAL_RULESET_NOT_AVAILABLE",
+          "FRAMEWORK_VERSION",
+          "RULE_ID",
+          "tumour_context_status:AMBIGUOUS",
+          "study_design_status:MISSING",
+          "endpoint_status:MISSING",
+          "clinical_response_status:MISSING",
+          "source_unit_status:PARENT_LEVEL_ONLY"
+        ],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": [
+          "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+        ]
+      },
+      "preview_case": true,
+      "source_records_modified": false,
+      "automatic_assignment": false
+    },
+    "ALK_G1202R_NSCLC": {
+      "claim_relevance": {
+        "claim_id": "CLM-01aba27a2fb14d531e2d",
+        "domain": "therapeutic",
+        "biomarker": "ALK G1202R AND v::ALK Fusion",
+        "disease": "Lung Non-small Cell Carcinoma",
+        "intervention": "neladalkib"
+      },
+      "provenance": {
+        "claim_sources": [],
+        "rule_sources": []
+      },
+      "assessment_supporting_sources": [],
+      "supporting_passages": [],
+      "document_support": {},
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "NOT_ASSESSED",
+        "tier": null,
+        "subtier": null,
+        "origin": null,
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": null,
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": []
+      },
+      "preview_case": true,
+      "source_records_modified": false,
+      "automatic_assignment": false
+    },
+    "EGFR_L858R_NSCLC_osimertinib": {
+      "claim_relevance": {
+        "claim_id": "CLM-d4bee44e07efb6ccca9f",
+        "domain": "therapeutic",
+        "biomarker": "EGFR L858R OR EGFR Exon 19 Deletion",
+        "disease": "Lung Non-small Cell Carcinoma",
+        "intervention": "osimertinib"
+      },
+      "provenance": {
+        "claim_sources": [],
+        "rule_sources": []
+      },
+      "assessment_supporting_sources": [],
+      "supporting_passages": [],
+      "document_support": {},
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "NOT_ASSESSED",
+        "tier": null,
+        "subtier": null,
+        "origin": null,
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": null,
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": []
+      },
+      "preview_case": true,
+      "source_records_modified": false,
+      "automatic_assignment": false
+    },
+    "RMI2": {
+      "claim_relevance": {
+        "claim_id": "PILOT-N1-RMI2-SNAPSHOT",
+        "domain": "exploratory",
+        "biomarker": "RMI2"
+      },
+      "provenance": {
+        "claim_sources": [],
+        "rule_sources": []
+      },
+      "assessment_supporting_sources": [],
+      "supporting_passages": [],
+      "document_support": {},
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "NOT_ASSESSED",
+        "tier": null,
+        "subtier": null,
+        "origin": null,
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": null,
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": [
+          "CLAIM_NOT_FOUND"
+        ]
+      },
+      "preview_case": true,
+      "source_records_modified": false,
+      "automatic_assignment": false
+    }
+  }
+}
