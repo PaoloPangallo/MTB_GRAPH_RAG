@@ -1,0 +1,1089 @@
+{
+  "preview_mode": "OFFLINE_READ_ONLY",
+  "ruleset_status": "RESEARCH_DRAFT",
+  "automatic_assignment": false,
+  "pilot": {
+    "preview_mode": "OFFLINE_READ_ONLY",
+    "ruleset_status": "RESEARCH_DRAFT",
+    "automatic_assignment": false,
+    "pilot_draft_count": 15,
+    "assigned_tier_count": 0,
+    "assigned_subtier_count": 0,
+    "state_counts": {
+      "INCOMPLETE": 15
+    },
+    "pilot_drafts": [
+      {
+        "claim_id": "CLM-091cf6602db85e2a2d41",
+        "assessment_id": "ESCAT-AS-b5a16c5fabee4a03aa09c03d53395832",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-b5a16c5fabee4a03aa09c03d53395832",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-24550739-patient-tacc3-ponatinib-line",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            },
+            {
+              "source_id": "PMID:24550739",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "In one example, preliminary anti-tumor activity of pazopanib (in vitro FGFR2 IC50≈350 nM) was noted in a patient with an FGFR2-TACC3 fusion. After progression on pazopanib, the same patient also had stable disease on ponatinib, a pan-FGFR inhibitor (in vitro, FGFR2 IC50≈8 nM).",
+              "locator": "ABSTRACT",
+              "section": "UNLABELLED",
+              "origin": "abstract_cache",
+              "support_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-0e59264facd7b2df0e67",
+        "assessment_id": "ESCAT-AS-dd39ecd7c58244fc888b840cc220b187",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-dd39ecd7c58244fc888b840cc220b187",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-25393796-patient-eml4-alk-i1171s",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "DIRECT_SUPPORT"
+            },
+            {
+              "source_id": "PMID:25393796",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "DIRECT_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "This patient and another patient with EML4-ALK variant 3a/b initially responded sequentially to crizotinib and then alectinib, a next-generation ALK inhibitor, but developed acquired resistance to alectinib with the presence of a mutation in amino acid residue 1171 (I1171N and I1171S respectively).",
+              "locator": "ABSTRACT",
+              "section": "UNLABELLED",
+              "origin": "abstract_cache",
+              "support_status": "DIRECT_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-1fc4af943701d57d45ad",
+        "assessment_id": "ESCAT-AS-aed7a4fe56284a35ad740a16ffaf566c",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-aed7a4fe56284a35ad740a16ffaf566c",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-24736073-group-gefitinib",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            },
+            {
+              "source_id": "PMID:24736073",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "A total of 375 patients with recurrent or metastatic stage IIIB/IV NSCLC, who had either exon 19 deletion or the L858R mutation in exon 21, and had received either gefitinib (n = 228) or erlotinib (n = 147), were included in the study. The overall response rates and disease control rates in the gefitinib- or erlotinib-treated groups were 76.9% versus 74.4% and 90.1% versus 86.8%, respectively.",
+              "locator": "ABSTRACT",
+              "section": "METHODS/RESULTS",
+              "origin": "abstract_cache",
+              "support_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-4a89bb28592af7ebaccf",
+        "assessment_id": "ESCAT-AS-8801dd44ff4843abbfbd1e0d43fc7521",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-8801dd44ff4843abbfbd1e0d43fc7521",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-38942080-arm-amivantamab-lazertinib",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "DIRECT_SUPPORT"
+            },
+            {
+              "source_id": "PMID:38942080",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "DIRECT_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "Amivantamab-lazertinib significantly prolonged progression-free survival (PFS) versus osimertinib in patients with epidermal growth factor receptor (EGFR)-mutant advanced non-small-cell lung cancer (NSCLC). This analysis included patients with treatment-naive, EGFR-mutant advanced NSCLC randomized to amivantamab-lazertinib or osimertinib. Ex19del and L858R ctDNA in blood was analyzed at baseline.",
+              "locator": "ABSTRACT",
+              "section": "BACKGROUND/PATIENTS AND METHODS/RESULTS",
+              "origin": "abstract_cache",
+              "support_status": "DIRECT_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-4ffe85304f3ef5533b58",
+        "assessment_id": "ESCAT-AS-4889d7d089bd416c9c1b0f9e24fa61d5",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-4889d7d089bd416c9c1b0f9e24fa61d5",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-24457318-cohort-egfr-tki",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            },
+            {
+              "source_id": "PMID:24457318",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "Seventy EGFR-mutant NSCLC patients who received EGFR-TKIs in our institution between April 2007 and March 2013 were analyzed retrospectively. In multivariate analysis, adenocarcinoma and major mutations (deletions in exon 19 and L858R point mutation in exon 21) were significant predictors of longer PFS.",
+              "locator": "ABSTRACT",
+              "section": "RESULTS/CONCLUSION",
+              "origin": "abstract_cache",
+              "support_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-5071bb2d8657ac0fbed0",
+        "assessment_id": "ESCAT-AS-7ea5196cada540149d7d307c964b5d8e",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-7ea5196cada540149d7d307c964b5d8e",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-24122810-nih3t3-fgfr-inhibitor-assay",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            },
+            {
+              "source_id": "PMID:24122810",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "We performed massively parallel whole transcriptome sequencing in eight specimens from cholangiocarcinoma patients ... and identified two fusion kinase genes, FGFR2-AHCYL1 and FGFR2-BICC1. Expression of the fusion kinases in NIH3T3 cells activated MAPK and conferred anchorage-independent growth ... Treatment with the fibroblast growth factor receptor (FGFR) kinase inhibitors BGJ398 and PD173074 effectively suppressed transformation.",
+              "locator": "ABSTRACT",
+              "section": "UNLABELLED/CONCLUSION",
+              "origin": "abstract_cache",
+              "support_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-5ce49705979f72f174e9",
+        "assessment_id": "ESCAT-AS-b5f1fc1ec1d7471890efb90e2fcce8a0",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-b5f1fc1ec1d7471890efb90e2fcce8a0",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-37879444-arm-amivantamab-chemotherapy",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "DIRECT_SUPPORT"
+            },
+            {
+              "source_id": "PMID:37879444",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "DIRECT_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "A total of 657 patients with EGFR-mutated (exon 19 deletions or L858R) locally advanced or metastatic NSCLC after disease progression on osimertinib were randomized ... to receive amivantamab-lazertinib-chemotherapy, chemotherapy, or amivantamab-chemotherapy. PFS was significantly longer for amivantamab-chemotherapy ... versus chemotherapy [HR ... 0.48 ... median of 6.3 versus 4.2 months].",
+              "locator": "ABSTRACT",
+              "section": "PATIENTS AND METHODS/RESULTS",
+              "origin": "abstract_cache",
+              "support_status": "DIRECT_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-5ce532268b4aa1661311",
+        "assessment_id": "ESCAT-AS-3ed8255e7a70474ab54a5ecc9573c8b2",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-3ed8255e7a70474ab54a5ecc9573c8b2",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-26698910-patient-c1156y-crizotinib-first-line",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            },
+            {
+              "source_id": "SU-26698910-patient-c1156y-crizotinib-rechallenge",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            },
+            {
+              "source_id": "PMID:26698910",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "In a patient who had metastatic anaplastic lymphoma kinase (ALK)-rearranged lung cancer, resistance to crizotinib developed because of a mutation in the ALK kinase domain. This mutation is predicted to result in a substitution of cysteine by tyrosine at amino acid residue 1156 (C1156Y).",
+              "locator": "ABSTRACT",
+              "section": "UNLABELLED",
+              "origin": "abstract_cache",
+              "support_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-68b84650d65add6c5696",
+        "assessment_id": "ESCAT-AS-a524e27adf9b410294029974c204ffeb",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-a524e27adf9b410294029974c204ffeb",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-24550739-patient-tacc3-pazopanib-line",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": null
+            },
+            {
+              "source_id": "PMID:24550739",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": null
+            }
+          ],
+          "supporting_passages": [],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-89ea67ee7946d9ccd552",
+        "assessment_id": "ESCAT-AS-346a0e96778a4dff99a64f7db387d93d",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-346a0e96778a4dff99a64f7db387d93d",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-24736073-group-erlotinib",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            },
+            {
+              "source_id": "PMID:24736073",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "A total of 375 patients with recurrent or metastatic stage IIIB/IV NSCLC, who had either exon 19 deletion or the L858R mutation in exon 21, and had received either gefitinib (n = 228) or erlotinib (n = 147), were included in the study. The overall response rates and disease control rates in the gefitinib- or erlotinib-treated groups were 76.9% versus 74.4% and 90.1% versus 86.8%, respectively.",
+              "locator": "ABSTRACT",
+              "section": "METHODS/RESULTS",
+              "origin": "abstract_cache",
+              "support_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-90e863f00f134fc3cd3d",
+        "assessment_id": "ESCAT-AS-45f4ca48c8524d50b40741449e7d500c",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-45f4ca48c8524d50b40741449e7d500c",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-24122810-nih3t3-fgfr-inhibitor-assay",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            },
+            {
+              "source_id": "PMID:24122810",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": "PARTIAL_SUPPORT"
+            }
+          ],
+          "supporting_passages": [
+            {
+              "text": "We performed massively parallel whole transcriptome sequencing in eight specimens from cholangiocarcinoma patients ... and identified two fusion kinase genes, FGFR2-AHCYL1 and FGFR2-BICC1. Expression of the fusion kinases in NIH3T3 cells activated MAPK and conferred anchorage-independent growth ... Treatment with the fibroblast growth factor receptor (FGFR) kinase inhibitors BGJ398 and PD173074 effectively suppressed transformation.",
+              "locator": "ABSTRACT",
+              "section": "UNLABELLED/CONCLUSION",
+              "origin": "abstract_cache",
+              "support_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-99ae092a3018b5b91808",
+        "assessment_id": "ESCAT-AS-e2fd2d6c31ee468b88b2d2b62d557a20",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-e2fd2d6c31ee468b88b2d2b62d557a20",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-26698910-patient-c1156y-ceritinib-line",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": null
+            },
+            {
+              "source_id": "PMID:26698910",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": null
+            }
+          ],
+          "supporting_passages": [],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-9ab06b6945feea941252",
+        "assessment_id": "ESCAT-AS-b52cc62820da4c69a1e27a11f56f0897",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-b52cc62820da4c69a1e27a11f56f0897",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-31591063-arm-placebo-erlotinib",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": null
+            },
+            {
+              "source_id": "PMID:31591063",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": null
+            }
+          ],
+          "supporting_passages": [],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-ac64c0e56246f6ea29ca",
+        "assessment_id": "ESCAT-AS-e3a65679c9384435820dc5c92fd74b56",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-e3a65679c9384435820dc5c92fd74b56",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-31591063-arm-ramucirumab-erlotinib",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": null
+            },
+            {
+              "source_id": "PMID:31591063",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": null
+            }
+          ],
+          "supporting_passages": [],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      },
+      {
+        "claim_id": "CLM-bd4e24be0a4719119976",
+        "assessment_id": "ESCAT-AS-476e9eb9cb36464980ff458115c329c8",
+        "clinical_actionability": {
+          "framework": "ESCAT",
+          "framework_version": null,
+          "status": "INCOMPLETE",
+          "tier": null,
+          "subtier": null,
+          "origin": "MANUAL_REVIEW",
+          "ruleset_status": "RESEARCH_DRAFT",
+          "assessment_id": "ESCAT-AS-476e9eb9cb36464980ff458115c329c8",
+          "rule_ids": [],
+          "candidate_rule_ids": [],
+          "supporting_sources": [
+            {
+              "source_id": "SU-25393796-patient-hip1-alk-i1171n",
+              "origin": "qualified_claim",
+              "level": "source_unit",
+              "claim_specific_support": null
+            },
+            {
+              "source_id": "PMID:25393796",
+              "origin": "document_alignment",
+              "level": "document",
+              "claim_specific_support": null
+            }
+          ],
+          "supporting_passages": [],
+          "missing_requirements": [
+            "OFFICIAL_RULESET_NOT_AVAILABLE",
+            "FRAMEWORK_VERSION",
+            "RULE_ID",
+            "tumour_context_status:AMBIGUOUS",
+            "study_design_status:MISSING",
+            "endpoint_status:MISSING",
+            "clinical_response_status:MISSING",
+            "source_unit_status:PARENT_LEVEL_ONLY"
+          ],
+          "manual_review_required": true,
+          "curator": null,
+          "curated_at": null,
+          "notes": [
+            "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+          ]
+        }
+      }
+    ]
+  },
+  "cases": {
+    "FGFR2_iCCA": {
+      "claim_id": "CLM-091cf6602db85e2a2d41",
+      "description": "Pilot therapeutic claim with an existing incomplete draft.",
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "INCOMPLETE",
+        "tier": null,
+        "subtier": null,
+        "origin": "MANUAL_REVIEW",
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": "ESCAT-AS-b5a16c5fabee4a03aa09c03d53395832",
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [
+          {
+            "source_id": "SU-24550739-patient-tacc3-ponatinib-line",
+            "origin": "qualified_claim",
+            "level": "source_unit",
+            "claim_specific_support": "PARTIAL_SUPPORT"
+          },
+          {
+            "source_id": "PMID:24550739",
+            "origin": "document_alignment",
+            "level": "document",
+            "claim_specific_support": "PARTIAL_SUPPORT"
+          }
+        ],
+        "supporting_passages": [
+          {
+            "text": "In one example, preliminary anti-tumor activity of pazopanib (in vitro FGFR2 IC50≈350 nM) was noted in a patient with an FGFR2-TACC3 fusion. After progression on pazopanib, the same patient also had stable disease on ponatinib, a pan-FGFR inhibitor (in vitro, FGFR2 IC50≈8 nM).",
+            "locator": "ABSTRACT",
+            "section": "UNLABELLED",
+            "origin": "abstract_cache",
+            "support_status": "PARTIAL_SUPPORT"
+          }
+        ],
+        "missing_requirements": [
+          "OFFICIAL_RULESET_NOT_AVAILABLE",
+          "FRAMEWORK_VERSION",
+          "RULE_ID",
+          "tumour_context_status:AMBIGUOUS",
+          "study_design_status:MISSING",
+          "endpoint_status:MISSING",
+          "clinical_response_status:MISSING",
+          "source_unit_status:PARENT_LEVEL_ONLY"
+        ],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": [
+          "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+        ]
+      }
+    },
+    "ALK_G1202R_NSCLC": {
+      "claim_id": "CLM-01aba27a2fb14d531e2d",
+      "description": "Qualified claim with no associated ESCAT assessment.",
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "NOT_ASSESSED",
+        "tier": null,
+        "subtier": null,
+        "origin": null,
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": null,
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": []
+      }
+    },
+    "EGFR_L858R_NSCLC_osimertinib": {
+      "claim_id": "CLM-d4bee44e07efb6ccca9f",
+      "description": "Qualified claim with no associated ESCAT assessment.",
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "NOT_ASSESSED",
+        "tier": null,
+        "subtier": null,
+        "origin": null,
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": null,
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": []
+      }
+    },
+    "RMI2": {
+      "claim_id": "PILOT-N1-RMI2-SNAPSHOT",
+      "description": "Exploratory case without a qualified claim identifier.",
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "NOT_ASSESSED",
+        "tier": null,
+        "subtier": null,
+        "origin": null,
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": null,
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": [
+          "CLAIM_NOT_FOUND"
+        ]
+      }
+    },
+    "diagnostic_explicit_not_applicable": {
+      "claim_id": "CLM-8941c177da91f66ff93a",
+      "description": "Diagnostic claim is NOT_APPLICABLE only because an explicit assessment exists.",
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "NOT_APPLICABLE",
+        "tier": null,
+        "subtier": null,
+        "origin": "MANUAL_REVIEW",
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": "EA-FIXTURE-NOT-APPLICABLE",
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": [
+          "RESEARCH_DRAFT_NOT_CLINICALLY_VALIDATED"
+        ]
+      }
+    },
+    "superseded_fixture": {
+      "claim_id": "CASE-FIXTURE-SUPERSEDED",
+      "description": "Historical superseded assessment is not shown as current.",
+      "historical_assessments": [
+        {
+          "assessment_id": "EA-FIXTURE-SUPERSEDED",
+          "claim_id": "CASE-FIXTURE-SUPERSEDED",
+          "framework": "ESCAT",
+          "framework_version": null,
+          "assessment_status": "SUPERSEDED",
+          "tier": null,
+          "subtier": null,
+          "biomarker": null,
+          "disease": null,
+          "intervention": null,
+          "direction": null,
+          "tumour_context_relation": null,
+          "study_design": null,
+          "outcome_basis": [],
+          "evidence_scope": null,
+          "assessment_origin": "MANUAL_REVIEW",
+          "supporting_sources": [],
+          "supporting_passages": [],
+          "rule_ids": [],
+          "reason_codes": [
+            "EXPLICIT_FIXTURE_HISTORY"
+          ],
+          "missing_requirements": [],
+          "rationale": null,
+          "curator": null,
+          "curated_at": null,
+          "created_at": "2026-08-02T00:00:00+00:00",
+          "supersedes_assessment_id": null,
+          "source_field_origins": {},
+          "framework_status": "OFFICIAL_RULESET_NOT_AVAILABLE"
+        }
+      ],
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "NOT_ASSESSED",
+        "tier": null,
+        "subtier": null,
+        "origin": null,
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": null,
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": [
+          "SUPERSEDED_ASSESSMENT_NOT_CURRENT"
+        ]
+      }
+    },
+    "conflicting_fixture": {
+      "claim_id": "CASE-FIXTURE-CONFLICT",
+      "description": "Two active technical fixture assessments produce a conflict.",
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": null,
+        "status": "CONFLICTING_EVIDENCE",
+        "tier": null,
+        "subtier": null,
+        "origin": null,
+        "ruleset_status": "RESEARCH_DRAFT",
+        "assessment_id": null,
+        "rule_ids": [],
+        "candidate_rule_ids": [],
+        "supporting_sources": [],
+        "supporting_passages": [],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": null,
+        "curated_at": null,
+        "notes": [
+          "CONCURRENT_ASSESSMENTS",
+          "CONCURRENT_ASSESSMENT:EA-FIXTURE-CONFLICT-A",
+          "CONCURRENT_ASSESSMENT:EA-FIXTURE-CONFLICT-B"
+        ]
+      }
+    },
+    "curated_fixture": {
+      "claim_id": "CASE-FIXTURE-CURATED",
+      "description": "Technical positive validation only; not a clinical ESCAT assessment.",
+      "clinical_actionability": {
+        "framework": "ESCAT",
+        "framework_version": "TEST-1",
+        "status": "CURATED",
+        "tier": "TEST-TIER-1",
+        "subtier": "A",
+        "origin": "MANUAL_REVIEW",
+        "ruleset_status": "TEST_FIXTURE_ONLY",
+        "assessment_id": "EA-FIXTURE-CURATED",
+        "rule_ids": [
+          "TEST-R1"
+        ],
+        "candidate_rule_ids": [],
+        "supporting_sources": [
+          {
+            "source_id": "SU-fixture-support"
+          }
+        ],
+        "supporting_passages": [
+          {
+            "text": "fixture passage",
+            "locator": "p.1"
+          }
+        ],
+        "missing_requirements": [],
+        "manual_review_required": true,
+        "curator": "fixture-curator",
+        "curated_at": "2026-08-02T00:00:00+00:00",
+        "notes": [
+          "TEST_FIXTURE_ONLY",
+          "NOT_A_CLINICAL_ESCAT_ASSESSMENT"
+        ]
+      }
+    }
+  },
+  "fixture_disclaimer": [
+    "TEST_FIXTURE_ONLY",
+    "NOT_A_CLINICAL_ESCAT_ASSESSMENT"
+  ]
+}
