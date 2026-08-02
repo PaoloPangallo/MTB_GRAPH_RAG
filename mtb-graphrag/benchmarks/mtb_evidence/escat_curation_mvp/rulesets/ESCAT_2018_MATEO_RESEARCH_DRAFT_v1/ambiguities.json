@@ -1,0 +1,42 @@
+{
+  "registry_status": "REQUIRES_MANUAL_INTERPRETATION",
+  "source_only": true,
+  "ambiguities": [
+    {
+      "id": "AMB-001",
+      "phrase": "clinically meaningful benefit",
+      "source_locators": [{"page_pdf": 2, "page_journal": 1896, "section": "The ESCAT Tier I discussion", "table": null, "figure": null}],
+      "handling": "Do not create a numeric threshold; curator must identify the applicable evidence and justification.",
+      "status": "REQUIRES_MANUAL_INTERPRETATION"
+    },
+    {
+      "id": "AMB-002",
+      "phrase": "similar benefit observed across tumour types",
+      "source_locators": [{"page_pdf": 4, "page_journal": 1898, "section": "The ESCAT", "table": "Table 2", "figure": null}],
+      "handling": "Do not create a cross-tumour effect-size threshold; curator must document the comparison.",
+      "status": "REQUIRES_MANUAL_INTERPRETATION"
+    },
+    {
+      "id": "AMB-003",
+      "phrase": "additional data are needed",
+      "source_locators": [{"page_pdf": 4, "page_journal": 1898, "section": "The ESCAT", "table": "Table 2", "figure": null}],
+      "handling": "Do not infer a required sample size, endpoint, follow-up or study count.",
+      "status": "REQUIRES_MANUAL_INTERPRETATION"
+    },
+    {
+      "id": "AMB-004",
+      "phrase": "similar predicted functional impact",
+      "source_locators": [{"page_pdf": 6, "page_journal": 1900, "section": "ESCAT Tier III", "table": null, "figure": null}],
+      "handling": "Do not encode a computational or biological similarity threshold; curator must provide the supporting rationale.",
+      "status": "REQUIRES_MANUAL_INTERPRETATION"
+    },
+    {
+      "id": "AMB-005",
+      "phrase": "objective responses" ,
+      "source_locators": [{"page_pdf": 6, "page_journal": 1900, "section": "ESCAT Tier V", "table": null, "figure": null}],
+      "handling": "Do not infer a response-rate or duration threshold from this source.",
+      "status": "REQUIRES_MANUAL_INTERPRETATION"
+    }
+  ],
+  "figure_note": "No pertinent figure is present in Mateo.pdf; figure is null in all rule locators."
+}
