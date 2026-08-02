@@ -1,0 +1,42 @@
+{
+  "contract_version": "unified_dossier_contract/1.0",
+  "mode": "OFFLINE_READ_ONLY_SHADOW",
+  "pilot_draft_population": {
+    "count": 15,
+    "persisted": true,
+    "modified": false
+  },
+  "exploratory_case_population": {
+    "count": 4,
+    "cases": ["FGFR2_iCCA_derazantinib", "ALK_G1202R_NSCLC_alectinib", "EGFR_L858R_NSCLC_osimertinib", "RMI2_NSCLC"]
+  },
+  "escat_statuses": {
+    "FGFR2_iCCA_derazantinib": "INCOMPLETE",
+    "ALK_G1202R_NSCLC_alectinib": "NOT_ASSESSED",
+    "EGFR_L858R_NSCLC_osimertinib": "NOT_ASSESSED",
+    "RMI2_NSCLC": "NOT_ASSESSED"
+  },
+  "module_status": {
+    "v3_core": {"maturity": "PRODUCTION", "execution_mode": "ACTIVE", "status": "EXECUTED"},
+    "provenance_audit": {"maturity": "FROZEN_EXPERIMENT", "execution_mode": "OFFLINE", "status": "PARTIALLY_AVAILABLE"},
+    "document_support": {"maturity": "FROZEN_EXPERIMENT", "execution_mode": "OFFLINE", "status": "PARTIALLY_AVAILABLE"},
+    "ontology": {"maturity": "RESEARCH_DRAFT", "execution_mode": "SHADOW", "status": "SHADOW"},
+    "companion_diagnostic": {"maturity": "DISCOVERY_ONLY", "execution_mode": "OFFLINE", "status": "STRUCTURAL_DATA_ONLY"},
+    "escat": {"maturity": "RESEARCH_DRAFT", "execution_mode": "SHADOW", "status": "NOT_ASSESSED", "available": false}
+  },
+  "automatic_escat_tiers_assigned": false,
+  "companion_diagnostic_promoted_to_claim": false,
+  "parent_source_promoted_to_claim_source": false,
+  "core_v3_modified": false,
+  "runtime_modified": false,
+  "production_endpoint_modified": false,
+  "frontend_modified": false,
+  "knowledge_graph_modified": false,
+  "qualified_claim_repository_modified": false,
+  "gate_modified": false,
+  "scoring_modified": false,
+  "bucket_modified": false,
+  "claim_order_modified": false,
+  "abstention_modified": false,
+  "gold_read_count": 0
+}
