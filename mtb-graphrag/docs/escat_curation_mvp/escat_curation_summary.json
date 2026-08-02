@@ -1,0 +1,41 @@
+{
+  "framework": "ESCAT",
+  "framework_status": "OFFICIAL_RULESET_NOT_AVAILABLE",
+  "mode": "MANUAL_CURATION_ASSISTED_OFFLINE",
+  "source_of_pilot_claims": "docs/escat_shadow_feasibility/claim_data_availability.csv",
+  "active_claims_inspected": 148,
+  "pilot_drafts_created": 15,
+  "pilot_draft_status": {
+    "INCOMPLETE": 15,
+    "CURATED": 0,
+    "tier_assigned": 0,
+    "subtier_assigned": 0
+  },
+  "diagnostic_claims": {
+    "not_applicable": 2
+  },
+  "prefillable_fields": [
+    "biomarker",
+    "disease",
+    "intervention",
+    "direction",
+    "evidence_scope",
+    "supporting_sources",
+    "supporting_passages"
+  ],
+  "frequent_missing_requirements": [
+    "OFFICIAL_RULESET_NOT_AVAILABLE",
+    "FRAMEWORK_VERSION",
+    "RULE_ID",
+    "study_design_status:MISSING",
+    "endpoint_status:MISSING",
+    "clinical_response_status:MISSING",
+    "source_unit_status:PARENT_LEVEL_ONLY"
+  ],
+  "legacy_status": "UNVERIFIED_LEGACY_DERIVATION",
+  "llm_used_for_escat_assignment": false,
+  "external_knowledge_used_as_evidence": false,
+  "runtime_modified": false,
+  "official_rule_set_ready_for_import": true,
+  "official_rule_set_present_locally": false
+}
