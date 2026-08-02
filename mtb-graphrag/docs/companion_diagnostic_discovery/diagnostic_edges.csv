@@ -1,0 +1,7 @@
+source_label,edge_type,target_label,count,interpretation
+Drug,HAS_COMPANION_DIAGNOSTIC,CompanionDiagnostic,150,"explicit graph association from drug to CDx node"
+CompanionDiagnostic,DIAGNOSES_GENE,Gene,163,"diagnostic gene association present in snapshot"
+MolecularProfile,HAS_EVIDENCE,Evidence,4860,"evidence relation used by local queries; does not attach CDx fields"
+Evidence,TARGETS_DRUG,Drug,3372,"evidence-to-drug relation; not a CDx selection proof"
+Evidence,CITED_IN,Publication,4840,"document relation; publication linked is not claim support"
+Drug,HAS_DISEASE,Disease,4684,"drug-disease relation; not a CDx disease link"

@@ -1,0 +1,8 @@
+relation,status,evidence_in_local_graph,missing_or_risk
+ASSAY_DETECTS_BIOMARKER,PARTIALLY_SUPPORTED,"gene_symbol; DIAGNOSES_GENE","assay-level variant/HGVS and performance are absent"
+DIAGNOSTIC_SUPPORTS_THERAPY_SELECTION,PARTIALLY_SUPPORTED,"Drug-HAS_COMPANION_DIAGNOSTIC-CompanionDiagnostic; associated_drug","no selection predicate or claim-specific passage"
+THERAPY_REQUIRES_DIAGNOSTIC,NOT_SUPPORTED,"no requires relation","do not infer requirement from node label"
+DIAGNOSTIC_APPROVED_FOR_DISEASE,NOT_SUPPORTED,"Drug.approved is separate from CDx","no CDx regulatory status, disease, jurisdiction or approval source"
+DIAGNOSTIC_USES_TECHNOLOGY,SUPPORTED_BY_CURRENT_GRAPH,"CompanionDiagnostic.platform_type","technology value is descriptive, not validation"
+DIAGNOSTIC_REQUIRES_SPECIMEN,PARTIALLY_SUPPORTED,"CompanionDiagnostic.specimen_types","reported specimen is not proof of required specimen"
+BIOMARKER_PREDICTS_RESPONSE,NOT_SUPPORTED,"no CDx-to-response relation","Evidence-to-Drug relations cannot be transferred to the test"

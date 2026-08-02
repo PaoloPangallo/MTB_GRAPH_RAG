@@ -1,0 +1,7 @@
+node_type,node_label,count,properties_or_fields,source
+diagnostic,CompanionDiagnostic,166,"device_id; device_name; associated_drug; gene_symbol; platform_type; specimen_types","schema_inventory.json"
+disease,Disease,334,"disease_id; doid; doid_uri; name","schema_inventory.json"
+gene,Gene,1437,"local gene node properties per schema inventory","schema_inventory.json"
+drug,Drug,24502,"drug node used by CDx traversal; associated drug name on CDx","schema_inventory.json and cypher.py"
+evidence,Evidence,4860,"evidence_id; disease; evidence_type; evidence_statement; citation_id; source_type","schema_inventory.json"
+publication,Publication,2222,"pmid; pubmed_url; citation_text; source_type; year","schema_inventory.json"
