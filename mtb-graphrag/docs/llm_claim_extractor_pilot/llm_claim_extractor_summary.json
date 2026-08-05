@@ -1,0 +1,18 @@
+﻿{
+  "status": "SMOKE_FAILED_HARD_STOP",
+  "model": "minimax-m3:cloud",
+  "endpoint": "ollama_python_chat",
+  "smoke_calls": 3,
+  "full_pilot_calls": 0,
+  "expected_full_calls": 75,
+  "source_units_per_bundle": 4,
+  "source_text_characters": 8878,
+  "source_text_words": 1266,
+  "valid_json": 0,
+  "validator_outcomes": {"REJECTED_SCHEMA": 3},
+  "accepted_fields": 0,
+  "accepted_unsupported_fields": 0,
+  "invented_source_units_accepted": 0,
+  "full_corpus_retrieval_executed": false,
+  "mock_outputs_presented_as_real": false
+}

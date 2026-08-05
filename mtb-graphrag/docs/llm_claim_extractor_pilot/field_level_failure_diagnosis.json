@@ -1,0 +1,832 @@
+{
+  "bundles": [
+    {
+      "baseline_B": {
+        "core_support_mask": {
+          "biomarker": "SUPPORTED",
+          "direction": "SUPPORTED",
+          "disease": "SUPPORTED",
+          "intervention": "SUPPORTED"
+        },
+        "field_provenance": {
+          "biomarker": [
+            "SU-4c4ce81824f39e09575501ab",
+            "SU-6e4d5a52c9be05f545487ad0"
+          ],
+          "direction": [
+            "SU-4c4ce81824f39e09575501ab",
+            "SU-6e4d5a52c9be05f545487ad0",
+            "SU-df35f0a7e69e4930f88bdf5d"
+          ],
+          "disease": [
+            "SU-12a97ff4a9065ff0947b17c7",
+            "SU-4c4ce81824f39e09575501ab",
+            "SU-df35f0a7e69e4930f88bdf5d"
+          ],
+          "intervention": [
+            "SU-12a97ff4a9065ff0947b17c7",
+            "SU-4c4ce81824f39e09575501ab",
+            "SU-6e4d5a52c9be05f545487ad0"
+          ]
+        },
+        "relation_cues": [],
+        "source_unit_ids": [
+          "SU-12a97ff4a9065ff0947b17c7",
+          "SU-6e4d5a52c9be05f545487ad0",
+          "SU-4c4ce81824f39e09575501ab",
+          "SU-df35f0a7e69e4930f88bdf5d"
+        ]
+      },
+      "bundle_id": "EB-b4c48ba003913f278ff182a6",
+      "candidate_id": "GCA-008ae3aad1a64c118318ef79",
+      "expected_baseline_status": "DIRECT",
+      "fields": [
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "23f44fcb7e574032",
+            "0fc4413ee98361ad",
+            "beaf6d2339cc062c",
+            "de55ad56cad63fc1",
+            "77d0a7533cd94e6e",
+            "beaf6d2339cc062c"
+          ],
+          "explicitness": "IMPLIED",
+          "field": "disease",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": "metastatic colorectal cancer",
+          "quotes": [
+            {
+              "candidate_value_compatible": true,
+              "classification": "TRUNCATED_QUOTE",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-12a97ff4a9065ff0947b17c7",
+                "SU-4c4ce81824f39e09575501ab"
+              ],
+              "occurrence_count": 2,
+              "offset_disambiguated": false,
+              "quote_length": 35,
+              "quote_occurrence_ambiguous": true,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "66c6d7f1be3b17c5",
+              "value_quote_compatible": true
+            }
+          ],
+          "source_unit_ids": [
+            "SU-12a97ff4a9065ff0947b17c7",
+            "SU-6e4d5a52c9be05f545487ad0",
+            "SU-4c4ce81824f39e09575501ab"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "b5fc0c14ffc2e625",
+            "ac70e36ca4d069e0",
+            "6bffff4addea76a9",
+            "9ce3287070d45cdf",
+            "cd65b50dc074aa4f",
+            "3f19fe84a2de0508"
+          ],
+          "explicitness": "EXPLICIT",
+          "field": "biomarker",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": "KRAS mutations",
+          "quotes": [
+            {
+              "candidate_value_compatible": true,
+              "classification": "TRUNCATED_QUOTE",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-6e4d5a52c9be05f545487ad0",
+                "SU-4c4ce81824f39e09575501ab"
+              ],
+              "occurrence_count": 2,
+              "offset_disambiguated": false,
+              "quote_length": 107,
+              "quote_occurrence_ambiguous": true,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "8fe0027055ab014d",
+              "value_quote_compatible": true
+            }
+          ],
+          "source_unit_ids": [
+            "SU-6e4d5a52c9be05f545487ad0",
+            "SU-4c4ce81824f39e09575501ab"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": true,
+          "candidate_value_hashes": [
+            "e52e01cacac76d04",
+            "4cd41afe49a58ada",
+            "e7b552847955ba77"
+          ],
+          "explicitness": "EXPLICIT",
+          "field": "intervention",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": "panitumumab",
+          "quotes": [
+            {
+              "candidate_value_compatible": true,
+              "classification": "TRUNCATED_QUOTE",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-6e4d5a52c9be05f545487ad0",
+                "SU-4c4ce81824f39e09575501ab",
+                "SU-4c4ce81824f39e09575501ab",
+                "SU-4c4ce81824f39e09575501ab"
+              ],
+              "occurrence_count": 4,
+              "offset_disambiguated": false,
+              "quote_length": 24,
+              "quote_occurrence_ambiguous": true,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "9b2fc2c214342292",
+              "value_quote_compatible": true
+            }
+          ],
+          "source_unit_ids": [
+            "SU-12a97ff4a9065ff0947b17c7",
+            "SU-6e4d5a52c9be05f545487ad0",
+            "SU-4c4ce81824f39e09575501ab"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": true,
+          "candidate_value_hashes": [
+            "c35070bce1f55441"
+          ],
+          "explicitness": "EXPLICIT",
+          "field": "direction",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": "Resistance",
+          "quotes": [
+            {
+              "candidate_value_compatible": true,
+              "classification": "TRUNCATED_QUOTE",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-6e4d5a52c9be05f545487ad0",
+                "SU-4c4ce81824f39e09575501ab"
+              ],
+              "occurrence_count": 2,
+              "offset_disambiguated": false,
+              "quote_length": 61,
+              "quote_occurrence_ambiguous": true,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "e83cd25a7fd90264",
+              "value_quote_compatible": false
+            }
+          ],
+          "source_unit_ids": [
+            "SU-6e4d5a52c9be05f545487ad0",
+            "SU-4c4ce81824f39e09575501ab"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": false,
+          "explicitness": null,
+          "field": "negation",
+          "field_category": [
+            "MISSED_NEGATION"
+          ],
+          "proposed_value": false,
+          "quotes": [],
+          "source_unit_ids": [],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": false,
+          "explicitness": null,
+          "field": "contradiction",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": false,
+          "quotes": [],
+          "source_unit_ids": [],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_GRAPH_ONLY",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        }
+      ],
+      "model_validator": {
+        "final_support_status": null,
+        "transport_result": "TOOL_CALL_VALID",
+        "validator_reason_codes": [
+          "DROPPED_GRAPH_ONLY",
+          "DROPPED_GRAPH_ONLY",
+          "DROPPED_GRAPH_ONLY",
+          "DROPPED_GRAPH_ONLY",
+          "NO_GROUNDED_FIELDS"
+        ],
+        "validator_result": "REJECTED_UNGROUNDED"
+      }
+    },
+    {
+      "baseline_B": {
+        "core_support_mask": {
+          "biomarker": "SUPPORTED",
+          "direction": "UNSUPPORTED",
+          "disease": "UNSUPPORTED",
+          "intervention": "NOT_APPLICABLE"
+        },
+        "field_provenance": {
+          "biomarker": [
+            "SU-2f2b8a24fa60fde080f2d79c",
+            "SU-85b873d9e71a5bfd4adba10e",
+            "SU-9b966cc43a666add1d24c54f",
+            "SU-ca497cbc7c667f126f922e8c"
+          ],
+          "direction": [],
+          "disease": [],
+          "intervention": []
+        },
+        "relation_cues": [],
+        "source_unit_ids": [
+          "SU-85b873d9e71a5bfd4adba10e",
+          "SU-9b966cc43a666add1d24c54f",
+          "SU-2f2b8a24fa60fde080f2d79c",
+          "SU-ca497cbc7c667f126f922e8c"
+        ]
+      },
+      "bundle_id": "EB-2ae853e8abf1195cc4c84846",
+      "candidate_id": "GCA-0a52f20ab5e3e93c15582f2e",
+      "expected_baseline_status": "PARTIAL",
+      "fields": [
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "c1d4f29200379701",
+            "629996fa4f27e85f",
+            "853caf934491b9c2",
+            "b2a3947845fa720c",
+            "e6f24c35b8334b36",
+            "853caf934491b9c2"
+          ],
+          "explicitness": "EXPLICIT",
+          "field": "disease",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": "non-small cell lung cancer",
+          "quotes": [
+            {
+              "candidate_value_compatible": false,
+              "classification": "TRUNCATED_QUOTE",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-85b873d9e71a5bfd4adba10e",
+                "SU-2f2b8a24fa60fde080f2d79c"
+              ],
+              "occurrence_count": 2,
+              "offset_disambiguated": false,
+              "quote_length": 153,
+              "quote_occurrence_ambiguous": true,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "490492d5c512b730",
+              "value_quote_compatible": true
+            },
+            {
+              "candidate_value_compatible": false,
+              "classification": "TRUNCATED_QUOTE",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-85b873d9e71a5bfd4adba10e",
+                "SU-2f2b8a24fa60fde080f2d79c"
+              ],
+              "occurrence_count": 2,
+              "offset_disambiguated": false,
+              "quote_length": 153,
+              "quote_occurrence_ambiguous": true,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "490492d5c512b730",
+              "value_quote_compatible": true
+            }
+          ],
+          "source_unit_ids": [
+            "SU-85b873d9e71a5bfd4adba10e",
+            "SU-2f2b8a24fa60fde080f2d79c"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_NO_QUOTE",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "357f5cef83730697",
+            "427e43cd0a290579",
+            "6bffff4addea76a9",
+            "287583e356fce76f",
+            "3b6ba9dd39fa199b",
+            "3f19fe84a2de0508"
+          ],
+          "explicitness": "EXPLICIT",
+          "field": "biomarker",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE",
+            "VALUE_NOT_IN_QUOTE"
+          ],
+          "proposed_value": "EGFR T790M",
+          "quotes": [
+            {
+              "candidate_value_compatible": true,
+              "classification": "TRUNCATED_QUOTE",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-9b966cc43a666add1d24c54f",
+                "SU-2f2b8a24fa60fde080f2d79c"
+              ],
+              "occurrence_count": 2,
+              "offset_disambiguated": false,
+              "quote_length": 148,
+              "quote_occurrence_ambiguous": true,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "ddcd9d95701fc765",
+              "value_quote_compatible": false
+            },
+            {
+              "candidate_value_compatible": true,
+              "classification": "VALUE_NOT_IN_QUOTE",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-2f2b8a24fa60fde080f2d79c"
+              ],
+              "occurrence_count": 1,
+              "offset_disambiguated": true,
+              "quote_length": 186,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "59bf4fdd7608ef42",
+              "value_quote_compatible": false
+            }
+          ],
+          "source_unit_ids": [
+            "SU-9b966cc43a666add1d24c54f",
+            "SU-2f2b8a24fa60fde080f2d79c"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_NO_QUOTE",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [],
+          "explicitness": "ABSENT",
+          "field": "intervention",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": null,
+          "quotes": [],
+          "source_unit_ids": [],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_NO_QUOTE",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "f52bdea88ef9b226"
+          ],
+          "explicitness": "AMBIGUOUS",
+          "field": "direction",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": null,
+          "quotes": [],
+          "source_unit_ids": [],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_NO_QUOTE",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": false,
+          "explicitness": null,
+          "field": "negation",
+          "field_category": [
+            "MISSED_NEGATION"
+          ],
+          "proposed_value": false,
+          "quotes": [],
+          "source_unit_ids": [],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_NO_QUOTE",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        },
+        {
+          "candidate_leakage": false,
+          "explicitness": null,
+          "field": "contradiction",
+          "field_category": [
+            "OTHER_SEMANTIC_FAILURE"
+          ],
+          "proposed_value": false,
+          "quotes": [],
+          "source_unit_ids": [],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_NO_QUOTE",
+            "NO_GROUNDED_FIELDS"
+          ],
+          "validator_result": "REJECTED_UNGROUNDED"
+        }
+      ],
+      "model_validator": {
+        "final_support_status": null,
+        "transport_result": "TOOL_CALL_VALID",
+        "validator_reason_codes": [
+          "DROPPED_GRAPH_ONLY",
+          "DROPPED_NO_QUOTE",
+          "NO_GROUNDED_FIELDS"
+        ],
+        "validator_result": "REJECTED_UNGROUNDED"
+      }
+    },
+    {
+      "baseline_B": {
+        "core_support_mask": {
+          "biomarker": "AMBIGUOUS",
+          "direction": "AMBIGUOUS",
+          "disease": "AMBIGUOUS",
+          "intervention": "AMBIGUOUS"
+        },
+        "field_provenance": {
+          "biomarker": [
+            "SU-fc4994778b8b27071aec221e"
+          ],
+          "direction": [
+            "SU-3b689cb9cc6e59eab7b1d43e",
+            "SU-999ca2e7f57dce9cf915928d"
+          ],
+          "disease": [],
+          "intervention": []
+        },
+        "relation_cues": [],
+        "source_unit_ids": [
+          "SU-3b689cb9cc6e59eab7b1d43e",
+          "SU-0fa3d66ee8b75632a00465b7",
+          "SU-999ca2e7f57dce9cf915928d",
+          "SU-fc4994778b8b27071aec221e"
+        ]
+      },
+      "bundle_id": "EB-6a291f12975b20b79e1c3dd7",
+      "candidate_id": "GCA-0062c0237b990701837a1cc4",
+      "expected_baseline_status": "CONTRADICTED",
+      "fields": [
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "87aeb2969bd95674",
+            "4a0d7b3f94f25053",
+            "b25282ad4f00918c",
+            "2302f965995b3051",
+            "85859581623ab4e1",
+            "b25282ad4f00918c"
+          ],
+          "explicitness": "AMBIGUOUS",
+          "field": "disease",
+          "field_category": [
+            "EXACT_QUOTE_VALID"
+          ],
+          "proposed_value": "\"lung cancer\"",
+          "quotes": [
+            {
+              "candidate_value_compatible": false,
+              "classification": "EXACT_QUOTE_VALID",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-fc4994778b8b27071aec221e"
+              ],
+              "occurrence_count": 1,
+              "offset_disambiguated": true,
+              "quote_length": 27,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "1e3d205f73cb505e",
+              "value_quote_compatible": true
+            },
+            {
+              "candidate_value_compatible": false,
+              "classification": "EXACT_QUOTE_VALID",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-fc4994778b8b27071aec221e"
+              ],
+              "occurrence_count": 1,
+              "offset_disambiguated": true,
+              "quote_length": 57,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "b164dbf0506a1f62",
+              "value_quote_compatible": true
+            }
+          ],
+          "source_unit_ids": [
+            "SU-fc4994778b8b27071aec221e"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "ACCEPTED_FIELD",
+            "ACCEPTED_FIELD",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_DIRECTION_CONFLICT"
+          ],
+          "validator_result": "REJECTED_DIRECTION"
+        },
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "8904d1f957522074",
+            "6e200fe5aefc53f5",
+            "6bffff4addea76a9",
+            "b56fb1684a89d26b",
+            "27676a96b5ec6750",
+            "3f19fe84a2de0508"
+          ],
+          "explicitness": "EXPLICIT",
+          "field": "biomarker",
+          "field_category": [
+            "EXACT_QUOTE_VALID"
+          ],
+          "proposed_value": "\"FGFR1-amplified\"",
+          "quotes": [
+            {
+              "candidate_value_compatible": true,
+              "classification": "EXACT_QUOTE_VALID",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-fc4994778b8b27071aec221e"
+              ],
+              "occurrence_count": 1,
+              "offset_disambiguated": true,
+              "quote_length": 27,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "1e3d205f73cb505e",
+              "value_quote_compatible": true
+            }
+          ],
+          "source_unit_ids": [
+            "SU-fc4994778b8b27071aec221e"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "ACCEPTED_FIELD",
+            "ACCEPTED_FIELD",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_DIRECTION_CONFLICT"
+          ],
+          "validator_result": "REJECTED_DIRECTION"
+        },
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "bd3ce7fbe53ac871",
+            "4b2ec33e0b38e469",
+            "e7b552847955ba77"
+          ],
+          "explicitness": "EXPLICIT",
+          "field": "intervention",
+          "field_category": [
+            "QUOTE_NOT_FOUND"
+          ],
+          "proposed_value": "\"BGJ398\"",
+          "quotes": [
+            {
+              "candidate_value_compatible": false,
+              "classification": "QUOTE_NOT_FOUND",
+              "literal_presence": false,
+              "matched_source_unit_ids": [],
+              "occurrence_count": 0,
+              "offset_disambiguated": false,
+              "quote_length": 83,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "f5521e5d0117641d",
+              "value_quote_compatible": true
+            }
+          ],
+          "source_unit_ids": [
+            "SU-fc4994778b8b27071aec221e"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "ACCEPTED_FIELD",
+            "ACCEPTED_FIELD",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_DIRECTION_CONFLICT"
+          ],
+          "validator_result": "REJECTED_DIRECTION"
+        },
+        {
+          "candidate_leakage": false,
+          "candidate_value_hashes": [
+            "2aff5d9747bd4401"
+          ],
+          "explicitness": "IMPLIED_FROM_OUTCOME",
+          "field": "direction",
+          "field_category": [
+            "EXACT_QUOTE_VALID"
+          ],
+          "proposed_value": "\"single-agent activity\"",
+          "quotes": [
+            {
+              "candidate_value_compatible": false,
+              "classification": "EXACT_QUOTE_VALID",
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-fc4994778b8b27071aec221e"
+              ],
+              "occurrence_count": 1,
+              "offset_disambiguated": true,
+              "quote_length": 57,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "b164dbf0506a1f62",
+              "value_quote_compatible": true
+            }
+          ],
+          "source_unit_ids": [
+            "SU-fc4994778b8b27071aec221e"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "ACCEPTED_FIELD",
+            "ACCEPTED_FIELD",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_DIRECTION_CONFLICT"
+          ],
+          "validator_result": "REJECTED_DIRECTION"
+        },
+        {
+          "candidate_leakage": false,
+          "explicitness": null,
+          "field": "negation",
+          "field_category": [
+            "MISSED_NEGATION"
+          ],
+          "proposed_value": false,
+          "quotes": [
+            {
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-fc4994778b8b27071aec221e"
+              ],
+              "occurrence_count": 1,
+              "offset_disambiguated": true,
+              "quote_length": 227,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "017cf50675262cf5"
+            }
+          ],
+          "source_unit_ids": [
+            "SU-fc4994778b8b27071aec221e"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "ACCEPTED_FIELD",
+            "ACCEPTED_FIELD",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_DIRECTION_CONFLICT"
+          ],
+          "validator_result": "REJECTED_DIRECTION"
+        },
+        {
+          "candidate_leakage": false,
+          "explicitness": null,
+          "field": "contradiction",
+          "field_category": [
+            "MISSED_CONTRADICTION"
+          ],
+          "proposed_value": false,
+          "quotes": [
+            {
+              "literal_presence": true,
+              "matched_source_unit_ids": [
+                "SU-fc4994778b8b27071aec221e"
+              ],
+              "occurrence_count": 1,
+              "offset_disambiguated": true,
+              "quote_length": 227,
+              "quote_redacted": "<QUOTE_REDACTED>",
+              "quote_sha256": "017cf50675262cf5"
+            }
+          ],
+          "source_unit_ids": [
+            "SU-fc4994778b8b27071aec221e"
+          ],
+          "transport_result": "TOOL_CALL_VALID",
+          "validator_reason_codes": [
+            "ACCEPTED_FIELD",
+            "ACCEPTED_FIELD",
+            "DROPPED_GRAPH_ONLY",
+            "DROPPED_DIRECTION_CONFLICT"
+          ],
+          "validator_result": "REJECTED_DIRECTION"
+        }
+      ],
+      "model_validator": {
+        "final_support_status": null,
+        "transport_result": "TOOL_CALL_VALID",
+        "validator_reason_codes": [
+          "ACCEPTED_FIELD",
+          "ACCEPTED_FIELD",
+          "DROPPED_GRAPH_ONLY",
+          "DROPPED_DIRECTION_CONFLICT"
+        ],
+        "validator_result": "REJECTED_DIRECTION"
+      }
+    }
+  ],
+  "summary": {
+    "bundles": 3,
+    "field_categories": {
+      "EXACT_QUOTE_VALID": 3,
+      "MISSED_CONTRADICTION": 1,
+      "MISSED_NEGATION": 3,
+      "OTHER_SEMANTIC_FAILURE": 10,
+      "QUOTE_NOT_FOUND": 1,
+      "VALUE_NOT_IN_QUOTE": 1
+    },
+    "quote_not_found": 1,
+    "source_unit_invalid": 0
+  }
+}
