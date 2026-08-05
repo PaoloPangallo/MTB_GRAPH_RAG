@@ -158,6 +158,82 @@ class CorrectStopsAreNotFailuresTest(OrchestratorTestBase):
         self.run_case("CASE-5-casecontext-mismatch-no-match")
         self.assertEqual(self.enricher.calls, [])
 
+    def test_retrieval_no_match_skips_every_downstream_stage_with_that_reason(self) -> None:
+        run = self.run_case("CASE-5-casecontext-mismatch-no-match")
+        by_id = {s.stage_id: s for s in run.stages}
+
+        self.assertEqual(run.stopped_at, "RETRIEVAL_NO_MATCH")
+        for stage_id in ("stage_6_document_resolution", "stage_7_source_units",
+                         "stage_8_paper_selection", "stage_9_paper_context_enricher",
+                         "stage_10_enrichment_validation", "stage_11_deterministic_gates",
+                         "stage_12_status", "stage_13_dossier"):
+            self.assertEqual(by_id[stage_id].status, "SKIPPED", stage_id)
+            self.assertIn("RETRIEVAL_NO_MATCH", by_id[stage_id].reason_codes, stage_id)
+
+
+class CaseContextMismatchStopTest(OrchestratorTestBase):
+    """Il quinto arresto della pipeline non è raggiungibile dai casi dimostrativi.
+
+    ``CASE-5`` fabbrica un gene inesistente, ma il verificatore lo trova
+    davvero nel testo — il parser lo ha estratto fedelmente — quindi la run si
+    ferma più a valle, su ``RETRIEVAL_NO_MATCH``. Il ramo
+    ``CASECONTEXT_MISMATCH`` esiste per un caso diverso: un CaseContext che
+    afferma qualcosa che nel testo **non c'è**. Senza un parser che lo produca
+    quel ramo resta non esercitato dall'orchestratore, e il fatto che la UI lo
+    rappresenti correttamente non sarebbe verificato da nulla.
+    """
+
+    class _HallucinatingParser:
+        """Restituisce un CaseContext con una malattia assente dal testo."""
+
+        def __call__(self, budget, case_id, clinical_text):  # noqa: ANN001, ANN204
+            return {
+                "transport_result": "FORCED_TOOL_VALID",
+                "model": "gemma4:cloud",
+                "prompt_version": "casecontext-parser-prompt/1.0",
+                "case_context_raw": {
+                    "case_id": case_id,
+                    "query_intent": "THERAPY_EVALUATION",
+                    "disease": {"raw_value": "pancreatic adenocarcinoma",
+                                "normalized_value": "Pancreatic Adenocarcinoma",
+                                "source_spans": []},
+                    "biomarkers": [],
+                    "previous_interventions": [],
+                    "target_intervention": None,
+                    "uncertainties": [],
+                    "clinical_question": "",
+                },
+            }
+
+    def test_a_field_absent_from_the_text_stops_the_run_before_retrieval(self) -> None:
+        run = self.run_case("CASE-1-therapy-evaluation-strong-match",
+                            call_parser_fn=self._HallucinatingParser())
+
+        self.assertEqual(run.status, "STOPPED")
+        self.assertEqual(run.stopped_at, "CASECONTEXT_MISMATCH")
+        self.assertNotEqual(run.status, "FAILED")
+
+    def test_the_graph_is_never_queried_after_a_casecontext_mismatch(self) -> None:
+        run = self.run_case("CASE-1-therapy-evaluation-strong-match",
+                            call_parser_fn=self._HallucinatingParser())
+        by_id = {s.stage_id: s for s in run.stages}
+
+        self.assertEqual(by_id["stage_5_kg_retrieval"].status, "SKIPPED")
+        self.assertEqual(self.enricher.calls, [])
+
+    def test_the_mismatched_field_is_visible_with_its_verification_record(self) -> None:
+        """Il record di verifica è ciò che rende leggibile l'arresto: senza,
+        la run direbbe di essersi fermata senza dire su quale campo."""
+        run = self.run_case("CASE-1-therapy-evaluation-strong-match",
+                            call_parser_fn=self._HallucinatingParser())
+        match = {s.stage_id: s for s in run.stages}["stage_3_casecontext_match"]
+        records = match.output_preview["records"]
+
+        self.assertEqual(match.status, "WARNING")
+        self.assertFalse(match.output_preview["essential_fields_pass"])
+        disease = next(r for r in records if r["field"] == "disease")
+        self.assertIn(disease["status"], ("MISMATCH", "MISSING_IN_TEXT", "UNCERTAIN"))
+
 
 class TransportFailureIsAFailureTest(OrchestratorTestBase):
     def test_parser_transport_failure_fails_the_run(self) -> None:

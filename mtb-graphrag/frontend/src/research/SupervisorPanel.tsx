@@ -13,6 +13,7 @@
  */
 
 import { Box, Chip, Stack, Typography } from '@mui/material';
+import StructuredValue from './values/StructuredValue';
 import { color, font, radius } from './tokens';
 import type { PipelineEvent, RunMetrics } from './types';
 
@@ -92,14 +93,28 @@ export default function SupervisorPanel({
           }}>
             Versioni dei componenti
           </Typography>
-          <Stack direction="row" spacing={0.75} sx={{ flexWrap: 'wrap' }}>
-            {Object.entries(versions).map(([key, val]) => (
-              <Chip key={key} label={`${key}: ${String(val)}`} size="small" sx={{
-                height: 20, fontFamily: font.mono, fontSize: 10,
-                backgroundColor: color.stone, color: color.body, borderRadius: '4px',
-              }} />
-            ))}
+          {/* `versions` è `Record<string, unknown>`: interpolare un valore non
+              primitivo produrrebbe `chiave: [object Object]`. Le chip restano
+              per i valori scalari, il resto passa al renderer strutturato. */}
+          <Stack direction="row" spacing={0.75} sx={{ flexWrap: 'wrap', rowGap: 0.75 }}>
+            {Object.entries(versions)
+              .filter(([, val]) => val === null || typeof val !== 'object')
+              .map(([key, val]) => (
+                <Chip key={key} label={`${key}: ${val === null ? 'non disponibile' : String(val)}`} size="small" sx={{
+                  height: 20, fontFamily: font.mono, fontSize: 10,
+                  backgroundColor: color.stone, color: color.body, borderRadius: '4px',
+                }} />
+              ))}
           </Stack>
+          {Object.entries(versions).some(([, val]) => val !== null && typeof val === 'object') && (
+            <Box sx={{ mt: 1 }}>
+              <StructuredValue
+                value={Object.fromEntries(
+                  Object.entries(versions).filter(([, val]) => val !== null && typeof val === 'object'),
+                )}
+              />
+            </Box>
+          )}
         </Box>
       )}
 

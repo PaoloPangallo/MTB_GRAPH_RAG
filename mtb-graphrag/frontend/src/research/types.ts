@@ -129,11 +129,20 @@ export interface ProvenanceLevel {
   replayed?: boolean;
   units?: Array<Record<string, unknown>>;
   text_never_exposed?: boolean;
+  accepted_quotes?: Array<Record<string, unknown>>;
+  rejected_quotes?: Array<Record<string, unknown>>;
+  abstentions?: Array<Record<string, unknown>>;
+  validations?: Array<Record<string, unknown>>;
+  checks?: Array<Record<string, unknown>>;
 }
 
 export interface ProvenanceItem {
   candidate_id: string;
   chain: ProvenanceLevel[];
+  /** Vero solo con almeno una citazione accettata. */
+  document_grounded?: boolean;
+  /** `DOCUMENT_GROUNDED` oppure `PARENT_LEVEL_ONLY`. */
+  provenance_level?: string;
 }
 
 export interface RunMetrics {
