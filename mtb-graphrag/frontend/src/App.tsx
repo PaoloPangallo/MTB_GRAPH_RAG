@@ -29,11 +29,13 @@ import JudgePanel from './components/JudgePanel';
 import ArchitectureComparison from './components/ArchitectureComparison';
 import V3EvidenceView from './components/V3EvidenceView';
 import V3RunForm from './components/V3RunForm';
+import ResearchConsole from './research/ResearchConsole';
 import type { MTBRequest, ReportResponse, JudgeResponse, V3Request, V3RetrieveResponse } from './types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
 function App() {
+  const [researchView, setResearchView] = useState(false);
   const [architectureView, setArchitectureView] = useState(false);
   const [loading, setLoading] = useState(false);
   const [enriching, setEnriching] = useState(false);
@@ -325,6 +327,27 @@ function App() {
     full_graphrag: { title: 'Full GraphRAG (Structured)', color: '#8B5CF6', shortLabel: 'Full GraphRAG' }
   };
 
+  // La console di ricerca sostituisce l'intera schermata: la pipeline
+  // verificabile e' il centro dell'interfaccia, non un pannello fra altri.
+  // Le viste precedenti restano raggiungibili finche' la migrazione non e'
+  // completa (Fase H).
+  if (researchView) {
+    return (
+      <Box sx={{ minHeight: '100vh' }}>
+        <Box sx={{ position: 'fixed', top: 8, right: 12, zIndex: 1200 }}>
+          <Button
+            size="small"
+            onClick={() => setResearchView(false)}
+            sx={{ textTransform: 'none', color: '#93939f', fontSize: 12 }}
+          >
+            Torna alle viste precedenti
+          </Button>
+        </Box>
+        <ResearchConsole />
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <AppBar position="static">
@@ -340,10 +363,18 @@ function App() {
           </Box>
           <Button
             color="inherit"
+            variant="outlined"
+            onClick={() => setResearchView(true)}
+            sx={{ ml: 'auto', mr: 1, borderColor: 'rgba(255,255,255,0.7)' }}
+          >
+            Pipeline verificabile
+          </Button>
+          <Button
+            color="inherit"
             variant={architectureView ? 'outlined' : 'text'}
             startIcon={<CompareArrowsIcon />}
             onClick={() => setArchitectureView(current => !current)}
-            sx={{ ml: 'auto', borderColor: architectureView ? 'rgba(255,255,255,0.7)' : undefined }}
+            sx={{ borderColor: architectureView ? 'rgba(255,255,255,0.7)' : undefined }}
           >
             {architectureView ? 'Torna al report' : 'Confronta architetture'}
           </Button>
