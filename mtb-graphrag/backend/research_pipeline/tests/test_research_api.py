@@ -257,6 +257,22 @@ class StageAndProvenanceTest(ResearchApiTestBase):
         self.assertEqual(checks["disease"]["source"], "INHERITED_VERIFIED_RESULT")
         self.assertEqual(checks["direction"]["source"], "COMPUTED_HERE")
 
+    def test_source_units_carry_locators_and_never_text(self) -> None:
+        """Un'unità con il solo identificativo non è distinguibile da un'unità
+        non risolta; una con il testo violerebbe il confine dei documenti."""
+        run_id = self.run_demo()
+        payload = self.client.get(f"{BASE}/runs/{run_id}").json()
+        stage = next(s for s in payload["stages"] if s["stage_id"] == "stage_7_source_units")
+        units = stage["output_preview"]["source_units"]
+
+        self.assertTrue(units)
+        for unit in units:
+            self.assertIn("unit_type", unit)
+            self.assertIn("content_hash", unit)
+            self.assertIn("document_id", unit)
+            for forbidden in ("text", "content", "body"):
+                self.assertNotIn(forbidden, unit)
+
     def test_the_quote_level_never_carries_source_unit_text(self) -> None:
         run_id = self.run_demo()
         body = self.client.get(f"{BASE}/runs/{run_id}/provenance").text

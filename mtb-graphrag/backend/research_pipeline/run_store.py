@@ -107,9 +107,20 @@ class RunStore:
     def _execute(self, handle: RunHandle, clinical_text: str, use_replay: bool) -> None:
         try:
             kwargs = self._providers(handle.case_id, use_replay)
+            # L'indice delle SourceUnit contiene locatori, sezione, offset e
+            # ``content_hash`` — mai il testo. Passarlo vuoto, come accadeva
+            # prima, lasciava lo stage 7 con i soli identificativi: le unità
+            # risultavano esistenti ma prive di posizione, e non erano
+            # distinguibili da unità non risolte.
+            #
+            # Non altera alcuna decisione: ``select_papers_for_association``
+            # ammette un bundle solo se una sua unità ha `text` non vuoto, e
+            # l'indice non ha quel campo. La selezione continua quindi a
+            # escludere per ``TEXT_NOT_AVAILABLE_IN_CACHE`` esattamente come
+            # prima, e il validatore resta invariato.
             handle.run = orchestrator.run_case(
                 case_id=handle.case_id, clinical_text=clinical_text,
-                source_units_by_id={}, budget=CallBudget(),
+                source_units_by_id=da.load_source_unit_index(), budget=CallBudget(),
                 ledger=self._ledger, run_id=handle.run_id, **kwargs,
             )
             handle.status = handle.run.status
