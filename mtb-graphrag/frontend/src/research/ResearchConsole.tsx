@@ -9,14 +9,34 @@
  */
 
 import { useCallback, useEffect, useState } from 'react';
-import { Alert, Box, Button, CircularProgress, Stack, Tooltip, Typography } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
 import RunSpine from './RunSpine';
 import StageInspector from './StageInspector';
-import { createRun, isRuntimeDisabled, listCases } from './api';
-import { derivedCounts, eventsForStage, stageById, stagesInOrder } from './runReducer';
+import DossierView, { type Dossier } from './DossierView';
+import ProvenanceTree from './ProvenanceTree';
+import SupervisorPanel from './SupervisorPanel';
+import {
+  createRun, getDossier, getEvents, getMetrics, getProvenance, isRuntimeDisabled, listCases,
+} from './api';
+import { derivedCounts, eventsForStage, isTerminal, stageById, stagesInOrder } from './runReducer';
 import { color, font, radius, runStatusStyle, reasonLabel } from './tokens';
-import { TERM_TOOLTIPS, type DemoCase } from './types';
+import {
+  TERM_TOOLTIPS, type DemoCase, type ProvenanceItem, type RunMetrics,
+} from './types';
 import { useRunStream } from './useRunStream';
+
+/** Ciò che si può leggere solo a run conclusa. */
+interface RunArtifacts {
+  dossier: Dossier | null;
+  dossierUnavailable: string | null;
+  provenance: ProvenanceItem[];
+  metrics: RunMetrics | null;
+  hashChainValid: boolean | null;
+}
+
+const NO_ARTIFACTS: RunArtifacts = {
+  dossier: null, dossierUnavailable: null, provenance: [], metrics: null, hashChainValid: null,
+};
 
 function Notice() {
   return (
@@ -43,6 +63,8 @@ export default function ResearchConsole() {
   const [starting, setStarting] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [disabled, setDisabled] = useState(false);
+  const [artifacts, setArtifacts] = useState<RunArtifacts>(NO_ARTIFACTS);
+  const [lowerTab, setLowerTab] = useState(0);
 
   const { state } = useRunStream(runId);
   const stages = stagesInOrder(state);
@@ -70,10 +92,42 @@ export default function ResearchConsole() {
     if (!selectedStageId && stages.length > 0) setSelectedStageId(stages[0].stage_id);
   }, [stages, selectedStageId]);
 
+  // Dossier, provenance e metriche esistono solo a run conclusa: leggerli prima
+  // darebbe un 409 o un risultato parziale che sembrerebbe definitivo.
+  const terminal = isTerminal(state);
+  useEffect(() => {
+    if (!runId || !terminal) return undefined;
+    let active = true;
+
+    void (async () => {
+      const [dossier, provenance, metrics, events] = await Promise.all([
+        getDossier(runId).catch((error: unknown) => error),
+        getProvenance(runId).catch(() => ({ items: [] as ProvenanceItem[] })),
+        getMetrics(runId).catch(() => null),
+        getEvents(runId).catch(() => null),
+      ]);
+      if (!active) return;
+
+      const failed = dossier instanceof Error;
+      setArtifacts({
+        // Una run fermata non ha dossier, e il motivo va detto invece di
+        // mostrare una sezione vuota.
+        dossier: failed ? null : ((dossier as { dossier?: Dossier }).dossier ?? null),
+        dossierUnavailable: failed ? (dossier as Error).message : null,
+        provenance: (provenance as { items: ProvenanceItem[] }).items ?? [],
+        metrics: metrics as RunMetrics | null,
+        hashChainValid: events ? events.hash_chain_valid : null,
+      });
+    })();
+
+    return () => { active = false; };
+  }, [runId, terminal]);
+
   const start = useCallback(async (caseId: string) => {
     setStarting(true);
     setLoadError(null);
     setSelectedStageId(null);
+    setArtifacts(NO_ARTIFACTS);
     try {
       const created = await createRun({ demo_case_key: caseId });
       setRunId(created.run_id);
@@ -224,6 +278,41 @@ export default function ResearchConsole() {
                 />
               </Box>
             </Box>
+
+            {terminal && (
+              <Box sx={{ mt: 6 }}>
+                <Tabs
+                  value={lowerTab}
+                  onChange={(_, next: number) => setLowerTab(next)}
+                  sx={{ borderBottom: `1px solid ${color.hairline}`, minHeight: 44 }}
+                >
+                  <Tab label="Dossier" />
+                  <Tab label="Provenienza" />
+                  <Tab label="Modalità relatore" />
+                </Tabs>
+
+                <Box sx={{ pt: 3 }}>
+                  {lowerTab === 0 && (
+                    artifacts.dossierUnavailable
+                      ? (
+                        <Alert severity="info" sx={{ borderRadius: '8px' }}>
+                          {artifacts.dossierUnavailable}
+                        </Alert>
+                      )
+                      : <DossierView dossier={artifacts.dossier} />
+                  )}
+                  {lowerTab === 1 && <ProvenanceTree items={artifacts.provenance} />}
+                  {lowerTab === 2 && (
+                    <SupervisorPanel
+                      metrics={artifacts.metrics}
+                      events={state.events}
+                      hashChainValid={artifacts.hashChainValid}
+                      versions={state.run?.versions ?? {}}
+                    />
+                  )}
+                </Box>
+              </Box>
+            )}
           </Box>
         )}
       </Box>
