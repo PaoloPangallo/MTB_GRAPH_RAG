@@ -477,8 +477,18 @@ def run_case(
         limitations=["research_only_pilot", "no_new_document_fetched",
                      "gemma_used_only_as_enricher"],
     )
+    # Il dossier completo, non solo i conteggi: ``GET /runs/{id}/dossier`` legge
+    # questa preview, e senza il contenuto potrebbe soltanto dichiarare quante
+    # candidate esistono — non mostrarle. Le tre sezioni che la UI deve tenere
+    # separate (evidenza deterministica, author context, limitazioni) sono già
+    # distinte nella struttura prodotta da ``build_dossier_preview``.
+    #
+    # Nessun campo da redigere vi transita: ``build_candidate_therapy_entry``
+    # copia campi selezionati della candidate, mai la candidate grezza, quindi
+    # ``source_properties`` non entra.
     recorder.finish("stage_13_dossier", p, domain_event=ev.DOSSIER_BUILT,
                     output_preview={"candidate_count": len(candidate_therapies),
+                                    "dossier": dossier,
                                     "limitations": dossier["limitations"]})
 
     has_warning = any(stage.status == "WARNING" for stage in recorder.stages)

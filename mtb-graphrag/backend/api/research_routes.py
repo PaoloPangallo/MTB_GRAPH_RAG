@@ -201,9 +201,13 @@ def get_dossier(run_id: str) -> dict[str, Any]:
             detail=f"nessun dossier: la run è {snapshot['status']}"
                    + (f" ({snapshot['stopped_at']})" if snapshot.get("stopped_at") else ""),
         )
+    preview = stage["output_preview"]
     return {
         "run_id": run_id,
-        "dossier": stage["output_preview"],
+        # Il dossier vero, non la preview che lo contiene: annidarlo
+        # costringerebbe ogni client a conoscere la forma dello stage.
+        "dossier": preview.get("dossier", preview),
+        "candidate_count": preview.get("candidate_count"),
         "status": snapshot["status"],
         "research_notice": PipelineRun.research_notice(),
     }

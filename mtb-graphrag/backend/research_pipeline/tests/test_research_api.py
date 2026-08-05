@@ -285,3 +285,42 @@ class SseTest(ResearchApiTestBase):
 
     def test_stream_of_unknown_run_is_404(self) -> None:
         self.assertEqual(self.client.get(f"{BASE}/runs/nope/stream").status_code, 404)
+
+
+class DossierContentTest(ResearchApiTestBase):
+    """Il dossier deve essere servito davvero, non soltanto contato."""
+
+    def test_dossier_carries_the_three_sections(self) -> None:
+        run_id = self.run_demo()
+        dossier = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()["dossier"]
+
+        self.assertIn("case_context", dossier)
+        self.assertIn("candidate_therapies", dossier)
+        self.assertIn("limitations", dossier)
+
+    def test_each_candidate_separates_deterministic_evidence_from_author_context(self) -> None:
+        run_id = self.run_demo()
+        dossier = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()["dossier"]
+        entry = dossier["candidate_therapies"][0]
+
+        # Evidenza deterministica e contesto d'autore restano campi distinti:
+        # l'author context non può essere scambiato per la claim.
+        for deterministic in ("graph_relation", "document_support", "gate_results", "status"):
+            self.assertIn(deterministic, entry)
+        self.assertIn("author_context", entry)
+
+    def test_dossier_declares_that_gemma_never_decides(self) -> None:
+        run_id = self.run_demo()
+        dossier = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()["dossier"]
+        provenance = dossier["provenance"]
+
+        self.assertEqual(provenance["gemma_role"], "paper_context_enricher_only")
+        for decision in ("support_status", "direction", "gate", "score", "bucket"):
+            self.assertIn(decision, provenance["gemma_never_decides"])
+
+    def test_dossier_exposes_no_redacted_field(self) -> None:
+        run_id = self.run_demo()
+        body = self.client.get(f"{BASE}/runs/{run_id}/dossier").text
+
+        for forbidden in ('"source_properties"', '"full_text"', '"thinking"', '"reasoning"'):
+            self.assertNotIn(forbidden, body)
