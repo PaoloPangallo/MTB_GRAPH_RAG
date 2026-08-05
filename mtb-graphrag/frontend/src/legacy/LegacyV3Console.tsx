@@ -1,3 +1,20 @@
+/**
+ * Vista storica della pipeline deterministica V3.
+ *
+ * Conservata per il confronto con la pipeline verificabile, non come percorso
+ * principale. Interroga `POST /api/v1/v3/retrieve`, che legge
+ * `qualified_claim_repository/1.4` e produce Qualified Claim con provenienza
+ * prevalentemente parent-level: oggetti e vocabolario di una pipeline diversa
+ * da quella mostrata in `/research/verifiable-pipeline`.
+ *
+ * Le due non vanno mescolate. Il badge in testa alla pagina e la rotta
+ * `/legacy/` esistono perché uno screenshot di questa schermata non possa
+ * essere scambiato per la pipeline verificabile.
+ *
+ * Nessuna modifica funzionale rispetto alla versione precedente: il file è
+ * stato spostato, non riscritto.
+ */
+
 import { useState } from 'react';
 import {
   Box,
@@ -17,25 +34,53 @@ import {
   TableCell,
   TableRow,
 } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import GavelIcon from '@mui/icons-material/Gavel';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import InputForm from './components/InputForm';
-import ReportView from './components/ReportView';
-import StructuredData from './components/StructuredData';
-import JudgePanel from './components/JudgePanel';
-import ArchitectureComparison from './components/ArchitectureComparison';
-import V3EvidenceView from './components/V3EvidenceView';
-import V3RunForm from './components/V3RunForm';
-import ResearchConsole from './research/ResearchConsole';
-import type { MTBRequest, ReportResponse, JudgeResponse, V3Request, V3RetrieveResponse } from './types';
+import InputForm from '../components/InputForm';
+import ReportView from '../components/ReportView';
+import StructuredData from '../components/StructuredData';
+import JudgePanel from '../components/JudgePanel';
+import ArchitectureComparison from '../components/ArchitectureComparison';
+import V3EvidenceView from '../components/V3EvidenceView';
+import V3RunForm from '../components/V3RunForm';
+import { VERIFIABLE_PIPELINE_ROUTE } from '../routes';
+import type { MTBRequest, ReportResponse, JudgeResponse, V3Request, V3RetrieveResponse } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
-function App() {
-  const [researchView, setResearchView] = useState(false);
+/** Striscia non disattivabile: identifica la pagina fuori dal suo contesto. */
+function LegacyBanner() {
+  return (
+    <Box sx={{
+      backgroundColor: '#7c2d12', color: '#fff', px: 3, py: 1,
+      display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap',
+    }}>
+      <Typography component="span" sx={{
+        fontFamily: 'ui-monospace, monospace', fontSize: 11,
+        letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700,
+      }}>
+        Legacy V3 deterministic
+      </Typography>
+      <Typography component="span" sx={{ fontSize: 12, opacity: 0.9 }}>
+        Vista storica su qualified_claim_repository/1.4 · non è la pipeline verificabile
+      </Typography>
+      <Button
+        component={RouterLink}
+        to={VERIFIABLE_PIPELINE_ROUTE}
+        size="small"
+        sx={{ ml: 'auto', color: '#fff', textTransform: 'none', fontSize: 12, textDecoration: 'underline' }}
+      >
+        Vai alla Verifiable Research Pipeline
+      </Button>
+    </Box>
+  );
+}
+
+export default function LegacyV3Console() {
   const [architectureView, setArchitectureView] = useState(false);
   const [loading, setLoading] = useState(false);
   const [enriching, setEnriching] = useState(false);
@@ -327,54 +372,26 @@ function App() {
     full_graphrag: { title: 'Full GraphRAG (Structured)', color: '#8B5CF6', shortLabel: 'Full GraphRAG' }
   };
 
-  // La console di ricerca sostituisce l'intera schermata: la pipeline
-  // verificabile e' il centro dell'interfaccia, non un pannello fra altri.
-  // Le viste precedenti restano raggiungibili finche' la migrazione non e'
-  // completa (Fase H).
-  if (researchView) {
-    return (
-      <Box sx={{ minHeight: '100vh' }}>
-        <Box sx={{ position: 'fixed', top: 8, right: 12, zIndex: 1200 }}>
-          <Button
-            size="small"
-            onClick={() => setResearchView(false)}
-            sx={{ textTransform: 'none', color: '#93939f', fontSize: 12 }}
-          >
-            Torna alle viste precedenti
-          </Button>
-        </Box>
-        <ResearchConsole />
-      </Box>
-    );
-  }
-
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <LegacyBanner />
       <AppBar position="static">
         <Toolbar>
           <LocalHospitalIcon sx={{ mr: 2 }} />
           <Box>
             <Typography variant="h6" component="div" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
-              MTB GraphRAG Assistant
+              MTB GraphRAG Assistant — Legacy V3
             </Typography>
             <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.75)', letterSpacing: '0.03em' }}>
-              Sistema di supporto alle decisioni oncologiche
+              Vista storica deterministica · pipeline precedente
             </Typography>
           </Box>
-          <Button
-            color="inherit"
-            variant="outlined"
-            onClick={() => setResearchView(true)}
-            sx={{ ml: 'auto', mr: 1, borderColor: 'rgba(255,255,255,0.7)' }}
-          >
-            Pipeline verificabile
-          </Button>
           <Button
             color="inherit"
             variant={architectureView ? 'outlined' : 'text'}
             startIcon={<CompareArrowsIcon />}
             onClick={() => setArchitectureView(current => !current)}
-            sx={{ borderColor: architectureView ? 'rgba(255,255,255,0.7)' : undefined }}
+            sx={{ ml: 'auto', borderColor: architectureView ? 'rgba(255,255,255,0.7)' : undefined }}
           >
             {architectureView ? 'Torna al report' : 'Confronta architetture'}
           </Button>
@@ -734,5 +751,3 @@ function App() {
     </Box>
   );
 }
-
-export default App;
