@@ -14,7 +14,7 @@
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 import { getEvents, getRun, streamUrl } from './api';
 import { initialRunState, isTerminal, runReducer, type RunState } from './runReducer';
-import type { PipelineEvent } from './types';
+import { SSE_EVENT_TYPES, type PipelineEvent } from './types';
 
 const BACKOFF_MS = [1000, 2000, 4000, 8000, 16000, 30000];
 
@@ -54,12 +54,27 @@ export function useRunStream(runId: string | null): UseRunStreamResult {
     attemptRef.current = 0;
     dispatch({ type: 'reset' });
 
+    // Gli eventi arrivano a raffica: si coalizzano in una sola rilettura, così
+    // una run da 40 eventi non produce 40 richieste.
+    let refreshTimer: ReturnType<typeof setTimeout> | null = null;
+    const scheduleRefresh = () => {
+      if (refreshTimer !== null || closedRef.current) return;
+      refreshTimer = setTimeout(() => {
+        refreshTimer = null;
+        if (!closedRef.current) void refresh();
+      }, 150);
+    };
+
     const close = () => {
       sourceRef.current?.close();
       sourceRef.current = null;
       if (timerRef.current !== null) {
         clearTimeout(timerRef.current);
         timerRef.current = null;
+      }
+      if (refreshTimer !== null) {
+        clearTimeout(refreshTimer);
+        refreshTimer = null;
       }
     };
 
@@ -75,15 +90,30 @@ export function useRunStream(runId: string | null): UseRunStreamResult {
         dispatch({ type: 'connection', connection: 'open' });
       };
 
-      source.onmessage = (message: MessageEvent<string>) => {
+      const handle = (message: MessageEvent<string>) => {
         try {
           const event = JSON.parse(message.data) as PipelineEvent;
           dispatch({ type: 'events', events: [event] });
+
+          // Gli eventi portano l'avanzamento, ma gli **stage** vivono nello
+          // snapshot: senza questo rinfresco la spina resterebbe ferma allo
+          // stato che il backend aveva quando la run è stata aperta. Non è
+          // polling — è una rilettura guidata dagli eventi, e la fonte di
+          // verità resta una sola.
+          if (event.event_type.startsWith('STAGE_') || event.event_type === 'RUN_COMPLETED') {
+            scheduleRefresh();
+          }
         } catch {
           // Un frame illeggibile non deve interrompere lo stream: si scarta e
           // si prosegue, perché il resume lo recupererà per sequence.
         }
       };
+
+      // Lo stream invia eventi **con nome**, e `onmessage` intercetta solo
+      // quelli senza. Registrarlo da solo lascerebbe il client muto davanti a
+      // uno stream perfettamente valido: serve un listener per ogni tipo.
+      SSE_EVENT_TYPES.forEach((type) => source.addEventListener(type, handle as EventListener));
+      source.onmessage = handle;
 
       source.onerror = () => {
         source.close();
@@ -110,7 +140,16 @@ export function useRunStream(runId: string | null): UseRunStreamResult {
       };
     };
 
-    void refresh().then(connect);
+    // Lo stream si apre **subito**, e lo snapshot arriva in parallelo.
+    //
+    // Aspettare lo snapshot prima di sottoscrivere apriva una finestra in cui
+    // gli eventi emessi nel frattempo andavano perduti, e legava l'apertura
+    // dello stream alla risoluzione di una promise — fragile rispetto al doppio
+    // montaggio di StrictMode, dove il cleanup interveniva prima. La
+    // sovrapposizione fra storico dello stream e snapshot è innocua: il reducer
+    // deduplica per event_id, ed è precisamente il caso per cui esiste.
+    connect();
+    void refresh();
 
     return () => {
       closedRef.current = true;
