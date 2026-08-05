@@ -39,6 +39,36 @@ from backend.research_pipeline.redaction import redact_candidate, redact_retriev
 from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.retrieval.paper_selection import select_papers_for_association
 
+#: Esiti che il validatore v1 considera accettati. ``gates.evaluate_association``
+#: filtra su questi nomi.
+_V1_ACCEPTED = ("ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING")
+
+#: Esiti che il validatore v2 considera accettati, secondo la definizione data
+#: dal pilot stesso in ``run_pilot_v2.py`` riga 83.
+_V2_ACCEPTED = ("ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY")
+
+
+def _accepted_for_gates(outcome: str) -> str | None:
+    """Traduce un esito di validazione nel vocabolario atteso dai gate.
+
+    Il pilot non ha mai collegato l'enricher v2 ai gate: ``run_pilot_v2.py`` usa
+    i suoi esiti solo per i controlli di sicurezza, mentre la catena completa fino
+    ai gate fu percorsa dalla v1. Collegarli è quindi un'integrazione nuova, e
+    l'adattamento vive **qui**, al confine, non dentro
+    ``gates.evaluate_association``: la regola di decisione resta quella del pilot,
+    invariata e verificabile.
+
+    Restituisce ``None`` per ogni esito non accettato — astensioni e rigetti
+    inclusi — così un enrichment non validato non può in nessun caso influenzare
+    status, mask, gate o bucket.
+    """
+    if outcome in _V1_ACCEPTED:
+        return outcome
+    if outcome in _V2_ACCEPTED:
+        return "ENRICHMENT_ACCEPTED_WITH_WARNING" if outcome.endswith("SUMMARY_EMPTY") else "ENRICHMENT_ACCEPTED"
+    return None
+
+
 CASECONTEXT_VERSION = "end-to-end-pilot-casecontext/1.0"
 DOSSIER_VERSION = "end-to-end-pilot-dossier/1.0"
 ORCHESTRATOR_VERSION = "research-pipeline-orchestrator/1.0"
@@ -177,8 +207,26 @@ def run_case(
     budget: Any,
     ledger: EventLedger,
     run_id: str | None = None,
+    select_papers_fn: Callable[..., dict[str, Any]] | None = None,
+    validate_fn: Callable[..., dict[str, Any]] | None = None,
 ) -> PipelineRun:
-    """Esegue un caso emettendo un evento per ogni transizione di stage."""
+    """Esegue un caso emettendo un evento per ogni transizione di stage.
+
+    ``select_papers_fn`` e ``validate_fn`` sono punti di iniezione per il replay
+    degli artefatti congelati: senza il testo delle SourceUnit la selezione
+    escluderebbe ogni paper e la validazione rigetterebbe ogni quote, esiti che
+    rappresenterebbero male il sistema. I default eseguono la logica reale.
+    """
+    select_papers = select_papers_fn or (
+        lambda association, units, **_: select_papers_for_association(association, units)
+    )
+    validate = validate_fn or (
+        lambda transport, enrichment, **kw: enrichment_validator.validate_enrichment(
+            transport, enrichment,
+            candidate=kw["candidate"], paper_bundle=kw["paper_bundle"],
+            source_units_by_id=kw["source_units_by_id"], requested_drug=kw["requested_drug"],
+        )
+    )
     run_id = run_id or str(uuid4())
     recorder = RunRecorder(ledger, run_id)
     started_at = _now()
@@ -312,7 +360,7 @@ def run_case(
     selections, enrichment_calls, validations, evaluations = [], [], [], []
 
     for association in retrieval_result["associations"]:
-        selection = select_papers_for_association(association, dict(source_units_by_id))
+        selection = select_papers(association, dict(source_units_by_id), case_id=case_id)
         selections.append(selection)
         candidate = association["candidate"]
 
@@ -334,18 +382,21 @@ def run_case(
             )
             enrichment_calls.append(call)
 
-            validation = enrichment_validator.validate_enrichment(
+            validation = validate(
                 call["transport_result"], call["enrichment"], candidate=candidate,
                 paper_bundle=paper, source_units_by_id=dict(source_units_by_id),
-                requested_drug=requested_drug,
+                requested_drug=requested_drug, case_id=case_id,
+                paper_id=paper["bundle_id"],
             )
             validations.append(validation)
             validation_entries.append({"paper_id": paper["bundle_id"], **validation})
             if call["enrichment"] is not None:
                 enrichment_entries.append(call["enrichment"])
-            if validation["outcome"] in ("ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING"):
-                validated.append({"validation_outcome": validation["outcome"],
-                                  "enrichment": call["enrichment"]})
+            gate_outcome = _accepted_for_gates(validation["outcome"])
+            if gate_outcome is not None:
+                validated.append({"validation_outcome": gate_outcome,
+                                  "enrichment": call["enrichment"],
+                                  "original_outcome": validation["outcome"]})
 
         evaluation = detpipe.evaluate_association(
             case_context.get("query_intent"), candidate, validated)
@@ -380,7 +431,14 @@ def run_case(
     p = _deterministic("enrichment_validator")
     recorder.start("stage_10_enrichment_validation", p)
     recorder.finish("stage_10_enrichment_validation", p, domain_event=ev.ENRICHMENT_VALIDATED,
-                    output_preview={"validations": validations})
+                    output_preview={
+                        "validations": validations,
+                        "accepted_outcomes": list(_V1_ACCEPTED + _V2_ACCEPTED),
+                        "gate_admission_note": (
+                            "solo gli esiti accettati raggiungono i gate; astensioni e "
+                            "rigetti non influenzano status, mask, bucket o score"
+                        ),
+                    })
 
     p = _deterministic("deterministic_gates")
     recorder.start("stage_11_deterministic_gates", p)
