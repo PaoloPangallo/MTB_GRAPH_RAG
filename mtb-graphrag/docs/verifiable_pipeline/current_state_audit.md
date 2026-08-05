@@ -241,9 +241,30 @@ system_design_read = false        (non ancora fornito)
 repository_audit_completed = true
 frontend_legacy_inventory_completed = true   (vedi frontend_cleanup_inventory.md)
 legacy_frontend_logic_removed = false        (Fase H, non iniziata)
-push_executed = false
+push_executed = true         (vedi nota sotto)
 merge_executed = false
 sensitive_text_committed = false
 ```
 
 Nessun file di codice è stato modificato durante la Fase A.
+
+### Nota sul push
+
+Il prompt originale vietava il push (§2, §28, §29) e questo documento
+dichiarava `push_executed = false` fino al 2026-08-05, quando l'utente ha
+revocato il vincolo per il solo branch di lavoro.
+
+Cosa è stato pushato: `feature/v3-verifiable-pipeline-ui` su
+`PaoloPangallo/MTB_GRAPH_RAG`, con `-u`. Il branch non esisteva sul remote.
+
+Cosa **non** è stato fatto: nessun merge, `main` intatto, e il branch del pilot
+`research/v3-end-to-end-pipeline-interaction-pilot` resta non pushato e non
+modificato.
+
+GitHub ha emesso un avviso — non un errore — per
+`graph_candidate_repository/2.0/candidates.jsonl`, 69,14 MB, oltre la soglia
+consigliata di 50 MB e sotto il limite rigido di 100 MB. Se il repository
+crescerà ancora su quel file, la migrazione a Git LFS è la strada indicata.
+
+Verificato prima del push: `.env` ignorato e non tracciato, `data_cache/`
+ignorata e inesistente, nessun testo documentale nei file tracciati.
