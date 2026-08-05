@@ -251,9 +251,23 @@ class ResearchFramingTest(OrchestratorTestBase):
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")
         by_id = {s.stage_id: s for s in run.stages}
         preview = by_id["stage_11_deterministic_gates"].output_preview
+        checks = {c["check_id"]: c for c in preview["checks_by_candidate"][0]["checks"]}
 
-        self.assertIn("source_gate", preview["not_implemented_gates"])
-        self.assertIn("disease", preview["inherited_axes"])
+        self.assertEqual(checks["source_gate"]["source"], "NOT_IMPLEMENTED")
+        self.assertIsNone(checks["source_gate"]["source_stage"])
+
+    def test_every_axis_declares_where_it_was_decided(self) -> None:
+        """Senza l'origine, `disease: SUPPORTED` e `direction: SUPPORTED` si
+        leggono come due controlli equivalenti; solo il secondo è deciso qui."""
+        run = self.run_case("CASE-1-therapy-evaluation-strong-match")
+        by_id = {s.stage_id: s for s in run.stages}
+        preview = by_id["stage_11_deterministic_gates"].output_preview
+        checks = {c["check_id"]: c for c in preview["checks_by_candidate"][0]["checks"]}
+
+        self.assertEqual(checks["disease"]["source"], "INHERITED_VERIFIED_RESULT")
+        self.assertEqual(checks["disease"]["source_stage"], "stage_5_kg_retrieval")
+        self.assertEqual(checks["direction"]["source"], "COMPUTED_HERE")
+        self.assertEqual(checks["direction"]["source_stage"], "stage_11_deterministic_gates")
 
 
 class FrozenReplayTest(OrchestratorTestBase):

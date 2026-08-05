@@ -218,6 +218,52 @@ class StageAndProvenanceTest(ResearchApiTestBase):
         self.assertTrue(levels)
         self.assertTrue(all(l["graph_derived"] and not l["documentary_proof"] for l in levels))
 
+    def test_the_chain_runs_from_casecontext_to_dossier_item(self) -> None:
+        """Il relatore deve poter risalire un esito fino al campo del
+        CaseContext senza uscire dalla catena."""
+        run_id = self.run_demo()
+        payload = self.client.get(f"{BASE}/runs/{run_id}/provenance").json()
+
+        self.assertTrue(payload["items"])
+        for item in payload["items"]:
+            self.assertEqual(
+                [level["level"] for level in item["chain"]],
+                ["CASE_CONTEXT", "GRAPH_CANDIDATE_ASSERTION", "DOCUMENT",
+                 "SOURCE_UNIT", "AUTHOR_QUOTE", "ENRICHMENT_VALIDATION",
+                 "DETERMINISTIC_CHECK", "DOSSIER_ITEM"],
+            )
+
+    def test_a_candidate_without_an_accepted_quote_is_parent_level_only(self) -> None:
+        """Senza quote accettata non c'è ancoraggio documentale, e presentarlo
+        come document-grounded sarebbe la lettura che l'architettura impedisce."""
+        run_id = self.run_demo()
+        payload = self.client.get(f"{BASE}/runs/{run_id}/provenance").json()
+
+        for item in payload["items"]:
+            quote_level = next(l for l in item["chain"] if l["level"] == "AUTHOR_QUOTE")
+            if item["document_grounded"]:
+                self.assertTrue(quote_level["accepted_quotes"])
+            else:
+                self.assertEqual(item["provenance_level"], "PARENT_LEVEL_ONLY")
+                self.assertFalse(quote_level["accepted_quotes"])
+
+    def test_deterministic_check_level_carries_the_origin_of_each_axis(self) -> None:
+        run_id = self.run_demo()
+        payload = self.client.get(f"{BASE}/runs/{run_id}/provenance").json()
+        level = next(l for l in payload["items"][0]["chain"]
+                     if l["level"] == "DETERMINISTIC_CHECK")
+        checks = {c["check_id"]: c for c in level["checks"]}
+
+        self.assertEqual(checks["disease"]["source"], "INHERITED_VERIFIED_RESULT")
+        self.assertEqual(checks["direction"]["source"], "COMPUTED_HERE")
+
+    def test_the_quote_level_never_carries_source_unit_text(self) -> None:
+        run_id = self.run_demo()
+        body = self.client.get(f"{BASE}/runs/{run_id}/provenance").text
+
+        for forbidden in ('"full_text"', '"thinking"', '"reasoning"'):
+            self.assertNotIn(forbidden, body)
+
 
 class MetricsTest(ResearchApiTestBase):
     def test_metrics_are_computed_by_the_backend(self) -> None:
