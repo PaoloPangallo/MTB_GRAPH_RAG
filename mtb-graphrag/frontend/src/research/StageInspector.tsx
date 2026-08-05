@@ -8,12 +8,15 @@
 
 import { useState } from 'react';
 import { Box, Chip, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import StageOutput from './stages';
+import StructuredValue, { JsonInspector } from './values/StructuredValue';
 import { color, font, formatDuration, reasonLabel, stageStatusStyle } from './tokens';
 import { STAGE_LABELS, TERM_TOOLTIPS, type PipelineEvent, type PipelineStage } from './types';
 
 interface StageInspectorProps {
   stage: PipelineStage | null;
   events: PipelineEvent[];
+  clinicalText?: string;
 }
 
 function Label({ children }: { children: React.ReactNode }) {
@@ -24,19 +27,6 @@ function Label({ children }: { children: React.ReactNode }) {
     }}>
       {children}
     </Typography>
-  );
-}
-
-function Json({ value }: { value: unknown }) {
-  return (
-    <Box component="pre" tabIndex={0} sx={{
-      fontFamily: font.mono, fontSize: 12, lineHeight: 1.6, m: 0, p: 2,
-      backgroundColor: '#fafafa', border: `1px solid ${color.borderLight}`,
-      borderRadius: '8px', overflowX: 'auto', maxHeight: 420,
-      '&:focus-visible': { outline: `2px solid ${color.focus}` },
-    }}>
-      {JSON.stringify(value, null, 2)}
-    </Box>
   );
 }
 
@@ -62,7 +52,7 @@ function Mono({ children }: { children: React.ReactNode }) {
   return <Typography sx={{ fontFamily: font.mono, fontSize: 12, color: color.body, wordBreak: 'break-all' }}>{children}</Typography>;
 }
 
-export default function StageInspector({ stage, events }: StageInspectorProps) {
+export default function StageInspector({ stage, events, clinicalText }: StageInspectorProps) {
   const [tab, setTab] = useState(0);
 
   if (!stage) {
@@ -114,6 +104,7 @@ export default function StageInspector({ stage, events }: StageInspectorProps) {
       >
         <Tab label="Sintesi" />
         <Tab label="Output" />
+        <Tab label="JSON" />
         <Tab label="Provenienza" />
         <Tab label={`Eventi (${events.length})`} />
       </Tabs>
@@ -170,21 +161,28 @@ export default function StageInspector({ stage, events }: StageInspectorProps) {
           </Box>
         )}
 
-        {tab === 1 && <Json value={stage.output_preview} />}
+        {/* La vista dedicata allo stage. Il JSON grezzo resta a un tab di
+            distanza: serve a verificare che la resa non aggiunga nulla. */}
+        {tab === 1 && <StageOutput stage={stage} clinicalText={clinicalText} />}
 
-        {tab === 2 && (
+        {tab === 2 && <JsonInspector value={stage.output_preview} />}
+
+        {tab === 3 && (
           <Box>
             <Row label="Stage"><Mono>{stage.stage_id}</Mono></Row>
             <Row label="Tipo"><Mono>{stage.stage_type}</Mono></Row>
             <Row label="Sequenza"><Mono>{stage.sequence}</Mono></Row>
             <Row label="Producer"><Mono>{stage.producer.kind}</Mono></Row>
             {Object.keys(stage.lineage).length > 0 && (
-              <Box sx={{ mt: 2 }}><Label>Lineage</Label><Json value={stage.lineage} /></Box>
+              <Box sx={{ mt: 2 }}>
+                <Label>Lineage</Label>
+                <StructuredValue value={stage.lineage} />
+              </Box>
             )}
           </Box>
         )}
 
-        {tab === 3 && (
+        {tab === 4 && (
           <Stack spacing={1}>
             {events.length === 0 && (
               <Typography sx={{ fontFamily: font.body, fontSize: 13, color: color.muted }}>

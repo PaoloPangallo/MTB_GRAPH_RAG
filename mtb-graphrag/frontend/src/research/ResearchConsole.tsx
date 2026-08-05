@@ -9,15 +9,18 @@
  */
 
 import { useCallback, useEffect, useState } from 'react';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { Alert, Box, Button, CircularProgress, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
 import RunSpine from './RunSpine';
 import StageInspector from './StageInspector';
 import DossierView, { type Dossier } from './DossierView';
 import ProvenanceTree from './ProvenanceTree';
 import SupervisorPanel from './SupervisorPanel';
+import CaseInputPanel, { type RunRequest } from './CaseInputPanel';
 import {
   createRun, getDossier, getEvents, getMetrics, getProvenance, isRuntimeDisabled, listCases,
 } from './api';
+import { LEGACY_V3_ROUTE, runRoute } from '../routes';
 import { derivedCounts, eventsForStage, isTerminal, stageById, stagesInOrder } from './runReducer';
 import { color, font, radius, runStatusStyle, reasonLabel } from './tokens';
 import {
@@ -47,18 +50,35 @@ function Notice() {
       <Typography component="span" sx={{
         fontFamily: font.mono, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase',
       }}>
-        Research pipeline
+        Verifiable research pipeline
       </Typography>
       <Typography component="span" sx={{ fontFamily: font.body, fontSize: 12, opacity: 0.85 }}>
         Componente sperimentale · non validato clinicamente · non per decisioni cliniche
       </Typography>
+      <Button
+        component={RouterLink}
+        to={LEGACY_V3_ROUTE}
+        size="small"
+        sx={{
+          ml: 'auto', color: 'rgba(255,255,255,0.6)', textTransform: 'none',
+          fontSize: 11, fontFamily: font.mono,
+        }}
+      >
+        Legacy V3 →
+      </Button>
     </Box>
   );
 }
 
 export default function ResearchConsole() {
+  // La run vive nell'URL, non solo nello stato del componente: un refresh
+  // ricarica snapshot ed eventi dal ledger invece di riportare la pagina a
+  // vuoto, e una trace resta condivisibile per link.
+  const { runId: routeRunId } = useParams<{ runId: string }>();
+  const navigate = useNavigate();
+  const runId = routeRunId ?? null;
+
   const [cases, setCases] = useState<DemoCase[]>([]);
-  const [runId, setRunId] = useState<string | null>(null);
   const [selectedStageId, setSelectedStageId] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -123,20 +143,20 @@ export default function ResearchConsole() {
     return () => { active = false; };
   }, [runId, terminal]);
 
-  const start = useCallback(async (caseId: string) => {
+  const start = useCallback(async (request: RunRequest) => {
     setStarting(true);
     setLoadError(null);
     setSelectedStageId(null);
     setArtifacts(NO_ARTIFACTS);
     try {
-      const created = await createRun({ demo_case_key: caseId });
-      setRunId(created.run_id);
+      const created = await createRun(request);
+      navigate(runRoute(created.run_id));
     } catch (error: unknown) {
       setLoadError(error instanceof Error ? error.message : 'Avvio non riuscito.');
     } finally {
       setStarting(false);
     }
-  }, []);
+  }, [navigate]);
 
   if (disabled) {
     return (
@@ -178,38 +198,9 @@ export default function ResearchConsole() {
           Il sistema non formula raccomandazioni cliniche.
         </Typography>
 
-        {/* Casi sintetici. Eseguono la pipeline reale, non output registrati come tali. */}
-        <Box sx={{ mt: 5 }}>
-          <Typography sx={{
-            fontFamily: font.mono, fontSize: 10, letterSpacing: '0.08em',
-            textTransform: 'uppercase', color: color.muted, mb: 1.5,
-          }}>
-            Casi dimostrativi
-          </Typography>
-          <Stack direction="row" spacing={1.5} sx={{ flexWrap: "wrap" }}>
-            {cases.map((demo) => (
-              <Button
-                key={demo.case_id}
-                onClick={() => void start(demo.case_id)}
-                disabled={starting}
-                sx={{
-                  fontFamily: font.body, fontSize: 14, textTransform: 'none',
-                  borderRadius: `${radius.pill}px`, px: 2.5, py: 1,
-                  backgroundColor: color.ink, color: '#fff',
-                  '&:hover': { backgroundColor: '#000' },
-                  '&.Mui-disabled': { backgroundColor: color.hairline, color: color.muted },
-                }}
-              >
-                {demo.case_id.replace(/^CASE-\d+-/, '').replace(/-/g, ' ')}
-              </Button>
-            ))}
-            {cases.length === 0 && !loadError && (
-              <Typography sx={{ fontFamily: font.body, fontSize: 14, color: color.muted }}>
-                Caricamento dei casi…
-              </Typography>
-            )}
-          </Stack>
-        </Box>
+        {/* L'ingresso è il testo libero. I casi dimostrativi lo compilano, non
+            lo scavalcano: il parser resta sul percorso principale. */}
+        <CaseInputPanel cases={cases} busy={starting} onRun={(request) => void start(request)} />
 
         {loadError && (
           <Alert severity="error" sx={{ mt: 3, borderRadius: '8px' }}>
@@ -246,6 +237,14 @@ export default function ResearchConsole() {
               <Typography sx={{ fontFamily: font.mono, fontSize: 11, color: color.muted }}>
                 {counts.succeeded}/{counts.total} stage · {state.events.length} eventi
               </Typography>
+              {state.run?.started_at && (
+                <Typography sx={{ fontFamily: font.mono, fontSize: 11, color: color.muted }}>
+                  {new Date(state.run.started_at).toLocaleString('it-IT')}
+                </Typography>
+              )}
+              <Typography sx={{ fontFamily: font.mono, fontSize: 11, color: color.muted }}>
+                run {runId.slice(0, 8)}
+              </Typography>
               {state.connection === 'connecting' && (
                 <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                   <CircularProgress size={12} sx={{ color: color.actionBlue }} />
@@ -275,6 +274,7 @@ export default function ResearchConsole() {
                 <StageInspector
                   stage={selected}
                   events={selectedStageId ? eventsForStage(state, selectedStageId) : []}
+                  clinicalText={state.run?.input_text}
                 />
               </Box>
             </Box>
