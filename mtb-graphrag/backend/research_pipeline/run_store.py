@@ -29,10 +29,17 @@ from backend.research_pipeline.pipeline import CallBudget
 
 
 def research_ledger_path() -> Path:
+    """Percorso del ledger di ricerca.
+
+    ``data_root()`` è già ``mtb-graphrag``: aggiungere di nuovo quel segmento
+    produrrebbe ``mtb-graphrag/mtb-graphrag/data`` e un percorso inesistente.
+    Il default è coperto da un test perché i test che impostano
+    ``RESEARCH_LEDGER_PATH`` esplicitamente non lo esercitano mai.
+    """
     configured = os.getenv("RESEARCH_LEDGER_PATH")
     if configured:
         return Path(configured).expanduser().resolve()
-    return da.data_root() / "mtb-graphrag/data/research_pipeline_events.sqlite3"
+    return da.data_root() / "data" / "research_pipeline_events.sqlite3"
 
 
 @dataclass

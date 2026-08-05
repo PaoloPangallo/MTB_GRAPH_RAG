@@ -154,6 +154,36 @@ export interface RunMetrics {
   computed_by: string;
 }
 
+/**
+ * Tipi di evento emessi dal backend.
+ *
+ * Servono a registrare un listener per ciascuno: lo stream SSE invia eventi
+ * **con nome** (`event: STAGE_COMPLETED`), e `EventSource.onmessage` scatta
+ * soltanto per quelli senza nome. Senza queste registrazioni il browser non
+ * riceve nulla, pur essendo lo stream perfettamente valido.
+ */
+export const SSE_EVENT_TYPES: readonly string[] = [
+  'RUN_CREATED',
+  'STAGE_STARTED',
+  'STAGE_COMPLETED',
+  'STAGE_WARNING',
+  'STAGE_FAILED',
+  'STAGE_SKIPPED',
+  'RUN_COMPLETED',
+  'CASECONTEXT_PARSED',
+  'CASECONTEXT_VERIFIED',
+  'RETRIEVAL_COMPLETED',
+  'CANDIDATES_FOUND',
+  'DOCUMENT_RESOLVED',
+  'SOURCE_UNIT_MATERIALIZED',
+  'PAPER_SELECTED',
+  'ENRICHMENT_PROPOSED',
+  'ENRICHMENT_VALIDATED',
+  'GATES_COMPUTED',
+  'STATUS_ASSIGNED',
+  'DOSSIER_BUILT',
+] as const;
+
 /** Etichette italiane degli stage. L'ordine è quello del contratto. */
 export const STAGE_LABELS: Record<string, string> = {
   stage_1_case_input: 'Caso clinico',

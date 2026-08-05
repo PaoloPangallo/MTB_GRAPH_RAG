@@ -145,3 +145,25 @@ class LLMConfigTest(TestCase):
         endpoint = llm_config.LLMEndpoint(url="https://api.ollama.com/v1/chat/completions",
                                           model="gemma4:cloud")
         self.assertEqual(endpoint.headers("abc")["Authorization"], "Bearer abc")
+
+
+class ResearchLedgerPathTest(TestCase):
+    """Il default non è esercitato dai test che impostano RESEARCH_LEDGER_PATH,
+    ed è proprio lì che si era annidato un percorso raddoppiato."""
+
+    def test_default_ledger_sits_under_an_existing_directory(self) -> None:
+        from backend.research_pipeline.run_store import research_ledger_path
+
+        with mock.patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("RESEARCH_LEDGER_PATH", None)
+            path = research_ledger_path()
+
+        self.assertTrue(path.parent.is_dir(), f"cartella inesistente: {path.parent}")
+        self.assertNotIn("mtb-graphrag/mtb-graphrag", path.as_posix())
+
+    def test_explicit_path_wins(self) -> None:
+        from backend.research_pipeline.run_store import research_ledger_path
+
+        with TemporaryDirectory() as tmp:
+            with mock.patch.dict(os.environ, {"RESEARCH_LEDGER_PATH": f"{tmp}/x.sqlite3"}):
+                self.assertEqual(research_ledger_path(), Path(tmp).resolve() / "x.sqlite3")
