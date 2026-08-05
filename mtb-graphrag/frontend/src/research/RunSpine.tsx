@@ -78,6 +78,10 @@ export default function RunSpine({ stages, selectedStageId, onSelect }: RunSpine
               type="button"
               onClick={() => onSelect(stage.stage_id)}
               aria-current={isSelected ? 'true' : undefined}
+              // Il contenuto è frammentato fra numero, marcatore, titolo e
+              // badge: senza un nome esplicito il controllo arriva muto allo
+              // screen reader, come verificato leggendo l'albero accessibile.
+              aria-label={`Stage ${stage.sequence}, ${STAGE_LABELS[stage.stage_id] ?? stage.stage_id}, ${style.label}`}
               sx={{
                 display: 'flex', alignItems: 'flex-start', gap: 1.5, width: '100%',
                 textAlign: 'left', background: isSelected ? color.stone : 'transparent',
