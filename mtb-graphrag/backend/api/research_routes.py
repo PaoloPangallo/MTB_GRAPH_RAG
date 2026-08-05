@@ -213,41 +213,123 @@ def get_dossier(run_id: str) -> dict[str, Any]:
     }
 
 
+#: Esiti di validazione che ancorano una candidate a un documento. Solo questi
+#: rendono ``document_grounded`` vero: un'astensione o un rigetto lasciano la
+#: candidate al livello del grafo.
+_ACCEPTED_OUTCOMES = ("ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING",
+                      "ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY")
+
+
 @router.get("/runs/{run_id}/provenance")
 def get_provenance(run_id: str) -> dict[str, Any]:
-    """Catena CaseContext → candidate → documento → SourceUnit → quote → gate.
+    """Catena CaseContext → candidate → documento → SourceUnit → quote →
+    validazione → controlli → voce di dossier.
 
     Al livello ``SOURCE_UNIT`` il campo ``text`` è **sempre** ``null``: l'indice
     contiene solo locatori e ``content_hash``, e il testo del documento non
     transita mai per l'API.
+
+    ``document_grounded`` distingue una candidate ancorata a una citazione
+    verificata da una che resta sostenuta solo dal grafo. Quest'ultima è marcata
+    ``PARENT_LEVEL_ONLY``: presentarla come prova documentale è esattamente la
+    lettura che la separazione fra candidate e document support esiste per
+    impedire.
     """
     handle = _handle_or_404(run_id)
     snapshot = handle.snapshot()
     by_id = {s["stage_id"]: s for s in snapshot["stages"]}
 
-    retrieval = by_id.get("stage_5_kg_retrieval", {}).get("output_preview", {})
-    source_units = by_id.get("stage_7_source_units", {}).get("output_preview", {}).get("source_units", [])
+    def _preview(stage_id: str) -> dict[str, Any]:
+        return by_id.get(stage_id, {}).get("output_preview", {}) or {}
+
+    retrieval = _preview("stage_5_kg_retrieval")
+    source_units = _preview("stage_7_source_units").get("source_units", [])
+    case_context = _preview("stage_2_casecontext_parser").get("case_context", {})
+    match_records = _preview("stage_3_casecontext_match").get("records", [])
+    enricher_calls = _preview("stage_9_paper_context_enricher").get("calls", [])
+    validations = _preview("stage_10_enrichment_validation").get("validations", [])
+    checks_by_candidate = {
+        entry["candidate_id"]: entry
+        for entry in _preview("stage_11_deterministic_gates").get("checks_by_candidate", [])
+    }
     statuses = {
         entry["candidate_id"]: entry
-        for entry in by_id.get("stage_12_status", {}).get("output_preview", {}).get("statuses", [])
+        for entry in _preview("stage_12_status").get("statuses", [])
+    }
+    selections = {
+        entry.get("candidate_id"): entry
+        for entry in _preview("stage_8_paper_selection").get("selections", [])
     }
 
     items = []
     for association in retrieval.get("associations", []):
         candidate_id = association["candidate_id"]
+
+        calls = [c for c in enricher_calls if c.get("candidate_id") == candidate_id]
+        candidate_validations = [v for v in validations if v.get("candidate_id") == candidate_id]
+        accepted = [v for v in candidate_validations if v.get("outcome") in _ACCEPTED_OUTCOMES]
+        accepted_papers = {v.get("paper_id") for v in accepted}
+
+        # Una quote entra in catena solo se la sua validazione è passata. Le
+        # altre restano visibili per audit, in un campo distinto.
+        accepted_quotes, rejected_quotes, abstentions = [], [], []
+        for call in calls:
+            enrichment = call.get("enrichment") or {}
+            entry = {
+                "paper_id": call.get("paper_id"),
+                "source_unit_id": enrichment.get("source_unit_id"),
+                "author_claim_quote": enrichment.get("author_claim_quote"),
+                "author_context_summary": enrichment.get("author_context_summary"),
+                "abstention_reason": enrichment.get("abstention_reason"),
+                "model": call.get("model"),
+                "prompt_version": call.get("prompt_version"),
+                "transport_version": call.get("transport_version"),
+                "replayed": call.get("replayed", False),
+            }
+            if not enrichment.get("author_claim_quote"):
+                abstentions.append(entry)
+            elif call.get("paper_id") in accepted_papers:
+                accepted_quotes.append(entry)
+            else:
+                rejected_quotes.append(entry)
+
+        document_grounded = bool(accepted_quotes)
+        selection = selections.get(candidate_id, {})
+
         items.append({
             "candidate_id": candidate_id,
+            "document_grounded": document_grounded,
+            "provenance_level": "DOCUMENT_GROUNDED" if document_grounded else "PARENT_LEVEL_ONLY",
             "chain": [
-                {"level": "CASE_CONTEXT", "ref": snapshot["case_id"]},
+                {"level": "CASE_CONTEXT", "ref": snapshot["case_id"],
+                 "case_context": case_context, "match_records": match_records},
                 {"level": "GRAPH_CANDIDATE_ASSERTION", "ref": candidate_id,
-                 "graph_derived": True, "documentary_proof": False},
+                 "graph_derived": True, "documentary_proof": False,
+                 "candidate": association.get("candidate"),
+                 "match_reason": association.get("match_reason")},
                 {"level": "DOCUMENT",
                  "ref": [b["document_id"] for b in association.get("available_bundles", [])],
+                 "bundles": association.get("available_bundles", []),
                  "replayed": True},
                 {"level": "SOURCE_UNIT",
                  "units": [{**unit, "text": None} for unit in source_units],
                  "text_never_exposed": True},
-                {"level": "GATE_AND_STATUS", "ref": statuses.get(candidate_id)},
+                {"level": "AUTHOR_QUOTE",
+                 "accepted_quotes": accepted_quotes,
+                 "rejected_quotes": rejected_quotes,
+                 "abstentions": abstentions,
+                 "selected_papers": [p.get("bundle_id") for p in selection.get("selected_papers", [])],
+                 "produced_by": "LLM",
+                 "never_decides_status": True},
+                {"level": "ENRICHMENT_VALIDATION",
+                 "validations": candidate_validations,
+                 "accepted_outcomes": list(_ACCEPTED_OUTCOMES)},
+                {"level": "DETERMINISTIC_CHECK",
+                 "checks": checks_by_candidate.get(candidate_id, {}).get("checks", []),
+                 "support_mask": checks_by_candidate.get(candidate_id, {}).get("support_mask", {}),
+                 "produced_by": "DETERMINISTIC"},
+                {"level": "DOSSIER_ITEM", "ref": statuses.get(candidate_id),
+                 "document_grounded": document_grounded},
             ],
         })
     return {"run_id": run_id, "items": items}

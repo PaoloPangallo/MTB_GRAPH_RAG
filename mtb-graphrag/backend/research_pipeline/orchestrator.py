@@ -32,6 +32,7 @@ from backend.research_pipeline.contracts import (
     StageProducer,
     stage_type_for,
 )
+from backend.research_pipeline.determinism import check_origin
 from backend.research_pipeline.determinism import gates as detpipe
 from backend.research_pipeline.dossier import builder as dossier_mod
 from backend.research_pipeline.enrichment import validator as enrichment_validator
@@ -442,20 +443,20 @@ def run_case(
 
     p = _deterministic("deterministic_gates")
     recorder.start("stage_11_deterministic_gates", p)
+    # Ogni asse porta la propria origine. Una support mask nuda mostrerebbe
+    # quattro esiti indistinguibili, mentre solo due sono decisi qui: vedi
+    # ``determinism/check_origin.py``.
     recorder.finish("stage_11_deterministic_gates", p, domain_event=ev.GATES_COMPUTED,
                     output_preview={
-                        "support_masks": [{"candidate_id": e["candidate_id"],
-                                           "support_mask": e["support_mask"],
-                                           "direction_consistencies": e["direction_consistencies"]}
-                                          for e in evaluations],
-                        "inherited_axes": {
-                            "disease": "ereditata dal match strutturale — stage_5_kg_retrieval",
-                            "biomarker": "ereditata dal match strutturale — stage_5_kg_retrieval",
-                        },
-                        "not_implemented_gates": [
-                            "source_gate", "provenance_gate", "completeness",
-                            "negation", "contradiction_gate", "score",
+                        "checks_by_candidate": [
+                            {"candidate_id": e["candidate_id"],
+                             "support_mask": e["support_mask"],
+                             "direction_consistencies": e["direction_consistencies"],
+                             "checks": check_origin.checks_payload(e["support_mask"])}
+                            for e in evaluations
                         ],
+                        "check_sources": list(check_origin.CHECK_SOURCES),
+                        "checks_version": check_origin.CHECK_VERSION,
                     })
 
     p = _deterministic("status_classification")
