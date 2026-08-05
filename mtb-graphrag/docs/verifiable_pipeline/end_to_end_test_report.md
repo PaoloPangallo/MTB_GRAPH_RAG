@@ -68,6 +68,66 @@ valutato quando si aggiungeranno i test delle nuove rotte.
 
 ---
 
-## Run end-to-end dei 5 casi sintetici
+## Run end-to-end dei 5 casi sintetici — Passo 10
 
-Da compilare al Passo 10. Non ancora eseguita.
+Eseguita attraverso l'API reale (`POST /api/v1/research/pipeline/runs`), non
+chiamando i moduli direttamente: è il percorso che vedrà il frontend.
+
+### Esito per caso
+
+| Caso | Modo | Run status | Stop | Stage OK / SKIP | Eventi | Catena | Candidate | Dossier |
+|---|---|---|---|---:|---:|---|---:|---:|
+| CASE-1 therapy evaluation strong match | FROZEN_REPLAY | COMPLETED | — | 13 / 2 | 42 | ✅ | 1 | 200 |
+| CASE-2 therapy discovery | FROZEN_REPLAY | COMPLETED | — | 13 / 2 | 42 | ✅ | 1 | 200 |
+| CASE-3 partial incomplete context | FROZEN_REPLAY | COMPLETED | — | 13 / 2 | 42 | ✅ | 1 | 200 |
+| CASE-4 contradicted or resistance | FROZEN_REPLAY | COMPLETED | — | 13 / 2 | 42 | ✅ | 1 | 200 |
+| CASE-5 casecontext mismatch no match | FROZEN_REPLAY | **STOPPED** | `RETRIEVAL_NO_MATCH` | 4 / 10 | 26 | ✅ | 0 | **409** |
+
+I 2 stage `SKIPPED` dei casi completati sono narratore e verificatore narrativo,
+`NOT_IMPLEMENTED` permanenti. I 10 del CASE-5 sono gli stage a valle
+dell'arresto, ciascuno con il reason code che lo spiega.
+
+### Status finali e supporto documentale
+
+| Caso | Status | Quote accettate | Rigettate | Astensioni |
+|---|---|---:|---:|---:|
+| CASE-1 | `PARTIAL` | 1 | 0 | 0 |
+| CASE-2 | `DISCOVERED` | 1 | 1 | 0 |
+| CASE-3 | `AMBIGUOUS` | 0 | 0 | 2 |
+| CASE-4 | `AMBIGUOUS` | 0 | 0 | 2 |
+| CASE-5 | — (fermato) | 0 | 0 | 0 |
+| **Totale** | | **2** | **1** | **4** |
+
+### Corrispondenza con il pilot
+
+I totali coincidono **esattamente** con
+`paper_context_enricher_v2_metrics.json` @ `6ee64c5`: 2 quote accettate, 1
+rigettata (`REJECTED_QUOTE_NOT_FOUND`), 4 astensioni su 7 chiamate. La
+promozione non ha alterato gli esiti.
+
+CASE-4 è nominalmente il caso "contradicted or resistance" ma produce
+`AMBIGUOUS`, non `CONTRADICTED`: entrambi i suoi enrichment si sono astenuti,
+quindi non esiste segnale documentale sulla direzione. È lo stesso esito
+registrato dal pilot — *"Caso 4: AMBIGUOUS, mai DIRECT/CONTRADICTED senza
+prova"* — e va letto come corretto: il sistema non dichiara una contraddizione
+che nessun documento supporta.
+
+### Cosa dimostra
+
+- il testo clinico libero attraversa 15 stage tracciati;
+- l'arresto corretto (CASE-5) produce `STOPPED`, non `FAILED`, e il dossier
+  risponde `409` spiegando perché non esiste;
+- 194 eventi complessivi, tutte le catene di hash verificate;
+- QUOTE e ABSTAIN compaiono entrambi come esiti normali;
+- ogni stage riporta durata, producer e reason code.
+
+### Cosa **non** dimostra
+
+Gli stage 6-10 sono in `FROZEN_REPLAY`: la cache documentale non esiste più,
+quindi selezione paper, chiamata all'enricher e validazione sono rigiocate dagli
+artefatti del pilot, non eseguite ora. Sono risposte reali del modello, ma
+registrate. Con `RESEARCH_PIPELINE_CACHE_ROOT` popolata quegli stage tornano
+eseguibili.
+
+Il campione resta minuscolo: 4 candidate, 7 chiamate, 2 citazioni accettate.
+Dimostra la meccanica e la sicurezza architetturale, non la resa clinica.
