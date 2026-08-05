@@ -1,0 +1,305 @@
+{
+  "calls": [
+    {
+      "arguments_python_type": "dict",
+      "bundle_id": "EB-b4c48ba003913f278ff182a6",
+      "classifications": [
+        "MISSING_REQUIRED_FIELD",
+        "UNEXPECTED_FIELD"
+      ],
+      "first_schema_mismatch": {
+        "kind": "UNEXPECTED_FIELD",
+        "path": "disease"
+      },
+      "max_depth": 2,
+      "nested_structure": {
+        "biomarker": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "contradiction": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "direction": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "disease": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "intervention": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "negation": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        }
+      },
+      "redacted_example": {
+        "fields": {
+          "disease": {
+            "quotes": [
+              "<REDACTED>"
+            ],
+            "source_unit_ids": [
+              "<REDACTED>"
+            ],
+            "value": "<REDACTED>"
+          }
+        }
+      },
+      "tool_name": "submit_claim_proposal",
+      "top_level_keys": [
+        "abstain",
+        "abstention_reason",
+        "biomarker",
+        "bundle_id",
+        "candidate_id",
+        "contradiction",
+        "direction",
+        "disease",
+        "document_id",
+        "intervention",
+        "negation",
+        "relation_type",
+        "uncertainties"
+      ]
+    },
+    {
+      "arguments_python_type": "dict",
+      "bundle_id": "EB-2ae853e8abf1195cc4c84846",
+      "classifications": [
+        "MISSING_REQUIRED_FIELD",
+        "UNEXPECTED_FIELD"
+      ],
+      "first_schema_mismatch": {
+        "kind": "UNEXPECTED_FIELD",
+        "path": "disease"
+      },
+      "max_depth": 2,
+      "nested_structure": {
+        "biomarker": {
+          "depth": 1,
+          "keys": [
+            "name",
+            "quote",
+            "source_unit_id"
+          ],
+          "type": "dict"
+        },
+        "contradiction": {
+          "depth": 1,
+          "keys": [],
+          "type": "dict"
+        },
+        "direction": {
+          "depth": 1,
+          "keys": [
+            "direction",
+            "quote",
+            "source_unit_id"
+          ],
+          "type": "dict"
+        },
+        "disease": {
+          "depth": 1,
+          "keys": [
+            "name",
+            "quote",
+            "source_unit_id"
+          ],
+          "type": "dict"
+        },
+        "intervention": {
+          "depth": 1,
+          "keys": [
+            "name",
+            "quote",
+            "source_unit_id"
+          ],
+          "type": "dict"
+        },
+        "negation": {
+          "depth": 1,
+          "keys": [],
+          "type": "dict"
+        }
+      },
+      "redacted_example": {
+        "fields": {
+          "disease": {
+            "quotes": [
+              "<REDACTED>"
+            ],
+            "source_unit_ids": [
+              "<REDACTED>"
+            ],
+            "value": "<REDACTED>"
+          }
+        }
+      },
+      "tool_name": "submit_claim_proposal",
+      "top_level_keys": [
+        "abstain",
+        "abstention_reason",
+        "biomarker",
+        "bundle_id",
+        "candidate_id",
+        "contradiction",
+        "direction",
+        "disease",
+        "document_id",
+        "intervention",
+        "negation",
+        "relation_type",
+        "uncertainties"
+      ]
+    },
+    {
+      "arguments_python_type": "dict",
+      "bundle_id": "EB-6a291f12975b20b79e1c3dd7",
+      "classifications": [
+        "MISSING_REQUIRED_FIELD",
+        "UNEXPECTED_FIELD"
+      ],
+      "first_schema_mismatch": {
+        "kind": "UNEXPECTED_FIELD",
+        "path": "disease"
+      },
+      "max_depth": 2,
+      "nested_structure": {
+        "biomarker": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "contradiction": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "direction": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "disease": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "intervention": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        },
+        "negation": {
+          "depth": 1,
+          "keys": [
+            "quote",
+            "source_unit_id",
+            "value"
+          ],
+          "type": "dict"
+        }
+      },
+      "redacted_example": {
+        "fields": {
+          "disease": {
+            "quotes": [
+              "<REDACTED>"
+            ],
+            "source_unit_ids": [
+              "<REDACTED>"
+            ],
+            "value": "<REDACTED>"
+          }
+        }
+      },
+      "tool_name": "submit_claim_proposal",
+      "top_level_keys": [
+        "abstain",
+        "abstention_reason",
+        "biomarker",
+        "bundle_id",
+        "candidate_id",
+        "contradiction",
+        "direction",
+        "disease",
+        "document_id",
+        "intervention",
+        "negation",
+        "relation_type",
+        "uncertainties"
+      ]
+    }
+  ],
+  "protocol": "llm-claim-extractor-prompt/1.1",
+  "summary": {
+    "argument_types": {
+      "dict": 3
+    },
+    "classifications": {
+      "MISSING_REQUIRED_FIELD": 3,
+      "UNEXPECTED_FIELD": 3
+    },
+    "tool_names": {
+      "submit_claim_proposal": 3
+    },
+    "unique_calls": 3
+  },
+  "transport": "TOOL_CALL_NESTED"
+}
