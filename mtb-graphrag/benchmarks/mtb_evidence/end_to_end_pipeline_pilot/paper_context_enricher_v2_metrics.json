@@ -1,0 +1,34 @@
+{
+  "decision": {
+    "ABSTAIN": 4,
+    "QUOTE": 3,
+    "abstain_with_inconsistent_fields": 2
+  },
+  "quote": {
+    "accepted": 2,
+    "accepted_summary_empty": 0,
+    "proposed": 3,
+    "rejected": 1,
+    "source_units_invented_accepted": 0
+  },
+  "summary": {
+    "accepted": 2,
+    "empty": 0,
+    "present": 3,
+    "rejected_clinical_recommendation": 0,
+    "rejected_ungrounded": 0
+  },
+  "transport": {
+    "calls": 7,
+    "outcomes": {
+      "V2_TRANSPORT_VALID": 7
+    },
+    "valid": 7
+  },
+  "validation_outcome_counts": {
+    "ENRICHMENT_V2_ABSTAINED": 2,
+    "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS": 2,
+    "ENRICHMENT_V2_ACCEPTED": 2,
+    "REJECTED_QUOTE_NOT_FOUND": 1
+  }
+}

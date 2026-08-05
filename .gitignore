@@ -50,3 +50,22 @@ MTB_Evidence_gold_pilot_v1_bundle/
 mtb-graphrag/benchmarks/mtb_evidence/pilot/input/MTB_Evidence_gold_pilot_v1.xlsx
 mtb-graphrag/benchmarks/mtb_evidence/pilot/input/mtb_evidence_gold_pilot_v1.jsonl
 mtb-graphrag/benchmarks/mtb_evidence/pilot/input/MTB_Evidence_annotation_notes_v1.md
+
+# --- cache documentale autorizzata --------------------------------------------
+#
+# Radice di AuthorizedDocumentCache: contiene i documenti scaricati per intero
+# (XML PubMed/PMC, PDF, protocolli NCT) da cui vengono ri-parsate le SourceUnit.
+# E' testo di terzi, non redatto, e non deve entrare nel repository.
+#
+# Cio' che serve alla verificabilita' e' gia' tracciato altrove e non contiene
+# testo: `authorized_document_cache_pilot/source_unit_index.jsonl` conserva
+# soltanto locatori (offset, sezione, indice di paragrafo) e `content_hash`
+# SHA-256. Bastano a verificare una citazione quando il documento c'e', e a
+# descriverla quando non c'e'; non bastano a ricostruire il documento.
+#
+# La directory oggi non esiste: la regola precede il ripopolamento, perche'
+# aggiungerla dopo un `git add -A` distratto sarebbe troppo tardi.
+data_cache/
+
+# Scratch dei test: directory temporanee create dalle suite, mai da versionare.
+.test_tmp/
