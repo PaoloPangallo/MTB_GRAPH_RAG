@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import re
+from functools import lru_cache
 from typing import Any
 
 from backend.research_pipeline.data_access import candidates_path, evidence_bundles_path
@@ -48,10 +49,16 @@ def _term_matches(term: str, label: str) -> bool:
     return bool(shared)
 
 
+@lru_cache(maxsize=1)
 def load_candidates() -> dict[str, dict]:
+    # ``candidates.jsonl`` pesa 72,5 MB e il dataset è congelato: rileggerlo a
+    # ogni run costava ~3 s per chiamata e rendeva l'endpoint inutilizzabile.
+    # La cache è invalidabile con ``load_candidates.cache_clear()`` nei test che
+    # cambiano ``RESEARCH_PIPELINE_DATA_ROOT``.
     return {row["candidate_id"]: row for row in (json.loads(line) for line in candidates_path().read_text(encoding="utf-8").splitlines() if line.strip())}
 
 
+@lru_cache(maxsize=1)
 def load_bundles_by_candidate() -> dict[str, list[dict]]:
     by_candidate: dict[str, list[dict]] = {}
     for line in evidence_bundles_path().read_text(encoding="utf-8").splitlines():
