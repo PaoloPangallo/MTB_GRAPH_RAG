@@ -75,6 +75,54 @@ Il rischio sicurezza dello STAGE 7 è quindi **più basso** di quanto stimato in
 Fase A, e resta governato da una regola di contratto: `text` sempre `null`
 nell'API.
 
+### 4.1 Vincolo scoperto in Fase C — sorgenti sigillati
+
+`benchmarks/mtb_evidence/final_experiment/systems_v1.json` sigilla gli SHA-256
+di **120 sorgenti di runtime**, verificati da
+`test_final_experiment_harness.py::test_every_frozen_input_validates`.
+L'elenco include `backend/pipeline/agentic/ledger.py`, `ledger_schema.py`,
+`backend/api/schemas.py`, `backend/comparison/*`, `backend/pipeline/agents/*` e
+`backend/pipeline/agentic/*`.
+
+**Conseguenza operativa:** nessuno di quei file può essere modificato senza
+invalidare il record dell'esperimento comparativo finale della tesi. Aggiornare
+i digest per compensare sarebbe falsificazione, non manutenzione.
+
+Questo ha annullato la migrazione ledger v2 → v3 prevista dalla Fase B.
+L'identità di stage viaggia nel payload dell'evento, che è già nel preimage
+dell'hash: stessa tamper-evidence, zero file sigillati toccati.
+
+### 4.2 Mappa sigillato / libero
+
+| Area | File sigillati | Modificabile? |
+|---|---:|---|
+| `backend/pipeline/evidence/**` | 75 | **no** |
+| `backend/pipeline/control/**` | 22 | **no** |
+| `backend/pipeline/agents/**` | 10 | **no** |
+| `backend/pipeline/agentic/**` | 8 | **no** |
+| `backend/pipeline/llm/__init__.py` | 1 | **no** (import consentito) |
+| `backend/comparison/**` | 3 | **no** |
+| `backend/api/schemas.py` | 1 | **no** |
+| `backend/api/main.py`, `routes.py`, `v3_*.py` | 0 | sì |
+| `backend/config/requirements.txt` | 0 | sì |
+| `backend/research_pipeline/**` (nuovo) | 0 | sì |
+
+Il design regge senza modifiche sostanziali, perché due scelte prese in Fase B
+per altre ragioni si rivelano necessarie:
+
+1. il vocabolario eventi vive in `research_pipeline/events.py` e **non** estende
+   `control/events.py` — che è sigillato;
+2. `backend/pipeline/llm/__init__.py` è usato in **sola lettura** per le
+   costanti di configurazione — l'import non altera il file, quindi non rompe il
+   sigillo.
+
+Da verificare **prima** di ogni modifica futura a `backend/`:
+
+```bash
+python -c "import json;print('\n'.join(json.load(open(
+  'benchmarks/mtb_evidence/final_experiment/systems_v1.json'))['source_manifest']))"
+```
+
 ## 5. Debito tecnico dichiarato
 
 1. **Duplicazione fra branch.** I moduli entrano in `backend/research_pipeline/`

@@ -47,7 +47,7 @@ flowchart TB
   end
   subgraph RT["backend/research_pipeline/  [NUOVO package]"]
     ORCH[Orchestrator] --> ST[Stage runners]
-    ST --> LED[(Ledger append-only\nschema v3)]
+    ST --> LED[(Ledger append-only\nschema v2, invariato)]
   end
   UI --> API --> RT
   LED -. replay .-> REST
@@ -236,10 +236,19 @@ append-only con trigger SQLite, hash-chain verificabile, `payload_hash`,
 `tool_name`/`tool_version` (producer), sanitizzazione dei segreti pre-scrittura
 e bounding che scarta `abstract`/`full_text`/`body`.
 
-**Manca solo `stage_id`.** Migrazione **v2 → v3 additiva**, nella disciplina
-documentata da `ledger_schema.py`: `ALTER TABLE ADD COLUMN`, mai
-rebuild-and-copy, perché in un archivio di audit è indistinguibile da una
-manomissione.
+**Manca solo `stage_id`**, e viaggia nel **payload dell'evento**, non in una
+colonna nuova.
+
+Correzione rispetto alla prima stesura di questo design, che prevedeva una
+migrazione v2 → v3. La migrazione è stata annullata dopo verifica:
+`final_experiment/systems_v1.json` sigilla gli SHA-256 di 120 sorgenti di
+runtime, inclusi entrambi i file del ledger. Modificarli romperebbe il record
+dell'esperimento comparativo finale, e aggiornare i digest per compensare
+sarebbe falsificazione (§27).
+
+Poiché `payload_json` entra nel preimage dell'hash, `stage_id` nel payload è
+protetto esattamente quanto lo sarebbe una colonna. Si perde solo un indice SQL,
+irrilevante a queste dimensioni di run. **Nessun file sigillato viene toccato.**
 
 Dettaglio in `docs/verifiable_pipeline/pipeline_event_model.md`.
 
