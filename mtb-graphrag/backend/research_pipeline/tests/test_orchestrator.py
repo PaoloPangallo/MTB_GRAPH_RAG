@@ -254,3 +254,67 @@ class ResearchFramingTest(OrchestratorTestBase):
 
         self.assertIn("source_gate", preview["not_implemented_gates"])
         self.assertIn("disease", preview["inherited_axes"])
+
+
+class FrozenReplayTest(OrchestratorTestBase):
+    """Il replay degli artefatti del pilot deve mostrare il percorso positivo
+    reale — 2 quote accettate, 1 rigettata, 4 astensioni — senza spacciarlo per
+    un'esecuzione avvenuta ora."""
+
+    def run_replayed(self, case_id: str):
+        from backend.research_pipeline import replay
+        return self.run_case(
+            case_id,
+            call_parser_fn=replay.parser_fn,
+            call_enricher_fn=replay.enricher_fn,
+            select_papers_fn=lambda a, u, **kw: replay.selection_fn(a, u, case_id=kw["case_id"]),
+            validate_fn=lambda t, e, **kw: replay.validation_fn(
+                t, e, case_id=kw["case_id"], paper_id=kw["paper_id"]),
+        )
+
+    def test_replayed_run_reaches_the_dossier(self) -> None:
+        run = self.run_replayed("CASE-1-therapy-evaluation-strong-match")
+        by_id = {s.stage_id: s for s in run.stages}
+
+        self.assertIn(run.status, ("COMPLETED", "PARTIAL"))
+        self.assertEqual(by_id["stage_13_dossier"].status, "SUCCEEDED")
+
+    def test_an_accepted_quote_reaches_the_gates(self) -> None:
+        """CASE-1 ha una quote accettata nel pilot: deve arrivare allo status."""
+        run = self.run_replayed("CASE-1-therapy-evaluation-strong-match")
+        by_id = {s.stage_id: s for s in run.stages}
+        statuses = {s["status"] for s in by_id["stage_12_status"].output_preview["statuses"]}
+
+        self.assertTrue(statuses)
+        self.assertNotEqual(statuses, {"AMBIGUOUS"})
+
+    def test_abstentions_do_not_reach_the_gates(self) -> None:
+        """CASE-4 ha solo astensioni: nessun supporto documentale."""
+        run = self.run_replayed("CASE-4-contradicted-or-resistance")
+        by_id = {s.stage_id: s for s in run.stages}
+        entries = by_id["stage_12_status"].output_preview["statuses"]
+
+        for entry in entries:
+            self.assertIn("NO_VALIDATED_ENRICHMENT_AVAILABLE", entry["warnings"])
+
+    def test_replayed_stages_are_labelled(self) -> None:
+        run = self.run_replayed("CASE-1-therapy-evaluation-strong-match")
+        by_id = {s.stage_id: s for s in run.stages}
+        selections = by_id["stage_8_paper_selection"].output_preview["selections"]
+
+        self.assertTrue(all(s.get("replayed") for s in selections))
+
+    def test_the_v2_to_gate_adapter_never_admits_a_rejection(self) -> None:
+        from backend.research_pipeline.orchestrator import _accepted_for_gates
+
+        for rejected in ("REJECTED_QUOTE_NOT_FOUND", "ENRICHMENT_V2_ABSTAINED",
+                         "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+                         "REJECTED_SOURCE_UNIT", "REJECTED_TRANSPORT"):
+            self.assertIsNone(_accepted_for_gates(rejected))
+
+    def test_the_v2_to_gate_adapter_admits_only_the_pilot_accepted_set(self) -> None:
+        from backend.research_pipeline.orchestrator import _accepted_for_gates
+
+        self.assertEqual(_accepted_for_gates("ENRICHMENT_V2_ACCEPTED"), "ENRICHMENT_ACCEPTED")
+        self.assertEqual(_accepted_for_gates("ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY"),
+                         "ENRICHMENT_ACCEPTED_WITH_WARNING")
