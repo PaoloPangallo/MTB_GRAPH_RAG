@@ -69,7 +69,7 @@ Errori: `422` testo vuoto, `404` flag off, `409` budget chiamate esaurito
   "versions": {
     "casecontext_schema": "end-to-end-pilot-casecontext/1.0",
     "dossier": "end-to-end-pilot-dossier/1.0",
-    "enricher_prompt": "…", "enricher_transport": "…", "ledger_schema": 3
+    "enricher_prompt": "…", "enricher_transport": "…", "ledger_schema": 2
   },
   "metrics": { /* vedi §6 */ },
   "research_notice": {

@@ -42,40 +42,59 @@ omissione mai silenziosa (`omitted_records`, `payload_truncated`).
 
 **Non si riscrive nulla di tutto questo.**
 
-## 3. Unica lacuna: `stage_id`
+## 3. Unica lacuna: `stage_id` — risolta **senza** migrazione
 
-### 3.1 Migrazione v2 → v3, additiva
+### 3.1 Perché non si migra a v3
 
-`ledger_schema.py` documenta la disciplina da rispettare:
+La Fase B proponeva una migrazione additiva v2 → v3 che aggiungesse le colonne
+`stage_id` e `stage_type`. **È stata annullata dopo verifica**, per un motivo
+che vale la pena registrare.
 
-> "La migrazione v1 → v2 è puramente additiva. `ALTER TABLE ... ADD COLUMN` è
-> DDL: non attiva i trigger di riga e non riscrive le righe esistenti. Un
-> rebuild-and-copy sarebbe indistinguibile da una manomissione e va evitato
-> proprio in un archivio di audit."
+`benchmarks/mtb_evidence/final_experiment/systems_v1.json` contiene un
+`source_manifest` che sigilla gli SHA-256 di **120 sorgenti di runtime**, fra
+cui `backend/pipeline/agentic/ledger.py` e `ledger_schema.py`. Il test
+`backend/tests/test_final_experiment_harness.py::test_every_frozen_input_validates`
+ricalcola quei digest e fallisce se un solo byte cambia.
 
-La v3 la segue identicamente:
+Quel manifest è il record che attesta **quale codice ha prodotto i risultati
+dell'esperimento comparativo finale**. Modificare i file sigillati rompe il
+sigillo; aggiornare i digest per far ripassare il test equivarrebbe a dichiarare
+che l'esperimento congelato è stato prodotto da codice che allora non esisteva.
+È falsificazione del record sperimentale, e ricade nella §27 del prompt.
+
+### 3.2 L'identità di stage viaggia nel payload
+
+`EventLedger.append()` accetta già un `payload` arbitrario, e `payload_json`
+**entra nel preimage dell'hash** (`_hash_event_v2`, riga 128). Quindi:
 
 ```python
-CURRENT_SCHEMA_VERSION = 3
-
-V3_COLUMNS: tuple[tuple[str, str], ...] = (
-    ("stage_id",   "TEXT"),
-    ("stage_type", "TEXT"),
+ledger.append(
+    run_id, "STAGE_COMPLETED", "casecontext_match_verifier",
+    {"stage_id": "stage_3_casecontext_match",
+     "stage_type": "CASECONTEXT_MATCH_VERIFIER",
+     "essential_fields_pass": True},
+    tool_name="casecontext_match_verifier",
+    tool_version="end-to-end-pilot-casecontext/1.0",
 )
-
-V3_INDEXES = """
-CREATE INDEX IF NOT EXISTS idx_agent_events_stage
-    ON agent_events(run_id, stage_id);
-"""
 ```
 
-Le righe v1/v2 esistenti restano con `stage_id IS NULL` e continuano a
-verificare col loro preimage originale. `detected_version()` va esteso in modo
-coerente: v3 se tutte le colonne v3 sono presenti.
+`stage_id` è protetto **esattamente quanto lo sarebbe una colonna**: alterarlo
+cambia `payload_json`, quindi `event_hash`, quindi rompe la catena. La proprietà
+di tamper-evidence è identica.
 
-**Vincolo:** le colonne v3 entrano nel preimage dell'hash **solo** per gli
-eventi scritti come v3. Alterare il preimage degli eventi già registrati
-invaliderebbe la catena.
+Costo reale: si perde l'indice SQL `(run_id, stage_id)`. Con run da qualche
+decina di eventi, il filtro in Python su `events(run_id)` è irrilevante.
+
+Beneficio: **zero modifiche a file sigillati**, nessun terzo preimage da
+mantenere, nessun rischio sull'archivio di audit condiviso col runtime agentico.
+
+### 3.3 Cosa resta invariato
+
+Lo schema v2 copre già tutto il resto della §7. Il research runtime usa un file
+di ledger separato via `AGENT_LEDGER_PATH` (`ledger.py:45`, già configurabile),
+così non contamina quello agentico.
+
+**Nessun file sigillato viene toccato in tutta la Fase C.**
 
 ## 4. Vocabolario eventi
 
