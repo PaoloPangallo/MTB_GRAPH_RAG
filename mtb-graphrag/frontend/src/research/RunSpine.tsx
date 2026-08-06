@@ -15,13 +15,52 @@
  */
 
 import { Box, Chip, Stack, Tooltip, Typography } from '@mui/material';
-import { color, font, formatDuration, reasonLabel, stageStatusStyle } from './tokens';
+import { badgeFor, color, font, formatDuration, reasonLabel, stageStatusStyle } from './tokens';
 import { STAGE_LABELS, TERM_TOOLTIPS, type PipelineStage } from './types';
 
 interface RunSpineProps {
   stages: PipelineStage[];
   selectedStageId: string | null;
   onSelect: (stageId: string) => void;
+}
+
+/** Filtri della spina. Il valore è la chiave, l'etichetta è per il lettore. */
+export const STAGE_FILTERS = [
+  { key: 'all', label: 'Tutti' },
+  { key: 'live', label: 'Solo LIVE' },
+  { key: 'replay', label: 'Solo REPLAY' },
+  { key: 'problems', label: 'Warning ed errori' },
+  { key: 'llm', label: 'LLM' },
+  { key: 'deterministic', label: 'Deterministici' },
+] as const;
+
+export type StageFilterKey = (typeof STAGE_FILTERS)[number]['key'];
+
+/**
+ * Filtro applicato a uno stage.
+ *
+ * "Solo LIVE" include `DETERMINISTIC_CACHE`: uno stage che legge un documento
+ * dalla cache **è** stato eseguito ora, e escluderlo dalla vista live darebbe
+ * l'impressione che la catena documentale non sia stata percorsa.
+ */
+export function matchesFilter(stage: PipelineStage, filter: StageFilterKey): boolean {
+  switch (filter) {
+    case 'live':
+      return stage.execution_mode === 'LIVE'
+        && (stage.artifact_origin === 'GENERATED_NOW'
+          || stage.artifact_origin === 'DETERMINISTIC_CACHE');
+    case 'replay':
+      return stage.artifact_origin === 'RECORDED_REAL_RUN';
+    case 'problems':
+      return stage.status === 'FAILED' || stage.status === 'WARNING'
+        || stage.warnings.length > 0 || stage.errors.length > 0;
+    case 'llm':
+      return stage.producer.kind === 'LLM';
+    case 'deterministic':
+      return stage.producer.kind === 'DETERMINISTIC';
+    default:
+      return true;
+  }
 }
 
 function Marker({ variant, tone }: { variant: 'filled' | 'hollow' | 'barred'; tone: string }) {
@@ -59,7 +98,11 @@ export default function RunSpine({ stages, selectedStageId, onSelect }: RunSpine
         const style = stageStatusStyle[stage.status] ?? stageStatusStyle.PENDING;
         const isLLM = stage.producer.kind === 'LLM';
         const isSelected = stage.stage_id === selectedStageId;
-        const replayed = Boolean((stage.output_preview as { replayed?: boolean }).replayed);
+        // L'origine è un campo dello stage, non una chiave del preview: prima
+        // veniva letta da `output_preview.replayed`, che l'orchestratore
+        // scriveva in modo incondizionato e che quindi marcava REPLAY anche
+        // stage realmente eseguiti.
+        const badge = badgeFor(stage.status, stage.artifact_origin);
         const isLast = index === stages.length - 1;
 
         return (
@@ -118,14 +161,18 @@ export default function RunSpine({ stages, selectedStageId, onSelect }: RunSpine
                     </Tooltip>
                   )}
 
-                  {replayed && (
-                    <Tooltip title={TERM_TOOLTIPS.replayed}>
-                      <Chip label="REPLAY" size="small" sx={{
+                  <Tooltip title={TERM_TOOLTIPS[badge.tooltipKey] ?? ''}>
+                    <Chip
+                      label={badge.label}
+                      size="small"
+                      data-testid={`stage-badge-${stage.stage_id}`}
+                      sx={{
                         height: 18, fontFamily: font.mono, fontSize: 10, letterSpacing: '0.06em',
-                        color: color.slate, backgroundColor: color.stone, borderRadius: '4px',
-                      }} />
-                    </Tooltip>
-                  )}
+                        color: badge.fg, backgroundColor: badge.bg, borderRadius: '4px',
+                        border: badge.bg === 'transparent' ? `1px solid ${color.hairline}` : 'none',
+                      }}
+                    />
+                  </Tooltip>
                 </Stack>
 
                 <Stack direction="row" spacing={1.5} sx={{ mt: 0.25, flexWrap: "wrap" }}>
@@ -142,6 +189,51 @@ export default function RunSpine({ stages, selectedStageId, onSelect }: RunSpine
                     </Typography>
                   )}
                 </Stack>
+
+                {/* Provenienza tecnica dello stage: chi lo ha prodotto e a che
+                    costo. Per gli stage documentali conta invece l'esito della
+                    cache, che è la ragione per cui sono LIVE senza essere LLM. */}
+                <Stack direction="row" spacing={1.5} sx={{ mt: 0.25, flexWrap: 'wrap' }}>
+                  {isLLM && stage.producer.model && (
+                    <Typography component="span" sx={{ fontFamily: font.mono, fontSize: 10, color: color.slate }}>
+                      {stage.producer.model}
+                    </Typography>
+                  )}
+                  {isLLM && stage.producer.prompt_version && (
+                    <Typography component="span" sx={{ fontFamily: font.mono, fontSize: 10, color: color.muted }}>
+                      prompt {stage.producer.prompt_version}
+                    </Typography>
+                  )}
+                  {isLLM && stage.producer.transport_version && (
+                    <Typography component="span" sx={{ fontFamily: font.mono, fontSize: 10, color: color.muted }}>
+                      transport {stage.producer.transport_version}
+                    </Typography>
+                  )}
+                  {typeof stage.metrics.cache_hits === 'number' && (
+                    <Typography component="span" sx={{ fontFamily: font.mono, fontSize: 10, color: color.muted }}>
+                      cache hit {String(stage.metrics.cache_hits)} · miss {String(stage.metrics.cache_misses ?? 0)}
+                    </Typography>
+                  )}
+                  {typeof stage.metrics.with_exact_text === 'number' && (
+                    <Typography component="span" sx={{ fontFamily: font.mono, fontSize: 10, color: color.muted }}>
+                      {String(stage.metrics.with_exact_text)} source unit con testo
+                    </Typography>
+                  )}
+                  {typeof stage.metrics.llm_calls === 'number' && (
+                    <Typography component="span" sx={{ fontFamily: font.mono, fontSize: 10, color: color.muted }}>
+                      {String(stage.metrics.llm_calls)} chiamate · {String(stage.metrics.retries ?? 0)} retry
+                    </Typography>
+                  )}
+                </Stack>
+
+                {(stage.warnings.length > 0 || stage.errors.length > 0) && (
+                  <Typography sx={{
+                    mt: 0.5, fontFamily: font.body, fontSize: 12,
+                    color: stage.errors.length > 0 ? color.error : '#8a4b2f',
+                  }}>
+                    {[...stage.errors, ...stage.warnings].map(reasonLabel).join(' · ')}
+                  </Typography>
+                )}
 
                 {stage.reason_codes.length > 0 && (
                   <Typography sx={{ mt: 0.5, fontFamily: font.body, fontSize: 12, color: color.slate }}>

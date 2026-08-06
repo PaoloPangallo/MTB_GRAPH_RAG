@@ -9,6 +9,7 @@ import {
   stagesInOrder,
   type RunState,
 } from './runReducer';
+import { makeRun, makeStage } from './testFactories';
 import type { PipelineEvent, PipelineRun, PipelineStage } from './types';
 
 function event(sequence: number, overrides: Partial<PipelineEvent> = {}): PipelineEvent {
@@ -34,56 +35,16 @@ function event(sequence: number, overrides: Partial<PipelineEvent> = {}): Pipeli
 }
 
 function stage(sequence: number, overrides: Partial<PipelineStage> = {}): PipelineStage {
-  return {
-    stage_id: `stage_${sequence}_x`,
-    stage_type: 'X',
-    sequence,
-    status: 'SUCCEEDED',
-    started_at: null,
-    completed_at: null,
-    duration_ms: 10,
-    input_preview: {},
-    output_preview: {},
-    reason_codes: [],
-    warnings: [],
-    errors: [],
-    producer: {
-      kind: 'DETERMINISTIC',
-      component: 'c',
-      version: '1',
-      model: null,
-      prompt_version: null,
-    },
-    metrics: {},
-    lineage: {},
-    ...overrides,
-  };
+  return makeStage({
+    stage_id: `stage_${sequence}_x`, stage_type: 'X', sequence, ...overrides,
+  });
 }
 
 function run(overrides: Partial<PipelineRun> = {}): PipelineRun {
-  return {
-    run_id: 'r1',
-    case_id: 'CASE-1',
-    status: 'RUNNING',
-    started_at: '2026-08-04T00:00:00Z',
-    completed_at: null,
-    current_stage: null,
-    stopped_at: null,
-    input_text: 'testo',
-    stages: [],
-    dossier_id: null,
-    warnings: [],
-    errors: [],
-    versions: {},
-    metrics: {},
-    research_notice: {
-      runtime: 'VERIFIABLE_RESEARCH_RUNTIME',
-      clinically_validated: false,
-      not_for_clinical_decision_making: true,
-      experimental_component: true,
-    },
-    ...overrides,
-  };
+  return makeRun({
+    status: 'RUNNING', started_at: '2026-08-04T00:00:00Z', completed_at: null,
+    input_text: 'testo', dossier_id: null, ...overrides,
+  });
 }
 
 function withEvents(events: PipelineEvent[]): RunState {

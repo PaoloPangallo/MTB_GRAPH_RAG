@@ -12,6 +12,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import StageOutput from './index';
 import { expectNoObjectObject } from '../values/testing';
+import { makeStage } from '../testFactories';
 import type { PipelineStage, StageProducer } from '../types';
 
 const DETERMINISTIC: StageProducer = {
@@ -25,13 +26,7 @@ const LLM: StageProducer = {
 };
 
 function stage(overrides: Partial<PipelineStage>): PipelineStage {
-  return {
-    stage_id: 'stage_1_case_input', stage_type: 'CASE_INPUT', sequence: 1,
-    status: 'SUCCEEDED', started_at: null, completed_at: null, duration_ms: 4,
-    input_preview: {}, output_preview: {}, reason_codes: [], warnings: [], errors: [],
-    producer: DETERMINISTIC, metrics: {}, lineage: {},
-    ...overrides,
-  };
+  return makeStage({ producer: DETERMINISTIC, ...overrides });
 }
 
 describe('CaseContext Match Verifier', () => {
