@@ -1,0 +1,52 @@
+{
+  "alignment_not_available_count": 38688,
+  "alignment_unclear_count": 0,
+  "alteration_parse_status_distribution": {
+    "ATOMIC": 6498,
+    "MISSING": 38634,
+    "PARSED_EXACT": 1010
+  },
+  "candidate_count": 46142,
+  "candidates_with_nct": 12882,
+  "candidates_with_pmid": 7508,
+  "candidates_without_document_identifiers": 25752,
+  "compound_alteration_count": 1010,
+  "confirmed_combination_count": 0,
+  "contract_version": "graph-candidate-assertion/3.0",
+  "contradicted_count": 0,
+  "created_at": "2026-08-06T15:33:46.558787+00:00",
+  "does_not_support_count": 873,
+  "eligible_path_count": 46864,
+  "excluded_paths": 0,
+  "exclusion_reasons": {},
+  "intervention_structure_distribution": {
+    "MULTI_COMPONENT_UNRESOLVED": 572,
+    "SINGLE_AGENT": 35046,
+    "UNKNOWN": 10524
+  },
+  "known_limitations": [
+    "REGIMEN_SEMANTICS_UNAVAILABLE_IN_EXPORT: l'export non distingue combinazione, alternativa e sequenza; i record multi-farmaco sono MULTI_COMPONENT_UNRESOLVED e non eleggibili al match esatto sull'intervento.",
+    "component_role vale sempre UNKNOWN: l'export non contiene ruoli.",
+    "CONTRADICTS_ASSERTION e NEUTRAL_OR_NO_DIFFERENCE non sono prodotti: evidence_direction ha solo Supports / Does Not Support / vuoto.",
+    "Le regole non-Evidence (gene-drug, trial, companion diagnostic) non portano polarita' ne' alterazioni: restano NOT_REPORTED / MISSING.",
+    "Nessuna normalizzazione farmacologica: BGJ398 e infigratinib restano termini distinti (KNOWN_DRUG_SYNONYM_GAP)."
+  ],
+  "materializer_commit": "6bb2e810b1e3587d5cf70b9d722059af0db71e58",
+  "materializer_version": "gca-materializer/3.0",
+  "neutral_count": 161,
+  "predecessor": {
+    "candidates_sha256": "d6c65c2682313652b736f1f82968078292c12588823e2f79309e76d6e671235d",
+    "repository": "graph_candidate_repository/2.0",
+    "unchanged": true
+  },
+  "repository_hash": "35923b9fed392f9678da64268814eea2c7f9780f1c82c6a6b5bc394027e58049",
+  "repository_version": "graph_candidate_repository/3.0",
+  "schema_hash": "4b3f31e2bcee63159764d80eaf1c553ca32862ede0fcb97c14da7fd56e94c4b4",
+  "single_agent_count": 35046,
+  "source_aligned_count": 6420,
+  "source_export": "C:\\Users\\paolo\\Desktop\\IspezioneDatasetTesi\\data_expl\\DatasetTESI\\Dataset TESI\\Clean_Graph_Data",
+  "source_export_hash": "8df07e828f97a77fc938540d65f6c303c712d566bae2be59ce1e0274681f4da2",
+  "status": "EXPERIMENTAL_NOT_RUNTIME_DEFAULT",
+  "unresolved_multi_component_count": 572,
+  "unsupported_alteration_expression_count": 0
+}
