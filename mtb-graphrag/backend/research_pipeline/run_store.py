@@ -23,7 +23,7 @@ from uuid import uuid4
 from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import data_access as da
 from backend.research_pipeline import execution_mode as em
-from backend.research_pipeline import orchestrator, replay
+from backend.research_pipeline import orchestrator, rehydration, replay
 from backend.research_pipeline.cases.definitions import CASES
 from backend.research_pipeline.contracts import PipelineRun
 from backend.research_pipeline.documents import cache_runtime
@@ -95,9 +95,45 @@ class RunStore:
         with self._lock:
             return self._runs.get(run_id)
 
+    def snapshot(self, run_id: str) -> dict[str, Any] | None:
+        """Vista della run, dalla memoria o — dopo un riavvio — dal ledger.
+
+        L'ordine conta: una run ancora in corso è in memoria e il ledger non ne
+        ha ancora l'evento finale, quindi la memoria è la vista più aggiornata.
+        Una run che la memoria non conosce non è per questo inesistente.
+        """
+        handle = self.get(run_id)
+        if handle is not None:
+            return handle.snapshot()
+        return rehydration.rehydrate(self._ledger, run_id)
+
     def list_runs(self) -> list[RunHandle]:
         with self._lock:
             return sorted(self._runs.values(), key=lambda h: h.started_at, reverse=True)
+
+    def list_all(self) -> list[dict[str, Any]]:
+        """Run in memoria più quelle persistite, senza duplicati."""
+        in_memory = {
+            h.run_id: {
+                "run_id": h.run_id, "case_id": h.case_id, "status": h.status,
+                "started_at": h.started_at, "requested_mode": h.requested_mode,
+                "execution_mode": (h.run.execution_mode if h.run else h.requested_mode),
+                "replay_artifacts_used": (
+                    h.run.mode_summary()["replay_artifacts_used"] if h.run else 0),
+                "fully_live": (h.run.mode_summary()["fully_live"] if h.run else False),
+                "recovery_status": "COMPLETE",
+                "rehydrated": False,
+            }
+            for h in self.list_runs()
+        }
+        rows = list(in_memory.values())
+        for run_id in rehydration.list_run_ids(self._ledger):
+            if run_id in in_memory:
+                continue
+            summary = rehydration.summarize_run(self._ledger, run_id)
+            if summary is not None:
+                rows.append(summary)
+        return rows
 
     def start(self, *, case_id: str, clinical_text: str, execution_mode: str) -> RunHandle:
         """Avvia una run nella modalità **richiesta esplicitamente**.

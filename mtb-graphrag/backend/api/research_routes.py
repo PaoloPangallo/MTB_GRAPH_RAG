@@ -54,6 +54,20 @@ def _handle_or_404(run_id: str):
     return handle
 
 
+def _snapshot_or_404(run_id: str) -> dict[str, Any]:
+    """Vista della run, dalla memoria o dal ledger.
+
+    Prima ogni rotta passava da ``_handle_or_404``, che consulta solo il registro
+    in memoria: dopo un riavvio del backend anche ``/events`` rispondeva 404, pur
+    avendo tutti i suoi eventi su disco e la catena di hash integra.
+    """
+    _guard()
+    snapshot = get_store().snapshot(run_id)
+    if snapshot is None:
+        raise HTTPException(status_code=404, detail="run non trovata")
+    return snapshot
+
+
 class CreateRunRequest(BaseModel):
     clinical_text: str | None = Field(default=None, min_length=1)
     case_id: str | None = None
@@ -159,20 +173,17 @@ def create_run(request: CreateRunRequest) -> dict[str, Any]:
 @router.get("/runs")
 def list_runs() -> dict[str, Any]:
     _guard()
-    return {"runs": [
-        {"run_id": h.run_id, "case_id": h.case_id, "status": h.status, "started_at": h.started_at}
-        for h in get_store().list_runs()
-    ]}
+    return {"runs": get_store().list_all()}
 
 
 @router.get("/runs/{run_id}")
 def get_run(run_id: str) -> dict[str, Any]:
-    return _handle_or_404(run_id).snapshot()
+    return _snapshot_or_404(run_id)
 
 
 @router.get("/runs/{run_id}/events")
 def get_events(run_id: str, after_sequence: int = 0, limit: int = 200) -> dict[str, Any]:
-    handle = _handle_or_404(run_id)
+    _snapshot_or_404(run_id)
     store = get_store()
     limit = max(1, min(limit, 1000))
 
@@ -211,8 +222,7 @@ def _public_event(event: dict[str, Any]) -> dict[str, Any]:
 
 @router.get("/runs/{run_id}/stages/{stage_id}")
 def get_stage(run_id: str, stage_id: str) -> dict[str, Any]:
-    handle = _handle_or_404(run_id)
-    snapshot = handle.snapshot()
+    snapshot = _snapshot_or_404(run_id)
     stage = next((s for s in snapshot["stages"] if s["stage_id"] == stage_id), None)
     if stage is None:
         raise HTTPException(status_code=404, detail=f"stage non trovato: {stage_id}")
@@ -225,8 +235,7 @@ def get_stage(run_id: str, stage_id: str) -> dict[str, Any]:
 
 @router.get("/runs/{run_id}/dossier")
 def get_dossier(run_id: str) -> dict[str, Any]:
-    handle = _handle_or_404(run_id)
-    snapshot = handle.snapshot()
+    snapshot = _snapshot_or_404(run_id)
     stage = next((s for s in snapshot["stages"] if s["stage_id"] == "stage_13_dossier"), None)
     if stage is None or stage["status"] != "SUCCEEDED":
         raise HTTPException(
@@ -268,8 +277,7 @@ def get_provenance(run_id: str) -> dict[str, Any]:
     lettura che la separazione fra candidate e document support esiste per
     impedire.
     """
-    handle = _handle_or_404(run_id)
-    snapshot = handle.snapshot()
+    snapshot = _snapshot_or_404(run_id)
     by_id = {s["stage_id"]: s for s in snapshot["stages"]}
 
     def _preview(stage_id: str) -> dict[str, Any]:
@@ -375,8 +383,7 @@ def get_metrics(run_id: str) -> dict[str, Any]:
     I campi non misurabili restano ``null``: uno zero al loro posto sarebbe una
     misura falsa e non un dato mancante.
     """
-    handle = _handle_or_404(run_id)
-    snapshot = handle.snapshot()
+    snapshot = _snapshot_or_404(run_id)
     stages = snapshot["stages"]
     by_id = {s["stage_id"]: s for s in stages}
 
@@ -417,7 +424,10 @@ def stream_run(run_id: str, request: Request) -> StreamingResponse:
     ``id`` è la ``sequence`` del ledger, monotona per run: ``Last-Event-ID`` è
     quindi utilizzabile direttamente per il resume, senza mappature.
     """
-    handle = _handle_or_404(run_id)
+    _snapshot_or_404(run_id)
+    # Assente dopo un riavvio: la run non è più in esecuzione, i suoi eventi
+    # sono comunque sul ledger e lo stream li invia una volta e chiude.
+    handle = get_store().get(run_id)
     last_event_id = request.headers.get("last-event-id")
     try:
         after = int(last_event_id) if last_event_id else 0
@@ -438,7 +448,7 @@ def stream_run(run_id: str, request: Request) -> StreamingResponse:
                 yield f"id: {cursor}\nevent: {public['event_type']}\ndata: {json.dumps(public, default=str)}\n\n"
                 last_beat = time.monotonic()
 
-            finished = handle.thread is None or not handle.thread.is_alive()
+            finished = handle is None or handle.thread is None or not handle.thread.is_alive()
             if finished and not rows:
                 # La run e' conclusa e non restano eventi da inviare: lo stream
                 # si chiude invece di restare aperto inutilmente. Vale anche per
