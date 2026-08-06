@@ -1,0 +1,113 @@
+{
+  "candidate_id": "GCA3- + sha256(payload)[:24]",
+  "contract_version": "graph-candidate-assertion/3.0",
+  "enums": {
+    "alteration_parse_status": [
+      "ATOMIC",
+      "PARSED_EXACT",
+      "PARSED_WITH_WARNINGS",
+      "AMBIGUOUS_OPERATOR",
+      "UNSUPPORTED_EXPRESSION",
+      "MALFORMED_EXPRESSION",
+      "MISSING"
+    ],
+    "component_role": [
+      "ACTIVE_COMPONENT",
+      "COMBINATION_PARTNER",
+      "COMPARATOR",
+      "CONTROL",
+      "BACKBONE",
+      "SEQUENTIAL_AGENT",
+      "UNKNOWN"
+    ],
+    "graph_direction": [
+      "ADVERSE_RESPONSE",
+      "BETTER_OUTCOME",
+      "DOMINANT_NEGATIVE",
+      "GAIN_OF_FUNCTION",
+      "LOSS_OF_FUNCTION",
+      "NEGATIVE",
+      "NEOMORPHIC",
+      "ONCOGENICITY",
+      "POOR_OUTCOME",
+      "POSITIVE",
+      "PREDISPOSITION",
+      "PROTECTIVENESS",
+      "REDUCED_SENSITIVITY",
+      "RESISTANCE",
+      "SENSITIVITY",
+      "UNALTERED_FUNCTION",
+      "UNCERTAIN_SIGNIFICANCE",
+      "UNKNOWN",
+      "UNMAPPED_SOURCE_VALUE"
+    ],
+    "intervention_structure": [
+      "SINGLE_AGENT",
+      "COMBINATION_CONFIRMED",
+      "ALTERNATIVE_CONFIRMED",
+      "SEQUENTIAL_CONFIRMED",
+      "MULTI_COMPONENT_UNRESOLVED",
+      "UNKNOWN"
+    ],
+    "regimen_semantics_status": [
+      "SEMANTICS_PRESERVED",
+      "SEMANTICS_PARTIALLY_PRESERVED",
+      "SEMANTICS_UNAVAILABLE_IN_SOURCE",
+      "SEMANTICS_AMBIGUOUS",
+      "NOT_APPLICABLE"
+    ],
+    "source_alignment_status": [
+      "SOURCE_ALIGNED",
+      "SOURCE_DOES_NOT_SUPPORT",
+      "SOURCE_CONTRADICTS",
+      "SOURCE_NEUTRAL",
+      "SOURCE_ALIGNMENT_UNCLEAR",
+      "SOURCE_ALIGNMENT_NOT_AVAILABLE"
+    ],
+    "source_support_polarity": [
+      "SUPPORTS_ASSERTION",
+      "DOES_NOT_SUPPORT_ASSERTION",
+      "CONTRADICTS_ASSERTION",
+      "NEUTRAL_OR_NO_DIFFERENCE",
+      "UNCLEAR",
+      "NOT_REPORTED",
+      "UNMAPPED_SOURCE_VALUE"
+    ]
+  },
+  "forbidden_interpretations": [
+    "claim degli autori",
+    "evidenza documentale",
+    "verità clinica",
+    "raccomandazione",
+    "supporto verificato"
+  ],
+  "meaning": "relazione candidata derivata dal Knowledge Graph",
+  "model": "GraphCandidateAssertion",
+  "notes": {
+    "component_role": "l'export non contiene ruoli: su questa sorgente vale sempre UNKNOWN",
+    "does_not_support": "non viene mai convertito nella direzione opposta",
+    "unused_enum_values": [
+      "CONTRADICTS_ASSERTION e NEUTRAL_OR_NO_DIFFERENCE non sono prodotti da questa sorgente: evidence_direction ha solo Supports / Does Not Support / vuoto",
+      "COMBINATION_CONFIRMED, ALTERNATIVE_CONFIRMED e SEQUENTIAL_CONFIRMED non sono prodotti: l'export non distingue la relazione fra farmaci"
+    ]
+  },
+  "repository_version": "graph_candidate_repository/3.0",
+  "required": [
+    "candidate_id",
+    "contract_version",
+    "materialization_rule_id",
+    "subject",
+    "predicate",
+    "object",
+    "graph_direction",
+    "source_support_polarity",
+    "source_alignment_status",
+    "alteration_parse_status",
+    "intervention_structure",
+    "regimen_semantics_status",
+    "graph_path",
+    "node_ids",
+    "edge_ids",
+    "source_path_ids"
+  ]
+}

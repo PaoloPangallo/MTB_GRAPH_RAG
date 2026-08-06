@@ -78,14 +78,21 @@ def main() -> int:
     repository_hash = _sha_file(V3 / "candidates.jsonl")
 
     # ----------------------------------------------------------- indici v3
-    _write_json(V3 / "candidate_index.json", {
-        c.candidate_id: {
-            "rule": c.materialization_rule_id,
-            "alignment": c.source_alignment_status,
-            "structure": c.intervention_structure,
-            "parse_status": c.alteration_parse_status,
-        }
-        for c in candidates
+    # Indice compatto: serve a filtrare senza rileggere candidates.jsonl, quindi
+    # è serializzato senza indentazione. Nessuna informazione è persa.
+    (V3 / "candidate_index.json").write_text(
+        json.dumps({
+            c.candidate_id: [
+                c.materialization_rule_id, c.source_alignment_status,
+                c.intervention_structure, c.alteration_parse_status,
+            ]
+            for c in candidates
+        }, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+    _write_json(V3 / "candidate_index_schema.json", {
+        "format": "candidate_id -> [materialization_rule_id, source_alignment_status, "
+                  "intervention_structure, alteration_parse_status]",
     })
     with (V3 / "lineage_index.jsonl").open("w", encoding="utf-8", newline="\n") as handle:
         for c in candidates:
