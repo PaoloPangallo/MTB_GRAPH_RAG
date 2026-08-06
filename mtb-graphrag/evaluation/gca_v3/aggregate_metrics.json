@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-08-06T15:35:51.538108+00:00",
+  "invariant_violations": {},
+  "repository_v2_unchanged": true,
+  "repository_v3": "graph_candidate_repository/3.0",
+  "semantic": {
+    "automatic_direction_inversions": 0,
+    "broken_lineage": 0,
+    "compound_alteration_terms_lost": 0,
+    "compound_alterations_preserved": 1010,
+    "compound_expression_parse_failures": 0,
+    "compound_operator_lost": 0,
+    "confirmed_regimen_count": 0,
+    "invented_regimen_semantics": 0,
+    "single_agent_count": 35046,
+    "source_polarity_lost": 0,
+    "unresolved_regimen_count": 572,
+    "unresolved_regimens_split_into_positive_components": 0,
+    "unsupported_candidates_promoted_as_supported": 0
+  },
+  "shadow_comparison": {
+    "alterations_lost_in_v2": 1091,
+    "candidates_not_eligible_for_alteration_exact_match": 0,
+    "candidates_not_eligible_for_intervention_exact_match": 572,
+    "candidates_removed_from_positive_path": 1034,
+    "candidates_v2": 46864,
+    "candidates_v3": 46142,
+    "compound_alterations_recovered": 1010,
+    "delta": -722,
+    "delta_explained": "3370 archi farmaco v2 -> 2648 record Evidence v3 = -722; nessun'altra regola cambia cardinalita'",
+    "does_not_support_now_visible": 873,
+    "eligible_paths": 46864,
+    "note": "v3 non e' migliore perche' produce meno candidate: produce meno candidate perche' smette di affermare N relazioni positive dove la sorgente ne descriveva una sola, non separabile.",
+    "paths_covered_by_v3": 46864,
+    "paths_missing_in_v3": 0,
+    "polarity_explicit_in_v2": 0,
+    "polarity_now_explicit": 7454,
+    "regimens_preserved_as_units_in_v3": 572,
+    "regimens_split_in_v2": 1294,
+    "spurious_paths_in_v3": 0
+  },
+  "structural": {
+    "candidates_materialized": 46142,
+    "duplicate_rate": 0.0,
+    "eligible_source_paths": 46864,
+    "lineage_integrity": 1.0,
+    "paths_covered": 46864,
+    "payload_reproducibility": 1.0,
+    "structural_precision": 1.0,
+    "structural_recall": 1.0
+  }
+}
