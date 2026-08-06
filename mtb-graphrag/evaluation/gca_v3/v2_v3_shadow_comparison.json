@@ -1,0 +1,21 @@
+{
+  "alterations_lost_in_v2": 1091,
+  "candidates_not_eligible_for_alteration_exact_match": 0,
+  "candidates_not_eligible_for_intervention_exact_match": 572,
+  "candidates_removed_from_positive_path": 1034,
+  "candidates_v2": 46864,
+  "candidates_v3": 46142,
+  "compound_alterations_recovered": 1010,
+  "delta": -722,
+  "delta_explained": "3370 archi farmaco v2 -> 2648 record Evidence v3 = -722; nessun'altra regola cambia cardinalita'",
+  "does_not_support_now_visible": 873,
+  "eligible_paths": 46864,
+  "note": "v3 non e' migliore perche' produce meno candidate: produce meno candidate perche' smette di affermare N relazioni positive dove la sorgente ne descriveva una sola, non separabile.",
+  "paths_covered_by_v3": 46864,
+  "paths_missing_in_v3": 0,
+  "polarity_explicit_in_v2": 0,
+  "polarity_now_explicit": 7454,
+  "regimens_preserved_as_units_in_v3": 572,
+  "regimens_split_in_v2": 1294,
+  "spurious_paths_in_v3": 0
+}
