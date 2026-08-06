@@ -93,8 +93,8 @@ sono.
 ## Risultati — graph fidelity
 
 La contract fidelity perfetta **non** implica che la rappresentazione sia fedele
-al grafo. Due difetti sistematici emergono, entrambi conseguenza delle regole
-stesse e non della loro implementazione.
+al grafo. Tre difetti sistematici emergono, tutti conseguenza delle regole
+dichiarate o dei limiti della sorgente, non della loro implementazione.
 
 ### Difetto 1 — `DIRECTION_INVERSION` (486 candidate)
 
@@ -160,6 +160,46 @@ descrive un paziente diverso. Il caso `NTRK1 OR NTRK2 OR NTRK3` mostra inoltre
 che **AND e OR sono indistinguibili** nell'output: una congiunzione e una
 disgiunzione producono la stessa forma serializzata.
 
+### Difetto 3 — `REGIMEN_SPLIT` (1 294 candidate)
+
+`materialization_rules.json` dichiara come regola di atomicità:
+*«one primary relation; **inseparable regimens remain units**»*.
+
+Il campo `regimen` è **vuoto in tutte e 46 864 le candidate**, e nessuna candidate
+ha più di una `intervention`. Un record Evidence che riguarda più farmaci produce
+candidate indipendenti, una per farmaco, ciascuna delle quali afferma la relazione
+come se riguardasse quel solo farmaco.
+
+| Voce | Valore |
+|---|---|
+| Candidate colpite | **1 294** |
+| Record Evidence con più farmaci | 572 / 2 648 |
+| Farmaci per record | 2 (914) · 3 (264) · 4 (88) · 5 (20) · 8 (8) |
+| `regimen` popolato | **0 / 46 864** |
+
+Esempio (`GCA-b48d3f5b31068b9a622b7d4a`): il record Evidence associa
+`SORAFENIB`, `IMATINIB` e `NILOTINIB` con lo statement *«The melanoma cell line
+WM3211, which harbors the L576P mutation, is not sensitive to imatinib,
+nilotinib, and sorafenib»*. La materializzazione emette tre candidate separate,
+`regimen = []` per ciascuna.
+
+**La regola dichiarata non è implementabile su questo export.** La tabella
+`edge_targets_drug.csv` ha quattro colonne — `source_evidence_id`,
+`target_drug_concept_id`, `evidence_level`, `significance`, `evidence_direction` —
+e **non trasporta il tipo di interazione fra farmaci** (combinazione,
+alternativa, sequenziale). Senza quell'informazione è impossibile distinguere un
+regime combinatorio da un insieme di alternative, e lo split è l'unico
+comportamento disponibile. Il difetto è quindi nella **sorgente**, non
+nell'implementazione: la regola di atomicità promette una distinzione che i dati
+non permettono di fare.
+
+### Sovrapposizione fra i difetti
+
+| Voce | Valore |
+|---|---|
+| Candidate con almeno un difetto di graph fidelity | **2 419** (5.16 % del corpus) |
+| `DIRECTION_INVERSION` ∩ `REGIMEN_SPLIT` | 213 |
+
 ### Duplicati semantici — 344 gruppi, 1 028 record (2.19 %)
 
 Non sono classificati come errore. La semantica della deduplicazione non è
@@ -169,7 +209,7 @@ revisione.
 
 ## Failure cases
 
-`evaluation/rq1_graph_candidate_fidelity/mismatches.csv` — 1 577 righe, tutte sul
+`evaluation/rq1_graph_candidate_fidelity/mismatches.csv` — 2 871 righe, tutte sul
 layer `graph`; il layer `contract` è vuoto.
 
 ## Limitazioni
