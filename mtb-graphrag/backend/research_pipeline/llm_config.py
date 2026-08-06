@@ -59,8 +59,52 @@ class LLMEndpoint:
         return headers
 
 
+#: Host che serve il percorso OpenAI-compatible.
+#:
+#: ``backend/pipeline/llm`` ha come default ``https://api.ollama.com``, che
+#: risponde **HTTP 405 Method Not Allowed** su ``/v1/chat/completions``: con
+#: quel default *tutte* le chiamate del research runtime falliscono a livello di
+#: trasporto (verificato: 35/35 nello smoke RQ4). ``https://ollama.com`` serve
+#: lo stesso percorso e accetta il ``tool_choice`` forzato.
+#:
+#: Il default di ``backend/pipeline/llm`` **non** viene corretto: quel modulo è
+#: sigillato dal manifest dell'esperimento finale
+#: (``benchmarks/mtb_evidence/final_experiment/systems_v1.json``) e modificarlo
+#: invaliderebbe un esperimento concluso. Il default corretto vive qui, che è
+#: l'unico punto in cui il research runtime costruisce l'endpoint.
+RESEARCH_BASE_URL = "https://ollama.com"
+
+#: Host noti per non servire il percorso OpenAI-compatible.
+KNOWN_BAD_HOSTS = ("api.ollama.com",)
+
+
+class LLMEndpointMisconfigured(RuntimeError):
+    """L'endpoint risolto non può servire una tool call.
+
+    Fallire qui è deliberato: un fallback silenzioso su un host diverso da
+    quello configurato renderebbe irriproducibile la run, e proseguire verso un
+    host che risponde 405 produrrebbe 35 fallimenti di trasporto indistinguibili
+    da un'astensione del modello.
+    """
+
+
 def base_url() -> str:
-    return os.getenv("RESEARCH_PIPELINE_LLM_BASE_URL", OLLAMA_BASE_URL).rstrip("/")
+    """Unico punto di costruzione dell'host. Precedenza esplicita.
+
+    1. ``RESEARCH_PIPELINE_LLM_BASE_URL`` — override di run;
+    2. ``OLLAMA_BASE_URL`` **solo se impostata esplicitamente** nell'ambiente;
+    3. ``RESEARCH_BASE_URL`` — default corretto del research runtime.
+
+    Il punto 2 è deliberato: se l'utente imposta ``OLLAMA_BASE_URL`` la sua
+    scelta vale, ma il *default* del modulo sigillato non viene ereditato.
+    """
+    override = os.getenv("RESEARCH_PIPELINE_LLM_BASE_URL")
+    if override:
+        return override.rstrip("/")
+    configured = os.getenv("OLLAMA_BASE_URL")
+    if configured:
+        return configured.rstrip("/")
+    return RESEARCH_BASE_URL
 
 
 #: Modello del pilot, riprodotto alla lettera. ``LLM_PIPELINE`` vale
@@ -96,6 +140,16 @@ def resolve_endpoint(*, require_credentials: bool = True) -> LLMEndpoint:
     senza intenzione di chiamare: non è una modalità di esecuzione degradata.
     """
     url = base_url()
+    host = url.split("//", 1)[-1].split("/", 1)[0].lower()
+    if host in KNOWN_BAD_HOSTS:
+        raise LLMEndpointMisconfigured(
+            f"{url}{CHAT_COMPLETIONS_PATH} non è servito da {host}: quell'host "
+            "risponde HTTP 405 sul percorso OpenAI-compatible. Impostare "
+            "RESEARCH_PIPELINE_LLM_BASE_URL o OLLAMA_BASE_URL su un host che lo "
+            f"serve (default del research runtime: {RESEARCH_BASE_URL}). "
+            "Nessun fallback automatico: cambiare host in silenzio renderebbe "
+            "la run irriproducibile."
+        )
     if require_credentials and not api_key() and not is_local_endpoint(url):
         raise MissingLLMCredentials(
             "OLLAMA_API_KEY (o RESEARCH_PIPELINE_LLM_API_KEY) non impostata: "
