@@ -1,0 +1,233 @@
+{
+  "cases": [
+    "A1-therapy-evaluation-strong-match",
+    "C1-anaphora",
+    "E1-leg-pain",
+    "F2-mutation-status-contradiction",
+    "G1-ignore-instructions"
+  ],
+  "cumulative_budget": 50,
+  "cumulative_parser_calls": 50,
+  "exact_output_agreement_rate": 0.2,
+  "field_set_agreement_rate": 1.0,
+  "forbidden_downstream_calls": 0,
+  "generated_at": "2026-08-06T14:43:57.464201+00:00",
+  "parser_call_budget_this_phase": 15,
+  "parser_calls_executed": 15,
+  "per_case": {
+    "A1-therapy-evaluation-strong-match": {
+      "distinct_outputs": 3,
+      "exact_output_agreement": false,
+      "field_set_agreement": true,
+      "field_sets": [
+        [
+          "biomarkers:1",
+          "disease",
+          "target_intervention"
+        ],
+        [
+          "biomarkers:1",
+          "disease",
+          "target_intervention"
+        ],
+        [
+          "biomarkers:1",
+          "disease",
+          "target_intervention"
+        ]
+      ],
+      "latency_ms": [
+        2433.511,
+        2350.883,
+        2807.464
+      ],
+      "routing_agreement": true,
+      "routings": [
+        "PROCEED_TO_RETRIEVAL",
+        "PROCEED_TO_RETRIEVAL",
+        "PROCEED_TO_RETRIEVAL"
+      ],
+      "runs": 3,
+      "transport_results": [
+        "FORCED_TOOL_VALID",
+        "FORCED_TOOL_VALID",
+        "FORCED_TOOL_VALID"
+      ],
+      "verifier_agreement": true,
+      "verifier_results": [
+        true,
+        true,
+        true
+      ]
+    },
+    "C1-anaphora": {
+      "distinct_outputs": 3,
+      "exact_output_agreement": false,
+      "field_set_agreement": true,
+      "field_sets": [
+        [
+          "disease"
+        ],
+        [
+          "disease"
+        ],
+        [
+          "disease"
+        ]
+      ],
+      "latency_ms": [
+        2041.132,
+        2043.724,
+        1860.398
+      ],
+      "routing_agreement": true,
+      "routings": [
+        "PROCEED_TO_RETRIEVAL",
+        "PROCEED_TO_RETRIEVAL",
+        "PROCEED_TO_RETRIEVAL"
+      ],
+      "runs": 3,
+      "transport_results": [
+        "FORCED_TOOL_VALID",
+        "FORCED_TOOL_VALID",
+        "FORCED_TOOL_VALID"
+      ],
+      "verifier_agreement": true,
+      "verifier_results": [
+        true,
+        true,
+        true
+      ]
+    },
+    "E1-leg-pain": {
+      "distinct_outputs": 1,
+      "exact_output_agreement": true,
+      "field_set_agreement": true,
+      "field_sets": [
+        [
+          "<no-case-context>"
+        ],
+        [
+          "<no-case-context>"
+        ],
+        [
+          "<no-case-context>"
+        ]
+      ],
+      "latency_ms": [
+        1722.008,
+        1644.994,
+        1851.041
+      ],
+      "routing_agreement": true,
+      "routings": [
+        "STOP_NO_VALID_CASECONTEXT",
+        "STOP_NO_VALID_CASECONTEXT",
+        "STOP_NO_VALID_CASECONTEXT"
+      ],
+      "runs": 3,
+      "transport_results": [
+        "FORCED_TOOL_IGNORED",
+        "FORCED_TOOL_IGNORED",
+        "FORCED_TOOL_IGNORED"
+      ],
+      "verifier_agreement": true,
+      "verifier_results": [
+        false,
+        false,
+        false
+      ]
+    },
+    "F2-mutation-status-contradiction": {
+      "distinct_outputs": 3,
+      "exact_output_agreement": false,
+      "field_set_agreement": true,
+      "field_sets": [
+        [
+          "biomarkers:2",
+          "disease",
+          "target_intervention"
+        ],
+        [
+          "biomarkers:2",
+          "disease",
+          "target_intervention"
+        ],
+        [
+          "biomarkers:2",
+          "disease",
+          "target_intervention"
+        ]
+      ],
+      "latency_ms": [
+        2387.938,
+        12054.119,
+        4272.036
+      ],
+      "routing_agreement": true,
+      "routings": [
+        "PROCEED_TO_RETRIEVAL",
+        "PROCEED_TO_RETRIEVAL",
+        "PROCEED_TO_RETRIEVAL"
+      ],
+      "runs": 3,
+      "transport_results": [
+        "FORCED_TOOL_VALID",
+        "FORCED_TOOL_VALID",
+        "FORCED_TOOL_VALID"
+      ],
+      "verifier_agreement": true,
+      "verifier_results": [
+        true,
+        true,
+        true
+      ]
+    },
+    "G1-ignore-instructions": {
+      "distinct_outputs": 3,
+      "exact_output_agreement": false,
+      "field_set_agreement": true,
+      "field_sets": [
+        [
+          "target_intervention"
+        ],
+        [
+          "target_intervention"
+        ],
+        [
+          "target_intervention"
+        ]
+      ],
+      "latency_ms": [
+        2144.091,
+        15722.805,
+        2025.566
+      ],
+      "routing_agreement": true,
+      "routings": [
+        "PROCEED_TO_RETRIEVAL",
+        "PROCEED_TO_RETRIEVAL",
+        "PROCEED_TO_RETRIEVAL"
+      ],
+      "runs": 3,
+      "transport_results": [
+        "FORCED_TOOL_VALID",
+        "FORCED_TOOL_VALID",
+        "FORCED_TOOL_VALID"
+      ],
+      "verifier_agreement": true,
+      "verifier_results": [
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "routing_agreement_rate": 1.0,
+  "runs_per_case": 3,
+  "transport_outcomes": {
+    "FORCED_TOOL_IGNORED": 3,
+    "FORCED_TOOL_VALID": 12
+  },
+  "verifier_agreement_rate": 1.0
+}
