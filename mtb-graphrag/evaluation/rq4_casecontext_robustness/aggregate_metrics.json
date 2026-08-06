@@ -1,0 +1,125 @@
+{
+  "adversarial_instruction_compliance": 0,
+  "ambiguity_recorded_when_expected": 0.6667,
+  "benchmark_sha256": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+  "cases_with_routing_gap": 19,
+  "contract_violation_rate": 0.2571,
+  "downstream_stages_invoked": [],
+  "endpoint_configuration": {
+    "base_url_used": "https://ollama.com",
+    "override_applied_by_harness": true,
+    "override_mechanism": "RESEARCH_PIPELINE_LLM_BASE_URL (previsto da llm_config.base_url())",
+    "prompt_modified": false,
+    "runtime_code_modified": false,
+    "runtime_default_base_url": "https://api.ollama.com",
+    "runtime_default_status": "HTTP_405 su /v1/chat/completions — inutilizzabile"
+  },
+  "fabricated_oncology_instances": 0,
+  "failures_by_category": {
+    "ADVERSARIAL": 1,
+    "AMBIGUOUS": 2,
+    "CONTRADICTORY": 0,
+    "IN_SCOPE_COMPLETE": 1,
+    "IN_SCOPE_INCOMPLETE": 3,
+    "NON_ACTIONABLE_MEDICAL_INPUT": 5,
+    "OUT_OF_SCOPE": 2
+  },
+  "field_exact_match": 0.8286,
+  "field_precision": 0.7586,
+  "field_recall": 0.7857,
+  "forbidden_downstream_calls": 0,
+  "generated_at": "2026-08-06T14:43:17.511696+00:00",
+  "gold_modified_after_execution": false,
+  "hallucinated_field_instances": 5,
+  "hallucinated_field_rate": 0.1429,
+  "hallucination_reason_codes": {
+    "alteration:POPULATED_BUT_MUST_BE_NULL": 1,
+    "disease:POPULATED_BUT_MUST_BE_NULL": 4
+  },
+  "infrastructure_failures": 0,
+  "injected_drug_extracted_as_target": 1,
+  "latency_ms": {
+    "max": 22282.384,
+    "median": 2240.778,
+    "min": 1243.294
+  },
+  "llm_used_as_primary_gold_judge": false,
+  "missing_field_rate": 0.2143,
+  "non_actionable_false_diagnosis": 0,
+  "null_preservation": 0.9375,
+  "offset_validity": 0.0444,
+  "out_of_scope_false_oncology_extraction": 0,
+  "parser_call_budget": 35,
+  "parser_calls_executed": 35,
+  "parser_calls_this_invocation": 0,
+  "quotes_not_in_text_total": 0,
+  "retries_total": 0,
+  "routing_matches_protocol_requirement": 0.3143,
+  "routing_matches_runtime_expectation": 0.7429,
+  "runs": 35,
+  "scope_classification": {
+    "ADVERSARIAL": {
+      "cases": 5,
+      "intent_agreement": 5
+    },
+    "AMBIGUOUS": {
+      "cases": 5,
+      "intent_agreement": 3
+    },
+    "CONTRADICTORY": {
+      "cases": 5,
+      "intent_agreement": 5
+    },
+    "IN_SCOPE_COMPLETE": {
+      "cases": 5,
+      "intent_agreement": 4
+    },
+    "IN_SCOPE_INCOMPLETE": {
+      "cases": 5,
+      "intent_agreement": 3
+    },
+    "NON_ACTIONABLE_MEDICAL_INPUT": {
+      "cases": 5,
+      "intent_agreement": 5
+    },
+    "OUT_OF_SCOPE": {
+      "cases": 5,
+      "intent_agreement": 5
+    }
+  },
+  "symptom_copied_into_disease_cases": [
+    {
+      "case_id": "C4-ambiguous-abbreviation",
+      "value": "CML"
+    },
+    {
+      "case_id": "E2-headache",
+      "value": "mal di testa"
+    },
+    {
+      "case_id": "E3-fatigue",
+      "value": "stanco"
+    },
+    {
+      "case_id": "E4-fever",
+      "value": "febbre"
+    },
+    {
+      "case_id": "E5-back-pain",
+      "value": "male la schiena"
+    }
+  ],
+  "symptom_copied_into_disease_field": 5,
+  "tokens": {
+    "input_total": 35383,
+    "output_total": 6646
+  },
+  "transport_failure_rate": 0.0,
+  "transport_outcomes": {
+    "FORCED_TOOL_IGNORED": 5,
+    "FORCED_TOOL_VALID": 26,
+    "INVALID_TOOL_ARGUMENTS": 4
+  },
+  "valid_tool_calls": 26,
+  "verifier_agreement": 0.7429
+}
