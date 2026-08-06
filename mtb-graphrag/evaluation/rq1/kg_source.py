@@ -385,7 +385,12 @@ class EligiblePathBuilder:
                     "EMPTY_EVIDENCE_STATEMENT", context_nodes, context_edges,
                 )
 
-            for edge_drug_id, drug_edge in self.drug_edges_by_evidence.get(evidence_id, []):
+            sibling_edges = self.drug_edges_by_evidence.get(evidence_id, [])
+            sibling_drug_names = [
+                (self.drugs.get(_clean(r.get("target_drug_concept_id")), {}) or {}).get("drug_name")
+                for _, r in sibling_edges
+            ]
+            for edge_drug_id, drug_edge in sibling_edges:
                 drug_id = _clean(drug_edge.get("target_drug_concept_id"))
                 drow = self.drugs.get(drug_id)
                 if not drow:
@@ -434,6 +439,12 @@ class EligiblePathBuilder:
                         **diagnostics,
                         "edge_significance": _clean(drug_edge.get("significance")) or None,
                         "edge_evidence_direction": _clean(drug_edge.get("evidence_direction")) or None,
+                        "evidence_drug_edge_count": len(sibling_edges),
+                        "sibling_drug_names": [n for n in sibling_drug_names if n],
+                        # L'export non trasporta il tipo di interazione fra farmaci
+                        # (combinazione / alternativa / sequenziale): la colonna non
+                        # esiste in edge_targets_drug.csv.
+                        "drug_interaction_type_available": "drug_interaction_type" in (drug_edge or {}),
                     },
                 ))
         return out

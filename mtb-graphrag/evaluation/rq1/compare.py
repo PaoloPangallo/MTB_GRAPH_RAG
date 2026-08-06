@@ -44,6 +44,8 @@ SPURIOUS_CANDIDATE = "SPURIOUS_CANDIDATE"
 INCORRECT_DEDUPLICATION = "INCORRECT_DEDUPLICATION"
 LINEAGE_BROKEN = "LINEAGE_BROKEN"
 ORDER_MISMATCH = "ORDER_MISMATCH"
+#: Regola di atomicità dichiarata ma non implementabile su questo export.
+REGIMEN_SPLIT = "REGIMEN_SPLIT"
 
 #: Campi confrontati uno a uno fra atteso e materializzato.
 COMPARED_FIELDS = (
@@ -263,6 +265,24 @@ class MaterializationComparator:
         # Direzione: per evidence-to-drug il predicato deriva da `significance`
         # e ignora `evidence_direction`. Un record che *non sostiene* una
         # resistenza produce comunque un predicato di resistenza.
+        # Atomicità: `materialization_rules.json` dichiara che «inseparable
+        # regimens remain units», ma il campo `regimen` non viene mai popolato e
+        # un record Evidence con più farmaci produce candidate indipendenti, una
+        # per farmaco. L'export non trasporta il tipo di interazione fra farmaci,
+        # quindi la regola dichiarata non è implementabile su questa sorgente.
+        if path.rule_id.endswith("evidence-to-drug") and (diag.get("evidence_drug_edge_count") or 0) > 1:
+            out.append({
+                "class": REGIMEN_SPLIT,
+                "detail": (
+                    "il record Evidence riguarda più farmaci; la candidate ne afferma uno solo "
+                    "e il campo regimen resta vuoto"
+                ),
+                "evidence_drug_edge_count": diag.get("evidence_drug_edge_count"),
+                "sibling_drug_names": diag.get("sibling_drug_names"),
+                "regimen_emitted": candidate.get("regimen"),
+                "drug_interaction_type_available": diag.get("drug_interaction_type_available"),
+            })
+
         if path.rule_id.endswith("evidence-to-drug"):
             evidence_direction = (diag.get("evidence_direction") or "").strip().lower()
             predicate = candidate.get("predicate") or ""
