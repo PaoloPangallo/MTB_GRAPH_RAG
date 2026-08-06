@@ -1,0 +1,65 @@
+{
+  "automatic_pipeline_signals_available": 13,
+  "candidate_pmid_pairs": 8230,
+  "candidates_total": 46864,
+  "candidates_with_pmid": 8230,
+  "candidates_without_pmid": 38634,
+  "generated_at": "2026-08-06T14:09:13.954282+00:00",
+  "invalid_reasons": {
+    "COMPOUND_VALUE": 17,
+    "NON_NUMERIC": 4
+  },
+  "mean_pmids_per_candidate": 1.0,
+  "ncbi_requests": 12,
+  "offline": false,
+  "pairs_candidate_level": 4860,
+  "pairs_parent_level_multi_drug": 1294,
+  "pairs_parent_level_only": 3370,
+  "pmid_document_available": 15,
+  "pmid_document_unavailable": 2214,
+  "pmid_in_document_cache": 15,
+  "pmid_invalid_format": 21,
+  "pmid_not_found": 1,
+  "pmid_resolved_metadata_only": 2228,
+  "pmid_syntactically_valid": 8209,
+  "pmids_per_candidate_distribution": {
+    "1": 8230
+  },
+  "pmids_with_doi": 2159,
+  "pmids_with_pmcid": 1197,
+  "publication_type_distribution": {
+    "Case Reports": 254,
+    "Clinical Trial": 60,
+    "Clinical Trial, Phase I": 106,
+    "Clinical Trial, Phase II": 195,
+    "Clinical Trial, Phase III": 122,
+    "Comparative Study": 100,
+    "Evaluation Study": 8,
+    "Journal Article": 2156,
+    "Letter": 69,
+    "Meta-Analysis": 43,
+    "Multicenter Study": 296,
+    "Randomized Controlled Trial": 194,
+    "Research Support, N.I.H., Extramural": 528,
+    "Research Support, N.I.H., Intramural": 18,
+    "Research Support, Non-U.S. Gov't": 1387,
+    "Research Support, U.S. Gov't, Non-P.H.S.": 64,
+    "Research Support, U.S. Gov't, P.H.S.": 79,
+    "Review": 47,
+    "Systematic Review": 17,
+    "Validation Study": 9
+  },
+  "raw_identifier_rows": 16416,
+  "retraction_or_correction_signals": 3,
+  "scope_distribution": {
+    "evidence_record": 44,
+    "evidence_record+linked_publication": 8186
+  },
+  "semantic_relevance": {
+    "reason": "La pertinenza semantica richiede annotazione umana. Gli indicatori automatici della pipeline sono registrati ma non usati come gold.",
+    "semantic_pmid_precision_claimed_without_gold": false,
+    "status": "NOT_MEASURED"
+  },
+  "unique_pmids": 2229,
+  "unit_of_analysis": "coppia candidate-PMID"
+}
