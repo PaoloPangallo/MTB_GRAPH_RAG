@@ -15,11 +15,32 @@ from typing import Any
 
 import requests
 
+from .. import llm_config
+
 OLLAMA_FORCED_TOOL_CHOICE = "OLLAMA_FORCED_TOOL_CHOICE"
-OPENAI_COMPAT_ENDPOINT = "http://localhost:11434/v1/chat/completions"
-MODEL = "gemma4:cloud"
 MAX_RETRIES_INFRA_ONLY = 1
 REQUEST_TIMEOUT_SECONDS = 60
+
+
+def endpoint() -> llm_config.LLMEndpoint:
+    """Coordinate della chiamata, risolte **al momento della chiamata**.
+
+    Erano due costanti di modulo: ``http://localhost:11434/v1/chat/completions``
+    e ``gemma4:cloud``, senza header di autorizzazione. ``llm_config`` esisteva
+    già con la configurazione corretta ma nessuno la importava, quindi la
+    pipeline non poteva essere puntata altrove né autenticarsi. Risolvere qui, a
+    ogni chiamata, evita anche che un import anticipato congeli la
+    configurazione prima che i test la impostino.
+    """
+    return llm_config.resolve_endpoint()
+
+
+def endpoint_url() -> str:
+    return llm_config.resolve_endpoint(require_credentials=False).url
+
+
+def model_name() -> str:
+    return llm_config.model_name()
 
 
 def sha(value: str) -> str:
@@ -28,9 +49,14 @@ def sha(value: str) -> str:
 
 def build_payload(tool_definition: dict, tool_name: str, messages: list[dict[str, str]], seed: int, max_tokens: int) -> dict[str, Any]:
     return {
-        "model": MODEL, "messages": messages, "tools": [tool_definition],
+        "model": model_name(), "messages": messages, "tools": [tool_definition],
         "tool_choice": {"type": "function", "function": {"name": tool_name}},
         "temperature": 0, "top_p": 1.0, "seed": seed, "max_tokens": max_tokens, "stream": False,
+        # Nessuna catena di pensiero: non deve essere prodotta, non solo non
+        # mostrata. ``events.assert_payload_is_publishable`` la rifiuterebbe
+        # comunque a valle, ma un modello che ragiona ad alta voce consuma il
+        # budget di token del tool call.
+        "think": False,
     }
 
 
@@ -38,9 +64,14 @@ def post_with_infra_retry(payload: dict) -> tuple[int | None, dict | None, str |
     """Returns (status_code, response_json, network_error, retry_count). Retries only
     timeout / connection failure / HTTP 5xx -- never a semantic outcome."""
     retry_count = 0
+    target = endpoint()
     for attempt in range(MAX_RETRIES_INFRA_ONLY + 1):
         try:
-            response = requests.post(OPENAI_COMPAT_ENDPOINT, json=payload, timeout=REQUEST_TIMEOUT_SECONDS)
+            response = requests.post(
+                target.url, json=payload,
+                headers=target.headers(llm_config.api_key()),
+                timeout=target.timeout_seconds,
+            )
             status = response.status_code
             try:
                 body = response.json()

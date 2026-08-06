@@ -21,7 +21,7 @@ def call_parser(case_id: str, clinical_text: str, run_index: int = 0) -> dict:
     transport, finish_reason, args, reasons = tr.transport_result(status_code, response_json, network_error, prompt.TOOL_NAME, prompt.tool_argument_errors)
     usage = (response_json or {}).get("usage") or {}
     return {
-        "case_id": case_id, "run_index": run_index, "model": tr.MODEL, "endpoint": tr.OPENAI_COMPAT_ENDPOINT,
+        "case_id": case_id, "run_index": run_index, "model": tr.model_name(), "endpoint": tr.endpoint_url(),
         "delivery_transport": tr.OLLAMA_FORCED_TOOL_CHOICE, "prompt_version": prompt.PROMPT_VERSION,
         "transport_result": transport, "transport_reason_codes": reasons, "finish_reason": finish_reason,
         "case_context_raw": args, "raw_response_hash": response_hash,

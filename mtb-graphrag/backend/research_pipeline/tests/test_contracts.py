@@ -12,6 +12,7 @@ import dataclasses
 from unittest import TestCase
 
 from backend.research_pipeline.contracts import (
+    CORRECT_STOP_REASONS,
     LLM_STAGE_IDS,
     NOT_IMPLEMENTED_STAGE_IDS,
     RUN_STATUSES,
@@ -150,9 +151,10 @@ class RunStatusTest(TestCase):
                 started_at="t", stopped_at="INVENTED_REASON", input_text="…",
             )
 
-    def test_the_four_stop_reasons_come_from_the_pilot(self) -> None:
+    def test_the_four_pilot_stop_reasons_are_preserved(self) -> None:
+        """I quattro punti d'arresto del pilot restano, nell'ordine originale."""
         self.assertEqual(
-            STOP_REASONS,
+            STOP_REASONS[:4],
             (
                 "PARSER_TRANSPORT_FAILED",
                 "CASECONTEXT_MISMATCH",
@@ -160,6 +162,18 @@ class RunStatusTest(TestCase):
                 "CALL_BUDGET_EXCEEDED",
             ),
         )
+
+    def test_live_stop_reasons_are_failures_not_correct_outcomes(self) -> None:
+        """Una run LIVE che non trova la cache non ha una risposta da mostrare.
+
+        I tre arresti aggiunti con l'esecuzione documentale reale non compaiono
+        in ``CORRECT_STOP_REASONS``: renderli come esiti legittimi permetterebbe
+        di leggere un guasto di configurazione come un'astensione della pipeline.
+        """
+        live_stops = ("DOCUMENT_CACHE_UNAVAILABLE", "NO_DOCUMENT_RESOLVED", "LIVE_STAGE_FAILED")
+        for reason in live_stops:
+            self.assertIn(reason, STOP_REASONS)
+            self.assertNotIn(reason, CORRECT_STOP_REASONS)
 
     def test_unknown_status_is_rejected(self) -> None:
         with self.assertRaises(ValueError):

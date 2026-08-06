@@ -83,6 +83,10 @@ class OrchestratorTestBase(TestCase):
             "source_units_by_id": {},
             "budget": CallBudget(),
             "ledger": self.ledger,
+            # Questi test rigiocano gli output congelati del parser: la modalità
+            # va dichiarata, perché LIVE senza cache documentale fallisce — che è
+            # esattamente il comportamento voluto.
+            "execution_mode": "REPLAY",
         }
         kwargs.update(overrides)
         return orchestrator.run_case(**kwargs)
@@ -317,11 +321,19 @@ class ResearchFramingTest(OrchestratorTestBase):
         self.assertFalse(preview["documentary_proof"])
 
     def test_frozen_document_stages_are_labelled_as_replay(self) -> None:
+        """La marcatura vive nel contratto dello stage, non in una chiave del preview.
+
+        Prima era ``output_preview["replayed"] = True``, scritta dall'orchestratore
+        in modo incondizionato: valeva anche quando la cache era disponibile e la
+        risoluzione sarebbe stata reale. Ora è ``artifact_origin``, e uno stage
+        non può dichiararsi LIVE mentre rigioca un artefatto registrato.
+        """
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")
         by_id = {s.stage_id: s for s in run.stages}
 
         for stage_id in ("stage_6_document_resolution", "stage_7_source_units"):
-            self.assertTrue(by_id[stage_id].output_preview.get("replayed"))
+            self.assertEqual(by_id[stage_id].artifact_origin, "RECORDED_REAL_RUN")
+            self.assertEqual(by_id[stage_id].execution_mode, "REPLAY")
 
     def test_missing_gates_are_declared_not_silently_absent(self) -> None:
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")

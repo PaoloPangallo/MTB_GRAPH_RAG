@@ -34,8 +34,16 @@ class ResearchApiTestBase(TestCase):
         run_store.reset_store()
         self._tmp.cleanup()
 
-    def run_demo(self, case_id: str = DEMO_CASE) -> str:
-        response = self.client.post(f"{BASE}/runs", json={"demo_case_key": case_id})
+    def run_demo(self, case_id: str = DEMO_CASE, execution_mode: str = "REPLAY") -> str:
+        """Avvia una run **dichiarando** la modalità.
+
+        Queste prove esercitano gli artefatti registrati e non chiamano il
+        modello: senza il campo esplicito la richiesta sarebbe LIVE e verrebbe
+        respinta con 503 per cache assente, che è il comportamento voluto e ha
+        un test dedicato.
+        """
+        response = self.client.post(
+            f"{BASE}/runs", json={"demo_case_key": case_id, "execution_mode": execution_mode})
         self.assertEqual(response.status_code, 201, response.text)
         run_id = response.json()["run_id"]
         for _ in range(300):

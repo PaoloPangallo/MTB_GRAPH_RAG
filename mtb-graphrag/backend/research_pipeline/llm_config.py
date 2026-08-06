@@ -23,7 +23,6 @@ import os
 from dataclasses import dataclass
 
 from backend.pipeline.llm import (
-    LLM_PIPELINE,
     OLLAMA_API_KEY,
     OLLAMA_BASE_URL,
 )
@@ -64,14 +63,22 @@ def base_url() -> str:
     return os.getenv("RESEARCH_PIPELINE_LLM_BASE_URL", OLLAMA_BASE_URL).rstrip("/")
 
 
+#: Modello del pilot, riprodotto alla lettera. ``LLM_PIPELINE`` vale
+#: ``gemma4:31b-cloud``: denota lo stesso modello, ma il tag registrato negli
+#: artefatti del commit ``6ee64c5`` è ``gemma4:cloud``, e una run LIVE che si
+#: confronta con quegli artefatti deve dichiarare lo stesso tag. Un confronto fra
+#: due tag diversi dello stesso modello sarebbe indistinguibile da un confronto
+#: fra due modelli.
+RESEARCH_MODEL = "gemma4:cloud"
+
+
 def model_name() -> str:
     """Modello usato dagli stage 2 e 9.
 
-    Default alla configurazione canonica: ``gemma4:31b-cloud`` e ``gemma4:cloud``
-    denotano lo stesso modello, quindi riusare ``LLM_PIPELINE`` non altera le
-    condizioni sperimentali del pilot.
+    ``LLM_PIPELINE`` resta il default della pipeline di prodotto; qui il default
+    è il tag del pilot, sovrascrivibile con ``RESEARCH_PIPELINE_MODEL``.
     """
-    return os.getenv("RESEARCH_PIPELINE_MODEL", LLM_PIPELINE)
+    return os.getenv("RESEARCH_PIPELINE_MODEL") or RESEARCH_MODEL
 
 
 def api_key() -> str:
