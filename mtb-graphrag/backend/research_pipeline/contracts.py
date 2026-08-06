@@ -22,6 +22,15 @@ import dataclasses
 from dataclasses import dataclass, field, replace
 from typing import Any, Literal, Mapping
 
+from backend.research_pipeline.execution_mode import (
+    ARTIFACT_ORIGINS,
+    EXECUTION_MODES,
+    NOT_EXECUTED,
+    RECORDED_REAL_RUN,
+    classify_run_mode,
+    summarize,
+)
+
 # --- Vocabolari -------------------------------------------------------------
 
 RUN_STATUSES: tuple[str, ...] = (
@@ -39,6 +48,12 @@ STOP_REASONS: tuple[str, ...] = (
     "CASECONTEXT_MISMATCH",
     "RETRIEVAL_NO_MATCH",
     "CALL_BUDGET_EXCEEDED",
+    # Introdotti con l'esecuzione LIVE degli stage documentali. Sono guasti, non
+    # esiti: una run che li riporta non ha una risposta, e non deve poterne
+    # mostrare una presa altrove.
+    "DOCUMENT_CACHE_UNAVAILABLE",
+    "NO_DOCUMENT_RESOLVED",
+    "LIVE_STAGE_FAILED",
 )
 
 #: ``CASECONTEXT_MISMATCH`` e ``RETRIEVAL_NO_MATCH`` sono esiti corretti: la
@@ -160,10 +175,24 @@ class PipelineStage:
     errors: tuple[str, ...] = ()
     metrics: Mapping[str, Any] = field(default_factory=dict)
     lineage: Mapping[str, Any] = field(default_factory=dict)
+    #: Modalità della run a cui questo stage appartiene.
+    execution_mode: str = "LIVE"
+    #: Da dove viene il risultato di *questo* stage. Il default è il valore più
+    #: cauto: uno stage che non dichiara la propria origine non è stato eseguito.
+    artifact_origin: str = NOT_EXECUTED
 
     def __post_init__(self) -> None:
         if self.stage_id not in _STAGE_TYPE_BY_ID:
             raise ValueError(f"stage_id sconosciuto: {self.stage_id!r}")
+        if self.execution_mode not in EXECUTION_MODES:
+            raise ValueError(f"execution_mode sconosciuto: {self.execution_mode!r}")
+        if self.artifact_origin not in ARTIFACT_ORIGINS:
+            raise ValueError(f"artifact_origin sconosciuto: {self.artifact_origin!r}")
+        if self.execution_mode == "LIVE" and self.artifact_origin == RECORDED_REAL_RUN:
+            raise ValueError(
+                f"{self.stage_id}: uno stage che rigioca un artefatto registrato non "
+                "può dichiararsi LIVE. La run va classificata HYBRID."
+            )
         if self.stage_type != _STAGE_TYPE_BY_ID[self.stage_id]:
             raise ValueError(
                 f"stage_type {self.stage_type!r} non corrisponde a {self.stage_id!r}"
@@ -209,6 +238,8 @@ class PipelineStage:
             "producer": self.producer.to_dict(),
             "metrics": dict(self.metrics),
             "lineage": dict(self.lineage),
+            "execution_mode": self.execution_mode,
+            "artifact_origin": self.artifact_origin,
         }
 
 
@@ -231,12 +262,31 @@ class PipelineRun:
     errors: tuple[str, ...] = ()
     versions: Mapping[str, Any] = field(default_factory=dict)
     metrics: Mapping[str, Any] = field(default_factory=dict)
+    #: Modalità **richiesta** all'avvio. Quella effettiva è derivata dagli stage.
+    requested_mode: str = "LIVE"
+    document_cache: Mapping[str, Any] = field(default_factory=dict)
+    llm_calls: int = 0
 
     def __post_init__(self) -> None:
         if self.status not in RUN_STATUSES:
             raise ValueError(f"run status sconosciuto: {self.status!r}")
         if self.stopped_at is not None and self.stopped_at not in STOP_REASONS:
             raise ValueError(f"stop reason sconosciuta: {self.stopped_at!r}")
+        if self.requested_mode not in EXECUTION_MODES:
+            raise ValueError(f"requested_mode sconosciuto: {self.requested_mode!r}")
+
+    @property
+    def execution_mode(self) -> str:
+        """Modalità **effettiva**, dedotta dalle origini degli stage.
+
+        Non è un campo memorizzabile: se lo fosse, potrebbe divergere dagli stage
+        che dovrebbe riassumere. Un solo artefatto registrato in una run avviata
+        LIVE la rende HYBRID, e non c'è modo di sovrascriverlo.
+        """
+        return classify_run_mode(self.requested_mode, (s.artifact_origin for s in self.stages))
+
+    def mode_summary(self) -> dict[str, Any]:
+        return summarize(self.requested_mode, [s.artifact_origin for s in self.stages])
 
     def with_status(self, status: str, **changes: Any) -> "PipelineRun":
         """Nuova run con lo stato aggiornato. L'originale resta invariata."""
@@ -280,4 +330,7 @@ class PipelineRun:
             "versions": dict(self.versions),
             "metrics": dict(self.metrics),
             "research_notice": self.research_notice(),
+            "document_cache": dict(self.document_cache),
+            "llm_calls": self.llm_calls,
+            **self.mode_summary(),
         }
