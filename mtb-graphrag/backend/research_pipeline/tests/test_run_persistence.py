@@ -95,6 +95,29 @@ class RunPersistenceTest(TestCase):
             [s["artifact_origin"] for s in before["stages"]],
         )
 
+    def test_the_llm_call_count_is_the_same_read_from_either_side(self) -> None:
+        """Era ricalcolato in lettura, e dava due numeri per la stessa run.
+
+        La somma delle metriche di stage escludeva il parser — che non
+        contribuisce ad alcuna metrica — e in REPLAY contava come reali le
+        chiamate rigiocate. Il valore canonico lo scrive l'orchestratore.
+        """
+        run_id = self._completed_run()
+        before = self.client.get(f"{BASE}/runs/{run_id}").json()
+        self._restart_backend()
+        after = self.client.get(f"{BASE}/runs/{run_id}").json()
+
+        self.assertEqual(after["llm_calls"], before["llm_calls"])
+
+    def test_a_replay_run_reports_zero_real_model_calls(self) -> None:
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        snapshot = self.client.get(f"{BASE}/runs/{run_id}").json()
+
+        self.assertEqual(snapshot["execution_mode"], "REPLAY")
+        self.assertEqual(snapshot["llm_calls"], 0)
+
     def test_the_dossier_is_rebuilt(self) -> None:
         run_id = self._completed_run()
         self._restart_backend()

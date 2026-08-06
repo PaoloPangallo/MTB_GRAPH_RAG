@@ -236,11 +236,15 @@ class RunRecorder:
             self.finish(stage_id, producer, status="SKIPPED",
                         artifact_origin=origin, reason_codes=(code,))
 
-    def run_completed(self, status: str, stopped_at: str | None) -> None:
+    def run_completed(self, status: str, stopped_at: str | None, llm_calls: int) -> None:
+        # ``llm_calls`` viaggia nell'evento e non viene ricalcolato in lettura.
+        # Ricalcolarlo sommando le metriche degli stage dava due valori diversi
+        # per la stessa run — il parser non contribuisce a nessuna metrica di
+        # stage, e in REPLAY le chiamate rigiocate venivano contate come reali.
         self._emit(
             ev.RUN_COMPLETED,
             {"status": status, "stopped_at": stopped_at, "stage_count": len(self._stages),
-             **em.summarize(self._mode, self.origins)},
+             "llm_calls": llm_calls, **em.summarize(self._mode, self.origins)},
             _deterministic("orchestrator"),
         )
 
@@ -302,7 +306,7 @@ def run_case(
             recorder.skip_remaining(stopped_at)
         else:
             recorder.skip_remaining("NOT_IMPLEMENTED")
-        recorder.run_completed(status, stopped_at)
+        recorder.run_completed(status, stopped_at, llm_calls)
         return PipelineRun(
             run_id=run_id, case_id=case_id, status=status, started_at=started_at,
             completed_at=_now(), input_text=clinical_text[:600], stopped_at=stopped_at,
@@ -617,7 +621,12 @@ def run_case(
                     output_preview={"calls": [
                         {k: v for k, v in call.items() if k != "raw_response"}
                         for call in enrichment_calls]},
-                    metrics={"llm_calls": len(enrichment_calls),
+                    # ``enricher_calls`` conta le proposte prodotte, reali o
+                    # rigiocate; ``real_llm_calls`` solo quelle che hanno
+                    # davvero raggiunto il modello. In REPLAY la seconda è zero,
+                    # e chiamarle entrambe "llm_calls" le rendeva indistinguibili.
+                    metrics={"enricher_calls": len(enrichment_calls),
+                             "real_llm_calls": len(enrichment_calls) if is_live else 0,
                              "retries": sum(int(c.get("retry_count") or 0) for c in enrichment_calls)})
 
     p = _deterministic("enrichment_validator")
