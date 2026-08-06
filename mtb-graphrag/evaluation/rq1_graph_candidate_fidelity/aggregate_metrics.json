@@ -1,0 +1,183 @@
+{
+  "candidates_artifact": {
+    "declared_sha256": "d6c65c2682313652b736f1f82968078292c12588823e2f79309e76d6e671235d",
+    "path": "benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\2.0\\candidates.jsonl",
+    "verified": true
+  },
+  "contract_field_fidelity_by_field": {
+    "biomarkers": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "diagnostic_scope": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "direction": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "disease": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "document_identifiers": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "edge_ids": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "evidence_record_ids": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "evidence_scope": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "expected_payload_identity": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "graph_path": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "interventions": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "materialization_rule_id": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "node_ids": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "object": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "payload_identity": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "predicate": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "regimen": {
+      "checked": 46864,
+      "ok": 46864
+    },
+    "subject": {
+      "checked": 46864,
+      "ok": 46864
+    }
+  },
+  "contract_finding_counts": {},
+  "coverage_by_document_identifier": {
+    "with_nct": 12882,
+    "with_pmid": 8230,
+    "without_identifier": 25752
+  },
+  "coverage_by_rule": {
+    "gca/2.0/companion-diagnostic": {
+      "eligible": 163,
+      "matched": 163,
+      "missing": 0
+    },
+    "gca/2.0/evidence-statement": {
+      "eligible": 4860,
+      "matched": 4860,
+      "missing": 0
+    },
+    "gca/2.0/evidence-to-drug": {
+      "eligible": 3370,
+      "matched": 3370,
+      "missing": 0
+    },
+    "gca/2.0/gene-drug-interaction": {
+      "eligible": 25589,
+      "matched": 25589,
+      "missing": 0
+    },
+    "gca/2.0/trial-drug": {
+      "eligible": 7381,
+      "matched": 7381,
+      "missing": 0
+    },
+    "gca/2.0/trial-gene": {
+      "eligible": 5501,
+      "matched": 5501,
+      "missing": 0
+    }
+  },
+  "direction_inversions_contract": 0,
+  "direction_inversions_graph": 486,
+  "duplicates": {
+    "exact_duplicate_groups": 0,
+    "exact_duplicate_records": 0,
+    "repeated_candidate_ids": {},
+    "semantic_duplicate_groups": 344,
+    "semantic_duplicate_records": 1028
+  },
+  "eligible_paths": 46864,
+  "exact_duplicate_rate": 0.0,
+  "excluded_paths": 0,
+  "exclusion_reasons": {},
+  "field_completeness": 1.0,
+  "generated_at": "2026-08-06T13:57:15.791955+00:00",
+  "graph_fidelity_finding_counts": {
+    "ALTERATION_LOST": 1091,
+    "DIRECTION_INVERSION": 486
+  },
+  "inventory": {
+    "edge_counts": {
+      "civic_evidence_disease_links.csv": 4684,
+      "civic_evidence_publication_links.csv": 4840,
+      "edge_diagnoses_gene.csv": 163,
+      "edge_has_companion_diagnostic.csv": 150,
+      "edge_has_evidence.csv": 4860,
+      "edge_has_variant.csv": 1727,
+      "edge_in_molecular_profile.csv": 2281,
+      "edge_interacts_with.csv": 25589,
+      "edge_targets_drug.csv": 3370,
+      "edges_trial_drug.csv": 7381,
+      "edges_trial_gene.csv": 5501
+    },
+    "evidence_records": 4860,
+    "node_counts": {
+      "civic_diseases.csv": 334,
+      "civic_publications.csv": 2222,
+      "node_companion_diagnostic.csv": 166,
+      "node_drug.csv": 24502,
+      "node_evidence.csv": 4860,
+      "node_gene.csv": 1437,
+      "node_molecular_profile.csv": 1939,
+      "node_variant.csv": 1975,
+      "nodes_clinical_trials.csv": 5570
+    },
+    "source_root": "C:\\Users\\paolo\\Desktop\\IspezioneDatasetTesi\\data_expl\\DatasetTESI\\Dataset TESI\\Clean_Graph_Data",
+    "total_edges": 60546,
+    "total_nodes": 43005
+  },
+  "kg_source": {
+    "corpus_fingerprint": "8df07e828f97a77fc938540d65f6c303c712d566bae2be59ce1e0274681f4da2",
+    "kind": "FROZEN_CSV_EXPORT",
+    "neo4j_available": false,
+    "neo4j_used": false,
+    "root": "C:\\Users\\paolo\\Desktop\\IspezioneDatasetTesi\\data_expl\\DatasetTESI\\Dataset TESI\\Clean_Graph_Data"
+  },
+  "matched_paths": 46864,
+  "materialization_precision": 1.0,
+  "materialization_recall": 1.0,
+  "materialized_candidates": 46864,
+  "method": "Path eleggibili riderivati in modo indipendente dall'export CSV congelato (evaluation/rq1/kg_source.py). Il materializzatore originale non è stato rieseguito.",
+  "missing_candidate_count": 0,
+  "semantic_duplicate_rate": 0.02193581427108228,
+  "spurious_candidate_count": 0
+}
