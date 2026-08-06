@@ -187,9 +187,11 @@ def rehydrate(ledger: EventLedger, run_id: str) -> dict[str, Any] | None:
         "metrics": {},
         "research_notice": PipelineRun.research_notice(),
         "document_cache": dict(created_payload.get("document_cache") or {}),
-        "llm_calls": sum(
-            int((s["metrics"] or {}).get("llm_calls") or 0) for s in stages
-        ),
+        # Valore canonico scritto dall'orchestratore, non ricalcolato: sommare le
+        # metriche degli stage escludeva il parser e contava come reali le
+        # chiamate rigiocate, dando due numeri diversi per la stessa run a
+        # seconda che la si leggesse dalla memoria o dal ledger.
+        "llm_calls": int((completed["payload"].get("llm_calls") or 0)) if completed is not None else 0,
         **em.summarize(requested_mode, origins),
         # Marcature che esistono **solo** su una run reidratata: chi legge deve
         # poter distinguere una vista ricostruita da una run appena eseguita.

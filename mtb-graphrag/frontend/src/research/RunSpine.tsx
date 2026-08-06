@@ -219,9 +219,11 @@ export default function RunSpine({ stages, selectedStageId, onSelect }: RunSpine
                       {String(stage.metrics.with_exact_text)} source unit con testo
                     </Typography>
                   )}
-                  {typeof stage.metrics.llm_calls === 'number' && (
+                  {typeof stage.metrics.enricher_calls === 'number' && (
                     <Typography component="span" sx={{ fontFamily: font.mono, fontSize: 10, color: color.muted }}>
-                      {String(stage.metrics.llm_calls)} chiamate · {String(stage.metrics.retries ?? 0)} retry
+                      {String(stage.metrics.enricher_calls)} proposte ·{' '}
+                      {String(stage.metrics.real_llm_calls ?? 0)} chiamate reali ·{' '}
+                      {String(stage.metrics.retries ?? 0)} retry
                     </Typography>
                   )}
                 </Stack>
