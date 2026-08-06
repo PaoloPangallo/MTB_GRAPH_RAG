@@ -1,0 +1,14 @@
+{
+  "cases": 35,
+  "downstream_calls_avoided_by_gate": 27,
+  "frontend_computes_differences": false,
+  "note": "v2 esegue il retrieval per ogni caso, incluso «Che tempo fa domani?». v3 lo esegue solo per i casi eleggibili.",
+  "v2_candidate_matches_total": 4,
+  "v2_candidates_with_bundles": 16,
+  "v2_retrieval_always_executed": true,
+  "v3_audit_only_total": 1,
+  "v3_candidates_with_bundles": 16,
+  "v3_positive_total": 16,
+  "v3_rejected_total": 111,
+  "v3_retrieval_executed": 8
+}
