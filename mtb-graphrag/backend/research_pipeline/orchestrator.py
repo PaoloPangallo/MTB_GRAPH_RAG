@@ -32,6 +32,7 @@ from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import events as ev
 from backend.research_pipeline import execution_mode as em
 from backend.research_pipeline.casecontext import match_verifier as verifier
+from backend.research_pipeline.casecontext import pipeline as cc_pipeline
 from backend.research_pipeline.contracts import (
     NOT_IMPLEMENTED_STAGE_IDS,
     STAGE_SEQUENCE,
@@ -382,6 +383,41 @@ def run_case(
         return _finalize("STOPPED", "CASECONTEXT_MISMATCH")
     recorder.finish("stage_3_casecontext_match", p, domain_event=ev.CASECONTEXT_VERIFIED,
                     warnings=tuple(match_warnings), output_preview=preview)
+
+    # STAGE 3b — Pre-Retrieval Eligibility Gate (deterministico)
+    #
+    # Il verifier testuale non basta: ``MISSING_IN_TEXT`` non è ``MISMATCH``,
+    # quindi un CaseContext completamente vuoto superava lo stage 3 ed entrava
+    # nel retrieval. Il gate applica verifica semantica, rilevamento delle
+    # istruzioni di controllo e rilevamento delle contraddizioni, e decide.
+    p = _deterministic("pre_retrieval_eligibility_gate", cc_pipeline.DETERMINISTIC_CHAIN_VERSION)
+    recorder.start("stage_3b_pre_retrieval_eligibility_gate", p)
+    chain = cc_pipeline.run(clinical_text, case_context, transport_ok=True)
+    eligibility = chain["eligibility"]
+    gate_preview = {
+        "eligibility_status": eligibility["eligibility_status"],
+        "eligible": eligibility["eligible"],
+        "reason_codes": eligibility["reason_codes"],
+        "verified_fields": eligibility["verified_fields"],
+        "missing_required_fields": eligibility["missing_required_fields"],
+        "rejected_mentions": eligibility["rejected_mentions"],
+        "symptom_mentions": (chain["case_context_v2"] or {}).get("symptom_mentions", []),
+        "control_instruction_spans": chain["control_instruction_spans"],
+        "contradictions": eligibility["contradictions"],
+        "scope_evidence": eligibility["scope_evidence"],
+        "forbidden_downstream_stages": eligibility["forbidden_downstream_stages"],
+        "policy_version": eligibility["policy_version"],
+        "producer": eligibility["producer"],
+    }
+    if not eligibility["eligible"]:
+        recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p, status="WARNING",
+                        reason_codes=tuple(eligibility["reason_codes"]),
+                        warnings=tuple(eligibility["warning_codes"]),
+                        output_preview=gate_preview)
+        return _finalize("STOPPED", eligibility["eligibility_status"])
+    recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p,
+                    warnings=tuple(eligibility["warning_codes"]),
+                    output_preview=gate_preview)
 
     # STAGE 4-5 — Piano di retrieval e interrogazione del grafo
     p = _deterministic("retrieval_plan")

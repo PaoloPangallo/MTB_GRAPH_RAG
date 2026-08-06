@@ -96,11 +96,20 @@ class OrchestratorTestBase(TestCase):
 
 
 class EveryStageIsAccountedForTest(OrchestratorTestBase):
-    def test_all_fifteen_stages_appear_in_declared_order(self) -> None:
+    def test_all_stages_appear_in_declared_order(self) -> None:
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")
 
         self.assertEqual([s.stage_id for s in run.stages], list(STAGE_SEQUENCE))
-        self.assertEqual([s.sequence for s in run.stages], list(range(1, 16)))
+        self.assertEqual([s.sequence for s in run.stages],
+                         list(range(1, len(STAGE_SEQUENCE) + 1)))
+
+    def test_the_eligibility_gate_is_executed(self) -> None:
+        run = self.run_case("CASE-1-therapy-evaluation-strong-match")
+        gate = next(s for s in run.stages
+                    if s.stage_id == "stage_3b_pre_retrieval_eligibility_gate")
+        self.assertNotEqual(gate.status, "SKIPPED")
+        self.assertEqual(gate.output_preview["eligibility_status"], "ELIGIBLE_FOR_RETRIEVAL")
+        self.assertEqual(gate.output_preview["producer"], "DETERMINISTIC")
 
     def test_no_stage_is_left_pending(self) -> None:
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")

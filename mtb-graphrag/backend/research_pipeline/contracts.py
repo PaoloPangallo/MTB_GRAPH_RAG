@@ -72,6 +72,11 @@ STAGE_TYPES: tuple[tuple[str, str], ...] = (
     ("stage_1_case_input", "CASE_INPUT"),
     ("stage_2_casecontext_parser", "CASECONTEXT_PARSER"),
     ("stage_3_casecontext_match", "CASECONTEXT_MATCH_VERIFIER"),
+    # Il gate è deterministico e sta **prima** del retrieval: è il punto in cui
+    # un input vuoto, fuori dominio, non azionabile o contraddittorio si ferma.
+    # Prima esistevano due soli esiti di routing e la categoria dell'input non
+    # li determinava.
+    ("stage_3b_pre_retrieval_eligibility_gate", "PRE_RETRIEVAL_ELIGIBILITY_GATE"),
     ("stage_4_retrieval_plan", "RETRIEVAL_PLAN"),
     ("stage_5_kg_retrieval", "KG_RETRIEVAL"),
     ("stage_6_document_resolution", "DOCUMENT_RESOLUTION"),

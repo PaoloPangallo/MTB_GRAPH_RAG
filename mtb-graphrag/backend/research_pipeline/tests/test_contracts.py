@@ -27,10 +27,20 @@ from backend.research_pipeline.contracts import (
 
 
 class StageSequenceTest(TestCase):
-    def test_fifteen_stages_in_declared_order(self) -> None:
-        self.assertEqual(len(STAGE_SEQUENCE), 15)
+    def test_stages_in_declared_order(self) -> None:
+        self.assertEqual(len(STAGE_SEQUENCE), 16)
         self.assertEqual(STAGE_SEQUENCE[0], "stage_1_case_input")
         self.assertEqual(STAGE_SEQUENCE[-1], "stage_15_narrative_verifier")
+
+    def test_eligibility_gate_sits_between_verification_and_retrieval(self) -> None:
+        """La posizione è parte del contratto: il gate decide *prima* del retrieval."""
+        gate = STAGE_SEQUENCE.index("stage_3b_pre_retrieval_eligibility_gate")
+        self.assertEqual(STAGE_SEQUENCE[gate - 1], "stage_3_casecontext_match")
+        self.assertEqual(STAGE_SEQUENCE[gate + 1], "stage_4_retrieval_plan")
+
+    def test_eligibility_gate_is_deterministic_not_an_llm_stage(self) -> None:
+        from backend.research_pipeline.contracts import LLM_STAGE_IDS
+        self.assertNotIn("stage_3b_pre_retrieval_eligibility_gate", LLM_STAGE_IDS)
 
     def test_stage_ids_are_unique(self) -> None:
         self.assertEqual(len(set(STAGE_SEQUENCE)), len(STAGE_SEQUENCE))

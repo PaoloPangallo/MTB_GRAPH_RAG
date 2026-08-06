@@ -157,6 +157,45 @@ def load_v3_candidates() -> dict[str, dict[str, Any]]:
     return out
 
 
+@lru_cache(maxsize=1)
+def v2_to_v3_mapping() -> dict[str, list[str]]:
+    """``candidate_v2_id -> [candidate_v3_id]``, dal mapping di migrazione."""
+    path = repository_dir("3.0") / "v2_mapping.jsonl"
+    if not path.exists():
+        raise RepositoryContractInvalid(f"mapping v2→v3 assente: {path}")
+    out: dict[str, list[str]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        if row.get("v2_candidate_id") and row.get("v3_candidate_id"):
+            out.setdefault(row["v2_candidate_id"], []).append(row["v3_candidate_id"])
+    return out
+
+
+def bridge_bundles_to_v3(
+    bundles_by_v2_candidate: dict[str, list[dict[str, Any]]],
+) -> dict[str, list[dict[str, Any]]]:
+    """Riporta gli EvidenceBundle dagli id v2 agli id v3.
+
+    Gli EvidenceBundle congelati sono chiavizzati sugli id **v2**: senza questo
+    ponte nessuna candidate v3 avrebbe documenti e il retrieval v3 non
+    troverebbe mai nulla. Il ponte usa il mapping di migrazione, che è un
+    artefatto di primo livello del repository v3 — non un'euristica.
+
+    Un bundle di una candidate v2 confluita in un'unità di regime viene
+    associato all'unità: è la stessa relazione, rappresentata diversamente.
+    """
+    mapping = v2_to_v3_mapping()
+    out: dict[str, list[dict[str, Any]]] = {}
+    for v2_id, bundles in bundles_by_v2_candidate.items():
+        for v3_id in mapping.get(v2_id, []):
+            for bundle in bundles:
+                if bundle not in out.setdefault(v3_id, []):
+                    out[v3_id].append(bundle)
+    return out
+
+
 def describe() -> dict[str, Any]:
     version = configured_version()
     return {

@@ -117,8 +117,12 @@ class LLMConfigTest(TestCase):
         self.assertTrue(endpoint.url.endswith("/v1/chat/completions"))
 
     def test_missing_credentials_fail_loudly_on_a_cloud_endpoint(self) -> None:
+        # L'host è ``ollama.com`` e non ``api.ollama.com``: quest'ultimo è ora
+        # rifiutato da ``LLMEndpointMisconfigured`` perché non serve il percorso
+        # OpenAI-compatible, e mascherebbe ciò che questo test verifica — che a
+        # mancare siano le **credenziali**, non l'endpoint.
         with mock.patch.dict(os.environ, {
-            "RESEARCH_PIPELINE_LLM_BASE_URL": "https://api.ollama.com",
+            "RESEARCH_PIPELINE_LLM_BASE_URL": "https://ollama.com",
             "RESEARCH_PIPELINE_LLM_API_KEY": "",
         }):
             with mock.patch.object(llm_config, "OLLAMA_API_KEY", ""):

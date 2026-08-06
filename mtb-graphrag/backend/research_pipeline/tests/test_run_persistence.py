@@ -77,7 +77,8 @@ class RunPersistenceTest(TestCase):
         stages = self.client.get(f"{BASE}/runs/{run_id}").json()["stages"]
 
         self.assertEqual([s["stage_id"] for s in stages], list(STAGE_SEQUENCE))
-        self.assertEqual([s["sequence"] for s in stages], list(range(1, 16)))
+        self.assertEqual([s["sequence"] for s in stages],
+                         list(range(1, len(STAGE_SEQUENCE) + 1)))
         self.assertNotIn("PENDING", {s["status"] for s in stages})
 
     def test_execution_mode_and_origins_survive(self) -> None:
