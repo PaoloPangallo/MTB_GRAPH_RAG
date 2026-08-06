@@ -137,9 +137,13 @@ class RunRecorder:
         )
 
     def run_created(self, case_id: str, clinical_text: str, cache: Mapping[str, Any]) -> None:
+        # ``input_text`` è il testo sintetico del caso, troncato come nella run:
+        # senza di esso una run reidratata dal ledger non potrebbe mostrare da
+        # quale domanda è partita.
         self._emit(
             ev.RUN_CREATED,
             {"case_id": case_id, "input_chars": len(clinical_text),
+             "input_text": clinical_text[:600],
              "requested_execution_mode": self._mode,
              "document_cache": dict(cache),
              "research_notice": PipelineRun.research_notice()},
@@ -189,12 +193,18 @@ class RunRecorder:
             "SUCCEEDED": ev.STAGE_COMPLETED, "WARNING": ev.STAGE_WARNING,
             "FAILED": ev.STAGE_FAILED, "SKIPPED": ev.STAGE_SKIPPED,
         }[status]
+        # Warning, errori, metriche e lineage viaggiano nell'evento di chiusura:
+        # è da questo che ``rehydration`` ricostruisce lo stage dopo un riavvio,
+        # e ciò che non è nell'evento non sopravvive al processo.
         self._emit(
             event_type,
             ev.stage_payload(stage_id=stage_id, stage_type=stage_type_for(stage_id),
                              producer=producer, status=status,
                              execution_mode=stage_mode, artifact_origin=artifact_origin,
-                             reason_codes=list(reason_codes), duration_ms=duration_ms),
+                             reason_codes=list(reason_codes), duration_ms=duration_ms,
+                             warnings=list(warnings), errors=list(errors),
+                             metrics=dict(metrics or {}), lineage=dict(lineage or {}),
+                             sequence=STAGE_SEQUENCE.index(stage_id) + 1),
             producer,
         )
 
