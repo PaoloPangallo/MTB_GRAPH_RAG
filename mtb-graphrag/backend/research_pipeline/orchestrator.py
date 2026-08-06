@@ -12,6 +12,13 @@ un cambiamento di comportamento della pipeline. Un test confronta i due percorsi
 sugli stessi input.
 
 Nessun calcolo di status, gate, bucket o score avviene in questo modulo.
+
+**Modalità di esecuzione.** Ogni stage dichiara la propria ``artifact_origin``, e
+la modalità della run è derivata da quelle: vedi ``execution_mode.py``. Gli stage
+6 e 7 marcavano ``replayed: true`` in modo incondizionato, anche quando la cache
+era disponibile e la risoluzione sarebbe stata possibile; ora la risoluzione
+avviene davvero, oppure la run fallisce dicendo perché. In nessun punto un
+fallimento LIVE viene sostituito da un artefatto registrato.
 """
 
 from __future__ import annotations
@@ -23,6 +30,7 @@ from uuid import uuid4
 
 from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import events as ev
+from backend.research_pipeline import execution_mode as em
 from backend.research_pipeline.casecontext import match_verifier as verifier
 from backend.research_pipeline.contracts import (
     NOT_IMPLEMENTED_STAGE_IDS,
@@ -34,9 +42,11 @@ from backend.research_pipeline.contracts import (
 )
 from backend.research_pipeline.determinism import check_origin
 from backend.research_pipeline.determinism import gates as detpipe
+from backend.research_pipeline.documents.live_resolution import DocumentRuntime
 from backend.research_pipeline.dossier import builder as dossier_mod
 from backend.research_pipeline.enrichment import validator as enrichment_validator
-from backend.research_pipeline.redaction import redact_candidate, redact_retrieval_result
+from backend.research_pipeline.live_providers import LiveStageFailed
+from backend.research_pipeline.redaction import redact_retrieval_result
 from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.retrieval.paper_selection import select_papers_for_association
 
@@ -72,7 +82,7 @@ def _accepted_for_gates(outcome: str) -> str | None:
 
 CASECONTEXT_VERSION = "end-to-end-pilot-casecontext/1.0"
 DOSSIER_VERSION = "end-to-end-pilot-dossier/1.0"
-ORCHESTRATOR_VERSION = "research-pipeline-orchestrator/1.0"
+ORCHESTRATOR_VERSION = "research-pipeline-orchestrator/2.0"
 
 
 def _now() -> str:
@@ -90,15 +100,31 @@ class RunRecorder:
     l'API. Le due non devono divergere, quindi ogni transizione passa di qui.
     """
 
-    def __init__(self, ledger: EventLedger, run_id: str) -> None:
+    def __init__(self, ledger: EventLedger, run_id: str, execution_mode: str) -> None:
         self._ledger = ledger
         self._run_id = run_id
+        self._mode = execution_mode
         self._stages: list[PipelineStage] = []
         self._started: dict[str, float] = {}
 
     @property
     def stages(self) -> tuple[PipelineStage, ...]:
         return tuple(self._stages)
+
+    @property
+    def origins(self) -> tuple[str, ...]:
+        return tuple(stage.artifact_origin for stage in self._stages)
+
+    def _stage_mode(self, origin: str) -> str:
+        """Modalità dichiarabile da uno stage con questa origine.
+
+        Uno stage che rigioca un artefatto registrato non può dichiararsi LIVE —
+        il contratto lo rifiuterebbe. Marcarlo ``REPLAY`` anche dentro una run
+        avviata LIVE è ciò che poi rende la run ``HYBRID`` invece che ``LIVE``.
+        """
+        if origin == em.RECORDED_REAL_RUN:
+            return em.REPLAY
+        return self._mode
 
     def _emit(self, event_type: str, payload: Mapping[str, Any], producer: StageProducer) -> None:
         self._ledger.append(
@@ -110,10 +136,12 @@ class RunRecorder:
             tool_version=producer.version,
         )
 
-    def run_created(self, case_id: str, clinical_text: str) -> None:
+    def run_created(self, case_id: str, clinical_text: str, cache: Mapping[str, Any]) -> None:
         self._emit(
             ev.RUN_CREATED,
             {"case_id": case_id, "input_chars": len(clinical_text),
+             "requested_execution_mode": self._mode,
+             "document_cache": dict(cache),
              "research_notice": PipelineRun.research_notice()},
             _deterministic("orchestrator"),
         )
@@ -123,7 +151,7 @@ class RunRecorder:
         self._emit(
             ev.STAGE_STARTED,
             ev.stage_payload(stage_id=stage_id, stage_type=stage_type_for(stage_id),
-                             producer=producer, **preview),
+                             producer=producer, execution_mode=self._mode, **preview),
             producer,
         )
 
@@ -133,6 +161,7 @@ class RunRecorder:
         producer: StageProducer,
         *,
         status: str = "SUCCEEDED",
+        artifact_origin: str = em.GENERATED_NOW,
         domain_event: str | None = None,
         output_preview: Mapping[str, Any] | None = None,
         reason_codes: tuple[str, ...] = (),
@@ -144,12 +173,15 @@ class RunRecorder:
         started = self._started.pop(stage_id, None)
         duration_ms = int((time.monotonic() - started) * 1000) if started is not None else None
         preview = dict(output_preview or {})
+        em.assert_origin(artifact_origin)
+        stage_mode = self._stage_mode(artifact_origin)
 
         if domain_event is not None:
             self._emit(
                 domain_event,
                 ev.stage_payload(stage_id=stage_id, stage_type=stage_type_for(stage_id),
-                                 producer=producer, **preview),
+                                 producer=producer, execution_mode=stage_mode,
+                                 artifact_origin=artifact_origin, **preview),
                 producer,
             )
 
@@ -161,6 +193,7 @@ class RunRecorder:
             event_type,
             ev.stage_payload(stage_id=stage_id, stage_type=stage_type_for(stage_id),
                              producer=producer, status=status,
+                             execution_mode=stage_mode, artifact_origin=artifact_origin,
                              reason_codes=list(reason_codes), duration_ms=duration_ms),
             producer,
         )
@@ -172,6 +205,7 @@ class RunRecorder:
             output_preview=preview, reason_codes=reason_codes,
             warnings=warnings, errors=errors,
             metrics=dict(metrics or {}), lineage=dict(lineage or {}),
+            execution_mode=stage_mode, artifact_origin=artifact_origin,
         )
         self._stages.append(stage)
         return stage
@@ -188,12 +222,15 @@ class RunRecorder:
             if stage_id in done:
                 continue
             code = "NOT_IMPLEMENTED" if stage_id in NOT_IMPLEMENTED_STAGE_IDS else reason
-            self.finish(stage_id, producer, status="SKIPPED", reason_codes=(code,))
+            origin = em.NOT_APPLICABLE if stage_id in NOT_IMPLEMENTED_STAGE_IDS else em.NOT_EXECUTED
+            self.finish(stage_id, producer, status="SKIPPED",
+                        artifact_origin=origin, reason_codes=(code,))
 
     def run_completed(self, status: str, stopped_at: str | None) -> None:
         self._emit(
             ev.RUN_COMPLETED,
-            {"status": status, "stopped_at": stopped_at, "stage_count": len(self._stages)},
+            {"status": status, "stopped_at": stopped_at, "stage_count": len(self._stages),
+             **em.summarize(self._mode, self.origins)},
             _deterministic("orchestrator"),
         )
 
@@ -210,13 +247,21 @@ def run_case(
     run_id: str | None = None,
     select_papers_fn: Callable[..., dict[str, Any]] | None = None,
     validate_fn: Callable[..., dict[str, Any]] | None = None,
+    execution_mode: str = em.LIVE,
+    document_runtime: DocumentRuntime | None = None,
 ) -> PipelineRun:
     """Esegue un caso emettendo un evento per ogni transizione di stage.
 
-    ``select_papers_fn`` e ``validate_fn`` sono punti di iniezione per il replay
-    degli artefatti congelati: senza il testo delle SourceUnit la selezione
-    escluderebbe ogni paper e la validazione rigetterebbe ogni quote, esiti che
-    rappresenterebbero male il sistema. I default eseguono la logica reale.
+    ``execution_mode`` è un **input obbligatorio nel significato**, non una
+    deduzione: il runtime precedente sceglieva replay quando esistevano artefatti
+    congelati per il caso, e quella scelta implicita era il fallback silenzioso.
+
+    ``document_runtime`` è la cache aperta in sola lettura. In modalità LIVE è
+    obbligatorio: senza, gli stage 6-7 non possono essere eseguiti e la run
+    fallisce con ``DOCUMENT_CACHE_UNAVAILABLE`` invece di rigiocare artefatti.
+
+    ``select_papers_fn`` e ``validate_fn`` restano punti di iniezione per il
+    replay esplicito. I default eseguono la logica reale.
     """
     select_papers = select_papers_fn or (
         lambda association, units, **_: select_papers_for_association(association, units)
@@ -228,10 +273,19 @@ def run_case(
             source_units_by_id=kw["source_units_by_id"], requested_drug=kw["requested_drug"],
         )
     )
+    is_live = execution_mode == em.LIVE
+    #: Origine degli stage il cui risultato arriva da un artefatto registrato.
+    #: In LIVE non esistono: ogni stage o viene eseguito o fallisce.
+    replay_origin = em.RECORDED_REAL_RUN if not is_live else em.GENERATED_NOW
+
     run_id = run_id or str(uuid4())
-    recorder = RunRecorder(ledger, run_id)
+    cache_descriptor = dict(document_runtime.descriptor) if document_runtime else {
+        "document_cache_available": False,
+    }
+    recorder = RunRecorder(ledger, run_id, execution_mode)
     started_at = _now()
-    recorder.run_created(case_id, clinical_text)
+    recorder.run_created(case_id, clinical_text, cache_descriptor)
+    llm_calls = 0
 
     def _finalize(status: str, stopped_at: str | None, **extra: Any) -> PipelineRun:
         if stopped_at is not None:
@@ -246,6 +300,9 @@ def run_case(
             versions={"casecontext_schema": CASECONTEXT_VERSION,
                       "dossier": DOSSIER_VERSION,
                       "orchestrator": ORCHESTRATOR_VERSION},
+            requested_mode=execution_mode,
+            document_cache=cache_descriptor,
+            llm_calls=llm_calls,
             **extra,
         )
 
@@ -256,7 +313,18 @@ def run_case(
                     output_preview={"case_id": case_id, "input_chars": len(clinical_text)})
 
     # STAGE 2 — CaseContext Parser (LLM)
-    parser_result = call_parser_fn(budget, case_id, clinical_text)
+    try:
+        parser_result = call_parser_fn(budget, case_id, clinical_text)
+    except LiveStageFailed as failure:
+        p = _deterministic("casecontext_parser", CASECONTEXT_VERSION)
+        recorder.start("stage_2_casecontext_parser", p)
+        recorder.finish("stage_2_casecontext_parser", p, status="FAILED",
+                        artifact_origin=em.NOT_EXECUTED,
+                        reason_codes=(failure.reason_code,), errors=(failure.detail,))
+        return _finalize("FAILED", "LIVE_STAGE_FAILED")
+    if is_live:
+        llm_calls += 1
+
     parser_producer = StageProducer(
         kind="LLM", component="casecontext_parser", version=CASECONTEXT_VERSION,
         model=parser_result.get("model") or "unknown",
@@ -266,6 +334,7 @@ def run_case(
     transport = parser_result.get("transport_result")
     if transport != "FORCED_TOOL_VALID":
         recorder.finish("stage_2_casecontext_parser", parser_producer, status="FAILED",
+                        artifact_origin=replay_origin,
                         reason_codes=("PARSER_TRANSPORT_FAILED",),
                         errors=(str(transport),),
                         output_preview={"transport_result": transport})
@@ -273,10 +342,15 @@ def run_case(
 
     case_context = parser_result["case_context_raw"]
     recorder.finish("stage_2_casecontext_parser", parser_producer,
+                    artifact_origin=replay_origin,
                     domain_event=ev.CASECONTEXT_PARSED,
                     output_preview={"transport_result": transport,
                                     "query_intent": case_context.get("query_intent"),
-                                    "case_context": case_context})
+                                    "case_context": case_context},
+                    metrics={"latency_ms": parser_result.get("latency_ms"),
+                             "input_tokens": parser_result.get("input_tokens"),
+                             "output_tokens": parser_result.get("output_tokens"),
+                             "retry_count": parser_result.get("retry_count")})
 
     # STAGE 3 — Match verifier (deterministico)
     p = _deterministic("casecontext_match_verifier", CASECONTEXT_VERSION)
@@ -327,41 +401,117 @@ def run_case(
     recorder.finish("stage_5_kg_retrieval", p, domain_event=ev.CANDIDATES_FOUND,
                     output_preview=retrieval_preview)
 
-    # STAGE 6-7 — Documenti e SourceUnit: artefatti congelati, non risoluzione live
-    replayed = {"replayed": True,
-                "note": "artefatto congelato: risolto in una run precedente, non recuperato ora"}
+    # STAGE 6 — Document Resolution
+    #
+    # Eseguita davvero: i documenti vengono cercati nella cache autorizzata al
+    # momento della run. Nessun fetch di rete — la cache è aperta in sola lettura
+    # e i suoi percorsi di rete sollevano. Un documento assente resta
+    # DOCUMENT_UNAVAILABLE: il corrispondente artefatto registrato non viene
+    # usato al suo posto.
     p = _deterministic("document_resolution")
     recorder.start("stage_6_document_resolution", p)
-    documents = [
-        {"document_id": bundle["document_id"], "bundle_id": bundle["bundle_id"], **replayed}
-        for association in retrieval_result["associations"]
-        for bundle in association["available_bundles"]
-    ]
-    recorder.finish("stage_6_document_resolution", p, domain_event=ev.DOCUMENT_RESOLVED,
-                    output_preview={"documents": documents, **replayed})
 
+    if is_live and document_runtime is None:
+        recorder.finish("stage_6_document_resolution", p, status="FAILED",
+                        artifact_origin=em.NOT_EXECUTED,
+                        reason_codes=("DOCUMENT_CACHE_UNAVAILABLE",),
+                        errors=("cache documentale non disponibile: la run LIVE non "
+                                "ripiega su artefatti registrati",),
+                        output_preview=dict(cache_descriptor))
+        return _finalize("FAILED", "DOCUMENT_CACHE_UNAVAILABLE")
+
+    if document_runtime is not None:
+        resolution = document_runtime.resolve(retrieval_result["associations"])
+        resolution_preview = {**resolution.to_preview(), **cache_descriptor}
+        resolved_any = any(doc.resolved for doc in resolution.documents)
+        if is_live and not resolved_any:
+            recorder.finish("stage_6_document_resolution", p, status="FAILED",
+                            artifact_origin=em.DETERMINISTIC_CACHE,
+                            reason_codes=("NO_DOCUMENT_RESOLVED", "DOCUMENT_UNAVAILABLE"),
+                            output_preview=resolution_preview)
+            return _finalize("FAILED", "NO_DOCUMENT_RESOLVED")
+        unavailable = tuple(
+            f"DOCUMENT_UNAVAILABLE:{doc.document_id}"
+            for doc in resolution.documents if not doc.resolved
+        )
+        recorder.finish("stage_6_document_resolution", p,
+                        status="WARNING" if unavailable else "SUCCEEDED",
+                        artifact_origin=em.DETERMINISTIC_CACHE,
+                        domain_event=ev.DOCUMENT_RESOLVED,
+                        warnings=unavailable,
+                        reason_codes=("DOCUMENT_RESOLVED_FROM_CACHE",) if not unavailable
+                                     else ("DOCUMENT_RESOLVED_FROM_CACHE", "DOCUMENT_UNAVAILABLE"),
+                        output_preview=resolution_preview,
+                        metrics={"cache_hits": resolution.cache_hits,
+                                 "cache_misses": resolution.cache_misses},
+                        lineage={"manifest_hash": resolution.manifest_hash})
+    else:
+        # Solo REPLAY: i documenti sono quelli già citati dai bundle congelati.
+        documents = [
+            {"document_id": bundle["document_id"], "bundle_id": bundle["bundle_id"]}
+            for association in retrieval_result["associations"]
+            for bundle in association["available_bundles"]
+        ]
+        resolution = None
+        recorder.finish("stage_6_document_resolution", p,
+                        artifact_origin=em.RECORDED_REAL_RUN,
+                        domain_event=ev.DOCUMENT_RESOLVED,
+                        reason_codes=("DOCUMENT_FROM_RECORDED_RUN",),
+                        output_preview={"documents": documents,
+                                        "note": "artefatto registrato: nessuna cache consultata"})
+
+    # STAGE 7 — SourceUnit
+    #
+    # Le unità con testo restano nel backend: il preview porta locatore, hash,
+    # tipo e un estratto troncato. È la stessa distinzione che ``live_resolution``
+    # tiene nella struttura dati, non al momento della serializzazione.
     p = _deterministic("source_units")
     recorder.start("stage_7_source_units", p)
-    unit_ids = sorted({
+    requested_unit_ids = sorted({
         uid for association in retrieval_result["associations"]
         for bundle in association["available_bundles"]
         for uid in bundle.get("source_unit_ids", [])
     })
-    # Solo locatori e hash: il testo non lascia mai l'enricher.
-    units_preview = [
-        {k: v for k, v in (source_units_by_id.get(uid) or {}).items()
-         if k not in {"text", "content", "body"}} or {"source_unit_id": uid}
-        for uid in unit_ids
-    ]
-    recorder.finish("stage_7_source_units", p, domain_event=ev.SOURCE_UNIT_MATERIALIZED,
-                    output_preview={"source_units": units_preview, **replayed})
+
+    if document_runtime is not None and resolution is not None:
+        bundle_units = document_runtime.load_units(resolution)
+        units_for_decisions: Mapping[str, dict[str, Any]] = bundle_units.units_by_id
+        units_preview = bundle_units.to_preview(requested_unit_ids)
+        with_text = sum(
+            1 for uid in requested_unit_ids
+            if (bundle_units.units_by_id.get(uid, {}).get("text") or "").strip()
+        )
+        recorder.finish("stage_7_source_units", p,
+                        status="SUCCEEDED" if with_text else "WARNING",
+                        artifact_origin=em.DETERMINISTIC_CACHE,
+                        domain_event=ev.SOURCE_UNIT_MATERIALIZED,
+                        reason_codes=("SOURCE_UNITS_MATERIALIZED_FROM_CACHE",) if with_text
+                                     else ("SOURCE_UNIT_TEXT_UNAVAILABLE",),
+                        output_preview=units_preview,
+                        metrics={"requested": len(requested_unit_ids),
+                                 "with_exact_text": with_text,
+                                 "parsed_documents": bundle_units.documents_parsed})
+    else:
+        units_for_decisions = dict(source_units_by_id)
+        # Solo locatori e hash: il testo non lascia mai l'enricher.
+        recorded_preview = [
+            {k: v for k, v in (source_units_by_id.get(uid) or {}).items()
+             if k not in {"text", "content", "body"}} or {"source_unit_id": uid}
+            for uid in requested_unit_ids
+        ]
+        recorder.finish("stage_7_source_units", p,
+                        artifact_origin=em.RECORDED_REAL_RUN,
+                        domain_event=ev.SOURCE_UNIT_MATERIALIZED,
+                        reason_codes=("SOURCE_UNITS_FROM_RECORDED_INDEX",),
+                        output_preview={"source_units": recorded_preview,
+                                        "note": "indice congelato: nessun testo ricostruito"})
 
     # STAGE 8-12 — Per associazione: selezione, enrichment, validazione, gate, status
     candidate_therapies: list[dict[str, Any]] = []
     selections, enrichment_calls, validations, evaluations = [], [], [], []
 
     for association in retrieval_result["associations"]:
-        selection = select_papers(association, dict(source_units_by_id), case_id=case_id)
+        selection = select_papers(association, dict(units_for_decisions), case_id=case_id)
         selections.append(selection)
         candidate = association["candidate"]
 
@@ -372,24 +522,46 @@ def run_case(
                 (case_context.get("target_intervention") or {}).get("normalized_value")
                 or (interventions[0] if interventions else "")
             )
-            paper_units = [source_units_by_id[uid] for uid in paper["resolved_source_unit_ids"]
-                           if uid in source_units_by_id]
+            paper_units = [units_for_decisions[uid] for uid in paper["resolved_source_unit_ids"]
+                           if uid in units_for_decisions]
 
-            call = call_enricher_fn(
-                budget, case_id, candidate["candidate_id"], paper["bundle_id"], case_context,
-                {"candidate_id": candidate["candidate_id"], "disease": candidate.get("disease"),
-                 "biomarkers": candidate.get("biomarkers")},
-                requested_drug, paper_units,
-            )
+            try:
+                call = call_enricher_fn(
+                    budget, case_id, candidate["candidate_id"], paper["bundle_id"], case_context,
+                    {"candidate_id": candidate["candidate_id"], "disease": candidate.get("disease"),
+                     "biomarkers": candidate.get("biomarkers")},
+                    requested_drug, paper_units,
+                )
+            except LiveStageFailed as failure:
+                enricher_producer = StageProducer(
+                    kind="LLM", component="paper_context_enricher_v2",
+                    version="paper-context-enricher/2.0",
+                    model="gemma4:cloud", prompt_version="paper-context-enricher-prompt/2.0",
+                )
+                recorder.start("stage_8_paper_selection", _deterministic("paper_selection"))
+                recorder.finish("stage_8_paper_selection", _deterministic("paper_selection"),
+                                domain_event=ev.PAPER_SELECTED,
+                                output_preview={"selections": selections,
+                                                "max_papers_per_association": 2})
+                recorder.start("stage_9_paper_context_enricher", enricher_producer)
+                recorder.finish("stage_9_paper_context_enricher", enricher_producer,
+                                status="FAILED", artifact_origin=em.NOT_EXECUTED,
+                                reason_codes=(failure.reason_code,), errors=(failure.detail,),
+                                output_preview={"calls": enrichment_calls,
+                                                "failed_paper_id": paper["bundle_id"]})
+                return _finalize("FAILED", "LIVE_STAGE_FAILED")
+            if is_live:
+                llm_calls += 1
             enrichment_calls.append(call)
 
             validation = validate(
                 call["transport_result"], call["enrichment"], candidate=candidate,
-                paper_bundle=paper, source_units_by_id=dict(source_units_by_id),
+                paper_bundle=paper, source_units_by_id=dict(units_for_decisions),
                 requested_drug=requested_drug, case_id=case_id,
                 paper_id=paper["bundle_id"],
             )
-            validations.append(validation)
+            validations.append({"candidate_id": candidate["candidate_id"],
+                                "paper_id": paper["bundle_id"], **validation})
             validation_entries.append({"paper_id": paper["bundle_id"], **validation})
             if call["enrichment"] is not None:
                 enrichment_entries.append(call["enrichment"])
@@ -412,8 +584,13 @@ def run_case(
 
     p = _deterministic("paper_selection")
     recorder.start("stage_8_paper_selection", p)
-    recorder.finish("stage_8_paper_selection", p, domain_event=ev.PAPER_SELECTED,
-                    output_preview={"selections": selections, "max_papers_per_association": 2})
+    recorder.finish("stage_8_paper_selection", p,
+                    artifact_origin=em.GENERATED_NOW if select_papers_fn is None else replay_origin,
+                    domain_event=ev.PAPER_SELECTED,
+                    output_preview={"selections": selections,
+                                    "max_papers_per_association": 2,
+                                    "max_source_units_per_paper": 4,
+                                    "recomputed_during_run": select_papers_fn is None})
 
     enricher_producer = StageProducer(
         kind="LLM", component="paper_context_enricher_v2",
@@ -424,17 +601,25 @@ def run_case(
     )
     recorder.start("stage_9_paper_context_enricher", enricher_producer)
     recorder.finish("stage_9_paper_context_enricher", enricher_producer,
+                    artifact_origin=(em.NOT_APPLICABLE if not enrichment_calls else replay_origin),
                     domain_event=ev.ENRICHMENT_PROPOSED,
+                    reason_codes=() if enrichment_calls else ("NO_PAPER_SELECTED_FOR_ENRICHMENT",),
                     output_preview={"calls": [
                         {k: v for k, v in call.items() if k != "raw_response"}
-                        for call in enrichment_calls]})
+                        for call in enrichment_calls]},
+                    metrics={"llm_calls": len(enrichment_calls),
+                             "retries": sum(int(c.get("retry_count") or 0) for c in enrichment_calls)})
 
     p = _deterministic("enrichment_validator")
     recorder.start("stage_10_enrichment_validation", p)
-    recorder.finish("stage_10_enrichment_validation", p, domain_event=ev.ENRICHMENT_VALIDATED,
+    recorder.finish("stage_10_enrichment_validation", p,
+                    artifact_origin=(em.NOT_APPLICABLE if not validations else
+                                     em.GENERATED_NOW if validate_fn is None else replay_origin),
+                    domain_event=ev.ENRICHMENT_VALIDATED,
                     output_preview={
                         "validations": validations,
                         "accepted_outcomes": list(_V1_ACCEPTED + _V2_ACCEPTED),
+                        "revalidated_during_run": validate_fn is None,
                         "gate_admission_note": (
                             "solo gli esiti accettati raggiungono i gate; astensioni e "
                             "rigetti non influenzano status, mask, bucket o score"
@@ -483,10 +668,6 @@ def run_case(
     # candidate esistono — non mostrarle. Le tre sezioni che la UI deve tenere
     # separate (evidenza deterministica, author context, limitazioni) sono già
     # distinte nella struttura prodotta da ``build_dossier_preview``.
-    #
-    # Nessun campo da redigere vi transita: ``build_candidate_therapy_entry``
-    # copia campi selezionati della candidate, mai la candidate grezza, quindi
-    # ``source_properties`` non entra.
     recorder.finish("stage_13_dossier", p, domain_event=ev.DOSSIER_BUILT,
                     output_preview={"candidate_count": len(candidate_therapies),
                                     "dossier": dossier,
