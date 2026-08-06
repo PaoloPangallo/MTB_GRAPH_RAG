@@ -132,13 +132,25 @@ export default function ResearchConsole() {
   // Dossier, provenance e metriche esistono solo a run conclusa: leggerli prima
   // darebbe un 409 o un risultato parziale che sembrerebbe definitivo.
   const terminal = isTerminal(state);
+
+  // Una run fermata prima dello stage 13 **non ha** un dossier, e lo si sa dagli
+  // stage senza chiederlo. Richiederlo comunque otteneva un 409 corretto ma
+  // faceva comparire un errore rosso nella console del browser per un esito
+  // previsto — indistinguibile, per chi guarda, da un guasto vero.
+  const dossierStage = stages.find((stage) => stage.stage_id === 'stage_13_dossier');
+  const dossierExists = dossierStage?.status === 'SUCCEEDED';
+  const noDossierReason = state.run
+    ? `Nessun dossier: la run è ${state.run.status}`
+      + (state.run.stopped_at ? ` (${reasonLabel(state.run.stopped_at)})` : '')
+    : null;
+
   useEffect(() => {
     if (!runId || !terminal) return undefined;
     let active = true;
 
     void (async () => {
       const [dossier, provenance, metrics, events] = await Promise.all([
-        getDossier(runId).catch((error: unknown) => error),
+        dossierExists ? getDossier(runId).catch((error: unknown) => error) : Promise.resolve(null),
         getProvenance(runId).catch(() => ({ items: [] as ProvenanceItem[] })),
         getMetrics(runId).catch(() => null),
         getEvents(runId).catch(() => null),
@@ -147,10 +159,14 @@ export default function ResearchConsole() {
 
       const failed = dossier instanceof Error;
       setArtifacts({
-        // Una run fermata non ha dossier, e il motivo va detto invece di
-        // mostrare una sezione vuota.
-        dossier: failed ? null : ((dossier as { dossier?: Dossier }).dossier ?? null),
-        dossierUnavailable: failed ? (dossier as Error).message : null,
+        dossier: failed || dossier === null
+          ? null
+          : ((dossier as { dossier?: Dossier }).dossier ?? null),
+        // Il motivo va detto invece di mostrare una sezione vuota. Quando lo
+        // stage 13 non è riuscito il motivo lo danno già gli stage, quindi non
+        // serve una richiesta per sentirselo ripetere.
+        dossierUnavailable: failed ? (dossier as Error).message
+          : dossier === null ? noDossierReason : null,
         provenance: (provenance as { items: ProvenanceItem[] }).items ?? [],
         metrics: metrics as RunMetrics | null,
         hashChainValid: events ? events.hash_chain_valid : null,
@@ -158,7 +174,7 @@ export default function ResearchConsole() {
     })();
 
     return () => { active = false; };
-  }, [runId, terminal]);
+  }, [runId, terminal, dossierExists, noDossierReason]);
 
   const start = useCallback(async (request: RunRequest) => {
     setStarting(true);
