@@ -26,7 +26,45 @@ export type StopReason =
   | 'PARSER_TRANSPORT_FAILED'
   | 'CASECONTEXT_MISMATCH'
   | 'RETRIEVAL_NO_MATCH'
-  | 'CALL_BUDGET_EXCEEDED';
+  | 'CALL_BUDGET_EXCEEDED'
+  | 'DOCUMENT_CACHE_UNAVAILABLE'
+  | 'NO_DOCUMENT_RESOLVED'
+  | 'LIVE_STAGE_FAILED';
+
+/**
+ * Modalità di esecuzione. `HYBRID` non è richiedibile: è la classificazione di
+ * una run avviata LIVE che ha comunque usato un artefatto registrato.
+ */
+export type ExecutionMode = 'LIVE' | 'REPLAY' | 'HYBRID';
+
+export type RequestableMode = 'LIVE' | 'REPLAY';
+
+/**
+ * Da dove viene il risultato di uno stage.
+ *
+ * `DETERMINISTIC_CACHE` e `RECORDED_REAL_RUN` non sono la stessa cosa e non
+ * vanno resi con lo stesso badge: un documento letto dalla cache locale
+ * appartiene a una run live, una risposta del modello registrata no.
+ */
+export type ArtifactOrigin =
+  | 'GENERATED_NOW'
+  | 'RECORDED_REAL_RUN'
+  | 'DETERMINISTIC_CACHE'
+  | 'NOT_APPLICABLE'
+  | 'NOT_EXECUTED';
+
+export interface DocumentCacheStatus {
+  document_cache_available: boolean;
+  cache_path_redacted?: string;
+  cache_version?: string;
+  manifest_hash?: string | null;
+  manifest_rows?: number;
+  document_count?: number;
+  documents_with_text?: number;
+  documents_unavailable?: number;
+  source_unit_count?: number;
+  reason_codes?: string[];
+}
 
 export type ProducerKind = 'DETERMINISTIC' | 'LLM' | 'HYBRID';
 
@@ -55,6 +93,8 @@ export interface PipelineStage {
   producer: StageProducer;
   metrics: Record<string, unknown>;
   lineage: Record<string, unknown>;
+  execution_mode: ExecutionMode;
+  artifact_origin: ArtifactOrigin;
 }
 
 export interface ResearchNotice {
@@ -80,6 +120,21 @@ export interface PipelineRun {
   versions: Record<string, unknown>;
   metrics: Record<string, unknown>;
   research_notice: ResearchNotice;
+  /** Modalità richiesta all'avvio. */
+  requested_mode: RequestableMode;
+  /** Modalità **effettiva**, derivata dalle origini degli stage dal backend. */
+  execution_mode: ExecutionMode;
+  /** Vero solo con `execution_mode === 'LIVE'` e zero artefatti registrati. */
+  fully_live: boolean;
+  replay_artifacts_used: number;
+  origin_counts: Partial<Record<ArtifactOrigin, number>>;
+  document_cache: DocumentCacheStatus;
+  llm_calls: number;
+  /** Presenti solo su una run ricostruita dal ledger. */
+  rehydrated?: boolean;
+  recovery_status?: 'COMPLETE' | 'RECOVERED_INCOMPLETE';
+  hash_chain_valid?: boolean;
+  stages_missing?: string[];
 }
 
 export interface PipelineEvent {
@@ -116,7 +171,10 @@ export interface CreatedRun {
   run_id: string;
   case_id: string;
   status: RunStatus;
-  execution_mode: 'FROZEN_REPLAY' | 'LIVE';
+  requested_mode: RequestableMode;
+  execution_mode: ExecutionMode;
+  /** Esiste una run registrata equivalente da poter consultare a parte. */
+  replay_run_available: boolean;
   stream_url: string;
   research_notice: ResearchNotice;
 }
@@ -224,6 +282,14 @@ export const TERM_TOOLTIPS: Record<string, string> = {
     'Affermazione sostenuta da una citazione letterale verificata in una Source Unit.',
   replayed:
     'Artefatto congelato di una run precedente: risposta reale del modello, non rieseguita ora.',
+  live:
+    'Eseguito al momento della run. Il risultato è stato prodotto ora, non recuperato.',
+  cached_document:
+    'Documento letto dalla cache autorizzata durante la run. È lettura di una fonte, non un replay: lo stage resta parte di una run live.',
+  hybrid:
+    'Run avviata in LIVE che ha comunque usato almeno un artefatto registrato. Non può essere presentata come completamente live.',
+  fully_live:
+    'Ogni stage applicabile è stato eseguito ora e nessun artefatto registrato è stato usato.',
   deterministic:
     'Prodotto da codice, non da un modello. Gate, status e bucket sono sempre deterministici.',
   llm:

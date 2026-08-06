@@ -8,17 +8,19 @@
  * Per questo la pipeline è al centro e non c'è spazio per la conversazione.
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
-import { Alert, Box, Button, CircularProgress, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
-import RunSpine from './RunSpine';
+import { Alert, Box, Button, Chip, CircularProgress, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import RunSpine, { STAGE_FILTERS, matchesFilter, type StageFilterKey } from './RunSpine';
+import RunModeHeader from './RunModeHeader';
 import StageInspector from './StageInspector';
 import DossierView, { type Dossier } from './DossierView';
 import ProvenanceTree from './ProvenanceTree';
 import SupervisorPanel from './SupervisorPanel';
 import CaseInputPanel, { type RunRequest } from './CaseInputPanel';
 import {
-  createRun, getDossier, getEvents, getMetrics, getProvenance, isRuntimeDisabled, listCases,
+  createRun, getConfig, getDossier, getEvents, getMetrics, getProvenance, isRuntimeDisabled,
+  listCases,
 } from './api';
 import { LEGACY_V3_ROUTE, runRoute } from '../routes';
 import { derivedCounts, eventsForStage, isTerminal, stageById, stagesInOrder } from './runReducer';
@@ -79,15 +81,23 @@ export default function ResearchConsole() {
   const runId = routeRunId ?? null;
 
   const [cases, setCases] = useState<DemoCase[]>([]);
+  // Se la cache documentale manca, LIVE non è eseguibile: va detto **prima**
+  // di premere, non scoperto da una run fallita.
+  const [liveAvailable, setLiveAvailable] = useState(true);
   const [selectedStageId, setSelectedStageId] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [disabled, setDisabled] = useState(false);
   const [artifacts, setArtifacts] = useState<RunArtifacts>(NO_ARTIFACTS);
   const [lowerTab, setLowerTab] = useState(0);
+  const [stageFilter, setStageFilter] = useState<StageFilterKey>('all');
 
   const { state } = useRunStream(runId);
   const stages = stagesInOrder(state);
+  const visibleStages = useMemo(
+    () => stages.filter((stage) => matchesFilter(stage, stageFilter)),
+    [stages, stageFilter],
+  );
   const counts = derivedCounts(state);
   const selected = selectedStageId ? stageById(state, selectedStageId) : null;
 
@@ -103,6 +113,13 @@ export default function ResearchConsole() {
         }
         setLoadError(error instanceof Error ? error.message : 'Impossibile leggere i casi.');
       });
+    getConfig()
+      .then((payload) => {
+        if (!active) return;
+        const modes = payload.execution_modes as { live_available?: boolean } | undefined;
+        setLiveAvailable(modes?.live_available !== false);
+      })
+      .catch(() => { /* la disponibilità resta ottimistica: il backend rifiuta comunque */ });
     return () => { active = false; };
   }, []);
 
@@ -180,6 +197,15 @@ export default function ResearchConsole() {
 
   const runStyle = state.run ? runStatusStyle[state.run.status] : null;
 
+  // Un guasto della modalità live, distinto da un arresto corretto: solo il
+  // primo giustifica di proporre la run registrata come lettura alternativa.
+  const LIVE_FAILURES = ['DOCUMENT_CACHE_UNAVAILABLE', 'NO_DOCUMENT_RESOLVED', 'LIVE_STAGE_FAILED'];
+  const liveFailed = state.run?.status === 'FAILED'
+    && LIVE_FAILURES.includes(state.run.stopped_at ?? '');
+  const equivalentReplay = cases.find(
+    (demo) => demo.case_id === state.run?.case_id && demo.frozen_artifacts_available,
+  ) ?? null;
+
   return (
     <Box sx={{ backgroundColor: color.canvas, minHeight: '100vh' }}>
       <Notice />
@@ -200,7 +226,12 @@ export default function ResearchConsole() {
 
         {/* L'ingresso è il testo libero. I casi dimostrativi lo compilano, non
             lo scavalcano: il parser resta sul percorso principale. */}
-        <CaseInputPanel cases={cases} busy={starting} onRun={(request) => void start(request)} />
+        <CaseInputPanel
+          cases={cases}
+          busy={starting}
+          liveAvailable={liveAvailable}
+          onRun={(request) => void start(request)}
+        />
 
         {loadError && (
           <Alert severity="error" sx={{ mt: 3, borderRadius: '8px' }}>
@@ -255,17 +286,85 @@ export default function ResearchConsole() {
               )}
             </Box>
 
+            {/* Modalità, cache, chiamate e artefatti rigiocati: prima di tutto
+                il resto, perché determinano come va letto tutto il resto. */}
+            <Box sx={{ mt: 3 }}>
+              <RunModeHeader run={state.run} />
+
+              {/* Una run live fallita **non** viene sostituita dalla run
+                  registrata: quella resta consultabile con un gesto separato ed
+                  esplicito, che apre una run distinta. Sostituirla in automatico
+                  farebbe apparire riuscito ciò che non è stato eseguito. */}
+              {liveFailed && (
+                <Alert
+                  severity="error"
+                  data-testid="live-stage-failed"
+                  sx={{ borderRadius: '8px', mb: 3 }}
+                  action={equivalentReplay ? (
+                    <Button
+                      size="small"
+                      data-testid="open-recorded-run"
+                      disabled={starting}
+                      onClick={() => void start({
+                        demo_case_key: equivalentReplay.case_id,
+                        execution_mode: 'REPLAY',
+                      })}
+                      sx={{ textTransform: 'none', fontFamily: font.body, fontSize: 13 }}
+                    >
+                      Apri la run registrata equivalente
+                    </Button>
+                  ) : undefined}
+                >
+                  <Typography sx={{ fontFamily: font.body, fontSize: 13 }}>
+                    {reasonLabel(state.run?.stopped_at ?? 'LIVE_STAGE_FAILED')}.
+                    {' '}Gli stage eseguiti restano visibili; nessun artefatto registrato
+                    li ha sostituiti.
+                  </Typography>
+                </Alert>
+              )}
+            </Box>
+
             {/* Spina a sinistra, ispezione a destra. */}
             <Box sx={{
               display: 'grid', gap: 3, mt: 3,
               gridTemplateColumns: { xs: '1fr', lg: 'minmax(320px, 400px) 1fr' },
             }}>
               <Box>
-                <RunSpine
-                  stages={stages}
-                  selectedStageId={selectedStageId}
-                  onSelect={setSelectedStageId}
-                />
+                <Stack
+                  direction="row"
+                  spacing={0.75}
+                  role="group"
+                  aria-label="Filtro degli stage"
+                  sx={{ flexWrap: 'wrap', rowGap: 0.75, mb: 1.5 }}
+                >
+                  {STAGE_FILTERS.map((option) => (
+                    <Chip
+                      key={option.key}
+                      label={option.label}
+                      size="small"
+                      onClick={() => setStageFilter(option.key)}
+                      aria-pressed={stageFilter === option.key}
+                      data-testid={`stage-filter-${option.key}`}
+                      sx={{
+                        height: 24, fontFamily: font.mono, fontSize: 10, cursor: 'pointer',
+                        borderRadius: '6px',
+                        backgroundColor: stageFilter === option.key ? color.ink : color.stone,
+                        color: stageFilter === option.key ? '#fff' : color.body,
+                      }}
+                    />
+                  ))}
+                </Stack>
+                {visibleStages.length === 0 ? (
+                  <Typography sx={{ fontFamily: font.body, fontSize: 13, color: color.muted, py: 2 }}>
+                    Nessuno stage corrisponde a questo filtro.
+                  </Typography>
+                ) : (
+                  <RunSpine
+                    stages={visibleStages}
+                    selectedStageId={selectedStageId}
+                    onSelect={setSelectedStageId}
+                  />
+                )}
               </Box>
               <Box sx={{
                 border: `1px solid ${color.borderLight}`, borderRadius: `${radius.md}px`,
