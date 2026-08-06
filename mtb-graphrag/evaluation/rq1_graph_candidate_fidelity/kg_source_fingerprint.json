@@ -1,0 +1,94 @@
+{
+  "corpus_fingerprint": "8df07e828f97a77fc938540d65f6c303c712d566bae2be59ce1e0274681f4da2",
+  "files": {
+    "carica_disease_publication.cypher": {
+      "bytes": 6571,
+      "sha256": "9de847371f78c512c82ad628512eee460dac210c67992b742fa093b04a77d4cd"
+    },
+    "civic_diseases.csv": {
+      "bytes": 25291,
+      "sha256": "c4c474253c726056f89079b0e0f3dc9ae38c350012f186713df63e8742579b44"
+    },
+    "civic_evidence_disease_links.csv": {
+      "bytes": 42273,
+      "sha256": "5ac70e04ab0ac72e31ad915d8aca29124c2baa465f58cb2bb3522d0a403a43dd"
+    },
+    "civic_evidence_publication_links.csv": {
+      "bytes": 72159,
+      "sha256": "d39205800700955e96e3d9476be85d9bd4078b3cb9efedaebf5b2c3b02eb2f31"
+    },
+    "civic_publications.csv": {
+      "bytes": 191631,
+      "sha256": "c0a99115110baafc7abf5d36dab059048955516ab48c59df5f5cbd35feb80c92"
+    },
+    "edge_diagnoses_gene.csv": {
+      "bytes": 7190,
+      "sha256": "646a7c87997a3e7a5f2af101749ab6389906fa94ae2e5d705e44856876edfdf7"
+    },
+    "edge_has_companion_diagnostic.csv": {
+      "bytes": 8182,
+      "sha256": "db3c903dbabdd8bc633c209f20836484db90d646415587c1fe726e05ab74d0f5"
+    },
+    "edge_has_evidence.csv": {
+      "bytes": 50292,
+      "sha256": "db78749e6a6f3e9e93fd95d250e149b7028ff241555dcca57e44f2e663211e7f"
+    },
+    "edge_has_variant.csv": {
+      "bytes": 17992,
+      "sha256": "5b3099459cc9d302a5b8b7c9afd3540f93b854bf849cb5d232334262ea3c2b39"
+    },
+    "edge_in_molecular_profile.csv": {
+      "bytes": 23003,
+      "sha256": "0d4c05fa4404d77f1e213e16779942dce64b7970ab707896040c6e21f0e416e3"
+    },
+    "edge_interacts_with.csv": {
+      "bytes": 1338915,
+      "sha256": "74af41f71e5f3a5d11efd1670b25f4ea052212e3d4ef9c593c3a5edeca78d726"
+    },
+    "edge_targets_drug.csv": {
+      "bytes": 166174,
+      "sha256": "b30099a6952932efc350e721a0591e0757e3b272810532fa5ae955d61d47c4ac"
+    },
+    "edges_trial_drug.csv": {
+      "bytes": 333716,
+      "sha256": "da85dfc9c5caa09e0986e95a5d7190b8ffcc5a5002be144adcafa9cca4905eda"
+    },
+    "edges_trial_gene.csv": {
+      "bytes": 215878,
+      "sha256": "f3e6b57b8623b71936a329070e486c5b83b82cfec8b78fd3b2ad5902394f45b6"
+    },
+    "node_companion_diagnostic.csv": {
+      "bytes": 21952,
+      "sha256": "b44f6b16576bc4c08832c6a04461872b72ab5c74fc4c7d56ddeebe70140282c3"
+    },
+    "node_drug.csv": {
+      "bytes": 2933860,
+      "sha256": "908d838b53fcd6d4c8da4aeda4a5db0720d2d4b13503d14b89711996428fabc4"
+    },
+    "node_evidence.csv": {
+      "bytes": 3126431,
+      "sha256": "af86c6d6befb744c5c86e5c605762daa2be74b6477c764ff5bb469710cba1444"
+    },
+    "node_gene.csv": {
+      "bytes": 196021,
+      "sha256": "5cea41b17b82a15605f95ff5616aa1994220cbb206dadbe5d5c2fbbb7fc29327"
+    },
+    "node_molecular_profile.csv": {
+      "bytes": 215772,
+      "sha256": "09b8e93f5ec7ab3fea6e62cd7ca5eceec3761a2f58bf361dff632850d8e34c2c"
+    },
+    "node_variant.csv": {
+      "bytes": 280620,
+      "sha256": "df33482064b16aad5b755a45399df828b4230a55ee24bea0b48d6f351a2a2c6d"
+    },
+    "nodes_clinical_trials.csv": {
+      "bytes": 1981863,
+      "sha256": "f97311e7f1a75c8a5021fc55f2ee45ee0efdf309d5f541966f8a0fb0be7fd58e"
+    },
+    "trial_eligibility_criteria.csv": {
+      "bytes": 21376955,
+      "sha256": "2e00cb110332521ddc696c0fa30e4d4068546072f4923c02ecf24648ddcf1c03"
+    }
+  },
+  "source_root": "C:\\Users\\paolo\\Desktop\\IspezioneDatasetTesi\\data_expl\\DatasetTESI\\Dataset TESI\\Clean_Graph_Data"
+}
