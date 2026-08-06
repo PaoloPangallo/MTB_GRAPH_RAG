@@ -22,10 +22,18 @@ from uuid import uuid4
 
 from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import data_access as da
+from backend.research_pipeline import execution_mode as em
 from backend.research_pipeline import orchestrator, replay
 from backend.research_pipeline.cases.definitions import CASES
 from backend.research_pipeline.contracts import PipelineRun
+from backend.research_pipeline.documents import cache_runtime
+from backend.research_pipeline.documents.live_resolution import DocumentRuntime
 from backend.research_pipeline.pipeline import CallBudget
+
+#: Tetto di chiamate reali al modello per una singola run. Il pilot autorizzava
+#: 20 chiamate complessive; questo lavoro ne autorizza 10 in totale, quindi il
+#: tetto per run è più stretto di quello del budget storico.
+MAX_LLM_CALLS_PER_RUN = 6
 
 
 def research_ledger_path() -> Path:
@@ -48,8 +56,10 @@ class RunHandle:
     case_id: str
     status: str
     started_at: str
+    requested_mode: str = em.LIVE
     run: PipelineRun | None = None
     error: str | None = None
+    error_reason_code: str | None = None
     thread: threading.Thread | None = field(default=None, repr=False)
 
     def snapshot(self) -> dict[str, Any]:
@@ -62,6 +72,9 @@ class RunHandle:
             "warnings": [], "errors": [self.error] if self.error else [],
             "versions": {}, "metrics": {},
             "research_notice": PipelineRun.research_notice(),
+            "document_cache": {}, "llm_calls": 0,
+            "reason_codes": [self.error_reason_code] if self.error_reason_code else [],
+            **em.summarize(self.requested_mode, ()),
         }
 
 
@@ -86,17 +99,24 @@ class RunStore:
         with self._lock:
             return sorted(self._runs.values(), key=lambda h: h.started_at, reverse=True)
 
-    def start(self, *, case_id: str, clinical_text: str, use_replay: bool) -> RunHandle:
+    def start(self, *, case_id: str, clinical_text: str, execution_mode: str) -> RunHandle:
+        """Avvia una run nella modalità **richiesta esplicitamente**.
+
+        Non esiste più un ``use_replay`` dedotto dalla presenza di artefatti
+        congelati per il caso: era il fallback silenzioso. Una modalità
+        sconosciuta solleva invece di ripiegare su un default.
+        """
+        mode = em.normalize_requested_mode(execution_mode)
         run_id = str(uuid4())
         handle = RunHandle(
             run_id=run_id, case_id=case_id, status="CREATED",
-            started_at=datetime.now(timezone.utc).isoformat(),
+            started_at=datetime.now(timezone.utc).isoformat(), requested_mode=mode,
         )
         with self._lock:
             self._runs[run_id] = handle
 
         thread = threading.Thread(
-            target=self._execute, args=(handle, clinical_text, use_replay),
+            target=self._execute, args=(handle, clinical_text, mode),
             name=f"research-run-{run_id[:8]}", daemon=True,
         )
         handle.thread = thread
@@ -104,42 +124,45 @@ class RunStore:
         thread.start()
         return handle
 
-    def _execute(self, handle: RunHandle, clinical_text: str, use_replay: bool) -> None:
+    def _execute(self, handle: RunHandle, clinical_text: str, mode: str) -> None:
         try:
-            kwargs = self._providers(handle.case_id, use_replay)
-            # L'indice delle SourceUnit contiene locatori, sezione, offset e
-            # ``content_hash`` — mai il testo. Passarlo vuoto, come accadeva
-            # prima, lasciava lo stage 7 con i soli identificativi: le unità
-            # risultavano esistenti ma prive di posizione, e non erano
-            # distinguibili da unità non risolte.
-            #
-            # Non altera alcuna decisione: ``select_papers_for_association``
-            # ammette un bundle solo se una sua unità ha `text` non vuoto, e
-            # l'indice non ha quel campo. La selezione continua quindi a
-            # escludere per ``TEXT_NOT_AVAILABLE_IN_CACHE`` esattamente come
-            # prima, e il validatore resta invariato.
+            kwargs = self._providers(mode)
+            document_runtime = DocumentRuntime.open() if mode == em.LIVE else None
+            # In REPLAY l'indice delle SourceUnit fornisce locatori, sezione,
+            # offset e ``content_hash`` — mai il testo. In LIVE le unità con
+            # testo arrivano da ``DocumentRuntime`` e questo argomento non viene
+            # usato per alcuna decisione.
             handle.run = orchestrator.run_case(
                 case_id=handle.case_id, clinical_text=clinical_text,
-                source_units_by_id=da.load_source_unit_index(), budget=CallBudget(),
-                ledger=self._ledger, run_id=handle.run_id, **kwargs,
+                source_units_by_id=da.load_source_unit_index(),
+                budget=CallBudget(MAX_LLM_CALLS_PER_RUN),
+                ledger=self._ledger, run_id=handle.run_id,
+                execution_mode=mode, document_runtime=document_runtime, **kwargs,
             )
             handle.status = handle.run.status
+        except cache_runtime.DocumentCacheUnavailable as exc:
+            # La cache manca: la run LIVE non parte e **non** ripiega sul replay.
+            handle.status = "FAILED"
+            handle.error = str(exc)
+            handle.error_reason_code = "DOCUMENT_CACHE_UNAVAILABLE"
         except Exception as exc:  # noqa: BLE001 — l'errore deve restare visibile
             # Un errore non diventa mai un risultato: la run resta FAILED e il
             # messaggio è esposto, invece di essere confuso con un'astensione.
             handle.status = "FAILED"
             handle.error = f"{type(exc).__name__}: {exc}"
+            handle.error_reason_code = "LIVE_STAGE_FAILED" if handle.requested_mode == em.LIVE else "RUN_FAILED"
 
     @staticmethod
-    def _providers(case_id: str, use_replay: bool) -> dict[str, Callable[..., Any]]:
-        if not use_replay:
-            # Percorso live: parser ed enricher chiamano davvero il modello.
-            from backend.research_pipeline.casecontext import parser as cc_parser
-            from backend.research_pipeline.enrichment import enricher_v2
+    def _providers(mode: str) -> dict[str, Callable[..., Any]]:
+        if mode == em.LIVE:
+            # Percorso live: parser ed enricher chiamano davvero il modello,
+            # spendono il budget e la validazione passa dal validatore v2.
+            from backend.research_pipeline import live_providers
 
             return {
-                "call_parser_fn": lambda budget, cid, text: cc_parser.call_parser(cid, text),
-                "call_enricher_fn": enricher_v2.call_enricher_v2,
+                "call_parser_fn": live_providers.parser_fn,
+                "call_enricher_fn": live_providers.enricher_fn,
+                "validate_fn": live_providers.validate_fn,
             }
         return {
             "call_parser_fn": replay.parser_fn,

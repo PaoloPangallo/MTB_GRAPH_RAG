@@ -50,7 +50,7 @@ def call_enricher_v2(case_id: str, candidate_id: str, paper_id: str, case_contex
             "decision": args["decision"], "source_unit_id": args["source_unit_id"],
             "author_claim_quote": args["author_claim_quote"], "author_context_summary": args["author_context_summary"],
             "abstention_reason": args["abstention_reason"],
-            "model": tr.MODEL, "prompt_version": prompt.PROMPT_VERSION, "transport_version": prompt.TRANSPORT_VERSION,
+            "model": tr.model_name(), "prompt_version": prompt.PROMPT_VERSION, "transport_version": prompt.TRANSPORT_VERSION,
             "payload_hash": tr.sha(json.dumps(args, ensure_ascii=False, sort_keys=True)),
             "timestamp": datetime.now(timezone.utc).isoformat(), "lineage": {"case_id": case_id, "candidate_id": candidate_id, "paper_id": paper_id, "run_index": run_index},
         }
@@ -58,7 +58,7 @@ def call_enricher_v2(case_id: str, candidate_id: str, paper_id: str, case_contex
     usage = (response_json or {}).get("usage") or {}
     return {
         "case_id": case_id, "candidate_id": candidate_id, "paper_id": paper_id, "run_index": run_index,
-        "model": tr.MODEL, "endpoint": tr.OPENAI_COMPAT_ENDPOINT, "delivery_transport": "OLLAMA_FORCED_TOOL_CHOICE_V2",
+        "model": tr.model_name(), "endpoint": tr.endpoint_url(), "delivery_transport": "OLLAMA_FORCED_TOOL_CHOICE_V2",
         "prompt_version": prompt.PROMPT_VERSION, "transport_version": prompt.TRANSPORT_VERSION,
         "transport_result": transport_outcome, "transport_reason_codes": reasons, "finish_reason": finish_reason,
         "enrichment": enrichment, "raw_response_hash": response_hash,

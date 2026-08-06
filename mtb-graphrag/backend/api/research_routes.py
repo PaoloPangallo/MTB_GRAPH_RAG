@@ -20,7 +20,8 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from backend.research_pipeline import data_access, llm_config, replay
+from backend.research_pipeline import data_access, execution_mode, llm_config, replay
+from backend.research_pipeline.documents import cache_runtime
 from backend.research_pipeline.contracts import (
     LLM_STAGE_IDS,
     NOT_IMPLEMENTED_STAGE_IDS,
@@ -57,6 +58,10 @@ class CreateRunRequest(BaseModel):
     clinical_text: str | None = Field(default=None, min_length=1)
     case_id: str | None = None
     demo_case_key: str | None = None
+    #: ``LIVE`` o ``REPLAY``, esplicito. Il default è ``LIVE`` perché la modalità
+    #: di riferimento è l'esecuzione reale: un default ``REPLAY`` reintrodurrebbe
+    #: per omissione lo stesso automatismo che questo campo esiste per rimuovere.
+    execution_mode: str = "LIVE"
 
 
 @router.get("/cases")
@@ -74,10 +79,17 @@ def list_cases() -> dict[str, Any]:
 def config() -> dict[str, Any]:
     """Stato di dati, cache e provider LLM. Non espone mai la chiave."""
     _guard()
-    availability = data_access.describe_availability()
+    cache = cache_runtime.describe().to_dict()
     return {
         "llm": llm_config.describe(),
-        "data": availability,
+        "data": data_access.describe_availability(),
+        "document_cache": cache,
+        "execution_modes": {
+            "requestable": list(execution_mode.REQUESTABLE_MODES),
+            "artifact_origins": list(execution_mode.ARTIFACT_ORIGINS),
+            "live_available": cache["document_cache_available"],
+            "live_unavailable_reason": cache["reason_codes"] or None,
+        },
         "frozen_replay": replay.summary(),
         "stages_not_implemented": sorted(NOT_IMPLEMENTED_STAGE_IDS),
         "llm_stages": sorted(LLM_STAGE_IDS),
@@ -102,22 +114,43 @@ def create_run(request: CreateRunRequest) -> dict[str, Any]:
     if not case_id:
         raise HTTPException(status_code=422, detail="case_id obbligatorio per un testo libero")
 
-    # Replay quando esistono gli artefatti congelati del caso; altrimenti la run
-    # e' live e richiede credenziali. Un caso inedito senza credenziali fallisce
-    # esplicitamente invece di produrre un risultato vuoto.
-    use_replay = replay.has_frozen_case(case_id)
-    if not use_replay:
+    # La modalità è quella richiesta, mai dedotta dalla presenza di artefatti
+    # congelati per il caso. Le precondizioni della modalità vengono verificate
+    # **prima** di avviare la run, così un LIVE impossibile fallisce subito e con
+    # il proprio motivo, invece di degradare in un replay travestito.
+    try:
+        mode = execution_mode.normalize_requested_mode(request.execution_mode)
+    except execution_mode.UnknownExecutionMode as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    if mode == execution_mode.LIVE:
         try:
             llm_config.resolve_endpoint()
         except llm_config.MissingLLMCredentials as exc:
             raise HTTPException(status_code=503, detail=str(exc)) from exc
+        if not cache_runtime.is_available():
+            available, reasons = cache_runtime.validate_cache()
+            raise HTTPException(
+                status_code=503,
+                detail=f"cache documentale non disponibile ({reasons}): una run LIVE "
+                       f"non ripiega su artefatti registrati. Configurare "
+                       f"{cache_runtime.CACHE_PATH_ENV}.",
+            )
+    elif not replay.has_frozen_case(case_id):
+        raise HTTPException(
+            status_code=409,
+            detail=f"nessun artefatto registrato per {case_id!r}: "
+                   "una run REPLAY non ha nulla da rigiocare",
+        )
 
-    handle = get_store().start(case_id=case_id, clinical_text=clinical_text, use_replay=use_replay)
+    handle = get_store().start(case_id=case_id, clinical_text=clinical_text, execution_mode=mode)
     return {
         "run_id": handle.run_id,
         "case_id": handle.case_id,
         "status": handle.status,
-        "execution_mode": "FROZEN_REPLAY" if use_replay else "LIVE",
+        "requested_mode": mode,
+        "execution_mode": mode,
+        "replay_run_available": replay.has_frozen_case(case_id),
         "stream_url": f"/api/v1/research/pipeline/runs/{handle.run_id}/stream",
         "research_notice": PipelineRun.research_notice(),
     }
