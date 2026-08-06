@@ -13,6 +13,7 @@ import StructuredValue from '../values/StructuredValue';
 import { color, font, reasonLabel } from '../tokens';
 import type { PipelineStage } from '../types';
 import { MatchVerifierStage, ParserStage } from './CaseContextStages';
+import EligibilityStage from './EligibilityStage';
 import { DeterministicChecksStage, StatusStage } from './DeterministicStages';
 import { EnricherStage, ValidationStage } from './EnrichmentStages';
 import {
@@ -75,6 +76,9 @@ export default function StageOutput({ stage, clinicalText }: StageOutputProps) {
 
     case 'stage_3_casecontext_match':
       return <MatchVerifierStage preview={preview} producer={stage.producer} clinicalText={clinicalText} />;
+
+    case 'stage_3b_pre_retrieval_eligibility_gate':
+      return <EligibilityStage preview={preview} />;
 
     case 'stage_5_kg_retrieval':
       return <GraphCandidateStage preview={preview} />;

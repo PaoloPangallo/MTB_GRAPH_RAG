@@ -117,7 +117,8 @@ class RunLifecycleTest(ResearchApiTestBase):
         snapshot = self.client.get(f"{BASE}/runs/{run_id}").json()
 
         self.assertIn(snapshot["status"], ("COMPLETED", "PARTIAL"))
-        self.assertEqual(len(snapshot["stages"]), 15)
+        from backend.research_pipeline.contracts import STAGE_SEQUENCE
+        self.assertEqual(len(snapshot["stages"]), len(STAGE_SEQUENCE))
 
     def test_every_response_declares_the_research_framing(self) -> None:
         run_id = self.run_demo()
