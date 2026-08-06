@@ -1,0 +1,60 @@
+{
+  "call_budget": {
+    "executed": 0,
+    "max_calls": 20
+  },
+  "calls_executed": 0,
+  "generated_at": "2026-08-06T14:23:34.724169+00:00",
+  "note": "Nessuna chiamata a OncoKB è stata effettuata da questo script.",
+  "oncokb": {
+    "api_version": "v1.6.0",
+    "data_version": "v7.4 (07/31/2026)",
+    "docs_consulted_at": "2026-08-06",
+    "instance_required": "https://www.oncokb.org (production, autenticata)"
+  },
+  "pilot_feasible": false,
+  "planned_sample_candidate_ids": [],
+  "planned_sample_size": 0,
+  "queryability": {
+    "feature_profiles_gene_alteration_disease_intervention": {
+      "-/-/-/intervention": 7381,
+      "gene/-/-/-": 5664,
+      "gene/-/-/intervention": 25589
+    },
+    "missing_key_reasons": {
+      "missing:alteration": 38634,
+      "missing:gene": 7381
+    },
+    "queryable_candidate_count": 0,
+    "states": {
+      "NOT_QUERYABLE": 38634
+    }
+  },
+  "queryability_by_rule": {
+    "gca/2.0/companion-diagnostic :: NOT_QUERYABLE": 163,
+    "gca/2.0/gene-drug-interaction :: NOT_QUERYABLE": 25589,
+    "gca/2.0/trial-drug :: NOT_QUERYABLE": 7381,
+    "gca/2.0/trial-gene :: NOT_QUERYABLE": 5501
+  },
+  "required_strata_from_protocol": {
+    "gene_alteration_disease": 0,
+    "gene_disease_no_alteration": 0,
+    "intervention_evaluation": 32970,
+    "nct_without_pmid": 12882,
+    "no_identifier_at_all": 25752,
+    "resistance": 0,
+    "sensitivity": 0,
+    "therapy_discovery": 5664
+  },
+  "target_population": {
+    "candidates_total": 46864,
+    "candidates_without_pmid": 38634,
+    "share_without_pmid": 0.8244
+  },
+  "unsatisfiable_strata": [
+    "gene_alteration_disease",
+    "gene_disease_no_alteration",
+    "resistance",
+    "sensitivity"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "abstain": 0,
+  "candidates_without_pmid": 38634,
+  "citations_returned": 0,
+  "context_mismatch": 0,
+  "coverage_gain": null,
+  "documents_in_cache": 0,
+  "duplicates_already_in_kg": 0,
+  "exact_match": null,
+  "no_match": null,
+  "not_queryable_candidates": 38634,
+  "oncokb_api_version": "v1.6.0",
+  "oncokb_call_type": "GET /api/v1/info (metadata only, no knowledge data)",
+  "oncokb_calls_executed": 1,
+  "oncokb_data_version": "v7.4 (07/31/2026)",
+  "oncokb_integrated_into_runtime": false,
+  "oncokb_knowledge_data_retrieved": false,
+  "partial_match": null,
+  "pilot_executed": false,
+  "provenance_gain": null,
+  "queries_executed": 0,
+  "queryable_candidates": 0,
+  "quotes_accepted": 0,
+  "reason": "ONCOKB_FALLBACK_BLOCKED_NO_AUTHORIZATION + ONCOKB_FALLBACK_LOW_YIELD",
+  "resolvable_pmids": 0,
+  "unique_pmids_obtained": 0,
+  "unsatisfiable_protocol_strata": [
+    "gene_alteration_disease",
+    "gene_disease_no_alteration",
+    "sensitivity",
+    "resistance"
+  ]
+}
