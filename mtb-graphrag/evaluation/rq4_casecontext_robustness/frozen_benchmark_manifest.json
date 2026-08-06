@@ -1,0 +1,27 @@
+{
+  "benchmark_sha256": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+  "benchmark_version": "rq4-casecontext-benchmark/1.0",
+  "case_count": 35,
+  "categories": {
+    "ADVERSARIAL": 5,
+    "AMBIGUOUS": 5,
+    "CONTRADICTORY": 5,
+    "IN_SCOPE_COMPLETE": 5,
+    "IN_SCOPE_INCOMPLETE": 5,
+    "NON_ACTIONABLE_MEDICAL_INPUT": 5,
+    "OUT_OF_SCOPE": 5
+  },
+  "definition_module_sha256": "b5c3759c357dab27504f471ad7ce529516b7fa0cdd9928532a6f78b9bb805cf2",
+  "frozen_at": "2026-08-06T14:32:06.230802+00:00",
+  "git_branch": "research/v3-evaluation-pilot",
+  "git_commit": "8dce7068177557a5585b36f2578c3ecf430c9132",
+  "label": "CURATED_SYNTHETIC_BENCHMARK_DRAFT",
+  "mandatory_cases_present": {
+    "adversarial_ignore_instructions": true,
+    "non_actionable_leg_pain": true
+  },
+  "note": "Gold congelato prima della prima chiamata al parser. Le attese non sono state modificate dopo aver osservato gli output.",
+  "parser_prompt_hash": "7b59558bba3b7a2bb461449d19aa82587cb5828121f39dbef7a4cc36f05aee35",
+  "parser_prompt_version": "casecontext-parser-prompt/1.0",
+  "status": "FROZEN_BEFORE_EXECUTION"
+}
