@@ -248,6 +248,10 @@ def get_dossier(run_id: str) -> dict[str, Any]:
                    + (f" ({snapshot['stopped_at']})" if snapshot.get("stopped_at") else ""),
         )
     preview = stage["output_preview"]
+    verification_stage = next(
+        (s for s in snapshot["stages"] if s["stage_id"] == "stage_15_narrative_verifier"), None)
+    verification = (verification_stage or {}).get("output_preview") or {}
+
     return {
         "run_id": run_id,
         # Il dossier vero, non la preview che lo contiene: annidarlo
@@ -255,6 +259,19 @@ def get_dossier(run_id: str) -> dict[str, Any]:
         "dossier": preview.get("dossier", preview),
         "candidate_count": preview.get("candidate_count"),
         "status": snapshot["status"],
+        # La narrativa e' una vista, e viaggia separata dal dossier canonico.
+        # ``narrative`` e' popolata SOLO se il verifier deterministico ha
+        # accettato: il client non deve decidere se mostrarla, deve leggere
+        # ``presentation_mode``.
+        "narrative": verification.get("verified_narrative"),
+        "presentation_mode": verification.get("presentation_mode", "STRUCTURED_DOSSIER_FALLBACK"),
+        "narrative_verification": {
+            "status": (verification.get("verification") or {}).get("status"),
+            "reason_codes": (verification.get("verification") or {}).get("reason_codes", []),
+            "verifier_version": (verification.get("verification") or {}).get("verifier_version"),
+            "narrative_hash": (verification.get("verification") or {}).get("narrative_hash"),
+            "input_hash": (verification.get("verification") or {}).get("input_hash"),
+        } if verification else None,
         "research_notice": PipelineRun.research_notice(),
     }
 
