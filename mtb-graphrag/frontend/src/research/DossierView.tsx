@@ -15,6 +15,16 @@ import { Box, Chip, Stack, Tooltip, Typography } from '@mui/material';
 import { color, font, radius, reasonLabel } from './tokens';
 import { TERM_TOOLTIPS } from './types';
 
+/**
+ * Stato di presentazione deciso dal backend, mai dedotto qui.
+ * Vale il vocabolario di `backend/research_pipeline/dossier/builder.py`.
+ */
+type PresentationState =
+  | 'VALIDATED_QUOTE'
+  | 'REJECTED_QUOTE'
+  | 'ABSTAINED'
+  | 'PROPOSED_QUOTE_NOT_VALIDATED';
+
 interface Enrichment {
   author_claim_quote?: string | null;
   author_context_summary?: string | null;
@@ -24,6 +34,29 @@ interface Enrichment {
   paper_id?: string | null;
   model?: string | null;
   prompt_version?: string | null;
+  presentation_state?: PresentationState | null;
+  validation_outcome?: string | null;
+  validation_reason_codes?: string[] | null;
+}
+
+/**
+ * Una quote è presentabile come citazione d'autore **solo** se il validatore
+ * deterministico l'ha accettata.
+ *
+ * La regola precedente era `accepted = e.author_claim_quote != null`, cioè
+ * l'esistenza di una stringa. Una quote fabbricata dal modello e rigettata con
+ * REJECTED_QUOTE_NOT_FOUND finiva così nel gruppo reso in corsivo sotto
+ * «Ciò che gli autori dei paper hanno scritto».
+ *
+ * In assenza del campo — dossier prodotto da una run precedente al fix — si
+ * ricade sul comportamento **conservativo**: non presentabile.
+ */
+function isValidatedAuthorClaim(e: Enrichment): boolean {
+  return e.presentation_state === 'VALIDATED_QUOTE';
+}
+
+function isAbstention(e: Enrichment): boolean {
+  return e.presentation_state === 'ABSTAINED' || (!e.presentation_state && !e.author_claim_quote);
 }
 
 interface Validation {
@@ -86,8 +119,13 @@ function Mono({ children }: { children: React.ReactNode }) {
 }
 
 function CandidateCard({ entry }: { entry: CandidateTherapy }) {
-  const accepted = entry.author_context.filter((e) => e.author_claim_quote);
-  const abstained = entry.author_context.filter((e) => !e.author_claim_quote);
+  const accepted = entry.author_context.filter(isValidatedAuthorClaim);
+  const abstained = entry.author_context.filter(isAbstention);
+  // Proposte del modello che il validatore ha scartato. Restano visibili per
+  // audit, in una sezione propria, mai fra le citazioni degli autori.
+  const rejected = entry.author_context.filter(
+    (e) => !isValidatedAuthorClaim(e) && !isAbstention(e),
+  );
 
   return (
     <Box sx={{
@@ -179,6 +217,49 @@ function CandidateCard({ entry }: { entry: CandidateTherapy }) {
             </Box>
           </Tooltip>
         ))}
+
+        {rejected.length > 0 && (
+          <Box sx={{ mt: 1.5, pt: 1.5, borderTop: `1px dashed ${color.borderLight}` }}>
+            <Typography sx={{ fontFamily: font.mono, fontSize: 10, color: color.muted, mb: 0.5 }}>
+              PROPOSTE NON VALIDATE — SOLO AUDIT
+            </Typography>
+            <Typography sx={{ fontFamily: font.body, fontSize: 11, color: color.slate, mb: 1 }}>
+              Il modello le ha proposte, il validatore deterministico le ha scartate.
+              Non sono citazioni degli autori e non contribuiscono allo status.
+            </Typography>
+            {rejected.map((e, i) => (
+              <Box key={`r-${i}`} sx={{ mb: 1 }}>
+                <Stack direction="row" spacing={0.75} sx={{ flexWrap: 'wrap', mb: 0.5 }}>
+                  <Chip
+                    label={e.validation_outcome ?? 'NON_VALIDATA'}
+                    size="small"
+                    sx={{
+                      height: 20, fontFamily: font.mono, fontSize: 10,
+                      backgroundColor: color.canvas, color: color.body, borderRadius: '4px',
+                    }}
+                  />
+                  {(e.validation_reason_codes ?? []).map((code) => (
+                    <Chip
+                      key={code}
+                      label={reasonLabel(code)}
+                      size="small"
+                      sx={{
+                        height: 20, fontFamily: font.mono, fontSize: 10,
+                        backgroundColor: color.canvas, color: color.muted, borderRadius: '4px',
+                      }}
+                    />
+                  ))}
+                </Stack>
+                <Typography sx={{
+                  fontFamily: font.body, fontSize: 12, color: color.muted,
+                  textDecoration: 'line-through', pl: 1.5,
+                }}>
+                  {e.author_claim_quote ?? '(nessuna quote)'}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
 
         {entry.author_context.length === 0 && (
           <Typography sx={{ fontFamily: font.body, fontSize: 13, color: color.slate }}>

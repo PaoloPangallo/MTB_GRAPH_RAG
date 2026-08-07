@@ -613,9 +613,21 @@ def run_case(
             validations.append({"candidate_id": candidate["candidate_id"],
                                 "paper_id": paper["bundle_id"], **validation})
             validation_entries.append({"paper_id": paper["bundle_id"], **validation})
-            if call["enrichment"] is not None:
-                enrichment_entries.append(call["enrichment"])
             gate_outcome = _accepted_for_gates(validation["outcome"])
+            if call["enrichment"] is not None:
+                # L'enrichment viaggia con il **proprio** esito di validazione.
+                # Prima veniva appeso nudo, e il dossier non conservava alcun modo
+                # di distinguere una quote validata da una rigettata: la UI
+                # ricadeva su ``accepted = quote != null`` e mostrava come
+                # citazione d'autore anche una quote che il validatore aveva
+                # scartato. Conservare la voce serve all'audit; presentarla come
+                # accettata no.
+                enrichment_entries.append(dossier_mod.annotate_enrichment(
+                    call["enrichment"],
+                    paper_id=paper["bundle_id"],
+                    validation=validation,
+                    accepted_for_gates=gate_outcome is not None,
+                ))
             if gate_outcome is not None:
                 validated.append({"validation_outcome": gate_outcome,
                                   "enrichment": call["enrichment"],
