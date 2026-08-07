@@ -1,0 +1,118 @@
+{
+ "claim_scope": {
+  "runtime_gca_version": "2.0",
+  "gca_v3_status": "SHADOW / EVALUATION",
+  "not_required_for_freeze": [
+   "compound alteration preservation nel runtime",
+   "alteration AST nel runtime",
+   "regimi multi-componente nel runtime",
+   "runtime GCA v3"
+  ]
+ },
+ "RQ1": {
+  "deliverable": true,
+  "scope": "SHADOW / materializzazione",
+  "verified_by": "hash byte-identici + chiusura transitiva degli import",
+  "historical_artifacts_unchanged": true,
+  "metrics": {
+   "materialization_precision": 1.0,
+   "materialization_recall": 1.0,
+   "field_completeness": 1.0,
+   "direction_inversions_graph": 486,
+   "ALTERATION_LOST": 1091,
+   "REGIMEN_SPLIT": 1294
+  },
+  "condition": "dichiarare che misura la materializzazione da export CSV congelato, non una query Neo4j live"
+ },
+ "RQ2": {
+  "deliverable": "PARZIALE",
+  "scope": "fattibilita' della catena di grounding",
+  "chain_levels_distinguishable": true,
+  "denominators": {
+   "full_corpus": 46864,
+   "with_pmid": 8230,
+   "unique_pmids": 2229,
+   "document_available": 15,
+   "end_to_end_reachable": 16
+  },
+  "condition": "presentare come fattibilita', non copertura; affiancare sempre il denominatore end-to-end (ISS-007)"
+ },
+ "RQ3": {
+  "deliverable": true,
+  "prompt_only_restrictions": 0,
+  "uncontrolled_boundaries": 0,
+  "impossible_by_construction": 7,
+  "validated_downstream": 2,
+  "verified_by": "trasporto reale + batteria quote + 4 run REPLAY via API",
+  "improvement": "il punto che l'audit precedente classificava PARZIALE (output LLM nel dossier presentato) e' chiuso"
+ },
+ "RQ4": {
+  "deliverable": true,
+  "measurable_through_canonical_runtime": true,
+  "path_disagreements": 0,
+  "metrics": {
+   "generated_at": "2026-08-07T19:00:07.993748+00:00",
+   "benchmark_sha256": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+   "cases": 35,
+   "evaluation_path": "backend.research_pipeline.orchestrator.run_case",
+   "compared_against": "backend.research_pipeline.casecontext.pipeline.run",
+   "parser": "REPLAYED_FROM_FROZEN_RUN — nessuna chiamata al modello",
+   "execution_mode": "REPLAY",
+   "downstream_calls_measured": true,
+   "noneligible_cases": 27,
+   "eligible_cases": 8,
+   "controlled_stops_ok": 18,
+   "noneligible_retrieval_calls": 0,
+   "forbidden_downstream_calls": 0,
+   "expected_controlled_stops_failed": 0,
+   "stops_classified_as_failure": 0,
+   "runtime_exceptions": 0,
+   "path_disagreements": 0,
+   "parser_transport_failures": 9,
+   "noneligible_not_reaching_gate": 9,
+   "out_of_scope_retrieval": 0,
+   "non_actionable_retrieval": 0,
+   "contradictory_case_retrieval": 0,
+   "note_parser_transport": "I casi con transport != FORCED_TOOL_VALID si fermano allo stage 2 e non raggiungono il gate: sono guasti del modello (ISS-012, P2), non stop del gate mancati, e sono contati a parte.",
+   "eligibility_by_category": {
+    "ADVERSARIAL": {
+     "ADVERSARIAL_OR_CONTROL_INPUT": 2,
+     "PARSER_TRANSPORT_FAILED": 1,
+     "MISSING_REQUIRED_FIELDS": 1,
+     "ELIGIBLE_FOR_RETRIEVAL": 1
+    },
+    "AMBIGUOUS": {
+     "MISSING_REQUIRED_FIELDS": 2,
+     "ELIGIBLE_FOR_RETRIEVAL": 1,
+     "PARSER_TRANSPORT_FAILED": 2
+    },
+    "CONTRADICTORY": {
+     "CONTRADICTORY_CASE_CONTEXT": 5
+    },
+    "IN_SCOPE_COMPLETE": {
+     "ELIGIBLE_FOR_RETRIEVAL": 4,
+     "PARSER_TRANSPORT_FAILED": 1
+    },
+    "IN_SCOPE_INCOMPLETE": {
+     "MISSING_REQUIRED_FIELDS": 1,
+     "ELIGIBLE_FOR_RETRIEVAL": 2,
+     "PARSER_TRANSPORT_FAILED": 2
+    },
+    "NON_ACTIONABLE_MEDICAL_INPUT": {
+     "PARSER_TRANSPORT_FAILED": 1,
+     "NON_ACTIONABLE_MEDICAL_INPUT": 4
+    },
+    "OUT_OF_SCOPE": {
+     "OUT_OF_SCOPE": 3,
+     "PARSER_TRANSPORT_FAILED": 2
+    }
+   }
+  },
+  "condition": "dichiarare che 9 casi su 35 non raggiungono il gate per fallimento del trasporto del parser (ISS-012)"
+ },
+ "RQ5": {
+  "status": "PLANNED",
+  "oncokb_called": false,
+  "required_for_freeze": false
+ }
+}

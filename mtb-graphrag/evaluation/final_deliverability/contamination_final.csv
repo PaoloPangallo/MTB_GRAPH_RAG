@@ -1,0 +1,13 @@
+check_id,item,found,severity,detail,verdict_vs_previous_audit
+CF-01,artifact storici modificati dal fix sprint,NO,-,"git diff 0219e0a..HEAD sulle directory rq1/rq2/rq3/rq4/gca_v3/runtime_v3_integration/gold/benchmarks non restituisce alcuna riga. 4 file differiscono per byte grezzi ma SOLO nei fine riga (CRLF su disco vs LF nel blob): contenuto identico verificato normalizzando",CONFERMATO
+CF-02,metriche hard-coded,NO,-,"Nessuna costante numerica sospetta introdotta dal fix sprint. Le uniche costanti aggiunte sono i pin del lockfile",CONFERMATO
+CF-03,output hard-coded,NO,-,"run_rq4_canonical_runtime rieseguito in directory temporanea: riproduzione identica all artifact committato salvo timestamp",CONFERMATO
+CF-04,replay presentati come LIVE,NO,-,"POST /runs in LIVE senza servizi risponde 503 e NON degrada in REPLAY. HYBRID non richiedibile (422). Le run REPLAY riportano execution_mode=REPLAY, fully_live=false, llm_calls=0",CONFERMATO
+CF-05,mock nel runtime,NO,-,"Nessun riferimento a unittest.mock/MagicMock/monkeypatch/FIXTURE/DUMMY_/FAKE_ nei moduli di backend/research_pipeline esclusi i test",CONFERMATO
+CF-06,fixture nel runtime,NO,-,"Gli artefatti congelati usati in REPLAY sono risposte reali del modello marcate RECORDED_REAL_RUN, che declassano la run a HYBRID",CONFERMATO
+CF-07,cache non dichiarata,PARZIALE,P3,"4 moduli usano lru_cache a livello di modulo su dataset congelati, motivato nei commenti e invalidabile con cache_clear",CONFERMATO invariato
+CF-08,golden data letti dal codice applicativo,NO,-,"Nessun riferimento a evaluation/gold in backend/ esclusi i test",CONFERMATO
+CF-09,self-comparison del materializzatore,NO,-,"evaluation/rq1/kg_source.py non contiene alcun riferimento a gca_v3 o materialize: 0 occorrenze",CONFERMATO
+CF-10,error suppression,NO,-,"Nessun except con pass/continue silenzioso nei moduli del runtime. Un test verifica che un guasto reale del parser risalga come eccezione invece di diventare stop controllato",CONFERMATO e RAFFORZATO
+CF-11,fallback silenziosi,NO,-,"REPLAY senza artefatti congelati viene rifiutato (409). Modalita sconosciuta rifiutata (422). Nessun percorso degradato",CONFERMATO
+CF-12,il fix sprint ha alterato i risultati storici,NO,-,"Chiusura transitiva degli import: nessuno dei 3 script RQ raggiunge i 4 moduli modificati",CONFERMATO

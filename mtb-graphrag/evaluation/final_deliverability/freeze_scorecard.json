@@ -1,0 +1,146 @@
+{
+  "verdict": "DELIVERABLE_WITH_MINOR_DOCUMENTATION_FIXES",
+  "verdict_rationale": "Tutti e sei i blocker sono chiusi in verifica indipendente, con sonde scritte da zero e casi piu' duri di quelli usati per correggerli. I diciotto criteri di freeze del §17 sono soddisfatti. Restano una correzione documentale (ISS-007) e tre rilievi nuovi, tutti P2/P3 e nessuno bloccante: nessuno richiede modifiche al runtime o agli esperimenti.",
+
+  "audit": {
+    "date_utc": "2026-08-07",
+    "independent": true,
+    "trusted_fix_report": false,
+    "probes_written_from_scratch": true,
+    "code_modified_during_final_audit": false,
+    "push_executed": false,
+    "merge_executed": false
+  },
+
+  "repository": {
+    "branch": "fix/pre-freeze-deliverability-blockers",
+    "head": "e25a63b77848a30d3b7249b1d8c2b6339cd6e6af",
+    "base_commit": "0219e0a7a4a063668c72c941413fbd8382838b32",
+    "fix_sprint_commits": 11,
+    "working_tree_clean_of_code_changes": true,
+    "historical_artifacts_unchanged": true
+  },
+
+  "blockers": {
+    "iss_001_closed": true,
+    "iss_002_closed": true,
+    "iss_003_closed": true,
+    "iss_004_closed": true,
+    "iss_005_closed": true,
+    "iss_006_closed": true,
+    "iss_007_closed": false,
+    "iss_007_blocking": false
+  },
+
+  "freeze_criteria_section_17": {
+    "remaining_p0": 0,
+    "remaining_blocking_p1": 0,
+    "does_not_support_promoted": 0,
+    "negative_source_primary_bucket": 0,
+    "automatic_direction_inversions": 0,
+    "noneligible_retrieval_calls": 0,
+    "expected_controlled_stops_failed": 0,
+    "invented_quotes_canonically_accepted": 0,
+    "invented_quotes_presented_as_accepted": 0,
+    "invented_sourceunits_accepted": 0,
+    "wrong_document_quotes_accepted": 0,
+    "canonical_status_deterministic": true,
+    "llm_authority_uncontrolled": 0,
+    "frontend_build_passed": true,
+    "backend_tests_passed": true,
+    "frontend_tests_passed": true,
+    "rq4_canonical_runtime_passed": true,
+    "historical_artifacts_unchanged": true,
+    "all_eighteen_satisfied": true
+  },
+
+  "runtime_invariants": {
+    "candidates_swept": 46864,
+    "negative_polarity_candidates": 1936,
+    "negative_promoted_to_consistent": 0,
+    "negative_in_primary_bucket": 0,
+    "rejected_quotes_presented_as_accepted": 0,
+    "controlled_stops": "8/8 casi non eleggibili",
+    "downstream_calls_from_noneligible": 0,
+    "unexpected_exceptions": 0,
+    "stop_vocabulary_partitioned": true
+  },
+
+  "authority": {
+    "prompt_only_authority_restrictions": 0,
+    "uncontrolled_authority_boundaries": 0,
+    "impossible_by_construction": 7,
+    "validated_downstream": 2,
+    "tool_schema_properties": 5,
+    "llm_stages": 2,
+    "total_stages": 16,
+    "extra_keys_rejected_by_transport": true
+  },
+
+  "tests": {
+    "backend_tests_passed": true,
+    "backend_tests_without_pythonpath_passed": true,
+    "backend": "3189 passed, 17 skipped, 36890 subtests",
+    "evaluation_tests_passed": true,
+    "frontend_tests_passed": true,
+    "frontend": "200 passed",
+    "frontend_build_passed": true,
+    "frontend_lint_passed": false,
+    "frontend_lint_note": "36 errori preesistenti a 0219e0a in 9 file non toccati dal fix sprint; non e' un criterio di freeze"
+  },
+
+  "rq": {
+    "rq1_deliverable": true,
+    "rq2_deliverable": "PARZIALE",
+    "rq3_deliverable": true,
+    "rq4_deliverable": true,
+    "rq5_status": "PLANNED",
+    "graph_candidate_runtime_version": "2.0",
+    "gca_v3_runtime": false,
+    "gca_v3_status": "SHADOW / EVALUATION"
+  },
+
+  "reproducibility": {
+    "reproducible_from_clean_repository": true,
+    "qualification": "Il nucleo (ambiente, dati, test, build, REPLAY, esperimenti, metriche) e' riproducibile. LIVE resta REPRODUCIBLE_WITH_EXTERNAL_DEPENDENCY: richiede OLLAMA_API_KEY e data_cache, e la dipendenza e' dichiarata esplicitamente dal 503 di POST /runs."
+  },
+
+  "contamination": {
+    "experimental_contamination_found": false,
+    "previous_audit_conclusions": "CONFERMATE",
+    "checks_passed": 12
+  },
+
+  "issues": {
+    "remaining_p0_count": 0,
+    "remaining_blocking_p1_count": 0,
+    "remaining_nonblocking_p1_count": 1,
+    "remaining_p2_count": 9,
+    "remaining_p3_count": 8,
+    "new_findings_this_audit": ["NEW-01 (P2)", "NEW-02 (P3)", "NEW-03 (P3)"],
+    "new_p0_count": 0
+  },
+
+  "hard_stop_section_18": {
+    "p0_still_open": false,
+    "new_p0": false,
+    "negative_source_promoted_again": false,
+    "false_quote_shown_as_validated": false,
+    "canonical_status_controlled_by_llm": false,
+    "eligibility_unsafe": false,
+    "main_artifacts_not_reproducible": false,
+    "frontend_not_buildable": false,
+    "backend_not_runnable_from_documented_environment": false,
+    "live_and_replay_confused": false,
+    "historical_results_modified_by_fix_sprint": false,
+    "main_claims_inconsistent_with_runtime": false,
+    "any_hard_stop_triggered": false
+  },
+
+  "documentation_fixes_before_thesis_submission": [
+    "ISS-007: affiancare il denominatore end-to-end (16) a quello full-corpus (46 864) in ogni tabella",
+    "NEW-01: dichiarare che in THERAPY_DISCOVERY l'asse polarita' non e' segnalato",
+    "ISS-012: dichiarare che ~26% dei casi non raggiunge il gate per fallimento del trasporto del parser",
+    "Perimetro GCA: non rivendicare come runtime le proprieta' v3 (alterazioni composte, AST, regimi)"
+  ]
+}

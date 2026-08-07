@@ -1,0 +1,29 @@
+{
+ "tool_schema_properties": [
+  "abstention_reason",
+  "author_claim_quote",
+  "author_context_summary",
+  "decision",
+  "source_unit_id"
+ ],
+ "llm_stage_ids": [
+  "stage_2_casecontext_parser",
+  "stage_9_paper_context_enricher"
+ ],
+ "total_stages": 16,
+ "extra_key_rejected": {
+  "pmid": "INVALID_TOOL_ARGUMENTS",
+  "canonical_status": "INVALID_TOOL_ARGUMENTS",
+  "provenance": "INVALID_TOOL_ARGUMENTS",
+  "recommendation": "INVALID_TOOL_ARGUMENTS",
+  "source_unit": "INVALID_TOOL_ARGUMENTS",
+  "support_mask": "INVALID_TOOL_ARGUMENTS",
+  "gate_bucket": "INVALID_TOOL_ARGUMENTS",
+  "direction": "INVALID_TOOL_ARGUMENTS",
+  "evidence_direction": "INVALID_TOOL_ARGUMENTS"
+ },
+ "baseline_five_keys": "V2_TRANSPORT_VALID",
+ "status_language_in_summary": "REJECTED_SUMMARY_UNGROUNDED",
+ "clinical_recommendation_in_summary": "REJECTED_CLINICAL_RECOMMENDATION",
+ "deterministic_chain_llm_refs": 0
+}

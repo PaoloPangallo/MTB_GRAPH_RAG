@@ -1,0 +1,39 @@
+{
+ "branch": "fix/pre-freeze-deliverability-blockers",
+ "head": "e25a63b77848a30d3b7249b1d8c2b6339cd6e6af",
+ "base_commit": "0219e0a7a4a063668c72c941413fbd8382838b32",
+ "fix_sprint_commits": 11,
+ "working_tree_clean_of_code_changes": true,
+ "untracked_preauthorized": 12,
+ "code_modified_during_final_audit": false,
+ "application_files_modified_by_fix_sprint": [
+  "backend/research_pipeline/determinism/gates.py",
+  "backend/research_pipeline/contracts.py",
+  "backend/research_pipeline/orchestrator.py",
+  "backend/research_pipeline/dossier/builder.py",
+  "frontend/src/research/DossierView.tsx",
+  "frontend/src/research/stages/EligibilityStage.tsx",
+  "backend/config/requirements.txt",
+  "README.md"
+ ],
+ "test_files_added": [
+  "test_source_polarity_gate.py",
+  "test_eligibility_controlled_stop.py",
+  "test_quote_presentation.py",
+  "frontend DossierView.test.tsx (modificato)"
+ ],
+ "config_files_added": [
+  "pytest.ini",
+  "requirements-dev.txt",
+  "requirements-lock.txt"
+ ],
+ "evaluation_scripts_added": [
+  "evaluation/run_rq4_canonical_runtime.py"
+ ],
+ "historical_artifacts_unchanged": true,
+ "historical_artifacts_note": "4 file differiscono per byte grezzi ma SOLO nei fine riga (CRLF sul disco vs LF nel blob, artefatto preesistente del checkout Windows). Contenuto identico verificato normalizzando; git non registra alcuna modifica.",
+ "audit_artifacts_present": {
+  "deliverability_audit": true,
+  "pre_freeze": true
+ }
+}

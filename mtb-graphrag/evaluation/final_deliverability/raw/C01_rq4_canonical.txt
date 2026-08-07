@@ -1,0 +1,12 @@
+[rq4-canonical] benchmark congelato verificato: dd639ed085851ae2...
+[rq4-canonical] 35 casi attraverso orchestrator.run_case
+  noneligible_cases                      = 27
+  controlled_stops_ok                    = 18
+  noneligible_retrieval_calls            = 0
+  forbidden_downstream_calls             = 0
+  expected_controlled_stops_failed       = 0
+  runtime_exceptions                     = 0
+  path_disagreements                     = 0
+  parser_transport_failures              = 9
+  noneligible_not_reaching_gate          = 9
+[rq4-canonical] -> C:\Users\paolo\AppData\Local\Temp\claude\C--Users-paolo-Desktop-IspezioneDatasetTesi\62b50dbb-6ce4-4a12-83f7-9dc756b21559\scratchpad\rq4_final
