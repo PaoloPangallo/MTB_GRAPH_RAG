@@ -1,0 +1,255 @@
+{
+ "phase": "after_iss002",
+ "ISS-002": {
+  "promoted_to_consistent": [],
+  "unknown_promoted": [],
+  "matrix": {
+   "Does Not Support": {
+    "RESPONSE": "SOURCE_DOES_NOT_SUPPORT",
+    "BENEFIT": "SOURCE_DOES_NOT_SUPPORT",
+    "RESISTANCE": "SOURCE_DOES_NOT_SUPPORT",
+    "None": null
+   },
+   "does not support": {
+    "RESPONSE": "SOURCE_DOES_NOT_SUPPORT",
+    "BENEFIT": "SOURCE_DOES_NOT_SUPPORT",
+    "RESISTANCE": "SOURCE_DOES_NOT_SUPPORT",
+    "None": null
+   },
+   "  DOES NOT SUPPORT  ": {
+    "RESPONSE": "SOURCE_DOES_NOT_SUPPORT",
+    "BENEFIT": "SOURCE_DOES_NOT_SUPPORT",
+    "RESISTANCE": "SOURCE_DOES_NOT_SUPPORT",
+    "None": null
+   },
+   "Reduced Sensitivity": {
+    "RESPONSE": "CONFLICTING",
+    "BENEFIT": "CONFLICTING",
+    "RESISTANCE": "CONSISTENT",
+    "None": null
+   },
+   "Adverse Response": {
+    "RESPONSE": "CONFLICTING",
+    "BENEFIT": "CONFLICTING",
+    "RESISTANCE": "CONSISTENT",
+    "None": null
+   },
+   "Supports": {
+    "RESPONSE": "CONSISTENT",
+    "BENEFIT": "CONSISTENT",
+    "RESISTANCE": "CONFLICTING",
+    "None": null
+   },
+   "Sensitivity/Response": {
+    "RESPONSE": "CONSISTENT",
+    "BENEFIT": "CONSISTENT",
+    "RESISTANCE": "CONFLICTING",
+    "None": null
+   },
+   "Resistance": {
+    "RESPONSE": "CONFLICTING",
+    "BENEFIT": "CONFLICTING",
+    "RESISTANCE": "CONSISTENT",
+    "None": null
+   },
+   "": {
+    "RESPONSE": "UNRELATED",
+    "BENEFIT": "UNRELATED",
+    "RESISTANCE": "UNRELATED",
+    "None": null
+   },
+   "None": {
+    "RESPONSE": "UNRELATED",
+    "BENEFIT": "UNRELATED",
+    "RESISTANCE": "UNRELATED",
+    "None": null
+   },
+   "Unmapped Value": {
+    "RESPONSE": "UNRELATED",
+    "BENEFIT": "UNRELATED",
+    "RESISTANCE": "UNRELATED",
+    "None": null
+   },
+   "N/A": {
+    "RESPONSE": "UNRELATED",
+    "BENEFIT": "UNRELATED",
+    "RESISTANCE": "UNRELATED",
+    "None": null
+   }
+  },
+  "does_not_support_with_accepted_enrichment": {
+   "status": "AMBIGUOUS",
+   "support_mask": {
+    "disease": "SUPPORTED",
+    "biomarker": "SUPPORTED",
+    "intervention": "SUPPORTED",
+    "direction": "SOURCE_DOES_NOT_SUPPORT"
+   },
+   "gate_bucket": "WARNING_BUCKET",
+   "warnings": [
+    "SOURCE_POLARITY_DOES_NOT_SUPPORT"
+   ],
+   "direction_consistencies": [
+    "SOURCE_DOES_NOT_SUPPORT"
+   ],
+   "source_polarity": "DOES_NOT_SUPPORT"
+  },
+  "negative_source_primary_bucket": 0,
+  "does_not_support_promoted": 0,
+  "population_promoted_v2_field_only": 213,
+  "population_promoted_v2_field_only_reachable": [
+   "GCA-003ca9889b3d8906d4674f37"
+  ],
+  "population_promoted_v2_runtime_path": 0,
+  "population_promoted_v2_runtime_path_reachable": [],
+  "population_negative_in_primary_bucket": 0,
+  "population_promoted_v2": 213
+ },
+ "ISS-001": {
+  "runs": [
+   {
+    "case": "out_of_domain",
+    "run_status": "RAISED",
+    "stopped_at": null,
+    "exception": "ValueError: stop reason sconosciuta: 'OUT_OF_SCOPE'",
+    "stages_executed": [],
+    "retrieval_called": 0
+   },
+   {
+    "case": "empty_input",
+    "run_status": "RAISED",
+    "stopped_at": null,
+    "exception": "ValueError: stop reason sconosciuta: 'INVALID_INPUT'",
+    "stages_executed": [],
+    "retrieval_called": 0
+   },
+   {
+    "case": "non_actionable",
+    "run_status": "RAISED",
+    "stopped_at": null,
+    "exception": "ValueError: stop reason sconosciuta: 'NON_ACTIONABLE_MEDICAL_INPUT'",
+    "stages_executed": [],
+    "retrieval_called": 0
+   },
+   {
+    "case": "prompt_injection",
+    "run_status": "RAISED",
+    "stopped_at": null,
+    "exception": "ValueError: stop reason sconosciuta: 'OUT_OF_SCOPE'",
+    "stages_executed": [],
+    "retrieval_called": 0
+   }
+  ],
+  "controlled_stops_failed": 4,
+  "noneligible_retrieval_calls": 0
+ },
+ "ISS-003": {
+  "cases": [
+   {
+    "case": "A_valid",
+    "validator_outcome": "ENRICHMENT_V2_ACCEPTED",
+    "canonically_accepted": true,
+    "reaches_gates": true,
+    "author_context_entries": 1,
+    "entry_has_validation_outcome_field": false,
+    "ui_legacy_rule_presents_as_accepted": true,
+    "ui_validation_rule_presents_as_accepted": false,
+    "presented_but_not_validated": false,
+    "canonical_status": "PARTIAL",
+    "canonical_direction": "UNRELATED_EVIDENCE"
+   },
+   {
+    "case": "B_invented",
+    "validator_outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "author_context_entries": 1,
+    "entry_has_validation_outcome_field": false,
+    "ui_legacy_rule_presents_as_accepted": true,
+    "ui_validation_rule_presents_as_accepted": false,
+    "presented_but_not_validated": true,
+    "canonical_status": "AMBIGUOUS",
+    "canonical_direction": "NO_DOCUMENT_SIGNAL"
+   },
+   {
+    "case": "C_altered",
+    "validator_outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "author_context_entries": 1,
+    "entry_has_validation_outcome_field": false,
+    "ui_legacy_rule_presents_as_accepted": true,
+    "ui_validation_rule_presents_as_accepted": false,
+    "presented_but_not_validated": true,
+    "canonical_status": "AMBIGUOUS",
+    "canonical_direction": "NO_DOCUMENT_SIGNAL"
+   },
+   {
+    "case": "D_other_sourceunit",
+    "validator_outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "author_context_entries": 1,
+    "entry_has_validation_outcome_field": false,
+    "ui_legacy_rule_presents_as_accepted": true,
+    "ui_validation_rule_presents_as_accepted": false,
+    "presented_but_not_validated": true,
+    "canonical_status": "AMBIGUOUS",
+    "canonical_direction": "NO_DOCUMENT_SIGNAL"
+   },
+   {
+    "case": "E_other_document",
+    "validator_outcome": "REJECTED_SOURCE_UNIT",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "author_context_entries": 1,
+    "entry_has_validation_outcome_field": false,
+    "ui_legacy_rule_presents_as_accepted": true,
+    "ui_validation_rule_presents_as_accepted": false,
+    "presented_but_not_validated": true,
+    "canonical_status": "AMBIGUOUS",
+    "canonical_direction": "NO_DOCUMENT_SIGNAL"
+   },
+   {
+    "case": "F_invented_sourceunit",
+    "validator_outcome": "REJECTED_SOURCE_UNIT",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "author_context_entries": 1,
+    "entry_has_validation_outcome_field": false,
+    "ui_legacy_rule_presents_as_accepted": true,
+    "ui_validation_rule_presents_as_accepted": false,
+    "presented_but_not_validated": true,
+    "canonical_status": "AMBIGUOUS",
+    "canonical_direction": "NO_DOCUMENT_SIGNAL"
+   },
+   {
+    "case": "G_abstain",
+    "validator_outcome": "ENRICHMENT_V2_ABSTAINED",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "author_context_entries": 1,
+    "entry_has_validation_outcome_field": false,
+    "ui_legacy_rule_presents_as_accepted": false,
+    "ui_validation_rule_presents_as_accepted": false,
+    "presented_but_not_validated": false,
+    "canonical_status": "AMBIGUOUS",
+    "canonical_direction": "NO_DOCUMENT_SIGNAL"
+   },
+   {
+    "case": "H_empty_quote",
+    "validator_outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "author_context_entries": 1,
+    "entry_has_validation_outcome_field": false,
+    "ui_legacy_rule_presents_as_accepted": false,
+    "ui_validation_rule_presents_as_accepted": false,
+    "presented_but_not_validated": false,
+    "canonical_status": "AMBIGUOUS",
+    "canonical_direction": "NO_DOCUMENT_SIGNAL"
+   }
+  ],
+  "presented_as_accepted_but_not_validated": 5
+ }
+}
