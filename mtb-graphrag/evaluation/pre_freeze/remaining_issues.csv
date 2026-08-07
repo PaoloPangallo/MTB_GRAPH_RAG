@@ -1,0 +1,22 @@
+issue_id,severity,category,status,blocks_freeze,file,description,why_not_addressed_here
+ISS-001,P0,SOFTWARE_BUG,CLOSED,FALSE,backend/research_pipeline/contracts.py,Stop del gate rappresentato come guasto software,chiuso in questo branch
+ISS-002,P0,SOFTWARE_BUG,CLOSED,FALSE,backend/research_pipeline/determinism/gates.py,Polarita negativa convertita in supporto positivo,chiuso in questo branch
+ISS-003,P0,ARCHITECTURAL_INCONSISTENCY,CLOSED,FALSE,orchestrator.py + DossierView.tsx,Quote rigettata presentata come citazione d autore,chiuso in questo branch
+ISS-004,P1,SOFTWARE_BUG,CLOSED,FALSE,frontend/src/research/stages/EligibilityStage.tsx,npm run build falliva con 6 errori TS2769,chiuso in questo branch
+ISS-005,P1,EXPERIMENTAL_GAP,CLOSED,FALSE,evaluation/run_rq4_canonical_runtime.py,RQ4 misurata bypassando l orchestratore,chiuso in questo branch con un nuovo script che non riscrive nulla di storico
+ISS-006,P1,REPRODUCIBILITY_GAP,CLOSED,FALSE,backend/config/ + pytest.ini,Dipendenze non pinnate e pytest non dichiarato,chiuso in questo branch
+ISS-007,P1,SCIENTIFIC_LIMITATION,OPEN,FALSE,evaluation/rq1_* + rq2_*,Denominatore 46864 senza il denominatore end-to-end 16,blocks_freeze=FALSE. Correzione di presentazione nelle tabelle della tesi non di codice. Fuori perimetro §15.
+ISS-008,P2,ARCHITECTURAL_INCONSISTENCY,OPEN,FALSE,backend/research_pipeline/retrieval/kg_retrieval_v3.py,147 righe con zero riferimenti nel repository,P2. §15 del mandato vieta di correggere P2/P3.
+ISS-009,P2,ARCHITECTURAL_INCONSISTENCY,OPEN,FALSE,backend/research_pipeline/casecontext/pipeline.py,Un mismatch letterale viene riportato come OUT_OF_SCOPE,P2. Non necessario a nessun P0/P1.
+ISS-010,P2,SCIENTIFIC_LIMITATION,OPEN,FALSE,backend/research_pipeline/casecontext/control_instructions.py,Rilevatore avversariale come lista chiusa di 22 pattern,P2 gia dichiarato onestamente nella documentazione esistente.
+ISS-011,P2,EXPERIMENTAL_GAP,OPEN,FALSE,evaluation/gold/rq1_gca_v3_manual_review.csv,Campione manuale v3 a 70 record non annotato,P2. Richiede annotazione umana esperta non codice.
+ISS-012,P2,EXPERIMENTAL_GAP,OPEN,FALSE,backend/research_pipeline/casecontext/parser.py,Il parser fallisce il trasporto nel 28 percento delle run LIVE,P2. Confermato dai 9 casi su 35 del benchmark canonico e riportato a parte nelle metriche.
+ISS-013,P2,DOCUMENTATION_GAP,OPEN,FALSE,backend/research_pipeline/orchestrator.py,Il docstring descrive un test di parita inesistente,P2 documentale.
+ISS-014,P2,EXPERIMENTAL_GAP,OPEN,FALSE,benchmarks/mtb_evidence/exploratory/manual_v3_cases,13 artifact sperimentali untracked,P2. Decisione dell autore se committarli o rimuoverli prima del freeze.
+ISS-015,P2,ARCHITECTURAL_INCONSISTENCY,OPEN,FALSE,piu file,Tre assi di versionamento condividono la stringa v3,P2 terminologico.
+ISS-016,P3,SOFTWARE_BUG,OPEN,FALSE,backend/research_pipeline/data_access.py,describe_availability riporta FROZEN_REPLAY dove il runtime fallisce,P3.
+ISS-017,P3,REPRODUCIBILITY_GAP,OPEN,FALSE,evaluation/run_rq1.py + run_gca_v3_audit.py,Non onorano un OUT sostituito,P3 per issues.csv. §17 del mandato: correggere solo se P1 o blocks_freeze. Durante questo branch gli script NON sono stati rieseguiti e gli artifact storici sono verificati intatti.
+ISS-018,P3,REPRODUCIBILITY_GAP,OPEN,FALSE,7 artifact committati,Contengono il percorso assoluto dell autore,P3.
+ISS-019,P3,SCIENTIFIC_LIMITATION,OPEN,FALSE,backend/research_pipeline/enrichment/validator_v2.py,Il farmaco puo stare nell unita invece che nella quote,P3 comportamento deliberato da dichiarare.
+ISS-020,P3,FUTURE_FEATURE,OPEN,FALSE,backend/research_pipeline/contracts.py,Narrator e Narrative Verifier non implementati,P3 future work dichiarato nel contratto.
+ISS-021,P3,DOCUMENTATION_GAP,OPEN,FALSE,evaluation/rq4_casecontext_robustness/aggregate_metrics.json,endpoint_configuration stale dopo la correzione del default,P3 documentale.

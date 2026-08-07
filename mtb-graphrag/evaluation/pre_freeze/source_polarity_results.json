@@ -1,0 +1,53 @@
+{
+ "issue": "ISS-002",
+ "title": "Source polarity",
+ "status": "CLOSED",
+ "reproduced_before_fix": true,
+ "fix_implemented": true,
+ "test_added": true,
+ "fix_verified": true,
+ "regression_free": true,
+ "tests": "backend/research_pipeline/tests/test_source_polarity_gate.py - 19 test, 13 subtest",
+ "falsification_evidence": "7 asserzioni chiave su 7 falliscono contro gates.py di 0219e0a",
+ "before": {
+  "does_not_support_promoted": 1,
+  "negative_source_primary_bucket": 1,
+  "negative_values_promoted": [
+   "Does Not Support",
+   "does not support",
+   "  DOES NOT SUPPORT  ",
+   "Reduced Sensitivity",
+   "Adverse Response"
+  ],
+  "population_promoted_v2": 752,
+  "reachable_end_to_end": [
+   "GCA-003ca9889b3d8906d4674f37"
+  ]
+ },
+ "after": {
+  "does_not_support_promoted": 0,
+  "negative_source_primary_bucket": 0,
+  "negative_values_promoted": [],
+  "population_promoted_runtime_path": 0,
+  "population_negative_in_primary_bucket": 0,
+  "automatic_direction_inversions": 0,
+  "outcome_for_does_not_support": {
+   "status": "AMBIGUOUS",
+   "support_mask": {
+    "disease": "SUPPORTED",
+    "biomarker": "SUPPORTED",
+    "intervention": "SUPPORTED",
+    "direction": "SOURCE_DOES_NOT_SUPPORT"
+   },
+   "gate_bucket": "WARNING_BUCKET",
+   "warnings": [
+    "SOURCE_POLARITY_DOES_NOT_SUPPORT"
+   ],
+   "direction_consistencies": [
+    "SOURCE_DOES_NOT_SUPPORT"
+   ],
+   "source_polarity": "DOES_NOT_SUPPORT"
+  }
+ },
+ "note_field_only_metric": "population_promoted_v2_field_only resta 213: e' la misura che chiama direction_consistency con il solo campo direction, che per costruzione non vede la polarita'. Il percorso runtime (evaluate_association / candidate_direction_consistency) e' 0."
+}

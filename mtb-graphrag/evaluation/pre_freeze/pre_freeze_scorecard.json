@@ -1,0 +1,97 @@
+{
+  "decision": "READY_FOR_FINAL_DELIVERABILITY_AUDIT",
+  "decision_rationale": "I tre P0 e i tre P1 con blocks_freeze=TRUE sono chiusi, ognuno riprodotto prima del fix, corretto con la modifica minima, coperto da test falsificanti e riverificato. Nessuna regressione: RQ1 e RQ2 sono strutturalmente intatti, RQ3 e' preservato su tutti i confini, RQ4 e' ora misurabile attraverso il runtime canonico. Non si dichiara DELIVERABLE: quella decisione spetta a un ultimo audit indipendente.",
+
+  "branch": "fix/pre-freeze-deliverability-blockers",
+  "base_head": "0219e0a7a4a063668c72c941413fbd8382838b32",
+  "commits": 10,
+  "push_executed": false,
+  "merge_executed": false,
+
+  "historical_deliverability_audit_unchanged": true,
+  "historical_artifacts_modified": false,
+  "rq1_historical_artifacts_modified": false,
+  "rq2_historical_artifacts_modified": false,
+  "application_files_modified": 7,
+  "application_files": [
+    "backend/research_pipeline/determinism/gates.py",
+    "backend/research_pipeline/contracts.py",
+    "backend/research_pipeline/orchestrator.py",
+    "backend/research_pipeline/dossier/builder.py",
+    "frontend/src/research/DossierView.tsx",
+    "frontend/src/research/stages/EligibilityStage.tsx",
+    "backend/config/requirements.txt"
+  ],
+
+  "iss_002_closed": true,
+  "does_not_support_promoted_after_fix": 0,
+  "negative_source_primary_bucket_after_fix": 0,
+  "automatic_direction_inversions_after_fix": 0,
+  "negative_candidates_promoted_whole_repository": 0,
+  "negative_candidates_in_primary_bucket_whole_repository": 0,
+  "candidates_swept": 46864,
+
+  "iss_001_closed": true,
+  "noneligible_retrieval_calls_after_fix": 0,
+  "controlled_stops_failed_after_fix": 0,
+  "rq4_runs_through_canonical_orchestrator": true,
+  "stop_reasons_before": 7,
+  "stop_reasons_after": 15,
+  "eligibility_policy_changed": false,
+
+  "iss_003_closed": true,
+  "invented_quotes_canonically_accepted": 0,
+  "invented_quotes_presented_as_accepted": 0,
+  "rejected_quotes_presented_as_accepted": 0,
+  "invented_sourceunits_accepted": 0,
+  "wrong_document_quotes_accepted": 0,
+  "rejected_entries_retained_for_audit": true,
+
+  "canonical_status_still_deterministic": true,
+  "llm_authority_boundary_regressed": false,
+  "prompt_only_restrictions": 0,
+  "uncontrolled_paths": 0,
+
+  "gca_v3_runtime_default_changed": false,
+  "graph_candidate_contract_version": "2.0",
+  "gca_v3_remains_shadow": true,
+
+  "rq1_regression_passed": true,
+  "rq2_regression_passed": true,
+  "rq3_regression_passed": true,
+  "rq4_regression_passed": true,
+  "rq5_status": "PLANNED",
+  "oncokb_called": false,
+
+  "frontend_build_passed": true,
+  "full_backend_tests_passed": true,
+  "full_frontend_tests_passed": true,
+  "evaluation_tests_passed": true,
+  "tests_python": {"passed": 3189, "failed": 0, "skipped": 17, "subtests": 36890,
+                   "baseline": 3138, "added": 51},
+  "tests_frontend": {"passed": 200, "failed": 0, "baseline": 195, "added": 5},
+
+  "new_p0_count": 0,
+  "remaining_p0_count": 0,
+  "remaining_blocking_p1_count": 0,
+  "remaining_p1_count": 1,
+  "remaining_p2_count": 8,
+  "remaining_p3_count": 6,
+  "remaining_p1_detail": "ISS-007, blocks_freeze=FALSE: correzione di presentazione nelle tabelle della tesi, non di codice.",
+
+  "hard_stop_conditions_checked": {
+    "clinical_semantics_arbitrarily_changed": false,
+    "does_not_support_still_becomes_support": false,
+    "automatic_direction_inversion_introduced": false,
+    "retrieval_allowed_for_noneligible_input": false,
+    "controlled_stops_hide_software_exceptions": false,
+    "iss_003_required_trusting_the_llm": false,
+    "rejected_quote_still_shown_as_accepted": false,
+    "frontend_decides_validation_status": false,
+    "gca_v3_made_runtime_default": false,
+    "historical_artifacts_overwritten": false,
+    "rq_metrics_manually_edited": false,
+    "p0_required_architectural_redesign": false,
+    "new_p0_emerged": false
+  }
+}

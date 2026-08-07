@@ -1,0 +1,110 @@
+{
+ "method": "Regressione verificata per esecuzione (RQ3, RQ4) e per chiusura transitiva degli import (RQ1, RQ2).",
+ "RQ1": {
+  "status": "UNCHANGED",
+  "historical_artifacts_modified": false,
+  "evidence": "git diff 0219e0a..HEAD su evaluation/rq1_graph_candidate_fidelity/, gca_v3/, benchmarks/ e gold/ non restituisce alcuna riga. La chiusura transitiva degli import di evaluation.run_rq1 non raggiunge nessuno dei 4 moduli modificati (determinism.gates, dossier.builder, orchestrator, contracts).",
+  "metrics_unchanged": {
+   "materialization_precision": 1.0,
+   "materialization_recall": 1.0,
+   "direction_inversions_graph": 486,
+   "ALTERATION_LOST": 1091,
+   "REGIMEN_SPLIT": 1294
+  }
+ },
+ "RQ2": {
+  "status": "UNCHANGED",
+  "historical_artifacts_modified": false,
+  "evidence": "idem: evaluation.run_rq2 non raggiunge alcun modulo modificato.",
+  "invariants_reverified": {
+   "invented_quotes_accepted": 0,
+   "invented_sourceunits_accepted": 0,
+   "wrong_document_quotes_accepted": 0,
+   "invented_quotes_presented_as_accepted": 0
+  }
+ },
+ "RQ3": {
+  "status": "PRESERVED",
+  "regressed": false,
+  "evidence": "batteria di 14 casi di validazione quote rieseguita: 13/14 conformi, il 14esimo e' ISS-019 (P3, debolezza deliberata gia' documentata). transport_v2 rifiuta ancora ogni chiave extra: pmid, canonical_status, provenance, recommendation, source_unit -> INVALID_TOOL_ARGUMENTS. TOOL_SCHEMA resta a 5 proprieta'. LLM_STAGE_IDS resta 2 su 16 stage.",
+  "boundaries": {
+   "llm_can_decide_eligibility": "IMPOSSIBLE_BY_CONSTRUCTION",
+   "llm_can_create_pmid": "IMPOSSIBLE_BY_CONSTRUCTION",
+   "llm_can_create_provenance": "IMPOSSIBLE_BY_CONSTRUCTION",
+   "llm_can_create_sourceunit": "IMPOSSIBLE_BY_CONSTRUCTION",
+   "llm_can_change_canonical_status": "IMPOSSIBLE_BY_CONSTRUCTION",
+   "llm_can_accept_its_own_quote": "VALIDATED_DOWNSTREAM",
+   "llm_can_modify_canonical_dossier": "IMPOSSIBLE_BY_CONSTRUCTION",
+   "llm_output_presented_as_validated": "VALIDATED_DOWNSTREAM (era PARZIALE, chiuso da ISS-003)"
+  },
+  "prompt_only_restrictions": 0,
+  "uncontrolled_paths": 0
+ },
+ "RQ4": {
+  "status": "IMPROVED",
+  "measurable_through_canonical_runtime": true,
+  "metrics": {
+   "generated_at": "2026-08-07T19:00:07.993748+00:00",
+   "benchmark_sha256": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+   "cases": 35,
+   "evaluation_path": "backend.research_pipeline.orchestrator.run_case",
+   "compared_against": "backend.research_pipeline.casecontext.pipeline.run",
+   "parser": "REPLAYED_FROM_FROZEN_RUN — nessuna chiamata al modello",
+   "execution_mode": "REPLAY",
+   "downstream_calls_measured": true,
+   "noneligible_cases": 27,
+   "eligible_cases": 8,
+   "controlled_stops_ok": 18,
+   "noneligible_retrieval_calls": 0,
+   "forbidden_downstream_calls": 0,
+   "expected_controlled_stops_failed": 0,
+   "stops_classified_as_failure": 0,
+   "runtime_exceptions": 0,
+   "path_disagreements": 0,
+   "parser_transport_failures": 9,
+   "noneligible_not_reaching_gate": 9,
+   "out_of_scope_retrieval": 0,
+   "non_actionable_retrieval": 0,
+   "contradictory_case_retrieval": 0,
+   "note_parser_transport": "I casi con transport != FORCED_TOOL_VALID si fermano allo stage 2 e non raggiungono il gate: sono guasti del modello (ISS-012, P2), non stop del gate mancati, e sono contati a parte.",
+   "eligibility_by_category": {
+    "ADVERSARIAL": {
+     "ADVERSARIAL_OR_CONTROL_INPUT": 2,
+     "PARSER_TRANSPORT_FAILED": 1,
+     "MISSING_REQUIRED_FIELDS": 1,
+     "ELIGIBLE_FOR_RETRIEVAL": 1
+    },
+    "AMBIGUOUS": {
+     "MISSING_REQUIRED_FIELDS": 2,
+     "ELIGIBLE_FOR_RETRIEVAL": 1,
+     "PARSER_TRANSPORT_FAILED": 2
+    },
+    "CONTRADICTORY": {
+     "CONTRADICTORY_CASE_CONTEXT": 5
+    },
+    "IN_SCOPE_COMPLETE": {
+     "ELIGIBLE_FOR_RETRIEVAL": 4,
+     "PARSER_TRANSPORT_FAILED": 1
+    },
+    "IN_SCOPE_INCOMPLETE": {
+     "MISSING_REQUIRED_FIELDS": 1,
+     "ELIGIBLE_FOR_RETRIEVAL": 2,
+     "PARSER_TRANSPORT_FAILED": 2
+    },
+    "NON_ACTIONABLE_MEDICAL_INPUT": {
+     "PARSER_TRANSPORT_FAILED": 1,
+     "NON_ACTIONABLE_MEDICAL_INPUT": 4
+    },
+    "OUT_OF_SCOPE": {
+     "OUT_OF_SCOPE": 3,
+     "PARSER_TRANSPORT_FAILED": 2
+    }
+   }
+  }
+ },
+ "RQ5": {
+  "status": "PLANNED",
+  "unchanged": true,
+  "oncokb_called": false
+ }
+}

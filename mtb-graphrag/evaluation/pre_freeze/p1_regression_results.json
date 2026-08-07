@@ -1,0 +1,91 @@
+{
+ "ISS-004": {
+  "issue": "frontend build",
+  "status": "CLOSED",
+  "blocks_freeze": true,
+  "before": "npm run build exit 2, 6 errori TS2769, vite build mai raggiunto",
+  "after": "npm run build exit 0, vite build completato in 709ms",
+  "command": "npm run build",
+  "test_added": "vitest 200 passed (195 + 5 nuovi)"
+ },
+ "ISS-005": {
+  "issue": "RQ4 bypassa l'orchestratore",
+  "status": "CLOSED",
+  "blocks_freeze": true,
+  "before": "metriche RQ4 misurate su casecontext.pipeline.run; giunzione orchestratore-gate mai attraversata",
+  "after": "evaluation/run_rq4_canonical_runtime.py esegue i 35 casi congelati attraverso orchestrator.run_case",
+  "historical_artifacts_rewritten": false,
+  "metrics": {
+   "generated_at": "2026-08-07T19:00:07.993748+00:00",
+   "benchmark_sha256": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+   "cases": 35,
+   "evaluation_path": "backend.research_pipeline.orchestrator.run_case",
+   "compared_against": "backend.research_pipeline.casecontext.pipeline.run",
+   "parser": "REPLAYED_FROM_FROZEN_RUN — nessuna chiamata al modello",
+   "execution_mode": "REPLAY",
+   "downstream_calls_measured": true,
+   "noneligible_cases": 27,
+   "eligible_cases": 8,
+   "controlled_stops_ok": 18,
+   "noneligible_retrieval_calls": 0,
+   "forbidden_downstream_calls": 0,
+   "expected_controlled_stops_failed": 0,
+   "stops_classified_as_failure": 0,
+   "runtime_exceptions": 0,
+   "path_disagreements": 0,
+   "parser_transport_failures": 9,
+   "noneligible_not_reaching_gate": 9,
+   "out_of_scope_retrieval": 0,
+   "non_actionable_retrieval": 0,
+   "contradictory_case_retrieval": 0,
+   "note_parser_transport": "I casi con transport != FORCED_TOOL_VALID si fermano allo stage 2 e non raggiungono il gate: sono guasti del modello (ISS-012, P2), non stop del gate mancati, e sono contati a parte.",
+   "eligibility_by_category": {
+    "ADVERSARIAL": {
+     "ADVERSARIAL_OR_CONTROL_INPUT": 2,
+     "PARSER_TRANSPORT_FAILED": 1,
+     "MISSING_REQUIRED_FIELDS": 1,
+     "ELIGIBLE_FOR_RETRIEVAL": 1
+    },
+    "AMBIGUOUS": {
+     "MISSING_REQUIRED_FIELDS": 2,
+     "ELIGIBLE_FOR_RETRIEVAL": 1,
+     "PARSER_TRANSPORT_FAILED": 2
+    },
+    "CONTRADICTORY": {
+     "CONTRADICTORY_CASE_CONTEXT": 5
+    },
+    "IN_SCOPE_COMPLETE": {
+     "ELIGIBLE_FOR_RETRIEVAL": 4,
+     "PARSER_TRANSPORT_FAILED": 1
+    },
+    "IN_SCOPE_INCOMPLETE": {
+     "MISSING_REQUIRED_FIELDS": 1,
+     "ELIGIBLE_FOR_RETRIEVAL": 2,
+     "PARSER_TRANSPORT_FAILED": 2
+    },
+    "NON_ACTIONABLE_MEDICAL_INPUT": {
+     "PARSER_TRANSPORT_FAILED": 1,
+     "NON_ACTIONABLE_MEDICAL_INPUT": 4
+    },
+    "OUT_OF_SCOPE": {
+     "OUT_OF_SCOPE": 3,
+     "PARSER_TRANSPORT_FAILED": 2
+    }
+   }
+  }
+ },
+ "ISS-006": {
+  "issue": "dipendenze e configurazione test",
+  "status": "CLOSED",
+  "blocks_freeze": true,
+  "before": "10 pacchetti senza versione, pytest/httpx/pandas/numpy non dichiarati, nessun pytest.ini: `pytest` dalla radice falliva con ModuleNotFoundError",
+  "after": "requirements.txt vincolato + requirements-dev.txt + requirements-lock.txt + pytest.ini",
+  "verification": "env -u PYTHONPATH pytest -> 3189 passed, 17 skipped, 36890 subtests"
+ },
+ "ISS-007": {
+  "issue": "denominatore end-to-end",
+  "status": "NOT_ADDRESSED",
+  "blocks_freeze": false,
+  "reason": "P1 con blocks_freeze=FALSE. E' una correzione di presentazione nelle tabelle della tesi, non di codice. Fuori dal perimetro di questo branch."
+ }
+}
