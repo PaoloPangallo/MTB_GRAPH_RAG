@@ -20,11 +20,15 @@ class VocabularyTest(TestCase):
     def test_event_types_are_unique(self) -> None:
         self.assertEqual(len(set(EVENT_TYPES)), len(EVENT_TYPES))
 
-    def test_narration_events_exist_but_are_never_emitted(self) -> None:
-        self.assertEqual(NEVER_EMITTED, frozenset({"NARRATION_GENERATED", "NARRATION_VERIFIED"}))
-        for event_type in NEVER_EMITTED:
+    def test_no_event_is_defined_but_never_emitted(self) -> None:
+        """Gli stage 14-15 sono implementati: il vocabolario non ha piu' segnaposto."""
+        self.assertEqual(NEVER_EMITTED, frozenset())
+
+    def test_narration_events_are_domain_events(self) -> None:
+        for event_type in ("NARRATION_GENERATED", "NARRATION_VERIFIED",
+                           "NARRATION_REJECTED", "STRUCTURED_FALLBACK_USED"):
             self.assertIn(event_type, EVENT_TYPES)
-            self.assertNotIn(event_type, DOMAIN_EVENT_TYPES)
+            self.assertIn(event_type, DOMAIN_EVENT_TYPES)
 
     def test_domain_events_are_the_replayable_set(self) -> None:
         self.assertEqual(REPLAYABLE_EVENT_TYPES, frozenset(DOMAIN_EVENT_TYPES))

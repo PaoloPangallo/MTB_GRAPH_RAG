@@ -137,19 +137,44 @@ class RoleAttributionTest(OrchestratorTestBase):
             self.assertIsNone(by_id[stage_id].producer.model)
 
 
-class NotImplementedStagesTest(OrchestratorTestBase):
-    def test_narrator_and_verifier_are_always_skipped(self) -> None:
+class NarrationStagesTest(OrchestratorTestBase):
+    """Gli stage 14-15 sono eseguiti e restano una vista di presentazione."""
+
+    def test_narration_stages_are_executed_not_skipped(self) -> None:
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")
         by_id = {s.stage_id: s for s in run.stages}
 
         for stage_id in ("stage_14_narrator", "stage_15_narrative_verifier"):
-            self.assertEqual(by_id[stage_id].status, "SKIPPED")
-            self.assertIn("NOT_IMPLEMENTED", by_id[stage_id].reason_codes)
+            self.assertNotEqual(by_id[stage_id].status, "SKIPPED")
 
-    def test_narration_events_are_never_emitted(self) -> None:
+    def test_canonical_dossier_is_built_before_narration(self) -> None:
+        """L'ordine e' il contratto: il dossier esiste prima del Narrator."""
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")
-        emitted = {e["event_type"] for e in self.events(run.run_id)}
-        self.assertEqual(emitted & ev.NEVER_EMITTED, set())
+        order = [s.stage_id for s in run.stages]
+        self.assertLess(order.index("stage_13_dossier"), order.index("stage_14_narrator"))
+        self.assertLess(order.index("stage_14_narrator"),
+                        order.index("stage_15_narrative_verifier"))
+
+        events = [e["event_type"] for e in self.events(run.run_id)]
+        self.assertIn(ev.DOSSIER_BUILT, events)
+        narration = [e for e in events if e.startswith("NARRATION")]
+        if narration:
+            self.assertLess(events.index(ev.DOSSIER_BUILT), events.index(narration[0]))
+
+    def test_narration_failure_does_not_invalidate_the_canonical_dossier(self) -> None:
+        """Senza narratore configurato il dossier resta intatto."""
+        run = self.run_case("CASE-1-therapy-evaluation-strong-match")
+        by_id = {s.stage_id: s for s in run.stages}
+        dossier = by_id["stage_13_dossier"].output_preview["dossier"]
+
+        self.assertEqual(by_id["stage_13_dossier"].status, "SUCCEEDED")
+        self.assertTrue(dossier["candidate_therapies"])
+        verification = by_id["stage_15_narrative_verifier"].output_preview
+        self.assertEqual(verification["presentation_mode"], "STRUCTURED_DOSSIER_FALLBACK")
+        self.assertIsNone(verification["verified_narrative"])
+
+    def test_no_event_vocabulary_entry_is_unemittable(self) -> None:
+        self.assertEqual(ev.NEVER_EMITTED, frozenset())
 
 
 class CorrectStopsAreNotFailuresTest(OrchestratorTestBase):

@@ -149,3 +149,19 @@ def validate_fn(
         "replayed": False,
         "artifact_origin": "GENERATED_NOW",
     }
+
+
+def narrator_fn(case_id: str, narrator_input: dict[str, Any], run_index: int = 0) -> dict[str, Any]:
+    """Dossier Narrator reale.
+
+    Non spende ``CallBudget``: il budget protegge le chiamate che partecipano
+    alla costruzione dell'evidenza, e la narrazione avviene dopo, su un dossier
+    gia' chiuso. Un suo fallimento non invalida la run.
+    """
+    from backend.research_pipeline.narrative import narrator
+
+    try:
+        result = narrator.call_narrator(case_id, narrator_input, run_index=run_index)
+    except Exception as exc:  # noqa: BLE001
+        raise LiveStageFailed("stage_14_narrator", "NARRATION_TRANSPORT_FAILED", str(exc)) from exc
+    return {**result, "replayed": False, "artifact_origin": "GENERATED_NOW"}

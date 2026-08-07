@@ -49,17 +49,23 @@ GATES_COMPUTED = "GATES_COMPUTED"
 STATUS_ASSIGNED = "STATUS_ASSIGNED"
 DOSSIER_BUILT = "DOSSIER_BUILT"
 
-#: Definiti ma **mai emessi**: gli stage 14-15 non sono implementati. Tenerli nel
-#: vocabolario stabilizza il contratto senza simulare esecuzione.
+#: Stage 14-15, ora implementati. ``DOSSIER_BUILT`` resta l'evento che segna la
+#: costruzione del dossier **canonico**: precede sempre la narrazione, e la loro
+#: separazione è ciò che rende leggibile dal ledger che la narrativa non ha
+#: partecipato alla decisione.
 NARRATION_GENERATED = "NARRATION_GENERATED"
 NARRATION_VERIFIED = "NARRATION_VERIFIED"
+NARRATION_REJECTED = "NARRATION_REJECTED"
+STRUCTURED_FALLBACK_USED = "STRUCTURED_FALLBACK_USED"
 
-NEVER_EMITTED: frozenset[str] = frozenset({NARRATION_GENERATED, NARRATION_VERIFIED})
+#: Nessun evento è più definito-ma-mai-emesso.
+NEVER_EMITTED: frozenset[str] = frozenset()
 
 DOMAIN_EVENT_TYPES: tuple[str, ...] = (
     CASECONTEXT_PARSED, CASECONTEXT_VERIFIED, RETRIEVAL_COMPLETED, CANDIDATES_FOUND,
     DOCUMENT_RESOLVED, SOURCE_UNIT_MATERIALIZED, PAPER_SELECTED, ENRICHMENT_PROPOSED,
     ENRICHMENT_VALIDATED, GATES_COMPUTED, STATUS_ASSIGNED, DOSSIER_BUILT,
+    NARRATION_GENERATED, NARRATION_VERIFIED, NARRATION_REJECTED, STRUCTURED_FALLBACK_USED,
 )
 
 LIFECYCLE_EVENT_TYPES: tuple[str, ...] = (
@@ -67,9 +73,7 @@ LIFECYCLE_EVENT_TYPES: tuple[str, ...] = (
     STAGE_FAILED, STAGE_SKIPPED, RUN_COMPLETED,
 )
 
-EVENT_TYPES: tuple[str, ...] = (
-    *LIFECYCLE_EVENT_TYPES, *DOMAIN_EVENT_TYPES, NARRATION_GENERATED, NARRATION_VERIFIED,
-)
+EVENT_TYPES: tuple[str, ...] = (*LIFECYCLE_EVENT_TYPES, *DOMAIN_EVENT_TYPES)
 
 #: Da questi il replay deve saper ricostruire la vista della run senza rileggere
 #: gli output degli stage.

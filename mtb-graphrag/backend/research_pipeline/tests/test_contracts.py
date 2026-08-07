@@ -57,11 +57,17 @@ class StageSequenceTest(TestCase):
 class RoleSeparationTest(TestCase):
     """L'invariante centrale: Gemma è un enricher, non un decisore."""
 
-    def test_only_parser_and_enricher_are_llm_stages(self) -> None:
+    def test_only_three_stages_are_llm_stages(self) -> None:
+        """Il narratore e' il terzo uso del modello, e il solo che opera DOPO
+        che lo stato canonico e' gia' stato deciso."""
         self.assertEqual(
             LLM_STAGE_IDS,
-            frozenset({"stage_2_casecontext_parser", "stage_9_paper_context_enricher"}),
+            frozenset({"stage_2_casecontext_parser", "stage_9_paper_context_enricher",
+                       "stage_14_narrator"}),
         )
+
+    def test_the_narrative_verifier_is_never_an_llm_stage(self) -> None:
+        self.assertNotIn("stage_15_narrative_verifier", LLM_STAGE_IDS)
 
     def test_gate_and_status_stages_are_not_llm(self) -> None:
         for stage_id in ("stage_11_deterministic_gates", "stage_12_status"):
@@ -105,28 +111,34 @@ class RoleSeparationTest(TestCase):
 
 
 class NotImplementedStagesTest(TestCase):
-    def test_narrator_and_verifier_are_declared_not_implemented(self) -> None:
-        self.assertEqual(
-            NOT_IMPLEMENTED_STAGE_IDS,
-            frozenset({"stage_14_narrator", "stage_15_narrative_verifier"}),
-        )
+    """Narrator e Narrative Verifier sono ora implementati.
 
-    def test_a_not_implemented_stage_cannot_be_reported_as_succeeded(self) -> None:
-        """Dichiararli eseguiti sarebbe simulazione: non esiste codice dietro."""
-        with self.assertRaises(ValueError):
-            PipelineStage(
-                stage_id="stage_14_narrator", stage_type="DOSSIER_NARRATOR",
-                sequence=14, status="SUCCEEDED",
-                producer=StageProducer(kind="DETERMINISTIC", component="n", version="0"),
-            )
+    Il contratto non contiene piu' stage privi di implementazione: la
+    dichiarazione resta perche' il suo svuotamento e' esso stesso un fatto da
+    verificare, non un dettaglio.
+    """
 
-    def test_a_not_implemented_stage_is_skipped_with_its_reason(self) -> None:
+    def test_no_stage_is_declared_not_implemented(self) -> None:
+        self.assertEqual(NOT_IMPLEMENTED_STAGE_IDS, frozenset())
+
+    def test_narration_stages_can_now_be_reported_as_succeeded(self) -> None:
         stage = PipelineStage(
             stage_id="stage_14_narrator", stage_type="DOSSIER_NARRATOR",
-            sequence=14, status="SKIPPED", reason_codes=("NOT_IMPLEMENTED",),
-            producer=StageProducer(kind="DETERMINISTIC", component="orchestrator", version="1.0"),
+            sequence=14, status="SUCCEEDED",
+            producer=StageProducer(kind="LLM", component="dossier_narrator", version="1.0",
+                                   model="gemma4:cloud",
+                                   prompt_version="dossier-narrator-prompt/1.0"),
         )
-        self.assertIn("NOT_IMPLEMENTED", stage.reason_codes)
+        self.assertEqual(stage.status, "SUCCEEDED")
+
+    def test_narration_stages_are_presentation_not_canonical(self) -> None:
+        """Un loro fallimento non invalida il dossier: e' una vista."""
+        from backend.research_pipeline.contracts import PRESENTATION_STAGE_IDS
+
+        self.assertEqual(
+            PRESENTATION_STAGE_IDS,
+            frozenset({"stage_14_narrator", "stage_15_narrative_verifier"}),
+        )
 
 
 class SkippedStagesExplainThemselvesTest(TestCase):

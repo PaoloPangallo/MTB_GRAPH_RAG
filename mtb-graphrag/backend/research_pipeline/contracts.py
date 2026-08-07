@@ -132,17 +132,26 @@ STAGE_SEQUENCE: tuple[str, ...] = tuple(stage_id for stage_id, _ in STAGE_TYPES)
 
 _STAGE_TYPE_BY_ID: dict[str, str] = dict(STAGE_TYPES)
 
-#: I soli due stage che un LLM può produrre. Ogni altro stage è deterministico:
-#: è ciò che impedisce a Gemma di comparire come autore di gate, status,
-#: direction, contraddizione, score o bucket.
+#: I soli **tre** stage che un LLM può produrre. Ogni altro stage è
+#: deterministico: è ciò che impedisce a Gemma di comparire come autore di gate,
+#: status, direction, contraddizione, score o bucket.
+#:
+#: ``stage_14_narrator`` è il terzo uso del modello e il solo che opera **dopo**
+#: che lo stato canonico è già stato deciso. Non aggiunge autorità: produce una
+#: vista, e ``stage_15_narrative_verifier`` — deterministico — decide se quella
+#: vista può essere mostrata.
 LLM_STAGE_IDS: frozenset[str] = frozenset({
     "stage_2_casecontext_parser",
     "stage_9_paper_context_enricher",
+    "stage_14_narrator",
 })
 
-#: Stage presenti nel contratto ma privi di implementazione. Restano visibili
-#: come ``SKIPPED`` permanenti: dichiararli eseguiti sarebbe simulazione.
-NOT_IMPLEMENTED_STAGE_IDS: frozenset[str] = frozenset({
+#: Nessuno stage resta privo di implementazione: 14 e 15 sono ora eseguiti.
+NOT_IMPLEMENTED_STAGE_IDS: frozenset[str] = frozenset()
+
+#: Stage che producono la **vista di presentazione**, non lo stato canonico.
+#: Un loro fallimento non invalida il dossier: attiva il fallback strutturato.
+PRESENTATION_STAGE_IDS: frozenset[str] = frozenset({
     "stage_14_narrator",
     "stage_15_narrative_verifier",
 })
