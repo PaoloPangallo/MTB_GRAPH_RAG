@@ -1,0 +1,38 @@
+{
+ "backend/research_pipeline/orchestrator.py": {
+  "sha256": "a2ec53fd55bb479b",
+  "bytes": 38010
+ },
+ "backend/research_pipeline/contracts.py": {
+  "sha256": "5c871c178d0a482d",
+  "bytes": 14015
+ },
+ "backend/research_pipeline/determinism/gates.py": {
+  "sha256": "826c73fa210466dc",
+  "bytes": 4085
+ },
+ "backend/research_pipeline/dossier/builder.py": {
+  "sha256": "5133c171fb29182e",
+  "bytes": 1949
+ },
+ "frontend/src/research/DossierView.tsx": {
+  "sha256": "0f24d6ac279d14a0",
+  "bytes": 9442
+ },
+ "frontend/src/research/stages/EligibilityStage.tsx": {
+  "sha256": "b65a03e4aab45ea6",
+  "bytes": 8635
+ },
+ "backend/config/requirements.txt": {
+  "sha256": "7fe6024dbd4a7b35",
+  "bytes": 124
+ },
+ "evaluation/run_runtime_v3_integration.py": {
+  "sha256": "0e504edc36bd0566",
+  "bytes": 22060
+ },
+ "backend/research_pipeline/eligibility/gate.py": {
+  "sha256": "5bf4371a65f17a94",
+  "bytes": 11753
+ }
+}

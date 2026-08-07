@@ -1,0 +1,36 @@
+src/research/stages/EligibilityStage.tsx(83,8): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: { component: ElementType<any, keyof IntrinsicElements>; } & StackOwnProps & CommonProps & Omit<any, keyof CommonProps | keyof StackOwnProps>): Element | null', gave the following error.
+    Property 'component' is missing in type '{ children: (false | "" | Element | null | undefined)[]; direction: "row"; spacing: number; alignItems: string; flexWrap: string; }' but required in type '{ component: ElementType<any, keyof IntrinsicElements>; }'.
+  Overload 2 of 2, '(props: DefaultComponentProps<StackTypeMap<{}, "div">>): Element | null', gave the following error.
+    Type '{ children: (false | "" | Element | null | undefined)[]; direction: "row"; spacing: number; alignItems: string; flexWrap: string; }' is not assignable to type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+      Property 'alignItems' does not exist on type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+src/research/stages/EligibilityStage.tsx(110,8): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: { component: ElementType<any, keyof IntrinsicElements>; } & StackOwnProps & CommonProps & Omit<any, keyof CommonProps | keyof StackOwnProps>): Element | null', gave the following error.
+    Property 'component' is missing in type '{ children: Element[]; direction: "row"; spacing: number; alignItems: string; flexWrap: string; sx: { mb: number; }; }' but required in type '{ component: ElementType<any, keyof IntrinsicElements>; }'.
+  Overload 2 of 2, '(props: DefaultComponentProps<StackTypeMap<{}, "div">>): Element | null', gave the following error.
+    Type '{ children: Element[]; direction: "row"; spacing: number; alignItems: string; flexWrap: string; sx: { mb: number; }; }' is not assignable to type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+      Property 'alignItems' does not exist on type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+src/research/stages/EligibilityStage.tsx(126,12): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: { component: ElementType<any, keyof IntrinsicElements>; } & StackOwnProps & CommonProps & Omit<any, keyof CommonProps | keyof StackOwnProps>): Element | null', gave the following error.
+    Property 'component' is missing in type '{ children: Element[]; direction: "row"; spacing: number; flexWrap: string; useFlexGap: true; }' but required in type '{ component: ElementType<any, keyof IntrinsicElements>; }'.
+  Overload 2 of 2, '(props: DefaultComponentProps<StackTypeMap<{}, "div">>): Element | null', gave the following error.
+    Type '{ children: Element[]; direction: "row"; spacing: number; flexWrap: string; useFlexGap: true; }' is not assignable to type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+      Property 'flexWrap' does not exist on type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+src/research/stages/EligibilityStage.tsx(151,12): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: { component: ElementType<any, keyof IntrinsicElements>; } & StackOwnProps & CommonProps & Omit<any, keyof CommonProps | keyof StackOwnProps>): Element | null', gave the following error.
+    Property 'component' is missing in type '{ children: Element[]; direction: "row"; spacing: number; flexWrap: string; useFlexGap: true; }' but required in type '{ component: ElementType<any, keyof IntrinsicElements>; }'.
+  Overload 2 of 2, '(props: DefaultComponentProps<StackTypeMap<{}, "div">>): Element | null', gave the following error.
+    Type '{ children: Element[]; direction: "row"; spacing: number; flexWrap: string; useFlexGap: true; }' is not assignable to type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+      Property 'flexWrap' does not exist on type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+src/research/stages/EligibilityStage.tsx(186,16): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: { component: ElementType<any, keyof IntrinsicElements>; } & StackOwnProps & CommonProps & Omit<any, keyof CommonProps | keyof StackOwnProps>): Element | null', gave the following error.
+    Property 'component' is missing in type '{ children: Element[]; direction: "row"; spacing: number; alignItems: string; flexWrap: string; }' but required in type '{ component: ElementType<any, keyof IntrinsicElements>; }'.
+  Overload 2 of 2, '(props: DefaultComponentProps<StackTypeMap<{}, "div">>): Element | null', gave the following error.
+    Type '{ children: Element[]; direction: "row"; spacing: number; alignItems: string; flexWrap: string; }' is not assignable to type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+      Property 'alignItems' does not exist on type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+src/research/stages/EligibilityStage.tsx(202,16): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: { component: ElementType<any, keyof IntrinsicElements>; } & StackOwnProps & CommonProps & Omit<any, keyof CommonProps | keyof StackOwnProps>): Element | null', gave the following error.
+    Property 'component' is missing in type '{ children: ("" | Element | undefined)[]; direction: "row"; spacing: number; alignItems: string; flexWrap: string; }' but required in type '{ component: ElementType<any, keyof IntrinsicElements>; }'.
+  Overload 2 of 2, '(props: DefaultComponentProps<StackTypeMap<{}, "div">>): Element | null', gave the following error.
+    Type '{ children: ("" | Element | undefined)[]; direction: "row"; spacing: number; alignItems: string; flexWrap: string; }' is not assignable to type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.
+      Property 'alignItems' does not exist on type 'IntrinsicAttributes & StackOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof CommonProps | keyof StackOwnProps>'.

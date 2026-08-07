@@ -1,0 +1,156 @@
+{
+  "method": "Ogni script di evaluation e' stato RIESEGUITO con OUT rediretto in scratchpad e l'output confrontato byte a byte con l'artifact committato.",
+
+  "reproduction": {
+    "run_rq1": {"exit": 0, "files": 7, "identical": 6, "differing": ["aggregate_metrics.json"], "only_delta": "generated_at"},
+    "run_rq2": {"exit": 0, "files": 5, "identical": 4, "differing": ["aggregate_metrics.json"], "only_delta": "generated_at + ncbi_requests (12 committato vs 0 rigenerato: nessuna rete usata in questo audit)"},
+    "run_rq4": {"exit": 0, "files": 5, "identical": 0, "differing": "tutti", "note": "RQ4 chiama il parser LLM: l'output varia per costruzione. Il benchmark congelato ha benchmark_sha256 dd639ed0..., verificato identico."},
+    "run_gca_v3_audit": {"exit": 0, "files": 9, "identical": 8, "differing": ["aggregate_metrics.json"], "only_delta": "generated_at"},
+    "run_runtime_v3_integration": {"exit": 0, "files": 11, "identical": 10, "differing": ["eligibility_metrics.json"], "only_delta": "generated_at"},
+    "incident": "Due script (run_rq1, run_gca_v3_audit) hanno scritto aggregate_metrics.json anche nella directory committata nonostante il redirect di OUT. La sola differenza era generated_at; i file sono stati ripristinati con git checkout e lo stato del repository e' tornato identico a quello iniziale."
+  },
+
+  "RQ1": {
+    "question": "Graph representation fidelity",
+    "deliverable": true,
+    "confidence": "alta",
+    "supported_by": [
+      "evaluation/rq1_graph_candidate_fidelity/ riprodotto: 6 file su 7 identici, il settimo differisce solo per generated_at",
+      "sorgente KG tracciata in git (data_expl/DatasetTESI/Dataset TESI/Clean_Graph_Data), corpus_fingerprint 8df07e82...",
+      "candidates_artifact.declared_sha256 verificato a runtime (verified = true)",
+      "kg_source.neo4j_used = false dichiarato esplicitamente nell'artifact"
+    ],
+    "metrics": {
+      "materialization_precision": 1.0,
+      "materialization_recall": 1.0,
+      "field_completeness": 1.0,
+      "matched_paths": 46864,
+      "eligible_paths": 46864,
+      "excluded_paths": 0,
+      "direction_inversions_contract": 0,
+      "direction_inversions_graph": 486,
+      "ALTERATION_LOST": 1091,
+      "REGIMEN_SPLIT": 1294,
+      "semantic_duplicate_groups": 344,
+      "exact_duplicate_rate": 0.0
+    },
+    "critical_caveat": "Le metriche misurano la fedelta' del MATERIALIZZATORE (grafo -> GraphCandidateAssertion), non del retrieval. precision = recall = 1.0 significa che ogni percorso eleggibile e' materializzato senza perdita di campo. Le 486 DIRECTION_INVERSION, 1091 ALTERATION_LOST e 1294 REGIMEN_SPLIT sono perdite gia' presenti nell'export del grafo sorgente, correttamente misurate e riportate dallo script. La verifica indipendente di questo audit ha ricontato 486 inversioni: coincide esattamente.",
+    "what_actually_breaks": "Il difetto non e' nella misura RQ1 ma nel RUNTIME che consuma la rappresentazione: gates.direction_consistency converte attivamente 752 candidate a polarita' negativa o avversa in supporto positivo (ISS-002). RQ1 misura la rappresentazione; ISS-002 riguarda il suo consumo.",
+    "condition": "La tesi deve dichiarare che RQ1 misura la materializzazione a partire da un export CSV congelato, non da una query Neo4j live."
+  },
+
+  "RQ2": {
+    "question": "Document grounding",
+    "deliverable": "PARZIALE",
+    "confidence": "media",
+    "supported_by": [
+      "evaluation/rq2_pmid_associations/ riprodotto: 4 file su 5 identici",
+      "la catena a sette livelli e' distinguibile nel codice e nei reason code",
+      "research_routes._ACCEPTED_OUTCOMES codifica esplicitamente che solo una validazione accettata rende document_grounded vero"
+    ],
+    "metrics": {
+      "candidates_total": 46864,
+      "candidates_with_pmid": 8230,
+      "candidates_without_pmid": 38634,
+      "pmid_syntactically_valid": 8209,
+      "pmid_invalid_format": 21,
+      "unique_pmids": 2229,
+      "pmid_resolved_metadata_only": 2228,
+      "pmid_not_found": 1,
+      "pmid_document_available": 15,
+      "pmid_document_unavailable": 2214,
+      "pairs_candidate_level": 4860,
+      "pairs_parent_level_only": 3370,
+      "pairs_parent_level_multi_drug": 1294,
+      "retraction_or_correction_signals": 3,
+      "semantic_relevance": "NOT_MEASURED - richiede annotazione umana; semantic_pmid_precision_claimed_without_gold = false"
+    },
+    "seven_level_chain": {
+      "1_candidate_has_identifier": "8230 / 46864 = 17.6%  CALCOLABILE",
+      "2_identifier_resolves": "2228 / 2229 PMID unici risolti a metadati  CALCOLABILE",
+      "3_document_available": "15  calcolabile dal manifest, ma i byte non ci sono: data_cache assente",
+      "4_sourceunit_available": "3402 unita' nell'indice, SOLO locatori e content_hash; il testo non e' ricostruibile senza data_cache",
+      "5_relevant_passage_found": "NON CALCOLABILE in questo ambiente",
+      "6_quote_proposed": "7 chiamate reali congelate al commit 6ee64c5, 3 quote proposte",
+      "7_quote_validated": "2 accettate, 1 rigettata (pilot). In REPLAY la validazione NON viene rieseguita (replay.py:117-132)"
+    },
+    "critical_caveat": "Solo 16 candidate su 46864 (0.034%) sono raggiungibili end-to-end: il retrieval e' ristretto alle candidate che possiedono un EvidenceBundle, e i bundle sono 25 su 16 candidate distinte. Il denominatore onesto di qualunque claim end-to-end e' 16, non 46864.",
+    "blocker": "data_cache/ assente e gitignored: i livelli 3-5 non sono riproducibili da un clone pulito. Nessuna run end-to-end oggi disponibile esercita il validatore di quote."
+  },
+
+  "RQ3": {
+    "question": "Hybrid authority separation",
+    "deliverable": true,
+    "confidence": "alta",
+    "supported_by": [
+      "8 punti su 9 del §21 classificati IMPOSSIBLE_BY_CONSTRUCTION o VALIDATED_DOWNSTREAM",
+      "transport_v2.transport_result_v2 righe 71-73 rifiuta chiavi extra: TOOL_SCHEMA ha esattamente 5 proprieta'",
+      "contracts.LLM_STAGE_IDS contiene 2 stage su 15; ogni altro StageProducer e' costruito DETERMINISTIC",
+      "batteria di 14 casi di validazione quote eseguita sul validatore realmente collegato a LIVE",
+      "check_origin dichiara 6 controlli NOT_IMPLEMENTED e impedisce per costruzione che dichiarino uno stage"
+    ],
+    "metrics": {
+      "prompt_only_restrictions": 0,
+      "uncontrolled_paths": 0,
+      "invented_quotes_accepted": 0,
+      "invented_sourceunits_accepted": 0,
+      "wrong_document_quotes_accepted": 0,
+      "llm_can_change_canonical_status": false,
+      "llm_can_create_provenance": false,
+      "llm_can_create_sourceunit": false
+    },
+    "critical_caveat": "Un enrichment RIGETTATO raggiunge comunque author_context nel dossier (orchestrator.py:616-617, append incondizionato rispetto all'esito) e la UI lo rende come citazione d'autore (DossierView.tsx:89 filtra per presenza della quote, non per esito). Lo STATO canonico e' protetto; il dossier PRESENTATO no. Vedi ISS-003.",
+    "condition": "Delimitare esplicitamente la claim allo stato canonico, oppure correggere ISS-003."
+  },
+
+  "RQ4": {
+    "question": "Selective routing",
+    "deliverable": "PARZIALE",
+    "confidence": "media",
+    "supported_by": [
+      "invariante NON_ELIGIBLE -> retrieval_called = 0 verificato indipendentemente su 12 casi con parser stub e su 5 categorie in LIVE con LLM reale",
+      "evaluation/runtime_v3_integration/ riprodotto: 10 file su 11 identici"
+    ],
+    "metrics_post_gate": {
+      "empty_casecontext_retrieval": 0,
+      "out_of_scope_retrieval": 0,
+      "non_actionable_retrieval": 0,
+      "contradictory_case_retrieval": 0,
+      "forbidden_downstream_calls": 0,
+      "symptom_copied_into_disease_field": 0,
+      "injected_drug_extracted_as_target": 0,
+      "control_instruction_execution": 0
+    },
+    "metrics_pre_gate_frozen_benchmark": {
+      "routing_matches_protocol_requirement": 0.3143,
+      "routing_matches_runtime_expectation": 0.7429,
+      "symptom_copied_into_disease_field": 5,
+      "injected_drug_extracted_as_target": 1,
+      "contract_violation_rate": 0.2571,
+      "cases_with_routing_gap": 19,
+      "offset_validity": 0.0444,
+      "transport_outcomes": {"FORCED_TOOL_VALID": 26, "FORCED_TOOL_IGNORED": 5, "INVALID_TOOL_ARGUMENTS": 4}
+    },
+    "critical_caveat": "Le metriche post-gate sono prodotte da run_runtime_v3_integration.py, che chiama casecontext.pipeline.run DIRETTAMENTE, bypassando l'orchestratore. Attraverso il runtime canonico ogni decisione non eleggibile termina con un ValueError non gestito (ISS-001): confermato in LIVE su 5 categorie tramite l'API reale. L'invariante di sicurezza regge, ma la claim di routing non e' dimostrabile attraverso il runtime finche' ISS-001 non e' corretto.",
+    "additional_finding": "Nelle 18 run LIVE di questo audit il parser ha fallito il trasporto 5 volte (28%), coerente con il 26% del benchmark congelato (9 su 35 non FORCED_TOOL_VALID). I casi PARSER_TRANSPORT_FAILED non devono essere conteggiati fra gli stop corretti del gate: il gate non viene mai raggiunto.",
+    "blocker": "ISS-001"
+  },
+
+  "RQ5": {
+    "question": "External citation recovery (OncoKB)",
+    "status": "PLANNED",
+    "evidence": {
+      "oncokb_integrated_into_runtime": false,
+      "pilot_executed": false,
+      "oncokb_calls_executed": 1,
+      "oncokb_call_type": "GET /api/v1/info (metadata only, no knowledge data)",
+      "oncokb_knowledge_data_retrieved": false,
+      "queryable_candidate_count": 0,
+      "not_queryable_candidates": 38634,
+      "reason": "ONCOKB_FALLBACK_BLOCKED_NO_AUTHORIZATION + ONCOKB_FALLBACK_LOW_YIELD",
+      "artifacts_present": ["aggregate_metrics.json", "feasibility_report.md", "licensing_report.md", "query_plan.json", "pilot_results.jsonl"]
+    },
+    "assessment": "PLANNED con studio di fattibilita' completo e onesto. Nessuna chiamata a dati di conoscenza OncoKB e' stata effettuata: la sola chiamata e' un GET /api/v1/info di metadati. Il §27 ammette esplicitamente RQ5 come PILOT o PLANNED purche' dichiarato tale, e lo e'. Nessun modulo di backend/research_pipeline importa oncokb; backend/pipeline/agents/oncokb_enricher.py appartiene alla pipeline di prodotto legacy, non al runtime della tesi.",
+    "deliverable_as_planned": true
+  }
+}
