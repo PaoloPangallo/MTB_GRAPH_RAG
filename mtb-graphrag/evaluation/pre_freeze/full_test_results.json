@@ -1,0 +1,51 @@
+{
+ "python": {
+  "command": "env -u PYTHONPATH python -m pytest -q",
+  "exit_code": 0,
+  "passed": 3189,
+  "failed": 0,
+  "skipped": 17,
+  "subtests": 36890,
+  "warnings": 1,
+  "duration_s": 192.31,
+  "baseline_before_branch": 3138,
+  "added_by_branch": 51,
+  "note": "3138 + 51 = 3189. 19 ISS-002 + 15 ISS-001 + 17 ISS-003."
+ },
+ "frontend_tests": {
+  "command": "npx vitest run --no-file-parallelism",
+  "exit_code": 0,
+  "files": 16,
+  "passed": 200,
+  "failed": 0,
+  "duration_s": 34.04,
+  "baseline_before_branch": 195,
+  "added_by_branch": 5
+ },
+ "frontend_build": {
+  "command": "npm run build",
+  "exit_code": 0,
+  "before_exit_code": 2
+ },
+ "frontend_typecheck": {
+  "command": "tsc -b",
+  "exit_code": 0,
+  "before_errors": 6,
+  "after_errors": 0
+ },
+ "evaluation": {
+  "note": "inclusa in pytest tramite testpaths (evaluation/tests, 91 test)"
+ },
+ "rq4_canonical_runtime": {
+  "command": "python -m evaluation.run_rq4_canonical_runtime",
+  "exit_code": 0,
+  "cases": 35,
+  "noneligible_cases": 27,
+  "controlled_stops_ok": 18,
+  "noneligible_retrieval_calls": 0,
+  "forbidden_downstream_calls": 0,
+  "expected_controlled_stops_failed": 0,
+  "runtime_exceptions": 0,
+  "path_disagreements": 0
+ }
+}

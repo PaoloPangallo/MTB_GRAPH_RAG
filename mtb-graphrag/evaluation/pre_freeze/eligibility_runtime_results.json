@@ -1,0 +1,173 @@
+{
+ "issue": "ISS-001",
+ "title": "Controlled eligibility stop",
+ "status": "CLOSED",
+ "reproduced_before_fix": true,
+ "fix_implemented": true,
+ "test_added": true,
+ "fix_verified": true,
+ "regression_free": true,
+ "tests": "backend/research_pipeline/tests/test_eligibility_controlled_stop.py - 15 test, 13 subtest",
+ "before": {
+  "controlled_stops_failed": 4,
+  "noneligible_retrieval_calls": 0,
+  "runs": [
+   {
+    "case": "out_of_domain",
+    "run_status": "RAISED",
+    "stopped_at": null,
+    "exception": "ValueError: stop reason sconosciuta: 'OUT_OF_SCOPE'",
+    "stages_executed": [],
+    "retrieval_called": 0
+   },
+   {
+    "case": "empty_input",
+    "run_status": "RAISED",
+    "stopped_at": null,
+    "exception": "ValueError: stop reason sconosciuta: 'INVALID_INPUT'",
+    "stages_executed": [],
+    "retrieval_called": 0
+   },
+   {
+    "case": "non_actionable",
+    "run_status": "RAISED",
+    "stopped_at": null,
+    "exception": "ValueError: stop reason sconosciuta: 'NON_ACTIONABLE_MEDICAL_INPUT'",
+    "stages_executed": [],
+    "retrieval_called": 0
+   },
+   {
+    "case": "prompt_injection",
+    "run_status": "RAISED",
+    "stopped_at": null,
+    "exception": "ValueError: stop reason sconosciuta: 'OUT_OF_SCOPE'",
+    "stages_executed": [],
+    "retrieval_called": 0
+   }
+  ]
+ },
+ "after": {
+  "controlled_stops_failed": 0,
+  "noneligible_retrieval_calls": 0,
+  "runs": [
+   {
+    "case": "out_of_domain",
+    "run_status": "STOPPED",
+    "stopped_at": "OUT_OF_SCOPE",
+    "exception": null,
+    "stages_executed": [
+     "stage_1_case_input",
+     "stage_2_casecontext_parser",
+     "stage_3_casecontext_match",
+     "stage_3b_pre_retrieval_eligibility_gate"
+    ],
+    "retrieval_called": 0
+   },
+   {
+    "case": "empty_input",
+    "run_status": "STOPPED",
+    "stopped_at": "INVALID_INPUT",
+    "exception": null,
+    "stages_executed": [
+     "stage_1_case_input",
+     "stage_2_casecontext_parser",
+     "stage_3_casecontext_match",
+     "stage_3b_pre_retrieval_eligibility_gate"
+    ],
+    "retrieval_called": 0
+   },
+   {
+    "case": "non_actionable",
+    "run_status": "STOPPED",
+    "stopped_at": "NON_ACTIONABLE_MEDICAL_INPUT",
+    "exception": null,
+    "stages_executed": [
+     "stage_1_case_input",
+     "stage_2_casecontext_parser",
+     "stage_3_casecontext_match",
+     "stage_3b_pre_retrieval_eligibility_gate"
+    ],
+    "retrieval_called": 0
+   },
+   {
+    "case": "prompt_injection",
+    "run_status": "STOPPED",
+    "stopped_at": "OUT_OF_SCOPE",
+    "exception": null,
+    "stages_executed": [
+     "stage_1_case_input",
+     "stage_2_casecontext_parser",
+     "stage_3_casecontext_match",
+     "stage_3b_pre_retrieval_eligibility_gate"
+    ],
+    "retrieval_called": 0
+   }
+  ]
+ },
+ "contract": {
+  "stop_reasons_before": 7,
+  "stop_reasons_after": 15,
+  "correct_stop_reasons_after": 10,
+  "failure_stop_reasons_after": 5,
+  "policy_changed": false,
+  "note": "la policy di eligibility non e' toccata: cambia solo la rappresentazione dello stop"
+ },
+ "rq4_through_canonical_orchestrator": {
+  "generated_at": "2026-08-07T19:00:07.993748+00:00",
+  "benchmark_sha256": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+  "cases": 35,
+  "evaluation_path": "backend.research_pipeline.orchestrator.run_case",
+  "compared_against": "backend.research_pipeline.casecontext.pipeline.run",
+  "parser": "REPLAYED_FROM_FROZEN_RUN — nessuna chiamata al modello",
+  "execution_mode": "REPLAY",
+  "downstream_calls_measured": true,
+  "noneligible_cases": 27,
+  "eligible_cases": 8,
+  "controlled_stops_ok": 18,
+  "noneligible_retrieval_calls": 0,
+  "forbidden_downstream_calls": 0,
+  "expected_controlled_stops_failed": 0,
+  "stops_classified_as_failure": 0,
+  "runtime_exceptions": 0,
+  "path_disagreements": 0,
+  "parser_transport_failures": 9,
+  "noneligible_not_reaching_gate": 9,
+  "out_of_scope_retrieval": 0,
+  "non_actionable_retrieval": 0,
+  "contradictory_case_retrieval": 0,
+  "note_parser_transport": "I casi con transport != FORCED_TOOL_VALID si fermano allo stage 2 e non raggiungono il gate: sono guasti del modello (ISS-012, P2), non stop del gate mancati, e sono contati a parte.",
+  "eligibility_by_category": {
+   "ADVERSARIAL": {
+    "ADVERSARIAL_OR_CONTROL_INPUT": 2,
+    "PARSER_TRANSPORT_FAILED": 1,
+    "MISSING_REQUIRED_FIELDS": 1,
+    "ELIGIBLE_FOR_RETRIEVAL": 1
+   },
+   "AMBIGUOUS": {
+    "MISSING_REQUIRED_FIELDS": 2,
+    "ELIGIBLE_FOR_RETRIEVAL": 1,
+    "PARSER_TRANSPORT_FAILED": 2
+   },
+   "CONTRADICTORY": {
+    "CONTRADICTORY_CASE_CONTEXT": 5
+   },
+   "IN_SCOPE_COMPLETE": {
+    "ELIGIBLE_FOR_RETRIEVAL": 4,
+    "PARSER_TRANSPORT_FAILED": 1
+   },
+   "IN_SCOPE_INCOMPLETE": {
+    "MISSING_REQUIRED_FIELDS": 1,
+    "ELIGIBLE_FOR_RETRIEVAL": 2,
+    "PARSER_TRANSPORT_FAILED": 2
+   },
+   "NON_ACTIONABLE_MEDICAL_INPUT": {
+    "PARSER_TRANSPORT_FAILED": 1,
+    "NON_ACTIONABLE_MEDICAL_INPUT": 4
+   },
+   "OUT_OF_SCOPE": {
+    "OUT_OF_SCOPE": 3,
+    "PARSER_TRANSPORT_FAILED": 2
+   }
+  }
+ }
+}

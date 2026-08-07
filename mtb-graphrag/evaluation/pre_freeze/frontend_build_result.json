@@ -1,0 +1,31 @@
+{
+ "command": "npm run build  (tsc -b && vite build)",
+ "before": {
+  "exit_code": 2,
+  "errors": 6,
+  "error_code": "TS2769",
+  "file": "src/research/stages/EligibilityStage.tsx",
+  "lines": [
+   83,
+   110,
+   126,
+   151,
+   186,
+   202
+  ],
+  "vite_build_reached": false
+ },
+ "after": {
+  "exit_code": 0,
+  "errors": 0,
+  "vite_build_reached": true,
+  "output": "dist/assets/index-BZr5TgyQ.js 2,243.70 kB | gzip: 626.80 kB",
+  "built_in": "709ms"
+ },
+ "fix": "alignItems/flexWrap spostati in sx: stesse regole CSS, nessun any, nessun ts-ignore",
+ "vitest_after": {
+  "files": 16,
+  "tests": 200,
+  "failed": 0
+ }
+}
