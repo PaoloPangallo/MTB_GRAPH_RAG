@@ -11,12 +11,25 @@ inglese in generale. Vedi ``docs/dossier_narrator/12_limitations.md``.
 from __future__ import annotations
 
 import re
+import unicodedata
 
 LEXICON_VERSION = "narrative-lexicon/1.0"
 
 
+def normalize(text: str) -> str:
+    """Normalizzazione Unicode NFC prima di ogni confronto.
+
+    In italiano ``è`` può arrivare come carattere precomposto (U+00E8) oppure
+    come ``e`` seguito da accento combinante (U+0065 U+0300). Sono la stessa
+    lettera per un lettore e due stringhe diverse per una regex: senza NFC un
+    modello che usasse la seconda forma avrebbe aggirato l'intera policy
+    scrivendo «è indicato» in modo indistinguibile a occhio nudo.
+    """
+    return unicodedata.normalize("NFC", text or "")
+
+
 def _compile(patterns: tuple[str, ...]) -> tuple[re.Pattern[str], ...]:
-    return tuple(re.compile(p, re.IGNORECASE) for p in patterns)
+    return tuple(re.compile(normalize(p), re.IGNORECASE) for p in patterns)
 
 
 # ─────────────────────────────────────────── §14 linguaggio prescrittivo
@@ -90,7 +103,7 @@ UNCERTAINTY_MARKER_PATTERNS: tuple[str, ...] = (
 NO_DOCUMENT_MARKER_PATTERNS: tuple[str, ...] = (
     r"\bnessuna\s+citazion", r"\bnessun\s+documento\b", r"\bnon\s+.{0,24}citazione\s+validat",
     r"\bnon\s+è\s+stato\s+trovato\s+supporto\s+documental", r"\bsenza\s+supporto\s+documental",
-    r"\bastension", r"\bsi\s+è\s+astenut",
+    r"\bastension", r"\bastenut", r"\bsi\s+è\s+astenut",
     r"\bno\s+validated\s+quote\b", r"\bno\s+documentary\s+support\b", r"\babstain",
 )
 
@@ -102,9 +115,10 @@ NO_DOCUMENT_MARKER_RE = _compile(NO_DOCUMENT_MARKER_PATTERNS)
 
 
 def _hits(text: str, compiled: tuple[re.Pattern[str], ...]) -> list[str]:
+    normalized = normalize(text)
     found: list[str] = []
     for pattern in compiled:
-        match = pattern.search(text or "")
+        match = pattern.search(normalized)
         if match:
             found.append(match.group(0).strip())
     return found
