@@ -45,11 +45,23 @@ l'applicabilità resta indeterminata anche quando la fonte supporta la claim.
 
 ```bash
 cp .env.example .env
-python -m venv .venv
+python -m venv .venv           # Python 3.12
 source .venv/bin/activate
 pip install -r backend/config/requirements.txt
 uvicorn backend.api.main:app --reload
 ```
+
+Per **eseguire test ed evaluation** servono anche le dipendenze di sviluppo:
+`requirements.txt` da solo non contiene `pytest`.
+
+```bash
+pip install -r backend/config/requirements-dev.txt
+pytest                          # 3 189 test, nessun PYTHONPATH da impostare
+```
+
+`backend/config/requirements-lock.txt` congela l'ambiente esatto in cui gli
+esperimenti sono stati eseguiti (`pip freeze`), per chi debba riprodurli alla
+lettera.
 
 In un secondo terminale:
 
