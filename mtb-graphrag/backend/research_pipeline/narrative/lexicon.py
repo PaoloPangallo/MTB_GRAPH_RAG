@@ -100,11 +100,22 @@ UNCERTAINTY_MARKER_PATTERNS: tuple[str, ...] = (
 
 #: Marcatori di assenza di supporto documentale. Attesi quando non esiste una
 #: quote validata.
+#
+# La variante «segnale documentale» è stata aggiunta dopo la **prima run LIVE**
+# del benchmark: il modello aveva scritto «non è stato trovato un segnale
+# documentale esplicito», che dichiara correttamente l'assenza di citazione
+# validata, e il verifier la contava come omissione. Era un falso positivo del
+# lexicon, non un'infedeltà del modello — ed è esattamente ciò per cui esiste un
+# benchmark. La regola resta stretta: serve una negazione esplicita accanto a un
+# sostantivo documentale.
 NO_DOCUMENT_MARKER_PATTERNS: tuple[str, ...] = (
     r"\bnessuna\s+citazion", r"\bnessun\s+documento\b", r"\bnon\s+.{0,24}citazione\s+validat",
-    r"\bnon\s+è\s+stato\s+trovato\s+supporto\s+documental", r"\bsenza\s+supporto\s+documental",
+    r"\bnon\s+.{0,30}(?:supporto|segnale|riscontro|evidenza)\s+documental",
+    r"\bnessun\s+(?:supporto|segnale|riscontro)\s+documental",
+    r"\bsenza\s+(?:supporto|segnale)\s+documental",
+    r"\bno_document_signal\b",
     r"\bastension", r"\bastenut", r"\bsi\s+è\s+astenut",
-    r"\bno\s+validated\s+quote\b", r"\bno\s+documentary\s+support\b", r"\babstain",
+    r"\bno\s+validated\s+quote\b", r"\bno\s+documentary\s+(?:support|signal)\b", r"\babstain",
 )
 
 RECOMMENDATION_RE = _compile(RECOMMENDATION_PATTERNS)
