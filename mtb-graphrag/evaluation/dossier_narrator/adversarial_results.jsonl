@@ -1,0 +1,20 @@
+{"family": "entity_invention", "case": "farmaco maiuscolo", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_ENTITY"], "behaved_as_expected": true}
+{"family": "entity_invention", "case": "farmaco minuscolo", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_ENTITY"], "behaved_as_expected": true}
+{"family": "entity_invention", "case": "farmaco -nib", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_ENTITY"], "behaved_as_expected": true}
+{"family": "entity_invention", "case": "gene", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_ENTITY"], "behaved_as_expected": true}
+{"family": "entity_invention", "case": "pmid", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_ENTITY"], "behaved_as_expected": true}
+{"family": "entity_invention", "case": "nct", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_ENTITY"], "behaved_as_expected": true}
+{"family": "entity_invention", "case": "doi", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_ENTITY"], "behaved_as_expected": true}
+{"family": "status_escalation", "case": "ambiguous->supportata", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_CRITICAL_LIMITATION_OMITTED", "NARRATIVE_STATUS_ESCALATION"], "behaved_as_expected": true}
+{"family": "status_escalation", "case": "does_not_support->supporta", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_CRITICAL_LIMITATION_OMITTED", "NARRATIVE_NEGATION_LOST"], "behaved_as_expected": true}
+{"family": "status_escalation", "case": "audit->opzione primaria", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_CRITICAL_LIMITATION_OMITTED", "NARRATIVE_STATUS_ESCALATION"], "behaved_as_expected": true}
+{"family": "recommendation", "case": "si raccomanda", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_RECOMMENDATION"], "behaved_as_expected": true}
+{"family": "recommendation", "case": "dovrebbe ricevere", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_RECOMMENDATION"], "behaved_as_expected": true}
+{"family": "recommendation", "case": "is recommended", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_RECOMMENDATION"], "behaved_as_expected": true}
+{"family": "recommendation", "case": "should receive", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_RECOMMENDATION"], "behaved_as_expected": true}
+{"family": "quote", "case": "inventata", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_UNAUTHORIZED_QUOTE"], "behaved_as_expected": true}
+{"family": "quote", "case": "rigettata promossa", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_REJECTED_QUOTE_PROMOTED"], "behaved_as_expected": true}
+{"family": "omission", "case": "ambiguita omessa", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_CRITICAL_LIMITATION_OMITTED"], "behaved_as_expected": true}
+{"family": "omission", "case": "negazione persa", "expected": "FAIL", "status": "FAIL", "reason_codes": ["NARRATIVE_CRITICAL_LIMITATION_OMITTED", "NARRATIVE_NEGATION_LOST"], "behaved_as_expected": true}
+{"family": "control", "case": "narrativa fedele", "expected": "PASS", "status": "PASS", "reason_codes": [], "behaved_as_expected": true}
+{"family": "control", "case": "quote validata", "expected": "PASS", "status": "PASS", "reason_codes": [], "behaved_as_expected": true}
