@@ -55,7 +55,20 @@ D = ROOT / "benchmarks/mtb_evidence/document_grounded_claims"
 bundles = {json.loads(l)["candidate_id"]
            for l in (D / "evidence_bundle/evidence_bundles.jsonl").read_text(encoding="utf-8").splitlines()
            if l.strip()}
+#
+# Due misure distinte, entrambe riportate:
+#
+#   *_field_only     chiama ``direction_consistency`` con il solo campo ``direction``.
+#                    E' la misura originale dell'audit. Risponde a una domanda piu'
+#                    ristretta e non puo' vedere la polarita' quando questa vive solo
+#                    in source_properties: per le 213 candidate di quella forma resta
+#                    CONSISTENT anche dopo il fix, ed e' corretto che lo sia.
+#   *_runtime_path   percorso realmente eseguito: evaluate_association sulla candidate
+#                    intera. E' la misura che risponde alla domanda dell'audit.
+#
 promoted, promoted_reachable = 0, []
+promoted_runtime, promoted_runtime_reachable = 0, []
+primary_bucket_negative = 0
 with (D / "graph_candidate_repository/2.0/candidates.jsonl").open(encoding="utf-8") as fh:
     for line in fh:
         if not line.strip():
@@ -64,12 +77,30 @@ with (D / "graph_candidate_repository/2.0/candidates.jsonl").open(encoding="utf-
         d = r.get("direction")
         pol = ((r.get("source_properties") or {}).get("evidence") or {}).get("evidence_direction")
         negative = (pol == "Does Not Support") or (d in ("Reduced Sensitivity", "Adverse Response"))
-        if negative and direction_consistency(d, "RESPONSE") == "CONSISTENT":
+        if not negative:
+            continue
+        if direction_consistency(d, "RESPONSE") == "CONSISTENT":
             promoted += 1
             if r["candidate_id"] in bundles:
                 promoted_reachable.append(r["candidate_id"])
+        try:
+            from backend.research_pipeline.determinism.gates import candidate_direction_consistency
+            runtime_outcome = candidate_direction_consistency(r, "RESPONSE")
+        except ImportError:                     # versione precedente al fix
+            runtime_outcome = direction_consistency(d, "RESPONSE")
+        if runtime_outcome == "CONSISTENT":
+            promoted_runtime += 1
+            if r["candidate_id"] in bundles:
+                promoted_runtime_reachable.append(r["candidate_id"])
+        if evaluate_association("THERAPY_EVALUATION", r, val_acc)["gate_bucket"] == "PRIMARY_BUCKET":
+            primary_bucket_negative += 1
+iss002["population_promoted_v2_field_only"] = promoted
+iss002["population_promoted_v2_field_only_reachable"] = promoted_reachable
+iss002["population_promoted_v2_runtime_path"] = promoted_runtime
+iss002["population_promoted_v2_runtime_path_reachable"] = promoted_runtime_reachable
+iss002["population_negative_in_primary_bucket"] = primary_bucket_negative
+# retrocompatibilita' con il nome usato nella baseline
 iss002["population_promoted_v2"] = promoted
-iss002["population_promoted_reachable_end_to_end"] = promoted_reachable
 R["ISS-002"] = iss002
 
 # ============================================================ ISS-001
