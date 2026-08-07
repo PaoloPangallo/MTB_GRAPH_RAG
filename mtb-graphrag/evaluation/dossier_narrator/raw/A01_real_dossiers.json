@@ -1,0 +1,930 @@
+{
+ "CASE-1-therapy-evaluation-strong-match": {
+  "run_status": "COMPLETED",
+  "stopped_at": null,
+  "dossier": {
+   "case_id": "CASE-1-therapy-evaluation-strong-match",
+   "case_context": {
+    "biomarkers": [
+     {
+      "alteration": "G12D",
+      "gene": "KRAS",
+      "normalized_value": "KRAS G12D",
+      "raw_value": "KRAS G12D mutation",
+      "source_spans": [
+       {
+        "end_offset": 88,
+        "quote": "KRAS G12D mutation",
+        "start_offset": 67
+       }
+      ]
+     }
+    ],
+    "case_id": "CASE-1-therapy-evaluation-strong-match",
+    "clinical_question": "The treating oncologist is evaluating whether panitumumab would be an appropriate therapy for this patient.",
+    "disease": {
+     "normalized_value": "Metastatic colorectal cancer",
+     "raw_value": "metastatic colorectal cancer",
+     "source_spans": [
+      {
+       "end_offset": 33,
+       "quote": "metastatic colorectal cancer",
+       "start_offset": 13
+      }
+     ]
+    },
+    "previous_interventions": [],
+    "query_intent": "THERAPY_EVALUATION",
+    "target_intervention": {
+     "normalized_value": "panitumumab",
+     "raw_value": "panitumumab",
+     "source_spans": [
+      {
+       "end_offset": 134,
+       "quote": "panitumumab",
+       "start_offset": 123
+      }
+     ]
+    },
+    "uncertainties": []
+   },
+   "case_context_verification": {
+    "records": [
+     {
+      "field": "disease",
+      "casecontext_value": "metastatic colorectal cancer",
+      "status": "MATCH",
+      "supporting_text": "metastatic colorectal cancer",
+      "start_offset": 15,
+      "end_offset": 43,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "biomarker[0]",
+      "casecontext_value": "KRAS G12D mutation",
+      "status": "MATCH",
+      "supporting_text": "KRAS G12D mutation",
+      "start_offset": 70,
+      "end_offset": 88,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "alteration[0]",
+      "casecontext_value": "G12D",
+      "status": "MATCH",
+      "supporting_text": "KRAS G12D mutation",
+      "start_offset": 70,
+      "end_offset": 88,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "previous_intervention",
+      "casecontext_value": null,
+      "status": "MISSING_IN_TEXT",
+      "supporting_text": null,
+      "start_offset": null,
+      "end_offset": null,
+      "reason_code": "FIELD_NOT_POPULATED"
+     },
+     {
+      "field": "target_intervention",
+      "casecontext_value": "panitumumab",
+      "status": "MATCH",
+      "supporting_text": "panitumumab",
+      "start_offset": 170,
+      "end_offset": 181,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "query_intent",
+      "casecontext_value": "THERAPY_EVALUATION",
+      "status": "MATCH",
+      "supporting_text": null,
+      "start_offset": null,
+      "end_offset": null,
+      "reason_code": "INTENT_TARGET_CONSISTENT"
+     }
+    ],
+    "essential_fields_pass": true,
+    "warnings": []
+   },
+   "candidate_therapies": [
+    {
+     "candidate_id": "GCA-008ae3aad1a64c118318ef79",
+     "drug": "PANITUMUMAB",
+     "graph_relation": "associated_with_resistance_to",
+     "document_support": {
+      "selected_papers": [
+       "EB-b4c48ba003913f278ff182a6"
+      ],
+      "excluded_papers": []
+     },
+     "author_context": [
+      {
+       "abstention_reason": "",
+       "author_claim_quote": "patients with mCRC bearing KRAS mutations are clinically resistant to therapy with panitumumab or cetuximab.",
+       "author_context_summary": "Patients with metastatic colorectal cancer containing KRAS mutations are clinically resistant to panitumumab.",
+       "candidate_id": "GCA-008ae3aad1a64c118318ef79",
+       "case_id": "CASE-1-therapy-evaluation-strong-match",
+       "decision": "QUOTE",
+       "enrichment_id": "PCEV2-dfc784415a39266ea2cb4e7d",
+       "lineage": {
+        "candidate_id": "GCA-008ae3aad1a64c118318ef79",
+        "case_id": "CASE-1-therapy-evaluation-strong-match",
+        "paper_id": "EB-b4c48ba003913f278ff182a6",
+        "run_index": 0
+       },
+       "model": "gemma4:cloud",
+       "paper_id": "EB-b4c48ba003913f278ff182a6",
+       "payload_hash": "c2082dfef6e3d87d7b7f8f1c272de30e0ba1ed3140085e7955c66ea97e975b3d",
+       "prompt_version": "paper-context-enricher-prompt/2.0",
+       "source_unit_id": "SU-6e4d5a52c9be05f545487ad0",
+       "timestamp": "2026-08-04T14:53:17.359058+00:00",
+       "transport_version": "paper-context-enrichment-transport/2.0",
+       "validation_outcome": "ENRICHMENT_V2_ACCEPTED",
+       "validation_reason_codes": [],
+       "presentation_state": "VALIDATED_QUOTE",
+       "accepted_for_gates": true
+      }
+     ],
+     "validation_results": [
+      {
+       "paper_id": "EB-b4c48ba003913f278ff182a6",
+       "candidate_id": "GCA-008ae3aad1a64c118318ef79",
+       "case_id": "CASE-1-therapy-evaluation-strong-match",
+       "outcome": "ENRICHMENT_V2_ACCEPTED",
+       "reason_codes": [],
+       "replayed": true,
+       "replay_note": "artefatto congelato del pilot 6ee64c5: risposta reale del modello, non rieseguita ora"
+      }
+     ],
+     "gate_results": {
+      "bucket": "WARNING_BUCKET",
+      "support_mask": {
+       "disease": "SUPPORTED",
+       "biomarker": "SUPPORTED",
+       "intervention": "SUPPORTED",
+       "direction": "UNRELATED_EVIDENCE"
+      }
+     },
+     "status": "PARTIAL",
+     "warnings": [
+      "VALIDATED_ENRICHMENT_DOES_NOT_ADDRESS_DIRECTION"
+     ]
+    }
+   ],
+   "limitations": [
+    "research_only_pilot",
+    "no_new_document_fetched",
+    "gemma_used_only_as_enricher"
+   ],
+   "provenance": {
+    "dossier_kind": "research_only_end_to_end_pilot_preview",
+    "dossier_version": "end-to-end-pilot-dossier/1.0",
+    "gemma_role": "paper_context_enricher_only",
+    "gemma_never_decides": [
+     "support_status",
+     "direction",
+     "contradiction",
+     "gate",
+     "score",
+     "bucket"
+    ],
+    "not_wired_to_production_runtime": true
+   }
+  }
+ },
+ "CASE-2-therapy-discovery": {
+  "run_status": "COMPLETED",
+  "stopped_at": null,
+  "dossier": {
+   "case_id": "CASE-2-therapy-discovery",
+   "case_context": {
+    "biomarkers": [
+     {
+      "alteration": "V600E mutation",
+      "gene": "BRAF",
+      "normalized_value": "BRAF V600E",
+      "raw_value": "BRAF V600E mutation",
+      "source_spans": [
+       {
+        "end_offset": 75,
+        "quote": "BRAF V600E mutation",
+        "start_offset": 58
+       }
+      ]
+     }
+    ],
+    "case_id": "CASE-2-therapy-discovery",
+    "clinical_question": "Which therapeutic options are associated with this molecular alteration in this disease context?",
+    "disease": {
+     "normalized_value": "Metastatic Colorectal Cancer",
+     "raw_value": "metastatic colorectal cancer",
+     "source_spans": [
+      {
+       "end_offset": 30,
+       "quote": "metastatic colorectal cancer",
+       "start_offset": 12
+      }
+     ]
+    },
+    "previous_interventions": [],
+    "query_intent": "THERAPY_DISCOVERY",
+    "target_intervention": null,
+    "uncertainties": []
+   },
+   "case_context_verification": {
+    "records": [
+     {
+      "field": "disease",
+      "casecontext_value": "metastatic colorectal cancer",
+      "status": "MATCH",
+      "supporting_text": "metastatic colorectal cancer",
+      "start_offset": 15,
+      "end_offset": 43,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "biomarker[0]",
+      "casecontext_value": "BRAF V600E mutation",
+      "status": "MATCH",
+      "supporting_text": "BRAF V600E mutation",
+      "start_offset": 50,
+      "end_offset": 69,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "alteration[0]",
+      "casecontext_value": "V600E mutation",
+      "status": "MATCH",
+      "supporting_text": "BRAF V600E mutation",
+      "start_offset": 50,
+      "end_offset": 69,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "previous_intervention",
+      "casecontext_value": null,
+      "status": "MISSING_IN_TEXT",
+      "supporting_text": null,
+      "start_offset": null,
+      "end_offset": null,
+      "reason_code": "FIELD_NOT_POPULATED"
+     },
+     {
+      "field": "target_intervention",
+      "casecontext_value": null,
+      "status": "MISSING_IN_TEXT",
+      "supporting_text": null,
+      "start_offset": null,
+      "end_offset": null,
+      "reason_code": "FIELD_NOT_POPULATED"
+     },
+     {
+      "field": "query_intent",
+      "casecontext_value": "THERAPY_DISCOVERY",
+      "status": "MATCH",
+      "supporting_text": null,
+      "start_offset": null,
+      "end_offset": null,
+      "reason_code": "INTENT_TARGET_CONSISTENT"
+     }
+    ],
+    "essential_fields_pass": true,
+    "warnings": []
+   },
+   "candidate_therapies": [
+    {
+     "candidate_id": "GCA-0031c17c5ff5ae29ff221b1e",
+     "drug": "ENCORAFENIB",
+     "graph_relation": "associated_with_sensitivity_to",
+     "document_support": {
+      "selected_papers": [
+       "EB-479f55c21cac935ef1313755",
+       "EB-278efe96eecccc226c82aa2d"
+      ],
+      "excluded_papers": []
+     },
+     "author_context": [
+      {
+       "abstention_reason": "The provided source units mention encorafenib in the context of clinical trials for combined RAF/EGFR inhibition in BRAF-mutant CRC, but they do not report specific observations, results, conclusions, or mechanistic rationales concerning the drug's efficacy or resistance beyond citing the existence of the trials.",
+       "author_claim_quote": "clinical trials of combined RAF/EGFR inhibition have been initiated, including the combination of the RAF inhibitor encorafenib (LGX-818) and cetuximab",
+       "author_context_summary": "Clinical trials have been initiated for the combination of encorafenib and cetuximab in BRAF-mutant CRC.",
+       "candidate_id": "GCA-0031c17c5ff5ae29ff221b1e",
+       "case_id": "CASE-2-therapy-discovery",
+       "decision": "QUOTE",
+       "enrichment_id": "PCEV2-72d8f718f3e74808451b2fc1",
+       "lineage": {
+        "candidate_id": "GCA-0031c17c5ff5ae29ff221b1e",
+        "case_id": "CASE-2-therapy-discovery",
+        "paper_id": "EB-479f55c21cac935ef1313755",
+        "run_index": 1
+       },
+       "model": "gemma4:cloud",
+       "paper_id": "EB-479f55c21cac935ef1313755",
+       "payload_hash": "c79c65f7801e8993ecf40489e18470fee3c7a46f04fe3b0f3d604d2ccfdd7e2c",
+       "prompt_version": "paper-context-enricher-prompt/2.0",
+       "source_unit_id": "SU-a5adeb221431ca48dc328849",
+       "timestamp": "2026-08-04T14:53:25.484727+00:00",
+       "transport_version": "paper-context-enrichment-transport/2.0",
+       "validation_outcome": "REJECTED_QUOTE_NOT_FOUND",
+       "validation_reason_codes": [
+        "QUOTE_NOT_LITERAL_IN_SOURCE_UNIT"
+       ],
+       "presentation_state": "REJECTED_QUOTE",
+       "accepted_for_gates": false
+      },
+      {
+       "abstention_reason": "",
+       "author_claim_quote": "Combinations of cetuximab and encorafenib showed promising clinical activity and tolerability in patients with BRAF-mutant mCRC; confirmed overall response rates of 19% and 18% were observed and median progression-free survival was 3.7 and 4.2 months for the dual- and triple-therapy groups, respectively.",
+       "author_context_summary": "Combinations of cetuximab and encorafenib demonstrated clinical activity and tolerability in patients with BRAF-mutant mCRC.",
+       "candidate_id": "GCA-0031c17c5ff5ae29ff221b1e",
+       "case_id": "CASE-2-therapy-discovery",
+       "decision": "QUOTE",
+       "enrichment_id": "PCEV2-975c0a69569d65a06ab0b42e",
+       "lineage": {
+        "candidate_id": "GCA-0031c17c5ff5ae29ff221b1e",
+        "case_id": "CASE-2-therapy-discovery",
+        "paper_id": "EB-278efe96eecccc226c82aa2d",
+        "run_index": 2
+       },
+       "model": "gemma4:cloud",
+       "paper_id": "EB-278efe96eecccc226c82aa2d",
+       "payload_hash": "ac66ab114a02630353026ddd3ff1f2e215f18452cf64f20906333c991d0e3bec",
+       "prompt_version": "paper-context-enricher-prompt/2.0",
+       "source_unit_id": "SU-99bff74ef5ba851b701e91e6",
+       "timestamp": "2026-08-04T14:53:43.283996+00:00",
+       "transport_version": "paper-context-enrichment-transport/2.0",
+       "validation_outcome": "ENRICHMENT_V2_ACCEPTED",
+       "validation_reason_codes": [],
+       "presentation_state": "VALIDATED_QUOTE",
+       "accepted_for_gates": true
+      }
+     ],
+     "validation_results": [
+      {
+       "paper_id": "EB-479f55c21cac935ef1313755",
+       "candidate_id": "GCA-0031c17c5ff5ae29ff221b1e",
+       "case_id": "CASE-2-therapy-discovery",
+       "outcome": "REJECTED_QUOTE_NOT_FOUND",
+       "reason_codes": [
+        "QUOTE_NOT_LITERAL_IN_SOURCE_UNIT"
+       ],
+       "replayed": true,
+       "replay_note": "artefatto congelato del pilot 6ee64c5: risposta reale del modello, non rieseguita ora"
+      },
+      {
+       "paper_id": "EB-278efe96eecccc226c82aa2d",
+       "candidate_id": "GCA-0031c17c5ff5ae29ff221b1e",
+       "case_id": "CASE-2-therapy-discovery",
+       "outcome": "ENRICHMENT_V2_ACCEPTED",
+       "reason_codes": [],
+       "replayed": true,
+       "replay_note": "artefatto congelato del pilot 6ee64c5: risposta reale del modello, non rieseguita ora"
+      }
+     ],
+     "gate_results": {
+      "bucket": "DISCOVERY_BUCKET",
+      "support_mask": {
+       "disease": "SUPPORTED",
+       "biomarker": "SUPPORTED",
+       "intervention": "DISCOVERED",
+       "direction": "NOT_APPLICABLE"
+      }
+     },
+     "status": "DISCOVERED",
+     "warnings": []
+    }
+   ],
+   "limitations": [
+    "research_only_pilot",
+    "no_new_document_fetched",
+    "gemma_used_only_as_enricher"
+   ],
+   "provenance": {
+    "dossier_kind": "research_only_end_to_end_pilot_preview",
+    "dossier_version": "end-to-end-pilot-dossier/1.0",
+    "gemma_role": "paper_context_enricher_only",
+    "gemma_never_decides": [
+     "support_status",
+     "direction",
+     "contradiction",
+     "gate",
+     "score",
+     "bucket"
+    ],
+    "not_wired_to_production_runtime": true
+   }
+  }
+ },
+ "CASE-3-partial-incomplete-context": {
+  "run_status": "COMPLETED",
+  "stopped_at": null,
+  "dossier": {
+   "case_id": "CASE-3-partial-incomplete-context",
+   "case_context": {
+    "biomarkers": [
+     {
+      "alteration": "instability",
+      "gene": "microsatellite",
+      "normalized_value": "microsatellite instability (MSI)",
+      "raw_value": "microsatellite instability (MSI)",
+      "source_spans": [
+       {
+        "end_offset": 102,
+        "quote": "microsatellite instability (MSI)",
+        "start_offset": 65
+       }
+      ]
+     }
+    ],
+    "case_id": "CASE-3-partial-incomplete-context",
+    "clinical_question": "The clinical team is evaluating nivolumab as a subsequent treatment option.",
+    "disease": {
+     "normalized_value": "colorectal cancer",
+     "raw_value": "colorectal cancer",
+     "source_spans": [
+      {
+       "end_offset": 31,
+       "quote": "colorectal cancer",
+       "start_offset": 14
+      }
+     ]
+    },
+    "previous_interventions": [
+     {
+      "normalized_value": "fluoropyrimidine-based chemotherapy",
+      "raw_value": "fluoropyrimidine-based chemotherapy",
+      "source_spans": [
+       {
+        "end_offset": 156,
+        "quote": "fluoropyrimidine-based chemotherapy",
+        "start_offset": 111
+       }
+      ]
+     }
+    ],
+    "query_intent": "THERAPY_EVALUATION",
+    "target_intervention": {
+     "normalized_value": "nivolumab",
+     "raw_value": "nivolumab",
+     "source_spans": [
+      {
+       "end_offset": 184,
+       "quote": "nivolumab",
+       "start_offset": 173
+      }
+     ]
+    },
+    "uncertainties": [
+     "specific degree of MSI not yet reported"
+    ]
+   },
+   "case_context_verification": {
+    "records": [
+     {
+      "field": "disease",
+      "casecontext_value": "colorectal cancer",
+      "status": "MATCH",
+      "supporting_text": "colorectal cancer",
+      "start_offset": 15,
+      "end_offset": 32,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "biomarker[0]",
+      "casecontext_value": "microsatellite instability (MSI)",
+      "status": "MATCH",
+      "supporting_text": "microsatellite instability (MSI)",
+      "start_offset": 59,
+      "end_offset": 91,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "alteration[0]",
+      "casecontext_value": "instability",
+      "status": "MATCH",
+      "supporting_text": "microsatellite instability (MSI)",
+      "start_offset": 59,
+      "end_offset": 91,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "previous_intervention[0]",
+      "casecontext_value": "fluoropyrimidine-based chemotherapy",
+      "status": "MATCH",
+      "supporting_text": "fluoropyrimidine-based chemotherapy",
+      "start_offset": 172,
+      "end_offset": 207,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "target_intervention",
+      "casecontext_value": "nivolumab",
+      "status": "MATCH",
+      "supporting_text": "nivolumab",
+      "start_offset": 241,
+      "end_offset": 250,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "query_intent",
+      "casecontext_value": "THERAPY_EVALUATION",
+      "status": "MATCH",
+      "supporting_text": null,
+      "start_offset": null,
+      "end_offset": null,
+      "reason_code": "INTENT_TARGET_CONSISTENT"
+     }
+    ],
+    "essential_fields_pass": true,
+    "warnings": []
+   },
+   "candidate_therapies": [
+    {
+     "candidate_id": "GCA-02861e174359dd9f4f53df9b",
+     "drug": "NIVOLUMAB",
+     "graph_relation": "associated_with_sensitivity_to",
+     "document_support": {
+      "selected_papers": [
+       "EB-883392431572b406505185cd",
+       "EB-bd6ce2f5db3fb40af814743e"
+      ],
+      "excluded_papers": [
+       {
+        "bundle_id": "EB-9f6ea93de50453d03f8f572c",
+        "document_id": "pmid:28734759",
+        "reason_codes": [
+         "MAX_PAPERS_PER_ASSOCIATION_EXCEEDED"
+        ]
+       },
+       {
+        "bundle_id": "EB-b6dc7db903abe794a5b18eae",
+        "document_id": "pmid:31765263",
+        "reason_codes": [
+         "MAX_PAPERS_PER_ASSOCIATION_EXCEEDED"
+        ]
+       }
+      ]
+     },
+     "author_context": [
+      {
+       "abstention_reason": "The provided source unit describes the statistical analysis plan and the hierarchical testing procedure for nivolumab, but it does not report any observations, results, conclusions, or clinical associations regarding the drug's effect on the specified disease or biomarker.",
+       "author_claim_quote": "",
+       "author_context_summary": "",
+       "candidate_id": "GCA-02861e174359dd9f4f53df9b",
+       "case_id": "CASE-3-partial-incomplete-context",
+       "decision": "ABSTAIN",
+       "enrichment_id": "PCEV2-bdca3d8e8a468a24d24f1bcf",
+       "lineage": {
+        "candidate_id": "GCA-02861e174359dd9f4f53df9b",
+        "case_id": "CASE-3-partial-incomplete-context",
+        "paper_id": "EB-883392431572b406505185cd",
+        "run_index": 3
+       },
+       "model": "gemma4:cloud",
+       "paper_id": "EB-883392431572b406505185cd",
+       "payload_hash": "b0e8109b8203ab0fabe3c836842a37ab446ee4ea5be79bd79bc9c98b4e99b25a",
+       "prompt_version": "paper-context-enricher-prompt/2.0",
+       "source_unit_id": "SU-56fa207315add074675cbbe6",
+       "timestamp": "2026-08-04T14:53:49.228294+00:00",
+       "transport_version": "paper-context-enrichment-transport/2.0",
+       "validation_outcome": "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+       "validation_reason_codes": [
+        "FIELDS_POPULATED_DESPITE_ABSTAIN:['source_unit_id']"
+       ],
+       "presentation_state": "ABSTAINED",
+       "accepted_for_gates": false
+      },
+      {
+       "abstention_reason": "The supplied source units discuss immune checkpoint blockade and checkpoint inhibition in the context of MSI-high and MSS colorectal cancer, but none of the texts specifically mention the drug 'nivolumab'.",
+       "author_claim_quote": "",
+       "author_context_summary": "",
+       "candidate_id": "GCA-02861e174359dd9f4f53df9b",
+       "case_id": "CASE-3-partial-incomplete-context",
+       "decision": "ABSTAIN",
+       "enrichment_id": "PCEV2-3821c22baf3e7e6790bde0c1",
+       "lineage": {
+        "candidate_id": "GCA-02861e174359dd9f4f53df9b",
+        "case_id": "CASE-3-partial-incomplete-context",
+        "paper_id": "EB-bd6ce2f5db3fb40af814743e",
+        "run_index": 4
+       },
+       "model": "gemma4:cloud",
+       "paper_id": "EB-bd6ce2f5db3fb40af814743e",
+       "payload_hash": "ef33472149a8a4176b245c61ae5f42a3926331d78bed7ceb0460293e8b11a1c3",
+       "prompt_version": "paper-context-enricher-prompt/2.0",
+       "source_unit_id": "",
+       "timestamp": "2026-08-04T14:53:53.991054+00:00",
+       "transport_version": "paper-context-enrichment-transport/2.0",
+       "validation_outcome": "ENRICHMENT_V2_ABSTAINED",
+       "validation_reason_codes": [],
+       "presentation_state": "ABSTAINED",
+       "accepted_for_gates": false
+      }
+     ],
+     "validation_results": [
+      {
+       "paper_id": "EB-883392431572b406505185cd",
+       "candidate_id": "GCA-02861e174359dd9f4f53df9b",
+       "case_id": "CASE-3-partial-incomplete-context",
+       "inconsistent_fields": [
+        "source_unit_id"
+       ],
+       "outcome": "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+       "reason_codes": [
+        "FIELDS_POPULATED_DESPITE_ABSTAIN:['source_unit_id']"
+       ],
+       "replayed": true,
+       "replay_note": "artefatto congelato del pilot 6ee64c5: risposta reale del modello, non rieseguita ora"
+      },
+      {
+       "paper_id": "EB-bd6ce2f5db3fb40af814743e",
+       "candidate_id": "GCA-02861e174359dd9f4f53df9b",
+       "case_id": "CASE-3-partial-incomplete-context",
+       "outcome": "ENRICHMENT_V2_ABSTAINED",
+       "reason_codes": [],
+       "replayed": true,
+       "replay_note": "artefatto congelato del pilot 6ee64c5: risposta reale del modello, non rieseguita ora"
+      }
+     ],
+     "gate_results": {
+      "bucket": "WARNING_BUCKET",
+      "support_mask": {
+       "disease": "SUPPORTED",
+       "biomarker": "SUPPORTED",
+       "intervention": "SUPPORTED",
+       "direction": "NO_DOCUMENT_SIGNAL"
+      }
+     },
+     "status": "AMBIGUOUS",
+     "warnings": [
+      "NO_VALIDATED_ENRICHMENT_AVAILABLE"
+     ]
+    }
+   ],
+   "limitations": [
+    "research_only_pilot",
+    "no_new_document_fetched",
+    "gemma_used_only_as_enricher"
+   ],
+   "provenance": {
+    "dossier_kind": "research_only_end_to_end_pilot_preview",
+    "dossier_version": "end-to-end-pilot-dossier/1.0",
+    "gemma_role": "paper_context_enricher_only",
+    "gemma_never_decides": [
+     "support_status",
+     "direction",
+     "contradiction",
+     "gate",
+     "score",
+     "bucket"
+    ],
+    "not_wired_to_production_runtime": true
+   }
+  }
+ },
+ "CASE-4-contradicted-or-resistance": {
+  "run_status": "COMPLETED",
+  "stopped_at": null,
+  "dossier": {
+   "case_id": "CASE-4-contradicted-or-resistance",
+   "case_context": {
+    "biomarkers": [
+     {
+      "alteration": "amplification",
+      "gene": "FGFR1",
+      "normalized_value": "FGFR1 amplification",
+      "raw_value": "FGFR1 amplification",
+      "source_spans": [
+       {
+        "end_offset": 67,
+        "quote": "FGFR1 amplification",
+        "start_offset": 48
+       }
+      ]
+     }
+    ],
+    "case_id": "CASE-4-contradicted-or-resistance",
+    "clinical_question": "The oncology team is evaluating infigratinib for this patient and would like to understand what the available literature reports.",
+    "disease": {
+     "normalized_value": "Lung squamous cell carcinoma",
+     "raw_value": "lung squamous cell carcinoma",
+     "source_spans": [
+      {
+       "end_offset": 32,
+       "quote": "lung squamous cell carcinoma",
+       "start_offset": 15
+      }
+     ]
+    },
+    "previous_interventions": [],
+    "query_intent": "THERAPY_EVALUATION",
+    "target_intervention": {
+     "normalized_value": "infigratinib",
+     "raw_value": "infigratinib",
+     "source_spans": [
+      {
+       "end_offset": 107,
+       "quote": "infigratinib",
+       "start_offset": 97
+      }
+     ]
+    },
+    "uncertainties": []
+   },
+   "case_context_verification": {
+    "records": [
+     {
+      "field": "disease",
+      "casecontext_value": "lung squamous cell carcinoma",
+      "status": "MATCH",
+      "supporting_text": "lung squamous cell carcinoma",
+      "start_offset": 15,
+      "end_offset": 43,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "biomarker[0]",
+      "casecontext_value": "FGFR1 amplification",
+      "status": "MATCH",
+      "supporting_text": "FGFR1 amplification",
+      "start_offset": 48,
+      "end_offset": 67,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "alteration[0]",
+      "casecontext_value": "amplification",
+      "status": "MATCH",
+      "supporting_text": "FGFR1 amplification",
+      "start_offset": 48,
+      "end_offset": 67,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "previous_intervention",
+      "casecontext_value": null,
+      "status": "MISSING_IN_TEXT",
+      "supporting_text": null,
+      "start_offset": null,
+      "end_offset": null,
+      "reason_code": "FIELD_NOT_POPULATED"
+     },
+     {
+      "field": "target_intervention",
+      "casecontext_value": "infigratinib",
+      "status": "MATCH",
+      "supporting_text": "infigratinib",
+      "start_offset": 140,
+      "end_offset": 152,
+      "reason_code": "EXACT_TEXT_MATCH"
+     },
+     {
+      "field": "query_intent",
+      "casecontext_value": "THERAPY_EVALUATION",
+      "status": "MATCH",
+      "supporting_text": null,
+      "start_offset": null,
+      "end_offset": null,
+      "reason_code": "INTENT_TARGET_CONSISTENT"
+     }
+    ],
+    "essential_fields_pass": true,
+    "warnings": []
+   },
+   "candidate_therapies": [
+    {
+     "candidate_id": "GCA-0062c0237b990701837a1cc4",
+     "drug": "INFIGRATINIB",
+     "graph_relation": "associated_with_sensitivity_to",
+     "document_support": {
+      "selected_papers": [
+       "EB-6a291f12975b20b79e1c3dd7",
+       "EB-e887ef4fb7cc42c2903e2e5a"
+      ],
+      "excluded_papers": []
+     },
+     "author_context": [
+      {
+       "abstention_reason": "The provided source units discuss BGJ398, not infigratinib.",
+       "author_claim_quote": "",
+       "author_context_summary": "",
+       "candidate_id": "GCA-0062c0237b990701837a1cc4",
+       "case_id": "CASE-4-contradicted-or-resistance",
+       "decision": "ABSTAIN",
+       "enrichment_id": "PCEV2-e4aa1b7f09a8781c4c75bdc3",
+       "lineage": {
+        "candidate_id": "GCA-0062c0237b990701837a1cc4",
+        "case_id": "CASE-4-contradicted-or-resistance",
+        "paper_id": "EB-6a291f12975b20b79e1c3dd7",
+        "run_index": 5
+       },
+       "model": "gemma4:cloud",
+       "paper_id": "EB-6a291f12975b20b79e1c3dd7",
+       "payload_hash": "4def0f4952e5170447856aa28313703e1429aad5fd283b9e78cd28da766f7521",
+       "prompt_version": "paper-context-enricher-prompt/2.0",
+       "source_unit_id": "",
+       "timestamp": "2026-08-04T14:53:58.453988+00:00",
+       "transport_version": "paper-context-enrichment-transport/2.0",
+       "validation_outcome": "ENRICHMENT_V2_ABSTAINED",
+       "validation_reason_codes": [],
+       "presentation_state": "ABSTAINED",
+       "accepted_for_gates": false
+      },
+      {
+       "abstention_reason": "The provided text discusses BGJ398, not infigratinib.",
+       "author_claim_quote": "",
+       "author_context_summary": "",
+       "candidate_id": "GCA-0062c0237b990701837a1cc4",
+       "case_id": "CASE-4-contradicted-or-resistance",
+       "decision": "ABSTAIN",
+       "enrichment_id": "PCEV2-3dbec2b73fa81d5de360460d",
+       "lineage": {
+        "candidate_id": "GCA-0062c0237b990701837a1cc4",
+        "case_id": "CASE-4-contradicted-or-resistance",
+        "paper_id": "EB-e887ef4fb7cc42c2903e2e5a",
+        "run_index": 6
+       },
+       "model": "gemma4:cloud",
+       "paper_id": "EB-e887ef4fb7cc42c2903e2e5a",
+       "payload_hash": "fd484be28aa51b2fd9bc7c094f8ddafee917959376bb6121558e461d0385b73c",
+       "prompt_version": "paper-context-enricher-prompt/2.0",
+       "source_unit_id": "SU-94747ba880e6d53f21646835",
+       "timestamp": "2026-08-04T14:54:02.923138+00:00",
+       "transport_version": "paper-context-enrichment-transport/2.0",
+       "validation_outcome": "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+       "validation_reason_codes": [
+        "FIELDS_POPULATED_DESPITE_ABSTAIN:['source_unit_id']"
+       ],
+       "presentation_state": "ABSTAINED",
+       "accepted_for_gates": false
+      }
+     ],
+     "validation_results": [
+      {
+       "paper_id": "EB-6a291f12975b20b79e1c3dd7",
+       "candidate_id": "GCA-0062c0237b990701837a1cc4",
+       "case_id": "CASE-4-contradicted-or-resistance",
+       "outcome": "ENRICHMENT_V2_ABSTAINED",
+       "reason_codes": [],
+       "replayed": true,
+       "replay_note": "artefatto congelato del pilot 6ee64c5: risposta reale del modello, non rieseguita ora"
+      },
+      {
+       "paper_id": "EB-e887ef4fb7cc42c2903e2e5a",
+       "candidate_id": "GCA-0062c0237b990701837a1cc4",
+       "case_id": "CASE-4-contradicted-or-resistance",
+       "inconsistent_fields": [
+        "source_unit_id"
+       ],
+       "outcome": "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+       "reason_codes": [
+        "FIELDS_POPULATED_DESPITE_ABSTAIN:['source_unit_id']"
+       ],
+       "replayed": true,
+       "replay_note": "artefatto congelato del pilot 6ee64c5: risposta reale del modello, non rieseguita ora"
+      }
+     ],
+     "gate_results": {
+      "bucket": "WARNING_BUCKET",
+      "support_mask": {
+       "disease": "SUPPORTED",
+       "biomarker": "SUPPORTED",
+       "intervention": "SUPPORTED",
+       "direction": "NO_DOCUMENT_SIGNAL"
+      }
+     },
+     "status": "AMBIGUOUS",
+     "warnings": [
+      "NO_VALIDATED_ENRICHMENT_AVAILABLE"
+     ]
+    }
+   ],
+   "limitations": [
+    "research_only_pilot",
+    "no_new_document_fetched",
+    "gemma_used_only_as_enricher"
+   ],
+   "provenance": {
+    "dossier_kind": "research_only_end_to_end_pilot_preview",
+    "dossier_version": "end-to-end-pilot-dossier/1.0",
+    "gemma_role": "paper_context_enricher_only",
+    "gemma_never_decides": [
+     "support_status",
+     "direction",
+     "contradiction",
+     "gate",
+     "score",
+     "bucket"
+    ],
+    "not_wired_to_production_runtime": true
+   }
+  }
+ },
+ "CASE-5-casecontext-mismatch-no-match": {
+  "run_status": "STOPPED",
+  "stopped_at": "RETRIEVAL_NO_MATCH",
+  "dossier": null
+ }
+}
