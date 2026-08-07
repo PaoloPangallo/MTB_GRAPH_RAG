@@ -25,6 +25,7 @@ from backend.research_pipeline.documents import cache_runtime
 from backend.research_pipeline.contracts import (
     LLM_STAGE_IDS,
     NOT_IMPLEMENTED_STAGE_IDS,
+    PRESENTATION_STAGE_IDS,
     PipelineRun,
 )
 from backend.research_pipeline.run_store import demo_cases, get_store
@@ -106,6 +107,9 @@ def config() -> dict[str, Any]:
         },
         "frozen_replay": replay.summary(),
         "stages_not_implemented": sorted(NOT_IMPLEMENTED_STAGE_IDS),
+        # Stage che producono la vista di presentazione: un loro fallimento non
+        # invalida il dossier canonico, attiva il fallback strutturato.
+        "presentation_stages": sorted(PRESENTATION_STAGE_IDS),
         "llm_stages": sorted(LLM_STAGE_IDS),
         "research_notice": PipelineRun.research_notice(),
     }

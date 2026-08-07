@@ -199,6 +199,7 @@ class RunStore:
                 "call_parser_fn": live_providers.parser_fn,
                 "call_enricher_fn": live_providers.enricher_fn,
                 "validate_fn": live_providers.validate_fn,
+                "call_narrator_fn": live_providers.narrator_fn,
             }
         return {
             "call_parser_fn": replay.parser_fn,
@@ -206,6 +207,7 @@ class RunStore:
             "select_papers_fn": lambda a, u, **kw: replay.selection_fn(a, u, case_id=kw["case_id"]),
             "validate_fn": lambda t, e, **kw: replay.validation_fn(
                 t, e, case_id=kw["case_id"], paper_id=kw["paper_id"]),
+            "call_narrator_fn": replay.narrator_fn,
         }
 
 

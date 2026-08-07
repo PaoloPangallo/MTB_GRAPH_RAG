@@ -106,9 +106,20 @@ class DemoCasesTest(ResearchApiTestBase):
         self.assertIn("stages_6_to_10_mode", payload["data"])
         self.assertNotIn("api_key", json.dumps(payload).lower().replace("credentials_configured", ""))
 
-    def test_config_declares_the_not_implemented_stages(self) -> None:
+    def test_config_declares_no_unimplemented_stage(self) -> None:
         payload = self.client.get(f"{BASE}/config").json()
-        self.assertIn("stage_14_narrator", payload["stages_not_implemented"])
+        self.assertEqual(payload["stages_not_implemented"], [])
+
+    def test_config_declares_the_presentation_stages(self) -> None:
+        """Narrator e verifier sono dichiarati come vista, non come evidenza."""
+        payload = self.client.get(f"{BASE}/config").json()
+        self.assertEqual(payload["presentation_stages"],
+                         ["stage_14_narrator", "stage_15_narrative_verifier"])
+
+    def test_config_declares_the_narrator_as_an_llm_stage(self) -> None:
+        payload = self.client.get(f"{BASE}/config").json()
+        self.assertIn("stage_14_narrator", payload["llm_stages"])
+        self.assertNotIn("stage_15_narrative_verifier", payload["llm_stages"])
 
 
 class RunLifecycleTest(ResearchApiTestBase):

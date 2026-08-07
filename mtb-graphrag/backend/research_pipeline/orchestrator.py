@@ -47,6 +47,9 @@ from backend.research_pipeline.documents.live_resolution import DocumentRuntime
 from backend.research_pipeline.dossier import builder as dossier_mod
 from backend.research_pipeline.enrichment import validator as enrichment_validator
 from backend.research_pipeline.live_providers import LiveStageFailed
+from backend.research_pipeline.narrative import input_projection as narrative_projection
+from backend.research_pipeline.narrative import prompt as narrative_prompt
+from backend.research_pipeline.narrative import verifier as narrative_verifier
 from backend.research_pipeline.redaction import redact_retrieval_result
 from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.retrieval.paper_selection import select_papers_for_association
@@ -221,6 +224,21 @@ class RunRecorder:
         self._stages.append(stage)
         return stage
 
+    def emit_domain_event(self, event_type: str, stage_id: str,
+                          producer: StageProducer, **payload: Any) -> None:
+        """Evento di dominio non legato all'apertura o chiusura di uno stage.
+
+        Passa comunque da ``stage_payload``, così ``stage_id`` e ``stage_type``
+        viaggiano nel payload come in ogni altro evento: è l'invariante che rende
+        ogni riga del ledger attribuibile a uno stage.
+        """
+        self._emit(
+            event_type,
+            ev.stage_payload(stage_id=stage_id, stage_type=stage_type_for(stage_id),
+                             producer=producer, execution_mode=self._mode, **payload),
+            producer,
+        )
+
     def skip_remaining(self, reason: str) -> None:
         """Marca SKIPPED ogni stage non ancora eseguito, con il motivo a monte.
 
@@ -264,6 +282,8 @@ def run_case(
     validate_fn: Callable[..., dict[str, Any]] | None = None,
     execution_mode: str = em.LIVE,
     document_runtime: DocumentRuntime | None = None,
+    call_narrator_fn: Callable[..., dict[str, Any]] | None = None,
+    verify_narrative_fn: Callable[..., dict[str, Any]] | None = None,
 ) -> PipelineRun:
     """Esegue un caso emettendo un evento per ogni transizione di stage.
 
@@ -740,5 +760,115 @@ def run_case(
                                     "dossier": dossier,
                                     "limitations": dossier["limitations"]})
 
+    # STAGE 14-15 — Narrazione e verifica.
+    #
+    # Il dossier canonico **esiste già**: quanto segue produce una vista di
+    # presentazione e non può modificarlo. Un fallimento qui non invalida la run
+    # — attiva il fallback strutturato — perché la narrativa non è evidenza.
+    _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
+                        verify_narrative_fn, is_live, replay_origin)
+
     has_warning = any(stage.status == "WARNING" for stage in recorder.stages)
     return _finalize("PARTIAL" if has_warning else "COMPLETED", None, dossier_id=case_id)
+
+
+def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
+                        verify_narrative_fn, is_live, replay_origin) -> None:
+    """Stage 14 e 15. Separati dallo stage 13 in modo osservabile.
+
+    L'ordine è il contratto: il dossier canonico è già stato costruito ed emesso
+    con ``DOSSIER_BUILT`` prima che il Narrator venga invocato.
+    """
+    narrator_input = narrative_projection.build_narrator_input(dossier)
+
+    # --- STAGE 14: narrazione (LLM) -----------------------------------------
+    narrator_producer = StageProducer(
+        kind="LLM", component="dossier_narrator",
+        version=narrative_prompt.NARRATOR_PROMPT_VERSION,
+        model="unknown", prompt_version=narrative_prompt.NARRATOR_PROMPT_VERSION,
+    )
+    recorder.start("stage_14_narrator", narrator_producer)
+
+    call: dict[str, Any] | None = None
+    narrative = None
+    narration_error: str | None = None
+    if call_narrator_fn is None:
+        narration_error = "NARRATOR_NOT_CONFIGURED"
+    else:
+        try:
+            call = call_narrator_fn(case_id, narrator_input)
+            narrative = call.get("narrative")
+        except LiveStageFailed as failure:
+            narration_error = failure.reason_code
+        except Exception as exc:  # noqa: BLE001 — un guasto resta visibile
+            narration_error = f"{type(exc).__name__}"
+
+    if call is not None:
+        narrator_producer = StageProducer(
+            kind="LLM", component="dossier_narrator",
+            version=narrative_prompt.NARRATOR_PROMPT_VERSION,
+            model=call.get("model") or "unknown",
+            prompt_version=call.get("prompt_version") or narrative_prompt.NARRATOR_PROMPT_VERSION,
+            transport_version=call.get("transport_version"),
+        )
+
+    transport_ok = bool(call and call.get("transport_result") == "FORCED_TOOL_VALID" and narrative)
+    narration_reasons = tuple(
+        [narration_error] if narration_error else
+        ([] if transport_ok else [str((call or {}).get("transport_result") or "NARRATION_FAILED")])
+    )
+    recorder.finish(
+        "stage_14_narrator", narrator_producer,
+        status="SUCCEEDED" if transport_ok else "WARNING",
+        artifact_origin=(em.GENERATED_NOW if is_live else replay_origin) if call else em.NOT_EXECUTED,
+        domain_event=ev.NARRATION_GENERATED if transport_ok else None,
+        reason_codes=narration_reasons,
+        output_preview={
+            "narrator_input_hash": narrator_input["narrator_input_hash"],
+            "narrator_input_contract": narrator_input["contract_version"],
+            "candidates_projected": narrator_input["counts"]["candidates"],
+            "transport_result": (call or {}).get("transport_result"),
+            "narrative": narrative,
+        },
+        metrics={"latency_ms": (call or {}).get("latency_ms"),
+                 "input_tokens": (call or {}).get("input_tokens"),
+                 "output_tokens": (call or {}).get("output_tokens"),
+                 "retry_count": (call or {}).get("retry_count"),
+                 "real_llm_calls": 1 if (call and is_live) else 0},
+    )
+
+    # --- STAGE 15: verifica (DETERMINISTICO) --------------------------------
+    verifier = verify_narrative_fn or narrative_verifier.verify_narrative
+    p = _deterministic("narrative_verifier", narrative_verifier.VERIFIER_VERSION)
+    recorder.start("stage_15_narrative_verifier", p)
+    result = verifier(dossier, narrator_input, narrative)
+    verified = result["status"] == narrative_verifier.PASS
+
+    # Regola non negoziabile: una narrativa non verificata non viene mostrata.
+    # Nessun secondo passaggio LLM, nessun retry semantico.
+    recorder.finish(
+        "stage_15_narrative_verifier", p,
+        status="SUCCEEDED" if verified else "WARNING",
+        domain_event=ev.NARRATION_VERIFIED if verified else ev.NARRATION_REJECTED,
+        reason_codes=tuple(result["reason_codes"]),
+        output_preview={
+            "verification": result,
+            "narrative_available": verified,
+            "presentation_mode": "VERIFIED_NARRATIVE" if verified else "STRUCTURED_DOSSIER_FALLBACK",
+            "verified_narrative": narrative if verified else None,
+            "fallback_reason": None if verified else (list(result["reason_codes"]) or ["NARRATION_UNAVAILABLE"]),
+        },
+    )
+    if not verified:
+        # ``stage_id`` viaggia nel payload come in ogni altro evento di stage:
+        # è nel preimage dell'hash del ledger, e un evento che non lo porta non
+        # sarebbe attribuibile.
+        recorder.emit_domain_event(
+            ev.STRUCTURED_FALLBACK_USED,
+            "stage_15_narrative_verifier",
+            _deterministic("narrative_fallback"),
+            case_id=case_id,
+            reason_codes=list(result["reason_codes"]),
+            narrator_input_hash=narrator_input["narrator_input_hash"],
+            narrative_hash=result.get("narrative_hash") or "",
+        )

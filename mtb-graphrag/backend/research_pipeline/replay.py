@@ -20,6 +20,7 @@ come esecuzione sarebbe la sola cosa peggiore che non poterlo eseguire.
 
 from __future__ import annotations
 
+import json
 from functools import lru_cache
 from typing import Any
 
@@ -147,3 +148,45 @@ def summary() -> dict[str, Any]:
         "validation_outcomes": outcomes,
         "note": REPLAY_NOTE,
     }
+
+
+# --- Narrativa congelata -----------------------------------------------------
+
+def _narrative_path():
+    return da.data_root() / "benchmarks/mtb_evidence/dossier_narrator/narrative_runs.jsonl"
+
+
+@lru_cache(maxsize=1)
+def _narratives_by_key() -> dict[tuple[str, str], dict[str, Any]]:
+    """Narrative registrate, indicizzate per (case_id, narrator_input_hash).
+
+    La chiave include l'hash della projection: una narrativa registrata per un
+    dossier diverso non viene rigiocata al suo posto. Se il dossier cambia, la
+    narrativa congelata smette di applicarsi ed e' corretto che sia cosi'.
+    """
+    path = _narrative_path()
+    if not path.is_file():
+        return {}
+    rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    return {(r["case_id"], r.get("narrator_input_hash", "")): r for r in rows}
+
+
+def has_frozen_narrative(case_id: str, narrator_input_hash: str) -> bool:
+    return (case_id, narrator_input_hash) in _narratives_by_key()
+
+
+def narrator_fn(case_id: str, narrator_input: dict[str, Any], run_index: int = 0) -> dict[str, Any]:
+    """Narrativa registrata per questo dossier, o assenza dichiarata.
+
+    Non inventa nulla: se non esiste una narrativa congelata per questa esatta
+    projection, restituisce ``narrative=None`` e la pipeline usa il fallback
+    strutturato. Non e' un errore: e' l'assenza dichiarata.
+    """
+    key = (case_id, narrator_input.get("narrator_input_hash", ""))
+    row = _narratives_by_key().get(key)
+    if row is None:
+        return {"case_id": case_id, "transport_result": "NO_FROZEN_NARRATIVE",
+                "transport_reason_codes": ["NO_FROZEN_NARRATIVE_FOR_THIS_DOSSIER"],
+                "narrative": None, "replayed": True,
+                "narrator_input_hash": key[1], "replay_note": REPLAY_NOTE}
+    return {**row, "replayed": True, "replay_note": REPLAY_NOTE}
