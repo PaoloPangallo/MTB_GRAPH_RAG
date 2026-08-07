@@ -193,22 +193,31 @@ for name, a in CASES_003:
                          source_units_by_id=UNITS, requested_drug="panitumumab")
     accepted = val["outcome"].startswith("ENRICHMENT_V2_ACCEPTED")
     gate = orchestrator._accepted_for_gates(val["outcome"])
+    # Replica dell'anello interno di orchestrator.run_case. Prima del fix la voce
+    # veniva appesa nuda; ora viaggia con il proprio esito di validazione, ed e'
+    # quello che il probe deve rispecchiare per misurare il runtime reale.
+    if hasattr(builder, "annotate_enrichment"):
+        enrichment_entry = builder.annotate_enrichment(
+            dict(a), paper_id="EB-A", validation=val, accepted_for_gates=gate is not None)
+    else:                                              # versione precedente al fix
+        enrichment_entry = dict(a)
     entry = builder.build_candidate_therapy_entry(
         CAND, graph_relation="has_evidence_statement",
         document_support={"selected_papers": ["EB-A"], "excluded_papers": []},
-        enrichments=[dict(a)],
+        enrichments=[enrichment_entry],
         validation_results=[{"paper_id": "EB-A", **val}],
         evaluation=evaluate_association("THERAPY_EVALUATION", CAND,
                                         [] if gate is None else [{"validation_outcome": gate, "enrichment": dict(a)}]))
     # regola della UI PRIMA del fix: accepted = presenza di author_claim_quote
     ui_legacy = [e for e in entry["author_context"] if e.get("author_claim_quote")]
-    # regola della UI DOPO il fix: accepted = validation_outcome allegato alla voce
+    # regola della UI DOPO il fix: accepted = presentation_state deciso dal backend
     ui_new = [e for e in entry["author_context"]
-              if str(e.get("validation_outcome", "")).startswith("ENRICHMENT_V2_ACCEPTED")
-              or str(e.get("validation_outcome", "")) in ("ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING")]
+              if e.get("presentation_state") == "VALIDATED_QUOTE"]
     presented_legacy = len(ui_legacy) > 0
     presented_new = len(ui_new) > 0
-    bad = presented_legacy and not accepted
+    # il difetto misurato: presentata come citazione d'autore senza essere validata.
+    # Si valuta con la regola REALMENTE in vigore nella UI.
+    bad = presented_new and not accepted
     if bad:
         iss003["presented_as_accepted_but_not_validated"] += 1
     iss003["cases"].append({
