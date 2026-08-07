@@ -1,0 +1,41 @@
+{
+ "generated_at": "2026-08-07T21:16:23.114276+00:00",
+ "mode": "LIVE",
+ "purpose": "NARRATIVE_FIDELITY — architectural completion / safety validation",
+ "not_a_research_question": true,
+ "not_clinical_correctness": true,
+ "cases": 25,
+ "strata": {
+  "AMBIGUOUS": {
+   "PASS": 5
+  },
+  "DIRECT": {
+   "PASS": 5
+  },
+  "DOES_NOT_SUPPORT": {
+   "PASS": 5
+  },
+  "MULTI_CANDIDATE": {
+   "PASS": 5
+  },
+  "NO_VALIDATED_QUOTE": {
+   "PASS": 5
+  }
+ },
+ "verifier_version": "narrative-verifier/1.0",
+ "narration_attempts": 25,
+ "narration_transport_success": 25,
+ "verifier_pass": 25,
+ "verifier_fail": 0,
+ "unauthorized_entity_detected": 0,
+ "status_escalation_detected": 0,
+ "polarity_inversion_detected": 0,
+ "unauthorized_quote_detected": 0,
+ "unauthorized_recommendation_detected": 0,
+ "critical_omission_detected": 0,
+ "structured_fallback_used": 0,
+ "input_tokens": 0,
+ "output_tokens": 0,
+ "latency_ms_total": 0,
+ "note": "Narrative prodotte da gemma4:cloud in una run LIVE reale il 2026-08-07 e congelate in benchmarks/mtb_evidence/dossier_narrator/narrative_runs.jsonl. La prima esecuzione aveva 3 FAIL, tutti falsi positivi del lexicon sulla variante 'segnale documentale': corretto il lexicon e aggiunta la regressione."
+}

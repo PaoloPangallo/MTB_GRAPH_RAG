@@ -402,6 +402,37 @@ class CriticalOmissionTest(unittest.TestCase):
         text = "La candidate PANITUMUMAB è associata nel grafo al caso."
         self.assertEqual(_verify(dossier, _narrative(text))["status"], PASS)
 
+    def test_documentary_absence_variants_are_recognised(self) -> None:
+        """Regressione dalla prima run LIVE del benchmark.
+
+        Il modello aveva scritto «non è stato trovato un segnale documentale
+        esplicito»: dichiara correttamente l'assenza di citazione validata, ma il
+        lexicon conosceva solo «supporto documentale» e la contava come omissione.
+        Era un falso positivo del verifier, non un'infedeltà del modello.
+        """
+        dossier = _synthetic_dossier(status="AMBIGUOUS", direction="NO_DOCUMENT_SIGNAL",
+                                     bucket="WARNING_BUCKET",
+                                     warnings=["NO_VALIDATED_ENRICHMENT_AVAILABLE"])
+        for phrase in (
+            "non è stato trovato un segnale documentale esplicito",
+            "non è stato trovato supporto documentale",
+            "nessun riscontro documentale disponibile",
+            "non è stata trovata alcuna citazione validata",
+            "il modello si è astenuto",
+        ):
+            with self.subTest(phrase=phrase):
+                text = f"La relazione rimane ambigua e {phrase}."
+                self.assertEqual(_verify(dossier, _narrative(text))["status"], PASS, phrase)
+
+    def test_a_narrative_that_omits_everything_still_fails(self) -> None:
+        """Controprova: la variante aggiunta non ha allentato il controllo."""
+        dossier = _synthetic_dossier(status="AMBIGUOUS", direction="NO_DOCUMENT_SIGNAL",
+                                     bucket="WARNING_BUCKET",
+                                     warnings=["NO_VALIDATED_ENRICHMENT_AVAILABLE"])
+        result = _verify(dossier, _narrative("La candidate PANITUMUMAB compare nel grafo."))
+        self.assertEqual(result["status"], FAIL)
+        self.assertIn(REASON_CRITICAL_OMISSION, result["reason_codes"])
+
     def test_critical_and_technical_warnings_are_declared(self) -> None:
         self.assertIn("NO_VALIDATED_ENRICHMENT_AVAILABLE", NARRATIVE_CRITICAL_WARNINGS)
         self.assertNotIn("SOME_ENRICHMENTS_ACCEPTED_WITH_WARNING", NARRATIVE_CRITICAL_WARNINGS)
