@@ -1,0 +1,100 @@
+{
+  "decision": "READY_FOR_FREEZE",
+  "decision_rationale": "L'ultimo tratto dell'architettura e' implementato e verificato. Il dossier canonico resta la sorgente di verita' e non e' toccato dalla narrazione: verificato confrontando il payload prodotto con e senza un narratore ostile. Il Narrative Verifier e' deterministico e senza LLM. Nessun blocker chiuso si e' riaperto.",
+
+  "branch": "feature/dossier-narrator-verifier",
+  "base_commit": "e25a63b77848a30d3b7249b1d8c2b6339cd6e6af",
+  "push_executed": false,
+  "merge_executed": false,
+
+  "versions": {
+    "canonical_dossier": "end-to-end-pilot-dossier/1.0",
+    "narrator_input": "dossier-narrator-input/1.0",
+    "narrator_prompt": "dossier-narrator-prompt/1.0",
+    "narrator_transport": "dossier-narrative-transport/1.0",
+    "narrative_verifier": "narrative-verifier/1.0",
+    "narrative_lexicon": "narrative-lexicon/1.0",
+    "narrator_model": "gemma4:cloud"
+  },
+
+  "architecture": {
+    "canonical_dossier_preexists_narrator": true,
+    "narrator_input_projection_deterministic": true,
+    "narrator_receives_only_canonical_data": true,
+    "narrator_can_create_candidate": false,
+    "narrator_can_create_provenance": false,
+    "narrator_can_create_validated_quote": false,
+    "narrator_can_change_canonical_status": false,
+    "narrator_can_change_support_mask": false,
+    "narrator_can_change_gate": false,
+    "narrator_can_change_canonical_dossier_payload": false,
+    "narrative_verifier_uses_llm": false,
+    "narrative_verifier_deterministic": true
+  },
+
+  "benchmark": {
+    "mode": "LIVE",
+    "cases": 25,
+    "strata": {"DIRECT": 5, "AMBIGUOUS": 5, "DOES_NOT_SUPPORT": 5,
+               "NO_VALIDATED_QUOTE": 5, "MULTI_CANDIDATE": 5},
+    "narration_attempts": 25,
+    "narration_transport_success": 25,
+    "verifier_pass": 25,
+    "verifier_fail": 0,
+    "structured_fallback_used": 0,
+    "first_run_note": "La prima esecuzione LIVE aveva 3 FAIL, tutti falsi positivi del lexicon sulla variante 'segnale documentale'. Corretto il lexicon, aggiunta la regressione, riverificate le STESSE narrative: 25/25."
+  },
+
+  "safety_counters": {
+    "unauthorized_entities_presented": 0,
+    "status_escalations_presented": 0,
+    "polarity_inversions_presented": 0,
+    "unauthorized_quotes_presented": 0,
+    "unauthorized_recommendations_presented": 0,
+    "critical_omissions_presented": 0,
+    "invented_candidate_accepted": 0,
+    "invented_source_accepted": 0,
+    "invented_quote_accepted": 0,
+    "rejected_quote_narrated_as_valid": 0,
+    "failed_narratives_presented": 0
+  },
+
+  "adversarial": {"cases": 20, "behaved_as_expected": 20},
+
+  "rq3": {
+    "prompt_only_restrictions": 0,
+    "uncontrolled_boundaries": 0,
+    "llm_stages_before": 2,
+    "llm_stages_after": 3,
+    "impossible_by_construction": 7,
+    "validated_downstream": 4
+  },
+
+  "regression": {
+    "iss_001_regression": false, "iss_002_regression": false, "iss_003_regression": false,
+    "iss_004_regression": false, "iss_005_regression": false, "iss_006_regression": false,
+    "iss_002_sweep": {"candidates": 46864, "negative": 1936, "promoted": 0, "primary_bucket": 0},
+    "gca_v3_runtime_default_changed": false,
+    "oncokb_called": false,
+    "historical_artifacts_modified": false
+  },
+
+  "tests": {
+    "backend_tests_passed": true, "backend": "3260 passed, 17 skipped, 36914 subtests",
+    "frontend_tests_passed": true, "frontend": "206 passed",
+    "frontend_build_passed": true,
+    "evaluation_tests_passed": true,
+    "narrative_verifier_tests": 45,
+    "narrator_regression_tests": 20,
+    "narrative_ui_tests": 6
+  },
+
+  "issues": {"new_p0": 0, "new_p1": 0},
+
+  "remaining_limitations": [
+    "Il lexicon e' una lista chiusa di pattern italiani e inglesi: copre le formulazioni elencate, non la lingua in generale.",
+    "Il verifier giudica la FEDELTA' al dossier, non la correttezza clinica: quest'ultima non e' verificabile deterministicamente.",
+    "Il campione manuale a 25 narrative ha le colonne del revisore vuote: la fedelta' e' verificata automaticamente, non da un giudizio esperto.",
+    "Il benchmark usa 20 dossier sintetici su 25: il campione REPLAY reale non produce candidate DIRECT."
+  ]
+}

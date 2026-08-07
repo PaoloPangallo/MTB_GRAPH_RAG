@@ -1,0 +1,109 @@
+{
+ "narrator_input": {
+  "version": "dossier-narrator-input/1.0",
+  "allowed_fields": [
+   "case{case_id,query_intent,disease,biomarkers,target_intervention,clinical_question}",
+   "candidates[]{candidate_id,drug,graph_relation,canonical_status,gate_bucket,support_direction,support_mask,warnings,critical_warnings,selected_paper_ids,validated_quotes,has_validated_quote,abstention_reasons,expresses_support,source_does_not_support}",
+   "limitations",
+   "provenance_summary",
+   "counts",
+   "narrator_input_hash"
+  ],
+  "forbidden_fields": [
+   "candidate escluse",
+   "excluded_papers",
+   "quote rigettate o solo proposte",
+   "output grezzo dell'LLM precedente",
+   "internals del validatore",
+   "documenti integrali",
+   "SourceUnit non selezionate",
+   "gold label",
+   "expected answer"
+  ],
+  "deterministic": true
+ },
+ "narrator_prompt": {
+  "version": "dossier-narrator-prompt/1.0",
+  "tool_name": "emit_dossier_narrative",
+  "language": "it",
+  "additional_properties": false,
+  "properties": [
+   "candidate_narratives",
+   "closing_note",
+   "limitations_summary",
+   "narrative_summary"
+  ],
+  "candidate_item_properties": [
+   "candidate_id",
+   "text"
+  ]
+ },
+ "narrator_transport": {
+  "version": "dossier-narrative-transport/1.0",
+  "outcomes": [
+   "FORCED_TOOL_VALID",
+   "NO_TOOL_CALL",
+   "TEXT_RESPONSE",
+   "FORCED_TOOL_IGNORED",
+   "MULTIPLE_TOOL_CALLS",
+   "WRONG_TOOL_NAME",
+   "INVALID_TOOL_ARGUMENTS",
+   "TIMEOUT",
+   "HTTP_ERROR"
+  ],
+  "extra_keys_rejected": true,
+  "metadata_added_locally": true
+ },
+ "narrative_verifier": {
+  "version": "narrative-verifier/1.0",
+  "lexicon_version": "narrative-lexicon/1.0",
+  "uses_llm": false,
+  "uses_network": false,
+  "deterministic": true,
+  "reason_codes": [
+   "NARRATIVE_UNAUTHORIZED_ENTITY",
+   "NARRATIVE_STATUS_ESCALATION",
+   "NARRATIVE_POLARITY_INVERSION",
+   "NARRATIVE_NEGATION_LOST",
+   "NARRATIVE_UNAUTHORIZED_QUOTE",
+   "NARRATIVE_REJECTED_QUOTE_PROMOTED",
+   "NARRATIVE_UNAUTHORIZED_RECOMMENDATION",
+   "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+   "NARRATIVE_UNKNOWN_CANDIDATE_ID",
+   "NARRATIVE_MISSING_CANDIDATE"
+  ]
+ },
+ "warning_policy": {
+  "narrative_critical": [
+   "NO_VALIDATED_ENRICHMENT_AVAILABLE",
+   "SOURCE_POLARITY_CONTRADICTS",
+   "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+   "SOURCE_POLARITY_NEUTRAL",
+   "VALIDATED_ENRICHMENT_DOES_NOT_ADDRESS_DIRECTION"
+  ],
+  "technical_only": [
+   "SOME_ENRICHMENTS_ACCEPTED_WITH_WARNING"
+  ]
+ },
+ "stages": {
+  "llm_stages": [
+   "stage_14_narrator",
+   "stage_2_casecontext_parser",
+   "stage_9_paper_context_enricher"
+  ],
+  "presentation_stages": [
+   "stage_14_narrator",
+   "stage_15_narrative_verifier"
+  ]
+ },
+ "fallback_policy": {
+  "on_verifier_fail": "STRUCTURED_DOSSIER_FALLBACK",
+  "second_llm_pass": false,
+  "semantic_retry": false,
+  "technical_retry_allowed_for": [
+   "timeout",
+   "malformed transport",
+   "tool-call failure"
+  ]
+ }
+}

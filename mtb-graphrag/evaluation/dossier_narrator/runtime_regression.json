@@ -1,0 +1,26 @@
+{
+ "suite": {
+  "backend_total": 3260,
+  "skipped": 17,
+  "subtests": 36914,
+  "narrative_verifier_tests": 45,
+  "narrator_regression_tests": 20,
+  "frontend_tests": 206
+ },
+ "iss_002_sweep": {
+  "candidates": 46864,
+  "negative": 1936,
+  "promoted": 0,
+  "primary_bucket": 0
+ },
+ "iss_001_regression": false,
+ "iss_002_regression": false,
+ "iss_003_regression": false,
+ "iss_004_regression": false,
+ "iss_005_regression": false,
+ "iss_006_regression": false,
+ "frontend_build_passed": true,
+ "gca_v3_runtime_default_changed": false,
+ "oncokb_called": false,
+ "historical_artifacts_modified": false
+}

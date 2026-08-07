@@ -1,0 +1,21 @@
+{
+ "prompt_only_restrictions": 0,
+ "uncontrolled_boundaries": 0,
+ "boundaries": {
+  "decide_eligibility": "IMPOSSIBLE_BY_CONSTRUCTION — il Narrator opera dopo lo stage 13; l'eligibility e' allo stage 3b",
+  "create_candidate": "IMPOSSIBLE_BY_CONSTRUCTION — candidate_id non in NarratorInput -> NARRATIVE_UNKNOWN_CANDIDATE_ID",
+  "create_document": "IMPOSSIBLE_BY_CONSTRUCTION — schema chiuso a 4 proprieta'; identificatori non autorizzati -> NARRATIVE_UNAUTHORIZED_ENTITY",
+  "create_sourceunit": "IMPOSSIBLE_BY_CONSTRUCTION — idem",
+  "create_validated_quote": "VALIDATED_DOWNSTREAM — una quote non appartenente alle validated_quotes -> NARRATIVE_UNAUTHORIZED_QUOTE",
+  "change_polarity": "VALIDATED_DOWNSTREAM — NARRATIVE_POLARITY_INVERSION / NARRATIVE_NEGATION_LOST",
+  "change_status": "VALIDATED_DOWNSTREAM — NARRATIVE_STATUS_ESCALATION; e il payload canonico non e' comunque toccato",
+  "change_gate": "IMPOSSIBLE_BY_CONSTRUCTION — nessun campo dello schema mappa su gate o bucket",
+  "change_support_mask": "IMPOSSIBLE_BY_CONSTRUCTION — idem",
+  "change_canonical_dossier": "IMPOSSIBLE_BY_CONSTRUCTION — verificato: dossier byte-identico con narratore ostile",
+  "produce_canonical_recommendation": "VALIDATED_DOWNSTREAM — NARRATIVE_UNAUTHORIZED_RECOMMENDATION"
+ },
+ "evidence": "backend/research_pipeline/tests/test_narrator_does_not_regress_runtime.py",
+ "llm_stages_before": 2,
+ "llm_stages_after": 3,
+ "note": "Il terzo uso dell'LLM non aggiunge autorita': opera DOPO che lo stato canonico e' deciso, produce una vista, e un componente deterministico decide se mostrarla."
+}
