@@ -22,6 +22,10 @@ import dataclasses
 from dataclasses import dataclass, field, replace
 from typing import Any, Literal, Mapping
 
+from backend.research_pipeline.eligibility.gate import (
+    ELIGIBILITY_STATES,
+    ELIGIBLE_FOR_RETRIEVAL,
+)
 from backend.research_pipeline.execution_mode import (
     ARTIFACT_ORIGINS,
     EXECUTION_MODES,
@@ -41,7 +45,22 @@ STAGE_STATUSES: tuple[str, ...] = (
     "PENDING", "RUNNING", "SUCCEEDED", "WARNING", "FAILED", "SKIPPED",
 )
 
-#: I quattro punti in cui la run termina prima del dossier. Estratti da
+#: Esiti del Pre-Retrieval Eligibility Gate che terminano la run.
+#:
+#: Devono comparire in ``STOP_REASONS``: ``orchestrator.run_case`` li passa a
+#: ``_finalize`` come ``stopped_at``, e senza di essi ``PipelineRun.__post_init__``
+#: sollevava ``ValueError``. Un input fuori dominio, non azionabile, contraddittorio
+#: o avversariale terminava così con un guasto software invece che con lo stop
+#: controllato che la policy aveva correttamente deciso.
+#:
+#: Sono importati da ``eligibility.gate`` invece di essere riscritti: due elenchi
+#: paralleli divergerebbero al primo stato nuovo, e la divergenza si manifesterebbe
+#: di nuovo come eccezione a runtime.
+ELIGIBILITY_STOP_REASONS: tuple[str, ...] = tuple(
+    state for state in ELIGIBILITY_STATES if state != ELIGIBLE_FOR_RETRIEVAL
+)
+
+#: I punti in cui la run termina prima del dossier. Estratti da
 #: ``pipeline.py::run_case`` del pilot: non sono un'invenzione di questo modulo.
 STOP_REASONS: tuple[str, ...] = (
     "PARSER_TRANSPORT_FAILED",
@@ -54,13 +73,31 @@ STOP_REASONS: tuple[str, ...] = (
     "DOCUMENT_CACHE_UNAVAILABLE",
     "NO_DOCUMENT_RESOLVED",
     "LIVE_STAGE_FAILED",
+    # Esiti del gate deterministico pre-retrieval.
+    *ELIGIBILITY_STOP_REASONS,
 )
 
-#: ``CASECONTEXT_MISMATCH`` e ``RETRIEVAL_NO_MATCH`` sono esiti corretti: la
-#: pipeline si è fermata perché doveva. Non vanno resi come guasti.
+#: Stop **previsti dalla policy**: la pipeline si è fermata perché doveva.
+#: Non vanno resi come guasti.
+#:
+#: Tutti gli esiti del gate sono stop controllati: sono la decisione che il gate
+#: esiste per prendere. ``PARSER_TRANSPORT_FAILED`` resta fuori — è un guasto di
+#: trasporto, e il runtime non sa distinguere il rifiuto deliberato del modello
+#: dall'errore di rete.
 CORRECT_STOP_REASONS: frozenset[str] = frozenset({
-    "CASECONTEXT_MISMATCH", "RETRIEVAL_NO_MATCH",
+    "CASECONTEXT_MISMATCH", "RETRIEVAL_NO_MATCH", *ELIGIBILITY_STOP_REASONS,
 })
+
+#: Stop che sono **guasti**, non esiti. Elencati esplicitamente perché
+#: l'insieme complementare sia leggibile senza calcolarlo.
+FAILURE_STOP_REASONS: frozenset[str] = frozenset(
+    set(STOP_REASONS) - CORRECT_STOP_REASONS
+)
+
+
+def is_controlled_stop(stopped_at: str | None) -> bool:
+    """Vero se la run si è fermata per decisione della policy, non per guasto."""
+    return stopped_at is not None and stopped_at in CORRECT_STOP_REASONS
 
 PRODUCER_KINDS: tuple[str, ...] = ("DETERMINISTIC", "LLM", "HYBRID")
 
