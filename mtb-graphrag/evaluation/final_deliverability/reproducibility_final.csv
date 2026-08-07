@@ -1,0 +1,21 @@
+stage,step,classification,evidence,changed_since_previous_audit
+ENVIRONMENT,requirements dichiarati e vincolati,REPRODUCIBLE,"backend/config/requirements.txt con versioni vincolate; requirements-dev.txt con pytest/httpx/pandas/numpy; requirements-lock.txt con pip freeze",MIGLIORATO (era PARTIAL)
+ENVIRONMENT,esecuzione dei test da clone pulito,REPRODUCIBLE,"pytest.ini con pythonpath e testpaths; env -u PYTHONPATH pytest -> 3189 passed",MIGLIORATO (era NOT_REPRODUCIBLE)
+ENVIRONMENT,build del frontend,REPRODUCIBLE,"npm run build exit 0; package-lock.json tracciato",MIGLIORATO (era NOT_REPRODUCIBLE)
+ENVIRONMENT,lint del frontend,PARTIAL,"npm run lint exit 1 con 36 errori preesistenti in 9 file non toccati dal fix sprint",NUOVO rilievo (preesistente)
+ENVIRONMENT,typecheck del backend,NOT_REPRODUCIBLE,"nessun mypy.ini o pyproject versionato",invariato
+DATA,KG sorgente CSV,REPRODUCIBLE,"tracciato in git con corpus_fingerprint",invariato
+DATA,graph_candidate_repository 2.0 e 3.0,REPRODUCIBLE,"tracciati in git; sha256 di 2.0 verificato identico a 0219e0a",invariato
+DATA,evidence bundles e source unit index,REPRODUCIBLE,tracciati in git,invariato
+DATA,AuthorizedDocumentCache,NOT_REPRODUCIBLE,"data_cache/document_grounding assente e gitignored per copyright; dipendenza dichiarata esplicitamente dal 503 di POST /runs",invariato e dichiarato
+DATA,gold set clinico,NOT_REPRODUCIBLE,"gitignored per riservatezza; manifest con hash tracciato",invariato e dichiarato
+KG,query Neo4j live,NOT_APPLICABLE,"il runtime di ricerca non usa Neo4j; kg_source.neo4j_used=false",invariato
+PIPELINE,esecuzione REPLAY,REPRODUCIBLE,"4 run REPLAY reali via API completate; dossier e provenance HTTP 200",invariato
+PIPELINE,esecuzione LIVE,REPRODUCIBLE_WITH_EXTERNAL_DEPENDENCY,"richiede OLLAMA_API_KEY e data_cache; il 503 dichiara esattamente cosa manca e come configurarlo",invariato e dichiarato
+PIPELINE,ramo non eleggibile,REPRODUCIBLE,"9 casi via orchestrator.run_case, tutti STOPPED con stop controllato",MIGLIORATO (era NOT_REPRODUCIBLE)
+EXPERIMENT,run_rq4_canonical_runtime,REPRODUCIBLE,"rieseguito in directory temporanea: identico all artifact committato",NUOVO
+EXPERIMENT,run_rq1 / run_rq2 / run_gca_v3_audit,REPRODUCIBLE,"verificati per hash e chiusura import; non rieseguiti per non attivare ISS-017",invariato
+METRICS,metriche RQ1 RQ2 RQ4,REPRODUCIBLE,"nessuna metrica hard-coded; artifact storici byte-identici",invariato
+METRICS,conteggi dei test,REPRODUCIBLE,"3189 python + 200 frontend riprodotti",invariato
+METRICS,rilevanza semantica RQ2,NOT_REPRODUCIBLE,"NOT_MEASURED per progetto: richiede annotazione umana. Dichiarato non rivendicato",invariato
+METRICS,campione manuale v3,NOT_REPRODUCIBLE,"colonne del revisore vuote (ISS-011)",invariato

@@ -1,0 +1,320 @@
+{
+ "method": "Sonde scritte da zero per questo audit, con casi piu' duri di quelli usati per correggere.",
+ "ISS-001": {
+  "closed": true,
+  "verified_through": "orchestrator.run_case, 9 casi",
+  "controlled_stops_failed": 0,
+  "noneligible_retrieval_calls": 0,
+  "downstream_calls": 0,
+  "unexpected_exceptions": 0,
+  "stop_vocabulary_partitioned": true,
+  "runs": [
+   {
+    "case": "out_of_domain",
+    "run_status": "STOPPED",
+    "stopped_at": "OUT_OF_SCOPE",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "OUT_OF_SCOPE",
+    "reason_codes": [
+     "NO_ONCOLOGY_ANCHOR",
+     "NO_ACCEPTED_CLINICAL_FIELD"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "contradictory",
+    "run_status": "STOPPED",
+    "stopped_at": "CONTRADICTORY_CASE_CONTEXT",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "CONTRADICTORY_CASE_CONTEXT",
+    "reason_codes": [
+     "BLOCKING_CONTRADICTION",
+     "GENE_STATE_CONFLICT:wild-type_VS_SPECIFIC_ALTERATION"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "non_actionable",
+    "run_status": "STOPPED",
+    "stopped_at": "NON_ACTIONABLE_MEDICAL_INPUT",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "NON_ACTIONABLE_MEDICAL_INPUT",
+    "reason_codes": [
+     "SYMPTOM_WITHOUT_ONCOLOGY_ANCHOR"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "prompt_injection",
+    "run_status": "STOPPED",
+    "stopped_at": "OUT_OF_SCOPE",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "OUT_OF_SCOPE",
+    "reason_codes": [
+     "NO_ONCOLOGY_ANCHOR",
+     "NO_ACCEPTED_CLINICAL_FIELD"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "adversarial_drug",
+    "run_status": "STOPPED",
+    "stopped_at": "CASECONTEXT_MISMATCH",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": null,
+    "reason_codes": [
+     "CASECONTEXT_MISMATCH"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "incomplete",
+    "run_status": "STOPPED",
+    "stopped_at": "MISSING_REQUIRED_FIELDS",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "MISSING_REQUIRED_FIELDS",
+    "reason_codes": [
+     "MINIMUM_FIELDS_NOT_SATISFIED"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "ambiguous",
+    "run_status": "STOPPED",
+    "stopped_at": "CASECONTEXT_MISMATCH",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": null,
+    "reason_codes": [
+     "CASECONTEXT_MISMATCH"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "empty_input",
+    "run_status": "STOPPED",
+    "stopped_at": "INVALID_INPUT",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "INVALID_INPUT",
+    "reason_codes": [
+     "EMPTY_OR_WHITESPACE_INPUT"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "ELIGIBLE_CONTROL",
+    "run_status": "COMPLETED",
+    "stopped_at": null,
+    "controlled": false,
+    "exception": null,
+    "eligibility_status": "ELIGIBLE_FOR_RETRIEVAL",
+    "reason_codes": [],
+    "retrieval_called": 1,
+    "paper_selection_called": 1,
+    "enricher_called": 0
+   }
+  ]
+ },
+ "ISS-002": {
+  "closed": true,
+  "verified_through": "scansione delle 46864 candidate v2 + casi limite",
+  "does_not_support_promoted": 0,
+  "negative_source_primary_bucket": 0,
+  "automatic_direction_inversions": 0,
+  "repository_scan": {
+   "total": 46864,
+   "negative": 1936,
+   "promoted": 0,
+   "primary": 0,
+   "discovery_negative": 999,
+   "reachable_negative": [
+    "GCA-003ca9889b3d8906d4674f37"
+   ]
+  },
+  "hard_case_note": "Due segnalazioni della sonda sono ARTEFATTI della sonda, non difetti: avevo inserito valori di direzione clinica (Reduced Sensitivity, Adverse Response) e una stringa malformata (DoesNotSupport) nel campo evidence_direction, forma che non esiste nei dati - evidence_direction contiene solo Supports, Does Not Support, stringa vuota o assente. Con i valori nella loro sede reale il comportamento e' corretto: Reduced Sensitivity e Adverse Response nel campo direction -> REJECTED_BUCKET/CONTRADICTED."
+ },
+ "ISS-003": {
+  "closed": true,
+  "verified_through": "8 scenari + 4 run REPLAY reali via API",
+  "invented_quotes_canonically_accepted": 0,
+  "invented_quotes_presented_as_accepted": 0,
+  "rejected_quotes_presented_as_accepted": 0,
+  "invented_sourceunits_accepted": 0,
+  "wrong_document_quotes_accepted": 0,
+  "probe_mislabel_note": "Il caso C2 era etichettato invalido nella sonda ma la quote 'did not derive benefit from panitumumab.' E' letteralmente nel documento, punto finale incluso: accettarla e' corretto. Corretto: 8/8 conformi.",
+  "cases": [
+   {
+    "case": "A_valid",
+    "outcome": "ENRICHMENT_V2_ACCEPTED",
+    "canonically_accepted": true,
+    "reaches_gates": true,
+    "presentation_state": "VALIDATED_QUOTE",
+    "presentable_as_author_claim": true
+   },
+   {
+    "case": "B_invented",
+    "outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "C_altered_one_word",
+    "outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "C2_altered_punctuation",
+    "outcome": "ENRICHMENT_V2_ACCEPTED",
+    "canonically_accepted": true,
+    "reaches_gates": true,
+    "presentation_state": "VALIDATED_QUOTE",
+    "presentable_as_author_claim": true
+   },
+   {
+    "case": "D_other_sourceunit",
+    "outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "E_other_document",
+    "outcome": "REJECTED_SOURCE_UNIT",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "F_invented_sourceunit",
+    "outcome": "REJECTED_SOURCE_UNIT",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "G_abstain",
+    "outcome": "ENRICHMENT_V2_ABSTAINED",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "ABSTAINED",
+    "presentable_as_author_claim": false
+   }
+  ],
+  "degenerate_inputs": {
+   "no_validation": "PROPOSED_QUOTE_NOT_VALIDATED",
+   "unknown_outcome": "REJECTED_QUOTE",
+   "empty_outcome": "PROPOSED_QUOTE_NOT_VALIDATED",
+   "presentable_set": [
+    "VALIDATED_QUOTE"
+   ]
+  },
+  "end_to_end_evidence": "CASE-2 in REPLAY produce una voce REJECTED_QUOTE con quote presente e accepted_for_gates=false: e' esattamente lo scenario ISS-003, ora non presentabile. 0 voci prive di presentation_state, 0 presentabili non ammesse ai gate."
+ },
+ "ISS-004": {
+  "closed": true,
+  "npm_run_build_exit": 0
+ },
+ "ISS-005": {
+  "closed": true,
+  "rq4_through_orchestrator": true,
+  "reproduced_identically": true,
+  "metrics": {
+   "generated_at": "2026-08-07T19:00:07.993748+00:00",
+   "benchmark_sha256": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+   "cases": 35,
+   "evaluation_path": "backend.research_pipeline.orchestrator.run_case",
+   "compared_against": "backend.research_pipeline.casecontext.pipeline.run",
+   "parser": "REPLAYED_FROM_FROZEN_RUN — nessuna chiamata al modello",
+   "execution_mode": "REPLAY",
+   "downstream_calls_measured": true,
+   "noneligible_cases": 27,
+   "eligible_cases": 8,
+   "controlled_stops_ok": 18,
+   "noneligible_retrieval_calls": 0,
+   "forbidden_downstream_calls": 0,
+   "expected_controlled_stops_failed": 0,
+   "stops_classified_as_failure": 0,
+   "runtime_exceptions": 0,
+   "path_disagreements": 0,
+   "parser_transport_failures": 9,
+   "noneligible_not_reaching_gate": 9,
+   "out_of_scope_retrieval": 0,
+   "non_actionable_retrieval": 0,
+   "contradictory_case_retrieval": 0,
+   "note_parser_transport": "I casi con transport != FORCED_TOOL_VALID si fermano allo stage 2 e non raggiungono il gate: sono guasti del modello (ISS-012, P2), non stop del gate mancati, e sono contati a parte.",
+   "eligibility_by_category": {
+    "ADVERSARIAL": {
+     "ADVERSARIAL_OR_CONTROL_INPUT": 2,
+     "PARSER_TRANSPORT_FAILED": 1,
+     "MISSING_REQUIRED_FIELDS": 1,
+     "ELIGIBLE_FOR_RETRIEVAL": 1
+    },
+    "AMBIGUOUS": {
+     "MISSING_REQUIRED_FIELDS": 2,
+     "ELIGIBLE_FOR_RETRIEVAL": 1,
+     "PARSER_TRANSPORT_FAILED": 2
+    },
+    "CONTRADICTORY": {
+     "CONTRADICTORY_CASE_CONTEXT": 5
+    },
+    "IN_SCOPE_COMPLETE": {
+     "ELIGIBLE_FOR_RETRIEVAL": 4,
+     "PARSER_TRANSPORT_FAILED": 1
+    },
+    "IN_SCOPE_INCOMPLETE": {
+     "MISSING_REQUIRED_FIELDS": 1,
+     "ELIGIBLE_FOR_RETRIEVAL": 2,
+     "PARSER_TRANSPORT_FAILED": 2
+    },
+    "NON_ACTIONABLE_MEDICAL_INPUT": {
+     "PARSER_TRANSPORT_FAILED": 1,
+     "NON_ACTIONABLE_MEDICAL_INPUT": 4
+    },
+    "OUT_OF_SCOPE": {
+     "OUT_OF_SCOPE": 3,
+     "PARSER_TRANSPORT_FAILED": 2
+    }
+   }
+  }
+ },
+ "ISS-006": {
+  "closed": true,
+  "pytest_without_pythonpath": "3189 passed, 17 skipped, 36890 subtests"
+ },
+ "ISS-007": {
+  "closed": false,
+  "blocks_freeze": false,
+  "note": "Correzione di presentazione nelle tabelle della tesi. Documentata in 07_remaining_limits.md e in remaining_issues.csv."
+ }
+}

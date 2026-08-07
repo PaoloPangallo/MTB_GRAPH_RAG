@@ -1,0 +1,377 @@
+{
+ "ISS-002": {
+  "promoted": [
+   {
+    "where": "source_properties",
+    "value": "'DoesNotSupport'",
+    "kind": "RESPONSE"
+   },
+   {
+    "where": "source_properties",
+    "value": "'DoesNotSupport'",
+    "kind": "BENEFIT"
+   }
+  ],
+  "primary_bucket": [
+   {
+    "value": "'DoesNotSupport'",
+    "mask": {
+     "disease": "SUPPORTED",
+     "biomarker": "SUPPORTED",
+     "intervention": "SUPPORTED",
+     "direction": "SUPPORTED"
+    }
+   },
+   {
+    "value": "'Reduced Sensitivity'",
+    "mask": {
+     "disease": "SUPPORTED",
+     "biomarker": "SUPPORTED",
+     "intervention": "SUPPORTED",
+     "direction": "SUPPORTED"
+    }
+   },
+   {
+    "value": "'Adverse Response'",
+    "mask": {
+     "disease": "SUPPORTED",
+     "biomarker": "SUPPORTED",
+     "intervention": "SUPPORTED",
+     "direction": "SUPPORTED"
+    }
+   },
+   {
+    "value": "'REDUCED SENSITIVITY'",
+    "mask": {
+     "disease": "SUPPORTED",
+     "biomarker": "SUPPORTED",
+     "intervention": "SUPPORTED",
+     "direction": "SUPPORTED"
+    }
+   }
+  ],
+  "polarity_map": {
+   "'Does Not Support'": "DOES_NOT_SUPPORT",
+   "'does not support'": "DOES_NOT_SUPPORT",
+   "'DOES NOT SUPPORT'": "DOES_NOT_SUPPORT",
+   "'  Does   Not   Support  '": "DOES_NOT_SUPPORT",
+   "'Does-Not-Support'": "DOES_NOT_SUPPORT",
+   "'does_not_support'": "DOES_NOT_SUPPORT",
+   "'DoesNotSupport'": "UNKNOWN",
+   "'Neutral'": "NEUTRAL",
+   "'No Difference'": "NEUTRAL",
+   "'neutral or no difference'": "NEUTRAL",
+   "'Contradicts'": "CONTRADICTS",
+   "'CONTRADICTS ASSERTION'": "CONTRADICTS",
+   "None": "UNKNOWN",
+   "''": "UNKNOWN",
+   "'   '": "UNKNOWN",
+   "'Unmapped'": "UNKNOWN",
+   "'N/A'": "UNKNOWN",
+   "0": "UNKNOWN",
+   "[]": "UNKNOWN",
+   "{}": "UNKNOWN",
+   "3.14": "UNKNOWN",
+   "'Reduced Sensitivity'": "UNKNOWN",
+   "'Adverse Response'": "UNKNOWN",
+   "'REDUCED SENSITIVITY'": "UNKNOWN"
+  },
+  "notes": [],
+  "no_automatic_inversion": true,
+  "negative_outcome": {
+   "status": "AMBIGUOUS",
+   "gate_bucket": "WARNING_BUCKET",
+   "warnings": [
+    "SOURCE_POLARITY_DOES_NOT_SUPPORT"
+   ]
+  },
+  "negative_mask_direction": "SOURCE_DOES_NOT_SUPPORT",
+  "discovery_branch": {
+   "status": "DISCOVERED",
+   "bucket": "DISCOVERY_BUCKET",
+   "mask_direction": "NOT_APPLICABLE",
+   "warnings": [],
+   "polarity_signalled": false,
+   "in_primary_bucket": false,
+   "mask_supported": false,
+   "same_for_source_properties_variant": true
+  },
+  "repository_scan": {
+   "total": 46864,
+   "negative": 1936,
+   "promoted": 0,
+   "primary": 0,
+   "discovery_negative": 999,
+   "reachable_negative": [
+    "GCA-003ca9889b3d8906d4674f37"
+   ]
+  }
+ },
+ "ISS-001": {
+  "runs": [
+   {
+    "case": "out_of_domain",
+    "run_status": "STOPPED",
+    "stopped_at": "OUT_OF_SCOPE",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "OUT_OF_SCOPE",
+    "reason_codes": [
+     "NO_ONCOLOGY_ANCHOR",
+     "NO_ACCEPTED_CLINICAL_FIELD"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "contradictory",
+    "run_status": "STOPPED",
+    "stopped_at": "CONTRADICTORY_CASE_CONTEXT",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "CONTRADICTORY_CASE_CONTEXT",
+    "reason_codes": [
+     "BLOCKING_CONTRADICTION",
+     "GENE_STATE_CONFLICT:wild-type_VS_SPECIFIC_ALTERATION"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "non_actionable",
+    "run_status": "STOPPED",
+    "stopped_at": "NON_ACTIONABLE_MEDICAL_INPUT",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "NON_ACTIONABLE_MEDICAL_INPUT",
+    "reason_codes": [
+     "SYMPTOM_WITHOUT_ONCOLOGY_ANCHOR"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "prompt_injection",
+    "run_status": "STOPPED",
+    "stopped_at": "OUT_OF_SCOPE",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "OUT_OF_SCOPE",
+    "reason_codes": [
+     "NO_ONCOLOGY_ANCHOR",
+     "NO_ACCEPTED_CLINICAL_FIELD"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "adversarial_drug",
+    "run_status": "STOPPED",
+    "stopped_at": "CASECONTEXT_MISMATCH",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": null,
+    "reason_codes": [
+     "CASECONTEXT_MISMATCH"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "incomplete",
+    "run_status": "STOPPED",
+    "stopped_at": "MISSING_REQUIRED_FIELDS",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "MISSING_REQUIRED_FIELDS",
+    "reason_codes": [
+     "MINIMUM_FIELDS_NOT_SATISFIED"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "ambiguous",
+    "run_status": "STOPPED",
+    "stopped_at": "CASECONTEXT_MISMATCH",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": null,
+    "reason_codes": [
+     "CASECONTEXT_MISMATCH"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "empty_input",
+    "run_status": "STOPPED",
+    "stopped_at": "INVALID_INPUT",
+    "controlled": true,
+    "exception": null,
+    "eligibility_status": "INVALID_INPUT",
+    "reason_codes": [
+     "EMPTY_OR_WHITESPACE_INPUT"
+    ],
+    "retrieval_called": 0,
+    "paper_selection_called": 0,
+    "enricher_called": 0
+   },
+   {
+    "case": "ELIGIBLE_CONTROL",
+    "run_status": "COMPLETED",
+    "stopped_at": null,
+    "controlled": false,
+    "exception": null,
+    "eligibility_status": "ELIGIBLE_FOR_RETRIEVAL",
+    "reason_codes": [],
+    "retrieval_called": 1,
+    "paper_selection_called": 1,
+    "enricher_called": 0
+   }
+  ],
+  "controlled_stops_failed": 0,
+  "noneligible_retrieval_calls": 0,
+  "unexpected_exceptions": 0,
+  "downstream_calls": 0,
+  "stop_vocabulary": {
+   "stop_reasons": 15,
+   "correct": [
+    "ADVERSARIAL_OR_CONTROL_INPUT",
+    "AMBIGUOUS_CASE_CONTEXT",
+    "CASECONTEXT_MISMATCH",
+    "CONTRADICTORY_CASE_CONTEXT",
+    "INSUFFICIENT_ONCOLOGY_CONTEXT",
+    "INVALID_INPUT",
+    "MISSING_REQUIRED_FIELDS",
+    "NON_ACTIONABLE_MEDICAL_INPUT",
+    "OUT_OF_SCOPE",
+    "RETRIEVAL_NO_MATCH"
+   ],
+   "failure": [
+    "CALL_BUDGET_EXCEEDED",
+    "DOCUMENT_CACHE_UNAVAILABLE",
+    "LIVE_STAGE_FAILED",
+    "NO_DOCUMENT_RESOLVED",
+    "PARSER_TRANSPORT_FAILED"
+   ],
+   "partition_ok": true
+  }
+ },
+ "ISS-003": {
+  "cases": [
+   {
+    "case": "A_valid",
+    "outcome": "ENRICHMENT_V2_ACCEPTED",
+    "canonically_accepted": true,
+    "reaches_gates": true,
+    "presentation_state": "VALIDATED_QUOTE",
+    "presentable_as_author_claim": true
+   },
+   {
+    "case": "B_invented",
+    "outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "C_altered_one_word",
+    "outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "C2_altered_punctuation",
+    "outcome": "ENRICHMENT_V2_ACCEPTED",
+    "canonically_accepted": true,
+    "reaches_gates": true,
+    "presentation_state": "VALIDATED_QUOTE",
+    "presentable_as_author_claim": true
+   },
+   {
+    "case": "D_other_sourceunit",
+    "outcome": "REJECTED_QUOTE_NOT_FOUND",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "E_other_document",
+    "outcome": "REJECTED_SOURCE_UNIT",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "F_invented_sourceunit",
+    "outcome": "REJECTED_SOURCE_UNIT",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "REJECTED_QUOTE",
+    "presentable_as_author_claim": false
+   },
+   {
+    "case": "G_abstain",
+    "outcome": "ENRICHMENT_V2_ABSTAINED",
+    "canonically_accepted": false,
+    "reaches_gates": false,
+    "presentation_state": "ABSTAINED",
+    "presentable_as_author_claim": false
+   }
+  ],
+  "canonically_accepted_invalid": 1,
+  "presented_invalid": 1,
+  "invented_sourceunit_accepted": 0,
+  "wrong_document_accepted": 0,
+  "degenerate": {
+   "no_validation": "PROPOSED_QUOTE_NOT_VALIDATED",
+   "unknown_outcome": "REJECTED_QUOTE",
+   "empty_outcome": "PROPOSED_QUOTE_NOT_VALIDATED",
+   "presentable_set": [
+    "VALIDATED_QUOTE"
+   ]
+  }
+ },
+ "authority": {
+  "tool_schema_properties": [
+   "abstention_reason",
+   "author_claim_quote",
+   "author_context_summary",
+   "decision",
+   "source_unit_id"
+  ],
+  "llm_stage_ids": [
+   "stage_2_casecontext_parser",
+   "stage_9_paper_context_enricher"
+  ],
+  "total_stages": 16,
+  "extra_key_rejected": {
+   "pmid": "INVALID_TOOL_ARGUMENTS",
+   "canonical_status": "INVALID_TOOL_ARGUMENTS",
+   "provenance": "INVALID_TOOL_ARGUMENTS",
+   "recommendation": "INVALID_TOOL_ARGUMENTS",
+   "source_unit": "INVALID_TOOL_ARGUMENTS",
+   "support_mask": "INVALID_TOOL_ARGUMENTS",
+   "gate_bucket": "INVALID_TOOL_ARGUMENTS",
+   "direction": "INVALID_TOOL_ARGUMENTS",
+   "evidence_direction": "INVALID_TOOL_ARGUMENTS"
+  },
+  "baseline_five_keys": "V2_TRANSPORT_VALID",
+  "status_language_in_summary": "REJECTED_SUMMARY_UNGROUNDED",
+  "clinical_recommendation_in_summary": "REJECTED_CLINICAL_RECOMMENDATION",
+  "deterministic_chain_llm_refs": 0
+ }
+}

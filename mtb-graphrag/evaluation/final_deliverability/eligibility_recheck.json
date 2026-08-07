@@ -1,0 +1,158 @@
+{
+ "runs": [
+  {
+   "case": "out_of_domain",
+   "run_status": "STOPPED",
+   "stopped_at": "OUT_OF_SCOPE",
+   "controlled": true,
+   "exception": null,
+   "eligibility_status": "OUT_OF_SCOPE",
+   "reason_codes": [
+    "NO_ONCOLOGY_ANCHOR",
+    "NO_ACCEPTED_CLINICAL_FIELD"
+   ],
+   "retrieval_called": 0,
+   "paper_selection_called": 0,
+   "enricher_called": 0
+  },
+  {
+   "case": "contradictory",
+   "run_status": "STOPPED",
+   "stopped_at": "CONTRADICTORY_CASE_CONTEXT",
+   "controlled": true,
+   "exception": null,
+   "eligibility_status": "CONTRADICTORY_CASE_CONTEXT",
+   "reason_codes": [
+    "BLOCKING_CONTRADICTION",
+    "GENE_STATE_CONFLICT:wild-type_VS_SPECIFIC_ALTERATION"
+   ],
+   "retrieval_called": 0,
+   "paper_selection_called": 0,
+   "enricher_called": 0
+  },
+  {
+   "case": "non_actionable",
+   "run_status": "STOPPED",
+   "stopped_at": "NON_ACTIONABLE_MEDICAL_INPUT",
+   "controlled": true,
+   "exception": null,
+   "eligibility_status": "NON_ACTIONABLE_MEDICAL_INPUT",
+   "reason_codes": [
+    "SYMPTOM_WITHOUT_ONCOLOGY_ANCHOR"
+   ],
+   "retrieval_called": 0,
+   "paper_selection_called": 0,
+   "enricher_called": 0
+  },
+  {
+   "case": "prompt_injection",
+   "run_status": "STOPPED",
+   "stopped_at": "OUT_OF_SCOPE",
+   "controlled": true,
+   "exception": null,
+   "eligibility_status": "OUT_OF_SCOPE",
+   "reason_codes": [
+    "NO_ONCOLOGY_ANCHOR",
+    "NO_ACCEPTED_CLINICAL_FIELD"
+   ],
+   "retrieval_called": 0,
+   "paper_selection_called": 0,
+   "enricher_called": 0
+  },
+  {
+   "case": "adversarial_drug",
+   "run_status": "STOPPED",
+   "stopped_at": "CASECONTEXT_MISMATCH",
+   "controlled": true,
+   "exception": null,
+   "eligibility_status": null,
+   "reason_codes": [
+    "CASECONTEXT_MISMATCH"
+   ],
+   "retrieval_called": 0,
+   "paper_selection_called": 0,
+   "enricher_called": 0
+  },
+  {
+   "case": "incomplete",
+   "run_status": "STOPPED",
+   "stopped_at": "MISSING_REQUIRED_FIELDS",
+   "controlled": true,
+   "exception": null,
+   "eligibility_status": "MISSING_REQUIRED_FIELDS",
+   "reason_codes": [
+    "MINIMUM_FIELDS_NOT_SATISFIED"
+   ],
+   "retrieval_called": 0,
+   "paper_selection_called": 0,
+   "enricher_called": 0
+  },
+  {
+   "case": "ambiguous",
+   "run_status": "STOPPED",
+   "stopped_at": "CASECONTEXT_MISMATCH",
+   "controlled": true,
+   "exception": null,
+   "eligibility_status": null,
+   "reason_codes": [
+    "CASECONTEXT_MISMATCH"
+   ],
+   "retrieval_called": 0,
+   "paper_selection_called": 0,
+   "enricher_called": 0
+  },
+  {
+   "case": "empty_input",
+   "run_status": "STOPPED",
+   "stopped_at": "INVALID_INPUT",
+   "controlled": true,
+   "exception": null,
+   "eligibility_status": "INVALID_INPUT",
+   "reason_codes": [
+    "EMPTY_OR_WHITESPACE_INPUT"
+   ],
+   "retrieval_called": 0,
+   "paper_selection_called": 0,
+   "enricher_called": 0
+  },
+  {
+   "case": "ELIGIBLE_CONTROL",
+   "run_status": "COMPLETED",
+   "stopped_at": null,
+   "controlled": false,
+   "exception": null,
+   "eligibility_status": "ELIGIBLE_FOR_RETRIEVAL",
+   "reason_codes": [],
+   "retrieval_called": 1,
+   "paper_selection_called": 1,
+   "enricher_called": 0
+  }
+ ],
+ "controlled_stops_failed": 0,
+ "noneligible_retrieval_calls": 0,
+ "unexpected_exceptions": 0,
+ "downstream_calls": 0,
+ "stop_vocabulary": {
+  "stop_reasons": 15,
+  "correct": [
+   "ADVERSARIAL_OR_CONTROL_INPUT",
+   "AMBIGUOUS_CASE_CONTEXT",
+   "CASECONTEXT_MISMATCH",
+   "CONTRADICTORY_CASE_CONTEXT",
+   "INSUFFICIENT_ONCOLOGY_CONTEXT",
+   "INVALID_INPUT",
+   "MISSING_REQUIRED_FIELDS",
+   "NON_ACTIONABLE_MEDICAL_INPUT",
+   "OUT_OF_SCOPE",
+   "RETRIEVAL_NO_MATCH"
+  ],
+  "failure": [
+   "CALL_BUDGET_EXCEEDED",
+   "DOCUMENT_CACHE_UNAVAILABLE",
+   "LIVE_STAGE_FAILED",
+   "NO_DOCUMENT_RESOLVED",
+   "PARSER_TRANSPORT_FAILED"
+  ],
+  "partition_ok": true
+ }
+}

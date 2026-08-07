@@ -1,0 +1,251 @@
+{
+ "live_without_services": {
+  "http": 503,
+  "body": {
+   "detail": "cache documentale non disponibile (['CACHE_PATH_NOT_FOUND']): una run LIVE non ripiega su artefatti registrati. Configurare RESEARCH_DOCUMENT_CACHE_PATH."
+  },
+  "degraded_to_replay": false
+ },
+ "hybrid_requestable": {
+  "http": 422,
+  "rejected": true
+ },
+ "unknown_mode_rejected": {
+  "http": 422,
+  "rejected": true
+ },
+ "replay_without_frozen_artifacts": {
+  "http": 409,
+  "rejected": true
+ },
+ "replay_runs": {
+  "CASE-1-therapy-evaluation-strong-match": {
+   "run_id": "1de60a1c-d06e-4630-b456-6d8ccccf09b0",
+   "status": "COMPLETED",
+   "execution_mode": "REPLAY",
+   "fully_live": false,
+   "replay_artifacts_used": 6,
+   "llm_calls": 0,
+   "stopped_at": null,
+   "origin_counts": {
+    "GENERATED_NOW": 8,
+    "RECORDED_REAL_RUN": 6,
+    "NOT_APPLICABLE": 2
+   },
+   "dossier_http": 200,
+   "author_context_voices": [
+    {
+     "presentation_state": "VALIDATED_QUOTE",
+     "validation_outcome": "ENRICHMENT_V2_ACCEPTED",
+     "accepted_for_gates": true,
+     "has_quote": true
+    }
+   ],
+   "voices_missing_presentation_state": 0,
+   "presentable_but_not_gated": 0,
+   "candidate_count": 1,
+   "statuses": [
+    "PARTIAL"
+   ],
+   "buckets": [
+    "WARNING_BUCKET"
+   ],
+   "provenance_http": 200,
+   "provenance_keys": [
+    "items",
+    "run_id"
+   ]
+  },
+  "CASE-2-therapy-discovery": {
+   "run_id": "53248078-4bc4-4b61-94e4-d0b96d55a37d",
+   "status": "COMPLETED",
+   "execution_mode": "REPLAY",
+   "fully_live": false,
+   "replay_artifacts_used": 6,
+   "llm_calls": 0,
+   "stopped_at": null,
+   "origin_counts": {
+    "GENERATED_NOW": 8,
+    "RECORDED_REAL_RUN": 6,
+    "NOT_APPLICABLE": 2
+   },
+   "dossier_http": 200,
+   "author_context_voices": [
+    {
+     "presentation_state": "REJECTED_QUOTE",
+     "validation_outcome": "REJECTED_QUOTE_NOT_FOUND",
+     "accepted_for_gates": false,
+     "has_quote": true
+    },
+    {
+     "presentation_state": "VALIDATED_QUOTE",
+     "validation_outcome": "ENRICHMENT_V2_ACCEPTED",
+     "accepted_for_gates": true,
+     "has_quote": true
+    }
+   ],
+   "voices_missing_presentation_state": 0,
+   "presentable_but_not_gated": 0,
+   "candidate_count": 1,
+   "statuses": [
+    "DISCOVERED"
+   ],
+   "buckets": [
+    "DISCOVERY_BUCKET"
+   ],
+   "provenance_http": 200,
+   "provenance_keys": [
+    "items",
+    "run_id"
+   ]
+  },
+  "CASE-4-contradicted-or-resistance": {
+   "run_id": "77c75f26-792a-4042-b607-644bf662b135",
+   "status": "COMPLETED",
+   "execution_mode": "REPLAY",
+   "fully_live": false,
+   "replay_artifacts_used": 6,
+   "llm_calls": 0,
+   "stopped_at": null,
+   "origin_counts": {
+    "GENERATED_NOW": 8,
+    "RECORDED_REAL_RUN": 6,
+    "NOT_APPLICABLE": 2
+   },
+   "dossier_http": 200,
+   "author_context_voices": [
+    {
+     "presentation_state": "ABSTAINED",
+     "validation_outcome": "ENRICHMENT_V2_ABSTAINED",
+     "accepted_for_gates": false,
+     "has_quote": false
+    },
+    {
+     "presentation_state": "ABSTAINED",
+     "validation_outcome": "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+     "accepted_for_gates": false,
+     "has_quote": false
+    }
+   ],
+   "voices_missing_presentation_state": 0,
+   "presentable_but_not_gated": 0,
+   "candidate_count": 1,
+   "statuses": [
+    "AMBIGUOUS"
+   ],
+   "buckets": [
+    "WARNING_BUCKET"
+   ],
+   "provenance_http": 200,
+   "provenance_keys": [
+    "items",
+    "run_id"
+   ]
+  },
+  "CASE-5-casecontext-mismatch-no-match": {
+   "run_id": "e70523d7-1926-47a9-963c-054db21a22ba",
+   "status": "STOPPED",
+   "execution_mode": "REPLAY",
+   "fully_live": false,
+   "replay_artifacts_used": 1,
+   "llm_calls": 0,
+   "stopped_at": "RETRIEVAL_NO_MATCH",
+   "origin_counts": {
+    "GENERATED_NOW": 5,
+    "RECORDED_REAL_RUN": 1,
+    "NOT_APPLICABLE": 2,
+    "NOT_EXECUTED": 8
+   },
+   "dossier_http": 409,
+   "provenance_http": 200,
+   "provenance_keys": [
+    "items",
+    "run_id"
+   ]
+  }
+ },
+ "config": {
+  "llm": {
+   "base_url": "https://ollama.com",
+   "model": "gemma4:cloud",
+   "credentials_configured": true,
+   "is_cloud": true
+  },
+  "data": {
+   "datasets": {
+    "candidates": true,
+    "evidence_bundles": true,
+    "status_transitions": true,
+    "document_manifest": true,
+    "source_unit_index": true,
+    "frozen_enricher_runs": true
+   },
+   "document_cache_available": false,
+   "stages_6_to_10_mode": "FROZEN_REPLAY"
+  },
+  "document_cache": {
+   "document_cache_available": false,
+   "cache_path_redacted": ".../data_cache/document_grounding",
+   "cache_version": "authorized-document-cache/1.0",
+   "reason_codes": [
+    "CACHE_PATH_NOT_FOUND"
+   ],
+   "manifest_hash": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+   "manifest_rows": 43,
+   "document_count": 0,
+   "documents_with_text": 0,
+   "documents_unavailable": 43,
+   "source_unit_count": 3402
+  },
+  "execution_modes": {
+   "requestable": [
+    "LIVE",
+    "REPLAY"
+   ],
+   "artifact_origins": [
+    "GENERATED_NOW",
+    "RECORDED_REAL_RUN",
+    "DETERMINISTIC_CACHE",
+    "NOT_APPLICABLE",
+    "NOT_EXECUTED"
+   ],
+   "live_available": false,
+   "live_unavailable_reason": [
+    "CACHE_PATH_NOT_FOUND"
+   ]
+  },
+  "frozen_replay": {
+   "source_commit": "6ee64c5",
+   "cases": [
+    "CASE-1-therapy-evaluation-strong-match",
+    "CASE-2-therapy-discovery",
+    "CASE-3-partial-incomplete-context",
+    "CASE-4-contradicted-or-resistance",
+    "CASE-5-casecontext-mismatch-no-match"
+   ],
+   "enricher_calls": 7,
+   "quotes_proposed": 3,
+   "validation_outcomes": {
+    "ENRICHMENT_V2_ACCEPTED": 2,
+    "REJECTED_QUOTE_NOT_FOUND": 1,
+    "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS": 2,
+    "ENRICHMENT_V2_ABSTAINED": 2
+   },
+   "note": "artefatto congelato del pilot 6ee64c5: risposta reale del modello, non rieseguita ora"
+  },
+  "stages_not_implemented": [
+   "stage_14_narrator",
+   "stage_15_narrative_verifier"
+  ],
+  "llm_stages": [
+   "stage_2_casecontext_parser",
+   "stage_9_paper_context_enricher"
+  ],
+  "research_notice": {
+   "runtime": "VERIFIABLE_RESEARCH_RUNTIME",
+   "clinically_validated": false,
+   "not_for_clinical_decision_making": true,
+   "experimental_component": true
+  }
+ }
+}

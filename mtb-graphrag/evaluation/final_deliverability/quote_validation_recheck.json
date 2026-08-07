@@ -1,0 +1,226 @@
+{
+ "cases": [
+  {
+   "case": "A_valid",
+   "outcome": "ENRICHMENT_V2_ACCEPTED",
+   "canonically_accepted": true,
+   "reaches_gates": true,
+   "presentation_state": "VALIDATED_QUOTE",
+   "presentable_as_author_claim": true
+  },
+  {
+   "case": "B_invented",
+   "outcome": "REJECTED_QUOTE_NOT_FOUND",
+   "canonically_accepted": false,
+   "reaches_gates": false,
+   "presentation_state": "REJECTED_QUOTE",
+   "presentable_as_author_claim": false
+  },
+  {
+   "case": "C_altered_one_word",
+   "outcome": "REJECTED_QUOTE_NOT_FOUND",
+   "canonically_accepted": false,
+   "reaches_gates": false,
+   "presentation_state": "REJECTED_QUOTE",
+   "presentable_as_author_claim": false
+  },
+  {
+   "case": "C2_altered_punctuation",
+   "outcome": "ENRICHMENT_V2_ACCEPTED",
+   "canonically_accepted": true,
+   "reaches_gates": true,
+   "presentation_state": "VALIDATED_QUOTE",
+   "presentable_as_author_claim": true
+  },
+  {
+   "case": "D_other_sourceunit",
+   "outcome": "REJECTED_QUOTE_NOT_FOUND",
+   "canonically_accepted": false,
+   "reaches_gates": false,
+   "presentation_state": "REJECTED_QUOTE",
+   "presentable_as_author_claim": false
+  },
+  {
+   "case": "E_other_document",
+   "outcome": "REJECTED_SOURCE_UNIT",
+   "canonically_accepted": false,
+   "reaches_gates": false,
+   "presentation_state": "REJECTED_QUOTE",
+   "presentable_as_author_claim": false
+  },
+  {
+   "case": "F_invented_sourceunit",
+   "outcome": "REJECTED_SOURCE_UNIT",
+   "canonically_accepted": false,
+   "reaches_gates": false,
+   "presentation_state": "REJECTED_QUOTE",
+   "presentable_as_author_claim": false
+  },
+  {
+   "case": "G_abstain",
+   "outcome": "ENRICHMENT_V2_ABSTAINED",
+   "canonically_accepted": false,
+   "reaches_gates": false,
+   "presentation_state": "ABSTAINED",
+   "presentable_as_author_claim": false
+  }
+ ],
+ "canonically_accepted_invalid": 1,
+ "presented_invalid": 1,
+ "invented_sourceunit_accepted": 0,
+ "wrong_document_accepted": 0,
+ "degenerate": {
+  "no_validation": "PROPOSED_QUOTE_NOT_VALIDATED",
+  "unknown_outcome": "REJECTED_QUOTE",
+  "empty_outcome": "PROPOSED_QUOTE_NOT_VALIDATED",
+  "presentable_set": [
+   "VALIDATED_QUOTE"
+  ]
+ },
+ "api_evidence": {
+  "CASE-1-therapy-evaluation-strong-match": {
+   "run_id": "1de60a1c-d06e-4630-b456-6d8ccccf09b0",
+   "status": "COMPLETED",
+   "execution_mode": "REPLAY",
+   "fully_live": false,
+   "replay_artifacts_used": 6,
+   "llm_calls": 0,
+   "stopped_at": null,
+   "origin_counts": {
+    "GENERATED_NOW": 8,
+    "RECORDED_REAL_RUN": 6,
+    "NOT_APPLICABLE": 2
+   },
+   "dossier_http": 200,
+   "author_context_voices": [
+    {
+     "presentation_state": "VALIDATED_QUOTE",
+     "validation_outcome": "ENRICHMENT_V2_ACCEPTED",
+     "accepted_for_gates": true,
+     "has_quote": true
+    }
+   ],
+   "voices_missing_presentation_state": 0,
+   "presentable_but_not_gated": 0,
+   "candidate_count": 1,
+   "statuses": [
+    "PARTIAL"
+   ],
+   "buckets": [
+    "WARNING_BUCKET"
+   ],
+   "provenance_http": 200,
+   "provenance_keys": [
+    "items",
+    "run_id"
+   ]
+  },
+  "CASE-2-therapy-discovery": {
+   "run_id": "53248078-4bc4-4b61-94e4-d0b96d55a37d",
+   "status": "COMPLETED",
+   "execution_mode": "REPLAY",
+   "fully_live": false,
+   "replay_artifacts_used": 6,
+   "llm_calls": 0,
+   "stopped_at": null,
+   "origin_counts": {
+    "GENERATED_NOW": 8,
+    "RECORDED_REAL_RUN": 6,
+    "NOT_APPLICABLE": 2
+   },
+   "dossier_http": 200,
+   "author_context_voices": [
+    {
+     "presentation_state": "REJECTED_QUOTE",
+     "validation_outcome": "REJECTED_QUOTE_NOT_FOUND",
+     "accepted_for_gates": false,
+     "has_quote": true
+    },
+    {
+     "presentation_state": "VALIDATED_QUOTE",
+     "validation_outcome": "ENRICHMENT_V2_ACCEPTED",
+     "accepted_for_gates": true,
+     "has_quote": true
+    }
+   ],
+   "voices_missing_presentation_state": 0,
+   "presentable_but_not_gated": 0,
+   "candidate_count": 1,
+   "statuses": [
+    "DISCOVERED"
+   ],
+   "buckets": [
+    "DISCOVERY_BUCKET"
+   ],
+   "provenance_http": 200,
+   "provenance_keys": [
+    "items",
+    "run_id"
+   ]
+  },
+  "CASE-4-contradicted-or-resistance": {
+   "run_id": "77c75f26-792a-4042-b607-644bf662b135",
+   "status": "COMPLETED",
+   "execution_mode": "REPLAY",
+   "fully_live": false,
+   "replay_artifacts_used": 6,
+   "llm_calls": 0,
+   "stopped_at": null,
+   "origin_counts": {
+    "GENERATED_NOW": 8,
+    "RECORDED_REAL_RUN": 6,
+    "NOT_APPLICABLE": 2
+   },
+   "dossier_http": 200,
+   "author_context_voices": [
+    {
+     "presentation_state": "ABSTAINED",
+     "validation_outcome": "ENRICHMENT_V2_ABSTAINED",
+     "accepted_for_gates": false,
+     "has_quote": false
+    },
+    {
+     "presentation_state": "ABSTAINED",
+     "validation_outcome": "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+     "accepted_for_gates": false,
+     "has_quote": false
+    }
+   ],
+   "voices_missing_presentation_state": 0,
+   "presentable_but_not_gated": 0,
+   "candidate_count": 1,
+   "statuses": [
+    "AMBIGUOUS"
+   ],
+   "buckets": [
+    "WARNING_BUCKET"
+   ],
+   "provenance_http": 200,
+   "provenance_keys": [
+    "items",
+    "run_id"
+   ]
+  },
+  "CASE-5-casecontext-mismatch-no-match": {
+   "run_id": "e70523d7-1926-47a9-963c-054db21a22ba",
+   "status": "STOPPED",
+   "execution_mode": "REPLAY",
+   "fully_live": false,
+   "replay_artifacts_used": 1,
+   "llm_calls": 0,
+   "stopped_at": "RETRIEVAL_NO_MATCH",
+   "origin_counts": {
+    "GENERATED_NOW": 5,
+    "RECORDED_REAL_RUN": 1,
+    "NOT_APPLICABLE": 2,
+    "NOT_EXECUTED": 8
+   },
+   "dossier_http": 409,
+   "provenance_http": 200,
+   "provenance_keys": [
+    "items",
+    "run_id"
+   ]
+  }
+ }
+}
