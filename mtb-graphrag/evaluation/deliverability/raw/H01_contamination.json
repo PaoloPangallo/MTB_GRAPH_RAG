@@ -1,0 +1,76 @@
+{
+ "local_absolute_paths_in_committed_artifacts": [
+  "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/3.0/manifest.json",
+  "benchmarks/mtb_evidence/escat_curation_mvp/rulesets/ESCAT_2018_MATEO_RESEARCH_DRAFT_v1/ruleset.json",
+  "benchmarks/mtb_evidence/escat_curation_mvp/rulesets/ESCAT_2018_MATEO_RESEARCH_DRAFT_v1/source_verification.json",
+  "benchmarks/mtb_evidence/final_experiment/human_annotations/g1_1/calibration/calibration_manifest_g1_1.json",
+  "benchmarks/mtb_evidence/final_experiment/human_annotations/g1_1/calibration_manifest_g1_1.json",
+  "evaluation/rq1_graph_candidate_fidelity/aggregate_metrics.json",
+  "evaluation/rq1_graph_candidate_fidelity/kg_source_fingerprint.json"
+ ],
+ "mock_or_fixture_reachable_from_runtime": [],
+ "module_level_caches_in_runtime": [
+  {
+   "file": "backend/research_pipeline/data_access.py",
+   "lru_cache_count": 2
+  },
+  {
+   "file": "backend/research_pipeline/replay.py",
+   "lru_cache_count": 5
+  },
+  {
+   "file": "backend/research_pipeline/retrieval/kg_retrieval.py",
+   "lru_cache_count": 3
+  },
+  {
+   "file": "backend/research_pipeline/retrieval/repository_v3.py",
+   "lru_cache_count": 3
+  }
+ ],
+ "untracked_experimental_artifacts": [
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_01_input.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_01_output.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_01_summary.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_02_input.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_02_output.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_02_summary.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_03_input.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_03_output.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_03_summary.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_04_input.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_04_output.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/case_04_summary.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-01-fgfr2-direct_input.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-01-fgfr2-direct_output.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-01-fgfr2-direct_summary.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-02-alk-resistance_input.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-02-alk-resistance_output.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-02-alk-resistance_summary.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-03-egfr-limitation_input.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-03-egfr-limitation_output.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-03-egfr-limitation_summary.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-04-rmi2-no-direct_input.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-04-rmi2-no-direct_output.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual-04-rmi2-no-direct_summary.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual_cases_manifest.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/manual_cases_overview.md",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_01_api_response.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_02_api_response.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_03_api_response.json",
+  "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_04_api_response.json"
+ ],
+ "denominators": {
+  "candidates_v2_total": 46864,
+  "evidence_bundles": 25,
+  "distinct_candidates_with_bundle": 16,
+  "distinct_documents": 25,
+  "frozen_enricher_calls": 7,
+  "end_to_end_reachable_fraction": 0.000341
+ },
+ "duplicated_evaluation_rows": {},
+ "materializer_self_comparison": {
+  "rq1_reads_raw_csv_export": true,
+  "rq1_imports_gca_v3_materialize": false,
+  "note": "RQ1 confronta candidates.jsonl con l'export CSV del grafo. Se importasse il materializzatore per generare il proprio atteso, sarebbe self-comparison."
+ }
+}

@@ -1,0 +1,31 @@
+### git status --porcelain
+A  Pipeline.png
+A  architettura/index.html
+A  img.png
+?? Mateo.pdf
+?? architettura/README.md
+?? mtb-graphrag/Relazione_V2_V3_fonti_pipeline_aggiornata.pdf
+?? mtb-graphrag/Relazione_V2_V3_fonti_pipeline_aggiornata.tex
+?? mtb-graphrag/Relazione_V2_V3_fonti_pipeline_revisionata.pdf
+?? mtb-graphrag/Relazione_V2_V3_fonti_pipeline_revisionata.tex
+?? mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/
+?? mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_01_api_response.json
+?? mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_02_api_response.json
+?? mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_03_api_response.json
+?? mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_04_api_response.json
+?? mtb-graphrag/evaluation/deliverability/
+?? mtb-graphrag/scripts/start_v3_product.ps1
+### git status --porcelain --untracked-files=all | wc -l
+41
+### git diff --stat HEAD
+ Pipeline.png            |  Bin 0 -> 1797865 bytes
+ architettura/index.html | 1531 +++++++++++++++++++++++++++++++++++++++++++++++
+ img.png                 |  Bin 0 -> 1494770 bytes
+ 3 files changed, 1531 insertions(+)
+### git diff --cached --stat
+ Pipeline.png            |  Bin 0 -> 1797865 bytes
+ architettura/index.html | 1531 +++++++++++++++++++++++++++++++++++++++++++++++
+ img.png                 |  Bin 0 -> 1494770 bytes
+ 3 files changed, 1531 insertions(+)
+### modified py files
+NONE

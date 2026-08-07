@@ -1,0 +1,37 @@
+stage,step,classification,evidence,blocker
+ENVIRONMENT,Python 3.12 disponibile,REPRODUCIBLE,"README indica python -m venv; nessuna versione minima dichiarata ma il codice usa sintassi 3.10+ (X | Y)",no
+ENVIRONMENT,requirements.txt,PARTIALLY REPRODUCIBLE,"backend/config/requirements.txt: 10 pacchetti, 0 versioni pinnate. 188 pacchetti realmente installati.",no
+ENVIRONMENT,pytest / httpx / pandas / numpy,NOT REPRODUCIBLE,"necessari per test ed evaluation, NON dichiarati in alcun requirements",si
+ENVIRONMENT,lockfile Python,NOT REPRODUCIBLE,"nessun pyproject.toml, poetry.lock, uv.lock o requirements.lock nel repository",no
+ENVIRONMENT,configurazione pytest,NOT REPRODUCIBLE,"nessun pytest.ini/setup.cfg/tox.ini/conftest.py; PYTHONPATH=mtb-graphrag va impostato a mano",no
+ENVIRONMENT,configurazione mypy,NOT REPRODUCIBLE,".mypy_cache/ esiste ma nessun mypy.ini o pyproject.toml e' versionato",no
+ENVIRONMENT,Node + lockfile frontend,REPRODUCIBLE,"frontend/package-lock.json tracciato in git; node 20 / npm 11 funzionanti",no
+ENVIRONMENT,build frontend,NOT REPRODUCIBLE,"npm run build fallisce con 6 errori TS2769 in EligibilityStage.tsx a HEAD, su installazione pulita",si
+DATA,KG sorgente (CSV CIViC/trials),REPRODUCIBLE,"data_expl/DatasetTESI/Dataset TESI/Clean_Graph_Data tracciato in git; 43005 nodi, 60546 archi; corpus_fingerprint 8df07e82",no
+DATA,graph_candidate_repository/2.0,REPRODUCIBLE,"tracciato in git, 46864 record, 72.5 MB, declared_sha256 verificato a runtime",no
+DATA,graph_candidate_repository/3.0,REPRODUCIBLE,"tracciato in git, 46142 record, 111.9 MB, manifest.json + schema.json + lineage_index",no
+DATA,evidence_bundles.jsonl,REPRODUCIBLE,"tracciato in git, 25 bundle, 16 candidate, 25 documenti",no
+DATA,source_unit_index.jsonl,REPRODUCIBLE,"tracciato in git, 3402 unita', SOLO locatori e content_hash, nessun testo",no
+DATA,AuthorizedDocumentCache (testo dei documenti),NOT REPRODUCIBLE,"data_cache/document_grounding assente e gitignored per ragioni di copyright; nessuno script di ripopolamento documentato nel README",si
+DATA,artifact enricher congelati,REPRODUCIBLE WITH DOCUMENTED EXTERNAL DEPENDENCY,"7 chiamate reali registrate al commit 6ee64c5, tracciate in git; il commit vive in un worktree temporaneo",no
+DATA,gold set MTB_Evidence_gold_pilot_v1,NOT REPRODUCIBLE,"gitignored per riservatezza clinica; il manifest con gli hash e' tracciato, i byte no. Scelta corretta e dichiarata.",no
+KG,query Neo4j live,NOT APPLICABLE,"il runtime di ricerca non usa Neo4j; kg_source.neo4j_used = false dichiarato",no
+GCA,materializzazione 2.0,REPRODUCIBLE,"run_rq1.py rieseguito: 6 file su 7 identici, il settimo differisce solo per generated_at",no
+GCA,materializzazione 3.0,REPRODUCIBLE,"run_gca_v3_audit.py rieseguito: 8 file su 9 identici",no
+GCA,selezione della versione a runtime,REPRODUCIBLE,"hardcoded 2.0 in data_access.candidates_path; GRAPH_CANDIDATE_REPOSITORY_VERSION non influenza il runtime",no
+PIPELINE,avvio backend,REPRODUCIBLE WITH DOCUMENTED EXTERNAL DEPENDENCY,"uvicorn backend.api.main:app con PYTHONPATH=mtb-graphrag; richiede .env",no
+PIPELINE,flag VERIFIABLE_PIPELINE_RESEARCH_ENABLED,REPRODUCIBLE,"documentato nel codice; senza il flag ogni rotta di ricerca risponde 404",no
+PIPELINE,esecuzione REPLAY,REPRODUCIBLE,"5 casi congelati eseguiti end-to-end fino al dossier senza rete, llm_calls = 0",no
+PIPELINE,esecuzione LIVE,NOT REPRODUCIBLE,"richiede OLLAMA_API_KEY (segreto, non distribuibile) E data_cache assente; POST /runs risponde 503",si
+PIPELINE,ramo non eleggibile,NOT REPRODUCIBLE,"ISS-001: ogni decisione del gate produce ValueError non gestito attraverso l'orchestratore",si
+EXPERIMENT,run_rq1.py,REPRODUCIBLE,"exit 0, output identico salvo generated_at",no
+EXPERIMENT,run_rq2.py,REPRODUCIBLE WITH DOCUMENTED EXTERNAL DEPENDENCY,"exit 0; ncbi_requests 12 nella run committata, richiede rete NCBI e NCBI_EMAIL per la parte online; supporta --offline",no
+EXPERIMENT,run_rq4.py,REPRODUCIBLE WITH DOCUMENTED EXTERNAL DEPENDENCY,"exit 0; richiede LLM reale, output non deterministico per costruzione; benchmark_sha256 dd639ed0 verificato",no
+EXPERIMENT,run_gca_v3_audit.py,REPRODUCIBLE,"exit 0, 8 file su 9 identici",no
+EXPERIMENT,run_runtime_v3_integration.py,REPRODUCIBLE,"exit 0, 10 file su 11 identici",no
+EXPERIMENT,redirect di OUT negli script,PARTIALLY REPRODUCIBLE,"run_rq1 e run_gca_v3_audit scrivono in evaluation/ anche con OUT sostituito: un revisore che li esegue sovrascrive gli artifact committati",no
+EXPERIMENT,seed di campionamento,REPRODUCIBLE,"nessuna randomness nei sampler: campionamento stratificato deterministico",no
+METRICS,metriche RQ1/RQ2/RQ3/RQ4 pubblicate,REPRODUCIBLE,"nessuna metrica hard-coded; ogni numero e' ricalcolato dagli artifact",no
+METRICS,conteggi dei test dichiarati,REPRODUCIBLE,"3047 backend + 91 evaluation + 195 frontend riprodotti esattamente",no
+METRICS,semantic relevance RQ2,NOT REPRODUCIBLE,"NOT_MEASURED per progetto: richiede annotazione umana. Dichiarato, non rivendicato.",no
+METRICS,campione manuale v3 (70 record),NOT REPRODUCIBLE,"evaluation/gold/rq1_gca_v3_manual_review.csv con colonne del revisore vuote: annotazione mai eseguita",no

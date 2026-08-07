@@ -1,0 +1,1531 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Architettura finale proposta – MTB GraphRAG</title>
+<style>
+/* ==========================================================================
+   Token visivi.
+   Copiati da mtb-graphrag/frontend/src/research/tokens.ts, che è la fonte
+   autoritativa del design system della Research Console. Il principio dichiarato
+   là vale anche qui: il colore arriva dal contenuto, non dalla decorazione.
+   Il coral marca i soli blocchi prodotti da un modello; tutto il resto della
+   pagina resta monocromatico.
+   ========================================================================== */
+:root {
+  --canvas: #ffffff;
+  --black: #000000;
+  --ink: #17171c;
+  --body: #212121;
+  --stone: #eeece7;
+  --deep-green: #003c33;
+  --coral: #ff7759;
+  --coral-soft: #ffad9b;
+  --action-blue: #1863dc;
+  --slate: #75758a;
+  --muted: #93939f;
+  --hairline: #d9d9dd;
+  --border-light: #e5e7eb;
+  --error: #b30000;
+  --error-bg: #fdf0f0;
+  --focus: #4c6ee6;
+
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-pill: 32px;
+
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--body);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { margin: 0; font-weight: 400; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
+}
+
+/* --------------------------------------------------------------------------
+   Notice bar — replica di Notice() in ResearchConsole.tsx
+   -------------------------------------------------------------------------- */
+.notice {
+  background: var(--black);
+  color: #fff;
+  padding: 10px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.notice__tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.notice__text {
+  font-family: var(--font-body);
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   Impalcatura
+   -------------------------------------------------------------------------- */
+.shell {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 16px 80px;
+}
+@media (min-width: 900px) { .shell { padding: 56px 32px 96px; } }
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 900px;
+}
+@media (min-width: 900px) { .hero__title { font-size: 56px; } }
+
+.hero__sub {
+  margin-top: 16px;
+  font-size: 17px;
+  color: var(--slate);
+  max-width: 680px;
+}
+.hero__lede {
+  margin-top: 20px;
+  font-size: 15px;
+  color: var(--body);
+  max-width: 720px;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: var(--stone);
+  color: var(--body);
+  border: none;
+}
+
+/* Chip interattive: tab di vista e selettori di percorso. */
+.chip--btn { cursor: pointer; font-family: var(--font-mono); transition: background 160ms ease, color 160ms ease; }
+.chip--btn[aria-pressed="true"], .chip--btn[aria-selected="true"] { background: var(--ink); color: #fff; }
+
+.section { margin-top: 64px; }
+.section__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section__title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: 6px;
+}
+@media (min-width: 900px) { .section__title { font-size: 32px; } }
+.section__note { margin-top: 10px; color: var(--slate); font-size: 14px; max-width: 720px; }
+
+.rule { border: 0; border-top: 1px solid var(--hairline); margin: 0; }
+
+/* --------------------------------------------------------------------------
+   Barre di controllo
+   -------------------------------------------------------------------------- */
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.bar + .bar { margin-top: 12px; }
+.bar__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 4px;
+}
+
+.path-note {
+  margin-top: 16px;
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--ink);
+  border-radius: var(--r-sm);
+  padding: 14px 18px;
+  background: var(--canvas);
+  max-width: 900px;
+}
+.path-note__title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.path-note__body { margin-top: 6px; font-size: 14.5px; color: var(--body); }
+
+/* --------------------------------------------------------------------------
+   Diagramma + pannello
+   -------------------------------------------------------------------------- */
+/* Il diagramma è largo per natura: le tre fasce affiancate non si comprimono.
+   Perciò la sezione esce dalla colonna di lettura e prende tutta la finestra.
+   Il pannello di dettaglio non le sottrae spazio: vive in sovraimpressione. */
+.stage {
+  margin-top: 24px;
+  width: min(1840px, calc(100vw - 40px));
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.canvas-wrap {
+  border: 1px solid var(--border-light);
+  border-radius: var(--r-md);
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: var(--canvas);
+}
+.canvas-wrap svg { display: block; min-width: 1180px; width: 100%; height: auto; }
+
+.canvas-hint {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+}
+.canvas-hint kbd {
+  font-family: var(--font-mono); font-size: 10px; text-transform: none;
+  background: var(--stone); color: var(--body);
+  border-radius: var(--r-xs); padding: 1px 5px;
+}
+
+.node { cursor: pointer; }
+.node__box { fill: var(--canvas); stroke: var(--hairline); stroke-width: 1.2; transition: opacity 160ms ease, stroke 160ms ease; }
+/* Le misure sono in unità del viewBox: la resa a schermo è quella scalata,
+   quindi il testo qui è più grande di quanto sembri. */
+.node__label { font-family: var(--font-body); font-size: 15px; fill: var(--ink); pointer-events: none; }
+.node__tag {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.09em;
+  text-transform: uppercase; fill: var(--muted); pointer-events: none;
+}
+
+/* Tipi. Il coral esiste solo qui. */
+.node--llm .node__box  { fill: var(--coral); stroke: var(--coral); }
+.node--llm .node__tag  { fill: rgba(23,23,28,0.65); }
+.node--doc .node__box  { fill: var(--stone); stroke: #ded9d0; }
+.node--out .node__box  { fill: var(--deep-green); stroke: var(--deep-green); }
+.node--out .node__label { fill: #ffffff; }
+.node--out .node__tag  { fill: rgba(255,255,255,0.6); }
+.node--stop .node__box { fill: var(--error-bg); stroke: var(--error); }
+.node--stop .node__label { fill: var(--error); }
+.node--stop .node__tag { fill: var(--error); }
+.node--dashed .node__box { fill: var(--canvas); stroke: var(--muted); stroke-dasharray: 5 4; }
+.node--dashed .node__label { fill: var(--muted); }
+.node--llm.node--dashed .node__box { fill: #fff5f2; stroke: var(--coral-soft); }
+.node--llm.node--dashed .node__label { fill: var(--slate); }
+
+.node:hover .node__box { stroke: var(--ink); stroke-width: 1.8; }
+.node--selected .node__box { stroke: var(--focus); stroke-width: 2.4; }
+.node:focus-visible { outline: none; }
+.node:focus-visible .node__box { stroke: var(--focus); stroke-width: 2.4; }
+
+.edge { fill: none; stroke: var(--ink); stroke-width: 1.3; transition: opacity 160ms ease; }
+.edge--dashed { stroke: var(--muted); stroke-dasharray: 5 4; }
+.edge--stop { stroke: var(--error); stroke-dasharray: 5 4; }
+.edge__label {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+  fill: var(--slate); text-transform: uppercase;
+}
+
+.band { fill: none; stroke: var(--hairline); stroke-width: 1; }
+.band__label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.11em;
+  text-transform: uppercase; fill: var(--muted);
+}
+
+/* Attenuazione dei rami non percorsi. */
+.dimmed { opacity: 0.14; }
+.dimmed-edge { opacity: 0.08; }
+
+/* --------------------------------------------------------------------------
+   Pannello di dettaglio — in sovraimpressione.
+   Fluttua sopra il diagramma invece di sottrargli larghezza o di risalire dal
+   basso coprendo proprio la zona che si sta guardando. Si ancora al lato
+   opposto al blocco cliccato, così il nodo di cui si legge resta visibile.
+   -------------------------------------------------------------------------- */
+.panel {
+  position: fixed;
+  top: 50%;
+  z-index: 40;
+  width: min(420px, calc(100vw - 32px));
+  max-height: min(76vh, 720px);
+  overflow-y: auto;
+  padding: 24px;
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  box-shadow: 0 16px 48px rgba(23, 23, 28, 0.16), 0 2px 8px rgba(23, 23, 28, 0.06);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 180ms ease;
+}
+/* Lato di ancoraggio. La traslazione di partenza entra dal bordo corrispondente. */
+.panel--right { right: 24px; transform: translateY(-50%) translateX(20px); }
+.panel--left  { left: 24px;  transform: translateY(-50%) translateX(-20px); }
+.panel.is-open { opacity: 1; pointer-events: auto; transform: translateY(-50%) translateX(0); }
+.panel.is-empty { display: none; }
+
+/* Su schermi stretti il lato non ha più senso: il pannello si appoggia in basso,
+   sempre in sovraimpressione. */
+@media (max-width: 720px) {
+  .panel, .panel--right, .panel--left {
+    top: auto; bottom: 16px; left: 16px; right: 16px; width: auto;
+    max-height: 70vh;
+    transform: translateY(16px);
+  }
+  .panel.is-open { transform: translateY(0); }
+}
+
+.panel__close {
+  float: right; border: 1px solid var(--border-light); background: var(--canvas);
+  border-radius: var(--r-xs); cursor: pointer; color: var(--slate);
+  font-family: var(--font-mono); font-size: 10px; padding: 3px 7px; letter-spacing: 0.06em;
+}
+.panel__badge {
+  display: inline-block; font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 0.09em; text-transform: uppercase; padding: 3px 8px;
+  border-radius: 6px; background: var(--stone); color: var(--body);
+}
+.panel__badge--llm  { background: var(--coral); color: var(--ink); }
+.panel__badge--det  { background: transparent; color: var(--slate); border: 1px solid var(--hairline); }
+.panel__badge--out  { background: var(--deep-green); color: #fff; }
+.panel__badge--stop { background: var(--error-bg); color: var(--error); }
+.panel__badge--opt  { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+.panel__title {
+  font-family: var(--font-display); font-size: 22px; letter-spacing: -0.02em;
+  color: var(--ink); margin-top: 12px; line-height: 1.15;
+}
+.panel__flag {
+  margin-top: 10px; font-size: 12.5px; color: var(--slate);
+  border-left: 2px solid var(--muted); padding-left: 10px;
+}
+.panel__hint { margin-top: 10px; color: var(--slate); font-size: 14px; }
+
+.field { margin-top: 18px; }
+.field__key {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--muted);
+}
+.field__val { margin-top: 4px; font-size: 14px; color: var(--body); }
+.field--split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* --------------------------------------------------------------------------
+   Legenda
+   -------------------------------------------------------------------------- */
+.legend { display: grid; gap: 12px; margin-top: 24px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.legend__item {
+  display: flex; gap: 10px; align-items: flex-start;
+  border: 1px solid var(--border-light); border-radius: var(--r-sm); padding: 12px 14px;
+}
+.swatch { width: 16px; height: 16px; border-radius: var(--r-xs); flex-shrink: 0; margin-top: 2px; border: 1px solid var(--hairline); }
+.swatch--llm  { background: var(--coral); border-color: var(--coral); }
+.swatch--det  { background: var(--canvas); }
+.swatch--out  { background: var(--deep-green); border-color: var(--deep-green); }
+.swatch--doc  { background: var(--stone); border-color: #ded9d0; }
+.swatch--stop { background: var(--error-bg); border-color: var(--error); }
+.swatch--opt  { background: var(--canvas); border-style: dashed; border-color: var(--muted); }
+.legend__name { display: block; font-size: 13.5px; color: var(--ink); font-weight: 600; }
+.legend__desc { display: block; font-size: 12.5px; color: var(--slate); margin-top: 4px; line-height: 1.5; }
+
+/* --------------------------------------------------------------------------
+   Vista per passi — idioma della spina di RunSpine.tsx
+   -------------------------------------------------------------------------- */
+.spine { margin-top: 28px; max-width: 900px; }
+.spine__item { position: relative; }
+.spine__thread {
+  position: absolute; left: 25px; top: 30px; bottom: -2px; width: 1.5px;
+  background: var(--hairline);
+}
+.spine__thread--broken { background: transparent; border-left: 1.5px dashed var(--hairline); }
+.spine__btn {
+  display: flex; gap: 14px; align-items: flex-start; width: 100%; text-align: left;
+  background: none; border: none; padding: 10px 12px 14px 0; cursor: pointer;
+  font-family: inherit; border-radius: var(--r-sm); transition: background 140ms ease;
+}
+.spine__btn:hover { background: #fafafa; }
+.spine__num {
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+  width: 20px; flex-shrink: 0; padding-top: 3px;
+}
+.marker { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--ink); flex-shrink: 0; margin-top: 4px; position: relative; background: var(--canvas); }
+.marker--filled { background: var(--ink); }
+.marker--hollow { border-color: var(--muted); }
+.marker--barred { border-color: var(--error); }
+.marker--barred::after {
+  content: ""; position: absolute; left: -3px; right: -3px; top: 50%;
+  height: 1.5px; background: var(--error);
+}
+.marker--coral { border-color: var(--coral); background: var(--coral); }
+.spine__text { flex: 1; min-width: 0; }
+.spine__title { display: block; font-size: 15px; color: var(--ink); line-height: 1.4; }
+.spine__meta { display: block; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+/* --------------------------------------------------------------------------
+   Principio architetturale
+   -------------------------------------------------------------------------- */
+.principle {
+  margin-top: 72px; background: var(--deep-green); color: #fff;
+  border-radius: var(--r-md); padding: 40px 28px;
+}
+@media (min-width: 900px) { .principle { padding: 56px 48px; } }
+.principle__eyebrow {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.11em;
+  text-transform: uppercase; color: rgba(255,255,255,0.55);
+}
+.principle__list { margin-top: 28px; display: grid; gap: 26px; }
+@media (min-width: 900px) { .principle__list { grid-template-columns: repeat(3, 1fr); gap: 36px; } }
+.principle__item { border-top: 1px solid rgba(255,255,255,0.25); padding-top: 16px; }
+.principle__num { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
+.principle__text {
+  font-family: var(--font-display); font-size: 21px; line-height: 1.25;
+  letter-spacing: -0.015em; margin-top: 10px; color: #fff;
+}
+@media (min-width: 900px) { .principle__text { font-size: 23px; } }
+
+/* --------------------------------------------------------------------------
+   Cosa fa / non fa l'IA
+   -------------------------------------------------------------------------- */
+.duo { display: grid; gap: 20px; margin-top: 28px; }
+@media (min-width: 860px) { .duo { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.duo__col { border: 1px solid var(--border-light); border-radius: var(--r-md); padding: 24px; }
+.duo__col--not { border-color: var(--error); background: var(--error-bg); }
+.duo__head {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--muted);
+}
+.duo__col--not .duo__head { color: var(--error); }
+.duo__title { font-family: var(--font-display); font-size: 22px; letter-spacing: -0.02em; color: var(--ink); margin-top: 6px; }
+.duo__col--not .duo__title { color: var(--error); }
+.duo__list { margin-top: 20px; display: grid; gap: 14px; }
+.duo__row { display: flex; gap: 12px; align-items: flex-start; }
+.duo__row span:last-child { font-size: 14px; color: var(--body); }
+.duo__col--not .duo__row span:last-child { color: #6b1b1b; }
+
+/* --------------------------------------------------------------------------
+   Glossario
+   -------------------------------------------------------------------------- */
+.glossary { margin-top: 24px; max-width: 900px; border-top: 1px solid var(--hairline); }
+.glossary details { border-bottom: 1px solid var(--hairline); }
+.glossary summary {
+  cursor: pointer; padding: 15px 4px; list-style: none;
+  display: flex; align-items: baseline; gap: 12px;
+}
+.glossary summary::-webkit-details-marker { display: none; }
+.glossary summary::after { content: "+"; margin-left: auto; color: var(--muted); font-family: var(--font-mono); font-size: 15px; }
+.glossary details[open] summary::after { content: "–"; }
+.glossary__term { font-size: 15.5px; color: var(--ink); }
+.glossary__kind { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.glossary__def { padding: 0 4px 20px; font-size: 14px; color: var(--body); max-width: 760px; }
+
+.footer { margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--hairline); font-size: 12.5px; color: var(--muted); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.hidden { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="notice">
+  <span class="notice__tag">Verifiable research pipeline</span>
+  <span class="notice__text">Componente sperimentale · non validato clinicamente · non per decisioni cliniche</span>
+</div>
+
+<div class="shell">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <h1 class="hero__title">Architettura finale proposta – MTB GraphRAG</h1>
+    <p class="hero__sub">
+      Pipeline ibrida: comprensione del caso + retrieval e verifiche deterministiche
+      + arricchimento documentale.
+    </p>
+    <p class="hero__lede">
+      Un caso clinico entra scritto in linguaggio libero e ne esce un dossier per il Molecular
+      Tumor Board. Nel mezzo, due soli passaggi sono affidati a un modello linguistico: capire
+      il testo del caso, e cercare una frase degli autori dentro un articolo. Tutto il resto —
+      la ricerca nel grafo, i controlli, i gate, la tracciabilità delle fonti — è fatto da regole
+      esplicite, ripetibili e ispezionabili. Clicca un blocco del diagramma per vedere cosa fa,
+      cosa controlla e cosa succede quando qualcosa non torna.
+    </p>
+    <div class="chips">
+      <span class="chip">L'LLM interpreta</span>
+      <span class="chip">Il core decide</span>
+      <span class="chip">Il dossier resta tracciabile</span>
+    </div>
+  </header>
+
+  <!-- ===================== CONTROLLI ===================== -->
+  <section class="section" aria-labelledby="mappa-title">
+    <p class="section__eyebrow">Mappa interattiva</p>
+    <h2 class="section__title" id="mappa-title">Dal testo clinico al dossier</h2>
+    <p class="section__note">
+      Scegli come guardare la pipeline, poi evidenzia un percorso per vedere quali blocchi
+      vengono attraversati e quali restano fuori.
+    </p>
+
+    <div class="bar" role="tablist" aria-label="Modo di visualizzazione" style="margin-top:24px">
+      <span class="bar__label">Vista</span>
+      <button class="chip chip--btn" role="tab" id="tab-diagram" aria-selected="true" data-view="diagram">Vista diagramma</button>
+      <button class="chip chip--btn" role="tab" id="tab-steps" aria-selected="false" data-view="steps">Vista per passi</button>
+    </div>
+
+    <div class="bar" id="path-bar" role="group" aria-label="Percorso da evidenziare">
+      <span class="bar__label">Percorso</span>
+      <!-- popolato da JS -->
+    </div>
+
+    <div class="path-note" id="path-note">
+      <p class="path-note__title" id="path-note-title">Panoramica</p>
+      <p class="path-note__body" id="path-note-body"></p>
+    </div>
+  </section>
+
+  <!-- ===================== DIAGRAMMA ===================== -->
+  <div class="stage" id="view-diagram">
+    <p class="canvas-hint">
+      Clicca un blocco per aprirne la scheda. Da tastiera: <kbd>Tab</kbd> per spostarsi,
+      <kbd>Invio</kbd> per aprire, <kbd>Esc</kbd> per chiudere.
+    </p>
+    <div class="canvas-wrap">
+      <svg id="diagram" viewBox="0 0 1500 990" role="img"
+           aria-label="Diagramma dell'architettura MTB GraphRAG: moduli LLM, core deterministico, output">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L9,5 L0,9 z" fill="#17171c"></path>
+          </marker>
+          <marker id="ah-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L9,5 L0,9 z" fill="#93939f"></path>
+          </marker>
+          <marker id="ah-stop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L9,5 L0,9 z" fill="#b30000"></path>
+          </marker>
+        </defs>
+        <g id="layer-bands"></g>
+        <g id="layer-edges"></g>
+        <g id="layer-nodes"></g>
+      </svg>
+    </div>
+
+    <aside class="panel is-empty" id="panel" aria-live="polite" aria-label="Dettaglio del blocco selezionato">
+      <div id="panel-content"></div>
+    </aside>
+  </div>
+
+  <!-- ===================== VISTA PER PASSI ===================== -->
+  <div id="view-steps" class="hidden">
+    <ol class="spine" id="spine" aria-label="I passi della pipeline"></ol>
+  </div>
+
+  <!-- ===================== LEGENDA ===================== -->
+  <section class="section" aria-labelledby="legenda-title">
+    <p class="section__eyebrow">Legenda</p>
+    <h2 class="section__title" id="legenda-title">Come leggere il diagramma</h2>
+    <p class="section__note">
+      Il colore non porta mai da solo l'informazione: ogni blocco dichiara anche a parole
+      il proprio tipo, e resta leggibile in scala di grigi.
+    </p>
+    <div class="legend">
+      <div class="legend__item"><span class="swatch swatch--llm"></span><span>
+        <span class="legend__name">Modulo LLM</span>
+        <span class="legend__desc">Prodotto da un modello linguistico. È l'unica cosa colorata in pieno: si vede a colpo d'occhio quanto poco è affidato al modello.</span>
+      </span></div>
+      <div class="legend__item"><span class="swatch swatch--det"></span><span>
+        <span class="legend__name">Core deterministico</span>
+        <span class="legend__desc">Regole esplicite. Stesso input, stesso output, sempre. Nessun modello interviene.</span>
+      </span></div>
+      <div class="legend__item"><span class="swatch swatch--doc"></span><span>
+        <span class="legend__name">Snodo documentale</span>
+        <span class="legend__desc">Il momento in cui si decide se un documento porta o no una prova: QUOTE, ABSTAIN, esito della verifica.</span>
+      </span></div>
+      <div class="legend__item"><span class="swatch swatch--out"></span><span>
+        <span class="legend__name">Output</span>
+        <span class="legend__desc">Gli artefatti finali: il dossier strutturato e il dossier leggibile per il board.</span>
+      </span></div>
+      <div class="legend__item"><span class="swatch swatch--stop"></span><span>
+        <span class="legend__name">Stop / rigetto</span>
+        <span class="legend__desc">Arresto controllato o scarto di un contributo non verificato. È un esito previsto, non un guasto.</span>
+      </span></div>
+      <div class="legend__item"><span class="swatch swatch--opt"></span><span>
+        <span class="legend__name">Opzionale · non implementato</span>
+        <span class="legend__desc">Blocco previsto dall'architettura ma non ancora realizzato. Tratteggiato per non farlo sembrare attivo.</span>
+      </span></div>
+    </div>
+  </section>
+
+  <!-- ===================== PRINCIPIO ===================== -->
+  <section class="principle" aria-labelledby="principio-title">
+    <p class="principle__eyebrow">Principio architetturale</p>
+    <h2 class="visually-hidden" id="principio-title">Principio architetturale</h2>
+    <div class="principle__list">
+      <div class="principle__item">
+        <p class="principle__num">01</p>
+        <p class="principle__text">L'LLM interpreta il caso e riporta quote, ma non decide lo status clinico.</p>
+      </div>
+      <div class="principle__item">
+        <p class="principle__num">02</p>
+        <p class="principle__text">Retrieval, controlli, gate e provenance restano deterministici.</p>
+      </div>
+      <div class="principle__item">
+        <p class="principle__num">03</p>
+        <p class="principle__text">Il dossier finale è tracciabile, verificabile e capace di astensione.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== IA SÌ / IA NO ===================== -->
+  <section class="section" aria-labelledby="ia-title">
+    <p class="section__eyebrow">Perimetro del modello</p>
+    <h2 class="section__title" id="ia-title">Cosa fa l'IA e cosa non fa</h2>
+    <p class="section__note">
+      La domanda che il relatore porrà per prima. La risposta è delimitata per costruzione:
+      i due blocchi coral del diagramma sono l'intero perimetro del modello.
+    </p>
+    <div class="duo">
+      <div class="duo__col">
+        <p class="duo__head">Perimetro consentito</p>
+        <h3 class="duo__title">L'IA fa</h3>
+        <div class="duo__list">
+          <div class="duo__row"><span class="marker marker--coral"></span><span>Trasforma il testo clinico libero in un CaseContext strutturato, indicando per ogni campo la frase da cui l'ha ricavato.</span></div>
+          <div class="duo__row"><span class="marker marker--coral"></span><span>Legge in modo mirato i pochi paper che le regole di selezione le hanno messo davanti.</span></div>
+          <div class="duo__row"><span class="marker marker--coral"></span><span>Propone una citazione degli autori, oppure dichiara di astenersi.</span></div>
+          <div class="duo__row"><span class="marker marker--hollow"></span><span>Eventualmente racconta in prosa il dossier già costruito — passaggio previsto ma non ancora implementato.</span></div>
+        </div>
+      </div>
+      <div class="duo__col duo__col--not">
+        <p class="duo__head">Fuori perimetro</p>
+        <h3 class="duo__title">L'IA non fa</h3>
+        <div class="duo__list">
+          <div class="duo__row"><span class="marker marker--barred"></span><span>Non decide la classificazione clinica finale.</span></div>
+          <div class="duo__row"><span class="marker marker--barred"></span><span>Non sostituisce i gate deterministici.</span></div>
+          <div class="duo__row"><span class="marker marker--barred"></span><span>Non modifica la provenance.</span></div>
+          <div class="duo__row"><span class="marker marker--barred"></span><span>Non promuove automaticamente evidenze non validate.</span></div>
+          <div class="duo__row"><span class="marker marker--barred"></span><span>Non aggira la validazione letterale.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GLOSSARIO ===================== -->
+  <section class="section" aria-labelledby="glossario-title">
+    <p class="section__eyebrow">Glossario</p>
+    <h2 class="section__title" id="glossario-title">Dieci termini, in parole semplici</h2>
+    <div class="glossary" id="glossary"></div>
+  </section>
+
+  <p class="footer">
+    Pagina statica autosufficiente. Nessuna libreria, nessuna richiesta di rete, nessun dato
+    del paziente. Il diagramma è generato in pagina a partire dalla descrizione dei blocchi.
+  </p>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ======================================================================
+     1. MODELLO DATI
+     Diagramma, pannelli, percorsi e vista per passi leggono tutti da qui:
+     non esistono due verità sullo stesso blocco.
+     ====================================================================== */
+
+  var NODES = [
+    /* ---------------- Colonna 1 — Moduli LLM ---------------- */
+    {
+      id: "testo-clinico", label: "Testo clinico libero", kind: "neutral",
+      x: 55, y: 175, w: 220, h: 48,
+      detail: {
+        badge: "Ingresso", badgeClass: "",
+        ruolo: "È il punto di ingresso: la descrizione del caso scritta in linguaggio libero, come la scriverebbe un clinico.",
+        input: "Nessuno: è ciò che entra nel sistema.",
+        output: "Il testo originale, che resta conservato e non viene mai riscritto.",
+        perche: "Non si chiede al clinico di compilare moduli o campi strutturati. La struttura la ricava il sistema, e resta sempre confrontabile con il testo di partenza.",
+        controlla: "Nulla. È materiale grezzo.",
+        rischi: "Un caso descritto in modo troppo vago produrrà un CaseContext povero, che i controlli successivi fermeranno invece di completare a indovinare.",
+        prosegue: "Viene passato al parser LLM, e resta disponibile per tutti i confronti letterali successivi."
+      }
+    },
+    {
+      id: "llm-parser", label: "LLM CaseContext\nParser", kind: "llm", tag: "LLM",
+      x: 55, y: 270, w: 220, h: 58,
+      detail: {
+        badge: "Modulo LLM", badgeClass: "panel__badge--llm",
+        ruolo: "Legge il testo libero e propone una versione strutturata del caso: malattia, biomarcatori, terapie già ricevute, terapia su cui si chiede un parere.",
+        input: "Il testo clinico libero.",
+        output: "Una proposta di CaseContext, in cui ogni campo porta con sé la frase esatta del testo da cui è stato ricavato.",
+        perche: "È l'unico punto in cui serve davvero comprendere il linguaggio naturale. Nessuna regola scritta a mano riesce a leggere una cartella clinica.",
+        controlla: "Niente. Propone soltanto: non è lui a stabilire se la sua proposta è corretta.",
+        rischi: "Può inventare un valore, normalizzarlo male, o indicare una frase di origine che nel testo non esiste. Per questo la sua proposta non viene mai usata così com'è.",
+        prosegue: "Ogni campo proposto passa al Match Verifier, che lo confronta con il testo originale."
+      }
+    },
+    {
+      id: "casecontext", label: "CaseContext\nstrutturato", kind: "neutral",
+      x: 55, y: 375, w: 220, h: 56,
+      detail: {
+        badge: "Artefatto", badgeClass: "",
+        ruolo: "La forma strutturata del caso: i campi che la pipeline sa usare, ciascuno legato alla frase del testo che lo giustifica.",
+        input: "La proposta del parser.",
+        output: "L'oggetto su cui lavorano tutti gli stadi successivi.",
+        perche: "Il retrieval e i controlli hanno bisogno di campi espliciti, non di prosa. E hanno bisogno di sapere da dove viene ogni campo.",
+        controlla: "Nulla di per sé: è un dato, non un controllo. Ma trasporta le frasi di origine che rendono possibile il controllo.",
+        rischi: "Se un campo arriva senza frase di origine, non è verificabile: il Match Verifier lo tratta come non attendibile.",
+        prosegue: "Va al CaseContext Match Verifier, che è il primo blocco del core deterministico."
+      }
+    },
+
+    /* ---------------- Colonna 2 — Core deterministico ---------------- */
+    {
+      id: "mismatch-stop", label: "MISMATCH essenziale\n→ Stop / richiesta di revisione", kind: "stop", tag: "Stop",
+      x: 680, y: 168, w: 300, h: 58,
+      detail: {
+        badge: "Arresto controllato", badgeClass: "panel__badge--stop",
+        ruolo: "L'arresto controllato. Quando un campo essenziale del caso non trova riscontro nel testo, la pipeline non prosegue.",
+        input: "L'esito negativo del Match Verifier.",
+        output: "Un arresto motivato, con l'indicazione di quale campo non ha superato il controllo.",
+        perche: "Meglio nessuna risposta che una risposta costruita su un dato che il testo non contiene. È la garanzia più importante dell'intera architettura.",
+        controlla: "È esso stesso l'esito di un controllo.",
+        rischi: "Un caso scritto in modo ambiguo può fermarsi anche quando sarebbe recuperabile. È un costo accettato: il sistema chiede una revisione umana invece di procedere.",
+        prosegue: "Non prosegue. Nessun retrieval, nessun documento, nessun dossier."
+      }
+    },
+    {
+      id: "match-verifier", label: "CaseContext\nMatch Verifier", kind: "det",
+      x: 340, y: 245, w: 195, h: 56,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "Confronta ogni campo del CaseContext con il testo clinico originale, cercando la frase citata parola per parola.",
+        input: "Il CaseContext proposto e il testo clinico originale.",
+        output: "Un esito per ciascun campo: corrisponde, incerto, assente, oppure non corrisponde.",
+        perche: "È il punto in cui l'interpretazione del modello viene messa alla prova. Senza questo controllo, un'invenzione del parser entrerebbe nel resto della pipeline come se fosse un dato del paziente.",
+        controlla: "Che la frase citata esista davvero nel testo; che il valore normalizzato non si allontani da quella frase; che l'intenzione della domanda sia coerente con i campi presenti.",
+        rischi: "Qui non si chiede al modello di confermare sé stesso: il confronto è testuale. Se una frase compare più volte e non è chiaro a quale ci si riferisca, l'esito è «incerto», non «corrisponde».",
+        prosegue: "Se un campo essenziale non corrisponde, la pipeline si ferma. Altrimenti si prosegue verso il retrieval, portandosi dietro gli eventuali avvisi."
+      }
+    },
+    {
+      id: "match-uncertain", label: "MATCH / UNCERTAIN gestibile\n→ Retrieval deterministico", kind: "det",
+      x: 330, y: 330, w: 245, h: 52,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "Il via libera al retrieval. Si arriva qui quando i campi essenziali corrispondono, oppure sono incerti ma segnalati esplicitamente.",
+        input: "Gli esiti del Match Verifier.",
+        output: "Il permesso di interrogare il knowledge graph, con gli avvisi che accompagneranno il caso fino al dossier.",
+        perche: "«Incerto» non è «sbagliato». Fermare anche gli incerti renderebbe il sistema inutilizzabile; ignorarli lo renderebbe inaffidabile. La terza via è procedere dichiarandolo.",
+        controlla: "Che ogni incertezza rimasta sia registrata e visibile, non silenziosa.",
+        rischi: "Se gli avvisi non venissero riportati fino in fondo, il dossier sembrerebbe più solido di quanto sia.",
+        prosegue: "Da qui in avanti tutto è deterministico, fino al solo arricchimento documentale."
+      }
+    },
+    {
+      id: "query-kg", label: "Query Knowledge Graph", kind: "det",
+      x: 340, y: 410, w: 215, h: 40,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "Interroga il knowledge graph con i campi del caso, cercando le associazioni pertinenti.",
+        input: "Il CaseContext verificato.",
+        output: "Le associazioni del grafo compatibili con malattia, biomarcatori e intenzione della domanda.",
+        perche: "È qui che il caso incontra la conoscenza accumulata. La ricerca è fatta da regole esplicite: nessun modello sceglie cosa cercare né cosa restituire.",
+        controlla: "La compatibilità tra i campi del caso e le associazioni presenti nel grafo.",
+        rischi: "Se il grafo non contiene nulla di compatibile, la pipeline si ferma dicendo che non ci sono candidate. Non inventa alternative.",
+        prosegue: "Le associazioni trovate diventano GraphCandidateAssertion."
+      }
+    },
+    {
+      id: "gca", label: "GraphCandidateAssertion", kind: "det",
+      x: 340, y: 465, w: 215, h: 40,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "L'unità di lavoro della pipeline: un'affermazione candidata, proposta dal grafo, su una relazione tra un caso come questo e un intervento.",
+        input: "I risultati dell'interrogazione del grafo.",
+        output: "Una o più candidate, ciascuna con la propria direzione dichiarata (l'intervento risulta favorevole, oppure resistente) e i propri riferimenti documentali.",
+        perche: "Serve un oggetto preciso su cui applicare controlli, documenti e verifiche. «Il grafo propone» e «un documento prova» devono restare due cose distinte, e questa è la prima delle due.",
+        controlla: "Nulla direttamente. È una proposta, e viene trattata come tale fino alla fine.",
+        rischi: "Il rischio è confondere una proposta del grafo con una prova documentale. Tutta la parte successiva della pipeline esiste per impedirlo.",
+        prosegue: "Da qui partono due rami paralleli: la catena documentale, in basso, e i gate deterministici, in alto a destra."
+      }
+    },
+    {
+      id: "doc-resolver", label: "DocumentResolver", kind: "det",
+      x: 340, y: 520, w: 215, h: 40,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "Trova i documenti reali a cui la candidate fa riferimento.",
+        input: "I riferimenti documentali della candidate.",
+        output: "I documenti effettivamente disponibili, oppure l'indicazione esplicita che un documento non lo è.",
+        perche: "Un riferimento bibliografico non è una prova. Serve il documento vero, o la dichiarazione che manca.",
+        controlla: "Che il documento esista e sia raggiungibile.",
+        rischi: "Un documento non disponibile resta segnalato come tale: non viene sostituito con qualcosa di simile, né dato per buono.",
+        prosegue: "I documenti risolti vengono spezzati in SourceUnit."
+      }
+    },
+    {
+      id: "documenti", label: "Documenti", kind: "det",
+      x: 340, y: 575, w: 215, h: 40,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "I documenti recuperati: articoli, abstract, registrazioni di studi clinici.",
+        input: "L'esito della risoluzione documentale.",
+        output: "Il materiale testuale su cui si potrà cercare una citazione.",
+        perche: "È la base di ogni affermazione verificabile. Se non c'è testo, non ci può essere citazione, e quindi non ci può essere arricchimento.",
+        controlla: "Nulla: è materiale.",
+        rischi: "Documenti presenti ma senza testo utilizzabile. In quel caso la selezione dei paper li scarta con un motivo esplicito.",
+        prosegue: "Ogni documento viene suddiviso in SourceUnit."
+      }
+    },
+    {
+      id: "source-unit", label: "SourceUnit", kind: "det",
+      x: 340, y: 630, w: 215, h: 40,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "I singoli passaggi di testo di un documento, ciascuno con la propria posizione e la propria identità.",
+        input: "I documenti risolti.",
+        output: "Passaggi di testo indirizzabili, a cui una citazione potrà essere ricondotta con precisione.",
+        perche: "Dire «lo dice quell'articolo» non basta. Serve poter dire quale punto dell'articolo, e poterlo ricontrollare.",
+        controlla: "Che ogni passaggio sia riconducibile al documento da cui proviene.",
+        rischi: "Se un documento non è interpretabile, le sue SourceUnit restano senza testo, e nessuna citazione potrà appoggiarsi ad esse.",
+        prosegue: "Vanno alla selezione dei paper, e restano il riferimento contro cui verrà verificata ogni citazione."
+      }
+    },
+    {
+      id: "selezione-paper", label: "Selezione deterministica paper", kind: "det",
+      x: 330, y: 685, w: 235, h: 40,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "Sceglie, con criteri fissi e ordinati, quali documenti vale la pena far leggere al modello — al massimo due per candidate.",
+        input: "I documenti e le SourceUnit disponibili per la candidate.",
+        output: "Uno o due paper selezionati, e l'elenco degli esclusi con il motivo dell'esclusione.",
+        perche: "Il modello non deve poter scegliere cosa leggere: sceglierebbe ciò che conferma. La scelta è fatta prima, da regole scritte, ed è ripetibile.",
+        controlla: "Che il testo sia disponibile, che la provenienza sia valida, che non ci siano duplicati, e che si dia precedenza all'evidenza più diretta.",
+        rischi: "Se nessun documento supera i criteri, il modello non viene chiamato affatto — e questo viene detto, non nascosto.",
+        prosegue: "I paper selezionati, non più di due, vengono passati al Paper Context Enricher."
+      }
+    },
+    {
+      id: "paper-enricher", label: "Paper Context\nEnricher", kind: "llm", tag: "LLM",
+      x: 340, y: 765, w: 215, h: 58,
+      detail: {
+        badge: "Modulo LLM", badgeClass: "panel__badge--llm",
+        ruolo: "Legge i paper selezionati e cerca una frase degli autori che parli davvero della candidate in esame.",
+        input: "Al massimo uno o due paper per candidate, più il contesto minimo necessario a capire cosa cercare.",
+        output: "Una citazione proposta, con il passaggio esatto da cui proviene — oppure una dichiarazione di astensione.",
+        perche: "È il secondo e ultimo punto in cui serve leggere il linguaggio naturale: un articolo scientifico non si interroga con una query.",
+        controlla: "Niente. È deliberatamente privato di ogni potere decisionale: non stabilisce lo status clinico, non assegna gate, non tocca la provenance, non promuove nulla.",
+        rischi: "Può proporre una citazione approssimativa, ricomposta da frammenti, oppure presa da un punto che non riguarda l'intervento richiesto. Per questo ogni citazione passa dalla validazione letterale prima di contare qualcosa.",
+        prosegue: "La sua risposta può essere di due tipi soltanto: una citazione, oppure un'astensione."
+      }
+    },
+    {
+      id: "quote-abstain", label: "QUOTE o\nABSTAIN", kind: "doc", shape: "diamond",
+      x: 597, y: 747, w: 136, h: 92,
+      detail: {
+        badge: "Snodo documentale", badgeClass: "",
+        ruolo: "Lo snodo che separa i due soli esiti ammessi per il modello che legge i paper.",
+        input: "La risposta del Paper Context Enricher.",
+        output: "Il ramo QUOTE, oppure il ramo ABSTAIN.",
+        perche: "Costringere il modello a una scelta binaria elimina la zona grigia in cui di solito nascono le affermazioni non verificabili. O c'è una frase da citare, o non c'è.",
+        controlla: "Che la risposta sia effettivamente dell'uno o dell'altro tipo, e che un'astensione non arrivi accompagnata da campi compilati.",
+        rischi: "Un'astensione mascherata da citazione, o una citazione dichiarata come astensione. Entrambe vengono intercettate qui.",
+        prosegue: "QUOTE va alla validazione letterale. ABSTAIN va al ramo del warning, senza arricchimento."
+      }
+    },
+    {
+      id: "validazione-letterale", label: "Validazione letterale", kind: "det",
+      x: 775, y: 675, w: 170, h: 40,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "Verifica che la citazione proposta esista, parola per parola, nel passaggio indicato.",
+        input: "La citazione proposta e il passaggio di origine dichiarato dal modello.",
+        output: "Citazione valida, oppure motivo preciso del rigetto.",
+        perche: "È il controllo che rende affidabile l'intero arricchimento documentale. Senza, «l'articolo dice che...» resterebbe una parola del modello.",
+        controlla: "Che il passaggio indicato esista e appartenga davvero a quel paper; che la citazione compaia identica in quel passaggio; che non sia stata ricomposta saltando pezzi; che l'intervento in questione compaia davvero nel brano; che l'eventuale riassunto non introduca nulla che la citazione non contenga, né raccomandazioni cliniche.",
+        rischi: "Nessuno per il sistema: ogni dubbio si risolve sempre rigettando.",
+        prosegue: "All'esito «quote valida?»."
+      }
+    },
+    {
+      id: "quote-valida", label: "Quote\nvalida?", kind: "doc", shape: "diamond",
+      x: 965, y: 661, w: 110, h: 68,
+      detail: {
+        badge: "Snodo documentale", badgeClass: "",
+        ruolo: "L'esito della verifica letterale.",
+        input: "Il risultato della validazione.",
+        output: "Sì, oppure no.",
+        perche: "Rende esplicito e visibile il momento in cui una proposta del modello diventa — o non diventa — parte del dossier.",
+        controlla: "È esso stesso l'esito di un controllo.",
+        rischi: "Nessuno: entrambe le uscite sono previste e trattate.",
+        prosegue: "Sì → Author Context validato. No → Rigetto enrichment."
+      }
+    },
+    {
+      id: "rigetto-enrichment", label: "Rigetto\nenrichment", kind: "stop", tag: "Scarto",
+      x: 1105, y: 669, w: 110, h: 52,
+      detail: {
+        badge: "Scarto", badgeClass: "panel__badge--stop",
+        ruolo: "Lo scarto di una citazione che non ha superato la verifica letterale.",
+        input: "Una citazione rigettata.",
+        output: "Nessun arricchimento, e la registrazione del motivo del rigetto.",
+        perche: "Una citazione non verificata non deve poter influenzare niente. Non in parte, non «con riserva»: per niente.",
+        controlla: "Che il contributo rigettato non raggiunga i gate, non modifichi lo status, non tocchi la provenance.",
+        rischi: "Il rischio che questo blocco elimina è precisamente il più grave: un'affermazione attribuita a un articolo che non la contiene.",
+        prosegue: "La candidate viene trattata come se il modello si fosse astenuto, e il dossier riporta che c'è stato un rigetto."
+      }
+    },
+    {
+      id: "author-context", label: "Author Context\nvalidato", kind: "det",
+      x: 950, y: 765, w: 150, h: 50,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "La citazione degli autori, verificata, allegata alla candidate.",
+        input: "Una citazione che ha superato la verifica letterale.",
+        output: "Un contributo documentale utilizzabile dai gate e riportato nel dossier.",
+        perche: "È l'unico modo in cui un documento può influenzare la valutazione. Nessun'altra strada è ammessa.",
+        controlla: "Nulla di nuovo: porta con sé i controlli che ha già superato.",
+        rischi: "Che venga letto come una raccomandazione. Nel dossier resta una sezione separata: quello che dicono gli autori, non quello che decide il sistema.",
+        prosegue: "Entra nei gate come testimonianza da confrontare con la direzione dichiarata dalla candidate, e compare nel dossier finale."
+      }
+    },
+    {
+      id: "warning-nessun", label: "Warning /\nnessun arricchimento", kind: "doc", tag: "Avviso",
+      x: 775, y: 845, w: 180, h: 52,
+      detail: {
+        badge: "Esito documentale", badgeClass: "",
+        ruolo: "L'esito quando il modello si astiene: la candidate resta, ma senza contributo documentale.",
+        input: "Un'astensione.",
+        output: "Un avviso esplicito, che accompagna la candidate fino al dossier.",
+        perche: "L'astensione non è un fallimento. È il comportamento corretto quando il paper non contiene una frase pertinente, ed è preferibile a una citazione forzata.",
+        controlla: "Che l'assenza di arricchimento sia dichiarata, e non semplicemente invisibile.",
+        rischi: "Se l'avviso non arrivasse al dossier, una candidate senza alcun sostegno documentale sembrerebbe uguale a una sostenuta da una citazione verificata.",
+        prosegue: "La candidate arriva al dossier con l'avviso che nessun documento l'ha confermata."
+      }
+    },
+    {
+      id: "gate-verifiche", label: "Gate e verifiche\ndeterministiche", kind: "det",
+      x: 665, y: 459, w: 190, h: 52,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "Applica le regole di decisione, combinando ciò che il grafo propone con ciò che i documenti verificati confermano.",
+        input: "La candidate e i soli arricchimenti che hanno superato la validazione.",
+        output: "La valutazione della candidate.",
+        perche: "È il cuore decisionale del sistema, ed è deliberatamente fatto di regole leggibili, non di un modello. Chiunque può ripercorrerle.",
+        controlla: "Se la testimonianza documentale concorda con la direzione dichiarata dalla candidate, se la contraddice, oppure se parla d'altro.",
+        rischi: "Nessuno introdotto qui: i materiali non validati non arrivano nemmeno a questo punto.",
+        prosegue: "Produce support mask, provenance e status."
+      }
+    },
+    {
+      id: "support-mask", label: "Support mask /\nprovenance / status", kind: "det",
+      x: 665, y: 545, w: 190, h: 52,
+      detail: {
+        badge: "Deterministico", badgeClass: "panel__badge--det",
+        ruolo: "Il riassunto verificabile della candidate: quali aspetti risultano sostenuti, da dove viene ogni informazione, e a quale conclusione si arriva.",
+        input: "L'esito dei gate.",
+        output: "La scheda di sostegno della candidate, pronta per il dossier.",
+        perche: "Il dossier non deve dire solo «sì» o «no», ma su cosa poggia ogni parte della risposta, e cosa invece è rimasto senza sostegno.",
+        controlla: "Che ogni affermazione porti con sé la propria origine.",
+        rischi: "Se le origini non fossero distinte, un'affermazione proposta dal grafo e una confermata da un documento sembrerebbero equivalenti.",
+        prosegue: "Confluisce nel dossier strutturato."
+      }
+    },
+
+    /* ---------------- Colonna 3 — Output ---------------- */
+    {
+      id: "dossier-strutturato", label: "Dossier\nstrutturato", kind: "out",
+      x: 1265, y: 600, w: 185, h: 52,
+      detail: {
+        badge: "Output", badgeClass: "panel__badge--out",
+        ruolo: "La raccolta completa e ordinata di tutto quello che la pipeline ha stabilito: caso, verifiche, candidate, citazioni, esiti dei gate, avvisi e limitazioni.",
+        input: "Le candidate valutate e le verifiche del caso.",
+        output: "Un documento strutturato, completo e tracciabile.",
+        perche: "È l'artefatto verificabile. Da qui si può risalire da ogni affermazione fino al testo che la sostiene.",
+        controlla: "Che le tre parti restino separate: quello che il sistema ha stabilito, quello che dicono gli autori, e quello che il sistema dichiara di non poter garantire.",
+        rischi: "Un dossier che mescolasse le tre parti sarebbe più scorrevole ma non più verificabile.",
+        prosegue: "È già la risposta. Può essere presentato così, oppure riscritto in prosa."
+      }
+    },
+    {
+      id: "llm-narrator", label: "LLM Dossier\nNarrator (opzionale)", kind: "llm", dashed: true, tag: "LLM · non impl.",
+      x: 1265, y: 680, w: 185, h: 58,
+      detail: {
+        badge: "LLM · opzionale", badgeClass: "panel__badge--llm",
+        flag: "Previsto dal contratto architetturale, ma non ancora implementato: nelle esecuzioni reali questo passaggio risulta sempre non eseguito.",
+        ruolo: "Riscriverebbe il dossier strutturato in prosa leggibile, senza aggiungere contenuto.",
+        input: "Il dossier strutturato.",
+        output: "Una versione narrativa dello stesso contenuto.",
+        perche: "Un dossier strutturato è preciso ma faticoso da leggere in riunione. La prosa aiuta, purché non aggiunga nulla.",
+        controlla: "Niente. E non deve introdurre nulla che non sia già nel dossier strutturato.",
+        rischi: "Il rischio tipico di ogni riscrittura automatica: aggiungere sfumature, ammorbidire un'incertezza, trasformare una candidate in una raccomandazione. È esattamente per questo che il blocco successivo esiste.",
+        prosegue: "Alla verifica della narrazione. Oggi, non essendo implementato, il dossier leggibile deriva direttamente dalla forma strutturata."
+      }
+    },
+    {
+      id: "narrative-verifier", label: "Narrative\nVerifier", kind: "det", dashed: true, tag: "Non impl.",
+      x: 1265, y: 764, w: 185, h: 52,
+      detail: {
+        badge: "Deterministico · opzionale", badgeClass: "panel__badge--opt",
+        flag: "Previsto dal contratto architetturale, ma non ancora implementato: come il narratore, resta un passaggio dichiarato e non eseguito.",
+        ruolo: "Verificherebbe che il testo narrato non affermi nulla che il dossier strutturato non contenga.",
+        input: "La narrazione e il dossier strutturato.",
+        output: "Narrazione approvata, oppure segnalazione delle aggiunte non giustificate.",
+        perche: "Senza questo controllo, la comodità della prosa costerebbe la verificabilità dell'intero sistema.",
+        controlla: "La corrispondenza tra ciò che il testo afferma e ciò che il dossier sostiene.",
+        rischi: "Nessuno: in caso di dubbio resta valida la forma strutturata.",
+        prosegue: "Al dossier leggibile per il board."
+      }
+    },
+    {
+      id: "dossier-leggibile", label: "Dossier leggibile\nper MTB", kind: "out",
+      x: 1265, y: 845, w: 185, h: 52,
+      detail: {
+        badge: "Output", badgeClass: "panel__badge--out",
+        ruolo: "Il documento che arriva al Molecular Tumor Board.",
+        input: "Il dossier strutturato, eventualmente narrato e verificato.",
+        output: "La presentazione del caso per la discussione collegiale.",
+        perche: "Il destinatario non è un sistema, è una riunione di clinici. Deve poter leggere in fretta e poter approfondire quando serve.",
+        controlla: "Che avvisi, astensioni, rigetti e limitazioni restino visibili e non vengano riassunti via.",
+        rischi: "Essere letto come una raccomandazione. Il documento dichiara esplicitamente di non esserlo: propone candidate con il loro grado di sostegno, la decisione clinica resta al board.",
+        prosegue: "Fine della pipeline. La decisione è umana."
+      }
+    }
+  ];
+
+  /* Archi. `pts` è la polilinea in coordinate del viewBox: le curve sono
+     evitate di proposito, come nel diagramma di partenza. */
+  var EDGES = [
+    { from: "testo-clinico", to: "llm-parser", pts: [[165,223],[165,270]] },
+    { from: "llm-parser", to: "casecontext", pts: [[165,328],[165,375]] },
+    { from: "casecontext", to: "match-verifier", pts: [[275,403],[308,403],[308,273],[340,273]] },
+    { from: "match-verifier", to: "mismatch-stop", style: "stop", pts: [[437,245],[437,197],[680,197]] },
+    { from: "match-verifier", to: "match-uncertain", pts: [[437,301],[437,330]] },
+    { from: "match-uncertain", to: "query-kg", pts: [[447,382],[447,410]] },
+    { from: "query-kg", to: "gca", pts: [[447,450],[447,465]] },
+    { from: "gca", to: "doc-resolver", pts: [[447,505],[447,520]] },
+    { from: "doc-resolver", to: "documenti", pts: [[447,560],[447,575]] },
+    { from: "documenti", to: "source-unit", pts: [[447,615],[447,630]] },
+    { from: "source-unit", to: "selezione-paper", pts: [[447,670],[447,685]] },
+    { from: "selezione-paper", to: "paper-enricher", style: "dashed",
+      label: "max 1–2 paper per candidate", labelAt: [455,745], labelAnchor: "start",
+      pts: [[447,725],[447,765]] },
+    { from: "gca", to: "gate-verifiche", pts: [[555,485],[665,485]] },
+    { from: "gate-verifiche", to: "support-mask", pts: [[760,511],[760,545]] },
+    { from: "support-mask", to: "dossier-strutturato", pts: [[855,571],[1185,571],[1185,626],[1265,626]] },
+    { from: "paper-enricher", to: "quote-abstain", pts: [[555,793],[597,793]] },
+    { from: "quote-abstain", to: "validazione-letterale",
+      label: "QUOTE", labelAt: [672,688], labelAnchor: "start",
+      pts: [[665,747],[665,695],[775,695]] },
+    { from: "validazione-letterale", to: "quote-valida", pts: [[945,695],[965,695]] },
+    { from: "quote-valida", to: "rigetto-enrichment",
+      label: "No", labelAt: [1090,686], labelAnchor: "middle",
+      pts: [[1075,695],[1105,695]] },
+    { from: "quote-valida", to: "author-context",
+      label: "Sì", labelAt: [1030,750], labelAnchor: "start",
+      pts: [[1020,729],[1020,765]] },
+    { from: "author-context", to: "narrative-verifier", pts: [[1100,790],[1265,790]] },
+    /* Il ritorno verso i gate: una citazione validata è l'unico contributo
+       documentale che può influenzare la valutazione. Nel diagramma di partenza
+       era implicito; renderlo visibile è il punto dell'intera architettura. */
+    { from: "author-context", to: "gate-verifiche",
+      label: "solo se validato", labelAt: [966,600], labelAnchor: "start",
+      pts: [[950,790],[958,790],[958,485],[855,485]] },
+    { from: "rigetto-enrichment", to: "dossier-leggibile", pts: [[1160,721],[1160,742],[1228,742],[1228,880],[1265,880]] },
+    { from: "quote-abstain", to: "warning-nessun",
+      label: "ABSTAIN", labelAt: [672,864], labelAnchor: "start",
+      pts: [[665,839],[665,871],[775,871]] },
+    { from: "warning-nessun", to: "dossier-leggibile", pts: [[955,871],[1214,871],[1214,862],[1265,862]] },
+    { from: "dossier-strutturato", to: "llm-narrator", style: "dashed", pts: [[1357,652],[1357,680]] },
+    { from: "llm-narrator", to: "narrative-verifier", style: "dashed", pts: [[1357,738],[1357,764]] },
+    { from: "narrative-verifier", to: "dossier-leggibile", style: "dashed", pts: [[1357,816],[1357,845]] },
+    /* Oggi il narratore non è implementato: il dossier leggibile deriva
+       direttamente dalla forma strutturata. Dirlo nel diagramma evita che il
+       percorso standard sembri passare da un blocco che non esiste. */
+    { from: "dossier-strutturato", to: "dossier-leggibile", style: "dashed",
+      label: "oggi: diretto", labelAt: [1246,662], labelAnchor: "end",
+      pts: [[1265,645],[1250,645],[1250,890],[1265,890]] }
+  ];
+
+  var BANDS = [
+    { x: 30, y: 105, w: 275, h: 850, label: "1. Moduli LLM" },
+    { x: 325, y: 105, w: 895, h: 850, label: "2. Core deterministico" },
+    { x: 1240, y: 105, w: 230, h: 850, label: "3. Output" }
+  ];
+
+  var PATHS = [
+    {
+      id: "overview", label: "Panoramica", nodes: null,
+      explain: "Tutti i blocchi e tutti i rami. Le tre fasce separano ciò che è affidato a un modello (a sinistra), ciò che è deciso da regole esplicite (al centro) e ciò che esce dalla pipeline (a destra). Il coral compare due volte soltanto: è tutto il perimetro dell'IA."
+    },
+    {
+      id: "standard", label: "Percorso standard",
+      nodes: ["testo-clinico","llm-parser","casecontext","match-verifier","match-uncertain","query-kg","gca","doc-resolver","documenti","source-unit","selezione-paper","paper-enricher","quote-abstain","validazione-letterale","quote-valida","author-context","gate-verifiche","support-mask","dossier-strutturato","dossier-leggibile"],
+      explain: "Il caso passa i controlli di coerenza, il grafo propone candidate, i documenti vengono recuperati e una citazione degli autori supera la verifica letterale. I gate combinano proposta e prova, e il dossier esce completo. È il caso migliore: tutto è verificato e tutto è tracciabile."
+    },
+    {
+      id: "mismatch", label: "Con mismatch",
+      nodes: ["testo-clinico","llm-parser","casecontext","match-verifier","mismatch-stop"],
+      explain: "Il modello ha proposto un campo essenziale che nel testo clinico non trova riscontro. La pipeline si ferma qui, prima di qualsiasi ricerca: nessun retrieval, nessun documento, nessun dossier. Il caso torna a una revisione umana con l'indicazione precisa di quale campo non ha superato il controllo. È l'esito che protegge tutto il resto."
+    },
+    {
+      id: "quote-ok", label: "Con quote valida",
+      nodes: ["selezione-paper","paper-enricher","quote-abstain","validazione-letterale","quote-valida","author-context","gate-verifiche","support-mask","dossier-strutturato","dossier-leggibile"],
+      explain: "Zoom sul ramo documentale quando le cose vanno bene. Le regole scelgono al massimo due paper, il modello vi trova una frase degli autori, e la verifica conferma che quella frase esiste davvero, identica, nel passaggio dichiarato. Solo allora diventa Author Context e può entrare nei gate. È l'unica strada per cui un documento influenza la valutazione."
+    },
+    {
+      id: "abstain", label: "Con abstain",
+      nodes: ["gca","selezione-paper","paper-enricher","quote-abstain","warning-nessun","gate-verifiche","support-mask","dossier-strutturato","dossier-leggibile"],
+      explain: "Il modello legge i paper e dichiara di non poter citare nulla di pertinente. Non è un errore ed è un esito previsto: la candidate resta nel dossier, ma senza sostegno documentale e con un avviso esplicito. I gate la valutano sapendo che nessun documento l'ha confermata. Il sistema preferisce astenersi piuttosto che forzare una citazione."
+    },
+    {
+      id: "quote-ko", label: "Con quote rigettata",
+      nodes: ["gca","selezione-paper","paper-enricher","quote-abstain","validazione-letterale","quote-valida","rigetto-enrichment","gate-verifiche","support-mask","dossier-strutturato","dossier-leggibile"],
+      explain: "Il modello propone una citazione, ma la verifica letterale la boccia: la frase non compare identica nel passaggio, oppure è stata ricomposta, oppure il brano non parla dell'intervento richiesto. L'arricchimento viene scartato per intero — non «con riserva» — e non tocca né lo status né la provenance. La candidate prosegue come se il modello si fosse astenuto, e il dossier registra che c'è stato un rigetto."
+    },
+    {
+      id: "narrator", label: "Con narratore LLM",
+      nodes: ["dossier-strutturato","llm-narrator","narrative-verifier","dossier-leggibile"],
+      excludeEdges: ["dossier-strutturato>dossier-leggibile"],
+      explain: "Il ramo opzionale: il dossier strutturato viene riscritto in prosa da un modello, e un verificatore controlla che il testo non affermi nulla che il dossier non contenga. Attenzione — entrambi i blocchi sono previsti dall'architettura ma non ancora implementati (sono tratteggiati per questo). Oggi il dossier leggibile deriva direttamente dalla forma strutturata."
+    }
+  ];
+
+  /* Vista per passi. `marker` segue l'idioma della spina: pieno = passaggio
+     eseguito, sbarrato = arresto, cavo = previsto ma non eseguito. */
+  var STEPS = [
+    { node: "testo-clinico",         title: "Il caso clinico viene scritto in linguaggio libero", meta: "Ingresso", marker: "filled" },
+    { node: "llm-parser",            title: "L'LLM costruisce il CaseContext", meta: "Modulo LLM", marker: "coral" },
+    { node: "match-verifier",        title: "Il Match Verifier controlla la coerenza con il testo", meta: "Deterministico", marker: "filled" },
+    { node: "mismatch-stop",         title: "Se il mismatch è essenziale, la pipeline si ferma", meta: "Arresto controllato", marker: "barred" },
+    { node: "match-uncertain",       title: "Se il caso è gestibile, parte il retrieval deterministico", meta: "Deterministico", marker: "filled" },
+    { node: "query-kg",              title: "Query sul Knowledge Graph", meta: "Deterministico", marker: "filled" },
+    { node: "gca",                   title: "Costruzione delle GraphCandidateAssertion", meta: "Deterministico", marker: "filled" },
+    { node: "doc-resolver",          title: "Collegamento ai documenti e alle SourceUnit", meta: "Deterministico", marker: "filled" },
+    { node: "selezione-paper",       title: "Selezione deterministica di 1–2 paper", meta: "Deterministico", marker: "filled" },
+    { node: "paper-enricher",        title: "Il Paper Context Enricher produce QUOTE o ABSTAIN", meta: "Modulo LLM", marker: "coral" },
+    { node: "validazione-letterale", title: "Validazione letterale della quote", meta: "Deterministico", marker: "filled" },
+    { node: "author-context",        title: "Author Context validato, oppure warning / rigetto", meta: "Deterministico", marker: "filled" },
+    { node: "gate-verifiche",        title: "Gate e verifiche deterministiche", meta: "Deterministico", marker: "filled" },
+    { node: "dossier-strutturato",   title: "Costruzione del dossier strutturato", meta: "Output", marker: "filled" },
+    { node: "llm-narrator",          title: "Eventuale narrazione LLM", meta: "Opzionale · non implementato", marker: "hollow" },
+    { node: "narrative-verifier",    title: "Narrative Verifier", meta: "Opzionale · non implementato", marker: "hollow" },
+    { node: "dossier-leggibile",     title: "Dossier finale leggibile per il Molecular Tumor Board", meta: "Output", marker: "filled" }
+  ];
+
+  var GLOSSARY = [
+    { term: "CaseContext", kind: "Artefatto",
+      def: "La versione strutturata del caso clinico: malattia, biomarcatori, terapie già fatte, terapia su cui si chiede un parere. Ogni campo si porta dietro la frase esatta del testo da cui è stato ricavato, e per questo può essere ricontrollato." },
+    { term: "Match Verifier", kind: "Deterministico",
+      def: "Il controllo che confronta ogni campo del CaseContext con il testo clinico originale, cercando la frase citata parola per parola. Se un campo essenziale non trova riscontro, la pipeline si ferma. È il filtro che impedisce a un'invenzione del modello di entrare nel sistema." },
+    { term: "GraphCandidateAssertion", kind: "Artefatto",
+      def: "Un'affermazione candidata proposta dal knowledge graph: «per un caso con queste caratteristiche, questo intervento risulta favorevole (o resistente)». È una proposta, non una prova, e resta trattata come tale fino alla fine." },
+    { term: "SourceUnit", kind: "Artefatto",
+      def: "Un singolo passaggio di testo dentro un documento, con la propria identità e posizione. Serve per poter dire non solo «lo dice quell'articolo», ma esattamente quale punto dell'articolo lo dice." },
+    { term: "Provenance", kind: "Proprietà",
+      def: "La catena che collega ogni affermazione del dossier alla sua origine: quale candidate, quale documento, quale passaggio, quale controllo l'ha approvata. È ciò che rende il dossier verificabile invece che solo convincente." },
+    { term: "QUOTE", kind: "Esito",
+      def: "Uno dei due soli esiti ammessi per il modello che legge i paper: propone una frase degli autori, indicando il passaggio esatto da cui l'ha presa. Una quote conta soltanto dopo che la verifica letterale l'ha confermata." },
+    { term: "ABSTAIN", kind: "Esito",
+      def: "L'altro esito ammesso: il modello dichiara di non aver trovato nulla di pertinente da citare. Non è un fallimento, è il comportamento corretto quando il documento non contiene una frase adatta — e resta preferibile a una citazione forzata." },
+    { term: "Support mask", kind: "Artefatto",
+      def: "La scheda che dice, aspetto per aspetto, che cosa risulta sostenuto per una candidate e da che cosa: la malattia, il biomarcatore, l'intervento, la direzione dell'effetto. Rende visibile anche ciò che è rimasto senza sostegno." },
+    { term: "Dossier strutturato", kind: "Output",
+      def: "Il documento completo prodotto dalla pipeline, con tre parti tenute deliberatamente separate: quello che il sistema ha stabilito, quello che dicono gli autori dei paper, e quello che il sistema dichiara di non poter garantire." },
+    { term: "Narrative Verifier", kind: "Opzionale · non implementato",
+      def: "Il controllo che verificherebbe che una riscrittura in prosa del dossier non affermi nulla in più rispetto al dossier strutturato. È previsto dall'architettura ma non ancora realizzato: oggi il dossier finale deriva direttamente dalla forma strutturata." }
+  ];
+
+  /* ======================================================================
+     2. RENDERING DEL DIAGRAMMA
+     Il markup SVG è generato da NODES/EDGES: evidenziare un percorso è un
+     cambio di classe, e non c'è markup da tenere allineato a mano.
+     ====================================================================== */
+
+  var SVG_NS = "http://www.w3.org/2000/svg";
+  var byId = {};
+  NODES.forEach(function (n) { byId[n.id] = n; });
+
+  function el(name, attrs) {
+    var node = document.createElementNS(SVG_NS, name);
+    Object.keys(attrs || {}).forEach(function (k) { node.setAttribute(k, attrs[k]); });
+    return node;
+  }
+
+  function kindClass(kind) {
+    return { llm: "node--llm", det: "node--det", out: "node--out",
+             doc: "node--doc", stop: "node--stop", neutral: "node--neutral" }[kind] || "node--det";
+  }
+
+  function kindWord(kind) {
+    return { llm: "modulo LLM", det: "deterministico", out: "output",
+             doc: "snodo documentale", stop: "arresto", neutral: "artefatto" }[kind] || "deterministico";
+  }
+
+  function renderBands() {
+    var layer = document.getElementById("layer-bands");
+    BANDS.forEach(function (b) {
+      layer.appendChild(el("rect", { x: b.x, y: b.y, width: b.w, height: b.h, rx: 16, "class": "band" }));
+      var t = el("text", { x: b.x + 18, y: b.y + 30, "class": "band__label" });
+      t.textContent = b.label;
+      layer.appendChild(t);
+    });
+  }
+
+  function renderEdges() {
+    var layer = document.getElementById("layer-edges");
+    EDGES.forEach(function (e) {
+      var cls = "edge";
+      var marker = "url(#ah)";
+      if (e.style === "dashed") { cls += " edge--dashed"; marker = "url(#ah-muted)"; }
+      if (e.style === "stop") { cls += " edge--stop"; marker = "url(#ah-stop)"; }
+
+      var g = el("g", { "data-edge": e.from + ">" + e.to });
+      g.appendChild(el("polyline", {
+        points: e.pts.map(function (p) { return p[0] + "," + p[1]; }).join(" "),
+        "class": cls, "marker-end": marker
+      }));
+      if (e.label) {
+        var t = el("text", {
+          x: e.labelAt[0], y: e.labelAt[1],
+          "text-anchor": e.labelAnchor || "middle", "class": "edge__label"
+        });
+        t.textContent = e.label;
+        g.appendChild(t);
+      }
+      layer.appendChild(g);
+    });
+  }
+
+  function renderNodes() {
+    var layer = document.getElementById("layer-nodes");
+    NODES.forEach(function (n) {
+      var cx = n.x + n.w / 2;
+      var cy = n.y + n.h / 2;
+      var cls = "node " + kindClass(n.kind) + (n.dashed ? " node--dashed" : "");
+
+      var g = el("g", {
+        "class": cls, "data-node": n.id, tabindex: "0", role: "button",
+        "aria-label": n.label.replace(/\n/g, " ") + " — " + kindWord(n.kind) +
+                      (n.dashed ? ", opzionale e non implementato" : "") + ". Apri il dettaglio."
+      });
+
+      var title = el("title", {});
+      title.textContent = n.label.replace(/\n/g, " ") + " · " + kindWord(n.kind);
+      g.appendChild(title);
+
+      if (n.shape === "diamond") {
+        g.appendChild(el("polygon", {
+          points: [cx + "," + n.y, (n.x + n.w) + "," + cy, cx + "," + (n.y + n.h), n.x + "," + cy].join(" "),
+          "class": "node__box"
+        }));
+      } else {
+        g.appendChild(el("rect", { x: n.x, y: n.y, width: n.w, height: n.h, rx: 8, "class": "node__box" }));
+      }
+
+      /* L'etichetta di tipo è testuale: lo stato non è mai portato dal solo
+         colore. Solo i blocchi che si discostano dal default deterministico
+         la mostrano, per non riempire il diagramma di rumore. */
+      var lines = n.label.split("\n");
+      var hasTag = !!n.tag;
+      var lineH = 18;
+      var block = lines.length * lineH + (hasTag ? 13 : 0);
+      var top = cy - block / 2;
+
+      if (hasTag) {
+        var tag = el("text", { x: cx, y: top + 9, "text-anchor": "middle", "class": "node__tag" });
+        tag.textContent = n.tag;
+        g.appendChild(tag);
+        top += 13;
+      }
+
+      var text = el("text", { x: cx, y: top + 13, "text-anchor": "middle", "class": "node__label" });
+      lines.forEach(function (line, i) {
+        var span = el("tspan", { x: cx, dy: i === 0 ? 0 : lineH });
+        span.textContent = line;
+        text.appendChild(span);
+      });
+      g.appendChild(text);
+
+      g.addEventListener("click", function () { selectNode(n.id); });
+      g.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar") {
+          ev.preventDefault();
+          selectNode(n.id);
+        }
+      });
+
+      layer.appendChild(g);
+    });
+  }
+
+  /* ======================================================================
+     3. PANNELLO DI DETTAGLIO
+     ====================================================================== */
+
+  var panel = document.getElementById("panel");
+  var panelContent = document.getElementById("panel-content");
+  var selectedId = null;
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  /* Il pannello fluttua: a riposo non esiste in pagina. L'invito a cliccare
+     vive sopra il diagramma, non dentro un riquadro sempre aperto. */
+  function emptyPanel() {
+    panelContent.innerHTML = "";
+    panel.classList.add("is-empty");
+    panel.classList.remove("is-open");
+  }
+
+  /* Lato di ancoraggio: opposto al blocco cliccato, così il nodo di cui si
+     legge non finisce sotto il pannello. La soglia è la metà del viewBox. */
+  function anchorFor(node) {
+    return (node.x + node.w / 2) > 760 ? "left" : "right";
+  }
+
+  function field(key, value) {
+    return '<div class="field"><p class="field__key">' + esc(key) + '</p>' +
+           '<p class="field__val">' + esc(value) + '</p></div>';
+  }
+
+  function selectNode(id) {
+    var n = byId[id];
+    if (!n) return;
+    selectedId = id;
+
+    Array.prototype.forEach.call(document.querySelectorAll("#layer-nodes .node"), function (g) {
+      g.classList.toggle("node--selected", g.getAttribute("data-node") === id);
+    });
+
+    var d = n.detail;
+    var html =
+      '<button class="panel__close" type="button" id="panel-close" aria-label="Chiudi il dettaglio">Chiudi ✕</button>' +
+      '<span class="panel__badge ' + (d.badgeClass || "") + '">' + esc(d.badge) + '</span>' +
+      '<h3 class="panel__title">' + esc(n.label.replace(/\n/g, " ")) + '</h3>' +
+      (d.flag ? '<p class="panel__flag">' + esc(d.flag) + '</p>' : '') +
+      field("Ruolo", d.ruolo) +
+      '<div class="field field--split">' +
+        '<div><p class="field__key">Input</p><p class="field__val">' + esc(d.input) + '</p></div>' +
+        '<div><p class="field__key">Output</p><p class="field__val">' + esc(d.output) + '</p></div>' +
+      '</div>' +
+      field("Perché serve", d.perche) +
+      field("Cosa controlla", d.controlla) +
+      field("Cosa può andare storto", d.rischi) +
+      field("Come prosegue il flusso", d.prosegue);
+
+    panelContent.innerHTML = html;
+    var side = anchorFor(n);
+    panel.classList.toggle("panel--left", side === "left");
+    panel.classList.toggle("panel--right", side === "right");
+    panel.classList.remove("is-empty");
+    panel.scrollTop = 0;
+    /* Il pannello passa da display:none a visibile: senza forzare un reflow
+       fra le due classi la transizione non parte e comparirebbe di scatto. */
+    void panel.offsetHeight;
+    panel.classList.add("is-open");
+    document.getElementById("panel-close").addEventListener("click", closePanel);
+  }
+
+  function closePanel() {
+    selectedId = null;
+    Array.prototype.forEach.call(document.querySelectorAll("#layer-nodes .node"), function (g) {
+      g.classList.remove("node--selected");
+    });
+    emptyPanel();
+  }
+
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && selectedId) closePanel();
+  });
+
+  /* Un pannello in sovraimpressione va via anche cliccando altrove: doverlo
+     chiudere sempre dal pulsante è la scomodità che si sta togliendo. Il click
+     su un altro blocco non chiude, cambia contenuto. */
+  document.addEventListener("click", function (ev) {
+    if (!selectedId) return;
+    var t = ev.target;
+    if (panel.contains(t)) return;
+    if (t.closest && t.closest("#layer-nodes")) return;
+    if (t.closest && t.closest(".spine__btn")) return;
+    closePanel();
+  });
+
+  /* ======================================================================
+     4. PERCORSI
+     Un arco appartiene al percorso quando entrambi i suoi estremi lo fanno,
+     salvo esclusioni dichiarate. Così l'elenco dei nodi resta l'unica cosa
+     da tenere aggiornata.
+     ====================================================================== */
+
+  var currentPath = "overview";
+
+  function applyPath(pathId) {
+    var p = null;
+    PATHS.forEach(function (x) { if (x.id === pathId) p = x; });
+    if (!p) return;
+    currentPath = pathId;
+
+    var set = p.nodes ? p.nodes.reduce(function (acc, id) { acc[id] = true; return acc; }, {}) : null;
+    var excluded = (p.excludeEdges || []).reduce(function (acc, k) { acc[k] = true; return acc; }, {});
+
+    Array.prototype.forEach.call(document.querySelectorAll("#layer-nodes .node"), function (g) {
+      var on = !set || set[g.getAttribute("data-node")];
+      g.classList.toggle("dimmed", !on);
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll("#layer-edges > g"), function (g) {
+      var key = g.getAttribute("data-edge");
+      var ends = key.split(">");
+      var on = !set || (set[ends[0]] && set[ends[1]] && !excluded[key]);
+      g.classList.toggle("dimmed-edge", !on);
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll("#path-bar .chip--btn"), function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-path") === pathId));
+    });
+
+    document.getElementById("path-note-title").textContent = p.label;
+    document.getElementById("path-note-body").textContent = p.explain;
+  }
+
+  function renderPathBar() {
+    var bar = document.getElementById("path-bar");
+    PATHS.forEach(function (p) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip chip--btn";
+      b.setAttribute("data-path", p.id);
+      b.setAttribute("aria-pressed", String(p.id === "overview"));
+      b.textContent = p.label;
+      b.addEventListener("click", function () { applyPath(p.id); });
+      bar.appendChild(b);
+    });
+  }
+
+  /* ======================================================================
+     5. VISTE E VISTA PER PASSI
+     ====================================================================== */
+
+  function setView(view) {
+    var isDiagram = view === "diagram";
+    /* Il pannello vive dentro la vista diagramma: lasciarlo aperto passando
+       ai passi lo farebbe sparire senza deselezionare il blocco. */
+    if (!isDiagram && selectedId) closePanel();
+    document.getElementById("view-diagram").classList.toggle("hidden", !isDiagram);
+    document.getElementById("view-steps").classList.toggle("hidden", isDiagram);
+    document.getElementById("tab-diagram").setAttribute("aria-selected", String(isDiagram));
+    document.getElementById("tab-steps").setAttribute("aria-selected", String(!isDiagram));
+  }
+
+  function renderSteps() {
+    var list = document.getElementById("spine");
+    STEPS.forEach(function (s, i) {
+      var li = document.createElement("li");
+      li.className = "spine__item";
+
+      if (i < STEPS.length - 1) {
+        var thread = document.createElement("span");
+        /* Il filetto si spezza dove la pipeline si ferma e dove entra nei
+           passaggi previsti ma non eseguiti: la forma della spina è già
+           un'informazione. */
+        var broken = s.marker === "barred" || s.marker === "hollow";
+        thread.className = "spine__thread" + (broken ? " spine__thread--broken" : "");
+        thread.setAttribute("aria-hidden", "true");
+        li.appendChild(thread);
+      }
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "spine__btn";
+      btn.innerHTML =
+        '<span class="spine__num">' + (i + 1 < 10 ? "0" : "") + (i + 1) + '</span>' +
+        '<span class="marker marker--' + s.marker + '" aria-hidden="true"></span>' +
+        '<span class="spine__text">' +
+          '<span class="spine__title">' + esc(s.title) + '</span>' +
+          '<span class="spine__meta">' + esc(s.meta) + '</span>' +
+        '</span>';
+      btn.addEventListener("click", function () {
+        setView("diagram");
+        selectNode(s.node);
+        document.getElementById("view-diagram").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      li.appendChild(btn);
+      list.appendChild(li);
+    });
+  }
+
+  function renderGlossary() {
+    var box = document.getElementById("glossary");
+    GLOSSARY.forEach(function (g) {
+      var d = document.createElement("details");
+      d.innerHTML =
+        '<summary><span class="glossary__term">' + esc(g.term) + '</span>' +
+        '<span class="glossary__kind">' + esc(g.kind) + '</span></summary>' +
+        '<p class="glossary__def">' + esc(g.def) + '</p>';
+      box.appendChild(d);
+    });
+  }
+
+  /* ======================================================================
+     6. AVVIO
+     ====================================================================== */
+
+  renderBands();
+  renderEdges();
+  renderNodes();
+  renderPathBar();
+  renderSteps();
+  renderGlossary();
+  emptyPanel();
+  applyPath("overview");
+
+  document.getElementById("tab-diagram").addEventListener("click", function () { setView("diagram"); });
+  document.getElementById("tab-steps").addEventListener("click", function () { setView("steps"); });
+
+}());
+</script>
+
+</body>
+</html>

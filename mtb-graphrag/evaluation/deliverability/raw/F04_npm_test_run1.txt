@@ -1,0 +1,30 @@
+> frontend@0.0.0 test
+> vitest run
+
+
+ RUN  v4.1.10 C:/Users/paolo/Desktop/IspezioneDatasetTesi/mtb-graphrag/frontend
+
+ ❯ src/components/V3RunForm.test.tsx (2 tests | 1 failed) 6011ms
+     × sends the explicit intervention and direction in the V3 payload 5197ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/V3RunForm.test.tsx > V3RunForm > sends the explicit intervention and direction in the V3 payload
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/components/V3RunForm.test.tsx:6:3
+      4|
+      5| describe('V3RunForm', () => {
+      6|   it('sends the explicit intervention and direction in the V3 payload'…
+       |   ^
+      7|     const onSubmit = vi.fn();
+      8|     render(<V3RunForm disabled={false} onSubmit={onSubmit} />);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 15 passed (16)
+      Tests  1 failed | 194 passed (195)
+   Start at  15:55:28
+   Duration  37.46s (transform 19.50s, setup 18.87s, import 208.78s, tests 68.04s, environment 124.47s)
+

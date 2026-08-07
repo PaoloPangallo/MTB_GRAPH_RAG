@@ -1,0 +1,178 @@
+{
+  "audit": {
+    "name": "deliverability_audit",
+    "phase": "pre-freeze falsification",
+    "date_utc": "2026-08-07",
+    "code_modified_during_audit": false,
+    "push_executed": false,
+    "merge_executed": false,
+    "commits_created": 0
+  },
+
+  "1_branch": "feature/v3-runtime-gca3-eligibility-gate",
+  "2_head": "0219e0a7a4a063668c72c941413fbd8382838b32",
+  "2_head_subject": "docs: report runtime v3 integration decision",
+  "2_head_author_date": "Thu Aug 6 23:18:18 2026 +0200",
+
+  "3_working_tree_status": {
+    "clean": false,
+    "section_0_hard_stop_triggered": true,
+    "deviation_authorized_by_user": true,
+    "deviation_rationale": "Nessun file .py applicativo risulta modificato o untracked. I file coinvolti sono immagini, PDF/TeX, una pagina HTML di documentazione, artifact esploratori JSON e uno script PowerShell di avvio non importato da alcun modulo. L'impatto sul runtime auditato e' nullo.",
+    "staged": [
+      "Pipeline.png",
+      "architettura/index.html",
+      "img.png"
+    ],
+    "untracked": [
+      "Mateo.pdf",
+      "architettura/README.md",
+      "mtb-graphrag/Relazione_V2_V3_fonti_pipeline_aggiornata.pdf",
+      "mtb-graphrag/Relazione_V2_V3_fonti_pipeline_aggiornata.tex",
+      "mtb-graphrag/Relazione_V2_V3_fonti_pipeline_revisionata.pdf",
+      "mtb-graphrag/Relazione_V2_V3_fonti_pipeline_revisionata.tex",
+      "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases/",
+      "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_01_api_response.json",
+      "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_02_api_response.json",
+      "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_03_api_response.json",
+      "mtb-graphrag/benchmarks/mtb_evidence/exploratory/manual_v3_cases_product_hardening/case_04_api_response.json",
+      "mtb-graphrag/scripts/start_v3_product.ps1"
+    ],
+    "modified_python_files": [],
+    "evidence": "evaluation/deliverability/raw/A01_git_status.txt"
+  },
+
+  "4_worktrees": [
+    {"path": "C:/Users/paolo/Desktop/IspezioneDatasetTesi", "head": "0219e0a", "branch": "feature/v3-runtime-gca3-eligibility-gate", "role": "PRIMARY_AUDIT_TARGET"},
+    {"path": "C:/Users/paolo/AppData/Local/Temp/codex-v3-document-grounded-claims", "head": "6ee64c5", "branch": "research/v3-end-to-end-pipeline-interaction-pilot", "role": "EXTERNAL_TEMP_NOT_AUDITED", "note": "6ee64c5 e' il commit citato da data_access.load_frozen_enricher_runs come origine delle 7 chiamate reali all'enricher"},
+    {"path": "C:/Users/paolo/AppData/Local/Temp/hrc/baseline", "head": "b6694ba", "branch": "(detached)", "role": "EXTERNAL_TEMP_NOT_AUDITED"},
+    {"path": "C:/Users/paolo/AppData/Local/Temp/hrc/wt", "head": "0fd5d1b", "branch": "(detached)", "role": "EXTERNAL_TEMP_NOT_AUDITED"}
+  ],
+
+  "5_remotes": [
+    {"name": "origin", "fetch": "https://github.com/PaoloPangallo/MTB_GRAPH_RAG.git", "push": "https://github.com/PaoloPangallo/MTB_GRAPH_RAG.git"}
+  ],
+
+  "6_last_commit": "0219e0a docs: report runtime v3 integration decision",
+
+  "7_python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025) [MSC v.1943 64 bit (AMD64)]",
+
+  "8_active_environment": {
+    "venv": "C:/Users/paolo/Desktop/IspezioneDatasetTesi/.venv",
+    "note": "il venv sta alla RADICE del repository, non in mtb-graphrag/",
+    "installed_packages": 188,
+    "pytest": "9.1.1",
+    "node": "v20.19.0",
+    "npm": "11.12.1",
+    "evidence": "evaluation/deliverability/raw/A03_pip_freeze.txt"
+  },
+
+  "9_requirements_lockfile": {
+    "requirements_file": "mtb-graphrag/backend/config/requirements.txt",
+    "declared_packages": 10,
+    "pinned_versions": 0,
+    "lockfile": null,
+    "pyproject_toml": null,
+    "pytest_ini": null,
+    "conftest_py": null,
+    "setup_cfg": null,
+    "declared_but_not_installed": [],
+    "installed_but_not_declared_and_required_by_tests": ["pytest", "httpx", "pandas", "numpy"],
+    "assessment": "REPRODUCIBILITY_GAP: 188 pacchetti installati contro 10 dichiarati senza versione. Le suite di test non sono eseguibili installando solo requirements.txt."
+  },
+
+  "10_backend_entrypoint": {
+    "asgi_app": "backend.api.main:app",
+    "command": "uvicorn backend.api.main:app --reload --port 8000",
+    "requires_PYTHONPATH": "mtb-graphrag",
+    "routers": [
+      {"prefix": "/api/v1", "module": "backend.api.routes", "role": "LEGACY_PRODUCT_PIPELINE", "gated": false},
+      {"prefix": "/api/v1/research/pipeline", "module": "backend.api.research_routes", "role": "CANONICAL_RESEARCH_RUNTIME", "gated": true, "flag": "VERIFIABLE_PIPELINE_RESEARCH_ENABLED"}
+    ],
+    "note": "entrambi i runtime sono montati nella stessa app FastAPI"
+  },
+
+  "11_frontend_entrypoint": {
+    "path": "mtb-graphrag/frontend",
+    "dev": "npm run dev (vite)",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "typecheck": "tsc -b"
+  },
+
+  "12_graph_candidate_repositories_available": [
+    {"version": "2.0", "path": "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl", "records": 46864, "bytes": 72495662, "tracked_in_git": true},
+    {"version": "3.0", "path": "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/3.0/candidates.jsonl", "records": 46142, "bytes": 111910854, "tracked_in_git": true, "extra_files": ["manifest.json", "schema.json", "candidate_index.json", "lineage_index.jsonl", "v2_mapping.jsonl", "README.md"]}
+  ],
+
+  "13_gca_version_used_by_runtime_default": {
+    "version": "2.0",
+    "hardcoded_in": "backend/research_pipeline/data_access.py::candidates_path",
+    "env_override_for_runtime_path": false,
+    "note": "GRAPH_CANDIDATE_REPOSITORY_VERSION esiste ma e' letta solo da retrieval/repository_v3.py, che il runtime canonico non importa"
+  },
+
+  "14_experimental_artifact_paths": [
+    "mtb-graphrag/evaluation/rq1/", "mtb-graphrag/evaluation/rq1_graph_candidate_fidelity/",
+    "mtb-graphrag/evaluation/rq2/", "mtb-graphrag/evaluation/rq2_pmid_associations/",
+    "mtb-graphrag/evaluation/rq3/", "mtb-graphrag/evaluation/rq3_oncokb_fallback/",
+    "mtb-graphrag/evaluation/rq4/", "mtb-graphrag/evaluation/rq4_casecontext_robustness/",
+    "mtb-graphrag/evaluation/gca_v3/", "mtb-graphrag/evaluation/runtime_v3_integration/",
+    "mtb-graphrag/evaluation/artifacts/", "mtb-graphrag/evaluation/gold/"
+  ],
+
+  "15_benchmark_paths": [
+    "mtb-graphrag/benchmarks/mtb_evidence/document_grounded_claims/",
+    "mtb-graphrag/benchmarks/mtb_evidence/end_to_end_pipeline_pilot/",
+    "mtb-graphrag/benchmarks/mtb_evidence/exploratory/",
+    "mtb-graphrag/benchmarks/mtb_evidence/final_experiment/"
+  ],
+
+  "16_test_paths": [
+    {"path": "mtb-graphrag/backend/tests", "files": 77, "scope": "legacy product pipeline + shared"},
+    {"path": "mtb-graphrag/backend/research_pipeline/tests", "files": 13, "scope": "canonical research runtime"},
+    {"path": "mtb-graphrag/evaluation/tests", "files": 2, "scope": "evaluation code + gca_v3"},
+    {"path": "mtb-graphrag/backend/tests_external", "files": null, "scope": "external inputs"},
+    {"path": "mtb-graphrag/frontend/src", "files": null, "scope": "vitest"}
+  ],
+
+  "17_env_files_required": {
+    "mtb-graphrag/.env": {"present": true, "keys": ["OLLAMA_API_KEY", "NEO4J_PASSWORD", "ONCOKB_TOKEN"], "tracked_in_git": false},
+    "repo_root/.env": {"present": true, "keys": ["OLLAMA_API_KEY", "NEO4J_PASSWORD", "ONCOKB_TOKEN"], "tracked_in_git": false},
+    "mtb-graphrag/.env.example": {"present": true, "tracked_in_git": true, "documented_keys": 20}
+  },
+
+  "18_external_services_required": {
+    "ollama_cloud": {"required_for": "LIVE (parser + enricher)", "default_base_url": "https://api.ollama.com", "credential": "OLLAMA_API_KEY", "available_in_this_environment": true},
+    "neo4j": {"required_for": "legacy product pipeline (/api/v1) LIVE only", "required_by_canonical_research_runtime": false},
+    "pubmed_ncbi": {"required_for": "ripopolamento AuthorizedDocumentCache", "used_at_runtime": false, "note": "la cache e' aperta con network=False"},
+    "oncokb": {"required_for": "legacy product pipeline only", "called_by_canonical_research_runtime": false}
+  },
+
+  "19_llm_model_configured": {
+    "research_runtime_model": "gemma4:cloud",
+    "constant": "backend/research_pipeline/llm_config.py::RESEARCH_MODEL",
+    "override_env": "RESEARCH_PIPELINE_MODEL",
+    "legacy_pipeline_model_env": "LLM_PIPELINE (default gemma4:31b-cloud per .env.example)",
+    "judge_model_env": "LLM_JUDGE (minimax-m2.5)"
+  },
+
+  "20_knowledge_graph_used": {
+    "canonical_research_runtime": "NESSUN Neo4j live. Il 'KG' e' il repository statico gia' materializzato graph_candidate_repository/2.0/candidates.jsonl (46864 GraphCandidateAssertion).",
+    "declared_in": "backend/research_pipeline/retrieval/kg_retrieval.py docstring",
+    "legacy_product_pipeline": "Neo4j bolt://localhost:7687",
+    "retrieval_scope_restriction": "il retrieval e' ulteriormente ristretto alle candidate che possiedono almeno un EvidenceBundle gia' in cache",
+    "evidence_bundles_total": 25,
+    "distinct_candidates_with_bundle": 16,
+    "distinct_documents": 25,
+    "end_to_end_reachable_candidates_fraction": "16 / 46864 = 0.034%"
+  },
+
+  "document_cache": {
+    "path_default": "mtb-graphrag/data_cache/document_grounding",
+    "present_in_this_environment": false,
+    "tracked_in_git": false,
+    "gitignored": true,
+    "consequence": "Stage 6 (Document Resolution) e Stage 7 (SourceUnit con testo) non sono eseguibili in LIVE. Una run LIVE fallisce con DOCUMENT_CACHE_UNAVAILABLE."
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "audit": {
+    "date_utc": "2026-08-07",
+    "branch": "feature/v3-runtime-gca3-eligibility-gate",
+    "head": "0219e0a7a4a063668c72c941413fbd8382838b32",
+    "head_unchanged_at_end": true
+  },
+
+  "verdict": "NOT_YET_DELIVERABLE",
+  "verdict_rationale": "Il nucleo architetturale e' valido e RQ3 e' pienamente sostenuto, ma esistono tre difetti P0 concreti e localizzati: due impediscono di dimostrare RQ4 e RQ1 attraverso il runtime realmente eseguito, il terzo consente a una quote fabbricata di comparire nel dossier presentato. Nessuno richiede una riprogettazione: sono correzioni chirurgiche in quattro file. Con esse il repository diventa DELIVERABLE_WITH_MINOR_FIXES.",
+
+  "process_integrity": {
+    "working_tree_initially_clean": false,
+    "working_tree_deviation_authorized_by_user": true,
+    "code_modified_during_audit": false,
+    "application_python_files_modified": 0,
+    "files_accidentally_modified_and_restored": [
+      "mtb-graphrag/evaluation/gca_v3/aggregate_metrics.json",
+      "mtb-graphrag/evaluation/rq1_graph_candidate_fidelity/aggregate_metrics.json"
+    ],
+    "working_tree_finally_identical_to_initial": true,
+    "commits_created": 0,
+    "push_executed": false,
+    "merge_executed": false
+  },
+
+  "runtime": {
+    "canonical_runtime_identified": true,
+    "canonical_runtime": "backend/research_pipeline/orchestrator.py::run_case, via backend.api.research_routes dietro VERIFIABLE_PIPELINE_RESEARCH_ENABLED",
+    "legacy_runtime_confusion_found": true,
+    "legacy_runtime_confusion_detail": "kg_retrieval_v3.py e' DEAD_OR_UNREACHABLE (zero riferimenti nel repository); pipeline.run_case e' dichiarata implementazione di riferimento ma e' irraggiungibile e priva dello stage 3b; tre assi di versionamento condividono la stringa v3. Nessun runtime legacy viene pero' invocato accidentalmente.",
+    "modules_classified": 637,
+    "canonical_runtime_modules": 51,
+    "shadow_evaluation_modules": 40,
+    "legacy_modules": 103,
+    "dead_or_unreachable_modules": 115
+  },
+
+  "gca": {
+    "graph_candidate_contract_version": "2.0",
+    "gca_repository_used_by_runtime": "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl",
+    "gca_v3_available_but_shadow": true,
+    "source_polarity_preserved": false,
+    "automatic_direction_inversions": 752,
+    "automatic_direction_inversions_reachable_end_to_end": 1,
+    "compound_alteration_terms_lost": "A AND B trattato come A; nessun PARTIAL_MATCH esiste nel retrieval v2",
+    "compound_operators_lost": "tutti: v2 non ha alteration_expression_ast",
+    "unresolved_regimens_split_into_components": "nessuna rappresentazione di regime nel runtime: campo regimen vuoto su 46864/46864, interventions <= 1",
+    "invented_regimen_semantics": 0,
+    "candidate_document_separation_preserved": true,
+    "candidate_level_provenance_available": true,
+    "same_invariants_on_v3_shadow": "tutti a zero, correttamente misurati da evaluation/gca_v3/"
+  },
+
+  "casecontext_and_routing": {
+    "casecontext_parser_implemented": true,
+    "casecontext_parser_kind": "LLM (gemma4:cloud, forced tool call)",
+    "pre_retrieval_gate_implemented": true,
+    "pre_retrieval_gate_deterministic": true,
+    "llm_references_in_deterministic_chain": 0,
+    "contradiction_detection": "IMPLEMENTED, deterministica",
+    "noneligible_retrieval_calls": 0,
+    "adversarial_forbidden_calls": 0,
+    "noneligible_runs_terminating_with_unhandled_exception": 10,
+    "live_noneligible_categories_crashing": 5,
+    "parser_transport_failure_rate_live": 0.28
+  },
+
+  "document_grounding": {
+    "document_resolver_implemented": true,
+    "document_resolver_network": false,
+    "sourceunit_grounded": true,
+    "paper_context_enricher_implemented": true,
+    "quote_abstain_contract_enforced": true,
+    "quote_validator_independent_of_llm": true,
+    "invented_quotes_accepted": 0,
+    "invented_sourceunits_accepted": 0,
+    "wrong_document_quotes_accepted": 0,
+    "quote_validation_cases_passed": "13/14 (il 14esimo e' una debolezza deliberata documentata: ISS-019)",
+    "rejected_enrichment_reaches_presented_dossier": true,
+    "end_to_end_reachable_candidates": 16,
+    "end_to_end_reachable_fraction": 0.000341
+  },
+
+  "authority": {
+    "canonical_status_deterministic": true,
+    "llm_can_directly_change_canonical_status": false,
+    "llm_can_create_provenance": false,
+    "llm_can_create_sourceunit": false,
+    "llm_can_decide_eligibility": false,
+    "prompt_only_restrictions": 0,
+    "uncontrolled_paths": 0,
+    "impossible_by_construction": 6,
+    "validated_downstream": 2,
+    "partial": 1,
+    "structured_dossier_built_before_narration": true,
+    "dossier_narrator": "NOT_IMPLEMENTED",
+    "narrative_verifier_implemented": false,
+    "narrator_can_change_canonical_dossier": "n/a (narrator assente)",
+    "event_provenance_logging": "EventLedger append-only SQLite con catena SHA-256, RESEARCH_LEDGER_PATH separato dal ledger di prodotto"
+  },
+
+  "execution_modes": {
+    "live_available": false,
+    "live_unavailable_reason": "data_cache/document_grounding assente e gitignored; POST /runs risponde 503 prima di qualunque chiamata LLM",
+    "replay_available": true,
+    "live_replay_distinction_enforced": true,
+    "live_replay_distinction_mechanism": "execution_mode.classify_run_mode asimmetrico: un solo artifact RECORDED_REAL_RUN declassa LIVE a HYBRID; nessuna combinazione promuove REPLAY a LIVE; HYBRID non e' richiedibile",
+    "replay_reexecutes_validation": false
+  },
+
+  "tests": {
+    "unit_and_integration_backend_research": "351 passed, 12 skipped",
+    "unit_and_integration_backend_legacy": "2696 passed, 5 skipped, 36860 subtests",
+    "evaluation_tests": "91 passed",
+    "python_total_passed": 3138,
+    "declared_3047_reproduced_exactly": true,
+    "frontend_tests": "195 passed in seriale, 194/195 in parallelo (flakiness dichiarata e riprodotta)",
+    "frontend_typecheck": "FAIL - 6 errori TS2769",
+    "frontend_build": "FAIL",
+    "backend_typecheck": "non configurato nel repository",
+    "smoke_tests_executed": 18,
+    "smoke_modes": ["REPLAY", "LIVE (503)", "LIVE con cache vuota"]
+  },
+
+  "rq": {
+    "rq1_deliverable": true,
+    "rq1_condition": "dichiarare che misura la materializzazione da export CSV congelato, non una query Neo4j live; non confondere la fedelta' della rappresentazione con il comportamento del runtime (ISS-002)",
+    "rq2_deliverable": "PARZIALE",
+    "rq2_condition": "presentare come studio di fattibilita' della catena di grounding, non come misura di copertura; denominatore end-to-end = 16",
+    "rq3_deliverable": true,
+    "rq3_condition": "delimitare la claim allo stato canonico, oppure correggere ISS-003",
+    "rq4_deliverable": "PARZIALE",
+    "rq4_condition": "bloccata da ISS-001 e ISS-005: la metrica misura la catena, non il runtime",
+    "rq5_status": "PLANNED",
+    "rq5_conforming": true
+  },
+
+  "reproducibility": {
+    "reproducible_from_clean_repository": false,
+    "environment": "PARTIALLY REPRODUCIBLE - requirements non pinnati e privi di pytest/httpx/pandas/numpy; nessun lockfile, pytest.ini o conftest.py",
+    "data": "REPRODUCIBLE tranne AuthorizedDocumentCache e gold clinico, entrambi gitignored per ragioni legittime e dichiarate",
+    "kg": "REPRODUCIBLE - export CSV tracciato in git, corpus_fingerprint registrato",
+    "gca": "REPRODUCIBLE - SHA-256 dichiarato e verificato a runtime",
+    "pipeline_replay": "REPRODUCIBLE",
+    "pipeline_live": "NOT REPRODUCIBLE",
+    "experiments": "REPRODUCIBLE - 5 script su 5 con exit 0",
+    "metrics": "REPRODUCIBLE - nessuna metrica hard-coded; riproduzione byte a byte salvo timestamp"
+  },
+
+  "contamination": {
+    "experimental_contamination_found": true,
+    "critical_checks_passed": 4,
+    "self_comparison_of_materializer": false,
+    "mocks_reachable_from_runtime": 0,
+    "fixtures_used_by_runtime": 0,
+    "replay_presented_as_live": false,
+    "hardcoded_metrics": 0,
+    "duplicated_evaluation_rows": 0,
+    "golden_set_read_by_application_code": false,
+    "silent_fallbacks": 0,
+    "contamination_p0": 1,
+    "contamination_p1": 1,
+    "contamination_p2": 3,
+    "contamination_p3": 3
+  },
+
+  "issues": {
+    "p0_count": 3,
+    "p1_count": 4,
+    "p2_count": 8,
+    "p3_count": 6,
+    "total": 21,
+    "blocking_issues": ["ISS-001", "ISS-002", "ISS-003", "ISS-004", "ISS-005", "ISS-006"],
+    "minimum_fixes_before_freeze": [
+      "ISS-001: aggiungere gli 8 ELIGIBILITY_STATES a contracts.STOP_REASONS + test del ramo non eleggibile attraverso orchestrator.run_case",
+      "ISS-002: gestire la negazione prima dell'affermazione in gates.direction_consistency e leggere evidence_direction come asse separato + test su tutte le 46864 candidate v2",
+      "ISS-003: allegare validation_outcome a ogni voce di author_context e far filtrare la UI su quello",
+      "ISS-004: sostituire le prop Stack con sx in 6 punti di EligibilityStage.tsx",
+      "ISS-005: rieseguire il benchmark RQ4 attraverso orchestrator.run_case dopo ISS-001",
+      "ISS-006: pinnare le dipendenze e aggiungere pytest/httpx/pandas/numpy + pytest.ini"
+    ],
+    "estimated_scope": "4 file di codice applicativo, 2 file di configurazione, 2 nuovi test, 1 rerun di benchmark"
+  }
+}

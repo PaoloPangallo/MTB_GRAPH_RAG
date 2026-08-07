@@ -1,0 +1,114 @@
+{
+  "note": "Eseguiti senza modificare il codice. PYTHONPATH=mtb-graphrag, venv alla radice del repository.",
+  "commands": [
+    {
+      "command": "python -m pytest backend/research_pipeline/tests -q",
+      "scope": "runtime canonico",
+      "exit_code": 0,
+      "passed": 351,
+      "failed": 0,
+      "skipped": 12,
+      "warnings": 1,
+      "duration_s": 65.06,
+      "notes": "1 StarletteDeprecationWarning (httpx/testclient). Nessun test copre il ramo non-eleggibile del gate attraverso l'orchestratore.",
+      "raw": "evaluation/deliverability/raw/F01_pytest_research_pipeline.txt"
+    },
+    {
+      "command": "python -m pytest backend/tests -q",
+      "scope": "pipeline legacy + condivisi",
+      "exit_code": 0,
+      "passed": 2696,
+      "failed": 0,
+      "skipped": 5,
+      "warnings": 1,
+      "duration_s": 328.46,
+      "subtests_passed": 36860,
+      "raw": "evaluation/deliverability/raw/F03_pytest_backend.txt"
+    },
+    {
+      "command": "python -m pytest evaluation/tests -q",
+      "scope": "codice di evaluation + gca_v3",
+      "exit_code": 0,
+      "passed": 91,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "duration_s": 7.16,
+      "raw": "evaluation/deliverability/raw/F02_pytest_evaluation.txt"
+    },
+    {
+      "command": "npm test  (vitest run)",
+      "scope": "frontend, parallelo",
+      "exit_code": 1,
+      "passed": 194,
+      "failed": 1,
+      "skipped": 0,
+      "warnings": 0,
+      "duration_s": 37.46,
+      "notes": "V3RunForm.test.tsx 'sends the explicit intervention and direction in the V3 payload' -> Test timed out in 5000ms. Flakiness dichiarata e RIPRODOTTA.",
+      "raw": "evaluation/deliverability/raw/F04_npm_test_run1.txt"
+    },
+    {
+      "command": "npx vitest run --no-file-parallelism",
+      "scope": "frontend, seriale",
+      "exit_code": 0,
+      "passed": 195,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "duration_s": 55.43,
+      "notes": "Conferma esatta della nota in docs/runtime_v3_integration/15_final_report.md.",
+      "raw": "evaluation/deliverability/raw/F05_npm_test_serial.txt"
+    },
+    {
+      "command": "npx tsc -b --force  (== npm run typecheck)",
+      "scope": "frontend typecheck",
+      "exit_code": 2,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "warnings": 0,
+      "notes": "6 errori TS2769, tutti in src/research/stages/EligibilityStage.tsx righe 83,110,126,151,186,202: <Stack direction spacing alignItems flexWrap> non tipizza contro @mui/material 9.0.1. File introdotto dal commit af099fd 'feat: expose v3 admission in supervisor UI'.",
+      "raw": "evaluation/deliverability/raw/F06_frontend_typecheck.txt"
+    },
+    {
+      "command": "npm run build  (tsc -b && vite build)",
+      "scope": "frontend build",
+      "exit_code": 2,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "warnings": 0,
+      "notes": "FALLISCE. vite build non viene mai raggiunto. Il lockfile e' tracciato e MUI e' esattamente 9.0.1: non e' deriva di dipendenze, il codice non compila a HEAD.",
+      "raw": "evaluation/deliverability/raw/F07_frontend_build.txt"
+    }
+  ],
+  "totals_python": {
+    "passed": 3138,
+    "failed": 0,
+    "skipped": 17,
+    "subtests": 36860
+  },
+  "comparison_with_declared": {
+    "source": "docs/runtime_v3_integration/15_final_report.md",
+    "declared_backend": "3047 passed, 17 skipped, 36860 subtest",
+    "reproduced_backend": "3047 passed (351+2696), 17 skipped (12+5), 36860 subtest",
+    "backend_match": true,
+    "declared_evaluation": "91 passed",
+    "reproduced_evaluation": "91 passed",
+    "evaluation_match": true,
+    "declared_frontend": "195 passed (13 nuovi), flakiness in parallelo",
+    "reproduced_frontend": "195 passed in seriale, 194/195 in parallelo",
+    "frontend_match": true,
+    "not_declared_anywhere": "npm run build FALLISCE con 6 errori TypeScript. Nessun documento del repository lo menziona."
+  },
+  "typecheck_backend": {
+    "command": "mypy",
+    "configured": false,
+    "notes": "esiste .mypy_cache/ ma nessun mypy.ini, setup.cfg o pyproject.toml: nessuna configurazione mypy sopravvive nel repository. Non eseguito."
+  },
+  "lint": {
+    "frontend": "eslint configurato (npm run lint), non eseguito in questo audit",
+    "backend": "nessun linter configurato"
+  }
+}
