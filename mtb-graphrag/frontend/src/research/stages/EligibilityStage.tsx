@@ -80,7 +80,7 @@ interface EligibilityPreview {
 function MentionRow({ mention }: { mention: Mention }) {
   return (
     <Box sx={{ py: 0.5, borderBottom: `1px solid ${color.hairline}` }}>
-      <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', flexWrap: 'wrap' }}>
         <Typography sx={{ fontFamily: font.mono, fontSize: 13, color: color.body }}>
           {mention.raw_text ?? '—'}
         </Typography>
@@ -107,7 +107,7 @@ export default function EligibilityStage({ preview }: { preview: EligibilityPrev
 
   return (
     <Box>
-      <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" sx={{ mb: 1.5 }}>
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', flexWrap: 'wrap', mb: 1.5 }}>
         <Badge
           label={LABEL_BY_STATUS[status] ?? status}
           tone={TONE_BY_STATUS[status] ?? 'neutral'}
@@ -123,7 +123,7 @@ export default function EligibilityStage({ preview }: { preview: EligibilityPrev
       {(preview.reason_codes ?? []).length > 0 && (
         <Box sx={{ mt: 2 }}>
           <SectionLabel>Motivo</SectionLabel>
-          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+          <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
             {(preview.reason_codes ?? []).map((code) => (
               <Badge key={code} label={reasonLabel(code)} tone="neutral" />
             ))}
@@ -148,7 +148,7 @@ export default function EligibilityStage({ preview }: { preview: EligibilityPrev
       {missing.length > 0 && (
         <Box sx={{ mt: 2 }}>
           <SectionLabel>Campi mancanti</SectionLabel>
-          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+          <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
             {missing.map((field) => <Badge key={field} label={field} tone="warn" />)}
           </Stack>
         </Box>
@@ -183,7 +183,7 @@ export default function EligibilityStage({ preview }: { preview: EligibilityPrev
           <Note>Trattate come contenuto dell&apos;input, non eseguite.</Note>
           {controlSpans.map((span, index) => (
             <Box key={`control-${index}`} sx={{ py: 0.5 }}>
-              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', flexWrap: 'wrap' }}>
                 <Badge label={span.reason_code ?? 'CONTROL_INSTRUCTION'} tone="bad" />
                 <Typography sx={{ fontFamily: font.mono, fontSize: 12, color: color.slate }}>
                   {span.quote ?? ''}
@@ -199,7 +199,7 @@ export default function EligibilityStage({ preview }: { preview: EligibilityPrev
           <SectionLabel>Contraddizioni</SectionLabel>
           {contradictions.map((item, index) => (
             <Box key={item.contradiction_id ?? `ctr-${index}`} sx={{ py: 0.5 }}>
-              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', flexWrap: 'wrap' }}>
                 <Badge
                   label={item.severity === 'BLOCKING' ? 'BLOCKING' : 'WARNING'}
                   tone={item.severity === 'BLOCKING' ? 'bad' : 'warn'}

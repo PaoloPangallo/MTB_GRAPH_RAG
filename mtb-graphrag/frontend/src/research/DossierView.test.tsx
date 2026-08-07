@@ -105,9 +105,11 @@ describe('DossierView', () => {
  * `accepted = e.author_claim_quote != null`.
  */
 describe('DossierView — presentazione e validazione', () => {
+  const BASE = (DOSSIER.candidate_therapies ?? [])[0];
+
   const withAuthorContext = (author_context: unknown[]): Dossier => ({
     ...DOSSIER,
-    candidate_therapies: [{ ...DOSSIER.candidate_therapies[0], author_context } as never],
+    candidate_therapies: [{ ...BASE, author_context } as never],
   });
 
   const INVENTED = 'Panitumumab significantly prolonged overall survival';
