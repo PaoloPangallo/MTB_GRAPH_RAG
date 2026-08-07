@@ -1,0 +1,20 @@
+# Dipendenze necessarie a ESEGUIRE test ed evaluation.
+#
+# Erano tutte assenti da requirements.txt: chi seguiva il README otteneva un
+# ambiente in cui `pytest` non esisteva. Sono separate dal runtime perche' non
+# servono a servire l'API, ma sono obbligatorie per riprodurre gli esperimenti.
+#
+#   pip install -r backend/config/requirements.txt
+#   pip install -r backend/config/requirements-dev.txt
+
+-r requirements.txt
+
+# Suite di test: backend/tests, backend/research_pipeline/tests, evaluation/tests
+pytest>=9.1,<10.0
+
+# fastapi.testclient — usato da test_research_api e dalle sonde di audit
+httpx>=0.28,<1.0
+
+# Script di evaluation (RQ1, RQ2, RQ4, gca_v3)
+pandas>=3.0,<4.0
+numpy>=2.4,<3.0
