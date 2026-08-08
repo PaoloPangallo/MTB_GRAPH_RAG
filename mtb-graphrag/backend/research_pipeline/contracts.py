@@ -72,6 +72,8 @@ STOP_REASONS: tuple[str, ...] = (
     # mostrare una presa altrove.
     "DOCUMENT_CACHE_UNAVAILABLE",
     "NO_DOCUMENT_RESOLVED",
+    "PARSER_FAILED",
+    "SOURCEUNIT_SELECTION_FAILED",
     "LIVE_STAGE_FAILED",
     # Esiti del gate deterministico pre-retrieval.
     *ELIGIBILITY_STOP_REASONS,
