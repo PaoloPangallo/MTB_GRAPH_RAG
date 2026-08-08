@@ -1,0 +1,27 @@
+{
+  "chars_per_token_estimate": 4.0,
+  "k=3": {
+    "mean_chars": 1815.5,
+    "p95_chars": 2652,
+    "max_chars": 2684,
+    "mean_tokens_est": 453.9,
+    "p95_tokens_est": 663.0,
+    "max_tokens_est": 671.0
+  },
+  "k=5": {
+    "mean_chars": 2610.9,
+    "p95_chars": 3678,
+    "max_chars": 3706,
+    "mean_tokens_est": 652.7,
+    "p95_tokens_est": 919.5,
+    "max_tokens_est": 926.5
+  },
+  "k=10": {
+    "mean_chars": 3609.3,
+    "p95_chars": 7023,
+    "max_chars": 7974,
+    "mean_tokens_est": 902.3,
+    "p95_tokens_est": 1755.8,
+    "max_tokens_est": 1993.5
+  }
+}
