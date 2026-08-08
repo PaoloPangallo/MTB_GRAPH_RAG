@@ -15,7 +15,7 @@ $env:PYTHONPATH = $ProjectDir
 
 # Avvia il Backend in una nuova finestra PowerShell
 Write-Host "[1/2] Avvio del server Backend (FastAPI)..." -ForegroundColor Yellow
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "`$Host.UI.RawUI.WindowTitle = 'MTB Backend'; cd '$ProjectDir'; `$env:PYTHONPATH = '$ProjectDir'; ..\.venv\Scripts\python.exe -m uvicorn backend.api.main:app --reload --port 8000"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "`$Host.UI.RawUI.WindowTitle = 'MTB Backend'; cd '$ProjectDir'; `$env:PYTHONPATH = '$ProjectDir'; `$env:VERIFIABLE_PIPELINE_RESEARCH_ENABLED = '1'; ..\.venv\Scripts\python.exe -m uvicorn backend.api.main:app --reload --port 8000"
 
 # Attendi 2 secondi
 Start-Sleep -Seconds 2
@@ -29,5 +29,6 @@ Write-Host "===================================================" -ForegroundColo
 Write-Host "  Entrambi i server sono stati avviati!" -ForegroundColor Green
 Write-Host "  - Backend: http://localhost:8000" -ForegroundColor Green
 Write-Host "  - Frontend: Controlla la nuova finestra per l'indirizzo" -ForegroundColor Green
+Write-Host "  - Console: http://localhost:<porta frontend>/research/verifiable-pipeline" -ForegroundColor Green
 Write-Host "===================================================" -ForegroundColor Green
 Write-Host ""
