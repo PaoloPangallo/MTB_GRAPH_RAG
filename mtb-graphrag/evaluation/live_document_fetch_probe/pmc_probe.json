@@ -1,0 +1,81 @@
+{
+  "slot": "B",
+  "candidate_id": "GCA-0000980ba01970f893f8e4d7",
+  "provenance_pmids": [
+    "15705718"
+  ],
+  "selected_pmid": "15705718",
+  "human_identifier_input_required": false,
+  "pubmed": {
+    "requested_kind": "pmid",
+    "requested_value": "15705718",
+    "document_id": "pmid:15705718",
+    "identifiers": {
+      "pmid": "15705718",
+      "pmcid": "PMC248481",
+      "doi": "10.1073/pnas.0409770102"
+    },
+    "availability": "ABSTRACT_AVAILABLE",
+    "official_source": "NCBI E-utilities",
+    "endpoints": [
+      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=15705718",
+      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=15705718"
+    ],
+    "retrieved_at": "2026-08-08T08:28:34Z",
+    "content_type": "application/xml",
+    "local_cache_path": "pubmed/abstracts/15705718.xml",
+    "raw_payload_hash": "3ef3fb6dfe9a7ed168fe13c0de1ffa195be04fb4db3c1ae1624ee377eb97fd8a",
+    "payload_size_bytes": 13639,
+    "fetch_success": true,
+    "duration_seconds": 3.328,
+    "parser_success": true,
+    "parsers": [
+      "PubMedAbstractParser@1.0"
+    ],
+    "source_unit_count": 10,
+    "source_units_with_text": 10,
+    "unit_types": [
+      "ABSTRACT",
+      "ABSTRACT_SENTENCE",
+      "TITLE"
+    ]
+  },
+  "derived_pmcid_from_pubmed": "PMC248481",
+  "pmcid_matches_baseline": true,
+  "pmc": {
+    "requested_kind": "pmcid",
+    "requested_value": "PMC248481",
+    "document_id": "pmcid:PMC248481",
+    "identifiers": {
+      "pmcid": "PMC248481"
+    },
+    "availability": "PMC_XML_AVAILABLE",
+    "official_source": "NCBI PMC OAI",
+    "endpoints": [
+      "https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:248481"
+    ],
+    "retrieved_at": "2026-08-08T08:28:37Z",
+    "content_type": "application/xml",
+    "local_cache_path": "pmc/xml/PMC248481.xml",
+    "raw_payload_hash": "8e70ca44bb3e600ef24c08e77694e0e711f3970236ec617a8debd13b83344140",
+    "payload_size_bytes": 42444,
+    "fetch_success": true,
+    "duration_seconds": 2.875,
+    "parser_success": true,
+    "parsers": [
+      "JatsXmlParser@1.0"
+    ],
+    "source_unit_count": 243,
+    "source_units_with_text": 243,
+    "unit_types": [
+      "FIGURE_CAPTION",
+      "FULLTEXT_PARAGRAPH",
+      "FULLTEXT_SECTION",
+      "FULLTEXT_SENTENCE",
+      "TITLE"
+    ]
+  },
+  "degraded_to_abstract": false,
+  "document_used_for_gemma": "pmcid:PMC248481",
+  "source_units_available_for_gemma": 243
+}

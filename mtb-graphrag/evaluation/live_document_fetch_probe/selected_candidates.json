@@ -1,0 +1,176 @@
+{
+  "probe_version": "live-document-fetch-probe/1.0",
+  "selection_is_automatic": true,
+  "bundle_document_id_used_as_input": false,
+  "slots_found": [
+    "A",
+    "B",
+    "C"
+  ],
+  "slots_missing": [],
+  "candidates": {
+    "A": {
+      "slot": "A",
+      "candidate_id": "GCA-0a52f20ab5e3e93c15582f2e",
+      "bundle_id": "EB-2ae853e8abf1195cc4c84846",
+      "bundle_type": "ABSTRACT_BUNDLE",
+      "bundle_document_id_NOT_USED_AS_INPUT": "pmid:24658966",
+      "provenance_pmids": [
+        "24658966"
+      ],
+      "selected_pmid": "24658966",
+      "pmcid_expected_from_baseline": null,
+      "pmc_availability_baseline": null,
+      "disease": [
+        {
+          "canonical_id": "DOID:3908.0",
+          "id": "disease:label:Lung Non-small Cell Carcinoma",
+          "label": "Lung Non-small Cell Carcinoma"
+        },
+        {
+          "canonical_id": "DOID:3908",
+          "id": "Disease:8",
+          "label": "Lung Non-small Cell Carcinoma"
+        }
+      ],
+      "biomarkers": [
+        {
+          "canonical_id": null,
+          "id": "Gene:1956",
+          "label": "EGFR",
+          "type": "Gene"
+        },
+        {
+          "canonical_id": null,
+          "id": "Variant:34",
+          "label": "T790M",
+          "type": "Variant"
+        }
+      ],
+      "interventions": [],
+      "predicate": "has_evidence_statement",
+      "direction": "Supports",
+      "document_identifiers": [
+        {
+          "pmid": "24658966",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "24658966",
+          "scope": "linked_publication"
+        }
+      ]
+    },
+    "B": {
+      "slot": "B",
+      "candidate_id": "GCA-0000980ba01970f893f8e4d7",
+      "bundle_id": "EB-003e4bcab4a57d2a1c80cb5c",
+      "bundle_type": "FULLTEXT_LOCAL_CONTEXT_BUNDLE",
+      "bundle_document_id_NOT_USED_AS_INPUT": "pmcid:PMC248481",
+      "provenance_pmids": [
+        "15705718"
+      ],
+      "selected_pmid": "15705718",
+      "pmcid_expected_from_baseline": "PMC248481",
+      "pmc_availability_baseline": "PMC_XML_AVAILABLE",
+      "disease": [
+        {
+          "canonical_id": "DOID:8552.0",
+          "id": "disease:label:Chronic Myeloid Leukemia",
+          "label": "Chronic Myeloid Leukemia"
+        },
+        {
+          "canonical_id": "DOID:8552",
+          "id": "Disease:4",
+          "label": "Chronic Myeloid Leukemia"
+        }
+      ],
+      "biomarkers": [
+        {
+          "canonical_id": null,
+          "id": "Gene:25",
+          "label": "ABL1",
+          "type": "Gene"
+        },
+        {
+          "canonical_id": null,
+          "id": "Variant:4639",
+          "label": "V299L",
+          "type": "Variant"
+        }
+      ],
+      "interventions": [],
+      "predicate": "has_evidence_statement",
+      "direction": "Supports",
+      "document_identifiers": [
+        {
+          "pmid": "15705718",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "15705718",
+          "scope": "linked_publication"
+        }
+      ]
+    },
+    "C": {
+      "slot": "C",
+      "candidate_id": "GCA-003ca9889b3d8906d4674f37",
+      "bundle_id": "EB-3b9ecb5a7e6236bec23ac785",
+      "bundle_type": "ABSTRACT_BUNDLE",
+      "bundle_document_id_NOT_USED_AS_INPUT": "pmid:23724867",
+      "provenance_pmids": [
+        "23724867"
+      ],
+      "selected_pmid": "23724867",
+      "pmcid_expected_from_baseline": "PMC4081656",
+      "pmc_availability_baseline": "PMC_RESOLUTION_FAILED",
+      "disease": [
+        {
+          "canonical_id": "DOID:1909.0",
+          "id": "disease:label:Melanoma",
+          "label": "Melanoma"
+        },
+        {
+          "canonical_id": "DOID:1909",
+          "id": "Disease:7",
+          "label": "Melanoma"
+        }
+      ],
+      "biomarkers": [
+        {
+          "canonical_id": null,
+          "id": "Gene:29126",
+          "label": "CD274",
+          "type": "Gene"
+        },
+        {
+          "canonical_id": null,
+          "id": "Variant:276",
+          "label": "Expression",
+          "type": "Variant"
+        }
+      ],
+      "interventions": [
+        {
+          "canonical_id": null,
+          "id": "Drug:rxcui:1597876",
+          "label": "NIVOLUMAB",
+          "type": "Drug"
+        }
+      ],
+      "predicate": "associated_with_sensitivity_to",
+      "direction": "Sensitivity/Response",
+      "document_identifiers": [
+        {
+          "pmid": "23724867",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "23724867",
+          "scope": "linked_publication"
+        }
+      ]
+    }
+  }
+}
