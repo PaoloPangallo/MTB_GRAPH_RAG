@@ -1,0 +1,12 @@
+candidate_id,document_id,source_type,document_source_unit_count,direct_gold_count,first_direct_rank,failure_class,difficulty_signals
+GCA-013b8e1875f70e5a8d3ec263,pmid:25730903,PUBMED_ABSTRACT,9,0,,NO_DIRECT_GOLD,very_short
+GCA-01418cd09a941c6490e9bd39,pmcid:PMC2948082,PMC_FULLTEXT,11,0,,NO_DIRECT_GOLD,very_short
+GCA-01586ec74fff9c1692d6ad66,pmid:19603024,PUBMED_ABSTRACT,15,0,,NO_DIRECT_GOLD,gene_only|negation_or_negative|very_short
+GCA-006f4ba03d72ec2d1243408f,pmcid:PMC2359721,PMC_FULLTEXT,226,0,,NO_DIRECT_GOLD,very_short
+GCA-0096f91c574c8d8f1b27c2c1,pmid:27022112,PUBMED_ABSTRACT,42,0,,NO_DIRECT_GOLD,drug_only|gene_only|very_short
+GCA-0104b6bc3c25f0cc6bfdb268,pmcid:PMC6504641,PMC_FULLTEXT,389,0,,NO_DIRECT_GOLD,gene_only|negation_or_negative|very_short
+GCA-00f6a9bd535860d4a8cf6c7d,pmid:21463266,PUBMED_ABSTRACT,11,0,,NO_DIRECT_GOLD,gene_only
+GCA-014a44e0d4585dec8e302498,pmid:10866302,PUBMED_ABSTRACT,10,0,,NO_DIRECT_GOLD,gene_only
+GCA-00b923db4b7ed46d4824c343,pmid:11208838,PUBMED_ABSTRACT,16,0,,NO_DIRECT_GOLD,very_short
+GCA-0187a17739611f6678a24a88,pmid:11896595,PUBMED_ABSTRACT,21,0,,NO_DIRECT_GOLD,very_short
+GCA-02221723e35fa79a06e08d72,pmcid:PMC2820374,PMC_FULLTEXT,7,0,,NO_DIRECT_GOLD,gene_only|very_short

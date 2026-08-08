@@ -1,0 +1,73 @@
+{
+  "ALL": {
+    "cases": 20,
+    "direct_relevant_cases": 9,
+    "hit_rate@5": 0.45,
+    "recall@10": 0.4231,
+    "precision@5": 0.2
+  },
+  "ALTERATION_WITHOUT_GENE": {
+    "cases": 7,
+    "direct_relevant_cases": 7,
+    "hit_rate@5": 1,
+    "recall@10": 0.9231,
+    "precision@5": 0.4286
+  },
+  "DRUG_ONLY": {
+    "cases": 3,
+    "direct_relevant_cases": 2,
+    "hit_rate@5": 0.6667,
+    "recall@10": 0.6667,
+    "precision@5": 0.2
+  },
+  "GENE_ONLY": {
+    "cases": 9,
+    "direct_relevant_cases": 3,
+    "hit_rate@5": 0.3333,
+    "recall@10": 0.3333,
+    "precision@5": 0.1556
+  },
+  "LONG_DOCUMENT_100_PLUS": {
+    "cases": 5,
+    "direct_relevant_cases": 3,
+    "hit_rate@5": 0.6,
+    "recall@10": 0.6,
+    "precision@5": 0.2
+  },
+  "NEGATION_OR_NEGATIVE": {
+    "cases": 7,
+    "direct_relevant_cases": 5,
+    "hit_rate@5": 0.7143,
+    "recall@10": 0.6374,
+    "precision@5": 0.2857
+  },
+  "PMC_FULLTEXT": {
+    "cases": 8,
+    "direct_relevant_cases": 4,
+    "hit_rate@5": 0.5,
+    "recall@10": 0.4327,
+    "precision@5": 0.225
+  },
+  "PUBMED_ABSTRACT": {
+    "cases": 12,
+    "direct_relevant_cases": 5,
+    "hit_rate@5": 0.4167,
+    "recall@10": 0.4167,
+    "precision@5": 0.1833
+  },
+  "STANDARD": {
+    "cases": 18,
+    "direct_relevant_cases": 9,
+    "hit_rate@5": 0.5,
+    "recall@10": 0.4701,
+    "precision@5": 0.2222
+  },
+  "VERY_SHORT": {
+    "cases": 17,
+    "direct_relevant_cases": 8,
+    "hit_rate@5": 0.4706,
+    "recall@10": 0.4389,
+    "precision@5": 0.2118
+  },
+  "note": "Difficulty groups are descriptive post-freeze partitions; no tuning or threshold selection used them."
+}

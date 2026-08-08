@@ -1,0 +1,238 @@
+{
+  "cases": [
+    {
+      "candidate_id": "GCA-0101aa9c8f708d6f8dd74be0",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:24088390",
+      "provenance_pmids": [
+        "24088390"
+      ],
+      "disease": [
+        "Pancreatic Cancer"
+      ],
+      "genes": [
+        "SIRT1"
+      ],
+      "alterations": [
+        "Overexpression"
+      ],
+      "interventions": [
+        "NIACINAMIDE"
+      ],
+      "graph_relation": "associated_with_resistance_to",
+      "direction": "Resistance",
+      "biomarker_types": [
+        "Gene",
+        "Variant"
+      ],
+      "candidate_input_hash": "ec235ea9e30895329af72fd9cbda5967ebd0c746d0722ef91a8c34a26cd6c73c"
+    },
+    {
+      "candidate_id": "GCA-010315d07ebd444fda7e0521",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:22277784",
+      "provenance_pmids": [
+        "22277784"
+      ],
+      "disease": [
+        "Lung Non-small Cell Carcinoma"
+      ],
+      "genes": [],
+      "alterations": [
+        "Fusion"
+      ],
+      "interventions": [
+        "CRIZOTINIB"
+      ],
+      "graph_relation": "associated_with_resistance_to",
+      "direction": "Resistance",
+      "biomarker_types": [
+        "Variant"
+      ],
+      "candidate_input_hash": "72d8005d5a37868e8946f38b01f6a89eed18a4dc7b8d20df3154f22297165b90"
+    },
+    {
+      "candidate_id": "GCA-013b8e1875f70e5a8d3ec263",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:25730903",
+      "provenance_pmids": [
+        "25730903"
+      ],
+      "disease": [
+        "Lung Adenocarcinoma"
+      ],
+      "genes": [
+        "TP53"
+      ],
+      "alterations": [
+        "R158L"
+      ],
+      "interventions": [
+        "MDM2 INHIBITOR AMGMDS3"
+      ],
+      "graph_relation": "associated_with_resistance_to",
+      "direction": "Resistance",
+      "biomarker_types": [
+        "Gene",
+        "Variant"
+      ],
+      "candidate_input_hash": "e4d7762dce9a7ca6b7841e3a7dbf457497e99b702c7f70a079fcb7bdc23ba8fe"
+    },
+    {
+      "candidate_id": "GCA-01418cd09a941c6490e9bd39",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:23598171",
+      "provenance_pmids": [
+        "23598171"
+      ],
+      "disease": [
+        "Neuroblastoma"
+      ],
+      "genes": [
+        "ALK"
+      ],
+      "alterations": [
+        "F1245C"
+      ],
+      "interventions": [
+        "CRIZOTINIB"
+      ],
+      "graph_relation": "associated_with_resistance_to",
+      "direction": "Resistance",
+      "biomarker_types": [
+        "Gene",
+        "Variant"
+      ],
+      "candidate_input_hash": "e271b6e90608040b3242182554b2b64307cd23dce52d79933a3ccb04bc30387c"
+    },
+    {
+      "candidate_id": "GCA-01586ec74fff9c1692d6ad66",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:19603024",
+      "provenance_pmids": [
+        "19603024"
+      ],
+      "disease": [
+        "Colorectal Cancer"
+      ],
+      "genes": [
+        "KRAS"
+      ],
+      "alterations": [
+        "G12/G13"
+      ],
+      "interventions": [
+        "IRINOTECAN HYDROCHLORIDE"
+      ],
+      "graph_relation": "associated_with_resistance_to",
+      "direction": "Resistance",
+      "biomarker_types": [
+        "Gene",
+        "Variant"
+      ],
+      "candidate_input_hash": "71d70c2f98f06c98e9ad113e036a2736602403fd3f21b1864269ae6c4b6a6e82"
+    },
+    {
+      "candidate_id": "GCA-0162e2a8ddd3e9b89cd58df3",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:24146218",
+      "provenance_pmids": [
+        "24146218"
+      ],
+      "disease": [
+        "Colorectal Cancer"
+      ],
+      "genes": [
+        "ERBB2"
+      ],
+      "alterations": [
+        "Amplification"
+      ],
+      "interventions": [
+        "CAPECITABINE"
+      ],
+      "graph_relation": "associated_with_resistance_to",
+      "direction": "Resistance",
+      "biomarker_types": [
+        "Gene",
+        "Variant"
+      ],
+      "candidate_input_hash": "9da146f62c1030078bbfba2663c514577d04226db7288afbb941ce707399fe76"
+    },
+    {
+      "candidate_id": "GCA-00b923db4b7ed46d4824c343",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:11208838",
+      "provenance_pmids": [
+        "11208838"
+      ],
+      "disease": [
+        "Lung Non-small Cell Carcinoma"
+      ],
+      "genes": [
+        "KRAS"
+      ],
+      "alterations": [
+        "G12"
+      ],
+      "interventions": [],
+      "graph_relation": "has_evidence_statement",
+      "direction": "Does Not Support",
+      "biomarker_types": [
+        "Gene",
+        "Variant"
+      ],
+      "candidate_input_hash": "968299a7158b03652357fa883559de4e09e59164b4a7626e9ef6555c97289230"
+    },
+    {
+      "candidate_id": "GCA-0187a17739611f6678a24a88",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:11896595",
+      "provenance_pmids": [
+        "11896595"
+      ],
+      "disease": [],
+      "genes": [
+        "TP53"
+      ],
+      "alterations": [
+        "T230S"
+      ],
+      "interventions": [],
+      "graph_relation": "has_evidence_statement",
+      "direction": "Does Not Support",
+      "biomarker_types": [
+        "Gene",
+        "Variant"
+      ],
+      "candidate_input_hash": "9e255b9a71deb14854ee9530096d31e486f6bfb2e9e279f9cd74067ce6b68c8b"
+    },
+    {
+      "candidate_id": "GCA-02221723e35fa79a06e08d72",
+      "candidate_version": "2.0",
+      "document_id_from_provenance": "pmid:20147967",
+      "provenance_pmids": [
+        "20147967"
+      ],
+      "disease": [
+        "Cancer"
+      ],
+      "genes": [
+        "KRAS"
+      ],
+      "alterations": [
+        "R164Q (exon 5b)"
+      ],
+      "interventions": [],
+      "graph_relation": "has_evidence_statement",
+      "direction": "Does Not Support",
+      "biomarker_types": [
+        "Gene",
+        "Variant"
+      ],
+      "candidate_input_hash": "ca66b39fb549032e835bad2af8db0394cd53021c78a0ad82d5d5d7ca1a7d7d68"
+    }
+  ],
+  "direct_gold_cases": 9,
+  "zero_direct_relevant_cases": 11
+}
