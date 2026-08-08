@@ -1,0 +1,35 @@
+{
+  "backend": {
+    "command": "python -m pytest backend/research_pipeline/tests -q --disable-warnings",
+    "passed": 519,
+    "skipped": 19,
+    "status": "PASS",
+    "subtests": 54,
+    "warnings": 1
+  },
+  "clean_import": {
+    "import_status": "PASS",
+    "integration_tests_passed": 8,
+    "pythonpath_unset": true
+  },
+  "focused_invariant_and_integration": {
+    "passed": 48,
+    "status": "PASS",
+    "subtests": 13
+  },
+  "frontend": {
+    "command": "npm test -- --run",
+    "status": "PASS",
+    "test_files": 17,
+    "tests": 206
+  },
+  "frontend_build": {
+    "command": "npm run build",
+    "status": "PASS",
+    "warning": "large bundle warning only"
+  },
+  "historical_tests_modified": [
+    "backend/research_pipeline/tests/test_sourceunit_selector.py"
+  ],
+  "selector_implementation_modified": false
+}
