@@ -1,0 +1,33 @@
+{
+  "annotator_2_status": "independent_protocol_pass_not_human_reviewer",
+  "cohen_kappa_direct_vs_not_direct": 0.8208886960396844,
+  "four_class_confusion_matrix": {
+    "CONTEXT_ONLY": {
+      "CONTEXT_ONLY": 303,
+      "DIRECTLY_RELEVANT": 0,
+      "NOT_RELEVANT": 7,
+      "PARTIALLY_RELEVANT": 45
+    },
+    "DIRECTLY_RELEVANT": {
+      "CONTEXT_ONLY": 0,
+      "DIRECTLY_RELEVANT": 21,
+      "NOT_RELEVANT": 8,
+      "PARTIALLY_RELEVANT": 0
+    },
+    "NOT_RELEVANT": {
+      "CONTEXT_ONLY": 0,
+      "DIRECTLY_RELEVANT": 0,
+      "NOT_RELEVANT": 1264,
+      "PARTIALLY_RELEVANT": 0
+    },
+    "PARTIALLY_RELEVANT": {
+      "CONTEXT_ONLY": 22,
+      "DIRECTLY_RELEVANT": 1,
+      "NOT_RELEVANT": 23,
+      "PARTIALLY_RELEVANT": 3
+    }
+  },
+  "raw_agreement_direct_vs_not_direct": 0.99469652327637,
+  "sample_size_candidate_document_pairs": 20,
+  "sample_size_source_units": 1697
+}

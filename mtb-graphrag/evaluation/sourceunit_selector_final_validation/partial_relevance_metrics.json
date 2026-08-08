@@ -1,0 +1,23 @@
+{
+  "gold_label": "DIRECTLY_RELEVANT_PLUS_PARTIALLY_RELEVANT",
+  "strategies": {
+    "baseline_bm25": {
+      "denominator": 20,
+      "hit_rate@5": 0.5,
+      "mrr": 0.3767,
+      "recall@10": 0.4037
+    },
+    "baseline_first_k": {
+      "denominator": 20,
+      "hit_rate@5": 0.4,
+      "mrr": 0.2244,
+      "recall@10": 0.2632
+    },
+    "feature_selector": {
+      "denominator": 20,
+      "hit_rate@5": 0.5,
+      "mrr": 0.475,
+      "recall@10": 0.4287
+    }
+  }
+}

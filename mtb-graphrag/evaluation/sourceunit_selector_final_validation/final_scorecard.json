@@ -1,0 +1,79 @@
+{
+  "annotation": {
+    "annotator_2_status": "independent_protocol_pass_not_human_reviewer",
+    "cohen_kappa_direct_vs_not_direct": 0.8208886960396844,
+    "four_class_confusion_matrix": {
+      "CONTEXT_ONLY": {
+        "CONTEXT_ONLY": 303,
+        "DIRECTLY_RELEVANT": 0,
+        "NOT_RELEVANT": 7,
+        "PARTIALLY_RELEVANT": 45
+      },
+      "DIRECTLY_RELEVANT": {
+        "CONTEXT_ONLY": 0,
+        "DIRECTLY_RELEVANT": 21,
+        "NOT_RELEVANT": 8,
+        "PARTIALLY_RELEVANT": 0
+      },
+      "NOT_RELEVANT": {
+        "CONTEXT_ONLY": 0,
+        "DIRECTLY_RELEVANT": 0,
+        "NOT_RELEVANT": 1264,
+        "PARTIALLY_RELEVANT": 0
+      },
+      "PARTIALLY_RELEVANT": {
+        "CONTEXT_ONLY": 22,
+        "DIRECTLY_RELEVANT": 1,
+        "NOT_RELEVANT": 23,
+        "PARTIALLY_RELEVANT": 3
+      }
+    },
+    "raw_agreement_direct_vs_not_direct": 0.99469652327637,
+    "sample_size_candidate_document_pairs": 20,
+    "sample_size_source_units": 1697
+  },
+  "bm25_modified": false,
+  "decision": "SOURCEUNIT_SELECTOR_GENERALIZES_BUT_DOWNSTREAM_NOT_VALIDATED",
+  "denominators": {
+    "conditional_selector_hit_rate_at_5": 1.0,
+    "gold_frozen_before_selector": true,
+    "gold_hash": "a8e384bf57402932de272e152bee05c6f421aabe2e568efb62835d19cc12d986",
+    "positive_cases": 9,
+    "selector_positive_hits_at_5": 9,
+    "total_cases": 20,
+    "zero_direct_cases": 11
+  },
+  "gemma": {
+    "abstain_rate_gold": null,
+    "abstain_rate_selector": null,
+    "api_key_status": "NOT_SET",
+    "gold_policy": "DIRECTLY_RELEVANT only; zero-direct uses DIRECTLY+PARTIAL only if execution is enabled",
+    "k": 5,
+    "provider": "Ollama Cloud / Paper Context Enricher V2",
+    "reason": "API key not set; no simulated output accepted",
+    "rejected_quote_rate_selector": null,
+    "sample_executed": 0,
+    "sample_requested": 20,
+    "selector_policy": "frozen feature_selector top-5",
+    "status": "NOT_RUN_PROVIDER_UNAVAILABLE",
+    "validated_quote_rate_gold": null,
+    "validated_quote_rate_selector": null,
+    "wrong_document_quote_accepted": 0,
+    "wrong_quote_accepted": 0,
+    "wrong_sourceunit_quote_accepted": 0
+  },
+  "gold_modified": false,
+  "historical_artifacts_modified": false,
+  "k_modified": false,
+  "remaining_p0": [
+    "independent Gemma/validator comparison unavailable without provider key"
+  ],
+  "remaining_p1": [
+    "human second annotator/adjudication",
+    "threshold/no-relevance policy",
+    "larger independent corpus and alias/table failure analysis"
+  ],
+  "runtime_modified": false,
+  "selector_modified": false,
+  "selector_weights_modified": false
+}
