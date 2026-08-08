@@ -1,0 +1,18 @@
+{
+  "verifier_version": "document-cache-verifier/1.0",
+  "cache_root_redacted": ".../data_cache/document_grounding",
+  "validate_cache_available": true,
+  "validate_cache_reason_codes": [],
+  "descriptor": {
+    "document_cache_available": true,
+    "cache_path_redacted": ".../data_cache/document_grounding",
+    "cache_version": "authorized-document-cache/1.0",
+    "reason_codes": [],
+    "manifest_hash": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+    "manifest_rows": 43,
+    "document_count": 40,
+    "documents_with_text": 40,
+    "documents_unavailable": 3,
+    "source_unit_count": 3402
+  }
+}

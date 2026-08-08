@@ -1,0 +1,95 @@
+{
+  "artifact_version": "document-cache-rebuild-scorecard/1.0",
+  "branch": "chore/rebuild-document-cache",
+  "base_commit": "9996eff7e170faf7bdfc66134444a7d85ec5ca5a",
+  "cache_root_redacted": ".../data_cache/document_grounding",
+  "manifest_sha256": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+  "manifest_document_count": 43,
+  "expected_available": 40,
+  "expected_unavailable": 3,
+  "downloaded_first_run": 40,
+  "cache_hits_second_run": 40,
+  "downloaded_second_run": 0,
+  "unexpected_missing_count": 0,
+  "availability_changed_since_baseline": [],
+  "payload_files": {
+    "pubmed/abstracts": 17,
+    "pubmed/metadata": 17,
+    "pmc/xml": 11,
+    "clinical_trials": 12
+  },
+  "validate_cache_available": true,
+  "validate_cache_reason_codes": [],
+  "document_count": 40,
+  "documents_with_text": 40,
+  "documents_unavailable": 3,
+  "source_unit_count_descriptor": 3402,
+  "source_units_reconstructed": 3402,
+  "source_units_with_text": 3402,
+  "source_unit_ids_in_index": 3402,
+  "source_unit_id_intersection": 3402,
+  "source_unit_ids_missing_from_reconstruction": 0,
+  "source_unit_ids_new_from_reconstruction": 0,
+  "source_unit_id_drift": 0,
+  "bundle_coverage": {
+    "bundles_total": 25,
+    "bundles_fully_resolved": 25,
+    "bundles_with_text": 25,
+    "bundles_without_text": 0,
+    "source_units_requested": 76,
+    "source_units_resolved": 76,
+    "by_identifier_kind": {
+      "nct": {
+        "bundles": 5,
+        "fully_resolved": 5,
+        "text_available": 5,
+        "requested": 15,
+        "resolved": 15
+      },
+      "pmcid": {
+        "bundles": 7,
+        "fully_resolved": 7,
+        "text_available": 7,
+        "requested": 20,
+        "resolved": 20
+      },
+      "pmid": {
+        "bundles": 13,
+        "fully_resolved": 13,
+        "text_available": 13,
+        "requested": 41,
+        "resolved": 41
+      }
+    }
+  },
+  "hash_mismatch_count": 23,
+  "hash_mismatch_verdicts": {
+    "EXPLAINED_TEXT_UNCHANGED": 12,
+    "EXPLAINED_NONDETERMINISTIC_PAYLOAD": 11
+  },
+  "unexplained_mismatch_count": 0,
+  "parser_failures": 0,
+  "config_endpoint_live_available": true,
+  "live_run": {
+    "status": "COMPLETED",
+    "stopped_at": null,
+    "llm_calls": 2,
+    "stage_6_status": "SUCCEEDED",
+    "stage_7_status": "SUCCEEDED",
+    "stage_7_units_with_text": 4,
+    "gemma_reached": true,
+    "validator_outcomes": [
+      "ENRICHMENT_V2_ACCEPTED"
+    ],
+    "fallback_to_replay": false
+  },
+  "invariants": {
+    "runtime_code_modified": false,
+    "historical_manifest_modified": false,
+    "historical_source_unit_index_modified": false,
+    "document_payloads_committed": false,
+    "push_executed": false,
+    "merge_executed": false
+  },
+  "decision": "CACHE_REBUILT_AND_LIVE_READY"
+}
