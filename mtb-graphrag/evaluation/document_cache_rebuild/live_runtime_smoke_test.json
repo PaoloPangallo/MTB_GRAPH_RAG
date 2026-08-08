@@ -1,0 +1,204 @@
+{
+  "artifact_version": "live-smoke-test/1.0",
+  "purpose": "Smoke test infrastrutturale della cache ricostruita. NON una metrica scientifica.",
+  "case_id": "CASE-1-therapy-evaluation-strong-match",
+  "requested_mode": "LIVE",
+  "run_status": "COMPLETED",
+  "stopped_at": null,
+  "llm_calls": 2,
+  "document_cache": {
+    "document_cache_available": true,
+    "cache_path_redacted": ".../data_cache/document_grounding",
+    "cache_version": "authorized-document-cache/1.0",
+    "reason_codes": [],
+    "manifest_hash": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+    "manifest_rows": 43,
+    "document_count": 40,
+    "documents_with_text": 40,
+    "documents_unavailable": 3,
+    "source_unit_count": 3402
+  },
+  "stages": [
+    {
+      "stage_id": "stage_1_case_input",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_2_casecontext_parser",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_3_casecontext_match",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_3b_pre_retrieval_eligibility_gate",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_4_retrieval_plan",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_5_kg_retrieval",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_6_document_resolution",
+      "status": "SUCCEEDED",
+      "artifact_origin": "DETERMINISTIC_CACHE",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ]
+    },
+    {
+      "stage_id": "stage_7_source_units",
+      "status": "SUCCEEDED",
+      "artifact_origin": "DETERMINISTIC_CACHE",
+      "reason_codes": [
+        "SOURCE_UNITS_MATERIALIZED_FROM_CACHE"
+      ]
+    },
+    {
+      "stage_id": "stage_8_paper_selection",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_9_paper_context_enricher",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_10_enrichment_validation",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_11_deterministic_gates",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_12_status",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_13_dossier",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_14_narrator",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    },
+    {
+      "stage_id": "stage_15_narrative_verifier",
+      "status": "SUCCEEDED",
+      "artifact_origin": "GENERATED_NOW",
+      "reason_codes": []
+    }
+  ],
+  "stage_6": {
+    "status": "SUCCEEDED",
+    "resolved_count": 1,
+    "unavailable_count": 0,
+    "cache_hits": 1,
+    "cache_misses": 0,
+    "network_fetch_used": false,
+    "manifest_hash": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+    "documents": [
+      {
+        "document_id": "pmid:19223544",
+        "availability": "ABSTRACT_AVAILABLE",
+        "resolved": true,
+        "cache_hit": true,
+        "document_type": "ABSTRACT",
+        "reason_codes": [
+          "DOCUMENT_RESOLVED_FROM_CACHE"
+        ],
+        "content_hash": "b1953cabdf5a39f9c922efb3e4d2cf6ff6933c599503aac2f153a92d5b8b2e8d"
+      }
+    ]
+  },
+  "stage_7": {
+    "status": "SUCCEEDED",
+    "source_unit_count": 4,
+    "with_exact_text": 4,
+    "without_text": 0,
+    "documents_parsed": 1,
+    "documents_failed": [],
+    "text_never_exposed": true
+  },
+  "stage_8_selected_papers": [
+    {
+      "candidate_id": "GCA-008ae3aad1a64c118318ef79",
+      "bundle_id": "EB-b4c48ba003913f278ff182a6",
+      "document_id": "pmid:19223544",
+      "paper_role": "primary",
+      "resolved_source_unit_ids": [
+        "SU-12a97ff4a9065ff0947b17c7",
+        "SU-6e4d5a52c9be05f545487ad0",
+        "SU-4c4ce81824f39e09575501ab",
+        "SU-df35f0a7e69e4930f88bdf5d"
+      ]
+    }
+  ],
+  "stage_9_enricher_calls": [
+    {
+      "case_id": "CASE-1-therapy-evaluation-strong-match",
+      "candidate_id": "GCA-008ae3aad1a64c118318ef79",
+      "paper_id": "EB-b4c48ba003913f278ff182a6",
+      "model": "gemma4:cloud",
+      "endpoint": "https://ollama.com/v1/chat/completions",
+      "delivery_transport": "OLLAMA_FORCED_TOOL_CHOICE_V2",
+      "transport_result": "V2_TRANSPORT_VALID",
+      "finish_reason": "tool_calls",
+      "decision": "QUOTE",
+      "source_unit_id": "SU-6e4d5a52c9be05f545487ad0",
+      "author_claim_quote_length": 108,
+      "raw_response_hash": "86d5e35be02e475d448de69d00f6bb4de5ea24834db9e77ce16d35a50343d663",
+      "input_tokens": 1638,
+      "output_tokens": 123,
+      "latency_ms": 1978.068,
+      "status_code": 200,
+      "retry_count": 0,
+      "replayed": false,
+      "artifact_origin": "GENERATED_NOW"
+    }
+  ],
+  "stage_10_validations": [
+    {
+      "candidate_id": "GCA-008ae3aad1a64c118318ef79",
+      "paper_id": "EB-b4c48ba003913f278ff182a6",
+      "outcome": "ENRICHMENT_V2_ACCEPTED",
+      "reason_codes": [],
+      "validator": "PaperContextEnrichmentV2Validator",
+      "quote_offset": 95,
+      "replayed": false,
+      "artifact_origin": "GENERATED_NOW"
+    }
+  ],
+  "live_fallback_to_replay": false
+}

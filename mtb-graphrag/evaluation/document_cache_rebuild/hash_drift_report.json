@@ -1,0 +1,311 @@
+{
+  "analyzer_version": "document-cache-drift-analyzer/1.0",
+  "documents_examined": 40,
+  "hash_status_counts": {
+    "nct|clinical_trials|HASH_MISMATCH": 12,
+    "pmcid|pmc/xml|HASH_MISMATCH": 11,
+    "pmid|pubmed/abstracts|HASH_MATCH": 17,
+    "pmid|pubmed/metadata|HASH_MATCH": 17
+  },
+  "documents_with_mismatch": 23,
+  "reproducibility_experiments": [
+    {
+      "identifier_kind": "nct",
+      "identifier_value": "NCT02624973",
+      "relative_path": "clinical_trials/NCT02624973.json",
+      "fetch_1_sha256": "9c3b89eed9e62274d1d10a2e9fff00d8b6e719d1f18000f5eec91e2c3e75c922",
+      "fetch_2_sha256": "9c3b89eed9e62274d1d10a2e9fff00d8b6e719d1f18000f5eec91e2c3e75c922",
+      "sizes_bytes": [
+        18146,
+        18146
+      ],
+      "hashes_identical_between_consecutive_fetches": true,
+      "nondeterminism_markers_found": [
+        "\"derivedSection\"",
+        "\"lastUpdatePostDateStruct\"",
+        "\"statusVerifiedDate\""
+      ],
+      "verdict": "PAYLOAD_STABLE_ACROSS_FETCHES"
+    },
+    {
+      "identifier_kind": "pmcid",
+      "identifier_value": "PMC248481",
+      "relative_path": "pmc/xml/PMC248481.xml",
+      "fetch_1_sha256": "a37cb6aa392e27b6b10c8d66d658eb94e7ff2daac3e79227e5b6f9d7879aaeb2",
+      "fetch_2_sha256": "34fbb27d4ada4ba338cf044ff26107583749c77172bbff3b4e0bb0d8c5580dae",
+      "sizes_bytes": [
+        42444,
+        42444
+      ],
+      "hashes_identical_between_consecutive_fetches": false,
+      "nondeterminism_markers_found": [
+        "<responseDate>"
+      ],
+      "verdict": "PAYLOAD_NONDETERMINISTIC"
+    }
+  ],
+  "formats_proven_nondeterministic": [
+    "pmcid"
+  ],
+  "mismatch_classification": [
+    {
+      "document_id": "nct:NCT02624973",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 19,
+        "source_units_matching_frozen_index": 19,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT03089203",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 6,
+        "source_units_matching_frozen_index": 6,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT03675893",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 9,
+        "source_units_matching_frozen_index": 9,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT03701334",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 6,
+        "source_units_matching_frozen_index": 6,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT04203316",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 10,
+        "source_units_matching_frozen_index": 10,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT05017025",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 14,
+        "source_units_matching_frozen_index": 14,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT05872295",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 7,
+        "source_units_matching_frozen_index": 7,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT05952557",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 10,
+        "source_units_matching_frozen_index": 10,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT06179303",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 23,
+        "source_units_matching_frozen_index": 23,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT06388031",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 5,
+        "source_units_matching_frozen_index": 5,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT06970639",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 8,
+        "source_units_matching_frozen_index": 8,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "nct:NCT07421141",
+      "identifier_kind": "nct",
+      "verdict": "EXPLAINED_TEXT_UNCHANGED",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 13,
+        "source_units_matching_frozen_index": 13,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC248481",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 242,
+        "source_units_matching_frozen_index": 242,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC3129369",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 235,
+        "source_units_matching_frozen_index": 235,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC3265718",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 273,
+        "source_units_matching_frozen_index": 273,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC3878821",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 115,
+        "source_units_matching_frozen_index": 115,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC4054940",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 250,
+        "source_units_matching_frozen_index": 250,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC4390490",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 206,
+        "source_units_matching_frozen_index": 206,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC4808052",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 246,
+        "source_units_matching_frozen_index": 246,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC4850357",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 473,
+        "source_units_matching_frozen_index": 473,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC5564292",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 331,
+        "source_units_matching_frozen_index": 331,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC5710001",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 389,
+        "source_units_matching_frozen_index": 389,
+        "source_units_not_in_frozen_index": 0
+      }
+    },
+    {
+      "document_id": "pmcid:PMC6716598",
+      "identifier_kind": "pmcid",
+      "verdict": "EXPLAINED_NONDETERMINISTIC_PAYLOAD",
+      "text_evidence": {
+        "status": "TEXT_UNCHANGED",
+        "source_units_reconstructed": 248,
+        "source_units_matching_frozen_index": 248,
+        "source_units_not_in_frozen_index": 0
+      }
+    }
+  ],
+  "mismatch_verdict_counts": {
+    "EXPLAINED_TEXT_UNCHANGED": 12,
+    "EXPLAINED_NONDETERMINISTIC_PAYLOAD": 11
+  },
+  "unexplained_mismatch_documents": [],
+  "unexplained_mismatch_count": 0
+}

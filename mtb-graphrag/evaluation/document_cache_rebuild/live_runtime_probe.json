@@ -1,0 +1,77 @@
+{
+  "verifier_version": "document-cache-verifier/1.0",
+  "document_runtime_open": "SUCCEEDED",
+  "cache_path_redacted": ".../data_cache/document_grounding",
+  "manifest_hash": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+  "network_fetch_used": false,
+  "stage_6_documents": [
+    {
+      "document_id": "pmid:24658966",
+      "availability": "ABSTRACT_AVAILABLE",
+      "resolved": true,
+      "cache_hit": true,
+      "document_type": "ABSTRACT",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "content_hash": "a671bbd80df08ad52602d067eeaef69aa177e493cacbd489e42d43e482f42a48"
+    },
+    {
+      "document_id": "pmcid:PMC6716598",
+      "availability": "PMC_XML_AVAILABLE",
+      "resolved": true,
+      "cache_hit": true,
+      "document_type": "FULL_TEXT_ARTICLE",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "content_hash": "3f6b15be6426da9d97c3f725e40ea49e3b76f635ff7be275eb2dda9b2f6376c5"
+    },
+    {
+      "document_id": "nct:NCT03701334",
+      "availability": "METADATA_ONLY",
+      "resolved": true,
+      "cache_hit": true,
+      "document_type": "CLINICAL_TRIAL_RECORD",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "content_hash": "75ceab97ac7c083b43b3fdaa05ad1f26e2df95ec090285fcceccf61edd7addd4"
+    }
+  ],
+  "stage_6_resolved_count": 3,
+  "stage_6_unavailable_count": 0,
+  "stage_7_documents_parsed": 3,
+  "stage_7_documents_failed": [],
+  "stage_7_units_total": 263,
+  "stage_7_units_with_text": 263,
+  "probes": [
+    {
+      "identifier_kind": "pmid",
+      "document_id": "pmid:24658966",
+      "bundle_id": "EB-2ae853e8abf1195cc4c84846",
+      "requested_source_units": 4,
+      "source_units_with_text": 4,
+      "text_available": true,
+      "max_text_length": 1526
+    },
+    {
+      "identifier_kind": "pmcid",
+      "document_id": "pmcid:PMC6716598",
+      "bundle_id": "EB-6a291f12975b20b79e1c3dd7",
+      "requested_source_units": 4,
+      "source_units_with_text": 4,
+      "text_available": true,
+      "max_text_length": 1728
+    },
+    {
+      "identifier_kind": "nct",
+      "document_id": "nct:NCT03701334",
+      "bundle_id": "EB-4c70544954c0fd9241e2adca",
+      "requested_source_units": 4,
+      "source_units_with_text": 4,
+      "text_available": true,
+      "max_text_length": 2242
+    }
+  ]
+}
