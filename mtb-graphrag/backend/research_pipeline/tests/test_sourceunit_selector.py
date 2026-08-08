@@ -285,14 +285,19 @@ class EdgeCaseTest(TestCase):
         self.assertTrue(set(result.selected_source_unit_ids) <= offered)
 
 
-class SeparationFromRuntimeTest(TestCase):
-    """Il modulo è sperimentale: nulla nel runtime canonico lo importa."""
+class RuntimeSelectorBoundaryTest(TestCase):
+    """The selector is LIVE-only; REPLAY keeps the historical routing contract."""
 
-    def test_no_runtime_module_imports_the_selector(self) -> None:
+    def test_runtime_dependency_is_mode_specific(self) -> None:
         package = Path(sus.__file__).resolve().parents[1]
-        importers = [
-            path for path in package.rglob("*.py")
-            if "experimental" not in path.parts and "tests" not in path.parts
-            and "sourceunit_selector" in path.read_text(encoding="utf-8")
-        ]
-        self.assertEqual(importers, [])
+        orchestrator_source = (package / "orchestrator.py").read_text(encoding="utf-8")
+        self.assertIn("execution_mode", orchestrator_source)
+        self.assertIn("select_live_papers_for_association", orchestrator_source)
+        self.assertIn("select_papers_fn", orchestrator_source)
+        self.assertIn("FROZEN_BUNDLE", orchestrator_source)
+
+    def test_events_are_not_rejected_for_using_the_promoted_selector(self) -> None:
+        from backend.research_pipeline import events
+
+        self.assertIn(events.SOURCEUNIT_SELECTION_STARTED, events.DOMAIN_EVENT_TYPES)
+        self.assertIn(events.SOURCEUNIT_SELECTION_COMPLETED, events.DOMAIN_EVENT_TYPES)
