@@ -1,0 +1,19 @@
+{
+  "abstain_rate_gold": null,
+  "abstain_rate_selector": null,
+  "api_key_status": "NOT_SET",
+  "gold_policy": "DIRECTLY_RELEVANT only; zero-direct uses DIRECTLY+PARTIAL only if execution is enabled",
+  "k": 5,
+  "provider": "Ollama Cloud / Paper Context Enricher V2",
+  "reason": "API key not set; no simulated output accepted",
+  "rejected_quote_rate_selector": null,
+  "sample_executed": 0,
+  "sample_requested": 20,
+  "selector_policy": "frozen feature_selector top-5",
+  "status": "NOT_RUN_PROVIDER_UNAVAILABLE",
+  "validated_quote_rate_gold": null,
+  "validated_quote_rate_selector": null,
+  "wrong_document_quote_accepted": 0,
+  "wrong_quote_accepted": 0,
+  "wrong_sourceunit_quote_accepted": 0
+}

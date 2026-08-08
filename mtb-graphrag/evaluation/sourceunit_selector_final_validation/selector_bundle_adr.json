@@ -1,0 +1,17 @@
+{
+  "implemented": false,
+  "options": {
+    "A_LIVE_SELECTOR_REPLAY_BUNDLE": {
+      "assessment": "preferred; downstream Gemma remains unvalidated",
+      "live": "selector",
+      "replay": "frozen_bundle"
+    },
+    "B_BUNDLE_IF_PRESENT_ELSE_SELECTOR": {
+      "assessment": "retains hidden live dependency when stale bundle exists"
+    },
+    "C_SELECTOR_LIMITED_BY_BUNDLE": {
+      "assessment": "not independent and leaks historical selection"
+    }
+  },
+  "recommendation": "A_LIVE_SELECTOR_REPLAY_BUNDLE"
+}
