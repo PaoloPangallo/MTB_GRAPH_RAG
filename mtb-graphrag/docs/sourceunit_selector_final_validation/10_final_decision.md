@@ -1,5 +1,5 @@
-# Final decision
+﻿# Final decision
 
-Decision: `SOURCEUNIT_SELECTOR_GENERALIZES_BUT_DOWNSTREAM_NOT_VALIDATED`.
+Decision: `SOURCEUNIT_SELECTOR_GENERALIZES_WITH_ANNOTATION_UNCERTAINTY`.
 
-The P0 for denominator interpretation is closed: the 0.45 aggregate HitRate@5 concealed a 9/9 result on the 9 positive cases. The P0 for live downstream fidelity remains open because the provider key was unavailable. Runtime integration must wait for the GOLD-vs-SELECTOR Gemma/validator comparison.
+The denominator P0 is closed: the aggregate 0.45 HitRate@5 was 9/20 and becomes 9/9 on positive cases. The Gemma/validator P0 is now closed for this 20-pair sample: GOLD and SELECTOR are equal on QUOTE/ABSTAIN, validated quotes, and validator safety. A human second annotator/adjudication remains a P1 limitation. Runtime integration is still not performed in this phase; the recommended future policy is LIVE → selector and REPLAY → frozen bundle.
