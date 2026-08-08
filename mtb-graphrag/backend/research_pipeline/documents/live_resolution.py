@@ -5,9 +5,11 @@ Due stage che il runtime precedente non eseguiva affatto: enumerava i
 ``replayed: true``. Qui i documenti vengono realmente cercati nella cache
 autorizzata, e le SourceUnit realmente ri-parsate dal loro contenuto.
 
-**Nessun fetch di rete.** La cache è aperta in sola lettura da
-``cache_runtime.ReadOnlyDocumentCache``, i cui percorsi di rete sollevano
-un'eccezione. Un documento assente resta assente: ``DOCUMENT_UNAVAILABLE`` è un
+In REPLAY la cache è aperta in sola lettura da
+``cache_runtime.ReadOnlyDocumentCache`` e la rete è vietata. In LIVE la stessa
+risoluzione usa ``AuthorizedDocumentCache`` in modalità cache-first: un miss
+può chiamare esclusivamente i resolver ufficiali e persistere lo snapshot prima
+del parsing. Un documento assente resta assente: ``DOCUMENT_UNAVAILABLE`` è un
 esito, non una condizione da aggirare.
 
 **Il testo resta qui.** ``SourceUnitBundle`` tiene due proiezioni separate:
@@ -21,9 +23,12 @@ significa che esporre il testo richiederebbe un errore deliberato.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import hashlib
+import json
 from typing import Any, Iterable, Mapping
 
-from .cache_runtime import ReadOnlyDocumentCache, describe, open_read_only, redact_path
+from .authorized_cache import AuthorizedDocumentCache
+from .cache_runtime import ReadOnlyDocumentCache, cache_path, describe, open_read_only, redact_path
 
 #: Lunghezza della preview testuale mostrata in UI. Sufficiente a riconoscere il
 #: passaggio, insufficiente a ricostruire il documento.
@@ -111,6 +116,17 @@ class DocumentResolution:
     def records_by_document_id(self) -> dict[str, ResolvedDocument]:
         return {doc.document_id: doc for doc in self.documents}
 
+    @property
+    def records_by_bundle_id(self) -> dict[str, ResolvedDocument]:
+        return {doc.bundle_id: doc for doc in self.documents}
+
+    @property
+    def network_fetch_count(self) -> int:
+        return sum(
+            1 for doc in self.documents
+            if doc.lineage.get("retrieval_mode") == "LIVE_FETCH" and not doc.cache_hit
+        )
+
     def to_preview(self) -> dict[str, Any]:
         return {
             "documents": [doc.to_dict() for doc in self.documents],
@@ -121,7 +137,8 @@ class DocumentResolution:
             "cache_path_redacted": self.cache_path_redacted,
             "manifest_hash": self.manifest_hash,
             "resolver_version": RESOLVER_VERSION,
-            "network_fetch_used": False,
+            "network_fetch_used": self.network_fetch_count > 0,
+            "network_fetch_count": self.network_fetch_count,
         }
 
 
@@ -200,6 +217,103 @@ def resolve_documents(
         documents=tuple(resolved),
         cache_path_redacted=redact_path(cache.root),
         manifest_hash=manifest_hash,
+    )
+
+
+def _manifest_hash(path) -> str | None:
+    if not path.is_file():
+        return None
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _live_manifest_rows(cache: AuthorizedDocumentCache) -> dict[str, dict[str, Any]]:
+    if not cache.manifest_path.is_file():
+        return {}
+    rows: dict[str, dict[str, Any]] = {}
+    for line in cache.manifest_path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            row = json.loads(line)
+            rows[row["document_id"]] = row
+    return rows
+
+
+def _live_descriptor(cache: AuthorizedDocumentCache, rows: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
+    text_availability = {"ABSTRACT_AVAILABLE", "PMC_XML_AVAILABLE", "LOCAL_PDF_AVAILABLE"}
+    return {
+        "document_cache_available": True,
+        "cache_path_redacted": redact_path(cache.root),
+        "cache_version": cache.resolver_version,
+        "reason_codes": [],
+        "manifest_hash": _manifest_hash(cache.manifest_path),
+        "manifest_rows": len(rows),
+        "document_count": len(rows),
+        "documents_with_text": sum(1 for row in rows.values() if row.get("availability") in text_availability),
+        "documents_unavailable": sum(1 for row in rows.values() if row.get("availability") not in text_availability),
+        "source_unit_count": 0,
+        "retrieval_mode": "CACHE_FIRST_API_ON_MISS",
+    }
+
+
+def resolve_live_documents(
+    associations: Iterable[Mapping[str, Any]],
+    cache: AuthorizedDocumentCache,
+    manifest_by_document_id: dict[str, Mapping[str, Any]],
+) -> DocumentResolution:
+    """Resolve GCA provenance through the writable authorized cache."""
+    resolved: list[ResolvedDocument] = []
+    seen: set[tuple[str, str]] = set()
+    for association in associations:
+        candidate_id = association.get("candidate_id", "")
+        for bundle in association.get("available_bundles", []) or []:
+            requested_id = bundle.get("document_id") or ""
+            key = (candidate_id, bundle.get("bundle_id") or requested_id)
+            if key in seen:
+                continue
+            seen.add(key)
+            item = bundle.get("provenance_identifier") or {}
+            record = cache.resolve_live_identifier(dict(item))
+            actual_id = record.get("document_id") or requested_id
+            manifest_by_document_id[actual_id] = record
+            availability = str(record.get("availability") or "UNKNOWN")
+            is_trial = actual_id.startswith("nct:")
+            has_text = bool(record.get("local_cache_path")) and (
+                availability in _TEXT_AVAILABILITY or is_trial
+            )
+            cache_hit = bool(record.get("cache_hit"))
+            reasons = ["CACHE_HIT" if cache_hit else "CACHE_MISS"]
+            if not cache_hit and record.get("retrieval_mode") == "LIVE_FETCH":
+                reasons.extend(["DOCUMENT_FETCH_STARTED", "DOCUMENT_FETCH_SUCCEEDED"] if has_text else ["DOCUMENT_FETCH_FAILED"])
+            if record.get("degradation_reason"):
+                reasons.append(str(record["degradation_reason"]))
+            if has_text:
+                reasons.append("DOCUMENT_RESOLVED")
+            else:
+                reasons.append("DOCUMENT_UNAVAILABLE")
+            resolved.append(ResolvedDocument(
+                document_id=actual_id, bundle_id=bundle.get("bundle_id") or requested_id,
+                candidate_id=candidate_id, availability=availability, resolved=has_text,
+                cache_hit=cache_hit, document_type=_document_type(actual_id, availability),
+                source=record.get("source"), metadata_only=availability == "METADATA_ONLY" and not is_trial,
+                abstract_available=availability == "ABSTRACT_AVAILABLE",
+                full_text_available=availability == "PMC_XML_AVAILABLE",
+                content_hash=record.get("content_hash"), reason_codes=tuple(reasons),
+                lineage={
+                    "resolver_version": record.get("resolver_version") or cache.resolver_version,
+                    "requested_document_id": requested_id,
+                    "retrieved_at": record.get("retrieved_at"),
+                    "retrieval_mode": "CACHE_HIT" if cache_hit else (record.get("retrieval_mode") or "LIVE_FETCH"),
+                    "snapshot_retrieval_mode": record.get("retrieval_mode"),
+                    "retrieval_source": record.get("source"),
+                    "raw_payload_hash": record.get("content_hash"),
+                    "payload_size": record.get("payload_size", 0),
+                    "cache_path": record.get("local_cache_path"),
+                    "derived_pmcid": record.get("derived_pmcid"),
+                    "degradation_reason": record.get("degradation_reason"),
+                },
+            ))
+    return DocumentResolution(
+        documents=tuple(resolved), cache_path_redacted=redact_path(cache.root),
+        manifest_hash=_manifest_hash(cache.manifest_path),
     )
 
 
@@ -310,9 +424,10 @@ class DocumentRuntime:
     stessa cache, e la ``manifest_hash`` mostrata non garantirebbe più nulla.
     """
 
-    cache: ReadOnlyDocumentCache
-    manifest_by_document_id: Mapping[str, Mapping[str, Any]]
+    cache: Any
+    manifest_by_document_id: dict[str, Mapping[str, Any]]
     descriptor: Mapping[str, Any]
+    network_enabled: bool = False
 
     @property
     def manifest_hash(self) -> str | None:
@@ -320,7 +435,7 @@ class DocumentRuntime:
 
     @classmethod
     def open(cls) -> "DocumentRuntime":
-        """Apre la cache o solleva ``DocumentCacheUnavailable``. Nessun ripiego."""
+        """Open the read-only cache used by explicit cache-only callers."""
         from backend.research_pipeline import data_access as da
 
         cache = open_read_only()
@@ -329,9 +444,22 @@ class DocumentRuntime:
             cache=cache,
             manifest_by_document_id={row["document_id"]: row for row in manifest},
             descriptor=describe(cache.root).to_dict(),
+            network_enabled=False,
+        )
+
+    @classmethod
+    def open_live(cls) -> "DocumentRuntime":
+        """Open a cache-first runtime whose miss path uses authorized APIs."""
+        cache = AuthorizedDocumentCache(root=cache_path(), network=True)
+        manifest = _live_manifest_rows(cache)
+        return cls(
+            cache=cache, manifest_by_document_id=dict(manifest),
+            descriptor=_live_descriptor(cache, manifest), network_enabled=True,
         )
 
     def resolve(self, associations: Iterable[Mapping[str, Any]]) -> DocumentResolution:
+        if self.network_enabled:
+            return resolve_live_documents(associations, self.cache, self.manifest_by_document_id)
         return resolve_documents(
             associations, self.manifest_by_document_id, self.cache,
             manifest_hash=self.manifest_hash,

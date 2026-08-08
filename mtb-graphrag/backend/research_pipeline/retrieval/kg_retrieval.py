@@ -19,6 +19,7 @@ from functools import lru_cache
 from typing import Any
 
 from backend.research_pipeline.data_access import candidates_path, evidence_bundles_path
+from backend.research_pipeline.documents.authorized_cache import expand_identifier
 
 # I percorsi arrivano da ``data_access``, non da ``Path(__file__).parents[n]``:
 # la profondità di questo file è cambiata con la promozione, e un percorso
@@ -27,6 +28,35 @@ from backend.research_pipeline.data_access import candidates_path, evidence_bund
 MAX_ASSOCIATIONS_PER_CASE = 3
 MAX_DOCUMENTS_PER_ASSOCIATION = 2
 MAX_SOURCE_UNITS_PER_DOCUMENT = 4
+
+
+def _live_provenance_bundles(candidate: dict[str, Any]) -> list[dict[str, Any]]:
+    """Build document descriptors from GCA provenance, never from gold units."""
+    descriptors: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for raw in candidate.get("document_identifiers") or []:
+        for identifier in expand_identifier(raw):
+            kind_value = next(
+                ((kind, str(identifier.get(kind)).strip()) for kind in ("pmid", "pmcid", "nct", "doi", "url")
+                 if identifier.get(kind)),
+                None,
+            )
+            if kind_value is None:
+                continue
+            kind, value = kind_value
+            normalized = value.upper() if kind in {"pmid", "pmcid", "nct"} else value.lower()
+            document_id = f"{kind}:{normalized}"
+            if document_id in seen:
+                continue
+            seen.add(document_id)
+            descriptors.append({
+                "bundle_id": f"live:{candidate['candidate_id']}:{document_id}",
+                "document_id": document_id,
+                "provenance_identifier": {kind: normalized},
+                "bundle_type": "PROVENANCE_DOCUMENT",
+                "source_unit_ids": [],
+            })
+    return descriptors
 
 
 def _norm(value: Any) -> str:
@@ -110,10 +140,16 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
     return ok, reasons
 
 
-def retrieve(case_context: dict[str, Any]) -> dict[str, Any]:
+def retrieve(case_context: dict[str, Any], *, document_mode: str = "REPLAY") -> dict[str, Any]:
     candidates = load_candidates()
     bundles_by_candidate = load_bundles_by_candidate()
-    authorized_candidate_ids = sorted(cid for cid in candidates if cid in bundles_by_candidate)
+    if document_mode not in {"LIVE", "REPLAY"}:
+        raise ValueError(f"unsupported document mode: {document_mode!r}")
+    authorized_candidate_ids = sorted(
+        cid for cid, candidate in candidates.items()
+        if (document_mode == "LIVE" and candidate.get("document_identifiers"))
+        or (document_mode == "REPLAY" and cid in bundles_by_candidate)
+    )
 
     matched: list[dict[str, Any]] = []
     excluded: list[dict[str, Any]] = []
@@ -133,10 +169,14 @@ def retrieve(case_context: dict[str, Any]) -> dict[str, Any]:
     for item in accepted:
         candidate_id = item["candidate_id"]
         candidate = candidates[candidate_id]
-        bundles = sorted(bundles_by_candidate.get(candidate_id, []), key=lambda b: b["bundle_id"])
+        bundles = (
+            _live_provenance_bundles(candidate)
+            if document_mode == "LIVE"
+            else sorted(bundles_by_candidate.get(candidate_id, []), key=lambda b: b["bundle_id"])
+        )
         associations.append({
             "candidate_id": candidate_id, "candidate": candidate, "match_reason_codes": item["reason_codes"],
-            "available_bundles": [{"bundle_id": b["bundle_id"], "document_id": b["document_id"], "bundle_type": b.get("bundle_type"), "source_unit_ids": b.get("source_unit_ids", [])[:MAX_SOURCE_UNITS_PER_DOCUMENT]} for b in bundles],
+            "available_bundles": [{"bundle_id": b["bundle_id"], "document_id": b["document_id"], "bundle_type": b.get("bundle_type"), "source_unit_ids": b.get("source_unit_ids", [])[:MAX_SOURCE_UNITS_PER_DOCUMENT], **({"provenance_identifier": b["provenance_identifier"]} if document_mode == "LIVE" else {})} for b in bundles],
         })
 
     return {

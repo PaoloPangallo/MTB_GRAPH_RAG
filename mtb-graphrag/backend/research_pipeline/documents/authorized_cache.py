@@ -238,6 +238,15 @@ class AuthorizedDocumentCache:
         return str(Path(relative).as_posix()), file_hash(path)
 
     def _record(self, record: dict[str, Any]) -> dict[str, Any]:
+        record.setdefault("cache_hit", False)
+        record.setdefault("retrieval_mode", "LIVE_FETCH" if self.network else "CACHE_ONLY")
+        record.setdefault("resolver_version", self.resolver_version)
+        payload_sizes = []
+        for field in ("local_cache_path", "metadata_cache_path"):
+            relative = record.get(field)
+            if relative and (self.root / relative).is_file():
+                payload_sizes.append((self.root / relative).stat().st_size)
+        record.setdefault("payload_size", max(payload_sizes, default=0))
         with self.manifest_path.open("a", encoding="utf-8", newline="\n") as handle:
             handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
         return record
@@ -444,6 +453,34 @@ class AuthorizedDocumentCache:
         return {"document_id": f"{kind}:{value}", "identifiers": {kind: value},
                 "availability": "NO_DOCUMENT_IDENTIFIER", "source": "identifier-preserved-only",
                 "resolution_attempts": [], "errors": [{"kind": "resolver_not_enabled", "identifier_type": kind}]}
+
+    def resolve_live_identifier(self, item: dict[str, Any]) -> dict[str, Any]:
+        """Resolve provenance with PMID?PMC preference and explicit abstract fallback."""
+        keyed = _keyed_identifier(item)
+        record = self.resolve_identifier(item)
+        if keyed is None or keyed[0] != "pmid":
+            return record
+        pmcid = (record.get("identifiers") or {}).get("pmcid")
+        if not pmcid:
+            return record
+        pmc_record = self.resolve_pmc(pmcid)
+        if pmc_record.get("availability") == "PMC_XML_AVAILABLE":
+            pmc_record["requested_document_id"] = record.get("document_id")
+            pmc_record["derived_pmcid"] = pmcid
+            pmc_record["pmid_resolution"] = {
+                "document_id": record.get("document_id"),
+                "cache_hit": record.get("cache_hit", False),
+                "availability": record.get("availability"),
+            }
+            return self._record(pmc_record) if not pmc_record.get("cache_hit") else pmc_record
+        record["degradation_reason"] = "PMC_RESOLUTION_FAILED"
+        record["pmc_resolution"] = {
+            "document_id": pmc_record.get("document_id"),
+            "availability": pmc_record.get("availability"),
+            "errors": pmc_record.get("errors", []),
+        }
+        return self._record(record) if not record.get("cache_hit") else record
+
 
     def source_units_for_record(self, record: dict[str, Any]) -> list[dict[str, Any]]:
         units: list[dict[str, Any]] = []

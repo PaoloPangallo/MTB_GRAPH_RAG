@@ -1,12 +1,12 @@
 """Registro delle run del research runtime.
 
 Una run viene eseguita in un thread separato e i suoi eventi finiscono sul
-ledger append-only mentre procede. Il ledger resta la fonte di verità: questo
-registro conserva soltanto ciò che il ledger non esprime — se il thread è ancora
-vivo e con quale errore si è eventualmente interrotto.
+ledger append-only mentre procede. Il ledger resta la fonte di veritÃ : questo
+registro conserva soltanto ciÃ² che il ledger non esprime â€” se il thread Ã¨ ancora
+vivo e con quale errore si Ã¨ eventualmente interrotto.
 
-Il ledger del research runtime è un file distinto da quello agentico
-(``RESEARCH_LEDGER_PATH``), così una run di ricerca non entra nella catena di
+Il ledger del research runtime Ã¨ un file distinto da quello agentico
+(``RESEARCH_LEDGER_PATH``), cosÃ¬ una run di ricerca non entra nella catena di
 eventi del percorso di prodotto.
 """
 
@@ -32,16 +32,16 @@ from backend.research_pipeline.pipeline import CallBudget
 
 #: Tetto di chiamate reali al modello per una singola run. Il pilot autorizzava
 #: 20 chiamate complessive; questo lavoro ne autorizza 10 in totale, quindi il
-#: tetto per run è più stretto di quello del budget storico.
+#: tetto per run Ã¨ piÃ¹ stretto di quello del budget storico.
 MAX_LLM_CALLS_PER_RUN = 6
 
 
 def research_ledger_path() -> Path:
     """Percorso del ledger di ricerca.
 
-    ``data_root()`` è già ``mtb-graphrag``: aggiungere di nuovo quel segmento
+    ``data_root()`` Ã¨ giÃ  ``mtb-graphrag``: aggiungere di nuovo quel segmento
     produrrebbe ``mtb-graphrag/mtb-graphrag/data`` e un percorso inesistente.
-    Il default è coperto da un test perché i test che impostano
+    Il default Ã¨ coperto da un test perchÃ© i test che impostano
     ``RESEARCH_LEDGER_PATH`` esplicitamente non lo esercitano mai.
     """
     configured = os.getenv("RESEARCH_LEDGER_PATH")
@@ -80,7 +80,7 @@ class RunHandle:
 
 class RunStore:
     """Registro in memoria. Le run non sopravvivono a un riavvio del processo,
-    ma i loro eventi sì: il ledger è su disco e la trace resta ispezionabile."""
+    ma i loro eventi sÃ¬: il ledger Ã¨ su disco e la trace resta ispezionabile."""
 
     def __init__(self) -> None:
         self._runs: dict[str, RunHandle] = {}
@@ -96,11 +96,11 @@ class RunStore:
             return self._runs.get(run_id)
 
     def snapshot(self, run_id: str) -> dict[str, Any] | None:
-        """Vista della run, dalla memoria o — dopo un riavvio — dal ledger.
+        """Vista della run, dalla memoria o â€” dopo un riavvio â€” dal ledger.
 
-        L'ordine conta: una run ancora in corso è in memoria e il ledger non ne
-        ha ancora l'evento finale, quindi la memoria è la vista più aggiornata.
-        Una run che la memoria non conosce non è per questo inesistente.
+        L'ordine conta: una run ancora in corso Ã¨ in memoria e il ledger non ne
+        ha ancora l'evento finale, quindi la memoria Ã¨ la vista piÃ¹ aggiornata.
+        Una run che la memoria non conosce non Ã¨ per questo inesistente.
         """
         handle = self.get(run_id)
         if handle is not None:
@@ -112,7 +112,7 @@ class RunStore:
             return sorted(self._runs.values(), key=lambda h: h.started_at, reverse=True)
 
     def list_all(self) -> list[dict[str, Any]]:
-        """Run in memoria più quelle persistite, senza duplicati."""
+        """Run in memoria piÃ¹ quelle persistite, senza duplicati."""
         in_memory = {
             h.run_id: {
                 "run_id": h.run_id, "case_id": h.case_id, "status": h.status,
@@ -136,10 +136,10 @@ class RunStore:
         return rows
 
     def start(self, *, case_id: str, clinical_text: str, execution_mode: str) -> RunHandle:
-        """Avvia una run nella modalità **richiesta esplicitamente**.
+        """Avvia una run nella modalitÃ  **richiesta esplicitamente**.
 
-        Non esiste più un ``use_replay`` dedotto dalla presenza di artefatti
-        congelati per il caso: era il fallback silenzioso. Una modalità
+        Non esiste piÃ¹ un ``use_replay`` dedotto dalla presenza di artefatti
+        congelati per il caso: era il fallback silenzioso. Una modalitÃ 
         sconosciuta solleva invece di ripiegare su un default.
         """
         mode = em.normalize_requested_mode(execution_mode)
@@ -163,9 +163,9 @@ class RunStore:
     def _execute(self, handle: RunHandle, clinical_text: str, mode: str) -> None:
         try:
             kwargs = self._providers(mode)
-            document_runtime = DocumentRuntime.open() if mode == em.LIVE else None
+            document_runtime = DocumentRuntime.open_live() if mode == em.LIVE else None
             # In REPLAY l'indice delle SourceUnit fornisce locatori, sezione,
-            # offset e ``content_hash`` — mai il testo. In LIVE le unità con
+            # offset e ``content_hash`` â€” mai il testo. In LIVE le unitÃ  con
             # testo arrivano da ``DocumentRuntime`` e questo argomento non viene
             # usato per alcuna decisione.
             handle.run = orchestrator.run_case(
@@ -181,9 +181,9 @@ class RunStore:
             handle.status = "FAILED"
             handle.error = str(exc)
             handle.error_reason_code = "DOCUMENT_CACHE_UNAVAILABLE"
-        except Exception as exc:  # noqa: BLE001 — l'errore deve restare visibile
+        except Exception as exc:  # noqa: BLE001 â€” l'errore deve restare visibile
             # Un errore non diventa mai un risultato: la run resta FAILED e il
-            # messaggio è esposto, invece di essere confuso con un'astensione.
+            # messaggio Ã¨ esposto, invece di essere confuso con un'astensione.
             handle.status = "FAILED"
             handle.error = f"{type(exc).__name__}: {exc}"
             handle.error_reason_code = "LIVE_STAGE_FAILED" if handle.requested_mode == em.LIVE else "RUN_FAILED"

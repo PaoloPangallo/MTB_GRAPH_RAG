@@ -53,6 +53,7 @@ from backend.research_pipeline.narrative import verifier as narrative_verifier
 from backend.research_pipeline.redaction import redact_retrieval_result
 from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.retrieval.paper_selection import select_papers_for_association
+from backend.research_pipeline.retrieval.live_sourceunit_selection import select_live_papers_for_association
 
 #: Esiti che il validatore v1 considera accettati. ``gates.evaluate_association``
 #: filtra su questi nomi.
@@ -298,9 +299,15 @@ def run_case(
     ``select_papers_fn`` e ``validate_fn`` restano punti di iniezione per il
     replay esplicito. I default eseguono la logica reale.
     """
-    select_papers = select_papers_fn or (
-        lambda association, units, **_: select_papers_for_association(association, units)
-    )
+    is_live = execution_mode == em.LIVE
+    if select_papers_fn is not None:
+        select_papers = select_papers_fn
+    elif is_live:
+        select_papers = lambda association, units, **kw: select_live_papers_for_association(
+            association, units, resolution=kw["resolution"], top_k=5,
+        )
+    else:
+        select_papers = lambda association, units, **_: select_papers_for_association(association, units)
     validate = validate_fn or (
         lambda transport, enrichment, **kw: enrichment_validator.validate_enrichment(
             transport, enrichment,
@@ -308,7 +315,6 @@ def run_case(
             source_units_by_id=kw["source_units_by_id"], requested_drug=kw["requested_drug"],
         )
     )
-    is_live = execution_mode == em.LIVE
     #: Origine degli stage il cui risultato arriva da un artefatto registrato.
     #: In LIVE non esistono: ogni stage o viene eseguito o fallisce.
     replay_origin = em.RECORDED_REAL_RUN if not is_live else em.GENERATED_NOW
@@ -454,7 +460,8 @@ def run_case(
 
     p = _deterministic("kg_retrieval")
     recorder.start("stage_5_kg_retrieval", p)
-    retrieval_result = retrieval_mod.retrieve(case_context)
+    retrieval_result = (retrieval_mod.retrieve(case_context, document_mode=execution_mode)
+                       if is_live else retrieval_mod.retrieve(case_context))
     redacted = redact_retrieval_result(retrieval_result)
     retrieval_preview = {
         "graph_derived": True,
@@ -492,7 +499,7 @@ def run_case(
 
     if document_runtime is not None:
         resolution = document_runtime.resolve(retrieval_result["associations"])
-        resolution_preview = {**resolution.to_preview(), **cache_descriptor}
+        resolution_preview = {**cache_descriptor, **resolution.to_preview()}
         resolved_any = any(doc.resolved for doc in resolution.documents)
         if is_live and not resolved_any:
             recorder.finish("stage_6_document_resolution", p, status="FAILED",
@@ -509,12 +516,38 @@ def run_case(
                         artifact_origin=em.DETERMINISTIC_CACHE,
                         domain_event=ev.DOCUMENT_RESOLVED,
                         warnings=unavailable,
-                        reason_codes=("DOCUMENT_RESOLVED_FROM_CACHE",) if not unavailable
-                                     else ("DOCUMENT_RESOLVED_FROM_CACHE", "DOCUMENT_UNAVAILABLE"),
+                        reason_codes=(
+                            ("DOCUMENT_RESOLVED_FROM_CACHE",) if not resolution.cache_misses
+                            else ("DOCUMENT_RESOLVED_FROM_API",)
+                        ) + (("DOCUMENT_UNAVAILABLE",) if unavailable else ()),
                         output_preview=resolution_preview,
                         metrics={"cache_hits": resolution.cache_hits,
                                  "cache_misses": resolution.cache_misses},
                         lineage={"manifest_hash": resolution.manifest_hash})
+        for document in resolution.documents:
+            cache_event = ev.DOCUMENT_CACHE_HIT if document.cache_hit else ev.DOCUMENT_CACHE_MISS
+            recorder.emit_domain_event(
+                cache_event, "stage_6_document_resolution", _deterministic("document_resolver"),
+                candidate_id=document.candidate_id, document_id=document.document_id,
+                bundle_id=document.bundle_id, reason_codes=list(document.reason_codes),
+                lineage=dict(document.lineage),
+            )
+            if not document.cache_hit:
+                fetch_event = (ev.DOCUMENT_FETCH_SUCCEEDED if document.resolved
+                               else ev.DOCUMENT_FETCH_FAILED)
+                recorder.emit_domain_event(
+                    fetch_event, "stage_6_document_resolution", _deterministic("document_resolver"),
+                    candidate_id=document.candidate_id, document_id=document.document_id,
+                    bundle_id=document.bundle_id, retrieval_mode=document.lineage.get("retrieval_mode"),
+                    resolver_version=document.lineage.get("resolver_version"),
+                )
+            if "PMC_RESOLUTION_FAILED" in document.reason_codes and document.abstract_available:
+                recorder.emit_domain_event(
+                    ev.DOCUMENT_DEGRADED_TO_ABSTRACT, "stage_6_document_resolution",
+                    _deterministic("document_resolver"), candidate_id=document.candidate_id,
+                    document_id=document.document_id, bundle_id=document.bundle_id,
+                    degradation_reason="PMC_RESOLUTION_FAILED",
+                )
     else:
         # Solo REPLAY: i documenti sono quelli già citati dai bundle congelati.
         documents = [
@@ -537,7 +570,7 @@ def run_case(
     # tiene nella struttura dati, non al momento della serializzazione.
     p = _deterministic("source_units")
     recorder.start("stage_7_source_units", p)
-    requested_unit_ids = sorted({
+    requested_unit_ids = None if is_live else sorted({
         uid for association in retrieval_result["associations"]
         for bundle in association["available_bundles"]
         for uid in bundle.get("source_unit_ids", [])
@@ -547,9 +580,10 @@ def run_case(
         bundle_units = document_runtime.load_units(resolution)
         units_for_decisions: Mapping[str, dict[str, Any]] = bundle_units.units_by_id
         units_preview = bundle_units.to_preview(requested_unit_ids)
-        with_text = sum(
-            1 for uid in requested_unit_ids
-            if (bundle_units.units_by_id.get(uid, {}).get("text") or "").strip()
+        with_text = (
+            bundle_units.with_text if requested_unit_ids is None else
+            sum(1 for uid in requested_unit_ids
+                if (bundle_units.units_by_id.get(uid, {}).get("text") or "").strip())
         )
         recorder.finish("stage_7_source_units", p,
                         status="SUCCEEDED" if with_text else "WARNING",
@@ -558,9 +592,17 @@ def run_case(
                         reason_codes=("SOURCE_UNITS_MATERIALIZED_FROM_CACHE",) if with_text
                                      else ("SOURCE_UNIT_TEXT_UNAVAILABLE",),
                         output_preview=units_preview,
-                        metrics={"requested": len(requested_unit_ids),
+                        metrics={"requested": (len(requested_unit_ids) if requested_unit_ids is not None
+                                             else len(bundle_units.units_by_id)),
                                  "with_exact_text": with_text,
                                  "parsed_documents": bundle_units.documents_parsed})
+        recorder.emit_domain_event(
+            ev.SOURCE_UNITS_PARSED, "stage_7_source_units", _deterministic("document_parser"),
+            documents_parsed=bundle_units.documents_parsed, source_unit_count=len(bundle_units.units_by_id),
+            with_exact_text=with_text, parser_mode="LIVE" if is_live else "CACHE",
+        )
+        if is_live and not with_text:
+            return _finalize("FAILED", "PARSER_FAILED")
     else:
         units_for_decisions = dict(source_units_by_id)
         # Solo locatori e hash: il testo non lascia mai l'enricher.
@@ -579,10 +621,36 @@ def run_case(
     # STAGE 8-12 — Per associazione: selezione, enrichment, validazione, gate, status
     candidate_therapies: list[dict[str, Any]] = []
     selections, enrichment_calls, validations, evaluations = [], [], [], []
+    selection_failed = False
 
     for association in retrieval_result["associations"]:
-        selection = select_papers(association, dict(units_for_decisions), case_id=case_id)
+        recorder.emit_domain_event(
+            ev.SOURCEUNIT_SELECTION_STARTED, "stage_8_paper_selection",
+            _deterministic("sourceunit_selector"), candidate_id=association["candidate_id"],
+            selection_mode="LIVE_SELECTOR" if is_live else "FROZEN_BUNDLE",
+            top_k=5 if is_live else None, bundle_source_unit_ids_used=not is_live,
+        )
+        selection = select_papers(
+            association, dict(units_for_decisions), case_id=case_id,
+            resolution=resolution, execution_mode=execution_mode,
+        )
         selections.append(selection)
+        recorder.emit_domain_event(
+            ev.SOURCEUNIT_SELECTION_COMPLETED, "stage_8_paper_selection",
+            _deterministic("sourceunit_selector"), candidate_id=association["candidate_id"],
+            selection_mode="LIVE_SELECTOR" if is_live else "FROZEN_BUNDLE",
+            selected_papers=[{
+                "bundle_id": paper.get("bundle_id"),
+                "document_id": paper.get("document_id"),
+                "selected_source_unit_ids": paper.get("resolved_source_unit_ids", []),
+                "selector": paper.get("selector"),
+            } for paper in selection.get("selected_papers", [])],
+            bundle_source_unit_ids_used=bool(
+                any(paper.get("source_unit_ids") for paper in selection.get("selected_papers", []))
+            ) if is_live else True,
+        )
+        if is_live and association.get("available_bundles") and not selection.get("selected_papers"):
+            selection_failed = True
         candidate = association["candidate"]
 
         enrichment_entries, validation_entries, validated = [], [], []
@@ -597,7 +665,8 @@ def run_case(
 
             try:
                 call = call_enricher_fn(
-                    budget, case_id, candidate["candidate_id"], paper["bundle_id"], case_context,
+                    budget, case_id, candidate["candidate_id"],
+                    paper["document_id"] if is_live else paper["bundle_id"], case_context,
                     {"candidate_id": candidate["candidate_id"], "disease": candidate.get("disease"),
                      "biomarkers": candidate.get("biomarkers")},
                     requested_drug, paper_units,
@@ -628,7 +697,7 @@ def run_case(
                 call["transport_result"], call["enrichment"], candidate=candidate,
                 paper_bundle=paper, source_units_by_id=dict(units_for_decisions),
                 requested_drug=requested_drug, case_id=case_id,
-                paper_id=paper["bundle_id"],
+                paper_id=paper["document_id"] if is_live else paper["bundle_id"],
             )
             validations.append({"candidate_id": candidate["candidate_id"],
                                 "paper_id": paper["bundle_id"], **validation})
@@ -664,6 +733,17 @@ def run_case(
             evaluation=evaluation,
         ))
 
+    if is_live and selection_failed:
+        p = _deterministic("paper_selection")
+        recorder.start("stage_8_paper_selection", p)
+        recorder.finish(
+            "stage_8_paper_selection", p, status="FAILED",
+            artifact_origin=em.NOT_EXECUTED,
+            reason_codes=("SOURCEUNIT_SELECTION_FAILED",),
+            output_preview={"selections": selections},
+        )
+        return _finalize("FAILED", "SOURCEUNIT_SELECTION_FAILED")
+
     p = _deterministic("paper_selection")
     recorder.start("stage_8_paper_selection", p)
     recorder.finish("stage_8_paper_selection", p,
@@ -671,7 +751,7 @@ def run_case(
                     domain_event=ev.PAPER_SELECTED,
                     output_preview={"selections": selections,
                                     "max_papers_per_association": 2,
-                                    "max_source_units_per_paper": 4,
+                                    "max_source_units_per_paper": 5 if is_live else 4,
                                     "recomputed_during_run": select_papers_fn is None})
 
     enricher_producer = StageProducer(
@@ -747,7 +827,8 @@ def run_case(
         {"records": [r.to_dict() for r in records], "essential_fields_pass": essential_ok,
          "warnings": list(match_warnings)},
         candidate_therapies,
-        limitations=["research_only_pilot", "no_new_document_fetched",
+        limitations=["research_only_pilot",
+                     "live_document_resolution_cache_first" if is_live else "no_new_document_fetched",
                      "gemma_used_only_as_enricher"],
     )
     # Il dossier completo, non solo i conteggi: ``GET /runs/{id}/dossier`` legge
