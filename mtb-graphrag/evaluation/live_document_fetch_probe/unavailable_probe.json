@@ -1,0 +1,109 @@
+{
+  "case_c": {
+    "slot": "C",
+    "candidate_id": "GCA-003ca9889b3d8906d4674f37",
+    "provenance_pmids": [
+      "23724867"
+    ],
+    "selected_pmid": "23724867",
+    "human_identifier_input_required": false,
+    "pubmed": {
+      "requested_kind": "pmid",
+      "requested_value": "23724867",
+      "document_id": "pmid:23724867",
+      "identifiers": {
+        "pmid": "23724867",
+        "pmcid": "PMC4081656",
+        "doi": "10.1056/nejmoa1302369"
+      },
+      "availability": "ABSTRACT_AVAILABLE",
+      "official_source": "NCBI E-utilities",
+      "endpoints": [
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=23724867",
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=23724867"
+      ],
+      "retrieved_at": "2026-08-08T08:28:43Z",
+      "content_type": "application/xml",
+      "local_cache_path": "pubmed/abstracts/23724867.xml",
+      "raw_payload_hash": "e0b7e50171c2315feff867926701f6be9d131b4a007d15b2abdc5969cd08de82",
+      "payload_size_bytes": 21564,
+      "fetch_success": true,
+      "duration_seconds": 1.89,
+      "parser_success": true,
+      "parsers": [
+        "PubMedAbstractParser@1.0"
+      ],
+      "source_unit_count": 17,
+      "source_units_with_text": 17,
+      "unit_types": [
+        "ABSTRACT",
+        "ABSTRACT_SENTENCE",
+        "TITLE"
+      ]
+    },
+    "derived_pmcid_from_pubmed": "PMC4081656",
+    "pmcid_matches_baseline": true,
+    "pmc": {
+      "requested_kind": "pmcid",
+      "requested_value": "PMC4081656",
+      "document_id": "pmcid:PMC4081656",
+      "identifiers": {
+        "pmcid": "PMC4081656"
+      },
+      "availability": "PMC_RESOLUTION_FAILED",
+      "official_source": "NCBI PMC OAI",
+      "endpoints": [
+        "https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:4081656"
+      ],
+      "retrieved_at": "2026-08-08T08:28:45Z",
+      "content_type": null,
+      "local_cache_path": null,
+      "raw_payload_hash": null,
+      "payload_size_bytes": 0,
+      "fetch_success": false,
+      "duration_seconds": 1.453,
+      "parser_success": false,
+      "source_unit_count": 0,
+      "source_units_with_text": 0
+    },
+    "degraded_to_abstract": true,
+    "degradation_reason": "PMC_RESOLUTION_FAILED",
+    "document_used_for_gemma": "pmid:23724867",
+    "source_units_available_for_gemma": 17
+  },
+  "cache_miss_simulation": {
+    "cache_hit_path": {
+      "document_id": "pmid:24658966",
+      "path": "CACHE_HIT",
+      "snapshot_created": false,
+      "fetch_performed": false,
+      "payload_size_bytes": 7343
+    },
+    "cache_miss_path": {
+      "retrievable_document": {
+        "document_id": "pmid:24658966",
+        "path": "CACHE_MISS",
+        "fetch_performed": true,
+        "fetch_success": true,
+        "snapshot_created": true,
+        "payload_size_bytes": 7343,
+        "raw_payload_hash": "a671bbd80df08ad52602d067eeaef69aa177e493cacbd489e42d43e482f42a48",
+        "parser_success": true,
+        "source_unit_count": 9,
+        "source_units_with_text": 9
+      },
+      "unretrievable_document": {
+        "document_id": "pmcid:PMC273189",
+        "path": "CACHE_MISS",
+        "fetch_performed": true,
+        "fetch_success": false,
+        "snapshot_created": false,
+        "payload_size_bytes": 0,
+        "raw_payload_hash": null,
+        "parser_success": true,
+        "source_unit_count": 0,
+        "source_units_with_text": 0
+      }
+    }
+  }
+}

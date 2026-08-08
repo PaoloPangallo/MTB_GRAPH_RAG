@@ -1,0 +1,46 @@
+{
+  "slot": "A",
+  "candidate_id": "GCA-0a52f20ab5e3e93c15582f2e",
+  "provenance_pmids": [
+    "24658966"
+  ],
+  "selected_pmid": "24658966",
+  "human_identifier_input_required": false,
+  "pubmed": {
+    "requested_kind": "pmid",
+    "requested_value": "24658966",
+    "document_id": "pmid:24658966",
+    "identifiers": {
+      "pmid": "24658966",
+      "doi": "10.1007/s00726-014-1716-0"
+    },
+    "availability": "ABSTRACT_AVAILABLE",
+    "official_source": "NCBI E-utilities",
+    "endpoints": [
+      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=24658966",
+      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=24658966"
+    ],
+    "retrieved_at": "2026-08-08T08:28:28Z",
+    "content_type": "application/xml",
+    "local_cache_path": "pubmed/abstracts/24658966.xml",
+    "raw_payload_hash": "a671bbd80df08ad52602d067eeaef69aa177e493cacbd489e42d43e482f42a48",
+    "payload_size_bytes": 7343,
+    "fetch_success": true,
+    "duration_seconds": 1.813,
+    "parser_success": true,
+    "parsers": [
+      "PubMedAbstractParser@1.0"
+    ],
+    "source_unit_count": 9,
+    "source_units_with_text": 9,
+    "unit_types": [
+      "ABSTRACT",
+      "ABSTRACT_SENTENCE",
+      "TITLE"
+    ]
+  },
+  "derived_pmcid_from_pubmed": null,
+  "pmcid_matches_baseline": true,
+  "document_used_for_gemma": "pmid:24658966",
+  "source_units_available_for_gemma": 9
+}

@@ -1,0 +1,231 @@
+{
+  "artifact_version": "live-document-fetch-probe-scorecard/1.0",
+  "purpose": "Prova di fattibilita tecnica. NON una metrica clinica, NON production readiness.",
+  "branch": "chore/rebuild-document-cache",
+  "head": "628b81c230dedf490cd1dc350a2ee7607a9b965d",
+  "candidates": {
+    "A": {
+      "candidate_id": "GCA-0a52f20ab5e3e93c15582f2e",
+      "provenance_pmids": [
+        "24658966"
+      ],
+      "path": "PubMed abstract (nessun PMC)"
+    },
+    "B": {
+      "candidate_id": "GCA-0000980ba01970f893f8e4d7",
+      "provenance_pmids": [
+        "15705718"
+      ],
+      "path": "PubMed -> PMCID derivato -> PMC full text"
+    },
+    "C": {
+      "candidate_id": "GCA-003ca9889b3d8906d4674f37",
+      "provenance_pmids": [
+        "23724867"
+      ],
+      "path": "PubMed -> PMCID derivato -> PMC nega -> degrado ad abstract"
+    }
+  },
+  "identifier_derivation": {
+    "source_of_identifier": "candidate['document_identifiers'] (provenance della GCA)",
+    "bundle_document_id_used_as_input": false,
+    "human_identifier_input_required": false,
+    "A_identifier_automatic": true,
+    "B_identifier_automatic": true,
+    "C_identifier_automatic": true,
+    "pmcid_present_in_gca": false,
+    "pmcid_derivation_mechanism": "ArticleId IdType='pmc' nella risposta PubMed efetch",
+    "B_derived_pmcid": "PMC248481",
+    "B_pmcid_matches_baseline": true,
+    "C_derived_pmcid": "PMC4081656"
+  },
+  "pubmed_probe": {
+    "fetch_success": true,
+    "official_source": "NCBI E-utilities",
+    "availability": "ABSTRACT_AVAILABLE",
+    "source_unit_count": 9,
+    "source_units_with_text": 9,
+    "parser_success": true,
+    "gemma": {
+      "naive_selection": {
+        "decision": "QUOTE",
+        "validator_outcome": "ENRICHMENT_V2_ACCEPTED",
+        "quote_validated": true,
+        "quote_offset": 1130,
+        "quote_length": 169,
+        "source_units_offered": 4,
+        "gemma_reached": true,
+        "replayed": false
+      },
+      "curated_selection": {
+        "decision": "QUOTE",
+        "validator_outcome": "ENRICHMENT_V2_ACCEPTED",
+        "quote_validated": true,
+        "quote_offset": 78,
+        "quote_length": 148,
+        "source_units_offered": 4,
+        "gemma_reached": true,
+        "replayed": false
+      }
+    }
+  },
+  "pmc_probe": {
+    "fetch_success": true,
+    "official_source": "NCBI PMC OAI",
+    "availability": "PMC_XML_AVAILABLE",
+    "xml_valid": true,
+    "source_unit_count": 243,
+    "source_units_with_text": 243,
+    "gemma": {
+      "naive_selection": {
+        "decision": "ABSTAIN",
+        "validator_outcome": "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+        "quote_validated": false,
+        "quote_offset": null,
+        "quote_length": 0,
+        "source_units_offered": 4,
+        "gemma_reached": true,
+        "replayed": false
+      },
+      "curated_selection": {
+        "decision": "ABSTAIN",
+        "validator_outcome": "ENRICHMENT_V2_ABSTAINED",
+        "quote_validated": false,
+        "quote_offset": null,
+        "quote_length": 0,
+        "source_units_offered": 3,
+        "gemma_reached": true,
+        "replayed": false
+      }
+    }
+  },
+  "unavailable_probe": {
+    "case_c_pmc_fetch_success": false,
+    "case_c_pmc_availability": "PMC_RESOLUTION_FAILED",
+    "degraded_to_abstract": true,
+    "degradation_reason": "PMC_RESOLUTION_FAILED",
+    "alternative_paper_invented": false,
+    "free_web_search_used": false,
+    "gemma": {
+      "naive_selection": {
+        "decision": "QUOTE",
+        "validator_outcome": "ENRICHMENT_V2_ACCEPTED",
+        "quote_validated": true,
+        "quote_offset": 144,
+        "quote_length": 123,
+        "source_units_offered": 4,
+        "gemma_reached": true,
+        "replayed": false
+      },
+      "curated_selection": {
+        "decision": "QUOTE",
+        "validator_outcome": "ENRICHMENT_V2_ACCEPTED",
+        "quote_validated": true,
+        "quote_offset": 144,
+        "quote_length": 124,
+        "source_units_offered": 4,
+        "gemma_reached": true,
+        "replayed": false
+      }
+    }
+  },
+  "cache_vs_fetch": {
+    "A": {
+      "document_id": "pmid:24658966",
+      "source_unit_count_cache": 9,
+      "source_unit_count_fetch": 9,
+      "id_intersection": 9,
+      "id_missing_from_fetch": 0,
+      "id_new_in_fetch": 0,
+      "text_drift_on_common_ids": 0
+    },
+    "B": {
+      "document_id": "pmcid:PMC248481",
+      "source_unit_count_cache": 242,
+      "source_unit_count_fetch": 242,
+      "id_intersection": 242,
+      "id_missing_from_fetch": 0,
+      "id_new_in_fetch": 0,
+      "text_drift_on_common_ids": 0
+    },
+    "C": {
+      "document_id": "pmid:23724867",
+      "source_unit_count_cache": 17,
+      "source_unit_count_fetch": 17,
+      "id_intersection": 17,
+      "id_missing_from_fetch": 0,
+      "id_new_in_fetch": 0,
+      "text_drift_on_common_ids": 0
+    }
+  },
+  "cache_miss_simulation": {
+    "cache_hit_path": {
+      "document_id": "pmid:24658966",
+      "path": "CACHE_HIT",
+      "snapshot_created": false,
+      "fetch_performed": false,
+      "payload_size_bytes": 7343
+    },
+    "cache_miss_path": {
+      "retrievable_document": {
+        "document_id": "pmid:24658966",
+        "path": "CACHE_MISS",
+        "fetch_performed": true,
+        "fetch_success": true,
+        "snapshot_created": true,
+        "payload_size_bytes": 7343,
+        "raw_payload_hash": "a671bbd80df08ad52602d067eeaef69aa177e493cacbd489e42d43e482f42a48",
+        "parser_success": true,
+        "source_unit_count": 9,
+        "source_units_with_text": 9
+      },
+      "unretrievable_document": {
+        "document_id": "pmcid:PMC273189",
+        "path": "CACHE_MISS",
+        "fetch_performed": true,
+        "fetch_success": false,
+        "snapshot_created": false,
+        "payload_size_bytes": 0,
+        "raw_payload_hash": null,
+        "parser_success": true,
+        "source_unit_count": 0,
+        "source_units_with_text": 0
+      }
+    }
+  },
+  "oncokb": {
+    "api_called": false,
+    "status": "NOT_TESTED (verificato solo da codice e documentazione)",
+    "returns_pmids": true,
+    "returns_full_text": false,
+    "returns_description": "sintesi OncoKB troncata a 400 caratteri, non testo della fonte",
+    "imported_by_research_runtime": false,
+    "role": "REFERENCE_DISCOVERY_NOT_TEXT_SOURCE",
+    "evidence": [
+      "backend/pipeline/agents/oncokb_enricher.py:125-126",
+      "docs/deliverability_audit/09_rq_readiness.md:183-202",
+      "docs/deliverability_audit/00_repository_state.md:145"
+    ]
+  },
+  "invariants": {
+    "runtime_code_modified": false,
+    "orchestrator_modified": false,
+    "gca_modified": false,
+    "cache_miss_behaviour_modified": false,
+    "fetch_on_miss_integrated": false,
+    "historical_artifacts_modified": false,
+    "real_cache_modified": false,
+    "push_executed": false,
+    "merge_executed": false
+  },
+  "success_criteria": {
+    "test_A_end_to_end": true,
+    "test_B_end_to_end": true,
+    "identifier_without_human_input": true,
+    "source_units_with_text_created": true,
+    "gemma_reached": true,
+    "quote_validated_or_correct_abstain": true,
+    "runtime_changes_needed_for_probe": false
+  },
+  "decision": "LIVE_DOCUMENT_FETCH_FEASIBLE"
+}
