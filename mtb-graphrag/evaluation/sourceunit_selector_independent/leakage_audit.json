@@ -1,0 +1,31 @@
+{
+  "selector_version": "deterministic-sourceunit-selector/1.0",
+  "selector_gold_access_count": 0,
+  "pilot_gold_access_during_inference": 0,
+  "independent_gold_access_during_inference": 0,
+  "expected_quote_access": 0,
+  "gemma_output_access": 0,
+  "canonical_status_access": 0,
+  "forbidden_runtime_terms_in_rank_select": {
+    "gold_source_unit": false,
+    "source_unit_ids\"": false,
+    "expected_quote": false,
+    "validator": false,
+    "canonical_status": false,
+    "gemma": false,
+    "bundle": false
+  },
+  "selector_uses_llm": false,
+  "selector_input_fields": [
+    "candidate_id",
+    "document_id",
+    "disease",
+    "genes",
+    "alterations",
+    "interventions",
+    "graph_relation",
+    "source_units"
+  ],
+  "inference_source": "SourceUnitSelectionInput only; gold loaded by outer evaluator after ranking artifacts are created",
+  "full_text_in_artifact_fields": false
+}

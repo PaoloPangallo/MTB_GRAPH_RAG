@@ -1,0 +1,36 @@
+{
+  "chars_per_token_estimate": 4.0,
+  "selector_version": "deterministic-sourceunit-selector/1.0",
+  "k_values": [
+    3,
+    5,
+    10
+  ],
+  "k=3": {
+    "mean_source_units": 3,
+    "mean_chars": 2002.5,
+    "p95_chars": 4195,
+    "max_chars": 4195,
+    "mean_tokens_est": 500.6,
+    "p95_tokens_est": 1048.8,
+    "max_tokens_est": 1048.8
+  },
+  "k=5": {
+    "mean_source_units": 5,
+    "mean_chars": 2757.1,
+    "p95_chars": 6544,
+    "max_chars": 6544,
+    "mean_tokens_est": 689.3,
+    "p95_tokens_est": 1636.0,
+    "max_tokens_est": 1636.0
+  },
+  "k=10": {
+    "mean_source_units": 9.55,
+    "mean_chars": 3771.6,
+    "p95_chars": 12027,
+    "max_chars": 12027,
+    "mean_tokens_est": 942.9,
+    "p95_tokens_est": 3006.8,
+    "max_tokens_est": 3006.8
+  }
+}

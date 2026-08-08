@@ -1,0 +1,21 @@
+{
+    "status":  "NOT_RUN_PROVIDER_UNAVAILABLE",
+    "sample_size":  0,
+    "requested_sample_size":  20,
+    "requested_k_values":  [
+                               3,
+                               5,
+                               10
+                           ],
+    "gold":  "NOT_RUN",
+    "selector":  "NOT_RUN",
+    "validated_quote_rate_gold":  null,
+    "validated_quote_rate_selector":  null,
+    "abstain_rate_gold":  null,
+    "abstain_rate_selector":  null,
+    "wrong_quote_rate_selector":  null,
+    "unauthorized_source_unit_rate":  null,
+    "reason":  "LiveStageFailed: OLLAMA_API_KEY (or RESEARCH_PIPELINE_LLM_API_KEY) is not set for https://ollama.com; no simulated output was accepted.",
+    "retrieval_metrics_are_independent_of_gemma":  true,
+    "full_text_persisted_in_artifacts":  false
+}
