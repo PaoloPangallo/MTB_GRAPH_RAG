@@ -1,0 +1,27 @@
+{
+  "protocol_version": "independent-sourceunit-selector/1.0",
+  "selector_version": "deterministic-sourceunit-selector/1.0",
+  "source_repository": "graph_candidate_repository/2.0",
+  "target_pairs": 20,
+  "candidate_pool_size": 36,
+  "valid_pair_count": 20,
+  "document_count": 20,
+  "pubmed_abstract_count": 12,
+  "pmc_fulltext_count": 8,
+  "failed_candidates": [
+    {
+      "candidate_id": "GCA-00e16c83d9144ac87139b7a3",
+      "pmid": "15928335",
+      "reason": "RemoteDisconnected: Remote end closed connection without response"
+    }
+  ],
+  "pilot_candidate_count": 16,
+  "pilot_document_count": 25,
+  "overlap_with_pilot_candidates": [],
+  "overlap_with_pilot_documents": [],
+  "gold_frozen_before_selector": true,
+  "full_text_persisted_in_artifacts": false,
+  "acquired_at": "2026-08-08T10:28:36Z",
+  "gold_annotation_hash": "a8e384bf57402932de272e152bee05c6f421aabe2e568efb62835d19cc12d986",
+  "selector_started_after_gold_frozen": true
+}

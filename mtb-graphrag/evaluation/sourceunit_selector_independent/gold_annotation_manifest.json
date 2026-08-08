@@ -1,0 +1,138 @@
+{
+  "annotation_protocol_version": "independent_relevance_annotation_v2",
+  "annotation_timestamp": "2026-08-08T10:34:30Z",
+  "gold_annotation_hash": "a8e384bf57402932de272e152bee05c6f421aabe2e568efb62835d19cc12d986",
+  "selector_started_after_gold_frozen": true,
+  "selector_ranking_seen_during_annotation": false,
+  "bm25_ranking_seen_during_annotation": false,
+  "bundle_ids_seen_during_annotation": false,
+  "expected_quote_seen_during_annotation": false,
+  "gemma_output_seen_during_annotation": false,
+  "validator_output_seen_during_annotation": false,
+  "canonical_status_seen_during_annotation": false,
+  "full_text_persisted_in_artifacts": false,
+  "unit_count": 1697,
+  "case_count": 20,
+  "per_case": {
+    "GCA-0101aa9c8f708d6f8dd74be0|pmcid:PMC4157820": {
+      "DIRECTLY_RELEVANT": 1,
+      "PARTIALLY_RELEVANT": 13,
+      "CONTEXT_ONLY": 128,
+      "NOT_RELEVANT": 94
+    },
+    "GCA-010315d07ebd444fda7e0521|pmid:22277784": {
+      "DIRECTLY_RELEVANT": 2,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 4,
+      "NOT_RELEVANT": 4
+    },
+    "GCA-013b8e1875f70e5a8d3ec263|pmid:25730903": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 9
+    },
+    "GCA-01418cd09a941c6490e9bd39|pmcid:PMC2948082": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 11
+    },
+    "GCA-01586ec74fff9c1692d6ad66|pmid:19603024": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 4,
+      "NOT_RELEVANT": 11
+    },
+    "GCA-0162e2a8ddd3e9b89cd58df3|pmid:24146218": {
+      "DIRECTLY_RELEVANT": 1,
+      "PARTIALLY_RELEVANT": 2,
+      "CONTEXT_ONLY": 2,
+      "NOT_RELEVANT": 20
+    },
+    "GCA-002decb1b8be445d9dad8730|pmid:231047": {
+      "DIRECTLY_RELEVANT": 2,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 3
+    },
+    "GCA-0066a3a66028e77ea626cb45|pmid:25265492": {
+      "DIRECTLY_RELEVANT": 4,
+      "PARTIALLY_RELEVANT": 7,
+      "CONTEXT_ONLY": 1,
+      "NOT_RELEVANT": 20
+    },
+    "GCA-006f4ba03d72ec2d1243408f|pmcid:PMC2359721": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 226
+    },
+    "GCA-0096f91c574c8d8f1b27c2c1|pmid:27022112": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 3,
+      "CONTEXT_ONLY": 11,
+      "NOT_RELEVANT": 28
+    },
+    "GCA-00c2ff7f866d92c477044167|pmcid:PMC3686973": {
+      "DIRECTLY_RELEVANT": 2,
+      "PARTIALLY_RELEVANT": 5,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 134
+    },
+    "GCA-00ff114c5a836ab8e08d40b5|pmcid:PMC8220573": {
+      "DIRECTLY_RELEVANT": 2,
+      "PARTIALLY_RELEVANT": 6,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 399
+    },
+    "GCA-0104b6bc3c25f0cc6bfdb268|pmcid:PMC6504641": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 177,
+      "NOT_RELEVANT": 212
+    },
+    "GCA-a93ec8f687e6ee6bd478a080|pmid:34593528": {
+      "DIRECTLY_RELEVANT": 2,
+      "PARTIALLY_RELEVANT": 2,
+      "CONTEXT_ONLY": 6,
+      "NOT_RELEVANT": 5
+    },
+    "GCA-00f6a9bd535860d4a8cf6c7d|pmid:21463266": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 7,
+      "NOT_RELEVANT": 4
+    },
+    "GCA-0124a79f417c5c2700b32852|pmcid:PMC7469918": {
+      "DIRECTLY_RELEVANT": 13,
+      "PARTIALLY_RELEVANT": 11,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 45
+    },
+    "GCA-014a44e0d4585dec8e302498|pmid:10866302": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 10,
+      "NOT_RELEVANT": 0
+    },
+    "GCA-00b923db4b7ed46d4824c343|pmid:11208838": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 16
+    },
+    "GCA-0187a17739611f6678a24a88|pmid:11896595": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 0,
+      "NOT_RELEVANT": 21
+    },
+    "GCA-02221723e35fa79a06e08d72|pmcid:PMC2820374": {
+      "DIRECTLY_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 0,
+      "CONTEXT_ONLY": 5,
+      "NOT_RELEVANT": 2
+    }
+  }
+}
