@@ -1,0 +1,26 @@
+{
+  "authorized_sources": [
+    "NCBI PubMed E-utilities",
+    "NCBI PMC OAI",
+    "ClinicalTrials.gov API"
+  ],
+  "contract_version": "live-document-retrieval-selector/1.0",
+  "gemma_contract_unchanged": true,
+  "live": {
+    "adapter_version": "live-sourceunit-selector/1.0",
+    "api_on_cache_miss": true,
+    "cache_first": true,
+    "manual_document_identifier_input": false,
+    "selector_version": "deterministic-sourceunit-selector/1.0",
+    "silent_replay_fallback": false,
+    "top_k": 5
+  },
+  "quote_validator_unchanged": true,
+  "replay": {
+    "frozen_bundle": true,
+    "frozen_source_unit_ids": true,
+    "live_selector_dependency": false,
+    "network_access": false
+  },
+  "selector_modified_from_evaluated_version": false
+}
