@@ -1,0 +1,33 @@
+{
+  "selector_version": "deterministic-sourceunit-selector/1.0",
+  "checks": {
+    "input_order_permutations": {
+      "variants": 4,
+      "ranking_hashes_identical": true
+    },
+    "repeat_runs": {
+      "runs": 10,
+      "ranking_hashes_identical": true
+    },
+    "unicode_nfc_vs_nfd": {
+      "ranking_hashes_identical": true
+    },
+    "case_folding": {
+      "ranking_hashes_identical": true
+    },
+    "punctuation_and_whitespace": {
+      "ranking_hashes_identical": true
+    },
+    "duplicate_units": {
+      "both_present_and_ordered_by_id": true
+    },
+    "empty_document": {
+      "status": "NO_RELEVANT_SOURCE_UNIT",
+      "selected": []
+    },
+    "document_without_signal": {
+      "status": "NO_RELEVANT_SOURCE_UNIT"
+    },
+    "ranking_drift": 0
+  }
+}

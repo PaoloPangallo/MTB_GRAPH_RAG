@@ -1,0 +1,98 @@
+{
+  "cases": 3,
+  "all_selected_units_come_from_the_fetched_document": true,
+  "rows": [
+    {
+      "bundle_id": "EB-278efe96eecccc226c82aa2d",
+      "document_id": "pmid:28363909",
+      "fetch_success": true,
+      "fresh_source_units": 17,
+      "selector_status": "SELECTED",
+      "selected_unit_ids": [
+        "SU-fbd61baf5346c100373f55e4",
+        "SU-99bff74ef5ba851b701e91e6",
+        "SU-0edf86b322ad77195e8dc2f8",
+        "SU-7d5e42ca9eef0d9dd3fffd84"
+      ],
+      "selected_are_from_fresh_document": true,
+      "overlap_with_gold": 3,
+      "gemma": {
+        "gemma_reached": true,
+        "units_offered": 4,
+        "prompt_chars": 2125,
+        "decision": "QUOTE",
+        "cited_source_unit_id": "SU-99bff74ef5ba851b701e91e6",
+        "unauthorized_source_unit": false,
+        "quote_length": 305,
+        "validator_outcome": "ENRICHMENT_V2_ACCEPTED",
+        "validator_reason_codes": [],
+        "quote_offset": 797,
+        "quote_validated": true,
+        "wrong_quote": false,
+        "input_tokens": 1546,
+        "output_tokens": 178
+      }
+    },
+    {
+      "bundle_id": "EB-2ae853e8abf1195cc4c84846",
+      "document_id": "pmid:24658966",
+      "fetch_success": true,
+      "fresh_source_units": 9,
+      "selector_status": "SELECTED",
+      "selected_unit_ids": [
+        "SU-2f2b8a24fa60fde080f2d79c",
+        "SU-85b873d9e71a5bfd4adba10e",
+        "SU-9b966cc43a666add1d24c54f",
+        "SU-881726cda2e762da0776be09"
+      ],
+      "selected_are_from_fresh_document": true,
+      "overlap_with_gold": 3,
+      "gemma": {
+        "gemma_reached": true,
+        "units_offered": 4,
+        "prompt_chars": 2091,
+        "decision": "QUOTE",
+        "cited_source_unit_id": "SU-881726cda2e762da0776be09",
+        "unauthorized_source_unit": false,
+        "quote_length": 186,
+        "validator_outcome": "ENRICHMENT_V2_ACCEPTED",
+        "validator_reason_codes": [],
+        "quote_offset": 0,
+        "quote_validated": true,
+        "wrong_quote": false,
+        "input_tokens": 1515,
+        "output_tokens": 160
+      }
+    },
+    {
+      "bundle_id": "EB-003e4bcab4a57d2a1c80cb5c",
+      "document_id": "pmcid:PMC248481",
+      "fetch_success": true,
+      "fresh_source_units": 243,
+      "selector_status": "SELECTED",
+      "selected_unit_ids": [
+        "SU-6a6ab4ce67d3acd7739318cc",
+        "SU-87322df67cb88e1ae9a9ed9d",
+        "SU-7d63ed7f0832102b8bc0a9c6"
+      ],
+      "selected_are_from_fresh_document": true,
+      "overlap_with_gold": 3,
+      "gemma": {
+        "gemma_reached": true,
+        "units_offered": 3,
+        "prompt_chars": 1681,
+        "decision": "ABSTAIN",
+        "cited_source_unit_id": "",
+        "unauthorized_source_unit": false,
+        "quote_length": 0,
+        "validator_outcome": "ENRICHMENT_V2_ABSTAINED",
+        "validator_reason_codes": [],
+        "quote_offset": null,
+        "quote_validated": false,
+        "wrong_quote": false,
+        "input_tokens": 1357,
+        "output_tokens": 91
+      }
+    }
+  ]
+}

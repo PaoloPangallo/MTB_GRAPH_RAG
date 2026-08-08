@@ -1,0 +1,27 @@
+{
+  "purpose": "Il selector distingue un documento pertinente da uno che non lo e? Fuori contratto, ma informativo.",
+  "note": "Il contratto del selector e ordinare dentro un documento gia collegato dalla provenance della GCA. Questo controllo misura se il punteggio possa essere riusato come segnale di rilevanza fra documenti diversi.",
+  "linked_pairs": {
+    "n": 25,
+    "min": 2.0113,
+    "p25": 3.6229,
+    "median": 7.0813,
+    "p75": 8.4144,
+    "p95": 14.2427,
+    "max": 17.2537
+  },
+  "unlinked_pairs": {
+    "n": 375,
+    "min": 0.0,
+    "p25": 0.0,
+    "median": 0.0,
+    "p75": 1.6769,
+    "p95": 6.0828,
+    "max": 12.3197
+  },
+  "no_relevant_on_unlinked": 247,
+  "no_relevant_rate_on_unlinked": 0.6587,
+  "unlinked_scoring_at_or_above_weakest_linked": 86,
+  "unlinked_overlap_rate": 0.2293,
+  "verdict": "discrimina in aggregato (mediana 7.08 contro 0.00) ma le code si sovrappongono: il punteggio NON e utilizzabile come gate di rilevanza documentale."
+}

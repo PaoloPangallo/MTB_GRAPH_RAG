@@ -1,0 +1,223 @@
+{
+  "k_values": [
+    3,
+    5,
+    10
+  ],
+  "strategies": {
+    "baseline_first_k": {
+      "cases": 25,
+      "gold_total": 76,
+      "hit_rate@3": 0.8,
+      "hit_rate@5": 0.8,
+      "hit_rate@10": 0.88,
+      "recall@3": 0.5267,
+      "recall@5": 0.6267,
+      "recall@10": 0.7533,
+      "full_gold_coverage@3": 0.16,
+      "full_gold_coverage@5": 0.36,
+      "full_gold_coverage@10": 0.56,
+      "mrr": 0.6035,
+      "mean_first_gold_rank": 7.92,
+      "median_first_gold_rank": 2,
+      "cases_with_no_gold_retrieved": 0
+    },
+    "baseline_bm25": {
+      "cases": 25,
+      "gold_total": 76,
+      "hit_rate@3": 0.88,
+      "hit_rate@5": 0.92,
+      "hit_rate@10": 1.0,
+      "recall@3": 0.6733,
+      "recall@5": 0.8267,
+      "recall@10": 0.9,
+      "full_gold_coverage@3": 0.4,
+      "full_gold_coverage@5": 0.72,
+      "full_gold_coverage@10": 0.84,
+      "mrr": 0.8174,
+      "mean_first_gold_rank": 1.92,
+      "median_first_gold_rank": 1,
+      "cases_with_no_gold_retrieved": 0
+    },
+    "feature_selector": {
+      "cases": 25,
+      "gold_total": 76,
+      "hit_rate@3": 1.0,
+      "hit_rate@5": 1.0,
+      "hit_rate@10": 1.0,
+      "recall@3": 0.79,
+      "recall@5": 0.92,
+      "recall@10": 0.9433,
+      "full_gold_coverage@3": 0.48,
+      "full_gold_coverage@5": 0.8,
+      "full_gold_coverage@10": 0.88,
+      "mrr": 0.9133,
+      "mean_first_gold_rank": 1.2,
+      "median_first_gold_rank": 1,
+      "cases_with_no_gold_retrieved": 0
+    }
+  },
+  "near_miss": {
+    "top_k": 5,
+    "missed_gold_total": 7,
+    "missed_but_text_overlapping": 3,
+    "granularity_recovery_rate": 0.4286,
+    "per_case": [
+      {
+        "bundle_id": "EB-003e4bcab4a57d2a1c80cb5c",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-278efe96eecccc226c82aa2d",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-2ae853e8abf1195cc4c84846",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-35a15fff70830617392cfa75",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-3b9ecb5a7e6236bec23ac785",
+        "missed_gold": 1,
+        "missed_but_text_overlapping": 1
+      },
+      {
+        "bundle_id": "EB-42cb660f5be17914df59a8fc",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-479f55c21cac935ef1313755",
+        "missed_gold": 1,
+        "missed_but_text_overlapping": 1
+      },
+      {
+        "bundle_id": "EB-4c70544954c0fd9241e2adca",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-4ee2d856de4b2903b5a135d2",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-56d2ac75d26d1e64b9d40da2",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-59443a348fe3b2937202a7c9",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-5b27522a39d16cc761a0fade",
+        "missed_gold": 1,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-6a291f12975b20b79e1c3dd7",
+        "missed_gold": 2,
+        "missed_but_text_overlapping": 1
+      },
+      {
+        "bundle_id": "EB-883392431572b406505185cd",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-9403cc6f191fb7d83bc29836",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-9f6ea93de50453d03f8f572c",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-b1f4afc47f51582120ec6384",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-b4c48ba003913f278ff182a6",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-b6dc7db903abe794a5b18eae",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-bd6ce2f5db3fb40af814743e",
+        "missed_gold": 2,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-c831254f331446fee9711869",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-d11da1539ae9f0ff753a3ddc",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-d123a7737a0d6161a2f2062c",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-d14e11e161877b56ac0e66c8",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      },
+      {
+        "bundle_id": "EB-e887ef4fb7cc42c2903e2e5a",
+        "missed_gold": 0,
+        "missed_but_text_overlapping": 0
+      }
+    ]
+  },
+  "score_distribution": {
+    "gold": {
+      "n": 76,
+      "min": 0.7309,
+      "p25": 2.6624,
+      "median": 4.0001,
+      "p75": 7.4351,
+      "p95": 10.465,
+      "max": 17.2537,
+      "zero_fraction": 0.0
+    },
+    "non_gold": {
+      "n": 2170,
+      "min": 0.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.8045,
+      "p95": 2.9702,
+      "max": 11.1695,
+      "zero_fraction": 0.7424
+    }
+  },
+  "threshold_behaviour": {
+    "top_k": 4,
+    "rule": "score_total > 0 (nessuna soglia tarata sul gold)",
+    "mean_selected_units": 3.68,
+    "cases_no_relevant_source_unit": 0,
+    "gold_retained": 63,
+    "gold_total": 76
+  }
+}
