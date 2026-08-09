@@ -41,11 +41,16 @@ class MissingArtifact(FileNotFoundError):
 # --------------------------------------------------------------------- hashing
 
 def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    """SHA-256 con fine riga normalizzati a LF.
+
+    Gli artefatti sono tutti testuali e git li memorizza con LF, mentre su
+    Windows stanno su disco con CRLF. Senza normalizzazione lo stesso contenuto
+    produrrebbe due hash diversi a seconda della piattaforma del clone, e il
+    freeze non sarebbe verificabile da nessun altro. È lo stesso problema già
+    registrato dall'audit di contaminazione come CF-01.
+    """
+    raw = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(raw).hexdigest()
 
 
 def _sha256_text(value: str) -> str:
@@ -349,6 +354,7 @@ def build() -> dict[str, Any]:
         "runtime_commit": RUNTIME_COMMIT,
         "generated_at": generated_at,
         "hash_algorithm": "sha256",
+        "file_hash_rule": "sha256 of the file bytes with CRLF normalized to LF (platform-independent)",
         "corpus_hash_rule": "sha256 of the sorted 'relative_path:file_sha256' lines joined by \\n",
         "corpora": hash_entries,
         "dataset_bundle_sha256": bundle_sha,
@@ -497,10 +503,8 @@ def _counts_for(corpus_id: str) -> dict[str, Any]:
 
 
 def _write(path: Path, payload: Any) -> None:
-    path.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=False) + "\n",
-        encoding="utf-8",
-    )
+    with path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=False) + "\n")
 
 
 if __name__ == "__main__":

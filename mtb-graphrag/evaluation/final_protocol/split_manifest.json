@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.0",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T08:51:07.195106+00:00",
+  "generated_at": "2026-08-09T08:59:48.523484+00:00",
   "split_definitions": {
     "PILOT": "casi che hanno guidato la costruzione della pipeline; solo regression",
     "DEVELOPMENT": "casi osservati prima del congelamento di almeno un componente che li riguarda; regression e ablation, mai generalizzazione",
@@ -80,5 +80,5 @@
       "rationale": "Il runtime a f52bbf5 legge 2.0 (backend/research_pipeline/data_access.py) e nessun modulo del runtime importa kg_retrieval_v3. Le proprietà di 3.0 (polarità esplicita, regimi preservati, alterazioni composte) NON vanno attribuite al sistema valutato."
     }
   ],
-  "dataset_bundle_sha256": "b95fc71a05771c731d48258b633b957d994864cfd352132994fb60e3d341bb0d"
+  "dataset_bundle_sha256": "eafa02a65609fb229ffb320e8f204df06e37fe6fce4bf7ba69ab0842c57a2542"
 }

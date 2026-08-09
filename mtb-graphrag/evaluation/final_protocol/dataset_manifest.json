@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.0",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T08:51:07.195106+00:00",
+  "generated_at": "2026-08-09T08:59:48.523484+00:00",
   "runtime_modified": false,
   "corpora": [
     {
@@ -30,7 +30,7 @@
       "split": "DEVELOPMENT",
       "usable_for_final_eval": true,
       "final_role": "REGRESSION_AND_ROBUSTNESS_MATRIX",
-      "corpus_sha256": "7c6f04fbeb92b9b2ab9b894d0614890e158c83e872d0d54026d9066fa2f5387a"
+      "corpus_sha256": "3eb2ee79c46dcbbf2fddf0385a2ed8189bcaf017e8a130265c7dea54a69353fc"
     },
     {
       "corpus_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20",
@@ -171,7 +171,7 @@
       "split": "DEVELOPMENT",
       "usable_for_final_eval": true,
       "final_role": "NARRATIVE_VERIFIER_ABLATION_AND_REGRESSION",
-      "corpus_sha256": "360320166d6dff5ab3e05b3dcdef860491e5c114472fc2aaffc9b4a33a2de256"
+      "corpus_sha256": "00bc29eac3bc3b03279b9f3dbf28268c1933ebb2628295ec3704da96cf359d04"
     },
     {
       "corpus_id": "NARRATOR_ADVERSARIAL_20",
@@ -201,7 +201,7 @@
       "split": "DEVELOPMENT",
       "usable_for_final_eval": true,
       "final_role": "SAFETY_MATRIX_NARRATIVE_LAYER",
-      "corpus_sha256": "98117bb1871a8e3faca80b0edc65c06f7f075bbe95a77d77698a47b21e7dfee8"
+      "corpus_sha256": "4ce813e5ffc9a6f4782b2fe9894b35217321ecf62d105825613d31e6e9d74bed"
     },
     {
       "corpus_id": "QUOTE_VALIDATOR_BATTERY_14",
@@ -225,7 +225,7 @@
       "split": "DEVELOPMENT",
       "usable_for_final_eval": true,
       "final_role": "SAFETY_MATRIX_QUOTE_LAYER",
-      "corpus_sha256": "dd73c1137c1a6d3d2b7681e946fb14d6d4a239e37caee2c826cbe4c2d9a26d50"
+      "corpus_sha256": "9ceb959a0784bf466278fa420cca8d02321e3f51d54f6cde8a019b75d93a3d88"
     },
     {
       "corpus_id": "GCA_REPOSITORY_2_0_46864",
@@ -280,8 +280,8 @@
       "split": "FINAL_TEST",
       "usable_for_final_eval": true,
       "final_role": "RQ1_SHADOW_COMPARISON_ONLY_NOT_RUNTIME",
-      "corpus_sha256": "ca53e0052710e009594f7356bd90f5173e444fce61fe51b4268aeac3b51ef26c"
+      "corpus_sha256": "59c47c893b2357fb110c9d2c82aa438bb22624ceea14af33aeef1c0cd0f0ac33"
     }
   ],
-  "dataset_bundle_sha256": "b95fc71a05771c731d48258b633b957d994864cfd352132994fb60e3d341bb0d"
+  "dataset_bundle_sha256": "eafa02a65609fb229ffb320e8f204df06e37fe6fce4bf7ba69ab0842c57a2542"
 }
