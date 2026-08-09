@@ -1,7 +1,7 @@
 {
-  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T08:59:48.523484+00:00",
+  "generated_at": "2026-08-09T09:50:48.584262+00:00",
   "hash_algorithm": "sha256",
   "file_hash_rule": "sha256 of the file bytes with CRLF normalized to LF (platform-independent)",
   "corpus_hash_rule": "sha256 of the sorted 'relative_path:file_sha256' lines joined by \\n",
@@ -65,6 +65,27 @@
         "evaluation/pre_freeze/raw/G01_rq3_quote_battery.jsonl": "bbbc2e0f7073759465c4bc2fc6b08a590fc379bbe165f2442e7fbf6def9e5fa1"
       }
     },
+    "HELDOUT_ARCHITECTURAL_35": {
+      "corpus_sha256": "f158c429bf32db6045830de0f128a3c5a075bf549d0b38ce7097c307a6485aab",
+      "files": {
+        "evaluation/final_protocol/heldout/architectural_challenge_cases.json": "636f3547f06f24209ec71e20f9f58c417d5a3676f41079399bcea99ed46ca005",
+        "evaluation/final_protocol/heldout/architectural_challenge_gold.json": "6a5ab972d43a87bbc0177771ec4397a7dfcd921b62509a85bceea36921ffe4c8",
+        "evaluation/final_protocol/heldout/overlap_report.json": "80c01bc9ecfb3fb74968f02b29e1be449572da208a2905f904edb40cdaaabb0a"
+      }
+    },
+    "NARRATIVE_HELDOUT_20": {
+      "corpus_sha256": "29f68939d1dbb76f84d80d6da720652e89c5972d2385d788541c5f9a96316445",
+      "files": {
+        "evaluation/final_protocol/heldout/narrative_heldout_cases.json": "e1a0516fe28b29440cddffde103ff564d019da65b93043ca7af4fcbd541ecf6c",
+        "evaluation/final_protocol/heldout/narrative_heldout_gold.json": "08da3d29e9115b2c817c66cf5776011680322acc2ec7c3aa0a72f5c6e4efb54d"
+      }
+    },
+    "NARRATIVE_HELDOUT_VALID_CONTROL_5": {
+      "corpus_sha256": "a00c70410a5382ae1743804fb3b59e5af54070977530582c8d379bd08430992c",
+      "files": {
+        "evaluation/final_protocol/heldout/narrative_heldout_valid_control.json": "133b8811cd5d7051e30b36cc653f87ac589c9fe4f292015dfdf2e62fe9aa9cb9"
+      }
+    },
     "GCA_REPOSITORY_2_0_46864": {
       "corpus_sha256": "62edc6907cf982eb2ed050d44a9e8218377a32daaf0c8847c98048b67be9ce54",
       "files": {
@@ -79,5 +100,5 @@
       }
     }
   },
-  "dataset_bundle_sha256": "eafa02a65609fb229ffb320e8f204df06e37fe6fce4bf7ba69ab0842c57a2542"
+  "dataset_bundle_sha256": "6baa10f267264f70eb024ec6c7c066107f1ecb3389952cc079f2417eec6da5cd"
 }

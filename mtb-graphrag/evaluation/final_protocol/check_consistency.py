@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -140,14 +141,187 @@ def check_overall_vs_conditional_hit_rate() -> None:
           f"overall={overall} ({positive}/{total}), conditional={conditional} ({positive}/{positive})")
 
 
-def check_testbed_a_composition() -> None:
-    """La composizione dichiarata del testbed A deve sommare a 55 e usare casi esistenti."""
-    casecontext = _json("evaluation/rq4_casecontext_robustness/frozen_benchmark_manifest.json")["categories"]
-    independent_total = _json(
-        "evaluation/sourceunit_selector_independent/corpus_inventory.json")["valid_pair_count"]
-    total = sum(casecontext.values()) + independent_total
-    check("testbed_a_totals_55", total == 55,
-          f"{sum(casecontext.values())} CaseContext + {independent_total} independent = {total}")
+def check_no_aggregate_55() -> None:
+    """L'aggregato 55 di 1.0 deve essere sparito da protocollo e specifiche.
+
+    35 casi di routing e 20 coppie di grounding non sono la stessa unità
+    sperimentale: un denominatore 55 non ha significato.
+    """
+    offenders: list[str] = []
+
+    # Nessun corpus può dichiarare 55 casi: sarebbe l'aggregato reintrodotto.
+    for entry in _json("evaluation/final_protocol/dataset_manifest.json")["corpora"]:
+        if entry["counts"].get("n_cases") == 55:
+            offenders.append(f"dataset_manifest:{entry['corpus_id']}")
+
+    # Il divieto di aggregazione deve essere scritto, non solo sottinteso.
+    schemas = _json("evaluation/final_protocol/result_schemas.json")
+    if "no_cross_testbed_aggregation" not in schemas["rules"]:
+        offenders.append("result_schemas: manca la regola di non aggregazione")
+    if "aggregation_prohibition" not in schemas["RQ4_selective_execution"]:
+        offenders.append("result_schemas: RQ4 senza divieto di aggregazione")
+
+    metrics = _json("evaluation/final_protocol/metrics_registry.json")
+    if "rule_no_aggregation" not in metrics:
+        offenders.append("metrics_registry: manca rule_no_aggregation")
+
+    # RQ4 deve avere due tabelle distinte ed etichettate, non una sola.
+    tables = schemas["RQ4_selective_execution"]["tables"]
+    if len(tables) != 2 or {t["independence_level"] for t in tables} != {
+        "DEVELOPMENT_REGRESSION", "HELD_OUT"
+    }:
+        offenders.append("result_schemas: RQ4 non separa DEV e HELD_OUT")
+
+    check("no_aggregate_55_denominator", not offenders,
+          f"{len(offenders)} problemi: {offenders or 'nessuno'}")
+
+
+def check_protocol_version() -> None:
+    """Tutte le specifiche devono dichiarare la stessa versione di protocollo."""
+    expected = "mtb-graphrag-final-evaluation/1.1"
+    observed: dict[str, str] = {}
+    for relative in (
+        "evaluation/final_protocol/dataset_manifest.json",
+        "evaluation/final_protocol/dataset_hashes.json",
+        "evaluation/final_protocol/split_manifest.json",
+        "evaluation/final_protocol/failure_taxonomy.json",
+        "evaluation/final_protocol/metrics_registry.json",
+        "evaluation/final_protocol/success_criteria.json",
+        "evaluation/final_protocol/result_schemas.json",
+        "evaluation/final_protocol/reliability_subset.json",
+        "evaluation/final_protocol/protocol_hash.json",
+        "evaluation/final_protocol/heldout/heldout_manifest.json",
+        "evaluation/final_protocol/heldout/heldout_hashes.json",
+    ):
+        observed[relative] = _json(relative)["protocol_version"]
+    wrong = {k: v for k, v in observed.items() if v != expected}
+    check("protocol_version_is_1_1", not wrong, f"{len(wrong)} file divergenti su {len(observed)}")
+
+
+def check_case_ids_unique() -> None:
+    """Nessun case_id duplicato dentro o fra i corpus held-out."""
+    architectural = [c["case_id"] for c in
+                     _json("evaluation/final_protocol/heldout/architectural_challenge_cases.json")["cases"]]
+    hostile = [c["case_id"] for c in
+               _json("evaluation/final_protocol/heldout/narrative_heldout_cases.json")["cases"]]
+    control = [c["case_id"] for c in
+               _json("evaluation/final_protocol/heldout/narrative_heldout_valid_control.json")["cases"]]
+    everything = architectural + hostile + control
+    check("heldout_case_ids_unique", len(set(everything)) == len(everything),
+          f"{len(everything)} ID, {len(set(everything))} distinti")
+
+
+def check_gold_records_paired() -> None:
+    """Ogni caso deve avere esattamente un record di gold, e viceversa."""
+    pairs = [
+        ("architectural", "architectural_challenge_cases.json", "cases",
+         "architectural_challenge_gold.json", "gold"),
+        ("narrative_hostile", "narrative_heldout_cases.json", "cases",
+         "narrative_heldout_gold.json", "gold"),
+    ]
+    problems: list[str] = []
+    for label, case_file, case_key, gold_file, gold_key in pairs:
+        cases = {c["case_id"] for c in
+                 _json(f"evaluation/final_protocol/heldout/{case_file}")[case_key]}
+        gold = {g["case_id"] for g in
+                _json(f"evaluation/final_protocol/heldout/{gold_file}")[gold_key]}
+        if cases != gold:
+            problems.append(f"{label}: {len(cases ^ gold)} non appaiati")
+    control = _json("evaluation/final_protocol/heldout/narrative_heldout_valid_control.json")
+    if {c["case_id"] for c in control["cases"]} != {g["case_id"] for g in control["gold"]}:
+        problems.append("narrative_control: non appaiati")
+    check("gold_records_paired", not problems, "; ".join(problems) or "tutti i casi hanno un gold")
+
+
+def check_heldout_created_after_freeze() -> None:
+    """L'held-out deve essere stato creato dopo il congelamento del runtime."""
+    manifest = _json("evaluation/final_protocol/heldout/heldout_manifest.json")
+    created = datetime.fromisoformat(manifest["creation_timestamp"])
+    frozen = datetime.fromisoformat(manifest["runtime_freeze_timestamp"])
+    cases = _json("evaluation/final_protocol/heldout/architectural_challenge_cases.json")["cases"]
+    flags_ok = all(
+        c["created_after_runtime_freeze"] and not c["system_output_observed_before_creation"]
+        for c in cases
+    )
+    check("heldout_created_after_runtime_freeze", created > frozen and flags_ok,
+          f"runtime {frozen.isoformat()} -> creazione {created.isoformat()}")
+
+
+def check_heldout_overlap_documented() -> None:
+    """L'overlap con lo sviluppo deve essere calcolato e senza copie sostanziali."""
+    overlap = _json("evaluation/final_protocol/heldout/overlap_report.json")
+    ok = (
+        not overlap["exact_text_overlap"]
+        and not overlap["normalized_text_overlap"]
+        and not overlap["case_id_collisions"]
+        and not overlap["substantive_overlap"]
+        and all(not ids for ids in overlap["candidate_overlap_by_corpus"].values())
+    )
+    check("heldout_overlap_documented_and_clean", ok,
+          f"verdict={overlap['overlap_verdict']}, boilerplate={len(overlap['boilerplate_overlap'])}")
+
+
+def check_reliability_subset_explicit() -> None:
+    """Il reliability subset deve essere un elenco di ID, non una regola."""
+    subset = _json("evaluation/final_protocol/reliability_subset.json")
+    architectural = {c["case_id"] for c in
+                     _json("evaluation/final_protocol/heldout/architectural_challenge_cases.json")["cases"]}
+    from_heldout = set(subset["by_source"]["HELDOUT_ARCHITECTURAL_35"])
+    ok = (
+        subset["materialized_before_execution"]
+        and len(subset["case_ids"]) == subset["n_cases"] == 10
+        and len(set(subset["case_ids"])) == 10
+        and from_heldout <= architectural
+    )
+    check("reliability_subset_materialized", ok,
+          f"{subset['n_cases']} casi × {subset['runs_per_case']} run = {subset['n_runs']}")
+
+
+def check_schemas_declare_denominators() -> None:
+    """Ogni tabella dei Risultati deve dichiarare un denominatore."""
+    schemas = _json("evaluation/final_protocol/result_schemas.json")
+    text = json.dumps(schemas, ensure_ascii=False).upper()
+    missing = [
+        key for key in ("RQ1_REPRESENTATION_FIDELITY", "RQ2_B_SOURCEUNIT_RETRIEVAL",
+                        "RQ3_AUTHORITY_SEPARATION", "RQ4_SELECTIVE_EXECUTION")
+        if key not in text
+    ]
+    has_denominator = "DENOMINATOR" in text and schemas["rules"]["denominator_mandatory"]
+    check("result_schemas_declare_denominators", not missing and bool(has_denominator),
+          f"tabelle mancanti: {missing or 'nessuna'}")
+
+
+def check_no_fabricated_results() -> None:
+    """Gli schemi non devono contenere valori numerici di risultato."""
+    schemas = _json("evaluation/final_protocol/result_schemas.json")
+    forbidden_keys = {"RATE", "ERROR_COUNT", "CI95", "OBSERVED_CORRECT_PATH",
+                      "CORRECT_PATH_RATE", "DELTA", "FULL_SYSTEM", "ABLATION"}
+    offenders: list[str] = []
+
+    def walk(node: Any, path: str) -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if key in forbidden_keys and isinstance(value, (int, float)):
+                    offenders.append(f"{path}.{key}")
+                walk(value, f"{path}.{key}")
+        elif isinstance(node, list):
+            for index, value in enumerate(node):
+                walk(value, f"{path}[{index}]")
+
+    walk(schemas, "result_schemas")
+    check("no_fabricated_result_values", not offenders, f"{len(offenders)} celle precompilate")
+
+
+def check_no_final_run_executed() -> None:
+    """La directory dei risultati finali non deve esistere ancora."""
+    results_dir = REPO_ROOT / "evaluation/final_evaluation"
+    frozen_flags = [
+        _json("evaluation/final_protocol/protocol_hash.json")["frozen"],
+        _json("evaluation/final_protocol/heldout/heldout_manifest.json")["frozen"],
+        _json("evaluation/final_protocol/reliability_subset.json")["frozen"],
+    ]
+    check("no_final_evaluation_executed", not results_dir.exists() and not any(frozen_flags),
+          f"evaluation/final_evaluation esiste={results_dir.exists()}, frozen={frozen_flags}")
 
 
 def check_runtime_repository_version() -> None:
@@ -246,7 +420,16 @@ def main() -> int:
     check_selector_gold_hash_agreement()
     check_denominators_reproducible()
     check_overall_vs_conditional_hit_rate()
-    check_testbed_a_composition()
+    check_no_aggregate_55()
+    check_protocol_version()
+    check_case_ids_unique()
+    check_gold_records_paired()
+    check_heldout_created_after_freeze()
+    check_heldout_overlap_documented()
+    check_reliability_subset_explicit()
+    check_schemas_declare_denominators()
+    check_no_fabricated_results()
+    check_no_final_run_executed()
     check_runtime_repository_version()
     check_oncokb_not_integrated()
     check_negative_polarity_denominator()

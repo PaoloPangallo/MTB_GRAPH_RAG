@@ -30,7 +30,7 @@ from typing import Any, Iterable
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = Path(__file__).resolve().parent
 
-PROTOCOL_VERSION = "mtb-graphrag-final-evaluation/1.0"
+PROTOCOL_VERSION = "mtb-graphrag-final-evaluation/1.1"
 RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
 
 
@@ -259,6 +259,70 @@ CORPORA: list[dict[str, Any]] = [
         ),
     },
     {
+        "corpus_id": "HELDOUT_ARCHITECTURAL_35",
+        "title": "Held-out architectural challenge set",
+        "files": [
+            "evaluation/final_protocol/heldout/architectural_challenge_cases.json",
+            "evaluation/final_protocol/heldout/architectural_challenge_gold.json",
+            "evaluation/final_protocol/heldout/overlap_report.json",
+        ],
+        "annotation_source": "AUTHORED_AFTER_RUNTIME_FREEZE_BEFORE_ANY_EXECUTION",
+        "gold_kind": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+        "split": "HELD_OUT",
+        "usable_for_final_eval": True,
+        "final_role": "RQ3_RQ4_GENERALIZATION_EVIDENCE",
+        "contaminated_component": None,
+        "rationale": (
+            "Costruito dopo il congelamento del runtime (2026-08-08T21:11+02:00) e prima "
+            "di qualunque esecuzione; nessun output del sistema è stato osservato durante "
+            "la scrittura. Dieci casi sono ancorati a candidate reali del repository 2.0 e "
+            "il build verifica disease, biomarker, intervento e evidence_direction contro "
+            "il record, fallendo se divergono. Overlap con i corpus di sviluppo: 0 esatto, "
+            "0 normalizzato, 0 case-id, 0 candidate; restano 5 frasi di repertorio "
+            "riportate per esteso. È l'unico corpus che può sostenere una claim di "
+            "generalizzazione per i gate di autorità e fallimento."
+        ),
+    },
+    {
+        "corpus_id": "NARRATIVE_HELDOUT_20",
+        "title": "Held-out narrative perturbation set",
+        "files": [
+            "evaluation/final_protocol/heldout/narrative_heldout_cases.json",
+            "evaluation/final_protocol/heldout/narrative_heldout_gold.json",
+        ],
+        "annotation_source": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+        "gold_kind": "EXPECTED_VERIFIER_VERDICT",
+        "split": "HELD_OUT",
+        "usable_for_final_eval": True,
+        "final_role": "NARRATIVE_VERIFIER_GENERALIZATION_AND_ABLATION_D",
+        "contaminated_component": None,
+        "rationale": (
+            "Non riusa DOSSIER_NARRATOR_25 né NARRATOR_ADVERSARIAL_20, cioè i corpus su cui "
+            "il lexicon era stato corretto. I cinque base dossier sono specifiche "
+            "deterministiche derivate da candidate congelate, non output di run: né il "
+            "narratore né il verifier li hanno visti. Il gold è la mutazione dichiarata, "
+            "non la risposta del verifier."
+        ),
+    },
+    {
+        "corpus_id": "NARRATIVE_HELDOUT_VALID_CONTROL_5",
+        "title": "Held-out narrative valid controls",
+        "files": [
+            "evaluation/final_protocol/heldout/narrative_heldout_valid_control.json",
+        ],
+        "annotation_source": "AUTHORED_FAITHFUL_RESTATEMENT",
+        "gold_kind": "EXPECTED_VERIFIER_VERDICT",
+        "split": "HELD_OUT",
+        "usable_for_final_eval": True,
+        "final_role": "NARRATIVE_VERIFIER_SPECIFICITY",
+        "contaminated_component": None,
+        "rationale": (
+            "Tenuti in un file separato e con etichetta hostile=false. Senza controlli "
+            "positivi un verifier che respinge tutto otterrebbe un punteggio perfetto sui "
+            "20 ostili: la specificità va misurata, non assunta."
+        ),
+    },
+    {
         "corpus_id": "GCA_REPOSITORY_2_0_46864",
         "title": "GraphCandidateAssertion repository 2.0 (runtime)",
         "files": [
@@ -475,6 +539,42 @@ def _counts_for(corpus_id: str) -> dict[str, Any]:
         for row in rows:
             expected[row["expected"]] = expected.get(row["expected"], 0) + 1
         return {"n_cases": len(rows), "labels": {"expected": expected}}
+
+    if corpus_id == "HELDOUT_ARCHITECTURAL_35":
+        cases = _read_json(_resolve("evaluation/final_protocol/heldout/architectural_challenge_cases.json"))
+        gold = _read_json(_resolve("evaluation/final_protocol/heldout/architectural_challenge_gold.json"))
+        overlap = _read_json(_resolve("evaluation/final_protocol/heldout/overlap_report.json"))
+        grounded = sum(1 for c in cases["cases"] if c["source_reference"])
+        return {
+            "n_cases": cases["n_cases"],
+            "labels": cases["by_category"],
+            "grounded_cases": grounded,
+            "synthetic_cases": cases["n_cases"] - grounded,
+            "gold_records": gold["n_cases"],
+            "overlap_verdict": overlap["overlap_verdict"],
+            "exact_text_overlap": len(overlap["exact_text_overlap"]),
+            "candidate_overlap": {k: len(v) for k, v in overlap["candidate_overlap_by_corpus"].items()},
+            "created_after_runtime_freeze": True,
+        }
+
+    if corpus_id == "NARRATIVE_HELDOUT_20":
+        cases = _read_json(_resolve("evaluation/final_protocol/heldout/narrative_heldout_cases.json"))
+        gold = _read_json(_resolve("evaluation/final_protocol/heldout/narrative_heldout_gold.json"))
+        return {
+            "n_cases": cases["n_cases"],
+            "labels": cases["by_mutation_type"],
+            "n_base_dossiers": len(cases["base_dossiers"]),
+            "gold_records": gold["n_cases"],
+            "gold_derived_from_verifier_output": False,
+        }
+
+    if corpus_id == "NARRATIVE_HELDOUT_VALID_CONTROL_5":
+        control = _read_json(_resolve("evaluation/final_protocol/heldout/narrative_heldout_valid_control.json"))
+        return {
+            "n_cases": control["n_cases"],
+            "labels": {"expected_verdict": "VERIFIER_SHOULD_ACCEPT"},
+            "gold_records": len(control["gold"]),
+        }
 
     if corpus_id == "GCA_REPOSITORY_2_0_46864":
         rows = _read_jsonl(_resolve(
