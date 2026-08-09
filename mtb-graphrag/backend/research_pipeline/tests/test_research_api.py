@@ -10,8 +10,10 @@ from unittest import TestCase, mock
 
 from fastapi.testclient import TestClient
 
+from backend.api import research_routes
 from backend.api.main import app
-from backend.research_pipeline import run_store
+from backend.research_pipeline import replay, run_store
+from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 
 BASE = "/api/v1/research/pipeline"
 DEMO_CASE = "CASE-1-therapy-evaluation-strong-match"
@@ -19,6 +21,20 @@ STOPPED_CASE = "CASE-5-casecontext-mismatch-no-match"
 
 
 class ResearchApiTestBase(TestCase):
+    """Prove del contratto REST/SSE, del ledger e della provenienza.
+
+    **Cosa viene sostituito e perché.** Il runtime canonico richiede davvero una
+    cache documentale e un endpoint del modello: è la sua semantica, e c'è un
+    test dedicato che verifica il 503 quando mancano. Queste prove misurano
+    un'altra cosa — forma degli endpoint, ordine degli eventi, catena di hash,
+    livelli di provenienza — e per farlo sostituiscono il layer documentale e il
+    modello con gli adattatori congelati.
+
+    La sostituzione avviene **dentro il test**, non attraverso l'API: la
+    richiesta HTTP non ha alcun campo che possa chiedere il percorso storico, ed
+    è esattamente ciò che questi test devono continuare a dimostrare.
+    """
+
     def setUp(self) -> None:
         self._tmp = TemporaryDirectory()
         self._env = mock.patch.dict(os.environ, {
@@ -26,24 +42,49 @@ class ResearchApiTestBase(TestCase):
             "RESEARCH_LEDGER_PATH": f"{self._tmp.name}/ledger.sqlite3",
         })
         self._env.start()
+        self._patches = [
+            # Precondizioni del runtime canonico: qui sono soddisfatte per
+            # ipotesi, così il test può arrivare agli stage che vuole osservare.
+            mock.patch.object(research_routes.llm_config, "resolve_endpoint",
+                              return_value=("http://model.invalid", "test-key")),
+            mock.patch.object(research_routes.cache_runtime, "is_available", return_value=True),
+            mock.patch.object(run_store.DocumentRuntime, "open", classmethod(lambda cls: None)),
+            mock.patch.object(run_store.orchestrator, "run_case", self._frozen_run_case),
+        ]
+        for patch in self._patches:
+            patch.start()
         run_store.reset_store()
         self.client = TestClient(app)
 
     def tearDown(self) -> None:
+        for patch in reversed(self._patches):
+            patch.stop()
         self._env.stop()
         run_store.reset_store()
         self._tmp.cleanup()
 
-    def run_demo(self, case_id: str = DEMO_CASE, execution_mode: str = "REPLAY") -> str:
-        """Avvia una run **dichiarando** la modalità.
+    #: Riferimento alla funzione reale, catturato prima del patching.
+    _real_run_case = staticmethod(run_store.orchestrator.run_case)
 
-        Queste prove esercitano gli artefatti registrati e non chiamano il
-        modello: senza il campo esplicito la richiesta sarebbe LIVE e verrebbe
-        respinta con 503 per cache assente, che è il comportamento voluto e ha
-        un test dedicato.
-        """
-        response = self.client.post(
-            f"{BASE}/runs", json={"demo_case_key": case_id, "execution_mode": execution_mode})
+    @classmethod
+    def _frozen_run_case(cls, **kwargs):
+        """Esegue la pipeline reale sugli artefatti congelati del pilot."""
+        kwargs.update(
+            research_frozen_artifacts=True,
+            retrieve_fn=retrieval_mod.retrieve_frozen_bundles,
+            document_runtime=None,
+            call_parser_fn=replay.parser_fn,
+            call_enricher_fn=replay.enricher_fn,
+            select_papers_fn=lambda a, u, **kw: replay.selection_fn(a, u, case_id=kw["case_id"]),
+            validate_fn=lambda t, e, **kw: replay.validation_fn(
+                t, e, case_id=kw["case_id"], paper_id=kw["paper_id"]),
+            call_narrator_fn=replay.narrator_fn,
+        )
+        return cls._real_run_case(**kwargs)
+
+    def run_demo(self, case_id: str = DEMO_CASE) -> str:
+        """Avvia una run. Il corpo della richiesta contiene soltanto il caso."""
+        response = self.client.post(f"{BASE}/runs", json={"demo_case_key": case_id})
         self.assertEqual(response.status_code, 201, response.text)
         run_id = response.json()["run_id"]
         for _ in range(300):

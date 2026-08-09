@@ -20,7 +20,9 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from backend.research_pipeline import data_access, execution_mode, llm_config, replay
+# ``replay`` non compare fra gli import: nessuna rotta di prodotto deve poter
+# raggiungere gli adattatori congelati, nemmeno per descriverli.
+from backend.research_pipeline import data_access, execution_mode, llm_config
 from backend.research_pipeline.documents import cache_runtime
 from backend.research_pipeline.contracts import (
     LLM_STAGE_IDS,
@@ -70,13 +72,24 @@ def _snapshot_or_404(run_id: str) -> dict[str, Any]:
 
 
 class CreateRunRequest(BaseModel):
+    """Il caso, e nient'altro.
+
+    ``execution_mode`` è stato rimosso: non esiste più una modalità da scegliere.
+    C'è un solo runtime operativo, e il client non ha modo di chiederne un altro
+    — né per selezione né per omissione.
+
+    ``extra="forbid"`` è deliberato: un client che continuasse a inviare
+    ``execution_mode`` riceve un 422 esplicito invece di vedersi ignorare il
+    campo in silenzio e credere di aver scelto qualcosa. Un'opzione ignorata è
+    peggio di un'opzione rifiutata, perché sopravvive nelle aspettative di chi
+    la invia.
+    """
+
+    model_config = {"extra": "forbid"}
+
     clinical_text: str | None = Field(default=None, min_length=1)
     case_id: str | None = None
     demo_case_key: str | None = None
-    #: ``LIVE`` o ``REPLAY``, esplicito. Il default è ``LIVE`` perché la modalità
-    #: di riferimento è l'esecuzione reale: un default ``REPLAY`` reintrodurrebbe
-    #: per omissione lo stesso automatismo che questo campo esiste per rimuovere.
-    execution_mode: str = "LIVE"
 
 
 @router.get("/cases")
@@ -99,13 +112,18 @@ def config() -> dict[str, Any]:
         "llm": llm_config.describe(),
         "data": data_access.describe_availability(),
         "document_cache": cache,
-        "execution_modes": {
-            "requestable": list(execution_mode.REQUESTABLE_MODES),
+        # Un solo runtime, dichiarato come tale. ``frozen_replay`` è sparito da
+        # qui: era la sintesi degli artefatti congelati, ed era ciò da cui la UI
+        # derivava l'esistenza di una seconda modalità. Gli artefatti restano,
+        # come infrastruttura di ricerca; l'API di prodotto non li annuncia.
+        "runtime": {
+            "canonical_runtime": execution_mode.CANONICAL_MODE,
+            "user_selectable_modes": [],
             "artifact_origins": list(execution_mode.ARTIFACT_ORIGINS),
-            "live_available": cache["document_cache_available"],
-            "live_unavailable_reason": cache["reason_codes"] or None,
+            "document_acquisition": "CACHE_FIRST_API_ON_MISS",
+            "available": cache["document_cache_available"],
+            "unavailable_reason": cache["reason_codes"] or None,
         },
-        "frozen_replay": replay.summary(),
         "stages_not_implemented": sorted(NOT_IMPLEMENTED_STAGE_IDS),
         # Stage che producono la vista di presentazione: un loro fallimento non
         # invalida il dossier canonico, attiva il fallback strutturato.
@@ -132,43 +150,32 @@ def create_run(request: CreateRunRequest) -> dict[str, Any]:
     if not case_id:
         raise HTTPException(status_code=422, detail="case_id obbligatorio per un testo libero")
 
-    # La modalità è quella richiesta, mai dedotta dalla presenza di artefatti
-    # congelati per il caso. Le precondizioni della modalità vengono verificate
-    # **prima** di avviare la run, così un LIVE impossibile fallisce subito e con
-    # il proprio motivo, invece di degradare in un replay travestito.
+    # Precondizioni del runtime canonico, verificate **prima** di avviare la run:
+    # ciò che non può essere eseguito fallisce subito e con il proprio motivo,
+    # invece di degradare in un replay travestito. Non c'è più un ramo
+    # alternativo da offrire quando queste precondizioni non reggono — l'assenza
+    # di quel ramo è il punto di questa architettura.
     try:
-        mode = execution_mode.normalize_requested_mode(request.execution_mode)
-    except execution_mode.UnknownExecutionMode as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
-
-    if mode == execution_mode.LIVE:
-        try:
-            llm_config.resolve_endpoint()
-        except llm_config.MissingLLMCredentials as exc:
-            raise HTTPException(status_code=503, detail=str(exc)) from exc
-        if not cache_runtime.is_available():
-            available, reasons = cache_runtime.validate_cache()
-            raise HTTPException(
-                status_code=503,
-                detail=f"cache documentale non disponibile ({reasons}): una run LIVE "
-                       f"non ripiega su artefatti registrati. Configurare "
-                       f"{cache_runtime.CACHE_PATH_ENV}.",
-            )
-    elif not replay.has_frozen_case(case_id):
+        llm_config.resolve_endpoint()
+    except llm_config.MissingLLMCredentials as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    if not cache_runtime.is_available():
+        available, reasons = cache_runtime.validate_cache()
         raise HTTPException(
-            status_code=409,
-            detail=f"nessun artefatto registrato per {case_id!r}: "
-                   "una run REPLAY non ha nulla da rigiocare",
+            status_code=503,
+            detail=f"cache documentale non disponibile ({reasons}): il runtime "
+                   f"canonico non ripiega su artefatti registrati. Configurare "
+                   f"{cache_runtime.CACHE_PATH_ENV}.",
         )
 
-    handle = get_store().start(case_id=case_id, clinical_text=clinical_text, execution_mode=mode)
+    handle = get_store().start(case_id=case_id, clinical_text=clinical_text)
     return {
         "run_id": handle.run_id,
         "case_id": handle.case_id,
         "status": handle.status,
-        "requested_mode": mode,
-        "execution_mode": mode,
-        "replay_run_available": replay.has_frozen_case(case_id),
+        # Etichetta della run, non una scelta effettuata: il campo resta nella
+        # risposta perché la UI e le run storiche lo leggono con lo stesso nome.
+        "execution_mode": execution_mode.CANONICAL_MODE,
         "stream_url": f"/api/v1/research/pipeline/runs/{handle.run_id}/stream",
         "research_notice": PipelineRun.research_notice(),
     }
@@ -306,6 +313,22 @@ def get_provenance(run_id: str) -> dict[str, Any]:
 
     retrieval = _preview("stage_5_kg_retrieval")
     source_units = _preview("stage_7_source_units").get("source_units", [])
+    # Esito reale della risoluzione documentale, per ``document_id``. Il livello
+    # DOCUMENT dichiarava ``replayed: true`` in modo incondizionato, ereditato dal
+    # runtime che non risolveva affatto i documenti: nel runtime canonico è una
+    # falsa attribuzione, e faceva comparire una spunta REPLAY su documenti letti
+    # dalla cache autorizzata o appena acquisiti da un'API.
+    resolved_documents = {
+        entry.get("document_id"): entry
+        for entry in _preview("stage_6_document_resolution").get("documents", [])
+    }
+    #: Vero solo se lo stage 6 ha davvero letto un artefatto registrato — cosa
+    #: che il runtime canonico non fa mai. È la stessa origine che classifica la
+    #: run, non un secondo giudizio calcolato qui.
+    documents_replayed = (
+        by_id.get("stage_6_document_resolution", {}).get("artifact_origin")
+        == execution_mode.RECORDED_REAL_RUN
+    )
     case_context = _preview("stage_2_casecontext_parser").get("case_context", {})
     match_records = _preview("stage_3_casecontext_match").get("records", [])
     enricher_calls = _preview("stage_9_paper_context_enricher").get("calls", [])
@@ -372,7 +395,17 @@ def get_provenance(run_id: str) -> dict[str, Any]:
                 {"level": "DOCUMENT",
                  "ref": [b["document_id"] for b in association.get("available_bundles", [])],
                  "bundles": association.get("available_bundles", []),
-                 "replayed": True},
+                 # Come il documento è entrato nella run, dichiarato dallo stage
+                 # che lo ha risolto e non asserito a priori.
+                 "acquisition": [
+                     {"document_id": b["document_id"],
+                      "cache_hit": resolved_documents.get(b["document_id"], {}).get("cache_hit"),
+                      "resolved": resolved_documents.get(b["document_id"], {}).get("resolved"),
+                      "source": resolved_documents.get(b["document_id"], {}).get("source"),
+                      "reason_codes": resolved_documents.get(b["document_id"], {}).get("reason_codes", [])}
+                     for b in association.get("available_bundles", [])
+                 ],
+                 "replayed": documents_replayed},
                 {"level": "SOURCE_UNIT",
                  "units": [{**unit, "text": None} for unit in source_units],
                  "text_never_exposed": True},

@@ -15,10 +15,12 @@ from unittest import TestCase, mock
 
 from fastapi.testclient import TestClient
 
+from backend.api import research_routes
 from backend.api.main import app
 from backend.pipeline.agentic.ledger import EventLedger
-from backend.research_pipeline import rehydration, run_store
+from backend.research_pipeline import rehydration, replay, run_store
 from backend.research_pipeline.contracts import STAGE_SEQUENCE
+from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 
 BASE = "/api/v1/research/pipeline"
 DEMO_CASE = "CASE-1-therapy-evaluation-strong-match"
@@ -32,17 +34,49 @@ class RunPersistenceTest(TestCase):
             "RESEARCH_LEDGER_PATH": str(Path(self._tmp.name) / "research.sqlite3"),
         })
         self._env.start()
+        # Come in ``test_research_api``: il layer documentale e il modello sono
+        # sostituiti dagli adattatori congelati **dentro il test**, perche' cio'
+        # che si misura qui e' la sopravvivenza della run a un riavvio, non la
+        # pipeline documentale. La richiesta HTTP resta priva di qualunque campo
+        # che possa chiedere il percorso storico.
+        self._patches = [
+            mock.patch.object(research_routes.llm_config, "resolve_endpoint",
+                              return_value=("http://model.invalid", "test-key")),
+            mock.patch.object(research_routes.cache_runtime, "is_available", return_value=True),
+            mock.patch.object(run_store.DocumentRuntime, "open", classmethod(lambda cls: None)),
+            mock.patch.object(run_store.orchestrator, "run_case", self._frozen_run_case),
+        ]
+        for patch in self._patches:
+            patch.start()
         run_store.reset_store()
         self.client = TestClient(app)
 
     def tearDown(self) -> None:
+        for patch in reversed(self._patches):
+            patch.stop()
         self._env.stop()
         run_store.reset_store()
         self._tmp.cleanup()
 
+    _real_run_case = staticmethod(run_store.orchestrator.run_case)
+
+    @classmethod
+    def _frozen_run_case(cls, **kwargs):
+        kwargs.update(
+            research_frozen_artifacts=True,
+            retrieve_fn=retrieval_mod.retrieve_frozen_bundles,
+            document_runtime=None,
+            call_parser_fn=replay.parser_fn,
+            call_enricher_fn=replay.enricher_fn,
+            select_papers_fn=lambda a, u, **kw: replay.selection_fn(a, u, case_id=kw["case_id"]),
+            validate_fn=lambda t, e, **kw: replay.validation_fn(
+                t, e, case_id=kw["case_id"], paper_id=kw["paper_id"]),
+            call_narrator_fn=replay.narrator_fn,
+        )
+        return cls._real_run_case(**kwargs)
+
     def _completed_run(self, case_id: str = DEMO_CASE) -> str:
-        response = self.client.post(
-            f"{BASE}/runs", json={"demo_case_key": case_id, "execution_mode": "REPLAY"})
+        response = self.client.post(f"{BASE}/runs", json={"demo_case_key": case_id})
         self.assertEqual(response.status_code, 201, response.text)
         run_id = response.json()["run_id"]
         for _ in range(300):
@@ -110,7 +144,8 @@ class RunPersistenceTest(TestCase):
 
         self.assertEqual(after["llm_calls"], before["llm_calls"])
 
-    def test_a_replay_run_reports_zero_real_model_calls(self) -> None:
+    def test_a_frozen_research_run_reports_zero_real_model_calls(self) -> None:
+        """RESEARCH / REGRESSION: un artefatto rigiocato non conta come chiamata."""
         run_id = self._completed_run()
         self._restart_backend()
 
