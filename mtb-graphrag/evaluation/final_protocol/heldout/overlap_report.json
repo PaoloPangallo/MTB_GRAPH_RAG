@@ -1,0 +1,125 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "method": {
+    "exact_text": "confronto letterale del testo",
+    "normalized_text": "NFKC + casefold + rimozione punteggiatura + collasso spazi",
+    "near_duplicate": "5-grammi condivisi sul testo normalizzato; qualunque condivisione è riportata",
+    "case_id": "collisione di identificatore",
+    "candidate": "intersezione dei candidate_id con i corpus che ne usano"
+  },
+  "heldout_case_count": 35,
+  "exact_text_overlap": [],
+  "normalized_text_overlap": [],
+  "near_duplicate_5gram_overlap": [
+    {
+      "heldout": "HO-CMP-05-urothelial-hras-tipifarnib",
+      "corpus": "CASECONTEXT_ROBUSTNESS_35",
+      "dev_case": "B1-no-disease",
+      "shared_5grams": [
+        "mutation the team is evaluating"
+      ],
+      "count": 1
+    },
+    {
+      "heldout": "HO-INC-01-missing-disease",
+      "corpus": "CASECONTEXT_ROBUSTNESS_35",
+      "dev_case": "B1-no-disease",
+      "shared_5grams": [
+        "mutation the team is evaluating"
+      ],
+      "count": 1
+    },
+    {
+      "heldout": "HO-INC-02-missing-biomarker",
+      "corpus": "CASECONTEXT_ROBUSTNESS_35",
+      "dev_case": "A4-contradicted-or-resistance",
+      "shared_5grams": [
+        "the oncology team is evaluating"
+      ],
+      "count": 1
+    },
+    {
+      "heldout": "HO-INC-02-missing-biomarker",
+      "corpus": "END_TO_END_PIPELINE_PILOT_5",
+      "dev_case": "CASE-4-contradicted-or-resistance",
+      "shared_5grams": [
+        "the oncology team is evaluating"
+      ],
+      "count": 1
+    },
+    {
+      "heldout": "HO-NEG-01-pdac-idh1-ivosidenib",
+      "corpus": "CASECONTEXT_ROBUSTNESS_35",
+      "dev_case": "B1-no-disease",
+      "shared_5grams": [
+        "mutation the team is evaluating"
+      ],
+      "count": 1
+    }
+  ],
+  "case_id_collisions": [],
+  "candidate_overlap_by_corpus": {
+    "SOURCEUNIT_SELECTOR_INDEPENDENT_20": [],
+    "FROZEN_EVIDENCE_BUNDLES_25": [],
+    "END_TO_END_PIPELINE_PILOT_5": []
+  },
+  "declared_shared_properties": {
+    "failure_mode_taxonomy_shared": true,
+    "note": "Le classi di fallimento (incompleto, ambiguo, fuori dominio, contraddittorio, adversarial) coincidono con quelle del benchmark di sviluppo per costruzione: sono la tassonomia che il protocollo valuta. Ciò che deve essere nuovo è il testo, le entità e le combinazioni, non l'insieme dei modi di fallimento.",
+    "entity_reuse_within_heldout": "HO-CON-03 riusa le entità di HO-CMP-02 e HO-CON-04 quelle di HO-NEG-04, deliberatamente: isolano la proprietà testata dal contenuto molecolare."
+  },
+  "substantive_overlap": [],
+  "boilerplate_overlap": [
+    {
+      "heldout": "HO-CMP-05-urothelial-hras-tipifarnib",
+      "corpus": "CASECONTEXT_ROBUSTNESS_35",
+      "dev_case": "B1-no-disease",
+      "shared_5grams": [
+        "mutation the team is evaluating"
+      ],
+      "count": 1
+    },
+    {
+      "heldout": "HO-INC-01-missing-disease",
+      "corpus": "CASECONTEXT_ROBUSTNESS_35",
+      "dev_case": "B1-no-disease",
+      "shared_5grams": [
+        "mutation the team is evaluating"
+      ],
+      "count": 1
+    },
+    {
+      "heldout": "HO-INC-02-missing-biomarker",
+      "corpus": "CASECONTEXT_ROBUSTNESS_35",
+      "dev_case": "A4-contradicted-or-resistance",
+      "shared_5grams": [
+        "the oncology team is evaluating"
+      ],
+      "count": 1
+    },
+    {
+      "heldout": "HO-INC-02-missing-biomarker",
+      "corpus": "END_TO_END_PIPELINE_PILOT_5",
+      "dev_case": "CASE-4-contradicted-or-resistance",
+      "shared_5grams": [
+        "the oncology team is evaluating"
+      ],
+      "count": 1
+    },
+    {
+      "heldout": "HO-NEG-01-pdac-idh1-ivosidenib",
+      "corpus": "CASECONTEXT_ROBUSTNESS_35",
+      "dev_case": "B1-no-disease",
+      "shared_5grams": [
+        "mutation the team is evaluating"
+      ],
+      "count": 1
+    }
+  ],
+  "boilerplate_rule": {
+    "definition": "un hit è boilerplate se condivide al più 2 5-grammi con un caso di sviluppo e nessuno di essi contiene un'entità clinica (malattia, gene, alterazione, farmaco)",
+    "declared_after_inspection": true,
+    "honesty_note": "La regola è stata fissata dopo aver ispezionato gli hit, non prima. Per questo ogni hit è riportato per esteso qui sotto: la classificazione è un aiuto alla lettura, non un filtro. Il revisore giudica sui dati grezzi."
+  },
+  "overlap_verdict": "NO_SUBSTANTIVE_OVERLAP_ONLY_BOILERPLATE"
+}
