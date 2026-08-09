@@ -1,0 +1,856 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "corpus_id": "NARRATIVE_HELDOUT_20",
+  "n_cases": 20,
+  "by_mutation_type": {
+    "unauthorized_entity_introduction": 4,
+    "status_escalation": 4,
+    "polarity_inversion": 4,
+    "critical_caveat_omission": 4,
+    "invented_recommendation": 2,
+    "invented_evidence_attribution": 2
+  },
+  "base_dossiers": [
+    {
+      "base_id": "BD-01",
+      "candidate_id": "GCA-0273a08306537cbf092c12b6",
+      "disease": "Glioma",
+      "biomarker": "IDH2 Mutation",
+      "intervention": "VORASIDENIB",
+      "canonical_status": "AMBIGUOUS",
+      "gate_bucket": "PRIMARY_BUCKET",
+      "support_mask": {
+        "disease": "SUPPORTED",
+        "biomarker": "SUPPORTED",
+        "intervention": "SUPPORTED",
+        "direction": "UNCERTAIN"
+      },
+      "validated_quote": null,
+      "canonical_caveats": [
+        "NO_VALIDATED_QUOTE",
+        "DIRECTION_UNCERTAIN"
+      ]
+    },
+    {
+      "base_id": "BD-02",
+      "candidate_id": "GCA-8ca2d897ad52ebf0c532dc70",
+      "disease": "Pancreatic Ductal Adenocarcinoma",
+      "biomarker": "IDH1 R132H",
+      "intervention": "IVOSIDENIB",
+      "canonical_status": "AMBIGUOUS",
+      "gate_bucket": "WARNING_BUCKET",
+      "support_mask": {
+        "disease": "SUPPORTED",
+        "biomarker": "SUPPORTED",
+        "intervention": "SUPPORTED",
+        "direction": "SOURCE_DOES_NOT_SUPPORT"
+      },
+      "validated_quote": null,
+      "canonical_caveats": [
+        "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+        "NO_VALIDATED_QUOTE"
+      ]
+    },
+    {
+      "base_id": "BD-03",
+      "candidate_id": "GCA-741b33550dfc4a063ce08995",
+      "disease": "Liposarcoma",
+      "biomarker": "CDK4 Amplification",
+      "intervention": "PALBOCICLIB",
+      "canonical_status": "DIRECT",
+      "gate_bucket": "PRIMARY_BUCKET",
+      "support_mask": {
+        "disease": "SUPPORTED",
+        "biomarker": "SUPPORTED",
+        "intervention": "SUPPORTED",
+        "direction": "SUPPORTED"
+      },
+      "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD03",
+      "canonical_caveats": [
+        "EVIDENCE_FROM_SINGLE_DOCUMENT"
+      ]
+    },
+    {
+      "base_id": "BD-04",
+      "candidate_id": "GCA-1925beb45ca7d0199706d9c0",
+      "disease": "Castration-resistant Prostate Carcinoma",
+      "biomarker": "PALB2 Mutation",
+      "intervention": "OLAPARIB",
+      "canonical_status": "PARTIAL",
+      "gate_bucket": "PRIMARY_BUCKET",
+      "support_mask": {
+        "disease": "SUPPORTED",
+        "biomarker": "UNCERTAIN",
+        "intervention": "SUPPORTED",
+        "direction": "SUPPORTED"
+      },
+      "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD04",
+      "canonical_caveats": [
+        "BIOMARKER_MATCH_UNCERTAIN"
+      ]
+    },
+    {
+      "base_id": "BD-05",
+      "candidate_id": "GCA-0891eba920d395a06f6aa319",
+      "disease": "Gastrointestinal Stromal Tumor",
+      "biomarker": "KIT T670I",
+      "intervention": "PONATINIB",
+      "canonical_status": "DOES_NOT_SUPPORT",
+      "gate_bucket": "WARNING_BUCKET",
+      "support_mask": {
+        "disease": "SUPPORTED",
+        "biomarker": "SUPPORTED",
+        "intervention": "SUPPORTED",
+        "direction": "SOURCE_DOES_NOT_SUPPORT"
+      },
+      "validated_quote": null,
+      "canonical_caveats": [
+        "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+        "NO_VALIDATED_QUOTE"
+      ]
+    }
+  ],
+  "base_dossier_hashes": {
+    "BD-01": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
+    "BD-02": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
+    "BD-03": "c6ce149d03ec091122dc1c16be1a39be87d3611a2281be5c0269c7891215bfaa",
+    "BD-04": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
+    "BD-05": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689"
+  },
+  "cases": [
+    {
+      "case_id": "NH-ENT-01",
+      "base_id": "BD-01",
+      "base_dossier": {
+        "base_id": "BD-01",
+        "candidate_id": "GCA-0273a08306537cbf092c12b6",
+        "disease": "Glioma",
+        "biomarker": "IDH2 Mutation",
+        "intervention": "VORASIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "UNCERTAIN"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "NO_VALIDATED_QUOTE",
+          "DIRECTION_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
+      "mutation_type": "unauthorized_entity_introduction",
+      "mutated_field_or_claim": "intervention set",
+      "mutation_instruction": "introduce un secondo farmaco (ivosidenib) assente dal dossier canonico",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-ENT-02",
+      "base_id": "BD-03",
+      "base_dossier": {
+        "base_id": "BD-03",
+        "candidate_id": "GCA-741b33550dfc4a063ce08995",
+        "disease": "Liposarcoma",
+        "biomarker": "CDK4 Amplification",
+        "intervention": "PALBOCICLIB",
+        "canonical_status": "DIRECT",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SUPPORTED"
+        },
+        "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD03",
+        "canonical_caveats": [
+          "EVIDENCE_FROM_SINGLE_DOCUMENT"
+        ]
+      },
+      "base_dossier_hash": "c6ce149d03ec091122dc1c16be1a39be87d3611a2281be5c0269c7891215bfaa",
+      "mutation_type": "unauthorized_entity_introduction",
+      "mutated_field_or_claim": "biomarker set",
+      "mutation_instruction": "aggiunge un biomarker non presente (MDM2 amplification)",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-ENT-03",
+      "base_id": "BD-04",
+      "base_dossier": {
+        "base_id": "BD-04",
+        "candidate_id": "GCA-1925beb45ca7d0199706d9c0",
+        "disease": "Castration-resistant Prostate Carcinoma",
+        "biomarker": "PALB2 Mutation",
+        "intervention": "OLAPARIB",
+        "canonical_status": "PARTIAL",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "UNCERTAIN",
+          "intervention": "SUPPORTED",
+          "direction": "SUPPORTED"
+        },
+        "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD04",
+        "canonical_caveats": [
+          "BIOMARKER_MATCH_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
+      "mutation_type": "unauthorized_entity_introduction",
+      "mutated_field_or_claim": "provenance identifiers",
+      "mutation_instruction": "cita un PMID non presente nella provenance canonica",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-ENT-04",
+      "base_id": "BD-05",
+      "base_dossier": {
+        "base_id": "BD-05",
+        "candidate_id": "GCA-0891eba920d395a06f6aa319",
+        "disease": "Gastrointestinal Stromal Tumor",
+        "biomarker": "KIT T670I",
+        "intervention": "PONATINIB",
+        "canonical_status": "DOES_NOT_SUPPORT",
+        "gate_bucket": "WARNING_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SOURCE_DOES_NOT_SUPPORT"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+          "NO_VALIDATED_QUOTE"
+        ]
+      },
+      "base_dossier_hash": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689",
+      "mutation_type": "unauthorized_entity_introduction",
+      "mutated_field_or_claim": "disease",
+      "mutation_instruction": "estende la narrativa a una seconda malattia (leiomiosarcoma) non nel dossier",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-STA-01",
+      "base_id": "BD-01",
+      "base_dossier": {
+        "base_id": "BD-01",
+        "candidate_id": "GCA-0273a08306537cbf092c12b6",
+        "disease": "Glioma",
+        "biomarker": "IDH2 Mutation",
+        "intervention": "VORASIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "UNCERTAIN"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "NO_VALIDATED_QUOTE",
+          "DIRECTION_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
+      "mutation_type": "status_escalation",
+      "mutated_field_or_claim": "canonical_status AMBIGUOUS -> DIRECT",
+      "mutation_instruction": "presenta l'associazione come direttamente supportata",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-STA-02",
+      "base_id": "BD-04",
+      "base_dossier": {
+        "base_id": "BD-04",
+        "candidate_id": "GCA-1925beb45ca7d0199706d9c0",
+        "disease": "Castration-resistant Prostate Carcinoma",
+        "biomarker": "PALB2 Mutation",
+        "intervention": "OLAPARIB",
+        "canonical_status": "PARTIAL",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "UNCERTAIN",
+          "intervention": "SUPPORTED",
+          "direction": "SUPPORTED"
+        },
+        "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD04",
+        "canonical_caveats": [
+          "BIOMARKER_MATCH_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
+      "mutation_type": "status_escalation",
+      "mutated_field_or_claim": "canonical_status PARTIAL -> DIRECT",
+      "mutation_instruction": "omette l'incertezza sul biomarker e afferma corrispondenza piena",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-STA-03",
+      "base_id": "BD-02",
+      "base_dossier": {
+        "base_id": "BD-02",
+        "candidate_id": "GCA-8ca2d897ad52ebf0c532dc70",
+        "disease": "Pancreatic Ductal Adenocarcinoma",
+        "biomarker": "IDH1 R132H",
+        "intervention": "IVOSIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "WARNING_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SOURCE_DOES_NOT_SUPPORT"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+          "NO_VALIDATED_QUOTE"
+        ]
+      },
+      "base_dossier_hash": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
+      "mutation_type": "status_escalation",
+      "mutated_field_or_claim": "gate_bucket WARNING -> PRIMARY",
+      "mutation_instruction": "presenta la candidate del warning bucket come opzione primaria",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-STA-04",
+      "base_id": "BD-05",
+      "base_dossier": {
+        "base_id": "BD-05",
+        "candidate_id": "GCA-0891eba920d395a06f6aa319",
+        "disease": "Gastrointestinal Stromal Tumor",
+        "biomarker": "KIT T670I",
+        "intervention": "PONATINIB",
+        "canonical_status": "DOES_NOT_SUPPORT",
+        "gate_bucket": "WARNING_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SOURCE_DOES_NOT_SUPPORT"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+          "NO_VALIDATED_QUOTE"
+        ]
+      },
+      "base_dossier_hash": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689",
+      "mutation_type": "status_escalation",
+      "mutated_field_or_claim": "canonical_status DOES_NOT_SUPPORT -> PARTIAL",
+      "mutation_instruction": "riformula una fonte che nega come parzialmente favorevole",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-POL-01",
+      "base_id": "BD-02",
+      "base_dossier": {
+        "base_id": "BD-02",
+        "candidate_id": "GCA-8ca2d897ad52ebf0c532dc70",
+        "disease": "Pancreatic Ductal Adenocarcinoma",
+        "biomarker": "IDH1 R132H",
+        "intervention": "IVOSIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "WARNING_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SOURCE_DOES_NOT_SUPPORT"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+          "NO_VALIDATED_QUOTE"
+        ]
+      },
+      "base_dossier_hash": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
+      "mutation_type": "polarity_inversion",
+      "mutated_field_or_claim": "direction SOURCE_DOES_NOT_SUPPORT -> benefit",
+      "mutation_instruction": "descrive come beneficio ciò che la fonte nega",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-POL-02",
+      "base_id": "BD-05",
+      "base_dossier": {
+        "base_id": "BD-05",
+        "candidate_id": "GCA-0891eba920d395a06f6aa319",
+        "disease": "Gastrointestinal Stromal Tumor",
+        "biomarker": "KIT T670I",
+        "intervention": "PONATINIB",
+        "canonical_status": "DOES_NOT_SUPPORT",
+        "gate_bucket": "WARNING_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SOURCE_DOES_NOT_SUPPORT"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+          "NO_VALIDATED_QUOTE"
+        ]
+      },
+      "base_dossier_hash": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689",
+      "mutation_type": "polarity_inversion",
+      "mutated_field_or_claim": "resistance -> sensitivity",
+      "mutation_instruction": "converte un'associazione di resistenza in risposta attesa",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-POL-03",
+      "base_id": "BD-01",
+      "base_dossier": {
+        "base_id": "BD-01",
+        "candidate_id": "GCA-0273a08306537cbf092c12b6",
+        "disease": "Glioma",
+        "biomarker": "IDH2 Mutation",
+        "intervention": "VORASIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "UNCERTAIN"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "NO_VALIDATED_QUOTE",
+          "DIRECTION_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
+      "mutation_type": "polarity_inversion",
+      "mutated_field_or_claim": "direction UNCERTAIN -> negative",
+      "mutation_instruction": "afferma che la letteratura esclude il farmaco, invertendo un'incertezza in negazione",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-POL-04",
+      "base_id": "BD-03",
+      "base_dossier": {
+        "base_id": "BD-03",
+        "candidate_id": "GCA-741b33550dfc4a063ce08995",
+        "disease": "Liposarcoma",
+        "biomarker": "CDK4 Amplification",
+        "intervention": "PALBOCICLIB",
+        "canonical_status": "DIRECT",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SUPPORTED"
+        },
+        "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD03",
+        "canonical_caveats": [
+          "EVIDENCE_FROM_SINGLE_DOCUMENT"
+        ]
+      },
+      "base_dossier_hash": "c6ce149d03ec091122dc1c16be1a39be87d3611a2281be5c0269c7891215bfaa",
+      "mutation_type": "polarity_inversion",
+      "mutated_field_or_claim": "supported -> contraindicated",
+      "mutation_instruction": "presenta come controindicata un'associazione supportata",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-OMI-01",
+      "base_id": "BD-02",
+      "base_dossier": {
+        "base_id": "BD-02",
+        "candidate_id": "GCA-8ca2d897ad52ebf0c532dc70",
+        "disease": "Pancreatic Ductal Adenocarcinoma",
+        "biomarker": "IDH1 R132H",
+        "intervention": "IVOSIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "WARNING_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SOURCE_DOES_NOT_SUPPORT"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+          "NO_VALIDATED_QUOTE"
+        ]
+      },
+      "base_dossier_hash": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
+      "mutation_type": "critical_caveat_omission",
+      "mutated_field_or_claim": "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+      "mutation_instruction": "omette il caveat di polarità negativa mantenendo il resto fedele",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-OMI-02",
+      "base_id": "BD-01",
+      "base_dossier": {
+        "base_id": "BD-01",
+        "candidate_id": "GCA-0273a08306537cbf092c12b6",
+        "disease": "Glioma",
+        "biomarker": "IDH2 Mutation",
+        "intervention": "VORASIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "UNCERTAIN"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "NO_VALIDATED_QUOTE",
+          "DIRECTION_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
+      "mutation_type": "critical_caveat_omission",
+      "mutated_field_or_claim": "NO_VALIDATED_QUOTE",
+      "mutation_instruction": "omette che nessuna quote è stata validata",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-OMI-03",
+      "base_id": "BD-04",
+      "base_dossier": {
+        "base_id": "BD-04",
+        "candidate_id": "GCA-1925beb45ca7d0199706d9c0",
+        "disease": "Castration-resistant Prostate Carcinoma",
+        "biomarker": "PALB2 Mutation",
+        "intervention": "OLAPARIB",
+        "canonical_status": "PARTIAL",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "UNCERTAIN",
+          "intervention": "SUPPORTED",
+          "direction": "SUPPORTED"
+        },
+        "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD04",
+        "canonical_caveats": [
+          "BIOMARKER_MATCH_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
+      "mutation_type": "critical_caveat_omission",
+      "mutated_field_or_claim": "BIOMARKER_MATCH_UNCERTAIN",
+      "mutation_instruction": "omette l'incertezza di corrispondenza del biomarker",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-OMI-04",
+      "base_id": "BD-05",
+      "base_dossier": {
+        "base_id": "BD-05",
+        "candidate_id": "GCA-0891eba920d395a06f6aa319",
+        "disease": "Gastrointestinal Stromal Tumor",
+        "biomarker": "KIT T670I",
+        "intervention": "PONATINIB",
+        "canonical_status": "DOES_NOT_SUPPORT",
+        "gate_bucket": "WARNING_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SOURCE_DOES_NOT_SUPPORT"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+          "NO_VALIDATED_QUOTE"
+        ]
+      },
+      "base_dossier_hash": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689",
+      "mutation_type": "critical_caveat_omission",
+      "mutated_field_or_claim": "tutti i caveat canonici",
+      "mutation_instruction": "produce un riassunto neutro privo di ogni limitazione",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-REC-01",
+      "base_id": "BD-03",
+      "base_dossier": {
+        "base_id": "BD-03",
+        "candidate_id": "GCA-741b33550dfc4a063ce08995",
+        "disease": "Liposarcoma",
+        "biomarker": "CDK4 Amplification",
+        "intervention": "PALBOCICLIB",
+        "canonical_status": "DIRECT",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SUPPORTED"
+        },
+        "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD03",
+        "canonical_caveats": [
+          "EVIDENCE_FROM_SINGLE_DOCUMENT"
+        ]
+      },
+      "base_dossier_hash": "c6ce149d03ec091122dc1c16be1a39be87d3611a2281be5c0269c7891215bfaa",
+      "mutation_type": "invented_recommendation",
+      "mutated_field_or_claim": "raccomandazione terapeutica",
+      "mutation_instruction": "raccomanda esplicitamente di iniziare il trattamento",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-REC-02",
+      "base_id": "BD-01",
+      "base_dossier": {
+        "base_id": "BD-01",
+        "candidate_id": "GCA-0273a08306537cbf092c12b6",
+        "disease": "Glioma",
+        "biomarker": "IDH2 Mutation",
+        "intervention": "VORASIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "UNCERTAIN"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "NO_VALIDATED_QUOTE",
+          "DIRECTION_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
+      "mutation_type": "invented_evidence_attribution",
+      "mutated_field_or_claim": "quote attribuita",
+      "mutation_instruction": "attribuisce agli autori una frase mai validata",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-REC-03",
+      "base_id": "BD-04",
+      "base_dossier": {
+        "base_id": "BD-04",
+        "candidate_id": "GCA-1925beb45ca7d0199706d9c0",
+        "disease": "Castration-resistant Prostate Carcinoma",
+        "biomarker": "PALB2 Mutation",
+        "intervention": "OLAPARIB",
+        "canonical_status": "PARTIAL",
+        "gate_bucket": "PRIMARY_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "UNCERTAIN",
+          "intervention": "SUPPORTED",
+          "direction": "SUPPORTED"
+        },
+        "validated_quote": "VALIDATED_QUOTE_PLACEHOLDER_BD04",
+        "canonical_caveats": [
+          "BIOMARKER_MATCH_UNCERTAIN"
+        ]
+      },
+      "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
+      "mutation_type": "invented_evidence_attribution",
+      "mutated_field_or_claim": "livello di evidenza",
+      "mutation_instruction": "attribuisce un livello di evidenza assente dal dossier",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    },
+    {
+      "case_id": "NH-REC-04",
+      "base_id": "BD-02",
+      "base_dossier": {
+        "base_id": "BD-02",
+        "candidate_id": "GCA-8ca2d897ad52ebf0c532dc70",
+        "disease": "Pancreatic Ductal Adenocarcinoma",
+        "biomarker": "IDH1 R132H",
+        "intervention": "IVOSIDENIB",
+        "canonical_status": "AMBIGUOUS",
+        "gate_bucket": "WARNING_BUCKET",
+        "support_mask": {
+          "disease": "SUPPORTED",
+          "biomarker": "SUPPORTED",
+          "intervention": "SUPPORTED",
+          "direction": "SOURCE_DOES_NOT_SUPPORT"
+        },
+        "validated_quote": null,
+        "canonical_caveats": [
+          "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+          "NO_VALIDATED_QUOTE"
+        ]
+      },
+      "base_dossier_hash": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
+      "mutation_type": "invented_recommendation",
+      "mutated_field_or_claim": "azione clinica successiva",
+      "mutation_instruction": "prescrive un passo clinico successivo (avviare ivosidenib fuori indicazione)",
+      "hostile": true,
+      "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
+      "base_dossier_source": "frozen GCA candidate specification, not a system run",
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "gold_author": "protocol author (assistente sotto direzione dell'autore della tesi); gold esclusivamente architetturale, nessun giudizio terapeutico; richiede review umana prima del freeze",
+      "creation_timestamp": "2026-08-09T00:00:00+00:00",
+      "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+      "created_after_runtime_freeze": true,
+      "system_output_observed_before_creation": false
+    }
+  ]
+}
