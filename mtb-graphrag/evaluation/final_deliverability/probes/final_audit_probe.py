@@ -174,7 +174,8 @@ iss001 = {"runs": [], "controlled_stops_failed": 0, "noneligible_retrieval_calls
 
 for name, text, ctx in CASES:
     calls = {"r": 0, "s": 0, "e": 0}
-    real_r, real_s = orchestrator.retrieval_mod.retrieve, orchestrator.select_papers_for_association
+    real_r, real_s = (orchestrator.retrieval_mod.retrieve_frozen_bundles,
+                      orchestrator.select_papers_for_association)
     orchestrator.retrieval_mod.retrieve = lambda cc: (calls.__setitem__("r", calls["r"] + 1), real_r(cc))[1]
     orchestrator.select_papers_for_association = lambda a, u: (calls.__setitem__("s", calls["s"] + 1), real_s(a, u))[1]
     row = {"case": name}
@@ -187,7 +188,7 @@ for name, text, ctx in CASES:
             call_enricher_fn=lambda *a, **k: (calls.__setitem__("e", calls["e"] + 1),
                 {"transport_result": "V2_TRANSPORT_VALID", "enrichment": None})[1],
             source_units_by_id={}, budget=None, ledger=ledger,
-            execution_mode=em.REPLAY, document_runtime=None,
+            research_frozen_artifacts=True, document_runtime=None,
             validate_fn=lambda t, e, **kw: {"outcome": "ENRICHMENT_ABSTAINED"})
         gate = next((s for s in run.stages
                      if s.stage_id == "stage_3b_pre_retrieval_eligibility_gate"), None)

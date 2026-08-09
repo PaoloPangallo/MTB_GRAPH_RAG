@@ -80,7 +80,7 @@ def _run_through_orchestrator(case, recorded_run, ledger) -> dict:
     case_context = recorded_run.get("case_context")
 
     calls = Counter()
-    real_retrieve = orchestrator.retrieval_mod.retrieve
+    real_retrieve = orchestrator.retrieval_mod.retrieve_frozen_bundles
     real_select = orchestrator.select_papers_for_association
 
     def counting_retrieve(cc):
@@ -111,7 +111,7 @@ def _run_through_orchestrator(case, recorded_run, ledger) -> dict:
             case_id=case["case_id"], clinical_text=case["text"],
             call_parser_fn=replayed_parser, call_enricher_fn=counting_enricher,
             source_units_by_id={}, budget=None, ledger=ledger,
-            execution_mode=em.REPLAY, document_runtime=None,
+            research_frozen_artifacts=True, document_runtime=None,
             validate_fn=lambda t, e, **kw: {"outcome": "ENRICHMENT_ABSTAINED"},
         )
     except Exception as exc:  # noqa: BLE001 — un crash e' un risultato da registrare

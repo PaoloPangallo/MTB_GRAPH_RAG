@@ -3,6 +3,17 @@
 document/SourceUnit text-hydration loader already used throughout this
 research thread (technical infrastructure, not a decision component) --
 never the claim-extractor's decision logic.
+
+**RESEARCH / REGRESSION ONLY per il percorso operativo.** Questa funzione
+seleziona i paper leggendo i ``source_unit_ids`` già congelati nei bundle. Il
+runtime canonico non la usa: passa da
+``live_sourceunit_selection.select_live_papers_for_association``, che ricava i
+passaggi dai documenti realmente risolti e li ordina con il selettore
+deterministico (K=5). Qui resta perché gli harness che riproducono gli
+esperimenti storici la iniettano esplicitamente come ``select_papers_fn``.
+
+``MAX_PAPERS_PER_ASSOCIATION = 2`` vale identico nei due percorsi: il tetto è
+una politica di selezione, non una differenza fra runtime.
 """
 from __future__ import annotations
 

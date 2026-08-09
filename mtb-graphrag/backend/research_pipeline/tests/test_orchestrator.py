@@ -20,6 +20,7 @@ from backend.research_pipeline import orchestrator
 from backend.research_pipeline.cases.definitions import CASES
 from backend.research_pipeline.contracts import LLM_STAGE_IDS, STAGE_SEQUENCE
 from backend.research_pipeline.pipeline import CallBudget
+from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 
 
 def _frozen_parser_outputs() -> dict[str, dict[str, Any]]:
@@ -83,10 +84,12 @@ class OrchestratorTestBase(TestCase):
             "source_units_by_id": {},
             "budget": CallBudget(),
             "ledger": self.ledger,
-            # Questi test rigiocano gli output congelati del parser: la modalità
-            # va dichiarata, perché LIVE senza cache documentale fallisce — che è
-            # esattamente il comportamento voluto.
-            "execution_mode": "REPLAY",
+            # RESEARCH / REGRESSION. Questi test rigiocano gli output congelati
+            # del parser sul corpus congelato del pilot: vanno dichiarati come
+            # tali, perché il runtime canonico senza cache documentale fallisce —
+            # che è esattamente il comportamento voluto.
+            "research_frozen_artifacts": True,
+            "retrieve_fn": retrieval_mod.retrieve_frozen_bundles,
         }
         kwargs.update(overrides)
         return orchestrator.run_case(**kwargs)

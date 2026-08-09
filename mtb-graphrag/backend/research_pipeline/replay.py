@@ -1,6 +1,26 @@
-"""Replay degli artefatti congelati del pilot.
+"""Replay degli artefatti congelati del pilot. **RESEARCH / REGRESSION ONLY.**
 
-Perché serve. ``paper_selection`` ammette un bundle solo se almeno una delle sue
+Questo modulo non fa parte del runtime clinico-operativo e non è raggiungibile
+da alcun percorso di prodotto:
+
+- ``POST /api/v1/research/pipeline/runs`` non lo importa e non ha un campo che
+  possa selezionarlo;
+- ``RunStore`` non lo importa: i suoi provider sono soltanto quelli canonici;
+- la console clinica non ha né un selettore di modalità né un'azione che apra
+  una run registrata.
+
+L'unico modo di arrivare qui è iniettarne gli adattatori in
+``orchestrator.run_case(research_frozen_artifacts=True, call_parser_fn=…,
+select_papers_fn=…, validate_fn=…)`` da un harness di test o di valutazione.
+L'iniezione è verbosa di proposito: deve restare visibile, nella chiamata, che
+si sta riproducendo un esperimento storico e non eseguendo la pipeline.
+
+Perché resta. Riproducibilità. Gli esperimenti congelati devono continuare a
+produrre esattamente ciò che produssero, e le proprietà «il replay non tocca la
+rete» e «il replay non usa il selettore canonico» si dimostrano solo eseguendo
+davvero questo percorso.
+
+Perché nacque. ``paper_selection`` ammette un bundle solo se almeno una delle sue
 SourceUnit ha testo (``paper_selection.py``, criterio ``TEXT_NOT_AVAILABLE_IN_CACHE``),
 e il testo vive nella cache documentale, oggi assente. Rieseguire gli stage 8-10
 in quelle condizioni produrrebbe zero paper selezionati e zero citazioni: un

@@ -134,7 +134,7 @@ class ControlledStopThroughOrchestrator(unittest.TestCase):
                     "case_context_raw": context or {},
                     "model": "STUB_NOT_AN_LLM", "prompt_version": "test/1.0"},
                 call_enricher_fn=enricher, source_units_by_id={}, budget=None,
-                ledger=self.ledger, execution_mode=em.REPLAY, document_runtime=None,
+                ledger=self.ledger, research_frozen_artifacts=True, document_runtime=None,
                 validate_fn=lambda t, e, **kw: {"outcome": "ENRICHMENT_ABSTAINED"})
         finally:
             orchestrator.retrieval_mod.retrieve = real_retrieve
@@ -227,7 +227,7 @@ class ControlledStopThroughOrchestrator(unittest.TestCase):
                 case_id="T-boom", clinical_text=ELIGIBLE_TEXT,
                 call_parser_fn=exploding_parser,
                 call_enricher_fn=lambda *a, **k: None, source_units_by_id={},
-                budget=None, ledger=self.ledger, execution_mode=em.REPLAY,
+                budget=None, ledger=self.ledger, research_frozen_artifacts=True,
                 document_runtime=None)
 
 

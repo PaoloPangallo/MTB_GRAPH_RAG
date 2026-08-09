@@ -119,7 +119,7 @@ ledger = EventLedger(Path(sys.argv[3]).resolve())
 iss001 = {"runs": [], "controlled_stops_failed": 0, "noneligible_retrieval_calls": 0}
 
 import backend.research_pipeline.retrieval.kg_retrieval as kgr  # noqa: E402
-_real = kgr.retrieve
+_real = kgr.retrieve_frozen_bundles
 COUNT = {"n": 0}
 
 
@@ -141,7 +141,7 @@ for name, text, ctx in CASES_001:
                 "model": "STUB", "prompt_version": "repro/1.0"},
             call_enricher_fn=lambda *a, **k: {"transport_result": "V2_TRANSPORT_VALID", "enrichment": None},
             source_units_by_id={}, budget=None, ledger=ledger,
-            execution_mode=em.REPLAY, document_runtime=None,
+            research_frozen_artifacts=True, document_runtime=None,
             validate_fn=lambda t, e, **kw: {"outcome": "ENRICHMENT_ABSTAINED"})
         row.update(run_status=run.status, stopped_at=run.stopped_at, exception=None,
                    stages_executed=[s.stage_id for s in run.stages if s.status != "SKIPPED"])

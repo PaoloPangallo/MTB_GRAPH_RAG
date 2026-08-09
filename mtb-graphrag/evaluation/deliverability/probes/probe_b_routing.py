@@ -33,7 +33,7 @@ from backend.research_pipeline.retrieval import kg_retrieval  # noqa: E402
 
 COUNTERS = {"retrieval": 0, "enricher": 0, "paper_selection": 0, "document_resolution": 0}
 
-_real_retrieve = kg_retrieval.retrieve
+_real_retrieve = kg_retrieval.retrieve_frozen_bundles
 
 
 def counting_retrieve(case_context):
@@ -202,7 +202,7 @@ def run_one(case_id, category, text, case_context, ledger):
             case_id=case_id, clinical_text=text,
             call_parser_fn=stub_parser, call_enricher_fn=stub_enricher,
             source_units_by_id={}, budget=None, ledger=ledger,
-            execution_mode=em.REPLAY,      # REPLAY: nessuna cache documentale richiesta
+            research_frozen_artifacts=True,  # corpus congelato: nessuna cache richiesta
             document_runtime=None,
             select_papers_fn=None, validate_fn=lambda t, e, **kw: {"outcome": "ENRICHMENT_ABSTAINED"},
         )

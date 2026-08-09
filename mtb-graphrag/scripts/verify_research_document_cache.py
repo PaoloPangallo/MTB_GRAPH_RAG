@@ -263,7 +263,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         print("cache non utilizzabile: verifica interrotta.")
         return 1
 
-    runtime = DocumentRuntime.open()
+    # Verifica della cache: sola lettura, nessuna acquisizione di rete.
+    runtime = DocumentRuntime.open_read_only_research()
     rows = da.read_jsonl(da.document_manifest_path())
     bundles = da.read_jsonl(da.evidence_bundles_path())
 
