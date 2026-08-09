@@ -127,6 +127,16 @@ export function badgeFor(status: string, origin: string): OriginBadge {
   return originBadge[origin] ?? originBadge.NOT_EXECUTED;
 }
 
+/**
+ * Nome di presentazione dell'arresto terminale della catena documentale.
+ *
+ * Il reason code interno resta `LIVE_STAGE_FAILED` e simili: rinominarlo
+ * toccherebbe contratti, artefatti storici e scorecard già prodotti, in cambio
+ * di nulla. Ciò che cambia è come lo si chiama davanti a chi legge.
+ */
+export const PIPELINE_ABORT_LABEL = 'PIPELINE ABORT';
+
+/** Etichette di run **storiche**. Il runtime canonico non ne usa nessuna. */
 export const runModeStyle: Record<string, StatusStyle> = {
   LIVE: { label: 'LIVE', fg: '#0b5c3f', bg: '#e6f4ec', marker: 'filled' },
   REPLAY: { label: 'REPLAY', fg: '#8a4b2f', bg: color.stone, marker: 'barred' },
@@ -151,14 +161,18 @@ export const REASON_LABELS: Record<string, string> = {
   DOCUMENT_NOT_IN_MANIFEST: 'Il documento non compare nel manifest',
   CACHE_MISS: 'Il manifest lo prevede ma il file non è nella cache',
   NO_LOCAL_CACHE_PATH: 'Il manifest non indica alcun file locale',
-  NO_DOCUMENT_RESOLVED: 'Nessun documento risolto: la run live non prosegue su artefatti registrati',
-  DOCUMENT_CACHE_UNAVAILABLE: 'Cache documentale non disponibile: la run live non ripiega sul replay',
+  NO_DOCUMENT_RESOLVED: 'Nessun documento risolto: la pipeline non prosegue su artefatti registrati',
+  DOCUMENT_CACHE_UNAVAILABLE: 'Cache documentale non disponibile: la pipeline non ripiega sul replay',
+  PARSER_FAILED: 'Nessuna Source Unit con testo utilizzabile: la pipeline si arresta',
+  SOURCEUNIT_SELECTION_FAILED: 'Nessun passaggio rilevante selezionato: la pipeline si arresta',
   SOURCE_UNITS_MATERIALIZED_FROM_CACHE: 'Source Unit ricostruite dal documento durante la run',
   SOURCE_UNITS_FROM_RECORDED_INDEX: 'Locatori dall’indice congelato, senza testo ricostruito',
   SOURCE_UNIT_TEXT_UNAVAILABLE: 'Nessun testo disponibile per questa Source Unit',
   SOURCE_UNIT_PARSE_FAILED: 'Il documento non è stato interpretabile',
   DOCUMENT_FROM_RECORDED_RUN: 'Documento della run registrata: nessuna cache consultata',
-  LIVE_STAGE_FAILED: 'Uno stage live non è stato eseguito: nessun artefatto lo ha sostituito',
+  // Nome interno ereditato, conservato in contratti, artefatti e scorecard già
+  // prodotti. Qui viene solo presentato con il nome che l'architettura gli dà.
+  LIVE_STAGE_FAILED: 'Uno stage non è stato eseguito: nessun artefatto lo ha sostituito',
   NO_PAPER_SELECTED_FOR_ENRICHMENT: 'Nessun paper selezionato: il modello non è stato chiamato',
   MAX_PAPERS_PER_ASSOCIATION_EXCEEDED: 'Oltre il tetto di due paper per associazione',
   DUPLICATE_DOCUMENT_ID: 'Documento già selezionato per questa associazione',

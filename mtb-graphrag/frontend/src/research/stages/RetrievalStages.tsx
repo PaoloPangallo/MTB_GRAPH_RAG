@@ -13,7 +13,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import StructuredValue from '../values/StructuredValue';
 import { color, font } from '../tokens';
 import {
-  Badge, Card, Empty, Field, GraphDerivedWarning, Mono, Note, ReasonCodeList,
+  Badge, Card, Empty, Field, GraphDerivedWarning, Mono, Note, num, ReasonCodeList,
   ReplayBadge, SectionLabel, rows, text,
 } from './kit';
 
@@ -88,21 +88,35 @@ export function GraphCandidateStage({ preview }: StageProps) {
 
 export function DocumentResolutionStage({ preview }: StageProps) {
   const documents = rows(preview, 'documents');
+  // Cosa è successo davvero in questa run, letto dallo stage che lo ha fatto.
+  // Qui compariva un badge REPLAY incondizionato e la frase «documenti risolti
+  // in una run precedente»: era vera del runtime che non risolveva affatto i
+  // documenti, ed è rimasta a descrivere un percorso che nel frattempo li
+  // risolve. Una didascalia sbagliata su un dato giusto è peggio di nessuna
+  // didascalia, perché viene letta al posto del dato.
+  const cacheHits = num(preview.cache_hits) ?? 0;
+  const cacheMisses = num(preview.cache_misses) ?? 0;
+  const fetched = num(preview.network_fetch_count) ?? 0;
+  const replayed = preview.replayed === true;
 
   return (
     <Box>
-      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1.5 }}>
-        <ReplayBadge />
-        <Typography sx={{ fontFamily: font.body, fontSize: 12, color: color.slate }}>
-          Documenti risolti in una run precedente, non recuperati ora
-        </Typography>
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1.5, flexWrap: 'wrap' }}>
+        {replayed && <ReplayBadge />}
+        {cacheHits > 0 && <Badge label={`CACHE HIT ${cacheHits}`} tone="good"
+          title="Documento già presente nella cache autorizzata: nessuna chiamata di rete." />}
+        {fetched > 0 && <Badge label={`API ${fetched}`}
+          title="Documento assente dalla cache e acquisito ora da una fonte autorizzata, poi persistito." />}
+        {cacheMisses > fetched && <Badge label={`NON DISPONIBILI ${cacheMisses - fetched}`} tone="warn"
+          title="Il documento non è stato ottenuto. Nessun artefatto viene messo al suo posto." />}
       </Stack>
 
       <SectionLabel>Documenti ({documents.length})</SectionLabel>
       <Note>
-        Nessun documento nuovo viene scaricato: la cache documentale non è
-        disponibile in questo ambiente, e la pipeline non inventa una fonte per
-        colmare il vuoto.
+        Cache-first: un documento già in cache viene letto da lì, altrimenti
+        viene acquisito da una fonte autorizzata e lo snapshot è persistito prima
+        del parsing. Se non si ottiene, resta non disponibile: la pipeline non
+        inventa una fonte per colmare il vuoto e non ne rigioca una registrata.
       </Note>
 
       {documents.length === 0
@@ -117,9 +131,13 @@ export function SourceUnitStage({ preview }: StageProps) {
 
   return (
     <Box>
-      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1.5 }}>
-        <ReplayBadge />
-        <Badge label="NESSUN TESTO" title="L'indice contiene solo locatori e content_hash: il testo del documento non transita mai per l'API." />
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1.5, flexWrap: 'wrap' }}>
+        {preview.replayed === true && <ReplayBadge />}
+        {(num(preview.documents_parsed) ?? 0) > 0 && (
+          <Badge label={`PARSED ${num(preview.documents_parsed)}`} tone="good"
+            title="Documenti ri-parsati dal proprio snapshot durante questa run." />
+        )}
+        <Badge label="NESSUN TESTO" title="Ciò che esce di qui contiene solo locatori e content_hash: il testo del documento non transita mai per l'API." />
       </Stack>
 
       <SectionLabel>Source Unit ({units.length})</SectionLabel>

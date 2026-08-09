@@ -32,12 +32,14 @@ export type StopReason =
   | 'LIVE_STAGE_FAILED';
 
 /**
- * Modalità di esecuzione. `HYBRID` non è richiedibile: è la classificazione di
- * una run avviata LIVE che ha comunque usato un artefatto registrato.
+ * Etichetta di esecuzione di una run. **Non è una scelta**: il runtime è uno
+ * solo e scrive sempre `LIVE`, valore conservato per poter continuare a leggere
+ * ledger e scorecard già prodotti.
+ *
+ * `REPLAY` e `HYBRID` compaiono soltanto decodificando run storiche archiviate.
+ * Non esiste più un `RequestableMode`: non c'è nulla da richiedere.
  */
 export type ExecutionMode = 'LIVE' | 'REPLAY' | 'HYBRID';
-
-export type RequestableMode = 'LIVE' | 'REPLAY';
 
 /**
  * Da dove viene il risultato di uno stage.
@@ -52,6 +54,24 @@ export type ArtifactOrigin =
   | 'DETERMINISTIC_CACHE'
   | 'NOT_APPLICABLE'
   | 'NOT_EXECUTED';
+
+/**
+ * Come i documenti di questa run sono stati ottenuti.
+ *
+ * È ciò che il clinico legge al posto della vecchia modalità di esecuzione. I
+ * conteggi sono `null` quando lo stage documentale non è stato eseguito: uno
+ * zero direbbe «nessun documento acquisito» invece di «non misurato».
+ */
+export interface DocumentAcquisition {
+  executed: boolean;
+  cache_hits: number | null;
+  cache_misses: number | null;
+  network_fetches: number | null;
+  degraded_to_abstract: number | null;
+  documents_unavailable: number | null;
+  sources: string[];
+  reason_codes: string[];
+}
 
 export interface DocumentCacheStatus {
   document_cache_available: boolean;
@@ -120,15 +140,18 @@ export interface PipelineRun {
   versions: Record<string, unknown>;
   metrics: Record<string, unknown>;
   research_notice: ResearchNotice;
-  /** Modalità richiesta all'avvio. */
-  requested_mode: RequestableMode;
-  /** Modalità **effettiva**, derivata dalle origini degli stage dal backend. */
+  /**
+   * Etichette storiche. Su una run canonica valgono sempre `LIVE`, `true` e `0`:
+   * la console le mostra solo quando dicono qualcosa, cioè su una run archiviata.
+   */
+  requested_mode: ExecutionMode;
   execution_mode: ExecutionMode;
-  /** Vero solo con `execution_mode === 'LIVE'` e zero artefatti registrati. */
   fully_live: boolean;
   replay_artifacts_used: number;
   origin_counts: Partial<Record<ArtifactOrigin, number>>;
   document_cache: DocumentCacheStatus;
+  /** Come i documenti sono entrati nella run. Calcolato dal backend. */
+  document_acquisition: DocumentAcquisition;
   llm_calls: number;
   /** Presenti solo su una run ricostruita dal ledger. */
   rehydrated?: boolean;
@@ -164,17 +187,13 @@ export interface DemoCase {
   clinical_text: string;
   expected_query_intent: string | null;
   expected_result: string | null;
-  frozen_artifacts_available: boolean;
 }
 
 export interface CreatedRun {
   run_id: string;
   case_id: string;
   status: RunStatus;
-  requested_mode: RequestableMode;
   execution_mode: ExecutionMode;
-  /** Esiste una run registrata equivalente da poter consultare a parte. */
-  replay_run_available: boolean;
   stream_url: string;
   research_notice: ResearchNotice;
 }
@@ -285,7 +304,10 @@ export const TERM_TOOLTIPS: Record<string, string> = {
   live:
     'Eseguito al momento della run. Il risultato è stato prodotto ora, non recuperato.',
   cached_document:
-    'Documento letto dalla cache autorizzata durante la run. È lettura di una fonte, non un replay: lo stage resta parte di una run live.',
+    'Documento letto dalla cache autorizzata durante la run. È lettura di una fonte, non un replay: lo stage resta parte dell'
+    + 'esecuzione canonica.',
+  degraded_to_abstract:
+    'Il full text su PMC non era disponibile e il documento è stato acquisito come abstract da PubMed. È un’acquisizione riuscita e dichiarata, non un fallimento nascosto.',
   hybrid:
     'Run avviata in LIVE che ha comunque usato almeno un artefatto registrato. Non può essere presentata come completamente live.',
   fully_live:

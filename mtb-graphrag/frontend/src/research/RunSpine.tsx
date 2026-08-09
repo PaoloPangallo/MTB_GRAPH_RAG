@@ -24,11 +24,16 @@ interface RunSpineProps {
   onSelect: (stageId: string) => void;
 }
 
-/** Filtri della spina. Il valore è la chiave, l'etichetta è per il lettore. */
+/**
+ * Filtri della spina. Il valore è la chiave, l'etichetta è per il lettore.
+ *
+ * "Solo LIVE" e "Solo REPLAY" sono spariti: chiedevano al lettore di separare
+ * due modalità che il runtime non ha più. Restano i tagli che descrivono cosa
+ * uno stage *è* — chi lo ha prodotto, com'è andato — e non da quale percorso
+ * proviene.
+ */
 export const STAGE_FILTERS = [
   { key: 'all', label: 'Tutti' },
-  { key: 'live', label: 'Solo LIVE' },
-  { key: 'replay', label: 'Solo REPLAY' },
   { key: 'problems', label: 'Warning ed errori' },
   { key: 'llm', label: 'LLM' },
   { key: 'deterministic', label: 'Deterministici' },
@@ -36,21 +41,9 @@ export const STAGE_FILTERS = [
 
 export type StageFilterKey = (typeof STAGE_FILTERS)[number]['key'];
 
-/**
- * Filtro applicato a uno stage.
- *
- * "Solo LIVE" include `DETERMINISTIC_CACHE`: uno stage che legge un documento
- * dalla cache **è** stato eseguito ora, e escluderlo dalla vista live darebbe
- * l'impressione che la catena documentale non sia stata percorsa.
- */
+/** Filtro applicato a uno stage. */
 export function matchesFilter(stage: PipelineStage, filter: StageFilterKey): boolean {
   switch (filter) {
-    case 'live':
-      return stage.execution_mode === 'LIVE'
-        && (stage.artifact_origin === 'GENERATED_NOW'
-          || stage.artifact_origin === 'DETERMINISTIC_CACHE');
-    case 'replay':
-      return stage.artifact_origin === 'RECORDED_REAL_RUN';
     case 'problems':
       return stage.status === 'FAILED' || stage.status === 'WARNING'
         || stage.warnings.length > 0 || stage.errors.length > 0;
