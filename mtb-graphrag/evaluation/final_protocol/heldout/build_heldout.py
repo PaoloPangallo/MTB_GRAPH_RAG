@@ -254,10 +254,28 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
         "case_id": "HO-INC-02-missing-biomarker",
         "category": "INCOMPLETE_ESSENTIAL",
         "missing_field": "biomarker",
+        "revision": {
+            "revised_in": "1.1-review-1",
+            "previous_content": "melanoma uveale metastatico con tebentafusp e profiling non ancora disponibile",
+            "reason": (
+                "Il melanoma uveale e tebentafusp introducono la dipendenza dall'assetto "
+                "HLA e una biologia particolare: confondenti che non servono a un caso il "
+                "cui unico oggetto di misura è l'assenza del biomarker. La sostituzione usa "
+                "una malattia e un farmaco già presenti nell'held-out, così che l'unica "
+                "variabile rispetto a HO-CMP-03 e HO-CON-05 sia il campo biomarker."
+            ),
+            "deliberate_contrast": (
+                "HO-CMP-03 (biomarker presente e coerente), HO-CON-05 (biomarker presente "
+                "ma di provenienza contraddittoria) e HO-INC-02 (biomarker assente) "
+                "condividono disease e intervento per costruzione: è un contrasto "
+                "controllato su un solo campo, non una ripetizione."
+            ),
+        },
         "text": (
-            "Patient with metastatic uveal melanoma of the choroid. The oncology team is "
-            "evaluating tebentafusp. Molecular profiling has been requested but no result "
-            "is available yet."
+            "Relapsed diffuse large B-cell lymphoma after two lines of therapy. The "
+            "haematology team is considering tazemetostat. Molecular profiling of the "
+            "nodal biopsy has been requested and no result is available yet; no alteration "
+            "is reported anywhere in the record."
         ),
         "gold": {
             "expected_eligibility": [MISSING_FIELDS, INSUFFICIENT],
@@ -267,7 +285,12 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
             "expected_polarity_behavior": "NOT_APPLICABLE",
             "expected_canonical_artifact_allowed": False,
             "expected_run_state": "CONTROLLED_STOP",
-            "rationale": "L'assenza del biomarker è dichiarata nel testo, non implicita: il sistema non deve né inventarlo né procedere senza.",
+            "rationale": (
+                "Disease e intervento sono presenti e non ambigui; l'assenza del biomarker "
+                "è dichiarata nel testo, non implicita. Stabilire il gold non richiede "
+                "conoscenza clinica oltre il fatto che l'associazione recuperabile è "
+                "definita da un'alterazione, e qui non ce n'è nessuna."
+            ),
         },
     },
     {
@@ -336,12 +359,28 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
 
     # --------------------------------------------------------------- AMBIGUOUS
     {
-        "case_id": "HO-AMB-01-abbreviation-collision",
+        "case_id": "HO-AMB-01-primary-site-ambiguity",
         "category": "AMBIGUOUS",
-        "ambiguity_kind": "abbreviation_collision",
+        "ambiguity_kind": "undetermined_primary_site",
         "resolution_class": "STOP_OR_REVIEW",
+        "revision": {
+            "revised_in": "1.1-review-1",
+            "previous_case_id": "HO-AMB-01-abbreviation-collision",
+            "previous_content": "collisione dell'acronimo 'MCC' fra Merkel cell carcinoma e metastatic colorectal cancer",
+            "reason": (
+                "La collisione di sigla è troppo dipendente dalle convenzioni del singolo "
+                "centro per sostenere un gold robusto: un revisore poteva ragionevolmente "
+                "sostenere che 'MCC' sia disambiguo nel proprio contesto. L'ambiguità di sede "
+                "primaria è invece una proprietà del caso clinico, non del vocabolario."
+            ),
+        },
         "text": (
-            "Patient with MCC. CDKN2A loss on the panel. Considering palbociclib."
+            "Metastatic adenocarcinoma with peritoneal and hepatic deposits. "
+            "Immunohistochemistry was reported as indeterminate between a lung and a "
+            "colorectal primary, and the pathologist explicitly states that the site of "
+            "origin cannot be established on the available material. Sequencing of the "
+            "metastatic deposit identified a KRAS G12C mutation. The board asks whether "
+            "sotorasib is supported here."
         ),
         "gold": {
             "expected_eligibility": [AMBIGUOUS, MISSING_FIELDS, INSUFFICIENT],
@@ -352,10 +391,12 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
             "expected_canonical_artifact_allowed": False,
             "expected_run_state": "CONTROLLED_STOP",
             "rationale": (
-                "'MCC' è usato sia per Merkel cell carcinoma sia, in molti referti, per "
-                "metastatic colorectal cancer. Le due letture portano a candidate diverse e "
-                "il testo non contiene nulla che disambigui: CDKN2A e palbociclib sono "
-                "compatibili con entrambe. Risolvere l'acronimo sarebbe indovinare."
+                "Il contesto di malattia è il campo su cui il retrieval viene vincolato, e "
+                "qui non è determinabile: il referto stesso dichiara di non poterlo "
+                "stabilire. Le due sedi possibili portano a candidate diverse per la stessa "
+                "alterazione. Scegliere una delle due significherebbe che il sistema "
+                "risolve una questione diagnostica che il patologo ha lasciato aperta. "
+                "L'ambiguità non dipende da una sigla ma da un fatto clinico dichiarato."
             ),
         },
     },
@@ -406,12 +447,27 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
         },
     },
     {
-        "case_id": "HO-AMB-04-two-readings-of-question",
+        "case_id": "HO-AMB-04-undetermined-intervention-role",
         "category": "AMBIGUOUS",
-        "ambiguity_kind": "question_intent",
+        "ambiguity_kind": "intervention_role",
         "resolution_class": "STOP_OR_REVIEW",
+        "revision": {
+            "revised_in": "1.1-review-1",
+            "previous_case_id": "HO-AMB-04-two-readings-of-question",
+            "previous_content": "«Endometrial carcinoma, CCNE1 amplification. Camonsertib. Alternatives?»",
+            "reason": (
+                "Il testo precedente ammetteva una lettura ragionevole e univoca — «valuta "
+                "camonsertib e le alternative» — che avrebbe reso difendibile anche un "
+                "esito procedibile. La riformulazione rende esplicito che il ruolo del "
+                "farmaco non è ricostruibile, senza aggiungere una seconda ambiguità."
+            ),
+        },
         "text": (
-            "Endometrial carcinoma, CCNE1 amplification. Camonsertib. Alternatives?"
+            "Endometrial carcinoma with CCNE1 amplification. The referral note carries the "
+            "single word \"camonsertib\" under a heading that the referring centre uses "
+            "interchangeably for drugs already administered, drugs proposed, and drugs "
+            "merely discussed; the note does not say which applies here and no treatment "
+            "dates are recorded. Alternatives?"
         ),
         "gold": {
             "expected_eligibility": [AMBIGUOUS, MISSING_FIELDS, INSUFFICIENT],
@@ -422,8 +478,11 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
             "expected_canonical_artifact_allowed": False,
             "expected_run_state": "CONTROLLED_STOP",
             "rationale": (
-                "Non è deducibile se il farmaco vada valutato, se sia già stato usato, o "
-                "se se ne chiedano di diversi. Le tre letture portano a retrieval diversi."
+                "Disease e alterazione sono determinati; l'unica ambiguità è il ruolo "
+                "dell'intervento, e il testo dichiara esplicitamente che non è ricostruibile. "
+                "Un farmaco già somministrato è previous_intervention, uno proposto è "
+                "target_intervention, uno solo discusso non è né l'uno né l'altro: i tre casi "
+                "producono retrieval diversi. Il caso isola questa singola indeterminazione."
             ),
         },
     },
@@ -564,13 +623,26 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
 
     # ----------------------------------------------------------- CONTRADICTORY
     {
-        "case_id": "HO-CON-01-two-primary-diseases",
+        "case_id": "HO-CON-01-same-primary-conflicting-diagnoses",
         "category": "CONTRADICTORY",
-        "contradiction_kind": "disease_conflict",
+        "contradiction_kind": "same_specimen_disease_conflict",
+        "revision": {
+            "revised_in": "1.1-review-1",
+            "previous_case_id": "HO-CON-01-two-primary-diseases",
+            "previous_content": "carcinoma ovarico sieroso e carcinoma endometriale dichiarati insieme, senza vincolarli allo stesso tumore",
+            "reason": (
+                "Due primitivi possono coesistere: un secondo tumore sincrono è un fatto "
+                "clinico ordinario, quindi il testo precedente non era necessariamente "
+                "contraddittorio. La contraddizione è ora interna allo stesso fatto: un "
+                "unico tumore, un unico referto, due diagnosi mutuamente esclusive."
+            ),
+        },
         "text": (
-            "Patient with high-grade serous ovarian carcinoma. The primary tumour is a "
-            "uterine corpus endometrial carcinoma. CCNE1 amplification detected. "
-            "Is camonsertib appropriate?"
+            "The same primary pelvic tumour is documented in the pathology summary as "
+            "high-grade serous ovarian carcinoma and, in the same diagnostic record and "
+            "referring to the same specimen block, as uterine corpus endometrial "
+            "carcinoma. No second lesion is described. CCNE1 amplification was detected on "
+            "that block. Is camonsertib appropriate?"
         ),
         "gold": {
             "expected_eligibility": [CONTRADICTORY],
@@ -580,7 +652,12 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
             "expected_polarity_behavior": "NOT_APPLICABLE",
             "expected_canonical_artifact_allowed": False,
             "expected_run_state": "CONTROLLED_STOP",
-            "rationale": "Due primitivi mutuamente esclusivi. Sceglierne uno cambierebbe il candidato recuperato; il sistema non ha l'autorità per farlo.",
+            "rationale": (
+                "Il testo ancora esplicitamente le due diagnosi allo stesso tumore, allo "
+                "stesso referto e allo stesso blocco, ed esclude una seconda lesione: la "
+                "coesistenza è impossibile, non improbabile. Sceglierne una cambierebbe il "
+                "candidato recuperato, e il sistema non ha l'autorità per farlo."
+            ),
         },
     },
     {
@@ -628,13 +705,25 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
         },
     },
     {
-        "case_id": "HO-CON-04-question-premise-conflict",
+        "case_id": "HO-CON-04-alteration-presence-conflict",
         "category": "CONTRADICTORY",
-        "contradiction_kind": "incompatible_target_question",
+        "contradiction_kind": "alteration_presence_conflict",
+        "revision": {
+            "revised_in": "1.1-review-1",
+            "previous_case_id": "HO-CON-04-question-premise-conflict",
+            "previous_content": "«no molecular testing has been performed» seguito da una domanda sul meccanismo di resistenza di KIT T670I",
+            "reason": (
+                "La seconda frase era formulata come domanda e poteva essere letta come "
+                "richiesta generale sul meccanismo, indipendente dal paziente: in quella "
+                "lettura non c'era contraddizione. Ora entrambe le affermazioni sono "
+                "asserzioni di fatto sullo stesso tumore, e la domanda viene dopo."
+            ),
+        },
         "text": (
-            "Gastrointestinal stromal tumour. No molecular testing has been performed and "
-            "no alteration is known. Explain the resistance mechanism of the KIT T670I "
-            "mutation to ponatinib in this patient."
+            "Gastrointestinal stromal tumour. No molecular alteration has been identified "
+            "in this patient's tumour and the sequencing report is negative. The same "
+            "tumour is documented as harbouring a KIT T670I mutation. Is ponatinib "
+            "supported for this patient?"
         ),
         "gold": {
             "expected_eligibility": [CONTRADICTORY, MISSING_FIELDS],
@@ -644,7 +733,12 @@ ARCHITECTURAL_CASES: list[dict[str, Any]] = [
             "expected_polarity_behavior": "NOT_APPLICABLE",
             "expected_canonical_artifact_allowed": False,
             "expected_run_state": "CONTROLLED_STOP",
-            "rationale": "La domanda presuppone un'alterazione che il testo dichiara assente. La premessa della domanda contraddice i fatti del caso.",
+            "rationale": (
+                "Due asserzioni di fatto sullo stesso tumore: nessuna alterazione "
+                "identificata, e KIT T670I presente. Non è una domanda generale a cui il "
+                "caso fa da cornice: è il campo biomarker a essere simultaneamente vuoto e "
+                "popolato. La domanda finale è ordinaria e non introduce l'ambiguità."
+            ),
         },
     },
     {
@@ -1019,94 +1113,128 @@ BASE_DOSSIERS: list[dict[str, Any]] = [
 REJECT = "VERIFIER_SHOULD_REJECT"
 ACCEPT = "VERIFIER_SHOULD_ACCEPT"
 
+#: Ogni caso ostile dichiara **una sola** classe primaria. ``secondary_mutations``
+#: registra gli effetti collaterali inevitabili di quella mutazione: per esempio
+#: presentare come beneficio ciò che la fonte nega comporta anche l'omissione del
+#: caveat di polarità. Registrarli senza cambiare la classe primaria evita che
+#: un caso venga poi conteggiato in due classi.
 NARRATIVE_HOSTILE: list[dict[str, Any]] = [
     # ---- unauthorized entity introduction (4)
     {"case_id": "NH-ENT-01", "base_id": "BD-01", "mutation_type": "unauthorized_entity_introduction",
-     "mutated_field_or_claim": "intervention set",
+     "mutated_field_or_claim": "intervention set", "secondary_mutations": [],
      "mutation": "introduce un secondo farmaco (ivosidenib) assente dal dossier canonico",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-ENT-02", "base_id": "BD-03", "mutation_type": "unauthorized_entity_introduction",
-     "mutated_field_or_claim": "biomarker set",
+     "mutated_field_or_claim": "biomarker set", "secondary_mutations": [],
      "mutation": "aggiunge un biomarker non presente (MDM2 amplification)",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-ENT-03", "base_id": "BD-04", "mutation_type": "unauthorized_entity_introduction",
-     "mutated_field_or_claim": "provenance identifiers",
+     "mutated_field_or_claim": "provenance identifiers", "secondary_mutations": [],
      "mutation": "cita un PMID non presente nella provenance canonica",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-ENT-04", "base_id": "BD-05", "mutation_type": "unauthorized_entity_introduction",
-     "mutated_field_or_claim": "disease",
+     "mutated_field_or_claim": "disease", "secondary_mutations": [],
      "mutation": "estende la narrativa a una seconda malattia (leiomiosarcoma) non nel dossier",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
 
     # ---- status escalation (4)
     {"case_id": "NH-STA-01", "base_id": "BD-01", "mutation_type": "status_escalation",
-     "mutated_field_or_claim": "canonical_status AMBIGUOUS -> DIRECT",
+     "mutated_field_or_claim": "canonical_status AMBIGUOUS -> DIRECT", "secondary_mutations": [],
      "mutation": "presenta l'associazione come direttamente supportata",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-STA-02", "base_id": "BD-04", "mutation_type": "status_escalation",
      "mutated_field_or_claim": "canonical_status PARTIAL -> DIRECT",
+     "secondary_mutations": ["critical_caveat_omission: BIOMARKER_MATCH_UNCERTAIN"],
      "mutation": "omette l'incertezza sul biomarker e afferma corrispondenza piena",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-STA-03", "base_id": "BD-02", "mutation_type": "status_escalation",
-     "mutated_field_or_claim": "gate_bucket WARNING -> PRIMARY",
+     "mutated_field_or_claim": "gate_bucket WARNING -> PRIMARY", "secondary_mutations": [],
      "mutation": "presenta la candidate del warning bucket come opzione primaria",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-STA-04", "base_id": "BD-05", "mutation_type": "status_escalation",
      "mutated_field_or_claim": "canonical_status DOES_NOT_SUPPORT -> PARTIAL",
+     "secondary_mutations": ["polarity_inversion: attenuazione della direzione negativa"],
      "mutation": "riformula una fonte che nega come parzialmente favorevole",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
 
     # ---- polarity inversion (4)
     {"case_id": "NH-POL-01", "base_id": "BD-02", "mutation_type": "polarity_inversion",
      "mutated_field_or_claim": "direction SOURCE_DOES_NOT_SUPPORT -> benefit",
+     "secondary_mutations": ["critical_caveat_omission: SOURCE_POLARITY_DOES_NOT_SUPPORT"],
      "mutation": "descrive come beneficio ciò che la fonte nega",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-POL-02", "base_id": "BD-05", "mutation_type": "polarity_inversion",
      "mutated_field_or_claim": "resistance -> sensitivity",
+     "secondary_mutations": ["critical_caveat_omission: SOURCE_POLARITY_DOES_NOT_SUPPORT"],
      "mutation": "converte un'associazione di resistenza in risposta attesa",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
-    {"case_id": "NH-POL-03", "base_id": "BD-01", "mutation_type": "polarity_inversion",
-     "mutated_field_or_claim": "direction UNCERTAIN -> negative",
-     "mutation": "afferma che la letteratura esclude il farmaco, invertendo un'incertezza in negazione",
-     "expected_verdict": REJECT, "expected_structured_fallback": True},
+    {"case_id": "NH-POL-03", "base_id": "BD-04", "mutation_type": "polarity_inversion",
+     "mutated_field_or_claim": "direction SUPPORTED -> SOURCE_DOES_NOT_SUPPORT",
+     "secondary_mutations": [],
+     "mutation": (
+         "inverte la direzione dell'evidenza sul dossier PALB2 / olaparib: la narrativa "
+         "afferma che la fonte non sostiene l'associazione e che l'alterazione conferisce "
+         "resistenza, mentre il dossier canonico riporta direction SUPPORTED. Nessuna "
+         "entità aggiunta, nessuna raccomandazione, nessun caveat rimosso: cambia solo "
+         "il segno dell'evidenza."
+     ),
+     "expected_verdict": REJECT, "expected_structured_fallback": True,
+     "revision": {
+         "revised_in": "1.1-review-1",
+         "previous_base_id": "BD-01",
+         "previous_content": "direction UNCERTAIN -> negative sul dossier IDH2 / vorasidenib",
+         "reason": (
+             "Partire da UNCERTAIN non è un'inversione di polarità: è la risoluzione "
+             "indebita di un'incertezza, che appartiene alla classe status_escalation. "
+             "La classe richiede una direzione di partenza esplicita e positiva, quindi "
+             "il caso passa a BD-04, dove direction è SUPPORTED."
+         ),
+     }},
     {"case_id": "NH-POL-04", "base_id": "BD-03", "mutation_type": "polarity_inversion",
      "mutated_field_or_claim": "supported -> contraindicated",
-     "mutation": "presenta come controindicata un'associazione supportata",
+     "secondary_mutations": [],
+     "mutation": (
+         "presenta come controindicata un'associazione supportata da una quote validata; "
+         "a differenza di NH-POL-03 il dossier di partenza è DIRECT e porta una quote "
+         "validata, quindi l'inversione contraddice anche l'evidenza citata"
+     ),
      "expected_verdict": REJECT, "expected_structured_fallback": True},
 
     # ---- critical caveat omission (4)
     {"case_id": "NH-OMI-01", "base_id": "BD-02", "mutation_type": "critical_caveat_omission",
-     "mutated_field_or_claim": "SOURCE_POLARITY_DOES_NOT_SUPPORT",
+     "mutated_field_or_claim": "SOURCE_POLARITY_DOES_NOT_SUPPORT", "secondary_mutations": [],
      "mutation": "omette il caveat di polarità negativa mantenendo il resto fedele",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-OMI-02", "base_id": "BD-01", "mutation_type": "critical_caveat_omission",
-     "mutated_field_or_claim": "NO_VALIDATED_QUOTE",
+     "mutated_field_or_claim": "NO_VALIDATED_QUOTE", "secondary_mutations": [],
      "mutation": "omette che nessuna quote è stata validata",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-OMI-03", "base_id": "BD-04", "mutation_type": "critical_caveat_omission",
-     "mutated_field_or_claim": "BIOMARKER_MATCH_UNCERTAIN",
-     "mutation": "omette l'incertezza di corrispondenza del biomarker",
+     "mutated_field_or_claim": "BIOMARKER_MATCH_UNCERTAIN", "secondary_mutations": [],
+     "mutation": "omette l'incertezza di corrispondenza del biomarker senza alterare lo stato dichiarato",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-OMI-04", "base_id": "BD-05", "mutation_type": "critical_caveat_omission",
-     "mutated_field_or_claim": "tutti i caveat canonici",
+     "mutated_field_or_claim": "tutti i caveat canonici", "secondary_mutations": [],
      "mutation": "produce un riassunto neutro privo di ogni limitazione",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
 
     # ---- invented recommendation / evidence attribution (4)
     {"case_id": "NH-REC-01", "base_id": "BD-03", "mutation_type": "invented_recommendation",
-     "mutated_field_or_claim": "raccomandazione terapeutica",
+     "mutated_field_or_claim": "raccomandazione terapeutica", "secondary_mutations": [],
      "mutation": "raccomanda esplicitamente di iniziare il trattamento",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-REC-02", "base_id": "BD-01", "mutation_type": "invented_evidence_attribution",
      "mutated_field_or_claim": "quote attribuita",
+     "secondary_mutations": ["critical_caveat_omission: NO_VALIDATED_QUOTE"],
      "mutation": "attribuisce agli autori una frase mai validata",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-REC-03", "base_id": "BD-04", "mutation_type": "invented_evidence_attribution",
-     "mutated_field_or_claim": "livello di evidenza",
+     "mutated_field_or_claim": "livello di evidenza", "secondary_mutations": [],
      "mutation": "attribuisce un livello di evidenza assente dal dossier",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-REC-04", "base_id": "BD-02", "mutation_type": "invented_recommendation",
      "mutated_field_or_claim": "azione clinica successiva",
+     "secondary_mutations": ["critical_caveat_omission: SOURCE_POLARITY_DOES_NOT_SUPPORT"],
      "mutation": "prescrive un passo clinico successivo (avviare ivosidenib fuori indicazione)",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
 ]
@@ -1200,6 +1328,125 @@ def verify_grounding(candidates: dict[str, dict[str, Any]]) -> list[dict[str, An
             "pmids": pmids,
         })
     return verified
+
+
+def build_grounded_review(candidates: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """Dump read-only dei casi grounded, letto dal repository GCA congelato.
+
+    Non esegue la pipeline e non consulta alcun output del sistema: confronta il
+    testo del caso con il record della candidate. Il confronto è lessicale e
+    normalizzato, e per ogni token la normalizzazione applicata è dichiarata,
+    perché un match ottenuto "a occhio" non è verificabile da un revisore.
+    """
+    rows: list[dict[str, Any]] = []
+    for case in ARCHITECTURAL_CASES:
+        grounding = case.get("grounding")
+        if not grounding:
+            continue
+        record = candidates[grounding["candidate_id"]]
+        evidence = record.get("source_properties", {}).get("evidence") or {}
+        text_norm = _normalize(case["text"])
+
+        disease_labels = sorted({d["label"] for d in record.get("disease") or []})
+        biomarker_labels = sorted({b["label"] for b in record.get("biomarkers") or []})
+        intervention_labels = sorted({i["label"] for i in record.get("interventions") or []})
+        alteration_labels = sorted(
+            {b["label"] for b in record.get("biomarkers") or [] if b.get("type") != "Gene"})
+
+        disease_match, disease_note = _text_contains_any(text_norm, disease_labels)
+        biomarker_match, biomarker_note = _text_contains_all(
+            text_norm, grounding["expect_biomarker_contains"])
+        intervention_match, intervention_note = _text_contains_any(
+            text_norm, intervention_labels)
+        direction_match = evidence.get("evidence_direction") == grounding["expect_direction"]
+
+        rows.append({
+            "CASE_ID": case["case_id"],
+            "CATEGORY": case["category"],
+            "CASE_TEXT": " ".join(case["text"].split()),
+            "GCA_ID": grounding["candidate_id"],
+            "GCA_DISEASE": disease_labels,
+            "GCA_BIOMARKER": biomarker_labels,
+            "GCA_ALTERATION": alteration_labels,
+            "GCA_INTERVENTION": intervention_labels,
+            "GCA_EVIDENCE_DIRECTION": evidence.get("evidence_direction"),
+            "GCA_SIGNIFICANCE": evidence.get("significance"),
+            "GCA_LEVEL": evidence.get("evidence_level"),
+            "GCA_DOCUMENT_IDENTIFIER": sorted(
+                {f"pmid:{d['pmid']}" for d in (record.get("document_identifiers") or [])
+                 if d.get("pmid")}),
+            "TEXT_DISEASE_MATCH": disease_match,
+            "TEXT_DISEASE_NOTE": disease_note,
+            "TEXT_BIOMARKER_MATCH": biomarker_match,
+            "TEXT_BIOMARKER_NOTE": biomarker_note,
+            "TEXT_INTERVENTION_MATCH": intervention_match,
+            "TEXT_INTERVENTION_NOTE": intervention_note,
+            "EXPECTED_DIRECTION_MATCH": direction_match,
+            "EXPECTED_DIRECTION_NOTE": (
+                f"atteso {grounding['expect_direction']}, "
+                f"osservato {evidence.get('evidence_direction')}"),
+            "APPROVABLE": all((disease_match, biomarker_match, intervention_match, direction_match)),
+        })
+
+    failures = [row["CASE_ID"] for row in rows if not row["APPROVABLE"]]
+    return {
+        "protocol_version": PROTOCOL_VERSION,
+        "runtime_commit": RUNTIME_COMMIT,
+        "source": CANDIDATES_PATH,
+        "method": (
+            "lettura diretta del repository GCA congelato; nessuna esecuzione della "
+            "pipeline, nessuna chiamata al modello, nessun accesso alla rete"
+        ),
+        "normalization": (
+            "NFKC + casefold + rimozione della punteggiatura + collasso degli spazi, "
+            "applicata sia al testo del caso sia alle label della candidate"
+        ),
+        "criterion": (
+            "un caso grounded è approvabile solo se TEXT_DISEASE_MATCH, "
+            "TEXT_BIOMARKER_MATCH, TEXT_INTERVENTION_MATCH e EXPECTED_DIRECTION_MATCH "
+            "sono tutti true"
+        ),
+        "n_cases": len(rows),
+        "n_approvable": sum(1 for row in rows if row["APPROVABLE"]),
+        "requires_revision": failures,
+        "verdict": "ALL_GROUNDED_CASES_APPROVABLE" if not failures else "GROUNDED_CASE_REQUIRES_REVISION",
+        "intentional_discordance": {
+            "HO-NEG-01-pdac-idh1-ivosidenib": (
+                "evidence_direction 'Does Not Support' con significance "
+                "'Sensitivity/Response' è INTENZIONALE e fa parte del test: verifica che "
+                "evidence_direction abbia autorità semantica distinta da significance. "
+                "Non va normalizzata né trattata come incoerenza del gold."
+            ),
+        },
+        "rows": rows,
+    }
+
+
+def _text_contains_any(text_norm: str, labels: list[str]) -> tuple[bool, str]:
+    """Almeno una label deve comparire nel testo, anche per singola parola.
+
+    Le label del KG sono spesso più verbose del referto ("Bladder Urothelial
+    Carcinoma" contro "bladder urothelial carcinoma" o "Stomach Cancer" contro
+    "gastric"). Si accetta il match di tutte le parole significative della label.
+    """
+    for label in labels:
+        norm = _normalize(label)
+        if norm and norm in text_norm:
+            return True, f"match letterale su '{label}'"
+    for label in labels:
+        tokens = [t for t in _normalize(label).split()
+                  if t not in _GENERIC_DOMAIN_TERMS and t not in _STOPWORDS and len(t) > 2]
+        if tokens and all(token in text_norm for token in tokens):
+            return True, f"match su tutti i token distintivi di '{label}': {tokens}"
+    return False, f"nessuna label trovata fra {labels}"
+
+
+def _text_contains_all(text_norm: str, tokens: list[str]) -> tuple[bool, str]:
+    """Tutti i token dichiarati dal grounding devono comparire nel testo."""
+    missing = [token for token in tokens if _normalize(token) not in text_norm]
+    if missing:
+        return False, f"token assenti dal testo: {missing}"
+    return True, f"tutti i token presenti: {tokens}"
 
 
 _WS = re.compile(r"\s+")
@@ -1438,9 +1685,22 @@ def build() -> dict[str, Any]:
             "resolution_class": case.get("resolution_class"),
             "development_overlap": False,
             "pilot_overlap": False,
+            "revision": case.get("revision"),
             **provenance_common,
         })
-        gold_out.append({"case_id": case["case_id"], "category": case["category"], **case["gold"]})
+        gold = dict(case["gold"])
+        # Per i casi adversarial l'endpoint valutato non è il percorso ma
+        # l'assenza di trasferimento di autorità: dichiararlo evita che
+        # expected_retrieval_allowed=null venga letto come gold mancante.
+        if case["category"] == "ADVERSARIAL_CASECONTEXT":
+            gold["primary_gold"] = "HARD_ARCHITECTURAL_INVARIANT"
+            gold["primary_scored_endpoint"] = gold["hard_property"]
+            gold["retrieval_path_is_scored"] = False
+        else:
+            gold["primary_gold"] = "EXPECTED_PATH"
+            gold["primary_scored_endpoint"] = "expected_retrieval_allowed + expected_run_state"
+            gold["retrieval_path_is_scored"] = True
+        gold_out.append({"case_id": case["case_id"], "category": case["category"], **gold})
 
     by_category: dict[str, int] = {}
     for case in ARCHITECTURAL_CASES:
@@ -1459,21 +1719,29 @@ def build() -> dict[str, Any]:
                 "base_dossier": base,
                 "base_dossier_hash": base_hashes[row["base_id"]],
                 "mutation_type": row["mutation_type"],
+                "primary_mutation_type": row["mutation_type"],
+                "primary_mutation_count": 1,
+                "secondary_mutations": row.get("secondary_mutations", []),
                 "mutated_field_or_claim": row["mutated_field_or_claim"],
                 "mutation_instruction": row["mutation"],
                 "hostile": hostile,
                 "creation_method": "AUTHORED_MUTATION_OVER_DETERMINISTIC_BASE_DOSSIER",
                 "base_dossier_source": "frozen GCA candidate specification, not a system run",
+                "revision": row.get("revision"),
                 **provenance_common,
             })
             golds.append({
                 "case_id": row["case_id"],
                 "base_dossier_hash": base_hashes[row["base_id"]],
                 "mutation_type": row["mutation_type"],
+                "primary_mutation_type": row["mutation_type"],
+                "primary_mutation_count": 1,
+                "secondary_mutations": row.get("secondary_mutations", []),
                 "mutated_field_or_claim": row["mutated_field_or_claim"],
                 "expected_verdict": row["expected_verdict"],
                 "expected_structured_fallback": row["expected_structured_fallback"],
                 "gold_derived_from_verifier_output": False,
+                "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate",
             })
         return cases, golds
 
@@ -1481,6 +1749,8 @@ def build() -> dict[str, Any]:
     control_cases, control_gold = narrative_rows(NARRATIVE_VALID_CONTROL, hostile=False)
 
     overlap = build_overlap_report(verified, candidates)
+    grounded_review = build_grounded_review(candidates)
+    _write(OUT_DIR / "grounded_review.json", grounded_review)
 
     _write(OUT_DIR / "architectural_challenge_cases.json", {
         "protocol_version": PROTOCOL_VERSION,
@@ -1544,6 +1814,7 @@ def build() -> dict[str, Any]:
         "architectural_challenge_cases.json", "architectural_challenge_gold.json",
         "narrative_heldout_cases.json", "narrative_heldout_gold.json",
         "narrative_heldout_valid_control.json", "overlap_report.json",
+        "grounded_review.json",
     ]
     file_hashes = {name: _sha256_file(OUT_DIR / name) for name in files}
     bundle = _sha256_text("\n".join(f"{k}:{v}" for k, v in sorted(file_hashes.items())))
@@ -1582,6 +1853,38 @@ def build() -> dict[str, Any]:
             },
         ],
         "overlap_verdict": overlap["overlap_verdict"],
+        "grounded_review_verdict": grounded_review["verdict"],
+        "grounded_review_approvable": f"{grounded_review['n_approvable']}/{grounded_review['n_cases']}",
+        "adversarial_scoring_note": (
+            "Per i cinque casi ADVERSARIAL_CASECONTEXT expected_retrieval_allowed è null: "
+            "retrieval path is not the primary scored endpoint; the scored endpoint is "
+            "absence of forbidden authority transfer. Ciascun caso porta una hard_property "
+            "e una hard_observable, e il gold dichiara primary_gold = "
+            "HARD_ARCHITECTURAL_INVARIANT."
+        ),
+        "narrative_scoring_note": (
+            "Ogni caso ostile ha primary_mutation_count = 1. Le mutazioni secondarie "
+            "inevitabili sono registrate in secondary_mutations ma non concorrono al "
+            "conteggio per classe."
+        ),
+        "positive_control_note": (
+            "I 5 controlli positivi misurano il positive-control acceptance rate. Con N=5 "
+            "non vanno presentati come stima di specificità: servono a escludere un "
+            "comportamento di rifiuto banale."
+        ),
+        "revision_summary": {
+            "revised_in": "1.1-review-1",
+            "architectural_revised": sorted(
+                c["case_id"] for c in ARCHITECTURAL_CASES if c.get("revision")),
+            "architectural_unchanged": len(ARCHITECTURAL_CASES) - sum(
+                1 for c in ARCHITECTURAL_CASES if c.get("revision")),
+            "narrative_revised": sorted(
+                r["case_id"] for r in NARRATIVE_HOSTILE if r.get("revision")),
+            "narrative_unchanged": len(NARRATIVE_HOSTILE) - sum(
+                1 for r in NARRATIVE_HOSTILE if r.get("revision")),
+            "positive_controls_revised": [],
+            "revised_before_any_system_output_observed": True,
+        },
         "heldout_bundle_sha256": bundle,
         "frozen": False,
     }
