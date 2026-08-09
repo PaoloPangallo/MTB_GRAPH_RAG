@@ -150,8 +150,10 @@ class DocumentCacheTest(TestCase):
 class LiveDocumentResolutionTest(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.runtime = DocumentRuntime.open()
-        cls.associations = kg_retrieval.retrieve(_frozen_case_context(CASE_1))["associations"]
+        # RESEARCH / REGRESSION: cache in sola lettura e corpus congelato.
+        cls.runtime = DocumentRuntime.open_read_only_research()
+        cls.associations = kg_retrieval.retrieve_frozen_bundles(
+            _frozen_case_context(CASE_1))["associations"]
 
     def test_documents_are_resolved_from_the_cache_during_the_run(self) -> None:
         resolution = self.runtime.resolve(self.associations)
@@ -223,12 +225,15 @@ class LiveDocumentResolutionTest(TestCase):
 
 @skipUnless(CACHE_AVAILABLE, CACHE_REASON)
 class LivePaperSelectionTest(TestCase):
+    """RESEARCH / REGRESSION: selezione dai bundle congelati, cache read-only."""
+
     @classmethod
     def setUpClass(cls) -> None:
-        cls.runtime = DocumentRuntime.open()
+        cls.runtime = DocumentRuntime.open_read_only_research()
 
     def _selection(self, case_id: str) -> list[dict]:
-        associations = kg_retrieval.retrieve(_frozen_case_context(case_id))["associations"]
+        associations = kg_retrieval.retrieve_frozen_bundles(
+            _frozen_case_context(case_id))["associations"]
         bundle = self.runtime.load_units(self.runtime.resolve(associations))
         return [select_papers_for_association(a, bundle.units_by_id) for a in associations]
 
@@ -394,7 +399,6 @@ class NoSilentFallbackTest(TestCase):
             "source_units_by_id": {},
             "budget": CallBudget(10),
             "ledger": self.ledger,
-            "execution_mode": em.LIVE,
             "document_runtime": None,
         }
         kwargs.update(overrides)
@@ -481,7 +485,6 @@ class CaseContextMismatchTest(TestCase):
             call_parser_fn=self._mismatched_parser,
             call_enricher_fn=lambda *a, **k: self.fail("Gemma non deve essere chiamato"),
             source_units_by_id={}, budget=CallBudget(10), ledger=self.ledger,
-            execution_mode=em.REPLAY,
         )
 
         self.assertEqual(run.status, "STOPPED")
@@ -494,7 +497,6 @@ class CaseContextMismatchTest(TestCase):
             call_parser_fn=self._mismatched_parser,
             call_enricher_fn=lambda *a, **k: self.fail("Gemma non deve essere chiamato"),
             source_units_by_id={}, budget=CallBudget(10), ledger=self.ledger,
-            execution_mode=em.REPLAY,
         )
         by_id = {s.stage_id: s for s in run.stages}
 

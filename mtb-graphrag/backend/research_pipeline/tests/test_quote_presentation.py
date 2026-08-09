@@ -16,6 +16,7 @@ from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import execution_mode as em
 from backend.research_pipeline import live_providers as lp
 from backend.research_pipeline import orchestrator
+from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.determinism.gates import evaluate_association
 from backend.research_pipeline.dossier import builder
 from backend.research_pipeline.dossier.builder import (
@@ -200,7 +201,8 @@ class EndToEndThroughOrchestrator(unittest.TestCase):
                 validate_fn=lambda t, e, **kw: replay.validation_fn(
                     t, e, case_id=kw["case_id"], paper_id=kw["paper_id"]),
                 source_units_by_id=da.load_source_unit_index(), budget=None,
-                ledger=ledger, execution_mode=em.REPLAY, document_runtime=None)
+                ledger=ledger, research_frozen_artifacts=True,
+                retrieve_fn=retrieval_mod.retrieve_frozen_bundles, document_runtime=None)
 
         dossier_stage = next(s for s in run.stages if s.stage_id == "stage_13_dossier")
         therapies = dossier_stage.output_preview["dossier"]["candidate_therapies"]

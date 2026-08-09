@@ -16,6 +16,7 @@ from backend.research_pipeline import data_access as da
 from backend.research_pipeline import events as ev
 from backend.research_pipeline import execution_mode as em
 from backend.research_pipeline import orchestrator, replay
+from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.cases.definitions import CASES
 from backend.research_pipeline.contracts import (
     LLM_STAGE_IDS, PRESENTATION_STAGE_IDS, STAGE_SEQUENCE,
@@ -41,7 +42,8 @@ def _run(case_id=CASE_ID, **overrides):
             validate_fn=lambda t, e, **kw: replay.validation_fn(
                 t, e, case_id=kw["case_id"], paper_id=kw["paper_id"]),
             source_units_by_id=da.load_source_unit_index(), budget=None,
-            ledger=ledger, execution_mode=em.REPLAY, document_runtime=None,
+            ledger=ledger, research_frozen_artifacts=True,
+            retrieve_fn=retrieval_mod.retrieve_frozen_bundles, document_runtime=None,
         )
         kwargs.update(overrides)
         run = orchestrator.run_case(**kwargs)

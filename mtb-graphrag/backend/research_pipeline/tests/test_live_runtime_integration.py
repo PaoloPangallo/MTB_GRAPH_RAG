@@ -14,6 +14,7 @@ from backend.research_pipeline.documents.live_resolution import (
     resolve_live_documents,
 )
 from backend.research_pipeline.retrieval.kg_retrieval import _live_provenance_bundles
+from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.retrieval.live_sourceunit_selection import (
     select_live_papers_for_association,
 )
@@ -126,14 +127,21 @@ class LiveRuntimeIntegrationTest(TestCase):
             self.assertEqual(0, result.network_fetch_count)
             self.assertEqual("CACHE_HIT", result.documents[0].lineage["retrieval_mode"])
 
-    def test_live_runtime_cache_miss_has_no_replay_origin(self) -> None:
+    def test_canonical_cache_miss_has_no_replay_origin(self) -> None:
         result = _resolution(cache_hit=False)
         self.assertEqual(1, result.network_fetch_count)
         self.assertNotEqual("RECORDED_REAL_RUN", result.documents[0].lineage["retrieval_mode"])
 
 
-class ModeSpecificRuntimeBoundaryTest(TestCase):
-    """Behavioral replacement for the pre-selector runtime blacklist."""
+class CanonicalVsResearchBoundaryTest(TestCase):
+    """Confine fra runtime canonico e infrastruttura di riproduzione storica.
+
+    Il primo test descrive il **solo percorso operativo**: selettore
+    deterministico, nessun ``source_unit_id`` congelato letto. Il secondo e il
+    quarto sono RESEARCH / REGRESSION: dimostrano che il percorso storico, quando
+    un harness lo inietta esplicitamente, continua a non toccare la rete e a non
+    usare il selettore canonico. Non definiscono l'architettura del runtime.
+    """
 
     def _live_run(self):
         from backend.pipeline.agentic.ledger import EventLedger
@@ -195,12 +203,12 @@ class ModeSpecificRuntimeBoundaryTest(TestCase):
                 call_parser_fn=parser, call_enricher_fn=enricher,
                 source_units_by_id={}, budget=CallBudget(3),
                 ledger=EventLedger(Path(tmp) / "live.sqlite3"),
-                execution_mode=em.LIVE, document_runtime=FakeRuntime(),
+                document_runtime=FakeRuntime(),
                 validate_fn=validate,
             )
         return run, selector_call
 
-    def test_live_calls_selector_without_frozen_bundle_units(self) -> None:
+    def test_canonical_run_calls_selector_without_frozen_bundle_units(self) -> None:
         run, selector_call = self._live_run()
         selection_stage = next(stage for stage in run.stages if stage.stage_id == "stage_8_paper_selection")
         selection = selection_stage.output_preview["selections"][0]
@@ -209,7 +217,7 @@ class ModeSpecificRuntimeBoundaryTest(TestCase):
         self.assertFalse(selection["bundle_source_unit_ids_used"])
         self.assertEqual([], selection["selected_papers"][0]["source_unit_ids"])
 
-    def test_replay_uses_frozen_bundle_without_live_selector_or_network(self) -> None:
+    def test_research_replay_uses_frozen_bundle_without_selector_or_network(self) -> None:
         from backend.pipeline.agentic.ledger import EventLedger
         from backend.research_pipeline import execution_mode as em, orchestrator, replay
         from backend.research_pipeline import data_access as da
@@ -221,14 +229,15 @@ class ModeSpecificRuntimeBoundaryTest(TestCase):
         clinical_text = next(row["clinical_text"] for row in CASES if row["case_id"] == case_id)
         with TemporaryDirectory() as tmp, patch.object(
             orchestrator, "select_live_papers_for_association",
-            side_effect=AssertionError("LIVE selector called during REPLAY"),
+            side_effect=AssertionError("canonical selector called during frozen research replay"),
         ):
             run = orchestrator.run_case(
                 case_id=case_id, clinical_text=clinical_text,
                 call_parser_fn=replay.parser_fn, call_enricher_fn=replay.enricher_fn,
                 source_units_by_id=da.load_source_unit_index(), budget=CallBudget(3),
                 ledger=EventLedger(Path(tmp) / "replay.sqlite3"),
-                execution_mode=em.REPLAY,
+                research_frozen_artifacts=True,
+                retrieve_fn=retrieval_mod.retrieve_frozen_bundles,
                 select_papers_fn=lambda association, units, **kw: replay.selection_fn(
                     association, units, case_id=kw["case_id"]),
                 validate_fn=lambda transport, enrichment, **kw: replay.validation_fn(
@@ -245,7 +254,7 @@ class ModeSpecificRuntimeBoundaryTest(TestCase):
         ))
         self.assertEqual(0, 0, "REPLAY has no DocumentRuntime and therefore no network fetch path")
 
-    def test_live_cache_miss_invokes_authorized_acquisition_not_replay(self) -> None:
+    def test_canonical_cache_miss_invokes_authorized_acquisition_not_replay(self) -> None:
         calls = []
 
         class TrackingCache:
@@ -282,7 +291,7 @@ class ModeSpecificRuntimeBoundaryTest(TestCase):
         self.assertEqual("LIVE_FETCH", result.documents[0].lineage["retrieval_mode"])
         self.assertNotEqual("RECORDED_REAL_RUN", result.documents[0].lineage["retrieval_mode"])
 
-    def test_replay_cache_adapter_rejects_network_access(self) -> None:
+    def test_research_replay_cache_adapter_rejects_network_access(self) -> None:
         from backend.research_pipeline.documents.cache_runtime import CacheIsReadOnly, ReadOnlyDocumentCache
 
         cache = ReadOnlyDocumentCache(Path("replay-cache"))
