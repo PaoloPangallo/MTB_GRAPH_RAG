@@ -30,24 +30,6 @@
       "count": 1
     },
     {
-      "heldout": "HO-INC-02-missing-biomarker",
-      "corpus": "CASECONTEXT_ROBUSTNESS_35",
-      "dev_case": "A4-contradicted-or-resistance",
-      "shared_5grams": [
-        "the oncology team is evaluating"
-      ],
-      "count": 1
-    },
-    {
-      "heldout": "HO-INC-02-missing-biomarker",
-      "corpus": "END_TO_END_PIPELINE_PILOT_5",
-      "dev_case": "CASE-4-contradicted-or-resistance",
-      "shared_5grams": [
-        "the oncology team is evaluating"
-      ],
-      "count": 1
-    },
-    {
       "heldout": "HO-NEG-01-pdac-idh1-ivosidenib",
       "corpus": "CASECONTEXT_ROBUSTNESS_35",
       "dev_case": "B1-no-disease",
@@ -85,24 +67,6 @@
       "dev_case": "B1-no-disease",
       "shared_5grams": [
         "mutation the team is evaluating"
-      ],
-      "count": 1
-    },
-    {
-      "heldout": "HO-INC-02-missing-biomarker",
-      "corpus": "CASECONTEXT_ROBUSTNESS_35",
-      "dev_case": "A4-contradicted-or-resistance",
-      "shared_5grams": [
-        "the oncology team is evaluating"
-      ],
-      "count": 1
-    },
-    {
-      "heldout": "HO-INC-02-missing-biomarker",
-      "corpus": "END_TO_END_PIPELINE_PILOT_5",
-      "dev_case": "CASE-4-contradicted-or-resistance",
-      "shared_5grams": [
-        "the oncology team is evaluating"
       ],
       "count": 1
     },
