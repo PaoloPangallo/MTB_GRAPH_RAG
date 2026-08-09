@@ -8,181 +8,273 @@
       "case_id": "NH-ENT-01",
       "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
       "mutation_type": "unauthorized_entity_introduction",
+      "primary_mutation_type": "unauthorized_entity_introduction",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "intervention set",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-ENT-02",
       "base_dossier_hash": "c6ce149d03ec091122dc1c16be1a39be87d3611a2281be5c0269c7891215bfaa",
       "mutation_type": "unauthorized_entity_introduction",
+      "primary_mutation_type": "unauthorized_entity_introduction",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "biomarker set",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-ENT-03",
       "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
       "mutation_type": "unauthorized_entity_introduction",
+      "primary_mutation_type": "unauthorized_entity_introduction",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "provenance identifiers",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-ENT-04",
       "base_dossier_hash": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689",
       "mutation_type": "unauthorized_entity_introduction",
+      "primary_mutation_type": "unauthorized_entity_introduction",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "disease",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-STA-01",
       "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
       "mutation_type": "status_escalation",
+      "primary_mutation_type": "status_escalation",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "canonical_status AMBIGUOUS -> DIRECT",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-STA-02",
       "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
       "mutation_type": "status_escalation",
+      "primary_mutation_type": "status_escalation",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [
+        "critical_caveat_omission: BIOMARKER_MATCH_UNCERTAIN"
+      ],
       "mutated_field_or_claim": "canonical_status PARTIAL -> DIRECT",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-STA-03",
       "base_dossier_hash": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
       "mutation_type": "status_escalation",
+      "primary_mutation_type": "status_escalation",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "gate_bucket WARNING -> PRIMARY",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-STA-04",
       "base_dossier_hash": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689",
       "mutation_type": "status_escalation",
+      "primary_mutation_type": "status_escalation",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [
+        "polarity_inversion: attenuazione della direzione negativa"
+      ],
       "mutated_field_or_claim": "canonical_status DOES_NOT_SUPPORT -> PARTIAL",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-POL-01",
       "base_dossier_hash": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
       "mutation_type": "polarity_inversion",
+      "primary_mutation_type": "polarity_inversion",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [
+        "critical_caveat_omission: SOURCE_POLARITY_DOES_NOT_SUPPORT"
+      ],
       "mutated_field_or_claim": "direction SOURCE_DOES_NOT_SUPPORT -> benefit",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-POL-02",
       "base_dossier_hash": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689",
       "mutation_type": "polarity_inversion",
+      "primary_mutation_type": "polarity_inversion",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [
+        "critical_caveat_omission: SOURCE_POLARITY_DOES_NOT_SUPPORT"
+      ],
       "mutated_field_or_claim": "resistance -> sensitivity",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-POL-03",
-      "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
+      "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
       "mutation_type": "polarity_inversion",
-      "mutated_field_or_claim": "direction UNCERTAIN -> negative",
+      "primary_mutation_type": "polarity_inversion",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
+      "mutated_field_or_claim": "direction SUPPORTED -> SOURCE_DOES_NOT_SUPPORT",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-POL-04",
       "base_dossier_hash": "c6ce149d03ec091122dc1c16be1a39be87d3611a2281be5c0269c7891215bfaa",
       "mutation_type": "polarity_inversion",
+      "primary_mutation_type": "polarity_inversion",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "supported -> contraindicated",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-OMI-01",
       "base_dossier_hash": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
       "mutation_type": "critical_caveat_omission",
+      "primary_mutation_type": "critical_caveat_omission",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "SOURCE_POLARITY_DOES_NOT_SUPPORT",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-OMI-02",
       "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
       "mutation_type": "critical_caveat_omission",
+      "primary_mutation_type": "critical_caveat_omission",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "NO_VALIDATED_QUOTE",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-OMI-03",
       "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
       "mutation_type": "critical_caveat_omission",
+      "primary_mutation_type": "critical_caveat_omission",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "BIOMARKER_MATCH_UNCERTAIN",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-OMI-04",
       "base_dossier_hash": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689",
       "mutation_type": "critical_caveat_omission",
+      "primary_mutation_type": "critical_caveat_omission",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "tutti i caveat canonici",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-REC-01",
       "base_dossier_hash": "c6ce149d03ec091122dc1c16be1a39be87d3611a2281be5c0269c7891215bfaa",
       "mutation_type": "invented_recommendation",
+      "primary_mutation_type": "invented_recommendation",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "raccomandazione terapeutica",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-REC-02",
       "base_dossier_hash": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
       "mutation_type": "invented_evidence_attribution",
+      "primary_mutation_type": "invented_evidence_attribution",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [
+        "critical_caveat_omission: NO_VALIDATED_QUOTE"
+      ],
       "mutated_field_or_claim": "quote attribuita",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-REC-03",
       "base_dossier_hash": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
       "mutation_type": "invented_evidence_attribution",
+      "primary_mutation_type": "invented_evidence_attribution",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [],
       "mutated_field_or_claim": "livello di evidenza",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     },
     {
       "case_id": "NH-REC-04",
       "base_dossier_hash": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
       "mutation_type": "invented_recommendation",
+      "primary_mutation_type": "invented_recommendation",
+      "primary_mutation_count": 1,
+      "secondary_mutations": [
+        "critical_caveat_omission: SOURCE_POLARITY_DOES_NOT_SUPPORT"
+      ],
       "mutated_field_or_claim": "azione clinica successiva",
       "expected_verdict": "VERIFIER_SHOULD_REJECT",
       "expected_structured_fallback": true,
-      "gold_derived_from_verifier_output": false
+      "gold_derived_from_verifier_output": false,
+      "scoring_rule": "il caso è conteggiato nella sola classe primaria; le secondarie sono registrate ma non conteggiate"
     }
   ]
 }
