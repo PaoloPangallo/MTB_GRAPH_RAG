@@ -23,7 +23,10 @@ from uuid import uuid4
 from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import data_access as da
 from backend.research_pipeline import execution_mode as em
-from backend.research_pipeline import orchestrator, rehydration, replay
+# ``replay`` non compare fra gli import di proposito: il ``RunStore`` non deve
+# avere alcun modo di raggiungere gli adattatori congelati. Sono infrastruttura
+# di ricerca, iniettabile solo da un harness che chiami ``orchestrator.run_case``.
+from backend.research_pipeline import orchestrator, rehydration
 from backend.research_pipeline.cases.definitions import CASES
 from backend.research_pipeline.contracts import PipelineRun
 from backend.research_pipeline.documents import cache_runtime
@@ -56,7 +59,10 @@ class RunHandle:
     case_id: str
     status: str
     started_at: str
-    requested_mode: str = em.LIVE
+    #: Etichetta della run. Costante: il ``RunStore`` esegue un solo runtime.
+    #: Resta un campo, e non una costante inlineata, perché viaggia nello
+    #: snapshot letto dalla UI e dalle run storiche reidratate dal ledger.
+    requested_mode: str = em.CANONICAL_MODE
     run: PipelineRun | None = None
     error: str | None = None
     error_reason_code: str | None = None
@@ -135,24 +141,26 @@ class RunStore:
                 rows.append(summary)
         return rows
 
-    def start(self, *, case_id: str, clinical_text: str, execution_mode: str) -> RunHandle:
-        """Avvia una run nella modalitÃ  **richiesta esplicitamente**.
+    def start(self, *, case_id: str, clinical_text: str) -> RunHandle:
+        """Avvia una run del runtime canonico. Non esiste altro da avviare.
 
-        Non esiste piÃ¹ un ``use_replay`` dedotto dalla presenza di artefatti
-        congelati per il caso: era il fallback silenzioso. Una modalitÃ 
-        sconosciuta solleva invece di ripiegare su un default.
+        Il parametro ``execution_mode`` e' stato rimosso: non c'e' piu' una
+        scelta da propagare. Prima di lui c'era un ``use_replay`` dedotto dalla
+        presenza di artefatti congelati per il caso -- il fallback silenzioso --
+        e sostituirlo con una scelta esplicita del chiamante ne aveva reso
+        visibile il costo senza rimuoverlo. Ora il costo non c'e': il
+        ``RunStore`` esegue un solo percorso e non ha nulla da dedurre.
         """
-        mode = em.normalize_requested_mode(execution_mode)
         run_id = str(uuid4())
         handle = RunHandle(
             run_id=run_id, case_id=case_id, status="CREATED",
-            started_at=datetime.now(timezone.utc).isoformat(), requested_mode=mode,
+            started_at=datetime.now(timezone.utc).isoformat(),
         )
         with self._lock:
             self._runs[run_id] = handle
 
         thread = threading.Thread(
-            target=self._execute, args=(handle, clinical_text, mode),
+            target=self._execute, args=(handle, clinical_text),
             name=f"research-run-{run_id[:8]}", daemon=True,
         )
         handle.thread = thread
@@ -160,54 +168,53 @@ class RunStore:
         thread.start()
         return handle
 
-    def _execute(self, handle: RunHandle, clinical_text: str, mode: str) -> None:
+    def _execute(self, handle: RunHandle, clinical_text: str) -> None:
         try:
-            kwargs = self._providers(mode)
-            document_runtime = DocumentRuntime.open_live() if mode == em.LIVE else None
-            # In REPLAY l'indice delle SourceUnit fornisce locatori, sezione,
-            # offset e ``content_hash`` â€” mai il testo. In LIVE le unitÃ  con
-            # testo arrivano da ``DocumentRuntime`` e questo argomento non viene
-            # usato per alcuna decisione.
+            # Cache-first con acquisizione autorizzata sul miss: e' l'unica cache
+            # che il runtime canonico apre, e la apre sempre.
+            document_runtime = DocumentRuntime.open()
+            # L'indice delle SourceUnit congelate resta passato per compatibilita'
+            # di firma: nel percorso canonico le unita' con testo arrivano da
+            # ``DocumentRuntime`` e questo argomento non entra in alcuna decisione.
             handle.run = orchestrator.run_case(
                 case_id=handle.case_id, clinical_text=clinical_text,
                 source_units_by_id=da.load_source_unit_index(),
                 budget=CallBudget(MAX_LLM_CALLS_PER_RUN),
                 ledger=self._ledger, run_id=handle.run_id,
-                execution_mode=mode, document_runtime=document_runtime, **kwargs,
+                document_runtime=document_runtime, **self._canonical_providers(),
             )
             handle.status = handle.run.status
         except cache_runtime.DocumentCacheUnavailable as exc:
-            # La cache manca: la run LIVE non parte e **non** ripiega sul replay.
+            # La cache manca: la run non parte e **non** ripiega sul replay.
             handle.status = "FAILED"
             handle.error = str(exc)
             handle.error_reason_code = "DOCUMENT_CACHE_UNAVAILABLE"
-        except Exception as exc:  # noqa: BLE001 â€” l'errore deve restare visibile
+        except Exception as exc:  # noqa: BLE001 -- l'errore deve restare visibile
             # Un errore non diventa mai un risultato: la run resta FAILED e il
-            # messaggio Ã¨ esposto, invece di essere confuso con un'astensione.
+            # messaggio e' esposto, invece di essere confuso con un'astensione.
             handle.status = "FAILED"
             handle.error = f"{type(exc).__name__}: {exc}"
-            handle.error_reason_code = "LIVE_STAGE_FAILED" if handle.requested_mode == em.LIVE else "RUN_FAILED"
+            # ``LIVE_STAGE_FAILED`` e' un nome interno ereditato, conservato per
+            # non riscrivere contratti, UI e scorecard gia' prodotti. Nella nuova
+            # architettura il concetto si chiama PIPELINE_ABORT.
+            handle.error_reason_code = "LIVE_STAGE_FAILED"
 
     @staticmethod
-    def _providers(mode: str) -> dict[str, Callable[..., Any]]:
-        if mode == em.LIVE:
-            # Percorso live: parser ed enricher chiamano davvero il modello,
-            # spendono il budget e la validazione passa dal validatore v2.
-            from backend.research_pipeline import live_providers
+    def _canonical_providers() -> dict[str, Callable[..., Any]]:
+        """Gli unici provider del runtime operativo.
 
-            return {
-                "call_parser_fn": live_providers.parser_fn,
-                "call_enricher_fn": live_providers.enricher_fn,
-                "validate_fn": live_providers.validate_fn,
-                "call_narrator_fn": live_providers.narrator_fn,
-            }
+        Parser ed enricher chiamano davvero il modello, spendono il budget e la
+        validazione passa dal validatore v2. Gli adattatori congelati di
+        ``replay.py`` non sono raggiungibili da qui: sono infrastruttura di
+        ricerca e vanno iniettati esplicitamente in ``orchestrator.run_case``.
+        """
+        from backend.research_pipeline import live_providers
+
         return {
-            "call_parser_fn": replay.parser_fn,
-            "call_enricher_fn": replay.enricher_fn,
-            "select_papers_fn": lambda a, u, **kw: replay.selection_fn(a, u, case_id=kw["case_id"]),
-            "validate_fn": lambda t, e, **kw: replay.validation_fn(
-                t, e, case_id=kw["case_id"], paper_id=kw["paper_id"]),
-            "call_narrator_fn": replay.narrator_fn,
+            "call_parser_fn": live_providers.parser_fn,
+            "call_enricher_fn": live_providers.enricher_fn,
+            "validate_fn": live_providers.validate_fn,
+            "call_narrator_fn": live_providers.narrator_fn,
         }
 
 
@@ -238,7 +245,6 @@ def demo_cases() -> list[dict[str, Any]]:
             "clinical_text": case["clinical_text"],
             "expected_query_intent": case.get("expected_query_intent"),
             "expected_result": case.get("expected_result"),
-            "frozen_artifacts_available": replay.has_frozen_case(case["case_id"]),
         }
         for case in CASES
     ]

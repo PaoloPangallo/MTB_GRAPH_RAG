@@ -13,12 +13,20 @@ sugli stessi input.
 
 Nessun calcolo di status, gate, bucket o score avviene in questo modulo.
 
-**Modalità di esecuzione.** Ogni stage dichiara la propria ``artifact_origin``, e
-la modalità della run è derivata da quelle: vedi ``execution_mode.py``. Gli stage
-6 e 7 marcavano ``replayed: true`` in modo incondizionato, anche quando la cache
-era disponibile e la risoluzione sarebbe stata possibile; ora la risoluzione
-avviene davvero, oppure la run fallisce dicendo perché. In nessun punto un
-fallimento LIVE viene sostituito da un artefatto registrato.
+**Un solo percorso operativo.** I default di ``run_case`` sono il runtime
+canonico: retrieval dalle provenance della GCA, risoluzione documentale
+cache-first con acquisizione autorizzata sul miss, parsing reale, SourceUnit
+Selector deterministico con K=5. Non esiste più una stringa di modalità che
+scelga fra due percorsi; ciò che può cambiare il comportamento è soltanto ciò
+che un harness di ricerca **inietta esplicitamente**, e l'iniezione è visibile
+nella chiamata.
+
+Ogni stage dichiara comunque la propria ``artifact_origin``, e l'etichetta della
+run è derivata da quelle: vedi ``execution_mode.py``. Gli stage 6 e 7 marcavano
+``replayed: true`` in modo incondizionato, anche quando la cache era disponibile
+e la risoluzione sarebbe stata possibile; ora la risoluzione avviene davvero,
+oppure la run fallisce dicendo perché. In nessun punto un fallimento del runtime
+canonico viene sostituito da un artefatto registrato.
 """
 
 from __future__ import annotations
@@ -281,28 +289,44 @@ def run_case(
     run_id: str | None = None,
     select_papers_fn: Callable[..., dict[str, Any]] | None = None,
     validate_fn: Callable[..., dict[str, Any]] | None = None,
-    execution_mode: str = em.LIVE,
+    retrieve_fn: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
+    research_frozen_artifacts: bool = False,
     document_runtime: DocumentRuntime | None = None,
     call_narrator_fn: Callable[..., dict[str, Any]] | None = None,
     verify_narrative_fn: Callable[..., dict[str, Any]] | None = None,
 ) -> PipelineRun:
     """Esegue un caso emettendo un evento per ogni transizione di stage.
 
-    ``execution_mode`` è un **input obbligatorio nel significato**, non una
-    deduzione: il runtime precedente sceglieva replay quando esistevano artefatti
-    congelati per il caso, e quella scelta implicita era il fallback silenzioso.
+    **Un solo percorso operativo.** Non esiste più un parametro ``execution_mode``
+    che scelga fra due modalità: i default di questa funzione *sono* il runtime
+    canonico — retrieval dalle provenance della GCA, risoluzione documentale
+    cache-first con API autorizzate sul miss, parsing reale, SourceUnit Selector
+    deterministico con K=5. Il runtime precedente sceglieva replay quando
+    esistevano artefatti congelati per il caso, e quella scelta implicita era il
+    fallback silenzioso rimosso.
 
-    ``document_runtime`` è la cache aperta in sola lettura. In modalità LIVE è
+    ``document_runtime`` è la cache aperta per la run. Nel percorso canonico è
     obbligatorio: senza, gli stage 6-7 non possono essere eseguiti e la run
     fallisce con ``DOCUMENT_CACHE_UNAVAILABLE`` invece di rigiocare artefatti.
 
-    ``select_papers_fn`` e ``validate_fn`` restano punti di iniezione per il
-    replay esplicito. I default eseguono la logica reale.
+    ``research_frozen_artifacts`` è **infrastruttura di ricerca e regressione**,
+    non una modalità utente. Vale ``False`` per definizione in ogni percorso
+    raggiungibile dall'API, dal ``RunStore`` e dalla console clinica; solo un
+    harness che voglia riprodurre gli esperimenti storici lo alza, insieme agli
+    adattatori congelati (``retrieve_fn``, ``select_papers_fn``, ``validate_fn``,
+    ``call_parser_fn``, ``call_enricher_fn``, ``call_narrator_fn``). Nessuna
+    stringa di modalità governa più nulla: ciò che cambia il comportamento è ciò
+    che il chiamante inietta, e l'iniezione è visibile nella chiamata.
+
+    ``retrieve_fn`` è il punto di iniezione dello stage 5. Il default risolve
+    ``retrieval_mod.retrieve`` **al momento della chiamata**, così le probe che
+    sostituiscono quell'attributo continuano a intercettarlo.
     """
-    is_live = execution_mode == em.LIVE
+    canonical = not research_frozen_artifacts
+    retrieve = retrieve_fn or retrieval_mod.retrieve
     if select_papers_fn is not None:
         select_papers = select_papers_fn
-    elif is_live:
+    elif canonical:
         select_papers = lambda association, units, **kw: select_live_papers_for_association(
             association, units, resolution=kw["resolution"], top_k=5,
         )
@@ -315,9 +339,13 @@ def run_case(
             source_units_by_id=kw["source_units_by_id"], requested_drug=kw["requested_drug"],
         )
     )
+    #: Etichetta registrata per questa run. Deriva dal solo fatto che conta —
+    #: se il chiamante ha chiesto artefatti congelati — e non da un parametro
+    #: separato che potrebbe contraddirlo.
+    execution_mode = em.RESEARCH_FROZEN_MODE if research_frozen_artifacts else em.CANONICAL_MODE
     #: Origine degli stage il cui risultato arriva da un artefatto registrato.
-    #: In LIVE non esistono: ogni stage o viene eseguito o fallisce.
-    replay_origin = em.RECORDED_REAL_RUN if not is_live else em.GENERATED_NOW
+    #: Nel runtime canonico non esistono: ogni stage o viene eseguito o fallisce.
+    replay_origin = em.GENERATED_NOW if canonical else em.RECORDED_REAL_RUN
 
     run_id = run_id or str(uuid4())
     cache_descriptor = dict(document_runtime.descriptor) if document_runtime else {
@@ -363,7 +391,7 @@ def run_case(
                         artifact_origin=em.NOT_EXECUTED,
                         reason_codes=(failure.reason_code,), errors=(failure.detail,))
         return _finalize("FAILED", "LIVE_STAGE_FAILED")
-    if is_live:
+    if canonical:
         llm_calls += 1
 
     parser_producer = StageProducer(
@@ -460,8 +488,10 @@ def run_case(
 
     p = _deterministic("kg_retrieval")
     recorder.start("stage_5_kg_retrieval", p)
-    retrieval_result = (retrieval_mod.retrieve(case_context, document_mode=execution_mode)
-                       if is_live else retrieval_mod.retrieve(case_context))
+    # Un solo retrieval, senza parametro di modalità: le candidate ammesse sono
+    # quelle con provenance documentale, e i descrittori dei documenti nascono da
+    # quella provenance. Un harness storico passa il proprio ``retrieve_fn``.
+    retrieval_result = retrieve(case_context)
     redacted = redact_retrieval_result(retrieval_result)
     retrieval_preview = {
         "graph_derived": True,
@@ -488,7 +518,7 @@ def run_case(
     p = _deterministic("document_resolution")
     recorder.start("stage_6_document_resolution", p)
 
-    if is_live and document_runtime is None:
+    if canonical and document_runtime is None:
         recorder.finish("stage_6_document_resolution", p, status="FAILED",
                         artifact_origin=em.NOT_EXECUTED,
                         reason_codes=("DOCUMENT_CACHE_UNAVAILABLE",),
@@ -501,7 +531,7 @@ def run_case(
         resolution = document_runtime.resolve(retrieval_result["associations"])
         resolution_preview = {**cache_descriptor, **resolution.to_preview()}
         resolved_any = any(doc.resolved for doc in resolution.documents)
-        if is_live and not resolved_any:
+        if canonical and not resolved_any:
             recorder.finish("stage_6_document_resolution", p, status="FAILED",
                             artifact_origin=em.DETERMINISTIC_CACHE,
                             reason_codes=("NO_DOCUMENT_RESOLVED", "DOCUMENT_UNAVAILABLE"),
@@ -570,7 +600,7 @@ def run_case(
     # tiene nella struttura dati, non al momento della serializzazione.
     p = _deterministic("source_units")
     recorder.start("stage_7_source_units", p)
-    requested_unit_ids = None if is_live else sorted({
+    requested_unit_ids = None if canonical else sorted({
         uid for association in retrieval_result["associations"]
         for bundle in association["available_bundles"]
         for uid in bundle.get("source_unit_ids", [])
@@ -599,9 +629,9 @@ def run_case(
         recorder.emit_domain_event(
             ev.SOURCE_UNITS_PARSED, "stage_7_source_units", _deterministic("document_parser"),
             documents_parsed=bundle_units.documents_parsed, source_unit_count=len(bundle_units.units_by_id),
-            with_exact_text=with_text, parser_mode="LIVE" if is_live else "CACHE",
+            with_exact_text=with_text, parser_mode="CANONICAL" if canonical else "CACHE",
         )
-        if is_live and not with_text:
+        if canonical and not with_text:
             return _finalize("FAILED", "PARSER_FAILED")
     else:
         units_for_decisions = dict(source_units_by_id)
@@ -627,8 +657,12 @@ def run_case(
         recorder.emit_domain_event(
             ev.SOURCEUNIT_SELECTION_STARTED, "stage_8_paper_selection",
             _deterministic("sourceunit_selector"), candidate_id=association["candidate_id"],
-            selection_mode="LIVE_SELECTOR" if is_live else "FROZEN_BUNDLE",
-            top_k=5 if is_live else None, bundle_source_unit_ids_used=not is_live,
+            # ``DETERMINISTIC_SELECTOR`` sostituisce ``LIVE_SELECTOR``: il selettore
+            # non è più una delle due modalità, è il solo modo in cui il runtime
+            # canonico sceglie i passaggi. ``FROZEN_BUNDLE`` resta per gli harness
+            # storici, dove descrive ancora esattamente ciò che accade.
+            selection_mode="DETERMINISTIC_SELECTOR" if canonical else "FROZEN_BUNDLE",
+            top_k=5 if canonical else None, bundle_source_unit_ids_used=not canonical,
         )
         selection = select_papers(
             association, dict(units_for_decisions), case_id=case_id,
@@ -638,7 +672,7 @@ def run_case(
         recorder.emit_domain_event(
             ev.SOURCEUNIT_SELECTION_COMPLETED, "stage_8_paper_selection",
             _deterministic("sourceunit_selector"), candidate_id=association["candidate_id"],
-            selection_mode="LIVE_SELECTOR" if is_live else "FROZEN_BUNDLE",
+            selection_mode="DETERMINISTIC_SELECTOR" if canonical else "FROZEN_BUNDLE",
             selected_papers=[{
                 "bundle_id": paper.get("bundle_id"),
                 "document_id": paper.get("document_id"),
@@ -647,9 +681,9 @@ def run_case(
             } for paper in selection.get("selected_papers", [])],
             bundle_source_unit_ids_used=bool(
                 any(paper.get("source_unit_ids") for paper in selection.get("selected_papers", []))
-            ) if is_live else True,
+            ) if canonical else True,
         )
-        if is_live and association.get("available_bundles") and not selection.get("selected_papers"):
+        if canonical and association.get("available_bundles") and not selection.get("selected_papers"):
             selection_failed = True
         candidate = association["candidate"]
 
@@ -666,7 +700,7 @@ def run_case(
             try:
                 call = call_enricher_fn(
                     budget, case_id, candidate["candidate_id"],
-                    paper["document_id"] if is_live else paper["bundle_id"], case_context,
+                    paper["document_id"] if canonical else paper["bundle_id"], case_context,
                     {"candidate_id": candidate["candidate_id"], "disease": candidate.get("disease"),
                      "biomarkers": candidate.get("biomarkers")},
                     requested_drug, paper_units,
@@ -689,7 +723,7 @@ def run_case(
                                 output_preview={"calls": enrichment_calls,
                                                 "failed_paper_id": paper["bundle_id"]})
                 return _finalize("FAILED", "LIVE_STAGE_FAILED")
-            if is_live:
+            if canonical:
                 llm_calls += 1
             enrichment_calls.append(call)
 
@@ -697,7 +731,7 @@ def run_case(
                 call["transport_result"], call["enrichment"], candidate=candidate,
                 paper_bundle=paper, source_units_by_id=dict(units_for_decisions),
                 requested_drug=requested_drug, case_id=case_id,
-                paper_id=paper["document_id"] if is_live else paper["bundle_id"],
+                paper_id=paper["document_id"] if canonical else paper["bundle_id"],
             )
             validations.append({"candidate_id": candidate["candidate_id"],
                                 "paper_id": paper["bundle_id"], **validation})
@@ -733,7 +767,7 @@ def run_case(
             evaluation=evaluation,
         ))
 
-    if is_live and selection_failed:
+    if canonical and selection_failed:
         p = _deterministic("paper_selection")
         recorder.start("stage_8_paper_selection", p)
         recorder.finish(
@@ -751,7 +785,7 @@ def run_case(
                     domain_event=ev.PAPER_SELECTED,
                     output_preview={"selections": selections,
                                     "max_papers_per_association": 2,
-                                    "max_source_units_per_paper": 5 if is_live else 4,
+                                    "max_source_units_per_paper": 5 if canonical else 4,
                                     "recomputed_during_run": select_papers_fn is None})
 
     enricher_producer = StageProducer(
@@ -774,7 +808,7 @@ def run_case(
                     # davvero raggiunto il modello. In REPLAY la seconda è zero,
                     # e chiamarle entrambe "llm_calls" le rendeva indistinguibili.
                     metrics={"enricher_calls": len(enrichment_calls),
-                             "real_llm_calls": len(enrichment_calls) if is_live else 0,
+                             "real_llm_calls": len(enrichment_calls) if canonical else 0,
                              "retries": sum(int(c.get("retry_count") or 0) for c in enrichment_calls)})
 
     p = _deterministic("enrichment_validator")
@@ -828,7 +862,7 @@ def run_case(
          "warnings": list(match_warnings)},
         candidate_therapies,
         limitations=["research_only_pilot",
-                     "live_document_resolution_cache_first" if is_live else "no_new_document_fetched",
+                     "live_document_resolution_cache_first" if canonical else "no_new_document_fetched",
                      "gemma_used_only_as_enricher"],
     )
     # Il dossier completo, non solo i conteggi: ``GET /runs/{id}/dossier`` legge
@@ -847,14 +881,14 @@ def run_case(
     # presentazione e non può modificarlo. Un fallimento qui non invalida la run
     # — attiva il fallback strutturato — perché la narrativa non è evidenza.
     _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
-                        verify_narrative_fn, is_live, replay_origin)
+                        verify_narrative_fn, canonical, replay_origin)
 
     has_warning = any(stage.status == "WARNING" for stage in recorder.stages)
     return _finalize("PARTIAL" if has_warning else "COMPLETED", None, dossier_id=case_id)
 
 
 def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
-                        verify_narrative_fn, is_live, replay_origin) -> None:
+                        verify_narrative_fn, canonical, replay_origin) -> None:
     """Stage 14 e 15. Separati dallo stage 13 in modo osservabile.
 
     L'ordine è il contratto: il dossier canonico è già stato costruito ed emesso
@@ -901,7 +935,7 @@ def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
     recorder.finish(
         "stage_14_narrator", narrator_producer,
         status="SUCCEEDED" if transport_ok else "WARNING",
-        artifact_origin=(em.GENERATED_NOW if is_live else replay_origin) if call else em.NOT_EXECUTED,
+        artifact_origin=(em.GENERATED_NOW if canonical else replay_origin) if call else em.NOT_EXECUTED,
         domain_event=ev.NARRATION_GENERATED if transport_ok else None,
         reason_codes=narration_reasons,
         output_preview={
@@ -915,7 +949,7 @@ def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
                  "input_tokens": (call or {}).get("input_tokens"),
                  "output_tokens": (call or {}).get("output_tokens"),
                  "retry_count": (call or {}).get("retry_count"),
-                 "real_llm_calls": 1 if (call and is_live) else 0},
+                 "real_llm_calls": 1 if (call and canonical) else 0},
     )
 
     # --- STAGE 15: verifica (DETERMINISTICO) --------------------------------

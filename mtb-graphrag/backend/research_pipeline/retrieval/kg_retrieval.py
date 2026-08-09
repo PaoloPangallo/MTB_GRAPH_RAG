@@ -5,11 +5,25 @@ The "KG" queried here is the already-materialized, static
 `GraphCandidateAssertion` repository (benchmarks/mtb_evidence/
 document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl) --
 see docs/end_to_end_pipeline_pilot/current_component_audit.md for why a live
-Neo4j query was out of scope for this research-only pilot. Retrieval is
-additionally restricted to candidates that already have at least one of the
-25 frozen, already-cached EvidenceBundle (benchmarks/mtb_evidence/
-document_grounded_claims/evidence_bundle/evidence_bundles.jsonl) so that no
-new document is ever fetched.
+Neo4j query was out of scope for this research-only pilot.
+
+Due funzioni pubbliche, con ruoli che non vanno confusi:
+
+``retrieve``
+    Retrieval **canonico**, l'unico del runtime operativo. Ammette le candidate
+    che portano un ``document_identifier`` e ne deriva i descrittori documentali
+    dalla provenance della GCA. Nessun bundle congelato viene consultato.
+
+``retrieve_frozen_bundles``
+    RESEARCH / REGRESSION ONLY. Restringe il retrieval alle candidate che
+    possiedono uno dei 25 EvidenceBundle congelati (benchmarks/mtb_evidence/
+    document_grounded_claims/evidence_bundle/evidence_bundles.jsonl), così che
+    nessun documento nuovo venga mai richiesto. Serve a riprodurre gli
+    esperimenti storici e non è raggiungibile dall'API né dalla console.
+
+La restrizione ai 25 bundle era il comportamento **di default** della vecchia
+firma ``retrieve(case_context, document_mode="REPLAY")``. Ora è un'altra
+funzione, con un altro nome, che nessun percorso operativo chiama.
 """
 from __future__ import annotations
 
@@ -31,7 +45,14 @@ MAX_SOURCE_UNITS_PER_DOCUMENT = 4
 
 
 def _live_provenance_bundles(candidate: dict[str, Any]) -> list[dict[str, Any]]:
-    """Build document descriptors from GCA provenance, never from gold units."""
+    """Build document descriptors from GCA provenance, never from gold units.
+
+    Il prefisso ``_live_`` e il prefisso ``live:`` dei ``bundle_id`` prodotti
+    sono nomi interni ereditati: restano invariati di proposito. Il secondo è un
+    **valore di dato** che compare in artefatti e test già prodotti, e cambiarlo
+    romperebbe il confronto forense senza cambiare nulla di sostanziale. Questa
+    è oggi la sola costruzione dei descrittori documentali del runtime canonico.
+    """
     descriptors: list[dict[str, Any]] = []
     seen: set[str] = set()
     for raw in candidate.get("document_identifiers") or []:
@@ -140,15 +161,43 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
     return ok, reasons
 
 
-def retrieve(case_context: dict[str, Any], *, document_mode: str = "REPLAY") -> dict[str, Any]:
+def retrieve(case_context: dict[str, Any]) -> dict[str, Any]:
+    """Retrieval **canonico**: unico usato dal runtime operativo.
+
+    Ammette ogni candidate che porti almeno un ``document_identifier`` e ne
+    deriva i descrittori documentali dalla propria provenance. Non consulta gli
+    EvidenceBundle congelati e non è ristretto ai 25 casi del pilot.
+
+    Non esiste un parametro che possa cambiare questo insieme di candidate: la
+    firma precedente aveva ``document_mode="REPLAY"`` come default, e chiunque
+    chiamasse ``retrieve(case_context)`` senza argomenti finiva sul corpus
+    congelato senza accorgersene.
+    """
+    return _retrieve(case_context, use_frozen_bundles=False)
+
+
+def retrieve_frozen_bundles(case_context: dict[str, Any]) -> dict[str, Any]:
+    """RESEARCH / REGRESSION ONLY — non fa parte del runtime canonico.
+
+    Restringe il retrieval alle sole candidate che possiedono uno dei 25
+    EvidenceBundle congelati e ne restituisce i ``source_unit_ids`` già
+    selezionati dal pilot. Riproduce gli esperimenti storici; non deve essere
+    raggiungibile da ``POST /runs``, dal ``RunStore`` né dalla console clinica.
+    """
+    return _retrieve(case_context, use_frozen_bundles=True)
+
+
+def _retrieve(case_context: dict[str, Any], *, use_frozen_bundles: bool) -> dict[str, Any]:
     candidates = load_candidates()
-    bundles_by_candidate = load_bundles_by_candidate()
-    if document_mode not in {"LIVE", "REPLAY"}:
-        raise ValueError(f"unsupported document mode: {document_mode!r}")
+    bundles_by_candidate = load_bundles_by_candidate() if use_frozen_bundles else {}
+
+    def _authorized(candidate_id: str, candidate: dict[str, Any]) -> bool:
+        if use_frozen_bundles:
+            return candidate_id in bundles_by_candidate
+        return bool(candidate.get("document_identifiers"))
+
     authorized_candidate_ids = sorted(
-        cid for cid, candidate in candidates.items()
-        if (document_mode == "LIVE" and candidate.get("document_identifiers"))
-        or (document_mode == "REPLAY" and cid in bundles_by_candidate)
+        cid for cid, candidate in candidates.items() if _authorized(cid, candidate)
     )
 
     matched: list[dict[str, Any]] = []
@@ -170,13 +219,13 @@ def retrieve(case_context: dict[str, Any], *, document_mode: str = "REPLAY") -> 
         candidate_id = item["candidate_id"]
         candidate = candidates[candidate_id]
         bundles = (
-            _live_provenance_bundles(candidate)
-            if document_mode == "LIVE"
-            else sorted(bundles_by_candidate.get(candidate_id, []), key=lambda b: b["bundle_id"])
+            sorted(bundles_by_candidate.get(candidate_id, []), key=lambda b: b["bundle_id"])
+            if use_frozen_bundles
+            else _live_provenance_bundles(candidate)
         )
         associations.append({
             "candidate_id": candidate_id, "candidate": candidate, "match_reason_codes": item["reason_codes"],
-            "available_bundles": [{"bundle_id": b["bundle_id"], "document_id": b["document_id"], "bundle_type": b.get("bundle_type"), "source_unit_ids": b.get("source_unit_ids", [])[:MAX_SOURCE_UNITS_PER_DOCUMENT], **({"provenance_identifier": b["provenance_identifier"]} if document_mode == "LIVE" else {})} for b in bundles],
+            "available_bundles": [{"bundle_id": b["bundle_id"], "document_id": b["document_id"], "bundle_type": b.get("bundle_type"), "source_unit_ids": b.get("source_unit_ids", [])[:MAX_SOURCE_UNITS_PER_DOCUMENT], **({} if use_frozen_bundles else {"provenance_identifier": b["provenance_identifier"]})} for b in bundles],
         })
 
     return {

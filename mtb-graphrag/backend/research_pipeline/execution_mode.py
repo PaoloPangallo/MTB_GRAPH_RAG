@@ -1,33 +1,42 @@
-"""Modalità di esecuzione e origine degli artefatti.
+"""Etichette storiche di esecuzione e origine degli artefatti.
 
-Il vocabolario esiste per rendere impossibile una sola cosa: che un artefatto
+**Questo modulo non decide più alcun instradamento.** Esiste un solo runtime
+operativo — quello canonico — e nessun campo di questo modulo può cambiarlo.
+Ciò che resta qui è vocabolario di *lettura*: serve a decodificare run già
+registrate sul ledger e a etichettare gli artefatti di ricerca, non a scegliere
+quale percorso eseguire.
+
+Il vocabolario continua a rendere impossibile una sola cosa: che un artefatto
 registrato in una run precedente venga presentato come appena prodotto.
 
 Due assi **distinti**, che il runtime precedente confondeva in un unico campo
 booleano ``replayed``:
 
 ``execution_mode``
-    Cosa è stato chiesto e cosa è realmente accaduto — ``LIVE``, ``REPLAY``,
-    ``HYBRID``.
+    Etichetta della run. Il runtime canonico scrive sempre ``CANONICAL_MODE``.
+    ``REPLAY`` compare soltanto nelle run prodotte da harness di regressione e
+    nelle run storiche già sul ledger; ``HYBRID`` resta un esito constatabile.
 
 ``artifact_origin``
     Da dove viene il risultato di *questo* stage. Un documento letto da cache
-    locale è ``DETERMINISTIC_CACHE`` e resta parte di una run LIVE; una risposta
-    del modello registrata al commit ``6ee64c5`` è ``RECORDED_REAL_RUN`` e non lo
-    è. Chiamare "cached" entrambe le cose è precisamente l'errore che questo
-    modulo impedisce.
+    locale è ``DETERMINISTIC_CACHE`` e resta parte di una run canonica; una
+    risposta del modello registrata al commit ``6ee64c5`` è ``RECORDED_REAL_RUN``
+    e non lo è. Chiamare "cached" entrambe le cose è precisamente l'errore che
+    questo modulo impedisce.
 
 La regola di classificazione della run è deliberatamente asimmetrica: un solo
 artefatto registrato declassa la run da ``LIVE`` a ``HYBRID``, mentre nessuna
 combinazione di stage può promuovere a ``LIVE`` una run avviata in ``REPLAY``.
-Il declassamento è automatico e non disattivabile.
+Il declassamento è automatico e non disattivabile. Nel runtime canonico
+``RECORDED_REAL_RUN`` è irraggiungibile per costruzione, quindi
+``HYBRID`` non è più producibile: la regola resta per decodificare lo storico.
 """
 
 from __future__ import annotations
 
 from typing import Any, Iterable
 
-# --- Modalità ---------------------------------------------------------------
+# --- Etichette storiche (metadata, NON autorità di routing) ------------------
 
 LIVE = "LIVE"
 REPLAY = "REPLAY"
@@ -35,10 +44,27 @@ HYBRID = "HYBRID"
 
 EXECUTION_MODES: tuple[str, ...] = (LIVE, REPLAY, HYBRID)
 
-#: ``HYBRID`` non è richiedibile: è un esito che si constata. Ammetterlo come
-#: input darebbe un modo di dichiarare in partenza una run mista e poi mostrarla
-#: come tale senza che nessuno stage lo giustifichi.
-REQUESTABLE_MODES: tuple[str, ...] = (LIVE, REPLAY)
+#: Etichetta scritta da ogni run del runtime canonico.
+#:
+#: Vale ``"LIVE"`` di proposito, e non una stringa nuova: il valore viaggia nei
+#: payload del ledger, negli scorecard di valutazione già prodotti e nella
+#: decodifica delle run storiche. Cambiarlo renderebbe illeggibile tutto ciò che
+#: è stato registrato prima, in cambio di nulla — il nome del percorso nella
+#: tesi e nel diagramma non dipende da questa costante.
+#:
+#: ``legacy_internal_name = "LIVE"`` · ``thesis_presentation_name = "CANONICAL RUNTIME"``.
+CANONICAL_MODE = LIVE
+
+#: Etichetta usata dagli harness di ricerca e regressione quando rigiocano
+#: artefatti congelati. Non è richiedibile e non è raggiungibile dall'API.
+RESEARCH_FROZEN_MODE = REPLAY
+
+#: Una sola modalità è richiedibile, ed è quella canonica. ``REPLAY`` è uscito
+#: dall'insieme: non è più una scelta del chiamante ma un'etichetta di artefatti
+#: di ricerca. ``HYBRID`` non è mai stato richiedibile — è un esito che si
+#: constata, e ammetterlo come input darebbe un modo di dichiarare in partenza
+#: una run mista senza che nessuno stage lo giustifichi.
+REQUESTABLE_MODES: tuple[str, ...] = (CANONICAL_MODE,)
 
 # --- Origine degli artefatti ------------------------------------------------
 
@@ -64,11 +90,15 @@ class UnknownExecutionMode(ValueError):
 
 
 def normalize_requested_mode(value: Any) -> str:
-    """Modalità richiesta dal chiamante. ``None`` non è ammesso.
+    """Valida un'etichetta di modalità. Esiste un solo valore ammesso.
+
+    Resta come guardia di vocabolario, non come selettore: nessun percorso
+    dell'API la usa più per scegliere cosa eseguire. Serve a impedire che un
+    chiamante interno reintroduca per distrazione una modalità dedotta.
 
     L'assenza di un default è intenzionale: il runtime precedente sceglieva la
     modalità osservando se esistessero artefatti congelati per il caso, e quella
-    deduzione è esattamente il fallback silenzioso da rimuovere.
+    deduzione è esattamente il fallback silenzioso rimosso.
     """
     if not isinstance(value, str):
         raise UnknownExecutionMode(
@@ -79,7 +109,14 @@ def normalize_requested_mode(value: Any) -> str:
     if mode == HYBRID:
         raise UnknownExecutionMode(
             "HYBRID non è richiedibile: è la classificazione di una run che ha "
-            "usato artefatti registrati pur essendo stata avviata in LIVE"
+            "usato artefatti registrati pur essendo stata avviata nel runtime canonico"
+        )
+    if mode == REPLAY:
+        raise UnknownExecutionMode(
+            "REPLAY non è più una modalità di esecuzione richiedibile: il replay "
+            "degli artefatti congelati è infrastruttura di ricerca e regressione, "
+            "raggiungibile solo iniettando gli adattatori in "
+            "``orchestrator.run_case(research_frozen_artifacts=True, ...)``"
         )
     if mode not in REQUESTABLE_MODES:
         raise UnknownExecutionMode(

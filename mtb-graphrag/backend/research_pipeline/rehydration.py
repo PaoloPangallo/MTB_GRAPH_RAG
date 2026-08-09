@@ -36,6 +36,7 @@ from backend.research_pipeline.contracts import (
     NOT_IMPLEMENTED_STAGE_IDS,
     STAGE_SEQUENCE,
     PipelineRun,
+    document_acquisition_summary,
     stage_type_for,
 )
 
@@ -118,7 +119,13 @@ def _stage_from_events(stage_id: str, events: list[Mapping[str, Any]]) -> dict[s
         "producer": payload.get("producer") or {},
         "metrics": dict(payload.get("metrics") or {}),
         "lineage": dict(payload.get("lineage") or {}),
-        "execution_mode": payload.get("execution_mode") or em.REPLAY,
+        # Un payload che non dichiara la modalità viene letto come canonico, non
+        # come REPLAY. Il default precedente era prudente quando esistevano due
+        # modalità; ora sarebbe una **falsa attribuzione**: etichetterebbe come
+        # rigiocata una run che nessun artefatto registrato ha toccato. Ciò che
+        # distingue davvero le due cose resta ``artifact_origin``, che ogni stage
+        # scrive esplicitamente e che qui non viene mai indovinato.
+        "execution_mode": payload.get("execution_mode") or em.CANONICAL_MODE,
         "artifact_origin": payload.get("artifact_origin") or em.NOT_EXECUTED,
     }
 
@@ -154,7 +161,10 @@ def rehydrate(ledger: EventLedger, run_id: str) -> dict[str, Any] | None:
     ]
     stages.sort(key=lambda s: s["sequence"])
 
-    requested_mode = created_payload.get("requested_execution_mode") or em.REPLAY
+    # Come sopra: l'assenza del campo non è una prova di replay. Le run storiche
+    # che *furono* rigiocate lo dichiarano nel proprio ``RUN_CREATED``, e restano
+    # decodificate come tali; quelle che non dichiarano nulla sono canoniche.
+    requested_mode = created_payload.get("requested_execution_mode") or em.CANONICAL_MODE
     origins = [stage["artifact_origin"] for stage in stages]
 
     if completed is not None:
@@ -187,6 +197,10 @@ def rehydrate(ledger: EventLedger, run_id: str) -> dict[str, Any] | None:
         "metrics": {},
         "research_notice": PipelineRun.research_notice(),
         "document_cache": dict(created_payload.get("document_cache") or {}),
+        # Stessa funzione della run in memoria, sugli stessi stage: le due
+        # proiezioni non devono poter divergere, ed e' l'invariante dichiarato
+        # in cima a questo modulo.
+        "document_acquisition": document_acquisition_summary(stages),
         # Valore canonico scritto dall'orchestratore, non ricalcolato: sommare le
         # metriche degli stage escludeva il parser e contava come reali le
         # chiamate rigiocate, dando due numeri diversi per la stessa run a

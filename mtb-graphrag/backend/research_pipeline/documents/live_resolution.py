@@ -435,7 +435,39 @@ class DocumentRuntime:
 
     @classmethod
     def open(cls) -> "DocumentRuntime":
-        """Open the read-only cache used by explicit cache-only callers."""
+        """Runtime documentale **canonico**: cache-first, API autorizzate sul miss.
+
+        È il solo runtime aperto dal percorso operativo. Prima questo nome
+        designava la cache in sola lettura, e il runtime canonico si chiamava
+        ``open_live``: i due erano invertiti rispetto a quale dovesse essere il
+        default, ed è il genere di dettaglio da cui nasce un percorso sbagliato
+        preso per distrazione.
+        """
+        cache = AuthorizedDocumentCache(root=cache_path(), network=True)
+        manifest = _live_manifest_rows(cache)
+        return cls(
+            cache=cache, manifest_by_document_id=dict(manifest),
+            descriptor=_live_descriptor(cache, manifest), network_enabled=True,
+        )
+
+    @classmethod
+    def open_live(cls) -> "DocumentRuntime":
+        """Nome storico del runtime canonico. Alias di ``open``.
+
+        Resta perché compare in script e probe già scritti. Non aggiunge un
+        percorso: ne nomina uno.
+        """
+        return cls.open()
+
+    @classmethod
+    def open_read_only_research(cls) -> "DocumentRuntime":
+        """RESEARCH / REGRESSION ONLY — cache in sola lettura, rete vietata.
+
+        Serve agli harness che devono mostrare che un percorso senza rete
+        produce esattamente ciò che produsse allora. Non è il default e non è
+        raggiungibile dall'API: chiamarlo è una dichiarazione esplicita di
+        volere il comportamento storico.
+        """
         from backend.research_pipeline import data_access as da
 
         cache = open_read_only()
@@ -445,16 +477,6 @@ class DocumentRuntime:
             manifest_by_document_id={row["document_id"]: row for row in manifest},
             descriptor=describe(cache.root).to_dict(),
             network_enabled=False,
-        )
-
-    @classmethod
-    def open_live(cls) -> "DocumentRuntime":
-        """Open a cache-first runtime whose miss path uses authorized APIs."""
-        cache = AuthorizedDocumentCache(root=cache_path(), network=True)
-        manifest = _live_manifest_rows(cache)
-        return cls(
-            cache=cache, manifest_by_document_id=dict(manifest),
-            descriptor=_live_descriptor(cache, manifest), network_enabled=True,
         )
 
     def resolve(self, associations: Iterable[Mapping[str, Any]]) -> DocumentResolution:

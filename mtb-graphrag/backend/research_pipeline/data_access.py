@@ -190,8 +190,18 @@ def describe_availability() -> dict[str, Any]:
         "source_unit_index": source_unit_index_path(),
         "frozen_enricher_runs": frozen_enricher_runs_path(),
     }
+    # ``stages_6_to_10_mode`` diceva ``FROZEN_REPLAY`` quando la cache mancava, e
+    # descriveva un ripiego che il runtime non ha mai eseguito: senza cache la run
+    # si arresta con ``DOCUMENT_CACHE_UNAVAILABLE``. Il campo dichiara ora
+    # l'*eseguibilità* della catena documentale, che è ciò che una UI deve sapere.
+    cache_available = document_cache_available()
     return {
         "datasets": {name: path.is_file() for name, path in checks.items()},
-        "document_cache_available": document_cache_available(),
-        "stages_6_to_10_mode": "LIVE" if document_cache_available() else "FROZEN_REPLAY",
+        "document_cache_available": cache_available,
+        "stages_6_to_10_mode": "CANONICAL" if cache_available else "UNAVAILABLE",
+        "stages_6_to_10_reason": (
+            None if cache_available
+            else "DOCUMENT_CACHE_UNAVAILABLE: la catena documentale non parte e "
+                 "non ripiega su artefatti congelati"
+        ),
     }
