@@ -31,6 +31,24 @@ I numeri che compaiono qui sono di due tipi, sempre etichettati:
 | 5 | reliability subset materializzato in ID espliciti | una regola non è un elenco finché non viene eseguita |
 | 6 | schemi dei Risultati definiti prima delle run | i risultati riempiranno colonne già decise |
 
+### Revisione `1.1-review-1` (post human review dell'held-out)
+
+Sei casi corretti **prima** di osservare qualunque output del sistema; i
+restanti 54 invariati. Dettaglio e motivazioni in `heldout_review.md` §7.
+
+| Caso | Correzione |
+|---|---|
+| `HO-AMB-01` → `-primary-site-ambiguity` | la collisione di sigla dipendeva dalle convenzioni del centro; sostituita da un'ambiguità di sede primaria dichiarata dal patologo |
+| `HO-AMB-04` → `-undetermined-intervention-role` | il testo ammetteva una lettura univoca; ora il ruolo del farmaco è esplicitamente non ricostruibile |
+| `HO-CON-01` → `-same-primary-conflicting-diagnoses` | due primitivi possono coesistere; la contraddizione è ora interna allo stesso tumore e allo stesso blocco |
+| `HO-CON-04` → `-alteration-presence-conflict` | la domanda poteva essere letta come generale; ora sono due asserzioni di fatto sullo stesso tumore |
+| `HO-INC-02` | melanoma uveale/tebentafusp sostituiti: HLA e biologia particolare erano confondenti su un caso che misura solo l'assenza del biomarker |
+| `NH-POL-03` | `UNCERTAIN → negative` non è un'inversione di polarità ma una risoluzione indebita di incertezza; spostato su `BD-04`, dove `direction = SUPPORTED` |
+
+Aggiunti in revisione: `primary_mutation_count` e `secondary_mutations` sui 20
+casi narrativi; `primary_gold` sui 5 adversarial; dump meccanico read-only dei
+10 casi grounded (`grounded_review.json`).
+
 ---
 
 ## 1. Principio sperimentale
@@ -52,6 +70,10 @@ Il protocollo si allinea al report di posizionamento scientifico del 9 agosto
 sostanza come restituita nella richiesta di fase. In caso di conflitto fra il
 report e questo documento, **prevale il protocollo metodologico**: una metrica
 non si cambia perché nel report starebbe meglio.
+
+Il riferimento formale, con la mappatura sezione per sezione e lo stato della
+sorgente (`source_hash = unavailable_at_protocol_build`), è in
+`scientific_blueprint_reference.md`.
 
 ---
 
@@ -261,12 +283,22 @@ registra `base_dossier_hash`, `mutation_type`, `mutated_field_or_claim`,
 `gold_derived_from_verifier_output = false`: il gold è la mutazione dichiarata,
 non ciò che il verifier risponderà.
 
+Ogni caso ostile dichiara `primary_mutation_count = 1`. Gli effetti collaterali
+inevitabili di una mutazione — presentare come beneficio ciò che la fonte nega
+comporta anche l'omissione del caveat di polarità — sono registrati in
+`secondary_mutations` e **non concorrono al conteggio per classe**.
+
 ### Perché i controlli positivi sono in un file separato
 
 Un verifier che respinge ogni narrativa otterrebbe un punteggio perfetto sul
-solo set ostile. I 5 controlli validi misurano la **specificità** e stanno in
+solo set ostile. I 5 controlli validi stanno in
 `narrative_heldout_valid_control.json`, con etichetta `hostile: false`, per non
 essere mai mescolati ai 20 ostili senza distinzione.
+
+La metrica si chiama **`positive-control acceptance rate`**, non «specificità».
+Con N = 5 non è una stima di specificità: è un controllo di *non-trivial
+rejection behavior*. Il valore e il CI di Wilson possono essere calcolati, ma
+vanno descritti per quello che sono.
 
 ---
 

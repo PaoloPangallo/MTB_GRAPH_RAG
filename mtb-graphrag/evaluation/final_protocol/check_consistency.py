@@ -319,6 +319,97 @@ def check_no_fabricated_results() -> None:
     check("no_fabricated_result_values", not offenders, f"{len(offenders)} celle precompilate")
 
 
+def check_grounded_review_approvable() -> None:
+    """Tutti e dieci i casi grounded devono superare la revisione meccanica."""
+    review = _json("evaluation/final_protocol/heldout/grounded_review.json")
+    ok = review["verdict"] == "ALL_GROUNDED_CASES_APPROVABLE" and not review["requires_revision"]
+    check("grounded_cases_mechanically_approvable", ok,
+          f"{review['n_approvable']}/{review['n_cases']} — {review['verdict']}")
+
+
+def check_ho_neg_01_intentional_discordance() -> None:
+    """La discordanza direction/significance di HO-NEG-01 è voluta e va preservata."""
+    review = _json("evaluation/final_protocol/heldout/grounded_review.json")
+    row = next(r for r in review["rows"] if r["CASE_ID"].startswith("HO-NEG-01"))
+    ok = (
+        row["GCA_EVIDENCE_DIRECTION"] == "Does Not Support"
+        and row["GCA_SIGNIFICANCE"] == "Sensitivity/Response"
+        and row["EXPECTED_DIRECTION_MATCH"]
+        and any(k.startswith("HO-NEG-01") for k in review["intentional_discordance"])
+    )
+    check("ho_neg_01_discordance_preserved", ok,
+          f"direction={row['GCA_EVIDENCE_DIRECTION']}, significance={row['GCA_SIGNIFICANCE']}")
+
+
+def check_narrative_single_primary_class() -> None:
+    """Ogni caso ostile ha una sola classe primaria; le secondarie sono registrate."""
+    cases = _json("evaluation/final_protocol/heldout/narrative_heldout_cases.json")["cases"]
+    gold = {g["case_id"]: g for g in
+            _json("evaluation/final_protocol/heldout/narrative_heldout_gold.json")["gold"]}
+    problems = [
+        case["case_id"] for case in cases
+        if case.get("primary_mutation_count") != 1
+        or case["primary_mutation_type"] != case["mutation_type"]
+        or gold[case["case_id"]]["primary_mutation_type"] != case["mutation_type"]
+        or "secondary_mutations" not in case
+    ]
+    with_secondary = sum(1 for case in cases if case["secondary_mutations"])
+    check("narrative_single_primary_class", not problems,
+          f"{len(cases)} casi, {with_secondary} con secondarie dichiarate, {len(problems)} problemi")
+
+
+def check_adversarial_primary_gold() -> None:
+    """I 5 adversarial devono dichiarare l'endpoint valutato, non lasciarlo implicito."""
+    gold = _json("evaluation/final_protocol/heldout/architectural_challenge_gold.json")["gold"]
+    adversarial = [g for g in gold if g["category"] == "ADVERSARIAL_CASECONTEXT"]
+    ok = len(adversarial) == 5 and all(
+        g["primary_gold"] == "HARD_ARCHITECTURAL_INVARIANT"
+        and g["retrieval_path_is_scored"] is False
+        and g["expected_retrieval_allowed"] is None
+        and g.get("hard_property") and g.get("hard_observable")
+        for g in adversarial
+    )
+    manifest = _json("evaluation/final_protocol/heldout/heldout_manifest.json")
+    documented = "not the primary scored endpoint" in manifest.get("adversarial_scoring_note", "")
+    check("adversarial_primary_gold_declared", ok and documented,
+          f"{len(adversarial)} casi adversarial, nota nel manifest={documented}")
+
+
+def check_revisions_documented() -> None:
+    """Ogni caso revisionato deve dichiarare fase, contenuto precedente e motivo."""
+    architectural = _json("evaluation/final_protocol/heldout/architectural_challenge_cases.json")["cases"]
+    narrative = _json("evaluation/final_protocol/heldout/narrative_heldout_cases.json")["cases"]
+    control = _json("evaluation/final_protocol/heldout/narrative_heldout_valid_control.json")["cases"]
+    revised = [c for c in architectural + narrative if c.get("revision")]
+    incomplete = [
+        c["case_id"] for c in revised
+        if not all(c["revision"].get(k) for k in ("revised_in", "previous_content", "reason"))
+    ]
+    controls_revised = [c["case_id"] for c in control if c.get("revision")]
+    ok = (
+        len(revised) == 6
+        and not incomplete
+        and not controls_revised
+        and all(c["created_after_runtime_freeze"] for c in revised)
+        and all(not c["system_output_observed_before_creation"] for c in revised)
+    )
+    check("revisions_documented_and_bounded", ok,
+          f"{len(revised)} revisionati, {len(incomplete)} incompleti, "
+          f"{len(controls_revised)} controlli toccati")
+
+
+def check_reliability_subset_rename_documented() -> None:
+    """Se un caso del subset è stato rinominato, il motivo deve essere registrato."""
+    subset = _json("evaluation/final_protocol/reliability_subset.json")
+    architectural = {c["case_id"] for c in
+                     _json("evaluation/final_protocol/heldout/architectural_challenge_cases.json")["cases"]}
+    renames = subset.get("renames_applied", {})
+    resolvable = set(subset["by_source"]["HELDOUT_ARCHITECTURAL_35"]) <= architectural
+    check("reliability_subset_renames_documented", bool(renames) and resolvable,
+          f"{len([k for k in renames if k.startswith('HO-')])} rinomine documentate, "
+          f"tutti gli ID risolvibili={resolvable}")
+
+
 def check_protocol_seal_matches_files() -> None:
     """Il ``protocol_sha256`` registrato deve corrispondere ai file sul disco.
 
@@ -456,6 +547,12 @@ def main() -> int:
     check_reliability_subset_explicit()
     check_schemas_declare_denominators()
     check_no_fabricated_results()
+    check_grounded_review_approvable()
+    check_ho_neg_01_intentional_discordance()
+    check_narrative_single_primary_class()
+    check_adversarial_primary_gold()
+    check_revisions_documented()
+    check_reliability_subset_rename_documented()
     check_protocol_seal_matches_files()
     check_no_final_run_executed()
     check_runtime_repository_version()

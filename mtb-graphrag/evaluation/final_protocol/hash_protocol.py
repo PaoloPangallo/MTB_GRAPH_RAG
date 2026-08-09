@@ -42,9 +42,11 @@ PROTOCOL_FILES = (
     "evaluation/final_protocol/heldout/narrative_heldout_gold.json",
     "evaluation/final_protocol/heldout/narrative_heldout_valid_control.json",
     "evaluation/final_protocol/heldout/overlap_report.json",
+    "evaluation/final_protocol/heldout/grounded_review.json",
     "evaluation/final_protocol/heldout/heldout_manifest.json",
     "evaluation/final_protocol/heldout/heldout_hashes.json",
     "docs/final_evaluation/heldout_review.md",
+    "docs/final_evaluation/scientific_blueprint_reference.md",
 )
 
 

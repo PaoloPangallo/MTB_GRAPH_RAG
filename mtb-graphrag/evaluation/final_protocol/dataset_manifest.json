@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T09:50:48.584262+00:00",
+  "generated_at": "2026-08-09T10:18:11.836056+00:00",
   "runtime_modified": false,
   "corpora": [
     {
@@ -263,7 +263,7 @@
       "split": "HELD_OUT",
       "usable_for_final_eval": true,
       "final_role": "RQ3_RQ4_GENERALIZATION_EVIDENCE",
-      "corpus_sha256": "f158c429bf32db6045830de0f128a3c5a075bf549d0b38ce7097c307a6485aab"
+      "corpus_sha256": "b621ef82bffa5a0bd73b2e60c0a2bd9c657258d3cdfd8404feb3586d0c8bf019"
     },
     {
       "corpus_id": "NARRATIVE_HELDOUT_20",
@@ -291,7 +291,7 @@
       "split": "HELD_OUT",
       "usable_for_final_eval": true,
       "final_role": "NARRATIVE_VERIFIER_GENERALIZATION_AND_ABLATION_D",
-      "corpus_sha256": "29f68939d1dbb76f84d80d6da720652e89c5972d2385d788541c5f9a96316445"
+      "corpus_sha256": "56dd9723c3a9763537f1d86f1d34e56b0863cd48d930fb0cf458f4da7d116554"
     },
     {
       "corpus_id": "NARRATIVE_HELDOUT_VALID_CONTROL_5",
@@ -311,7 +311,7 @@
       "split": "HELD_OUT",
       "usable_for_final_eval": true,
       "final_role": "NARRATIVE_VERIFIER_SPECIFICITY",
-      "corpus_sha256": "a00c70410a5382ae1743804fb3b59e5af54070977530582c8d379bd08430992c"
+      "corpus_sha256": "4e6a7800a653efd7c945944b68e59864e7aa15f240d627cbf188130f41171478"
     },
     {
       "corpus_id": "GCA_REPOSITORY_2_0_46864",
@@ -369,5 +369,5 @@
       "corpus_sha256": "59c47c893b2357fb110c9d2c82aa438bb22624ceea14af33aeef1c0cd0f0ac33"
     }
   ],
-  "dataset_bundle_sha256": "6baa10f267264f70eb024ec6c7c066107f1ecb3389952cc079f2417eec6da5cd"
+  "dataset_bundle_sha256": "43805fabfeb09f321c966f1a7651fbc8e10b5ad6ea2869f1c13bbea5a2105e5c"
 }

@@ -8,127 +8,399 @@
     "no_cross_testbed_aggregation": "righe provenienti da testbed diversi non possono essere sommate in un totale unico",
     "independence_label_mandatory": "ogni tabella riporta il livello di indipendenza del corpus da cui provengono le righe"
   },
-
   "RQ1_representation_fidelity": {
     "testbed": "GCA_FULL_CORPUS",
     "independence_level": "OBJECTIVE_FULL_CORPUS",
     "runtime_representation": "graph_candidate_repository/2.0",
-    "columns": ["METRIC", "SCOPE", "DENOMINATOR", "ERROR_COUNT", "RATE", "CI95", "SOURCE_ARTIFACT"],
+    "columns": [
+      "METRIC",
+      "SCOPE",
+      "DENOMINATOR",
+      "ERROR_COUNT",
+      "RATE",
+      "CI95",
+      "SOURCE_ARTIFACT"
+    ],
     "rows": [
-      {"METRIC": "structural_precision", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "46864 path eleggibili"},
-      {"METRIC": "structural_recall", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "46864 path eleggibili"},
-      {"METRIC": "field_completeness", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "46864 candidate × 18 campi di contratto"},
-      {"METRIC": "lineage_integrity", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "46864 candidate"},
-      {"METRIC": "identifier_provenance_integrity", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "46864 candidate, di cui 8230 con PMID"},
-      {"METRIC": "source_polarity_loss", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "1936 candidate a polarità negativa"},
-      {"METRIC": "direction_inversion_contract", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "46864 candidate"},
-      {"METRIC": "direction_inversion_graph", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "46864 path"},
-      {"METRIC": "unsupported_promotion", "SCOPE": "RUNTIME_2_0", "DENOMINATOR": "1936 candidate a polarità negativa"},
-      {"METRIC": "alteration_loss", "SCOPE": "RUNTIME_2_0_KNOWN_LIMIT", "DENOMINATOR": "46864 candidate"},
-      {"METRIC": "regimen_split", "SCOPE": "RUNTIME_2_0_KNOWN_LIMIT", "DENOMINATOR": "46864 candidate"},
-      {"METRIC": "compound_alteration_preservation", "SCOPE": "SHADOW_3_0_ONLY", "DENOMINATOR": "46142 candidate v3", "NOTE": "NON è una capacità del runtime; riportare in tabella separata o con etichetta shadow"},
-      {"METRIC": "regimen_preserved_as_unit", "SCOPE": "SHADOW_3_0_ONLY", "DENOMINATOR": "46142 candidate v3", "NOTE": "NON è una capacità del runtime"},
-      {"METRIC": "explicit_polarity", "SCOPE": "SHADOW_3_0_ONLY", "DENOMINATOR": "46142 candidate v3", "NOTE": "NON è una capacità del runtime"}
+      {
+        "METRIC": "structural_precision",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "46864 path eleggibili"
+      },
+      {
+        "METRIC": "structural_recall",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "46864 path eleggibili"
+      },
+      {
+        "METRIC": "field_completeness",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "46864 candidate × 18 campi di contratto"
+      },
+      {
+        "METRIC": "lineage_integrity",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "46864 candidate"
+      },
+      {
+        "METRIC": "identifier_provenance_integrity",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "46864 candidate, di cui 8230 con PMID"
+      },
+      {
+        "METRIC": "source_polarity_loss",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "1936 candidate a polarità negativa"
+      },
+      {
+        "METRIC": "direction_inversion_contract",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "46864 candidate"
+      },
+      {
+        "METRIC": "direction_inversion_graph",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "46864 path"
+      },
+      {
+        "METRIC": "unsupported_promotion",
+        "SCOPE": "RUNTIME_2_0",
+        "DENOMINATOR": "1936 candidate a polarità negativa"
+      },
+      {
+        "METRIC": "alteration_loss",
+        "SCOPE": "RUNTIME_2_0_KNOWN_LIMIT",
+        "DENOMINATOR": "46864 candidate"
+      },
+      {
+        "METRIC": "regimen_split",
+        "SCOPE": "RUNTIME_2_0_KNOWN_LIMIT",
+        "DENOMINATOR": "46864 candidate"
+      },
+      {
+        "METRIC": "compound_alteration_preservation",
+        "SCOPE": "SHADOW_3_0_ONLY",
+        "DENOMINATOR": "46142 candidate v3",
+        "NOTE": "NON è una capacità del runtime; riportare in tabella separata o con etichetta shadow"
+      },
+      {
+        "METRIC": "regimen_preserved_as_unit",
+        "SCOPE": "SHADOW_3_0_ONLY",
+        "DENOMINATOR": "46142 candidate v3",
+        "NOTE": "NON è una capacità del runtime"
+      },
+      {
+        "METRIC": "explicit_polarity",
+        "SCOPE": "SHADOW_3_0_ONLY",
+        "DENOMINATOR": "46142 candidate v3",
+        "NOTE": "NON è una capacità del runtime"
+      }
     ],
     "separation_rule": "le righe SHADOW_3_0_ONLY vanno in una tabella distinta con intestazione esplicita; non possono comparire nella stessa tabella delle righe RUNTIME_2_0 senza etichetta"
   },
-
   "RQ1_negative_polarity_full_corpus": {
     "testbed": "GCA_FULL_CORPUS",
     "independence_level": "OBJECTIVE_FULL_CORPUS",
-    "columns": ["QUANTITY", "RAW_COUNT", "DENOMINATOR", "RATE", "CI95", "SOURCE_ARTIFACT"],
+    "columns": [
+      "QUANTITY",
+      "RAW_COUNT",
+      "DENOMINATOR",
+      "RATE",
+      "CI95",
+      "SOURCE_ARTIFACT"
+    ],
     "rows": [
-      {"QUANTITY": "TOTAL_GCA", "DENOMINATOR": "n/a — è il denominatore"},
-      {"QUANTITY": "NEGATIVE_SOURCE_CANDIDATES", "DENOMINATOR": "TOTAL_GCA"},
-      {"QUANTITY": "DOES_NOT_SUPPORT_PROMOTED", "DENOMINATOR": "NEGATIVE_SOURCE_CANDIDATES"},
-      {"QUANTITY": "NEGATIVE_SOURCE_PRIMARY_BUCKET", "DENOMINATOR": "NEGATIVE_SOURCE_CANDIDATES"},
-      {"QUANTITY": "DIRECTION_INVERSION", "DENOMINATOR": "TOTAL_GCA"}
+      {
+        "QUANTITY": "TOTAL_GCA",
+        "DENOMINATOR": "n/a — è il denominatore"
+      },
+      {
+        "QUANTITY": "NEGATIVE_SOURCE_CANDIDATES",
+        "DENOMINATOR": "TOTAL_GCA"
+      },
+      {
+        "QUANTITY": "DOES_NOT_SUPPORT_PROMOTED",
+        "DENOMINATOR": "NEGATIVE_SOURCE_CANDIDATES"
+      },
+      {
+        "QUANTITY": "NEGATIVE_SOURCE_PRIMARY_BUCKET",
+        "DENOMINATOR": "NEGATIVE_SOURCE_CANDIDATES"
+      },
+      {
+        "QUANTITY": "DIRECTION_INVERSION",
+        "DENOMINATOR": "TOTAL_GCA"
+      }
     ],
     "note": "Questo risultato full-corpus resta il principale per la polarità. I 5 casi HELDOUT NEGATIVE_POLARITY_STRESS lo affiancano end-to-end, non lo sostituiscono."
   },
-
   "RQ2_A_document_pipeline": {
     "testbed": "INDEPENDENT_SOURCEUNIT_GROUNDING + HELDOUT_ARCHITECTURAL grounded subset",
     "independence_level": "INDEPENDENT + HELD_OUT",
-    "columns": ["STAGE_PROPERTY", "N_ATTEMPTED", "N_SUCCEEDED", "RATE", "CI95", "FAILURE_REASONS", "SOURCE_ARTIFACT"],
-    "rows": [
-      {"STAGE_PROPERTY": "identifier_coverage", "DENOMINATOR": "candidate recuperate"},
-      {"STAGE_PROPERTY": "document_resolution", "DENOMINATOR": "candidate con identificatore"},
-      {"STAGE_PROPERTY": "cache_hit", "DENOMINATOR": "risoluzioni tentate"},
-      {"STAGE_PROPERTY": "api_acquisition_on_miss", "DENOMINATOR": "cache miss"},
-      {"STAGE_PROPERTY": "snapshot_persistence", "DENOMINATOR": "acquisizioni riuscite"},
-      {"STAGE_PROPERTY": "parser_success", "DENOMINATOR": "snapshot presenti"},
-      {"STAGE_PROPERTY": "paper_selection", "DENOMINATOR": "documenti con SourceUnit"},
-      {"STAGE_PROPERTY": "abstract_degradation", "DENOMINATOR": "documenti risolti"},
-      {"STAGE_PROPERTY": "live_abort_reason_distribution", "DENOMINATOR": "run LIVE avviate"}
+    "columns": [
+      "STAGE_PROPERTY",
+      "N_ATTEMPTED",
+      "N_SUCCEEDED",
+      "RATE",
+      "CI95",
+      "FAILURE_REASONS",
+      "SOURCE_ARTIFACT"
     ],
-    "stratification_observed_not_preassigned": ["PMC_FULLTEXT", "ABSTRACT_ONLY", "DOCUMENT_UNAVAILABLE"]
+    "rows": [
+      {
+        "STAGE_PROPERTY": "identifier_coverage",
+        "DENOMINATOR": "candidate recuperate"
+      },
+      {
+        "STAGE_PROPERTY": "document_resolution",
+        "DENOMINATOR": "candidate con identificatore"
+      },
+      {
+        "STAGE_PROPERTY": "cache_hit",
+        "DENOMINATOR": "risoluzioni tentate"
+      },
+      {
+        "STAGE_PROPERTY": "api_acquisition_on_miss",
+        "DENOMINATOR": "cache miss"
+      },
+      {
+        "STAGE_PROPERTY": "snapshot_persistence",
+        "DENOMINATOR": "acquisizioni riuscite"
+      },
+      {
+        "STAGE_PROPERTY": "parser_success",
+        "DENOMINATOR": "snapshot presenti"
+      },
+      {
+        "STAGE_PROPERTY": "paper_selection",
+        "DENOMINATOR": "documenti con SourceUnit"
+      },
+      {
+        "STAGE_PROPERTY": "abstract_degradation",
+        "DENOMINATOR": "documenti risolti"
+      },
+      {
+        "STAGE_PROPERTY": "live_abort_reason_distribution",
+        "DENOMINATOR": "run LIVE avviate"
+      }
+    ],
+    "stratification_observed_not_preassigned": [
+      "PMC_FULLTEXT",
+      "ABSTRACT_ONLY",
+      "DOCUMENT_UNAVAILABLE"
+    ]
   },
-
   "RQ2_B_sourceunit_retrieval": {
     "testbed": "INDEPENDENT_SOURCEUNIT_GROUNDING",
     "independence_level": "INDEPENDENT",
     "design": "paired sulle stesse 20 coppie candidate-documento",
-    "strategies": ["FIRST_K", "BM25", "DETERMINISTIC_SELECTOR"],
-    "relevance_definitions": ["direct", "direct_plus_partial"],
+    "strategies": [
+      "FIRST_K",
+      "BM25",
+      "DETERMINISTIC_SELECTOR"
+    ],
+    "relevance_definitions": [
+      "direct",
+      "direct_plus_partial"
+    ],
     "denominator_pairs_mandatory": {
       "overall": "20 coppie",
       "positive_cases": "9 coppie con almeno un'unità DIRECTLY_RELEVANT",
       "relevant_units_direct": 29,
       "relevant_units_direct_plus_partial": 78
     },
-    "columns": ["STRATEGY", "RELEVANCE_DEF", "DENOMINATOR_SET", "HitRate@3", "HitRate@5", "HitRate@10", "Recall@5", "Recall@10", "Precision@5", "MRR", "MEAN_FIRST_RELEVANT_RANK", "MEDIAN_FIRST_RELEVANT_RANK", "FULL_COVERAGE@5", "FULL_COVERAGE@10", "CI95", "SOURCE_ARTIFACT"],
+    "columns": [
+      "STRATEGY",
+      "RELEVANCE_DEF",
+      "DENOMINATOR_SET",
+      "HitRate@3",
+      "HitRate@5",
+      "HitRate@10",
+      "Recall@5",
+      "Recall@10",
+      "Precision@5",
+      "MRR",
+      "MEAN_FIRST_RELEVANT_RANK",
+      "MEDIAN_FIRST_RELEVANT_RANK",
+      "FULL_COVERAGE@5",
+      "FULL_COVERAGE@10",
+      "CI95",
+      "SOURCE_ARTIFACT"
+    ],
     "row_count_expected": 12,
     "row_definition": "3 strategie × 2 definizioni di rilevanza × 2 denominatori",
-    "paired_delta_columns": ["DELTA_VS_FIRST_K", "DELTA_VS_BM25", "BOOTSTRAP_CI95"],
+    "paired_delta_columns": [
+      "DELTA_VS_FIRST_K",
+      "DELTA_VS_BM25",
+      "BOOTSTRAP_CI95"
+    ],
     "prohibition": "vietato riportare la sola riga positive_cases; le due righe di denominatore vanno sempre insieme"
   },
-
   "RQ2_C_gemma_downstream": {
     "testbed": "INDEPENDENT_SOURCEUNIT_GROUNDING",
     "independence_level": "INDEPENDENT",
     "design": "paired GOLD vs SELECTOR sugli stessi casi, stesso contratto Gemma, stesso validator",
-    "columns": ["ARM", "DENOMINATOR_SET", "N", "QUOTE", "ABSTAIN", "VALIDATED_QUOTE", "REJECTED_QUOTE", "WRONG_DOCUMENT_ACCEPTED", "WRONG_SOURCEUNIT_ACCEPTED", "WRONG_QUOTE_ACCEPTED", "DECISION_CONCORDANCE", "CI95", "SOURCE_ARTIFACT"],
-    "arms": ["GOLD_SOURCE_UNITS", "SELECTOR_TOP_5"],
-    "denominator_sets": ["positive_cases_9", "zero_direct_cases_11", "overall_20"],
-    "safety_columns_zero_target": ["WRONG_DOCUMENT_ACCEPTED", "WRONG_SOURCEUNIT_ACCEPTED", "WRONG_QUOTE_ACCEPTED"]
+    "columns": [
+      "ARM",
+      "DENOMINATOR_SET",
+      "N",
+      "QUOTE",
+      "ABSTAIN",
+      "VALIDATED_QUOTE",
+      "REJECTED_QUOTE",
+      "WRONG_DOCUMENT_ACCEPTED",
+      "WRONG_SOURCEUNIT_ACCEPTED",
+      "WRONG_QUOTE_ACCEPTED",
+      "DECISION_CONCORDANCE",
+      "CI95",
+      "SOURCE_ARTIFACT"
+    ],
+    "arms": [
+      "GOLD_SOURCE_UNITS",
+      "SELECTOR_TOP_5"
+    ],
+    "denominator_sets": [
+      "positive_cases_9",
+      "zero_direct_cases_11",
+      "overall_20"
+    ],
+    "safety_columns_zero_target": [
+      "WRONG_DOCUMENT_ACCEPTED",
+      "WRONG_SOURCEUNIT_ACCEPTED",
+      "WRONG_QUOTE_ACCEPTED"
+    ]
   },
-
   "RQ3_authority_separation": {
     "testbed": "RQ3-A existing safety/regression + RQ3-B held-out",
     "independence_level": "DEVELOPMENT_REGRESSION + HELD_OUT (righe etichettate separatamente)",
-    "columns": ["FAILURE_MODE", "TESTBED", "INDEPENDENCE_LEVEL", "FULL_SYSTEM", "ABLATION", "ABLATION_ARM", "DELTA", "BLOCKING_COMPONENT", "DENOMINATOR", "CI95", "SOURCE_ARTIFACT"],
+    "columns": [
+      "FAILURE_MODE",
+      "TESTBED",
+      "INDEPENDENCE_LEVEL",
+      "FULL_SYSTEM",
+      "ABLATION",
+      "ABLATION_ARM",
+      "DELTA",
+      "BLOCKING_COMPONENT",
+      "DENOMINATOR",
+      "CI95",
+      "SOURCE_ARTIFACT"
+    ],
     "failure_modes": [
-      {"FAILURE_MODE": "unverified_casecontext_reaches_retrieval", "ABLATION_ARM": "NO_CASECONTEXT_VERIFIER", "BLOCKING_COMPONENT": "CaseContext Verifier + Pre-Retrieval Eligibility Gate"},
-      {"FAILURE_MODE": "declared_field_grants_authorization", "ABLATION_ARM": "NO_CASECONTEXT_VERIFIER", "BLOCKING_COMPONENT": "Match Verifier + control-span detection"},
-      {"FAILURE_MODE": "instructed_entity_populates_verified_field", "ABLATION_ARM": "NO_CASECONTEXT_VERIFIER", "BLOCKING_COMPONENT": "Match Verifier"},
-      {"FAILURE_MODE": "fabricated_quote_accepted", "ABLATION_ARM": "NO_QUOTE_VALIDATOR", "BLOCKING_COMPONENT": "Quote Validator v2"},
-      {"FAILURE_MODE": "wrong_document_accepted", "ABLATION_ARM": "NO_QUOTE_VALIDATOR", "BLOCKING_COMPONENT": "Quote Validator v2 + provenance binding"},
-      {"FAILURE_MODE": "wrong_sourceunit_accepted", "ABLATION_ARM": "NO_QUOTE_VALIDATOR", "BLOCKING_COMPONENT": "Quote Validator v2"},
-      {"FAILURE_MODE": "recomposed_quote_accepted", "ABLATION_ARM": "NO_QUOTE_VALIDATOR", "BLOCKING_COMPONENT": "Quote Validator v2"},
-      {"FAILURE_MODE": "text_supplied_provenance_enters_chain", "ABLATION_ARM": "NO_QUOTE_VALIDATOR", "BLOCKING_COMPONENT": "provenance binding"},
-      {"FAILURE_MODE": "irrelevant_evidence_routed_to_model", "ABLATION_ARM": "FIRST_K_TOP_5 / BM25_TOP_5", "BLOCKING_COMPONENT": "SourceUnit Selector"},
-      {"FAILURE_MODE": "unauthorized_entity_presented", "ABLATION_ARM": "NO_NARRATIVE_VERIFIER", "BLOCKING_COMPONENT": "Narrative Verifier"},
-      {"FAILURE_MODE": "status_escalation_presented", "ABLATION_ARM": "NO_NARRATIVE_VERIFIER", "BLOCKING_COMPONENT": "Narrative Verifier"},
-      {"FAILURE_MODE": "polarity_inversion_presented", "ABLATION_ARM": "NO_NARRATIVE_VERIFIER", "BLOCKING_COMPONENT": "Narrative Verifier"},
-      {"FAILURE_MODE": "critical_caveat_omitted", "ABLATION_ARM": "NO_NARRATIVE_VERIFIER", "BLOCKING_COMPONENT": "Narrative Verifier"},
-      {"FAILURE_MODE": "invented_recommendation_presented", "ABLATION_ARM": "NO_NARRATIVE_VERIFIER", "BLOCKING_COMPONENT": "Narrative Verifier"},
-      {"FAILURE_MODE": "canonical_dossier_mutated_by_llm", "ABLATION_ARM": "none — proprietà di costruzione", "BLOCKING_COMPONENT": "proiezione deterministica dell'input del narratore"}
+      {
+        "FAILURE_MODE": "unverified_casecontext_reaches_retrieval",
+        "ABLATION_ARM": "NO_CASECONTEXT_VERIFIER",
+        "BLOCKING_COMPONENT": "CaseContext Verifier + Pre-Retrieval Eligibility Gate"
+      },
+      {
+        "FAILURE_MODE": "declared_field_grants_authorization",
+        "ABLATION_ARM": "NO_CASECONTEXT_VERIFIER",
+        "BLOCKING_COMPONENT": "Match Verifier + control-span detection"
+      },
+      {
+        "FAILURE_MODE": "instructed_entity_populates_verified_field",
+        "ABLATION_ARM": "NO_CASECONTEXT_VERIFIER",
+        "BLOCKING_COMPONENT": "Match Verifier"
+      },
+      {
+        "FAILURE_MODE": "fabricated_quote_accepted",
+        "ABLATION_ARM": "NO_QUOTE_VALIDATOR",
+        "BLOCKING_COMPONENT": "Quote Validator v2"
+      },
+      {
+        "FAILURE_MODE": "wrong_document_accepted",
+        "ABLATION_ARM": "NO_QUOTE_VALIDATOR",
+        "BLOCKING_COMPONENT": "Quote Validator v2 + provenance binding"
+      },
+      {
+        "FAILURE_MODE": "wrong_sourceunit_accepted",
+        "ABLATION_ARM": "NO_QUOTE_VALIDATOR",
+        "BLOCKING_COMPONENT": "Quote Validator v2"
+      },
+      {
+        "FAILURE_MODE": "recomposed_quote_accepted",
+        "ABLATION_ARM": "NO_QUOTE_VALIDATOR",
+        "BLOCKING_COMPONENT": "Quote Validator v2"
+      },
+      {
+        "FAILURE_MODE": "text_supplied_provenance_enters_chain",
+        "ABLATION_ARM": "NO_QUOTE_VALIDATOR",
+        "BLOCKING_COMPONENT": "provenance binding"
+      },
+      {
+        "FAILURE_MODE": "irrelevant_evidence_routed_to_model",
+        "ABLATION_ARM": "FIRST_K_TOP_5 / BM25_TOP_5",
+        "BLOCKING_COMPONENT": "SourceUnit Selector"
+      },
+      {
+        "FAILURE_MODE": "unauthorized_entity_presented",
+        "ABLATION_ARM": "NO_NARRATIVE_VERIFIER",
+        "BLOCKING_COMPONENT": "Narrative Verifier"
+      },
+      {
+        "FAILURE_MODE": "status_escalation_presented",
+        "ABLATION_ARM": "NO_NARRATIVE_VERIFIER",
+        "BLOCKING_COMPONENT": "Narrative Verifier"
+      },
+      {
+        "FAILURE_MODE": "polarity_inversion_presented",
+        "ABLATION_ARM": "NO_NARRATIVE_VERIFIER",
+        "BLOCKING_COMPONENT": "Narrative Verifier"
+      },
+      {
+        "FAILURE_MODE": "critical_caveat_omitted",
+        "ABLATION_ARM": "NO_NARRATIVE_VERIFIER",
+        "BLOCKING_COMPONENT": "Narrative Verifier"
+      },
+      {
+        "FAILURE_MODE": "invented_recommendation_presented",
+        "ABLATION_ARM": "NO_NARRATIVE_VERIFIER",
+        "BLOCKING_COMPONENT": "Narrative Verifier"
+      },
+      {
+        "FAILURE_MODE": "canonical_dossier_mutated_by_llm",
+        "ABLATION_ARM": "none — proprietà di costruzione",
+        "BLOCKING_COMPONENT": "proiezione deterministica dell'input del narratore"
+      }
     ],
     "claim_under_test": "quali classi di fallimento vengono bloccate da quali confini",
     "claim_not_under_test": "il sistema completo ha accuratezza migliore in generale",
-    "specificity_requirement": "il set di controllo NARRATIVE_HELDOUT_VALID_CONTROL_5 va riportato accanto: un verifier che respinge tutto non è un verifier corretto"
+    "specificity_requirement": "Il set NARRATIVE_HELDOUT_VALID_CONTROL_5 va riportato accanto ai 20 ostili come positive-control acceptance rate. Con N=5 non è una stima di specificità: serve a escludere un comportamento di rifiuto banale, perché un verifier che respinge ogni narrativa otterrebbe 20/20 sui soli casi ostili. Il valore e il CI di Wilson possono essere calcolati, ma vanno descritti come controllo di non-trivial rejection behavior.",
+    "adversarial_scoring": "Per i 5 casi ADVERSARIAL_CASECONTEXT l'endpoint valutato è primary_gold = HARD_ARCHITECTURAL_INVARIANT: retrieval path is not the primary scored endpoint; the scored endpoint is absence of forbidden authority transfer.",
+    "narrative_scoring": "Ogni caso ostile è conteggiato nella sola primary_mutation_type; le mutazioni secondarie inevitabili sono registrate e non conteggiate."
   },
-
   "RQ4_selective_execution": {
-    "columns": ["CATEGORY", "TESTBED", "INDEPENDENCE_LEVEL", "N", "EXPECTED_PATH", "OBSERVED_CORRECT_PATH", "CORRECT_PATH_RATE", "CI95", "FORBIDDEN_RETRIEVAL", "FORBIDDEN_MODEL_CALL", "UNEXPECTED_EXCEPTION", "CANONICAL_ARTIFACT_AFTER_ABORT", "WRONG_FALLBACK", "MODEL_TRANSPORT_FAILED", "SOURCE_ARTIFACT"],
+    "columns": [
+      "CATEGORY",
+      "TESTBED",
+      "INDEPENDENCE_LEVEL",
+      "N",
+      "EXPECTED_PATH",
+      "OBSERVED_CORRECT_PATH",
+      "CORRECT_PATH_RATE",
+      "CI95",
+      "FORBIDDEN_RETRIEVAL",
+      "FORBIDDEN_MODEL_CALL",
+      "UNEXPECTED_EXCEPTION",
+      "CANONICAL_ARTIFACT_AFTER_ABORT",
+      "WRONG_FALLBACK",
+      "MODEL_TRANSPORT_FAILED",
+      "SOURCE_ARTIFACT"
+    ],
     "tables": [
       {
         "table_id": "RQ4-DEV",
         "testbed": "CASECONTEXT_ROUTING_REGRESSION",
         "corpus": "CASECONTEXT_ROBUSTNESS_35",
         "independence_level": "DEVELOPMENT_REGRESSION",
-        "categories": ["IN_SCOPE_COMPLETE", "IN_SCOPE_INCOMPLETE", "AMBIGUOUS", "OUT_OF_SCOPE", "NON_ACTIONABLE_MEDICAL_INPUT", "CONTRADICTORY", "ADVERSARIAL"],
+        "categories": [
+          "IN_SCOPE_COMPLETE",
+          "IN_SCOPE_INCOMPLETE",
+          "AMBIGUOUS",
+          "OUT_OF_SCOPE",
+          "NON_ACTIONABLE_MEDICAL_INPUT",
+          "CONTRADICTORY",
+          "ADVERSARIAL"
+        ],
         "supported_claim": "regression behavior is preserved",
         "unsupported_claim": "generalizzazione su input mai visti dal gate"
       },
@@ -137,7 +409,15 @@
         "testbed": "HELDOUT_ARCHITECTURAL_CHALLENGE",
         "corpus": "HELDOUT_ARCHITECTURAL_35",
         "independence_level": "HELD_OUT",
-        "categories": ["COMPLETE", "INCOMPLETE_ESSENTIAL", "AMBIGUOUS", "OUT_OF_DOMAIN", "CONTRADICTORY", "ADVERSARIAL_CASECONTEXT", "NEGATIVE_POLARITY_STRESS"],
+        "categories": [
+          "COMPLETE",
+          "INCOMPLETE_ESSENTIAL",
+          "AMBIGUOUS",
+          "OUT_OF_DOMAIN",
+          "CONTRADICTORY",
+          "ADVERSARIAL_CASECONTEXT",
+          "NEGATIVE_POLARITY_STRESS"
+        ],
         "supported_claim": "il comportamento dei confini di autorità e di fallimento è verificato su casi non usati durante lo sviluppo dei rispettivi gate",
         "unsupported_claim": "accuratezza clinica"
       }
@@ -145,52 +425,135 @@
     "aggregation_prohibition": "le due tabelle non possono essere sommate né presentate senza etichetta di independence_level",
     "transport_rule": "MODEL_TRANSPORT_FAILED è contato a parte e sottratto dal denominatore di CORRECT_PATH_RATE, con il denominatore effettivo dichiarato"
   },
-
   "LIVE_operational": {
     "testbed": "LIVE",
-    "columns": ["CASE", "CACHE_HIT", "NETWORK_FETCH", "IDENTIFIER_RESOLVED", "PMCID_DERIVED", "SNAPSHOT_PERSISTED", "PARSER_SUCCESS", "N_SOURCEUNITS", "PAPER_SELECTION", "SELECTOR_CALLED", "K", "GEMMA_CALLED", "VALIDATOR_CALLED", "RUN_STATE", "FAILURE_REASON", "TOTAL_LATENCY_MS"],
-    "scenarios": ["cache_hit", "cache_miss_success", "pmid_only_to_pmcid", "pmc_fulltext", "pmc_unavailable_abstract_degradation", "unseen_document", "document_unavailable", "parser_failure_fixture", "selector_failure_fixture"],
+    "columns": [
+      "CASE",
+      "CACHE_HIT",
+      "NETWORK_FETCH",
+      "IDENTIFIER_RESOLVED",
+      "PMCID_DERIVED",
+      "SNAPSHOT_PERSISTED",
+      "PARSER_SUCCESS",
+      "N_SOURCEUNITS",
+      "PAPER_SELECTION",
+      "SELECTOR_CALLED",
+      "K",
+      "GEMMA_CALLED",
+      "VALIDATOR_CALLED",
+      "RUN_STATE",
+      "FAILURE_REASON",
+      "TOTAL_LATENCY_MS"
+    ],
+    "scenarios": [
+      "cache_hit",
+      "cache_miss_success",
+      "pmid_only_to_pmcid",
+      "pmc_fulltext",
+      "pmc_unavailable_abstract_degradation",
+      "unseen_document",
+      "document_unavailable",
+      "parser_failure_fixture",
+      "selector_failure_fixture"
+    ],
     "hard_property": "LIVE_uses_frozen_bundle_for_selection = 0 su tutte le run LIVE"
   },
-
   "REPLAY_reproducibility": {
     "testbed": "REPLAY",
-    "columns": ["CASE", "FROZEN_BUNDLE_USED", "SOURCE_UNIT_IDS_MATCH", "NETWORK_CALLS", "LIVE_SELECTOR_CALLS", "CANONICAL_OUTPUT_MATCH", "HASH_MATCH", "RUN_METADATA_MATCH", "HISTORICAL_RESULT_PRESERVED"],
+    "columns": [
+      "CASE",
+      "FROZEN_BUNDLE_USED",
+      "SOURCE_UNIT_IDS_MATCH",
+      "NETWORK_CALLS",
+      "LIVE_SELECTOR_CALLS",
+      "CANONICAL_OUTPUT_MATCH",
+      "HASH_MATCH",
+      "RUN_METADATA_MATCH",
+      "HISTORICAL_RESULT_PRESERVED"
+    ],
     "denominator": "25 bundle congelati",
-    "hard_properties": ["NETWORK_CALLS = 0", "LIVE_SELECTOR_CALLS = 0"],
+    "hard_properties": [
+      "NETWORK_CALLS = 0",
+      "LIVE_SELECTOR_CALLS = 0"
+    ],
     "prohibition": "nessuna metrica di accuratezza LIVE vs REPLAY"
   },
-
   "LIVE_vs_REPLAY_properties": {
-    "columns": ["PROPERTY", "LIVE", "REPLAY", "OBSERVED_RESULT"],
-    "properties": ["new_document_acquisition", "network_allowed", "cache_first", "sourceunit_selector", "frozen_bundle", "historical_reproducibility", "unseen_documents", "operational_role"],
+    "columns": [
+      "PROPERTY",
+      "LIVE",
+      "REPLAY",
+      "OBSERVED_RESULT"
+    ],
+    "properties": [
+      "new_document_acquisition",
+      "network_allowed",
+      "cache_first",
+      "sourceunit_selector",
+      "frozen_bundle",
+      "historical_reproducibility",
+      "unseen_documents",
+      "operational_role"
+    ],
     "framing": "ruoli operativi diversi, mai better/worse"
   },
-
   "latency": {
     "source": "duration_ms già registrato dall'orchestratore per i 15 stage",
-    "columns": ["STAGE", "N", "MEAN_MS", "MEDIAN_MS", "P95_MS", "MIN_MS", "MAX_MS"],
+    "columns": [
+      "STAGE",
+      "N",
+      "MEAN_MS",
+      "MEDIAN_MS",
+      "P95_MS",
+      "MIN_MS",
+      "MAX_MS"
+    ],
     "p95_rule": "riportato solo se N >= 20",
     "stages": [
-      "stage_1_case_input", "stage_2_casecontext_parser", "stage_3_casecontext_match",
-      "stage_3b_pre_retrieval_eligibility_gate", "stage_4_retrieval_plan", "stage_5_kg_retrieval",
-      "stage_6_document_resolution", "stage_7_source_units", "stage_8_paper_selection",
-      "stage_9_paper_context_enricher", "stage_10_enrichment_validation",
-      "stage_11_deterministic_gates", "stage_12_status", "stage_13_dossier",
-      "stage_14_narrator", "stage_15_narrative_verifier"
+      "stage_1_case_input",
+      "stage_2_casecontext_parser",
+      "stage_3_casecontext_match",
+      "stage_3b_pre_retrieval_eligibility_gate",
+      "stage_4_retrieval_plan",
+      "stage_5_kg_retrieval",
+      "stage_6_document_resolution",
+      "stage_7_source_units",
+      "stage_8_paper_selection",
+      "stage_9_paper_context_enricher",
+      "stage_10_enrichment_validation",
+      "stage_11_deterministic_gates",
+      "stage_12_status",
+      "stage_13_dossier",
+      "stage_14_narrator",
+      "stage_15_narrative_verifier"
     ],
     "primary_operational_comparison": {
-      "arms": ["CACHE_HIT", "SUCCESSFUL_CACHE_MISS_PLUS_API"],
+      "arms": [
+        "CACHE_HIT",
+        "SUCCESSFUL_CACHE_MISS_PLUS_API"
+      ],
       "excluded_from_arms": "FAILED_CACHE_MISS, riportato separatamente",
-      "columns": ["ARM", "N", "TOTAL_LATENCY_MS", "DOCUMENT_STAGE_MS", "NETWORK_MS", "GEMMA_MS"]
+      "columns": [
+        "ARM",
+        "N",
+        "TOTAL_LATENCY_MS",
+        "DOCUMENT_STAGE_MS",
+        "NETWORK_MS",
+        "GEMMA_MS"
+      ]
     }
   },
-
   "secondary_offline_sensitivity": {
     "status": "SECONDARY_OFFLINE_SENSITIVITY",
     "excluded_from_primary_final_evaluation": true,
-    "parameters": ["max_papers_per_association", "selector_top_k"],
-    "frozen_values": {"max_papers_per_association": 2, "selector_top_k": 5},
+    "parameters": [
+      "max_papers_per_association",
+      "selector_top_k"
+    ],
+    "frozen_values": {
+      "max_papers_per_association": 2,
+      "selector_top_k": 5
+    },
     "rule": "se eseguita, non può modificare i valori congelati né essere usata per giustificarli a posteriori"
   }
 }

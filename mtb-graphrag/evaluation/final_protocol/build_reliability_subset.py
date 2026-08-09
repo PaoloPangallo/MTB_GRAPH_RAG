@@ -83,6 +83,19 @@ def build() -> dict[str, Any]:
         },
         "purpose": "quantificare la varianza del provider LLM, che non espone un seed",
         "excluded_from": ["metriche primarie", "criteri HARD"],
+        "renames_applied": {
+            "revised_in": "1.1-review-1",
+            "HO-AMB-01-abbreviation-collision": "HO-AMB-01-primary-site-ambiguity",
+            "HO-CON-01-two-primary-diseases": "HO-CON-01-same-primary-conflicting-diagnoses",
+            "note": (
+                "Due casi del sottoinsieme sono stati rinominati perché il loro contenuto è "
+                "cambiato in revisione e l'ID precedente sarebbe diventato fuorviante. La "
+                "regola di selezione non è cambiata e continua a scegliere la stessa "
+                "posizione lessicografica nella stessa categoria: nessun caso è stato "
+                "sostituito, e in particolare nessuno è stato scelto in base al "
+                "comportamento atteso del sistema."
+            ),
+        },
         "dataset_hash": {
             "heldout_bundle_sha256": heldout_hashes["heldout_bundle_sha256"],
             "dataset_bundle_sha256": dataset_hashes["dataset_bundle_sha256"],
