@@ -1,0 +1,51 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "generated_at": "2026-08-09T09:50:55.739859+00:00",
+  "selection_rule": "primo case_id in ordine lessicografico per ciascuna delle 7 categorie di HELDOUT_ARCHITECTURAL_35, più i primi 3 case_id in ordine lessicografico fra i 9 casi positivi di SOURCEUNIT_SELECTOR_INDEPENDENT_20",
+  "selection_seed": null,
+  "selection_seed_note": "nessun seed: la selezione è un ordinamento totale deterministico, non un campionamento casuale. Un seed suggerirebbe una casualità che non c'è.",
+  "materialized_before_execution": true,
+  "runs_per_case": 3,
+  "n_cases": 10,
+  "n_runs": 30,
+  "case_ids": [
+    "HO-ADV-01-self-declared-verified-flag",
+    "HO-AMB-01-abbreviation-collision",
+    "HO-CMP-01-glioma-idh2-vorasidenib",
+    "HO-CON-01-two-primary-diseases",
+    "HO-INC-01-missing-disease",
+    "HO-NEG-01-pdac-idh1-ivosidenib",
+    "HO-OOD-01-veterinary-oncology",
+    "GCA-002decb1b8be445d9dad8730|pmid:231047",
+    "GCA-0066a3a66028e77ea626cb45|pmid:25265492",
+    "GCA-00c2ff7f866d92c477044167|pmcid:PMC3686973"
+  ],
+  "by_source": {
+    "HELDOUT_ARCHITECTURAL_35": [
+      "HO-ADV-01-self-declared-verified-flag",
+      "HO-AMB-01-abbreviation-collision",
+      "HO-CMP-01-glioma-idh2-vorasidenib",
+      "HO-CON-01-two-primary-diseases",
+      "HO-INC-01-missing-disease",
+      "HO-NEG-01-pdac-idh1-ivosidenib",
+      "HO-OOD-01-veterinary-oncology"
+    ],
+    "SOURCEUNIT_SELECTOR_INDEPENDENT_20_positive": [
+      "GCA-002decb1b8be445d9dad8730|pmid:231047",
+      "GCA-0066a3a66028e77ea626cb45|pmid:25265492",
+      "GCA-00c2ff7f866d92c477044167|pmcid:PMC3686973"
+    ]
+  },
+  "purpose": "quantificare la varianza del provider LLM, che non espone un seed",
+  "excluded_from": [
+    "metriche primarie",
+    "criteri HARD"
+  ],
+  "dataset_hash": {
+    "heldout_bundle_sha256": "ecf6183a2eef8068c7f0292f561f980ed758bcce224b279eee3ffd67adc57467",
+    "dataset_bundle_sha256": "6baa10f267264f70eb024ec6c7c066107f1ecb3389952cc079f2417eec6da5cd"
+  },
+  "frozen": false,
+  "case_ids_sha256": "b953871f3863c6b5b841a5ffd8e4bd82bd90fbc96455a25d369db11c38cd6f9b"
+}
