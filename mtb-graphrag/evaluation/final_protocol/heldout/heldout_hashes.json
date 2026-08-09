@@ -1,0 +1,21 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "hash_algorithm": "sha256",
+  "file_hash_rule": "sha256 of the file bytes with CRLF normalized to LF",
+  "files": {
+    "architectural_challenge_cases.json": "636f3547f06f24209ec71e20f9f58c417d5a3676f41079399bcea99ed46ca005",
+    "architectural_challenge_gold.json": "6a5ab972d43a87bbc0177771ec4397a7dfcd921b62509a85bceea36921ffe4c8",
+    "narrative_heldout_cases.json": "e1a0516fe28b29440cddffde103ff564d019da65b93043ca7af4fcbd541ecf6c",
+    "narrative_heldout_gold.json": "08da3d29e9115b2c817c66cf5776011680322acc2ec7c3aa0a72f5c6e4efb54d",
+    "narrative_heldout_valid_control.json": "133b8811cd5d7051e30b36cc653f87ac589c9fe4f292015dfdf2e62fe9aa9cb9",
+    "overlap_report.json": "80c01bc9ecfb3fb74968f02b29e1be449572da208a2905f904edb40cdaaabb0a"
+  },
+  "base_dossier_hashes": {
+    "BD-01": "c2961ce479dfdd8a2732f08fe62b73700e66d111e8b943d4d3aaa1be99674796",
+    "BD-02": "7b537a2c017b363f28f71427e3061c440b164fd70fac108de51e92b2ab00d794",
+    "BD-03": "c6ce149d03ec091122dc1c16be1a39be87d3611a2281be5c0269c7891215bfaa",
+    "BD-04": "c292d886629fe4d1795daabcc7fa8ccea9c7cd5654e053e8c8489de5eea2a03f",
+    "BD-05": "07f836721ada2c1dfe99ded3aa4c49c71d72d9940907eabf329e4e947b17d689"
+  },
+  "heldout_bundle_sha256": "ecf6183a2eef8068c7f0292f561f980ed758bcce224b279eee3ffd67adc57467"
+}

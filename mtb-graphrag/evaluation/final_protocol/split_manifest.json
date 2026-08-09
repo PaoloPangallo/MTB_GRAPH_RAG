@@ -1,7 +1,7 @@
 {
-  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T08:59:48.523484+00:00",
+  "generated_at": "2026-08-09T09:50:48.584262+00:00",
   "split_definitions": {
     "PILOT": "casi che hanno guidato la costruzione della pipeline; solo regression",
     "DEVELOPMENT": "casi osservati prima del congelamento di almeno un componente che li riguarda; regression e ablation, mai generalizzazione",
@@ -66,6 +66,27 @@
       "rationale": "Quattordici scenari con esito atteso ACCEPT/REJECT dichiarato prima dell'esecuzione, scritti però contro il validator esistente. Coprono la classe di fallimento richiesta dall'ablation C."
     },
     {
+      "corpus_id": "HELDOUT_ARCHITECTURAL_35",
+      "split": "HELD_OUT",
+      "contaminated_component": null,
+      "final_role": "RQ3_RQ4_GENERALIZATION_EVIDENCE",
+      "rationale": "Costruito dopo il congelamento del runtime (2026-08-08T21:11+02:00) e prima di qualunque esecuzione; nessun output del sistema è stato osservato durante la scrittura. Dieci casi sono ancorati a candidate reali del repository 2.0 e il build verifica disease, biomarker, intervento e evidence_direction contro il record, fallendo se divergono. Overlap con i corpus di sviluppo: 0 esatto, 0 normalizzato, 0 case-id, 0 candidate; restano 5 frasi di repertorio riportate per esteso. È l'unico corpus che può sostenere una claim di generalizzazione per i gate di autorità e fallimento."
+    },
+    {
+      "corpus_id": "NARRATIVE_HELDOUT_20",
+      "split": "HELD_OUT",
+      "contaminated_component": null,
+      "final_role": "NARRATIVE_VERIFIER_GENERALIZATION_AND_ABLATION_D",
+      "rationale": "Non riusa DOSSIER_NARRATOR_25 né NARRATOR_ADVERSARIAL_20, cioè i corpus su cui il lexicon era stato corretto. I cinque base dossier sono specifiche deterministiche derivate da candidate congelate, non output di run: né il narratore né il verifier li hanno visti. Il gold è la mutazione dichiarata, non la risposta del verifier."
+    },
+    {
+      "corpus_id": "NARRATIVE_HELDOUT_VALID_CONTROL_5",
+      "split": "HELD_OUT",
+      "contaminated_component": null,
+      "final_role": "NARRATIVE_VERIFIER_SPECIFICITY",
+      "rationale": "Tenuti in un file separato e con etichetta hostile=false. Senza controlli positivi un verifier che respinge tutto otterrebbe un punteggio perfetto sui 20 ostili: la specificità va misurata, non assunta."
+    },
+    {
       "corpus_id": "GCA_REPOSITORY_2_0_46864",
       "split": "FINAL_TEST",
       "contaminated_component": null,
@@ -80,5 +101,5 @@
       "rationale": "Il runtime a f52bbf5 legge 2.0 (backend/research_pipeline/data_access.py) e nessun modulo del runtime importa kg_retrieval_v3. Le proprietà di 3.0 (polarità esplicita, regimi preservati, alterazioni composte) NON vanno attribuite al sistema valutato."
     }
   ],
-  "dataset_bundle_sha256": "eafa02a65609fb229ffb320e8f204df06e37fe6fce4bf7ba69ab0842c57a2542"
+  "dataset_bundle_sha256": "6baa10f267264f70eb024ec6c7c066107f1ecb3389952cc079f2417eec6da5cd"
 }

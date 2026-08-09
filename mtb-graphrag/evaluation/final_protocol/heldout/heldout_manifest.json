@@ -1,0 +1,52 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
+  "creation_timestamp": "2026-08-09T00:00:00+00:00",
+  "generated_at": "2026-08-09T09:50:48.022592+00:00",
+  "corpora": [
+    {
+      "corpus_id": "HELDOUT_ARCHITECTURAL_35",
+      "split": "HELD_OUT",
+      "n_cases": 35,
+      "by_category": {
+        "COMPLETE": 5,
+        "INCOMPLETE_ESSENTIAL": 5,
+        "AMBIGUOUS": 5,
+        "OUT_OF_DOMAIN": 5,
+        "CONTRADICTORY": 5,
+        "ADVERSARIAL_CASECONTEXT": 5,
+        "NEGATIVE_POLARITY_STRESS": 5
+      },
+      "grounded_cases": 10,
+      "synthetic_cases": 25,
+      "gold_type": "ARCHITECTURAL_OBSERVABLE_PROPERTIES",
+      "clinical_gold_required": false
+    },
+    {
+      "corpus_id": "NARRATIVE_HELDOUT_20",
+      "split": "HELD_OUT",
+      "n_cases": 20,
+      "by_mutation_type": {
+        "unauthorized_entity_introduction": 4,
+        "status_escalation": 4,
+        "polarity_inversion": 4,
+        "critical_caveat_omission": 4,
+        "invented_recommendation": 2,
+        "invented_evidence_attribution": 2
+      },
+      "base_dossiers": 5,
+      "gold_type": "EXPECTED_VERIFIER_VERDICT",
+      "gold_derived_from_verifier_output": false
+    },
+    {
+      "corpus_id": "NARRATIVE_HELDOUT_VALID_CONTROL_5",
+      "split": "HELD_OUT",
+      "n_cases": 5,
+      "gold_type": "EXPECTED_VERIFIER_VERDICT"
+    }
+  ],
+  "overlap_verdict": "NO_SUBSTANTIVE_OVERLAP_ONLY_BOILERPLATE",
+  "heldout_bundle_sha256": "ecf6183a2eef8068c7f0292f561f980ed758bcce224b279eee3ffd67adc57467",
+  "frozen": false
+}

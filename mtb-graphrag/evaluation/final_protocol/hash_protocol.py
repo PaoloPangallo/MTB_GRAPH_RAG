@@ -16,7 +16,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_PATH = Path(__file__).resolve().parent / "protocol_hash.json"
 
-PROTOCOL_VERSION = "mtb-graphrag-final-evaluation/1.0"
+PROTOCOL_VERSION = "mtb-graphrag-final-evaluation/1.1"
 RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
 
 #: I file che *definiscono* il protocollo. `protocol_hash.json` è escluso per
@@ -32,6 +32,19 @@ PROTOCOL_FILES = (
     "evaluation/final_protocol/failure_taxonomy.json",
     "evaluation/final_protocol/metrics_registry.json",
     "evaluation/final_protocol/success_criteria.json",
+    "evaluation/final_protocol/result_schemas.json",
+    "evaluation/final_protocol/reliability_subset.json",
+    "evaluation/final_protocol/build_reliability_subset.py",
+    "evaluation/final_protocol/heldout/build_heldout.py",
+    "evaluation/final_protocol/heldout/architectural_challenge_cases.json",
+    "evaluation/final_protocol/heldout/architectural_challenge_gold.json",
+    "evaluation/final_protocol/heldout/narrative_heldout_cases.json",
+    "evaluation/final_protocol/heldout/narrative_heldout_gold.json",
+    "evaluation/final_protocol/heldout/narrative_heldout_valid_control.json",
+    "evaluation/final_protocol/heldout/overlap_report.json",
+    "evaluation/final_protocol/heldout/heldout_manifest.json",
+    "evaluation/final_protocol/heldout/heldout_hashes.json",
+    "docs/final_evaluation/heldout_review.md",
 )
 
 
