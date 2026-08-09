@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T09:50:55.739859+00:00",
+  "generated_at": "2026-08-09T10:18:18.859440+00:00",
   "selection_rule": "primo case_id in ordine lessicografico per ciascuna delle 7 categorie di HELDOUT_ARCHITECTURAL_35, più i primi 3 case_id in ordine lessicografico fra i 9 casi positivi di SOURCEUNIT_SELECTOR_INDEPENDENT_20",
   "selection_seed": null,
   "selection_seed_note": "nessun seed: la selezione è un ordinamento totale deterministico, non un campionamento casuale. Un seed suggerirebbe una casualità che non c'è.",
@@ -11,9 +11,9 @@
   "n_runs": 30,
   "case_ids": [
     "HO-ADV-01-self-declared-verified-flag",
-    "HO-AMB-01-abbreviation-collision",
+    "HO-AMB-01-primary-site-ambiguity",
     "HO-CMP-01-glioma-idh2-vorasidenib",
-    "HO-CON-01-two-primary-diseases",
+    "HO-CON-01-same-primary-conflicting-diagnoses",
     "HO-INC-01-missing-disease",
     "HO-NEG-01-pdac-idh1-ivosidenib",
     "HO-OOD-01-veterinary-oncology",
@@ -24,9 +24,9 @@
   "by_source": {
     "HELDOUT_ARCHITECTURAL_35": [
       "HO-ADV-01-self-declared-verified-flag",
-      "HO-AMB-01-abbreviation-collision",
+      "HO-AMB-01-primary-site-ambiguity",
       "HO-CMP-01-glioma-idh2-vorasidenib",
-      "HO-CON-01-two-primary-diseases",
+      "HO-CON-01-same-primary-conflicting-diagnoses",
       "HO-INC-01-missing-disease",
       "HO-NEG-01-pdac-idh1-ivosidenib",
       "HO-OOD-01-veterinary-oncology"
@@ -42,10 +42,16 @@
     "metriche primarie",
     "criteri HARD"
   ],
+  "renames_applied": {
+    "revised_in": "1.1-review-1",
+    "HO-AMB-01-abbreviation-collision": "HO-AMB-01-primary-site-ambiguity",
+    "HO-CON-01-two-primary-diseases": "HO-CON-01-same-primary-conflicting-diagnoses",
+    "note": "Due casi del sottoinsieme sono stati rinominati perché il loro contenuto è cambiato in revisione e l'ID precedente sarebbe diventato fuorviante. La regola di selezione non è cambiata e continua a scegliere la stessa posizione lessicografica nella stessa categoria: nessun caso è stato sostituito, e in particolare nessuno è stato scelto in base al comportamento atteso del sistema."
+  },
   "dataset_hash": {
-    "heldout_bundle_sha256": "ecf6183a2eef8068c7f0292f561f980ed758bcce224b279eee3ffd67adc57467",
-    "dataset_bundle_sha256": "6baa10f267264f70eb024ec6c7c066107f1ecb3389952cc079f2417eec6da5cd"
+    "heldout_bundle_sha256": "2e74a2247eb1f7663fb1679b9d6839a40bf6adcfacad6d9ff012a83763ab636d",
+    "dataset_bundle_sha256": "43805fabfeb09f321c966f1a7651fbc8e10b5ad6ea2869f1c13bbea5a2105e5c"
   },
   "frozen": false,
-  "case_ids_sha256": "b953871f3863c6b5b841a5ffd8e4bd82bd90fbc96455a25d369db11c38cd6f9b"
+  "case_ids_sha256": "9d69478392a9df96187827a1130d59f78747453fdaa070256f910a937a720fd3"
 }

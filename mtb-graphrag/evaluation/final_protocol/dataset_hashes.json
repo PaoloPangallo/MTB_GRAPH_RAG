@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T09:50:48.584262+00:00",
+  "generated_at": "2026-08-09T10:18:11.836056+00:00",
   "hash_algorithm": "sha256",
   "file_hash_rule": "sha256 of the file bytes with CRLF normalized to LF (platform-independent)",
   "corpus_hash_rule": "sha256 of the sorted 'relative_path:file_sha256' lines joined by \\n",
@@ -66,24 +66,24 @@
       }
     },
     "HELDOUT_ARCHITECTURAL_35": {
-      "corpus_sha256": "f158c429bf32db6045830de0f128a3c5a075bf549d0b38ce7097c307a6485aab",
+      "corpus_sha256": "b621ef82bffa5a0bd73b2e60c0a2bd9c657258d3cdfd8404feb3586d0c8bf019",
       "files": {
-        "evaluation/final_protocol/heldout/architectural_challenge_cases.json": "636f3547f06f24209ec71e20f9f58c417d5a3676f41079399bcea99ed46ca005",
-        "evaluation/final_protocol/heldout/architectural_challenge_gold.json": "6a5ab972d43a87bbc0177771ec4397a7dfcd921b62509a85bceea36921ffe4c8",
-        "evaluation/final_protocol/heldout/overlap_report.json": "80c01bc9ecfb3fb74968f02b29e1be449572da208a2905f904edb40cdaaabb0a"
+        "evaluation/final_protocol/heldout/architectural_challenge_cases.json": "178fb10b16f115df13e32c35270eb5c3889e52f711da16cc9de7079af3c8490d",
+        "evaluation/final_protocol/heldout/architectural_challenge_gold.json": "002ea61aab96b4e70c7ee314a7841f0405a9962cb9f0237c1c144a7d4110dc56",
+        "evaluation/final_protocol/heldout/overlap_report.json": "72a83664008d60e1e5945291d036c0a6bde3a08514ab2e2c6781ee4a7b317738"
       }
     },
     "NARRATIVE_HELDOUT_20": {
-      "corpus_sha256": "29f68939d1dbb76f84d80d6da720652e89c5972d2385d788541c5f9a96316445",
+      "corpus_sha256": "56dd9723c3a9763537f1d86f1d34e56b0863cd48d930fb0cf458f4da7d116554",
       "files": {
-        "evaluation/final_protocol/heldout/narrative_heldout_cases.json": "e1a0516fe28b29440cddffde103ff564d019da65b93043ca7af4fcbd541ecf6c",
-        "evaluation/final_protocol/heldout/narrative_heldout_gold.json": "08da3d29e9115b2c817c66cf5776011680322acc2ec7c3aa0a72f5c6e4efb54d"
+        "evaluation/final_protocol/heldout/narrative_heldout_cases.json": "2b91b5cbbc157904662604116698962d2b8e280f824e7d70bd7d2b2466c993e0",
+        "evaluation/final_protocol/heldout/narrative_heldout_gold.json": "334ced78b6658afcfc6b34d13b7713844a0172cb7b7957973204d7f4191b294e"
       }
     },
     "NARRATIVE_HELDOUT_VALID_CONTROL_5": {
-      "corpus_sha256": "a00c70410a5382ae1743804fb3b59e5af54070977530582c8d379bd08430992c",
+      "corpus_sha256": "4e6a7800a653efd7c945944b68e59864e7aa15f240d627cbf188130f41171478",
       "files": {
-        "evaluation/final_protocol/heldout/narrative_heldout_valid_control.json": "133b8811cd5d7051e30b36cc653f87ac589c9fe4f292015dfdf2e62fe9aa9cb9"
+        "evaluation/final_protocol/heldout/narrative_heldout_valid_control.json": "c58639f9c46e0695d8f9ecf4c6efc85a6a7711d84a8782421438846a84ca65b9"
       }
     },
     "GCA_REPOSITORY_2_0_46864": {
@@ -100,5 +100,5 @@
       }
     }
   },
-  "dataset_bundle_sha256": "6baa10f267264f70eb024ec6c7c066107f1ecb3389952cc079f2417eec6da5cd"
+  "dataset_bundle_sha256": "43805fabfeb09f321c966f1a7651fbc8e10b5ad6ea2869f1c13bbea5a2105e5c"
 }

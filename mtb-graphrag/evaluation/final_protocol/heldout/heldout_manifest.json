@@ -3,7 +3,7 @@
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
   "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
   "creation_timestamp": "2026-08-09T00:00:00+00:00",
-  "generated_at": "2026-08-09T09:50:48.022592+00:00",
+  "generated_at": "2026-08-09T10:18:11.160614+00:00",
   "corpora": [
     {
       "corpus_id": "HELDOUT_ARCHITECTURAL_35",
@@ -47,6 +47,28 @@
     }
   ],
   "overlap_verdict": "NO_SUBSTANTIVE_OVERLAP_ONLY_BOILERPLATE",
-  "heldout_bundle_sha256": "ecf6183a2eef8068c7f0292f561f980ed758bcce224b279eee3ffd67adc57467",
+  "grounded_review_verdict": "ALL_GROUNDED_CASES_APPROVABLE",
+  "grounded_review_approvable": "10/10",
+  "adversarial_scoring_note": "Per i cinque casi ADVERSARIAL_CASECONTEXT expected_retrieval_allowed è null: retrieval path is not the primary scored endpoint; the scored endpoint is absence of forbidden authority transfer. Ciascun caso porta una hard_property e una hard_observable, e il gold dichiara primary_gold = HARD_ARCHITECTURAL_INVARIANT.",
+  "narrative_scoring_note": "Ogni caso ostile ha primary_mutation_count = 1. Le mutazioni secondarie inevitabili sono registrate in secondary_mutations ma non concorrono al conteggio per classe.",
+  "positive_control_note": "I 5 controlli positivi misurano il positive-control acceptance rate. Con N=5 non vanno presentati come stima di specificità: servono a escludere un comportamento di rifiuto banale.",
+  "revision_summary": {
+    "revised_in": "1.1-review-1",
+    "architectural_revised": [
+      "HO-AMB-01-primary-site-ambiguity",
+      "HO-AMB-04-undetermined-intervention-role",
+      "HO-CON-01-same-primary-conflicting-diagnoses",
+      "HO-CON-04-alteration-presence-conflict",
+      "HO-INC-02-missing-biomarker"
+    ],
+    "architectural_unchanged": 30,
+    "narrative_revised": [
+      "NH-POL-03"
+    ],
+    "narrative_unchanged": 19,
+    "positive_controls_revised": [],
+    "revised_before_any_system_output_observed": true
+  },
+  "heldout_bundle_sha256": "2e74a2247eb1f7663fb1679b9d6839a40bf6adcfacad6d9ff012a83763ab636d",
   "frozen": false
 }

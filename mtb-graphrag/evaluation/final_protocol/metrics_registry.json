@@ -98,9 +98,9 @@
         "denominator": "run con narratore attivo"
       },
       {
-        "metric": "narrative_verifier_specificity",
+        "metric": "narrative_verifier_positive_control_acceptance_rate",
         "denominator": "5 controlli validi di NARRATIVE_HELDOUT_VALID_CONTROL_5",
-        "note": "senza specificità, la sensibilità sui 20 ostili non è interpretabile"
+        "note": "con N=5 non è una stima di specificità: è un controllo di non-trivial rejection behavior, senza il quale la sensibilità sui 20 ostili non sarebbe interpretabile"
       }
     ],
     "RQ4": [
