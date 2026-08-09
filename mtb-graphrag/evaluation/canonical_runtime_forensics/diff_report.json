@@ -1,0 +1,25 @@
+{
+  "routing_changed": true,
+  "old_runtime": "LEGACY_LIVE",
+  "new_runtime": "CANONICAL",
+  "removed_parameters": [
+    "execution_mode"
+  ],
+  "added_parameters": [
+    "research_frozen_artifacts",
+    "retrieve_fn"
+  ],
+  "semantic_result_unchanged": true,
+  "differences": [],
+  "fixtures_compared": [
+    "cache_hit",
+    "cache_miss_api",
+    "degraded_to_abstract",
+    "pmid_to_pmcid",
+    "selector"
+  ],
+  "excluded_from_semantic_comparison": [
+    "run_case_parameters",
+    "runtime_flavour"
+  ]
+}
