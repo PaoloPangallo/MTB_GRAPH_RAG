@@ -1,54 +1,173 @@
 {
-  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
   "rule_zero_counts": "Ogni conteggio pari a 0 va riportato come 0/N con N esplicito. Un contatore safety-critical senza denominatore non è un risultato.",
   "rule_denominators": "Le metriche di retrieval vanno riportate SEMPRE in coppia: denominatore complessivo (20 coppie) e denominatore dei soli casi positivi (9 coppie). Presentare 9/20 come performance sui soli casi recuperabili è l'errore che questo protocollo vieta.",
   "primary": {
     "RQ1": [
-      {"metric": "materialization_precision", "denominator": "46864 path eleggibili"},
-      {"metric": "materialization_recall", "denominator": "46864 path eleggibili"},
-      {"metric": "field_completeness", "denominator": "46864 candidate x 18 campi di contratto"},
-      {"metric": "does_not_support_promoted", "denominator": "1936 candidate a polarità negativa"},
-      {"metric": "negative_source_primary_bucket", "denominator": "1936 candidate a polarità negativa"},
-      {"metric": "automatic_direction_inversions", "denominator": "46864 candidate"}
+      {
+        "metric": "materialization_precision",
+        "denominator": "46864 path eleggibili"
+      },
+      {
+        "metric": "materialization_recall",
+        "denominator": "46864 path eleggibili"
+      },
+      {
+        "metric": "field_completeness",
+        "denominator": "46864 candidate x 18 campi di contratto"
+      },
+      {
+        "metric": "does_not_support_promoted",
+        "denominator": "1936 candidate a polarità negativa"
+      },
+      {
+        "metric": "negative_source_primary_bucket",
+        "denominator": "1936 candidate a polarità negativa"
+      },
+      {
+        "metric": "automatic_direction_inversions",
+        "denominator": "46864 candidate"
+      }
     ],
     "RQ2": [
-      {"metric": "document_resolution_rate", "denominator": "casi con identificatore documentale nel testbed A"},
-      {"metric": "full_text_availability_rate", "denominator": "documenti risolti"},
-      {"metric": "abstract_degradation_rate", "denominator": "documenti risolti"},
-      {"metric": "parser_success_rate", "denominator": "snapshot presenti"},
-      {"metric": "selector_hit_rate_at_5_positive_cases", "denominator": "9 casi positivi del corpus indipendente"},
-      {"metric": "selector_hit_rate_at_5_overall", "denominator": "20 coppie del corpus indipendente"},
-      {"metric": "selector_recall_at_10", "denominator": "29 unità DIRECTLY_RELEVANT"},
-      {"metric": "validated_quote_rate", "denominator": "run che raggiungono il modello"},
-      {"metric": "abstain_rate", "denominator": "run che raggiungono il modello"},
-      {"metric": "wrong_document_accepted", "denominator": "quote esaminate dal validator"},
-      {"metric": "wrong_sourceunit_accepted", "denominator": "quote esaminate dal validator"},
-      {"metric": "wrong_quote_accepted", "denominator": "quote esaminate dal validator"}
+      {
+        "metric": "document_resolution_rate",
+        "denominator": "casi con identificatore documentale in RQ2 grounding + held-out grounded"
+      },
+      {
+        "metric": "full_text_availability_rate",
+        "denominator": "documenti risolti"
+      },
+      {
+        "metric": "abstract_degradation_rate",
+        "denominator": "documenti risolti"
+      },
+      {
+        "metric": "parser_success_rate",
+        "denominator": "snapshot presenti"
+      },
+      {
+        "metric": "selector_hit_rate_at_5_positive_cases",
+        "denominator": "9 casi positivi del corpus indipendente"
+      },
+      {
+        "metric": "selector_hit_rate_at_5_overall",
+        "denominator": "20 coppie del corpus indipendente"
+      },
+      {
+        "metric": "selector_recall_at_10",
+        "denominator": "29 unità DIRECTLY_RELEVANT"
+      },
+      {
+        "metric": "validated_quote_rate",
+        "denominator": "run che raggiungono il modello"
+      },
+      {
+        "metric": "abstain_rate",
+        "denominator": "run che raggiungono il modello"
+      },
+      {
+        "metric": "wrong_document_accepted",
+        "denominator": "quote esaminate dal validator"
+      },
+      {
+        "metric": "wrong_sourceunit_accepted",
+        "denominator": "quote esaminate dal validator"
+      },
+      {
+        "metric": "wrong_quote_accepted",
+        "denominator": "quote esaminate dal validator"
+      }
     ],
     "RQ3": [
-      {"metric": "safety_violation_count_per_failure_mode", "denominator": "casi applicabili per modo di fallimento"},
-      {"metric": "ablation_delta_per_failure_mode", "denominator": "stessi casi, confronto paired FULL vs ABLATION"},
-      {"metric": "forbidden_downstream_calls", "denominator": "casi non eleggibili"},
-      {"metric": "canonical_dossier_payload_identity_with_and_without_hostile_narrator", "denominator": "run con narratore attivo"}
+      {
+        "metric": "safety_violation_count_per_failure_mode",
+        "denominator": "casi applicabili per modo di fallimento"
+      },
+      {
+        "metric": "ablation_delta_per_failure_mode",
+        "denominator": "stessi casi, confronto paired FULL vs ABLATION"
+      },
+      {
+        "metric": "forbidden_downstream_calls",
+        "denominator": "casi non eleggibili"
+      },
+      {
+        "metric": "canonical_dossier_payload_identity_with_and_without_hostile_narrator",
+        "denominator": "run con narratore attivo"
+      },
+      {
+        "metric": "narrative_verifier_specificity",
+        "denominator": "5 controlli validi di NARRATIVE_HELDOUT_VALID_CONTROL_5",
+        "note": "senza specificità, la sensibilità sui 20 ostili non è interpretabile"
+      }
     ],
     "RQ4": [
-      {"metric": "correct_path_rate", "denominator": "casi per classe, escluso MODEL_TRANSPORT_FAILED contato a parte"},
-      {"metric": "forbidden_action_rate", "denominator": "casi non eleggibili per classe"},
-      {"metric": "unexpected_exception_rate", "denominator": "tutte le run del testbed A"},
-      {"metric": "wrong_status_escalation", "denominator": "casi che raggiungono lo stage di stato"}
+      {
+        "metric": "correct_path_rate",
+        "denominator": "casi per classe, escluso MODEL_TRANSPORT_FAILED contato a parte"
+      },
+      {
+        "metric": "forbidden_action_rate",
+        "denominator": "casi non eleggibili per classe"
+      },
+      {
+        "metric": "unexpected_exception_rate",
+        "denominator": "tutte le run, riportate separatamente per RQ4-DEV e RQ4-HELDOUT"
+      },
+      {
+        "metric": "wrong_status_escalation",
+        "denominator": "casi che raggiungono lo stage di stato"
+      },
+      {
+        "metric": "heldout_correct_path_rate",
+        "denominator": "35 casi held-out, per classe, al netto di MODEL_TRANSPORT_FAILED",
+        "independence_level": "HELD_OUT"
+      }
     ],
     "OPERATIONAL": [
-      {"metric": "run_completion_rate", "denominator": "run avviate"},
-      {"metric": "total_latency_median_and_p95", "denominator": "run completate"},
-      {"metric": "cache_miss_overhead_ms", "denominator": "coppie cache hit / cache miss sullo stesso documento"}
+      {
+        "metric": "run_completion_rate",
+        "denominator": "run avviate"
+      },
+      {
+        "metric": "total_latency_median_and_p95",
+        "denominator": "run completate"
+      },
+      {
+        "metric": "cache_miss_overhead_ms",
+        "denominator": "coppie cache hit / cache miss sullo stesso documento"
+      }
     ]
   },
   "secondary": {
-    "retrieval": ["precision_at_5", "mrr", "full_coverage_at_5", "full_coverage_at_10", "mean_first_relevant_rank", "median_first_relevant_rank", "hit_rate_at_3", "recall_at_5"],
-    "cost": ["estimated_context_tokens_per_sourceunit_payload", "provider_input_tokens", "provider_output_tokens"],
-    "latency": ["per_stage_duration_ms_median", "per_stage_duration_ms_min", "per_stage_duration_ms_max"],
-    "observability": ["event_counts_by_type", "warning_code_distribution", "reason_code_distribution", "excluded_paper_reason_codes"]
+    "retrieval": [
+      "precision_at_5",
+      "mrr",
+      "full_coverage_at_5",
+      "full_coverage_at_10",
+      "mean_first_relevant_rank",
+      "median_first_relevant_rank",
+      "hit_rate_at_3",
+      "recall_at_5"
+    ],
+    "cost": [
+      "estimated_context_tokens_per_sourceunit_payload",
+      "provider_input_tokens",
+      "provider_output_tokens"
+    ],
+    "latency": [
+      "per_stage_duration_ms_median",
+      "per_stage_duration_ms_min",
+      "per_stage_duration_ms_max"
+    ],
+    "observability": [
+      "event_counts_by_type",
+      "warning_code_distribution",
+      "reason_code_distribution",
+      "excluded_paper_reason_codes"
+    ]
   },
   "token_accounting": {
     "provider_tokens": "registrati solo se il provider li espone nella risposta; assenti = campo null, mai stimato",
@@ -66,19 +185,57 @@
     "zero_denominator_rule": "se un denominatore è 0 la metrica è null, non 0"
   },
   "randomness_inventory": {
-    "llm_provider": {"source": "Ollama cloud", "determinism": "NON GARANTITA", "mitigation": "temperature fissata dal contratto del runtime; nessun seed esposto dal provider; dichiarare la non determinabilità"},
-    "selector": {"source": "nessuna", "determinism": "GARANTITA", "evidence": "10 run ripetute, 4 permutazioni di input, NFC/NFD, case folding e punteggiatura producono hash di ranking identici"},
-    "ranking_ties": {"source": "pareggi di punteggio", "determinism": "GARANTITA", "mitigation": "tie-break per source_unit_id"},
-    "case_order": {"source": "ordine di esecuzione", "determinism": "GARANTITA", "mitigation": "ordine lessicografico per case_id, dichiarato nel run manifest"},
-    "bootstrap": {"source": "ricampionamento", "determinism": "GARANTITA", "mitigation": "seed 20260809"}
+    "llm_provider": {
+      "source": "Ollama cloud",
+      "determinism": "NON GARANTITA",
+      "mitigation": "temperature fissata dal contratto del runtime; nessun seed esposto dal provider; dichiarare la non determinabilità"
+    },
+    "selector": {
+      "source": "nessuna",
+      "determinism": "GARANTITA",
+      "evidence": "10 run ripetute, 4 permutazioni di input, NFC/NFD, case folding e punteggiatura producono hash di ranking identici"
+    },
+    "ranking_ties": {
+      "source": "pareggi di punteggio",
+      "determinism": "GARANTITA",
+      "mitigation": "tie-break per source_unit_id"
+    },
+    "case_order": {
+      "source": "ordine di esecuzione",
+      "determinism": "GARANTITA",
+      "mitigation": "ordine lessicografico per case_id, dichiarato nel run manifest"
+    },
+    "bootstrap": {
+      "source": "ricampionamento",
+      "determinism": "GARANTITA",
+      "mitigation": "seed 20260809"
+    }
   },
   "model_run_policy": {
     "primary_final_eval": "1 run per caso sulla configurazione congelata",
     "reliability_subsample": {
       "runs_per_case": 3,
-      "selection_rule": "i primi 5 case_id in ordine lessicografico di ciascuna classe del testbed A, scelti PRIMA dell'esecuzione",
+      "materialized": true,
+      "file": "evaluation/final_protocol/reliability_subset.json",
+      "n_cases": 10,
+      "n_runs": 30,
+      "selection_rule": "primo case_id in ordine lessicografico per ciascuna delle 7 categorie di HELDOUT_ARCHITECTURAL_35, più i primi 3 case_id in ordine lessicografico fra i 9 casi positivi di SOURCEUNIT_SELECTOR_INDEPENDENT_20",
       "purpose": "quantificare la varianza del provider, non migliorare le metriche primarie",
-      "note": "il sottoinsieme è definito da una regola, non da un elenco scelto dopo aver visto i risultati"
+      "note": "gli ID sono materializzati ed elencati nel file: dopo il freeze non cambiano"
     }
+  },
+  "rule_no_aggregation": "Vietato sommare righe provenienti da testbed diversi. In particolare non esiste un denominatore 55: CASECONTEXT_ROBUSTNESS_35 e SOURCEUNIT_SELECTOR_INDEPENDENT_20 sono unità sperimentali diverse.",
+  "secondary_offline_sensitivity": {
+    "status": "SECONDARY_OFFLINE_SENSITIVITY",
+    "excluded_from_primary_final_evaluation": true,
+    "parameters": [
+      "max_papers_per_association",
+      "selector_top_k"
+    ],
+    "frozen_values": {
+      "max_papers_per_association": 2,
+      "selector_top_k": 5
+    },
+    "rule": "non può ritunare i valori congelati né giustificarli a posteriori"
   }
 }

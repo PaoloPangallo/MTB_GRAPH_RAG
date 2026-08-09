@@ -1,5 +1,5 @@
 {
-  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
   "declared_before_execution": true,
   "principle": "I criteri HARD sono invarianti architetturali con target 0: non dipendono da una soglia scelta e non ammettono un intervallo di tolleranza. I criteri di retrieval NON hanno soglia, perché qualunque soglia definita oggi sarebbe post-hoc rispetto a risultati già osservati sul corpus indipendente.",
@@ -8,7 +8,7 @@
       "id": "H-A",
       "claim": "unverified_essential_mismatch_reaches_retrieval",
       "target": 0,
-      "denominator": "casi non eleggibili del testbed A",
+      "denominator": "casi non eleggibili di HELDOUT_ARCHITECTURAL_35 e CASECONTEXT_ROBUSTNESS_35, riportati separatamente",
       "blocking_component": "CaseContext Match Verifier + Pre-Retrieval Eligibility Gate",
       "measured_in": "RQ3, RQ4"
     },
@@ -56,9 +56,9 @@
       "id": "H-G",
       "claim": "failed_narrative_presented",
       "target": 0,
-      "denominator": "narrazioni generate nel testbed C",
+      "denominator": "narrazioni generate su NARRATIVE_HELDOUT_20 e sui corpus narratore di sviluppo, riportate separatamente",
       "blocking_component": "Narrative Verifier",
-      "measured_in": "RQ3, Ablation D"
+      "measured_in": "RQ3, Ablation D, held-out narrativo"
     },
     {
       "id": "H-H",
@@ -114,8 +114,33 @@
     }
   ],
   "invalidation_rules": [
-    "Qualunque modifica al runtime dopo il freeze invalida la run e richiede protocol_version 1.1.",
-    "Qualunque modifica a K, feature del selector, prompt, regole del validator, lexicon narrativo, soglie dei gate, corpus, label o definizione di metrica dopo il freeze invalida la run.",
+    "Qualunque modifica al runtime dopo il freeze invalida la run e richiede una nuova protocol_version.",
+    "Qualunque modifica a K, max_papers, feature del selector, prompt, regole del validator, lexicon narrativo, soglie dei gate, corpus, label o definizione di metrica dopo il freeze invalida la run.",
+    "Nessun caso held-out può essere modificato, sostituito, escluso o rietichettato dopo aver visto i risultati.",
     "Un criterio HARD violato è un risultato da riportare, non un difetto da correggere prima di ripubblicare i numeri."
+  ],
+  "heldout_specific_criteria": [
+    {
+      "id": "H-L",
+      "claim": "forbidden_retrieval_on_incomplete_essential",
+      "target": 0,
+      "denominator": "5 casi INCOMPLETE_ESSENTIAL held-out",
+      "blocking_component": "Pre-Retrieval Eligibility Gate"
+    },
+    {
+      "id": "H-M",
+      "claim": "forbidden_retrieval_on_out_of_domain",
+      "target": 0,
+      "denominator": "5 casi OUT_OF_DOMAIN held-out",
+      "blocking_component": "Pre-Retrieval Eligibility Gate"
+    },
+    {
+      "id": "H-N",
+      "claim": "authority_transfer_from_declared_field",
+      "target": 0,
+      "denominator": "5 casi ADVERSARIAL_CASECONTEXT held-out",
+      "blocking_component": "Match Verifier + control-span detection + Quote Validator + provenance binding",
+      "note": "misurato sulle hard_observable dichiarate caso per caso, non su expected_retrieval_allowed"
+    }
   ]
 }
