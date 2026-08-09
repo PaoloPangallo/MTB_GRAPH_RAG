@@ -83,7 +83,7 @@ export default function ResearchConsole() {
   const [cases, setCases] = useState<DemoCase[]>([]);
   // Se la cache documentale manca, LIVE non è eseguibile: va detto **prima**
   // di premere, non scoperto da una run fallita.
-  const [liveAvailable, setLiveAvailable] = useState(true);
+  const [documentCacheAvailable, setDocumentCacheAvailable] = useState(true);
   const [selectedStageId, setSelectedStageId] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -116,8 +116,11 @@ export default function ResearchConsole() {
     getConfig()
       .then((payload) => {
         if (!active) return;
-        const modes = payload.execution_modes as { live_available?: boolean } | undefined;
-        setLiveAvailable(modes?.live_available !== false);
+        // Un solo runtime, dichiarato dal backend. Prima si leggeva
+        // `execution_modes.live_available`, ed era da quel campo che la console
+        // derivava l'esistenza di una seconda modalità.
+        const runtime = payload.runtime as { available?: boolean } | undefined;
+        setDocumentCacheAvailable(runtime?.available !== false);
       })
       .catch(() => { /* la disponibilità resta ottimistica: il backend rifiuta comunque */ });
     return () => { active = false; };
@@ -213,14 +216,12 @@ export default function ResearchConsole() {
 
   const runStyle = state.run ? runStatusStyle[state.run.status] : null;
 
-  // Un guasto della modalità live, distinto da un arresto corretto: solo il
-  // primo giustifica di proporre la run registrata come lettura alternativa.
-  const LIVE_FAILURES = ['DOCUMENT_CACHE_UNAVAILABLE', 'NO_DOCUMENT_RESOLVED', 'LIVE_STAGE_FAILED'];
-  const liveFailed = state.run?.status === 'FAILED'
-    && LIVE_FAILURES.includes(state.run.stopped_at ?? '');
-  const equivalentReplay = cases.find(
-    (demo) => demo.case_id === state.run?.case_id && demo.frozen_artifacts_available,
-  ) ?? null;
+  // Arresto terminale della catena documentale, distinto da uno stop corretto
+  // della policy. Non apre alternative: non ne esistono.
+  const ABORT_REASONS = ['DOCUMENT_CACHE_UNAVAILABLE', 'NO_DOCUMENT_RESOLVED',
+                         'PARSER_FAILED', 'SOURCEUNIT_SELECTION_FAILED', 'LIVE_STAGE_FAILED'];
+  const pipelineAborted = state.run?.status === 'FAILED'
+    && ABORT_REASONS.includes(state.run.stopped_at ?? '');
 
   return (
     <Box sx={{ backgroundColor: color.canvas, minHeight: '100vh' }}>
@@ -245,7 +246,7 @@ export default function ResearchConsole() {
         <CaseInputPanel
           cases={cases}
           busy={starting}
-          liveAvailable={liveAvailable}
+          documentCacheAvailable={documentCacheAvailable}
           onRun={(request) => void start(request)}
         />
 
@@ -302,34 +303,22 @@ export default function ResearchConsole() {
               )}
             </Box>
 
-            {/* Modalità, cache, chiamate e artefatti rigiocati: prima di tutto
-                il resto, perché determinano come va letto tutto il resto. */}
+            {/* Acquisizione documentale, cache, chiamate al modello ed eventuale
+                arresto: prima di tutto il resto, perché determinano come va letto
+                tutto il resto. */}
             <Box sx={{ mt: 3 }}>
               <RunModeHeader run={state.run} />
 
-              {/* Una run live fallita **non** viene sostituita dalla run
-                  registrata: quella resta consultabile con un gesto separato ed
-                  esplicito, che apre una run distinta. Sostituirla in automatico
-                  farebbe apparire riuscito ciò che non è stato eseguito. */}
-              {liveFailed && (
+              {/* Un arresto della catena documentale si dichiara e basta. Qui
+                  compariva un'azione che apriva la run registrata equivalente:
+                  era esplicita e non sostituiva nulla in automatico, ma restava
+                  un percorso storico offerto al clinico come alternativa
+                  operativa. Non lo è, e non deve sembrarlo. */}
+              {pipelineAborted && (
                 <Alert
                   severity="error"
-                  data-testid="live-stage-failed"
+                  data-testid="pipeline-abort-alert"
                   sx={{ borderRadius: '8px', mb: 3 }}
-                  action={equivalentReplay ? (
-                    <Button
-                      size="small"
-                      data-testid="open-recorded-run"
-                      disabled={starting}
-                      onClick={() => void start({
-                        demo_case_key: equivalentReplay.case_id,
-                        execution_mode: 'REPLAY',
-                      })}
-                      sx={{ textTransform: 'none', fontFamily: font.body, fontSize: 13 }}
-                    >
-                      Apri la run registrata equivalente
-                    </Button>
-                  ) : undefined}
                 >
                   <Typography sx={{ fontFamily: font.body, fontSize: 13 }}>
                     {reasonLabel(state.run?.stopped_at ?? 'LIVE_STAGE_FAILED')}.

@@ -7,8 +7,8 @@
  * fabbrica rende quella divergenza un errore di compilazione in un punto solo.
  *
  * I default descrivono lo **stato normale**: uno stage eseguito ora, dentro una
- * run live. Un test che vuole un replay deve chiederlo esplicitamente, così la
- * differenza resta leggibile nel test stesso.
+ * run del runtime canonico. Un test che vuole una run storica rigiocata deve
+ * chiederlo esplicitamente, così la differenza resta leggibile nel test stesso.
  */
 
 import type { PipelineRun, PipelineStage, StageProducer } from './types';
@@ -82,6 +82,16 @@ export function makeRun(overrides: Partial<PipelineRun> = {}): PipelineRun {
       document_count: 40,
       source_unit_count: 3402,
       reason_codes: [],
+    },
+    document_acquisition: {
+      executed: true,
+      cache_hits: 2,
+      cache_misses: 0,
+      network_fetches: 0,
+      degraded_to_abstract: 0,
+      documents_unavailable: 0,
+      sources: ['NCBI E-utilities'],
+      reason_codes: ['DOCUMENT_RESOLVED_FROM_CACHE'],
     },
     llm_calls: 2,
     ...overrides,
