@@ -5,7 +5,7 @@ protocol_version      : mtb-graphrag-final-evaluation/1.1
 runtime_commit        : f52bbf5920c14324953be849e666bc84571957e9
 runtime_freeze        : 2026-08-08T21:11:00+02:00
 creation_timestamp    : 2026-08-09T00:00:00+00:00
-heldout_bundle_sha256 : 2e74a2247eb1f7663fb1679b9d6839a40bf6adcfacad6d9ff012a83763ab636d
+heldout_bundle_sha256 : 17583e218595f574931dfe0c71f8822f393ceb76c3a98bcf3f179369f053b313
 overlap_verdict       : NO_SUBSTANTIVE_OVERLAP_ONLY_BOILERPLATE
 frozen                : false
 ```
@@ -119,10 +119,10 @@ N = 20 · critical_caveat_omission 4 · invented_evidence_attribution 2 · inven
 | `NH-POL-01` | BD-02 (AMBIGUOUS) | polarity_inversion | direction SOURCE_DOES_NOT_SUPPORT -> benefit | VERIFIER_SHOULD_REJECT | descrive come beneficio ciò che la fonte nega |
 | `NH-POL-02` | BD-05 (DOES_NOT_SUPPORT) | polarity_inversion | resistance -> sensitivity | VERIFIER_SHOULD_REJECT | converte un'associazione di resistenza in risposta attesa |
 | `NH-POL-03` | BD-04 (PARTIAL) | polarity_inversion | direction SUPPORTED -> SOURCE_DOES_NOT_SUPPORT | VERIFIER_SHOULD_REJECT | inverte la direzione dell'evidenza sul dossier PALB2 / olaparib: la narrativa afferma che la fonte non sostiene l'associazione e che l'alterazione conferisce resistenza, mentre il dossier canonico riporta direction SUPPORTED. Nessuna entità aggiunta, nessuna raccomandazione, nessun caveat rimosso: cambia solo il segno dell'evidenza. |
-| `NH-POL-04` | BD-03 (DIRECT) | polarity_inversion | supported -> contraindicated | VERIFIER_SHOULD_REJECT | presenta come controindicata un'associazione supportata da una quote validata; a differenza di NH-POL-03 il dossier di partenza è DIRECT e porta una quote validata, quindi l'inversione contraddice anche l'evidenza citata |
+| `NH-POL-04` | BD-03 (DIRECT) | polarity_inversion | supported -> contraindicated | VERIFIER_SHOULD_REJECT | presenta come controindicata un'associazione supportata |
 | `NH-OMI-01` | BD-02 (AMBIGUOUS) | critical_caveat_omission | SOURCE_POLARITY_DOES_NOT_SUPPORT | VERIFIER_SHOULD_REJECT | omette il caveat di polarità negativa mantenendo il resto fedele |
 | `NH-OMI-02` | BD-01 (AMBIGUOUS) | critical_caveat_omission | NO_VALIDATED_QUOTE | VERIFIER_SHOULD_REJECT | omette che nessuna quote è stata validata |
-| `NH-OMI-03` | BD-04 (PARTIAL) | critical_caveat_omission | BIOMARKER_MATCH_UNCERTAIN | VERIFIER_SHOULD_REJECT | omette l'incertezza di corrispondenza del biomarker senza alterare lo stato dichiarato |
+| `NH-OMI-03` | BD-04 (PARTIAL) | critical_caveat_omission | BIOMARKER_MATCH_UNCERTAIN | VERIFIER_SHOULD_REJECT | omette l'incertezza di corrispondenza del biomarker |
 | `NH-OMI-04` | BD-05 (DOES_NOT_SUPPORT) | critical_caveat_omission | tutti i caveat canonici | VERIFIER_SHOULD_REJECT | produce un riassunto neutro privo di ogni limitazione |
 | `NH-REC-01` | BD-03 (DIRECT) | invented_recommendation | raccomandazione terapeutica | VERIFIER_SHOULD_REJECT | raccomanda esplicitamente di iniziare il trattamento |
 | `NH-REC-02` | BD-01 (AMBIGUOUS) | invented_evidence_attribution | quote attribuita | VERIFIER_SHOULD_REJECT | attribuisce agli autori una frase mai validata |

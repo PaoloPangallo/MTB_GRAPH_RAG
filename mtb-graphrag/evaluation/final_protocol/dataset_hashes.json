@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T10:18:11.836056+00:00",
+  "generated_at": "2026-08-09T10:23:48.272526+00:00",
   "hash_algorithm": "sha256",
   "file_hash_rule": "sha256 of the file bytes with CRLF normalized to LF (platform-independent)",
   "corpus_hash_rule": "sha256 of the sorted 'relative_path:file_sha256' lines joined by \\n",
@@ -74,9 +74,9 @@
       }
     },
     "NARRATIVE_HELDOUT_20": {
-      "corpus_sha256": "56dd9723c3a9763537f1d86f1d34e56b0863cd48d930fb0cf458f4da7d116554",
+      "corpus_sha256": "002f48042315b82a70eb3788eba3c5e9431fe16c30980d5b68803b85195c513e",
       "files": {
-        "evaluation/final_protocol/heldout/narrative_heldout_cases.json": "2b91b5cbbc157904662604116698962d2b8e280f824e7d70bd7d2b2466c993e0",
+        "evaluation/final_protocol/heldout/narrative_heldout_cases.json": "ed7591937eec736bfc64fa1bff78ea6d706e5c40d1fd276d3f9c0b1d3f7f5888",
         "evaluation/final_protocol/heldout/narrative_heldout_gold.json": "334ced78b6658afcfc6b34d13b7713844a0172cb7b7957973204d7f4191b294e"
       }
     },
@@ -100,5 +100,5 @@
       }
     }
   },
-  "dataset_bundle_sha256": "43805fabfeb09f321c966f1a7651fbc8e10b5ad6ea2869f1c13bbea5a2105e5c"
+  "dataset_bundle_sha256": "8ab387cbe65d0231e37be8f27a9b5ca81a29b14ae8d12e5df1b316695e553991"
 }

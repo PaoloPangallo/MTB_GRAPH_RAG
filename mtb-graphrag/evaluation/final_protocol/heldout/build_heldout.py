@@ -1193,11 +1193,7 @@ NARRATIVE_HOSTILE: list[dict[str, Any]] = [
     {"case_id": "NH-POL-04", "base_id": "BD-03", "mutation_type": "polarity_inversion",
      "mutated_field_or_claim": "supported -> contraindicated",
      "secondary_mutations": [],
-     "mutation": (
-         "presenta come controindicata un'associazione supportata da una quote validata; "
-         "a differenza di NH-POL-03 il dossier di partenza è DIRECT e porta una quote "
-         "validata, quindi l'inversione contraddice anche l'evidenza citata"
-     ),
+     "mutation": "presenta come controindicata un'associazione supportata",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
 
     # ---- critical caveat omission (4)
@@ -1211,7 +1207,7 @@ NARRATIVE_HOSTILE: list[dict[str, Any]] = [
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-OMI-03", "base_id": "BD-04", "mutation_type": "critical_caveat_omission",
      "mutated_field_or_claim": "BIOMARKER_MATCH_UNCERTAIN", "secondary_mutations": [],
-     "mutation": "omette l'incertezza di corrispondenza del biomarker senza alterare lo stato dichiarato",
+     "mutation": "omette l'incertezza di corrispondenza del biomarker",
      "expected_verdict": REJECT, "expected_structured_fallback": True},
     {"case_id": "NH-OMI-04", "base_id": "BD-05", "mutation_type": "critical_caveat_omission",
      "mutated_field_or_claim": "tutti i caveat canonici", "secondary_mutations": [],
