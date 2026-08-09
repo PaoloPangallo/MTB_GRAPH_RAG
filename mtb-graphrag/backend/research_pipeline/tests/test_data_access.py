@@ -98,15 +98,20 @@ class FrozenEnricherRunsTest(TestCase):
 
 
 class AvailabilityReportTest(TestCase):
-    def test_mode_is_frozen_replay_when_the_cache_is_absent(self) -> None:
+    def test_an_absent_cache_is_unavailable_and_not_a_frozen_fallback(self) -> None:
+        """Senza cache la catena documentale non parte: non ripiega sul congelato."""
         with TemporaryDirectory() as tmp:
             with mock.patch.dict(os.environ, {"RESEARCH_PIPELINE_CACHE_ROOT": str(Path(tmp) / "nope")}):
-                self.assertEqual(da.describe_availability()["stages_6_to_10_mode"], "FROZEN_REPLAY")
+                report = da.describe_availability()
+                self.assertEqual(report["stages_6_to_10_mode"], "UNAVAILABLE")
+                self.assertIn("DOCUMENT_CACHE_UNAVAILABLE", report["stages_6_to_10_reason"])
 
-    def test_mode_is_live_when_the_cache_exists(self) -> None:
+    def test_mode_is_canonical_when_the_cache_exists(self) -> None:
         with TemporaryDirectory() as tmp:
             with mock.patch.dict(os.environ, {"RESEARCH_PIPELINE_CACHE_ROOT": tmp}):
-                self.assertEqual(da.describe_availability()["stages_6_to_10_mode"], "LIVE")
+                report = da.describe_availability()
+                self.assertEqual(report["stages_6_to_10_mode"], "CANONICAL")
+                self.assertIsNone(report["stages_6_to_10_reason"])
 
 
 class LLMConfigTest(TestCase):

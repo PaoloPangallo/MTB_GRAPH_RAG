@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import dataclasses
 from dataclasses import dataclass, field, replace
-from typing import Any, Literal, Mapping
+from typing import Any, Iterable, Literal, Mapping
 
 from backend.research_pipeline.eligibility.gate import (
     ELIGIBILITY_STATES,
@@ -296,6 +296,70 @@ class PipelineStage:
         }
 
 
+# --- Acquisizione documentale ------------------------------------------------
+
+#: Lo stage da cui si legge come i documenti sono entrati nella run. Uno solo:
+#: se la sintesi accettasse più fonti, due di esse potrebbero contraddirsi e non
+#: ci sarebbe modo di sapere quale credere.
+_DOCUMENT_STAGE_ID = "stage_6_document_resolution"
+
+#: Motivo per cui un documento è degradato dal full text all'abstract.
+_DEGRADATION_REASON = "PMC_RESOLUTION_FAILED"
+
+
+def document_acquisition_summary(stages: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
+    """Come i documenti di questa run sono stati ottenuti.
+
+    Esiste perché la console deve poter mostrare cache hit, acquisizioni via API
+    e degradazioni **senza calcolarle nel browser**: sono le informazioni che il
+    clinico legge al posto della vecchia modalità di esecuzione, e derivarle nel
+    frontend creerebbe una seconda definizione di "il documento è stato preso da
+    qui" accanto a quella dello stage che l'ha davvero preso.
+
+    Accetta stage in forma di dizionario — la stessa di ``PipelineStage.to_dict``
+    — così la run in memoria e quella reidratata dal ledger producono lo stesso
+    risultato dallo stesso codice. Che le due proiezioni non divergano è un
+    invariante già dichiarato in ``rehydration``; qui va rispettato, non ripetuto.
+
+    Restituisce ``None`` sui conteggi quando lo stage non è stato eseguito: uno
+    zero al loro posto direbbe "nessun documento acquisito" invece di "non
+    misurato", e sono due cose diverse.
+    """
+    stage = next(
+        (s for s in stages if s.get("stage_id") == _DOCUMENT_STAGE_ID), None
+    )
+    if stage is None or stage.get("status") in (None, "SKIPPED"):
+        return {
+            "executed": False,
+            "cache_hits": None, "cache_misses": None, "network_fetches": None,
+            "degraded_to_abstract": None, "documents_unavailable": None,
+            "sources": [], "reason_codes": list((stage or {}).get("reason_codes") or []),
+        }
+
+    preview = stage.get("output_preview") or {}
+    documents = preview.get("documents") or []
+
+    def _count(predicate) -> int:
+        return sum(1 for document in documents if predicate(document))
+
+    return {
+        "executed": True,
+        "cache_hits": preview.get("cache_hits", _count(lambda d: d.get("cache_hit"))),
+        "cache_misses": preview.get("cache_misses", _count(lambda d: not d.get("cache_hit"))),
+        "network_fetches": preview.get("network_fetch_count", 0),
+        # Un documento degradato **è** stato acquisito: la degradazione dice
+        # quanto se ne è ottenuto, non se l'acquisizione sia riuscita.
+        "degraded_to_abstract": _count(
+            lambda d: _DEGRADATION_REASON in (d.get("reason_codes") or [])
+        ),
+        "documents_unavailable": _count(lambda d: not d.get("resolved")),
+        "sources": sorted({
+            str(d["source"]) for d in documents if d.get("source")
+        }),
+        "reason_codes": list(stage.get("reason_codes") or []),
+    }
+
+
 # --- Run --------------------------------------------------------------------
 
 
@@ -367,6 +431,7 @@ class PipelineRun:
         }
 
     def to_dict(self) -> dict[str, Any]:
+        stages = [stage.to_dict() for stage in self.stages]
         return {
             "run_id": self.run_id,
             "case_id": self.case_id,
@@ -376,7 +441,7 @@ class PipelineRun:
             "current_stage": self.current_stage,
             "stopped_at": self.stopped_at,
             "input_text": self.input_text,
-            "stages": [stage.to_dict() for stage in self.stages],
+            "stages": stages,
             "dossier_id": self.dossier_id,
             "warnings": list(self.warnings),
             "errors": list(self.errors),
@@ -384,6 +449,7 @@ class PipelineRun:
             "metrics": dict(self.metrics),
             "research_notice": self.research_notice(),
             "document_cache": dict(self.document_cache),
+            "document_acquisition": document_acquisition_summary(stages),
             "llm_calls": self.llm_calls,
             **self.mode_summary(),
         }
