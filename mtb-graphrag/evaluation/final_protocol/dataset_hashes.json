@@ -1,0 +1,82 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "generated_at": "2026-08-09T08:51:07.195106+00:00",
+  "hash_algorithm": "sha256",
+  "corpus_hash_rule": "sha256 of the sorted 'relative_path:file_sha256' lines joined by \\n",
+  "corpora": {
+    "CASECONTEXT_ROBUSTNESS_35": {
+      "corpus_sha256": "7c6f04fbeb92b9b2ab9b894d0614890e158c83e872d0d54026d9066fa2f5387a",
+      "files": {
+        "evaluation/rq4_casecontext_robustness/benchmark.jsonl": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+        "evaluation/rq4_casecontext_robustness/frozen_benchmark_manifest.json": "caafc1291781162991b9799aac7f26bd3900d338cbfce8c8313bc49074ebebf9"
+      }
+    },
+    "SOURCEUNIT_SELECTOR_INDEPENDENT_20": {
+      "corpus_sha256": "2a78d860dab9ac8d8277a39421ac2e60a2a05e2572ca26f29156591166efa03f",
+      "files": {
+        "evaluation/sourceunit_selector_independent/candidate_inventory.jsonl": "859608dce8fda6707f995930a9b5521fcad218a973de46c455993b544da2ba1b",
+        "evaluation/sourceunit_selector_independent/corpus_inventory.json": "b2c0d5c59d657f39508ef1e7242c32ee36a04f85032132ee1a683a68ec9a0127",
+        "evaluation/sourceunit_selector_independent/document_inventory.jsonl": "161118a3a837fab6cf0962dc0a4569dd7d833276376afbd5779a033f0abe54c3",
+        "evaluation/sourceunit_selector_independent/gold_annotation_manifest.json": "28c01537e000be4d2ba206538e2649262ce9e8d702da28bb3f3822a5da90bf0d",
+        "evaluation/sourceunit_selector_independent/gold_annotations.csv": "d7c4dc142b87e18204c08eba874b4ac30a1ba1dab3d1de933a6a0e7ae4f86621",
+        "evaluation/sourceunit_selector_independent/leakage_audit.json": "bafa10fd91d6896e331b2d4d78b2a66b1d563dca9667945984209a1f89919dd5"
+      }
+    },
+    "FROZEN_EVIDENCE_BUNDLES_25": {
+      "corpus_sha256": "ece8707f282dd865fc45d648e4b502ab88731e3148bb911c5ff400d4165a613e",
+      "files": {
+        "benchmarks/mtb_evidence/document_grounded_claims/evidence_bundle/evidence_bundles.jsonl": "b30c3a2a13c6099a553f56694b720d85b05b3a9f3ece3c40fd241372ead4a9aa",
+        "benchmarks/mtb_evidence/document_grounded_claims/evidence_bundle/status_transitions.jsonl": "034e600ea6e7d5dd5a512f7fcce1b2ff1d00cbd4ea67bd708064eb42b3fdec45",
+        "evaluation/sourceunit_selector/dataset.jsonl": "c242f3005510a3a9bd9ecba2143c8abc5f518450af8fd0785a9e67329d3a2ef5"
+      }
+    },
+    "AUTHORIZED_DOCUMENT_CACHE_43": {
+      "corpus_sha256": "d9e4d9d680b30ed2e7d8463bd708c4f83518472624fd3b5c37ec56bb06bf35e9",
+      "files": {
+        "benchmarks/mtb_evidence/document_grounded_claims/authorized_document_cache_pilot/document_manifest.jsonl": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+        "benchmarks/mtb_evidence/document_grounded_claims/authorized_document_cache_pilot/source_unit_index.jsonl": "f41637384d10ad80aecac5cf5849294519a0eee61a595d6c28ddad2994b60aad"
+      }
+    },
+    "END_TO_END_PIPELINE_PILOT_5": {
+      "corpus_sha256": "d1c7b20e3c3e53fbd3480a359050397d1fad39c638b071cb8a83f8fc11e66bc2",
+      "files": {
+        "benchmarks/mtb_evidence/end_to_end_pipeline_pilot/test_cases.json": "0b2a65cbe0e72cfceee86ff544a1e80ce5c778ab0790104ca71779ad84dcf317"
+      }
+    },
+    "DOSSIER_NARRATOR_25": {
+      "corpus_sha256": "360320166d6dff5ab3e05b3dcdef860491e5c114472fc2aaffc9b4a33a2de256",
+      "files": {
+        "benchmarks/mtb_evidence/dossier_narrator/narrative_runs.jsonl": "4d74a9d2018a14148b850b9b2c50e61a81195332f32cf50dc2c6084b5ad532cd",
+        "evaluation/dossier_narrator/narrator_contract.json": "21645d00f01f301bf83cc27913e9017ab0974c7176e8330fe0cf699ea19f379c",
+        "evaluation/dossier_narrator/narrator_input_samples.jsonl": "ccd3eed46de6a2b2b4ba1583b6b5edebcb154f8f9b62493c1a13c668f00a5bf2"
+      }
+    },
+    "NARRATOR_ADVERSARIAL_20": {
+      "corpus_sha256": "98117bb1871a8e3faca80b0edc65c06f7f075bbe95a77d77698a47b21e7dfee8",
+      "files": {
+        "evaluation/dossier_narrator/adversarial_results.jsonl": "8abf7dfd4d826a016d2b6a55e28f6958e1e25a9fc20aedce3f5d728ed200b6c1"
+      }
+    },
+    "QUOTE_VALIDATOR_BATTERY_14": {
+      "corpus_sha256": "dd73c1137c1a6d3d2b7681e946fb14d6d4a239e37caee2c826cbe4c2d9a26d50",
+      "files": {
+        "evaluation/pre_freeze/raw/G01_rq3_quote_battery.jsonl": "d02cffc09b3256af0da827f588883e31eaebeb1f9acb1b8783279d4907a8d662"
+      }
+    },
+    "GCA_REPOSITORY_2_0_46864": {
+      "corpus_sha256": "62edc6907cf982eb2ed050d44a9e8218377a32daaf0c8847c98048b67be9ce54",
+      "files": {
+        "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl": "d6c65c2682313652b736f1f82968078292c12588823e2f79309e76d6e671235d"
+      }
+    },
+    "GCA_REPOSITORY_3_0_SHADOW": {
+      "corpus_sha256": "ca53e0052710e009594f7356bd90f5173e444fce61fe51b4268aeac3b51ef26c",
+      "files": {
+        "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/3.0/candidates.jsonl": "35923b9fed392f9678da64268814eea2c7f9780f1c82c6a6b5bc394027e58049",
+        "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/3.0/manifest.json": "7ee02d6f92a1b8b43e74d9949d5a4f90313037010e0acd2e82697f3b69409367"
+      }
+    }
+  },
+  "dataset_bundle_sha256": "b95fc71a05771c731d48258b633b957d994864cfd352132994fb60e3d341bb0d"
+}

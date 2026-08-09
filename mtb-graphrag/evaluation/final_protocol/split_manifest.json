@@ -1,0 +1,84 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "generated_at": "2026-08-09T08:51:07.195106+00:00",
+  "split_definitions": {
+    "PILOT": "casi che hanno guidato la costruzione della pipeline; solo regression",
+    "DEVELOPMENT": "casi osservati prima del congelamento di almeno un componente che li riguarda; regression e ablation, mai generalizzazione",
+    "INDEPENDENT": "gold congelato prima del congelamento del componente valutato e nessun accesso al gold durante l'inferenza",
+    "FINAL_TEST": "popolazione completa senza campionamento, oppure gold riderivato indipendentemente dall'artefatto valutato"
+  },
+  "corpora": [
+    {
+      "corpus_id": "CASECONTEXT_ROBUSTNESS_35",
+      "split": "DEVELOPMENT",
+      "contaminated_component": "pre-retrieval-eligibility-gate/1.0",
+      "final_role": "REGRESSION_AND_ROBUSTNESS_MATRIX",
+      "rationale": "Gold congelato con SHA-256 prima della prima chiamata al parser (2026-08-06T14:32Z, esecuzione 14:43Z). Il Pre-Retrieval Eligibility Gate è però stato progettato alle 19:34Z dello stesso giorno in risposta esplicita a un fallimento osservato su questo benchmark (citato nel docstring di eligibility/gate.py). Il corpus resta valido come regression e robustness matrix, NON come generalizzazione su input mai visti dal gate."
+    },
+    {
+      "corpus_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20",
+      "split": "INDEPENDENT",
+      "contaminated_component": null,
+      "final_role": "PRIMARY_RETRIEVAL_GENERALIZATION_EVIDENCE",
+      "rationale": "Selector congelato alle 2026-08-08T09:11Z; corpus e gold congelati alle 10:59Z; valutazione alle 11:00Z. selector_code_modified=false e selector_weights_modified=false dopo la valutazione. Il leakage audit registra 0 accessi al gold durante l'inferenza. È l'unico corpus del progetto realmente esterno al design dei componenti."
+    },
+    {
+      "corpus_id": "FROZEN_EVIDENCE_BUNDLES_25",
+      "split": "DEVELOPMENT",
+      "contaminated_component": "deterministic-sourceunit-selector/1.0 (feature design, K)",
+      "final_role": "REPLAY_REPRODUCIBILITY_AND_SELECTOR_REGRESSION",
+      "rationale": "Le feature del selector e il valore K=5 sono stati scelti osservando questo corpus (76 gold source unit su 25 bundle). Non può essere presentato come evidenza di generalizzazione del selector. Resta il corpus corretto per la riproducibilità REPLAY, perché la proprietà misurata lì è l'identità dell'output, non la qualità del ranking."
+    },
+    {
+      "corpus_id": "AUTHORIZED_DOCUMENT_CACHE_43",
+      "split": "DEVELOPMENT",
+      "contaminated_component": null,
+      "final_role": "CACHE_HIT_MISS_AND_DEGRADATION_SUBSTRATE",
+      "rationale": "Non è un corpus di casi ma il substrato documentale: 43 documenti (40 disponibili, 3 con PMC_RESOLUTION_FAILED) e 3402 SourceUnit. Fornisce i denominatori di cache hit/miss e di degradazione ad abstract. Il gold è la provenienza registrata, non un giudizio."
+    },
+    {
+      "corpus_id": "END_TO_END_PIPELINE_PILOT_5",
+      "split": "PILOT",
+      "contaminated_component": "orchestrator routing, dossier presentation",
+      "final_role": "REGRESSION_ONLY",
+      "rationale": "Cinque casi costruiti a partire da candidate e bundle noti per guidare lo sviluppo della pipeline end-to-end. Sono i casi che hanno definito il comportamento atteso: vanno riportati come regression, mai come campione di valutazione."
+    },
+    {
+      "corpus_id": "DOSSIER_NARRATOR_25",
+      "split": "DEVELOPMENT",
+      "contaminated_component": "narrative-lexicon/1.0",
+      "final_role": "NARRATIVE_VERIFIER_ABLATION_AND_REGRESSION",
+      "rationale": "Contaminazione documentata dagli stessi autori dell'artefatto: la prima esecuzione LIVE produsse 3 FAIL, il lexicon fu corretto e le STESSE narrative furono riverificate ottenendo 25/25. Il 25/25 è quindi un risultato post-tuning sullo stesso campione. Il corpus resta utilizzabile per l'ablation del Narrative Verifier, dove la misura è il delta FULL vs NO_VERIFIER sulle stesse narrative."
+    },
+    {
+      "corpus_id": "NARRATOR_ADVERSARIAL_20",
+      "split": "DEVELOPMENT",
+      "contaminated_component": "narrative-verifier/1.0",
+      "final_role": "SAFETY_MATRIX_NARRATIVE_LAYER",
+      "rationale": "Venti input ostili scritti insieme al verifier che devono bloccarli. Sono test di costruzione, non un campione indipendente: dimostrano che la classe di fallimento è coperta, non che sia esaustiva."
+    },
+    {
+      "corpus_id": "QUOTE_VALIDATOR_BATTERY_14",
+      "split": "DEVELOPMENT",
+      "contaminated_component": "quote validator v2 reason codes",
+      "final_role": "SAFETY_MATRIX_QUOTE_LAYER",
+      "rationale": "Quattordici scenari con esito atteso ACCEPT/REJECT dichiarato prima dell'esecuzione, scritti però contro il validator esistente. Coprono la classe di fallimento richiesta dall'ablation C."
+    },
+    {
+      "corpus_id": "GCA_REPOSITORY_2_0_46864",
+      "split": "FINAL_TEST",
+      "contaminated_component": null,
+      "final_role": "RQ1_FIDELITY_FULL_CORPUS_AND_NEGATIVE_POLARITY_SWEEP",
+      "rationale": "Il gold di RQ1 è ottenuto riderivando i path eleggibili dall'export CSV congelato con codice indipendente (evaluation/rq1/kg_source.py), senza rieseguire il materializzatore: non è un confronto tautologico. È l'unico corpus full-population del progetto e non ha campionamento, quindi non ammette leakage di selezione."
+    },
+    {
+      "corpus_id": "GCA_REPOSITORY_3_0_SHADOW",
+      "split": "FINAL_TEST",
+      "contaminated_component": null,
+      "final_role": "RQ1_SHADOW_COMPARISON_ONLY_NOT_RUNTIME",
+      "rationale": "Il runtime a f52bbf5 legge 2.0 (backend/research_pipeline/data_access.py) e nessun modulo del runtime importa kg_retrieval_v3. Le proprietà di 3.0 (polarità esplicita, regimi preservati, alterazioni composte) NON vanno attribuite al sistema valutato."
+    }
+  ],
+  "dataset_bundle_sha256": "b95fc71a05771c731d48258b633b957d994864cfd352132994fb60e3d341bb0d"
+}

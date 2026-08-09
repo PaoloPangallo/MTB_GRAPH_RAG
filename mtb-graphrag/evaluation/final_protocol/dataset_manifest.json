@@ -1,0 +1,287 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "generated_at": "2026-08-09T08:51:07.195106+00:00",
+  "runtime_modified": false,
+  "corpora": [
+    {
+      "corpus_id": "CASECONTEXT_ROBUSTNESS_35",
+      "title": "CaseContext robustness benchmark",
+      "paths": [
+        "evaluation/rq4_casecontext_robustness/benchmark.jsonl",
+        "evaluation/rq4_casecontext_robustness/frozen_benchmark_manifest.json"
+      ],
+      "counts": {
+        "n_cases": 35,
+        "labels": {
+          "ADVERSARIAL": 5,
+          "AMBIGUOUS": 5,
+          "CONTRADICTORY": 5,
+          "IN_SCOPE_COMPLETE": 5,
+          "IN_SCOPE_INCOMPLETE": 5,
+          "NON_ACTIONABLE_MEDICAL_INPUT": 5,
+          "OUT_OF_SCOPE": 5
+        },
+        "benchmark_sha256_declared": "dd639ed085851ae2d0c99a6d0a500d7e399894e441133c89eba4178f05aaedc4",
+        "frozen_at": "2026-08-06T14:32:06.230802+00:00"
+      },
+      "annotation_source": "AUTHORED_EXPECTATIONS_FROZEN_BEFORE_EXECUTION",
+      "gold_kind": "PROGRAMMATIC_EXPECTED_PATH",
+      "split": "DEVELOPMENT",
+      "usable_for_final_eval": true,
+      "final_role": "REGRESSION_AND_ROBUSTNESS_MATRIX",
+      "corpus_sha256": "7c6f04fbeb92b9b2ab9b894d0614890e158c83e872d0d54026d9066fa2f5387a"
+    },
+    {
+      "corpus_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20",
+      "title": "Independent SourceUnit selector corpus",
+      "paths": [
+        "evaluation/sourceunit_selector_independent/candidate_inventory.jsonl",
+        "evaluation/sourceunit_selector_independent/corpus_inventory.json",
+        "evaluation/sourceunit_selector_independent/document_inventory.jsonl",
+        "evaluation/sourceunit_selector_independent/gold_annotation_manifest.json",
+        "evaluation/sourceunit_selector_independent/gold_annotations.csv",
+        "evaluation/sourceunit_selector_independent/leakage_audit.json"
+      ],
+      "counts": {
+        "n_cases": 20,
+        "n_documents": 20,
+        "n_source_units": 1697,
+        "labels": {
+          "DIRECTLY_RELEVANT": 29,
+          "PARTIALLY_RELEVANT": 49,
+          "CONTEXT_ONLY": 355,
+          "NOT_RELEVANT": 1264
+        },
+        "positive_cases": 9,
+        "zero_direct_cases": 11,
+        "pmc_fulltext_documents": 8,
+        "pubmed_abstract_documents": 12,
+        "gold_annotation_hash": "a8e384bf57402932de272e152bee05c6f421aabe2e568efb62835d19cc12d986",
+        "pilot_candidate_overlap": 0,
+        "pilot_document_overlap": 0
+      },
+      "annotation_source": "SINGLE_HUMAN_PROTOCOL_PASS",
+      "gold_kind": "HUMAN_ANNOTATED_RELEVANCE",
+      "split": "INDEPENDENT",
+      "usable_for_final_eval": true,
+      "final_role": "PRIMARY_RETRIEVAL_GENERALIZATION_EVIDENCE",
+      "corpus_sha256": "2a78d860dab9ac8d8277a39421ac2e60a2a05e2572ca26f29156591166efa03f"
+    },
+    {
+      "corpus_id": "FROZEN_EVIDENCE_BUNDLES_25",
+      "title": "Frozen evidence bundles (REPLAY)",
+      "paths": [
+        "benchmarks/mtb_evidence/document_grounded_claims/evidence_bundle/evidence_bundles.jsonl",
+        "benchmarks/mtb_evidence/document_grounded_claims/evidence_bundle/status_transitions.jsonl",
+        "evaluation/sourceunit_selector/dataset.jsonl"
+      ],
+      "counts": {
+        "n_cases": 25,
+        "n_bundles": 25,
+        "n_candidates": 16,
+        "n_gold_source_units": 76
+      },
+      "annotation_source": "BUNDLE_GOLD_SOURCE_UNITS",
+      "gold_kind": "HUMAN_CURATED_BUNDLE_GOLD",
+      "split": "DEVELOPMENT",
+      "usable_for_final_eval": true,
+      "final_role": "REPLAY_REPRODUCIBILITY_AND_SELECTOR_REGRESSION",
+      "corpus_sha256": "ece8707f282dd865fc45d648e4b502ab88731e3148bb911c5ff400d4165a613e"
+    },
+    {
+      "corpus_id": "AUTHORIZED_DOCUMENT_CACHE_43",
+      "title": "Authorized document cache manifest",
+      "paths": [
+        "benchmarks/mtb_evidence/document_grounded_claims/authorized_document_cache_pilot/document_manifest.jsonl",
+        "benchmarks/mtb_evidence/document_grounded_claims/authorized_document_cache_pilot/source_unit_index.jsonl"
+      ],
+      "counts": {
+        "n_documents": 43,
+        "n_source_units": 3402,
+        "labels": {
+          "availability": {
+            "METADATA_ONLY": 12,
+            "PMC_XML_AVAILABLE": 11,
+            "PMC_RESOLUTION_FAILED": 3,
+            "ABSTRACT_AVAILABLE": 17
+          },
+          "source": {
+            "ClinicalTrials.gov API v2": 12,
+            "NCBI PMC OAI": 14,
+            "NCBI E-utilities": 17
+          }
+        }
+      },
+      "annotation_source": "OFFICIAL_API_ACQUISITION",
+      "gold_kind": "OBJECTIVE_PROVENANCE_RECORD",
+      "split": "DEVELOPMENT",
+      "usable_for_final_eval": true,
+      "final_role": "CACHE_HIT_MISS_AND_DEGRADATION_SUBSTRATE",
+      "corpus_sha256": "d9e4d9d680b30ed2e7d8463bd708c4f83518472624fd3b5c37ec56bb06bf35e9"
+    },
+    {
+      "corpus_id": "END_TO_END_PIPELINE_PILOT_5",
+      "title": "End-to-end pipeline pilot cases",
+      "paths": [
+        "benchmarks/mtb_evidence/end_to_end_pipeline_pilot/test_cases.json"
+      ],
+      "counts": {
+        "n_cases": 5,
+        "labels": {
+          "baseline_support_status": {
+            "DIRECT": 1,
+            "AMBIGUOUS": 1,
+            "PARTIAL": 1,
+            "CONTRADICTED": 1,
+            "UNSPECIFIED": 1
+          }
+        }
+      },
+      "annotation_source": "AUTHORED_FROM_KNOWN_CANDIDATES",
+      "gold_kind": "PROGRAMMATIC_EXPECTED_PATH",
+      "split": "PILOT",
+      "usable_for_final_eval": true,
+      "final_role": "REGRESSION_ONLY",
+      "corpus_sha256": "d1c7b20e3c3e53fbd3480a359050397d1fad39c638b071cb8a83f8fc11e66bc2"
+    },
+    {
+      "corpus_id": "DOSSIER_NARRATOR_25",
+      "title": "Dossier narrator benchmark",
+      "paths": [
+        "benchmarks/mtb_evidence/dossier_narrator/narrative_runs.jsonl",
+        "evaluation/dossier_narrator/narrator_contract.json",
+        "evaluation/dossier_narrator/narrator_input_samples.jsonl"
+      ],
+      "counts": {
+        "n_cases": 25,
+        "n_recorded_runs": 25,
+        "labels": {
+          "stratum": {
+            "DIRECT": 5,
+            "AMBIGUOUS": 5,
+            "DOES_NOT_SUPPORT": 5,
+            "NO_VALIDATED_QUOTE": 5,
+            "MULTI_CANDIDATE": 5
+          }
+        }
+      },
+      "annotation_source": "DETERMINISTIC_VERIFIER_PLUS_EMPTY_HUMAN_COLUMNS",
+      "gold_kind": "PROGRAMMATIC_FIDELITY_CHECK",
+      "split": "DEVELOPMENT",
+      "usable_for_final_eval": true,
+      "final_role": "NARRATIVE_VERIFIER_ABLATION_AND_REGRESSION",
+      "corpus_sha256": "360320166d6dff5ab3e05b3dcdef860491e5c114472fc2aaffc9b4a33a2de256"
+    },
+    {
+      "corpus_id": "NARRATOR_ADVERSARIAL_20",
+      "title": "Narrator adversarial cases",
+      "paths": [
+        "evaluation/dossier_narrator/adversarial_results.jsonl"
+      ],
+      "counts": {
+        "n_cases": 20,
+        "labels": {
+          "family": {
+            "entity_invention": 7,
+            "status_escalation": 3,
+            "recommendation": 4,
+            "quote": 2,
+            "omission": 2,
+            "control": 2
+          },
+          "expected": {
+            "FAIL": 18,
+            "PASS": 2
+          }
+        }
+      },
+      "annotation_source": "AUTHORED_HOSTILE_INPUTS",
+      "gold_kind": "PROGRAMMATIC_EXPECTED_REJECTION",
+      "split": "DEVELOPMENT",
+      "usable_for_final_eval": true,
+      "final_role": "SAFETY_MATRIX_NARRATIVE_LAYER",
+      "corpus_sha256": "98117bb1871a8e3faca80b0edc65c06f7f075bbe95a77d77698a47b21e7dfee8"
+    },
+    {
+      "corpus_id": "QUOTE_VALIDATOR_BATTERY_14",
+      "title": "Quote validator adversarial battery",
+      "paths": [
+        "evaluation/pre_freeze/raw/G01_rq3_quote_battery.jsonl"
+      ],
+      "counts": {
+        "n_cases": 14,
+        "labels": {
+          "expected": {
+            "ACCEPT": 1,
+            "REJECT": 11,
+            "ABSTAIN": 1,
+            "ABSTAIN_INCONSISTENT": 1
+          }
+        }
+      },
+      "annotation_source": "AUTHORED_HOSTILE_INPUTS",
+      "gold_kind": "PROGRAMMATIC_EXPECTED_ACCEPT_REJECT",
+      "split": "DEVELOPMENT",
+      "usable_for_final_eval": true,
+      "final_role": "SAFETY_MATRIX_QUOTE_LAYER",
+      "corpus_sha256": "dd73c1137c1a6d3d2b7681e946fb14d6d4a239e37caee2c826cbe4c2d9a26d50"
+    },
+    {
+      "corpus_id": "GCA_REPOSITORY_2_0_46864",
+      "title": "GraphCandidateAssertion repository 2.0 (runtime)",
+      "paths": [
+        "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl"
+      ],
+      "counts": {
+        "n_candidates": 46864,
+        "n_candidates_with_pmid": 8230,
+        "labels": {
+          "materialization_rule_id": {
+            "gca/2.0/evidence-statement": 4860,
+            "gca/2.0/evidence-to-drug": 3370,
+            "gca/2.0/gene-drug-interaction": 25589,
+            "gca/2.0/companion-diagnostic": 163,
+            "gca/2.0/trial-drug": 7381,
+            "gca/2.0/trial-gene": 5501
+          },
+          "direction": {
+            "Supports": 4295,
+            "Does Not Support": 513,
+            "Resistance": 1184,
+            "Sensitivity/Response": 2158,
+            "": 54,
+            "Adverse Response": 12,
+            "Reduced Sensitivity": 14,
+            "None": 38634
+          }
+        }
+      },
+      "annotation_source": "DETERMINISTIC_MATERIALIZATION_FROM_FROZEN_CSV_EXPORT",
+      "gold_kind": "OBJECTIVE_REDERIVED_GROUND_TRUTH",
+      "split": "FINAL_TEST",
+      "usable_for_final_eval": true,
+      "final_role": "RQ1_FIDELITY_FULL_CORPUS_AND_NEGATIVE_POLARITY_SWEEP",
+      "corpus_sha256": "62edc6907cf982eb2ed050d44a9e8218377a32daaf0c8847c98048b67be9ce54"
+    },
+    {
+      "corpus_id": "GCA_REPOSITORY_3_0_SHADOW",
+      "title": "GraphCandidateAssertion repository 3.0 (shadow)",
+      "paths": [
+        "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/3.0/candidates.jsonl",
+        "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/3.0/manifest.json"
+      ],
+      "counts": {
+        "n_candidates": 46142,
+        "runtime_default": false
+      },
+      "annotation_source": "DETERMINISTIC_MATERIALIZATION_SHADOW",
+      "gold_kind": "OBJECTIVE_REDERIVED_GROUND_TRUTH",
+      "split": "FINAL_TEST",
+      "usable_for_final_eval": true,
+      "final_role": "RQ1_SHADOW_COMPARISON_ONLY_NOT_RUNTIME",
+      "corpus_sha256": "ca53e0052710e009594f7356bd90f5173e444fce61fe51b4268aeac3b51ef26c"
+    }
+  ],
+  "dataset_bundle_sha256": "b95fc71a05771c731d48258b633b957d994864cfd352132994fb60e3d341bb0d"
+}
