@@ -70,12 +70,19 @@ def check_historical_artifacts_untouched() -> None:
 
 
 def check_new_files_are_additive() -> None:
-    """I file del protocollo sono aggiunte, non sovrascritture."""
-    untracked = _git("ls-files", "--others", "--exclude-standard",
-                     "mtb-graphrag/evaluation/final_protocol",
-                     "mtb-graphrag/docs/final_evaluation").splitlines()
-    added = sorted(line for line in untracked if line.strip())
-    check("protocol_files_are_new", bool(added), f"{len(added)} nuovi file: {added}")
+    """I file del protocollo sono aggiunte, mai sovrascritture di storico.
+
+    Il confronto è contro il commit di runtime: nessuno dei percorsi introdotti
+    da questa fase deve esistere là. Non si guardano i file non tracciati,
+    perché una volta committati non lo sono più.
+    """
+    existing_at_runtime = _git("ls-tree", "-r", "--name-only", RUNTIME_COMMIT,
+                               *PROTOCOL_PATHS).splitlines()
+    overwritten = sorted(line for line in existing_at_runtime if line.strip())
+    current = _git("ls-files", *PROTOCOL_PATHS).splitlines()
+    tracked = sorted(line for line in current if line.strip())
+    check("protocol_files_are_additive", not overwritten and bool(tracked),
+          f"{len(tracked)} file tracciati, {len(overwritten)} preesistenti a f52bbf5")
 
 
 def check_declared_benchmark_hash() -> None:
@@ -312,6 +319,26 @@ def check_no_fabricated_results() -> None:
     check("no_fabricated_result_values", not offenders, f"{len(offenders)} celle precompilate")
 
 
+def check_protocol_seal_matches_files() -> None:
+    """Il ``protocol_sha256`` registrato deve corrispondere ai file sul disco.
+
+    I builder scrivono un ``generated_at``, quindi rieseguirli cambia il sigillo
+    anche a contenuto invariato. Questo check trasforma quella deriva da
+    silenziosa in visibile: se fallisce, o si ripristinano i file committati o
+    si riesegue ``hash_protocol`` e si dichiara il nuovo sigillo.
+    """
+    recorded = _json("evaluation/final_protocol/protocol_hash.json")
+    observed = {}
+    for relative, declared in recorded["files"].items():
+        raw = (REPO_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+        observed[relative] = hashlib.sha256(raw).hexdigest()
+    joined = "\n".join(f"{k}:{v}" for k, v in sorted(observed.items()))
+    recomputed = hashlib.sha256(joined.encode("utf-8")).hexdigest()
+    drifted = [k for k, v in observed.items() if recorded["files"][k] != v]
+    check("protocol_seal_matches_files", recomputed == recorded["protocol_sha256"],
+          f"{len(drifted)} file derivati dal sigillo: {drifted[:3]}")
+
+
 def check_no_final_run_executed() -> None:
     """La directory dei risultati finali non deve esistere ancora."""
     results_dir = REPO_ROOT / "evaluation/final_evaluation"
@@ -429,6 +456,7 @@ def main() -> int:
     check_reliability_subset_explicit()
     check_schemas_declare_denominators()
     check_no_fabricated_results()
+    check_protocol_seal_matches_files()
     check_no_final_run_executed()
     check_runtime_repository_version()
     check_oncokb_not_integrated()
