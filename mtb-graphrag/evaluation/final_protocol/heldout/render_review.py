@@ -218,20 +218,97 @@ def render() -> str:
     add(f"* {overlap['declared_shared_properties']['entity_reuse_within_heldout']}")
     add("")
 
-    add("## 6. Esito della review")
+    grounded = _json(HELDOUT_DIR / "grounded_review.json")
+
+    add("## 6. Revisione meccanica dei casi grounded")
     add("")
-    add("Da compilare dal revisore umano prima del freeze. Finché resta vuoto,")
-    add("`frozen` rimane `false` e la final evaluation non parte.")
+    add(grounded["method"])
+    add("")
+    add(f"Criterio: {grounded['criterion']}")
+    add("")
+    add(f"**Esito: {grounded['n_approvable']}/{grounded['n_cases']} approvabili — "
+        f"`{grounded['verdict']}`**")
+    add("")
+    add("| CASE_ID | GCA_ID | DISEASE | BIOMARKER / ALTERATION | INTERVENTION | DIRECTION | SIG | LVL | DOC | D | B | I | DIR |")
+    add("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+    for row in grounded["rows"]:
+        add("| `{cid}` | `{gca}` | {dis} | {bio} | {inter} | {dirn} | {sig} | {lvl} | {doc} | {d} | {b} | {i} | {dr} |".format(
+            cid=row["CASE_ID"], gca=row["GCA_ID"],
+            dis=_cell(row["GCA_DISEASE"]), bio=_cell(row["GCA_BIOMARKER"]),
+            inter=_cell(row["GCA_INTERVENTION"]), dirn=_cell(row["GCA_EVIDENCE_DIRECTION"]),
+            sig=_cell(row["GCA_SIGNIFICANCE"]), lvl=_cell(row["GCA_LEVEL"]),
+            doc=_cell(row["GCA_DOCUMENT_IDENTIFIER"]),
+            d="✓" if row["TEXT_DISEASE_MATCH"] else "✗",
+            b="✓" if row["TEXT_BIOMARKER_MATCH"] else "✗",
+            i="✓" if row["TEXT_INTERVENTION_MATCH"] else "✗",
+            dr="✓" if row["EXPECTED_DIRECTION_MATCH"] else "✗"))
+    add("")
+    add(f"Normalizzazione applicata: {grounded['normalization']}.")
+    add("")
+    add("Note di match, per caso:")
+    add("")
+    for row in grounded["rows"]:
+        add(f"* `{row['CASE_ID']}` — disease: {row['TEXT_DISEASE_NOTE']}; "
+            f"biomarker: {row['TEXT_BIOMARKER_NOTE']}; "
+            f"intervento: {row['TEXT_INTERVENTION_NOTE']}; "
+            f"direzione: {row['EXPECTED_DIRECTION_NOTE']}.")
+    add("")
+    for case_id, note in grounded["intentional_discordance"].items():
+        add(f"> **Discordanza intenzionale — `{case_id}`.** {note}")
+        add("")
+
+    revised = manifest.get("revision_summary", {})
+    add("## 7. Revisione applicata")
+    add("")
+    add(f"`revised_in = {revised.get('revised_in')}` · "
+        f"applicata **prima** di osservare qualunque output del sistema.")
+    add("")
+    add("| CORPUS | INVARIATI APPROVATI | REVISIONATI |")
+    add("|---|---|---|")
+    add(f"| architectural | {revised.get('architectural_unchanged')} | "
+        f"{len(revised.get('architectural_revised', []))} |")
+    add(f"| narrative hostile | {revised.get('narrative_unchanged')} | "
+        f"{len(revised.get('narrative_revised', []))} |")
+    add(f"| positive controls | {len(control['cases'])} | "
+        f"{len(revised.get('positive_controls_revised', []))} |")
+    add("")
+    add("| CASE_ID | ID PRECEDENTE | CONTENUTO PRECEDENTE | MOTIVO |")
+    add("|---|---|---|---|")
+    for case in cases["cases"] + narrative["cases"]:
+        rev = case.get("revision")
+        if not rev:
+            continue
+        add("| `{cid}` | {prev} | {content} | {reason} |".format(
+            cid=case["case_id"],
+            prev=_cell(rev.get("previous_case_id") or rev.get("previous_base_id")),
+            content=_cell(_summarize(rev.get("previous_content", ""), 110)),
+            reason=_cell(_summarize(rev["reason"], 260))))
+    add("")
+
+    add("## 8. Esito della review")
+    add("")
+    add("| CAMPO | VALORE |")
+    add("|---|---|")
+    add("| review_status | **REVISION_APPLIED_PENDING_FINAL_APPROVAL** |")
+    add(f"| architectural | {revised.get('architectural_unchanged')} invariati approvati, "
+        f"{len(revised.get('architectural_revised', []))} revisionati |")
+    add(f"| narrative hostile | {revised.get('narrative_unchanged')} invariati approvati, "
+        f"{len(revised.get('narrative_revised', []))} revisionato |")
+    add(f"| positive controls | {len(control['cases'])} invariati approvati |")
+    add(f"| grounded mechanical review | {grounded['n_approvable']}/{grounded['n_cases']} |")
+    add(f"| overlap verdict | {overlap['overlap_verdict']} |")
+    add("| frozen | false |")
+    add("")
+    add("Da compilare dall'approvazione finale. Finché `review_status` non diventa")
+    add("`ACCEPTED`, `frozen` resta `false` e la final evaluation non parte.")
     add("")
     add("| CAMPO | VALORE |")
     add("|---|---|")
     add("| revisore | |")
     add("| data | |")
-    add("| casi accettati | |")
-    add("| casi da correggere | |")
-    add("| casi rifiutati | |")
-    add("| gold contestati | |")
-    add("| esito | ACCEPTED / REVISION_REQUIRED |")
+    add("| casi ancora contestati | |")
+    add("| gold ancora contestati | |")
+    add("| esito finale | ACCEPTED / REVISION_REQUIRED |")
     add("")
 
     return "\n".join(lines) + "\n"

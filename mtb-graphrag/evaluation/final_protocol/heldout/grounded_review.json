@@ -1,0 +1,357 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "source": "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl",
+  "method": "lettura diretta del repository GCA congelato; nessuna esecuzione della pipeline, nessuna chiamata al modello, nessun accesso alla rete",
+  "normalization": "NFKC + casefold + rimozione della punteggiatura + collasso degli spazi, applicata sia al testo del caso sia alle label della candidate",
+  "criterion": "un caso grounded è approvabile solo se TEXT_DISEASE_MATCH, TEXT_BIOMARKER_MATCH, TEXT_INTERVENTION_MATCH e EXPECTED_DIRECTION_MATCH sono tutti true",
+  "n_cases": 10,
+  "n_approvable": 10,
+  "requires_revision": [],
+  "verdict": "ALL_GROUNDED_CASES_APPROVABLE",
+  "intentional_discordance": {
+    "HO-NEG-01-pdac-idh1-ivosidenib": "evidence_direction 'Does Not Support' con significance 'Sensitivity/Response' è INTENZIONALE e fa parte del test: verifica che evidence_direction abbia autorità semantica distinta da significance. Non va normalizzata né trattata come incoerenza del gold."
+  },
+  "rows": [
+    {
+      "CASE_ID": "HO-CMP-01-glioma-idh2-vorasidenib",
+      "CATEGORY": "COMPLETE",
+      "CASE_TEXT": "A 41-year-old patient with a grade 2 astrocytic glioma underwent tumour sequencing after the second resection. The panel reported an IDH2 mutation. The neuro-oncology team is evaluating whether vorasidenib is an appropriate option before considering re-irradiation.",
+      "GCA_ID": "GCA-0273a08306537cbf092c12b6",
+      "GCA_DISEASE": [
+        "Glioma"
+      ],
+      "GCA_BIOMARKER": [
+        "IDH2",
+        "Mutation"
+      ],
+      "GCA_ALTERATION": [
+        "Mutation"
+      ],
+      "GCA_INTERVENTION": [
+        "VORASIDENIB"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Supports",
+      "GCA_SIGNIFICANCE": "Sensitivity/Response",
+      "GCA_LEVEL": "A",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:37272516"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match letterale su 'Glioma'",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['IDH2']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'VORASIDENIB'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Supports, osservato Supports",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-CMP-02-crpc-palb2-olaparib",
+      "CATEGORY": "COMPLETE",
+      "CASE_TEXT": "Man with castration-resistant prostate cancer progressing after abiraterone. Germline and somatic testing identified a pathogenic PALB2 mutation. Is olaparib supported for this patient?",
+      "GCA_ID": "GCA-1925beb45ca7d0199706d9c0",
+      "GCA_DISEASE": [
+        "Castration-resistant Prostate Carcinoma"
+      ],
+      "GCA_BIOMARKER": [
+        "Mutation",
+        "PALB2"
+      ],
+      "GCA_ALTERATION": [
+        "Mutation"
+      ],
+      "GCA_INTERVENTION": [
+        "OLAPARIB"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Supports",
+      "GCA_SIGNIFICANCE": "Sensitivity/Response",
+      "GCA_LEVEL": "A",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:32343890"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match su tutti i token distintivi di 'Castration-resistant Prostate Carcinoma': ['castration', 'resistant', 'prostate']",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['PALB2']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'OLAPARIB'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Supports, osservato Supports",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-CMP-03-dlbcl-ezh2-tazemetostat",
+      "CATEGORY": "COMPLETE",
+      "CASE_TEXT": "Relapsed diffuse large B-cell lymphoma. Targeted sequencing of the nodal biopsy showed an EZH2 Y646F mutation. The haematology team asks whether tazemetostat is a supported treatment option in this setting.",
+      "GCA_ID": "GCA-1d3d973122d43cc546aa8302",
+      "GCA_DISEASE": [
+        "Diffuse Large B-cell Lymphoma"
+      ],
+      "GCA_BIOMARKER": [
+        "EZH2",
+        "Y646F"
+      ],
+      "GCA_ALTERATION": [
+        "Y646F"
+      ],
+      "GCA_INTERVENTION": [
+        "TAZEMETOSTAT"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Supports",
+      "GCA_SIGNIFICANCE": "Sensitivity/Response",
+      "GCA_LEVEL": "B",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:34159682"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match letterale su 'Diffuse Large B-cell Lymphoma'",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['EZH2', 'Y646F']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'TAZEMETOSTAT'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Supports, osservato Supports",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-CMP-04-liposarcoma-cdk4-palbociclib",
+      "CATEGORY": "COMPLETE",
+      "CASE_TEXT": "Patient with a well-differentiated retroperitoneal liposarcoma not amenable to further surgery. Molecular profiling demonstrated CDK4 amplification. The sarcoma board is considering palbociclib and would like to know what the literature reports for this association.",
+      "GCA_ID": "GCA-741b33550dfc4a063ce08995",
+      "GCA_DISEASE": [
+        "Liposarcoma"
+      ],
+      "GCA_BIOMARKER": [
+        "Amplification",
+        "CDK4"
+      ],
+      "GCA_ALTERATION": [
+        "Amplification"
+      ],
+      "GCA_INTERVENTION": [
+        "PALBOCICLIB"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Supports",
+      "GCA_SIGNIFICANCE": "Sensitivity/Response",
+      "GCA_LEVEL": "B",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:23569312"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match letterale su 'Liposarcoma'",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['CDK4']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'PALBOCICLIB'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Supports, osservato Supports",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-CMP-05-urothelial-hras-tipifarnib",
+      "CATEGORY": "COMPLETE",
+      "CASE_TEXT": "Metastatic bladder urothelial carcinoma after platinum-based chemotherapy. Sequencing reported an HRAS mutation. The team is evaluating tipifarnib.",
+      "GCA_ID": "GCA-62a25095b6ebaa9bdc7e746f",
+      "GCA_DISEASE": [
+        "Bladder Urothelial Carcinoma"
+      ],
+      "GCA_BIOMARKER": [
+        "HRAS",
+        "Mutation"
+      ],
+      "GCA_ALTERATION": [
+        "Mutation"
+      ],
+      "GCA_INTERVENTION": [
+        "TIPIFARNIB"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Supports",
+      "GCA_SIGNIFICANCE": "Sensitivity/Response",
+      "GCA_LEVEL": "B",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:32636318"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match letterale su 'Bladder Urothelial Carcinoma'",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['HRAS']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'TIPIFARNIB'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Supports, osservato Supports",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-NEG-01-pdac-idh1-ivosidenib",
+      "CATEGORY": "NEGATIVE_POLARITY_STRESS",
+      "CASE_TEXT": "Pancreatic ductal adenocarcinoma with an IDH1 R132H mutation. The team is evaluating ivosidenib and asks what the literature reports.",
+      "GCA_ID": "GCA-8ca2d897ad52ebf0c532dc70",
+      "GCA_DISEASE": [
+        "Pancreatic Ductal Adenocarcinoma"
+      ],
+      "GCA_BIOMARKER": [
+        "IDH1",
+        "R132H"
+      ],
+      "GCA_ALTERATION": [
+        "R132H"
+      ],
+      "GCA_INTERVENTION": [
+        "IVOSIDENIB"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Does Not Support",
+      "GCA_SIGNIFICANCE": "Sensitivity/Response",
+      "GCA_LEVEL": "C",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:27466707"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match letterale su 'Pancreatic Ductal Adenocarcinoma'",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['IDH1', 'R132H']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'IVOSIDENIB'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Does Not Support, osservato Does Not Support",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-NEG-02-pancreatic-kras-erlotinib",
+      "CATEGORY": "NEGATIVE_POLARITY_STRESS",
+      "CASE_TEXT": "Pancreatic carcinoma with a KRAS exon 2 mutation. Erlotinib is being considered. What does the evidence show for this association?",
+      "GCA_ID": "GCA-19eea684a9229fd0caa3bf47",
+      "GCA_DISEASE": [
+        "Pancreatic Carcinoma"
+      ],
+      "GCA_BIOMARKER": [
+        "Exon 2 Mutation",
+        "KRAS"
+      ],
+      "GCA_ALTERATION": [
+        "Exon 2 Mutation"
+      ],
+      "GCA_INTERVENTION": [
+        "ERLOTINIB"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Does Not Support",
+      "GCA_SIGNIFICANCE": "Resistance",
+      "GCA_LEVEL": "B",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:23435671"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match letterale su 'Pancreatic Carcinoma'",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['KRAS']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'ERLOTINIB'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Does Not Support, osservato Does Not Support",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-NEG-03-endometrial-pten-ridaforolimus",
+      "CATEGORY": "NEGATIVE_POLARITY_STRESS",
+      "CASE_TEXT": "Endometrial cancer with PTEN loss. Ridaforolimus is under discussion at the tumour board. Is it supported?",
+      "GCA_ID": "GCA-113468151b8b1bca9fdd5745",
+      "GCA_DISEASE": [
+        "Endometrial Cancer"
+      ],
+      "GCA_BIOMARKER": [
+        "Loss",
+        "PTEN"
+      ],
+      "GCA_ALTERATION": [
+        "Loss"
+      ],
+      "GCA_INTERVENTION": [
+        "RIDAFOROLIMUS"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Does Not Support",
+      "GCA_SIGNIFICANCE": "Resistance",
+      "GCA_LEVEL": "B",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:24166148"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match letterale su 'Endometrial Cancer'",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['PTEN']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'RIDAFOROLIMUS'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Does Not Support, osservato Does Not Support",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-NEG-04-gist-kit-ponatinib",
+      "CATEGORY": "NEGATIVE_POLARITY_STRESS",
+      "CASE_TEXT": "Gastrointestinal stromal tumour harbouring a KIT T670I mutation after progression on imatinib. Ponatinib is being evaluated.",
+      "GCA_ID": "GCA-0891eba920d395a06f6aa319",
+      "GCA_DISEASE": [
+        "Gastrointestinal Stromal Tumor"
+      ],
+      "GCA_BIOMARKER": [
+        "KIT",
+        "T670I"
+      ],
+      "GCA_ALTERATION": [
+        "T670I"
+      ],
+      "GCA_INTERVENTION": [
+        "PONATINIB"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Does Not Support",
+      "GCA_SIGNIFICANCE": "Resistance",
+      "GCA_LEVEL": "D",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:25239608"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match su tutti i token distintivi di 'Gastrointestinal Stromal Tumor': ['gastrointestinal', 'stromal']",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['KIT', 'T670I']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'PONATINIB'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Does Not Support, osservato Does Not Support",
+      "APPROVABLE": true
+    },
+    {
+      "CASE_ID": "HO-NEG-05-ovarian-arid1a-dasatinib",
+      "CATEGORY": "NEGATIVE_POLARITY_STRESS",
+      "CASE_TEXT": "Ovarian clear cell carcinoma with retained ARID1A expression on immunohistochemistry. Dasatinib is being considered.",
+      "GCA_ID": "GCA-e0e98426d5f595f6da4cf138",
+      "GCA_DISEASE": [
+        "Ovarian Clear Cell Carcinoma"
+      ],
+      "GCA_BIOMARKER": [
+        "ARID1A",
+        "Wildtype"
+      ],
+      "GCA_ALTERATION": [
+        "Wildtype"
+      ],
+      "GCA_INTERVENTION": [
+        "DASATINIB"
+      ],
+      "GCA_EVIDENCE_DIRECTION": "Does Not Support",
+      "GCA_SIGNIFICANCE": "Sensitivity/Response",
+      "GCA_LEVEL": "B",
+      "GCA_DOCUMENT_IDENTIFIER": [
+        "pmid:37418832"
+      ],
+      "TEXT_DISEASE_MATCH": true,
+      "TEXT_DISEASE_NOTE": "match letterale su 'Ovarian Clear Cell Carcinoma'",
+      "TEXT_BIOMARKER_MATCH": true,
+      "TEXT_BIOMARKER_NOTE": "tutti i token presenti: ['ARID1A']",
+      "TEXT_INTERVENTION_MATCH": true,
+      "TEXT_INTERVENTION_NOTE": "match letterale su 'DASATINIB'",
+      "EXPECTED_DIRECTION_MATCH": true,
+      "EXPECTED_DIRECTION_NOTE": "atteso Does Not Support, osservato Does Not Support",
+      "APPROVABLE": true
+    }
+  ]
+}
