@@ -1,0 +1,274 @@
+{
+  "fixtures": {
+    "cache_hit": {
+      "asserts": "seconda run sullo stesso documento, senza rete",
+      "candidate_ids": [
+        "GCA-forensic"
+      ],
+      "degradation": [],
+      "derived_pmcid": [
+        "PMC3999999"
+      ],
+      "document_availability": [
+        "pmcid:PMC3999999=PMC_XML_AVAILABLE"
+      ],
+      "document_ids": [
+        "pmcid:PMC3999999"
+      ],
+      "dossier_hash": "7d7e8e8c75b381b6839c55456e0b8e442bfafa9a424feefbd1a890d0153972e4",
+      "gate_support_masks": "484d2113dd79b1634368ab3e1cd0f35eeb93b09f129eb8bc32a21217bf7c43eb",
+      "model_input_source_unit_ids": [
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-f602a31a9e87168300313be4"
+      ],
+      "ranking_hash": "1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd",
+      "selector_k": 5,
+      "selector_selected_ids": [
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-f602a31a9e87168300313be4"
+      ],
+      "source_unit_ids": [
+        "SU-0371909de4c3f191b50548f5",
+        "SU-2b11e817c6c53e4c2d150d37",
+        "SU-2c08a2d5d0b91ab237abc2c4",
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-989bda218fc9c6af3ea455ba",
+        "SU-9d4efb655e90fd19e0c8daaa",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-abf09e4c6285791f251b3d72",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-c34658f769821f4f1d166dfa",
+        "SU-d967737a57c37df5177d7aca",
+        "SU-f602a31a9e87168300313be4",
+        "SU-ffba113c5d26fa7bc33c863c"
+      ],
+      "status": "PARTIAL",
+      "status_assignments": "502b6773dc8366b549aec222deb5bc2faf015a7b30c516c530b62b718c233141",
+      "stopped_at": null
+    },
+    "cache_miss_api": {
+      "asserts": "acquisizione autorizzata sul miss",
+      "candidate_ids": [
+        "GCA-forensic"
+      ],
+      "degradation": [],
+      "derived_pmcid": [
+        "PMC3999999"
+      ],
+      "document_availability": [
+        "pmcid:PMC3999999=PMC_XML_AVAILABLE"
+      ],
+      "document_ids": [
+        "pmcid:PMC3999999"
+      ],
+      "dossier_hash": "7d7e8e8c75b381b6839c55456e0b8e442bfafa9a424feefbd1a890d0153972e4",
+      "gate_support_masks": "484d2113dd79b1634368ab3e1cd0f35eeb93b09f129eb8bc32a21217bf7c43eb",
+      "model_input_source_unit_ids": [
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-f602a31a9e87168300313be4"
+      ],
+      "ranking_hash": "1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd",
+      "selector_k": 5,
+      "selector_selected_ids": [
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-f602a31a9e87168300313be4"
+      ],
+      "source_unit_ids": [
+        "SU-0371909de4c3f191b50548f5",
+        "SU-2b11e817c6c53e4c2d150d37",
+        "SU-2c08a2d5d0b91ab237abc2c4",
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-989bda218fc9c6af3ea455ba",
+        "SU-9d4efb655e90fd19e0c8daaa",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-abf09e4c6285791f251b3d72",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-c34658f769821f4f1d166dfa",
+        "SU-d967737a57c37df5177d7aca",
+        "SU-f602a31a9e87168300313be4",
+        "SU-ffba113c5d26fa7bc33c863c"
+      ],
+      "status": "PARTIAL",
+      "status_assignments": "502b6773dc8366b549aec222deb5bc2faf015a7b30c516c530b62b718c233141",
+      "stopped_at": null
+    },
+    "degraded_to_abstract": {
+      "asserts": "degradazione dichiarata ad abstract",
+      "candidate_ids": [
+        "GCA-forensic"
+      ],
+      "degradation": [
+        "PMC_RESOLUTION_FAILED"
+      ],
+      "derived_pmcid": [],
+      "document_availability": [
+        "pmid:24658966=ABSTRACT_AVAILABLE"
+      ],
+      "document_ids": [
+        "pmid:24658966"
+      ],
+      "dossier_hash": "7d7e8e8c75b381b6839c55456e0b8e442bfafa9a424feefbd1a890d0153972e4",
+      "gate_support_masks": "484d2113dd79b1634368ab3e1cd0f35eeb93b09f129eb8bc32a21217bf7c43eb",
+      "model_input_source_unit_ids": [
+        "SU-2de71ef6c7b32f6d3cb27a7f",
+        "SU-497a8c4c02d014382855e6ae",
+        "SU-c4077a17f20e5b8d50bef1e0",
+        "SU-e2cef257a720e670b96a45c5"
+      ],
+      "ranking_hash": "1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd",
+      "selector_k": 4,
+      "selector_selected_ids": [
+        "SU-2de71ef6c7b32f6d3cb27a7f",
+        "SU-497a8c4c02d014382855e6ae",
+        "SU-c4077a17f20e5b8d50bef1e0",
+        "SU-e2cef257a720e670b96a45c5"
+      ],
+      "source_unit_ids": [
+        "SU-2de71ef6c7b32f6d3cb27a7f",
+        "SU-497a8c4c02d014382855e6ae",
+        "SU-c4077a17f20e5b8d50bef1e0",
+        "SU-e2cef257a720e670b96a45c5"
+      ],
+      "status": "PARTIAL",
+      "status_assignments": "502b6773dc8366b549aec222deb5bc2faf015a7b30c516c530b62b718c233141",
+      "stopped_at": null
+    },
+    "pmid_to_pmcid": {
+      "asserts": "risoluzione PMID→PMCID e preferenza per il full text",
+      "candidate_ids": [
+        "GCA-forensic"
+      ],
+      "degradation": [],
+      "derived_pmcid": [
+        "PMC3999999"
+      ],
+      "document_availability": [
+        "pmcid:PMC3999999=PMC_XML_AVAILABLE"
+      ],
+      "document_ids": [
+        "pmcid:PMC3999999"
+      ],
+      "dossier_hash": "7d7e8e8c75b381b6839c55456e0b8e442bfafa9a424feefbd1a890d0153972e4",
+      "gate_support_masks": "484d2113dd79b1634368ab3e1cd0f35eeb93b09f129eb8bc32a21217bf7c43eb",
+      "model_input_source_unit_ids": [
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-f602a31a9e87168300313be4"
+      ],
+      "ranking_hash": "1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd",
+      "selector_k": 5,
+      "selector_selected_ids": [
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-f602a31a9e87168300313be4"
+      ],
+      "source_unit_ids": [
+        "SU-0371909de4c3f191b50548f5",
+        "SU-2b11e817c6c53e4c2d150d37",
+        "SU-2c08a2d5d0b91ab237abc2c4",
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-989bda218fc9c6af3ea455ba",
+        "SU-9d4efb655e90fd19e0c8daaa",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-abf09e4c6285791f251b3d72",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-c34658f769821f4f1d166dfa",
+        "SU-d967737a57c37df5177d7aca",
+        "SU-f602a31a9e87168300313be4",
+        "SU-ffba113c5d26fa7bc33c863c"
+      ],
+      "status": "PARTIAL",
+      "status_assignments": "502b6773dc8366b549aec222deb5bc2faf015a7b30c516c530b62b718c233141",
+      "stopped_at": null
+    },
+    "selector": {
+      "asserts": "unità selezionate, ranking e K",
+      "candidate_ids": [
+        "GCA-forensic"
+      ],
+      "degradation": [],
+      "derived_pmcid": [
+        "PMC3999999"
+      ],
+      "document_availability": [
+        "pmcid:PMC3999999=PMC_XML_AVAILABLE"
+      ],
+      "document_ids": [
+        "pmcid:PMC3999999"
+      ],
+      "dossier_hash": "7d7e8e8c75b381b6839c55456e0b8e442bfafa9a424feefbd1a890d0153972e4",
+      "gate_support_masks": "484d2113dd79b1634368ab3e1cd0f35eeb93b09f129eb8bc32a21217bf7c43eb",
+      "model_input_source_unit_ids": [
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-f602a31a9e87168300313be4"
+      ],
+      "ranking_hash": "1d8fc6ceb1f94c6326d6d5483d258fcb2e179e9869325b245d105c2219bf69fd",
+      "selector_k": 5,
+      "selector_selected_ids": [
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-f602a31a9e87168300313be4"
+      ],
+      "source_unit_ids": [
+        "SU-0371909de4c3f191b50548f5",
+        "SU-2b11e817c6c53e4c2d150d37",
+        "SU-2c08a2d5d0b91ab237abc2c4",
+        "SU-43309745fa76507b846d4366",
+        "SU-8d2b1eaa36db109a13be1c91",
+        "SU-989bda218fc9c6af3ea455ba",
+        "SU-9d4efb655e90fd19e0c8daaa",
+        "SU-a39d9ddc4c276e443188b6cb",
+        "SU-abf09e4c6285791f251b3d72",
+        "SU-b643a2e0f1f9b11a77d86e7d",
+        "SU-c34658f769821f4f1d166dfa",
+        "SU-d967737a57c37df5177d7aca",
+        "SU-f602a31a9e87168300313be4",
+        "SU-ffba113c5d26fa7bc33c863c"
+      ],
+      "status": "PARTIAL",
+      "status_assignments": "502b6773dc8366b549aec222deb5bc2faf015a7b30c516c530b62b718c233141",
+      "stopped_at": null
+    }
+  },
+  "run_case_parameters": [
+    "budget",
+    "call_enricher_fn",
+    "call_narrator_fn",
+    "call_parser_fn",
+    "case_id",
+    "clinical_text",
+    "document_runtime",
+    "execution_mode",
+    "ledger",
+    "run_id",
+    "select_papers_fn",
+    "source_units_by_id",
+    "validate_fn",
+    "verify_narrative_fn"
+  ],
+  "runtime_flavour": "LEGACY_LIVE"
+}
