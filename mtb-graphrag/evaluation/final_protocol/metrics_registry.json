@@ -1,0 +1,84 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "rule_zero_counts": "Ogni conteggio pari a 0 va riportato come 0/N con N esplicito. Un contatore safety-critical senza denominatore non è un risultato.",
+  "rule_denominators": "Le metriche di retrieval vanno riportate SEMPRE in coppia: denominatore complessivo (20 coppie) e denominatore dei soli casi positivi (9 coppie). Presentare 9/20 come performance sui soli casi recuperabili è l'errore che questo protocollo vieta.",
+  "primary": {
+    "RQ1": [
+      {"metric": "materialization_precision", "denominator": "46864 path eleggibili"},
+      {"metric": "materialization_recall", "denominator": "46864 path eleggibili"},
+      {"metric": "field_completeness", "denominator": "46864 candidate x 18 campi di contratto"},
+      {"metric": "does_not_support_promoted", "denominator": "1936 candidate a polarità negativa"},
+      {"metric": "negative_source_primary_bucket", "denominator": "1936 candidate a polarità negativa"},
+      {"metric": "automatic_direction_inversions", "denominator": "46864 candidate"}
+    ],
+    "RQ2": [
+      {"metric": "document_resolution_rate", "denominator": "casi con identificatore documentale nel testbed A"},
+      {"metric": "full_text_availability_rate", "denominator": "documenti risolti"},
+      {"metric": "abstract_degradation_rate", "denominator": "documenti risolti"},
+      {"metric": "parser_success_rate", "denominator": "snapshot presenti"},
+      {"metric": "selector_hit_rate_at_5_positive_cases", "denominator": "9 casi positivi del corpus indipendente"},
+      {"metric": "selector_hit_rate_at_5_overall", "denominator": "20 coppie del corpus indipendente"},
+      {"metric": "selector_recall_at_10", "denominator": "29 unità DIRECTLY_RELEVANT"},
+      {"metric": "validated_quote_rate", "denominator": "run che raggiungono il modello"},
+      {"metric": "abstain_rate", "denominator": "run che raggiungono il modello"},
+      {"metric": "wrong_document_accepted", "denominator": "quote esaminate dal validator"},
+      {"metric": "wrong_sourceunit_accepted", "denominator": "quote esaminate dal validator"},
+      {"metric": "wrong_quote_accepted", "denominator": "quote esaminate dal validator"}
+    ],
+    "RQ3": [
+      {"metric": "safety_violation_count_per_failure_mode", "denominator": "casi applicabili per modo di fallimento"},
+      {"metric": "ablation_delta_per_failure_mode", "denominator": "stessi casi, confronto paired FULL vs ABLATION"},
+      {"metric": "forbidden_downstream_calls", "denominator": "casi non eleggibili"},
+      {"metric": "canonical_dossier_payload_identity_with_and_without_hostile_narrator", "denominator": "run con narratore attivo"}
+    ],
+    "RQ4": [
+      {"metric": "correct_path_rate", "denominator": "casi per classe, escluso MODEL_TRANSPORT_FAILED contato a parte"},
+      {"metric": "forbidden_action_rate", "denominator": "casi non eleggibili per classe"},
+      {"metric": "unexpected_exception_rate", "denominator": "tutte le run del testbed A"},
+      {"metric": "wrong_status_escalation", "denominator": "casi che raggiungono lo stage di stato"}
+    ],
+    "OPERATIONAL": [
+      {"metric": "run_completion_rate", "denominator": "run avviate"},
+      {"metric": "total_latency_median_and_p95", "denominator": "run completate"},
+      {"metric": "cache_miss_overhead_ms", "denominator": "coppie cache hit / cache miss sullo stesso documento"}
+    ]
+  },
+  "secondary": {
+    "retrieval": ["precision_at_5", "mrr", "full_coverage_at_5", "full_coverage_at_10", "mean_first_relevant_rank", "median_first_relevant_rank", "hit_rate_at_3", "recall_at_5"],
+    "cost": ["estimated_context_tokens_per_sourceunit_payload", "provider_input_tokens", "provider_output_tokens"],
+    "latency": ["per_stage_duration_ms_median", "per_stage_duration_ms_min", "per_stage_duration_ms_max"],
+    "observability": ["event_counts_by_type", "warning_code_distribution", "reason_code_distribution", "excluded_paper_reason_codes"]
+  },
+  "token_accounting": {
+    "provider_tokens": "registrati solo se il provider li espone nella risposta; assenti = campo null, mai stimato",
+    "estimated_context_tokens": "stima deterministica sul payload dei SourceUnit selezionati, riportata come metrica separata e mai chiamata billing token"
+  },
+  "statistical_plan": {
+    "proportions": "intervalli di Wilson al 95% su tutte le metriche proporzionali primarie",
+    "ranking": "bootstrap paired con 10000 ripetizioni e seed 20260809 per i delta fra First-K, BM25 e selector sulle stesse coppie",
+    "paired_design": [
+      "First-K vs BM25 vs Selector: stesse 20 coppie candidate-documento",
+      "GOLD vs SELECTOR downstream: stessi 20 casi, stesso contratto Gemma, stesso validator",
+      "FULL vs ABLATION: stessi casi in entrambi i bracci"
+    ],
+    "significance_testing": "non eseguito su N<30 per braccio; si riportano conteggi grezzi, effect size e CI. Nessun p-value su campioni piccoli.",
+    "zero_denominator_rule": "se un denominatore è 0 la metrica è null, non 0"
+  },
+  "randomness_inventory": {
+    "llm_provider": {"source": "Ollama cloud", "determinism": "NON GARANTITA", "mitigation": "temperature fissata dal contratto del runtime; nessun seed esposto dal provider; dichiarare la non determinabilità"},
+    "selector": {"source": "nessuna", "determinism": "GARANTITA", "evidence": "10 run ripetute, 4 permutazioni di input, NFC/NFD, case folding e punteggiatura producono hash di ranking identici"},
+    "ranking_ties": {"source": "pareggi di punteggio", "determinism": "GARANTITA", "mitigation": "tie-break per source_unit_id"},
+    "case_order": {"source": "ordine di esecuzione", "determinism": "GARANTITA", "mitigation": "ordine lessicografico per case_id, dichiarato nel run manifest"},
+    "bootstrap": {"source": "ricampionamento", "determinism": "GARANTITA", "mitigation": "seed 20260809"}
+  },
+  "model_run_policy": {
+    "primary_final_eval": "1 run per caso sulla configurazione congelata",
+    "reliability_subsample": {
+      "runs_per_case": 3,
+      "selection_rule": "i primi 5 case_id in ordine lessicografico di ciascuna classe del testbed A, scelti PRIMA dell'esecuzione",
+      "purpose": "quantificare la varianza del provider, non migliorare le metriche primarie",
+      "note": "il sottoinsieme è definito da una regola, non da un elenco scelto dopo aver visto i risultati"
+    }
+  }
+}
