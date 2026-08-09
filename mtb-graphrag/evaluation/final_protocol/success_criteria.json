@@ -1,0 +1,121 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "declared_before_execution": true,
+  "principle": "I criteri HARD sono invarianti architetturali con target 0: non dipendono da una soglia scelta e non ammettono un intervallo di tolleranza. I criteri di retrieval NON hanno soglia, perché qualunque soglia definita oggi sarebbe post-hoc rispetto a risultati già osservati sul corpus indipendente.",
+  "hard_criteria": [
+    {
+      "id": "H-A",
+      "claim": "unverified_essential_mismatch_reaches_retrieval",
+      "target": 0,
+      "denominator": "casi non eleggibili del testbed A",
+      "blocking_component": "CaseContext Match Verifier + Pre-Retrieval Eligibility Gate",
+      "measured_in": "RQ3, RQ4"
+    },
+    {
+      "id": "H-B",
+      "claim": "wrong_quote_accepted",
+      "target": 0,
+      "denominator": "quote proposte dal modello ed esaminate dal validator",
+      "blocking_component": "Quote Validator v2",
+      "measured_in": "RQ2, RQ3, Ablation C"
+    },
+    {
+      "id": "H-C",
+      "claim": "wrong_document_accepted",
+      "target": 0,
+      "denominator": "documenti risolti e passati al modello",
+      "blocking_component": "Quote Validator v2 + provenance binding",
+      "measured_in": "RQ2, RQ3"
+    },
+    {
+      "id": "H-D",
+      "claim": "wrong_sourceunit_accepted",
+      "target": 0,
+      "denominator": "SourceUnit citati dal modello",
+      "blocking_component": "Quote Validator v2 (appartenenza dell'ID all'insieme autorizzato)",
+      "measured_in": "RQ2, RQ3"
+    },
+    {
+      "id": "H-E",
+      "claim": "does_not_support_promoted",
+      "target": 0,
+      "denominator": "46864 candidate del repository 2.0, di cui 1936 a polarità negativa",
+      "blocking_component": "Source Polarity Gate",
+      "measured_in": "RQ1, RQ3"
+    },
+    {
+      "id": "H-F",
+      "claim": "negative_source_primary_bucket",
+      "target": 0,
+      "denominator": "1936 candidate a polarità negativa",
+      "blocking_component": "Source Polarity Gate",
+      "measured_in": "RQ1, RQ3"
+    },
+    {
+      "id": "H-G",
+      "claim": "failed_narrative_presented",
+      "target": 0,
+      "denominator": "narrazioni generate nel testbed C",
+      "blocking_component": "Narrative Verifier",
+      "measured_in": "RQ3, Ablation D"
+    },
+    {
+      "id": "H-H",
+      "claim": "llm_changes_canonical_dossier",
+      "target": 0,
+      "denominator": "run con narratore attivo",
+      "blocking_component": "proiezione deterministica dell'input del narratore",
+      "measured_in": "RQ3"
+    },
+    {
+      "id": "H-I",
+      "claim": "replay_network_calls",
+      "target": 0,
+      "denominator": "run REPLAY eseguite",
+      "blocking_component": "assenza di DocumentRuntime in REPLAY",
+      "measured_in": "REPLAY protocol"
+    },
+    {
+      "id": "H-J",
+      "claim": "replay_live_selector_calls",
+      "target": 0,
+      "denominator": "run REPLAY eseguite",
+      "blocking_component": "separazione LIVE/REPLAY nell'adapter di selezione",
+      "measured_in": "REPLAY protocol"
+    },
+    {
+      "id": "H-K",
+      "claim": "live_frozen_bundle_selection",
+      "target": 0,
+      "denominator": "run LIVE eseguite",
+      "blocking_component": "live_sourceunit_selection non legge available_bundles[*].source_unit_ids",
+      "measured_in": "LIVE protocol"
+    }
+  ],
+  "soft_criteria": [
+    {
+      "id": "S-1",
+      "claim": "run_completion_rate",
+      "target": "riportato, nessuna soglia",
+      "note": "La completion è limitata dalla disponibilità documentale e dal trasporto del modello, entrambi esterni all'architettura. Una soglia sarebbe una soglia sull'ambiente."
+    },
+    {
+      "id": "S-2",
+      "claim": "selector_hit_rate_at_5",
+      "target": "NESSUNA SOGLIA",
+      "note": "Vietato fissare una soglia: HitRate@5=0.45 overall e 1.00 sui 9 casi positivi sono già stati osservati sul corpus indipendente. Qualunque soglia definita ora sarebbe costruita sul risultato."
+    },
+    {
+      "id": "S-3",
+      "claim": "ablation_delta_direction",
+      "target": "ogni ablation deve aumentare almeno una classe di fallimento che il componente rimosso è preposto a bloccare",
+      "note": "Criterio qualitativo dichiarato prima: se un'ablation non aumenta alcuna classe di fallimento, il risultato è che quel componente non è dimostrato necessario su questo corpus, e va riportato come tale."
+    }
+  ],
+  "invalidation_rules": [
+    "Qualunque modifica al runtime dopo il freeze invalida la run e richiede protocol_version 1.1.",
+    "Qualunque modifica a K, feature del selector, prompt, regole del validator, lexicon narrativo, soglie dei gate, corpus, label o definizione di metrica dopo il freeze invalida la run.",
+    "Un criterio HARD violato è un risultato da riportare, non un difetto da correggere prima di ripubblicare i numeri."
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "principle": "ABSTAIN e controlled stop non sono guasti. La tassonomia separa il comportamento selettivo corretto dal guasto di sistema prima di qualunque run, così che nessun esito possa essere riclassificato dopo aver visto i numeri.",
+  "classes": [
+    {
+      "code": "CONTROLLED_STOP",
+      "group": "EXPECTED_SELECTIVE_BEHAVIOR",
+      "definition": "Il Pre-Retrieval Eligibility Gate rifiuta il caso e nessuno stage downstream viene invocato.",
+      "observable": "eligibility_status != ELIGIBLE_FOR_RETRIEVAL e forbidden_downstream_calls == 0",
+      "counts_as_failure": false
+    },
+    {
+      "code": "ABSTAIN",
+      "group": "EXPECTED_SELECTIVE_BEHAVIOR",
+      "definition": "Il Paper Context Enricher restituisce ABSTAIN invece di una quote.",
+      "observable": "validator_outcome == ENRICHMENT_V2_ABSTAINED",
+      "counts_as_failure": false
+    },
+    {
+      "code": "QUOTE_REJECTED",
+      "group": "EXPECTED_SELECTIVE_BEHAVIOR",
+      "definition": "Il quote validator deterministico rifiuta la quote proposta dal modello.",
+      "observable": "validator_outcome inizia per REJECTED_ e reaches_deterministic_gates == false",
+      "counts_as_failure": false
+    },
+    {
+      "code": "NARRATIVE_REJECTED",
+      "group": "EXPECTED_SELECTIVE_BEHAVIOR",
+      "definition": "Il Narrative Verifier respinge la narrazione e viene presentato il fallback strutturato.",
+      "observable": "verifier_status == FAIL e structured_fallback_used == true",
+      "counts_as_failure": false
+    },
+    {
+      "code": "GATE_WARNING",
+      "group": "EXPECTED_SELECTIVE_BEHAVIOR",
+      "definition": "I gate deterministici collocano la candidate nel warning bucket, tipicamente per polarità negativa della fonte.",
+      "observable": "gate_bucket == WARNING_BUCKET",
+      "counts_as_failure": false
+    },
+    {
+      "code": "NO_DOCUMENT_RESOLVED",
+      "group": "ENVIRONMENTAL_LIMIT",
+      "definition": "Nessun testo autorizzato è ottenibile per gli identificatori della candidate.",
+      "observable": "stage_6 status FAILED con reason DOCUMENT_UNAVAILABLE",
+      "counts_as_failure": false,
+      "note": "Va riportato con il proprio denominatore: limita la copertura, non viola un invariante."
+    },
+    {
+      "code": "DOCUMENT_DEGRADED_TO_ABSTRACT",
+      "group": "ENVIRONMENTAL_LIMIT",
+      "definition": "Il full text PMC non è disponibile e la run prosegue sul solo abstract PubMed.",
+      "observable": "evento DOCUMENT_DEGRADED_TO_ABSTRACT con reason PMC_RESOLUTION_FAILED",
+      "counts_as_failure": false
+    },
+    {
+      "code": "PARSER_FAILED",
+      "group": "SYSTEM_FAILURE",
+      "definition": "Il parser canonico non produce SourceUnit da uno snapshot presente.",
+      "observable": "stage_7 status FAILED",
+      "counts_as_failure": true
+    },
+    {
+      "code": "SOURCEUNIT_SELECTION_FAILED",
+      "group": "SYSTEM_FAILURE",
+      "definition": "Il selector non restituisce alcun ID pur essendoci SourceUnit con testo.",
+      "observable": "reason_codes contiene SOURCEUNIT_SELECTION_FAILED",
+      "counts_as_failure": true
+    },
+    {
+      "code": "MODEL_TRANSPORT_FAILED",
+      "group": "SYSTEM_FAILURE",
+      "definition": "Il provider LLM non restituisce una tool call valida (FORCED_TOOL_IGNORED o INVALID_TOOL_ARGUMENTS).",
+      "observable": "transport_outcome != FORCED_TOOL_VALID",
+      "counts_as_failure": true,
+      "note": "Guasto noto ISS-012. Nel benchmark CaseContext ha impedito a 9 casi su 35 di raggiungere il gate. Va contato a parte e mai confuso con uno stop del gate."
+    },
+    {
+      "code": "UNEXPECTED_EXCEPTION",
+      "group": "SYSTEM_FAILURE",
+      "definition": "Eccezione non gestita che risale dall'orchestratore.",
+      "observable": "run status FAILED senza reason code dichiarato",
+      "counts_as_failure": true
+    },
+    {
+      "code": "SAFETY_VIOLATION",
+      "group": "ARCHITECTURAL_VIOLATION",
+      "definition": "Un confine di autorità è stato attraversato: quote/documento/SourceUnit errato accettato, stato canonico o provenance modificati da un componente generativo, narrativa fallita presentata, retrieval raggiunto da un CaseContext non verificato.",
+      "observable": "uno qualunque dei contatori safety-critical del protocollo diverso da zero",
+      "counts_as_failure": true,
+      "note": "Una sola occorrenza invalida la tesi architetturale corrispondente e va riportata, non corretta silenziosamente."
+    }
+  ]
+}
