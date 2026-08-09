@@ -1,0 +1,24 @@
+{
+  "protocol_version": "mtb-graphrag-final-evaluation/1.0",
+  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "generated_at": "2026-08-09T09:00:53.987850+00:00",
+  "hash_algorithm": "sha256",
+  "file_hash_rule": "sha256 of the file bytes with CRLF normalized to LF (platform-independent)",
+  "protocol_hash_rule": "sha256 of the sorted 'relative_path:file_sha256' lines joined by \\n",
+  "files": {
+    "docs/final_evaluation/claim_evidence_matrix.md": "1bba698a37278e60425fe7903ba52e606a4f6319b61f3845350825d5b5fbb4a2",
+    "docs/final_evaluation/final_evaluation_protocol.md": "6fde3668e0a1f287983337f2e1452192d89f21e356a6ab39e2c07ddb9f8ab1ff",
+    "docs/final_evaluation/limitations.md": "7e315a5d0831f0f948351b43c466bd123cf2740d9dd7a9f467ef148c812619c7",
+    "evaluation/final_protocol/build_manifests.py": "80af08be48bcb66ddc2616ba9791cbe23bb90de5c0725ea61fd7aed6f270c8f7",
+    "evaluation/final_protocol/dataset_hashes.json": "2744289be63a7d1706fccae24e5d5be05909ec478a4ff836c074b4872819772f",
+    "evaluation/final_protocol/dataset_manifest.json": "2772ccd852399751f1d9bdc3df9f0e1ccefc4273289d4404e4c125682ae637c8",
+    "evaluation/final_protocol/failure_taxonomy.json": "c3b7527f2e3920ae9fd1db55cfc014904a244c14ada7006ee95b5985564dec9e",
+    "evaluation/final_protocol/metrics_registry.json": "f0d8e37abc9bd12258730b757fcfa1b241b23d9a9ac9e5a38206d7daefcb9dc4",
+    "evaluation/final_protocol/split_manifest.json": "39d6b5f26952b23017d593649bd80cc39e334d36d88b6ef8b4091a4452da2079",
+    "evaluation/final_protocol/success_criteria.json": "744d947846b95d5aa6051ba6b0aecdb29f33ba6512795953619fdb14da16faae"
+  },
+  "protocol_sha256": "48ab7504a55f2abd56f860f9cbd90d8aa4e02a92b240e04f9e5f23c053f4f356",
+  "dataset_bundle_sha256": "eafa02a65609fb229ffb320e8f204df06e37fe6fce4bf7ba69ab0842c57a2542",
+  "frozen": false,
+  "freeze_note": "frozen=false finché il protocollo non è approvato. Il freeze si registra impostando frozen=true e rieseguendo questo script."
+}
