@@ -92,8 +92,26 @@ def build() -> dict[str, object]:
         "files": files,
         "protocol_sha256": protocol_sha,
         "dataset_bundle_sha256": dataset_hashes["dataset_bundle_sha256"],
-        "frozen": False,
-        "freeze_note": "frozen=false finché il protocollo non è approvato. Il freeze si registra impostando frozen=true e rieseguendo questo script.",
+        "frozen": True,
+        "freeze_timestamp": "2026-08-10T10:06:29.933862+00:00",
+        "freeze_scope": "FINAL_PROTOCOL_FREEZE",
+        "human_review": {
+            "status": "ACCEPTED",
+            "reviewer": "Paolo Pangallo",
+            "reviewer_role": "thesis author / protocol reviewer",
+            "date": "2026-08-10",
+            "record": "docs/final_evaluation/heldout_review.md",
+            "approved": [
+                "HELDOUT_ARCHITECTURAL_35",
+                "NARRATIVE_HELDOUT_20",
+                "NARRATIVE_HELDOUT_VALID_CONTROL_5",
+                "final success criteria with stable identifiers",
+                "single canonical runtime alignment",
+                "removal of the primary LIVE-vs-REPLAY comparison",
+                "held-out provenance distinction",
+            ],
+        },
+        "freeze_note": "Protocollo congelato dopo la review umana finale. Da qui in poi ogni modifica a runtime, corpus, gold, criteri, metriche, denominatori, schemi, sottoinsieme di affidabilita' o piano statistico richiede una nuova protocol version: vedi la regola di immutabilita' post-freeze nel protocollo.",
     }
     with OUT_PATH.open("w", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")

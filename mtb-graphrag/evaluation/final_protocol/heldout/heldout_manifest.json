@@ -3,7 +3,7 @@
   "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
   "runtime_freeze_timestamp": "2026-08-08T21:11:00+02:00",
   "creation_timestamp": "2026-08-09T00:00:00+00:00",
-  "generated_at": "2026-08-09T10:23:47.687863+00:00",
+  "generated_at": "2026-08-10T10:07:43.914302+00:00",
   "corpora": [
     {
       "corpus_id": "HELDOUT_ARCHITECTURAL_35",
@@ -70,5 +70,14 @@
     "revised_before_any_system_output_observed": true
   },
   "heldout_bundle_sha256": "17583e218595f574931dfe0c71f8822f393ceb76c3a98bcf3f179369f053b313",
-  "frozen": false
+  "frozen": true,
+  "freeze_timestamp": "2026-08-10T10:06:29.933862+00:00",
+  "freeze_scope": "FINAL_PROTOCOL_FREEZE",
+  "human_review": {
+    "status": "ACCEPTED",
+    "reviewer": "Paolo Pangallo",
+    "reviewer_role": "thesis author / protocol reviewer",
+    "date": "2026-08-10",
+    "record": "docs/final_evaluation/heldout_review.md"
+  }
 }
