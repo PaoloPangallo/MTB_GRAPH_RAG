@@ -34,7 +34,7 @@
       "ephemeral_cache": "operational_cache_A",
       "baseline_manifest": "AUTHORIZED_DOCUMENT_CACHE_43",
       "include_ids": [
-        "nct:NCT02624973"
+        "pmid:15705718"
       ],
       "exclude_ids": [],
       "network_allowed": true,
@@ -140,7 +140,7 @@
       ],
       "exclude_ids": [],
       "network_allowed": false,
-      "expected_initial_state": "solo le SourceUnit della fixture FIX-SELECTOR-FAILED-01",
+      "expected_initial_state": "input dichiarato da FIX-SELECTOR-FAILED-01: candidate, available_bundle, record resolved e SourceUnit con testo a score_total = 0",
       "expected_network_fetch_count": 0
     }
   ]

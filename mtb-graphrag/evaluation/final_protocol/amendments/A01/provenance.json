@@ -23,7 +23,10 @@
     "evaluation/live_runtime_integration/*.jsonl (artefatti storici, f52bbf5)",
     "evaluation/live_runtime_integration/unseen_document_e2e.json",
     "benchmarks/.../authorized_document_cache_pilot/document_manifest.jsonl (corpus congelato)",
+    "evaluation/document_cache_rebuild/document_resolution_results.jsonl (contratto congelato di payload/parser/testo)",
+    "evaluation/sourceunit_selector_independent/final_scorecard.json (evidenza congelata zero-direct 11/11)",
     "evaluation/final_protocol/failure_taxonomy.json (definizioni normative congelate)",
+    "static source inspection at runtime 3d2251f (selector, live adapter, orchestrator)",
     "graph_candidate_repository/2.0 (corpus congelato)"
   ],
   "sources_forbidden_and_not_used": [
@@ -50,6 +53,18 @@
       "conflict": "PARSER_FAILED e SOURCEUNIT_SELECTION_FAILED sono implementati nel runtime ma non erano esercitati da alcun test, probe o artefatto.",
       "resolution": "Fixture derivate dalle definizioni gia' congelate in failure_taxonomy.json, dichiarate NUOVE e non promosse.",
       "approved_by": "Paolo Pangallo, 2026-08-10"
+    }
+  ],
+  "human_review_corrections": [
+    {
+      "id": "A01-HR-01",
+      "topic": "scenario A source class",
+      "resolution": "Selezione meccanica del primo PubMed abstract eleggibile: pmid:15705718."
+    },
+    {
+      "id": "A01-HR-02",
+      "topic": "scenario I reachability",
+      "resolution": "NATURALLY_REACHABLE_FROM_INPUT_STATE; fixture derivata dal branch score_total > 0.0 e non dalla sola irrilevanza semantica."
     }
   ],
   "frozen": false
