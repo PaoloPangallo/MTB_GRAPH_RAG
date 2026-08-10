@@ -1,0 +1,62 @@
+{
+  "supplement_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
+  "validation_mode": "READ_ONLY_DATA_VALIDATION_NO_SELECTOR_EXECUTION",
+  "overall_status": "PASS",
+  "source_identity": {
+    "exists": true,
+    "sha256_expected": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "sha256_observed": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "bytes_expected": 731754,
+    "bytes_observed": 731754,
+    "pass": true
+  },
+  "copy_identity": {
+    "sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "bytes": 731754,
+    "binary_equal_to_source": true,
+    "pass": true
+  },
+  "structure": {
+    "candidate_document_pairs": 20,
+    "distinct_documents": 20,
+    "source_units": 1697,
+    "distinct_source_unit_ids": 1697,
+    "non_empty_text": 1697,
+    "positive_direct_cases": 9,
+    "zero_direct_cases": 11,
+    "labels": {
+      "DIRECTLY_RELEVANT": 29,
+      "PARTIALLY_RELEVANT": 49,
+      "CONTEXT_ONLY": 355,
+      "NOT_RELEVANT": 1264
+    },
+    "pass": true
+  },
+  "joins": {
+    "source_unit_ids_in_inventory": 1697,
+    "inventory_source_unit_ids_missing_from_S01": 0,
+    "S01_ids_outside_frozen_inventory": 0,
+    "gold_source_unit_ids_missing_from_S01": 0,
+    "S01_ids_outside_gold": 0,
+    "candidate_document_pair_mismatch": 0,
+    "pass": true
+  },
+  "document_payload_provenance": {"covered": 20, "required": 20, "pass": true},
+  "data_mutations": {
+    "source_unit_text": 0,
+    "source_unit_id": 0,
+    "label": 0,
+    "candidate_mapping": 0,
+    "document_mapping": 0
+  },
+  "creation_phase_attestation": {
+    "evidence_basis": "commands executed during S01 preservation; not a persistent integrity invariant",
+    "final_evaluation_directory_absent": true,
+    "final_runtime_runs": 0,
+    "selector_final_runs": 0,
+    "Gemma_final_calls": 0,
+    "Narrator_final_calls": 0,
+    "network_final_calls": 0,
+    "final_results_observed": false
+  }
+}

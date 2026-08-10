@@ -1,0 +1,39 @@
+{
+  "supplement_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
+  "display_name": "DATASET SUPPLEMENT S01",
+  "classification": "PRE_FINAL_DATASET_SUPPLEMENT",
+  "corpus_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20",
+  "purpose": "Byte-for-byte preservation of the pre-final artifact containing the complete text of the 1,697 SourceUnits used by the independent RQ2 corpus.",
+  "dataset_status": "PRESERVATION_OF_EXISTING_CORPUS_MATERIAL_NOT_A_NEW_DATASET",
+  "normative_identity": {
+    "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+    "parent_protocol_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+    "amendment_A01_sha256": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf",
+    "A01_freeze_commit": "50df9bc7a1071816f6ea617731d229f36af2a2a5"
+  },
+  "raw_artifact": {
+    "file": "sourceunits_1697.jsonl",
+    "sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "byte_size": 731754,
+    "copy_policy": "EXACT_BYTES_NO_RESERIALIZATION"
+  },
+  "structural_contract": {
+    "candidate_document_pairs": 20,
+    "distinct_documents": 20,
+    "source_units": 1697,
+    "distinct_source_unit_ids": 1697,
+    "non_empty_text": 1697,
+    "positive_direct_cases": 9,
+    "zero_direct_cases": 11,
+    "document_sources": {"PUBMED_ABSTRACT": 12, "PMC_FULLTEXT": 8},
+    "labels": {
+      "DIRECTLY_RELEVANT": 29,
+      "PARTIALLY_RELEVANT": 49,
+      "CONTEXT_ONLY": 355,
+      "NOT_RELEVANT": 1264
+    }
+  },
+  "frozen": false,
+  "review_status": "READY_FOR_HUMAN_REVIEW",
+  "prepared_timestamp": "2026-08-10T12:56:19.8444661Z"
+}
