@@ -1,0 +1,94 @@
+{
+  "schema_registry_id": "final-evaluation-results/1.2",
+  "contains_results": false,
+  "common_execution_envelope": {
+    "classification": "INFRASTRUCTURAL_WRAPPER",
+    "replaces_scientific_schemas": false,
+    "required_fields": [
+      "schema_version",
+      "identity",
+      "normative_identity",
+      "dataset_hashes",
+      "model_configuration",
+      "selector_configuration",
+      "started_at",
+      "completed_at",
+      "status",
+      "failure_class",
+      "raw_reason_code",
+      "input_hash",
+      "output_hash",
+      "runtime_call_counts",
+      "model_call_counts",
+      "network_call_counts",
+      "raw_payload_path",
+      "raw_payload_sha256",
+      "scientific_payload"
+    ],
+    "identity_required": [
+      "evaluation_id", "run_id", "attempt_id", "repetition_id",
+      "testbed", "case_id", "arm"
+    ],
+    "normative_identity_required": [
+      "runtime_commit", "protocol_version", "protocol_sha256",
+      "inherited_protocol_1_1_sha256", "inherited_A01_sha256",
+      "S01_raw_sha256", "S01_package_sha256", "harness_commit"
+    ],
+    "selector_configuration_required": ["version", "K", "max_papers"],
+    "timestamps": "UTC_RFC3339_Z"
+  },
+  "scientific_payload_schemas": {
+    "RQ1": {
+      "required_metrics": [
+        "candidate_structural_precision",
+        "materialization_recall_path_coverage",
+        "core_field_completeness_micro",
+        "all_16_core_fields_correct_rate",
+        "payload_identity_integrity",
+        "negative_polarity_invariants"
+      ]
+    },
+    "RQ2_RANKING": {
+      "required_rows": ["POSITIVE_ONLY_PRIMARY_N9", "OVERALL_DIRECT_HIT_COMPANION_N20", "ZERO_DIRECT_BEHAVIOR_N11"],
+      "required_metrics": [
+        "HitRate@5", "Recall@5", "Precision@5", "MRR",
+        "MeanFirstRelevantRank", "N_hits", "FullCoverage@5"
+      ]
+    },
+    "RQ2_GOLD_VS_SELECTOR": {
+      "required_arms": ["GOLD_SOURCE_UNITS", "SELECTOR_TOP_5"],
+      "required_report_label": "Full annotated GOLD context vs bounded K=5 selector context; not an equal-context-budget comparison."
+    },
+    "RQ3": {
+      "required_sections": ["FULL_SYSTEM_INVARIANTS", "ABLATIONS"]
+    },
+    "RQ4": {
+      "required_sections": ["DEVELOPMENT_REGRESSION", "HELD_OUT"],
+      "aggregation_between_sections": "PROHIBITED"
+    },
+    "NARRATIVE": {
+      "required_sections": ["HOSTILE_SET", "POSITIVE_CONTROLS"],
+      "positive_control_metric": "POSITIVE_CONTROL_ACCEPTANCE_RATE",
+      "specificity_label_for_controls": "PROHIBITED"
+    },
+    "OPERATIONAL_A01": {
+      "source_of_truth": "evaluation/final_protocol/amendments/A01",
+      "scenario_count": 9,
+      "classification": "OPERATIONAL_CONFORMANCE_PROPERTY_TESTS"
+    },
+    "RELIABILITY": {
+      "required_strata": ["A", "B"],
+      "aggregate_strata": false,
+      "required_agreements": [
+        "exact_output_agreement", "criterion_agreement",
+        "output_hash_agreement", "event_path_agreement"
+      ]
+    },
+    "LATENCY": {
+      "primary": "end_to_end_latency_ms",
+      "paired_fixture_label": "SAME-DOCUMENT CACHE LATENCY PAIR"
+    }
+  },
+  "missing_required_field_policy": "PROTOCOL_1_2_SPECIFICATION_GAP",
+  "silent_NA_invention_allowed": false
+}

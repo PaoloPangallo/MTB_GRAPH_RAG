@@ -1,0 +1,138 @@
+{
+  "registry_id": "final-evaluation-metrics/1.2",
+  "RQ1": {
+    "core_fields": [
+      "predicate",
+      "subject",
+      "object",
+      "disease",
+      "biomarkers",
+      "interventions",
+      "regimen",
+      "direction",
+      "evidence_scope",
+      "diagnostic_scope",
+      "graph_path",
+      "node_ids",
+      "edge_ids",
+      "evidence_record_ids",
+      "document_identifiers",
+      "materialization_rule_id"
+    ],
+    "candidate_structural_precision": {
+      "unit": "materialized_candidate",
+      "numerator": "non_spurious_structurally_valid_materialized_candidates",
+      "denominator": "materialized_candidates"
+    },
+    "materialization_recall": {
+      "report_alias": "path_coverage",
+      "unit": "eligible_KG_path",
+      "numerator": "eligible_paths_with_corresponding_candidate",
+      "denominator": 46864
+    },
+    "core_field_completeness_micro": {
+      "required": true,
+      "unit": "core_field_cell",
+      "numerator": "correct_core_field_cells",
+      "denominator": "46864*16",
+      "payload_identity_included": false,
+      "expected_payload_identity_included": false
+    },
+    "all_16_core_fields_correct_rate": {
+      "required": true,
+      "unit": "eligible_candidate",
+      "numerator": "candidates_with_all_16_core_fields_correct",
+      "denominator": 46864
+    },
+    "payload_identity_integrity": {
+      "unit": "candidate",
+      "controls": ["payload_identity", "expected_payload_identity"],
+      "separate_from_semantic_completeness": true
+    },
+    "negative_polarity": {
+      "H-E": {
+        "primary_denominator": 1936,
+        "target": "0/1936",
+        "optional_full_corpus_companion": "0/46864"
+      },
+      "H-F": {
+        "primary_denominator": 1936,
+        "target": "0/1936"
+      }
+    }
+  },
+  "RQ2": {
+    "source_corpus": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
+    "primary_positive_population": {
+      "relevance": "DIRECTLY_RELEVANT",
+      "N": 9,
+      "unit": "candidate_document_pair",
+      "aggregation": "MACRO"
+    },
+    "K": 5,
+    "strategies": ["FIRST_K", "BM25", "DETERMINISTIC_SELECTOR"],
+    "same_inputs": ["candidate_document_pair", "SourceUnit_corpus", "gold"],
+    "tie_breaking": "EXACT_PRE_FINAL_FROZEN_BEHAVIOR",
+    "rejection_threshold": "NONE",
+    "hit_rate_at_k": {
+      "per_pair": "1_IF_TOPK_INTERSECTS_DIRECT_ELSE_0"
+    },
+    "recall_at_k": {
+      "per_pair": "CARDINALITY_TOPK_INTERSECT_DIRECT_DIVIDED_BY_CARDINALITY_DIRECT"
+    },
+    "precision_at_k": {
+      "per_pair": "CARDINALITY_TOPK_INTERSECT_DIRECT_DIVIDED_BY_K",
+      "denominator": "K",
+      "short_document_denominator": "K"
+    },
+    "mrr": {
+      "per_pair": "RECIPROCAL_FIRST_DIRECT_RANK",
+      "miss_contribution": 0
+    },
+    "mean_first_relevant_rank": {
+      "condition": "HITS_ONLY",
+      "N_hits_required": true
+    },
+    "full_coverage_at_k": {
+      "per_pair": "1_IF_DIRECT_NONEMPTY_AND_DIRECT_SUBSET_OF_TOPK_ELSE_0"
+    },
+    "overall_direct_hit_coverage": {
+      "classification": "COMPANION_NOT_PRIMARY",
+      "N": 20,
+      "zero_direct_contribution": 0
+    },
+    "zero_direct_behavior": {
+      "N": 11,
+      "report_separately": [
+        "selection_produced_units",
+        "QUOTE_ABSTAIN_downstream",
+        "validated_quote_outcome"
+      ],
+      "selector_no_relevance_detection_claim_allowed": false
+    },
+    "gold_context_contract": {
+      "positive_units": ["DIRECTLY_RELEVANT"],
+      "zero_direct_units": ["DIRECTLY_RELEVANT", "PARTIALLY_RELEVANT"],
+      "order": "source_unit_id_ASC",
+      "truncation": "NONE",
+      "observed_pre_final_max_source_units": 13,
+      "context_budget_equalized": false,
+      "comparison_classification": "FULL_GOLD_CONTEXT_VS_BOUNDED_SELECTOR_FIDELITY",
+      "same_between_arms": [
+        "Gemma_provider",
+        "prompt",
+        "schema",
+        "validator",
+        "model_configuration",
+        "output_token_limit"
+      ],
+      "only_changed_input": "context_supplied",
+      "required_report_label": "Full annotated GOLD context vs bounded K=5 selector context; not an equal-context-budget comparison."
+    }
+  },
+  "operational_interpretation": {
+    "classification": "OPERATIONAL_CONFORMANCE_PROPERTY_TESTS",
+    "nine_of_nine_means": "9/9_PRE_SPECIFIED_PROPERTIES_CONFORMED",
+    "nine_of_nine_does_not_mean": "100_PERCENT_OPERATIONAL_ACCURACY"
+  }
+}

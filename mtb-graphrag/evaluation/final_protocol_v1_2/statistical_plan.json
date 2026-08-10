@@ -1,0 +1,35 @@
+{
+  "plan_id": "final-evaluation-statistics/1.2",
+  "p_values_planned": false,
+  "p_value_scope": "ENTIRE_FINAL_EVALUATION_1_2",
+  "proportions": {
+    "interval": "WILSON",
+    "confidence_level": 0.95,
+    "zero_event_format": "0/N"
+  },
+  "paired_percentile_bootstrap": {
+    "samples": 10000,
+    "seed": 20260809,
+    "confidence_level": 0.95,
+    "ci_type": "PERCENTILE",
+    "comparisons": {
+      "selector_strategies": {
+        "paired_unit": "candidate_document_pair",
+        "paired_key": ["candidate_id", "document_id"]
+      },
+      "GOLD_vs_SELECTOR": {
+        "paired_unit": "candidate_document_pair",
+        "paired_key": ["candidate_id", "document_id"]
+      },
+      "FULL_vs_ABLATION": {
+        "paired_unit": "case_within_same_testbed_and_failure_mode",
+        "paired_key": ["testbed", "failure_mode", "case_id"]
+      }
+    },
+    "statistic": "MEAN_PAIRED_DIFFERENCE_OF_PER_CASE_CONTRIBUTION",
+    "ties": 0,
+    "infrastructure_failed_pair": "EXCLUDE_PRESERVE_SEPARATELY_REPORT_N_EFFECTIVE",
+    "imputation": "NONE",
+    "N_effective_required": true
+  }
+}
