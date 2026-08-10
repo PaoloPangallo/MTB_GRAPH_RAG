@@ -1,6 +1,8 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
-  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "previous_runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "runtime_commit_note": "Runtime finale candidato: un solo runtime canonico operativo. Il commit precedente resta come provenance storica; nessun risultato sperimentale era stato osservato prima della sostituzione.",
   "declared_before_execution": true,
   "principle": "I criteri HARD sono invarianti architetturali con target 0: non dipendono da una soglia scelta e non ammettono un intervallo di tolleranza. I criteri di retrieval NON hanno soglia, perché qualunque soglia definita oggi sarebbe post-hoc rispetto a risultati già osservati sul corpus indipendente.",
   "hard_criteria": [
@@ -70,27 +72,30 @@
     },
     {
       "id": "H-I",
-      "claim": "replay_network_calls",
+      "claim": "canonical_frozen_bundle_dependency",
       "target": 0,
-      "denominator": "run REPLAY eseguite",
-      "blocking_component": "assenza di DocumentRuntime in REPLAY",
-      "measured_in": "REPLAY protocol"
+      "denominator": "run del runtime canonico eseguite",
+      "blocking_component": "live_sourceunit_selection non legge available_bundles[*].source_unit_ids; kg_retrieval.retrieve non consulta gli EvidenceBundle congelati",
+      "measured_in": "CANONICAL_RUNTIME_OPERATIONAL",
+      "supersedes": "H-K (live_frozen_bundle_selection) del protocollo 1.1 pre-riallineamento"
     },
     {
       "id": "H-J",
-      "claim": "replay_live_selector_calls",
+      "claim": "canonical_research_replay_dependency",
       "target": 0,
-      "denominator": "run REPLAY eseguite",
-      "blocking_component": "separazione LIVE/REPLAY nell'adapter di selezione",
-      "measured_in": "REPLAY protocol"
+      "denominator": "run del runtime canonico eseguite",
+      "blocking_component": "gli adattatori di backend/research_pipeline/replay.py non sono importati da RunStore ne' dalle rotte di prodotto e non sono selezionabili da POST /runs",
+      "measured_in": "CANONICAL_RUNTIME_OPERATIONAL",
+      "note": "criterio nuovo: prima non esisteva perche' il replay era una modalita' ammessa"
     },
     {
       "id": "H-K",
-      "claim": "live_frozen_bundle_selection",
+      "claim": "implicit_historical_fallback",
       "target": 0,
-      "denominator": "run LIVE eseguite",
-      "blocking_component": "live_sourceunit_selection non legge available_bundles[*].source_unit_ids",
-      "measured_in": "LIVE protocol"
+      "denominator": "run del runtime canonico terminate con fallimento documentale",
+      "blocking_component": "un fallimento terminale produce PIPELINE_ABORT; nessun artefatto storico viene sostituito al documento mancante",
+      "measured_in": "CANONICAL_RUNTIME_OPERATIONAL, RQ4",
+      "note": "sostituisce la formulazione 'no implicit LIVE->REPLAY fallback'"
     }
   ],
   "soft_criteria": [
@@ -142,5 +147,37 @@
       "blocking_component": "Match Verifier + control-span detection + Quote Validator + provenance binding",
       "note": "misurato sulle hard_observable dichiarate caso per caso, non su expected_retrieval_allowed"
     }
-  ]
+  ],
+  "historical_regression_integrity": {
+    "purpose": "Integrita' dell'infrastruttura di riproduzione storica. NON sono criteri del runtime canonico e non sostengono alcuna claim dell'architettura finale.",
+    "classification": "DEVELOPMENT_REGRESSION / HISTORICAL_REPRODUCIBILITY_INFRASTRUCTURE",
+    "criteria": [
+      {
+        "id": "R-1",
+        "claim": "historical_regression_network_calls",
+        "target": 0,
+        "denominator": "run di regressione storica eseguite",
+        "blocking_component": "assenza di DocumentRuntime negli harness congelati",
+        "measured_in": "HISTORICAL_REGRESSION_REPRODUCIBILITY"
+      },
+      {
+        "id": "R-2",
+        "claim": "historical_regression_canonical_selector_calls",
+        "target": 0,
+        "denominator": "run di regressione storica eseguite",
+        "blocking_component": "separazione fra adattatore congelato e selettore deterministico nell'iniezione esplicita di orchestrator.run_case",
+        "measured_in": "HISTORICAL_REGRESSION_REPRODUCIBILITY"
+      }
+    ]
+  },
+  "criteria_renumbering_1_1_prefreeze": {
+    "reason": "rimozione delle modalita' LIVE/REPLAY dall'architettura finale",
+    "H-A..H-H": "invariati",
+    "H-I (replay_network_calls)": "-> R-1, historical_regression_integrity",
+    "H-J (replay_live_selector_calls)": "-> R-2, historical_regression_integrity",
+    "H-K (live_frozen_bundle_selection)": "-> H-I canonical_frozen_bundle_dependency, resta HARD",
+    "H-J (nuovo)": "canonical_research_replay_dependency, criterio nuovo",
+    "H-K (nuovo)": "implicit_historical_fallback, riformulazione del divieto di fallback",
+    "H-L..H-N": "invariati"
+  }
 }

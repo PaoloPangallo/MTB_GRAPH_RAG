@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
-  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T10:23:48.272526+00:00",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "generated_at": "2026-08-10T09:02:44.616043+00:00",
   "split_definitions": {
     "PILOT": "casi che hanno guidato la costruzione della pipeline; solo regression",
     "DEVELOPMENT": "casi osservati prima del congelamento di almeno un componente che li riguarda; regression e ablation, mai generalizzazione",
@@ -27,7 +27,7 @@
       "corpus_id": "FROZEN_EVIDENCE_BUNDLES_25",
       "split": "DEVELOPMENT",
       "contaminated_component": "deterministic-sourceunit-selector/1.0 (feature design, K)",
-      "final_role": "REPLAY_REPRODUCIBILITY_AND_SELECTOR_REGRESSION",
+      "final_role": "HISTORICAL_REGRESSION_REPRODUCIBILITY_AND_SELECTOR_REGRESSION",
       "rationale": "Le feature del selector e il valore K=5 sono stati scelti osservando questo corpus (76 gold source unit su 25 bundle). Non può essere presentato come evidenza di generalizzazione del selector. Resta il corpus corretto per la riproducibilità REPLAY, perché la proprietà misurata lì è l'identità dell'output, non la qualità del ranking."
     },
     {
@@ -49,7 +49,7 @@
       "split": "DEVELOPMENT",
       "contaminated_component": "narrative-lexicon/1.0",
       "final_role": "NARRATIVE_VERIFIER_ABLATION_AND_REGRESSION",
-      "rationale": "Contaminazione documentata dagli stessi autori dell'artefatto: la prima esecuzione LIVE produsse 3 FAIL, il lexicon fu corretto e le STESSE narrative furono riverificate ottenendo 25/25. Il 25/25 è quindi un risultato post-tuning sullo stesso campione. Il corpus resta utilizzabile per l'ablation del Narrative Verifier, dove la misura è il delta FULL vs NO_VERIFIER sulle stesse narrative."
+      "rationale": "Contaminazione documentata dagli stessi autori dell'artefatto: la prima esecuzione produsse 3 FAIL, il lexicon fu corretto e le STESSE narrative furono riverificate ottenendo 25/25. Il 25/25 è quindi un risultato post-tuning sullo stesso campione. Il corpus resta utilizzabile per l'ablation del Narrative Verifier, dove la misura è il delta FULL vs NO_VERIFIER sulle stesse narrative."
     },
     {
       "corpus_id": "NARRATOR_ADVERSARIAL_20",
@@ -98,7 +98,7 @@
       "split": "FINAL_TEST",
       "contaminated_component": null,
       "final_role": "RQ1_SHADOW_COMPARISON_ONLY_NOT_RUNTIME",
-      "rationale": "Il runtime a f52bbf5 legge 2.0 (backend/research_pipeline/data_access.py) e nessun modulo del runtime importa kg_retrieval_v3. Le proprietà di 3.0 (polarità esplicita, regimi preservati, alterazioni composte) NON vanno attribuite al sistema valutato."
+      "rationale": "Il runtime canonico legge 2.0 (backend/research_pipeline/data_access.py) e nessun modulo del runtime importa kg_retrieval_v3. Le proprietà di 3.0 (polarità esplicita, regimi preservati, alterazioni composte) NON vanno attribuite al sistema valutato."
     }
   ],
   "dataset_bundle_sha256": "8ab387cbe65d0231e37be8f27a9b5ca81a29b14ae8d12e5df1b316695e553991"
