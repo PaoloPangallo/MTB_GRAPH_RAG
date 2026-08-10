@@ -1,0 +1,30 @@
+{
+  "supplement_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
+  "classification": "PRE_FINAL_DATASET_SUPPLEMENT",
+  "generated_at": "2026-08-10T13:02:41.034272+00:00",
+  "hash_algorithm": "sha256",
+  "file_hash_rule": "sha256 over each file's exact bytes; no newline or encoding normalization",
+  "supplement_hash_rule": "sha256 of sorted 'relative_name:sha256' lines joined by LF",
+  "normative_files": [
+    "README.md",
+    "check_supplement.py",
+    "hash_supplement.py",
+    "provenance.json",
+    "sourceunits_1697.jsonl",
+    "supplement_manifest.json",
+    "validation_report.json"
+  ],
+  "files": {
+    "README.md": "45654fbe7a45c88c853bb641052c48380cd93e9bf2eeba4897d5861447fcc275",
+    "check_supplement.py": "accc94e03f798291b5fac295d7b94e7938ff645dc4d2c39efaceebfef621f3c8",
+    "hash_supplement.py": "5e73f7786e3162eb78c4bf683ff84977872caf91e4ac0bcb01c32441d7ddb59f",
+    "provenance.json": "3c45c10a064ca0be707c5fc3d3ed9c4ee316331fee7a303a5e39c74ffb2a5b12",
+    "sourceunits_1697.jsonl": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "supplement_manifest.json": "3be33d1014bb989a81a27bf0c19e77a4b0155006e23f194c5cb43a894b96b32d",
+    "validation_report.json": "b64b3f2004f0878f7a3a7d3b830cf000657f447ddf787277f8e601334ed72385"
+  },
+  "raw_source_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+  "supplement_sha256": "b900309ca2763338954d405c4009185e10ec077a8de00210810387028439aa8c",
+  "frozen": false,
+  "review_status": "READY_FOR_HUMAN_REVIEW"
+}

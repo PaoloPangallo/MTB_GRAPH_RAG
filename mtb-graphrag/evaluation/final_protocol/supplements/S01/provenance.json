@@ -1,0 +1,51 @@
+{
+  "supplement_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
+  "source_path": "C:\\Users\\paolo\\AppData\\Local\\Temp\\mtb-sourceunit-independent-annotation-review.jsonl",
+  "source_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+  "source_byte_size": 731754,
+  "creation_timestamp": "2026-08-08T10:28:36.8165842Z",
+  "last_modified_timestamp": "2026-08-08T10:28:36.8335949Z",
+  "declared_acquisition_timestamp": "2026-08-08T10:28:36Z",
+  "gold_annotation_timestamp": "2026-08-08T10:34:30Z",
+  "generator": "scripts/evaluate_independent_sourceunit_selector.py",
+  "generator_command": "acquire --review-path",
+  "generator_commit": "9e9d8d5724592a0bd74d0dff8187067a0ad86d75",
+  "frozen_inventory_and_gold_commit": "ec79b62dc4832a648e1ea2e7e2f7af7756617efa",
+  "generator_inputs": [
+    "evaluation/sourceunit_selector_independent/candidate_inventory.jsonl",
+    "pre-final acquired document payloads recorded in document_inventory.jsonl"
+  ],
+  "versioned_join_artifacts": [
+    "evaluation/sourceunit_selector_independent/document_inventory.jsonl",
+    "evaluation/sourceunit_selector_independent/gold_annotations.csv",
+    "evaluation/sourceunit_selector_independent/candidate_inventory.jsonl",
+    "evaluation/sourceunit_selector_independent/gold_annotation_manifest.json"
+  ],
+  "parser_versions": ["PubMedAbstractParser@1.0", "JatsXmlParser@1.0"],
+  "document_counts": {"PubMed": 12, "PMC": 8},
+  "deterministic_reconstruction_from_original_versioned_artifacts": false,
+  "source_artifact_pre_final_provenance_verified": true,
+  "raw_source_copied_byte_identically": true,
+  "documents": [
+    {"document_id":"pmcid:PMC4157820","payload_sha256":"ca029a026c93fef6f5ccca97f32ee979a4b1b482a66888a572de8b8b7c16d23a","parser":"JatsXmlParser@1.0","source_unit_count":236},
+    {"document_id":"pmid:22277784","payload_sha256":"e37d9c9c2c045044c86cc9065d8904a6a9beb331f724a4d5e1cab8ae2636b2ba","parser":"PubMedAbstractParser@1.0","source_unit_count":10},
+    {"document_id":"pmid:25730903","payload_sha256":"d4f2a31daef163bfbe444bebf94f81e0020dcddccc18b17e301436b9b356d1d8","parser":"PubMedAbstractParser@1.0","source_unit_count":9},
+    {"document_id":"pmcid:PMC2948082","payload_sha256":"00e33496b7b9a96c9e0fbda41a487bea2784fa3ffae50f99ee44b7325729a65b","parser":"JatsXmlParser@1.0","source_unit_count":11},
+    {"document_id":"pmid:19603024","payload_sha256":"a424c49ced13eeefe58ba55df5ade70b74840f59ec83637377268415f40d4ba4","parser":"PubMedAbstractParser@1.0","source_unit_count":15},
+    {"document_id":"pmid:24146218","payload_sha256":"4d1990d6dbb04d0a635c71fca27c7ef7778c95fe8af89162ccb725e40b1d86f5","parser":"PubMedAbstractParser@1.0","source_unit_count":25},
+    {"document_id":"pmid:231047","payload_sha256":"7ad06ec89bab9be08cb94dae4f70eb831d9aee2f9150a8455280378f607ccfa6","parser":"PubMedAbstractParser@1.0","source_unit_count":5},
+    {"document_id":"pmid:25265492","payload_sha256":"1cc8be832c7204a657ddc823608ce5dbc3a15f5007d4c1648a82f9a51bb42922","parser":"PubMedAbstractParser@1.0","source_unit_count":32},
+    {"document_id":"pmcid:PMC2359721","payload_sha256":"20e8ea17a37fc0bba3d392cb2d1a8991a58eed8b51015cd390077ac241471012","parser":"JatsXmlParser@1.0","source_unit_count":226},
+    {"document_id":"pmid:27022112","payload_sha256":"fabc1c5b8c85d457aeedf5f2d98cc6514ae106afaedaca2f0dbf2bf5d1d17ec3","parser":"PubMedAbstractParser@1.0","source_unit_count":42},
+    {"document_id":"pmcid:PMC3686973","payload_sha256":"062fcc929b7f32ae31be2c7ff4f2c8c0f55d104c6e1085c6c0e626c1c61a56e9","parser":"JatsXmlParser@1.0","source_unit_count":141},
+    {"document_id":"pmcid:PMC8220573","payload_sha256":"30c8c70ecbd25fe29ac2d61e8f6eec5ad247c559db8f409f3f07ca0ddee37a4c","parser":"JatsXmlParser@1.0","source_unit_count":407},
+    {"document_id":"pmcid:PMC6504641","payload_sha256":"1f3d129b686029471ed42576e895ea4b3e73f4952f9a39175307c7b341fe7a43","parser":"JatsXmlParser@1.0","source_unit_count":389},
+    {"document_id":"pmid:34593528","payload_sha256":"8cb94f62533c39fb11c4b958b7dc377986e68e1a6d3c6277cd0bf3ae8d1e99a4","parser":"PubMedAbstractParser@1.0","source_unit_count":15},
+    {"document_id":"pmid:21463266","payload_sha256":"3d534cb3dd754b71f95651a8881a4a2b036bbd271fa95302062b662b38129556","parser":"PubMedAbstractParser@1.0","source_unit_count":11},
+    {"document_id":"pmcid:PMC7469918","payload_sha256":"bf2907f4db799c1672c8dbf9b0237a19fabd45e0bf8dcbb8805ba751189f60d4","parser":"JatsXmlParser@1.0","source_unit_count":69},
+    {"document_id":"pmid:10866302","payload_sha256":"ef4acab8249f3257c5feaa8f07eb0bd8911bbef153fb1892a826930e36666f55","parser":"PubMedAbstractParser@1.0","source_unit_count":10},
+    {"document_id":"pmid:11208838","payload_sha256":"453a42d44ebbfb0152b9229f780118ad812c4981df399a1ef14d1453e74017ae","parser":"PubMedAbstractParser@1.0","source_unit_count":16},
+    {"document_id":"pmid:11896595","payload_sha256":"5da1b2b9aae9f7df7fc502b13586feb3ad4c9975c570dc064ea529bde527a3d1","parser":"PubMedAbstractParser@1.0","source_unit_count":21},
+    {"document_id":"pmcid:PMC2820374","payload_sha256":"3613bbd9ad4d2307333e8eac1e7d2065dcd6409a578b3aa7fc85a46ebb8b3973","parser":"JatsXmlParser@1.0","source_unit_count":7}
+  ]
+}
