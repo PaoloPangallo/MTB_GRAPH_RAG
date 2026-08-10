@@ -1887,7 +1887,16 @@ def build() -> dict[str, Any]:
             "revised_before_any_system_output_observed": True,
         },
         "heldout_bundle_sha256": bundle,
-        "frozen": False,
+        "frozen": True,
+        "freeze_timestamp": "2026-08-10T10:06:29.933862+00:00",
+        "freeze_scope": "FINAL_PROTOCOL_FREEZE",
+        "human_review": {
+            "status": "ACCEPTED",
+            "reviewer": "Paolo Pangallo",
+            "reviewer_role": "thesis author / protocol reviewer",
+            "date": "2026-08-10",
+            "record": "docs/final_evaluation/heldout_review.md",
+        },
     }
     _write(OUT_DIR / "heldout_manifest.json", manifest)
     _write(OUT_DIR / "heldout_hashes.json", {

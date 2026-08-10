@@ -103,7 +103,16 @@ def build() -> dict[str, Any]:
             "heldout_bundle_sha256": heldout_hashes["heldout_bundle_sha256"],
             "dataset_bundle_sha256": dataset_hashes["dataset_bundle_sha256"],
         },
-        "frozen": False,
+        "frozen": True,
+        "freeze_timestamp": "2026-08-10T10:06:29.933862+00:00",
+        "freeze_scope": "FINAL_PROTOCOL_FREEZE",
+        "human_review": {
+            "status": "ACCEPTED",
+            "reviewer": "Paolo Pangallo",
+            "reviewer_role": "thesis author / protocol reviewer",
+            "date": "2026-08-10",
+            "record": "docs/final_evaluation/heldout_review.md",
+        },
     }
     payload["case_ids_sha256"] = hashlib.sha256(
         "\n".join(case_ids).encode("utf-8")).hexdigest()

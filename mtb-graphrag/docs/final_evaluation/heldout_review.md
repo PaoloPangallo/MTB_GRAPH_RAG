@@ -246,22 +246,47 @@ Note di match, per caso:
 
 | CAMPO | VALORE |
 |---|---|
-| review_status | **REVISION_APPLIED_PENDING_FINAL_APPROVAL** |
+| review_status | **ACCEPTED** |
 | architectural | 30 invariati approvati, 5 revisionati |
 | narrative hostile | 19 invariati approvati, 1 revisionato |
 | positive controls | 5 invariati approvati |
 | grounded mechanical review | 10/10 |
 | overlap verdict | NO_SUBSTANTIVE_OVERLAP_ONLY_BOILERPLATE |
-| frozen | false |
+| frozen | true |
 
-Da compilare dall'approvazione finale. Finché `review_status` non diventa
-`ACCEPTED`, `frozen` resta `false` e la final evaluation non parte.
+### Approvazione finale
 
 | CAMPO | VALORE |
 |---|---|
-| revisore | |
-| data | |
-| casi ancora contestati | |
-| gold ancora contestati | |
-| esito finale | ACCEPTED / REVISION_REQUIRED |
+| revisore | Paolo Pangallo — autore della tesi / revisore del protocollo |
+| data | 2026-08-10 |
+| casi architetturali accettati | **35 / 35** |
+| casi architetturali respinti | **0** |
+| narrative ostili accettate | **20 / 20** |
+| narrative ostili respinte | **0** |
+| controlli positivi accettati | **5 / 5** |
+| controlli positivi respinti | **0** |
+| casi ancora contestati | **0** |
+| gold ancora contestati dopo revisione | **0** |
+| esito finale | **ACCEPTED** |
+
+La review approva, oltre ai tre corpus held-out:
+
+- i criteri di successo finali, con gli identificatori stabilizzati
+  (H-A…H-H, H-K, H-O, H-P attivi; H-I e H-J ritirati e non riusati;
+  H-L…H-N invariati; R-1 e R-2 come sola integrità della regressione storica);
+- l'allineamento al **runtime canonico unico** `3d2251f`;
+- la **rimozione del confronto primario LIVE vs REPLAY**, senza tabella
+  sostitutiva;
+- la **distinzione di provenance** fra il runtime sotto cui l'held-out è stato
+  costruito (`f52bbf5`) e il runtime che verrà valutato (`3d2251f`).
+
+Il refactor a runtime canonico unico è avvenuto **prima** di qualunque
+esecuzione finale e non ha modificato casi, gold, semantica del selector, dei
+gate, del validator o del dossier. Nessun risultato finale era stato osservato
+al momento di questa approvazione.
+
+Con `review_status = ACCEPTED` il protocollo può essere congelato: da quel
+commit valgono le regole di immutabilità post-freeze del
+`final_evaluation_protocol.md`.
 

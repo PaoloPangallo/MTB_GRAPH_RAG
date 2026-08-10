@@ -434,15 +434,69 @@ def check_protocol_seal_matches_files() -> None:
 
 
 def check_no_final_run_executed() -> None:
-    """La directory dei risultati finali non deve esistere ancora."""
+    """Nessun risultato finale deve esistere: il freeze precede l'esecuzione.
+
+    Prima del freeze questo controllo pretendeva anche ``frozen == false``.
+    Ora quella condizione e' rovesciata: il protocollo e' congelato **e** non e'
+    ancora stato eseguito, ed e' esattamente lo stato in cui deve trovarsi fra
+    l'approvazione e la prima run.
+    """
     results_dir = REPO_ROOT / "evaluation/final_evaluation"
-    frozen_flags = [
-        _json("evaluation/final_protocol/protocol_hash.json")["frozen"],
-        _json("evaluation/final_protocol/heldout/heldout_manifest.json")["frozen"],
-        _json("evaluation/final_protocol/reliability_subset.json")["frozen"],
-    ]
-    check("no_final_evaluation_executed", not results_dir.exists() and not any(frozen_flags),
-          f"evaluation/final_evaluation esiste={results_dir.exists()}, frozen={frozen_flags}")
+    check("no_final_evaluation_executed", not results_dir.exists(),
+          f"evaluation/final_evaluation esiste={results_dir.exists()}")
+
+
+def check_protocol_is_frozen() -> None:
+    """I tre sigilli devono dichiarare il freeze in modo coerente."""
+    targets = {
+        "protocol": "evaluation/final_protocol/protocol_hash.json",
+        "heldout": "evaluation/final_protocol/heldout/heldout_manifest.json",
+        "reliability": "evaluation/final_protocol/reliability_subset.json",
+    }
+    frozen, stamps, reviews = {}, set(), set()
+    for label, relative in targets.items():
+        payload = _json(relative)
+        frozen[label] = payload.get("frozen")
+        stamps.add(payload.get("freeze_timestamp"))
+        reviews.add((payload.get("human_review") or {}).get("status"))
+    ok = (all(frozen.values()) and len(stamps) == 1 and None not in stamps
+          and reviews == {"ACCEPTED"})
+    check("protocol_frozen", ok,
+          f"frozen={frozen} timestamp unico={len(stamps) == 1} review={reviews}")
+
+
+def check_human_review_accepted() -> None:
+    """L'approvazione umana deve essere registrata e rintracciabile."""
+    review = _json("evaluation/final_protocol/protocol_hash.json").get("human_review") or {}
+    record = REPO_ROOT / "docs/final_evaluation/heldout_review.md"
+    text = record.read_text(encoding="utf-8") if record.is_file() else ""
+    ok = (
+        review.get("status") == "ACCEPTED"
+        and bool(review.get("reviewer"))
+        and bool(review.get("date"))
+        and "| review_status | **ACCEPTED** |" in text
+        and "| esito finale | **ACCEPTED** |" in text
+    )
+    check("human_review_accepted", ok,
+          f"status={review.get('status')} reviewer={review.get('reviewer')} "
+          f"data={review.get('date')} record allineato={'ACCEPTED' in text}")
+
+
+def check_no_result_observed_before_freeze() -> None:
+    """Il refactor e il freeze devono precedere qualunque osservazione."""
+    protocol = (REPO_ROOT / "docs/final_evaluation/final_evaluation_protocol.md").read_text(encoding="utf-8")
+    declared = "final_results_observed_before_runtime_change = false" in protocol
+    results_dir = REPO_ROOT / "evaluation/final_evaluation"
+    check("final_results_observed_before_freeze_false", declared and not results_dir.exists(),
+          f"dichiarazione nel protocollo={declared}, directory risultati={results_dir.exists()}")
+
+
+def check_post_freeze_immutability_declared() -> None:
+    """La regola che vincola il post-freeze deve essere scritta, non sottintesa."""
+    protocol = (REPO_ROOT / "docs/final_evaluation/final_evaluation_protocol.md").read_text(encoding="utf-8")
+    check("post_freeze_immutability_declared",
+          "Regola di immutabilità post-freeze" in protocol,
+          "regola presente nel protocollo")
 
 
 def check_runtime_repository_version() -> None:
@@ -750,6 +804,10 @@ def main() -> int:
     check_reliability_subset_rename_documented()
     check_protocol_seal_matches_files()
     check_no_final_run_executed()
+    check_protocol_is_frozen()
+    check_human_review_accepted()
+    check_no_result_observed_before_freeze()
+    check_post_freeze_immutability_declared()
     check_runtime_repository_version()
     check_oncokb_not_integrated()
     check_negative_polarity_denominator()

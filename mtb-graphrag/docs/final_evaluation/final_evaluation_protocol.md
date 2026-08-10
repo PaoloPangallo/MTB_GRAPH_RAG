@@ -462,6 +462,31 @@ metrica. Un problema scoperto dopo il freeze o è un risultato/limitazione, o
 invalida la run e richiede `protocol_version 1.2`. Nessuna correzione
 silenziosa.
 
+### Regola di immutabilità post-freeze
+
+Dal commit di freeze in poi, **nessuno** dei seguenti può essere modificato
+senza aprire una nuova versione di protocollo:
+
+- il commit del runtime valutato;
+- il corpus dei casi;
+- il gold;
+- i criteri di successo e i loro identificatori;
+- le metriche e i denominatori;
+- gli schemi di risultato;
+- il sottoinsieme di affidabilità;
+- la classificazione primary/secondary;
+- il piano statistico.
+
+Se un errore emerge dopo il freeze **non va corretto in silenzio**. Va
+documentato come emendamento o come nuova versione, e la run condotta sotto la
+versione precedente resta attribuita a quella versione. Questa è la ragione per
+cui il protocollo è sigillato per hash: un report che cita un `protocol_sha256`
+diverso da quello sotto cui è stato prodotto sta citando un altro protocollo.
+
+Gli identificatori dei criteri seguono la stessa regola, già in vigore prima del
+freeze: un ID designa un criterio e uno solo, per sempre. Un criterio ritirato
+non restituisce il proprio ID.
+
 ---
 
 ## 11. Tassonomia dei fallimenti

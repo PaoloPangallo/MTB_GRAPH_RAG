@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
   "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
-  "generated_at": "2026-08-10T09:02:53.540251+00:00",
+  "generated_at": "2026-08-10T10:07:44.176081+00:00",
   "selection_rule": "primo case_id in ordine lessicografico per ciascuna delle 7 categorie di HELDOUT_ARCHITECTURAL_35, più i primi 3 case_id in ordine lessicografico fra i 9 casi positivi di SOURCEUNIT_SELECTOR_INDEPENDENT_20",
   "selection_seed": null,
   "selection_seed_note": "nessun seed: la selezione è un ordinamento totale deterministico, non un campionamento casuale. Un seed suggerirebbe una casualità che non c'è.",
@@ -52,6 +52,15 @@
     "heldout_bundle_sha256": "17583e218595f574931dfe0c71f8822f393ceb76c3a98bcf3f179369f053b313",
     "dataset_bundle_sha256": "8ab387cbe65d0231e37be8f27a9b5ca81a29b14ae8d12e5df1b316695e553991"
   },
-  "frozen": false,
+  "frozen": true,
+  "freeze_timestamp": "2026-08-10T10:06:29.933862+00:00",
+  "freeze_scope": "FINAL_PROTOCOL_FREEZE",
+  "human_review": {
+    "status": "ACCEPTED",
+    "reviewer": "Paolo Pangallo",
+    "reviewer_role": "thesis author / protocol reviewer",
+    "date": "2026-08-10",
+    "record": "docs/final_evaluation/heldout_review.md"
+  },
   "case_ids_sha256": "9d69478392a9df96187827a1130d59f78747453fdaa070256f910a937a720fd3"
 }
