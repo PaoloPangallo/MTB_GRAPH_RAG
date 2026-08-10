@@ -1,0 +1,79 @@
+{
+  "protocol_id": "mtb-graphrag-final-evaluation/1.2",
+  "protocol_version": "1.2",
+  "status": "DRAFT_FOR_HUMAN_REVIEW",
+  "review_status": "DRAFT_FOR_HUMAN_REVIEW",
+  "frozen": false,
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "final_results_observed_before_v1_2": false,
+  "final_runs_executed_before_v1_2": false,
+  "normative_authority": "JSON_ONLY",
+  "markdown_role": "EXPLANATION_ONLY",
+  "normative_files": [
+    "ablation_contract.json",
+    "dataset_registry.json",
+    "execution_contract.json",
+    "latency_contract.json",
+    "lineage.json",
+    "metric_registry.json",
+    "protocol_manifest.json",
+    "reliability_contract.json",
+    "result_schemas.json",
+    "statistical_plan.json",
+    "success_criteria.json"
+  ],
+  "scientific_classification": {
+    "RQ1": "OBJECTIVE_FULL_CORPUS_FIDELITY",
+    "RQ2": "INDEPENDENT_SELECTOR_AND_DOWNSTREAM_FIDELITY",
+    "RQ3": "FULL_SYSTEM_INVARIANTS_AND_ABLATIONS",
+    "RQ4_DEVELOPMENT": "DEVELOPMENT_REGRESSION",
+    "RQ4_HELDOUT": "HELD_OUT",
+    "NARRATIVE": "HELD_OUT_WITH_SEPARATE_POSITIVE_CONTROLS",
+    "OPERATIONAL_A01": "OPERATIONAL_CONFORMANCE_PROPERTY_TESTS",
+    "RELIABILITY": "SECONDARY_REPETITION_ANALYSIS",
+    "HISTORICAL": "APPENDIX_ONLY"
+  },
+  "table_plan": [
+    "Table 1 experimental corpora and independence",
+    "Table 2 RQ1 candidate structural precision",
+    "Table 2b RQ1 path materialization coverage",
+    "Table 3 RQ1 core-field completeness payload identity and polarity",
+    "Table 4 RQ2 First-K vs BM25 vs Selector positive-only primary",
+    "Table 5 RQ2 overall direct-hit companion and zero-direct behavior",
+    "Table 6 RQ2 full GOLD context vs bounded Selector downstream fidelity",
+    "Table 7 RQ3 full-system invariants and ablations",
+    "Table 8 RQ4 development regression",
+    "Table 9 RQ4 held-out",
+    "Table 10 narrative held-out and positive controls",
+    "Table 11 canonical operational properties",
+    "Table 12 latency",
+    "Appendix A1 historical regression"
+  ],
+  "figure_plan": [
+    "selector comparison",
+    "ablation failure-mode reduction",
+    "held-out routing",
+    "stage latency"
+  ],
+  "post_freeze_policy": {
+    "silent_changes_forbidden": true,
+    "change_requires": "NEW_PROTOCOL_VERSION_OR_EXPLICIT_AMENDMENT"
+  },
+  "decision_resolution_map": {
+    "D02": "metric_registry.json#/RQ1",
+    "D03": "metric_registry.json#/RQ2",
+    "D04": "metric_registry.json#/RQ2/gold_context_contract",
+    "D05": "ablation_contract.json#/A",
+    "D06": "ablation_contract.json#/C",
+    "D07": "ablation_contract.json#/D",
+    "D08": "reliability_contract.json",
+    "D09": "execution_contract.json#/retry_policy",
+    "D10": "statistical_plan.json",
+    "D11": "latency_contract.json#/stage_model",
+    "D12": "latency_contract.json#/same_document_cache_latency_pair",
+    "D13": "execution_contract.json#/identifiers",
+    "D14": "dataset_registry.json#/dataset_hashes",
+    "D15": "execution_contract.json#/raw_lifecycle",
+    "D16": "lineage.json#/freeze_precedence"
+  }
+}
