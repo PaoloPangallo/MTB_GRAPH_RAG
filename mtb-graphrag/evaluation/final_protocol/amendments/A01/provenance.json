@@ -1,0 +1,56 @@
+{
+  "amendment_id": "mtb-graphrag-final-evaluation/1.1-A01",
+  "parent_protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "parent_protocol_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+  "parent_freeze_commit": "7b0b396b10d10794ac802325f8e7e2ff5ce33e28",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "created": "2026-08-10",
+  "reason": "OPERATIONAL_SCENARIO_BINDINGS — lacuna rilevata dal pre-flight post-freeze",
+  "final_results_observed_before_amendment": false,
+  "final_runs_executed_before_amendment": false,
+  "preflight_findings": {
+    "A_cache_hit": "identifier non vincolato",
+    "B_cache_miss_success": "identifier non vincolato",
+    "C_pmid_only_to_pmcid": "identifier non vincolato",
+    "D_pmc_fulltext": "identifier non vincolato",
+    "E_pmc_unavailable_abstract_degradation": "fixture disponibile",
+    "F_unseen_document": "fixture disponibile",
+    "G_document_unavailable": "identifier non vincolato",
+    "H_parser_failure_fixture": "fixture non materializzata",
+    "I_selector_failure_fixture": "fixture non materializzata"
+  },
+  "sources_used": [
+    "evaluation/live_runtime_integration/*.jsonl (artefatti storici, f52bbf5)",
+    "evaluation/live_runtime_integration/unseen_document_e2e.json",
+    "benchmarks/.../authorized_document_cache_pilot/document_manifest.jsonl (corpus congelato)",
+    "evaluation/final_protocol/failure_taxonomy.json (definizioni normative congelate)",
+    "graph_candidate_repository/2.0 (corpus congelato)"
+  ],
+  "sources_forbidden_and_not_used": [
+    "output del runtime finale",
+    "esiti osservati in questa fase",
+    "latenza",
+    "qualita' narrativa",
+    "decisioni Gemma",
+    "ranking finale",
+    "stato canonico prodotto",
+    "stato corrente di data_cache/ come criterio di selezione"
+  ],
+  "decisions_requiring_human_approval": [
+    {
+      "id": "A01-D1",
+      "topic": "scenario A: conflitto interno alla regola di selezione",
+      "conflict": "L'artefatto storico indica pmcid:PMC4157820, che non appartiene ai 43 documenti congelati; la regola di appartenenza al corpus e il contratto di cache che pretende fetch_count = 0 richiedono un documento seminabile dalla baseline.",
+      "resolution": "Prevale l'appartenenza al corpus congelato.",
+      "approved_by": "Paolo Pangallo, 2026-08-10"
+    },
+    {
+      "id": "A01-D2",
+      "topic": "scenari H e I: nessuna fixture preesistente da promuovere",
+      "conflict": "PARSER_FAILED e SOURCEUNIT_SELECTION_FAILED sono implementati nel runtime ma non erano esercitati da alcun test, probe o artefatto.",
+      "resolution": "Fixture derivate dalle definizioni gia' congelate in failure_taxonomy.json, dichiarate NUOVE e non promosse.",
+      "approved_by": "Paolo Pangallo, 2026-08-10"
+    }
+  ],
+  "frozen": false
+}

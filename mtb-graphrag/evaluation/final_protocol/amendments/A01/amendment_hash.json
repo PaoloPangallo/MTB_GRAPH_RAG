@@ -1,0 +1,25 @@
+{
+  "amendment_id": "mtb-graphrag-final-evaluation/1.1-A01",
+  "parent_protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "parent_protocol_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+  "parent_freeze_commit": "7b0b396b10d10794ac802325f8e7e2ff5ce33e28",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "generated_at": "2026-08-10T11:49:20.988303+00:00",
+  "hash_algorithm": "sha256",
+  "file_hash_rule": "sha256 dei byte del file con CRLF normalizzato a LF",
+  "amendment_hash_rule": "sha256 delle righe 'nome:sha' ordinate e unite da \\n",
+  "files": {
+    "amendment.md": "c61e2ce4f78157b3b64b881c0b113eb51bf4b943ac032e551d71da8b2d5fedec",
+    "cache_seed_contract.json": "6da9e51973f23178880606a92644e932321252a3b30d32091dc2d75977735f0f",
+    "check_amendment_consistency.py": "ec92edfe52c14d63b2c68cc0da5172f649d1d0545bae860088f9025b2efba178",
+    "operational_scenario_bindings.json": "ab387205ce997603feb2a59d7a5c16b3717641cad336ac870cc7ca20c0623dcc",
+    "parser_failure_fixture.json": "98c9da87ffd0e32fd3d3475da52f08ac9d0384de6edf68c111f8e27b7cd140fb",
+    "provenance.json": "ee55f9dd08bc25002f7bed92ded6fbd54b207f539a0a14fad09b92ced7698b87",
+    "selector_failure_fixture.json": "073f1947d54747012eff98dc6673c8357d398fbc9e61f8e2210629617b44d8de"
+  },
+  "amendment_sha256": "6cadfd358ac1ea2a03076d37037399b6b29fa26a31c526a46bd951cbcb9b3f10",
+  "parent_protocol_sha256_recomputed": false,
+  "evaluation_identity": "L'identita' della final evaluation e' la coppia parent protocol_sha256 + amendment A01 sha256. Il primo non e' stato ricalcolato ne' sostituito.",
+  "frozen": false,
+  "freeze_note": "frozen=false: l'emendamento richiede una review umana propria, distinta da quella gia' registrata per il protocollo padre."
+}
