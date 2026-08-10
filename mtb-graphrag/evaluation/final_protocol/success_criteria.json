@@ -71,31 +71,32 @@
       "measured_in": "RQ3"
     },
     {
-      "id": "H-I",
+      "id": "H-K",
       "claim": "canonical_frozen_bundle_dependency",
       "target": 0,
       "denominator": "run del runtime canonico eseguite",
       "blocking_component": "live_sourceunit_selection non legge available_bundles[*].source_unit_ids; kg_retrieval.retrieve non consulta gli EvidenceBundle congelati",
       "measured_in": "CANONICAL_RUNTIME_OPERATIONAL",
-      "supersedes": "H-K (live_frozen_bundle_selection) del protocollo 1.1 pre-riallineamento"
+      "renamed_from": "live_frozen_bundle_selection",
+      "rename_note": "Stesso identificatore e stesso principio: la selezione non deve dipendere dai bundle congelati. La formulazione passa dal percorso LIVE al runtime canonico perche' e' il percorso a essere cambiato nome, non il criterio."
     },
     {
-      "id": "H-J",
+      "id": "H-O",
       "claim": "canonical_research_replay_dependency",
       "target": 0,
       "denominator": "run del runtime canonico eseguite",
       "blocking_component": "gli adattatori di backend/research_pipeline/replay.py non sono importati da RunStore ne' dalle rotte di prodotto e non sono selezionabili da POST /runs",
       "measured_in": "CANONICAL_RUNTIME_OPERATIONAL",
-      "note": "criterio nuovo: prima non esisteva perche' il replay era una modalita' ammessa"
+      "note": "Criterio introdotto pre-freeze dal passaggio a runtime canonico unico: prima non poteva esistere, perche' il replay era una modalita' ammessa."
     },
     {
-      "id": "H-K",
+      "id": "H-P",
       "claim": "implicit_historical_fallback",
       "target": 0,
       "denominator": "run del runtime canonico terminate con fallimento documentale",
       "blocking_component": "un fallimento terminale produce PIPELINE_ABORT; nessun artefatto storico viene sostituito al documento mancante",
       "measured_in": "CANONICAL_RUNTIME_OPERATIONAL, RQ4",
-      "note": "sostituisce la formulazione 'no implicit LIVE->REPLAY fallback'"
+      "note": "Criterio introdotto pre-freeze: riformula il divieto di fallback ora che non ci sono due modalita' fra cui ripiegare."
     }
   ],
   "soft_criteria": [
@@ -158,7 +159,8 @@
         "target": 0,
         "denominator": "run di regressione storica eseguite",
         "blocking_component": "assenza di DocumentRuntime negli harness congelati",
-        "measured_in": "HISTORICAL_REGRESSION_REPRODUCIBILITY"
+        "measured_in": "HISTORICAL_REGRESSION_REPRODUCIBILITY",
+        "maps_from": "H-I"
       },
       {
         "id": "R-2",
@@ -166,18 +168,50 @@
         "target": 0,
         "denominator": "run di regressione storica eseguite",
         "blocking_component": "separazione fra adattatore congelato e selettore deterministico nell'iniezione esplicita di orchestrator.run_case",
-        "measured_in": "HISTORICAL_REGRESSION_REPRODUCIBILITY"
+        "measured_in": "HISTORICAL_REGRESSION_REPRODUCIBILITY",
+        "maps_from": "H-J"
       }
     ]
   },
-  "criteria_renumbering_1_1_prefreeze": {
-    "reason": "rimozione delle modalita' LIVE/REPLAY dall'architettura finale",
-    "H-A..H-H": "invariati",
-    "H-I (replay_network_calls)": "-> R-1, historical_regression_integrity",
-    "H-J (replay_live_selector_calls)": "-> R-2, historical_regression_integrity",
-    "H-K (live_frozen_bundle_selection)": "-> H-I canonical_frozen_bundle_dependency, resta HARD",
-    "H-J (nuovo)": "canonical_research_replay_dependency, criterio nuovo",
-    "H-K (nuovo)": "implicit_historical_fallback, riformulazione del divieto di fallback",
-    "H-L..H-N": "invariati"
+  "retired_criteria": [
+    {
+      "id": "H-I",
+      "claim": "replay_network_calls",
+      "status": "RETIRED_FROM_PRIMARY",
+      "target": 0,
+      "denominator": "run REPLAY eseguite",
+      "blocking_component": "assenza di DocumentRuntime in REPLAY",
+      "measured_in": "REPLAY protocol",
+      "retired_because": "REPLAY non e' piu' una modalita' operativa del runtime: la proprieta' resta vera e verificabile, ma non e' piu' un criterio del prodotto.",
+      "historical_successor": "R-1",
+      "identifier_reuse": "VIETATO"
+    },
+    {
+      "id": "H-J",
+      "claim": "replay_live_selector_calls",
+      "status": "RETIRED_FROM_PRIMARY",
+      "target": 0,
+      "denominator": "run REPLAY eseguite",
+      "blocking_component": "separazione LIVE/REPLAY nell'adapter di selezione",
+      "measured_in": "REPLAY protocol",
+      "retired_because": "REPLAY non e' piu' una modalita' operativa del runtime: la proprieta' resta vera e verificabile, ma non e' piu' un criterio del prodotto.",
+      "historical_successor": "R-2",
+      "identifier_reuse": "VIETATO"
+    }
+  ],
+  "criteria_identifier_policy": {
+    "principle": "SUCCESS CRITERION IDs ARE STABLE AUDIT IDENTIFIERS",
+    "rule": "Un identificatore designa un criterio e uno solo, per sempre. Un criterio che esce dalla valutazione primaria viene ritirato, non sostituito: il suo ID non torna disponibile. Un criterio nuovo prende un ID mai usato.",
+    "why": "Due versioni pre-freeze dello stesso protocollo devono poter essere confrontate riga per riga. Se H-J designasse due criteri diversi in due revisioni, una revisione che cita 'H-J = 0/N' diventerebbe ambigua e non verificabile a posteriori.",
+    "map_1_1_prefreeze": {
+      "H-A..H-H": "invariati",
+      "H-I": "RITIRATO dalla valutazione primaria; proprieta' storica in R-1",
+      "H-J": "RITIRATO dalla valutazione primaria; proprieta' storica in R-2",
+      "H-K": "identificatore conservato; formulazione generalizzata al runtime canonico",
+      "H-L..H-N": "invariati",
+      "H-O": "NUOVO: canonical_research_replay_dependency",
+      "H-P": "NUOVO: implicit_historical_fallback",
+      "R-1, R-2": "integrita' dell'infrastruttura di regressione storica, non criteri del prodotto"
+    }
   }
 }

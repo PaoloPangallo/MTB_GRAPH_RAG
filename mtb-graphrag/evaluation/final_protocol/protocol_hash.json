@@ -3,13 +3,13 @@
   "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
   "previous_runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
   "reseal_note": "Protocol 1.1 resealed against the final single canonical runtime before experimental freeze.",
-  "generated_at": "2026-08-10T09:37:09.576808+00:00",
+  "generated_at": "2026-08-10T09:51:13.500379+00:00",
   "hash_algorithm": "sha256",
   "file_hash_rule": "sha256 of the file bytes with CRLF normalized to LF (platform-independent)",
   "protocol_hash_rule": "sha256 of the sorted 'relative_path:file_sha256' lines joined by \\n",
   "files": {
     "docs/final_evaluation/claim_evidence_matrix.md": "381d38758920712cb364e1af9c50e821c4d38fb3c529c8ab39132e93ce597117",
-    "docs/final_evaluation/final_evaluation_protocol.md": "89cd2dff512270b22cfb231c9b9c58b295c87420a0354a69047d924a763b1c3d",
+    "docs/final_evaluation/final_evaluation_protocol.md": "79183ae5bf6acb4b3f4aef953c0799450c65e936fee59a2c49f3136b97a50377",
     "docs/final_evaluation/heldout_review.md": "718df0e13b508f21f7c700b483b23739adf3bd0b6dee1bfc2b12aabc130f29b7",
     "docs/final_evaluation/limitations.md": "13b7c62b0ace66315a44bc2085e81901fda1fceacd967f0537adc3529dcbc7d6",
     "docs/final_evaluation/scientific_blueprint_reference.md": "f991f9dcce8cbcf4be4441c05f11e17495ca5a4257b72f4b861a153a80fe4406",
@@ -32,9 +32,9 @@
     "evaluation/final_protocol/reliability_subset.json": "97d238a7d1199c9b46a3d7769ec6c114239107ddd6ab6c8a71801278354a60e5",
     "evaluation/final_protocol/result_schemas.json": "39ac10ee27b08f97121412367dbb810f1560514fb3d449213176dfd71a93664b",
     "evaluation/final_protocol/split_manifest.json": "fcafdc2317bc2675c33718ee16db3a4855f9a0c38017dc6ae9ffc911a33eca14",
-    "evaluation/final_protocol/success_criteria.json": "f63afd75520f3978478df7212fa15b8be09bf340ea2605b0f6e5cdc978d89d01"
+    "evaluation/final_protocol/success_criteria.json": "e91d6c0ee2588fd5ed28b4fb186c399d2cf2d1d98fa3b8b57c687e3fad8ce514"
   },
-  "protocol_sha256": "5b9a7cfa9ce60bf4b5563f96123880c84053918adefc5d5c693067046f855154",
+  "protocol_sha256": "49ee1ec9b72124043e3323ce79d85bd29ab0c97a202929383e1ffa62c6453898",
   "dataset_bundle_sha256": "8ab387cbe65d0231e37be8f27a9b5ca81a29b14ae8d12e5df1b316695e553991",
   "frozen": false,
   "freeze_note": "frozen=false finché il protocollo non è approvato. Il freeze si registra impostando frozen=true e rieseguendo questo script."
