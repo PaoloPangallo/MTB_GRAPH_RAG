@@ -58,5 +58,22 @@
     "Narrator_final_calls": 0,
     "network_final_calls": 0,
     "final_results_observed": false
+  },
+  "freeze_validation": {
+    "freeze_timestamp": "2026-08-10T13:13:06.3467147Z",
+    "raw_sha256_before": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "raw_sha256_after": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "raw_bytes_before": 731754,
+    "raw_bytes_after": 731754,
+    "raw_byte_changes": 0,
+    "raw_semantic_changes": 0,
+    "mapping_changes": 0,
+    "label_changes": 0,
+    "parent_protocol_files_modified": 0,
+    "A01_files_modified": 0,
+    "runtime_files_modified": 0,
+    "heldout_gold_files_modified": 0,
+    "final_results_observed_before_S01_freeze": false,
+    "pass": true
   }
 }

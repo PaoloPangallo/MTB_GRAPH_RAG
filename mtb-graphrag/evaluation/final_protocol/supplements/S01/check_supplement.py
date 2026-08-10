@@ -12,6 +12,7 @@ import json
 import subprocess
 import sys
 from collections import Counter
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -197,9 +198,80 @@ def validate() -> list[tuple[str, bool, str]]:
           manifest["supplement_id"])
     check("classification", manifest["classification"] == "PRE_FINAL_DATASET_SUPPLEMENT",
           manifest["classification"])
-    check("not frozen", manifest["frozen"] is False, str(manifest["frozen"]))
-    check("review state", manifest["review_status"] == "READY_FOR_HUMAN_REVIEW",
+    check("scientific status", manifest.get("scientific_status") == {
+        "classification": "PRE_FINAL_DATASET_SUPPLEMENT",
+        "is_not": [
+            "NEW_DATASET",
+            "NEW_ANNOTATION",
+            "POST_HOC_RECONSTRUCTION",
+            "NEW_ACQUISITION",
+            "CORPUS_SELECTED_AFTER_OBSERVING_FINAL_RESULTS",
+        ],
+        "rationale": (
+            "The raw artifact existed before final runs, is forensically "
+            "identifiable, and was copied byte-identically."
+        ),
+    }, "pre-final preservation; five excluded interpretations")
+    check("frozen", manifest["frozen"] is True, str(manifest["frozen"]))
+    check("review state", manifest["review_status"] == "ACCEPTED",
           manifest["review_status"])
+    check("human review", manifest.get("human_review") == {
+        "reviewer": "Paolo Pangallo",
+        "review_date": "2026-08-10",
+        "review_verdict": "ACCEPTED",
+        "approvals": {
+            "preservation_identity": "APPROVED",
+            "pre_final_provenance": "APPROVED",
+            "byte_identity": "APPROVED",
+            "inventory_join": "APPROVED",
+            "gold_join": "APPROVED",
+            "document_payload_provenance": "APPROVED",
+            "structural_counts": "APPROVED",
+            "no_reconstruction_claim": "APPROVED",
+            "parent_protocol_immutability": "APPROVED",
+            "A01_immutability": "APPROVED",
+        },
+    }, "Paolo Pangallo / 2026-08-10 / ACCEPTED / 10 approvals")
+    freeze_timestamp = manifest.get("freeze_timestamp")
+    freeze_timestamp_valid = False
+    if isinstance(freeze_timestamp, str):
+        try:
+            parsed_timestamp = datetime.fromisoformat(
+                freeze_timestamp.replace("Z", "+00:00")
+            )
+            utc_offset = parsed_timestamp.utcoffset()
+            freeze_timestamp_valid = (
+                utc_offset is not None and utc_offset.total_seconds() == 0
+            )
+        except ValueError:
+            freeze_timestamp_valid = False
+    check("freeze timestamp UTC", freeze_timestamp_valid, str(freeze_timestamp))
+    check("freeze scope",
+          manifest.get("freeze_scope") == "DATASET_SUPPLEMENT_S01_FINAL_FREEZE",
+          str(manifest.get("freeze_scope")))
+    check("final results pre-freeze",
+          manifest.get("final_results_observed_before_S01_freeze") is False,
+          str(manifest.get("final_results_observed_before_S01_freeze")))
+    check("future normative identity", manifest.get("future_final_evaluation_identity") == [
+        "runtime_commit",
+        "parent_protocol_sha256",
+        "A01_sha256",
+        "S01_id",
+        "S01_raw_source_sha256",
+        "S01_supplement_sha256",
+    ], "six required identity fields")
+    check("post-freeze immutability", manifest.get("post_freeze_immutability") == {
+        "silent_changes_forbidden": True,
+        "protected_material": [
+            "raw SourceUnit text",
+            "SourceUnit ID",
+            "labels",
+            "candidate-document mapping",
+            "document provenance",
+            "parser attribution",
+        ],
+        "change_requires": "S02_OR_NEW_PROTOCOL_VERSION_OR_EXPLICIT_AMENDMENT",
+    }, "six protected classes; no silent changes")
     check("no reconstruction claim",
           provenance["deterministic_reconstruction_from_original_versioned_artifacts"] is False,
           str(provenance["deterministic_reconstruction_from_original_versioned_artifacts"]))
@@ -278,6 +350,23 @@ def validate() -> list[tuple[str, bool, str]]:
         "network_final_calls": 0,
         "final_results_observed": False,
     }, "exact creation-phase attestation")
+    check("freeze validation", report.get("freeze_validation") == {
+        "freeze_timestamp": manifest.get("freeze_timestamp"),
+        "raw_sha256_before": EXPECTED_RAW_SHA,
+        "raw_sha256_after": EXPECTED_RAW_SHA,
+        "raw_bytes_before": EXPECTED_RAW_BYTES,
+        "raw_bytes_after": EXPECTED_RAW_BYTES,
+        "raw_byte_changes": 0,
+        "raw_semantic_changes": 0,
+        "mapping_changes": 0,
+        "label_changes": 0,
+        "parent_protocol_files_modified": 0,
+        "A01_files_modified": 0,
+        "runtime_files_modified": 0,
+        "heldout_gold_files_modified": 0,
+        "final_results_observed_before_S01_freeze": False,
+        "pass": True,
+    }, "raw and protected artifacts unchanged at freeze")
     check("parent SHA", parent["protocol_sha256"] == EXPECTED_PARENT_SHA, parent["protocol_sha256"])
     check("A01 SHA", a01["amendment_sha256"] == EXPECTED_A01_SHA, a01["amendment_sha256"])
     parent_valid, parent_recomputed = verify_embedded_seal(parent, REPO_ROOT, "protocol_sha256")
@@ -328,11 +417,17 @@ def validate() -> list[tuple[str, bool, str]]:
         "file_hash_rule": "sha256 over each file's exact bytes; no newline or encoding normalization",
         "supplement_hash_rule": "sha256 of sorted 'relative_name:sha256' lines joined by LF",
         "raw_source_sha256": EXPECTED_RAW_SHA,
-        "frozen": False,
-        "review_status": "READY_FOR_HUMAN_REVIEW",
+        "frozen": True,
+        "review_status": "ACCEPTED",
+        "final_results_observed_before_S01_freeze": False,
     }
     check("seal metadata", all(seal.get(key) == value for key, value in expected_seal_metadata.items()),
           "all stable fields exact")
+    check("seal freeze metadata",
+          seal.get("freeze_timestamp") == manifest.get("freeze_timestamp")
+          and seal.get("freeze_scope") == manifest.get("freeze_scope")
+          and seal.get("human_review") == manifest.get("human_review"),
+          "seal mirrors manifest review/freeze metadata")
     expected_files = set(NORMATIVE_FILES) | {"supplement_hash.json"}
     observed_files = {path.name for path in HERE.iterdir() if path.is_file()}
     unexpected_dirs = {path.name for path in HERE.iterdir() if path.is_dir()}
