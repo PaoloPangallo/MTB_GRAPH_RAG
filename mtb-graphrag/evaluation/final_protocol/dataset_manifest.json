@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
-  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T10:23:48.272526+00:00",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "generated_at": "2026-08-10T09:02:44.616043+00:00",
   "runtime_modified": false,
   "corpora": [
     {
@@ -70,7 +70,7 @@
     },
     {
       "corpus_id": "FROZEN_EVIDENCE_BUNDLES_25",
-      "title": "Frozen evidence bundles (REPLAY)",
+      "title": "Frozen evidence bundles (historical regression)",
       "paths": [
         "benchmarks/mtb_evidence/document_grounded_claims/evidence_bundle/evidence_bundles.jsonl",
         "benchmarks/mtb_evidence/document_grounded_claims/evidence_bundle/status_transitions.jsonl",
@@ -86,7 +86,7 @@
       "gold_kind": "HUMAN_CURATED_BUNDLE_GOLD",
       "split": "DEVELOPMENT",
       "usable_for_final_eval": true,
-      "final_role": "REPLAY_REPRODUCIBILITY_AND_SELECTOR_REGRESSION",
+      "final_role": "HISTORICAL_REGRESSION_REPRODUCIBILITY_AND_SELECTOR_REGRESSION",
       "corpus_sha256": "ece8707f282dd865fc45d648e4b502ab88731e3148bb911c5ff400d4165a613e"
     },
     {

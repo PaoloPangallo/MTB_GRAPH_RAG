@@ -32,6 +32,11 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 OUT_DIR = Path(__file__).resolve().parent
 
 PROTOCOL_VERSION = "mtb-graphrag-final-evaluation/1.1"
+#: Runtime sotto cui il set held-out e' stato **costruito**, e con cui viene
+#: timbrato ogni artefatto sigillato. Resta a f52bbf5 di proposito: e' un fatto
+#: storico, e riscriverlo falsificherebbe la provenance di un gold gia' congelato
+#: — oltre a rompere la riproducibilita' byte-identica del bundle.
+#: Il runtime **valutato** e' un'altra cosa e vive nel protocollo (3d2251f).
 RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
 RUNTIME_FREEZE_TIMESTAMP = "2026-08-08T21:11:00+02:00"
 CREATION_TIMESTAMP = "2026-08-09T00:00:00+00:00"

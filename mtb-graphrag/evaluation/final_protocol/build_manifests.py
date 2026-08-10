@@ -31,7 +31,10 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = Path(__file__).resolve().parent
 
 PROTOCOL_VERSION = "mtb-graphrag-final-evaluation/1.1"
-RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
+RUNTIME_COMMIT = "3d2251f82a586535f79f3d0b3725c16330c365ba"
+#: Runtime sotto cui i corpora furono costruiti. Conservato come provenance: i
+#: dati non sono cambiati, e' cambiato il runtime che li valutera'.
+PREVIOUS_RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
 
 
 class MissingArtifact(FileNotFoundError):
@@ -140,7 +143,7 @@ CORPORA: list[dict[str, Any]] = [
     },
     {
         "corpus_id": "FROZEN_EVIDENCE_BUNDLES_25",
-        "title": "Frozen evidence bundles (REPLAY)",
+        "title": "Frozen evidence bundles (historical regression)",
         "files": [
             "benchmarks/mtb_evidence/document_grounded_claims/evidence_bundle/evidence_bundles.jsonl",
             "benchmarks/mtb_evidence/document_grounded_claims/evidence_bundle/status_transitions.jsonl",
@@ -150,7 +153,7 @@ CORPORA: list[dict[str, Any]] = [
         "gold_kind": "HUMAN_CURATED_BUNDLE_GOLD",
         "split": "DEVELOPMENT",
         "usable_for_final_eval": True,
-        "final_role": "REPLAY_REPRODUCIBILITY_AND_SELECTOR_REGRESSION",
+        "final_role": "HISTORICAL_REGRESSION_REPRODUCIBILITY_AND_SELECTOR_REGRESSION",
         "contaminated_component": "deterministic-sourceunit-selector/1.0 (feature design, K)",
         "rationale": (
             "Le feature del selector e il valore K=5 sono stati scelti osservando "
@@ -215,7 +218,7 @@ CORPORA: list[dict[str, Any]] = [
         "contaminated_component": "narrative-lexicon/1.0",
         "rationale": (
             "Contaminazione documentata dagli stessi autori dell'artefatto: la "
-            "prima esecuzione LIVE produsse 3 FAIL, il lexicon fu corretto e le "
+            "prima esecuzione produsse 3 FAIL, il lexicon fu corretto e le "
             "STESSE narrative furono riverificate ottenendo 25/25. Il 25/25 è "
             "quindi un risultato post-tuning sullo stesso campione. Il corpus "
             "resta utilizzabile per l'ablation del Narrative Verifier, dove la "
@@ -356,7 +359,7 @@ CORPORA: list[dict[str, Any]] = [
         "final_role": "RQ1_SHADOW_COMPARISON_ONLY_NOT_RUNTIME",
         "contaminated_component": None,
         "rationale": (
-            "Il runtime a f52bbf5 legge 2.0 (backend/research_pipeline/data_access.py) "
+            "Il runtime canonico legge 2.0 (backend/research_pipeline/data_access.py) "
             "e nessun modulo del runtime importa kg_retrieval_v3. Le proprietà di "
             "3.0 (polarità esplicita, regimi preservati, alterazioni composte) NON "
             "vanno attribuite al sistema valutato."
