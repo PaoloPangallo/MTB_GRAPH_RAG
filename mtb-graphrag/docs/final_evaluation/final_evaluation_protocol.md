@@ -608,6 +608,14 @@ prima di qualunque osservazione di prestazione:
     final_results_observed_before_runtime_change = false
     final_runs_executed                          = false
 
+**Topologia dei branch.** Il branch del protocollo è stato riapplicato sopra
+`3d2251f`, così l'albero che dichiara di misurare quel runtime lo **contiene**.
+Senza questo, `check_consistency` non avrebbe potuto verificare né che il
+runtime è invariato né che espone una sola modalità: avrebbe letto il codice
+precedente. I due branch toccavano file disgiunti — protocollo da una parte,
+`backend/` e `frontend/` dall'altra — e la riapplicazione è avvenuta senza
+conflitti.
+
 **Verifica dei sigilli.**
 
 | Hash | Prima | Dopo | Atteso |

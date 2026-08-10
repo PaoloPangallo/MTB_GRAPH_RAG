@@ -17,7 +17,11 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_PATH = Path(__file__).resolve().parent / "protocol_hash.json"
 
 PROTOCOL_VERSION = "mtb-graphrag-final-evaluation/1.1"
-RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
+RUNTIME_COMMIT = "3d2251f82a586535f79f3d0b3725c16330c365ba"
+#: Runtime storico sostituito nel riallineamento pre-freeze del 2026-08-10.
+#: Resta nel sigillo come provenance: dice sotto quale architettura il
+#: protocollo era stato scritto la prima volta.
+PREVIOUS_RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
 
 #: I file che *definiscono* il protocollo. `protocol_hash.json` è escluso per
 #: costruzione: non può contenere il proprio hash.
@@ -76,6 +80,11 @@ def build() -> dict[str, object]:
     payload = {
         "protocol_version": PROTOCOL_VERSION,
         "runtime_commit": RUNTIME_COMMIT,
+        "previous_runtime_commit": PREVIOUS_RUNTIME_COMMIT,
+        "reseal_note": (
+            "Protocol 1.1 resealed against the final single canonical runtime "
+            "before experimental freeze."
+        ),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "hash_algorithm": "sha256",
         "file_hash_rule": "sha256 of the file bytes with CRLF normalized to LF (platform-independent)",
