@@ -1,0 +1,33 @@
+{
+  "registry_id": "final-evaluation-success-criteria/1.2",
+  "identifier_policy": "STABLE_NEVER_RENUMBER",
+  "renumbering_allowed": false,
+  "active_HARD": [
+    "H-A", "H-B", "H-C", "H-D", "H-E", "H-F", "H-G", "H-H",
+    "H-K", "H-O", "H-P"
+  ],
+  "heldout": ["H-L", "H-M", "H-N"],
+  "retired_from_primary": ["H-I", "H-J"],
+  "historical_only": ["R-1", "R-2"],
+  "claims": {
+    "H-K": "canonical_frozen_bundle_dependency",
+    "H-L": "forbidden_retrieval_on_incomplete_essential",
+    "H-M": "forbidden_retrieval_on_out_of_domain",
+    "H-N": "authority_transfer_from_declared_field",
+    "H-O": "canonical_research_replay_dependency",
+    "H-P": "implicit_historical_fallback",
+    "R-1": "historical_replay_network_calls",
+    "R-2": "historical_replay_live_selector_calls"
+  },
+  "v1_2_supersedes": {
+    "H-E.primary_denominator": 1936,
+    "H-E.target": "0/1936",
+    "H-F.primary_denominator": 1936,
+    "H-F.target": "0/1936"
+  },
+  "supersession_note": "Version 1.2 replaces ambiguous denominators and formulas prospectively; it does not claim that protocol 1.1 already had these meanings.",
+  "inherited_unchanged_reference": {
+    "protocol_1_1_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+    "path": "evaluation/final_protocol/success_criteria.json"
+  }
+}
