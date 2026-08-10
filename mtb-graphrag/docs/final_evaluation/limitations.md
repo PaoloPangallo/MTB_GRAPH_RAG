@@ -1,7 +1,8 @@
 # Limitazioni note — dichiarate prima dell'esecuzione
 
     protocol_version : mtb-graphrag-final-evaluation/1.1
-    runtime_commit   : f52bbf5920c14324953be849e666bc84571957e9
+    runtime_commit   : 3d2251f82a586535f79f3d0b3725c16330c365ba
+    previous_runtime : f52bbf5920c14324953be849e666bc84571957e9
 
 | # | Limitazione | RQ | Impatto | Mitigazione adottata | Future work |
 |---|---|---|---|---|---|
@@ -15,7 +16,7 @@
 | L8 | Nessuna soglia di rifiuto validata: il selector restituisce sempre top-k se esistono unità | RQ2 | non esiste `NO_RELEVANT_SOURCE_UNIT` tarato | l'ABSTAIN di Gemma agisce da rifiuto a valle; la soglia non viene introdotta ora perché sarebbe una variabile nuova | calibrazione della soglia su corpus dedicato |
 | L9 | Nessuna validazione clinica prospettica | tutte | la tesi non può affermare accuratezza clinica | le RQ sono formulate come proprietà architetturali | studio clinico |
 | L10 | KG materializzato da export CSV congelato, non traversal dinamico su Neo4j | RQ1 | RQ1 misura la materializzazione, non l'interrogazione di un grafo vivo | dichiarato in `kg_source.kind = FROZEN_CSV_EXPORT`, `neo4j_used = false` | binding a istanza Neo4j |
-| L11 | Disponibilità di API ufficiali e full text fuori dal controllo del sistema | RQ2, LIVE | copertura limitata; 3 documenti noti con `PMC_RESOLUTION_FAILED` | classificati come `ENVIRONMENTAL_LIMIT`, non come guasti | — |
+| L11 | Disponibilità di API ufficiali e full text fuori dal controllo del sistema | RQ2, runtime canonico | copertura limitata; 3 documenti noti con `PMC_RESOLUTION_FAILED` | classificati come `ENVIRONMENTAL_LIMIT`, non come guasti | — |
 | L12 | GCA v3 non è il runtime | RQ1 | polarità esplicita, regimi preservati e alterazioni composte non sono proprietà del sistema valutato | confronto shadow etichettato come non-runtime | promozione di v3 a runtime |
 | L13 | OncoKB non implementato né autorizzato | RQ5 | nessun recupero di citazioni esterne controllate | RQ5 classificata FUTURE WORK | licenza e integrazione |
 | L14 | `MODEL_TRANSPORT_FAILED` (ISS-012): 9 casi su 35 non hanno raggiunto il gate nel benchmark storico | RQ4 | riduce il denominatore effettivo | contato a parte nella tassonomia, mai confuso con uno stop mancato | irrigidimento del trasporto tool-call |
@@ -31,8 +32,10 @@
 
 Il docstring di `backend/research_pipeline/experimental/__init__.py` afferma che
 nessun modulo di `backend/research_pipeline` importa il package sperimentale.
-A `f52bbf5` questo non è più vero: `retrieval/live_sourceunit_selection.py` lo
-importa, come previsto dalla promozione del selector in LIVE.
+Da `f52bbf5` in poi questo non è più vero: `retrieval/live_sourceunit_selection.py`
+lo importa, come previsto dalla promozione del selector nel percorso operativo.
+A `3d2251f` quel modulo è il selettore del runtime canonico; il prefisso `live_`
+nel nome è un residuo storico e non indica una modalità.
 
 Il comportamento del runtime è corretto e coerente con il contratto dichiarato
 in `runtime_contract.json`; è il commento a essere rimasto indietro. **Non viene

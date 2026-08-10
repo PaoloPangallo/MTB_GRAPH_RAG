@@ -2,7 +2,9 @@
 
 ```
 protocol_version      : mtb-graphrag-final-evaluation/1.1
-runtime_commit        : f52bbf5920c14324953be849e666bc84571957e9
+runtime_commit        : 3d2251f82a586535f79f3d0b3725c16330c365ba
+built_under_runtime   : f52bbf5920c14324953be849e666bc84571957e9   (provenance: i sette file sigillati
+                        portano questo timbro e restano byte-identici)
 runtime_freeze        : 2026-08-08T21:11:00+02:00
 creation_timestamp    : 2026-08-09T00:00:00+00:00
 heldout_bundle_sha256 : 17583e218595f574931dfe0c71f8822f393ceb76c3a98bcf3f179369f053b313
