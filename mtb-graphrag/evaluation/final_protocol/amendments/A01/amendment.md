@@ -6,7 +6,9 @@
     parent_freeze_commit    : 7b0b396b10d10794ac802325f8e7e2ff5ce33e28
     runtime_commit          : 3d2251f82a586535f79f3d0b3725c16330c365ba
     created                 : 2026-08-10
-    frozen                  : false — in attesa di review umana dell'emendamento
+    frozen                  : true
+    freeze_timestamp        : 2026-08-10T12:25:09.1790680Z
+    freeze_scope            : AMENDMENT_A01_FINAL_FREEZE
 
 Questo emendamento è **append-only**. Non modifica un solo byte del protocollo
 1.1 congelato: `protocol_sha256` resta `83fcf870…` e resta verificabile.
@@ -169,6 +171,36 @@ Da qui in poi l'identità del protocollo di valutazione è la coppia:
 
 Il primo non cambia. Il secondo è in `amendment_hash.json` e sigilla soltanto i
 file normativi dell'A01.
+
+Ogni futuro artifact finale deve riportare entrambi:
+`PARENT_PROTOCOL_SHA` e `AMENDMENT_A01_SHA`.
+
+## Human review finale e freeze
+
+    reviewer       : Paolo Pangallo
+    review_date    : 2026-08-10
+    review_verdict : ACCEPTED
+
+Tutti i nove scenari A-I, la isolated-cache policy e l'immutabilità del
+protocollo padre sono **APPROVED**. Lo scenario A è approvato con 17 PubMed
+abstract eleggibili e selezione lessicografica dell'indice 0,
+`pmid:15705718` / `GCA-0000980ba01970f893f8e4d7`, effettuata prima di ogni
+risultato finale. Lo scenario I è approvato come
+`NATURALLY_REACHABLE_FROM_INPUT_STATE` secondo la catena score totale zero,
+selected IDs vuoti, selected papers vuoti, `SOURCEUNIT_SELECTION_FAILED` e
+`PIPELINE_ABORT`; `zero_direct != selector_failure`.
+
+La classificazione congelata è **OPERATIONAL CONFORMANCE / PROPERTY TESTS**.
+Un eventuale 9/9 significa che 9/9 proprietà operative pre-specificate sono
+conformi; non significa 100% operational accuracy, clinical accuracy benchmark,
+generalization performance sample o osservazioni cliniche indipendenti.
+
+## Immutabilità post-freeze
+
+Dopo questo freeze, scenario bindings, fixture payload ed expectation, cache
+initialization contract, selection rules e scenario classification possono
+cambiare solo tramite **A02** oppure una **nuova versione del protocollo**.
+Nessuna correzione silenziosa è consentita.
 
 ## Runner ancora da scrivere
 

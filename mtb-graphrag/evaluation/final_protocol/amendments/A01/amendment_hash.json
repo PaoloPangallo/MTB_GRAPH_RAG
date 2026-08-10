@@ -4,22 +4,35 @@
   "parent_protocol_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
   "parent_freeze_commit": "7b0b396b10d10794ac802325f8e7e2ff5ce33e28",
   "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
-  "generated_at": "2026-08-10T12:20:27.663367+00:00",
+  "generated_at": "2026-08-10T12:30:33.313794+00:00",
   "hash_algorithm": "sha256",
   "file_hash_rule": "sha256 dei byte del file con CRLF normalizzato a LF",
   "amendment_hash_rule": "sha256 delle righe 'nome:sha' ordinate e unite da \\n",
   "files": {
-    "amendment.md": "362b688050747d2e3d3fd078bed9491ba6f2791a61beb59481a4f4838bcbdfde",
+    "amendment.md": "31ee72e64bafbdb3d2ad07f46771c91191b8efa0f2df5f9b48ad6d3e74a38ccf",
     "cache_seed_contract.json": "6b5f5858422b3e000c7fa29640a9cc6448c353db7066a938c14629ada88d04bd",
-    "check_amendment_consistency.py": "b500847c7e9905c5d70b1d0b284b4f0b19cf554a1e1bc5b1cae54b769c5f295e",
+    "check_amendment_consistency.py": "4041fe183f4005b3693e161e30a8688ec19a98a0e5993a42340c713dc3da23ca",
     "operational_scenario_bindings.json": "521499e85deec1a7294d5c5144894f9b32737e816ebfc005ab2247f5cda9ae45",
     "parser_failure_fixture.json": "98c9da87ffd0e32fd3d3475da52f08ac9d0384de6edf68c111f8e27b7cd140fb",
-    "provenance.json": "cdc2d03c4b6763cd4d57dc97ae911182941d2ab846bb304b4233bb17b8854a2b",
+    "provenance.json": "72d24ea71c3a081be62dd5a516f139af9128ee4c5aef361cae56c82680e8c76a",
     "selector_failure_fixture.json": "031e161cd8c4e4c3eb4434be8c1e91d72b374da8c1b9333925bac725f0c5489e"
   },
-  "amendment_sha256": "5a11990f4bfcbefef4445d5e0da0902985e5ced641aeaf6d74b45d9db9d203df",
+  "amendment_sha256": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf",
   "parent_protocol_sha256_recomputed": false,
-  "evaluation_identity": "L'identita' della final evaluation e' la coppia parent protocol_sha256 + amendment A01 sha256. Il primo non e' stato ricalcolato ne' sostituito.",
-  "frozen": false,
-  "freeze_note": "frozen=false: l'emendamento richiede una review umana propria, distinta da quella gia' registrata per il protocollo padre."
+  "evaluation_identity": {
+    "PARENT_PROTOCOL_SHA": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+    "AMENDMENT_A01_SHA": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf",
+    "required_on_every_future_final_artifact": true
+  },
+  "human_review": {
+    "reviewer": "Paolo Pangallo",
+    "review_date": "2026-08-10",
+    "review_verdict": "ACCEPTED",
+    "approved_scenario_count": 9
+  },
+  "final_results_observed_before_A01_freeze": false,
+  "frozen": true,
+  "freeze_timestamp": "2026-08-10T12:25:09.1790680Z",
+  "freeze_scope": "AMENDMENT_A01_FINAL_FREEZE",
+  "freeze_note": "A01 congelato dopo human review ACCEPTED. Qualunque modifica futura al materiale protetto richiede A02 oppure una nuova versione del protocollo."
 }
