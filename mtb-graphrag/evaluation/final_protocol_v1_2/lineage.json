@@ -1,0 +1,53 @@
+{
+  "protocol_id": "mtb-graphrag-final-evaluation/1.2",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "design_commit": "fdf5e29d549a80ac351b08eb3b0ed05b64985c80",
+  "protocol_1_1": {
+    "id": "mtb-graphrag-final-evaluation/1.1",
+    "sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+    "freeze_commit": "7b0b396b10d10794ac802325f8e7e2ff5ce33e28",
+    "source_of_truth": "evaluation/final_protocol"
+  },
+  "A01": {
+    "id": "mtb-graphrag-final-evaluation/1.1-A01",
+    "sha256": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf",
+    "freeze_commit": "50df9bc7a1071816f6ea617731d229f36af2a2a5",
+    "source_of_truth": "evaluation/final_protocol/amendments/A01",
+    "bindings_copy_in_v1_2": false,
+    "future_harness_reads_source_directly": true
+  },
+  "S01": {
+    "id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
+    "raw_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "package_sha256": "b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15",
+    "freeze_commit": "ae117ebcc1c75383b60e9266c0a7443bf9216245",
+    "source_of_truth": "evaluation/final_protocol/supplements/S01",
+    "text_path": "evaluation/final_protocol/supplements/S01/sourceunits_1697.jsonl",
+    "text_copy_in_v1_2": false,
+    "reconstruction_from_original_versioned_artifacts": false,
+    "pre_final_artifact_provenance_verified": true,
+    "byte_identical_preservation": true,
+    "future_harness_reads_source_directly": true
+  },
+  "versioning_reason": {
+    "needed_for": "normative unambiguous resolution of pre-final D02-D16 specification gaps",
+    "found_before_any_final_result": true,
+    "rewrites_protocol_1_1_history": false
+  },
+  "freeze_precedence": {
+    "ordered_authorities": [
+      "evaluation/final_protocol/protocol_hash.json",
+      "7b0b396b10d10794ac802325f8e7e2ff5ce33e28",
+      "generated heldout_manifest.json and reliability_subset.json",
+      "A01 frozen record"
+    ],
+    "classification_of_stale_markers": "STALE_PRE_FREEZE_PROSE",
+    "stale_markers": [
+      "frozen:false",
+      "READY FOR HUMAN REVIEW",
+      "future-tense freeze text"
+    ],
+    "stale_markers_have_current_normative_force": false,
+    "protocol_1_1_files_modified": false
+  }
+}

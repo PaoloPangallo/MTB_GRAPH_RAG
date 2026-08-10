@@ -1,0 +1,32 @@
+{
+  "registry_id": "final-evaluation-dataset-registry/1.2",
+  "singular_dataset_hash_forbidden": true,
+  "artifact_field": "dataset_hashes",
+  "dataset_hashes": {
+    "dataset_bundle_sha256": "8ab387cbe65d0231e37be8f27a9b5ca81a29b14ae8d12e5df1b316695e553991",
+    "gca_repository_2_0_46864": "62edc6907cf982eb2ed050d44a9e8218377a32daaf0c8847c98048b67be9ce54",
+    "gca_repository_3_0_shadow": "59c47c893b2357fb110c9d2c82aa438bb22624ceea14af33aeef1c0cd0f0ac33",
+    "sourceunit_selector_independent_20": "2a78d860dab9ac8d8277a39421ac2e60a2a05e2572ca26f29156591166efa03f",
+    "s01_raw": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "s01_package": "b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15",
+    "rq4_development": "3eb2ee79c46dcbbf2fddf0385a2ed8189bcaf017e8a130265c7dea54a69353fc",
+    "quote_battery": "9ceb959a0784bf466278fa420cca8d02321e3f51d54f6cde8a019b75d93a3d88",
+    "dossier_narrator": "00bc29eac3bc3b03279b9f3dbf28268c1933ebb2628295ec3704da96cf359d04",
+    "narrator_adversarial": "4ce813e5ffc9a6f4782b2fe9894b35217321ecf62d105825613d31e6e9d74bed",
+    "heldout_architectural": "b621ef82bffa5a0bd73b2e60c0a2bd9c657258d3cdfd8404feb3586d0c8bf019",
+    "narrative_heldout": "002f48042315b82a70eb3788eba3c5e9431fe16c30980d5b68803b85195c513e",
+    "narrative_controls": "4e6a7800a653efd7c945944b68e59864e7aa15f240d627cbf188130f41171478",
+    "heldout_bundle": "17583e218595f574931dfe0c71f8822f393ceb76c3a98bcf3f179369f053b313",
+    "reliability_file": "9329b3836feab483ebfcacc70eee6c27fef2f911cf52c6237a8cc1d891ffdc38",
+    "reliability_ids": "9d69478392a9df96187827a1130d59f78747453fdaa070256f910a937a720fd3",
+    "operational_corpus": "d9e4d9d680b30ed2e7d8463bd708c4f83518472624fd3b5c37ec56bb06bf35e9",
+    "operational_manifest": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+    "a01_cache_contract": "6b5f5858422b3e000c7fa29640a9cc6448c353db7066a938c14629ada88d04bd",
+    "historical_regression": "ece8707f282dd865fc45d648e4b502ab88731e3148bb911c5ff400d4165a613e"
+  },
+  "application_rule": {
+    "always_include": ["dataset_bundle_sha256"],
+    "also_include": "all specific hashes applicable to the execution testbed and input",
+    "unknown_or_missing_hash": "PROTOCOL_1_2_SPECIFICATION_GAP"
+  }
+}
