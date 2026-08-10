@@ -10,9 +10,14 @@ sorting, newline normalization, re-encoding, or re-serialization. Its exact
 SHA-256 is `83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99`
 and its exact size is 731,754 bytes.
 
-The package is intentionally **not frozen**. Its review state is
-`READY_FOR_HUMAN_REVIEW`. Freezing requires a separate explicit human-review
-action.
+The package is **frozen**. Paolo Pangallo accepted the preservation review on
+2026-08-10. The freeze timestamp is `2026-08-10T13:13:06.3467147Z` and the
+scope is `DATASET_SUPPLEMENT_S01_FINAL_FREEZE`.
+
+Every future final-evaluation artifact that uses this SourceUnit text must
+record the runtime commit, parent protocol SHA, A01 SHA, S01 ID, raw-source
+SHA, and frozen S01 package SHA. No protected S01 material may be changed
+silently; such a change requires S02 or an explicit protocol-level change.
 
 ## Files
 

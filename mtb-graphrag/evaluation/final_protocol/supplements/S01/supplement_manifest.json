@@ -5,6 +5,17 @@
   "corpus_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20",
   "purpose": "Byte-for-byte preservation of the pre-final artifact containing the complete text of the 1,697 SourceUnits used by the independent RQ2 corpus.",
   "dataset_status": "PRESERVATION_OF_EXISTING_CORPUS_MATERIAL_NOT_A_NEW_DATASET",
+  "scientific_status": {
+    "classification": "PRE_FINAL_DATASET_SUPPLEMENT",
+    "is_not": [
+      "NEW_DATASET",
+      "NEW_ANNOTATION",
+      "POST_HOC_RECONSTRUCTION",
+      "NEW_ACQUISITION",
+      "CORPUS_SELECTED_AFTER_OBSERVING_FINAL_RESULTS"
+    ],
+    "rationale": "The raw artifact existed before final runs, is forensically identifiable, and was copied byte-identically."
+  },
   "normative_identity": {
     "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
     "parent_protocol_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
@@ -33,7 +44,47 @@
       "NOT_RELEVANT": 1264
     }
   },
-  "frozen": false,
-  "review_status": "READY_FOR_HUMAN_REVIEW",
-  "prepared_timestamp": "2026-08-10T12:56:19.8444661Z"
+  "human_review": {
+    "reviewer": "Paolo Pangallo",
+    "review_date": "2026-08-10",
+    "review_verdict": "ACCEPTED",
+    "approvals": {
+      "preservation_identity": "APPROVED",
+      "pre_final_provenance": "APPROVED",
+      "byte_identity": "APPROVED",
+      "inventory_join": "APPROVED",
+      "gold_join": "APPROVED",
+      "document_payload_provenance": "APPROVED",
+      "structural_counts": "APPROVED",
+      "no_reconstruction_claim": "APPROVED",
+      "parent_protocol_immutability": "APPROVED",
+      "A01_immutability": "APPROVED"
+    }
+  },
+  "future_final_evaluation_identity": [
+    "runtime_commit",
+    "parent_protocol_sha256",
+    "A01_sha256",
+    "S01_id",
+    "S01_raw_source_sha256",
+    "S01_supplement_sha256"
+  ],
+  "post_freeze_immutability": {
+    "silent_changes_forbidden": true,
+    "protected_material": [
+      "raw SourceUnit text",
+      "SourceUnit ID",
+      "labels",
+      "candidate-document mapping",
+      "document provenance",
+      "parser attribution"
+    ],
+    "change_requires": "S02_OR_NEW_PROTOCOL_VERSION_OR_EXPLICIT_AMENDMENT"
+  },
+  "frozen": true,
+  "review_status": "ACCEPTED",
+  "prepared_timestamp": "2026-08-10T12:56:19.8444661Z",
+  "freeze_timestamp": "2026-08-10T13:13:06.3467147Z",
+  "freeze_scope": "DATASET_SUPPLEMENT_S01_FINAL_FREEZE",
+  "final_results_observed_before_S01_freeze": false
 }

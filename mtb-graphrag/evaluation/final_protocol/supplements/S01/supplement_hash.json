@@ -1,7 +1,7 @@
 {
   "supplement_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
   "classification": "PRE_FINAL_DATASET_SUPPLEMENT",
-  "generated_at": "2026-08-10T13:02:41.034272+00:00",
+  "generated_at": "2026-08-10T13:17:10.000239+00:00",
   "hash_algorithm": "sha256",
   "file_hash_rule": "sha256 over each file's exact bytes; no newline or encoding normalization",
   "supplement_hash_rule": "sha256 of sorted 'relative_name:sha256' lines joined by LF",
@@ -15,16 +15,36 @@
     "validation_report.json"
   ],
   "files": {
-    "README.md": "45654fbe7a45c88c853bb641052c48380cd93e9bf2eeba4897d5861447fcc275",
-    "check_supplement.py": "accc94e03f798291b5fac295d7b94e7938ff645dc4d2c39efaceebfef621f3c8",
-    "hash_supplement.py": "5e73f7786e3162eb78c4bf683ff84977872caf91e4ac0bcb01c32441d7ddb59f",
+    "README.md": "5ac9de3de41c68d7b249a04c65d45ad136d6cc50f6bf255b29695b41eddd8cf9",
+    "check_supplement.py": "382fcc88f8a5001cb65651ad3cba96f35232ca4aee33a608a0bce0292343894d",
+    "hash_supplement.py": "ea4e27fc621101e863e9bdf24b5fc614cdb235ca352668f404a143ced48c6a1d",
     "provenance.json": "3c45c10a064ca0be707c5fc3d3ed9c4ee316331fee7a303a5e39c74ffb2a5b12",
     "sourceunits_1697.jsonl": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
-    "supplement_manifest.json": "3be33d1014bb989a81a27bf0c19e77a4b0155006e23f194c5cb43a894b96b32d",
-    "validation_report.json": "b64b3f2004f0878f7a3a7d3b830cf000657f447ddf787277f8e601334ed72385"
+    "supplement_manifest.json": "040420e4c2ad551ca5004aaf6e930e8b90863d7cfe161b6b2c27558c5dda0fa2",
+    "validation_report.json": "53af6b8b3ac74a6f54afa292b33b86c228cbcbc661c199f22da86524f2e81b12"
   },
   "raw_source_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
-  "supplement_sha256": "b900309ca2763338954d405c4009185e10ec077a8de00210810387028439aa8c",
-  "frozen": false,
-  "review_status": "READY_FOR_HUMAN_REVIEW"
+  "supplement_sha256": "b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15",
+  "human_review": {
+    "reviewer": "Paolo Pangallo",
+    "review_date": "2026-08-10",
+    "review_verdict": "ACCEPTED",
+    "approvals": {
+      "preservation_identity": "APPROVED",
+      "pre_final_provenance": "APPROVED",
+      "byte_identity": "APPROVED",
+      "inventory_join": "APPROVED",
+      "gold_join": "APPROVED",
+      "document_payload_provenance": "APPROVED",
+      "structural_counts": "APPROVED",
+      "no_reconstruction_claim": "APPROVED",
+      "parent_protocol_immutability": "APPROVED",
+      "A01_immutability": "APPROVED"
+    }
+  },
+  "frozen": true,
+  "review_status": "ACCEPTED",
+  "freeze_timestamp": "2026-08-10T13:13:06.3467147Z",
+  "freeze_scope": "DATASET_SUPPLEMENT_S01_FINAL_FREEZE",
+  "final_results_observed_before_S01_freeze": false
 }

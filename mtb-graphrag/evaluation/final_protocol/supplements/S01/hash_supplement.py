@@ -32,6 +32,9 @@ def compute_package_hash(directory: Path = HERE) -> tuple[str, dict[str, str]]:
 
 def build_record(directory: Path = HERE) -> dict[str, object]:
     supplement_sha, files = compute_package_hash(directory)
+    manifest = json.loads(
+        (directory / "supplement_manifest.json").read_text(encoding="utf-8")
+    )
     return {
         "supplement_id": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
         "classification": "PRE_FINAL_DATASET_SUPPLEMENT",
@@ -43,8 +46,14 @@ def build_record(directory: Path = HERE) -> dict[str, object]:
         "files": files,
         "raw_source_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
         "supplement_sha256": supplement_sha,
-        "frozen": False,
-        "review_status": "READY_FOR_HUMAN_REVIEW",
+        "human_review": manifest["human_review"],
+        "frozen": manifest["frozen"],
+        "review_status": manifest["review_status"],
+        "freeze_timestamp": manifest["freeze_timestamp"],
+        "freeze_scope": manifest["freeze_scope"],
+        "final_results_observed_before_S01_freeze": manifest[
+            "final_results_observed_before_S01_freeze"
+        ],
     }
 
 
