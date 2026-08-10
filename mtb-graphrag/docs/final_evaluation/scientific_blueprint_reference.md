@@ -1,8 +1,31 @@
 # Scientific blueprint — riferimento
 
     protocol_version : mtb-graphrag-final-evaluation/1.1
-    runtime_commit   : f52bbf5920c14324953be849e666bc84571957e9
+    runtime_commit   : 3d2251f82a586535f79f3d0b3725c16330c365ba
+    previous_runtime : f52bbf5920c14324953be849e666bc84571957e9
     created          : 2026-08-09 (fase 1.1-review-1)
+    amended          : 2026-08-10 (riallineamento architetturale pre-freeze)
+
+## Delta rispetto al documento di riferimento del 9 agosto
+
+Il report di posizionamento citato qui sotto è un **documento storico** e non
+viene riscritto. Descriveva un'architettura con due modalità operative, `LIVE`
+e `REPLAY`, e in più punti presentava la loro distinzione come contributo.
+
+L'implementazione finale usa **un solo runtime canonico operativo**. Il delta,
+registrato qui e non applicato silenziosamente al documento originale:
+
+| Nel blueprint del 9 agosto | Nell'implementazione finale |
+|---|---|
+| due modalità operative, LIVE e REPLAY | un solo runtime canonico; nessuna modalità selezionabile |
+| REPLAY come modalità riproducibile | riproducibilità da snapshot persistiti, artefatti immutabili e strumenti di regressione riservati alla ricerca |
+| LIVE come modalità che generalizza | acquisizione documentale del runtime canonico oltre gli artefatti congelati di sviluppo |
+| «LIVE abort» | `PIPELINE_ABORT` |
+| distinzione LIVE/REPLAY come confine di autorità in RQ3 | confini misurati: dipendenza da bundle congelati = 0, dipendenza dagli adattatori di ricerca = 0, fallback storico implicito = 0 |
+
+Invariati rispetto al blueprint: RQ1 nella sostanza; la catena documentale di
+RQ2 e tutte le sue metriche; le API autorizzate; la separazione di autorità del
+modello; RQ4 come esecuzione selettiva e fallimento controllato.
 
 ## Documento di riferimento
 

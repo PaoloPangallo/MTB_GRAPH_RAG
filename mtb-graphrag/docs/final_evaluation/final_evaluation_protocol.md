@@ -1,14 +1,34 @@
 # Final Evaluation Protocol — MTB GraphRAG
 
-    protocol_version : mtb-graphrag-final-evaluation/1.1
-    supersedes       : 1.0
-    runtime_commit   : f52bbf5920c14324953be849e666bc84571957e9
-    runtime_branch   : feature/live-document-retrieval-selector
-    protocol_branch  : eval/final-evaluation-protocol
-    date             : 2026-08-09
-    runtime_modified : false
-    frozen           : false — in attesa di review umana dell'held-out
-    status           : READY FOR HUMAN REVIEW
+    protocol_version          : mtb-graphrag-final-evaluation/1.1
+    supersedes                : 1.0
+    runtime_commit            : 3d2251f82a586535f79f3d0b3725c16330c365ba
+    runtime_branch            : refactor/single-canonical-runtime
+    previous_runtime_commit   : f52bbf5920c14324953be849e666bc84571957e9
+    protocol_branch           : eval/final-evaluation-protocol-single-runtime
+    date                      : 2026-08-09, riallineato 2026-08-10
+    runtime_modified          : false
+    frozen                    : false — in attesa di review umana del protocollo riallineato
+    status                    : READY FOR HUMAN REVIEW
+
+### Riallineamento architetturale pre-freeze
+
+Il protocollo 1.1 è stato **ri-sigillato** contro il runtime finale a runtime
+canonico unico, **prima** del freeze sperimentale e **prima** che qualunque
+risultato finale fosse osservato. Non è un bump di versione: 1.1 non era
+ancora congelato, e questa è la correzione dell'architettura di riferimento
+che il protocollo dichiara di misurare.
+
+Cosa è cambiato: il runtime `f52bbf5` esponeva due modalità operative,
+`LIVE` e `REPLAY`, selezionabili dal chiamante. Il runtime `3d2251f` ne espone
+**una sola** — l'ex percorso LIVE, promosso a runtime canonico con semantica
+invariata. Il replay degli artefatti congelati sopravvive come infrastruttura
+di ricerca e regressione, non raggiungibile dal percorso clinico.
+
+Cosa **non** è cambiato: nessun caso, nessun gold, nessun corpus, nessuna
+soglia, nessuna definizione di metrica. `dataset_bundle_sha256` e
+`heldout_bundle_sha256` sono invariati e verificabili. Dettaglio completo nel
+changelog in coda a questo documento.
 
 Questo documento definisce cosa verrà misurato, su quali dati, con quali
 denominatori e con quali criteri di successo. È scritto **prima**
@@ -79,7 +99,7 @@ sorgente (`source_hash = unavailable_at_protocol_build`), è in
 
 ## 2. Sistema sotto test
 
-`FULL_SYSTEM` = runtime a `f52bbf5`, con tutti i componenti attivi:
+`FULL_SYSTEM` = runtime canonico a `3d2251f`, con tutti i componenti attivi. Non esistono modalità: il percorso è uno solo.
 
 | Stage | Componente | Produttore |
 |---|---|---|
@@ -137,8 +157,8 @@ sperimentale e un solo denominatore.
 | **RQ3-B / RQ4 · Held-out architectural** | `HELDOUT_ARCHITECTURAL_35` | caso clinico | 35 | HELD_OUT |
 | **RQ3-B · Held-out narrative** | `NARRATIVE_HELDOUT_20` + `NARRATIVE_HELDOUT_VALID_CONTROL_5` | perturbazione narrativa | 20 + 5 | HELD_OUT |
 | **RQ4-DEV · CaseContext routing regression** | `CASECONTEXT_ROBUSTNESS_35` | caso clinico | 35 | DEVELOPMENT_REGRESSION |
-| **LIVE · operational** | cache autorizzata + caso unseen | documento / run | 43 doc | DEVELOPMENT (substrato) |
-| **REPLAY · historical** | `FROZEN_EVIDENCE_BUNDLES_25` | bundle | 25 | DEVELOPMENT_REGRESSION |
+| **CANONICAL RUNTIME · operational** | cache autorizzata + caso unseen | documento / run | 43 doc | DEVELOPMENT (substrato) |
+| **Historical regression** *(appendice)* | `FROZEN_EVIDENCE_BUNDLES_25` | bundle | 25 | DEVELOPMENT_REGRESSION |
 | **LATENCY · stage-level** | tutte le run eseguite | stage × run | — | derivato |
 
 ### Divieto di aggregazione
@@ -160,7 +180,7 @@ Tre contaminazioni accertate, da dichiarare in tesi:
    `2026-08-06T14:32Z`, eseguito `14:43Z`; il gate è stato scritto alle
    `19:34Z` dello stesso giorno e il suo docstring cita il fallimento osservato
    su quel benchmark. → i 35 casi sono **regression, non generalizzazione**.
-2. **Narrative lexicon ← `DOSSIER_NARRATOR_25`.** Prima run LIVE: 3 FAIL →
+2. **Narrative lexicon ← `DOSSIER_NARRATOR_25`.** Prima esecuzione: 3 FAIL →
    lexicon corretto → **le stesse 25 narrative** riverificate 25/25. →
    risultato post-tuning sullo stesso campione.
 3. **Selector ← `FROZEN_EVIDENCE_BUNDLES_25`.** Feature e K=5 scelti lì.
@@ -389,8 +409,31 @@ HARD con target 0 (H-A … H-K), tutti con denominatore obbligatorio:
 unverified mismatch reaches retrieval · wrong quote accepted · wrong document
 accepted · wrong SourceUnit accepted · Does Not Support promoted · negative
 source primary bucket · failed narrative presented · LLM canonical mutation ·
-REPLAY network calls · REPLAY live selector calls · LIVE frozen bundle
-selection.
+**canonical frozen bundle dependency** · **canonical research replay
+dependency** · **implicit historical fallback**.
+
+Più i tre criteri held-out già approvati, H-L / H-M / H-N, invariati.
+
+### Rinumerazione pre-freeze dei criteri
+
+I due criteri che misuravano proprietà del **replay** non sono più criteri del
+runtime canonico: misurano l'integrità dell'infrastruttura di riproduzione
+storica, e da lì non può discendere una claim dell'architettura finale.
+
+| Prima | Dopo | Dove |
+|---|---|---|
+| H-A … H-H | invariati | criteri HARD |
+| H-I `replay_network_calls` | R-1 `historical_regression_network_calls` | `historical_regression_integrity` |
+| H-J `replay_live_selector_calls` | R-2 `historical_regression_canonical_selector_calls` | `historical_regression_integrity` |
+| H-K `live_frozen_bundle_selection` | **H-I** `canonical_frozen_bundle_dependency` | criteri HARD |
+| — | **H-J** `canonical_research_replay_dependency` | criteri HARD, nuovo |
+| — | **H-K** `implicit_historical_fallback` | criteri HARD, riformulazione |
+| H-L … H-N | invariati | criteri held-out |
+
+`implicit_historical_fallback` sostituisce la vecchia formulazione «nessun
+fallback implicito LIVE→REPLAY»: non essendoci più due modalità, la proprietà
+da misurare è che **nessun artefatto storico** venga sostituito a un documento
+che il runtime canonico non è riuscito a ottenere.
 
 ### Divieti post-freeze
 
@@ -421,11 +464,21 @@ Output sotto `evaluation/final_evaluation/`, senza mai sovrascrivere artefatti
 storici:
 
     protocol/  datasets/  rq1/  rq2/  rq3/  rq4/
-    live_replay/  latency/  ablations/  tables/  figures/  raw/  logs/  final_report/
+    canonical_operational/  historical_regression/  latency/  ablations/
+    tables/  figures/  raw/  logs/  final_report/
 
 Ogni run registra: `evaluation_id`, `run_id`, `case_id`, `protocol_version`,
-`runtime_commit`, `mode` (LIVE|REPLAY), `timestamp`, `model/provider`,
-`selector_version`, `K`, `max_papers`, `dataset_hash`.
+`runtime_commit`, `timestamp`, `model/provider`, `selector_version`, `K`,
+`max_papers`, `dataset_hash`.
+
+Il campo `mode` è stato rimosso: non c'è una modalità da registrare. Le run
+prodotte dagli harness di regressione storica vivono in
+`historical_regression/` e portano `testbed = HISTORICAL_REGRESSION`, che è una
+proprietà dell'harness e non del runtime.
+
+`raw_reason_code` conserva il codice emesso dal runtime senza riscritture: un
+arresto terminale ha etichetta architetturale `PIPELINE_ABORT` e può portare
+`LIVE_STAGE_FAILED` come codice interno ereditato.
 
 ---
 
@@ -444,10 +497,18 @@ Ogni run registra: `evaluation_id`, `run_id`, `case_id`, `protocol_version`,
 | 8 | RQ4-DEV routing regression | CaseContext 35 | DEVELOPMENT_REGRESSION |
 | 9 | RQ4-HELDOUT challenge | held-out 35 | HELD_OUT |
 | 10 | narrative verifier: ostili + controlli validi | narrative held-out | HELD_OUT |
-| 11 | LIVE operational | LIVE | — |
-| 12 | REPLAY reproducibility | REPLAY | — |
-| 13 | LIVE vs REPLAY properties | — | — |
-| 14 | latency per stage, cache hit vs miss | tutte le run | — |
+| 11 | canonical runtime operational | CANONICAL_RUNTIME | — |
+| 12 | latency per stage, cache hit vs successful API miss | tutte le run | — |
+
+Appendice, non risultato primario:
+
+| # | Tabella | Testbed | Classificazione |
+|---|---|---|---|
+| A1 | historical regression reproducibility | `FROZEN_EVIDENCE_BUNDLES_25` | DEVELOPMENT_REGRESSION |
+
+La tabella «LIVE vs REPLAY properties» è stata **rimossa**: confrontava due
+modalità che l'architettura finale non ha più, e non esiste una tabella che la
+sostituisca. La distinzione non è più un contributo architetturale rivendicato.
 
 Figure: architettura a 15 stage; Recall/HitRate del selector; riduzione dei
 modi di fallimento per ablation; esiti di percorso per robustness; latenza per
@@ -461,7 +522,7 @@ Elencate qui perché non vengano reintrodotte in fase di scrittura:
 
 correttezza della raccomandazione clinica · superiorità su altri sistemi MTB ·
 quote letterale = entailment clinico · ottimalità clinica di `max_papers = 2` e
-`K = 5` · equivalenza LIVE = REPLAY · immunità generale al prompt injection ·
+`K = 5` · due modalità operative selezionabili · il replay come modalità riproducibile del prodotto · immunità generale al prompt injection ·
 novità generale di KG/RAG/provenance/determinismo · AuthorContext validato =
 DIRECT · osservabilità tecnica = usabilità clinica · fallback OncoKB
 implementato.
@@ -472,16 +533,88 @@ Dettaglio e claim sostenibili in `claim_evidence_matrix.md`.
 
 ## 15. Riproducibilità
 
-    protocol_version      : mtb-graphrag-final-evaluation/1.1
-    runtime_commit        : f52bbf5920c14324953be849e666bc84571957e9
-    dataset_bundle_sha256 : evaluation/final_protocol/dataset_hashes.json
-    heldout_bundle_sha256 : evaluation/final_protocol/heldout/heldout_hashes.json
-    protocol_sha256       : evaluation/final_protocol/protocol_hash.json
-    frozen                : false
+    protocol_version        : mtb-graphrag-final-evaluation/1.1
+    runtime_commit          : 3d2251f82a586535f79f3d0b3725c16330c365ba
+    previous_runtime_commit : f52bbf5920c14324953be849e666bc84571957e9
+    dataset_bundle_sha256   : evaluation/final_protocol/dataset_hashes.json
+    heldout_bundle_sha256   : evaluation/final_protocol/heldout/heldout_hashes.json
+    protocol_sha256         : evaluation/final_protocol/protocol_hash.json
+    frozen                  : false
+
+La riproducibilità sperimentale poggia su snapshot documentali persistiti,
+artefatti immutabili, metadati di run sul ledger append-only e strumenti di
+regressione su artefatti congelati **riservati alla ricerca**. Nessuno di
+questi strumenti fa parte del percorso clinico, e nessuno di essi è una
+modalità del prodotto.
 
 Nessun caso può essere aggiunto, rimosso, riscritto o rietichettato dopo aver
 visto i risultati finali senza invalidare il freeze e richiedere una nuova
 versione di protocollo.
 
 Il freeze (`frozen = true`) verrà impostato **solo dopo la review umana**
-dell'held-out documentata in `heldout_review.md`.
+dell'held-out documentata in `heldout_review.md` e del riallineamento
+architetturale registrato al §16.
+
+---
+
+## 16. Changelog — riallineamento architetturale pre-freeze
+
+    data                    : 2026-08-10
+    protocol_version        : 1.1 (invariata, ri-sigillata)
+    tipo                    : correzione pre-freeze dell'architettura di riferimento
+
+> Protocol 1.1 resealed against the final single canonical runtime before
+> experimental freeze.
+
+**Perché non è un bump a 1.2.** Il protocollo non era congelato: `frozen`
+valeva `false` e nessun risultato finale era stato osservato. Un bump di
+versione serve a separare misure prese sotto regole diverse; qui non ci sono
+misure da separare.
+
+**Cosa è cambiato.**
+
+- runtime di riferimento: `f52bbf5` → `3d2251f`;
+- l'ex percorso LIVE è promosso a **runtime canonico**, con semantica invariata:
+  cache-first, acquisizione autorizzata sul miss, PubMed / PMC /
+  ClinicalTrials.gov, PMID→PMCID, persist-before-parse, Paper Selection max 2,
+  SourceUnit Selector deterministico K=5, Gemma QUOTE|ABSTAIN, validator, gate,
+  dossier, narrator e Narrative Verifier;
+- il REPLAY rivolto al clinico è rimosso; il replay su artefatti congelati resta
+  come infrastruttura di regressione storica, non raggiungibile dal percorso
+  clinico e non confrontabile con il runtime canonico;
+- `LIVE_vs_REPLAY_properties` esce dai risultati primari e non viene sostituita;
+- `LIVE_operational` → `CANONICAL_RUNTIME_OPERATIONAL`;
+  `REPLAY_reproducibility` → `HISTORICAL_REGRESSION_REPRODUCIBILITY`, appendice;
+- «LIVE abort» → `PIPELINE_ABORT`; `LIVE_STAGE_FAILED` resta come codice interno
+  ereditato nel campo grezzo, mai come concetto architetturale;
+- API e acquisizione documentale: **invariate**.
+
+**Cosa non è cambiato.** Nessun caso, nessun gold, nessun corpus, nessuna
+soglia, nessuna definizione di metrica, nessun ID del sottoinsieme di
+affidabilità. I 35 casi held-out architetturali, i 20 narrativi ostili e i 5
+controlli positivi sono **byte-identici**: non contenevano terminologia di
+modalità, quindi non c'era nulla da rinominare.
+
+**Provenance degli artefatti held-out.** I sette file sigillati portano
+`runtime_commit: f52bbf5`. È il runtime sotto cui sono stati **costruiti**, ed
+è un fatto storico: riscriverlo falsificherebbe la provenance di un gold già
+congelato e romperebbe la riproducibilità byte-identica del bundle. Il runtime
+**valutato** è `3d2251f` e vive in questo documento e nei manifest.
+
+**Assenza di leakage.** Il refactor a runtime canonico unico è avvenuto prima
+dell'esecuzione dell'held-out finale, prima delle run finali del modello e
+prima di qualunque osservazione di prestazione:
+
+    final_results_observed_before_runtime_change = false
+    final_runs_executed                          = false
+
+**Verifica dei sigilli.**
+
+| Hash | Prima | Dopo | Atteso |
+|---|---|---|---|
+| `dataset_bundle_sha256` | `8ab387cb…` | `8ab387cb…` | invariato |
+| `heldout_bundle_sha256` | `17583e21…` | `17583e21…` | invariato |
+| `protocol_sha256` | `69dd35c7…` | ricalcolato | **cambiato** |
+
+Un `dataset_bundle_sha256` diverso sarebbe stato un arresto: avrebbe significato
+che un caso o un gold era cambiato insieme all'architettura.
