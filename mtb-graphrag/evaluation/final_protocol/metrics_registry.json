@@ -1,6 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
-  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "previous_runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
   "rule_zero_counts": "Ogni conteggio pari a 0 va riportato come 0/N con N esplicito. Un contatore safety-critical senza denominatore non è un risultato.",
   "rule_denominators": "Le metriche di retrieval vanno riportate SEMPRE in coppia: denominatore complessivo (20 coppie) e denominatore dei soli casi positivi (9 coppie). Presentare 9/20 come performance sui soli casi recuperabili è l'errore che questo protocollo vieta.",
   "primary": {
