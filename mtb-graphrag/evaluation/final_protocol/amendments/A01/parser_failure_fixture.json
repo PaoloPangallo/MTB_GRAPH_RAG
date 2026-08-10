@@ -1,0 +1,41 @@
+{
+  "amendment_id": "mtb-graphrag-final-evaluation/1.1-A01",
+  "parent_protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "parent_protocol_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+  "parent_freeze_commit": "7b0b396b10d10794ac802325f8e7e2ff5ce33e28",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "fixture_id": "FIX-PARSER-FAILED-01",
+  "scenario_id": "H_parser_failure_fixture",
+  "origin": "evaluation/final_protocol/failure_taxonomy.json",
+  "origin_definition": {
+    "code": "PARSER_FAILED",
+    "group": "SYSTEM_FAILURE",
+    "definition": "Il parser canonico non produce SourceUnit da uno snapshot presente.",
+    "observable": "stage_7 status FAILED",
+    "counts_as_failure": true
+  },
+  "derivation_note": "Nessuna fixture preesistente esercitava PARSER_FAILED: il codice e' implementato nel runtime e raggiungibile, ma nessun test, probe o artefatto lo attivava. La fixture e' quindi derivata dalla definizione normativa gia' congelata nel protocollo padre - 'il parser canonico non produce SourceUnit da uno snapshot presente' - e non da un comportamento osservato. E' dichiarata NUOVA e non promossa.",
+  "fixture_payload_kind": "PMC JATS sintatticamente valido e privo di contenuto testuale",
+  "fixture_payload": "<?xml version=\"1.0\"?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"><GetRecord><record><metadata>\n  <article xmlns=\"http://jats.nlm.nih.gov\">\n    <front><article-meta><title-group><article-title></article-title></title-group></article-meta></front>\n    <body></body>\n  </article>\n</metadata></record></GetRecord></OAI-PMH>\n",
+  "payload_sha256": "03f6846313c3d1dedd65c2cbe6ec016f772e7a9b0b10989b9c207f083697cb41",
+  "seeded_as": {
+    "document_id": "pmcid:PMC0000001",
+    "availability": "PMC_XML_AVAILABLE",
+    "local_cache_path": "pmc/xml/PMC0000001.xml",
+    "note": "Lo snapshot esiste ed e' persistito: il fallimento e' del parser, non della risoluzione."
+  },
+  "expected_stage": "stage_7_source_units",
+  "expected_reason_code": "PARSER_FAILED",
+  "expected_architectural_label": "PIPELINE_ABORT",
+  "network_allowed": false,
+  "model_calls_allowed_before_failure": 1,
+  "model_calls_allowed_after_failure": 0,
+  "forbidden_downstream_calls": [
+    "stage_8_paper_selection",
+    "stage_9_paper_context_enricher",
+    "stage_10_enrichment_validation",
+    "stage_13_dossier",
+    "stage_14_narrator"
+  ],
+  "counts_as_failure": true
+}

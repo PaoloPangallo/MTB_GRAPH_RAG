@@ -1,0 +1,75 @@
+{
+  "amendment_id": "mtb-graphrag-final-evaluation/1.1-A01",
+  "parent_protocol_version": "mtb-graphrag-final-evaluation/1.1",
+  "parent_protocol_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+  "parent_freeze_commit": "7b0b396b10d10794ac802325f8e7e2ff5ce33e28",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "fixture_id": "FIX-SELECTOR-FAILED-01",
+  "scenario_id": "I_selector_failure_fixture",
+  "origin": "evaluation/final_protocol/failure_taxonomy.json",
+  "origin_definition": {
+    "code": "SOURCEUNIT_SELECTION_FAILED",
+    "group": "SYSTEM_FAILURE",
+    "definition": "Il selector non restituisce alcun ID pur essendoci SourceUnit con testo.",
+    "observable": "reason_codes contiene SOURCEUNIT_SELECTION_FAILED",
+    "counts_as_failure": true
+  },
+  "derivation_note": "Come per H, nessuna fixture preesistente esercitava SOURCEUNIT_SELECTION_FAILED. La fixture e' derivata dalla definizione congelata - 'il selector non restituisce alcun ID pur essendoci SourceUnit con testo' - e non da un ranking osservato. Le unita' hanno testo reale ma nessuna attinenza con la candidate: e' la condizione che il codice del reason code descrive, non una costruita per ottenere un esito.",
+  "fixture_payload_kind": "SourceUnit con testo, tutte non pertinenti alla candidate",
+  "fixture_payload": [
+    {
+      "source_unit_id": "FIX-SEL-SU-1",
+      "document_id": "pmcid:PMC0000002",
+      "unit_type": "FULLTEXT_PARAGRAPH",
+      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 1."
+    },
+    {
+      "source_unit_id": "FIX-SEL-SU-2",
+      "document_id": "pmcid:PMC0000002",
+      "unit_type": "FULLTEXT_PARAGRAPH",
+      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 2."
+    },
+    {
+      "source_unit_id": "FIX-SEL-SU-3",
+      "document_id": "pmcid:PMC0000002",
+      "unit_type": "FULLTEXT_PARAGRAPH",
+      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 3."
+    },
+    {
+      "source_unit_id": "FIX-SEL-SU-4",
+      "document_id": "pmcid:PMC0000002",
+      "unit_type": "FULLTEXT_PARAGRAPH",
+      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 4."
+    },
+    {
+      "source_unit_id": "FIX-SEL-SU-5",
+      "document_id": "pmcid:PMC0000002",
+      "unit_type": "FULLTEXT_PARAGRAPH",
+      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 5."
+    },
+    {
+      "source_unit_id": "FIX-SEL-SU-6",
+      "document_id": "pmcid:PMC0000002",
+      "unit_type": "FULLTEXT_PARAGRAPH",
+      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 6."
+    }
+  ],
+  "fixture_sha256": "cd41ecf9d3daf1267b1042e38d16ce43b21fbf9781844e87fd9cc4e79d8b656c",
+  "seeded_as": {
+    "document_id": "pmcid:PMC0000002",
+    "availability": "PMC_XML_AVAILABLE",
+    "note": "Il documento e' risolto e parsato: il fallimento e' della selezione, non del parser."
+  },
+  "expected_stage": "stage_8_paper_selection",
+  "expected_reason_code": "SOURCEUNIT_SELECTION_FAILED",
+  "expected_architectural_label": "PIPELINE_ABORT",
+  "network_allowed": false,
+  "gemma_allowed": false,
+  "forbidden_downstream_calls": [
+    "stage_9_paper_context_enricher",
+    "stage_10_enrichment_validation",
+    "stage_13_dossier",
+    "stage_14_narrator"
+  ],
+  "counts_as_failure": true
+}
