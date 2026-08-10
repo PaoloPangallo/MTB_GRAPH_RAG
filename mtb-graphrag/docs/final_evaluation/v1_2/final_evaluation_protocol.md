@@ -64,8 +64,8 @@ candidates and its denominator is the number of materialized candidates.
 paths. Its numerator is eligible paths with a corresponding candidate and its
 denominator is 46,864.
 
-The semantic core contains exactly 16 fields. Two distinct completeness
-metrics are permitted:
+The semantic core contains exactly 16 fields. Both completeness metrics are
+required and reported separately:
 
 - `core_field_completeness_micro`: correct core-field cells divided by
   `46,864 × 16`;
@@ -159,6 +159,32 @@ The strata are never aggregated into one accuracy. Exact-output, criterion,
 output-hash, and event-path agreement are reported separately with no new
 success threshold.
 
+Stratum A measures canonical end-to-end execution reliability under an
+identical initial cache state. Every individual run creates a fresh isolated
+ephemeral cache initialized from `AUTHORIZED_DOCUMENT_CACHE_43`, with
+operational corpus SHA
+`d9e4d9d680b30ed2e7d8463bd708c4f83518472624fd3b5c37ec56bb06bf35e9`
+and manifest SHA
+`ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b`.
+No cache is shared between cases or repetitions, and no output from one run
+enters another run's initial state. Network policy is
+`CANONICAL_RUNTIME_POLICY`: cache hits perform zero fetches; authorized API
+acquisition is allowed on cache miss; runtime-native retries are unchanged;
+infrastructure failures are preserved under D09. Network is not globally
+disabled in this stratum.
+
+Stratum B measures selector/enrichment downstream reliability on immutable
+evidence input. SourceUnits are loaded directly from
+`SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01`, raw SHA
+`83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99`
+and package SHA
+`b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15`.
+Cache is `NOT_APPLICABLE`, the document resolver is `NOT_CALLED`, and network
+is `PROHIBITED`.
+
+The two strata are reported separately and are never aggregated into one
+reliability or accuracy rate.
+
 ## D09 — retry and failure preservation
 
 A scientific repetition always gets a new repetition ID and run ID. An
@@ -185,7 +211,9 @@ contribute zero. Infrastructure-failed pairs are excluded without imputation,
 preserved separately, and reduce the reported `N_effective`.
 
 Proportions use Wilson 95% intervals. Zero events are always printed as `0/N`.
-No p-value is produced when either arm has N below 30.
+`p_values_planned = false` for the entire Final Evaluation 1.2. It uses Wilson
+confidence intervals and paired percentile bootstrap intervals without
+hypothesis-test p-values, regardless of arm size.
 
 ## D11 — latency
 
@@ -208,10 +236,11 @@ calls without changing payload, control flow, or retry behavior.
 ## D12 — same-document latency pair
 
 The dedicated fixture is labeled `SAME-DOCUMENT CACHE LATENCY PAIR` and uses
-`pmid:15705718`. LAT-HIT seeds that target; LAT-MISS uses the same ephemeral
-cache plan with only that target excluded. Document, runtime, case/GCA binding,
-model, network environment, and harness are identical. This fixture does not
-replace A01 scenarios A or B.
+the fixed binding `GCA-0000980ba01970f893f8e4d7` plus `pmid:15705718` for
+both LAT-HIT and LAT-MISS. LAT-HIT seeds that target; LAT-MISS uses the same
+ephemeral cache plan with only that target excluded. Document, runtime,
+case/GCA binding, model, network environment, and harness are identical. This
+fixture does not replace A01 scenarios A or B.
 
 If LAT-MISS fails infrastructure acquisition, neither member enters the paired
 latency statistic; both attempts remain raw and `N_effective` is reported. No
@@ -253,10 +282,12 @@ counts; immutable raw pointer/hash; and the scientific payload.
 Before execution the ledger appends `ATTEMPT_RESERVED`. Raw per-attempt files
 are immutable create-if-absent; duplicate attempt IDs hard-fail. A completed
 run is never rerun automatically. Explicit infrastructure retry creates a new
-attempt with the same run ID. Crash before raw commit appends `INCOMPLETE` and
-permits a new attempt. Crash after raw commit verifies the hash and appends new
-completion events without rewriting raw. Scientific repeat creates a new
-repetition and run ID. Aggregates remain derivable and versionable.
+attempt with the same run ID. After a process crash, a reconciliation/recovery
+pass detects an orphan `ATTEMPT_RESERVED` and appends `INCOMPLETE`; the crashed
+process is not assumed capable of writing that event. A new attempt is then
+permitted. Crash after raw commit verifies the hash and appends new completion
+events without rewriting raw. Scientific repeat creates a new repetition and
+run ID. Aggregates remain derivable and versionable.
 
 ## D16 — frozen-state precedence
 
@@ -294,4 +325,4 @@ separate scientific sections.
 Protocol creation, checking, and sealing must not create
 `evaluation/final_evaluation/`, execute runtime or selector code, call Gemma or
 Narrator, or access the network. Version 1.2 remains `frozen=false` and
-`READY_FOR_HUMAN_REVIEW` until a later explicit freeze phase.
+`DRAFT_FOR_HUMAN_REVIEW` until a later explicit review and freeze phase.
