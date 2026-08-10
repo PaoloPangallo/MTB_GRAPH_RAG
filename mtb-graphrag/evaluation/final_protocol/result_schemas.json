@@ -1,6 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
-  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "previous_runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
   "purpose": "Struttura delle tabelle dei Risultati, definita prima di osservarli. Nessuna cella contiene un valore: i risultati riempiranno colonne già decise.",
   "rules": {
     "no_fabricated_values": "nessun campo numerico è precompilato",
@@ -366,7 +367,17 @@
     "claim_not_under_test": "il sistema completo ha accuratezza migliore in generale",
     "specificity_requirement": "Il set NARRATIVE_HELDOUT_VALID_CONTROL_5 va riportato accanto ai 20 ostili come positive-control acceptance rate. Con N=5 non è una stima di specificità: serve a escludere un comportamento di rifiuto banale, perché un verifier che respinge ogni narrativa otterrebbe 20/20 sui soli casi ostili. Il valore e il CI di Wilson possono essere calcolati, ma vanno descritti come controllo di non-trivial rejection behavior.",
     "adversarial_scoring": "Per i 5 casi ADVERSARIAL_CASECONTEXT l'endpoint valutato è primary_gold = HARD_ARCHITECTURAL_INVARIANT: retrieval path is not the primary scored endpoint; the scored endpoint is absence of forbidden authority transfer.",
-    "narrative_scoring": "Ogni caso ostile è conteggiato nella sola primary_mutation_type; le mutazioni secondarie inevitabili sono registrate e non conteggiate."
+    "narrative_scoring": "Ogni caso ostile è conteggiato nella sola primary_mutation_type; le mutazioni secondarie inevitabili sono registrate e non conteggiate.",
+    "canonical_runtime_boundaries": {
+      "note": "La distinzione LIVE/REPLAY non e' piu' un confine di autorita': non esistono due modalita' da separare. Restano questi confini, misurati sul solo runtime canonico.",
+      "boundaries": [
+        "canonical_frozen_bundle_dependency = 0/N",
+        "canonical_research_replay_dependency = 0/N",
+        "implicit_historical_fallback = 0/N",
+        "llm_changes_canonical_dossier = 0/N",
+        "gate_inputs = GraphCandidateAssertion + accepted validated AuthorContext only"
+      ]
+    }
   },
   "RQ4_selective_execution": {
     "columns": [
@@ -423,10 +434,22 @@
       }
     ],
     "aggregation_prohibition": "le due tabelle non possono essere sommate né presentate senza etichetta di independence_level",
-    "transport_rule": "MODEL_TRANSPORT_FAILED è contato a parte e sottratto dal denominatore di CORRECT_PATH_RATE, con il denominatore effettivo dichiarato"
+    "transport_rule": "MODEL_TRANSPORT_FAILED è contato a parte e sottratto dal denominatore di CORRECT_PATH_RATE, con il denominatore effettivo dichiarato",
+    "abort_taxonomy": {
+      "architectural_label": "PIPELINE_ABORT",
+      "terminal_causes": [
+        "NO_DOCUMENT_RESOLVED",
+        "PARSER_FAILED",
+        "SOURCEUNIT_SELECTION_FAILED"
+      ],
+      "legacy_reason_code": "LIVE_STAGE_FAILED",
+      "raw_field": "RAW_REASON_CODE conserva il valore emesso dal runtime, non riscritto",
+      "invariant": "dopo un PIPELINE_ABORT: nessuna chiamata downstream al modello, nessun dossier canonico, nessun artefatto storico sostituito",
+      "recoverable_counterpart": "DOCUMENT_DEGRADED_TO_ABSTRACT prosegue con warning e non e' un abort"
+    }
   },
-  "LIVE_operational": {
-    "testbed": "LIVE",
+  "CANONICAL_RUNTIME_OPERATIONAL": {
+    "testbed": "CANONICAL_RUNTIME",
     "columns": [
       "CASE",
       "CACHE_HIT",
@@ -443,7 +466,8 @@
       "VALIDATOR_CALLED",
       "RUN_STATE",
       "FAILURE_REASON",
-      "TOTAL_LATENCY_MS"
+      "TOTAL_LATENCY_MS",
+      "RAW_REASON_CODE"
     ],
     "scenarios": [
       "cache_hit",
@@ -456,46 +480,14 @@
       "parser_failure_fixture",
       "selector_failure_fixture"
     ],
-    "hard_property": "LIVE_uses_frozen_bundle_for_selection = 0 su tutte le run LIVE"
-  },
-  "REPLAY_reproducibility": {
-    "testbed": "REPLAY",
-    "columns": [
-      "CASE",
-      "FROZEN_BUNDLE_USED",
-      "SOURCE_UNIT_IDS_MATCH",
-      "NETWORK_CALLS",
-      "LIVE_SELECTOR_CALLS",
-      "CANONICAL_OUTPUT_MATCH",
-      "HASH_MATCH",
-      "RUN_METADATA_MATCH",
-      "HISTORICAL_RESULT_PRESERVED"
-    ],
-    "denominator": "25 bundle congelati",
-    "hard_properties": [
-      "NETWORK_CALLS = 0",
-      "LIVE_SELECTOR_CALLS = 0"
-    ],
-    "prohibition": "nessuna metrica di accuratezza LIVE vs REPLAY"
-  },
-  "LIVE_vs_REPLAY_properties": {
-    "columns": [
-      "PROPERTY",
-      "LIVE",
-      "REPLAY",
-      "OBSERVED_RESULT"
-    ],
-    "properties": [
-      "new_document_acquisition",
-      "network_allowed",
-      "cache_first",
-      "sourceunit_selector",
-      "frozen_bundle",
-      "historical_reproducibility",
-      "unseen_documents",
-      "operational_role"
-    ],
-    "framing": "ruoli operativi diversi, mai better/worse"
+    "hard_property": "canonical_frozen_bundle_dependency = 0 e canonical_research_replay_dependency = 0 su tutte le run del runtime canonico",
+    "role": "PRIMARY",
+    "note": "cache hit e cache miss non sono due modalita': sono lo stesso runtime, distinto solo da se il documento fosse gia' stato acquisito",
+    "failure_label": {
+      "architectural_label": "PIPELINE_ABORT",
+      "legacy_reason_code": "LIVE_STAGE_FAILED",
+      "note": "il reason code interno non viene riscritto; FAILURE_REASON riporta il valore grezzo"
+    }
   },
   "latency": {
     "source": "duration_ms già registrato dall'orchestratore per i 15 stage",
@@ -540,7 +532,8 @@
         "DOCUMENT_STAGE_MS",
         "NETWORK_MS",
         "GEMMA_MS"
-      ]
+      ],
+      "note": "entrambi i bracci appartengono al runtime canonico: misurano la stessa pipeline con e senza acquisizione di rete"
     }
   },
   "secondary_offline_sensitivity": {
@@ -555,5 +548,67 @@
       "selector_top_k": 5
     },
     "rule": "se eseguita, non può modificare i valori congelati né essere usata per giustificarli a posteriori"
+  },
+  "HISTORICAL_REGRESSION_REPRODUCIBILITY": {
+    "testbed": "HISTORICAL_REGRESSION",
+    "columns": [
+      "CASE",
+      "FROZEN_BUNDLE_USED",
+      "SOURCE_UNIT_IDS_MATCH",
+      "NETWORK_CALLS",
+      "CANONICAL_SELECTOR_CALLS",
+      "CANONICAL_OUTPUT_MATCH",
+      "HASH_MATCH",
+      "RUN_METADATA_MATCH",
+      "HISTORICAL_RESULT_PRESERVED"
+    ],
+    "denominator": "25 bundle congelati",
+    "hard_properties": [
+      "NETWORK_CALLS = 0",
+      "CANONICAL_SELECTOR_CALLS = 0"
+    ],
+    "prohibition": "non e' un testbed del runtime finale e non puo' essere confrontato con esso; nessuna metrica di accuratezza, nessuna claim dell'architettura finale",
+    "role": "SECONDARY_APPENDIX",
+    "classification": "DEVELOPMENT_REGRESSION / HISTORICAL_REPRODUCIBILITY_INFRASTRUCTURE"
+  },
+  "result_classes": {
+    "PRIMARY": [
+      "RQ1_representation_fidelity",
+      "RQ1_negative_polarity_full_corpus",
+      "RQ2_A_document_pipeline",
+      "RQ2_B_sourceunit_retrieval",
+      "RQ2_C_gemma_downstream",
+      "RQ3_authority_separation",
+      "RQ4_selective_execution",
+      "CANONICAL_RUNTIME_OPERATIONAL",
+      "latency"
+    ],
+    "SECONDARY_APPENDIX": [
+      "HISTORICAL_REGRESSION_REPRODUCIBILITY",
+      "secondary_offline_sensitivity"
+    ],
+    "rule": "un risultato SECONDARY_APPENDIX non puo' sostenere una claim dell'architettura finale ne' essere aggregato con un risultato PRIMARY"
+  },
+  "removed_in_prefreeze_alignment": {
+    "LIVE_vs_REPLAY_properties": {
+      "reason": "confrontava due modalita' che l'architettura finale non ha piu'",
+      "previous_columns": [
+        "PROPERTY",
+        "LIVE",
+        "REPLAY",
+        "OBSERVED_RESULT"
+      ],
+      "previous_properties": [
+        "new_document_acquisition",
+        "network_allowed",
+        "cache_first",
+        "sourceunit_selector",
+        "frozen_bundle",
+        "historical_reproducibility",
+        "unseen_documents",
+        "operational_role"
+      ],
+      "disposition": "nessuna tabella sostitutiva; la distinzione non e' piu' un contributo architetturale rivendicato"
+    }
   }
 }

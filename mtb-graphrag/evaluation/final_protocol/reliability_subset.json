@@ -1,7 +1,7 @@
 {
   "protocol_version": "mtb-graphrag-final-evaluation/1.1",
-  "runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
-  "generated_at": "2026-08-09T10:23:56.561053+00:00",
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "generated_at": "2026-08-10T09:02:53.540251+00:00",
   "selection_rule": "primo case_id in ordine lessicografico per ciascuna delle 7 categorie di HELDOUT_ARCHITECTURAL_35, più i primi 3 case_id in ordine lessicografico fra i 9 casi positivi di SOURCEUNIT_SELECTOR_INDEPENDENT_20",
   "selection_seed": null,
   "selection_seed_note": "nessun seed: la selezione è un ordinamento totale deterministico, non un campionamento casuale. Un seed suggerirebbe una casualità che non c'è.",

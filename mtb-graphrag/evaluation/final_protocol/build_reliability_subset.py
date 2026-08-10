@@ -28,7 +28,10 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_PATH = Path(__file__).resolve().parent / "reliability_subset.json"
 
 PROTOCOL_VERSION = "mtb-graphrag-final-evaluation/1.1"
-RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
+RUNTIME_COMMIT = "3d2251f82a586535f79f3d0b3725c16330c365ba"
+#: Runtime sotto cui i corpora furono costruiti. Conservato come provenance: i
+#: dati non sono cambiati, e' cambiato il runtime che li valutera'.
+PREVIOUS_RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
 RUNS_PER_CASE = 3
 
 
