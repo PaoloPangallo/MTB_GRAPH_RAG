@@ -16,7 +16,10 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GIT_ROOT = REPO_ROOT.parent
-RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
+RUNTIME_COMMIT = "3d2251f82a586535f79f3d0b3725c16330c365ba"
+#: Runtime storico, sostituito nel riallineamento pre-freeze. Serve ancora:
+#: i sette artefatti held-out ne portano il timbro di costruzione.
+BUILT_UNDER_RUNTIME_COMMIT = "f52bbf5920c14324953be849e666bc84571957e9"
 
 RESULTS: list[tuple[str, bool, str]] = []
 
@@ -42,7 +45,7 @@ def _git(*args: str) -> str:
 
 
 def check_runtime_unmodified() -> None:
-    """Il runtime deve essere byte-identico a f52bbf5."""
+    """Il runtime deve essere byte-identico al commit dichiarato."""
     diff = _git("diff", "--stat", RUNTIME_COMMIT, "--", "mtb-graphrag/backend")
     check("runtime_unmodified", diff == "", diff or "nessuna differenza in mtb-graphrag/backend")
 
@@ -82,7 +85,7 @@ def check_new_files_are_additive() -> None:
     current = _git("ls-files", *PROTOCOL_PATHS).splitlines()
     tracked = sorted(line for line in current if line.strip())
     check("protocol_files_are_additive", not overwritten and bool(tracked),
-          f"{len(tracked)} file tracciati, {len(overwritten)} preesistenti a f52bbf5")
+          f"{len(tracked)} file tracciati, {len(overwritten)} preesistenti al runtime")
 
 
 def check_declared_benchmark_hash() -> None:
@@ -482,8 +485,13 @@ def check_negative_polarity_denominator() -> None:
           f"total={scan['total']} negative={scan['negative']} promoted={scan['promoted']} primary={scan['primary']}")
 
 
-def check_live_replay_contract() -> None:
-    """Il contratto LIVE/REPLAY dichiarato deve corrispondere allo scorecard."""
+def check_historical_regression_contract() -> None:
+    """Lo scorecard storico resta coerente, come infrastruttura di regressione.
+
+    Non e' piu' un contratto fra due modalita' del runtime: e' l'integrita'
+    dell'harness che riproduce gli esperimenti congelati. Lo scorecard e' un
+    artefatto storico e non viene riscritto, quindi conserva i nomi di allora.
+    """
     contract = _json("evaluation/live_runtime_integration/runtime_contract.json")
     scorecard = _json("evaluation/live_runtime_integration/final_scorecard.json")
     ok = (
@@ -493,9 +501,131 @@ def check_live_replay_contract() -> None:
         and scorecard["replay_selector_calls"] == 0
         and scorecard["LIVE_uses_frozen_bundle_for_selection"] is False
     )
-    check("live_replay_contract_consistent", ok,
-          f"K={scorecard['k']} replay_network={scorecard['replay_network_fetch_count']} "
-          f"replay_selector={scorecard['replay_selector_calls']}")
+    check("historical_regression_contract_consistent", ok,
+          f"K={scorecard['k']} network={scorecard['replay_network_fetch_count']} "
+          f"selector={scorecard['replay_selector_calls']} (artefatto storico)")
+
+
+# --- Riallineamento pre-freeze al runtime canonico unico ---------------------
+
+
+def check_protocol_declares_canonical_runtime() -> None:
+    """Ogni specifica normativa deve puntare al runtime finale, non al precedente."""
+    wrong = {}
+    for relative in (
+        "evaluation/final_protocol/dataset_manifest.json",
+        "evaluation/final_protocol/dataset_hashes.json",
+        "evaluation/final_protocol/split_manifest.json",
+        "evaluation/final_protocol/failure_taxonomy.json",
+        "evaluation/final_protocol/metrics_registry.json",
+        "evaluation/final_protocol/success_criteria.json",
+        "evaluation/final_protocol/result_schemas.json",
+        "evaluation/final_protocol/reliability_subset.json",
+        "evaluation/final_protocol/protocol_hash.json",
+    ):
+        observed = _json(relative)["runtime_commit"]
+        if observed != RUNTIME_COMMIT:
+            wrong[relative] = observed
+    check("protocol_runtime_is_canonical", not wrong,
+          f"{len(wrong)} specifiche divergenti; atteso {RUNTIME_COMMIT[:12]}")
+
+
+def check_heldout_keeps_build_provenance() -> None:
+    """I sette artefatti sigillati conservano il timbro del runtime di costruzione.
+
+    Non e' un'incoerenza: e' provenance. Riscriverla falsificherebbe un gold
+    gia' congelato e romperebbe la riproducibilita' byte-identica del bundle.
+    """
+    stamped = []
+    for name in ("architectural_challenge_cases", "architectural_challenge_gold",
+                 "narrative_heldout_cases", "narrative_heldout_gold",
+                 "narrative_heldout_valid_control", "grounded_review"):
+        payload = _json(f"evaluation/final_protocol/heldout/{name}.json")
+        stamped.append(payload.get("runtime_commit") == BUILT_UNDER_RUNTIME_COMMIT)
+    check("heldout_build_provenance_preserved", all(stamped),
+          f"{sum(stamped)}/{len(stamped)} artefatti con il timbro di costruzione")
+
+
+def check_canonical_user_mode_count() -> None:
+    """Il runtime deve esporre una sola modalita' richiedibile."""
+    execution_mode = (REPO_ROOT / "backend/research_pipeline/execution_mode.py").read_text(encoding="utf-8")
+    routes = (REPO_ROOT / "backend/api/research_routes.py").read_text(encoding="utf-8")
+    one_requestable = "REQUESTABLE_MODES: tuple[str, ...] = (CANONICAL_MODE,)" in execution_mode
+    no_api_field = "execution_mode: str" not in routes
+    check("canonical_user_mode_count_is_1", one_requestable and no_api_field,
+          f"REQUESTABLE_MODES=1: {one_requestable}, campo API assente: {no_api_field}")
+
+
+def check_no_primary_live_vs_replay_table() -> None:
+    """La tabella di confronto fra modalita' non deve piu' essere un risultato."""
+    schemas = _json("evaluation/final_protocol/result_schemas.json")
+    absent = "LIVE_vs_REPLAY_properties" not in schemas
+    documented = "LIVE_vs_REPLAY_properties" in schemas.get("removed_in_prefreeze_alignment", {})
+    check("primary_live_vs_replay_table_absent", absent and documented,
+          f"assente={absent}, rimozione documentata={documented}")
+
+
+def check_canonical_and_historical_schemas() -> None:
+    """I due schemi devono esistere e stare in classi di risultato diverse."""
+    schemas = _json("evaluation/final_protocol/result_schemas.json")
+    classes = schemas.get("result_classes", {})
+    canonical = "CANONICAL_RUNTIME_OPERATIONAL" in schemas
+    historical = "HISTORICAL_REGRESSION_REPRODUCIBILITY" in schemas
+    separated = (
+        "CANONICAL_RUNTIME_OPERATIONAL" in classes.get("PRIMARY", [])
+        and "HISTORICAL_REGRESSION_REPRODUCIBILITY" in classes.get("SECONDARY_APPENDIX", [])
+    )
+    check("canonical_and_historical_schemas_separated",
+          canonical and historical and separated,
+          f"canonical={canonical} historical={historical} separati={separated}")
+
+
+def check_hard_criteria_realigned() -> None:
+    """I criteri HARD devono misurare il runtime canonico, non il replay."""
+    criteria = _json("evaluation/final_protocol/success_criteria.json")
+    hard = {c["claim"] for c in criteria["hard_criteria"]}
+    regression = {c["claim"] for c in criteria["historical_regression_integrity"]["criteria"]}
+    required = {
+        "canonical_frozen_bundle_dependency",
+        "canonical_research_replay_dependency",
+        "implicit_historical_fallback",
+    }
+    no_replay_in_hard = not any(claim.startswith("replay_") for claim in hard)
+    check("hard_criteria_realigned",
+          required <= hard and no_replay_in_hard and len(regression) == 2,
+          f"HARD={len(hard)} storici={len(regression)} nuovi_presenti={required <= hard}")
+
+
+def check_heldout_counts_unchanged() -> None:
+    """Il refactor non deve aver toccato i corpora held-out."""
+    arch = _json("evaluation/final_protocol/heldout/architectural_challenge_cases.json")
+    hostile = _json("evaluation/final_protocol/heldout/narrative_heldout_cases.json")
+    controls = _json("evaluation/final_protocol/heldout/narrative_heldout_valid_control.json")
+    ok = arch["n_cases"] == 35 and hostile["n_cases"] == 20 and controls["n_cases"] == 5
+    check("heldout_counts_unchanged", ok,
+          f"architetturali={arch['n_cases']} ostili={hostile['n_cases']} controlli={controls['n_cases']}")
+
+
+def check_heldout_bundle_seal_unchanged() -> None:
+    """Il sigillo held-out deve corrispondere ai file attuali, byte per byte."""
+    hashes = _json("evaluation/final_protocol/heldout/heldout_hashes.json")
+    base = REPO_ROOT / "evaluation/final_protocol/heldout"
+    stale = []
+    for name, declared in hashes["files"].items():
+        raw = (base / name).read_bytes().replace(b"\r\n", b"\n")
+        if hashlib.sha256(raw).hexdigest() != declared:
+            stale.append(name)
+    check("heldout_bundle_seal_intact", not stale,
+          f"{len(hashes['files']) - len(stale)}/{len(hashes['files'])} file sigillati invariati")
+
+
+def check_reliability_ids_stable() -> None:
+    """Gli ID del sottoinsieme di affidabilita' non devono cambiare col runtime."""
+    subset = _json("evaluation/final_protocol/reliability_subset.json")
+    digest = hashlib.sha256("\n".join(subset["case_ids"]).encode("utf-8")).hexdigest()
+    ok = digest == subset["case_ids_sha256"] and len(subset["case_ids"]) == 10
+    check("reliability_subset_ids_stable", ok,
+          f"n={len(subset['case_ids'])} sha={subset['case_ids_sha256'][:12]}")
 
 
 def check_per_stage_latency_instrumented() -> None:
@@ -558,7 +688,16 @@ def main() -> int:
     check_runtime_repository_version()
     check_oncokb_not_integrated()
     check_negative_polarity_denominator()
-    check_live_replay_contract()
+    check_historical_regression_contract()
+    check_protocol_declares_canonical_runtime()
+    check_heldout_keeps_build_provenance()
+    check_canonical_user_mode_count()
+    check_no_primary_live_vs_replay_table()
+    check_canonical_and_historical_schemas()
+    check_hard_criteria_realigned()
+    check_heldout_counts_unchanged()
+    check_heldout_bundle_seal_unchanged()
+    check_reliability_ids_stable()
     check_per_stage_latency_instrumented()
     check_manifest_hashes_current()
     check_hashes_are_platform_independent()
