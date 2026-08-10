@@ -24,6 +24,8 @@ def sha(path):
 files = {name: sha(HERE / name) for name in sorted(NORMATIVE)}
 joined = "\n".join(f"{n}:{d}" for n, d in sorted(files.items()))
 amendment_sha = hashlib.sha256(joined.encode("utf-8")).hexdigest()
+provenance = json.loads((HERE / "provenance.json").read_text(encoding="utf-8"))
+review = provenance["human_review"]
 
 payload = {
     "amendment_id": "mtb-graphrag-final-evaluation/1.1-A01",
@@ -38,14 +40,27 @@ payload = {
     "files": files,
     "amendment_sha256": amendment_sha,
     "parent_protocol_sha256_recomputed": False,
-    "evaluation_identity": (
-        "L'identita' della final evaluation e' la coppia parent protocol_sha256 + amendment A01 "
-        "sha256. Il primo non e' stato ricalcolato ne' sostituito."
-    ),
-    "frozen": False,
+    "evaluation_identity": {
+        "PARENT_PROTOCOL_SHA": provenance["parent_protocol_sha256"],
+        "AMENDMENT_A01_SHA": amendment_sha,
+        "required_on_every_future_final_artifact": True,
+    },
+    "human_review": {
+        "reviewer": review["reviewer"],
+        "review_date": review["review_date"],
+        "review_verdict": review["review_verdict"],
+        "approved_scenario_count": sum(
+            status == "APPROVED" for status in review["scenario_approvals"].values()
+        ),
+    },
+    "final_results_observed_before_A01_freeze":
+        provenance["final_results_observed_before_A01_freeze"],
+    "frozen": provenance["frozen"],
+    "freeze_timestamp": provenance["freeze_timestamp"],
+    "freeze_scope": provenance["freeze_scope"],
     "freeze_note": (
-        "frozen=false: l'emendamento richiede una review umana propria, distinta da quella gia' "
-        "registrata per il protocollo padre."
+        "A01 congelato dopo human review ACCEPTED. Qualunque modifica futura al materiale "
+        "protetto richiede A02 oppure una nuova versione del protocollo."
     ),
 }
 

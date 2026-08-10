@@ -67,5 +67,77 @@
       "resolution": "NATURALLY_REACHABLE_FROM_INPUT_STATE; fixture derivata dal branch score_total > 0.0 e non dalla sola irrilevanza semantica."
     }
   ],
-  "frozen": false
+  "human_review": {
+    "reviewer": "Paolo Pangallo",
+    "review_date": "2026-08-10",
+    "review_verdict": "ACCEPTED",
+    "scenario_approvals": {
+      "A_cache_hit": "APPROVED",
+      "B_cache_miss_success": "APPROVED",
+      "C_pmid_only_to_pmcid": "APPROVED",
+      "D_pmc_fulltext": "APPROVED",
+      "E_pmc_unavailable_abstract_degradation": "APPROVED",
+      "F_unseen_document": "APPROVED",
+      "G_document_unavailable": "APPROVED",
+      "H_parser_failure_fixture": "APPROVED",
+      "I_selector_failure_fixture": "APPROVED"
+    },
+    "isolated_cache_policy": "APPROVED",
+    "parent_protocol_immutability": "APPROVED",
+    "scenario_A_rationale": {
+      "selection_set": "AUTHORIZED_DOCUMENT_CACHE_43 intersection EXPECTED_AVAILABLE intersection PubMed abstract intersection payload present intersection parser-readable intersection usable text",
+      "ordering": "document_id ascending",
+      "selection": "first eligible",
+      "eligible_count": 17,
+      "selected_document_id": "pmid:15705718",
+      "selected_case_id": "GCA-0000980ba01970f893f8e4d7",
+      "selected_before_any_final_result": true
+    },
+    "scenario_I_rationale": {
+      "reachability": "NATURALLY_REACHABLE_FROM_INPUT_STATE",
+      "runtime_condition": "canonical AND available_bundles present AND selection.selected_papers empty",
+      "selector_condition": "no SourceUnit satisfies score_total > min_score with min_score = 0.0",
+      "approved_chain": "all candidate SourceUnits score_total = 0 -> selected_source_unit_ids = [] -> selected_papers = [] -> SOURCEUNIT_SELECTION_FAILED -> PIPELINE_ABORT",
+      "semantic_irrelevance_is_not_failure_synonym": true,
+      "zero_direct_is_not_selector_failure": true
+    },
+    "B_F_shared_document_rationale": {
+      "identifiers": [
+        "pmid:24088390",
+        "pmcid:PMC4157820"
+      ],
+      "isolated_ephemeral_caches": true,
+      "B_property": "cache miss -> authorized acquisition -> persistence",
+      "F_property": "acquisition of a document outside the frozen development artifacts",
+      "statistically_independent_observations": false
+    }
+  },
+  "operational_result_interpretation": "9/9 means 9/9 pre-specified operational properties conformed; it does not mean 100% operational accuracy.",
+  "final_results_observed_before_A01_freeze": false,
+  "final_run_counters_before_A01_freeze": {
+    "runtime": 0,
+    "selector": 0,
+    "gemma": 0,
+    "narrator": 0,
+    "network": 0
+  },
+  "post_freeze_immutability": {
+    "change_requires": [
+      "A02",
+      "NEW_PROTOCOL_VERSION"
+    ],
+    "protected_material": [
+      "scenario_bindings",
+      "fixture_payload",
+      "fixture_expectation",
+      "cache_initialization_contract",
+      "selection_rules",
+      "scenario_classification"
+    ],
+    "silent_corrections_allowed": false
+  },
+  "final_evaluation_identity_rule": "Every future final artifact must report both PARENT_PROTOCOL_SHA and AMENDMENT_A01_SHA from amendment_hash.json.",
+  "frozen": true,
+  "freeze_timestamp": "2026-08-10T12:25:09.1790680Z",
+  "freeze_scope": "AMENDMENT_A01_FINAL_FREEZE"
 }

@@ -13,6 +13,7 @@ import json
 import re
 import subprocess
 import unicodedata
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -37,10 +38,31 @@ SOURCE_ARTIFACT_HASHES = {
         "03cf520f76e5746edbf119d86ee1ef145d96309f01decdec9d2e5add22dc1a70",
 }
 
+PRE_FREEZE_PROTECTED_RAW_HASHES = {
+    "evaluation/final_protocol/amendments/A01/operational_scenario_bindings.json":
+        "521499e85deec1a7294d5c5144894f9b32737e816ebfc005ab2247f5cda9ae45",
+    "evaluation/final_protocol/amendments/A01/parser_failure_fixture.json":
+        "98c9da87ffd0e32fd3d3475da52f08ac9d0384de6edf68c111f8e27b7cd140fb",
+    "evaluation/final_protocol/amendments/A01/selector_failure_fixture.json":
+        "031e161cd8c4e4c3eb4434be8c1e91d72b374da8c1b9333925bac725f0c5489e",
+    "evaluation/final_protocol/amendments/A01/cache_seed_contract.json":
+        "6b5f5858422b3e000c7fa29640a9cc6448c353db7066a938c14629ada88d04bd",
+}
+
 SCENARIOS = (
     "A_cache_hit", "B_cache_miss_success", "C_pmid_only_to_pmcid", "D_pmc_fulltext",
     "E_pmc_unavailable_abstract_degradation", "F_unseen_document",
     "G_document_unavailable", "H_parser_failure_fixture", "I_selector_failure_fixture",
+)
+
+A01_NORMATIVE_FILES = (
+    "amendment.md",
+    "operational_scenario_bindings.json",
+    "parser_failure_fixture.json",
+    "selector_failure_fixture.json",
+    "cache_seed_contract.json",
+    "provenance.json",
+    "check_amendment_consistency.py",
 )
 
 RESULTS: list[tuple[str, bool, str]] = []
@@ -398,8 +420,16 @@ def check_fixture_hashes_match_payload() -> None:
 
 def check_cache_contract_complete() -> None:
     covered = {c["scenario_id"] for c in CONTRACT["contracts"]}
-    check("cache_seed_contract_nine_of_nine", covered == set(SCENARIOS),
-          f"{len(covered)}/9 · mancanti: {sorted(set(SCENARIOS) - covered) or 'nessuno'}")
+    baseline = CONTRACT["baseline"]
+    ok = (covered == set(SCENARIOS)
+          and baseline.get("corpus_id") == "AUTHORIZED_DOCUMENT_CACHE_43"
+          and baseline.get("document_count") == 43
+          and baseline.get("expected_available") == 40
+          and baseline.get("expected_unavailable") == 3)
+    check("cache_seed_contract_nine_of_nine", ok,
+          f"{len(covered)}/9 · baseline={baseline.get('expected_available')}+"
+          f"{baseline.get('expected_unavailable')} · "
+          f"mancanti: {sorted(set(SCENARIOS) - covered) or 'nessuno'}")
 
 
 def check_isolated_caches() -> None:
@@ -444,14 +474,129 @@ def check_no_final_outcome_used() -> None:
 
 
 def check_final_runs_absent() -> None:
-    check("no_final_evaluation_executed",
-          not (REPO_ROOT / "evaluation/final_evaluation").exists(),
-          "evaluation/final_evaluation assente")
+    provenance = _json("provenance.json")
+    counters = provenance.get("final_run_counters_before_A01_freeze") or {}
+    ok = (not (REPO_ROOT / "evaluation/final_evaluation").exists()
+          and provenance.get("final_results_observed_before_A01_freeze") is False
+          and counters == {
+              "runtime": 0,
+              "selector": 0,
+              "gemma": 0,
+              "narrator": 0,
+              "network": 0,
+          })
+    check("no_final_evaluation_executed", ok,
+          f"evaluation/final_evaluation assente={not (REPO_ROOT / 'evaluation/final_evaluation').exists()} "
+          f"counters={counters}")
 
 
-def check_amendment_not_frozen() -> None:
-    frozen = _json("provenance.json")["frozen"]
-    check("amendment_a01_not_frozen", frozen is False, f"frozen={frozen}")
+def check_amendment_frozen_after_review() -> None:
+    provenance = _json("provenance.json")
+    review = provenance.get("human_review") or {}
+    approvals = review.get("scenario_approvals") or {}
+    expected_approvals = {scenario: "APPROVED" for scenario in SCENARIOS}
+    timestamp = provenance.get("freeze_timestamp")
+    try:
+        parsed_timestamp = datetime.fromisoformat(str(timestamp).replace("Z", "+00:00"))
+        timestamp_is_utc = parsed_timestamp.utcoffset().total_seconds() == 0
+    except (TypeError, ValueError, AttributeError):
+        timestamp_is_utc = False
+    ok = (provenance.get("frozen") is True
+          and provenance.get("freeze_scope") == "AMENDMENT_A01_FINAL_FREEZE"
+          and timestamp_is_utc
+          and review.get("reviewer") == "Paolo Pangallo"
+          and review.get("review_date") == "2026-08-10"
+          and review.get("review_verdict") == "ACCEPTED"
+          and approvals == expected_approvals
+          and review.get("isolated_cache_policy") == "APPROVED"
+          and review.get("parent_protocol_immutability") == "APPROVED")
+    check("amendment_a01_frozen_after_accepted_review", ok,
+          f"frozen={provenance.get('frozen')} verdict={review.get('review_verdict')} "
+          f"approvati={sum(v == 'APPROVED' for v in approvals.values())}/9 timestamp={timestamp}")
+
+
+def check_final_bindings_exact() -> None:
+    expected = {
+        "A_cache_hit": ("pmid:15705718", "15705718", "PMC248481", None),
+        "B_cache_miss_success": ("pmid:24088390", "24088390", "PMC4157820", None),
+        "C_pmid_only_to_pmcid": ("pmid:24088390", "24088390", "PMC4157820", None),
+        "D_pmc_fulltext": ("pmcid:PMC4157820", "24088390", "PMC4157820", None),
+        "E_pmc_unavailable_abstract_degradation":
+            ("pmid:23724867", "23724867", "PMC4081656", None),
+        "F_unseen_document":
+            ("pmid:24088390", "24088390", "PMC4157820", None),
+        "G_document_unavailable": ("pmid:00000000", "00000000", None, None),
+        "H_parser_failure_fixture": (None, None, None, "FIX-PARSER-FAILED-01"),
+        "I_selector_failure_fixture": (None, None, None, "FIX-SELECTOR-FAILED-01"),
+    }
+    observed = {
+        sid: (BY_ID[sid].get("selected_document_id"), BY_ID[sid].get("selected_pmid"),
+              BY_ID[sid].get("selected_pmcid"), BY_ID[sid].get("fixture_id"))
+        for sid in SCENARIOS
+    }
+    f_gca_ok = BY_ID["F_unseen_document"].get("selected_gca_id") == "GCA-0101aa9c8f708d6f8dd74be0"
+    check("final_binding_table_exact", observed == expected and f_gca_ok,
+          f"9/9={observed == expected} F_GCA={f_gca_ok}")
+
+
+def check_freeze_classification_and_immutability_rule() -> None:
+    provenance = _json("provenance.json")
+    rule = provenance.get("post_freeze_immutability") or {}
+    protected = {
+        "scenario_bindings", "fixture_payload", "fixture_expectation",
+        "cache_initialization_contract", "selection_rules", "scenario_classification",
+    }
+    ok = (rule.get("change_requires") == ["A02", "NEW_PROTOCOL_VERSION"]
+          and set(rule.get("protected_material") or []) == protected
+          and rule.get("silent_corrections_allowed") is False
+          and BINDINGS.get("classification") == "OPERATIONAL CONFORMANCE / PROPERTY TESTS"
+          and provenance.get("operational_result_interpretation")
+          == "9/9 means 9/9 pre-specified operational properties conformed; it does not mean 100% operational accuracy.")
+    check("post_freeze_immutability_and_property_test_classification", ok,
+          f"protected={len(rule.get('protected_material') or [])} silent="
+          f"{rule.get('silent_corrections_allowed')}")
+
+
+def check_protected_artifacts_byte_identical_to_pre_freeze() -> None:
+    observed = {
+        relative: hashlib.sha256((REPO_ROOT / relative).read_bytes()).hexdigest()
+        for relative in PRE_FREEZE_PROTECTED_RAW_HASHES
+    }
+    changed = [relative for relative, digest in observed.items()
+               if digest != PRE_FREEZE_PROTECTED_RAW_HASHES[relative]]
+    check("freeze_protected_artifacts_byte_identical", not changed,
+          f"byte changes={changed or 'nessuno'}")
+
+
+def check_derived_freeze_seal() -> None:
+    provenance = _json("provenance.json")
+    seal = _json("amendment_hash.json")
+    identity = seal.get("evaluation_identity") or {}
+    review = seal.get("human_review") or {}
+    observed_files = {
+        name: _sha256_normalized(HERE / name)
+        for name in sorted(A01_NORMATIVE_FILES)
+    }
+    joined = "\n".join(
+        f"{name}:{digest}" for name, digest in sorted(observed_files.items())
+    )
+    recomputed_amendment_sha = hashlib.sha256(joined.encode("utf-8")).hexdigest()
+    ok = (seal.get("frozen") is True
+          and seal.get("freeze_timestamp") == provenance.get("freeze_timestamp")
+          and seal.get("freeze_scope") == "AMENDMENT_A01_FINAL_FREEZE"
+          and seal.get("final_results_observed_before_A01_freeze") is False
+          and review.get("review_verdict") == "ACCEPTED"
+          and review.get("approved_scenario_count") == 9
+          and set(seal.get("files") or {}) == set(A01_NORMATIVE_FILES)
+          and seal.get("files") == observed_files
+          and seal.get("amendment_sha256") == recomputed_amendment_sha
+          and identity.get("PARENT_PROTOCOL_SHA") == PARENT_SHA
+          and identity.get("AMENDMENT_A01_SHA") == recomputed_amendment_sha
+          and identity.get("required_on_every_future_final_artifact") is True)
+    check("derived_amendment_freeze_seal", ok,
+          f"frozen={seal.get('frozen')} verdict={review.get('review_verdict')} "
+          f"approved={review.get('approved_scenario_count')} "
+          f"recomputed={recomputed_amendment_sha[:16]}")
 
 
 def check_classification() -> None:
@@ -472,7 +617,10 @@ def main() -> int:
                check_isolated_caches, check_ephemeral_caches_not_created,
                check_unseen_ids_exact, check_g_is_not_degradation_fixture,
                check_no_final_outcome_used, check_final_runs_absent,
-               check_amendment_not_frozen, check_classification):
+               check_amendment_frozen_after_review, check_final_bindings_exact,
+               check_freeze_classification_and_immutability_rule,
+               check_protected_artifacts_byte_identical_to_pre_freeze,
+               check_derived_freeze_seal, check_classification):
         fn()
 
     failed = [name for name, passed, _ in RESULTS if not passed]
