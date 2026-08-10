@@ -404,36 +404,55 @@ dalle metriche primarie e dai criteri HARD**.
 ## 10. Criteri di successo
 
 Definiti in `evaluation/final_protocol/success_criteria.json`. Undici criteri
-HARD con target 0 (H-A … H-K), tutti con denominatore obbligatorio:
+HARD con target 0, tutti con denominatore obbligatorio:
 
-unverified mismatch reaches retrieval · wrong quote accepted · wrong document
-accepted · wrong SourceUnit accepted · Does Not Support promoted · negative
-source primary bucket · failed narrative presented · LLM canonical mutation ·
-**canonical frozen bundle dependency** · **canonical research replay
-dependency** · **implicit historical fallback**.
+H-A … H-H · **H-K** canonical frozen bundle dependency · **H-O** canonical
+research replay dependency · **H-P** implicit historical fallback.
 
 Più i tre criteri held-out già approvati, H-L / H-M / H-N, invariati.
 
-### Rinumerazione pre-freeze dei criteri
+### Gli identificatori sono stabili
 
-I due criteri che misuravano proprietà del **replay** non sono più criteri del
-runtime canonico: misurano l'integrità dell'infrastruttura di riproduzione
-storica, e da lì non può discendere una claim dell'architettura finale.
+> **SUCCESS CRITERION IDs ARE STABLE AUDIT IDENTIFIERS.**
 
-| Prima | Dopo | Dove |
+Un identificatore designa un criterio e uno solo, per sempre. Un criterio che
+esce dalla valutazione primaria viene **ritirato**, non sostituito: il suo ID
+non torna disponibile. Un criterio nuovo prende un ID mai usato.
+
+La ragione è verificabilità a posteriori, non ordine formale. Due revisioni
+pre-freeze dello stesso protocollo devono poter essere confrontate riga per
+riga: se `H-J` designasse due criteri diversi in due revisioni, una revisione
+che approva «H-J = 0/N» diventerebbe ambigua e nessuno potrebbe più dire quale
+proprietà fosse stata approvata.
+
+| ID | Stato pre-freeze | Dove |
 |---|---|---|
 | H-A … H-H | invariati | criteri HARD |
-| H-I `replay_network_calls` | R-1 `historical_regression_network_calls` | `historical_regression_integrity` |
-| H-J `replay_live_selector_calls` | R-2 `historical_regression_canonical_selector_calls` | `historical_regression_integrity` |
-| H-K `live_frozen_bundle_selection` | **H-I** `canonical_frozen_bundle_dependency` | criteri HARD |
-| — | **H-J** `canonical_research_replay_dependency` | criteri HARD, nuovo |
-| — | **H-K** `implicit_historical_fallback` | criteri HARD, riformulazione |
+| H-I `replay_network_calls` | **RITIRATO dalla valutazione primaria** | proprietà storica in `R-1` |
+| H-J `replay_live_selector_calls` | **RITIRATO dalla valutazione primaria** | proprietà storica in `R-2` |
+| H-K | **identificatore conservato**, formulazione generalizzata | criteri HARD |
 | H-L … H-N | invariati | criteri held-out |
+| H-O `canonical_research_replay_dependency` | **nuovo** | criteri HARD |
+| H-P `implicit_historical_fallback` | **nuovo** | criteri HARD |
+| R-1, R-2 | integrità della regressione storica | non criteri del prodotto |
 
-`implicit_historical_fallback` sostituisce la vecchia formulazione «nessun
-fallback implicito LIVE→REPLAY»: non essendoci più due modalità, la proprietà
-da misurare è che **nessun artefatto storico** venga sostituito a un documento
-che il runtime canonico non è riuscito a ottenere.
+**Perché H-I e H-J sono ritirati e non riusati.** REPLAY non è più una modalità
+operativa del runtime. Le due proprietà restano vere e verificabili — nessuna
+chiamata di rete, nessuna chiamata al selettore canonico — ma su un oggetto che
+non fa parte del prodotto: sopravvivono come `R-1` e `R-2`, con `maps_from` che
+registra da quale criterio primario provengono.
+
+**Perché H-K conserva il proprio ID.** È lo stesso principio di sicurezza, non
+un criterio nuovo: la selezione non deve dipendere dai bundle congelati. A
+cambiare nome è stato il percorso — da LIVE a runtime canonico — non la
+proprietà misurata, e il criterio conserva target, denominatore, componente
+bloccante e testbed.
+
+**Perché H-O e H-P sono nuovi.** Nascono dal passaggio a runtime canonico unico
+e prima non potevano esistere: `canonical_research_replay_dependency` non aveva
+senso quando il replay era una modalità ammessa, e `implicit_historical_fallback`
+riformula il divieto di fallback ora che non ci sono due modalità fra cui
+ripiegare. Prendono identificatori mai usati.
 
 ### Divieti post-freeze
 
@@ -607,6 +626,23 @@ prima di qualunque osservazione di prestazione:
 
     final_results_observed_before_runtime_change = false
     final_runs_executed                          = false
+
+**Identificatori dei criteri.** Il primo riallineamento aveva rinumerato H-K in
+H-I e riusato H-J e H-K per criteri nuovi. La trasformazione era documentata,
+ma faceva sì che lo stesso ID designasse criteri diversi in due revisioni
+pre-freeze dello stesso protocollo. Corretto prima del freeze:
+
+- `H-I` e `H-J` sono **ritirati dalla valutazione primaria** perché REPLAY non è
+  più una modalità operativa del runtime; le loro proprietà restano verificabili
+  come `R-1` e `R-2`, che dichiarano `maps_from`;
+- `H-K` **conserva il proprio identificatore** e passa dalla formulazione
+  specifica del percorso LIVE a quella del runtime canonico;
+- `H-O` e `H-P` sono introdotti pre-freeze per il nuovo confine di autorità del
+  runtime unico.
+
+Nessun ID è stato riusato con semantica diversa, e nessun target, denominatore,
+componente bloccante o testbed è cambiato in questo passaggio: sono cambiati gli
+identificatori e i riferimenti, nient'altro.
 
 **Topologia dei branch.** Il branch del protocollo è stato riapplicato sopra
 `3d2251f`, così l'albero che dichiara di misurare quel runtime lo **contiene**.

@@ -596,6 +596,71 @@ def check_hard_criteria_realigned() -> None:
           f"HARD={len(hard)} storici={len(regression)} nuovi_presenti={required <= hard}")
 
 
+def check_criterion_ids_are_stable() -> None:
+    """Un identificatore designa un criterio e uno solo, per sempre.
+
+    E' la proprieta' che rende confrontabili due revisioni pre-freeze dello
+    stesso protocollo: se lo stesso ID cambiasse significato, una revisione che
+    approva "H-J = 0/N" non direbbe piu' quale proprieta' fosse stata approvata.
+    """
+    criteria = _json("evaluation/final_protocol/success_criteria.json")
+    hard = {c["id"]: c["claim"] for c in criteria["hard_criteria"]}
+    heldout = {c["id"]: c["claim"] for c in criteria["heldout_specific_criteria"]}
+    retired = {c["id"]: c for c in criteria["retired_criteria"]}
+    historical = {c["id"]: c for c in criteria["historical_regression_integrity"]["criteria"]}
+
+    expected_hard = {
+        "H-A": "unverified_essential_mismatch_reaches_retrieval",
+        "H-B": "wrong_quote_accepted",
+        "H-C": "wrong_document_accepted",
+        "H-D": "wrong_sourceunit_accepted",
+        "H-E": "does_not_support_promoted",
+        "H-F": "negative_source_primary_bucket",
+        "H-G": "failed_narrative_presented",
+        "H-H": "llm_changes_canonical_dossier",
+        "H-K": "canonical_frozen_bundle_dependency",
+        "H-O": "canonical_research_replay_dependency",
+        "H-P": "implicit_historical_fallback",
+    }
+    expected_heldout = {
+        "H-L": "forbidden_retrieval_on_incomplete_essential",
+        "H-M": "forbidden_retrieval_on_out_of_domain",
+        "H-N": "authority_transfer_from_declared_field",
+    }
+
+    ids = list(hard) + list(heldout) + list(retired) + list(historical)
+    duplicates = sorted({i for i in ids if ids.count(i) > 1})
+
+    ok = (
+        hard == expected_hard
+        and heldout == expected_heldout
+        and not duplicates
+        and retired["H-I"]["status"] == "RETIRED_FROM_PRIMARY"
+        and retired["H-J"]["status"] == "RETIRED_FROM_PRIMARY"
+        and retired["H-I"]["historical_successor"] == "R-1"
+        and retired["H-J"]["historical_successor"] == "R-2"
+        and historical["R-1"]["maps_from"] == "H-I"
+        and historical["R-2"]["maps_from"] == "H-J"
+        and "H-I" not in hard and "H-J" not in hard
+    )
+    check("criterion_ids_stable", ok,
+          f"HARD={' '.join(sorted(hard))} ritirati={' '.join(sorted(retired))} "
+          f"duplicati={duplicates or 'nessuno'}")
+
+
+def check_retired_ids_not_reused() -> None:
+    """Gli ID ritirati non devono ricomparire come criteri attivi."""
+    criteria = _json("evaluation/final_protocol/success_criteria.json")
+    retired_ids = {c["id"] for c in criteria["retired_criteria"]}
+    active_ids = ({c["id"] for c in criteria["hard_criteria"]}
+                  | {c["id"] for c in criteria["heldout_specific_criteria"]})
+    reused = sorted(retired_ids & active_ids)
+    policy = criteria.get("criteria_identifier_policy", {})
+    declared = policy.get("principle") == "SUCCESS CRITERION IDs ARE STABLE AUDIT IDENTIFIERS"
+    check("retired_ids_not_reused", not reused and declared,
+          f"riusati={reused or 'nessuno'}, politica dichiarata={declared}")
+
+
 def check_heldout_counts_unchanged() -> None:
     """Il refactor non deve aver toccato i corpora held-out."""
     arch = _json("evaluation/final_protocol/heldout/architectural_challenge_cases.json")
@@ -695,6 +760,8 @@ def main() -> int:
     check_no_primary_live_vs_replay_table()
     check_canonical_and_historical_schemas()
     check_hard_criteria_realigned()
+    check_criterion_ids_are_stable()
+    check_retired_ids_not_reused()
     check_heldout_counts_unchanged()
     check_heldout_bundle_seal_unchanged()
     check_reliability_ids_stable()
