@@ -68,7 +68,7 @@ verificare che nessuno scenario fosse già contaminato, **mai** per scegliere.
 
 | # | Scenario | Istanza vincolata | Eleggibili | Fonte |
 |---|---|---|---|---|
-| A | `cache_hit` | `nct:NCT02624973` · caso `GCA-0000b1703877453334da0001` | 40 | corpus congelato |
+| A | `cache_hit` | `pmid:15705718` · caso `GCA-0000980ba01970f893f8e4d7` | 17 | PubMed abstract nel corpus congelato |
 | B | `cache_miss_success` | `pmid:24088390` → `pmcid:PMC4157820` · caso `GCA-0101aa9c8f708d6f8dd74be0` | 1 | `cache_miss_results.jsonl` |
 | C | `pmid_only_to_pmcid` | `pmid:24088390` → `PMC4157820` | 1 | `pmc_resolution_results.jsonl` |
 | D | `pmc_fulltext` | `pmcid:PMC4157820` | 1 | `pmc_resolution_results.jsonl` |
@@ -80,21 +80,53 @@ verificare che nessuno scenario fosse già contaminato, **mai** per scegliere.
 
 ### Due decisioni che hanno richiesto approvazione umana
 
-**A01-D1 — scenario A.** La regola di selezione conteneva un conflitto interno:
-l'artefatto storico indica `pmcid:PMC4157820`, che **non appartiene** ai 43
-documenti congelati. Il contratto di cache pretende però `fetch_count = 0`, e
-un documento fuori dalla baseline non è seminabile senza una fetch — che
-renderebbe l'osservabile impossibile. Prevale l'appartenenza al corpus
-congelato: A si vincola al primo dei 40 documenti seminabili in ordine
-lessicografico. Approvato da Paolo Pangallo il 2026-08-10.
+**A01-D1 — scenario A.** La human review ha ristretto la classe sorgente a
+PubMed abstract. Dai 43 documenti autorizzati sono stati filtrati quelli
+`EXPECTED_AVAILABLE` con source/document type PubMed abstract, payload presente,
+parser-readable e testo utilizzabile. I 17 `document_id` eleggibili sono stati
+ordinati lessicograficamente e l'indice 0 è `pmid:15705718`. Il risultato non è
+stato hardcodificato prima dell'applicazione della regola. La proprietà resta
+`CACHE HIT`: target presente nella cache effimera prima della run,
+`network_fetch_count = 0`, risoluzione riuscita e prosecuzione normale ammessa.
 
-**A01-D2 — scenari H e I.** L'istruzione era di promuovere una fixture
-preesistente. Non ne esiste alcuna: `PARSER_FAILED` e
-`SOURCEUNIT_SELECTION_FAILED` sono implementati e raggiungibili nel runtime, ma
-nessun test, probe o artefatto li esercitava. Le fixture sono quindi **derivate
-dalle definizioni già congelate** in `failure_taxonomy.json` — non da un
-comportamento osservato — e sono dichiarate **nuove**, non promosse. Approvato
-da Paolo Pangallo il 2026-08-10.
+**A01-D2 — scenari H e I.** H resta invariato. Per I, la human review ha
+richiesto una reachability analysis statica prima di accettare la fixture. Al
+runtime `3d2251f`, `SOURCEUNIT_SELECTION_FAILED` è
+`NATURALLY_REACHABLE_FROM_INPUT_STATE`: `select()` conserva solo unità con
+`score_total > min_score` (default `0.0`); il live adapter non seleziona il paper
+quando `selected_source_unit_ids` è vuoto; `run_case()` imposta
+`selection_failed` se l'associazione ha `available_bundles` ma nessun
+`selected_papers`, quindi termina lo stage 8 con il reason code. La fixture I
+dichiara candidate, record resolved, bundle disponibile e una SourceUnit con
+testo non vuoto ma score totale esattamente zero. Deriva dalla branch condition,
+non da un output osservato.
+
+### Reachability statica dello scenario I
+
+- **FILE / FUNCTION:** `backend/research_pipeline/orchestrator.py::run_case`.
+- **LINE / BRANCH:** righe 686-687 e 770-779 al runtime congelato; il ramo
+  upstream del selector è in `experimental/sourceunit_selector.py::select`,
+  righe 414-447, e il live adapter in
+  `retrieval/live_sourceunit_selection.py::select_live_papers_for_association`,
+  righe 18-113.
+- **BOOLEAN CONDITION:** `canonical and association.get("available_bundles")
+  and not selection.get("selected_papers")`; dopo il loop,
+  `canonical and selection_failed`.
+- **INPUT STATE REQUIRED:** un record resolved coerente con candidate e
+  documento; almeno una SourceUnit con testo; tutte le unità hanno
+  `score_total <= 0.0`; `selected_source_unit_ids = []`; available bundle
+  presente.
+- **UPSTREAM PRECONDITIONS:** stage 6 risolto; stage 7 non prende
+  `PARSER_FAILED`; provenance candidate/document coerente; nessun token o feature
+  della candidate compare nel testo della fixture.
+- **DOWNSTREAM EFFECT:** stage 8 `FAILED`, finalizzazione
+  `SOURCEUNIT_SELECTION_FAILED`, nessuna chiamata agli stage 9, 10, 13 e 14.
+
+L'evidenza congelata `SOURCEUNIT_SELECTOR_INDEPENDENT_20` separa esplicitamente
+la rilevanza gold dalla selezione: gli 11 casi zero-direct hanno comunque una
+selezione in 11/11. Quindi zero-direct non implica selector failure. La fixture
+I non usa la sola "non pertinenza" come giustificazione: richiede il predicato
+reale `score_total > 0.0` falso per ogni SourceUnit.
 
 ## Inizializzazione isolata della cache
 
@@ -119,6 +151,12 @@ e la cache reale non è stata toccata.
 
 I nove scenari sono **OPERATIONAL CONFORMANCE / PROPERTY TESTS**: verifiche
 pre-specificate di capacità e semantica di fallimento del runtime.
+
+B and F intentionally reuse the same document identity under isolated cache
+states because they test different operational properties.
+
+Operational scenarios are property tests and must not be interpreted as
+statistically independent observations.
 
 Non sono, e non vanno presentati come: stima non distorta di prestazione
 clinica, benchmark di generalizzazione, campione di accuratezza clinica.

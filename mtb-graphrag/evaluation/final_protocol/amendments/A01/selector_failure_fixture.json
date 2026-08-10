@@ -14,52 +14,87 @@
     "observable": "reason_codes contiene SOURCEUNIT_SELECTION_FAILED",
     "counts_as_failure": true
   },
-  "derivation_note": "Come per H, nessuna fixture preesistente esercitava SOURCEUNIT_SELECTION_FAILED. La fixture e' derivata dalla definizione congelata - 'il selector non restituisce alcun ID pur essendoci SourceUnit con testo' - e non da un ranking osservato. Le unita' hanno testo reale ma nessuna attinenza con la candidate: e' la condizione che il codice del reason code descrive, non una costruita per ottenere un esito.",
-  "fixture_payload_kind": "SourceUnit con testo, tutte non pertinenti alla candidate",
+  "derivation_note": "La fixture deriva dall'ispezione statica del runtime 3d2251f. Con min_score=0.0 il selector include solo unita' con score_total > 0; SourceUnit non vuote senza alcun token della query hanno score lessicale e bonus di feature pari a zero, quindi selected_source_unit_ids resta vuoto. Il live adapter esclude il documento e run_case produce SOURCEUNIT_SELECTION_FAILED quando l'associazione conserva available_bundles ma selected_papers e' vuoto. Nessun output del selector e' stato eseguito o osservato per scegliere questa fixture.",
+  "reachability_analysis": {
+    "classification": "NATURALLY_REACHABLE_FROM_INPUT_STATE",
+    "source_file": "backend/research_pipeline/orchestrator.py",
+    "function": "run_case",
+    "line_branch": "686-687 set selection_failed; 770-779 emit and finalize SOURCEUNIT_SELECTION_FAILED (runtime 3d2251f)",
+    "boolean_condition": "canonical and association.get('available_bundles') and not selection.get('selected_papers'); after the loop: canonical and selection_failed",
+    "selector_source": "backend/research_pipeline/experimental/sourceunit_selector.py::select lines 414-447",
+    "selector_condition": "eligible = [u for u in ranked if u.score_total > min_score], with default min_score = 0.0; selected_source_unit_ids is empty when every score_total <= 0.0",
+    "live_adapter_source": "backend/research_pipeline/retrieval/live_sourceunit_selection.py::select_live_papers_for_association lines 18-113",
+    "input_state_required": "canonical mode; an association with at least one available_bundle; a matching resolved document record; at least one SourceUnit for that document with non-empty text; every unit has score_total = 0.0; selected_papers is empty",
+    "upstream_preconditions": [
+      "stage_6 resolves the fixture document and preserves candidate_id/document_id provenance",
+      "stage_7 materializes at least one SourceUnit with non-empty text, so PARSER_FAILED is not taken",
+      "SourceUnit document_id matches the resolved record",
+      "candidate query terms have no token overlap or feature match with any fixture SourceUnit",
+      "association.available_bundles is non-empty"
+    ],
+    "downstream_effect": "stage_8_paper_selection is FAILED with SOURCEUNIT_SELECTION_FAILED; run_case finalizes FAILED and stages 9, 10, 13 and 14 are not invoked",
+    "final_result_used_for_fixture_selection": false
+  },
+  "zero_direct_distinction": {
+    "source": "evaluation/sourceunit_selector_independent/final_scorecard.json",
+    "zero_direct_cases": 11,
+    "selected_in_zero_direct_cases": 11,
+    "zero_direct_implies_selector_failure": false,
+    "explanation": "Zero-direct e' un'etichetta gold di rilevanza. Il selector applica invece score lessicale e feature match: nei casi congelati zero-direct ha selezionato 11/11. Il fallimento richiede selected_source_unit_ids vuoto, non la sola assenza di unita' gold direttamente rilevanti."
+  },
+  "fixture_payload_kind": "Stage-8 deterministic input with non-empty SourceUnits whose score_total is exactly 0.0",
+  "input_state": {
+    "candidate": {
+      "candidate_id": "FIX-SELECTOR-CANDIDATE-01",
+      "disease": [
+        {"label": "Chronic Myeloid Leukemia"}
+      ],
+      "biomarkers": [
+        {"label": "ABL1", "type": "Gene"},
+        {"label": "V299L", "type": "Variant"}
+      ],
+      "interventions": [
+        {"label": "DASATINIB"}
+      ],
+      "predicate": "associated_with_resistance_to"
+    },
+    "association": {
+      "candidate_id": "FIX-SELECTOR-CANDIDATE-01",
+      "available_bundles": [
+        {
+          "bundle_id": "FIX-SELECTOR-BUNDLE-01",
+          "document_id": "pmcid:PMC0000002"
+        }
+      ]
+    },
+    "resolution_record": {
+      "candidate_id": "FIX-SELECTOR-CANDIDATE-01",
+      "bundle_id": "FIX-SELECTOR-BUNDLE-01",
+      "document_id": "pmcid:PMC0000002",
+      "resolved": true,
+      "full_text_available": true
+    },
+    "required_sourceunits": 1,
+    "required_text_state": "AT_LEAST_ONE_NONEMPTY_SOURCEUNIT; all unit texts have zero overlap with the candidate query terms",
+    "paper_selection_state": "available_bundles non-empty; resolved record present; selected_papers empty"
+  },
   "fixture_payload": [
     {
       "source_unit_id": "FIX-SEL-SU-1",
       "document_id": "pmcid:PMC0000002",
       "unit_type": "FULLTEXT_PARAGRAPH",
       "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 1."
-    },
-    {
-      "source_unit_id": "FIX-SEL-SU-2",
-      "document_id": "pmcid:PMC0000002",
-      "unit_type": "FULLTEXT_PARAGRAPH",
-      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 2."
-    },
-    {
-      "source_unit_id": "FIX-SEL-SU-3",
-      "document_id": "pmcid:PMC0000002",
-      "unit_type": "FULLTEXT_PARAGRAPH",
-      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 3."
-    },
-    {
-      "source_unit_id": "FIX-SEL-SU-4",
-      "document_id": "pmcid:PMC0000002",
-      "unit_type": "FULLTEXT_PARAGRAPH",
-      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 4."
-    },
-    {
-      "source_unit_id": "FIX-SEL-SU-5",
-      "document_id": "pmcid:PMC0000002",
-      "unit_type": "FULLTEXT_PARAGRAPH",
-      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 5."
-    },
-    {
-      "source_unit_id": "FIX-SEL-SU-6",
-      "document_id": "pmcid:PMC0000002",
-      "unit_type": "FULLTEXT_PARAGRAPH",
-      "text": "Laboratory staffing rotations and specimen handling logistics for the institutional biobank, paragraph 6."
     }
   ],
-  "fixture_sha256": "cd41ecf9d3daf1267b1042e38d16ce43b21fbf9781844e87fd9cc4e79d8b656c",
+  "fixture_sha256": "1d2eed05ca597ddf74deaedd604d5cfca4b51e142c5d5f7c95fb50b21d3f8b26",
   "seeded_as": {
     "document_id": "pmcid:PMC0000002",
     "availability": "PMC_XML_AVAILABLE",
-    "note": "Il documento e' risolto e parsato: il fallimento e' della selezione, non del parser."
+    "note": "Il documento e' resolved e la SourceUnit ha testo non vuoto: il fallimento e' della soglia score_total > 0, non del parser."
   },
+  "expected_selector_status": "NO_RELEVANT_SOURCE_UNIT",
+  "expected_selected_ids": [],
+  "expected_selected_papers": [],
   "expected_stage": "stage_8_paper_selection",
   "expected_reason_code": "SOURCEUNIT_SELECTION_FAILED",
   "expected_architectural_label": "PIPELINE_ABORT",
