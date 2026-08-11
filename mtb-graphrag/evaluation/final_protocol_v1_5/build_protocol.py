@@ -52,7 +52,8 @@ def main():
     }
     projection_sha = digest(projection)
     corpus_identity = {
-        "candidate_corpus_commit": "5a2012f6aa3780059ad6e1585ee8424b65d7503e",
+        "candidate_corpus_source_commit": "5a2012f6aa3780059ad6e1585ee8424b65d7503e",
+        "candidate_corpus_integration_commit": "b637223c4001c73c2dd084e316fdb5274e533d55",
         "hostile_corpus_sha256": "f586f6ea394a41107c643eb2a234747566f2115647b6aec203ef498d8673059c",
         "controls_corpus_sha256": "d2dc257e2dbf67a979fb933e1dd12c38a5bc48f0a9fe51eba08330dda3047ca9",
         "authority_mapping_sha256": "fd627471c6110bc873d47b73087985878c511b6d228bd28ff3d2ccb3c4be174b",
@@ -95,7 +96,8 @@ def main():
         "parent_protocol_version": "1.4",
         "parent_protocol_freeze_commit": "87b61df186b16de94834b9365fb6de334b034a84",
         "parent_protocol_sha256": "6aa8927e47181dc5b5b4fbf8e6390372f5de9e26d47a3a3bf86e7bd6f25aea3e",
-        "candidate_corpus_commit": corpus_identity["candidate_corpus_commit"],
+        "candidate_corpus_source_commit": corpus_identity["candidate_corpus_source_commit"],
+        "candidate_corpus_integration_commit": corpus_identity["candidate_corpus_integration_commit"],
         "runtime_sha256": "79867435acd59b830dae1d0fbab272c2bea2427b",
         "G01_artifact_sha256": digest(g01),
         "hostile_corpus_sha256": corpus_identity["hostile_corpus_sha256"],
