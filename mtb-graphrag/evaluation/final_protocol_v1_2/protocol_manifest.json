@@ -1,9 +1,35 @@
 {
   "protocol_id": "mtb-graphrag-final-evaluation/1.2",
   "protocol_version": "1.2",
-  "status": "DRAFT_FOR_HUMAN_REVIEW",
-  "review_status": "DRAFT_FOR_HUMAN_REVIEW",
-  "frozen": false,
+  "status": "ACCEPTED",
+  "review_status": "ACCEPTED",
+  "frozen": true,
+  "freeze_timestamp": "2026-08-11T08:30:13.2297262Z",
+  "freeze_scope": "FINAL_EVALUATION_PROTOCOL_1_2_FINAL_FREEZE",
+  "human_review": {
+    "reviewer": "Paolo Pangallo",
+    "review_date": "2026-08-11",
+    "review_verdict": "ACCEPTED",
+    "decision_set": {
+      "D02": "APPROVED",
+      "D03": "APPROVED",
+      "D04": "APPROVED",
+      "D05": "APPROVED",
+      "D06": "APPROVED",
+      "D07": "APPROVED",
+      "D08": "APPROVED",
+      "D09": "APPROVED",
+      "D10": "APPROVED",
+      "D11": "APPROVED",
+      "D12": "APPROVED",
+      "D13": "APPROVED",
+      "D14": "APPROVED",
+      "D15": "APPROVED",
+      "D16": "APPROVED"
+    }
+  },
+  "final_results_observed_before_protocol_1_2_freeze": false,
+  "final_runs_executed_before_protocol_1_2_freeze": false,
   "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
   "final_results_observed_before_v1_2": false,
   "final_runs_executed_before_v1_2": false,
@@ -57,7 +83,22 @@
   ],
   "post_freeze_policy": {
     "silent_changes_forbidden": true,
-    "change_requires": "NEW_PROTOCOL_VERSION_OR_EXPLICIT_AMENDMENT"
+    "change_requires": "NEW_PROTOCOL_VERSION_OR_EXPLICIT_AMENDMENT",
+    "protected_normative_fields": [
+      "metric_definitions",
+      "denominators",
+      "success_criteria",
+      "result_schemas",
+      "ablation_contract",
+      "reliability_contract",
+      "retry_policy",
+      "statistical_plan",
+      "latency_contract",
+      "execution_identifiers",
+      "dataset_registry",
+      "raw_lifecycle",
+      "lineage"
+    ]
   },
   "decision_resolution_map": {
     "D02": "metric_registry.json#/RQ1",

@@ -176,8 +176,12 @@ def validate() -> CheckResults:
 
     results.add("protocol version", manifest.get("protocol_version") == "1.2", str(manifest.get("protocol_version")))
     results.add("protocol ID", manifest.get("protocol_id") == "mtb-graphrag-final-evaluation/1.2", str(manifest.get("protocol_id")))
-    results.add("draft status", manifest.get("status") == manifest.get("review_status") == "DRAFT_FOR_HUMAN_REVIEW", str(manifest.get("review_status")))
-    results.add("not frozen", manifest.get("frozen") is False, str(manifest.get("frozen")))
+    results.add("accepted status", manifest.get("status") == manifest.get("review_status") == "ACCEPTED", str(manifest.get("review_status")))
+    results.add("frozen", manifest.get("frozen") is True and isinstance(manifest.get("freeze_timestamp"), str) and manifest.get("freeze_scope") == "FINAL_EVALUATION_PROTOCOL_1_2_FINAL_FREEZE", str(manifest.get("frozen")))
+    review = manifest.get("human_review", {})
+    decisions = review.get("decision_set", {})
+    results.add("human review", review.get("reviewer") == "Paolo Pangallo" and review.get("review_date") == "2026-08-11" and review.get("review_verdict") == "ACCEPTED" and decisions == {f"D{i:02d}": "APPROVED" for i in range(2, 17)}, "ACCEPTED D02-D16")
+    results.add("freeze boundary", manifest.get("final_results_observed_before_protocol_1_2_freeze") is False and manifest.get("final_runs_executed_before_protocol_1_2_freeze") is False, "false/false")
     results.add("runtime identity", manifest.get("runtime_commit") == RUNTIME, str(manifest.get("runtime_commit")))
     results.add("no pre-v1.2 results", manifest.get("final_results_observed_before_v1_2") is False and manifest.get("final_runs_executed_before_v1_2") is False, "false/false")
     results.add("normative file set", tuple(manifest.get("normative_files", ())) == NORMATIVE_FILES, str(manifest.get("normative_files")))
@@ -277,7 +281,7 @@ def validate() -> CheckResults:
     }
     results.add("seal ancestor identities", seal.get("ancestor_identities") == expected_ancestors, "all exact")
     results.add("protocol 1.2 seal", seal.get("protocol_1_2_sha256") == protocol_digest, protocol_digest)
-    results.add("seal state", seal.get("protocol_id") == "mtb-graphrag-final-evaluation/1.2" and seal.get("protocol_version") == "1.2" and seal.get("review_status") == "DRAFT_FOR_HUMAN_REVIEW" and seal.get("frozen") is False, "draft/unfrozen")
+    results.add("seal state", seal.get("protocol_id") == "mtb-graphrag-final-evaluation/1.2" and seal.get("protocol_version") == "1.2" and seal.get("review_status") == "ACCEPTED" and seal.get("frozen") is True and seal.get("freeze_timestamp") == manifest.get("freeze_timestamp"), "accepted/frozen")
     return results
 
 
