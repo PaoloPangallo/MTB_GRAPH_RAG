@@ -20,7 +20,8 @@ def main() -> int:
     checks = []
     def add(name, ok): checks.append((name, bool(ok)))
     add("protocol version", m.get("protocol_version") == "1.4")
-    add("pending unfrozen review", m.get("review_status") == "PENDING_REVIEW" and m.get("frozen") is False)
+    add("accepted frozen review", m.get("review_status") == "ACCEPTED" and m.get("status") == "ACCEPTED" and m.get("frozen") is True and isinstance(m.get("freeze_timestamp"), str) and m.get("freeze_scope") == "FINAL_EVALUATION_PROTOCOL_1_4_FINAL_FREEZE")
+    add("human review record", m.get("human_review") == {"reviewer":"Paolo Pangallo","review_date":"2026-08-11","review_verdict":"ACCEPTED","review_scope":"FINAL_EVALUATION_PROTOCOL_1_4_RUNTIME_INTERFACE_AMENDMENT"})
     add("parent 1.3 exact", m.get("parent_protocol_sha256") == P13 and l.get("parent_protocol_sha256") == P13 and p13.get("protocol_1_3_sha256") == P13)
     add("runtime lineage", l.get("runtime_previous") == OLD_RUNTIME and l.get("runtime_current") == NEW_RUNTIME and f.get("runtime_identity") == {"previous": OLD_RUNTIME, "current": NEW_RUNTIME})
     add("ancestor lineage", l.get("A01_sha256") == A01 and l.get("S01_package_sha256") == S01 and l.get("protocol_1_1_sha256") == "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889")
