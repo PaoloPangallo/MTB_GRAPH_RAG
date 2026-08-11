@@ -33,9 +33,30 @@ models, or network.
 
 ## Start boundary
 
-The actual execution command is intentionally not enabled by these dry-run
-entry points. A future explicit start command must create
-`evaluation/final_evaluation/` only at execution start.
+The start boundary is explicit and non-interactive. All four confirmations
+are required; the gate remains disarmed otherwise:
+
+```powershell
+python -m evaluation.final_evaluation_harness.start `
+  --arm `
+  --confirm-evaluation-id <FINAL_EVALUATION_ID> `
+  --confirm-plan-sha 131921296897f7aa07498c02578ad82b95a4acb718d77e2eb0653c0f38bb5e29 `
+  --confirm-start FINAL_EVALUATION_1_3
+```
+
+Resume uses the same confirmations plus `--resume`:
+
+```powershell
+python -m evaluation.final_evaluation_harness.start `
+  --resume --arm `
+  --confirm-evaluation-id <FINAL_EVALUATION_ID> `
+  --confirm-plan-sha 131921296897f7aa07498c02578ad82b95a4acb718d77e2eb0653c0f38bb5e29 `
+  --confirm-start FINAL_EVALUATION_1_3
+```
+
+The actual execution command is not run in this phase. PRE/POST provider
+metadata snapshots, append-only campaign lifecycle, plan sealing and resume
+reconciliation are enforced at the future boundary.
 
 **START FINAL EVALUATION creates the immutable final result corpus. After this
 command no protocol or harness semantic changes are permitted.**

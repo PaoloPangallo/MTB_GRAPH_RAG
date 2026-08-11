@@ -10,8 +10,12 @@ class ExecutionDisarmed(RuntimeError):
 class ExecutionGate:
     status = "DISARMED"
 
+    def arm(self) -> None:
+        self.status = "ARMED"
+
     def require_armed(self) -> None:
-        raise ExecutionDisarmed("final evaluation execution gate is DISARMED")
+        if self.status != "ARMED":
+            raise ExecutionDisarmed("final evaluation execution gate is DISARMED")
 
     def dry_run_allowed(self) -> bool:
         return True
