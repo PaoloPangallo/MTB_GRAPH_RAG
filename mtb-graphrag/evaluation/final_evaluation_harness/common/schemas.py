@@ -12,7 +12,7 @@ def validate_envelope(protocol: Any, envelope: dict[str, Any]) -> None:
     missing = [field for field in required if field not in envelope]
     if missing:
         raise ValueError(f"missing envelope fields: {missing}")
-    if envelope["normative_identity"]["protocol_version"] != "1.3":
+    if envelope["normative_identity"]["protocol_version"] != protocol.manifest["protocol_version"]:
         raise ValueError("envelope protocol version mismatch")
     identity = envelope["identity"]
     for field in protocol.schemas["common_execution_envelope"]["identity_required"]:
@@ -31,11 +31,11 @@ def build_envelope(protocol: Any, identity: dict[str, Any], *, dataset_hashes: d
                    counts: CallCounts, raw_payload_path: str | None, raw_payload_sha256: str | None,
                    scientific_payload: dict[str, Any]) -> dict[str, Any]:
     envelope = {
-        "schema_version": "final-evaluation-results/1.3",
+        "schema_version": f"final-evaluation-results/{protocol.manifest['protocol_version']}",
         "identity": identity,
         "normative_identity": {
             **protocol.hashes,
-            "protocol_version": "1.3",
+            "protocol_version": protocol.manifest["protocol_version"],
             "harness_commit": identity.get("harness_commit"),
         },
         "reproducibility_class": "REMOTE_PROVIDER_CONFIG_REPRODUCIBILITY",
