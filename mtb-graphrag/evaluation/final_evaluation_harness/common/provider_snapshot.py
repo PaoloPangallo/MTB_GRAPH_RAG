@@ -6,6 +6,13 @@ from datetime import datetime, timezone
 IDENTITY_FIELDS=('model_alias','family','parameter_size','quantization','context_length')
 class ProviderMetadataMismatch(RuntimeError): pass
 
+def _sanitize(value):
+    if isinstance(value, dict):
+        return {k: _sanitize(v) for k, v in value.items() if not any(token in str(k).lower() for token in ("secret", "token", "authorization", "api_key"))}
+    if isinstance(value, list):
+        return [_sanitize(item) for item in value]
+    return value
+
 def collect_snapshot(metadata_request, model_alias: str, *, endpoint: str='/api/show', timestamp: str|None=None) -> dict:
     """Collect metadata through an injected metadata-only request callable."""
     raw = metadata_request(model_alias)
@@ -14,6 +21,7 @@ def collect_snapshot(metadata_request, model_alias: str, *, endpoint: str='/api/
     return parse_metadata(model_alias, raw, endpoint=endpoint, timestamp=timestamp)
 
 def parse_metadata(model_alias: str, raw: dict, *, endpoint: str='/api/show', timestamp: str|None=None) -> dict:
+    raw = _sanitize(raw)
     details=raw.get('details') or {}; info=raw.get('model_info') or {}
     parsed={'model_alias':model_alias,'family':details.get('family'),'parameter_size':details.get('parameter_size'),'quantization':details.get('quantization_level'),'context_length':info.get('gemma4.context_length'),'modified_at':raw.get('modified_at')}
     payload=json.dumps(raw,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()
