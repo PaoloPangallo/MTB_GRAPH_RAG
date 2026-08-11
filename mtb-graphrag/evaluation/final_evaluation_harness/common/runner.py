@@ -49,7 +49,7 @@ def _metadata(kind: str, testbed: str, arm: str, protocol: Protocol) -> dict[str
     is_latency = kind == "latency"
     if kind == "rq1": execution_class = "DETERMINISTIC_ONLY"
     elif is_rq2: execution_class = "SELECTOR_PLUS_GEMMA" if arm in ("GOLD", "DETERMINISTIC_SELECTOR") else "SELECTOR_ONLY"
-    elif is_narrative: execution_class = "NARRATOR_PIPELINE"
+    elif is_narrative: execution_class = "NARRATIVE_HOSTILE_VERIFIER" if testbed == "NARRATIVE_HELDOUT_20" else "NARRATIVE_CONTROL"
     elif is_latency: execution_class = "LATENCY_PAIR"
     elif is_operational and arm == "PROPERTY_TEST" and testbed.endswith(("H_parser_failure_fixture", "I_selector_failure_fixture")): execution_class = "CONTROLLED_FAILURE_FIXTURE"
     elif is_operational: execution_class = "OPERATIONAL_RUNTIME_NETWORK_ALLOWED"
@@ -58,7 +58,7 @@ def _metadata(kind: str, testbed: str, arm: str, protocol: Protocol) -> dict[str
     parser = "REQUIRED" if is_rq4 else ("PATH_DEPENDENT" if kind in ("rq3", "reliability", "operational") else "PROHIBITED")
     selector = "REQUIRED" if (is_rq2 and arm != "GOLD") or (is_reliability and testbed == "RELIABILITY_STRATUM_B") or (kind == "rq3" and arm == "B") else "PROHIBITED"
     gemma = "REQUIRED" if (is_rq2 and arm in ("GOLD", "DETERMINISTIC_SELECTOR")) or (is_reliability and testbed == "RELIABILITY_STRATUM_B") else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
-    narrator = "REQUIRED" if is_narrative else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
+    narrator = ("PROHIBITED" if testbed == "NARRATIVE_HELDOUT_20" else "REQUIRED") if is_narrative else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
     quote = "REQUIRED" if (is_rq2 and arm in ("GOLD", "DETERMINISTIC_SELECTOR")) or (is_reliability and testbed == "RELIABILITY_STRATUM_B") else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
     verifier = "REQUIRED" if is_narrative else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
     if is_rq2 or (is_reliability and testbed == "RELIABILITY_STRATUM_B"): network_policy, network_expectation, cache = "PROHIBITED", "NONE", "NO_DOCUMENT_CACHE"
@@ -73,7 +73,7 @@ def _metadata(kind: str, testbed: str, arm: str, protocol: Protocol) -> dict[str
     elif is_rq4: hashes = {"dataset_bundle_sha256": protocol.datasets["dataset_hashes"]["dataset_bundle_sha256"], "rq4_development": protocol.datasets["dataset_hashes"]["rq4_development"], "heldout_architectural": protocol.datasets["dataset_hashes"]["heldout_architectural"], "heldout_bundle": protocol.datasets["dataset_hashes"]["heldout_bundle"]}
     elif is_narrative: hashes = {"dataset_bundle_sha256": protocol.datasets["dataset_hashes"]["dataset_bundle_sha256"], "narrative_heldout": protocol.datasets["dataset_hashes"]["narrative_heldout"], "narrative_controls": protocol.datasets["dataset_hashes"]["narrative_controls"], "heldout_bundle": protocol.datasets["dataset_hashes"]["heldout_bundle"]}
     else: hashes = {"dataset_bundle_sha256": protocol.datasets["dataset_hashes"]["dataset_bundle_sha256"], "operational_corpus": protocol.datasets["dataset_hashes"]["operational_corpus"], "operational_manifest": protocol.datasets["dataset_hashes"]["operational_manifest"]}
-    gold = "PROHIBITED" if is_rq4 else ("ALLOWED_POST_INFERENCE_ONLY" if is_narrative else "NOT_APPLICABLE")
+    gold = "ALLOWED_POST_INFERENCE_ONLY" if is_rq4 or is_narrative else "NOT_APPLICABLE"
     return locals()
 
 
@@ -105,9 +105,10 @@ def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:
         heldout = json.loads((protocol.root.parent / "final_protocol" / "heldout" / "architectural_challenge_cases.json").read_text(encoding="utf-8"))["cases"]
         specs = [("CASECONTEXT_ROBUSTNESS_35", "RQ4_DEVELOPMENT", dev, ["CANONICAL"]), ("HELDOUT_ARCHITECTURAL_35", "RQ4_HELDOUT", [item["case_id"] for item in heldout], ["CANONICAL"])]
     elif kind == "narrative":
-        hostile = json.loads((protocol.root.parent / "final_protocol" / "heldout" / "narrative_heldout_cases.json").read_text(encoding="utf-8"))["cases"]
-        controls = json.loads((protocol.root.parent / "final_protocol" / "heldout" / "narrative_heldout_valid_control.json").read_text(encoding="utf-8"))["cases"]
-        specs = [("NARRATIVE_HELDOUT_20", "NARRATIVE", [item["case_id"] for item in hostile], ["CANONICAL"]), ("NARRATIVE_VALID_CONTROLS_5", "NARRATIVE", [item["case_id"] for item in controls], ["CANONICAL"])]
+        candidate_root = protocol.root.parent / "final_protocol_v1_5_candidates" / "narrative"
+        hostile = json.loads((candidate_root / "hostile_manifest.json").read_text(encoding="utf-8"))["cases"]
+        controls = json.loads((candidate_root / "controls_manifest.json").read_text(encoding="utf-8"))["cases"]
+        specs = [("NARRATIVE_HELDOUT_20", "NARRATIVE", [item["case_id"] for item in hostile], ["HOSTILE_VERIFIER_ONLY"]), ("NARRATIVE_VALID_CONTROLS_5", "NARRATIVE", [item["case_id"] for item in controls], ["LIVE_NARRATOR_VERIFIER"])]
     elif kind == "operational":
         bindings = load_a01_bindings(protocol)
         specs = [(item["scenario_id"], "OPERATIONAL_A01", [item["scenario_id"]], ["PROPERTY_TEST"]) for item in bindings["scenarios"]]
@@ -130,7 +131,7 @@ def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:
     for index, plan in enumerate(result, 1):
         meta=_metadata(kind, plan.testbed, plan.arm, protocol)
         values=asdict(plan)
-        values.update(plan_index=index, execution_class=meta["execution_class"], canonical_runtime_requirement="REQUIRED" if meta["execution_class"] in ("CANONICAL_RUNTIME","OPERATIONAL_RUNTIME_NETWORK_ALLOWED","CONTROLLED_FAILURE_FIXTURE","LATENCY_PAIR","NARRATOR_PIPELINE") else "PROHIBITED", selector_requirement=meta["selector"], casecontext_parser_requirement=meta["parser"], gemma_requirement=meta["gemma"], narrator_requirement=meta["narrator"], quote_validator_requirement=meta["quote"], narrative_verifier_requirement=meta["verifier"], network_policy=meta["network_policy"], network_expectation=meta["network_expectation"], cache_policy=meta["cache"], dataset_hashes=meta["hashes"], gold_access=meta["gold"], terminal_expectation="PRE_SPECIFIED" if kind in ("operational","latency") else "PATH_DEPENDENT")
+        values.update(plan_index=index, execution_class=meta["execution_class"], canonical_runtime_requirement="REQUIRED" if meta["execution_class"] in ("CANONICAL_RUNTIME","OPERATIONAL_RUNTIME_NETWORK_ALLOWED","CONTROLLED_FAILURE_FIXTURE","LATENCY_PAIR") else "PROHIBITED", selector_requirement=meta["selector"], casecontext_parser_requirement=meta["parser"], gemma_requirement=meta["gemma"], narrator_requirement=meta["narrator"], quote_validator_requirement=meta["quote"], narrative_verifier_requirement=meta["verifier"], network_policy=meta["network_policy"], network_expectation=meta["network_expectation"], cache_policy=meta["cache"], dataset_hashes=meta["hashes"], gold_access=meta["gold"], terminal_expectation="PRE_SPECIFIED" if kind in ("operational","latency") else "PATH_DEPENDENT")
         enriched.append(PlannedRun(**values))
     return enriched
 

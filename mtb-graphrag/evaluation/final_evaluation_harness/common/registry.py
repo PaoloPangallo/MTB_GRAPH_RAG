@@ -41,6 +41,8 @@ class RQ3AblationDExecutor(BoundExecutor): pass
 class RQ4DevelopmentExecutor(BoundExecutor): pass
 class RQ4HeldoutExecutor(BoundExecutor): pass
 class NarrativeExecutor(BoundExecutor): pass
+class NarrativeHostileExecutor(BoundExecutor): pass
+class NarrativeControlExecutor(BoundExecutor): pass
 class OperationalExecutor(BoundExecutor): pass
 class ControlledFailureExecutor(BoundExecutor): pass
 class LatencyExecutor(BoundExecutor): pass
@@ -54,6 +56,7 @@ _EXECUTOR_TYPES = {cls.__name__: cls for cls in (
     RQ4HeldoutExecutor, NarrativeExecutor, OperationalExecutor,
     ControlledFailureExecutor, LatencyExecutor,
     ReliabilityStratumAExecutor, ReliabilityStratumBExecutor,
+    NarrativeHostileExecutor, NarrativeControlExecutor,
 )}
 
 _BINDINGS = {
@@ -93,7 +96,11 @@ class ExecutionAdapterRegistry:
         if planned_unit.rq == "RELIABILITY" and planned_unit.testbed == "RELIABILITY_STRATUM_B":
             return self._validate_requirements(planned_unit, _make("ReliabilityStratumBExecutor", key, ("selector", "gemma", "quote_validator")))
         if planned_unit.rq == "NARRATIVE":
-            return self._validate_requirements(planned_unit, _make("NarrativeExecutor", key, ("canonical_runtime", "narrator", "narrative_verifier")))
+            if key == "NARRATIVE_HOSTILE_VERIFIER":
+                return self._validate_requirements(planned_unit, _make("NarrativeHostileExecutor", key, ("narrative_verifier",)))
+            if key == "NARRATIVE_CONTROL":
+                return self._validate_requirements(planned_unit, _make("NarrativeControlExecutor", key, ("narrator", "narrative_verifier")))
+            raise AdapterBindingError("REAL_EXECUTION_ADAPTER_NOT_BOUND")
         try:
             name, adapters = _BINDINGS[key]
         except KeyError as exc:

@@ -29,14 +29,14 @@ def _env(**updates):
 
 def test_protocol_loader_accepts_frozen_v14():
     protocol = load_protocol()
-    assert protocol.manifest["protocol_version"] == "1.4"
-    assert protocol.seal["protocol_1_4_sha256"] == "6aa8927e47181dc5b5b4fbf8e6390372f5de9e26d47a3a3bf86e7bd6f25aea3e"
+    assert protocol.manifest["protocol_version"] == "1.5"
+    assert protocol.seal["protocol_sha256"] == "60b74a031688161690b34a8ed6dda7f4b36ca7323541bbd1564b0ad816fe3bdd"
     assert protocol.hashes["inherited_A01_sha256"] == "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf"
 
 
 def test_protocol_loader_uses_v14_not_parent_as_execution_source(monkeypatch):
     monkeypatch.setenv("FINAL_PROTOCOL_VERSION", "1.2")
-    assert load_protocol().manifest["protocol_version"] == "1.4"
+    assert load_protocol().manifest["protocol_version"] == "1.5"
 
 
 def test_model_identity_accepts_exact_alias_and_rejects_historical_alias():
