@@ -288,12 +288,16 @@ def run_case(
     ledger: EventLedger,
     run_id: str | None = None,
     select_papers_fn: Callable[..., dict[str, Any]] | None = None,
+    source_unit_selector_fn: Callable[..., Any] | None = None,
     validate_fn: Callable[..., dict[str, Any]] | None = None,
     retrieve_fn: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
     research_frozen_artifacts: bool = False,
     document_runtime: DocumentRuntime | None = None,
     call_narrator_fn: Callable[..., dict[str, Any]] | None = None,
     verify_narrative_fn: Callable[..., dict[str, Any]] | None = None,
+    narrative_verifier_mode: str = "CANONICAL",
+    match_verifier_fn: Callable[..., dict[str, Any]] | None = None,
+    eligibility_gate_fn: Callable[..., dict[str, Any] | None] | None = None,
 ) -> PipelineRun:
     """Esegue un caso emettendo un evento per ogni transizione di stage.
 
@@ -322,6 +326,8 @@ def run_case(
     ``retrieval_mod.retrieve`` **al momento della chiamata**, così le probe che
     sostituiscono quell'attributo continuano a intercettarlo.
     """
+    if narrative_verifier_mode != "CANONICAL" and not research_frozen_artifacts:
+        raise ValueError("narrative verifier bypass is restricted to frozen evaluation runs")
     canonical = not research_frozen_artifacts
     retrieve = retrieve_fn or retrieval_mod.retrieve
     if select_papers_fn is not None:
@@ -329,6 +335,7 @@ def run_case(
     elif canonical:
         select_papers = lambda association, units, **kw: select_live_papers_for_association(
             association, units, resolution=kw["resolution"], top_k=5,
+            selector_fn=source_unit_selector_fn,
         )
     else:
         select_papers = lambda association, units, **_: select_papers_for_association(association, units)
@@ -424,19 +431,32 @@ def run_case(
     # STAGE 3 — Match verifier (deterministico)
     p = _deterministic("casecontext_match_verifier", CASECONTEXT_VERSION)
     recorder.start("stage_3_casecontext_match", p)
-    records = verifier.verify_case_context(case_context, clinical_text)
-    essential_ok, match_warnings = verifier.essential_fields_pass(records)
+    if match_verifier_fn is None:
+        records = verifier.verify_case_context(case_context, clinical_text)
+        essential_ok, match_warnings = verifier.essential_fields_pass(records)
+        match_bypassed = False
+    else:
+        match_result = match_verifier_fn(case_context, clinical_text)
+        records = match_result["records"]
+        essential_ok = match_result["essential_fields_pass"]
+        match_warnings = match_result.get("warnings", [])
+        match_bypassed = bool(match_result.get("bypassed", True))
     preview = {"records": [r.to_dict() for r in records],
                "essential_fields_pass": essential_ok,
                "warnings": list(match_warnings)}
-    if not essential_ok:
+    if match_bypassed:
+        preview["bypassed"] = True
+        recorder.finish("stage_3_casecontext_match", p, status="SKIPPED",
+                        reason_codes=("STAGE_BYPASSED",), output_preview=preview)
+    elif not essential_ok:
         recorder.finish("stage_3_casecontext_match", p, status="WARNING",
                         domain_event=ev.CASECONTEXT_VERIFIED,
                         reason_codes=("CASECONTEXT_MISMATCH",),
                         warnings=tuple(match_warnings), output_preview=preview)
         return _finalize("STOPPED", "CASECONTEXT_MISMATCH")
-    recorder.finish("stage_3_casecontext_match", p, domain_event=ev.CASECONTEXT_VERIFIED,
-                    warnings=tuple(match_warnings), output_preview=preview)
+    else:
+        recorder.finish("stage_3_casecontext_match", p, domain_event=ev.CASECONTEXT_VERIFIED,
+                        warnings=tuple(match_warnings), output_preview=preview)
 
     # STAGE 3b — Pre-Retrieval Eligibility Gate (deterministico)
     #
@@ -446,32 +466,37 @@ def run_case(
     # istruzioni di controllo e rilevamento delle contraddizioni, e decide.
     p = _deterministic("pre_retrieval_eligibility_gate", cc_pipeline.DETERMINISTIC_CHAIN_VERSION)
     recorder.start("stage_3b_pre_retrieval_eligibility_gate", p)
-    chain = cc_pipeline.run(clinical_text, case_context, transport_ok=True)
-    eligibility = chain["eligibility"]
-    gate_preview = {
-        "eligibility_status": eligibility["eligibility_status"],
-        "eligible": eligibility["eligible"],
-        "reason_codes": eligibility["reason_codes"],
-        "verified_fields": eligibility["verified_fields"],
-        "missing_required_fields": eligibility["missing_required_fields"],
-        "rejected_mentions": eligibility["rejected_mentions"],
-        "symptom_mentions": (chain["case_context_v2"] or {}).get("symptom_mentions", []),
-        "control_instruction_spans": chain["control_instruction_spans"],
-        "contradictions": eligibility["contradictions"],
-        "scope_evidence": eligibility["scope_evidence"],
-        "forbidden_downstream_stages": eligibility["forbidden_downstream_stages"],
-        "policy_version": eligibility["policy_version"],
-        "producer": eligibility["producer"],
-    }
-    if not eligibility["eligible"]:
-        recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p, status="WARNING",
-                        reason_codes=tuple(eligibility["reason_codes"]),
+    chain = (cc_pipeline.run(clinical_text, case_context, transport_ok=True)
+             if eligibility_gate_fn is None else eligibility_gate_fn(clinical_text, case_context))
+    if chain is None:
+        recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p, status="SKIPPED",
+                        reason_codes=("STAGE_BYPASSED",), output_preview={"bypassed": True})
+    else:
+        eligibility = chain["eligibility"]
+        gate_preview = {
+            "eligibility_status": eligibility["eligibility_status"],
+            "eligible": eligibility["eligible"],
+            "reason_codes": eligibility["reason_codes"],
+            "verified_fields": eligibility["verified_fields"],
+            "missing_required_fields": eligibility["missing_required_fields"],
+            "rejected_mentions": eligibility["rejected_mentions"],
+            "symptom_mentions": (chain["case_context_v2"] or {}).get("symptom_mentions", []),
+            "control_instruction_spans": chain["control_instruction_spans"],
+            "contradictions": eligibility["contradictions"],
+            "scope_evidence": eligibility["scope_evidence"],
+            "forbidden_downstream_stages": eligibility["forbidden_downstream_stages"],
+            "policy_version": eligibility["policy_version"],
+            "producer": eligibility["producer"],
+        }
+        if not eligibility["eligible"]:
+            recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p, status="WARNING",
+                            reason_codes=tuple(eligibility["reason_codes"]),
+                            warnings=tuple(eligibility["warning_codes"]),
+                            output_preview=gate_preview)
+            return _finalize("STOPPED", eligibility["eligibility_status"])
+        recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p,
                         warnings=tuple(eligibility["warning_codes"]),
                         output_preview=gate_preview)
-        return _finalize("STOPPED", eligibility["eligibility_status"])
-    recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p,
-                    warnings=tuple(eligibility["warning_codes"]),
-                    output_preview=gate_preview)
 
     # STAGE 4-5 — Piano di retrieval e interrogazione del grafo
     p = _deterministic("retrieval_plan")
@@ -881,14 +906,18 @@ def run_case(
     # presentazione e non può modificarlo. Un fallimento qui non invalida la run
     # — attiva il fallback strutturato — perché la narrativa non è evidenza.
     _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
-                        verify_narrative_fn, canonical, replay_origin)
+                        verify_narrative_fn, canonical, replay_origin,
+                        narrative_verifier_mode)
 
     has_warning = any(stage.status == "WARNING" for stage in recorder.stages)
+    if narrative_verifier_mode == "OFFLINE_ABLATION_BYPASS":
+        has_warning = True
     return _finalize("PARTIAL" if has_warning else "COMPLETED", None, dossier_id=case_id)
 
 
 def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
-                        verify_narrative_fn, canonical, replay_origin) -> None:
+                        verify_narrative_fn, canonical, replay_origin,
+                        narrative_verifier_mode: str = "CANONICAL") -> None:
     """Stage 14 e 15. Separati dallo stage 13 in modo osservabile.
 
     L'ordine è il contratto: il dossier canonico è già stato costruito ed emesso
@@ -953,9 +982,24 @@ def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
     )
 
     # --- STAGE 15: verifica (DETERMINISTICO) --------------------------------
-    verifier = verify_narrative_fn or narrative_verifier.verify_narrative
     p = _deterministic("narrative_verifier", narrative_verifier.VERIFIER_VERSION)
     recorder.start("stage_15_narrative_verifier", p)
+    if narrative_verifier_mode == "OFFLINE_ABLATION_BYPASS":
+        result = {
+            "status": "VERIFIER_BYPASSED_FOR_OFFLINE_ABLATION",
+            "reason_codes": ["VERIFIER_BYPASSED_FOR_OFFLINE_ABLATION"],
+            "presentation": "PRESENTED_IN_OFFLINE_ABLATION",
+        }
+        verified = False
+        recorder.finish(
+            "stage_15_narrative_verifier", p, status="SKIPPED",
+            reason_codes=("VERIFIER_BYPASSED_FOR_OFFLINE_ABLATION",),
+            output_preview={"verification": result, "presentation_mode": "PRESENTED_IN_OFFLINE_ABLATION"},
+        )
+        return
+    if narrative_verifier_mode != "CANONICAL":
+        raise ValueError(f"unknown narrative_verifier_mode: {narrative_verifier_mode}")
+    verifier = verify_narrative_fn or narrative_verifier.verify_narrative
     result = verifier(dossier, narrator_input, narrative)
     verified = result["status"] == narrative_verifier.PASS
 

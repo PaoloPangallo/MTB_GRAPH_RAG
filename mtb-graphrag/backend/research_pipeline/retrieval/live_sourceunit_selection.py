@@ -6,7 +6,7 @@ recorded selection adapter in :mod:`backend.research_pipeline.replay`.
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 
 from backend.research_pipeline.experimental import SourceUnitSelectionInput, select
 
@@ -21,6 +21,7 @@ def select_live_papers_for_association(
     *,
     resolution: Any,
     top_k: int = LIVE_SELECTOR_TOP_K,
+    selector_fn: Callable[..., Any] | None = None,
 ) -> dict[str, Any]:
     """Select top-k units from every resolved document, without bundle IDs.
 
@@ -63,12 +64,10 @@ def select_live_papers_for_association(
             })
             continue
 
-        selection = select(
-            SourceUnitSelectionInput.from_candidate(
-                candidate, record.document_id, units,
-            ),
-            top_k=top_k,
+        selection_input = SourceUnitSelectionInput.from_candidate(
+            candidate, record.document_id, units,
         )
+        selection = (selector_fn or select)(selection_input, top_k=top_k)
         if not selection.selected_source_unit_ids:
             excluded.append({
                 "bundle_id": record.bundle_id,
