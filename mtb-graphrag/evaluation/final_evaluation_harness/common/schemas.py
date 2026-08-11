@@ -12,7 +12,7 @@ def validate_envelope(protocol: Any, envelope: dict[str, Any]) -> None:
     missing = [field for field in required if field not in envelope]
     if missing:
         raise ValueError(f"missing envelope fields: {missing}")
-    if envelope["normative_identity"]["protocol_version"] != "1.2":
+    if envelope["normative_identity"]["protocol_version"] != "1.3":
         raise ValueError("envelope protocol version mismatch")
     identity = envelope["identity"]
     for field in protocol.schemas["common_execution_envelope"]["identity_required"]:
@@ -31,13 +31,22 @@ def build_envelope(protocol: Any, identity: dict[str, Any], *, dataset_hashes: d
                    counts: CallCounts, raw_payload_path: str | None, raw_payload_sha256: str | None,
                    scientific_payload: dict[str, Any]) -> dict[str, Any]:
     envelope = {
-        "schema_version": "final-evaluation-results/1.2",
+        "schema_version": "final-evaluation-results/1.3",
         "identity": identity,
         "normative_identity": {
             **protocol.hashes,
-            "protocol_version": "1.2",
+            "protocol_version": "1.3",
             "harness_commit": identity.get("harness_commit"),
         },
+        "reproducibility_class": "REMOTE_PROVIDER_CONFIG_REPRODUCIBILITY",
+        "frozen_client_side": {
+            "runtime_commit": protocol.hashes["runtime_commit"],
+            "protocol_sha256": protocol.hashes["protocol_sha256"],
+            "model_alias": "gemma4:31b-cloud",
+            "endpoint": "https://ollama.com/v1/chat/completions",
+        },
+        "observable_provider_identity": {},
+        "not_pinned": ["provider_side_model_digest", "provider_side_immutable_revision", "exact_model_weights"],
         "dataset_hashes": dict(dataset_hashes),
         "model_configuration": dict(model_configuration),
         "selector_configuration": dict(selector_configuration),

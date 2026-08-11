@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 from dataclasses import asdict, dataclass
@@ -21,6 +22,59 @@ class PlannedRun:
     arm: str
     repetition_id: str
     run_id: str
+    plan_index: int = 0
+    execution_class: str = ""
+    canonical_runtime_requirement: str = ""
+    selector_requirement: str = ""
+    casecontext_parser_requirement: str = ""
+    gemma_requirement: str = ""
+    narrator_requirement: str = ""
+    quote_validator_requirement: str = ""
+    narrative_verifier_requirement: str = ""
+    network_policy: str = ""
+    network_expectation: str = ""
+    cache_policy: str = ""
+    dataset_hashes: dict[str, str] | None = None
+    gold_access: str = ""
+    terminal_expectation: str = ""
+
+
+def _metadata(kind: str, testbed: str, arm: str, protocol: Protocol) -> dict[str, Any]:
+    rq = kind.upper()
+    is_rq2 = kind == "rq2"
+    is_rq4 = kind == "rq4"
+    is_reliability = kind == "reliability"
+    is_operational = kind == "operational"
+    is_narrative = kind == "narrative"
+    is_latency = kind == "latency"
+    if kind == "rq1": execution_class = "DETERMINISTIC_ONLY"
+    elif is_rq2: execution_class = "SELECTOR_PLUS_GEMMA" if arm in ("GOLD", "DETERMINISTIC_SELECTOR") else "SELECTOR_ONLY"
+    elif is_narrative: execution_class = "NARRATOR_PIPELINE"
+    elif is_latency: execution_class = "LATENCY_PAIR"
+    elif is_operational and arm == "PROPERTY_TEST" and testbed.endswith(("H_parser_failure_fixture", "I_selector_failure_fixture")): execution_class = "CONTROLLED_FAILURE_FIXTURE"
+    elif is_operational: execution_class = "OPERATIONAL_RUNTIME_NETWORK_ALLOWED"
+    elif is_reliability and testbed == "RELIABILITY_STRATUM_B": execution_class = "SELECTOR_PLUS_GEMMA"
+    else: execution_class = "CANONICAL_RUNTIME"
+    parser = "REQUIRED" if is_rq4 else ("PATH_DEPENDENT" if kind in ("rq3", "reliability", "operational") else "PROHIBITED")
+    selector = "REQUIRED" if (is_rq2 and arm != "GOLD") or (is_reliability and testbed == "RELIABILITY_STRATUM_B") or (kind == "rq3" and arm == "B") else "PROHIBITED"
+    gemma = "REQUIRED" if (is_rq2 and arm in ("GOLD", "DETERMINISTIC_SELECTOR")) or (is_reliability and testbed == "RELIABILITY_STRATUM_B") else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
+    narrator = "REQUIRED" if is_narrative else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
+    quote = "REQUIRED" if (is_rq2 and arm in ("GOLD", "DETERMINISTIC_SELECTOR")) or (is_reliability and testbed == "RELIABILITY_STRATUM_B") else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
+    verifier = "REQUIRED" if is_narrative else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
+    if is_rq2 or (is_reliability and testbed == "RELIABILITY_STRATUM_B"): network_policy, network_expectation, cache = "PROHIBITED", "NONE", "NO_DOCUMENT_CACHE"
+    elif is_latency and arm == "LAT-HIT": network_policy, network_expectation, cache = "CANONICAL_RUNTIME_POLICY", "EXPECTED_ZERO_FETCH", "LATENCY_HIT_CACHE"
+    elif is_latency: network_policy, network_expectation, cache = "CANONICAL_RUNTIME_POLICY", "NETWORK_REQUIRED_TO_OBSERVE_PROPERTY", "LATENCY_MISS_CACHE"
+    elif is_operational and arm == "PROPERTY_TEST" and testbed == "A_cache_hit": network_policy, network_expectation, cache = "CANONICAL_RUNTIME_POLICY", "EXPECTED_ZERO_FETCH", "A01_SCENARIO_CACHE"
+    elif is_operational: network_policy, network_expectation, cache = "CANONICAL_RUNTIME_POLICY", "NETWORK_REQUIRED_TO_OBSERVE_PROPERTY", "A01_SCENARIO_CACHE"
+    elif is_reliability and testbed == "RELIABILITY_STRATUM_A": network_policy, network_expectation, cache = "CANONICAL_RUNTIME_POLICY", "PATH_DEPENDENT", "FRESH_ISOLATED_BASELINE_CACHE"
+    else: network_policy, network_expectation, cache = "PROHIBITED", "NONE", "READ_ONLY_EXISTING_DATA"
+    if is_rq2 or (is_reliability and testbed == "RELIABILITY_STRATUM_B"): hashes = {"dataset_bundle_sha256": protocol.datasets["dataset_hashes"]["dataset_bundle_sha256"], "sourceunit_selector_independent_20": protocol.datasets["dataset_hashes"]["sourceunit_selector_independent_20"], "s01_raw": protocol.datasets["dataset_hashes"]["s01_raw"], "s01_package": protocol.datasets["dataset_hashes"]["s01_package"]}
+    elif kind == "rq1": hashes = {"dataset_bundle_sha256": protocol.datasets["dataset_hashes"]["dataset_bundle_sha256"], "gca_repository_2_0_46864": protocol.datasets["dataset_hashes"]["gca_repository_2_0_46864"]}
+    elif is_rq4: hashes = {"dataset_bundle_sha256": protocol.datasets["dataset_hashes"]["dataset_bundle_sha256"], "rq4_development": protocol.datasets["dataset_hashes"]["rq4_development"], "heldout_architectural": protocol.datasets["dataset_hashes"]["heldout_architectural"], "heldout_bundle": protocol.datasets["dataset_hashes"]["heldout_bundle"]}
+    elif is_narrative: hashes = {"dataset_bundle_sha256": protocol.datasets["dataset_hashes"]["dataset_bundle_sha256"], "narrative_heldout": protocol.datasets["dataset_hashes"]["narrative_heldout"], "narrative_controls": protocol.datasets["dataset_hashes"]["narrative_controls"], "heldout_bundle": protocol.datasets["dataset_hashes"]["heldout_bundle"]}
+    else: hashes = {"dataset_bundle_sha256": protocol.datasets["dataset_hashes"]["dataset_bundle_sha256"], "operational_corpus": protocol.datasets["dataset_hashes"]["operational_corpus"], "operational_manifest": protocol.datasets["dataset_hashes"]["operational_manifest"]}
+    gold = "PROHIBITED" if is_rq4 else ("ALLOWED_POST_INFERENCE_ONLY" if is_narrative else "NOT_APPLICABLE")
+    return locals()
 
 
 def _harness_commit(protocol: Protocol) -> str:
@@ -72,7 +126,13 @@ def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:
             for arm in arms:
                 for repetition in repetitions:
                     result.append(PlannedRun(testbed, rq, case, arm, repetition, run_id(eid, testbed, case, arm, repetition)))
-    return result
+    enriched=[]
+    for index, plan in enumerate(result, 1):
+        meta=_metadata(kind, plan.testbed, plan.arm, protocol)
+        values=asdict(plan)
+        values.update(plan_index=index, execution_class=meta["execution_class"], canonical_runtime_requirement="REQUIRED" if meta["execution_class"] in ("CANONICAL_RUNTIME","OPERATIONAL_RUNTIME_NETWORK_ALLOWED","CONTROLLED_FAILURE_FIXTURE","LATENCY_PAIR","NARRATOR_PIPELINE") else "PROHIBITED", selector_requirement=meta["selector"], casecontext_parser_requirement=meta["parser"], gemma_requirement=meta["gemma"], narrator_requirement=meta["narrator"], quote_validator_requirement=meta["quote"], narrative_verifier_requirement=meta["verifier"], network_policy=meta["network_policy"], network_expectation=meta["network_expectation"], cache_policy=meta["cache"], dataset_hashes=meta["hashes"], gold_access=meta["gold"], terminal_expectation="PRE_SPECIFIED" if kind in ("operational","latency") else "PATH_DEPENDENT")
+        enriched.append(PlannedRun(**values))
+    return enriched
 
 
 def dry_run(kind: str) -> dict[str, Any]:
@@ -87,7 +147,7 @@ def dry_run(kind: str) -> dict[str, Any]:
         if len(rows) != 1697:
             raise RuntimeError("S01 count mismatch")
     return {
-        "protocol_version": "1.2",
+        "protocol_version": "1.3",
         "protocol_sha256": protocol.hashes["protocol_sha256"],
         "kind": kind,
         "planned_executions": len(plans),
@@ -95,6 +155,19 @@ def dry_run(kind: str) -> dict[str, Any]:
         "calls": {"runtime": 0, "selector": 0, "model": 0, "network": 0},
         "result_directory_created": False,
     }
+
+def execution_plan_sha256(plans: list[PlannedRun]) -> str:
+    payload=[asdict(p) for p in plans]
+    encoded=json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def build_full_plan(protocol: Protocol | None = None) -> list[PlannedRun]:
+    """Materialize the frozen top-level order with one-based global indices."""
+    protocol = protocol or load_protocol()
+    kinds = ("rq1", "rq2", "rq3", "rq4", "narrative", "operational", "reliability", "latency")
+    plans = [plan for kind in kinds for plan in build_plan(kind, protocol)]
+    return [PlannedRun(**{**asdict(plan), "plan_index": index}) for index, plan in enumerate(plans, 1)]
 
 
 def cli(kind: str) -> None:

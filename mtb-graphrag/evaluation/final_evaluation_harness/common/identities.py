@@ -1,4 +1,4 @@
-"""Deterministic Protocol 1.2 execution identifiers."""
+"""Deterministic Protocol 1.3 execution identifiers."""
 
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ def _sha(value: Any) -> str:
 def evaluation_id(protocol: Any, harness_commit: str) -> str:
     return "fe_" + _sha({
         "runtime_commit": protocol.hashes["runtime_commit"],
-        "protocol_version": "1.2",
+        "protocol_version": "1.3",
         "protocol_sha256": protocol.hashes["protocol_sha256"],
         "inherited_A01_sha256": protocol.hashes["inherited_A01_sha256"],
         "S01_package_sha256": protocol.hashes["S01_package_sha256"],
