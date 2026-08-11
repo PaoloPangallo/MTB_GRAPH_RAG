@@ -14,6 +14,14 @@ def validate_envelope(protocol: Any, envelope: dict[str, Any]) -> None:
         raise ValueError(f"missing envelope fields: {missing}")
     if envelope["normative_identity"]["protocol_version"] != "1.2":
         raise ValueError("envelope protocol version mismatch")
+    identity = envelope["identity"]
+    for field in protocol.schemas["common_execution_envelope"]["identity_required"]:
+        if not identity.get(field):
+            raise ValueError(f"missing identity field: {field}")
+    if not isinstance(envelope["dataset_hashes"], dict) or "dataset_bundle_sha256" not in envelope["dataset_hashes"]:
+        raise ValueError("dataset_hashes map is required")
+    if envelope["status"] not in {"ATTEMPT_RESERVED", "COMPLETE", "INFRASTRUCTURE_FAILED", "INCOMPLETE", "CONTROLLED_FAILURE", "SCHEMA_INVALID", "ABSTAIN"}:
+        raise ValueError("unknown envelope status")
 
 
 def build_envelope(protocol: Any, identity: dict[str, Any], *, dataset_hashes: dict[str, str],
@@ -40,7 +48,7 @@ def build_envelope(protocol: Any, identity: dict[str, Any], *, dataset_hashes: d
         "raw_reason_code": raw_reason_code,
         "input_hash": input_hash,
         "output_hash": output_hash,
-        "runtime_call_counts": {"runtime": 0},
+        "runtime_call_counts": {"runtime": counts.runtime},
         "model_call_counts": {"parser": counts.parser, "gemma": counts.gemma, "narrator": counts.narrator, "other": counts.other_model},
         "network_call_counts": {"network": counts.network},
         "raw_payload_path": raw_payload_path,

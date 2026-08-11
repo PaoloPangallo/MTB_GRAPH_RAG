@@ -101,6 +101,9 @@ def load_protocol(repo_root: Path | None = None) -> Protocol:
         raise ProtocolGap("A01 bindings artifact missing")
     if not (s01_root / "sourceunits_1697.jsonl").is_file():
         raise ProtocolGap("S01 SourceUnit artifact missing")
+    s01_seal = _load(s01_root, "supplement_hash.json")
+    if s01_seal.get("supplement_sha256") != lineage["S01"]["package_sha256"]:
+        raise ProtocolGap("S01 package SHA mismatch")
     return Protocol(
         root,
         manifest,
@@ -143,5 +146,5 @@ def load_s01_rows(protocol: Protocol) -> list[dict[str, Any]]:
 
 def validate_dataset_registry(protocol: Protocol) -> None:
     hashes = protocol.datasets.get("dataset_hashes")
-    if not isinstance(hashes, dict) or "dataset_bundle_sha256" not in hashes or len(hashes) < 19:
+    if not isinstance(hashes, dict) or "dataset_bundle_sha256" not in hashes or len(hashes) != 20:
         raise ProtocolGap("dataset hash map is incomplete")

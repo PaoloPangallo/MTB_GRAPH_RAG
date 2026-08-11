@@ -11,6 +11,7 @@ class ForbiddenOperation(RuntimeError):
 
 @dataclass
 class CallCounts:
+    runtime: int = 0
     parser: int = 0
     gemma: int = 0
     narrator: int = 0
@@ -19,6 +20,7 @@ class CallCounts:
 
     def as_dict(self) -> dict[str, int]:
         return {
+            "runtime": self.runtime,
             "casecontext_parser": self.parser,
             "gemma": self.gemma,
             "narrator": self.narrator,
@@ -34,6 +36,8 @@ class NetworkGuard:
 
     def record(self) -> None:
         self.counts.network += 1
+        if self.policy not in {"PROHIBITED", "CANONICAL_RUNTIME_POLICY"}:
+            raise ForbiddenOperation(f"unknown network policy: {self.policy}")
         if self.policy == "PROHIBITED":
             raise ForbiddenOperation("network prohibited by frozen protocol")
 
@@ -49,5 +53,7 @@ class ModelGuard:
             self.counts.narrator += 1
         elif model == "parser":
             self.counts.parser += 1
-        else:
+        elif model == "other_model":
             self.counts.other_model += 1
+        else:
+            raise ForbiddenOperation(f"unknown model category: {model}")

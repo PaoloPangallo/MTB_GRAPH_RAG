@@ -39,9 +39,13 @@ def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:
     elif kind == "rq2":
         path = protocol.root.parent / "sourceunit_selector_independent" / "candidate_inventory.jsonl"
         pairs = sorted({(json.loads(line)["candidate_id"], json.loads(line)["document_id_from_provenance"]) for line in path.read_text(encoding="utf-8").splitlines() if line})
-        specs = [("SOURCEUNIT_SELECTOR_INDEPENDENT_20", "RQ2", [f"{candidate}|{document}" for candidate, document in pairs], ["FIRST_K", "BM25", "DETERMINISTIC_SELECTOR", "GOLD"])]
+        strategies = protocol.metrics["RQ2"]["strategies"]
+        specs = [(protocol.metrics["RQ2"]["source_corpus"], "RQ2", [f"{candidate}|{document}" for candidate, document in pairs], [*strategies, "GOLD"])]
     elif kind == "rq3":
-        specs = [("RQ3_FULL_SYSTEM", "RQ3", ["FULL_SYSTEM"], ["CANONICAL", "ABLATION_A", "ABLATION_B", "ABLATION_C", "ABLATION_D"])]
+        ablations = [key for key in ("A", "B", "C", "D") if key in protocol.ablation]
+        if len(ablations) != 4:
+            raise ValueError("ablation contract is incomplete")
+        specs = [("RQ3_FULL_SYSTEM", "RQ3", ["FULL_SYSTEM"], ["CANONICAL", *ablations])]
     elif kind == "rq4":
         dev = [json.loads(line)["case_id"] for line in (protocol.root.parent / "rq4_casecontext_robustness" / "benchmark.jsonl").read_text(encoding="utf-8").splitlines() if line]
         heldout = json.loads((protocol.root.parent / "final_protocol" / "heldout" / "architectural_challenge_cases.json").read_text(encoding="utf-8"))["cases"]
@@ -57,11 +61,12 @@ def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:
         reliability = json.loads((protocol.root.parent / "final_protocol" / "reliability_subset.json").read_text(encoding="utf-8"))
         specs = [("RELIABILITY_STRATUM_A", "RELIABILITY", sorted(reliability["by_source"]["HELDOUT_ARCHITECTURAL_35"]), ["CANONICAL"]), ("RELIABILITY_STRATUM_B", "RELIABILITY", sorted(reliability["by_source"]["SOURCEUNIT_SELECTOR_INDEPENDENT_20_positive"]), ["DETERMINISTIC_SELECTOR_K5_TO_SAME_GEMMA_TO_SAME_QUOTE_VALIDATOR"])]
     elif kind == "latency":
-        specs = [("SAME-DOCUMENT CACHE LATENCY PAIR", "LATENCY", ["GCA-0000980ba01970f893f8e4d7"], ["LAT-HIT", "LAT-MISS"])]
+        pair = protocol.latency["same_document_cache_latency_pair"]
+        specs = [(pair["fixture_id"], "LATENCY", [pair["case_id"]], ["LAT-HIT", "LAT-MISS"])]
     else:
         raise ValueError(f"unknown runner: {kind}")
     result: list[PlannedRun] = []
-    repetitions = ["primary"] if kind != "reliability" else ["r01", "r02", "r03"]
+    repetitions = ["primary"] if kind != "reliability" else list(protocol.reliability["repetitions"])
     for testbed, rq, cases, arms in specs:
         for case in sorted(cases):
             for arm in arms:
