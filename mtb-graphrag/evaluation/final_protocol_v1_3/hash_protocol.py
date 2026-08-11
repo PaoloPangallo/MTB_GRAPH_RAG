@@ -21,7 +21,9 @@ def main() -> None:
     seal = {
         "protocol_id": manifest["protocol_id"], "protocol_version": "1.3",
         "protocol_1_3_sha256": digest, "normative_files": NORMATIVE_FILES,
-        "files": hashes, "review_status": manifest["review_status"], "frozen": False,
+        "files": hashes, "review_status": manifest["review_status"], "frozen": manifest["frozen"],
+        "freeze_timestamp": manifest.get("freeze_timestamp"),
+        "freeze_scope": manifest.get("freeze_scope"),
         "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
         "inherited_protocol_1_1_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
         "inherited_A01_sha256": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf",
