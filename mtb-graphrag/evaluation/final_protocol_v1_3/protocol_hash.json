@@ -1,0 +1,33 @@
+{
+  "protocol_id": "mtb-graphrag-final-evaluation/1.3",
+  "protocol_version": "1.3",
+  "protocol_1_3_sha256": "2659423c105e69d683a7ffc7d71010fd703b75f676dbd930473e6cdf168f814f",
+  "normative_files": [
+    "execution_environment_contract.json",
+    "generation_configuration.json",
+    "inherited_protocol_contract.json",
+    "lineage.json",
+    "model_identity_contract.json",
+    "provider_metadata_contract.json",
+    "protocol_manifest.json",
+    "reproducibility_contract.json"
+  ],
+  "files": {
+    "execution_environment_contract.json": "48240f270d0c268d844c6a5b18bc4471f35932036e80200b5f08d8cd93236535",
+    "generation_configuration.json": "6b6b824d8ad3914da14be6dff20304d02100c3c7ef8884a4df226993be321461",
+    "inherited_protocol_contract.json": "e5659ae6c19e98a8dc912b13623710ed877c262a332b4930872475d92e0b6cc1",
+    "lineage.json": "77ba451f50eda4efc69ac3eb42a34c2a36ce6ca0315ad1597ec502b94aa38e29",
+    "model_identity_contract.json": "4ab3941b523ccd3de53708abbe502d5e28a4371b54f4bf15d3e1760a5ae0c418",
+    "provider_metadata_contract.json": "e74e57e1bb8353ce22842a7d4b2af274dabe81fc4375d73e4d0761afd4de2a60",
+    "protocol_manifest.json": "49d0a9bdc30e1c0664d462ae3b479692ba331704daf1f2b9bc941dbedc267d10",
+    "reproducibility_contract.json": "8d97d978a79bbf65a8a337bc474bb735dd3c050f6d1a3eb3694fb09895848d95"
+  },
+  "review_status": "DRAFT_FOR_HUMAN_REVIEW",
+  "frozen": false,
+  "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+  "inherited_protocol_1_1_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+  "inherited_A01_sha256": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf",
+  "inherited_S01_raw_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+  "inherited_S01_package_sha256": "b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15",
+  "parent_protocol_1_2_sha256": "76800b10ba85836369f47973802b0df65c0221df39ad8e9eac45a5241b70e106"
+}
