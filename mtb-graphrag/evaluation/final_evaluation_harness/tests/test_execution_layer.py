@@ -7,7 +7,8 @@ from evaluation.final_evaluation_harness.common.execution import (
     ScientificExecutionResult,
 )
 from evaluation.final_evaluation_harness.common.registry import ExecutionAdapterRegistry
-from evaluation.final_evaluation_harness.common.runner import PlannedRun
+from evaluation.final_evaluation_harness.common.protocol_loader import load_protocol
+from evaluation.final_evaluation_harness.common.runner import PlannedRun, build_full_plan, build_plan
 from evaluation.final_evaluation_harness.common.production_loop import execute_sealed_plan
 from evaluation.final_evaluation_harness.common.ledger import AppendOnlyLedger
 from pathlib import Path
@@ -81,3 +82,29 @@ def test_production_loop_reserves_persists_and_completes_with_fake_context(tmp_p
     assert results[0].scientific_payload["scientific"] == "CASE"
     assert [event["event"] for event in context.ledger.events()] == ["ATTEMPT_RESERVED", "RAW_COMMITTED", "COMPLETE"]
     assert len(list((tmp_path / "raw_attempts").glob("*.json"))) == 1
+
+
+def test_production_coverage_reports_only_concrete_methods_without_execution():
+    protocol = load_protocol()
+    plan = build_full_plan(protocol)
+    from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
+    dispatcher = ProductionUnitDispatcher()
+    covered, missing = dispatcher.coverage(plan, ExecutionAdapterRegistry(protocol))
+    assert covered == 156
+    assert set(missing) == {
+        "ControlledFailureExecutor", "LatencyExecutor", "NarrativeExecutor",
+        "OperationalExecutor", "ReliabilityStratumAExecutor",
+        "ReliabilityStratumBExecutor",
+    }
+
+
+def test_rq1_and_rq2_offline_dispatch_use_frozen_local_artifacts():
+    protocol = load_protocol()
+    from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
+    dispatcher = ProductionUnitDispatcher()
+    rq1 = dispatcher._RQ1DeterministicExecutor(build_plan("rq1", protocol)[0], None)
+    assert rq1["metrics"]["eligible_paths"] == 46864
+    rq2 = build_plan("rq2", protocol)
+    first_k = dispatcher._run_rq2_offline(rq2[0], SimpleNamespace())
+    assert first_k["arm"] == "FIRST_K"
+    assert len(first_k["selected_source_unit_ids"]) == 5

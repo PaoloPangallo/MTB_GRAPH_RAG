@@ -12,11 +12,11 @@ class NarratorAdapter:
         self._on_call = on_call
         self._model_guard = model_guard
 
-    def call(self, dossier: Any, **kwargs: Any) -> Any:
+    def call(self, *args: Any, **kwargs: Any) -> Any:
         if self._model_guard is not None:
             assert_allowed = getattr(self._model_guard, "assert_allowed", None)
             if callable(assert_allowed):
                 assert_allowed("REQUIRED")
         if self._on_call:
             self._on_call("narrator")
-        return self._provider(dossier, configuration=self.configuration, **kwargs)
+        return self._provider(*args, configuration=self.configuration, **kwargs)

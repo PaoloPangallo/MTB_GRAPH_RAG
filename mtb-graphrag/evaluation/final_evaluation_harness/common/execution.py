@@ -38,6 +38,91 @@ class ProductionUnitDispatcher:
     def _RQ4HeldoutExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
         return self._run_case(unit, context, gold_access=False)
 
+    def _RQ1DeterministicExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        """Delegate RQ1 to the frozen comparator and aggregation functions."""
+        from evaluation.run_rq1 import CANDIDATES, KG_ROOT
+        from evaluation.rq1.compare import MaterializationComparator, aggregate, load_candidates
+        from evaluation.rq1.kg_source import EligiblePathBuilder, FrozenKnowledgeGraph
+        graph = FrozenKnowledgeGraph(KG_ROOT)
+        paths = EligiblePathBuilder(graph).build()
+        candidates = list(load_candidates(CANDIDATES))
+        comparison = MaterializationComparator(paths, candidates).compare()
+        return {"testbed": unit.testbed, "case_id": unit.case_id,
+                "arm": unit.arm, "comparisons": comparison,
+                "metrics": aggregate(comparison, paths, len(candidates))}
+
+    def _RQ2SelectorExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        return self._run_rq2_offline(unit, context)
+
+    def _RQ2GemmaExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        return self._run_rq2_downstream(unit, context)
+
+    def _run_rq2_data(self, unit: Any) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        from pathlib import Path
+        import json
+        root = Path(__file__).resolve().parents[3]
+        candidates_path = root / "evaluation" / "sourceunit_selector_independent" / "candidate_inventory.jsonl"
+        rows_path = root / "evaluation" / "final_protocol" / "supplements" / "S01" / "sourceunits_1697.jsonl"
+        candidate_id, document_id = unit.case_id.split("|", 1)
+        candidate = next(json.loads(line) for line in candidates_path.read_text(encoding="utf-8").splitlines()
+                         if line and json.loads(line).get("candidate_id") == candidate_id)
+        units = [json.loads(line) for line in rows_path.read_text(encoding="utf-8").splitlines()
+                 if line and json.loads(line).get("candidate_id") == candidate_id
+                 and json.loads(line).get("document_id") == document_id]
+        if not units:
+            raise RuntimeError(f"REAL_EXECUTION_INPUT_NOT_RESOLVED:{unit.case_id}")
+        return candidate, units
+
+    def _run_rq2_offline(self, unit: Any, context: "RealExecutionContext") -> Any:
+        from backend.research_pipeline.experimental.sourceunit_selector import (
+            SourceUnitSelectionInput, select_bm25, select_first_k,
+        )
+        candidate, units = self._run_rq2_data(unit)
+        selection = SourceUnitSelectionInput(
+            candidate_id=str(candidate.get("candidate_id")),
+            document_id=unit.case_id.split("|", 1)[1],
+            disease=tuple(candidate.get("disease") or ()),
+            genes=tuple(candidate.get("genes") or ()),
+            alterations=tuple(candidate.get("alterations") or ()),
+            interventions=tuple(candidate.get("interventions") or ()),
+            graph_relation=candidate.get("graph_relation"),
+            source_units=tuple(units),
+        )
+        if unit.arm == "GOLD":
+            selected = [str(row.get("source_unit_id")) for row in units]
+            ranked = []
+        elif unit.arm == "FIRST_K":
+            selected = select_first_k(selection, top_k=5)
+            ranked = []
+        elif unit.arm == "BM25":
+            selected = select_bm25(selection, top_k=5)
+            ranked = []
+        elif unit.arm == "DETERMINISTIC_SELECTOR":
+            result = context.selector.select(selection)
+            selected = list(result.selected_source_unit_ids)
+            ranked = [item.__dict__ for item in result.ranked_source_units]
+        else:
+            raise RuntimeError(f"REAL_EXECUTION_ARM_NOT_IMPLEMENTED:{unit.arm}")
+        return {"candidate_id": selection.candidate_id, "document_id": selection.document_id,
+                "arm": unit.arm, "selected_source_unit_ids": list(selected), "ranking": ranked}
+
+    def _run_rq2_downstream(self, unit: Any, context: "RealExecutionContext") -> Any:
+        candidate, units = self._run_rq2_data(unit)
+        offline = self._run_rq2_offline(unit, context)
+        selected_ids = set(offline["selected_source_unit_ids"])
+        selected_units = [row for row in units if row.get("source_unit_id") in selected_ids]
+        # The provider and validator remain the reviewed adapters; no resolver
+        # or network path is introduced for S01.
+        enrichment = context.gemma.call(
+            unit.case_id, candidate.get("candidate_id"), candidate.get("document_id_from_provenance"),
+            candidate, "", (candidate.get("interventions") or [""])[0], selected_units,
+            run_index=0,
+        )
+        validated = context.quote_validator.validate(enrichment)
+        return {"candidate_id": candidate.get("candidate_id"), "document_id": unit.case_id.split("|", 1)[1],
+                "arm": unit.arm, "selected_source_unit_ids": list(selected_ids),
+                "enrichment": enrichment, "validation": validated}
+
     def _RQ3FullSystemExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
         return self._run_case(unit, context)
 
