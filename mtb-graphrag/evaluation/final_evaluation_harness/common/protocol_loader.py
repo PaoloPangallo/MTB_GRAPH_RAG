@@ -1,4 +1,4 @@
-"""Load frozen Protocol 1.3 plus its inherited scientific Protocol 1.2."""
+"""Load frozen Protocol 1.4 plus its inherited scientific Protocol 1.2."""
 from __future__ import annotations
 import hashlib, json
 from dataclasses import dataclass
@@ -29,7 +29,7 @@ class Protocol:
 
     @property
     def hashes(self) -> dict[str, str]:
-        return {"runtime_commit": self.lineage["runtime_commit"], "protocol_sha256": self.seal["protocol_1_3_sha256"], "parent_protocol_1_2_sha256": self.lineage["protocol_1_2_sha256"], "inherited_protocol_1_1_sha256": self.lineage["protocol_1_1_sha256"], "inherited_A01_sha256": self.lineage["A01_sha256"], "S01_raw_sha256": self.lineage["S01_raw_sha256"], "S01_package_sha256": self.lineage["S01_package_sha256"]}
+        return {"runtime_commit": self.lineage["runtime_current"], "protocol_sha256": self.seal["protocol_1_4_sha256"], "parent_protocol_1_3_sha256": self.lineage["parent_protocol_sha256"], "inherited_protocol_1_1_sha256": self.lineage["protocol_1_1_sha256"], "inherited_A01_sha256": self.lineage["A01_sha256"], "S01_raw_sha256": self.lineage["S01_raw_sha256"], "S01_package_sha256": self.lineage["S01_package_sha256"]}
 
 def _load(root: Path, name: str) -> dict[str, Any]:
     path=root/name
@@ -44,19 +44,21 @@ def _digest(root: Path, files: list[str]) -> str:
 
 def load_protocol(repo_root: Path | None = None) -> Protocol:
     repo=repo_root or Path(__file__).resolve().parents[3]
-    root=repo/"evaluation"/"final_protocol_v1_3"
+    root=repo/"evaluation"/"final_protocol_v1_4"
     manifest=_load(root,"protocol_manifest.json")
     files=list(manifest.get("normative_files", []))
     docs={Path(n).stem:_load(root,n) for n in files}
     seal=_load(root,"protocol_hash.json")
-    if manifest.get("protocol_version")!="1.3" or manifest.get("frozen") is not True or manifest.get("review_status")!="ACCEPTED": raise ProtocolGap("Protocol 1.3 is not accepted/frozen")
-    if seal.get("protocol_1_3_sha256") != _digest(root,files): raise ProtocolGap("Protocol 1.3 seal mismatch")
-    if seal.get("protocol_1_3_sha256") != "1e7f154ae6dff655937acb486226b88ac5baa556efaeb1a6a77d64d423399fa5": raise ProtocolGap("Protocol 1.3 SHA mismatch")
+    if manifest.get("protocol_version")!="1.4" or manifest.get("frozen") is not True or manifest.get("review_status")!="ACCEPTED": raise ProtocolGap("Protocol 1.4 is not accepted/frozen")
+    if seal.get("protocol_1_4_sha256") != _digest(root,files): raise ProtocolGap("Protocol 1.4 seal mismatch")
+    if seal.get("protocol_1_4_sha256") != "6aa8927e47181dc5b5b4fbf8e6390372f5de9e26d47a3a3bf86e7bd6f25aea3e": raise ProtocolGap("Protocol 1.4 SHA mismatch")
     lineage=docs["lineage"]
-    expected={"runtime_commit":"3d2251f82a586535f79f3d0b3725c16330c365ba","protocol_1_2_sha256":"76800b10ba85836369f47973802b0df65c0221df39ad8e9eac45a5241b70e106","protocol_1_1_sha256":"83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889","A01_sha256":"48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf","S01_raw_sha256":"83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99","S01_package_sha256":"b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15"}
+    expected={"runtime_previous":"3d2251f82a586535f79f3d0b3725c16330c365ba","runtime_current":"79867435acd59b830dae1d0fbab272c2bea2427b","parent_protocol_sha256":"1e7f154ae6dff655937acb486226b88ac5baa556efaeb1a6a77d64d423399fa5","protocol_1_1_sha256":"83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889","A01_sha256":"48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf","S01_raw_sha256":"83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99","S01_package_sha256":"b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15"}
     if any(lineage.get(k)!=v for k,v in expected.items()): raise ProtocolGap("Protocol 1.3 lineage mismatch")
+    p13=repo/"evaluation"/"final_protocol_v1_3"; p13seal=_load(p13,"protocol_hash.json")
+    if p13seal.get("protocol_1_3_sha256") != expected["parent_protocol_sha256"]: raise ProtocolGap("parent Protocol 1.3 mismatch")
     parent=repo/"evaluation"/"final_protocol_v1_2"; pmanifest=_load(parent,"protocol_manifest.json"); pseal=_load(parent,"protocol_hash.json")
-    if pseal.get("protocol_1_2_sha256") != expected["protocol_1_2_sha256"] or _digest(parent,pmanifest["normative_files"]) != expected["protocol_1_2_sha256"]: raise ProtocolGap("parent Protocol 1.2 mismatch")
+    if pseal.get("protocol_1_2_sha256") != "76800b10ba85836369f47973802b0df65c0221df39ad8e9eac45a5241b70e106" or _digest(parent,pmanifest["normative_files"]) != "76800b10ba85836369f47973802b0df65c0221df39ad8e9eac45a5241b70e106": raise ProtocolGap("parent Protocol 1.2 mismatch")
     a01=repo/"evaluation"/"final_protocol"/"amendments"/"A01"; s01=repo/"evaluation"/"final_protocol"/"supplements"/"S01"
     a01seal=_load(a01,"amendment_hash.json"); s01seal=_load(s01,"supplement_hash.json")
     if a01seal.get("amendment_sha256")!=expected["A01_sha256"] or s01seal.get("supplement_sha256")!=expected["S01_package_sha256"]: raise ProtocolGap("A01/S01 identity mismatch")

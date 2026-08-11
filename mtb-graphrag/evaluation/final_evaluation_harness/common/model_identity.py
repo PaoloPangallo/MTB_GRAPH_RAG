@@ -1,4 +1,4 @@
-"""Fail-closed Protocol 1.3 model and generation identity checks."""
+"""Fail-closed model and generation identity checks."""
 from __future__ import annotations
 import os
 from pathlib import Path
@@ -8,7 +8,7 @@ from .protocol_loader import load_protocol
 class GenerationIdentityError(RuntimeError): pass
 
 def validate_execution_environment(environ: Mapping[str,str] | None = None) -> dict:
-    env=os.environ if environ is None else environ; p=load_protocol(); mi=__import__('json').loads((p.root/'model_identity_contract.json').read_text(encoding='utf-8')); gc=__import__('json').loads((p.root/'generation_configuration.json').read_text(encoding='utf-8'))
+    env=os.environ if environ is None else environ; p=load_protocol(); source=p.root.parent/'final_protocol_v1_3'; mi=__import__('json').loads((source/'model_identity_contract.json').read_text(encoding='utf-8')); gc=__import__('json').loads((source/'generation_configuration.json').read_text(encoding='utf-8'))
     model=env.get('RESEARCH_PIPELINE_MODEL','')
     if model != mi['effective_model']: raise GenerationIdentityError('MODEL_IDENTITY_MISMATCH')
     base=env.get('RESEARCH_PIPELINE_LLM_BASE_URL','')
@@ -21,7 +21,7 @@ def validate_execution_environment(environ: Mapping[str,str] | None = None) -> d
 
 def validate_prompt_hashes() -> None:
     p=load_protocol(); import json
-    expected=json.loads((p.root/'generation_configuration.json').read_text(encoding='utf-8'))['roles']
+    expected=json.loads((p.root.parent/'final_protocol_v1_3'/'generation_configuration.json').read_text(encoding='utf-8'))['roles']
     from backend.research_pipeline.casecontext import prompt as cp
     from backend.research_pipeline.enrichment import prompt_v2 as ep
     from backend.research_pipeline.narrative import prompt as np

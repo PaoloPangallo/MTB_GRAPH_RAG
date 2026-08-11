@@ -14,6 +14,9 @@ class DocumentResolverAdapter:
     def resolve(self, *args: Any, **kwargs: Any) -> tuple[Any, float]:
         start = monotonic()
         if self._network_guard is not None:
+            assert_allowed = getattr(self._network_guard, "assert_allowed", None)
+            if callable(assert_allowed):
+                assert_allowed("CANONICAL_RUNTIME_POLICY")
             self._network_guard.record()
         result = self._resolver(*args, **kwargs)
         return result, (monotonic() - start) * 1000.0

@@ -147,7 +147,7 @@ def dry_run(kind: str) -> dict[str, Any]:
         if len(rows) != 1697:
             raise RuntimeError("S01 count mismatch")
     return {
-        "protocol_version": "1.3",
+        "protocol_version": protocol.manifest["protocol_version"],
         "protocol_sha256": protocol.hashes["protocol_sha256"],
         "kind": kind,
         "planned_executions": len(plans),

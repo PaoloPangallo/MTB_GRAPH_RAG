@@ -21,6 +21,8 @@ from .common.protocol_loader import load_protocol
 from .common.provider_snapshot import collect_snapshot, compare_snapshots, validate_metadata
 from .common.registry import ExecutionAdapterRegistry, binding_manifest, binding_manifest_sha256
 from .common.runner import build_full_plan, execution_plan_sha256
+from .common.execution import RealExecutionContext, ProductionUnitDispatcher
+from .common.production_loop import execute_sealed_plan
 
 
 class CampaignStartError(RuntimeError):
@@ -30,6 +32,28 @@ class CampaignStartError(RuntimeError):
 class RealExecutionNotEnabled(CampaignStartError):
     """Safety boundary: this phase never dispatches a real scientific unit."""
     pass
+
+
+def run_production_dispatch(plan, protocol, campaign_root, *, ledger=None, raw_writer=None,
+                            network_guard=None, model_guard=None, campaign_open=False):
+    """Dispatch a sealed plan through the real context after campaign opening.
+
+    ``main`` remains disarmed in this implementation phase; this function is
+    the single production dispatch seam used by the future START workflow.
+    """
+    if not campaign_open:
+        raise CampaignStartError("CAMPAIGN_NOT_OPEN")
+    dispatcher = ProductionUnitDispatcher()
+    registry = ExecutionAdapterRegistry(protocol)
+    covered, missing = dispatcher.coverage(plan, registry)
+    if missing:
+        raise CampaignStartError(f"REAL_EXECUTION_ADAPTER_NOT_BOUND:{','.join(sorted(set(missing)))}")
+    context = RealExecutionContext.from_production(
+        protocol, ledger=ledger, raw_writer=raw_writer,
+        network_guard=network_guard, model_guard=model_guard,
+        production_dispatcher=dispatcher,
+    )
+    return execute_sealed_plan(plan, context, registry, campaign_root, campaign_open=True)
 
 
 EXPECTED_MODEL = {
@@ -53,7 +77,7 @@ def validate_start_confirmation(argv: list[str], expected_evaluation_id: str, ex
         raise ExecutionDisarmed("invalid arming arguments") from exc
     if unknown or not args.arm or not args.confirm_evaluation_id or not args.confirm_plan_sha or not args.confirm_start:
         raise ExecutionDisarmed("all explicit confirmations are required")
-    if args.confirm_evaluation_id != expected_evaluation_id or args.confirm_plan_sha != expected_plan_sha or args.confirm_start != "FINAL_EVALUATION_1_3":
+    if args.confirm_evaluation_id != expected_evaluation_id or args.confirm_plan_sha != expected_plan_sha or args.confirm_start != "FINAL_EVALUATION_1_4":
         raise CampaignStartError("START_CONFIRMATION_MISMATCH")
 
 
