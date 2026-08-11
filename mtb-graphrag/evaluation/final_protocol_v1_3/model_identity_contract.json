@@ -1,0 +1,11 @@
+{
+  "decision_id": "E01",
+  "provider": "OLLAMA_CLOUD",
+  "effective_model": "gemma4:31b-cloud",
+  "historical_runtime_default_alias": "gemma4:cloud",
+  "endpoint": "https://ollama.com/v1/chat/completions",
+  "expected_metadata": {"family":"gemma4","parameter_size":"32682372656","quantization":"BF16","context_length":262144},
+  "effective_model_mismatch": "MODEL_IDENTITY_MISMATCH",
+  "alias_transition_classification": "PRE_FINAL_EXECUTION_IDENTITY_REFINEMENT",
+  "not_a_new_model_experiment": true
+}

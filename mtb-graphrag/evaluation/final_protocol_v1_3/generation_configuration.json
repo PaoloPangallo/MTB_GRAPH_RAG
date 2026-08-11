@@ -1,0 +1,9 @@
+{
+  "decision_id": "E02",
+  "roles": {
+    "case_context_parser": {"provider":"OLLAMA_CLOUD","model":"gemma4:31b-cloud","temperature":0,"top_p":1,"seed_policy":"run_index","max_output_tokens":2048,"timeout_seconds":60,"prompt_version":"casecontext-parser-prompt/1.0","prompt_sha256":"7b59558bba3b7a2bb461449d19aa82587cb5828121f39dbef7a4cc36f05aee35"},
+    "paper_context_enricher": {"provider":"OLLAMA_CLOUD","model":"gemma4:31b-cloud","temperature":0,"top_p":1,"seed_policy":"run_index","max_output_tokens":1024,"timeout_seconds":60,"prompt_version":"paper-context-enricher-prompt/2.0","prompt_sha256":"4a9dd12e71ed7753f15893a1ec7a845ae5b03653bb89a08a0d0ee7c4087c0ce1"},
+    "dossier_narrator": {"provider":"OLLAMA_CLOUD","model":"gemma4:31b-cloud","temperature":0,"top_p":1,"seed_policy":"run_index","max_output_tokens":2048,"timeout_seconds":60,"prompt_version":"dossier-narrator-prompt/1.0","prompt_sha256":"5f510992790d9932e5259b31f2d4a09d7d8bf467f99e375c21973ee1415743ac"}
+  },
+  "additional_sampling_parameters": "NONE"
+}
