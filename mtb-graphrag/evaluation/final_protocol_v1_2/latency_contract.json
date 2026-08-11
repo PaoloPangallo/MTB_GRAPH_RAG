@@ -1,0 +1,39 @@
+{
+  "contract_id": "final-evaluation-latency/1.2",
+  "stage_model": {
+    "stage_record_count": 16,
+    "stage_ids": ["1", "2", "3", "3b", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"],
+    "legacy_count_explanation": "15 nominal stages 1-15 plus stage 3b"
+  },
+  "primary": {
+    "metric": "end_to_end_latency_ms",
+    "clock": "MONOTONIC_WALL_CLOCK",
+    "start": "IMMEDIATELY_BEFORE_CANONICAL_RUNTIME_ENTRY",
+    "end": "TERMINAL_RETURN"
+  },
+  "sum_stage_durations": "DIAGNOSTIC_ONLY",
+  "components": {
+    "separate": ["network_ms", "gemma_ms", "narrator_ms", "stage_duration_ms", "end_to_end_latency_ms"],
+    "retry_time": "INCLUDED_IN_ORIGINATING_COMPONENT_AND_E2E",
+    "system_latency": ["cache_lookup", "document_resolution", "network_wait", "parsing", "runtime_processing", "model_calls"],
+    "harness_overhead_excluded": ["ephemeral_cache_materialization", "raw_artifact_writing", "hashing", "report_generation", "aggregate_generation"]
+  },
+  "network_timing": {
+    "wrapper": "HARNESS_SIDE_TRANSPARENT_MONOTONIC_API_TIMING",
+    "payload_changed": false,
+    "control_flow_changed": false,
+    "retry_added": false,
+    "wrapper_test_required": true
+  },
+  "same_document_cache_latency_pair": {
+    "fixture_id": "SAME-DOCUMENT CACHE LATENCY PAIR",
+    "case_id": "GCA-0000980ba01970f893f8e4d7",
+    "document_id": "pmid:15705718",
+    "LAT-HIT": "TARGET_SEEDED",
+    "LAT-MISS": "SAME_PLAN_TARGET_EXCLUDED",
+    "replacement_after_outcome": "PROHIBITED",
+    "pair_inclusion": "LAT_MISS_AUTHORIZED_ACQUISITION_SUCCEEDS",
+    "failed_pair": "EXCLUDE_FROM_PAIRED_STATISTIC_PRESERVE_BOTH_ATTEMPTS_REPORT_N_EFFECTIVE",
+    "separate_from_A01_property_tests": true
+  }
+}

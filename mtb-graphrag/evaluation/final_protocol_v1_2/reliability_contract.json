@@ -1,0 +1,57 @@
+{
+  "contract_id": "final-evaluation-reliability/1.2",
+  "n_cases": 10,
+  "repetitions": ["r01", "r02", "r03"],
+  "n_executions": 30,
+  "rounds": 3,
+  "case_order_per_round": "case_id_LEXICOGRAPHIC",
+  "case_ids": [
+    "HO-ADV-01-self-declared-verified-flag",
+    "HO-AMB-01-primary-site-ambiguity",
+    "HO-CMP-01-glioma-idh2-vorasidenib",
+    "HO-CON-01-same-primary-conflicting-diagnoses",
+    "HO-INC-01-missing-disease",
+    "HO-NEG-01-pdac-idh1-ivosidenib",
+    "HO-OOD-01-veterinary-oncology",
+    "GCA-002decb1b8be445d9dad8730|pmid:231047",
+    "GCA-0066a3a66028e77ea626cb45|pmid:25265492",
+    "GCA-00c2ff7f866d92c477044167|pmcid:PMC3686973"
+  ],
+  "strata": {
+    "A": {
+      "n_cases": 7,
+      "case_source": "HELDOUT_ARCHITECTURAL_35",
+      "arm": "CANONICAL_FULL_SYSTEM",
+      "cache": {
+        "source": "AUTHORIZED_DOCUMENT_CACHE_43",
+        "operational_corpus_sha256": "d9e4d9d680b30ed2e7d8463bd708c4f83518472624fd3b5c37ec56bb06bf35e9",
+        "manifest_sha256": "ece9d25d74b3050f222343d3f31dc22d20d39d1883957f431c4280ef9326006b",
+        "initialization": "FRESH_ISOLATED_EPHEMERAL_CACHE_PER_RUN",
+        "shared_mutable_cache": false,
+        "cross_run_state_flow": false
+      },
+      "network_policy": "CANONICAL_RUNTIME_POLICY",
+      "runtime_native_retries": "UNCHANGED"
+    },
+    "B": {
+      "n_cases": 3,
+      "case_source": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_POSITIVE",
+      "input_source": "SOURCEUNIT_SELECTOR_INDEPENDENT_20_TEXT_S01",
+      "input_raw_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+      "input_package_sha256": "b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15",
+      "cache": "NOT_APPLICABLE",
+      "document_resolver": "NOT_CALLED",
+      "network": "PROHIBITED",
+      "arm": "DETERMINISTIC_SELECTOR_K5_TO_SAME_GEMMA_TO_SAME_QUOTE_VALIDATOR"
+    }
+  },
+  "reporting": "REPORT_STRATA_SEPARATELY_NEVER_AGGREGATE",
+  "agreements": [
+    "exact_output_agreement",
+    "criterion_agreement",
+    "output_hash_agreement",
+    "event_path_agreement"
+  ],
+  "additional_success_threshold": "NONE",
+  "primary_or_HARD": false
+}
