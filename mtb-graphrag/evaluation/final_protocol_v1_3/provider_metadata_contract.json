@@ -1,0 +1,14 @@
+{
+  "decision_id": "E03",
+  "metadata_only_probe": {"endpoint":"/api/show","model":"gemma4:31b-cloud","generation_endpoints_forbidden":true},
+  "required_fields": ["model_alias","family","parameter_size","quantization","context_length","modified_at"],
+  "expected": {"model_alias":"gemma4:31b-cloud","family":"gemma4","parameter_size":"32682372656","quantization":"BF16","context_length":262144},
+  "pre_execution_snapshot": true,
+  "post_execution_snapshot": true,
+  "snapshot_fields": ["timestamp_utc","endpoint_path","http_status","sanitized_raw_metadata","raw_sha256","parsed_identity_fields"],
+  "pre_mismatch": "PROVIDER_MODEL_METADATA_MISMATCH",
+  "drift_code": "PROVIDER_MODEL_METADATA_DRIFT",
+  "drift_action": "PRESERVE_RAW_RESULTS_NO_AUTO_PROMOTION_HUMAN_REVIEW",
+  "metadata_equality_proves_weight_equality": false,
+  "probe_provenance": {"observed_modified_at":"2026-04-02T09:00:00-08:00","observed_response_sha256":"b1b22fd3fa793dfa3d8b6e76073c32def6e7de5832ce58e145643c0195fec78f","identity_consistent":true}
+}
