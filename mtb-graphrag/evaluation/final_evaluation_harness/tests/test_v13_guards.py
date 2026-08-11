@@ -42,7 +42,7 @@ def test_metadata_contract_passes(): validate_metadata(parse_metadata("gemma4:31
 
 def test_metadata_snapshot_is_injected_and_metadata_only():
     calls=[]
-    snapshot=collect_snapshot(lambda alias: calls.append(alias) or metadata(), "gemma4:31b-cloud")
+    snapshot=collect_snapshot(lambda alias: calls.append(alias) or {**metadata(), "api_key": "DO_NOT_PERSIST"}, "gemma4:31b-cloud")
     assert calls == ["gemma4:31b-cloud"]
     assert snapshot["parsed_identity_fields"]["model_alias"] == "gemma4:31b-cloud"
     assert "secret" not in json.dumps(snapshot, sort_keys=True).lower()
