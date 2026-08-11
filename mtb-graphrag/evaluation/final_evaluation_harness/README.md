@@ -1,5 +1,10 @@
 # Final Evaluation Harness 1.2
 
+Status: `IMPLEMENTED_NOT_STARTED`
+
+The execution adapters are wired to frozen runtime components but no real
+Final Evaluation execution has occurred.
+
 This package is an executor for the frozen Protocol 1.2. Normative values are
 loaded from `evaluation/final_protocol_v1_2/*.json`; this code does not define
 scientific parameters.
