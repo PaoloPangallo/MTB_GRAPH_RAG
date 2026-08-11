@@ -1,0 +1,16 @@
+{
+  "protocol_id": "mtb-graphrag-final-evaluation/1.3",
+  "protocol_version": "1.3",
+  "status": "DRAFT_FOR_HUMAN_REVIEW",
+  "review_status": "DRAFT_FOR_HUMAN_REVIEW",
+  "frozen": false,
+  "revision_classification": "MINIMAL_EXECUTION_IDENTITY_REVISION",
+  "reason": "REMOTE_MODEL_ALIAS_NOT_REVISION_PINNABLE_PRE_FINAL",
+  "scientific_results_observed_before_v1_3": false,
+  "final_runs_executed_before_v1_3": false,
+  "parent_protocol_id": "mtb-graphrag-final-evaluation/1.2",
+  "parent_protocol_sha256": "76800b10ba85836369f47973802b0df65c0221df39ad8e9eac45a5241b70e106",
+  "normative_authority": "JSON_ONLY",
+  "normative_files": ["execution_environment_contract.json", "generation_configuration.json", "inherited_protocol_contract.json", "lineage.json", "model_identity_contract.json", "provider_metadata_contract.json", "protocol_manifest.json", "reproducibility_contract.json"],
+  "post_freeze_policy": {"silent_changes_forbidden": true, "change_requires": "NEW_PROTOCOL_VERSION_OR_EXPLICIT_AMENDMENT", "scientific_contract_unchanged": true}
+}
