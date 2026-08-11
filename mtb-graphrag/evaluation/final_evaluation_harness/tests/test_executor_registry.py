@@ -27,3 +27,23 @@ def test_representative_executor_names():
     assert any(name == "NarrativeExecutor" for name in by.values())
     assert any(name == "OperationalExecutor" for name in by.values())
     assert any(name == "LatencyExecutor" for name in by.values())
+
+
+def test_required_components_are_present_in_each_binding():
+    protocol = load_protocol()
+    plan = build_full_plan(protocol)
+    registry = ExecutionAdapterRegistry(protocol)
+    fields = {
+        "canonical_runtime_requirement": "canonical_runtime",
+        "selector_requirement": "selector",
+        "casecontext_parser_requirement": "casecontext_parser",
+        "gemma_requirement": "gemma",
+        "narrator_requirement": "narrator",
+        "quote_validator_requirement": "quote_validator",
+        "narrative_verifier_requirement": "narrative_verifier",
+    }
+    for unit in plan:
+        binding = registry.resolve(unit)
+        for field, adapter_name in fields.items():
+            if getattr(unit, field) == "REQUIRED":
+                assert adapter_name in binding.adapter_names, (unit.plan_index, field)
