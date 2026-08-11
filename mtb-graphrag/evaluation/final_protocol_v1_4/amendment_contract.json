@@ -1,0 +1,25 @@
+{
+  "amendment_id": "F01",
+  "classification": "RUNTIME_INTERFACE_EXPOSURE_FOR_D05",
+  "runtime_identity": {"previous":"3d2251f82a586535f79f3d0b3725c16330c365ba","current":"79867435acd59b830dae1d0fbab272c2bea2427b"},
+  "runtime_file": "backend/research_pipeline/orchestrator.py",
+  "injection_points": {"match_verifier_fn": "optional dependency injection", "eligibility_gate_fn": "optional dependency injection"},
+  "canonical_defaults": {
+    "match_verifier": ["verifier.verify_case_context", "verifier.essential_fields_pass"],
+    "eligibility_gate": ["cc_pipeline.run", "eligibility.gate.evaluate"]
+  },
+  "d05": {
+    "scientific_meaning": "REMOVE_STAGE_3_MATCH_VERIFIER_AND_STAGE_3B_ELIGIBILITY_GATE_ONLY",
+    "bypassed_stages": ["3", "3b"],
+    "parser_output_unchanged": true,
+    "retrieval_input": "ORIGINAL_PARSER_PRODUCED_CASECONTEXT",
+    "downstream": "SAME_CANONICAL_DOWNSTREAM_FROM_RETRIEVAL_ONWARD",
+    "synthetic_match_true": false,
+    "synthetic_eligible_true": false,
+    "synthetic_eligibility_status": false,
+    "synthetic_positive_reason_codes": false,
+    "new_clinical_state": false
+  },
+  "canonical_equivalence_claim": "CANONICAL_SEMANTIC_EQUIVALENCE_UNDER_DEFAULT_INJECTION",
+  "authorized_scope": "NO_OTHER_RUNTIME_SEMANTIC_CHANGE"
+}

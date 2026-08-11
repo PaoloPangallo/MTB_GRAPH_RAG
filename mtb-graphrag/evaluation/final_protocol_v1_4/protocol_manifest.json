@@ -1,0 +1,17 @@
+{
+  "protocol_id": "mtb-graphrag-final-evaluation/1.4",
+  "protocol_version": "1.4",
+  "status": "DRAFT_FOR_HUMAN_REVIEW",
+  "review_status": "PENDING_REVIEW",
+  "frozen": false,
+  "revision_classification": "MINIMAL_RUNTIME_INTERFACE_AMENDMENT",
+  "reason": "D05_RUNTIME_INTERFACE_EXPOSURE",
+  "parent_protocol_id": "mtb-graphrag-final-evaluation/1.3",
+  "parent_protocol_sha256": "1e7f154ae6dff655937acb486226b88ac5baa556efaeb1a6a77d64d423399fa5",
+  "scientific_results_observed_before_v1_4": false,
+  "final_runs_executed_before_v1_4": false,
+  "normative_authority": "JSON_ONLY",
+  "normative_files": ["amendment_contract.json", "inherited_protocol_contract.json", "lineage.json", "protocol_manifest.json"],
+  "scientific_contract_unchanged": true,
+  "post_freeze_policy": {"silent_changes_forbidden": true, "change_requires": "NEW_PROTOCOL_VERSION_OR_EXPLICIT_AMENDMENT"}
+}
