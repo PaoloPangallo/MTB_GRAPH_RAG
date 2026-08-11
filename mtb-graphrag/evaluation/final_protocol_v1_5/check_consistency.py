@@ -22,7 +22,7 @@ def main() -> int:
     add("parent exact", m.get("parent_protocol_sha256")==P14 and l.get("parent_protocol_sha256")==P14)
     add("runtime exact", m.get("runtime_commit")==RUNTIME and l.get("runtime_sha256")==RUNTIME)
     add("lineage freeze commit", l.get("parent_protocol_freeze_commit")=="87b61df186b16de94834b9365fb6de334b034a84")
-    add("candidate corpus lineage", l.get("candidate_corpus_commit")=="5a2012f6aa3780059ad6e1585ee8424b65d7503e")
+    add("candidate corpus lineage", l.get("candidate_corpus_source_commit")=="5a2012f6aa3780059ad6e1585ee8424b65d7503e" and l.get("candidate_corpus_integration_commit")=="b637223c4001c73c2dd084e316fdb5274e533d55")
     add("corpus identities", c.get("hostile_corpus_sha256")==HOSTILE and c.get("controls_corpus_sha256")==CONTROLS and c.get("authority_mapping_sha256")==MAPPING)
     add("G01", a.get("G01",{}).get("contract_id")=="G01" and a.get("G01",{}).get("inference",{}).get("gold_access")=="PROHIBITED" and a.get("G01",{}).get("adversarial",{}).get("expected_retrieval_allowed") is None)
     g2=a.get("G02",{}); h=g2.get("hostile",{}); ctrl=g2.get("controls",{})
