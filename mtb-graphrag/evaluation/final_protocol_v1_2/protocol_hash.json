@@ -1,0 +1,41 @@
+{
+  "protocol_id": "mtb-graphrag-final-evaluation/1.2",
+  "protocol_version": "1.2",
+  "protocol_1_2_sha256": "6e5d377865684cd71fc9fecceb0dd381ff272887930bb471f0254993cf50655a",
+  "normative_files": [
+    "ablation_contract.json",
+    "dataset_registry.json",
+    "execution_contract.json",
+    "latency_contract.json",
+    "lineage.json",
+    "metric_registry.json",
+    "protocol_manifest.json",
+    "reliability_contract.json",
+    "result_schemas.json",
+    "statistical_plan.json",
+    "success_criteria.json"
+  ],
+  "files": {
+    "ablation_contract.json": "9f86b4f42dfb6b4bb81fda45a7a09cdbc736308ce19266081fa833ef7290e1bb",
+    "dataset_registry.json": "925d3e1b125ccac21aaec5d91a95ae924bef2375926a6df8a36fcbb407679c83",
+    "execution_contract.json": "f5e5c6072a93c7d0f12c260c15abcc2accfa96e3e6523bc0baf701aedfe49271",
+    "latency_contract.json": "84cfaa0fff6f983abadfaae764991f093bdd80f93abb91c081b26ccf6f447cdb",
+    "lineage.json": "c88e1c77744b6b363b58f0c1b75f746ae9d98f48c01be02c3781a0c585c1aeba",
+    "metric_registry.json": "bf6e6fd5c0648d982e66ef3128fff0022ad31a009656d70737b844caf510903d",
+    "protocol_manifest.json": "4e5837642aead6c4a22422d520282a329b0825239a139a72344987c4d21aaddd",
+    "reliability_contract.json": "fb1c2a929d20079ad29900e9a86087a2f8165bde2948a1601a8e769b8e3cec93",
+    "result_schemas.json": "5d78925ba80f6f07ab48873fe4a5d1ebf1c11e1a7927d7883a31613679039d95",
+    "statistical_plan.json": "e9790e34b53b87abdd818e4201d4a5356e5e6801b2b37ced1e7504f798ec594d",
+    "success_criteria.json": "c5daab2a94c41b5cfc3d03e462f1a5129ca93c1761832cf9f00cbec7cd9fe684"
+  },
+  "generated_at": "2026-08-11T08:24:19.089364Z",
+  "review_status": "DRAFT_FOR_HUMAN_REVIEW",
+  "frozen": false,
+  "ancestor_identities": {
+    "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+    "protocol_1_1_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889",
+    "A01_sha256": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf",
+    "S01_raw_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "S01_package_sha256": "b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15"
+  }
+}
