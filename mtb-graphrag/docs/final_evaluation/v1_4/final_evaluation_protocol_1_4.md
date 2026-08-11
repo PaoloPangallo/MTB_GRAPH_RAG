@@ -1,6 +1,6 @@
 # Final Evaluation Protocol 1.4
 
-Status: `DRAFT_FOR_HUMAN_REVIEW` / `PENDING_REVIEW` / not frozen.
+Status: `ACCEPTED` / frozen after human review on 2026-08-11.
 
 Protocol 1.4 is a minimal runtime-identity amendment of Protocol 1.3. It
 inherits D02–D16 and E01–E04 unchanged. F01 records the runtime interface
