@@ -61,10 +61,11 @@ def test_timing_transparent():
 def test_gold_inaccessible():
     with pytest.raises(ValueError): load_case_only({"case_id": "x", "gold": {}})
 def test_gold_join_after_inference(): assert join_gold_after_inference({"x": 1}, {"y": 2})["gold"]["y"] == 2
-def test_raw_create_if_absent(local_tmp): write_raw_once(local_tmp, "run/a0001", {"x": 1})
+_ATTEMPT = "run_" + "a" * 64 + "/a0001"
+def test_raw_create_if_absent(local_tmp): write_raw_once(local_tmp, _ATTEMPT, {"x": 1})
 def test_raw_duplicate_hard_fail(local_tmp):
-    write_raw_once(local_tmp, "run/a0001", {"x": 1})
-    with pytest.raises(DuplicateAttempt): write_raw_once(local_tmp, "run/a0001", {"x": 2})
+    write_raw_once(local_tmp, _ATTEMPT, {"x": 1})
+    with pytest.raises(DuplicateAttempt): write_raw_once(local_tmp, _ATTEMPT, {"x": 2})
 def test_ledger_append_only(local_tmp):
     ledger = AppendOnlyLedger(local_tmp / "ledger.jsonl"); ledger.append({"event": "ATTEMPT_RESERVED", "attempt_id": "a"}); assert len(ledger.events()) == 1
 def test_ledger_reconcile_orphan(local_tmp):
@@ -72,13 +73,13 @@ def test_ledger_reconcile_orphan(local_tmp):
 def test_ledger_reconcile_preserves_event(local_tmp):
     ledger = AppendOnlyLedger(local_tmp / "ledger.jsonl"); ledger.append({"event": "ATTEMPT_RESERVED", "attempt_id": "a"}); ledger.reconcile(); assert len(ledger.events()) == 2
 def test_envelope_required(protocol):
-    required = protocol.schemas["common_execution_envelope"]["required_fields"]; envelope = {key: {} for key in required}; envelope["normative_identity"] = {"protocol_version": "1.2"}; validate_envelope(protocol, envelope)
+    required = protocol.schemas["common_execution_envelope"]["required_fields"]; envelope = {key: {} for key in required}; envelope["normative_identity"] = {"protocol_version": "1.2"}; envelope["identity"] = {field: "x" for field in protocol.schemas["common_execution_envelope"]["identity_required"]}; envelope["dataset_hashes"] = {"dataset_bundle_sha256": "x"}; envelope["status"] = "COMPLETE"; validate_envelope(protocol, envelope)
 def test_envelope_rejects_missing(protocol):
     with pytest.raises(ValueError): validate_envelope(protocol, {})
 def test_ranking_precision_denominator_k(): assert ranking_metrics(["a"], ["a"], 5)["Precision@5"] == 0.2
 def test_ranking_mrr_miss_zero(): assert ranking_metrics(["a"], ["b"], 5)["MRR"] == 0.0
 def test_wilson_zero(): assert wilson(0, 5) is not None
-def test_bootstrap_seed_deterministic(): assert paired_percentile_bootstrap([1.0, 2.0]) == paired_percentile_bootstrap([1.0, 2.0])
+def test_bootstrap_seed_deterministic(): assert paired_percentile_bootstrap([1.0, 2.0], 10000, 20260809) == paired_percentile_bootstrap([1.0, 2.0], 10000, 20260809)
 def test_protocol_dry_run_zero_calls(): assert dry_run("rq1")["calls"] == {"runtime": 0, "selector": 0, "model": 0, "network": 0}
 def test_rq2_dry_run_count(): assert dry_run("rq2")["planned_executions"] == 80
 def test_operational_dry_run_count(): assert dry_run("operational")["planned_executions"] == 9
