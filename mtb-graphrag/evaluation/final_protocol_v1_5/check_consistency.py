@@ -1,4 +1,4 @@
-"""Deterministic pre-freeze checker for Protocol 1.5."""
+"""Deterministic Protocol 1.5 review/freeze checker."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -18,7 +18,8 @@ def main() -> int:
     m, l, i, a, c, p = (load(n) for n in ("protocol_manifest.json","lineage.json","inherited_protocol_contract.json","amendment_contract.json","corpus_identity.json","scientific_projection.json"))
     checks = []
     def add(name, ok): checks.append((name, bool(ok)))
-    add("version and pre-freeze", m.get("protocol_version")=="1.5" and m.get("frozen") is False and m.get("review_status")=="PENDING_REVIEW")
+    add("version and state", m.get("protocol_version")=="1.5" and m.get("frozen") is True and m.get("review_status")=="ACCEPTED")
+    add("freeze metadata", m.get("reviewer")=="Paolo Pangallo" and isinstance(m.get("freeze_timestamp"), str) and m.get("freeze_timestamp").endswith("Z"))
     add("parent exact", m.get("parent_protocol_sha256")==P14 and l.get("parent_protocol_sha256")==P14)
     add("runtime exact", m.get("runtime_commit")==RUNTIME and l.get("runtime_sha256")==RUNTIME)
     add("lineage freeze commit", l.get("parent_protocol_freeze_commit")=="87b61df186b16de94834b9365fb6de334b034a84")
