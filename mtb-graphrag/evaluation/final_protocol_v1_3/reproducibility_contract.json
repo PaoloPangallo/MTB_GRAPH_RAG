@@ -1,0 +1,8 @@
+{
+  "decision_id": "E04",
+  "classification": "REMOTE_PROVIDER_CONFIG_REPRODUCIBILITY",
+  "verifiable": ["runtime_commit","protocol","datasets","prompts","client_side_generation_parameters","model_alias","endpoint","observable_model_metadata","pre_post_provider_snapshots"],
+  "not_guaranteed": ["immutable_provider_side_model_digest","exact_provider_side_weights","bit_level_model_reproducibility","future_availability_of_identical_remote_revision"],
+  "prohibited_claims": ["exact LLM weights are fully reproducible","cloud model revision is cryptographically pinned","bitwise model reproducibility is guaranteed"],
+  "permitted_claims": ["The client-side LLM configuration, model alias, prompt identities and observable provider metadata were frozen before final evaluation.","The remote provider did not expose a revision digest that could be pinned for generation; therefore exact provider-side weight reproducibility remains a limitation."]
+}
