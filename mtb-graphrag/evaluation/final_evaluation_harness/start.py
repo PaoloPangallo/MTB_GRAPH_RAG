@@ -19,10 +19,16 @@ from .common.lifecycle import CampaignLedger, CampaignResult, CampaignState, Lif
 from .common.model_identity import GenerationIdentityError, validate_execution_environment, validate_prompt_hashes
 from .common.protocol_loader import load_protocol
 from .common.provider_snapshot import collect_snapshot, compare_snapshots, validate_metadata
+from .common.registry import ExecutionAdapterRegistry, binding_manifest, binding_manifest_sha256
 from .common.runner import build_full_plan, execution_plan_sha256
 
 
 class CampaignStartError(RuntimeError):
+    pass
+
+
+class RealExecutionNotEnabled(CampaignStartError):
+    """Safety boundary: this phase never dispatches a real scientific unit."""
     pass
 
 
@@ -55,6 +61,16 @@ def materialize_execution_plan() -> tuple[list[dict], str]:
     protocol = load_protocol()
     plans = build_full_plan(protocol)
     return [plan.__dict__ for plan in plans], execution_plan_sha256(plans)
+
+
+def validate_executor_coverage() -> tuple[int, str]:
+    protocol = load_protocol()
+    plans = build_full_plan(protocol)
+    registry = ExecutionAdapterRegistry(protocol)
+    bindings = registry.coverage(plans)
+    if len(bindings) != len(plans):
+        raise CampaignStartError("REAL_EXECUTION_ADAPTER_NOT_BOUND")
+    return len(bindings), binding_manifest_sha256(plans, registry)
 
 
 def validate_source_head(repo: Path, expected_head: str) -> None:
@@ -148,6 +164,7 @@ def main(argv: list[str] | None = None) -> None:
     source_root = protocol.root.parents[1]
     expected_head = _git_head(source_root)
     plans, plan_sha = materialize_execution_plan()
+    validate_executor_coverage()
     eid = evaluation_id(protocol, expected_head)
     validate_start_confirmation(argv, eid, plan_sha)
     validate_source_head(source_root, expected_head)
@@ -158,7 +175,7 @@ def main(argv: list[str] | None = None) -> None:
         raise CampaignStartError(str(exc)) from exc
     gate = ExecutionGate()
     gate.arm()
-    raise CampaignStartError("REAL_EXECUTION_ADAPTER_NOT_BOUND; no provider was contacted")
+    raise RealExecutionNotEnabled("real scientific dispatch is disabled in this implementation phase")
 
 
 def _git_head(repo: Path) -> str:
