@@ -35,7 +35,7 @@ def local_tmp():
         shutil.rmtree(path, ignore_errors=True)
 
 
-def test_protocol_sha_accepted(protocol): assert protocol.hashes["protocol_sha256"] == "76800b10ba85836369f47973802b0df65c0221df39ad8e9eac45a5241b70e106"
+def test_protocol_sha_accepted(protocol): assert protocol.hashes["protocol_sha256"] == "1e7f154ae6dff655937acb486226b88ac5baa556efaeb1a6a77d64d423399fa5"
 def test_runtime_exact(protocol): assert protocol.hashes["runtime_commit"] == "3d2251f82a586535f79f3d0b3725c16330c365ba"
 def test_lineage_exact(protocol): assert protocol.hashes["inherited_protocol_1_1_sha256"].startswith("83fcf870")
 def test_a01_exact(protocol): assert protocol.hashes["inherited_A01_sha256"].startswith("48c60928")
@@ -73,7 +73,7 @@ def test_ledger_reconcile_orphan(local_tmp):
 def test_ledger_reconcile_preserves_event(local_tmp):
     ledger = AppendOnlyLedger(local_tmp / "ledger.jsonl"); ledger.append({"event": "ATTEMPT_RESERVED", "attempt_id": "a"}); ledger.reconcile(); assert len(ledger.events()) == 2
 def test_envelope_required(protocol):
-    required = protocol.schemas["common_execution_envelope"]["required_fields"]; envelope = {key: {} for key in required}; envelope["normative_identity"] = {"protocol_version": "1.2"}; envelope["identity"] = {field: "x" for field in protocol.schemas["common_execution_envelope"]["identity_required"]}; envelope["dataset_hashes"] = {"dataset_bundle_sha256": "x"}; envelope["status"] = "COMPLETE"; validate_envelope(protocol, envelope)
+    required = protocol.schemas["common_execution_envelope"]["required_fields"]; envelope = {key: {} for key in required}; envelope["normative_identity"] = {"protocol_version": "1.3"}; envelope["identity"] = {field: "x" for field in protocol.schemas["common_execution_envelope"]["identity_required"]}; envelope["dataset_hashes"] = {"dataset_bundle_sha256": "x"}; envelope["status"] = "COMPLETE"; validate_envelope(protocol, envelope)
 def test_envelope_rejects_missing(protocol):
     with pytest.raises(ValueError): validate_envelope(protocol, {})
 def test_ranking_precision_denominator_k(): assert ranking_metrics(["a"], ["a"], 5)["Precision@5"] == 0.2
