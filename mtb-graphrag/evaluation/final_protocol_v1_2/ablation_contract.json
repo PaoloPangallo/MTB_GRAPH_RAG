@@ -1,0 +1,38 @@
+{
+  "contract_id": "final-evaluation-ablations/1.2",
+  "runtime_source_modified": false,
+  "mechanism": "HARNESS_SIDE_STAGE_BYPASS_OR_INJECTION",
+  "A": {
+    "name": "PRE_RETRIEVAL_AUTHORITY_BOUNDARY_BYPASS",
+    "remove_stages": ["3", "3b"],
+    "parser_output": "UNCHANGED",
+    "retrieval": "UNCHANGED",
+    "mechanism": "HARNESS_SIDE_STAGE_BYPASS"
+  },
+  "B": {
+    "name": "SELECTOR_REPLACEMENT",
+    "replacements": ["FIRST_K", "BM25"],
+    "same": ["document", "SourceUnits", "gold"],
+    "K": 5,
+    "other_changes": "NONE"
+  },
+  "C": {
+    "name": "QUOTE_VALIDATOR_BYPASS",
+    "transport_validation": "RETAINED",
+    "schema_validation": "RETAINED",
+    "schema_valid_QUOTE": "IDENTITY_SEMANTIC_VALIDATOR",
+    "ABSTAIN": "UNCHANGED",
+    "transport_failure": "UNCHANGED",
+    "schema_invalid": "UNCHANGED",
+    "error_to_evidence_conversion": false
+  },
+  "D": {
+    "name": "NARRATIVE_VERIFIER_BYPASS",
+    "narrator": "EXECUTED_NORMALLY",
+    "narrative_verifier": "NOT_CALLED",
+    "transport_valid_narrative": "PRESENTED_IN_OFFLINE_ABLATION",
+    "canonical_dossier": "UNCHANGED",
+    "structured_fallback_due_to_removed_verifier": false,
+    "fabricated_output_allowed": false
+  }
+}

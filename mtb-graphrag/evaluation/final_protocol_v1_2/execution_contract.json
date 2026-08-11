@@ -1,0 +1,75 @@
+{
+  "contract_id": "final-evaluation-execution/1.2",
+  "scientific_repetition_equals_infrastructure_attempt": false,
+  "identifiers": {
+    "canonical_json": {
+      "encoding": "UTF-8",
+      "sorted_keys": true,
+      "separators": [",", ":"]
+    },
+    "hash_algorithm": "SHA256_LOWERCASE_HEX",
+    "evaluation_id": {
+      "prefix": "fe_",
+      "fields": [
+        "runtime_commit",
+        "protocol_version",
+        "protocol_sha256",
+        "inherited_A01_sha256",
+        "S01_package_sha256",
+        "harness_commit"
+      ],
+      "formula": "fe_sha256(canonical_json(fields))"
+    },
+    "repetition_id": ["primary", "r01", "r02", "r03"],
+    "run_id": {
+      "prefix": "run_",
+      "fields": ["evaluation_id", "testbed", "case_id", "arm", "repetition_id"],
+      "formula": "run_sha256(canonical_json(fields))"
+    },
+    "attempt_id_pattern": "<run_id>/aNNNN",
+    "outcome_dependent": false,
+    "timestamps_in_ids": false,
+    "timestamp_format": "UTC_RFC3339_Z"
+  },
+  "attempt_reservation": {
+    "event": "ATTEMPT_RESERVED",
+    "ledger_append_before_execution": true,
+    "ordinal_reserved_before_execution": true,
+    "outcome_cannot_influence_id": true
+  },
+  "retry_policy": {
+    "runtime_native_timeout_5xx": "SAME_ATTEMPT",
+    "terminal_4xx_404": "NO_SEMANTIC_RETRY_PRESERVE",
+    "provider_unavailable": "INFRASTRUCTURE_FAILED",
+    "schema_invalid_model_output": "PRESERVE_NO_SEMANTIC_RETRY",
+    "controlled_canonical_failure": "VALID_RESULT_NO_RETRY",
+    "process_crash": {
+      "orphan_state": "ATTEMPT_RESERVED",
+      "detector": "RECONCILIATION_RECOVERY_PASS",
+      "action": "APPEND_INCOMPLETE",
+      "crashed_process_writes_event": false,
+      "new_attempt_allowed": true
+    },
+    "failed_attempt_preservation": "LEDGER_APPEND_ONLY_NO_DELETE_NO_OVERWRITE_NO_REPLACE"
+  },
+  "raw_lifecycle": {
+    "ledger": "APPEND_ONLY",
+    "before_execution": "ATTEMPT_RESERVED",
+    "raw_create": "IMMUTABLE_CREATE_IF_ABSENT",
+    "duplicate_attempt_id": "HARD_FAIL",
+    "completed_run": "NO_AUTOMATIC_RERUN",
+    "infrastructure_retry": "NEW_ATTEMPT_SAME_RUN",
+    "scientific_repeat": "NEW_REPETITION_NEW_RUN",
+    "aggregate": "DERIVED_VERSIONED",
+    "raw": "NEVER_MODIFIED"
+  },
+  "status_taxonomy": [
+    "ATTEMPT_RESERVED",
+    "COMPLETE",
+    "INFRASTRUCTURE_FAILED",
+    "INCOMPLETE",
+    "CONTROLLED_FAILURE",
+    "SCHEMA_INVALID",
+    "ABSTAIN"
+  ]
+}
