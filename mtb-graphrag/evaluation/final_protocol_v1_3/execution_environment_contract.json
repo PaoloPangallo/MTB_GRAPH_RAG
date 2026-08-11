@@ -1,0 +1,12 @@
+{
+  "decision_id": "E02",
+  "allowed_overrides": {
+    "RESEARCH_PIPELINE_MODEL": "gemma4:31b-cloud",
+    "RESEARCH_PIPELINE_LLM_BASE_URL": ["UNSET","https://ollama.com"],
+    "OLLAMA_BASE_URL": ["UNSET","NON_SEMANTICALLY_ACTIVE_ON_RESEARCH_TRANSPORT"],
+    "RESEARCH_PIPELINE_LLM_TIMEOUT": ["UNSET",60]
+  },
+  "OLLAMA_API_KEY": "PRESENT_REQUIRED_SECRET_NOT_RECORDED",
+  "semantic_override_mismatch": "HARD_FAIL",
+  "effective_values_must_match_generation_configuration": true
+}
