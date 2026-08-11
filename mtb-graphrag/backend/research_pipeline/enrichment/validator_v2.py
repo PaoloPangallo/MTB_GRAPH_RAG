@@ -5,7 +5,7 @@ deliberately defers (section 5 of the protocol)."""
 from __future__ import annotations
 
 import re
-from typing import Any
+from typing import Any, Callable
 
 _RECOMMENDATION_PHRASES = ("should be treated", "should receive", "recommend", "is indicated for", "eligible for", "we suggest", "patients should")
 _STATUS_GATE_WORDS = ("direct", "partial", "ambiguous", "contradicted", "gate", "bucket", "score", "evidence level")
@@ -87,9 +87,23 @@ def _validate_abstain(args: dict[str, str]) -> dict[str, Any]:
     return _result("ENRICHMENT_V2_ABSTAINED", reasons)
 
 
-def validate_enrichment_v2(transport_result: str, args: dict[str, str] | None, *, candidate: dict[str, Any], paper_bundle: dict[str, Any], source_units_by_id: dict[str, dict], requested_drug: str, case_context_text: str = "", candidate_text: str = "") -> dict[str, Any]:
+def identity_semantic_validator(args: dict[str, str], **_: Any) -> dict[str, Any]:
+    """D06-only identity seam after transport/schema acceptance."""
+    if args["decision"] == "ABSTAIN":
+        return _validate_abstain(args)
+    return _result("ENRICHMENT_V2_ACCEPTED", ["SEMANTIC_VALIDATION_IDENTITY"])
+
+
+def validate_enrichment_v2(transport_result: str, args: dict[str, str] | None, *, candidate: dict[str, Any], paper_bundle: dict[str, Any], source_units_by_id: dict[str, dict], requested_drug: str, case_context_text: str = "", candidate_text: str = "", semantic_validator: Callable[..., dict[str, Any]] | None = None) -> dict[str, Any]:
     if transport_result != "V2_TRANSPORT_VALID" or args is None:
         return _result("REJECTED_TRANSPORT", [f"TRANSPORT_RESULT:{transport_result}"])
+
+    if semantic_validator is not None:
+        return semantic_validator(
+            args, candidate=candidate, paper_bundle=paper_bundle,
+            source_units_by_id=source_units_by_id, requested_drug=requested_drug,
+            case_context_text=case_context_text, candidate_text=candidate_text,
+        )
 
     if args["decision"] == "ABSTAIN":
         return _validate_abstain(args)
