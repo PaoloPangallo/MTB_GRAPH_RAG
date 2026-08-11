@@ -24,7 +24,7 @@ def test_representative_executor_names():
     assert any(name == "RQ3FullSystemExecutor" for name in by.values())
     assert {name for name in by.values() if "Ablation" in name} == {"RQ3AblationAExecutor", "RQ3AblationBExecutor", "RQ3AblationCExecutor", "RQ3AblationDExecutor"}
     assert {name for name in by.values() if name.startswith("RQ4")} == {"RQ4DevelopmentExecutor", "RQ4HeldoutExecutor"}
-    assert any(name == "NarrativeExecutor" for name in by.values())
+    assert {name for name in by.values() if name.startswith("Narrative")} == {"NarrativeHostileExecutor", "NarrativeControlExecutor"}
     assert any(name == "OperationalExecutor" for name in by.values())
     assert any(name == "LatencyExecutor" for name in by.values())
 

@@ -90,9 +90,9 @@ def test_production_coverage_reports_only_concrete_methods_without_execution():
     from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
     dispatcher = ProductionUnitDispatcher()
     covered, missing = dispatcher.coverage(plan, ExecutionAdapterRegistry(protocol))
-    assert covered == 156
+    assert covered == 181
     assert set(missing) == {
-        "ControlledFailureExecutor", "LatencyExecutor", "NarrativeExecutor",
+        "ControlledFailureExecutor", "LatencyExecutor",
         "OperationalExecutor", "ReliabilityStratumAExecutor",
         "ReliabilityStratumBExecutor",
     }

@@ -66,9 +66,16 @@ class ProductionUnitDispatcher:
         candidate_id, document_id = unit.case_id.split("|", 1)
         candidate = next(json.loads(line) for line in candidates_path.read_text(encoding="utf-8").splitlines()
                          if line and json.loads(line).get("candidate_id") == candidate_id)
-        units = [json.loads(line) for line in rows_path.read_text(encoding="utf-8").splitlines()
-                 if line and json.loads(line).get("candidate_id") == candidate_id
-                 and json.loads(line).get("document_id") == document_id]
+        all_units = [json.loads(line) for line in rows_path.read_text(encoding="utf-8").splitlines() if line]
+        units = [row for row in all_units if row.get("candidate_id") == candidate_id
+                 and row.get("document_id") == document_id]
+        if not units:
+            inventory_path = root / "evaluation" / "sourceunit_selector_independent" / "document_inventory.jsonl"
+            inventory = next((json.loads(line) for line in inventory_path.read_text(encoding="utf-8").splitlines()
+                              if line and json.loads(line).get("candidate_id") == candidate_id), None)
+            canonical_document = inventory.get("document_id") if inventory else None
+            units = [row for row in all_units if row.get("candidate_id") == candidate_id
+                     and row.get("document_id") == canonical_document]
         if not units:
             raise RuntimeError(f"REAL_EXECUTION_INPUT_NOT_RESOLVED:{unit.case_id}")
         return candidate, units
@@ -137,6 +144,36 @@ class ProductionUnitDispatcher:
 
     def _RQ3AblationDExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
         return self._run_case(unit, context, ablation="D")
+
+    def _NarrativeHostileExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        case = self._load_narrative_case(unit, hostile=True)
+        verified = context.narrative_verifier.verify_authority(
+            case["canonical_authority_context"], case["narrator_input"],
+            case["candidate_narrative"],
+        )
+        return {"case_id": unit.case_id, "stratum": "H", "verifier": verified,
+                "candidate_narrative_sha256": case["candidate_narrative_sha256"],
+                "authority_hash": case["canonical_authority_hash"]}
+
+    def _NarrativeControlExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        case = self._load_narrative_case(unit, hostile=False)
+        output = context.narrator.call(unit.case_id, case["narrator_input"], run_index=0)
+        verified = context.narrative_verifier.verify_authority(
+            case["canonical_dossier"], case["narrator_input"], output,
+        )
+        return {"case_id": unit.case_id, "stratum": "C", "narrative": output,
+                "verifier": verified, "canonical_dossier_sha256": case["canonical_dossier_sha256"],
+                "narrator_input_sha256": case["narrator_input_sha256"]}
+
+    @staticmethod
+    def _load_narrative_case(unit: Any, *, hostile: bool) -> dict[str, Any]:
+        from pathlib import Path
+        import json
+        root = Path(__file__).resolve().parents[3] / "evaluation" / "final_protocol_v1_5_candidates" / "narrative"
+        path = root / ("hostile" if hostile else "controls") / f"{unit.case_id}.json"
+        if not path.is_file():
+            raise RuntimeError(f"NARRATIVE_CORPUS_IDENTITY_FAILURE:{unit.case_id}")
+        return json.loads(path.read_text(encoding="utf-8"))
 
     def _run_case(self, unit: Any, context: "RealExecutionContext", *, gold_access: bool = True, ablation: str | None = None) -> Any:
         if ablation in {"B", "C", "D"}:

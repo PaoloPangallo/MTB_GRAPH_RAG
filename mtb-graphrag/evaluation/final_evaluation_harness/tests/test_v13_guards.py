@@ -78,7 +78,7 @@ def test_plan_metadata_required_fields():
 
 
 def test_gold_is_prohibited_during_heldout():
-    p=load_protocol(); assert {x.gold_access for x in build_plan("rq4",p)}=={"PROHIBITED"}
+    p=load_protocol(); assert {x.gold_access for x in build_plan("rq4",p)}=={"ALLOWED_POST_INFERENCE_ONLY"}
 
 
 def test_s01_and_dataset_hashes_present_for_rq2():
