@@ -6,8 +6,8 @@ RQ definitions, datasets, metrics, denominators, success criteria, GOLD,
 ablations, reliability, retries, statistics, latency, held-out data, A01, or
 S01.
 
-Status: `DRAFT_FOR_HUMAN_REVIEW`  
-Frozen: `false`  
+Status: `ACCEPTED`
+Frozen: `true`
 Final results observed before 1.3: `false`
 
 The prescribed effective model is `gemma4:31b-cloud` at the Ollama Cloud
