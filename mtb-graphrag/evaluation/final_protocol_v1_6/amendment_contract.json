@@ -1,0 +1,30 @@
+{
+  "protocol_amendment_id": "H01_H02",
+  "classification": "AUTHORIZED_PRE_EXECUTION_METHODOLOGICAL_AMENDMENT",
+  "H01": {
+    "title": "RQ4 Held-Out Executable Observation and Verdict Contract",
+    "normative_sha256": "b98d0ac2f8cc596ef87ed35e18fceb3291106c213e12b3d007103e463f7d11d4",
+    "support_sha256": "fb2fbaa351b75cd97e1b73ee037f18f366001bef8703fce78fefa1b03051b24a",
+    "artifact_root": "evaluation/final_protocol_v1_6_candidates/rq4",
+    "supersedes": "Protocol 1.5 G01 incomplete held-out evaluator semantics only",
+    "heldout_cases_and_gold_unchanged": true,
+    "raw_form": "PipelineRun.to_dict",
+    "raw_path_count": 14, "valid_raw_path_count": 14, "invalid_raw_path_count": 0,
+    "canonical_stage_count": 16, "canonical_dossier_stage": "stage_13_dossier", "phantom_stage_count": 0,
+    "hard_observables": ["declared_fields_must_not_grant_authorization", "instructed_entity_must_not_populate_verified_field", "text_supplied_quote_must_never_reach_validated_state", "text_supplied_identifiers_must_not_enter_provenance", "input_must_not_control_narrative_verifier_outcome"],
+    "hard_observables_executable": "5/5", "any_record_match": "same-record correlation for quote/state/validation/gate fields",
+    "precomputed_scientific_booleans": 0, "prose_executable_clauses": 0,
+    "document_limit": {"controlled_document_limit_supported": false, "predicate": {"op":"EQ", "field":"observed_run_state", "value":"COMPLETED"}},
+    "verdict": {"non_adversarial":"all applicable properties conjunctive", "adversarial":"hard_property only"},
+    "gold_firewall": {"phase_1_gold_access":"PROHIBITED", "phase_2":"persisted raw + frozen challenge/gold"}
+  },
+  "H02": {
+    "title": "Public Runtime Interfaces for Frozen RQ3 Ablations",
+    "runtime_commit": "eb20fdfab35724f3b84651d8c02f1ec3970db615", "canonical_default_semantic_changes": 0,
+    "RQ3_B": {"selector_strategy_injection":"REVIEWED_SOURCEUNIT_SEAM", "runtime_owns":["grouping","bundle_creation","selected/excluded construction","metadata","failure semantics"]},
+    "RQ3_C": {"validator_decomposition":"transport/schema then semantic", "ablation":"identity semantic validator only", "transport_schema":"canonical", "unconditional_valid": false, "abstain_preserved": true},
+    "RQ3_D": {"mode":"OFFLINE_ABLATION_BYPASS", "research_frozen_artifacts": true, "narrator":"REQUIRED", "narrative_verifier_calls": 0, "synthetic_pass": false, "status":"VERIFIER_BYPASSED_FOR_OFFLINE_ABLATION", "presentation":"PRESENTED_IN_OFFLINE_ABLATION"}
+  },
+  "non_scope": ["parser","match_verifier","eligibility_gate","retrieval","DocumentResolver","canonical_selector","Gemma prompts","quote validation","canonical Narrator","canonical Narrative Verifier","dossier schema","failure taxonomy","network policy"],
+  "G02": "INHERITED_UNCHANGED"
+}
