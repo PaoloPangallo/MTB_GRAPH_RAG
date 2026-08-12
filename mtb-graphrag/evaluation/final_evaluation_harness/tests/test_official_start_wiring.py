@@ -164,3 +164,35 @@ def test_production_dispatch_transports_attempt_events_to_campaign_ledger(tmp_pa
     assert result[0].status == "COMPLETE"
     events = ledger.events()
     assert [event["event"] for event in events] == ["ATTEMPT_RESERVED", "RAW_COMMITTED", "COMPLETE"]
+
+
+def test_public_official_start_reaches_first_attempt_with_campaign_ledger(tmp_path: Path, monkeypatch):
+    protocol = load_protocol()
+    from evaluation.final_evaluation_harness.common.runner import build_full_plan
+    from evaluation.final_evaluation_harness.common.execution import ProductionAdapterFactory, ProductionUnitDispatcher
+    unit = build_full_plan(protocol)[0]
+    fake = type("Fake", (), {"call": lambda self, *a, **k: {}, "select": lambda self, *a, **k: None,
+                              "validate": lambda self, *a, **k: {}, "verify_authority": lambda self, *a, **k: {}})()
+    monkeypatch.setattr(ProductionAdapterFactory, "canonical_runtime", staticmethod(lambda: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "selector", staticmethod(lambda: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "parser", staticmethod(lambda: (lambda *a, **k: {})))
+    monkeypatch.setattr(ProductionAdapterFactory, "gemma", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "narrator", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "quote_validator", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: type("Doc", (), {"resolve": lambda self, value: value})()))
+    monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor", lambda self, planned, context: {"status": "COMPLETE"})
+    plan_sha = "p" * 64
+    campaign = tmp_path / "evaluation" / "final_evaluation"
+    result = start.run_official_start(
+        protocol=protocol, source_root=protocol.root.parents[1], expected_head="a" * 40,
+        plans=[unit.__dict__], plan_sha=plan_sha, expected_evaluation_id="fe_official_fixture",
+        argv=["--arm", "--confirm-evaluation-id", "fe_official_fixture", "--confirm-plan-sha", plan_sha,
+              "--confirm-start", "FINAL_EVALUATION_1_6"], campaign_root=campaign,
+        metadata_request=_metadata, dispatch=start.run_production_dispatch,
+        environment_validator=lambda: None, prompt_validator=lambda: None, head_validator=lambda *_: None,
+    )
+    assert result == "DISPATCHED"
+    events = (campaign / "ledger.jsonl").read_text(encoding="utf-8").splitlines()
+    assert any('"event": "ATTEMPT_RESERVED"' in line for line in events)
+    assert any('"event": "COMPLETE"' in line for line in events)
