@@ -265,8 +265,10 @@ def main(argv: list[str] | None = None) -> None:
 
 
 def _provider_metadata_request(model: str) -> dict:
-    """Provider metadata boundary; concrete transport is supplied at START."""
-    raise CampaignStartError("PROVIDER_METADATA_TRANSPORT_NOT_CONFIGURED")
+    """Use the canonical Ollama metadata client at the authorized START gate."""
+    from backend.pipeline.llm.ollama_adapter import OllamaClient, configured_endpoint
+
+    return OllamaClient(configured_endpoint()).show(model)
 
 
 def _git_head(repo: Path) -> str:
