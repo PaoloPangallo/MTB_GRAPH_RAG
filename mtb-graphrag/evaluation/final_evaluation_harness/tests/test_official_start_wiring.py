@@ -141,6 +141,7 @@ def test_production_dispatch_transports_attempt_events_to_campaign_ledger(tmp_pa
     from evaluation.final_evaluation_harness.common.execution import ProductionAdapterFactory, ProductionUnitDispatcher
     from evaluation.final_evaluation_harness.common.guards import ModelGuard, NetworkGuard, RuntimeGuard
     from evaluation.final_evaluation_harness.common.lifecycle import CampaignLedger
+    from evaluation.rq1.compare import PathComparison
     unit = build_full_plan(protocol)[0]
     fake = type("Fake", (), {"call": lambda self, *a, **k: {}, "select": lambda self, *a, **k: None,
                               "validate": lambda self, *a, **k: {}, "verify_authority": lambda self, *a, **k: {}})()
@@ -152,7 +153,10 @@ def test_production_dispatch_transports_attempt_events_to_campaign_ledger(tmp_pa
     monkeypatch.setattr(ProductionAdapterFactory, "quote_validator", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: type("Doc", (), {"resolve": lambda self, value: value})()))
-    monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor", lambda self, planned, context: {"status": "COMPLETE"})
+    comparison = PathComparison("path-1", "rule-1", "candidate-1", True,
+                                {"predicate": True}, [], True, [])
+    monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor",
+                        lambda self, planned, context: {"status": "COMPLETE", "comparisons": [comparison]})
     campaign = tmp_path / "campaign"
     campaign.mkdir()
     ledger = CampaignLedger(campaign / "ledger.jsonl")
@@ -164,6 +168,10 @@ def test_production_dispatch_transports_attempt_events_to_campaign_ledger(tmp_pa
     assert result[0].status == "COMPLETE"
     events = ledger.events()
     assert [event["event"] for event in events] == ["ATTEMPT_RESERVED", "RAW_COMMITTED", "COMPLETE"]
+    raw_files = list((campaign / "raw_attempts").glob("*.json"))
+    assert len(raw_files) == 1
+    raw_payload = __import__("json").loads(raw_files[0].read_text(encoding="utf-8"))
+    assert raw_payload["scientific_payload"]["comparisons"][0] == comparison.to_row()
 
 
 def test_public_official_start_reaches_first_attempt_with_campaign_ledger(tmp_path: Path, monkeypatch):
