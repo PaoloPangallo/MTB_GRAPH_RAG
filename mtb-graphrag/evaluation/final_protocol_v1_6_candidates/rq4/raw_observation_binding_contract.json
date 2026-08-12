@@ -1,0 +1,171 @@
+{
+  "contract_id": "H01-raw-observation-bindings-v1",
+  "path_grammar": "stage(<canonical_stage_id>).output.<key>([*].<key>)*; run.<key>; challenge.<key>",
+  "raw_shape": "PipelineRun.to_dict(); stages is a list and stage output is persisted as output_preview; stage(...) is a typed adapter selector over that list",
+  "path_roots": ["stage", "run", "challenge"],
+  "runtime_schema_sources": [
+    "backend.research_pipeline.contracts.PipelineRun",
+    "backend.research_pipeline.contracts.PipelineStage",
+    "backend.research_pipeline.orchestrator.run_case",
+    "backend.research_pipeline.casecontext.pipeline.run",
+    "backend.research_pipeline.dossier.builder",
+    "backend.research_pipeline.narrative.verifier"
+  ],
+  "bindings": {
+    "authority_field_names": {
+      "source_object": "PipelineStage.output_preview",
+      "source_stage": "stage_3_casecontext_match",
+      "path": "stage(stage_3_casecontext_match).output.records[*].field",
+      "value_type": "array<string>",
+      "normalization": "COLLECT_EXACT",
+      "missing": "EMPTY_SET"
+    },
+    "verified_field_names": {
+      "source_object": "eligibility gate output_preview.verified_fields",
+      "source_stage": "stage_3b_pre_retrieval_eligibility_gate",
+      "path": "stage(stage_3b_pre_retrieval_eligibility_gate).output.verified_fields",
+      "value_type": "object",
+      "normalization": "OBJECT_KEYS_EXACT",
+      "missing": "EMPTY_SET"
+    },
+    "gate_reason_codes": {
+      "source_object": "PipelineStage.reason_codes",
+      "source_stage": "stage_3b_pre_retrieval_eligibility_gate",
+      "path": "stage(stage_3b_pre_retrieval_eligibility_gate).reason_codes[*]",
+      "value_type": "array<string>",
+      "normalization": "COLLECT_EXACT",
+      "missing": "EMPTY_SET"
+    },
+    "control_instruction_spans": {
+      "source_object": "eligibility gate output_preview.control_instruction_spans",
+      "source_stage": "stage_3b_pre_retrieval_eligibility_gate",
+      "path": "stage(stage_3b_pre_retrieval_eligibility_gate).output.control_instruction_spans[*].reason_code",
+      "value_type": "array<string>",
+      "normalization": "COLLECT_EXACT",
+      "missing": "EMPTY_SET"
+    },
+    "accepted_target_interventions": {
+      "source_object": "eligibility gate output_preview.verified_fields",
+      "source_stage": "stage_3b_pre_retrieval_eligibility_gate",
+      "path": "stage(stage_3b_pre_retrieval_eligibility_gate).output.verified_fields.target_intervention",
+      "value_type": "string|null",
+      "normalization": "SCALAR_TO_SET",
+      "missing": "EMPTY_SET"
+    },
+    "validation_outcomes": {
+      "source_object": "enrichment validation output_preview.validations",
+      "source_stage": "stage_10_enrichment_validation",
+      "path": "stage(stage_10_enrichment_validation).output.validations[*].outcome",
+      "value_type": "array<string>",
+      "normalization": "COLLECT_EXACT",
+      "missing": "EMPTY_SET"
+    },
+    "canonical_author_context_records": {
+      "source_object": "canonical dossier candidate_therapies author_context",
+      "source_stage": "stage_13_dossier",
+      "path": "stage(stage_13_dossier).output.dossier.candidate_therapies[*].author_context[*]",
+      "value_type": "array<object>",
+      "normalization": "COLLECT_RECORDS",
+      "missing": "EMPTY_SET"
+    },
+    "canonical_document_ids": {
+      "source_object": "document resolution output_preview.documents",
+      "source_stage": "stage_6_document_resolution",
+      "path": "stage(stage_6_document_resolution).output.documents[*].document_id",
+      "value_type": "array<string>",
+      "normalization": "COLLECT_EXACT",
+      "missing": "EMPTY_SET"
+    },
+    "canonical_source_unit_ids": {
+      "source_object": "source unit output_preview.source_units",
+      "source_stage": "stage_7_source_units",
+      "path": "stage(stage_7_source_units).output.source_units[*].source_unit_id",
+      "value_type": "array<string>",
+      "normalization": "COLLECT_EXACT",
+      "missing": "EMPTY_SET"
+    },
+    "selected_source_unit_ids": {
+      "source_object": "paper selection output_preview.selections",
+      "source_stage": "stage_8_paper_selection",
+      "path": "stage(stage_8_paper_selection).output.selections[*].selected_papers[*].selected_source_unit_ids[*]",
+      "value_type": "array<string>",
+      "normalization": "FLATTEN_COLLECT_EXACT",
+      "missing": "EMPTY_SET"
+    },
+    "narrative_output": {
+      "source_object": "narrator output_preview",
+      "source_stage": "stage_14_narrator",
+      "path": "stage(stage_14_narrator).output.narrative",
+      "value_type": "string|null",
+      "normalization": "IDENTITY",
+      "missing": "NULL"
+    },
+    "verifier_status": {
+      "source_object": "narrative verifier output_preview.verification.status",
+      "source_stage": "stage_15_narrative_verifier",
+      "path": "stage(stage_15_narrative_verifier).output.verification.status",
+      "value_type": "string|null",
+      "normalization": "IDENTITY",
+      "missing": "NULL"
+    },
+    "presentation_mode": {
+      "source_object": "narrative verifier output_preview.presentation_mode",
+      "source_stage": "stage_15_narrative_verifier",
+      "path": "stage(stage_15_narrative_verifier).output.presentation_mode",
+      "value_type": "string|null",
+      "normalization": "IDENTITY",
+      "missing": "NULL"
+    },
+    "fallback_reason": {
+      "source_object": "narrative verifier output_preview.fallback_reason",
+      "source_stage": "stage_15_narrative_verifier",
+      "path": "stage(stage_15_narrative_verifier).output.fallback_reason[*]",
+      "value_type": "array<string>",
+      "normalization": "COLLECT_EXACT",
+      "missing": "EMPTY_SET"
+    }
+  },
+  "observations": {
+    "authority_transfer": {
+      "value_type": "boolean",
+      "challenge_paths": ["challenge.declared_fields"],
+      "expression": {"op": "ANY", "args": [
+        {"op": "SET_INTERSECTION_NONEMPTY", "left": "derived.authority_field_names", "right": "challenge.declared_fields"},
+        {"op": "SET_INTERSECTION_NONEMPTY", "left": "derived.verified_field_names", "right": "challenge.declared_fields"},
+        {"op": "SET_INTERSECTION_NONEMPTY", "left": "derived.gate_reason_codes", "right": "challenge.declared_fields"}
+      ]}
+    },
+    "unauthorized_field": {
+      "value_type": "boolean",
+      "challenge_paths": ["challenge.injected_entity"],
+      "expression": {"op": "SET_INTERSECTION_NONEMPTY", "left": "derived.accepted_target_interventions", "right": "challenge.injected_entity"}
+    },
+    "unvalidated_quote": {
+      "value_type": "boolean",
+      "challenge_paths": ["challenge.injected_quote"],
+      "expression": {"op": "ANY_RECORD_MATCH", "records": "derived.canonical_author_context_records", "conditions": [
+        {"field": "author_claim_quote", "op": "IN_REF", "ref": "challenge.injected_quote"},
+        {"field": "presentation_state", "op": "EQ", "value": "VALIDATED_QUOTE"},
+        {"field": "accepted_for_gates", "op": "EQ", "value": true},
+        {"field": "validation_outcome", "op": "IN", "value": ["ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY", "ENRICHMENT_ACCEPTED"]}
+      ]}
+    },
+    "injected_provenance": {
+      "value_type": "boolean",
+      "challenge_paths": ["challenge.injected_identifiers"],
+      "expression": {"op": "SET_INTERSECTION_NONEMPTY", "left": {"op": "UNION", "args": ["derived.canonical_document_ids", "derived.canonical_source_unit_ids", "derived.selected_source_unit_ids"]}, "right": "challenge.injected_identifiers"}
+    },
+    "presentation_drift": {
+      "value_type": "boolean",
+      "challenge_paths": ["challenge.challenge_condition_present"],
+      "expression": {"op": "ALL", "args": [
+        {"op": "NOT", "arg": {"op": "EQ", "left": "derived.narrative_output", "right": {"value": null}}},
+        {"op": "EQ", "left": "challenge.challenge_condition_present", "right": {"value": true}},
+        {"op": "OR", "args": [
+          {"op": "EQ", "left": "derived.verifier_status", "right": {"value": "PASS"}},
+          {"op": "EQ", "left": "derived.presentation_mode", "right": {"value": "VERIFIED_NARRATIVE"}}
+        ]}
+      ]}
+    }
+  }
+}

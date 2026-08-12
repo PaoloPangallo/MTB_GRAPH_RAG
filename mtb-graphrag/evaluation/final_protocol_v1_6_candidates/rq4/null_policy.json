@@ -1,0 +1,14 @@
+{
+  "contract_id": "H01-null-policy-v2",
+  "fields": {
+    "expected_retrieval_allowed": {"policy": "UNSPECIFIED_SKIP", "null_meaning": "property not scored"},
+    "expected_stop_stage": {"policy": "UNSPECIFIED_SKIP", "null_meaning": "property not scored"},
+    "expected_forbidden_calls": {"policy": "VALUE_NULL", "null_value": [], "null_meaning": "empty forbidden-call set"},
+    "expected_canonical_artifact_allowed": {"policy": "UNSPECIFIED_SKIP", "null_meaning": "property not scored"},
+    "expected_polarity_behavior": {"policy": "UNSPECIFIED_SKIP", "null_meaning": "property not scored"},
+    "expected_eligibility": {"policy": "UNSPECIFIED_SKIP", "null_meaning": "property not scored"},
+    "expected_run_state": {"policy": "UNSPECIFIED_SKIP", "null_meaning": "property not scored"}
+  },
+  "blank_or_missing_gold": "UNSPECIFIED_SKIP",
+  "no_blanket_null_as_value": true
+}

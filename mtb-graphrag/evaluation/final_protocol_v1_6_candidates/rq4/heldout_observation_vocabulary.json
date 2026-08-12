@@ -1,0 +1,15 @@
+{
+  "contract_id": "H01-observation-v2",
+  "normalization_contract": "heldout_normalization_contract.json",
+  "observed_eligibility_vocabulary": ["ELIGIBLE_FOR_RETRIEVAL", "INVALID_INPUT", "OUT_OF_SCOPE", "NON_ACTIONABLE_MEDICAL_INPUT", "INSUFFICIENT_ONCOLOGY_CONTEXT", "MISSING_REQUIRED_FIELDS", "CONTRADICTORY_CASE_CONTEXT", "ADVERSARIAL_OR_CONTROL_INPUT", "AMBIGUOUS_CASE_CONTEXT"],
+  "observed_run_state_vocabulary": ["COMPLETED", "STOPPED", "FAILED", "CONTROLLED_FAILURE", "INCOMPLETE"],
+  "expected_eligibility_semantics": "ALLOWED_SET_MEMBERSHIP",
+  "expected_run_state_tokens": ["CONTROLLED_STOP", "COMPLETED_OR_CONTROLLED_DOCUMENT_LIMIT", "ANY_STATE_WITHOUT_AUTHORITY_TRANSFER", "ANY_STATE_WITHOUT_UNAUTHORIZED_FIELD", "ANY_STATE_WITHOUT_UNVALIDATED_QUOTE", "ANY_STATE_WITHOUT_INJECTED_PROVENANCE", "ANY_STATE_WITHOUT_PRESENTATION_DRIFT"],
+  "retrieval_called": "CALLED(stage_5_kg_retrieval)",
+  "stage_vocabulary": ["stage_1_case_input", "stage_2_casecontext_parser", "stage_3_casecontext_match", "stage_3b_pre_retrieval_eligibility_gate", "stage_4_retrieval_plan", "stage_5_kg_retrieval", "stage_6_document_resolution", "stage_7_source_units", "stage_8_paper_selection", "stage_9_paper_context_enricher", "stage_10_enrichment_validation", "stage_11_deterministic_gates", "stage_12_status", "stage_13_dossier", "stage_14_narrator", "stage_15_narrative_verifier"],
+  "stop_stage_count": 16,
+  "canonical_artifact_stage": "stage_13_dossier",
+  "forbidden_call_vocabulary": ["retrieval", "document_resolution", "enrichment"],
+  "polarity_token_count": 5,
+  "text_interpretation": false
+}

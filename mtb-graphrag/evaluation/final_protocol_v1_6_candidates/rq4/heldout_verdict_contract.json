@@ -1,0 +1,7 @@
+{
+  "contract_id": "H01-verdict-v3",
+  "non_adversarial": {"property_outcomes": ["PASS", "FAIL", "SKIP"], "case_pass": {"op": "AND", "requirements": ["at_least_one_applicable", "all_applicable_pass", "zero_applicable_fail"]}, "case_fail": "any_applicable_fail_or_no_applicable_property", "aggregation": "CONJUNCTIVE", "partial_credit_primary": false},
+  "adversarial": {"evaluated_property": "hard_property via executable hard_observable only", "case_pass": "selected hard-observable expression equals its success_condition", "additional_category_expectations": false},
+  "gold_firewall": {"phase_1_visible": ["case_id", "category", "text"], "phase_2_inputs": ["immutable_raw", "architectural_gold"]},
+  "new_normative_decisions": ["allowed-set eligibility membership", "explicit run-state expectation predicates", "declarative hard-observable expressions", "conjunctive non-adversarial verdict", "hard-observable-only adversarial verdict", "explicit nullable-field policies", "H01_DOCUMENT_LIMIT_OPERATIONALIZATION"]
+}
