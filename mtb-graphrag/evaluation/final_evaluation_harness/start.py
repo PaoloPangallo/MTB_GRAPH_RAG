@@ -23,6 +23,7 @@ from .common.registry import ExecutionAdapterRegistry, binding_manifest, binding
 from .common.runner import build_full_plan, execution_plan_sha256, planned_runs_from_serialized
 from .common.execution import RealExecutionContext, ProductionUnitDispatcher
 from .common.production_loop import execute_sealed_plan
+from .common.guards import ModelGuard, NetworkGuard, RuntimeGuard
 
 
 class CampaignStartError(RuntimeError):
@@ -48,9 +49,12 @@ def run_production_dispatch(plan, protocol, campaign_root, *, ledger=None, raw_w
     covered, missing = dispatcher.coverage(plan, registry)
     if missing:
         raise CampaignStartError(f"REAL_EXECUTION_ADAPTER_NOT_BOUND:{','.join(sorted(set(missing)))}")
+    runtime_guard = RuntimeGuard()
+    model_guard = model_guard or ModelGuard()
+    network_guard = network_guard or NetworkGuard("CANONICAL_RUNTIME_POLICY")
     context = RealExecutionContext.from_production(
         protocol, ledger=ledger, raw_writer=raw_writer,
-        network_guard=network_guard, model_guard=model_guard,
+        network_guard=network_guard, model_guard=model_guard, runtime_guard=runtime_guard,
         production_dispatcher=dispatcher,
     )
     return execute_sealed_plan(plan, context, registry, campaign_root, campaign_open=True)

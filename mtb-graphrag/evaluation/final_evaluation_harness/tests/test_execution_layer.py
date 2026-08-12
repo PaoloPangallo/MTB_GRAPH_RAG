@@ -11,7 +11,9 @@ from evaluation.final_evaluation_harness.common.protocol_loader import load_prot
 from evaluation.final_evaluation_harness.common.runner import PlannedRun, build_full_plan, build_plan
 from evaluation.final_evaluation_harness.common.production_loop import execute_sealed_plan
 from evaluation.final_evaluation_harness.common.ledger import AppendOnlyLedger
+from evaluation.final_evaluation_harness.common.guards import ForbiddenOperation, ModelGuard, NetworkGuard, RuntimeGuard
 from pathlib import Path
+import pytest
 
 
 def _unit(rq="RQ1", execution_class="DETERMINISTIC_ONLY"):
@@ -57,6 +59,42 @@ def test_real_context_requires_production_dispatcher():
         assert str(exc) == "REAL_EXECUTION_DISPATCHER_NOT_CONFIGURED"
     else:
         raise AssertionError("missing production dispatcher was accepted")
+
+
+def test_production_context_requires_all_three_guards():
+    with pytest.raises(RuntimeError, match="REAL_EXECUTION_GUARDS_NOT_CONFIGURED"):
+        RealExecutionContext.from_production(SimpleNamespace())
+
+
+def test_runtime_guard_fails_closed_for_prohibited_unit():
+    guard = RuntimeGuard()
+    unit = _unit(execution_class="DETERMINISTIC_ONLY")
+    guard.bind(unit)
+    with pytest.raises(Exception):
+        guard.assert_allowed("REQUIRED")
+
+
+@pytest.mark.parametrize("missing", ("runtime", "model", "network"))
+def test_each_missing_production_guard_fails_closed(missing):
+    guards = {"runtime": RuntimeGuard(), "model": ModelGuard(), "network": NetworkGuard("PROHIBITED")}
+    guards[missing] = None
+    with pytest.raises(RuntimeError, match="REAL_EXECUTION_GUARDS_NOT_CONFIGURED"):
+        RealExecutionContext.from_production(SimpleNamespace(), **{
+            "runtime_guard": guards["runtime"], "model_guard": guards["model"], "network_guard": guards["network"]})
+
+
+def test_prohibited_model_and_network_calls_fail_closed():
+    model = ModelGuard()
+    unit = _unit()
+    unit = unit.__class__(**{**unit.__dict__, "gemma_requirement": "PROHIBITED"})
+    model.bind(unit)
+    with pytest.raises(ForbiddenOperation):
+        model.assert_allowed("REQUIRED", role="gemma")
+    network = NetworkGuard("CANONICAL_RUNTIME_POLICY")
+    unit = unit.__class__(**{**unit.__dict__, "network_policy": "PROHIBITED"})
+    network.bind(unit)
+    with pytest.raises(ForbiddenOperation):
+        network.assert_allowed("CANONICAL_RUNTIME_POLICY")
 
 
 def test_real_context_uses_production_dispatcher_contract():
