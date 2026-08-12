@@ -3,7 +3,7 @@ from evaluation.final_evaluation_harness.common.readiness import audit_readiness
 
 
 def test_readiness_is_222_without_scientific_calls():
-    report = audit_readiness(load_protocol(), harness_commit="TEST")
+    report = audit_readiness(load_protocol(), harness_commit="a" * 40)
     assert report["units"] == 222
     assert report["registry_bound"] == 222
     assert report["static_production_callable"] == 222
@@ -23,7 +23,7 @@ def test_readiness_is_222_without_scientific_calls():
 
 
 def test_rq4_heldout_rows_bind_h01_identity():
-    report = audit_readiness(load_protocol(), harness_commit="TEST")
+    report = audit_readiness(load_protocol(), harness_commit="a" * 40)
     rows = [row for row in report["rows"] if row["family"] == "RQ4_HELDOUT"]
     assert len(rows) == 35
     assert {row["h01_contract_sha256"] for row in rows} == {"0e0a312f9b8f6be62095f47f0a0bffe40004189387835b1d4243c54165d210c2"}
