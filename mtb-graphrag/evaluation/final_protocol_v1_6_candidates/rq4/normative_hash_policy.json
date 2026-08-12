@@ -1,0 +1,7 @@
+{
+  "policy_id": "H01_NORMATIVE_HASH_POLICY_V2",
+  "algorithm": "SHA256",
+  "manifest": {"path_field": "repository-relative POSIX path", "file_digest": "SHA256(file bytes)", "sort": "path ascending", "json": "UTF-8 sort_keys=true compact separators"},
+  "normative_files": ["hard_observable_contract.json", "heldout_normalization_contract.json", "heldout_observation_vocabulary.json", "heldout_verdict_contract.json", "null_policy.json", "normative_hash_policy.json", "raw_observation_binding_contract.json", "rule_traceability.json"],
+  "support_files": ["review_report.json", "test_vectors.json", "test_h01_contract.py", "validate_h01_contract.py", "hash_h01.py"]
+}

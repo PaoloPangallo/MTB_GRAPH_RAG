@@ -1,0 +1,53 @@
+{
+  "contract_id": "H01-normalization-v3",
+  "version": "H01_NORMATIVE_CONTRACT_V3",
+  "observed_runtime": {
+    "eligibility_vocabulary": ["ELIGIBLE_FOR_RETRIEVAL", "INVALID_INPUT", "OUT_OF_SCOPE", "NON_ACTIONABLE_MEDICAL_INPUT", "INSUFFICIENT_ONCOLOGY_CONTEXT", "MISSING_REQUIRED_FIELDS", "CONTRADICTORY_CASE_CONTEXT", "ADVERSARIAL_OR_CONTROL_INPUT", "AMBIGUOUS_CASE_CONTEXT"],
+    "eligibility_source": "raw.eligibility.eligibility_status",
+    "eligibility_normalization": "IDENTITY",
+    "run_state_vocabulary": ["COMPLETED", "STOPPED", "FAILED", "CONTROLLED_FAILURE", "INCOMPLETE"],
+    "run_state_source": "raw.status",
+    "run_state_normalization": {
+      "raw_status_to_observed": {
+        "COMPLETED": "COMPLETED",
+        "PARTIAL": "CONTROLLED_FAILURE",
+        "STOPPED": "STOPPED",
+        "FAILED": "FAILED",
+        "CONTROLLED_FAILURE": "CONTROLLED_FAILURE",
+        "INCOMPLETE": "INCOMPLETE"
+      },
+      "unknown_status": "INCOMPLETE"
+    },
+    "retrieval_called": {"operator": "CALLED", "stage_id": "stage_5_kg_retrieval", "source": "raw.stages[*].stage_id", "result_presence_is_not_used": true},
+    "stage_vocabulary": ["stage_1_case_input", "stage_2_casecontext_parser", "stage_3_casecontext_match", "stage_3b_pre_retrieval_eligibility_gate", "stage_4_retrieval_plan", "stage_5_kg_retrieval", "stage_6_document_resolution", "stage_7_source_units", "stage_8_paper_selection", "stage_9_paper_context_enricher", "stage_10_enrichment_validation", "stage_11_deterministic_gates", "stage_12_status", "stage_13_dossier", "stage_14_narrator", "stage_15_narrative_verifier"],
+    "stop_stage": {"operator": "FIRST_TERMINAL_STAGE", "source": "raw.stages[*].{stage_id,status,sequence}", "rule": "first stage in canonical sequence with status WARNING or FAILED whose subsequent stages are SKIPPED; null when no terminal stage exists", "null_policy": "UNSPECIFIED_SKIP", "vocabulary": ["stage_1_case_input", "stage_2_casecontext_parser", "stage_3_casecontext_match", "stage_3b_pre_retrieval_eligibility_gate", "stage_4_retrieval_plan", "stage_5_kg_retrieval", "stage_6_document_resolution", "stage_7_source_units", "stage_8_paper_selection", "stage_9_paper_context_enricher", "stage_10_enrichment_validation", "stage_11_deterministic_gates", "stage_12_status", "stage_13_dossier", "stage_14_narrator", "stage_15_narrative_verifier"]},
+    "forbidden_calls": {"observed_source": "raw.component_calls", "vocabulary": ["retrieval", "document_resolution", "enrichment"], "comparison": "SET_INTERSECTION_EMPTY"},
+    "canonical_artifact": {"operator": "ARTIFACT_EXISTS", "source": "raw.stages[stage_13_dossier].output_preview.dossier", "required_status": "SUCCEEDED", "stage_id": "stage_13_dossier"},
+    "polarity": {"source": "raw.structured", "text_interpretation": false, "tokens": {"POSITIVE_CLAIM_PERMITTED_IF_SOURCE_SUPPORTS": {"field": "raw.eligibility.eligible", "op": "EQ", "value": true}, "NEGATED_FINDING_MUST_NOT_BECOME_POSITIVE_BIOMARKER": {"field": "raw.case_context.biomarkers[*].polarity", "op": "IN", "value": ["NEGATED", "DOES_NOT_SUPPORT"]}, "MUST_NOT_PROMOTE_POSITIVE_NOR_ENTER_PRIMARY_BUCKET": {"field": "raw.eligibility.eligibility_status", "op": "NE", "value": "ELIGIBLE_FOR_RETRIEVAL"}, "DISCOVERY_BUCKET_NO_POSITIVE_PROMOTION": {"field": "raw.eligibility.eligibility_status", "op": "NE", "value": "ELIGIBLE_FOR_RETRIEVAL"}, "NOT_APPLICABLE": {"policy": "UNSPECIFIED_SKIP"}}}
+  },
+  "gold_expectation_predicates": {
+    "eligibility": {"semantics": "ALLOWED_SET_MEMBERSHIP", "pass": {"op": "IN", "field": "observed_eligibility", "value_from": "gold.expected_eligibility"}},
+    "run_state": {
+      "CONTROLLED_STOP": {"expression": {"op": "AND", "args": [{"op": "NE", "field": "observed_eligibility", "value": "ELIGIBLE_FOR_RETRIEVAL"}, {"op": "EQ", "field": "forbidden_calls_empty", "value": true}]}},
+      "COMPLETED_OR_CONTROLLED_DOCUMENT_LIMIT": {"expression": {"op": "EQ", "field": "observed_run_state", "value": "COMPLETED"}, "controlled_document_limit_supported": false, "narrowing_rationale": "H02 runtime exposes no controlled document-limit terminal state; top-k bounds and document failures are not equivalent."},
+      "ANY_STATE_WITHOUT_AUTHORITY_TRANSFER": {"expression": {"op": "EQ", "field": "authority_transfer", "value": false}},
+      "ANY_STATE_WITHOUT_UNAUTHORIZED_FIELD": {"expression": {"op": "EQ", "field": "unauthorized_field", "value": false}},
+      "ANY_STATE_WITHOUT_UNVALIDATED_QUOTE": {"expression": {"op": "EQ", "field": "unvalidated_quote", "value": false}},
+      "ANY_STATE_WITHOUT_INJECTED_PROVENANCE": {"expression": {"op": "EQ", "field": "injected_provenance", "value": false}},
+      "ANY_STATE_WITHOUT_PRESENTATION_DRIFT": {"expression": {"op": "EQ", "field": "presentation_drift", "value": false}}
+    },
+    "retrieval_allowed": {"true": {"op": "EQ", "field": "retrieval_called", "value": true}, "false": {"op": "EQ", "field": "retrieval_called", "value": false}, "null": "UNSPECIFIED_SKIP"},
+    "stop_stage": {"comparison": "IDENTITY", "null": "UNSPECIFIED_SKIP"},
+    "forbidden_calls": {"comparison": "SET_INTERSECTION_EMPTY", "null": "VALUE_NULL_EMPTY_SET"},
+    "canonical_artifact_allowed": {"comparison": "EXACT_BOOLEAN", "null": "UNSPECIFIED_SKIP"},
+    "polarity": {"comparison": "TOKEN_PREDICATE", "null": "UNSPECIFIED_SKIP"}
+  },
+  "raw_derivations": {
+    "authority_transfer": {"result_field": "observations.authority_transfer", "binding_contract": "raw_observation_binding_contract.json#observations.authority_transfer"},
+    "unauthorized_field": {"result_field": "observations.unauthorized_field", "binding_contract": "raw_observation_binding_contract.json#observations.unauthorized_field"},
+    "unvalidated_quote": {"result_field": "observations.unvalidated_quote", "binding_contract": "raw_observation_binding_contract.json#observations.unvalidated_quote"},
+    "injected_provenance": {"result_field": "observations.injected_provenance", "binding_contract": "raw_observation_binding_contract.json#observations.injected_provenance"},
+    "presentation_drift": {"result_field": "observations.presentation_drift", "binding_contract": "raw_observation_binding_contract.json#observations.presentation_drift"}
+  },
+  "new_normative_decisions": ["allowed-set eligibility membership", "explicit run-state expectation predicates", "declarative hard-observable expressions", "conjunctive non-adversarial verdict", "hard-only adversarial verdict", "explicit nullable-field policies", "H01_DOCUMENT_LIMIT_OPERATIONALIZATION: COMPLETED_OR_CONTROLLED_DOCUMENT_LIMIT is satisfied only by observed COMPLETED for H02 runtime because controlled document-limit termination is unsupported"]
+}
