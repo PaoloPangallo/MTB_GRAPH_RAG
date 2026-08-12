@@ -351,6 +351,7 @@ class RealExecutionContext:
     cache_factory: Any | None = None
     network_guard: Any | None = None
     model_guard: Any | None = None
+    runtime_guard: Any | None = None
     ledger: Any | None = None
     raw_writer: Any | None = None
     timing: Any | None = None
@@ -358,14 +359,21 @@ class RealExecutionContext:
 
     def assert_production_guards(self, planned_unit: Any, executor: Any) -> None:
         """Fail closed before any adapter can perform a real side effect."""
-        if self.network_guard is None or self.model_guard is None:
+        if self.network_guard is None or self.model_guard is None or self.runtime_guard is None:
             raise RuntimeError("REAL_EXECUTION_GUARDS_NOT_CONFIGURED")
+        for guard in (self.network_guard, self.model_guard, self.runtime_guard):
+            bind = getattr(guard, "bind", None)
+            if callable(bind):
+                bind(planned_unit)
         check_network = getattr(self.network_guard, "assert_allowed", None)
         if callable(check_network):
             check_network(getattr(planned_unit, "network_policy", None))
         check_model = getattr(self.model_guard, "assert_allowed", None)
         if callable(check_model):
             check_model(getattr(planned_unit, "gemma_requirement", None))
+        check_runtime = getattr(self.runtime_guard, "assert_allowed", None)
+        if callable(check_runtime):
+            check_runtime(getattr(planned_unit, "canonical_runtime_requirement", None))
 
     def execute(self, planned_unit: Any, executor: Any) -> ScientificExecutionResult:
         if self.production_dispatcher is None:
@@ -375,10 +383,10 @@ class RealExecutionContext:
 
     @classmethod
     def from_production(cls, protocol: Any, *, ledger: Any = None, raw_writer: Any = None,
-                        network_guard: Any = None, model_guard: Any = None,
+                        network_guard: Any = None, model_guard: Any = None, runtime_guard: Any = None,
                         production_dispatcher: Any = None, generation_config: dict[str, Any] | None = None) -> "RealExecutionContext":
         config = generation_config or {}
-        if network_guard is None or model_guard is None:
+        if network_guard is None or model_guard is None or runtime_guard is None:
             raise RuntimeError("REAL_EXECUTION_GUARDS_NOT_CONFIGURED")
         document_runtime = ProductionAdapterFactory.document_runtime()
         return cls(protocol=protocol,
@@ -390,6 +398,6 @@ class RealExecutionContext:
                     document_resolver=DocumentResolverAdapter(document_runtime.resolve, network_guard),
                     quote_validator=ProductionAdapterFactory.quote_validator(),
                     narrative_verifier=ProductionAdapterFactory.narrative_verifier(),
-                    cache_factory=document_runtime, network_guard=network_guard, model_guard=model_guard,
+                    cache_factory=document_runtime, network_guard=network_guard, model_guard=model_guard, runtime_guard=runtime_guard,
                     ledger=ledger, raw_writer=raw_writer, timing=None,
                     production_dispatcher=production_dispatcher or ProductionUnitDispatcher())

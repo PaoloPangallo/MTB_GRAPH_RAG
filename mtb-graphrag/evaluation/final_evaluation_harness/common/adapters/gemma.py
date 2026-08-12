@@ -16,7 +16,10 @@ class GemmaAdapter:
         if self._model_guard is not None:
             assert_allowed = getattr(self._model_guard, "assert_allowed", None)
             if callable(assert_allowed):
-                assert_allowed("REQUIRED")
+                try:
+                    assert_allowed("REQUIRED", role="gemma")
+                except TypeError:
+                    assert_allowed("REQUIRED")
         if self._on_call:
             self._on_call("gemma")
         return self._provider(*args, configuration=self.configuration, **kwargs)

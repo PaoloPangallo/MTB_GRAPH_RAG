@@ -79,6 +79,7 @@ def _context(dispatcher: ProductionUnitDispatcher, trace: dict[str, int]) -> Rea
         narrator=fake, document_resolver=fake, quote_validator=fake,
         narrative_verifier=fake, cache_factory=fake,
         network_guard=_ZeroGuard(trace), model_guard=_ZeroGuard(trace),
+        runtime_guard=_ZeroGuard(trace),
         production_dispatcher=dispatcher,
     )
 
