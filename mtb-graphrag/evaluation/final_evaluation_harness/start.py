@@ -20,7 +20,7 @@ from .common.model_identity import GenerationIdentityError, validate_execution_e
 from .common.protocol_loader import load_protocol
 from .common.provider_snapshot import collect_snapshot, compare_snapshots, validate_metadata
 from .common.registry import ExecutionAdapterRegistry, binding_manifest, binding_manifest_sha256
-from .common.runner import build_full_plan, execution_plan_sha256
+from .common.runner import build_full_plan, execution_plan_sha256, planned_runs_from_serialized
 from .common.execution import RealExecutionContext, ProductionUnitDispatcher
 from .common.production_loop import execute_sealed_plan
 
@@ -123,6 +123,9 @@ def run_official_start(*, protocol, source_root: Path, expected_head: str, plans
     validate_start_confirmation(argv, expected_evaluation_id, plan_sha)
     environment_validator()
     prompt_validator()
+    typed_plans = planned_runs_from_serialized(plans)
+    if campaign_root.exists():
+        raise CampaignStartError("CAMPAIGN_STORAGE_COLLISION")
     campaign_root.parent.mkdir(parents=True, exist_ok=True)
     staging = campaign_root.parent / ".final_evaluation.staging"
     if staging.exists():
@@ -143,7 +146,7 @@ def run_official_start(*, protocol, source_root: Path, expected_head: str, plans
     ledger = CampaignLedger(campaign_root / "ledger.jsonl")
     for event in ("PREFLIGHT_VALIDATED", "PLAN_SEALED", "PRE_PROVIDER_SNAPSHOT_VALIDATED", "CAMPAIGN_OPEN"):
         ledger.append(event)
-    dispatch(plans, protocol, campaign_root, ledger=ledger, campaign_open=True)
+    dispatch(typed_plans, protocol, campaign_root, ledger=ledger, campaign_open=True)
     ledger.append("SCIENTIFIC_RUNS_COMPLETE")
     post = collect_snapshot(metadata_request, "gemma4:31b-cloud")
     _write_json(campaign_root / "post_snapshot.json", post)

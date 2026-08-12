@@ -39,6 +39,38 @@ class PlannedRun:
     terminal_expectation: str = ""
 
 
+def planned_run_from_serialized(record: dict[str, Any]) -> PlannedRun:
+    """Fail-closed canonical JSON/dict → PlannedRun boundary."""
+    if not isinstance(record, dict):
+        raise ValueError("sealed plan unit must be an object")
+    required = {field.name for field in __import__("dataclasses").fields(PlannedRun)}
+    missing = sorted(required - record.keys())
+    unknown = sorted(set(record) - required)
+    if missing or unknown:
+        raise ValueError(f"invalid sealed plan unit fields: missing={missing}, unknown={unknown}")
+    if not isinstance(record["plan_index"], int) or isinstance(record["plan_index"], bool) or record["plan_index"] < 1:
+        raise ValueError("sealed plan plan_index must be a positive integer")
+    for field in required - {"plan_index", "dataset_hashes"}:
+        if not isinstance(record[field], str) or not record[field]:
+            raise ValueError(f"sealed plan field {field} must be a non-empty string")
+    if not isinstance(record["dataset_hashes"], dict) or not record["dataset_hashes"]:
+        raise ValueError("sealed plan dataset_hashes must be a non-empty object")
+    return PlannedRun(**record)
+
+
+def planned_runs_from_serialized(records: list[dict[str, Any]]) -> list[PlannedRun]:
+    if not isinstance(records, list):
+        raise ValueError("sealed plan must be an array")
+    result = [planned_run_from_serialized(record) for record in records]
+    ids = [unit.run_id for unit in result]
+    if len(set(ids)) != len(ids):
+        raise ValueError("sealed plan contains duplicate run_id values")
+    indices = [unit.plan_index for unit in result]
+    if indices != list(range(1, len(result) + 1)):
+        raise ValueError("sealed plan plan_index ordering is not contiguous")
+    return result
+
+
 def _metadata(kind: str, testbed: str, arm: str, protocol: Protocol) -> dict[str, Any]:
     rq = kind.upper()
     is_rq2 = kind == "rq2"
