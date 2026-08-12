@@ -100,3 +100,36 @@ def test_existing_campaign_is_not_overwritten(tmp_path: Path):
     else:
         raise AssertionError("existing campaign was accepted")
     assert hashlib.sha256(marker.read_bytes()).hexdigest() == before
+
+
+def test_official_dispatch_reaches_real_context_with_guards(tmp_path: Path, monkeypatch):
+    protocol = load_protocol()
+    from evaluation.final_evaluation_harness.common.runner import build_full_plan
+    from evaluation.final_evaluation_harness.common.execution import ProductionAdapterFactory, ProductionUnitDispatcher, ScientificExecutionResult
+    from evaluation.final_evaluation_harness.common.guards import ModelGuard, NetworkGuard, RuntimeGuard
+    unit = build_full_plan(protocol)[0]
+    trace = []
+
+    class FakeRuntime:
+        def resolve(self, value): return value
+
+    fake = type("Fake", (), {"call": lambda self, *a, **k: {}, "select": lambda self, *a, **k: None,
+                              "validate": lambda self, *a, **k: {}, "verify_authority": lambda self, *a, **k: {}})()
+    monkeypatch.setattr(ProductionAdapterFactory, "canonical_runtime", staticmethod(lambda: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "selector", staticmethod(lambda: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "parser", staticmethod(lambda: (lambda *a, **k: {})))
+    monkeypatch.setattr(ProductionAdapterFactory, "gemma", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "narrator", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "quote_validator", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: FakeRuntime()))
+    monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor", lambda self, planned, context: trace.append(type(planned).__name__) or {"status": "COMPLETE"})
+    from evaluation.final_evaluation_harness.start import run_production_dispatch
+    context_guards = {
+        "runtime_guard": RuntimeGuard(),
+        "model_guard": ModelGuard(),
+        "network_guard": NetworkGuard("PROHIBITED"),
+    }
+    result = run_production_dispatch([unit], protocol, tmp_path, **context_guards, campaign_open=True)
+    assert trace == ["PlannedRun"]
+    assert result[0].status == "COMPLETE"

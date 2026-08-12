@@ -36,7 +36,7 @@ class RealExecutionNotEnabled(CampaignStartError):
 
 
 def run_production_dispatch(plan, protocol, campaign_root, *, ledger=None, raw_writer=None,
-                            network_guard=None, model_guard=None, campaign_open=False):
+                            network_guard=None, model_guard=None, runtime_guard=None, campaign_open=False):
     """Dispatch a sealed plan through the real context after campaign opening.
 
     ``main`` remains disarmed in this implementation phase; this function is
@@ -49,7 +49,7 @@ def run_production_dispatch(plan, protocol, campaign_root, *, ledger=None, raw_w
     covered, missing = dispatcher.coverage(plan, registry)
     if missing:
         raise CampaignStartError(f"REAL_EXECUTION_ADAPTER_NOT_BOUND:{','.join(sorted(set(missing)))}")
-    runtime_guard = RuntimeGuard()
+    runtime_guard = runtime_guard or RuntimeGuard()
     model_guard = model_guard or ModelGuard()
     network_guard = network_guard or NetworkGuard("CANONICAL_RUNTIME_POLICY")
     context = RealExecutionContext.from_production(
