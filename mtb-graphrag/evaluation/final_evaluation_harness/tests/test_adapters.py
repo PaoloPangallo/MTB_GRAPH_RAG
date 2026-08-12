@@ -30,7 +30,7 @@ def test_selector_preserves_input_and_k():
     seen = {}
     source = [{"id": "s"}]
     result = SelectorAdapter(lambda units, **kw: seen.update(units=units, kw=kw) or [], 5).select(source)
-    assert result == [] and seen == {"units": source, "kw": {"k": 5}}
+    assert result == [] and seen == {"units": source, "kw": {"top_k": 5}}
 
 
 def test_gemma_preserves_configuration():
