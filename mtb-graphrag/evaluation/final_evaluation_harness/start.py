@@ -77,7 +77,7 @@ def validate_start_confirmation(argv: list[str], expected_evaluation_id: str, ex
         raise ExecutionDisarmed("invalid arming arguments") from exc
     if unknown or not args.arm or not args.confirm_evaluation_id or not args.confirm_plan_sha or not args.confirm_start:
         raise ExecutionDisarmed("all explicit confirmations are required")
-    if args.confirm_evaluation_id != expected_evaluation_id or args.confirm_plan_sha != expected_plan_sha or args.confirm_start != "FINAL_EVALUATION_1_4":
+    if args.confirm_evaluation_id != expected_evaluation_id or args.confirm_plan_sha != expected_plan_sha or args.confirm_start != "FINAL_EVALUATION_1_6":
         raise CampaignStartError("START_CONFIRMATION_MISMATCH")
 
 

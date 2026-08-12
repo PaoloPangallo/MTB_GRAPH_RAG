@@ -25,7 +25,7 @@ python -m evaluation.final_evaluation_harness.start `
   --arm `
   --confirm-evaluation-id <FINAL_EVALUATION_ID> `
   --confirm-plan-sha <SEALED_PLAN_SHA> `
-  --confirm-start FINAL_EVALUATION_1_4
+  --confirm-start FINAL_EVALUATION_1_6
 ```
 
 The gate remains disarmed during this phase. PRE/POST provider snapshots,

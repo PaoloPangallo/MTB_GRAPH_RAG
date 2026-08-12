@@ -23,10 +23,10 @@ def test_arming_requires_all_explicit_confirmations():
     with pytest.raises(CampaignStartError):
         validate_start_confirmation(["--arm", "--confirm-evaluation-id", "fe_" + "c" * 64,
                                      "--confirm-plan-sha", expected_plan,
-                                     "--confirm-start", "FINAL_EVALUATION_1_4"], expected_id, expected_plan)
+                                     "--confirm-start", "FINAL_EVALUATION_1_6"], expected_id, expected_plan)
     validate_start_confirmation(["--arm", "--confirm-evaluation-id", expected_id,
                                  "--confirm-plan-sha", expected_plan,
-                                 "--confirm-start", "FINAL_EVALUATION_1_4"], expected_id, expected_plan)
+                                 "--confirm-start", "FINAL_EVALUATION_1_6"], expected_id, expected_plan)
 
 
 def test_cli_without_arguments_remains_disarmed():
