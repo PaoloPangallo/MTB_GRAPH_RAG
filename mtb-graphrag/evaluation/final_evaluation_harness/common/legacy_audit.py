@@ -31,7 +31,7 @@ def audit_legacy_checker(repository_root: Path | None = None) -> dict[str, Any]:
             "expected": "no later tracked artifacts",
             "actual": "later authorized Protocol 1.6/Harness additions are tracked",
             "artifact": "evaluation/final_evaluation_harness/**",
-            "classification": "EXPECTED_HISTORICAL_PROTOCOL_IDENTITY_INCOMPATIBILITY",
+            "classification": "CHECKER_FALSE_POSITIVE",
             "blocking": False,
         })
     match = re.search(r"(\d+)/(\d+) PASS", output)
