@@ -31,6 +31,7 @@ def main() -> int:
         "corpora": corpus["source_artifacts_modified"] is False and corpus["narrative_hostile_count"] == 20 and corpus["narrative_controls_count"] == 5,
         "h01_lineage": lineage["H01_normative_sha256"] == amendment["H01"]["normative_sha256"],
         "projection_parent": projection["parent_projection_sha256"] == "4be62db090f9fa0c05c0369008cc267af0e6c1132ccee9cc09705542237f78d0",
+        "projection_identity": manifest["scientific_projection_sha256"] == lineage["scientific_projection_sha256"] == "a4edb0bad5cd233fe04423068dacf14de91bb7a7421169c5602c7bf79e67229c",
         "rq3_metadata_only": projection["authorized_changes"]["RQ3"] == ["H02 reviewed runtime identity/interface metadata only"],
         "no_scope_expansion": projection["unauthorized_scientific_changes"] == 0,
         "pre_freeze_hash": protocol_hash["pre_freeze"] is True and protocol_hash["protocol_sha256"] == protocol_hash["protocol_sha256_repeat"] and len(protocol_hash["protocol_sha256"]) == 64,
