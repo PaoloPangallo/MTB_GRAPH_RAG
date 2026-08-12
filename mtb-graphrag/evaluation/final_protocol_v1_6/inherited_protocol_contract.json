@@ -1,0 +1,11 @@
+{
+  "source_protocol_id": "mtb-graphrag-final-evaluation/1.5",
+  "source_protocol_sha256": "60b74a031688161690b34a8ed6dda7f4b36ca7323541bbd1564b0ad816fe3bdd",
+  "parent_scientific_projection_sha256": "4be62db090f9fa0c05c0369008cc267af0e6c1132ccee9cc09705542237f78d0",
+  "inherited_decisions": {"D02":"UNCHANGED","D03":"UNCHANGED","D04":"UNCHANGED","D05":"UNCHANGED_EXCEPT_H02_INTERFACE_METADATA","D06":"UNCHANGED_EXCEPT_H02_INTERFACE_METADATA","D07":"UNCHANGED_EXCEPT_H02_INTERFACE_METADATA","D08":"UNCHANGED","D09":"UNCHANGED","D10":"UNCHANGED","D11":"UNCHANGED","D12":"UNCHANGED","D13":"UNCHANGED","D14":"UNCHANGED","D15":"UNCHANGED","D16":"UNCHANGED"},
+  "inherited_identity_decisions": {"E01":"UNCHANGED","E02":"UNCHANGED","E03":"UNCHANGED","E04":"UNCHANGED"},
+  "F01": "UNCHANGED",
+  "new_arms": 0, "new_units": 0, "new_datasets": 0, "new_denominators": 0, "new_metrics": 0,
+  "unit_membership_unchanged": true,
+  "scientific_plan": {"RQ1": 1, "RQ2": 80, "RQ3": 5, "RQ4": 70, "Narrative": 25, "Operational": 9, "Reliability": 30, "Latency": 2, "total": 222}
+}

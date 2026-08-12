@@ -1,0 +1,9 @@
+{
+  "projection_version": "scientific-projection/1.6",
+  "parent_projection_sha256": "4be62db090f9fa0c05c0369008cc267af0e6c1132ccee9cc09705542237f78d0",
+  "counts": {"RQ1": 1, "RQ2": 80, "RQ3": 5, "RQ4": 70, "Narrative": 25, "Operational": 9, "Reliability": 30, "Latency": 2, "total": 222},
+  "unit_membership_unchanged": true, "units_unchanged": 222, "units_changed": 0,
+  "authorized_changes": {"RQ4": ["H01 executable raw observation bindings", "H01 deterministic verdict semantics", "H01 gold firewall"], "RQ3": ["H02 reviewed runtime identity/interface metadata only"]},
+  "unauthorized_scientific_changes": 0, "narrative_G02": "INHERITED_UNCHANGED",
+  "D02_D16_other_than_H02_interface_metadata": "UNCHANGED", "E01_E04": "UNCHANGED", "F01": "UNCHANGED", "dataset_and_gold_identities": "UNCHANGED"
+}
