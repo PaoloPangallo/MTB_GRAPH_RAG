@@ -9,6 +9,10 @@ def test_readiness_is_222_without_scientific_calls():
     assert report["static_production_callable"] == 222
     assert report["semantically_ready"] == 222
     assert report["protocol_compliant"] == 222
+    assert report["parameter_valid"] == 222
+    assert report["representative_path_covered"] == 222
+    assert report["distinct_execution_paths"] == 28
+    assert report["tested_execution_paths"] == 28
     assert report["ambiguous"] == 0
     assert report["unbound"] == 0
     assert report["symbolic_only"] == 0
