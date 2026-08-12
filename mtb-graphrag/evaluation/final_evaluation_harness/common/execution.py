@@ -36,7 +36,21 @@ class ProductionUnitDispatcher:
         return self._run_case(unit, context)
 
     def _RQ4HeldoutExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
-        return self._run_case(unit, context, gold_access=False)
+        raw = self._run_case(unit, context, gold_access=False)
+        if context.protocol is None:
+            raise RuntimeError("H01_PROTOCOL_REQUIRED")
+        from .adapters.h01_evaluator import H01EvaluatorAdapter
+        import json
+        gold_path = context.protocol.root.parents[1] / "final_protocol" / "heldout" / "architectural_challenge_gold.json"
+        gold_rows = json.loads(gold_path.read_text(encoding="utf-8"))["gold"]
+        challenge = next(row for row in gold_rows if row["case_id"] == unit.case_id)
+        evaluator = H01EvaluatorAdapter(
+            context.protocol.root.parents[1],
+            context.protocol.amendment["H01"]["normative_sha256"],
+        )
+        evaluated = evaluator.evaluate(raw, challenge)
+        return {"raw_pipeline_run": raw, "h01_evaluation": evaluated,
+                "gold_join_phase": "POST_INFERENCE"}
 
     def _RQ1DeterministicExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
         """Delegate RQ1 to the frozen comparator and aggregation functions."""
@@ -145,6 +159,27 @@ class ProductionUnitDispatcher:
     def _RQ3AblationDExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
         return self._run_case(unit, context, ablation="D")
 
+    def _OperationalExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        from .operational_executor import execute_operational_scenario
+        return execute_operational_scenario(context.protocol, unit.case_id, context)
+
+    def _ControlledFailureExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        from .operational_executor import execute_operational_scenario
+        return execute_operational_scenario(context.protocol, unit.case_id, context)
+
+    def _ReliabilityStratumAExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        return self._run_case(unit, context)
+
+    def _ReliabilityStratumBExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        return self._run_rq2_downstream(unit, context)
+
+    def _LatencyExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        if context.timing is None:
+            return self._run_case(unit, context)
+        from .timing import timed_call
+        result, elapsed_ms = timed_call(self._run_case, unit, context)
+        return {"native_result": result, "end_to_end_latency_ms": elapsed_ms}
+
     def _NarrativeHostileExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
         case = self._load_narrative_case(unit, hostile=True)
         verified = context.narrative_verifier.verify_authority(
@@ -176,10 +211,6 @@ class ProductionUnitDispatcher:
         return json.loads(path.read_text(encoding="utf-8"))
 
     def _run_case(self, unit: Any, context: "RealExecutionContext", *, gold_access: bool = True, ablation: str | None = None) -> Any:
-        if ablation in {"B", "C", "D"}:
-            # These ablations require distinct frozen stage wiring.  Never
-            # silently execute the canonical path under an ablation label.
-            raise RuntimeError(f"REAL_EXECUTION_ABLATION_NOT_IMPLEMENTED:{ablation}")
         from backend.research_pipeline.cases.definitions import CASES
         case = next((item for item in CASES if item.get("case_id") == unit.case_id), None)
         if case is None:
@@ -192,10 +223,32 @@ class ProductionUnitDispatcher:
                   "source_units_by_id": {}, "budget": CallBudget(), "ledger": context.ledger,
                   "document_runtime": context.cache_factory, "call_narrator_fn": context.narrator.call,
                   "retrieve_fn": None}
+        if ablation == "B":
+            kwargs["source_unit_selector_fn"] = lambda selection, *, top_k: context.selector.select(selection, top_k=top_k)
+        elif ablation == "C":
+            from backend.research_pipeline.enrichment.validator_v2 import (
+                identity_semantic_validator,
+                validate_enrichment_v2,
+            )
+            kwargs["validate_fn"] = lambda transport, enrichment, **kw: validate_enrichment_v2(
+                transport,
+                enrichment,
+                candidate=kw["candidate"],
+                paper_bundle=kw["paper_bundle"],
+                source_units_by_id=kw["source_units_by_id"],
+                requested_drug=kw["requested_drug"],
+                semantic_validator=identity_semantic_validator,
+            )
+        elif ablation == "D":
+            kwargs.update(
+                research_frozen_artifacts=True,
+                narrative_verifier_mode="OFFLINE_ABLATION_BYPASS",
+                call_narrator_fn=context.narrator.call,
+            )
         if ablation == "A":
             kwargs["match_verifier_fn"] = lambda *_: {"records": [], "essential_fields_pass": False, "warnings": [], "bypassed": True}
             kwargs["eligibility_gate_fn"] = lambda *_: None
-        return orchestrator.run_case(**kwargs).__dict__
+        return orchestrator.run_case(**kwargs).to_dict()
 
 
 @dataclass(frozen=True)

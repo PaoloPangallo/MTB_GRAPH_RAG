@@ -10,5 +10,6 @@ class SelectorAdapter:
         self._delegate = delegate
         self.k = k
 
-    def select(self, source_units: Sequence[dict[str, Any]], **kwargs: Any) -> Any:
-        return self._delegate(source_units, k=self.k, **kwargs)
+    def select(self, source_units: Sequence[dict[str, Any]], *, top_k: int | None = None, **kwargs: Any) -> Any:
+        """Invoke the reviewed runtime seam with an explicit deterministic K."""
+        return self._delegate(source_units, top_k=self.k if top_k is None else top_k, **kwargs)

@@ -90,12 +90,8 @@ def test_production_coverage_reports_only_concrete_methods_without_execution():
     from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
     dispatcher = ProductionUnitDispatcher()
     covered, missing = dispatcher.coverage(plan, ExecutionAdapterRegistry(protocol))
-    assert covered == 181
-    assert set(missing) == {
-        "ControlledFailureExecutor", "LatencyExecutor",
-        "OperationalExecutor", "ReliabilityStratumAExecutor",
-        "ReliabilityStratumBExecutor",
-    }
+    assert covered == 222
+    assert missing == []
 
 
 def test_rq1_and_rq2_offline_dispatch_use_frozen_local_artifacts():
