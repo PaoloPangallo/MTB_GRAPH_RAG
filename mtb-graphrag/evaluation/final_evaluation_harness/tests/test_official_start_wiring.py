@@ -133,3 +133,34 @@ def test_official_dispatch_reaches_real_context_with_guards(tmp_path: Path, monk
     result = run_production_dispatch([unit], protocol, tmp_path, **context_guards, campaign_open=True)
     assert trace == ["PlannedRun"]
     assert result[0].status == "COMPLETE"
+
+
+def test_production_dispatch_transports_attempt_events_to_campaign_ledger(tmp_path: Path, monkeypatch):
+    protocol = load_protocol()
+    from evaluation.final_evaluation_harness.common.runner import build_full_plan
+    from evaluation.final_evaluation_harness.common.execution import ProductionAdapterFactory, ProductionUnitDispatcher
+    from evaluation.final_evaluation_harness.common.guards import ModelGuard, NetworkGuard, RuntimeGuard
+    from evaluation.final_evaluation_harness.common.lifecycle import CampaignLedger
+    unit = build_full_plan(protocol)[0]
+    fake = type("Fake", (), {"call": lambda self, *a, **k: {}, "select": lambda self, *a, **k: None,
+                              "validate": lambda self, *a, **k: {}, "verify_authority": lambda self, *a, **k: {}})()
+    monkeypatch.setattr(ProductionAdapterFactory, "canonical_runtime", staticmethod(lambda: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "selector", staticmethod(lambda: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "parser", staticmethod(lambda: (lambda *a, **k: {})))
+    monkeypatch.setattr(ProductionAdapterFactory, "gemma", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "narrator", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "quote_validator", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *a, **k: fake))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: type("Doc", (), {"resolve": lambda self, value: value})()))
+    monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor", lambda self, planned, context: {"status": "COMPLETE"})
+    campaign = tmp_path / "campaign"
+    campaign.mkdir()
+    ledger = CampaignLedger(campaign / "ledger.jsonl")
+    from evaluation.final_evaluation_harness.start import run_production_dispatch
+    result = run_production_dispatch(
+        [unit], protocol, campaign, ledger=ledger, campaign_open=True,
+        runtime_guard=RuntimeGuard(), model_guard=ModelGuard(), network_guard=NetworkGuard("PROHIBITED"),
+    )
+    assert result[0].status == "COMPLETE"
+    events = ledger.events()
+    assert [event["event"] for event in events] == ["ATTEMPT_RESERVED", "RAW_COMMITTED", "COMPLETE"]
