@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from typing import Any
 
 
@@ -16,6 +17,8 @@ def _sha(value: Any) -> str:
 
 
 def evaluation_id(protocol: Any, harness_commit: str) -> str:
+    if not isinstance(harness_commit, str) or re.fullmatch(r"[0-9a-f]{40}", harness_commit) is None:
+        raise ValueError("harness_commit must be the full 40-character lowercase Git SHA")
     return "fe_" + _sha({
         "runtime_commit": protocol.hashes["runtime_commit"],
         "protocol_version": protocol.manifest["protocol_version"],

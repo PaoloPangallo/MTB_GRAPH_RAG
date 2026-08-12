@@ -45,7 +45,15 @@ def test_a01_loaded_direct(protocol): assert len(load_a01_bindings(protocol)["sc
 def test_s01_loaded_direct(protocol): assert len(load_s01_rows(protocol)) == 1697
 def test_operational_cache_plans(protocol): assert all(create_operational_cache(protocol, s["scenario_id"]).isolated for s in load_a01_bindings(protocol)["scenarios"])
 def test_a01_cache_is_read_only(protocol): assert create_operational_cache(protocol, "A_cache_hit").read_only_baseline
-def test_identity_evaluation_deterministic(protocol): assert evaluation_id(protocol, "h") == evaluation_id(protocol, "h")
+def test_identity_evaluation_deterministic(protocol):
+    commit = "a" * 40
+    assert evaluation_id(protocol, commit) == evaluation_id(protocol, commit)
+def test_identity_requires_full_git_sha(protocol):
+    full = "0" * 40
+    assert evaluation_id(protocol, full).startswith("fe_")
+    for abbreviated in ("0" * 7, "0" * 8, "0" * 12, "not-a-sha"):
+        with pytest.raises(ValueError):
+            evaluation_id(protocol, abbreviated)
 def test_identity_run_deterministic(protocol): assert run_id("e", "t", "c", "a", "r") == run_id("e", "t", "c", "a", "r")
 def test_attempt_ordinal(): assert attempt_id("run_x", 1).endswith("/a0001")
 def test_attempt_ordinal_rejects_zero():
@@ -83,6 +91,12 @@ def test_bootstrap_seed_deterministic(): assert paired_percentile_bootstrap([1.0
 def test_protocol_dry_run_zero_calls(): assert dry_run("rq1")["calls"] == {"runtime": 0, "selector": 0, "model": 0, "network": 0}
 def test_rq2_dry_run_count(): assert dry_run("rq2")["planned_executions"] == 80
 def test_operational_dry_run_count(): assert dry_run("operational")["planned_executions"] == 9
+def test_operational_cache_materialization_isolated(protocol, local_tmp):
+    first = create_operational_cache(protocol, "A_cache_hit", execute=True, root=local_tmp)
+    second = create_operational_cache(protocol, "B_cache_miss_success", execute=True, root=local_tmp)
+    assert first.isolated and second.isolated
+    assert (local_tmp / "operational_cache_A_cache_hit").exists()
+    assert (local_tmp / "operational_cache_B_cache_miss_success").exists()
 def test_reliability_dry_run_count(): assert dry_run("reliability")["planned_executions"] == 30
 def test_latency_dry_run_count(): assert dry_run("latency")["planned_executions"] == 2
 def test_result_directory_absent(protocol): assert not (protocol.root.parent / "final_evaluation").exists()
