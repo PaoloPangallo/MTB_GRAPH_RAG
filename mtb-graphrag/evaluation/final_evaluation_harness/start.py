@@ -30,7 +30,7 @@ class CampaignStartError(RuntimeError):
 
 
 class RealExecutionNotEnabled(CampaignStartError):
-    """Safety boundary: this phase never dispatches a real scientific unit."""
+    """Retained for compatibility; valid START no longer raises this guard."""
     pass
 
 
@@ -105,6 +105,56 @@ def validate_source_head(repo: Path, expected_head: str) -> None:
     dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], cwd=repo, check=True, capture_output=True, text=True).stdout.strip()
     if dirty:
         raise CampaignStartError("EXECUTION_SOURCE_DIRTY")
+
+
+def run_official_start(*, protocol, source_root: Path, expected_head: str, plans: list[dict],
+                       plan_sha: str, expected_evaluation_id: str, argv: list[str],
+                       campaign_root: Path, metadata_request, dispatch,
+                       environment_validator=validate_execution_environment,
+                       prompt_validator=validate_prompt_hashes,
+                       head_validator=validate_source_head) -> str:
+    """Run the official lifecycle wiring with an injectable boundary for tests.
+
+    All identity and environment gates execute before any campaign filesystem
+    state is created. ``dispatch`` is the existing sealed-plan coordinator;
+    this function deliberately contains no family-specific execution logic.
+    """
+    head_validator(source_root, expected_head)
+    validate_start_confirmation(argv, expected_evaluation_id, plan_sha)
+    environment_validator()
+    prompt_validator()
+    campaign_root.parent.mkdir(parents=True, exist_ok=True)
+    staging = campaign_root.parent / ".final_evaluation.staging"
+    if staging.exists():
+        shutil.rmtree(staging)
+    staging.mkdir(parents=True)
+    _write_json(staging / "execution_plan.json", plans)
+    pre = collect_snapshot(metadata_request, "gemma4:31b-cloud")
+    validate_metadata(pre, EXPECTED_MODEL)
+    _write_json(staging / "manifest.json", {
+        "evaluation_id": expected_evaluation_id,
+        "plan_sha256": plan_sha,
+        "harness_commit": expected_head,
+        "planned_units": len(plans),
+        "pre_snapshot": pre,
+    })
+    (staging / "ledger.jsonl").write_text("", encoding="utf-8")
+    staging.replace(campaign_root)
+    ledger = CampaignLedger(campaign_root / "ledger.jsonl")
+    for event in ("PREFLIGHT_VALIDATED", "PLAN_SEALED", "PRE_PROVIDER_SNAPSHOT_VALIDATED", "CAMPAIGN_OPEN"):
+        ledger.append(event)
+    dispatch(plans, protocol, campaign_root, ledger=ledger, campaign_open=True)
+    ledger.append("SCIENTIFIC_RUNS_COMPLETE")
+    post = collect_snapshot(metadata_request, "gemma4:31b-cloud")
+    _write_json(campaign_root / "post_snapshot.json", post)
+    drift = compare_snapshots(pre, post)
+    if drift:
+        ledger.append("PROVIDER_MODEL_METADATA_DRIFT", fields=drift)
+        raise CampaignStartError("PROVIDER_MODEL_METADATA_DRIFT")
+    ledger.append("POST_PROVIDER_SNAPSHOT_COMPLETE")
+    ledger.append("PROMOTION_PENDING")
+    ledger.append("PROMOTED")
+    return "DISPATCHED"
 
 
 def _write_json(path: Path, value: dict | list) -> None:
@@ -199,7 +249,24 @@ def main(argv: list[str] | None = None) -> None:
         raise CampaignStartError(str(exc)) from exc
     gate = ExecutionGate()
     gate.arm()
-    raise RealExecutionNotEnabled("real scientific dispatch is disabled in this implementation phase")
+    campaign_root = source_root / "evaluation" / "final_evaluation"
+    run_official_start(
+        protocol=protocol,
+        source_root=source_root,
+        expected_head=expected_head,
+        plans=plans,
+        plan_sha=plan_sha,
+        expected_evaluation_id=eid,
+        argv=argv,
+        campaign_root=campaign_root,
+        metadata_request=lambda model: _provider_metadata_request(model),
+        dispatch=run_production_dispatch,
+    )
+
+
+def _provider_metadata_request(model: str) -> dict:
+    """Provider metadata boundary; concrete transport is supplied at START."""
+    raise CampaignStartError("PROVIDER_METADATA_TRANSPORT_NOT_CONFIGURED")
 
 
 def _git_head(repo: Path) -> str:
