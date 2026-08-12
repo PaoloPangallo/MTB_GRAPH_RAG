@@ -33,6 +33,14 @@
   "prose_only_normalization": false,
   "heuristic_comparison": false,
   "normative_hash_policy": "H01_NORMATIVE_HASH_POLICY_V2",
-  "normative_sha256": "b98d0ac2f8cc596ef87ed35e18fceb3291106c213e12b3d007103e463f7d11d4",
-  "support_sha256": "fb2fbaa351b75cd97e1b73ee037f18f366001bef8703fce78fefa1b03051b24a"
+  "normative_sha256": "0e0a312f9b8f6be62095f47f0a0bffe40004189387835b1d4243c54165d210c2",
+  "support_sha256": "79438e1a32ff7bfa71e0fddd0036c115618241df2468dc4f796fc138fae7bd4e",
+  "hash_portability_repair": "REPOSITORY_RELATIVE_CANONICAL_PATHS",
+  "historical_hash_aliases": {
+    "normative_pre_portability_repair": "b98d0ac2f8cc596ef87ed35e18fceb3291106c213e12b3d007103e463f7d11d4",
+    "support_pre_portability_repair": "fb2fbaa351b75cd97e1b73ee037f18f366001bef8703fce78fefa1b03051b24a",
+    "normative_absolute_path_dependent": "f237cea0eb148ccfc34598295c557e4b6da2f8e556d32cdbec5da671ba849496",
+    "support_absolute_path_dependent": "d1263be54cd453ea02c3eb39002049559bfbf4b5b83270184d51a0fe3465bdd6"
+  },
+  "scientific_content_changes": 0
 }
