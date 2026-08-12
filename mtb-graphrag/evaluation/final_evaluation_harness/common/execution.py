@@ -365,15 +365,20 @@ class RealExecutionContext:
             bind = getattr(guard, "bind", None)
             if callable(bind):
                 bind(planned_unit)
-        check_network = getattr(self.network_guard, "assert_allowed", None)
+        check_network = getattr(self.network_guard, "assert_configured", None)
         if callable(check_network):
-            check_network(getattr(planned_unit, "network_policy", None))
-        check_model = getattr(self.model_guard, "assert_allowed", None)
+            check_network()
+        check_model = getattr(self.model_guard, "assert_configured", None)
         if callable(check_model):
-            check_model(getattr(planned_unit, "gemma_requirement", None))
-        check_runtime = getattr(self.runtime_guard, "assert_allowed", None)
+            check_model(role="gemma")
+            check_model(role="narrator")
+        check_runtime = getattr(self.runtime_guard, "assert_configured", None)
         if callable(check_runtime):
-            check_runtime(getattr(planned_unit, "canonical_runtime_requirement", None))
+            check_runtime()
+        if "canonical_runtime" in getattr(executor, "adapter_names", ()):
+            assert_runtime = getattr(self.runtime_guard, "assert_allowed", None)
+            if callable(assert_runtime):
+                assert_runtime("REQUIRED")
 
     def execute(self, planned_unit: Any, executor: Any) -> ScientificExecutionResult:
         if self.production_dispatcher is None:

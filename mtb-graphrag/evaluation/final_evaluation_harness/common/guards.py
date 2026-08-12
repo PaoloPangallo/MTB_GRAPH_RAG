@@ -38,6 +38,11 @@ class NetworkGuard:
     def bind(self, unit: object) -> None:
         self._unit_policy = getattr(unit, "network_policy", None)
 
+    def assert_configured(self) -> None:
+        policy = self._unit_policy or self.policy
+        if policy not in {"PROHIBITED", "CANONICAL_RUNTIME_POLICY"}:
+            raise ForbiddenOperation(f"unknown network policy: {policy}")
+
     def assert_allowed(self, requested: str) -> None:
         policy = self._unit_policy or self.policy
         if policy not in {"PROHIBITED", "CANONICAL_RUNTIME_POLICY"}:
@@ -57,6 +62,11 @@ class ModelGuard:
 
     def bind(self, unit: object) -> None:
         self._unit = unit
+
+    def assert_configured(self, *, role: str = "gemma") -> None:
+        requirement = getattr(self._unit, f"{role}_requirement", None) if self._unit is not None else None
+        if requirement not in {"REQUIRED", "PROHIBITED", "PATH_DEPENDENT"}:
+            raise ForbiddenOperation(f"unknown model requirement: {requirement}")
 
     def assert_allowed(self, requirement: str, *, role: str = "gemma") -> None:
         if requirement not in {"REQUIRED", "PROHIBITED", "PATH_DEPENDENT"}:
@@ -87,6 +97,11 @@ class RuntimeGuard:
 
     def bind(self, unit: object) -> None:
         self._unit = unit
+
+    def assert_configured(self) -> None:
+        requirement = getattr(self._unit, "canonical_runtime_requirement", None) if self._unit is not None else None
+        if requirement not in {"REQUIRED", "PROHIBITED", "PATH_DEPENDENT"}:
+            raise ForbiddenOperation(f"unknown runtime requirement: {requirement}")
 
     def assert_allowed(self, requirement: str) -> None:
         if requirement not in {"REQUIRED", "PROHIBITED", "PATH_DEPENDENT"}:
