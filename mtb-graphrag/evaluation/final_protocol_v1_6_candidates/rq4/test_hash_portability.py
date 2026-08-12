@@ -33,7 +33,7 @@ def test_builder_is_independent_of_cwd():
 
 
 def test_tampered_normative_bytes_change_identity_without_touching_repo():
-    with tempfile.TemporaryDirectory() as temp:
+    with tempfile.TemporaryDirectory(dir=r"C:\tmp") as temp:
         repo = Path(temp) / "repo"
         copied = repo / "mtb-graphrag" / "evaluation" / "final_protocol_v1_6_candidates" / "rq4"
         copied.parent.mkdir(parents=True)
@@ -44,7 +44,7 @@ def test_tampered_normative_bytes_change_identity_without_touching_repo():
 
 
 def test_tampered_support_bytes_change_support_identity_without_touching_repo():
-    with tempfile.TemporaryDirectory() as temp:
+    with tempfile.TemporaryDirectory(dir=r"C:\tmp") as temp:
         repo = Path(temp) / "repo"
         copied = repo / "mtb-graphrag" / "evaluation" / "final_protocol_v1_6_candidates" / "rq4"
         copied.parent.mkdir(parents=True)
