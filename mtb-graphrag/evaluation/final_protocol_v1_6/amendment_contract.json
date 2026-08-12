@@ -3,8 +3,9 @@
   "classification": "AUTHORIZED_PRE_EXECUTION_METHODOLOGICAL_AMENDMENT",
   "H01": {
     "title": "RQ4 Held-Out Executable Observation and Verdict Contract",
-    "normative_sha256": "b98d0ac2f8cc596ef87ed35e18fceb3291106c213e12b3d007103e463f7d11d4",
-    "support_sha256": "fb2fbaa351b75cd97e1b73ee037f18f366001bef8703fce78fefa1b03051b24a",
+    "normative_sha256": "0e0a312f9b8f6be62095f47f0a0bffe40004189387835b1d4243c54165d210c2",
+    "support_sha256": "79438e1a32ff7bfa71e0fddd0036c115618241df2468dc4f796fc138fae7bd4e",
+    "historical_hash_aliases": {"normative_stale": "b98d0ac2f8cc596ef87ed35e18fceb3291106c213e12b3d007103e463f7d11d4", "support_stale": "fb2fbaa351b75cd97e1b73ee037f18f366001bef8703fce78fefa1b03051b24a", "normative_absolute_path_invalid": "f237cea0eb148ccfc34598295c557e4b6da2f8e556d32cdbec5da671ba849496", "support_absolute_path_invalid": "d1263be54cd453ea02c3eb39002049559bfbf4b5b83270184d51a0fe3465bdd6"},
     "artifact_root": "evaluation/final_protocol_v1_6_candidates/rq4",
     "supersedes": "Protocol 1.5 G01 incomplete held-out evaluator semantics only",
     "heldout_cases_and_gold_unchanged": true,

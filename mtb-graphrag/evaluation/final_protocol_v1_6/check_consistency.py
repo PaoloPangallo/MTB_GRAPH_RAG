@@ -1,12 +1,37 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).parent
 
 def load(name: str):
     return json.loads((ROOT / name).read_text(encoding="utf-8"))
+
+
+def h01_hash_module():
+    path = ROOT.parent / "final_protocol_v1_6_candidates" / "rq4" / "hash_h01.py"
+    spec = importlib.util.spec_from_file_location("h01_hash", path)
+    module = importlib.util.module_from_spec(spec)
+    assert spec and spec.loader
+    spec.loader.exec_module(module)
+    return module
+
+
+def recompute_h01_identities():
+    policy = load("../final_protocol_v1_6_candidates/rq4/normative_hash_policy.json")
+    module = h01_hash_module()
+    return module.digest(policy["normative_files"]), module.digest(policy["support_files"])
+
+
+def h01_identity_checks(amendment: dict, h01: dict) -> dict[str, bool]:
+    actual_normative, actual_support = recompute_h01_identities()
+    return {
+        "h01_identity_recorded": h01["normative_sha256"] == amendment["H01"]["normative_sha256"] and h01["support_sha256"] == amendment["H01"]["support_sha256"],
+        "h01_normative_recomputed": actual_normative == amendment["H01"]["normative_sha256"],
+        "h01_support_recomputed": actual_support == amendment["H01"]["support_sha256"],
+    }
 
 def main() -> int:
     manifest = load("protocol_manifest.json")
@@ -17,11 +42,12 @@ def main() -> int:
     lineage = load("lineage.json")
     protocol_hash = load("protocol_hash.json")
     h01 = load("../final_protocol_v1_6_candidates/rq4/review_report.json")
+    h01_identity = h01_identity_checks(amendment, h01)
     checks = {
         "version": manifest["protocol_version"] == "1.6",
         "pre_freeze": manifest["frozen"] is False and manifest["review_status"] == "PENDING_REVIEW" and manifest["reviewer"] is None,
         "parent": manifest["parent_protocol_commit"] == "556618f8810333d1abad3771e42c4626e54d3670" and manifest["parent_protocol_sha256"] == "60b74a031688161690b34a8ed6dda7f4b36ca7323541bbd1564b0ad816fe3bdd",
-        "h01_identity": amendment["H01"]["normative_sha256"] == "b98d0ac2f8cc596ef87ed35e18fceb3291106c213e12b3d007103e463f7d11d4" and h01["normative_sha256"] == amendment["H01"]["normative_sha256"],
+        **h01_identity,
         "h02_identity": amendment["H02"]["runtime_commit"] == "eb20fdfab35724f3b84651d8c02f1ec3970db615" and manifest["runtime_commit"] == amendment["H02"]["runtime_commit"],
         "counts": projection["counts"] == manifest["scientific_plan"] == inherited["scientific_plan"],
         "unit_membership": projection["unit_membership_unchanged"] and projection["units_unchanged"] == 222 and projection["units_changed"] == 0,
