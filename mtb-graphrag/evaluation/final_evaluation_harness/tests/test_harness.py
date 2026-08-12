@@ -54,6 +54,8 @@ def test_identity_requires_full_git_sha(protocol):
     for abbreviated in ("0" * 7, "0" * 8, "0" * 12, "not-a-sha"):
         with pytest.raises(ValueError):
             evaluation_id(protocol, abbreviated)
+def test_identity_changes_when_full_harness_commit_changes(protocol):
+    assert evaluation_id(protocol, "0" * 40) != evaluation_id(protocol, "1" * 40)
 def test_identity_run_deterministic(protocol): assert run_id("e", "t", "c", "a", "r") == run_id("e", "t", "c", "a", "r")
 def test_attempt_ordinal(): assert attempt_id("run_x", 1).endswith("/a0001")
 def test_attempt_ordinal_rejects_zero():
