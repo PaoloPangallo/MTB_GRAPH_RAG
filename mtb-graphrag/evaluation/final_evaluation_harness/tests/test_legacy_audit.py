@@ -9,5 +9,5 @@ def test_legacy_two_failures_are_explicitly_classified():
     ]
     assert report["failures"][0]["classification"] == "EXPECTED_HISTORICAL_RUNTIME_IDENTITY_INCOMPATIBILITY"
     assert report["failures"][0]["blocking"] is False
-    assert report["failures"][1]["classification"] == "EXPECTED_HISTORICAL_PROTOCOL_IDENTITY_INCOMPATIBILITY"
+    assert report["failures"][1]["classification"] == "CHECKER_FALSE_POSITIVE"
     assert report["failures"][1]["blocking"] is False
