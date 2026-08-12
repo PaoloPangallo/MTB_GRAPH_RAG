@@ -25,4 +25,5 @@ def digest() -> str:
 
 if __name__ == "__main__":
     value = digest()
-    print(json.dumps({"protocol_version":"1.6", "pre_freeze":True, "files":FILES, "protocol_sha256":value, "protocol_sha256_repeat":digest()}, sort_keys=True))
+    manifest = json.loads((HERE / "protocol_manifest.json").read_text(encoding="utf-8"))
+    print(json.dumps({"protocol_version":"1.6", "pre_freeze":not manifest["frozen"], "files":FILES, "protocol_sha256":value, "protocol_sha256_repeat":digest()}, sort_keys=True))

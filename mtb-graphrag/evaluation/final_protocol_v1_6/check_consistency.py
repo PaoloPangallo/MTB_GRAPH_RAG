@@ -45,7 +45,7 @@ def main() -> int:
     h01_identity = h01_identity_checks(amendment, h01)
     checks = {
         "version": manifest["protocol_version"] == "1.6",
-        "pre_freeze": manifest["frozen"] is False and manifest["review_status"] == "PENDING_REVIEW" and manifest["reviewer"] is None,
+        "freeze_state": (manifest["frozen"] is True and manifest["review_status"] == "ACCEPTED" and manifest["reviewer"] == "Paolo Pangallo" and bool(manifest["freeze_timestamp"])) or (manifest["frozen"] is False and manifest["review_status"] == "PENDING_REVIEW" and manifest["reviewer"] is None),
         "parent": manifest["parent_protocol_commit"] == "556618f8810333d1abad3771e42c4626e54d3670" and manifest["parent_protocol_sha256"] == "60b74a031688161690b34a8ed6dda7f4b36ca7323541bbd1564b0ad816fe3bdd",
         **h01_identity,
         "h02_identity": amendment["H02"]["runtime_commit"] == "eb20fdfab35724f3b84651d8c02f1ec3970db615" and manifest["runtime_commit"] == amendment["H02"]["runtime_commit"],
@@ -60,7 +60,7 @@ def main() -> int:
         "projection_identity": manifest["scientific_projection_sha256"] == lineage["scientific_projection_sha256"] == "a4edb0bad5cd233fe04423068dacf14de91bb7a7421169c5602c7bf79e67229c",
         "rq3_metadata_only": projection["authorized_changes"]["RQ3"] == ["H02 reviewed runtime identity/interface metadata only"],
         "no_scope_expansion": projection["unauthorized_scientific_changes"] == 0,
-        "pre_freeze_hash": protocol_hash["pre_freeze"] is True and protocol_hash["protocol_sha256"] == protocol_hash["protocol_sha256_repeat"] and len(protocol_hash["protocol_sha256"]) == 64,
+        "protocol_hash": protocol_hash["pre_freeze"] is (not manifest["frozen"]) and protocol_hash["protocol_sha256"] == protocol_hash["protocol_sha256_repeat"] and len(protocol_hash["protocol_sha256"]) == 64,
         "final_eval_absent": not (ROOT.parents[1] / "final_evaluation").exists(),
     }
     result = {"checks": checks, "passed": sum(checks.values()), "total": len(checks), "all_pass": all(checks.values())}
