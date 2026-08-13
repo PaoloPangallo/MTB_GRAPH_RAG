@@ -1,0 +1,107 @@
+{
+  "corpus_version": "Operational Corpus v2",
+  "protocol_version": "1.7",
+  "source_policy": "Official PubMed E-utilities and PMC OAI-PMH snapshots; fetched before parsing/use",
+  "retrieved_at": "2026-08-13",
+  "scenarios": [
+    {
+      "scenario_id": "A_cache_hit",
+      "artifact_paths": ["pubmed/abstracts/15705718.xml", "pubmed/metadata/15705718.json"],
+      "source_urls": ["https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=15705718&retmode=xml", "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=15705718&retmode=json"],
+      "sha256": ["3ef3fb6dfe9a7ed168fe13c0de1ffa195be04fb4db3c1ae1624ee377eb97fd8a", "8c6bb31daa748f0c7a0fd33c2c1ceb5dd0753812d180b9fe4a70bb298aaf8469"],
+      "document_id": "pmid:15705718",
+      "cache_initial_state": "TARGET_SEEDED",
+      "component_under_test": "AuthorizedDocumentCache.resolve_pmid",
+      "expected_observable": "network_fetch_count = 0; cache_hit = true; DOCUMENT_RESOLVED_FROM_CACHE",
+      "fixture_version": "A01"
+    },
+    {
+      "scenario_id": "B_cache_miss_success",
+      "artifact_paths": ["pubmed/abstracts/24088390.xml", "pubmed/metadata/24088390.json", "pmc/xml/PMC4157820.xml"],
+      "source_urls": ["https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=24088390&retmode=xml", "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=24088390&retmode=json", "https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:4157820"],
+      "sha256": ["24085ac0ca484ba1d17ca0a2a487d1c7d6760cf50c255da03d55f38e87f5db0a", "df375de9e9a21888ff49b2f4d3cc7b9df46c66016d3319fd2437ef3f97668954", "2997f8f0d9243d56e3e6a94dde9149991a4dfe9c8b87fb2099bf06d03be5148d"],
+      "document_id": "pmid:24088390",
+      "cache_initial_state": "TARGET_ABSENT",
+      "component_under_test": "AuthorizedDocumentCache.resolve_live_identifier",
+      "expected_observable": "cache_hit = false; network_fetch_count >= 1; snapshot persisted before parser",
+      "fixture_version": "A01"
+    },
+    {
+      "scenario_id": "C_pmid_only_to_pmcid",
+      "artifact_paths": ["pubmed/abstracts/24088390.xml", "pubmed/metadata/24088390.json", "pmc/xml/PMC4157820.xml"],
+      "source_urls": ["https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=24088390&retmode=xml", "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=24088390&retmode=json", "https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:4157820"],
+      "sha256": ["24085ac0ca484ba1d17ca0a2a487d1c7d6760cf50c255da03d55f38e87f5db0a", "df375de9e9a21888ff49b2f4d3cc7b9df46c66016d3319fd2437ef3f97668954", "2997f8f0d9243d56e3e6a94dde9149991a4dfe9c8b87fb2099bf06d03be5148d"],
+      "document_id": "pmid:24088390",
+      "cache_initial_state": "TARGET_ABSENT",
+      "component_under_test": "AuthorizedDocumentCache.resolve_pmid",
+      "expected_observable": "derived_pmcid = PMC4157820; manual_pmcid_input = false",
+      "fixture_version": "A01"
+    },
+    {
+      "scenario_id": "D_pmc_fulltext",
+      "artifact_paths": ["pmc/xml/PMC4157820.xml"],
+      "source_urls": ["https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:4157820"],
+      "sha256": ["2997f8f0d9243d56e3e6a94dde9149991a4dfe9c8b87fb2099bf06d03be5148d"],
+      "document_id": "pmcid:PMC4157820",
+      "cache_initial_state": "TARGET_ABSENT",
+      "component_under_test": "AuthorizedDocumentCache.resolve_pmc + JatsXmlParser",
+      "expected_observable": "availability = PMC_XML_AVAILABLE; parser = JatsXmlParser",
+      "fixture_version": "A01"
+    },
+    {
+      "scenario_id": "E_pmc_unavailable_abstract_degradation",
+      "artifact_paths": ["pubmed/abstracts/23724867.xml", "pubmed/metadata/23724867.json"],
+      "source_urls": ["https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=23724867&retmode=xml", "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=23724867&retmode=json"],
+      "sha256": ["e0b7e50171c2315feff867926701f6be9d131b4a007d15b2abdc5969cd08de82", "8bc7b0d7e61e482291b9382e1794c2065af115bcbdd5b26a31cfeb1c8c5b6b36"],
+      "document_id": "pmid:23724867",
+      "cache_initial_state": "TARGET_EXCLUDED; PMC4081656 transport failure is injected at external seam",
+      "component_under_test": "canonical PMC resolution failure + PubMed abstract degradation",
+      "expected_observable": "PMC_RESOLUTION_FAILED; DOCUMENT_DEGRADED_TO_ABSTRACT; abstract usable",
+      "fixture_version": "A01"
+    },
+    {
+      "scenario_id": "F_unseen_document",
+      "artifact_paths": ["pubmed/abstracts/24088390.xml", "pubmed/metadata/24088390.json", "pmc/xml/PMC4157820.xml"],
+      "source_urls": ["https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=24088390&retmode=xml", "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=24088390&retmode=json", "https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:4157820"],
+      "sha256": ["24085ac0ca484ba1d17ca0a2a487d1c7d6760cf50c255da03d55f38e87f5db0a", "df375de9e9a21888ff49b2f4d3cc7b9df46c66016d3319fd2437ef3f97668954", "2997f8f0d9243d56e3e6a94dde9149991a4dfe9c8b87fb2099bf06d03be5148d"],
+      "document_id": "pmid:24088390",
+      "cache_initial_state": "TARGET_EXCLUDED",
+      "component_under_test": "AuthorizedDocumentCache.resolve_live_identifier",
+      "expected_observable": "cache_hit = false; network_fetch_count >= 1; document_persisted = true",
+      "fixture_version": "A01"
+    },
+    {
+      "scenario_id": "G_document_unavailable",
+      "artifact_paths": [],
+      "source_urls": [],
+      "sha256": [],
+      "document_id": "pmid:00000000",
+      "cache_initial_state": "TARGET_ABSENT",
+      "component_under_test": "AuthorizedDocumentCache.resolve_pmid",
+      "expected_observable": "availability = PMID_NOT_FOUND; gemma_calls = 0; fake_source_units = 0",
+      "fixture_version": "A01"
+    },
+    {
+      "scenario_id": "H_parser_failure_fixture",
+      "artifact_paths": ["../../evaluation/final_protocol/amendments/A01/parser_failure_fixture.json"],
+      "source_urls": [],
+      "sha256": [],
+      "document_id": "pmcid:PMC0000001",
+      "cache_initial_state": "TARGET_SEEDED",
+      "component_under_test": "JatsXmlParser",
+      "expected_observable": "PARSER_FAILED",
+      "fixture_version": "A01"
+    },
+    {
+      "scenario_id": "I_selector_failure_fixture",
+      "artifact_paths": ["../../evaluation/final_protocol/amendments/A01/selector_failure_fixture.json"],
+      "source_urls": [],
+      "sha256": [],
+      "document_id": "pmcid:PMC0000002",
+      "cache_initial_state": "TARGET_SEEDED",
+      "component_under_test": "canonical SourceUnit selector",
+      "expected_observable": "SOURCEUNIT_SELECTION_FAILED",
+      "fixture_version": "A01"
+    }
+  ]
+}

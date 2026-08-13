@@ -1,0 +1,15 @@
+{
+  "amendment_id": "mtb-graphrag-final-evaluation/1.7-operational-v2",
+  "parent_protocol_sha256": "ac296a924a39b58caf3427f47153348566d21bcadb6fef94bfa8c6105400ac1d",
+  "scope": "Operational reproducibility only",
+  "operational_membership_unchanged": true,
+  "operational_scenarios": ["A_cache_hit", "B_cache_miss_success", "C_pmid_only_to_pmcid", "D_pmc_fulltext", "E_pmc_unavailable_abstract_degradation", "F_unseen_document", "G_document_unavailable", "H_parser_failure_fixture", "I_selector_failure_fixture"],
+  "operational_unit_count": 9,
+  "operational_corpus_manifest": "research_frozen_artifacts/operational_v2/operational_v2_manifest.json",
+  "operational_corpus_sha256": "7bc9ca30d4b5c4823a894160cb5caa6d1a4ebf2e840fabe1cfb525ee3260238d",
+  "operational_manifest_sha256": "bb94795633b8ec7e129a8662e87e9604a156ed8eed8576bce3570bec857af1ea",
+  "expected_semantics_unchanged": true,
+  "synthetic_clinical_queries": 0,
+  "external_transport_policy": "OFFLINE_FROZEN_TRANSPORT_ONLY",
+  "post_hoc_gold_used": false
+}
