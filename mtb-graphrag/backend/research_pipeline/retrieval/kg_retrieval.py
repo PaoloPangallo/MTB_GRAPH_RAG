@@ -32,7 +32,10 @@ import re
 from functools import lru_cache
 from typing import Any
 
-from backend.research_pipeline.data_access import candidates_path, evidence_bundles_path
+from backend.research_pipeline.data_access import (
+    evidence_bundles_path,
+    read_candidate_corpus_utf8,
+)
 from backend.research_pipeline.documents.authorized_cache import expand_identifier
 
 # I percorsi arrivano da ``data_access``, non da ``Path(__file__).parents[n]``:
@@ -106,7 +109,14 @@ def load_candidates() -> dict[str, dict]:
     # ogni run costava ~3 s per chiamata e rendeva l'endpoint inutilizzabile.
     # La cache è invalidabile con ``load_candidates.cache_clear()`` nei test che
     # cambiano ``RESEARCH_PIPELINE_DATA_ROOT``.
-    return {row["candidate_id"]: row for row in (json.loads(line) for line in candidates_path().read_text(encoding="utf-8").splitlines() if line.strip())}
+    return {
+        row["candidate_id"]: row
+        for row in (
+            json.loads(line)
+            for line in read_candidate_corpus_utf8().splitlines()
+            if line.strip()
+        )
+    }
 
 
 @lru_cache(maxsize=1)

@@ -21,6 +21,7 @@ I dataset restano **in sola lettura** nella loro posizione in ``benchmarks/``:
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 from functools import lru_cache
 from pathlib import Path
@@ -32,6 +33,7 @@ _DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 
 _DGC = "benchmarks/mtb_evidence/document_grounded_claims"
 _PILOT = "benchmarks/mtb_evidence/end_to_end_pipeline_pilot"
+_EXPECTED_CANDIDATES_SHA256 = "d6c65c2682313652b736f1f82968078292c12588823e2f79309e76d6e671235d"
 
 
 class FrozenDataUnavailable(RuntimeError):
@@ -64,6 +66,30 @@ def _path(relative: str) -> Path:
 
 def candidates_path() -> Path:
     return _path(f"{_DGC}/graph_candidate_repository/2.0/candidates.jsonl")
+
+
+def read_candidate_corpus_utf8() -> str:
+    """Read the canonical candidate corpus only after identity validation.
+
+    The corpus is a frozen UTF-8 JSONL artifact.  A checkout or transport
+    transformation must be rejected before JSON parsing; permissive decoding
+    would turn an artifact-integrity failure into altered scientific input.
+    """
+    path = candidates_path()
+    if not path.is_file():
+        raise FrozenDataUnavailable(f"dataset congelato assente: {path}")
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    if digest != _EXPECTED_CANDIDATES_SHA256:
+        raise FrozenDataUnavailable(
+            "candidate corpus hash mismatch: "
+            f"expected={_EXPECTED_CANDIDATES_SHA256} observed={digest}"
+        )
+    try:
+        return path.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        raise FrozenDataUnavailable(
+            f"candidate corpus is not valid UTF-8 at byte offset {exc.start}"
+        ) from exc
 
 
 def evidence_bundles_path() -> Path:
