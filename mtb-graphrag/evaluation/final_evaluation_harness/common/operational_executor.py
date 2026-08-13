@@ -27,7 +27,10 @@ def execute_operational_scenario(protocol: Any, scenario_id: str, context: Any) 
     runtime = getattr(context, "canonical_runtime", None)
     if runtime is None:
         raise RuntimeError("CANONICAL_RUNTIME_ADAPTER_REQUIRED")
-    outcome = runtime.execute(plan["binding"], scenario_id=scenario_id,
-                              cache_plan=plan["cache_plan"])
+    # ``scenario_id`` and ``cache_plan`` are Harness/audit metadata.  The
+    # canonical EvidenceRetrievalPipeline accepts only its query mapping (and
+    # optional retrieval backend), so do not leak lifecycle metadata into its
+    # strict public signature.
+    outcome = runtime.execute(plan["binding"])
     return {"scenario_id": scenario_id, "binding": plan["binding"],
             "cache_plan": plan["cache_plan"], "native_outcome": outcome}
