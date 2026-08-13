@@ -155,7 +155,10 @@ class CanonicalOperationalRunner:
     def run(self, scenario_id: str) -> OperationalResult:
         materialized = self.materialize(scenario_id)
         binding = materialized.binding
-        with tempfile.TemporaryDirectory(prefix=f"operational_{scenario_id}_") as temp:
+        # Windows test environments may deny the user TEMP ACL. Keep the
+        # ephemeral sandbox under the writable worktree artifact root; it is
+        # still per-run, never shared, and is removed deterministically.
+        with tempfile.TemporaryDirectory(prefix=f"operational_{scenario_id}_", dir=self.corpus_root.parent) as temp:
             cache = self._cache(scenario_id, Path(temp))
             observables: dict[str, Any]
             component: str
