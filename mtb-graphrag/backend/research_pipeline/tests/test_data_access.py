@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import hashlib
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase, mock
@@ -50,6 +51,36 @@ class MissingDataIsExplicitTest(TestCase):
                 self.assertFalse(da.document_cache_available())
                 with self.assertRaises(da.FrozenDataUnavailable):
                     da.load_source_units([{"document_id": "d1"}])
+
+
+class CandidateCorpusIdentityTest(TestCase):
+    def test_canonical_candidate_corpus_is_utf8_and_hash_pinned(self) -> None:
+        text = da.read_candidate_corpus_utf8()
+        self.assertTrue(text)
+        self.assertEqual(
+            hashlib.sha256(da.candidates_path().read_bytes()).hexdigest(),
+            da._EXPECTED_CANDIDATES_SHA256,
+        )
+
+    def test_transformed_candidate_corpus_fails_closed(self) -> None:
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "candidates.jsonl"
+            path.write_bytes(b'{"candidate_id":"x","label":"ok"}\n')
+            with mock.patch.object(da, "candidates_path", return_value=path), \
+                 mock.patch.object(da, "_EXPECTED_CANDIDATES_SHA256", "0" * 64):
+                with self.assertRaisesRegex(da.FrozenDataUnavailable, "hash mismatch"):
+                    da.read_candidate_corpus_utf8()
+
+    def test_invalid_utf8_fails_closed_after_identity_match(self) -> None:
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "candidates.jsonl"
+            raw = b'{"candidate_id":"x","label":"' + bytes([0xF0]) + b'"}\n'
+            path.write_bytes(raw)
+            digest = hashlib.sha256(raw).hexdigest()
+            with mock.patch.object(da, "candidates_path", return_value=path), \
+                 mock.patch.object(da, "_EXPECTED_CANDIDATES_SHA256", digest):
+                with self.assertRaisesRegex(da.FrozenDataUnavailable, "not valid UTF-8"):
+                    da.read_candidate_corpus_utf8()
 
 
 class SourceUnitIndexCarriesNoTextTest(TestCase):

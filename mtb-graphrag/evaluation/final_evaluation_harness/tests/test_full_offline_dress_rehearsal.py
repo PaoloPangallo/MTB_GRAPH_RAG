@@ -124,6 +124,19 @@ def _transport_fixture_factory(counters: dict[str, int]):
 def test_full_offline_dress_rehearsal_reaches_post_without_external_calls(tmp_path, monkeypatch):
     from evaluation.final_evaluation_harness.common.execution import ProductionAdapterFactory
     from evaluation.final_evaluation_harness.common.lifecycle import CampaignLedger as CanonicalCampaignLedger
+    from backend.research_pipeline.data_access import (
+        _EXPECTED_CANDIDATES_SHA256,
+        candidates_path,
+        read_candidate_corpus_utf8,
+    )
+
+    # The rehearsal must touch the same physical frozen candidate corpus as
+    # production.  This identity check prevents a substituted/in-place
+    # transformed checkout from being hidden by offline fixtures.
+    candidate_text = read_candidate_corpus_utf8()
+    assert candidate_text
+    assert candidates_path().resolve().is_file()
+    assert _EXPECTED_CANDIDATES_SHA256 == "d6c65c2682313652b736f1f82968078292c12588823e2f79309e76d6e671235d"
 
     class CachedCampaignLedger(CanonicalCampaignLedger):
         """Test-only index; delegates writes and validation to CampaignLedger."""
@@ -209,4 +222,10 @@ def test_full_offline_dress_rehearsal_reaches_post_without_external_calls(tmp_pa
         (aggregate_root / f"{family}.json").write_text(json.dumps(result, sort_keys=True), encoding="utf-8")
         assert result["observation_count"] == len(rows)
     assert {unit.rq for unit in plans} == set(rows_by_family)
+    assert len(rows_by_family["RQ4_DEVELOPMENT"]) == 35
+    assert len(rows_by_family["RQ4_HELDOUT"]) == 35
+    assert len(rows_by_family["NARRATIVE"]) == 25
+    assert len(rows_by_family["OPERATIONAL_A01"]) == 9
+    assert len(rows_by_family["RELIABILITY"]) == 30
+    assert len(rows_by_family["LATENCY"]) == 2
     assert sorted(path.stem for path in aggregate_root.glob("*.json")) == sorted(rows_by_family)
