@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .cache_factory import create_operational_cache
+from .operational_runner import CanonicalOperationalRunner
 from .protocol_loader import load_a01_bindings
 
 
@@ -18,19 +19,27 @@ def plan_operational_scenario(protocol: Any, scenario_id: str) -> dict[str, Any]
 
 
 def execute_operational_scenario(protocol: Any, scenario_id: str, context: Any) -> dict[str, Any]:
-    """Dispatch an A01 scenario through the canonical adapter boundary.
+    """Execute one A01 property at its canonical component boundary.
 
-    The scenario contract is read from frozen A01; this function does not
-    synthesize a scientific result or infer pass/fail semantics.
+    Operational units are document/parser/selector conformance checks. They
+    do not enter the clinical EvidenceRetrievalPipeline and never construct a
+    synthetic query or CaseContext.
     """
-    plan = plan_operational_scenario(protocol, scenario_id)
-    runtime = getattr(context, "canonical_runtime", None)
-    if runtime is None:
-        raise RuntimeError("CANONICAL_RUNTIME_ADAPTER_REQUIRED")
-    # ``scenario_id`` and ``cache_plan`` are Harness/audit metadata.  The
-    # canonical EvidenceRetrievalPipeline accepts only its query mapping (and
-    # optional retrieval backend), so do not leak lifecycle metadata into its
-    # strict public signature.
-    outcome = runtime.execute(plan["binding"])
-    return {"scenario_id": scenario_id, "binding": plan["binding"],
-            "cache_plan": plan["cache_plan"], "native_outcome": outcome}
+    root = protocol.root.parents[1]
+    runner = CanonicalOperationalRunner(protocol, root / "research_frozen_artifacts" / "operational_v2")
+    result = runner.run(scenario_id)
+    return {
+        "scenario_id": result.scenario_id,
+        "unit_id": result.unit_id,
+        "initial_state": result.initial_state,
+        "component_path": result.component_path,
+        "observables": result.observables,
+        "runtime_terminal_state": result.runtime_terminal_state,
+        "expected_observable": result.expected_observable,
+        "actual_observable": result.actual_observable,
+        "controlled_outcome": result.controlled_outcome,
+        "property_test_pass": result.property_test_pass,
+        "artifact_provenance": result.artifact_provenance,
+        "synthetic_query_count": result.synthetic_query_count,
+        "infrastructure_status": result.infrastructure_status,
+    }
