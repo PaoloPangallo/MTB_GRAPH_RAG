@@ -44,6 +44,8 @@ def execute_sealed_plan(plan: list[Any], context: RealExecutionContext, registry
         _append_event(ledger, "ATTEMPT_RESERVED", attempt_id_value=aid, run_id=unit.run_id)
         started = datetime.now(timezone.utc).isoformat()
         try:
+            context.current_attempt_id = aid
+            context.current_run_id = unit.run_id
             result = registry.resolve(unit).execute(unit, context)
             if not isinstance(result, ScientificExecutionResult):
                 result = ScientificExecutionResult.from_native(result)
@@ -56,4 +58,7 @@ def execute_sealed_plan(plan: list[Any], context: RealExecutionContext, registry
         except Exception:
             _append_event(ledger, "INFRASTRUCTURE_FAILED", attempt_id_value=aid, run_id=unit.run_id)
             raise
+        finally:
+            context.current_attempt_id = None
+            context.current_run_id = None
     return results
