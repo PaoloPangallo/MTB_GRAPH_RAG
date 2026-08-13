@@ -142,3 +142,39 @@ def test_rq1_and_rq2_offline_dispatch_use_frozen_local_artifacts():
     first_k = dispatcher._run_rq2_offline(rq2[0], SimpleNamespace())
     assert first_k["arm"] == "FIRST_K"
     assert len(first_k["selected_source_unit_ids"]) == 5
+
+
+def test_reliability_b_frozen_arm_uses_selector_contract():
+    protocol = load_protocol()
+    unit = build_plan("reliability", protocol)[21]
+    assert unit.testbed == "RELIABILITY_STRATUM_B"
+    assert unit.arm == "DETERMINISTIC_SELECTOR_K5_TO_SAME_GEMMA_TO_SAME_QUOTE_VALIDATOR"
+    from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
+    dispatcher = ProductionUnitDispatcher()
+    context = SimpleNamespace(selector=SimpleNamespace(select=lambda selection, top_k=5:
+        SimpleNamespace(selected_source_unit_ids=["SU-1"], ranked_source_units=[])))
+    result = dispatcher._run_rq2_offline(unit, context)
+    assert result["arm"] == unit.arm
+    assert result["selected_source_unit_ids"] == ["SU-1"]
+
+
+def test_latency_pair_uses_frozen_document_runtime_contract():
+    protocol = load_protocol()
+    unit = build_plan("latency", protocol)[0]
+    calls = []
+
+    class Runtime:
+        def execute(self, query, **kwargs):
+            calls.append((query, kwargs))
+            return {"status": "CONTROLLED_FIXTURE"}
+
+    from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
+    result = ProductionUnitDispatcher()._LatencyExecutor(
+        unit, SimpleNamespace(timing=None, canonical_runtime=Runtime())
+    )
+    assert result["status"] == "CONTROLLED_FIXTURE"
+    assert len(calls) == 1
+    query, kwargs = calls[0]
+    assert query["selected_case_id"] == unit.case_id
+    assert query["selected_document_id"] == "pmid:15705718"
+    assert kwargs["latency_arm"] == "LAT-HIT"
