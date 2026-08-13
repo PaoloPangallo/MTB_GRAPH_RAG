@@ -246,8 +246,14 @@ class ProductionUnitDispatcher:
             attempt_id=getattr(context, "current_attempt_id", None),
             final_run_id=getattr(context, "current_run_id", None),
         )
+        def enricher(_budget, case_id, candidate_id, paper_id, case_context,
+                     candidate_summary, drug, source_units, run_index=0):
+            return context.gemma.call(
+                case_id, candidate_id, paper_id, case_context,
+                candidate_summary, drug, source_units, run_index=run_index,
+            )
         kwargs = {"case_id": resolved_case_id, "clinical_text": case["clinical_text"],
-                  "call_parser_fn": parser, "call_enricher_fn": context.gemma.call,
+                  "call_parser_fn": parser, "call_enricher_fn": enricher,
                   "source_units_by_id": {}, "budget": CallBudget(), "ledger": h02_ledger,
                   "run_id": f"h02:{context.current_run_id}" if getattr(context, "current_run_id", None) else None,
                   "document_runtime": context.cache_factory, "call_narrator_fn": context.narrator.call,
