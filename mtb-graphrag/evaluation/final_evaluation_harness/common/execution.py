@@ -212,14 +212,21 @@ class ProductionUnitDispatcher:
 
     def _run_case(self, unit: Any, context: "RealExecutionContext", *, gold_access: bool = True, ablation: str | None = None) -> Any:
         from evaluation.final_evaluation_harness.common.case_resolution import resolve_production_case
+        from evaluation.final_evaluation_harness.common.h02_ledger_adapter import H02LedgerAdapter
 
         resolved_case_id, case = resolve_production_case(unit.case_id)
         from backend.research_pipeline.pipeline import CallBudget
         from backend.research_pipeline import orchestrator
         parser = lambda budget, case_id, text: context.casecontext_parser(case_id, text, run_index=0)
+        h02_ledger = H02LedgerAdapter(
+            context.ledger,
+            attempt_id=getattr(context, "current_attempt_id", None),
+            final_run_id=getattr(context, "current_run_id", None),
+        )
         kwargs = {"case_id": resolved_case_id, "clinical_text": case["clinical_text"],
                   "call_parser_fn": parser, "call_enricher_fn": context.gemma.call,
-                  "source_units_by_id": {}, "budget": CallBudget(), "ledger": context.ledger,
+                  "source_units_by_id": {}, "budget": CallBudget(), "ledger": h02_ledger,
+                  "run_id": f"h02:{context.current_run_id}" if getattr(context, "current_run_id", None) else None,
                   "document_runtime": context.cache_factory, "call_narrator_fn": context.narrator.call,
                   "retrieve_fn": None}
         if ablation == "B":
@@ -355,6 +362,8 @@ class RealExecutionContext:
     raw_writer: Any | None = None
     timing: Any | None = None
     production_dispatcher: Any | None = None
+    current_attempt_id: str | None = None
+    current_run_id: str | None = None
 
     def assert_production_guards(self, planned_unit: Any, executor: Any) -> None:
         """Fail closed before any adapter can perform a real side effect."""
