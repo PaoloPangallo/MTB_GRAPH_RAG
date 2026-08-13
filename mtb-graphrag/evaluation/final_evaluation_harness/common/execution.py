@@ -41,7 +41,7 @@ class ProductionUnitDispatcher:
             raise RuntimeError("H01_PROTOCOL_REQUIRED")
         from .adapters.h01_evaluator import H01EvaluatorAdapter
         import json
-        gold_path = context.protocol.root.parents[1] / "final_protocol" / "heldout" / "architectural_challenge_gold.json"
+        gold_path = context.protocol.root.parent / "final_protocol" / "heldout" / "architectural_challenge_gold.json"
         gold_rows = json.loads(gold_path.read_text(encoding="utf-8"))["gold"]
         challenge = next(row for row in gold_rows if row["case_id"] == unit.case_id)
         evaluator = H01EvaluatorAdapter(
@@ -118,7 +118,10 @@ class ProductionUnitDispatcher:
         elif unit.arm == "BM25":
             selected = select_bm25(selection, top_k=5)
             ranked = []
-        elif unit.arm == "DETERMINISTIC_SELECTOR":
+        elif unit.arm in {
+            "DETERMINISTIC_SELECTOR",
+            "DETERMINISTIC_SELECTOR_K5_TO_SAME_GEMMA_TO_SAME_QUOTE_VALIDATOR",
+        }:
             result = context.selector.select(selection)
             selected = list(result.selected_source_unit_ids)
             ranked = [item.__dict__ for item in result.ranked_source_units]
@@ -174,10 +177,30 @@ class ProductionUnitDispatcher:
         return self._run_rq2_downstream(unit, context)
 
     def _LatencyExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
+        from .protocol_loader import load_a01_bindings, load_protocol
+        protocol = getattr(context, "protocol", None) or load_protocol()
+        pair = protocol.latency["same_document_cache_latency_pair"]
+        if unit.case_id != pair["case_id"]:
+            raise RuntimeError(f"REAL_EXECUTION_INPUT_NOT_RESOLVED:{unit.case_id}")
+        binding = next(item for item in load_a01_bindings(protocol)["scenarios"]
+                       if item["scenario_id"] == "A_cache_hit")
+        if binding["selected_document_id"] != pair["document_id"]:
+            raise RuntimeError("LATENCY_FIXTURE_DOCUMENT_MISMATCH")
+        query = dict(binding)
+        query.update(latency_fixture_id=pair["fixture_id"], latency_arm=unit.arm,
+                     cache_condition=("TARGET_SEEDED" if unit.arm == "LAT-HIT"
+                                      else "SAME_PLAN_TARGET_EXCLUDED"))
+        cache_plan = {"scenario_id": unit.arm, "baseline": "AUTHORIZED_DOCUMENT_CACHE_43",
+                      "target": pair["document_id"], "isolated": True,
+                      "read_only_baseline": True,
+                      "replacement_after_outcome": pair["replacement_after_outcome"]}
+        def invoke():
+            return context.canonical_runtime.execute(query, latency_arm=unit.arm,
+                                                      cache_plan=cache_plan)
         if context.timing is None:
-            return self._run_case(unit, context)
+            return invoke()
         from .timing import timed_call
-        result, elapsed_ms = timed_call(self._run_case, unit, context)
+        result, elapsed_ms = timed_call(invoke)
         return {"native_result": result, "end_to_end_latency_ms": elapsed_ms}
 
     def _NarrativeHostileExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:

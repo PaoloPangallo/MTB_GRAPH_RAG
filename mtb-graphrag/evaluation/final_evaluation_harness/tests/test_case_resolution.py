@@ -26,6 +26,39 @@ def test_unknown_production_case_fails_closed():
         resolve_production_case("UNKNOWN_CASE_FOR_TEST")
 
 
+def test_rq4_frozen_cases_resolve_without_gold_fields():
+    protocol = load_protocol()
+    unit = next(item for item in build_plan("rq4", protocol) if item.testbed == "CASECONTEXT_ROBUSTNESS_35")
+    case_id, case = resolve_production_case(unit.case_id)
+    assert case_id == unit.case_id
+    assert case["clinical_text"]
+    assert set(case) == {"case_id", "clinical_text", "source_fixture"}
+    assert case["source_fixture"] == "RQ4_DEVELOPMENT"
+
+
+def test_rq4_heldout_resolution_excludes_gold_fields():
+    protocol = load_protocol()
+    unit = next(item for item in build_plan("rq4", protocol) if item.testbed == "HELDOUT_ARCHITECTURAL_35")
+    case_id, case = resolve_production_case(unit.case_id)
+    assert case_id == unit.case_id
+    assert case["clinical_text"]
+    assert set(case) == {"case_id", "clinical_text", "source_fixture"}
+    assert case["source_fixture"] == "RQ4_HELDOUT"
+
+
+def test_all_rq4_and_reliability_a_cases_resolve_from_frozen_runtime_fixtures():
+    protocol = load_protocol()
+    units = [
+        *build_plan("rq4", protocol),
+        *[unit for unit in build_plan("reliability", protocol)
+          if unit.testbed == "RELIABILITY_STRATUM_A"],
+    ]
+    resolved = [resolve_production_case(unit.case_id) for unit in units]
+    assert len(resolved) == 91
+    assert all(case["clinical_text"] for _, case in resolved)
+    assert {case["source_fixture"] for _, case in resolved} == {"RQ4_DEVELOPMENT", "RQ4_HELDOUT"}
+
+
 def test_all_rq3_arms_resolve_same_canonical_input(monkeypatch):
     captured = []
 
