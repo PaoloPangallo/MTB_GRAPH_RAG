@@ -177,7 +177,10 @@ def test_latency_pair_uses_frozen_document_runtime_contract():
     query, kwargs = calls[0]
     assert query["selected_case_id"] == unit.case_id
     assert query["selected_document_id"] == "pmid:15705718"
-    assert kwargs["latency_arm"] == "LAT-HIT"
+    assert query["latency_arm"] == "LAT-HIT"
+    assert query["cache_plan"]["target"] == "pmid:15705718"
+    assert query["cache_plan"]["scenario_id"] == "LAT-HIT"
+    assert kwargs == {}
 
 
 def test_rq3_enricher_budget_boundary_preserves_structured_case_context(monkeypatch):
