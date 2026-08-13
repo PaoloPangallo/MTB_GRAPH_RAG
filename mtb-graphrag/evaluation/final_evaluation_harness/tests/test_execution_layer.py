@@ -178,3 +178,81 @@ def test_latency_pair_uses_frozen_document_runtime_contract():
     assert query["selected_case_id"] == unit.case_id
     assert query["selected_document_id"] == "pmid:15705718"
     assert kwargs["latency_arm"] == "LAT-HIT"
+
+
+def test_rq3_enricher_budget_boundary_preserves_structured_case_context(monkeypatch):
+    protocol = load_protocol()
+    unit = build_plan("rq3", protocol)[0]
+    from evaluation.final_evaluation_harness.common.case_resolution import resolve_production_case
+    resolved_case_id, case = resolve_production_case(unit.case_id)
+    captured = {}
+
+    class Parser:
+        def __call__(self, case_id, text, run_index=0):
+            return {"transport_result": "FORCED_TOOL_VALID", "case_context_raw": {
+                "case_id": case_id, "disease": {}, "biomarkers": [],
+                "previous_interventions": [], "target_intervention": None,
+                "query_intent": "THERAPY_DISCOVERY", "clinical_question": text,
+                "uncertainties": [],
+            }}
+
+    class Gemma:
+        def call(self, *args, **kwargs):
+            captured["case_context"] = args[3]
+            return {"transport_result": "FORCED_TOOL_VALID", "enrichment": None}
+
+    class Orchestrator:
+        @staticmethod
+        def run_case(**kwargs):
+            parsed = kwargs["call_parser_fn"](None, kwargs["case_id"], kwargs["clinical_text"])
+            kwargs["call_enricher_fn"](None, kwargs["case_id"], "candidate", "paper", parsed["case_context_raw"], {}, "", [])
+            return SimpleNamespace(to_dict=lambda: {"status": "COMPLETE"})
+
+    import backend.research_pipeline.orchestrator as orchestrator
+    monkeypatch.setattr(orchestrator, "run_case", Orchestrator.run_case)
+    context = SimpleNamespace(
+        casecontext_parser=Parser(), gemma=Gemma(), narrator=SimpleNamespace(call=lambda *a, **k: {}),
+        cache_factory=None,
+        ledger=SimpleNamespace(), current_attempt_id="a", current_run_id="r",
+        protocol=protocol,
+    )
+    from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
+    ProductionUnitDispatcher()._run_case(unit, context)
+    assert isinstance(captured["case_context"], dict)
+    assert captured["case_context"]["case_id"] == resolved_case_id
+
+
+def test_real_gemma_enricher_contract_renders_structured_case_context(monkeypatch):
+    import json
+    from backend.research_pipeline import replay
+    from backend.research_pipeline.enrichment import enricher_v2
+
+    captured = {}
+
+    def fake_transport(payload):
+        captured["payload"] = payload
+        name = payload["tool_choice"]["function"]["name"]
+        args = {
+            "decision": "ABSTAIN", "source_unit_id": "",
+            "author_claim_quote": "", "author_context_summary": "",
+            "abstention_reason": "OFFLINE_CONTRACT_FIXTURE",
+        }
+        body = {"choices": [{"finish_reason": "tool_calls", "message": {
+            "tool_calls": [{"function": {"name": name, "arguments": json.dumps(args)}}]
+        }}]}
+        return 200, body, None, 0
+
+    monkeypatch.setattr(
+        "backend.research_pipeline.enrichment.transport.post_with_infra_retry",
+        fake_transport,
+    )
+    case_context = replay._parser_outputs_by_case()["CASE-1-therapy-evaluation-strong-match"]["case_context_raw"]
+    result = enricher_v2.call_enricher_v2(
+        "CASE-1-therapy-evaluation-strong-match", "candidate-1", "PMID-1",
+        case_context, {"candidate_id": "candidate-1"}, "panitumumab", [],
+    )
+    assert isinstance(case_context, dict)
+    assert result["transport_result"] == "V2_TRANSPORT_VALID"
+    rendered = captured["payload"]["messages"][-1]["content"]
+    assert '"disease"' in rendered
+    assert "metastatic colorectal cancer" in rendered
