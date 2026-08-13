@@ -194,9 +194,13 @@ class ProductionUnitDispatcher:
                       "target": pair["document_id"], "isolated": True,
                       "read_only_baseline": True,
                       "replacement_after_outcome": pair["replacement_after_outcome"]}
+        query["cache_plan"] = cache_plan
         def invoke():
-            return context.canonical_runtime.execute(query, latency_arm=unit.arm,
-                                                      cache_plan=cache_plan)
+            # ``latency_arm`` is evaluation metadata, while ``cache_plan`` is
+            # frozen input metadata.  EvidenceRetrievalPipeline.run accepts
+            # only the query and its supported runtime options; keeping these
+            # values in the query/result envelope avoids widening that API.
+            return context.canonical_runtime.execute(query)
         if context.timing is None:
             return invoke()
         from .timing import timed_call
