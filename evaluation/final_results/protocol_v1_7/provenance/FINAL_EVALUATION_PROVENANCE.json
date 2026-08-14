@@ -44,5 +44,9 @@
     "reason": "research/shadow artifact not required by evaluated runtime; not published"
   },
   "verification_method": "deterministic SHA-256 file comparison for source paths; strict UTF-8 and SHA-256 validation for the external v2 artifact",
+  "restore_script_version": "1.0",
+  "fetch_script_version": "1.0",
+  "freeze_date": null,
+  "freeze_date_status": "not recorded in available artifacts",
   "verdict": "PUBLIC_CODE_PLUS_HASH_PINNED_CANONICAL_DATA_ARTIFACT"
 }
