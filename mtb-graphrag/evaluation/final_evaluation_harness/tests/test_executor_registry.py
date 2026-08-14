@@ -47,3 +47,11 @@ def test_required_components_are_present_in_each_binding():
         for field, adapter_name in fields.items():
             if getattr(unit, field) == "REQUIRED":
                 assert adapter_name in binding.adapter_names, (unit.plan_index, field)
+
+
+def test_latency_binding_routes_only_to_document_resolver():
+    protocol = load_protocol()
+    unit = next(unit for unit in build_full_plan(protocol) if unit.rq == "LATENCY")
+    binding = ExecutionAdapterRegistry(protocol).resolve(unit)
+    assert binding.name == "LatencyExecutor"
+    assert binding.adapter_names == ("document_resolver",)

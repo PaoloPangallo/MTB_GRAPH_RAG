@@ -158,29 +158,70 @@ def test_reliability_b_frozen_arm_uses_selector_contract():
     assert result["selected_source_unit_ids"] == ["SU-1"]
 
 
-def test_latency_pair_uses_frozen_document_runtime_contract():
+def test_latency_pair_uses_frozen_document_resolver_contract():
     protocol = load_protocol()
     unit = build_plan("latency", protocol)[0]
     calls = []
 
-    class Runtime:
-        def execute(self, query, **kwargs):
-            calls.append((query, kwargs))
-            return {"status": "CONTROLLED_FIXTURE"}
+    class Document:
+        cache_hit = True
+        document_id = "pmid:15705718"
+        reason_codes = ("CACHE_HIT", "DOCUMENT_RESOLVED")
+        availability = "ABSTRACT_AVAILABLE"
+        resolved = True
+
+    class Resolution:
+        documents = (Document(),)
+
+    class Resolver:
+        def resolve(self, associations):
+            calls.append(associations)
+            return Resolution(), 1.25
 
     from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
     result = ProductionUnitDispatcher()._LatencyExecutor(
-        unit, SimpleNamespace(timing=None, canonical_runtime=Runtime())
+        unit, SimpleNamespace(timing=None, latency_document_resolver=Resolver())
     )
-    assert result["status"] == "CONTROLLED_FIXTURE"
+    assert result["cache_observable"] == "CACHE_HIT"
+    assert result["document_id"] == "pmid:15705718"
+    assert result["elapsed_ms"] == 1.25
     assert len(calls) == 1
-    query, kwargs = calls[0]
-    assert query["selected_case_id"] == unit.case_id
-    assert query["selected_document_id"] == "pmid:15705718"
-    assert query["latency_arm"] == "LAT-HIT"
-    assert query["cache_plan"]["target"] == "pmid:15705718"
-    assert query["cache_plan"]["scenario_id"] == "LAT-HIT"
-    assert kwargs == {}
+    association = calls[0][0]
+    assert association["candidate_id"] == "GCA-0000980ba01970f893f8e4d7"
+    assert association["available_bundles"][0]["document_id"] == "pmid:15705718"
+    assert association["available_bundles"][0]["provenance_identifier"] == {"pmid": "15705718"}
+
+
+def test_latency_pair_real_document_runtime_preserves_only_cache_delta():
+    protocol = load_protocol()
+    from evaluation.final_evaluation_harness.common.execution import ProductionUnitDispatcher
+
+    class NetworkGuard:
+        def assert_allowed(self, _policy):
+            return None
+
+        def record(self):
+            return None
+
+    context = SimpleNamespace(protocol=protocol, network_guard=NetworkGuard())
+    dispatcher = ProductionUnitDispatcher()
+    results = {
+        unit.arm: dispatcher._LatencyExecutor(unit, context)
+        for unit in build_plan("latency", protocol)
+    }
+
+    hit = results["LAT-HIT"]
+    miss = results["LAT-MISS"]
+    assert hit["cache_observable"] == "CACHE_HIT"
+    assert hit["cache_initial_state"] == "TARGET_SEEDED"
+    assert hit["network_fetch_count"] == 0
+    assert miss["cache_observable"] == "CACHE_MISS"
+    assert miss["cache_initial_state"] == "SAME_PLAN_TARGET_EXCLUDED"
+    assert miss["network_fetch_count"] >= 1
+    assert hit["gca_id"] == miss["gca_id"] == "GCA-0000980ba01970f893f8e4d7"
+    assert hit["document_id"] == miss["document_id"] == "pmid:15705718"
+    assert hit["component_path"] == miss["component_path"]
+    assert not any(field in hit or field in miss for field in ("query_id", "biomarker", "disease"))
 
 
 def test_rq3_enricher_budget_boundary_preserves_structured_case_context(monkeypatch):

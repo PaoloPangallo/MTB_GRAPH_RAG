@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Callable
 
 from .adapters.canonical_runtime import CanonicalRuntimeAdapter
@@ -178,6 +179,9 @@ class ProductionUnitDispatcher:
 
     def _LatencyExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
         from .protocol_loader import load_a01_bindings, load_protocol
+        from .operational_runner import CanonicalOperationalRunner
+        import tempfile
+        from time import monotonic
         protocol = getattr(context, "protocol", None) or load_protocol()
         pair = protocol.latency["same_document_cache_latency_pair"]
         if unit.case_id != pair["case_id"]:
@@ -186,26 +190,60 @@ class ProductionUnitDispatcher:
                        if item["scenario_id"] == "A_cache_hit")
         if binding["selected_document_id"] != pair["document_id"]:
             raise RuntimeError("LATENCY_FIXTURE_DOCUMENT_MISMATCH")
-        query = dict(binding)
-        query.update(latency_fixture_id=pair["fixture_id"], latency_arm=unit.arm,
-                     cache_condition=("TARGET_SEEDED" if unit.arm == "LAT-HIT"
-                                      else "SAME_PLAN_TARGET_EXCLUDED"))
+        cache_condition = ("TARGET_SEEDED" if unit.arm == "LAT-HIT"
+                           else "SAME_PLAN_TARGET_EXCLUDED")
         cache_plan = {"scenario_id": unit.arm, "baseline": "AUTHORIZED_DOCUMENT_CACHE_43",
                       "target": pair["document_id"], "isolated": True,
                       "read_only_baseline": True,
                       "replacement_after_outcome": pair["replacement_after_outcome"]}
-        query["cache_plan"] = cache_plan
-        def invoke():
-            # ``latency_arm`` is evaluation metadata, while ``cache_plan`` is
-            # frozen input metadata.  EvidenceRetrievalPipeline.run accepts
-            # only the query and its supported runtime options; keeping these
-            # values in the query/result envelope avoids widening that API.
-            return context.canonical_runtime.execute(query)
-        if context.timing is None:
-            return invoke()
-        from .timing import timed_call
-        result, elapsed_ms = timed_call(invoke)
-        return {"native_result": result, "end_to_end_latency_ms": elapsed_ms}
+        association = {
+            "candidate_id": binding["selected_gca_id"],
+            "available_bundles": [{
+                "bundle_id": pair["document_id"],
+                "document_id": pair["document_id"],
+                "provenance_identifier": {"pmid": binding["selected_pmid"]},
+            }],
+        }
+        corpus_root = protocol.root.parents[1] / "research_frozen_artifacts" / "operational_v2"
+        scenario_id = "A_cache_hit" if unit.arm == "LAT-HIT" else "B_cache_miss_success"
+        with tempfile.TemporaryDirectory(prefix=f"latency_{unit.arm}_", dir=corpus_root.parent) as temp:
+            operational = CanonicalOperationalRunner(protocol, corpus_root)
+            cache = operational._cache(scenario_id, Path(temp))
+            resolver = getattr(context, "latency_document_resolver", None)
+            if resolver is not None:
+                resolution, elapsed_ms = resolver.resolve([association])
+                documents = tuple(resolution.documents)
+                if len(documents) != 1:
+                    raise RuntimeError("LATENCY_DOCUMENT_RESOLUTION_CARDINALITY")
+                document = documents[0]
+                document_id = document.document_id
+                cache_hit = bool(document.cache_hit)
+                resolved = bool(document.resolved)
+                reasons = list(document.reason_codes)
+            else:
+                started = monotonic()
+                record = cache.resolve_pmid(binding["selected_pmid"])
+                elapsed_ms = (monotonic() - started) * 1000.0
+                document_id = record.get("document_id")
+                cache_hit = bool(record.get("cache_hit"))
+                resolved = record.get("availability") in {"ABSTRACT_AVAILABLE", "PMC_XML_AVAILABLE"}
+                reasons = ["CACHE_HIT" if cache_hit else "CACHE_MISS"]
+                if resolved:
+                    reasons.append("DOCUMENT_RESOLVED")
+            cache_observable = "CACHE_HIT" if cache_hit else "CACHE_MISS"
+            return {
+                "latency_arm": unit.arm,
+                "cache_plan": cache_plan,
+                "gca_id": binding["selected_gca_id"],
+                "document_id": document_id,
+                "cache_initial_state": cache_condition,
+                "elapsed_ms": elapsed_ms,
+                "terminal_state": "DOCUMENT_RESOLVED" if resolved else "DOCUMENT_UNAVAILABLE",
+                "cache_observable": cache_observable,
+                "resolution_reasons": reasons,
+                "network_fetch_count": cache.network_fetch_count,
+                "component_path": "AuthorizedDocumentCache.resolve_pmid",
+            }
 
     def _NarrativeHostileExecutor(self, unit: Any, context: "RealExecutionContext") -> Any:
         case = self._load_narrative_case(unit, hostile=True)

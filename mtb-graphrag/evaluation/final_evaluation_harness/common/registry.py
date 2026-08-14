@@ -65,7 +65,7 @@ _BINDINGS = {
     "SELECTOR_PLUS_GEMMA": ("RQ2GemmaExecutor", ("selector", "gemma", "quote_validator")),
     "OPERATIONAL_RUNTIME_NETWORK_ALLOWED": ("OperationalExecutor", ("canonical_runtime", "document_resolver")),
     "CONTROLLED_FAILURE_FIXTURE": ("ControlledFailureExecutor", ("canonical_runtime",)),
-    "LATENCY_PAIR": ("LatencyExecutor", ("canonical_runtime", "document_resolver")),
+    "LATENCY_PAIR": ("LatencyExecutor", ("document_resolver",)),
 }
 
 
