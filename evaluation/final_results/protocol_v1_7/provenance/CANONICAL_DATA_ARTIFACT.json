@@ -1,0 +1,14 @@
+{
+  "artifact_id": "canonical_graph_candidate_repository_v2",
+  "logical_role": "canonical graph candidate repository v2 used by the evaluated runtime",
+  "expected_runtime_path": "mtb-graphrag/benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl",
+  "filename": "graph_candidate_repository_v2_candidates.jsonl",
+  "size_bytes": 72495662,
+  "sha256": "d6c65c2682313652b736f1f82968078292c12588823e2f79309e76d6e671235d",
+  "encoding": "UTF-8 strict",
+  "canonical": true,
+  "required_for_final_evaluation": true,
+  "publication_method": "manual GitHub Release asset upload required (gh unauthenticated)",
+  "release_tag": "final-evaluation-protocol-v1.7-artifacts",
+  "release_asset_name": "graph_candidate_repository_v2_candidates.jsonl"
+}

@@ -1,0 +1,46 @@
+{
+  "evaluation_id": "fe_d3946016a0e90299b6989b58ac2f7fe34d352fd3269e94ea4d6efe874413477b",
+  "original_experimental_commit": "1174135d0bf86728f2e25593b0afbaed18a5dc6f",
+  "local_verified_mirror_commit": "9e2ae4f285612494bcf488bc07ae59420a066cba",
+  "public_code_commit": "3ff6c10cf6c609ba4e5f71ea897eb548cab5b666",
+  "plan_sha": "ccdcc1a54759d931917ad454f245dd547f57ee69fdfc7e515a807a2214d172a0",
+  "scientific_projection": "178d8dbfaf61655ecb5855a33f50416d68abedd5c86a9e46a6d3196058a399e2",
+  "campaign_state": "PROMOTED",
+  "planned": 222,
+  "completed": 222,
+  "git_ancestry_preserved": false,
+  "relationship": "public code snapshot plus externally frozen canonical data artifact",
+  "code_content_verification": {
+    "source_paths_checked": 1107,
+    "identical": 1107,
+    "different": 0,
+    "missing": 0,
+    "external_v2_excluded_from_source_comparison": true
+  },
+  "external_required_artifacts": [
+    {
+      "artifact_id": "canonical_graph_candidate_repository_v2",
+      "logical_role": "canonical graph candidate repository v2 used by the evaluated runtime",
+      "expected_runtime_path": "mtb-graphrag/benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl",
+      "filename": "graph_candidate_repository_v2_candidates.jsonl",
+      "size_bytes": 72495662,
+      "sha256": "d6c65c2682313652b736f1f82968078292c12588823e2f79309e76d6e671235d",
+      "encoding": "UTF-8 strict",
+      "canonical": true,
+      "required_for_final_evaluation": true,
+      "publication_method": "manual GitHub Release asset upload required (gh unauthenticated)",
+      "release_tag": "final-evaluation-protocol-v1.7-artifacts",
+      "release_asset_name": "graph_candidate_repository_v2_candidates.jsonl"
+    }
+  ],
+  "excluded_v3_shadow": {
+    "filename": "candidates.jsonl",
+    "expected_runtime_path": "mtb-graphrag/benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/3.0/candidates.jsonl",
+    "size_bytes": 111910854,
+    "sha256": "35923b9fed392f9678da64268814eea2c7f9780f1c82c6a6b5bc394027e58049",
+    "canonical": false,
+    "reason": "research/shadow artifact not required by evaluated runtime; not published"
+  },
+  "verification_method": "deterministic SHA-256 file comparison for source paths; strict UTF-8 and SHA-256 validation for the external v2 artifact",
+  "verdict": "PUBLIC_CODE_PLUS_HASH_PINNED_CANONICAL_DATA_ARTIFACT"
+}

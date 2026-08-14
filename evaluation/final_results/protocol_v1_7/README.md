@@ -20,3 +20,6 @@ campaign provenance is under `provenance/`.
 
 The complete raw evidence is preserved externally in the export ZIP identified
 by the SHA above; raw attempts are intentionally not versioned here.
+
+Final Evaluation Protocol 1.7 provenance and the frozen canonical data
+dependency are documented under `provenance/`.
