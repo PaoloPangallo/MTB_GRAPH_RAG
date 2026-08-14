@@ -1,0 +1,31 @@
+{
+  "absolute_delta_ms": 15.999999974155799,
+  "hit_elapsed_ms": 15.000000013969839,
+  "miss_elapsed_ms": 30.999999988125637,
+  "only_cache_differs": true,
+  "records": [
+    {
+      "arm": "LAT-MISS",
+      "cache_initial_state": "SAME_PLAN_TARGET_EXCLUDED",
+      "cache_observable": "CACHE_MISS",
+      "document_id": "pmid:15705718",
+      "elapsed_ms": 30.999999988125637,
+      "gca_id": "GCA-0000980ba01970f893f8e4d7",
+      "latency_arm": "LAT-MISS",
+      "raw_path": "raw_attempts/run_53768ed0f1f4f5b21bb786b99ccfa382292f0ca371bc5d9a4975d726eed3e8bf__a0001.json"
+    },
+    {
+      "arm": "LAT-HIT",
+      "cache_initial_state": "TARGET_SEEDED",
+      "cache_observable": "CACHE_HIT",
+      "document_id": "pmid:15705718",
+      "elapsed_ms": 15.000000013969839,
+      "gca_id": "GCA-0000980ba01970f893f8e4d7",
+      "latency_arm": "LAT-HIT",
+      "raw_path": "raw_attempts/run_2b6705d0380405a9ec58c5de3d6d0d21ba15bab594acb830e5b4e1bca249b386__a0001.json"
+    }
+  ],
+  "same_document": true,
+  "same_gca": true,
+  "same_operation": true
+}

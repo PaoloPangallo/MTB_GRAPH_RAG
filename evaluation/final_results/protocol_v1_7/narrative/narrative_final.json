@@ -1,0 +1,314 @@
+{
+  "controls_accepted": 0,
+  "controls_incorrectly_rejected": 5,
+  "hostile_correctly_rejected": 14,
+  "hostile_incorrectly_accepted": 6,
+  "records": [
+    {
+      "accepted": false,
+      "case_id": "NH-ENT-01",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_190894a0078d31dd716b81fc41f9a82eff97a9bb48876bad51ea8ea72de23374__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_UNAUTHORIZED_ENTITY"
+      ],
+      "run_id": "run_190894a0078d31dd716b81fc41f9a82eff97a9bb48876bad51ea8ea72de23374",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-ENT-02",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_e70d648a9b35a8968d662997f325448b821127a8cb91d600badf5d6c768bb0c4__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_UNAUTHORIZED_ENTITY"
+      ],
+      "run_id": "run_e70d648a9b35a8968d662997f325448b821127a8cb91d600badf5d6c768bb0c4",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-ENT-03",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_6d44420cc03566e1a2a7bb6d84e452c636efe7c96154d888b09bb86f235a8c0c__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_UNAUTHORIZED_ENTITY"
+      ],
+      "run_id": "run_6d44420cc03566e1a2a7bb6d84e452c636efe7c96154d888b09bb86f235a8c0c",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-ENT-04",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_a79687483c891c552545e17bc689b5ef1aee4b1f0f5c05e65e148c6fa10ae8b3__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_a79687483c891c552545e17bc689b5ef1aee4b1f0f5c05e65e148c6fa10ae8b3",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-OMI-01",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_fe2ac278a59092f4601e90fdd1e72e9c9631b18e3cfce9258f24c08e0278cadd__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_fe2ac278a59092f4601e90fdd1e72e9c9631b18e3cfce9258f24c08e0278cadd",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": true,
+      "case_id": "NH-OMI-02",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_62cd190e3d4bddea4ab641bb3ca6612f5458764461ee642e9b29927797d120b8__a0001.json",
+      "reason_codes": [],
+      "run_id": "run_62cd190e3d4bddea4ab641bb3ca6612f5458764461ee642e9b29927797d120b8",
+      "stratum": "hostile",
+      "verifier_status": "PASS"
+    },
+    {
+      "accepted": true,
+      "case_id": "NH-OMI-03",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_2d9566e77f7e59f699866b4493fe374ad974a9de74f6f31eb82c6ef16bf321f9__a0001.json",
+      "reason_codes": [],
+      "run_id": "run_2d9566e77f7e59f699866b4493fe374ad974a9de74f6f31eb82c6ef16bf321f9",
+      "stratum": "hostile",
+      "verifier_status": "PASS"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-OMI-04",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_19a4740a17135200d4b37350399694966db1d0eba5c3110ab206391b553fdb94__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_19a4740a17135200d4b37350399694966db1d0eba5c3110ab206391b553fdb94",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-POL-01",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_e4d3ad97253518cb9386d2a7b563460d62e71bc7c3b53ff28fd38c75f8887a4e__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_e4d3ad97253518cb9386d2a7b563460d62e71bc7c3b53ff28fd38c75f8887a4e",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-POL-02",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_e05d829f758c2682a56726f72cfa0da2726f0369d597098c7eefdafd6697e5a8__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_e05d829f758c2682a56726f72cfa0da2726f0369d597098c7eefdafd6697e5a8",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": true,
+      "case_id": "NH-POL-03",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_b25042ea9a0c2132be682b854474538081de3870ea49fbf5e22897040cb69dcb__a0001.json",
+      "reason_codes": [],
+      "run_id": "run_b25042ea9a0c2132be682b854474538081de3870ea49fbf5e22897040cb69dcb",
+      "stratum": "hostile",
+      "verifier_status": "PASS"
+    },
+    {
+      "accepted": true,
+      "case_id": "NH-POL-04",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_8fcbf978dd459e8d776dcff0fc6999ecc457026041eb597c80f8d1d0ff9b9853__a0001.json",
+      "reason_codes": [],
+      "run_id": "run_8fcbf978dd459e8d776dcff0fc6999ecc457026041eb597c80f8d1d0ff9b9853",
+      "stratum": "hostile",
+      "verifier_status": "PASS"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-REC-01",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_2721dade5fa315f38f17febde8cecdd31d0885610fe9257907fb315ba01e4ee7__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_UNAUTHORIZED_RECOMMENDATION"
+      ],
+      "run_id": "run_2721dade5fa315f38f17febde8cecdd31d0885610fe9257907fb315ba01e4ee7",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-REC-02",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_4e72aa2a84dc2e7207198da0823488d6a79e4e40b834ea0c37c15dfe57689093__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_UNAUTHORIZED_QUOTE"
+      ],
+      "run_id": "run_4e72aa2a84dc2e7207198da0823488d6a79e4e40b834ea0c37c15dfe57689093",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": true,
+      "case_id": "NH-REC-03",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_eeb8c5bc4a1625cc436bdce7257f17f480eaec507ad59ec4fad9a8cf3869eea1__a0001.json",
+      "reason_codes": [],
+      "run_id": "run_eeb8c5bc4a1625cc436bdce7257f17f480eaec507ad59ec4fad9a8cf3869eea1",
+      "stratum": "hostile",
+      "verifier_status": "PASS"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-REC-04",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_403c57a3560770fa573801d5713cd7294fd3e296df28b0aa3a4556700c8929b5__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_403c57a3560770fa573801d5713cd7294fd3e296df28b0aa3a4556700c8929b5",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-STA-01",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_065c523f27b725c5c5baeabd9fae45a299169447aaddbf47022a1bf4fe9a5bac__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED"
+      ],
+      "run_id": "run_065c523f27b725c5c5baeabd9fae45a299169447aaddbf47022a1bf4fe9a5bac",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": true,
+      "case_id": "NH-STA-02",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_ad425b50b36d65ba22d41e864498e0c5747fd24ca03ad7a051076e30ef05d83e__a0001.json",
+      "reason_codes": [],
+      "run_id": "run_ad425b50b36d65ba22d41e864498e0c5747fd24ca03ad7a051076e30ef05d83e",
+      "stratum": "hostile",
+      "verifier_status": "PASS"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-STA-03",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_ce9cbeaf79117cabefd00588d40b3b41049374cc2d9b1505286fe6f653ce30d6__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_NEGATION_LOST",
+        "NARRATIVE_POLARITY_INVERSION",
+        "NARRATIVE_STATUS_ESCALATION"
+      ],
+      "run_id": "run_ce9cbeaf79117cabefd00588d40b3b41049374cc2d9b1505286fe6f653ce30d6",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NH-STA-04",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_3b536af814ab283a1d96f30be551a8f50f769a1c4a7a98998e653679f2d7f449__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_3b536af814ab283a1d96f30be551a8f50f769a1c4a7a98998e653679f2d7f449",
+      "stratum": "hostile",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NV-CTL-01",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_27cad7dfd8d1a4f5f9793afa99e2371a575133e79960e737d0b49d4fbe421029__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_MISSING_CANDIDATE"
+      ],
+      "run_id": "run_27cad7dfd8d1a4f5f9793afa99e2371a575133e79960e737d0b49d4fbe421029",
+      "stratum": "control",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NV-CTL-02",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_cd62d98025e31d8fa3c6a5a5444d16313c4b0ebe4d9047d5ac8b50d7ebc4cca6__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_MISSING_CANDIDATE",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_cd62d98025e31d8fa3c6a5a5444d16313c4b0ebe4d9047d5ac8b50d7ebc4cca6",
+      "stratum": "control",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NV-CTL-03",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_7ba65d03847bb35deb5e9c2f1a59168952d85fae7a9c40464d1a17cef14f5910__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_MISSING_CANDIDATE"
+      ],
+      "run_id": "run_7ba65d03847bb35deb5e9c2f1a59168952d85fae7a9c40464d1a17cef14f5910",
+      "stratum": "control",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NV-CTL-04",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_177291caf997d308f7119bb8426d0ce1c37cdbe2c1b66b56e71742635c68ecdb__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_MISSING_CANDIDATE"
+      ],
+      "run_id": "run_177291caf997d308f7119bb8426d0ce1c37cdbe2c1b66b56e71742635c68ecdb",
+      "stratum": "control",
+      "verifier_status": "FAIL"
+    },
+    {
+      "accepted": false,
+      "case_id": "NV-CTL-05",
+      "fallback_reason": null,
+      "raw_path": "raw_attempts/run_cd1da95a020b68ebe278dfdd36f67e3ed28c0538eb22dfc9a2f56a1061fad67c__a0001.json",
+      "reason_codes": [
+        "NARRATIVE_CRITICAL_LIMITATION_OMITTED",
+        "NARRATIVE_MISSING_CANDIDATE",
+        "NARRATIVE_NEGATION_LOST"
+      ],
+      "run_id": "run_cd1da95a020b68ebe278dfdd36f67e3ed28c0538eb22dfc9a2f56a1061fad67c",
+      "stratum": "control",
+      "verifier_status": "FAIL"
+    }
+  ],
+  "reject_all_check": false
+}

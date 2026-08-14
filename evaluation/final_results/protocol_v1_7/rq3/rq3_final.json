@@ -1,0 +1,242 @@
+{
+  "arms": [
+    {
+      "arm": "A",
+      "case_id": "CASE-1-therapy-evaluation-strong-match",
+      "document_acquisition": {
+        "cache_hits": 3,
+        "cache_misses": 0,
+        "degraded_to_abstract": 0,
+        "documents_unavailable": 1,
+        "executed": true,
+        "network_fetches": 0,
+        "reason_codes": [
+          "DOCUMENT_RESOLVED_FROM_CACHE",
+          "DOCUMENT_UNAVAILABLE"
+        ],
+        "sources": [
+          "NCBI E-utilities"
+        ]
+      },
+      "llm_calls": 3,
+      "raw_path": "raw_attempts/run_7edf71afeb0b088f439d9e54e2a9d2a748279ad4029739e3201b88e21f4c2fc1__a0001.json",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE",
+        "DOCUMENT_UNAVAILABLE",
+        "SOURCEUNIT_SELECTION_FAILED",
+        "SOURCE_UNITS_MATERIALIZED_FROM_CACHE",
+        "STAGE_BYPASSED"
+      ],
+      "run_id": "run_7edf71afeb0b088f439d9e54e2a9d2a748279ad4029739e3201b88e21f4c2fc1",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "FAILED"
+    },
+    {
+      "arm": "B",
+      "case_id": "CASE-1-therapy-evaluation-strong-match",
+      "document_acquisition": {
+        "cache_hits": 3,
+        "cache_misses": 0,
+        "degraded_to_abstract": 0,
+        "documents_unavailable": 1,
+        "executed": true,
+        "network_fetches": 0,
+        "reason_codes": [
+          "DOCUMENT_RESOLVED_FROM_CACHE",
+          "DOCUMENT_UNAVAILABLE"
+        ],
+        "sources": [
+          "NCBI E-utilities"
+        ]
+      },
+      "llm_calls": 3,
+      "raw_path": "raw_attempts/run_fcfe0c71f35790d037bb9b7e5ee11e44854ce2262f2e27a64b5355fe0b537c32__a0001.json",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE",
+        "DOCUMENT_UNAVAILABLE",
+        "SOURCEUNIT_SELECTION_FAILED",
+        "SOURCE_UNITS_MATERIALIZED_FROM_CACHE"
+      ],
+      "run_id": "run_fcfe0c71f35790d037bb9b7e5ee11e44854ce2262f2e27a64b5355fe0b537c32",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "FAILED"
+    },
+    {
+      "arm": "C",
+      "case_id": "CASE-1-therapy-evaluation-strong-match",
+      "document_acquisition": {
+        "cache_hits": 3,
+        "cache_misses": 0,
+        "degraded_to_abstract": 0,
+        "documents_unavailable": 1,
+        "executed": true,
+        "network_fetches": 0,
+        "reason_codes": [
+          "DOCUMENT_RESOLVED_FROM_CACHE",
+          "DOCUMENT_UNAVAILABLE"
+        ],
+        "sources": [
+          "NCBI E-utilities"
+        ]
+      },
+      "llm_calls": 3,
+      "raw_path": "raw_attempts/run_dd9af40a1ecd58dbbe9e68b05f0cf0b81b46a422b3e14fca11b5c0f4ed805737__a0001.json",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE",
+        "DOCUMENT_UNAVAILABLE",
+        "SOURCEUNIT_SELECTION_FAILED",
+        "SOURCE_UNITS_MATERIALIZED_FROM_CACHE"
+      ],
+      "run_id": "run_dd9af40a1ecd58dbbe9e68b05f0cf0b81b46a422b3e14fca11b5c0f4ed805737",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "FAILED"
+    },
+    {
+      "arm": "CANONICAL",
+      "case_id": "CASE-1-therapy-evaluation-strong-match",
+      "document_acquisition": {
+        "cache_hits": 1,
+        "cache_misses": 2,
+        "degraded_to_abstract": 0,
+        "documents_unavailable": 1,
+        "executed": true,
+        "network_fetches": 2,
+        "reason_codes": [
+          "DOCUMENT_RESOLVED_FROM_API",
+          "DOCUMENT_UNAVAILABLE"
+        ],
+        "sources": [
+          "NCBI E-utilities"
+        ]
+      },
+      "llm_calls": 3,
+      "raw_path": "raw_attempts/run_67957706d606519d52f2a8d02bc0a50e727a7385ab0f80a7f212a73defa29d81__a0001.json",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_API",
+        "DOCUMENT_UNAVAILABLE",
+        "SOURCEUNIT_SELECTION_FAILED",
+        "SOURCE_UNITS_MATERIALIZED_FROM_CACHE"
+      ],
+      "run_id": "run_67957706d606519d52f2a8d02bc0a50e727a7385ab0f80a7f212a73defa29d81",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "FAILED"
+    },
+    {
+      "arm": "D",
+      "case_id": "CASE-1-therapy-evaluation-strong-match",
+      "document_acquisition": {
+        "cache_hits": 3,
+        "cache_misses": 0,
+        "degraded_to_abstract": 0,
+        "documents_unavailable": 1,
+        "executed": true,
+        "network_fetches": 0,
+        "reason_codes": [
+          "DOCUMENT_RESOLVED_FROM_CACHE",
+          "DOCUMENT_UNAVAILABLE"
+        ],
+        "sources": [
+          "NCBI E-utilities"
+        ]
+      },
+      "llm_calls": 0,
+      "raw_path": "raw_attempts/run_164d78d661a86c6a1e1f46e51ae458b97384a7d9c3f27e35a7ae39af834a8d1e__a0001.json",
+      "reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE",
+        "DOCUMENT_UNAVAILABLE",
+        "NO_PAPER_SELECTED_FOR_ENRICHMENT",
+        "SOURCE_UNIT_TEXT_UNAVAILABLE",
+        "VERIFIER_BYPASSED_FOR_OFFLINE_ABLATION"
+      ],
+      "run_id": "run_164d78d661a86c6a1e1f46e51ae458b97384a7d9c3f27e35a7ae39af834a8d1e",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "PARTIAL"
+    }
+  ],
+  "comparison": "NOT_COMPUTABLE_FROM_FROZEN_SPEC"
+}

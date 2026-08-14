@@ -1,0 +1,262 @@
+{
+  "accounting": {
+    "accounted": 222,
+    "planned": 222,
+    "unaccounted": 0
+  },
+  "campaign_state": "PROMOTED",
+  "evaluation_id": "fe_d3946016a0e90299b6989b58ac2f7fe34d352fd3269e94ea4d6efe874413477b",
+  "family_counts": {
+    "LATENCY": 2,
+    "NARRATIVE": 25,
+    "OPERATIONAL_A01": 9,
+    "RELIABILITY": 30,
+    "RQ1": 1,
+    "RQ2": 80,
+    "RQ3": 5,
+    "RQ4_DEVELOPMENT": 35,
+    "RQ4_HELDOUT": 35
+  },
+  "head": "1174135d0bf86728f2e25593b0afbaed18a5dc6f",
+  "llm_calls": 0,
+  "network_calls": 0,
+  "not_computable": [
+    {
+      "metric_id": "RQ2.recall_at_10",
+      "reason": "raw selector output contains only top-5 IDs"
+    },
+    {
+      "metric_id": "RQ2.document_resolution_rate",
+      "reason": "RQ2 raw is the selector/enricher result and does not contain the frozen document-resolution denominator"
+    },
+    {
+      "metric_id": "RQ2.full_text_availability_rate",
+      "reason": "RQ2 raw does not contain the frozen document availability fields"
+    },
+    {
+      "metric_id": "RQ2.abstract_degradation_rate",
+      "reason": "RQ2 raw does not contain the frozen degradation fields"
+    },
+    {
+      "metric_id": "RQ2.parser_success_rate",
+      "reason": "RQ2 raw does not contain parser-stage observations"
+    },
+    {
+      "metric_id": "RQ2.wrong_document_accepted",
+      "reason": "frozen validator field is not present in canonical raw"
+    },
+    {
+      "metric_id": "RQ2.wrong_sourceunit_accepted",
+      "reason": "frozen validator field is not present in canonical raw"
+    },
+    {
+      "metric_id": "RQ2.wrong_quote_accepted",
+      "reason": "frozen validator field is not present in canonical raw"
+    },
+    {
+      "metric_id": "RQ3.primary_ablation_metrics",
+      "reason": "Protocol defines paired invariants, but the five final raw records do not contain the frozen comparison/signature fields needed to evaluate them without a new interpretation."
+    },
+    {
+      "metric_id": "RELIABILITY.canonical_state_stability",
+      "reason": "final raw lacks the frozen canonical-state signature/comparison field"
+    }
+  ],
+  "plan_sha": "ccdcc1a54759d931917ad454f245dd547f57ee69fdfc7e515a807a2214d172a0",
+  "principal_results": {
+    "Latency": {
+      "absolute_delta_ms": 15.999999974155799,
+      "hit_elapsed_ms": 15.000000013969839,
+      "miss_elapsed_ms": 30.999999988125637
+    },
+    "Narrative": {
+      "controls_accepted": 0,
+      "controls_total": 5,
+      "hostile_correctly_rejected": 14,
+      "hostile_total": 20
+    },
+    "Operational": {
+      "property_pass": 9,
+      "total": 9
+    },
+    "RQ1": {
+      "direction_inversions_contract": 0,
+      "field_completeness": 1.0,
+      "materialization_precision": 1.0,
+      "materialization_recall": 1.0
+    },
+    "RQ2": {
+      "by_arm": {
+        "BM25": {
+          "overall": {
+            "abstain_count": 0,
+            "full_coverage_at_5": 0.25,
+            "hit_rate_at_5": 0.35,
+            "mean_precision_at_5": 0.13,
+            "mean_recall_at_5": 0.6196581196581197,
+            "mrr": 0.18666666666666668,
+            "n": 20,
+            "quote_count": 0,
+            "validated_quote_count": 0
+          },
+          "positive": {
+            "abstain_count": 0,
+            "full_coverage_at_5": 0.5555555555555556,
+            "hit_rate_at_5": 0.7777777777777778,
+            "mean_precision_at_5": 0.2888888888888889,
+            "mean_recall_at_5": 0.6196581196581197,
+            "mrr": 0.4148148148148148,
+            "n": 9,
+            "quote_count": 0,
+            "validated_quote_count": 0
+          },
+          "positive_cases": 9,
+          "unit_count": 20,
+          "zero_direct": {
+            "abstain_count": 0,
+            "full_coverage_at_5": 0.0,
+            "hit_rate_at_5": 0.0,
+            "mean_precision_at_5": 0.0,
+            "mean_recall_at_5": null,
+            "mrr": 0.0,
+            "n": 11,
+            "quote_count": 0,
+            "validated_quote_count": 0
+          },
+          "zero_direct_cases": 11
+        },
+        "DETERMINISTIC_SELECTOR": {
+          "overall": {
+            "abstain_count": 16,
+            "full_coverage_at_5": 0.35,
+            "hit_rate_at_5": 0.4,
+            "mean_precision_at_5": 0.21176470588235294,
+            "mean_recall_at_5": 0.811965811965812,
+            "mrr": 0.23500000000000001,
+            "n": 20,
+            "quote_count": 4,
+            "validated_quote_count": 4
+          },
+          "positive": {
+            "abstain_count": 6,
+            "full_coverage_at_5": 0.7777777777777778,
+            "hit_rate_at_5": 0.8888888888888888,
+            "mean_precision_at_5": 0.45,
+            "mean_recall_at_5": 0.811965811965812,
+            "mrr": 0.5222222222222223,
+            "n": 9,
+            "quote_count": 3,
+            "validated_quote_count": 3
+          },
+          "positive_cases": 9,
+          "unit_count": 20,
+          "zero_direct": {
+            "abstain_count": 10,
+            "full_coverage_at_5": 0.0,
+            "hit_rate_at_5": 0.0,
+            "mean_precision_at_5": 0.0,
+            "mean_recall_at_5": null,
+            "mrr": 0.0,
+            "n": 11,
+            "quote_count": 1,
+            "validated_quote_count": 1
+          },
+          "zero_direct_cases": 11
+        },
+        "FIRST_K": {
+          "overall": {
+            "abstain_count": 0,
+            "full_coverage_at_5": 0.15,
+            "hit_rate_at_5": 0.3,
+            "mean_precision_at_5": 0.1,
+            "mean_recall_at_5": 0.5277777777777778,
+            "mrr": 0.14166666666666666,
+            "n": 20,
+            "quote_count": 0,
+            "validated_quote_count": 0
+          },
+          "positive": {
+            "abstain_count": 0,
+            "full_coverage_at_5": 0.3333333333333333,
+            "hit_rate_at_5": 0.6666666666666666,
+            "mean_precision_at_5": 0.2222222222222222,
+            "mean_recall_at_5": 0.5277777777777778,
+            "mrr": 0.3148148148148148,
+            "n": 9,
+            "quote_count": 0,
+            "validated_quote_count": 0
+          },
+          "positive_cases": 9,
+          "unit_count": 20,
+          "zero_direct": {
+            "abstain_count": 0,
+            "full_coverage_at_5": 0.0,
+            "hit_rate_at_5": 0.0,
+            "mean_precision_at_5": 0.0,
+            "mean_recall_at_5": null,
+            "mrr": 0.0,
+            "n": 11,
+            "quote_count": 0,
+            "validated_quote_count": 0
+          },
+          "zero_direct_cases": 11
+        },
+        "GOLD": {
+          "overall": {
+            "abstain_count": 14,
+            "full_coverage_at_5": 0.05,
+            "hit_rate_at_5": 0.15,
+            "mean_precision_at_5": 0.04,
+            "mean_recall_at_5": 0.2222222222222222,
+            "mrr": 0.045,
+            "n": 20,
+            "quote_count": 6,
+            "validated_quote_count": 6
+          },
+          "positive": {
+            "abstain_count": 5,
+            "full_coverage_at_5": 0.1111111111111111,
+            "hit_rate_at_5": 0.3333333333333333,
+            "mean_precision_at_5": 0.08888888888888889,
+            "mean_recall_at_5": 0.2222222222222222,
+            "mrr": 0.1,
+            "n": 9,
+            "quote_count": 4,
+            "validated_quote_count": 4
+          },
+          "positive_cases": 9,
+          "unit_count": 20,
+          "zero_direct": {
+            "abstain_count": 9,
+            "full_coverage_at_5": 0.0,
+            "hit_rate_at_5": 0.0,
+            "mean_precision_at_5": 0.0,
+            "mean_recall_at_5": null,
+            "mrr": 0.0,
+            "n": 11,
+            "quote_count": 2,
+            "validated_quote_count": 2
+          },
+          "zero_direct_cases": 11
+        }
+      }
+    },
+    "RQ4": {
+      "development_correct": 27,
+      "development_total": 35,
+      "held_out_correct": 24,
+      "held_out_total": 35
+    },
+    "Reliability": {
+      "status": "NOT_COMPUTABLE_FROM_FROZEN_SPEC",
+      "total": 30
+    }
+  },
+  "provider_calls": 0,
+  "provider_post": {
+    "http_status": 200,
+    "model": "gemma4:31b-cloud"
+  },
+  "scientific_executions": 0,
+  "scientific_projection": "178d8dbfaf61655ecb5855a33f50416d68abedd5c86a9e46a6d3196058a399e2"
+}

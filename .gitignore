@@ -69,3 +69,14 @@ data_cache/
 
 # Scratch dei test: directory temporanee create dalle suite, mai da versionare.
 .test_tmp/
+
+# Final Evaluation runtime/export material is kept outside Git; curated
+# Protocol 1.7 results live under evaluation/final_results/protocol_v1_7/.
+evaluation/final_evaluation/
+evaluation/final_evaluation_harness/.pytest_cache/
+evaluation/final_evaluation_harness/**/staging/
+FINAL_EVALUATION_PROTOCOL_1_7_*.zip
+FINAL_EVALUATION_PROTOCOL_1_7_RESULTS/
+final_evaluation_protocol_1_7_export/
+mtb-graphrag/.worktrees/
+mtb-graphrag/.pytest_cache/
