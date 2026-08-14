@@ -1,0 +1,142 @@
+{
+  "family": "RQ1",
+  "metrics": {
+    "contract_field_fidelity_by_field": {
+      "biomarkers": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "diagnostic_scope": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "direction": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "disease": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "document_identifiers": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "edge_ids": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "evidence_record_ids": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "evidence_scope": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "expected_payload_identity": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "graph_path": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "interventions": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "materialization_rule_id": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "node_ids": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "object": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "payload_identity": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "predicate": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "regimen": {
+        "checked": 46864,
+        "ok": 46864
+      },
+      "subject": {
+        "checked": 46864,
+        "ok": 46864
+      }
+    },
+    "contract_finding_counts": {},
+    "coverage_by_document_identifier": {
+      "with_nct": 12882,
+      "with_pmid": 8230,
+      "without_identifier": 25752
+    },
+    "coverage_by_rule": {
+      "gca/2.0/companion-diagnostic": {
+        "eligible": 163,
+        "matched": 163,
+        "missing": 0
+      },
+      "gca/2.0/evidence-statement": {
+        "eligible": 4860,
+        "matched": 4860,
+        "missing": 0
+      },
+      "gca/2.0/evidence-to-drug": {
+        "eligible": 3370,
+        "matched": 3370,
+        "missing": 0
+      },
+      "gca/2.0/gene-drug-interaction": {
+        "eligible": 25589,
+        "matched": 25589,
+        "missing": 0
+      },
+      "gca/2.0/trial-drug": {
+        "eligible": 7381,
+        "matched": 7381,
+        "missing": 0
+      },
+      "gca/2.0/trial-gene": {
+        "eligible": 5501,
+        "matched": 5501,
+        "missing": 0
+      }
+    },
+    "direction_inversions_contract": 0,
+    "direction_inversions_graph": 486,
+    "duplicates": {
+      "exact_duplicate_groups": 0,
+      "exact_duplicate_records": 0,
+      "repeated_candidate_ids": {},
+      "semantic_duplicate_groups": 344,
+      "semantic_duplicate_records": 1028
+    },
+    "eligible_paths": 46864,
+    "exact_duplicate_rate": 0.0,
+    "field_completeness": 1.0,
+    "graph_fidelity_finding_counts": {
+      "ALTERATION_LOST": 1091,
+      "DIRECTION_INVERSION": 486,
+      "REGIMEN_SPLIT": 1294
+    },
+    "matched_paths": 46864,
+    "materialization_precision": 1.0,
+    "materialization_recall": 1.0,
+    "materialized_candidates": 46864,
+    "missing_candidate_count": 0,
+    "semantic_duplicate_rate": 0.02193581427108228,
+    "spurious_candidate_count": 0
+  },
+  "source_raw": "raw_attempts/run_feb24fffbe1973b080ce192a87d9607d2e78185ce382880beafbba93b9efff0c__a0001.json"
+}

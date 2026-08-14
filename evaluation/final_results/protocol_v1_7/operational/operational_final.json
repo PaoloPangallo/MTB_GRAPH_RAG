@@ -1,0 +1,96 @@
+{
+  "property_denominator": 9,
+  "property_pass": 9,
+  "records": [
+    {
+      "actual_observable": "network_fetch_count = 0; cache_hit = True; DOCUMENT_RESOLVED_FROM_CACHE",
+      "controlled_outcome": "CACHE_RESOLUTION",
+      "expected_observable": "network_fetch_count = 0 · cache_hit = true · DOCUMENT_RESOLVED_FROM_CACHE",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_826d6b4df83273017158131e830e7076aca90fd450a9473f43f46e868bf85227__a0001.json",
+      "runtime_terminal_state": "SUCCESS",
+      "scenario_id": "A_cache_hit",
+      "unit_id": "A_cache_hit"
+    },
+    {
+      "actual_observable": "cache_hit = False; network_fetch_count = 3; document_persisted = True",
+      "controlled_outcome": "ACQUISITION_PERSISTED",
+      "expected_observable": "cache_hit = false · network_fetch_count >= 1 · snapshot persistito prima del parser",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_7db855ebd517be6fa3b2a53692981c9940f80dbb05af7d4c9acb343520e1a65a__a0001.json",
+      "runtime_terminal_state": "SUCCESS",
+      "scenario_id": "B_cache_miss_success",
+      "unit_id": "B_cache_miss_success"
+    },
+    {
+      "actual_observable": "derived_pmcid = PMC4157820; manual_pmcid_input = false",
+      "controlled_outcome": "PMID_TO_PMCID_RESOLVED",
+      "expected_observable": "derived_pmcid popolato · manual_pmcid_input = false",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_4c625868dd3833c3e375e871d6182ab61c3512f2d3b9b22121521cc89ae0ee62__a0001.json",
+      "runtime_terminal_state": "SUCCESS",
+      "scenario_id": "C_pmid_only_to_pmcid",
+      "unit_id": "C_pmid_only_to_pmcid"
+    },
+    {
+      "actual_observable": "availability = PMC_XML_AVAILABLE; parser = JatsXmlParser",
+      "controlled_outcome": "PMC_FULLTEXT_PARSED",
+      "expected_observable": "availability = PMC_XML_AVAILABLE · parser = JatsXmlParser",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_0ce42e9ac21f1546b85e6f81547391f08a72c0b5fb7853fc5cb76a72dac44928__a0001.json",
+      "runtime_terminal_state": "SUCCESS",
+      "scenario_id": "D_pmc_fulltext",
+      "unit_id": "D_pmc_fulltext"
+    },
+    {
+      "actual_observable": "PMC_RESOLUTION_FAILED; DOCUMENT_DEGRADED_TO_ABSTRACT; abstract usable",
+      "controlled_outcome": "ABSTRACT_DEGRADATION",
+      "expected_observable": "PMC_RESOLUTION_FAILED · DOCUMENT_DEGRADED_TO_ABSTRACT · abstract utilizzabile",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_da88171e3f1cf4f57bc75454879296c4ff7dbf10f7d53b3a2773c337dac18511__a0001.json",
+      "runtime_terminal_state": "RECOVERABLE",
+      "scenario_id": "E_pmc_unavailable_abstract_degradation",
+      "unit_id": "E_pmc_unavailable_abstract_degradation"
+    },
+    {
+      "actual_observable": "cache_hit = False; network_fetch_count = 3; document_persisted = True",
+      "controlled_outcome": "ACQUISITION_PERSISTED",
+      "expected_observable": "cache_hit = false · network_fetch_count >= 1 · document_persisted = true",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_4f22f1b1efba815d1b8067b0e5ac7f5101fa8e0bb5e3109f49fa2e39c91fc92f__a0001.json",
+      "runtime_terminal_state": "SUCCESS",
+      "scenario_id": "F_unseen_document",
+      "unit_id": "F_unseen_document"
+    },
+    {
+      "actual_observable": "availability = PMID_NOT_FOUND; gemma_calls = 0; fake_source_units = 0",
+      "controlled_outcome": "NO_DOCUMENT_RESOLVED -> PIPELINE_ABORT",
+      "expected_observable": "availability = PMID_NOT_FOUND · gemma_calls = 0 · fake_source_units = 0",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_a44886bf45d8e36329b8bbc7fcc48861b85984708728755c8f3b81547ba65ed1__a0001.json",
+      "runtime_terminal_state": "TERMINAL",
+      "scenario_id": "G_document_unavailable",
+      "unit_id": "G_document_unavailable"
+    },
+    {
+      "actual_observable": "PARSER_FAILED",
+      "controlled_outcome": "PIPELINE_ABORT",
+      "expected_observable": "stage_7_source_units FAILED con reason PARSER_FAILED",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_8bf67b13fcd4b8c1094b8a8e50c0ee5f83ef993649021eec9f94bf4cd9a79447__a0001.json",
+      "runtime_terminal_state": "PARSER_FAILED",
+      "scenario_id": "H_parser_failure_fixture",
+      "unit_id": "H_parser_failure_fixture"
+    },
+    {
+      "actual_observable": "SOURCEUNIT_SELECTION_FAILED",
+      "controlled_outcome": "PIPELINE_ABORT",
+      "expected_observable": "selected_source_unit_ids = [] · selected_papers = [] · stage_8_paper_selection FAILED con reason SOURCEUNIT_SELECTION_FAILED",
+      "property_test_pass": true,
+      "raw_path": "raw_attempts/run_536d0f11dd06b9ea7358aee837d04f25e3c7fe4c121302938f4fe11b8eb0bffd__a0001.json",
+      "runtime_terminal_state": "SOURCEUNIT_SELECTION_FAILED",
+      "scenario_id": "I_selector_failure_fixture",
+      "unit_id": "I_selector_failure_fixture"
+    }
+  ]
+}

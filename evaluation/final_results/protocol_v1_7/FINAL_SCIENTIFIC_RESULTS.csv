@@ -1,0 +1,21 @@
+family,subgroup,metric_id,metric_name,numerator,denominator,value,unit,verdict,definition_source
+RQ1,primary,direction_inversions_contract,direction_inversions_contract,,,0,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,direction_inversions_graph,direction_inversions_graph,,,486,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,eligible_paths,eligible_paths,,,46864,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,exact_duplicate_rate,exact_duplicate_rate,,,0.0,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,field_completeness,field_completeness,,,1.0,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,matched_paths,matched_paths,,,46864,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,materialization_precision,materialization_precision,,,1.0,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,materialization_recall,materialization_recall,,,1.0,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,materialized_candidates,materialized_candidates,,,46864,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,missing_candidate_count,missing_candidate_count,,,0,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,semantic_duplicate_rate,semantic_duplicate_rate,,,0.02193581427108228,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ1,primary,spurious_candidate_count,spurious_candidate_count,,,0,ratio_or_count,RAW_REPORTED,evaluation/final_protocol/metrics_registry.json
+RQ4,development,RQ4.development.correct_path_rate,correct_path_rate,27,35,0.7714285714285715,ratio,FROZEN_ROUTING_AND_H01,evaluation/final_protocol/metrics_registry.json
+RQ4,held_out,RQ4.held_out.correct_path_rate,correct_path_rate,24,35,0.6857142857142857,ratio,FROZEN_ROUTING_AND_H01,evaluation/final_protocol/metrics_registry.json
+Narrative,hostile,narrative.hostile_correctly_rejected,hostile correctly rejected,14,20,0.7,ratio,FROZEN_TWO_STRATUM,evaluation/final_protocol/split_manifest.json
+Narrative,hostile,narrative.hostile_incorrectly_accepted,hostile incorrectly accepted,6,20,0.3,ratio,FROZEN_TWO_STRATUM,evaluation/final_protocol/split_manifest.json
+Narrative,controls,narrative.controls_accepted,controls accepted,0,5,0.0,ratio,FROZEN_TWO_STRATUM,evaluation/final_protocol/split_manifest.json
+Narrative,controls,narrative.controls_incorrectly_rejected,controls incorrectly rejected,5,5,1.0,ratio,FROZEN_TWO_STRATUM,evaluation/final_protocol/split_manifest.json
+Operational,A-I,operational.property_success,property success,9,9,1.0,ratio,FROZEN_A01_PROPERTY_TEST,evaluation/final_protocol_v1_7/operational_amendment.json
+Latency,HIT/MISS,latency.absolute_delta_ms,absolute cache latency delta,,,15.999999974155799,ms,DESCRIPTIVE_N_EQUALS_1,evaluation/final_protocol_v1_2/latency_contract.json

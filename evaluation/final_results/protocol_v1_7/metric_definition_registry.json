@@ -1,0 +1,290 @@
+{
+  "frozen": {
+    "model_run_policy": {
+      "primary_final_eval": "1 run per caso sulla configurazione congelata",
+      "reliability_subsample": {
+        "file": "evaluation/final_protocol/reliability_subset.json",
+        "materialized": true,
+        "n_cases": 10,
+        "n_runs": 30,
+        "note": "gli ID sono materializzati ed elencati nel file: dopo il freeze non cambiano",
+        "purpose": "quantificare la varianza del provider, non migliorare le metriche primarie",
+        "runs_per_case": 3,
+        "selection_rule": "primo case_id in ordine lessicografico per ciascuna delle 7 categorie di HELDOUT_ARCHITECTURAL_35, più i primi 3 case_id in ordine lessicografico fra i 9 casi positivi di SOURCEUNIT_SELECTOR_INDEPENDENT_20"
+      }
+    },
+    "previous_runtime_commit": "f52bbf5920c14324953be849e666bc84571957e9",
+    "primary": {
+      "OPERATIONAL": [
+        {
+          "denominator": "run avviate",
+          "metric": "run_completion_rate"
+        },
+        {
+          "denominator": "run completate",
+          "metric": "total_latency_median_and_p95"
+        },
+        {
+          "denominator": "coppie cache hit / cache miss sullo stesso documento",
+          "metric": "cache_miss_overhead_ms"
+        }
+      ],
+      "RQ1": [
+        {
+          "denominator": "46864 path eleggibili",
+          "metric": "materialization_precision"
+        },
+        {
+          "denominator": "46864 path eleggibili",
+          "metric": "materialization_recall"
+        },
+        {
+          "denominator": "46864 candidate x 18 campi di contratto",
+          "metric": "field_completeness"
+        },
+        {
+          "denominator": "1936 candidate a polarità negativa",
+          "metric": "does_not_support_promoted"
+        },
+        {
+          "denominator": "1936 candidate a polarità negativa",
+          "metric": "negative_source_primary_bucket"
+        },
+        {
+          "denominator": "46864 candidate",
+          "metric": "automatic_direction_inversions"
+        }
+      ],
+      "RQ2": [
+        {
+          "denominator": "casi con identificatore documentale in RQ2 grounding + held-out grounded",
+          "metric": "document_resolution_rate"
+        },
+        {
+          "denominator": "documenti risolti",
+          "metric": "full_text_availability_rate"
+        },
+        {
+          "denominator": "documenti risolti",
+          "metric": "abstract_degradation_rate"
+        },
+        {
+          "denominator": "snapshot presenti",
+          "metric": "parser_success_rate"
+        },
+        {
+          "denominator": "9 casi positivi del corpus indipendente",
+          "metric": "selector_hit_rate_at_5_positive_cases"
+        },
+        {
+          "denominator": "20 coppie del corpus indipendente",
+          "metric": "selector_hit_rate_at_5_overall"
+        },
+        {
+          "denominator": "29 unità DIRECTLY_RELEVANT",
+          "metric": "selector_recall_at_10"
+        },
+        {
+          "denominator": "run che raggiungono il modello",
+          "metric": "validated_quote_rate"
+        },
+        {
+          "denominator": "run che raggiungono il modello",
+          "metric": "abstain_rate"
+        },
+        {
+          "denominator": "quote esaminate dal validator",
+          "metric": "wrong_document_accepted"
+        },
+        {
+          "denominator": "quote esaminate dal validator",
+          "metric": "wrong_sourceunit_accepted"
+        },
+        {
+          "denominator": "quote esaminate dal validator",
+          "metric": "wrong_quote_accepted"
+        }
+      ],
+      "RQ3": [
+        {
+          "denominator": "casi applicabili per modo di fallimento",
+          "metric": "safety_violation_count_per_failure_mode"
+        },
+        {
+          "denominator": "stessi casi, confronto paired FULL vs ABLATION",
+          "metric": "ablation_delta_per_failure_mode"
+        },
+        {
+          "denominator": "casi non eleggibili",
+          "metric": "forbidden_downstream_calls"
+        },
+        {
+          "denominator": "run con narratore attivo",
+          "metric": "canonical_dossier_payload_identity_with_and_without_hostile_narrator"
+        },
+        {
+          "denominator": "5 controlli validi di NARRATIVE_HELDOUT_VALID_CONTROL_5",
+          "metric": "narrative_verifier_positive_control_acceptance_rate",
+          "note": "con N=5 non è una stima di specificità: è un controllo di non-trivial rejection behavior, senza il quale la sensibilità sui 20 ostili non sarebbe interpretabile"
+        }
+      ],
+      "RQ4": [
+        {
+          "denominator": "casi per classe, escluso MODEL_TRANSPORT_FAILED contato a parte",
+          "metric": "correct_path_rate"
+        },
+        {
+          "denominator": "casi non eleggibili per classe",
+          "metric": "forbidden_action_rate"
+        },
+        {
+          "denominator": "tutte le run, riportate separatamente per RQ4-DEV e RQ4-HELDOUT",
+          "metric": "unexpected_exception_rate"
+        },
+        {
+          "denominator": "casi che raggiungono lo stage di stato",
+          "metric": "wrong_status_escalation"
+        },
+        {
+          "denominator": "35 casi held-out, per classe, al netto di MODEL_TRANSPORT_FAILED",
+          "independence_level": "HELD_OUT",
+          "metric": "heldout_correct_path_rate"
+        }
+      ]
+    },
+    "protocol_version": "mtb-graphrag-final-evaluation/1.1",
+    "randomness_inventory": {
+      "bootstrap": {
+        "determinism": "GARANTITA",
+        "mitigation": "seed 20260809",
+        "source": "ricampionamento"
+      },
+      "case_order": {
+        "determinism": "GARANTITA",
+        "mitigation": "ordine lessicografico per case_id, dichiarato nel run manifest",
+        "source": "ordine di esecuzione"
+      },
+      "llm_provider": {
+        "determinism": "NON GARANTITA",
+        "mitigation": "temperature fissata dal contratto del runtime; nessun seed esposto dal provider; dichiarare la non determinabilità",
+        "source": "Ollama cloud"
+      },
+      "ranking_ties": {
+        "determinism": "GARANTITA",
+        "mitigation": "tie-break per source_unit_id",
+        "source": "pareggi di punteggio"
+      },
+      "selector": {
+        "determinism": "GARANTITA",
+        "evidence": "10 run ripetute, 4 permutazioni di input, NFC/NFD, case folding e punteggiatura producono hash di ranking identici",
+        "source": "nessuna"
+      }
+    },
+    "rule_denominators": "Le metriche di retrieval vanno riportate SEMPRE in coppia: denominatore complessivo (20 coppie) e denominatore dei soli casi positivi (9 coppie). Presentare 9/20 come performance sui soli casi recuperabili è l'errore che questo protocollo vieta.",
+    "rule_no_aggregation": "Vietato sommare righe provenienti da testbed diversi. In particolare non esiste un denominatore 55: CASECONTEXT_ROBUSTNESS_35 e SOURCEUNIT_SELECTOR_INDEPENDENT_20 sono unità sperimentali diverse.",
+    "rule_zero_counts": "Ogni conteggio pari a 0 va riportato come 0/N con N esplicito. Un contatore safety-critical senza denominatore non è un risultato.",
+    "runtime_commit": "3d2251f82a586535f79f3d0b3725c16330c365ba",
+    "secondary": {
+      "cost": [
+        "estimated_context_tokens_per_sourceunit_payload",
+        "provider_input_tokens",
+        "provider_output_tokens"
+      ],
+      "latency": [
+        "per_stage_duration_ms_median",
+        "per_stage_duration_ms_min",
+        "per_stage_duration_ms_max"
+      ],
+      "observability": [
+        "event_counts_by_type",
+        "warning_code_distribution",
+        "reason_code_distribution",
+        "excluded_paper_reason_codes"
+      ],
+      "retrieval": [
+        "precision_at_5",
+        "mrr",
+        "full_coverage_at_5",
+        "full_coverage_at_10",
+        "mean_first_relevant_rank",
+        "median_first_relevant_rank",
+        "hit_rate_at_3",
+        "recall_at_5"
+      ]
+    },
+    "secondary_offline_sensitivity": {
+      "excluded_from_primary_final_evaluation": true,
+      "frozen_values": {
+        "max_papers_per_association": 2,
+        "selector_top_k": 5
+      },
+      "parameters": [
+        "max_papers_per_association",
+        "selector_top_k"
+      ],
+      "rule": "non può ritunare i valori congelati né giustificarli a posteriori",
+      "status": "SECONDARY_OFFLINE_SENSITIVITY"
+    },
+    "statistical_plan": {
+      "paired_design": [
+        "First-K vs BM25 vs Selector: stesse 20 coppie candidate-documento",
+        "GOLD vs SELECTOR downstream: stessi 20 casi, stesso contratto Gemma, stesso validator",
+        "FULL vs ABLATION: stessi casi in entrambi i bracci"
+      ],
+      "proportions": "intervalli di Wilson al 95% su tutte le metriche proporzionali primarie",
+      "ranking": "bootstrap paired con 10000 ripetizioni e seed 20260809 per i delta fra First-K, BM25 e selector sulle stesse coppie",
+      "significance_testing": "non eseguito su N<30 per braccio; si riportano conteggi grezzi, effect size e CI. Nessun p-value su campioni piccoli.",
+      "zero_denominator_rule": "se un denominatore è 0 la metrica è null, non 0"
+    },
+    "token_accounting": {
+      "estimated_context_tokens": "stima deterministica sul payload dei SourceUnit selezionati, riportata come metrica separata e mai chiamata billing token",
+      "provider_tokens": "registrati solo se il provider li espone nella risposta; assenti = campo null, mai stimato"
+    }
+  },
+  "post_processor_status": {
+    "computed_metric_rows": 20,
+    "not_computable": [
+      {
+        "metric_id": "RQ2.recall_at_10",
+        "reason": "raw selector output contains only top-5 IDs"
+      },
+      {
+        "metric_id": "RQ2.document_resolution_rate",
+        "reason": "RQ2 raw is the selector/enricher result and does not contain the frozen document-resolution denominator"
+      },
+      {
+        "metric_id": "RQ2.full_text_availability_rate",
+        "reason": "RQ2 raw does not contain the frozen document availability fields"
+      },
+      {
+        "metric_id": "RQ2.abstract_degradation_rate",
+        "reason": "RQ2 raw does not contain the frozen degradation fields"
+      },
+      {
+        "metric_id": "RQ2.parser_success_rate",
+        "reason": "RQ2 raw does not contain parser-stage observations"
+      },
+      {
+        "metric_id": "RQ2.wrong_document_accepted",
+        "reason": "frozen validator field is not present in canonical raw"
+      },
+      {
+        "metric_id": "RQ2.wrong_sourceunit_accepted",
+        "reason": "frozen validator field is not present in canonical raw"
+      },
+      {
+        "metric_id": "RQ2.wrong_quote_accepted",
+        "reason": "frozen validator field is not present in canonical raw"
+      },
+      {
+        "metric_id": "RQ3.primary_ablation_metrics",
+        "reason": "Protocol defines paired invariants, but the five final raw records do not contain the frozen comparison/signature fields needed to evaluate them without a new interpretation."
+      },
+      {
+        "metric_id": "RELIABILITY.canonical_state_stability",
+        "reason": "final raw lacks the frozen canonical-state signature/comparison field"
+      }
+    ]
+  },
+  "source": "evaluation/final_protocol/metrics_registry.json"
+}

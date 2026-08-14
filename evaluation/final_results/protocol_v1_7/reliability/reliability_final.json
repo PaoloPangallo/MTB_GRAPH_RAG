@@ -1,0 +1,717 @@
+{
+  "groups": {
+    "GCA-002decb1b8be445d9dad8730|pmid:231047": 3,
+    "GCA-0066a3a66028e77ea626cb45|pmid:25265492": 3,
+    "GCA-00c2ff7f866d92c477044167|pmcid:PMC3686973": 3,
+    "HO-ADV-01-self-declared-verified-flag": 3,
+    "HO-AMB-01-primary-site-ambiguity": 3,
+    "HO-CMP-01-glioma-idh2-vorasidenib": 3,
+    "HO-CON-01-same-primary-conflicting-diagnoses": 3,
+    "HO-INC-01-missing-disease": 3,
+    "HO-NEG-01-pdac-idh1-ivosidenib": 3,
+    "HO-OOD-01-veterinary-oncology": 3
+  },
+  "metric_status": "NOT_COMPUTABLE_FROM_FROZEN_SPEC",
+  "reason": "frozen canonical-state signature is not materialized in final raw",
+  "records": [
+    {
+      "case_id": "GCA-002decb1b8be445d9dad8730|pmid:231047",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_a664856822aaeeacc3ceee45db0a9431e11aa6744aeb07f15aafdc2995bb2ddb__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_a664856822aaeeacc3ceee45db0a9431e11aa6744aeb07f15aafdc2995bb2ddb",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "GCA-002decb1b8be445d9dad8730|pmid:231047",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_4436291de5ad6bd4b83ab04a3a4767e56b08822c8acb86bb70a26bab0f1135b4__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_4436291de5ad6bd4b83ab04a3a4767e56b08822c8acb86bb70a26bab0f1135b4",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "GCA-002decb1b8be445d9dad8730|pmid:231047",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_f0253aa468fb1c9e6d056d07ebec09ddbe53ebcb3a244ad4bd5504b601afdeb6__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_f0253aa468fb1c9e6d056d07ebec09ddbe53ebcb3a244ad4bd5504b601afdeb6",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "GCA-0066a3a66028e77ea626cb45|pmid:25265492",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_3b3de82381417576e0a48e23081a896d09604cece22b32f26272811103a4d4a0__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_3b3de82381417576e0a48e23081a896d09604cece22b32f26272811103a4d4a0",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "GCA-0066a3a66028e77ea626cb45|pmid:25265492",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_df503ffdcb0d7edb0fc49d5fc1ebe8524e8f345ca4dcf14a9597da1e16c9e164__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_df503ffdcb0d7edb0fc49d5fc1ebe8524e8f345ca4dcf14a9597da1e16c9e164",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "GCA-0066a3a66028e77ea626cb45|pmid:25265492",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_465bd74797a2f4e806f72b45eebfbb1787311cb77dc283285ad12fb31d5a5ba7__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_465bd74797a2f4e806f72b45eebfbb1787311cb77dc283285ad12fb31d5a5ba7",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "GCA-00c2ff7f866d92c477044167|pmcid:PMC3686973",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_ce42db709dfcc0407fc4b83c5694749dff74346b5110b47f7caad8c5ece6ffdf__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_ce42db709dfcc0407fc4b83c5694749dff74346b5110b47f7caad8c5ece6ffdf",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "GCA-00c2ff7f866d92c477044167|pmcid:PMC3686973",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_3112e98a204caebd11c80b0f8fd3f293832664bee2f8d9900c7cee3832ac93f0__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_3112e98a204caebd11c80b0f8fd3f293832664bee2f8d9900c7cee3832ac93f0",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "GCA-00c2ff7f866d92c477044167|pmcid:PMC3686973",
+      "document_reason_codes": [],
+      "llm_calls": null,
+      "raw_path": "raw_attempts/run_eadf823d7e38e99e2bffb791c4dba12e10d4ca6530908c966db9422869333d0f__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_eadf823d7e38e99e2bffb791c4dba12e10d4ca6530908c966db9422869333d0f",
+      "stage_types": [],
+      "status": null
+    },
+    {
+      "case_id": "HO-ADV-01-self-declared-verified-flag",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 3,
+      "raw_path": "raw_attempts/run_b0b5df355a34aaa5ada9d89d4e5282d7407ea450ba1615ec7c2152ea5fa2c013__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_b0b5df355a34aaa5ada9d89d4e5282d7407ea450ba1615ec7c2152ea5fa2c013",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "case_id": "HO-ADV-01-self-declared-verified-flag",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 3,
+      "raw_path": "raw_attempts/run_3dfc9d89f57c6812f81e5c10866511964c5d3ff6cc7cf10f39aeae41b4f3c332__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_3dfc9d89f57c6812f81e5c10866511964c5d3ff6cc7cf10f39aeae41b4f3c332",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "case_id": "HO-ADV-01-self-declared-verified-flag",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 3,
+      "raw_path": "raw_attempts/run_9bee61cc721d01ff5567bff2f444999fb1f6be3a7be23ea02efad822f03160cd__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_9bee61cc721d01ff5567bff2f444999fb1f6be3a7be23ea02efad822f03160cd",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "case_id": "HO-AMB-01-primary-site-ambiguity",
+      "document_reason_codes": [
+        "RETRIEVAL_NO_MATCH"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_5e8b0ddfd25fa4c51dee73cd7259523ec556df7455dcf65aff181517ed0351a4__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_5e8b0ddfd25fa4c51dee73cd7259523ec556df7455dcf65aff181517ed0351a4",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    },
+    {
+      "case_id": "HO-AMB-01-primary-site-ambiguity",
+      "document_reason_codes": [
+        "RETRIEVAL_NO_MATCH"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_17237dc8653f2d3f49f10b07953ff9b9d6bc4c860c864c1d5e95cedd6cbbeb98__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_17237dc8653f2d3f49f10b07953ff9b9d6bc4c860c864c1d5e95cedd6cbbeb98",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    },
+    {
+      "case_id": "HO-AMB-01-primary-site-ambiguity",
+      "document_reason_codes": [
+        "RETRIEVAL_NO_MATCH"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_499166a3cb5c44024c293d7f989fd889ba211e51d66486bb358a3c817d98396c__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_499166a3cb5c44024c293d7f989fd889ba211e51d66486bb358a3c817d98396c",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    },
+    {
+      "case_id": "HO-CMP-01-glioma-idh2-vorasidenib",
+      "document_reason_codes": [
+        "PARSER_TRANSPORT_FAILED"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_22556a10aef05732e8c3653352ca47ce090d1a66909666d451df71c1059ede2a__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_22556a10aef05732e8c3653352ca47ce090d1a66909666d451df71c1059ede2a",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "FAILED"
+    },
+    {
+      "case_id": "HO-CMP-01-glioma-idh2-vorasidenib",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 2,
+      "raw_path": "raw_attempts/run_267015cea0b4a337cc6fe193e3c484ee349098544ceba5693ecac180ac94a9d9__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_267015cea0b4a337cc6fe193e3c484ee349098544ceba5693ecac180ac94a9d9",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "case_id": "HO-CMP-01-glioma-idh2-vorasidenib",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 2,
+      "raw_path": "raw_attempts/run_3cfb3a1967989dc4928649627ef7013475d3a8d163dff019a8ad122f01345a68__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_3cfb3a1967989dc4928649627ef7013475d3a8d163dff019a8ad122f01345a68",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "case_id": "HO-CON-01-same-primary-conflicting-diagnoses",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_335857340e23f332b0b7d948d609e7c941f839bd55bf7cd2ac7729202139568d__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_335857340e23f332b0b7d948d609e7c941f839bd55bf7cd2ac7729202139568d",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "FAILED"
+    },
+    {
+      "case_id": "HO-CON-01-same-primary-conflicting-diagnoses",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_75a1f0b38b495da9eee7d6073d53e4f877f4e45814b584b1b2f42b0c8d9a0369__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_75a1f0b38b495da9eee7d6073d53e4f877f4e45814b584b1b2f42b0c8d9a0369",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "FAILED"
+    },
+    {
+      "case_id": "HO-CON-01-same-primary-conflicting-diagnoses",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_270cfffcdeb7e8ff349f79dfd6ee329874fb5cfa8a9f39ac03042e57ff182e10__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_270cfffcdeb7e8ff349f79dfd6ee329874fb5cfa8a9f39ac03042e57ff182e10",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "FAILED"
+    },
+    {
+      "case_id": "HO-INC-01-missing-disease",
+      "document_reason_codes": [
+        "MISSING_REQUIRED_FIELDS"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_35f6e3d84371068d0af94781605fba98c0b8f995bbe171b5013ae6b3727588f8__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_35f6e3d84371068d0af94781605fba98c0b8f995bbe171b5013ae6b3727588f8",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    },
+    {
+      "case_id": "HO-INC-01-missing-disease",
+      "document_reason_codes": [
+        "MISSING_REQUIRED_FIELDS"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_4b0a06ac8e2a44e2f4aaff2386da147cb65c9997352c68c06c6b196cf9d71e0a__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_4b0a06ac8e2a44e2f4aaff2386da147cb65c9997352c68c06c6b196cf9d71e0a",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    },
+    {
+      "case_id": "HO-INC-01-missing-disease",
+      "document_reason_codes": [
+        "MISSING_REQUIRED_FIELDS"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_46ce085ee411bd4609147bf315c96a0de2579631228da3722932e14604f3f6d0__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_46ce085ee411bd4609147bf315c96a0de2579631228da3722932e14604f3f6d0",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    },
+    {
+      "case_id": "HO-NEG-01-pdac-idh1-ivosidenib",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 2,
+      "raw_path": "raw_attempts/run_99a9dfb30c2df61358eb6f7b837ad29590cbe1d2c224be736458d115f99fcdef__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_99a9dfb30c2df61358eb6f7b837ad29590cbe1d2c224be736458d115f99fcdef",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "case_id": "HO-NEG-01-pdac-idh1-ivosidenib",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 2,
+      "raw_path": "raw_attempts/run_6bdf0aab6d2232f15ab273ae2a6ed62d65b32d9c7a1092caace56d107cdca412__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_6bdf0aab6d2232f15ab273ae2a6ed62d65b32d9c7a1092caace56d107cdca412",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "PARTIAL"
+    },
+    {
+      "case_id": "HO-NEG-01-pdac-idh1-ivosidenib",
+      "document_reason_codes": [
+        "DOCUMENT_RESOLVED_FROM_CACHE"
+      ],
+      "llm_calls": 2,
+      "raw_path": "raw_attempts/run_67f0a259503c5f73244b8fc5af3d732239ce2e0c1380ad211197b4a065345d12__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_67f0a259503c5f73244b8fc5af3d732239ce2e0c1380ad211197b4a065345d12",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "COMPLETED"
+    },
+    {
+      "case_id": "HO-OOD-01-veterinary-oncology",
+      "document_reason_codes": [
+        "RETRIEVAL_NO_MATCH"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_5af8dd8039fb0e2c6795e0d637f81c673adccce6a9ea80fc83841f674218eeb9__a0001.json",
+      "repetition_id": "r01",
+      "run_id": "run_5af8dd8039fb0e2c6795e0d637f81c673adccce6a9ea80fc83841f674218eeb9",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    },
+    {
+      "case_id": "HO-OOD-01-veterinary-oncology",
+      "document_reason_codes": [
+        "RETRIEVAL_NO_MATCH"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_c4f64f2fc987a2c38ba99ac041c929cb684ae19aa01732f9c6cc7fa1547fb5b0__a0001.json",
+      "repetition_id": "r02",
+      "run_id": "run_c4f64f2fc987a2c38ba99ac041c929cb684ae19aa01732f9c6cc7fa1547fb5b0",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    },
+    {
+      "case_id": "HO-OOD-01-veterinary-oncology",
+      "document_reason_codes": [
+        "RETRIEVAL_NO_MATCH"
+      ],
+      "llm_calls": 1,
+      "raw_path": "raw_attempts/run_e14d4db0c8179a78b3c852c00b8b4acb7682552fcf40445a1ebcbf08b9516cf8__a0001.json",
+      "repetition_id": "r03",
+      "run_id": "run_e14d4db0c8179a78b3c852c00b8b4acb7682552fcf40445a1ebcbf08b9516cf8",
+      "stage_types": [
+        "CASE_INPUT",
+        "CASECONTEXT_PARSER",
+        "CASECONTEXT_MATCH_VERIFIER",
+        "PRE_RETRIEVAL_ELIGIBILITY_GATE",
+        "RETRIEVAL_PLAN",
+        "KG_RETRIEVAL",
+        "DOCUMENT_RESOLUTION",
+        "SOURCE_UNIT",
+        "PAPER_SELECTION",
+        "PAPER_CONTEXT_ENRICHER",
+        "ENRICHMENT_VALIDATION",
+        "DETERMINISTIC_GATES",
+        "STATUS_CLASSIFICATION",
+        "DOSSIER_BUILDER",
+        "DOSSIER_NARRATOR",
+        "NARRATIVE_VERIFIER"
+      ],
+      "status": "STOPPED"
+    }
+  ]
+}
