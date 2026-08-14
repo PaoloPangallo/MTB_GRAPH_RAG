@@ -182,7 +182,8 @@ testo clinico libero
   → GraphCandidateAssertion
   → Document Resolution       cache autorizzata, letta ora
   → SourceUnit                exact_text ri-parsato, hash verificati
-  → Paper Selection           ricalcolata, max 2 paper, max 4 unità
+  → document-aware SourceUnit selection  ricalcolata, top-K 5 per documento,
+                                       max 2 documenti per associazione
   → Gemma                     chiamata reale, QUOTE o ABSTAIN
   → PaperContextEnrichmentV2Validator
   → controlli deterministici

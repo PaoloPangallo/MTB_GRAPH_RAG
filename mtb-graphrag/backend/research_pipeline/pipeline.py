@@ -1,7 +1,10 @@
-"""Orchestrates one case end-to-end: free text -> parser -> match verify ->
-retrieval -> paper selection -> Gemma enrichment -> validation -> deterministic
-pipeline -> dossier preview. Tracks a shared call budget across the whole
-pilot run; never calls the enricher when gated out upstream.
+"""Legacy/reference pilot for one case: free text -> parser -> match verify ->
+retrieval -> bounded evidence selection -> Gemma enrichment -> validation ->
+deterministic gates -> dossier preview. The canonical operational entry point
+is ``RunStore.start()`` -> ``DocumentRuntime.open()`` -> the modern
+orchestrator; this module remains for pilot and regression compatibility.
+Tracks a shared call budget across the pilot run and never calls the enricher
+when gated out upstream.
 """
 from __future__ import annotations
 

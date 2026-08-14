@@ -141,3 +141,15 @@ flowchart TD
 - `backend/research_pipeline/enrichment/validator_v2.py` — **invariato**
 - `backend/research_pipeline/live_providers.py` — collegamento
 - [live_provenance.md](live_provenance.md)
+
+## 10. Documentary validity is not decision-level support
+
+Literal quote validation establishes that the quoted text occurs in the
+authorized SourceUnit and that the SourceUnit belongs to the selected document.
+It does not by itself establish `DIRECT` evidence for the clinical association.
+The deterministic gate receives only the verified query intent, the GCA
+candidate and accepted validated AuthorContext. With no validated enrichment
+the runtime remains `AMBIGUOUS`; a validated quote that lacks sufficient
+semantic support or carries a warning can remain `PARTIAL`. This is the
+conservative behavior of the evaluated runtime, not a claim that every valid
+quote is decision-level evidence.

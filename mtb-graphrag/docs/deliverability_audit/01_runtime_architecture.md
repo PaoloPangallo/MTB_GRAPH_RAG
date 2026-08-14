@@ -1,5 +1,12 @@
 # 01 — Architettura del runtime, ricostruita dal codice
 
+> **Aggiornamento Protocol 1.7:** la catena storica riportata sotto è stata
+> superata dal runtime canonico valutato. Il percorso operativo attuale è
+> `RunStore.start()` → `DocumentRuntime.open()` → modern orchestrator; replay e
+> relativi adapter sono research/regression-only e non sono una scelta API.
+> Per la descrizione normativa usare
+> `docs/verifiable_pipeline/evaluated_runtime_architecture.md`.
+
 Questo documento **non** deriva da README, diagrammi o report precedenti. È
 ricostruito seguendo import, entrypoint, dependency injection e chiamate
 effettive, e verificato con un'analisi di raggiungibilità statica sull'AST
@@ -13,14 +20,11 @@ uvicorn backend.api.main:app
   └─ include_router(backend.api.research_routes, "/api/v1/research/pipeline")
        guardia: VERIFIABLE_PIPELINE_RESEARCH_ENABLED ∈ {1,true,yes,on}, altrimenti 404
        └─ POST /runs
-            ├─ execution_mode.normalize_requested_mode(...)  → LIVE | REPLAY (HYBRID rifiutato)
-            └─ run_store.get_store().start(case_id, clinical_text, mode)
+            └─ run_store.get_store().start(case_id, clinical_text)
                  └─ thread → RunStore._execute
-                      ├─ _providers(mode)
-                      │    LIVE   → live_providers.{parser_fn, enricher_fn, validate_fn}
-                      │    REPLAY → replay.{parser_fn, enricher_fn, selection_fn, validation_fn}
-                      ├─ DocumentRuntime.open()  se LIVE, altrimenti None
-                      └─ orchestrator.run_case(...)   ← IL RUNTIME CANONICO
+                      ├─ DocumentRuntime.open()
+                      ├─ canonical providers and modern orchestrator
+                      └─ research replay adapters only when explicitly injected by a harness
 ```
 
 `orchestrator.run_case` (`backend/research_pipeline/orchestrator.py`, 732 righe)

@@ -2,6 +2,15 @@
 
 **Stato:** specifica congelata, non implementata. Baseline V2 al commit `03aa927`.
 
+> **Nota sul runtime valutato Protocol 1.7.** Il posizionamento empirico della
+> Final Evaluation è documentato in
+> `docs/verifiable_pipeline/evaluated_runtime_architecture.md`. Per il runtime
+> LIVE valutato, il contributo va descritto come **authority-separated evidence
+> orchestration** con **document-aware bounded evidence selection**: non come due
+> selector LIVE indipendenti, non come gates con soli due input e non come una
+> modalità operativa LIVE/REPLAY selezionabile. Il replay appartiene soltanto
+> alla ricerca/regressione.
+
 ---
 
 ## Tesi di posizionamento

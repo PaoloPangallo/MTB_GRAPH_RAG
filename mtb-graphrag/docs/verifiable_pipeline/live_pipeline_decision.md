@@ -28,10 +28,11 @@ stessa la prova che il testo ri-parsato è byte-identico.
 
 **Il fallback silenzioso non esiste più.** Era una riga —
 `use_replay = replay.has_frozen_case(case_id)` — che rendeva replay ogni run
-avviata dalla UI. Ora la modalità è esplicita, le precondizioni sono verificate
-prima di avviare, e un LIVE impossibile fallisce col proprio motivo. Un test
-verifica che nessuno stage a valle di un fallimento si «salvi» con un artefatto
-registrato.
+avviata dalla UI. Il runtime operativo finale ha un solo percorso canonico:
+`RunStore.start()` apre `DocumentRuntime.open()` e avvia l'orchestratore. Un
+LIVE impossibile fallisce col proprio motivo; gli adapter replay restano
+esplicitamente confinati a ricerca/regressione. Un test verifica che nessuno
+stage a valle di un fallimento si «salvi» con un artefatto registrato.
 
 **Una run sopravvive al riavvio.** Verificato terminando il processo backend e
 riaprendo la run: 15 stage ricostruiti, dossier e provenance disponibili, catena

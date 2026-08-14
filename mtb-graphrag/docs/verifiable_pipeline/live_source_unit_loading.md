@@ -127,8 +127,8 @@ flowchart LR
     P --> U[units_by_id · con text]
     P --> V[previews · senza text]
 
-    U --> SEL[Paper Selection]
-    U --> ENR[Enricher · max 4 unità per paper]
+    U --> SEL[LIVE document-aware SourceUnit selection<br/>top-K 5 per document]
+    U --> ENR[Enricher · bounded selected context]
     U --> VAL[Validator · letteralità della quote]
 
     V --> LED[Ledger]

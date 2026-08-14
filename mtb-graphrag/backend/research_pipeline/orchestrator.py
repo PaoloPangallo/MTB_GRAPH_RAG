@@ -1,10 +1,11 @@
 """Orchestratore osservabile del research runtime.
 
-Rapporto con ``pipeline.run_case``: quella funzione resta l'**implementazione di
-riferimento** della pipeline e non viene modificata. Qui si ricostruisce la sola
-*sequenza*, emettendo un evento per ogni transizione, ma ogni **decisione** è
-delegata agli stessi moduli promossi — ``match_verifier``, ``kg_retrieval``,
-``paper_selection``, ``enricher_v2``, ``validator``, ``gates``, ``builder``.
+Rapporto con ``pipeline.run_case``: quella funzione è il **legacy/reference
+pilot**. Il percorso operativo canonico è ``RunStore.start()`` seguito da
+``DocumentRuntime.open()`` e da questo orchestratore. L'orchestratore emette un
+evento per ogni transizione, ma ogni **decisione** è delegata agli stessi
+moduli promossi — ``match_verifier``, ``kg_retrieval``, la selezione LIVE delle
+SourceUnit, ``enricher_v2``, ``validator``, ``gates`` e ``builder``.
 
 La distinzione è ciò che rende la promozione verificabile: se l'orchestratore
 contenesse logica decisionale propria, un suo difetto sarebbe indistinguibile da
