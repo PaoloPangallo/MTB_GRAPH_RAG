@@ -24,8 +24,8 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def verify(path: Path) -> None:
-    if path.name != EXPECTED_NAME:
+def verify(path: Path, *, require_release_name: bool) -> None:
+    if require_release_name and path.name != EXPECTED_NAME:
         raise SystemExit(f"unexpected artifact filename: {path.name!r}")
     try:
         path.read_bytes().decode("utf-8")
@@ -44,10 +44,10 @@ def main() -> int:
     source = Path(sys.argv[1])
     if not source.is_file():
         raise SystemExit(f"artifact not found: {source}")
-    verify(source)
+    verify(source, require_release_name=True)
     DESTINATION.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(source, DESTINATION)
-    verify(DESTINATION)
+    verify(DESTINATION, require_release_name=False)
     print(f"installed and verified: {DESTINATION}")
     return 0
 

@@ -29,8 +29,7 @@ required or published for this Final Evaluation.
 
 1. Checkout the public Protocol 1.7 source branch.
 2. Obtain the release asset named `graph_candidate_repository_v2_candidates.jsonl`
-   from the planned release `final-evaluation-protocol-v1.7-artifacts` (manual
-   upload is required while GitHub CLI authentication is unavailable).
+   from the GitHub Release `final-evaluation-protocol-v1.7-artifacts`.
 3. Run:
 
    `python evaluation/final_results/protocol_v1_7/provenance/restore_canonical_v2_corpus.py <downloaded-file>`

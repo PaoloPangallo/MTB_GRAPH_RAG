@@ -28,7 +28,9 @@
       "encoding": "UTF-8 strict",
       "canonical": true,
       "required_for_final_evaluation": true,
-      "publication_method": "manual GitHub Release asset upload required (gh unauthenticated)",
+      "publication_method": "GitHub Release asset",
+      "publicly_reachable": true,
+      "remote_hash_verified": true,
       "release_tag": "final-evaluation-protocol-v1.7-artifacts",
       "release_asset_name": "graph_candidate_repository_v2_candidates.jsonl"
     }
