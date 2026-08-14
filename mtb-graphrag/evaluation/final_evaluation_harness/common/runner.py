@@ -163,7 +163,8 @@ def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:
     for index, plan in enumerate(result, 1):
         meta=_metadata(kind, plan.testbed, plan.arm, protocol)
         values=asdict(plan)
-        values.update(plan_index=index, execution_class=meta["execution_class"], canonical_runtime_requirement="REQUIRED" if meta["execution_class"] in ("CANONICAL_RUNTIME","OPERATIONAL_RUNTIME_NETWORK_ALLOWED","CONTROLLED_FAILURE_FIXTURE","LATENCY_PAIR") else "PROHIBITED", selector_requirement=meta["selector"], casecontext_parser_requirement=meta["parser"], gemma_requirement=meta["gemma"], narrator_requirement=meta["narrator"], quote_validator_requirement=meta["quote"], narrative_verifier_requirement=meta["verifier"], network_policy=meta["network_policy"], network_expectation=meta["network_expectation"], cache_policy=meta["cache"], dataset_hashes=meta["hashes"], gold_access=meta["gold"], terminal_expectation="PRE_SPECIFIED" if kind in ("operational","latency") else "PATH_DEPENDENT")
+        canonical_required = meta["execution_class"] in ("CANONICAL_RUNTIME", "OPERATIONAL_RUNTIME_NETWORK_ALLOWED", "CONTROLLED_FAILURE_FIXTURE")
+        values.update(plan_index=index, execution_class=meta["execution_class"], canonical_runtime_requirement="REQUIRED" if canonical_required else "PROHIBITED", selector_requirement=meta["selector"], casecontext_parser_requirement=meta["parser"], gemma_requirement=meta["gemma"], narrator_requirement=meta["narrator"], quote_validator_requirement=meta["quote"], narrative_verifier_requirement=meta["verifier"], network_policy=meta["network_policy"], network_expectation=meta["network_expectation"], cache_policy=meta["cache"], dataset_hashes=meta["hashes"], gold_access=meta["gold"], terminal_expectation="PRE_SPECIFIED" if kind in ("operational","latency") else "PATH_DEPENDENT")
         enriched.append(PlannedRun(**values))
     return enriched
 
