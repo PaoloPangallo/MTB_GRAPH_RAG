@@ -409,8 +409,14 @@ class ProductionAdapterFactory:
         return NarrativeVerifierAdapter(verifier, bypass=bypass)
 
     @staticmethod
-    def document_runtime() -> Any:
+    def document_runtime(protocol: Any | None = None) -> Any:
         from backend.research_pipeline.documents.live_resolution import DocumentRuntime
+        if protocol is not None and protocol.manifest.get("document_transport_policy") == "OFFLINE_FROZEN_TRANSPORT_ONLY":
+            # Evaluation-only dependency injection.  The runtime default
+            # remains DocumentRuntime.open() (cache-first with authorized
+            # acquisition); Protocol 1.7 explicitly binds this context to the
+            # existing read-only research cache and forbids transport here.
+            return DocumentRuntime.open_read_only_research()
         return DocumentRuntime.open()
 
 
@@ -472,7 +478,7 @@ class RealExecutionContext:
         config = generation_config or {}
         if network_guard is None or model_guard is None or runtime_guard is None:
             raise RuntimeError("REAL_EXECUTION_GUARDS_NOT_CONFIGURED")
-        document_runtime = ProductionAdapterFactory.document_runtime()
+        document_runtime = ProductionAdapterFactory.document_runtime(protocol)
         return cls(protocol=protocol,
                     canonical_runtime=ProductionAdapterFactory.canonical_runtime(),
                     selector=ProductionAdapterFactory.selector(),

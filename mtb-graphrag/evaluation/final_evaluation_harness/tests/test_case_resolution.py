@@ -153,7 +153,7 @@ def test_official_start_rq3_canonical_resolves_and_completes(tmp_path, monkeypat
     monkeypatch.setattr(ProductionAdapterFactory, "narrator", staticmethod(lambda *args, **kwargs: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "quote_validator", staticmethod(lambda *args, **kwargs: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *args, **kwargs: fake))
-    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: SimpleNamespace(resolve=lambda value: value)))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda protocol=None: SimpleNamespace(resolve=lambda value: value)))
 
     plan_sha = "p" * 64
     campaign = tmp_path / "evaluation" / "final_evaluation"
@@ -165,7 +165,7 @@ def test_official_start_rq3_canonical_resolves_and_completes(tmp_path, monkeypat
         plan_sha=plan_sha,
         expected_evaluation_id="fe_rq3_fixture",
         argv=["--arm", "--confirm-evaluation-id", "fe_rq3_fixture", "--confirm-plan-sha", plan_sha,
-              "--confirm-start", "FINAL_EVALUATION_1_6"],
+              "--confirm-start", "FINAL_EVALUATION_1_7"],
         campaign_root=campaign,
         metadata_request=lambda _model: {"details": {"family": "gemma4", "parameter_size": "32682372656",
                                                        "quantization_level": "BF16"},

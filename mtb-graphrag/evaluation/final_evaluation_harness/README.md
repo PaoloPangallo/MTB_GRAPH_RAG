@@ -1,9 +1,9 @@
-# Final Evaluation Harness 1.4
+# Final Evaluation Harness 1.7
 
-Status: `PROTOCOL_1_4_ALIGNED_NOT_STARTED`
+Status: `PROTOCOL_1_7_ALIGNED_NOT_STARTED`
 
-This package executes the frozen Protocol 1.4 identity and inherits the
-scientific contract from Protocol 1.2. The effective model is
+This package executes the frozen Protocol 1.7 identity and inherits the
+scientific contract from the accepted parent protocols. The effective model is
 `gemma4:31b-cloud`; no real execution has occurred.
 
 ## Plan and dry run
@@ -25,7 +25,7 @@ python -m evaluation.final_evaluation_harness.start `
   --arm `
   --confirm-evaluation-id <FINAL_EVALUATION_ID> `
   --confirm-plan-sha <SEALED_PLAN_SHA> `
-  --confirm-start FINAL_EVALUATION_1_6
+  --confirm-start FINAL_EVALUATION_1_7
 ```
 
 The gate remains disarmed during this phase. PRE/POST provider snapshots,

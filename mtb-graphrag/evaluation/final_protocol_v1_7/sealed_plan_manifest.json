@@ -1,0 +1,15 @@
+{
+  "protocol_version": "1.7",
+  "runtime_commit": "628545074280e70f8382a457a352f85d3d64c094",
+  "protocol_sha256": "165791022ee91e6a751f82b2b8465f5e1a09e45a17a072e185e1956c11f2cab6",
+  "boundary": "FINAL_EVALUATION_1_7",
+  "plan_builder": "evaluation.final_evaluation_harness.common.runner.build_full_plan",
+  "planned_units": 222,
+  "plan_sha256": "7f914429f163ea9240d176d27a54ae8e73fa97c7287076232927f08d1b9cd19b",
+  "identity_basis": "canonical runtime commit",
+  "output_directory": "evaluation/final_evaluation_v1_7",
+  "document_transport_policy": "OFFLINE_FROZEN_TRANSPORT_ONLY",
+  "frozen_document_manifest": "research_frozen_artifacts/operational_v2/operational_v2_manifest.json",
+  "frozen_document_manifest_sha256": "bb94795633b8ec7e129a8662e87e9604a156ed8eed8576bce3570bec857af1ea",
+  "full_evaluation_executed": false
+}

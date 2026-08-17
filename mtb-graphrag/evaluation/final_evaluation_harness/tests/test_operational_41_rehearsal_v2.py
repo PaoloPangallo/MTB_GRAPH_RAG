@@ -32,7 +32,7 @@ def test_operational_reliability_latency_41_rehearsal(tmp_path, monkeypatch):
     monkeypatch.setattr(start, "CampaignLedger", CachedCampaignLedger)
     monkeypatch.setattr(ProductionAdapterFactory, "canonical_runtime", staticmethod(lambda: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "selector", staticmethod(lambda: fake))
-    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: _FakeRuntime()))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda protocol=None: _FakeRuntime()))
     monkeypatch.setattr("backend.research_pipeline.enrichment.transport.post_with_infra_retry",
                         _transport_fixture_factory({"parser_transport": 0, "enricher_transport": 0, "narrator_transport": 0}))
     protocol = load_protocol()
@@ -46,7 +46,7 @@ def test_operational_reliability_latency_41_rehearsal(tmp_path, monkeypatch):
         protocol=protocol, source_root=protocol.root.parents[1], expected_head="a" * 40,
         plans=[unit.__dict__ for unit in plans], plan_sha=plan_sha,
         expected_evaluation_id="fe_41_rehearsal", argv=["--arm", "--confirm-evaluation-id", "fe_41_rehearsal",
-        "--confirm-plan-sha", plan_sha, "--confirm-start", "FINAL_EVALUATION_1_6"], campaign_root=campaign,
+        "--confirm-plan-sha", plan_sha, "--confirm-start", "FINAL_EVALUATION_1_7"], campaign_root=campaign,
         metadata_request=lambda _model: metadata, dispatch=start.run_production_dispatch,
         environment_validator=lambda: None, prompt_validator=lambda: None,
         head_validator=lambda *_args: None)

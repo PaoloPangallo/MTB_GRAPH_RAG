@@ -1,5 +1,6 @@
 {
   "amendment_id": "mtb-graphrag-final-evaluation/1.7-operational-v2",
+  "runtime_commit": "628545074280e70f8382a457a352f85d3d64c094",
   "parent_protocol_sha256": "ac296a924a39b58caf3427f47153348566d21bcadb6fef94bfa8c6105400ac1d",
   "scope": "Operational reproducibility only",
   "operational_membership_unchanged": true,
@@ -11,5 +12,6 @@
   "expected_semantics_unchanged": true,
   "synthetic_clinical_queries": 0,
   "external_transport_policy": "OFFLINE_FROZEN_TRANSPORT_ONLY",
+  "evaluation_output_directory": "evaluation/final_evaluation_v1_7",
   "post_hoc_gold_used": false
 }

@@ -127,24 +127,13 @@ def test_operational_ids_loaded_dynamically():
 
 def test_operational_runtime_adapter_separates_scenario_metadata_from_pipeline_kwargs():
     protocol = load_protocol()
-    calls = []
-
-    class Pipeline:
-        def run(self, query, *, retrieval_backend=None):
-            calls.append((query, retrieval_backend))
-            return {"status": "CONTROLLED_FIXTURE"}
-
-    from evaluation.final_evaluation_harness.common.adapters.canonical_runtime import CanonicalRuntimeAdapter
     from evaluation.final_evaluation_harness.common.operational_executor import execute_operational_scenario
-    context = type("Context", (), {
-        "canonical_runtime": CanonicalRuntimeAdapter.from_runtime(Pipeline()),
-    })()
+    context = type("Context", (), {})()
     result = execute_operational_scenario(protocol, "A_cache_hit", context)
     assert result["scenario_id"] == "A_cache_hit"
-    assert result["native_outcome"] == {"status": "CONTROLLED_FIXTURE"}
-    assert len(calls) == 1
-    assert calls[0][1] is None
-    assert calls[0][0]["scenario_id"] == "A_cache_hit"
+    assert result["runtime_terminal_state"] == "SUCCESS"
+    assert result["synthetic_query_count"] == 0
+    assert result["property_test_pass"] is True
 
 
 def test_latency_pair_loaded_from_contract():

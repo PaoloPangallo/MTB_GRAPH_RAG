@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import shutil
 import uuid
+from types import SimpleNamespace
 from pathlib import Path
 
 import pytest
@@ -17,6 +18,7 @@ from evaluation.final_evaluation_harness.common.runner import dry_run
 from evaluation.final_evaluation_harness.common.schemas import validate_envelope
 from evaluation.final_evaluation_harness.common.timing import timed_call
 from evaluation.final_evaluation_harness.common.guards import CallCounts, ForbiddenOperation, ModelGuard, NetworkGuard
+from evaluation.final_evaluation_harness.common.execution import ProductionAdapterFactory
 from evaluation.final_evaluation_harness.statistics import paired_percentile_bootstrap, ranking_metrics, wilson
 
 
@@ -35,8 +37,8 @@ def local_tmp():
         shutil.rmtree(path, ignore_errors=True)
 
 
-def test_protocol_sha_accepted(protocol): assert protocol.hashes["protocol_sha256"] == "ac296a924a39b58caf3427f47153348566d21bcadb6fef94bfa8c6105400ac1d"
-def test_runtime_exact(protocol): assert protocol.hashes["runtime_commit"] == "eb20fdfab35724f3b84651d8c02f1ec3970db615"
+def test_protocol_sha_accepted(protocol): assert protocol.hashes["protocol_sha256"] == "165791022ee91e6a751f82b2b8465f5e1a09e45a17a072e185e1956c11f2cab6"
+def test_runtime_exact(protocol): assert protocol.hashes["runtime_commit"] == "628545074280e70f8382a457a352f85d3d64c094"
 def test_lineage_exact(protocol): assert protocol.hashes["inherited_protocol_1_1_sha256"].startswith("83fcf870")
 def test_a01_exact(protocol): assert protocol.hashes["inherited_A01_sha256"].startswith("48c60928")
 def test_s01_exact(protocol): assert protocol.hashes["S01_raw_sha256"].startswith("83babfa5")
@@ -64,6 +66,24 @@ def test_network_prohibited():
     with pytest.raises(ForbiddenOperation): NetworkGuard("PROHIBITED").record()
 def test_network_allowed_counts():
     counts = CallCounts(); NetworkGuard("CANONICAL_RUNTIME_POLICY", counts).record(); assert counts.network == 1
+
+def test_protocol_17_binds_read_only_document_runtime_without_changing_default(monkeypatch):
+    import backend.research_pipeline.documents.live_resolution as live_resolution
+
+    class FakeRuntime:
+        @classmethod
+        def open(cls):
+            return "CACHE_FIRST"
+
+        @classmethod
+        def open_read_only_research(cls):
+            return "FROZEN_READ_ONLY"
+
+    monkeypatch.setattr(live_resolution, "DocumentRuntime", FakeRuntime)
+    offline = SimpleNamespace(manifest={"document_transport_policy": "OFFLINE_FROZEN_TRANSPORT_ONLY"})
+    default = SimpleNamespace(manifest={"document_transport_policy": "CACHE_FIRST"})
+    assert ProductionAdapterFactory.document_runtime(offline) == "FROZEN_READ_ONLY"
+    assert ProductionAdapterFactory.document_runtime(default) == "CACHE_FIRST"
 def test_model_call_accounting():
     counts = CallCounts(); guard = ModelGuard(counts); guard.record("gemma"); guard.record("narrator"); assert counts.gemma == 1 and counts.narrator == 1
 def test_timing_transparent():
@@ -83,7 +103,7 @@ def test_ledger_reconcile_orphan(local_tmp):
 def test_ledger_reconcile_preserves_event(local_tmp):
     ledger = AppendOnlyLedger(local_tmp / "ledger.jsonl"); ledger.append({"event": "ATTEMPT_RESERVED", "attempt_id": "a"}); ledger.reconcile(); assert len(ledger.events()) == 2
 def test_envelope_required(protocol):
-    required = protocol.schemas["common_execution_envelope"]["required_fields"]; envelope = {key: {} for key in required}; envelope["normative_identity"] = {"protocol_version": "1.6"}; envelope["identity"] = {field: "x" for field in protocol.schemas["common_execution_envelope"]["identity_required"]}; envelope["dataset_hashes"] = {"dataset_bundle_sha256": "x"}; envelope["status"] = "COMPLETE"; validate_envelope(protocol, envelope)
+    required = protocol.schemas["common_execution_envelope"]["required_fields"]; envelope = {key: {} for key in required}; envelope["normative_identity"] = {"protocol_version": "1.7"}; envelope["identity"] = {field: "x" for field in protocol.schemas["common_execution_envelope"]["identity_required"]}; envelope["dataset_hashes"] = {"dataset_bundle_sha256": "x"}; envelope["status"] = "COMPLETE"; validate_envelope(protocol, envelope)
 def test_envelope_rejects_missing(protocol):
     with pytest.raises(ValueError): validate_envelope(protocol, {})
 def test_ranking_precision_denominator_k(): assert ranking_metrics(["a"], ["a"], 5)["Precision@5"] == 0.2
@@ -101,9 +121,9 @@ def test_operational_cache_materialization_isolated(protocol, local_tmp):
     assert (local_tmp / "operational_cache_B_cache_miss_success").exists()
 def test_reliability_dry_run_count(): assert dry_run("reliability")["planned_executions"] == 30
 def test_latency_dry_run_count(): assert dry_run("latency")["planned_executions"] == 2
-def test_result_directory_absent(protocol): assert not (protocol.root.parent / "final_evaluation").exists()
+def test_result_directory_absent(protocol): assert not (protocol.root.parent / "final_evaluation_v1_7").exists()
 def test_no_scientific_payloads(): assert protocol_result_dir_absent()
 
 
 def protocol_result_dir_absent() -> bool:
-    return not (Path(__file__).resolve().parents[3] / "evaluation" / "final_evaluation").exists()
+    return not (Path(__file__).resolve().parents[3] / "evaluation" / "final_evaluation_v1_7").exists()

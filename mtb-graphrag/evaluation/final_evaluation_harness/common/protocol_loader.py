@@ -1,4 +1,4 @@
-"""Load the frozen Protocol 1.6 and its inherited scientific contracts."""
+"""Load Protocol 1.7 and its unchanged inherited scientific contracts."""
 from __future__ import annotations
 import hashlib, json
 from dataclasses import dataclass
@@ -32,7 +32,7 @@ class Protocol:
 
     @property
     def hashes(self) -> dict[str, str]:
-        return {"runtime_commit": self.lineage["H02_runtime_commit"], "protocol_sha256": self.seal["protocol_sha256"], "parent_protocol_1_5_sha256": self.lineage["parent_protocol_sha256"], "parent_protocol_1_4_sha256": "6aa8927e47181dc5b5b4fbf8e6390372f5de9e26d47a3a3bf86e7bd6f25aea3e", "parent_protocol_1_3_sha256": "1e7f154ae6dff655937acb486226b88ac5baa556efaeb1a6a77d64d423399fa5", "inherited_protocol_1_1_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889", "inherited_A01_sha256": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf", "S01_raw_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99", "S01_package_sha256": "b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15"}
+        return {"runtime_commit": self.lineage["runtime_commit"], "protocol_sha256": self.seal["protocol_sha256"], "parent_protocol_1_5_sha256": self.lineage["parent_protocol_sha256"], "parent_protocol_1_4_sha256": "6aa8927e47181dc5b5b4fbf8e6390372f5de9e26d47a3a3bf86e7bd6f25aea3e", "parent_protocol_1_3_sha256": "1e7f154ae6dff655937acb486226b88ac5baa556efaeb1a6a77d64d423399fa5", "inherited_protocol_1_1_sha256": "83fcf870a3044b7c85de9c70ac3f7e2f4217e3a1e314368703bfefbce5d80889", "inherited_A01_sha256": "48c60928eafad33c4e2f8008db58fa543e3c17c04a8a73733f471c7c2bdacdcf", "S01_raw_sha256": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99", "S01_package_sha256": "b5979ac2f9ec7ae61fbf6bb929370e902f9f188de702d690ab71167d3d5a7f15"}
 
 def _load(root: Path, name: str) -> dict[str, Any]:
     path=root/name
@@ -47,19 +47,23 @@ def _digest(root: Path, files: list[str]) -> str:
 
 def load_protocol(repo_root: Path | None = None) -> Protocol:
     repo=repo_root or Path(__file__).resolve().parents[3]
-    root=repo/"evaluation"/"final_protocol_v1_6"
+    root=repo/"evaluation"/"final_protocol_v1_7"
     manifest=_load(root,"protocol_manifest.json")
-    amendment=_load(root,"amendment_contract.json")
-    inherited=_load(root,"inherited_protocol_contract.json")
+    operational_amendment=_load(root,"operational_amendment.json")
     projection=_load(root,"scientific_projection.json")
-    corpus=_load(root,"corpus_identity.json")
     seal=_load(root,"protocol_hash.json")
-    expected={"H02_runtime_commit":"eb20fdfab35724f3b84651d8c02f1ec3970db615","parent_protocol_commit":"556618f8810333d1abad3771e42c4626e54d3670","parent_protocol_sha256":"60b74a031688161690b34a8ed6dda7f4b36ca7323541bbd1564b0ad816fe3bdd","scientific_projection_sha256":"a4edb0bad5cd233fe04423068dacf14de91bb7a7421169c5602c7bf79e67229c"}
-    if manifest.get("protocol_version")!="1.6" or manifest.get("frozen") is not True or manifest.get("review_status")!="ACCEPTED": raise ProtocolGap("Protocol 1.6 is not accepted/frozen")
-    if seal.get("protocol_sha256") != "ac296a924a39b58caf3427f47153348566d21bcadb6fef94bfa8c6105400ac1d": raise ProtocolGap("Protocol 1.6 SHA mismatch")
     lineage=_load(root,"lineage.json")
-    if any(lineage.get(k)!=v for k,v in expected.items()): raise ProtocolGap("Protocol 1.6 lineage mismatch")
-    if inherited.get("source_protocol_sha256") != "60b74a031688161690b34a8ed6dda7f4b36ca7323541bbd1564b0ad816fe3bdd": raise ProtocolGap("Protocol 1.5 parent mismatch")
+    if manifest.get("protocol_version")!="1.7" or manifest.get("frozen") is not True or manifest.get("review_status")!="ACCEPTED": raise ProtocolGap("Protocol 1.7 is not accepted/frozen")
+    if manifest.get("runtime_commit") != lineage.get("runtime_commit") or operational_amendment.get("runtime_commit") != lineage.get("runtime_commit"): raise ProtocolGap("Protocol 1.7 runtime identity mismatch")
+    if manifest.get("scientific_projection_sha256") != hashlib.sha256((root/"scientific_projection.json").read_bytes()).hexdigest(): raise ProtocolGap("Protocol 1.7 projection mismatch")
+    normative_files = manifest.get("normative_files")
+    if not isinstance(normative_files, list) or _digest(root, normative_files) != seal.get("protocol_sha256"):
+        raise ProtocolGap("Protocol 1.7 seal mismatch")
+    parent16=repo/"evaluation"/"final_protocol_v1_6"
+    inherited=_load(parent16,"inherited_protocol_contract.json")
+    corpus=_load(parent16,"corpus_identity.json")
+    amendment={**_load(parent16,"amendment_contract.json"), "P17": operational_amendment}
+    if inherited.get("source_protocol_sha256") != "60b74a031688161690b34a8ed6dda7f4b36ca7323541bbd1564b0ad816fe3bdd": raise ProtocolGap("Protocol 1.6 parent mismatch")
     parent=repo/"evaluation"/"final_protocol_v1_2"; pmanifest=_load(parent,"protocol_manifest.json"); pseal=_load(parent,"protocol_hash.json")
     if pseal.get("protocol_1_2_sha256") != "76800b10ba85836369f47973802b0df65c0221df39ad8e9eac45a5241b70e106" or _digest(parent,pmanifest["normative_files"]) != "76800b10ba85836369f47973802b0df65c0221df39ad8e9eac45a5241b70e106": raise ProtocolGap("parent Protocol 1.2 mismatch")
     a01=repo/"evaluation"/"final_protocol"/"amendments"/"A01"; s01=repo/"evaluation"/"final_protocol"/"supplements"/"S01"

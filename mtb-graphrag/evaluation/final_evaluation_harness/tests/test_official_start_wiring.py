@@ -35,7 +35,7 @@ def test_official_start_wires_pre_before_dispatch(tmp_path: Path, monkeypatch):
         plans=plans,
         plan_sha=plan_sha,
         expected_evaluation_id="fe_fixture",
-        argv=["--arm", "--confirm-evaluation-id", "fe_fixture", "--confirm-plan-sha", plan_sha, "--confirm-start", "FINAL_EVALUATION_1_6"],
+        argv=["--arm", "--confirm-evaluation-id", "fe_fixture", "--confirm-plan-sha", plan_sha, "--confirm-start", "FINAL_EVALUATION_1_7"],
         campaign_root=tmp_path / "evaluation" / "final_evaluation",
         metadata_request=_metadata,
         dispatch=fake_dispatch,
@@ -90,7 +90,7 @@ def test_existing_campaign_is_not_overwritten(tmp_path: Path):
         start.run_official_start(
             protocol=protocol, source_root=protocol.root.parents[1], expected_head="a" * 40,
             plans=[], plan_sha="p" * 64, expected_evaluation_id="fe_fixture",
-            argv=["--arm", "--confirm-evaluation-id", "fe_fixture", "--confirm-plan-sha", "p" * 64, "--confirm-start", "FINAL_EVALUATION_1_6"],
+            argv=["--arm", "--confirm-evaluation-id", "fe_fixture", "--confirm-plan-sha", "p" * 64, "--confirm-start", "FINAL_EVALUATION_1_7"],
             campaign_root=campaign_a, metadata_request=_metadata, dispatch=lambda *_args, **_kwargs: None,
             environment_validator=lambda: None, prompt_validator=lambda: None,
             head_validator=lambda *_: None,
@@ -122,7 +122,7 @@ def test_official_dispatch_reaches_real_context_with_guards(tmp_path: Path, monk
     monkeypatch.setattr(ProductionAdapterFactory, "narrator", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "quote_validator", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *a, **k: fake))
-    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: FakeRuntime()))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda protocol=None: FakeRuntime()))
     monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor", lambda self, planned, context: trace.append(type(planned).__name__) or {"status": "COMPLETE"})
     from evaluation.final_evaluation_harness.start import run_production_dispatch
     context_guards = {
@@ -152,7 +152,7 @@ def test_production_dispatch_transports_attempt_events_to_campaign_ledger(tmp_pa
     monkeypatch.setattr(ProductionAdapterFactory, "narrator", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "quote_validator", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *a, **k: fake))
-    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: type("Doc", (), {"resolve": lambda self, value: value})()))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda protocol=None: type("Doc", (), {"resolve": lambda self, value: value})()))
     comparison = PathComparison("path-1", "rule-1", "candidate-1", True,
                                 {"predicate": True}, [], True, [])
     monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor",
@@ -188,7 +188,7 @@ def test_public_official_start_reaches_first_attempt_with_campaign_ledger(tmp_pa
     monkeypatch.setattr(ProductionAdapterFactory, "narrator", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "quote_validator", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *a, **k: fake))
-    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: type("Doc", (), {"resolve": lambda self, value: value})()))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda protocol=None: type("Doc", (), {"resolve": lambda self, value: value})()))
     monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor", lambda self, planned, context: {"status": "COMPLETE"})
     plan_sha = "p" * 64
     campaign = tmp_path / "evaluation" / "final_evaluation"
@@ -196,7 +196,7 @@ def test_public_official_start_reaches_first_attempt_with_campaign_ledger(tmp_pa
         protocol=protocol, source_root=protocol.root.parents[1], expected_head="a" * 40,
         plans=[unit.__dict__], plan_sha=plan_sha, expected_evaluation_id="fe_official_fixture",
         argv=["--arm", "--confirm-evaluation-id", "fe_official_fixture", "--confirm-plan-sha", plan_sha,
-              "--confirm-start", "FINAL_EVALUATION_1_6"], campaign_root=campaign,
+              "--confirm-start", "FINAL_EVALUATION_1_7"], campaign_root=campaign,
         metadata_request=_metadata, dispatch=start.run_production_dispatch,
         environment_validator=lambda: None, prompt_validator=lambda: None, head_validator=lambda *_: None,
     )

@@ -1,0 +1,141 @@
+{
+  "freeze_id": "canonical-runtime-freeze-post-stabilization-2026-08-17",
+  "freeze_status": "READY_CANDIDATE",
+  "freeze_date": "2026-08-16",
+  "branch": "eval/final-evaluation-protocol-v1.7",
+  "pre_freeze_head": "628545074280e70f8382a457a352f85d3d64c094",
+  "canonical_runtime_commit": "628545074280e70f8382a457a352f85d3d64c094",
+  "protocol_alignment": "Protocol 1.7 and the evaluation harness are bound to canonical_runtime_commit.",
+  "runtime_files": [
+    "backend/research_pipeline/run_store.py",
+    "backend/research_pipeline/orchestrator.py",
+    "backend/research_pipeline/casecontext/parser.py",
+    "backend/research_pipeline/casecontext/prompt.py",
+    "backend/research_pipeline/casecontext/pipeline.py",
+    "backend/research_pipeline/casecontext/match_verifier.py",
+    "backend/research_pipeline/casecontext/mentions.py",
+    "backend/research_pipeline/casecontext/semantic_verifier.py",
+    "backend/research_pipeline/casecontext/contradictions.py",
+    "backend/research_pipeline/eligibility/gate.py",
+    "backend/research_pipeline/retrieval/kg_retrieval.py",
+    "backend/research_pipeline/documents/live_resolution.py",
+    "backend/research_pipeline/documents/authorized_cache.py",
+    "backend/research_pipeline/documents/parsers.py",
+    "backend/research_pipeline/enrichment/enricher_v2.py",
+    "backend/research_pipeline/enrichment/prompt_v2.py",
+    "backend/research_pipeline/enrichment/validator.py",
+    "backend/research_pipeline/determinism/gates.py",
+    "backend/research_pipeline/narrative/input_projection.py",
+    "backend/research_pipeline/narrative/narrator.py",
+    "backend/research_pipeline/narrative/prompt.py",
+    "backend/research_pipeline/narrative/verifier.py"
+  ],
+  "graph_candidate_repository": {
+    "path": "benchmarks/mtb_evidence/document_grounded_claims/graph_candidate_repository/2.0/candidates.jsonl",
+    "sha256": "d6c65c2682313652b736f1f82968078292c12588823e2f79309e76d6e671235d",
+    "record_count": 46864,
+    "version": "2.0"
+  },
+  "evaluation_protocol": {
+    "current_protocol_directory": "evaluation/final_protocol_v1_7",
+    "protocol_version": "1.7",
+    "protocol_sha256": "165791022ee91e6a751f82b2b8465f5e1a09e45a17a072e185e1956c11f2cab6",
+    "frozen": true,
+    "official_harness_loaded_protocol": "1.7",
+    "official_harness_runtime_expected": "628545074280e70f8382a457a352f85d3d64c094",
+    "boundary": "FINAL_EVALUATION_1_7",
+    "sealed_plan_manifest": "evaluation/final_protocol_v1_7/sealed_plan_manifest.json",
+    "sealed_plan_manifest_sha256": "3649d10b8f211567d698f800cc31e01755e098a3736ef63bbe65536cc9aa64eb",
+    "status": "ALIGNED_PENDING_PROTOCOL_COMMIT"
+  },
+  "evaluation_artifacts": {
+    "operational_manifest": {
+      "path": "research_frozen_artifacts/operational_v2/operational_v2_manifest.json",
+      "sha256": "bb94795633b8ec7e129a8662e87e9604a156ed8eed8576bce3570bec857af1ea"
+    },
+    "operational_policy": "OFFLINE_FROZEN_TRANSPORT_ONLY",
+    "final_results_directory": "evaluation/final_evaluation_v1_7/",
+    "pre_stabilization_results_preserved": true
+  },
+  "prompt_versions": [
+    {
+      "stage": "CaseContext Parser",
+      "path": "backend/research_pipeline/casecontext/prompt.py",
+      "prompt_id": "casecontext-parser-prompt/1.0",
+      "sha256": "7c89227b3bc3921344e9ae8527d3b6a9c0ac43283bf9234481b23a17f77e253d"
+    },
+    {
+      "stage": "Paper Context Enricher v2",
+      "path": "backend/research_pipeline/enrichment/prompt_v2.py",
+      "prompt_id": "paper-context-enricher-prompt/2.0",
+      "sha256": "2a130516832d3df4410e356525a9f202b9d0d22cd24bdb25842d07c05f5eb5d4"
+    },
+    {
+      "stage": "Narrator",
+      "path": "backend/research_pipeline/narrative/prompt.py",
+      "sha256": "6b3faaf278fc95a3cb5250d553f44f6474f819f2bc2ae8ddbc0dbc6dd1ab08d9"
+    }
+  ],
+  "provider_configuration": {
+    "parser": "configured through live provider adapter; not called during freeze",
+    "enricher": "configured through live provider adapter; not called during freeze",
+    "narrator": "configured through live provider adapter; not called during freeze",
+    "environment_variable_names_only": [
+      "OLLAMA_HOST",
+      "OLLAMA_API_KEY",
+      "OLLAMA_MODEL",
+      "OLLAMA_TEMPERATURE",
+      "OLLAMA_SEED",
+      "OLLAMA_REQUEST_TIMEOUT"
+    ],
+    "secrets_recorded": false
+  },
+  "deterministic_policies": {
+    "candidate_top_k": 3,
+    "sourceunit_top_k": 5,
+    "documents_per_association": 2,
+    "contradiction_detector_version": "casecontext-contradiction-detector/1.0",
+    "enricher_contract": "Paper Context Enricher v2",
+    "document_grounding": "evaluation DI binds frozen read-only document runtime; runtime default remains cache-first",
+    "policy_status": "OFFLINE_FROZEN_TRANSPORT_ONLY bound by Protocol 1.7 evaluation context"
+  },
+  "document_grounding_policy": {
+    "runtime": "Protocol 1.7 evaluation context uses DocumentRuntime.open_read_only_research(); canonical runtime default remains DocumentRuntime.open()",
+    "cache_policy": "frozen read-only artifacts for evaluation; cache-first with authorized acquisition remains default runtime",
+    "network_policy_for_operational_protocol": "OFFLINE_FROZEN_TRANSPORT_ONLY",
+    "cache_root_env": "RESEARCH_PIPELINE_CACHE_ROOT",
+    "cache_default": "data/data_cache/document_grounding",
+    "resolver_identifiers": ["PMID", "PMCID", "NCT"],
+    "status": "bound to Protocol 1.7 and FINAL_EVALUATION_1_7"
+  },
+  "dependency_fingerprint": {
+    "python": "3.12.10",
+    "manifest": "backend/config/requirements-lock.txt",
+    "manifest_sha256": "0a0f5877dad3bffe7e2c2c89187229a1089cb039fb59f6e2c8cae15caebfaa1",
+    "os": "Windows",
+    "installation_performed_during_freeze": false
+  },
+  "tests": {
+    "targeted_command": "python -m pytest backend/research_pipeline/tests/test_stabilization_p0_p1.py -q",
+    "targeted_result": "PASS: 16 passed",
+    "full_command": "python -m pytest backend/research_pipeline/tests -q",
+    "full_result": "PASS: 587 passed, 54 subtests, 1 warning",
+    "network_or_llm_used": false
+  },
+  "known_limitations": [
+    "lexical retrieval",
+    "candidate top-3",
+    "no semantic/vector retrieval",
+    "no live KG traversal",
+    "no HGVS/ontology validation",
+    "no abstract/full-text final evidence tiering",
+    "no recommendation generator",
+    "no clarification loop"
+  ],
+  "exact_final_evaluation_command": "python -m evaluation.final_evaluation_harness.start --arm --confirm-evaluation-id fe_91765414d0bfcff042a32888480f91c2354389813e3e67aff8109c390142903a --confirm-plan-sha 7f914429f163ea9240d176d27a54ae8e73fa97c7287076232927f08d1b9cd19b --confirm-start FINAL_EVALUATION_1_7",
+  "commit": {
+    "canonical_runtime_commit": "628545074280e70f8382a457a352f85d3d64c094",
+    "final_evaluation_protocol_commit": null
+  },
+  "tag": null
+}

@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import subprocess
 from dataclasses import asdict, dataclass
 from typing import Any
 
@@ -93,7 +92,9 @@ def _metadata(kind: str, testbed: str, arm: str, protocol: Protocol) -> dict[str
     narrator = ("PROHIBITED" if testbed == "NARRATIVE_HELDOUT_20" else "REQUIRED") if is_narrative else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
     quote = "REQUIRED" if (is_rq2 and arm in ("GOLD", "DETERMINISTIC_SELECTOR")) or (is_reliability and testbed == "RELIABILITY_STRATUM_B") else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
     verifier = "REQUIRED" if is_narrative else ("PATH_DEPENDENT" if kind in ("rq3", "rq4", "reliability", "operational") else "PROHIBITED")
-    if is_rq2 or (is_reliability and testbed == "RELIABILITY_STRATUM_B"): network_policy, network_expectation, cache = "PROHIBITED", "NONE", "NO_DOCUMENT_CACHE"
+    if protocol.manifest.get("document_transport_policy") == "OFFLINE_FROZEN_TRANSPORT_ONLY":
+        network_policy, network_expectation, cache = "PROHIBITED", "NONE", "FROZEN_DOCUMENT_ARTIFACTS"
+    elif is_rq2 or (is_reliability and testbed == "RELIABILITY_STRATUM_B"): network_policy, network_expectation, cache = "PROHIBITED", "NONE", "NO_DOCUMENT_CACHE"
     elif is_latency and arm == "LAT-HIT": network_policy, network_expectation, cache = "CANONICAL_RUNTIME_POLICY", "EXPECTED_ZERO_FETCH", "LATENCY_HIT_CACHE"
     elif is_latency: network_policy, network_expectation, cache = "CANONICAL_RUNTIME_POLICY", "NETWORK_REQUIRED_TO_OBSERVE_PROPERTY", "LATENCY_MISS_CACHE"
     elif is_operational and arm == "PROPERTY_TEST" and testbed == "A_cache_hit": network_policy, network_expectation, cache = "CANONICAL_RUNTIME_POLICY", "EXPECTED_ZERO_FETCH", "A01_SCENARIO_CACHE"
@@ -110,10 +111,10 @@ def _metadata(kind: str, testbed: str, arm: str, protocol: Protocol) -> dict[str
 
 
 def _harness_commit(protocol: Protocol) -> str:
-    try:
-        return subprocess.run(["git", "rev-parse", "HEAD"], cwd=protocol.root.parents[1], capture_output=True, text=True, check=True).stdout.strip()
-    except (OSError, subprocess.CalledProcessError):
-        return "WORKTREE"
+    # Plan/run identity is bound to the frozen runtime commit.  The official
+    # start still validates the actual harness HEAD separately; this keeps the
+    # sealed scientific plan stable across the protocol-only commit.
+    return protocol.hashes["runtime_commit"]
 
 
 def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:

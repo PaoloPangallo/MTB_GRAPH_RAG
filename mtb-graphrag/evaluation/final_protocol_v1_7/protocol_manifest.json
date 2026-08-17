@@ -1,9 +1,18 @@
 {
+  "protocol_id": "mtb-graphrag-final-evaluation/1.7",
   "protocol_version": "1.7",
   "parent_protocol_version": "1.6",
   "parent_protocol_sha256": "ac296a924a39b58caf3427f47153348566d21bcadb6fef94bfa8c6105400ac1d",
   "frozen": true,
   "review_status": "ACCEPTED",
-  "amendment_scope": "OPERATIONAL_INPUT_MATERIALIZATION_ONLY",
-  "normative_files": ["protocol_manifest.json", "operational_amendment.json", "scientific_projection.json"]
+  "amendment_scope": "RUNTIME_IDENTITY_AND_OPERATIONAL_INPUT_MATERIALIZATION_ONLY",
+  "runtime_commit": "628545074280e70f8382a457a352f85d3d64c094",
+  "scientific_projection_sha256": "178d8dbfaf61655ecb5855a33f50416d68abedd5c86a9e46a6d3196058a399e2",
+  "evaluation_boundary": "FINAL_EVALUATION_1_7",
+  "output_directory": "evaluation/final_evaluation_v1_7",
+  "document_transport_policy": "OFFLINE_FROZEN_TRANSPORT_ONLY",
+  "parent_protocol_version": "1.6",
+  "parent_protocol_sha256": "ac296a924a39b58caf3427f47153348566d21bcadb6fef94bfa8c6105400ac1d",
+  "normative_files": ["protocol_manifest.json", "lineage.json", "operational_amendment.json", "scientific_projection.json"],
+  "sealed_plan_manifest": "sealed_plan_manifest.json"
 }

@@ -81,7 +81,7 @@ def validate_start_confirmation(argv: list[str], expected_evaluation_id: str, ex
         raise ExecutionDisarmed("invalid arming arguments") from exc
     if unknown or not args.arm or not args.confirm_evaluation_id or not args.confirm_plan_sha or not args.confirm_start:
         raise ExecutionDisarmed("all explicit confirmations are required")
-    if args.confirm_evaluation_id != expected_evaluation_id or args.confirm_plan_sha != expected_plan_sha or args.confirm_start != "FINAL_EVALUATION_1_6":
+    if args.confirm_evaluation_id != expected_evaluation_id or args.confirm_plan_sha != expected_plan_sha or args.confirm_start != "FINAL_EVALUATION_1_7":
         raise CampaignStartError("START_CONFIRMATION_MISMATCH")
 
 
@@ -106,7 +106,17 @@ def validate_source_head(repo: Path, expected_head: str) -> None:
     if actual != expected_head:
         raise CampaignStartError("EXECUTION_SOURCE_HEAD_MISMATCH")
     import subprocess
-    dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], cwd=repo, check=True, capture_output=True, text=True).stdout.strip()
+    status = subprocess.run(
+        ["git", "status", "--porcelain", "--untracked-files=all"],
+        cwd=repo, check=True, capture_output=True, text=True,
+    ).stdout.splitlines()
+    frozen_roots = (
+        "backend/research_pipeline/",
+        "evaluation/final_evaluation_harness/",
+        "evaluation/final_protocol_v1_7/",
+        "canonical_runtime_freeze_manifest.json",
+    )
+    dirty = [line for line in status if any(line[3:].replace("\\", "/").startswith(root) for root in frozen_roots)]
     if dirty:
         raise CampaignStartError("EXECUTION_SOURCE_DIRTY")
 
@@ -246,7 +256,10 @@ def main(argv: list[str] | None = None) -> None:
     expected_head = _git_head(source_root)
     plans, plan_sha = materialize_execution_plan()
     validate_executor_coverage()
-    eid = evaluation_id(protocol, expected_head)
+    # Scientific run identity follows the frozen runtime commit, matching
+    # build_full_plan(); the actual harness HEAD remains separately recorded
+    # and checked by validate_source_head().
+    eid = evaluation_id(protocol, protocol.hashes["runtime_commit"])
     validate_start_confirmation(argv, eid, plan_sha)
     validate_source_head(source_root, expected_head)
     try:
@@ -256,7 +269,7 @@ def main(argv: list[str] | None = None) -> None:
         raise CampaignStartError(str(exc)) from exc
     gate = ExecutionGate()
     gate.arm()
-    campaign_root = source_root / "evaluation" / "final_evaluation"
+    campaign_root = source_root / "evaluation" / "final_evaluation_v1_7"
     run_official_start(
         protocol=protocol,
         source_root=source_root,

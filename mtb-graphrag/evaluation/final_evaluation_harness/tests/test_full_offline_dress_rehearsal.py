@@ -156,7 +156,7 @@ def test_full_offline_dress_rehearsal_reaches_post_without_external_calls(tmp_pa
     fake = _FakeAdapters()
     monkeypatch.setattr(ProductionAdapterFactory, "canonical_runtime", staticmethod(lambda: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "selector", staticmethod(lambda: fake))
-    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda: _FakeRuntime()))
+    monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda protocol=None: _FakeRuntime()))
     counters = {"parser_transport": 0, "enricher_transport": 0, "narrator_transport": 0}
     monkeypatch.setattr(
         "backend.research_pipeline.enrichment.transport.post_with_infra_retry",
@@ -179,7 +179,7 @@ def test_full_offline_dress_rehearsal_reaches_post_without_external_calls(tmp_pa
         plan_sha="p" * 64,
         expected_evaluation_id="fe_offline_dress",
         argv=["--arm", "--confirm-evaluation-id", "fe_offline_dress", "--confirm-plan-sha", "p" * 64,
-              "--confirm-start", "FINAL_EVALUATION_1_6"],
+              "--confirm-start", "FINAL_EVALUATION_1_7"],
         campaign_root=campaign,
         metadata_request=lambda _model: metadata,
         dispatch=start.run_production_dispatch,
