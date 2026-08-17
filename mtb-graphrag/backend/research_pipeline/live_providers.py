@@ -79,10 +79,9 @@ def enricher_fn(
 ) -> dict[str, Any]:
     """Paper Context Enricher v2.0 reale, con gli argomenti nell'ordine giusto.
 
-    Le SourceUnit arrivano già limitate a monte: al massimo 4 per documento
-    (``kg_retrieval.MAX_SOURCE_UNITS_PER_DOCUMENT``) e al massimo 2 documenti per
-    associazione (``paper_selection.MAX_PAPERS_PER_ASSOCIATION``). Nessun articolo
-    integrale raggiunge il modello.
+    Le SourceUnit arrivano già limitate a monte: al massimo 5 per documento
+    e al massimo 2 documenti per associazione. Nessun articolo integrale
+    raggiunge il modello.
     """
     budget.spend("paper_context_enricher_v2", case_id)
     try:

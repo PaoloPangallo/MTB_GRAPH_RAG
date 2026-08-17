@@ -182,10 +182,34 @@ def candidate_direction_consistency(candidate: dict[str, Any], evidence_kind: st
                                  source_polarity_value=candidate_source_polarity(candidate))
 
 
+def structured_direction_consistency(candidate: dict[str, Any]) -> str:
+    """Reconcile v2's structured source polarity without inventing evidence kind.
+
+    ``evidence_kind`` is a v1 enrichment field and is intentionally absent from
+    the v2 model.  The candidate's structured source polarity can establish
+    support/non-support, but an absent or unmapped polarity remains unrelated.
+    """
+    polarity = candidate_source_polarity(candidate)
+    if polarity in NON_SUPPORTING_POLARITIES:
+        return SOURCE_DOES_NOT_SUPPORT_OUTCOME
+    if polarity != SOURCE_SUPPORTS:
+        return "UNRELATED"
+    direction = clinical_direction(candidate.get("direction"))
+    return "CONSISTENT" if direction != CLINICAL_UNKNOWN else "UNRELATED"
+
+
 def evaluate_association(query_intent: str, candidate: dict[str, Any], validated_enrichments: list[dict[str, Any]]) -> dict[str, Any]:
     """validated_enrichments: list of {"validation_outcome", "enrichment"} where outcome is
-    ENRICHMENT_ACCEPTED or ENRICHMENT_ACCEPTED_WITH_WARNING only -- callers must filter first."""
-    accepted = [item for item in validated_enrichments if item["validation_outcome"] in ("ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING")]
+    an accepted v1/v2 outcome -- callers must filter rejected values first.
+
+    v1 may provide ``evidence_kind``.  v2 intentionally does not; in that case
+    the deterministic structured source polarity is used, or the result remains
+    conservative when polarity is unknown.
+    """
+    accepted = [item for item in validated_enrichments if item["validation_outcome"] in (
+        "ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING",
+        "ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY",
+    )]
     warnings: list[str] = []
     mask = {"disease": "SUPPORTED", "biomarker": "SUPPORTED"}
 
@@ -201,13 +225,18 @@ def evaluate_association(query_intent: str, candidate: dict[str, Any], validated
         return {"status": "AMBIGUOUS", "support_mask": mask, "gate_bucket": "WARNING_BUCKET", "warnings": warnings, "direction_consistencies": []}
 
     polarity = candidate_source_polarity(candidate)
-    consistencies = [
-        direction_consistency(candidate.get("direction"),
-                              item["enrichment"].get("evidence_kind"),
-                              source_polarity_value=polarity)
-        for item in accepted
-    ]
-    any_warning = any(item["validation_outcome"] == "ENRICHMENT_ACCEPTED_WITH_WARNING" for item in accepted)
+    consistencies = []
+    for item in accepted:
+        enrichment = item["enrichment"]
+        evidence_kind = enrichment.get("evidence_kind")
+        consistencies.append(
+            direction_consistency(candidate.get("direction"), evidence_kind,
+                                  source_polarity_value=polarity)
+            if evidence_kind is not None else structured_direction_consistency(candidate)
+        )
+    any_warning = any(item["validation_outcome"] in (
+        "ENRICHMENT_ACCEPTED_WITH_WARNING", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY",
+    ) for item in accepted)
     if any_warning:
         warnings.append("SOME_ENRICHMENTS_ACCEPTED_WITH_WARNING")
 

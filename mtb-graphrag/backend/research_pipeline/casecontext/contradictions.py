@@ -19,7 +19,9 @@ import re
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
-from .mentions import ASSERTED, NEGATED, EntityMention, _norm
+from .mentions import (
+    ASSERTED, CONTROL_INSTRUCTION_MENTION, NEGATED, EntityMention, _norm,
+)
 
 CONTRADICTION_DETECTOR_VERSION = "casecontext-contradiction-detector/1.0"
 
@@ -79,14 +81,40 @@ def _span(text: str, needle: str) -> dict[str, Any] | None:
             "start_offset": index, "end_offset": index + len(needle)}
 
 
+def _mask_control_spans(
+    text: str, control_spans: list[dict[str, Any]] | None,
+) -> str:
+    """Neutralize control text without joining unrelated clinical fragments."""
+    if not text or not control_spans:
+        return text
+
+    masked = list(text)
+    for span in control_spans:
+        try:
+            start = max(0, int(span["start_offset"]))
+            end = min(len(masked), int(span["end_offset"]))
+        except (KeyError, TypeError, ValueError):
+            continue
+        if end > start:
+            masked[start:end] = [" "] * (end - start)
+    return "".join(masked)
+
+
 def detect(
     clinical_text: str,
     mentions: list[EntityMention],
     case_context: dict[str, Any] | None = None,
+    control_spans: list[dict[str, Any]] | None = None,
 ) -> list[Contradiction]:
     """Contraddizioni esplicite nel testo. Deterministico, nessun LLM."""
     text = clinical_text or ""
+    mentions = [
+        mention for mention in mentions
+        if mention.accepted_for_casecontext
+        and mention.semantic_role != CONTROL_INSTRUCTION_MENTION
+    ]
     lowered = _norm(text)
+    text_only_lowered = _norm(_mask_control_spans(text, control_spans))
     out: list[Contradiction] = []
 
     # 1. Stessa entità ASSERTED e NEGATED fra le menzioni.
@@ -178,10 +206,10 @@ def detect(
                     break
 
     # 5. «Mai ricevuto terapia» insieme a una terapia somministrata.
-    if any(cue in lowered for cue in _NO_TREATMENT_CUES) and \
-            any(cue in lowered for cue in _TREATMENT_GIVEN_CUES):
-        negative = next((c for c in _NO_TREATMENT_CUES if c in lowered), "")
-        positive = next((c for c in _TREATMENT_GIVEN_CUES if c in lowered), "")
+    if any(cue in text_only_lowered for cue in _NO_TREATMENT_CUES) and \
+            any(cue in text_only_lowered for cue in _TREATMENT_GIVEN_CUES):
+        negative = next((c for c in _NO_TREATMENT_CUES if c in text_only_lowered), "")
+        positive = next((c for c in _TREATMENT_GIVEN_CUES if c in text_only_lowered), "")
         out.append(Contradiction(
             contradiction_id=_identifier(negative, positive, TREATMENT_HISTORY_CONFLICT),
             type=TREATMENT_HISTORY_CONFLICT, entity_type="INTERVENTION",
@@ -193,8 +221,8 @@ def detect(
         ))
 
     # 6. L'istruzione nega ciò che la domanda chiede.
-    if re.search(r"do not evaluate any specific drug", lowered) and \
-            re.search(r"whether\s+\w+\s+is\s+appropriate", lowered):
+    if re.search(r"do not evaluate any specific drug", text_only_lowered) and \
+            re.search(r"whether\s+\w+\s+is\s+appropriate", text_only_lowered):
         out.append(Contradiction(
             contradiction_id=_identifier("intent", "conflict", INTENT_CONFLICT),
             type=INTENT_CONFLICT, entity_type="INTERVENTION", normalized_entity="query intent",

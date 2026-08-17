@@ -111,8 +111,11 @@ def _candidate(entry: dict[str, Any]) -> dict[str, Any]:
         "abstention_reasons": _abstentions(entry),
         # Derivati espliciti: il modello non deve dedurli, e il verifier li usa
         # come atteso. Sono calcoli deterministici su dati già nel dossier.
-        "expresses_support": (status not in NON_SUPPORTING_STATUSES
-                              and direction not in NON_SUPPORTING_DIRECTIONS),
+        "expresses_support": (
+            status == "DIRECT"
+            and _text((entry.get("gate_results") or {}).get("bucket")) == "PRIMARY_BUCKET"
+            and direction == "SUPPORTED"
+        ),
         "source_does_not_support": direction == "SOURCE_DOES_NOT_SUPPORT",
     }
 

@@ -516,7 +516,11 @@ def run_case(
     # Un solo retrieval, senza parametro di modalità: le candidate ammesse sono
     # quelle con provenance documentale, e i descrittori dei documenti nascono da
     # quella provenance. Un harness storico passa il proprio ``retrieve_fn``.
-    retrieval_result = retrieve(case_context)
+    retrieval_case_context = (
+        cc_pipeline.build_retrieval_case_context(case_context, chain.get("mentions", []))
+        if chain is not None else case_context
+    )
+    retrieval_result = retrieve(retrieval_case_context)
     redacted = redact_retrieval_result(retrieval_result)
     retrieval_preview = {
         "graph_derived": True,
@@ -536,10 +540,9 @@ def run_case(
     # STAGE 6 — Document Resolution
     #
     # Eseguita davvero: i documenti vengono cercati nella cache autorizzata al
-    # momento della run. Nessun fetch di rete — la cache è aperta in sola lettura
-    # e i suoi percorsi di rete sollevano. Un documento assente resta
-    # DOCUMENT_UNAVAILABLE: il corrispondente artefatto registrato non viene
-    # usato al suo posto.
+    # momento della run. Il runtime canonico è cache-first ma può usare le API
+    # autorizzate sul miss; un documento assente resta DOCUMENT_UNAVAILABLE e il
+    # corrispondente artefatto legacy/research non viene usato al suo posto.
     p = _deterministic("document_resolution")
     recorder.start("stage_6_document_resolution", p)
 

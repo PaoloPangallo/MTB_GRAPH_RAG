@@ -23,6 +23,60 @@ from .semantic_verifier import verify as verify_semantics
 DETERMINISTIC_CHAIN_VERSION = "casecontext-deterministic-chain/1.0"
 
 
+def build_retrieval_case_context(
+    case_context: dict[str, Any], mentions: list[Any],
+) -> dict[str, Any]:
+    """Project only accepted clinical mentions into the retriever contract.
+
+    The retriever still receives its existing dictionary shape, but rejected
+    parser values are never copied back into the query projection.
+    """
+    projected = dict(case_context or {})
+
+    def value(mention: Any, key: str, default: Any = None) -> Any:
+        if isinstance(mention, dict):
+            return mention.get(key, default)
+        return getattr(mention, key, default)
+
+    def accepted(slot: str, *entity_types: str) -> list[Any]:
+        return [
+            mention for mention in mentions
+            if value(mention, "slot") == slot
+            and value(mention, "accepted_for_casecontext") is True
+            and (not entity_types or value(mention, "entity_type") in entity_types)
+        ]
+
+    def structured_value(mention: Any) -> dict[str, Any]:
+        raw = value(mention, "raw_text", "")
+        normalized = value(mention, "normalized_value") or raw
+        result = {"raw_value": raw, "normalized_value": normalized}
+        span = value(mention, "source_span")
+        if span:
+            result["source_spans"] = [span]
+        return result
+
+    disease = accepted("disease", "DISEASE")
+    projected["disease"] = structured_value(disease[0]) if disease else None
+
+    biomarkers: list[dict[str, Any]] = []
+    for mention in accepted("biomarker", "GENE", "BIOMARKER"):
+        item = structured_value(mention)
+        item["gene"] = value(mention, "raw_text", "")
+        biomarkers.append(item)
+    for mention in accepted("alteration", "ALTERATION"):
+        item = structured_value(mention)
+        item["alteration"] = value(mention, "raw_text", "")
+        biomarkers.append(item)
+    projected["biomarkers"] = biomarkers
+
+    previous = accepted("previous_intervention", "INTERVENTION")
+    projected["previous_interventions"] = [structured_value(m) for m in previous]
+
+    target = accepted("target_intervention", "INTERVENTION")
+    projected["target_intervention"] = structured_value(target[0]) if target else None
+    return projected
+
+
 def run(
     clinical_text: str,
     case_context: dict[str, Any] | None,
@@ -58,7 +112,7 @@ def run(
     mentions, semantic_records = verify_semantics(mentions)
 
     # Contraddizioni deterministiche.
-    contradictions = detect_contradictions(text, mentions, case_context)
+    contradictions = detect_contradictions(text, mentions, case_context, control_spans)
 
     decision = evaluate_gate(
         text, case_context, mentions, control_spans, contradictions,
