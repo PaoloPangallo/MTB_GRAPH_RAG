@@ -9,7 +9,7 @@ from dataclasses import asdict, dataclass
 from typing import Any
 
 from .cache_factory import create_operational_cache
-from .identities import evaluation_id, run_id
+from .identities import plan_seed_id, run_id
 from .protocol_loader import Protocol, load_a01_bindings, load_protocol, load_s01_rows, validate_dataset_registry
 
 
@@ -119,7 +119,7 @@ def _harness_commit(protocol: Protocol) -> str:
 
 def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:
     protocol = protocol or load_protocol()
-    eid = evaluation_id(protocol, _harness_commit(protocol))
+    eid = plan_seed_id(protocol, _harness_commit(protocol))
     specs: list[tuple[str, str, list[str], list[str]]] = []
     if kind == "rq1":
         specs = [("GCA_REPOSITORY_2_0_46864", "RQ1", ["GCA_REPOSITORY_2_0_46864"], ["primary"])]

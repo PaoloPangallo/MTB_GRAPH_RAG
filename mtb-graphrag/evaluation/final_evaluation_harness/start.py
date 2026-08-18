@@ -24,6 +24,8 @@ from .common.runner import build_full_plan, execution_plan_sha256, planned_runs_
 from .common.execution import RealExecutionContext, ProductionUnitDispatcher
 from .common.production_loop import execute_sealed_plan
 from .common.guards import ModelGuard, NetworkGuard, RuntimeGuard
+from .common.final_manifest import build_final_results_manifest
+from .common.frozen_coverage import build_coverage_report, require_complete_coverage
 
 
 class CampaignStartError(RuntimeError):
@@ -33,6 +35,52 @@ class CampaignStartError(RuntimeError):
 class RealExecutionNotEnabled(CampaignStartError):
     """Retained for compatibility; valid START no longer raises this guard."""
     pass
+
+
+def validate_frozen_coverage(protocol, plans, source_root: Path):
+    """Validate the single manifest bound by a stabilized protocol.
+
+    Protocol 1.7 has no explicit binding and therefore keeps its historical
+    behavior.  Protocol 1.7.1 must provide all three paths; missing binding is
+    a protocol error, never an implicit fallback.
+    """
+
+    manifest_ref = protocol.manifest.get("frozen_document_manifest_path")
+    if not manifest_ref:
+        return None
+    index_ref = protocol.manifest.get("frozen_source_unit_index_path")
+    cache_ref = protocol.manifest.get("frozen_document_cache_root")
+    if not index_ref or not cache_ref:
+        raise CampaignStartError("FROZEN_TRANSPORT_BINDING_INCOMPLETE")
+    manifest_path = Path(manifest_ref)
+    index_path = Path(index_ref)
+    cache_root = Path(cache_ref)
+    if not manifest_path.is_absolute():
+        manifest_path = (protocol.root / manifest_path).resolve()
+    if not index_path.is_absolute():
+        index_path = (protocol.root / index_path).resolve()
+    if not cache_root.is_absolute():
+        cache_root = (protocol.root / cache_root).resolve()
+    expected_manifest_sha = protocol.manifest.get("frozen_document_manifest_sha256")
+    expected_index_sha = protocol.manifest.get("frozen_source_unit_index_sha256")
+    if not expected_manifest_sha or not expected_index_sha:
+        raise CampaignStartError("FROZEN_TRANSPORT_HASH_BINDING_INCOMPLETE")
+    for path, expected in ((manifest_path, expected_manifest_sha), (index_path, expected_index_sha)):
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+            raise CampaignStartError("FROZEN_TRANSPORT_HASH_MISMATCH")
+    report = build_coverage_report(
+        plans,
+        manifest_path=manifest_path,
+        source_unit_index_path=index_path,
+        payload_root=cache_root,
+        semantic_obligation=protocol.manifest.get("document_obligation"),
+        conditional_closure_complete=(
+            protocol.manifest.get("closure_policy") == "WHOLE_GCA"
+            and protocol.manifest.get("frozen_coverage_complete") is True
+        ),
+    )
+    require_complete_coverage(report)
+    return report
 
 
 def run_production_dispatch(plan, protocol, campaign_root, *, ledger=None, raw_writer=None,
@@ -69,7 +117,8 @@ EXPECTED_MODEL = {
 }
 
 
-def validate_start_confirmation(argv: list[str], expected_evaluation_id: str, expected_plan_sha: str) -> None:
+def validate_start_confirmation(argv: list[str], expected_evaluation_id: str, expected_plan_sha: str,
+                                expected_boundary: str = "FINAL_EVALUATION_1_7") -> None:
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--arm", action="store_true")
     parser.add_argument("--confirm-evaluation-id")
@@ -81,7 +130,7 @@ def validate_start_confirmation(argv: list[str], expected_evaluation_id: str, ex
         raise ExecutionDisarmed("invalid arming arguments") from exc
     if unknown or not args.arm or not args.confirm_evaluation_id or not args.confirm_plan_sha or not args.confirm_start:
         raise ExecutionDisarmed("all explicit confirmations are required")
-    if args.confirm_evaluation_id != expected_evaluation_id or args.confirm_plan_sha != expected_plan_sha or args.confirm_start != "FINAL_EVALUATION_1_7":
+    if args.confirm_evaluation_id != expected_evaluation_id or args.confirm_plan_sha != expected_plan_sha or args.confirm_start != expected_boundary:
         raise CampaignStartError("START_CONFIRMATION_MISMATCH")
 
 
@@ -114,6 +163,7 @@ def validate_source_head(repo: Path, expected_head: str) -> None:
         "backend/research_pipeline/",
         "evaluation/final_evaluation_harness/",
         "evaluation/final_protocol_v1_7/",
+        "evaluation/final_protocol_v1_7_1/",
         "canonical_runtime_freeze_manifest.json",
     )
     dirty = [line for line in status if any(line[3:].replace("\\", "/").startswith(root) for root in frozen_roots)]
@@ -134,10 +184,14 @@ def run_official_start(*, protocol, source_root: Path, expected_head: str, plans
     this function deliberately contains no family-specific execution logic.
     """
     head_validator(source_root, expected_head)
-    validate_start_confirmation(argv, expected_evaluation_id, plan_sha)
+    validate_start_confirmation(
+        argv, expected_evaluation_id, plan_sha,
+        protocol.manifest.get("evaluation_boundary", "FINAL_EVALUATION_1_7"),
+    )
     environment_validator()
     prompt_validator()
     typed_plans = planned_runs_from_serialized(plans)
+    validate_frozen_coverage(protocol, typed_plans, source_root)
     if campaign_root.exists():
         raise CampaignStartError("CAMPAIGN_STORAGE_COLLISION")
     campaign_root.parent.mkdir(parents=True, exist_ok=True)
@@ -150,8 +204,14 @@ def run_official_start(*, protocol, source_root: Path, expected_head: str, plans
     validate_metadata(pre, EXPECTED_MODEL)
     _write_json(staging / "manifest.json", {
         "evaluation_id": expected_evaluation_id,
+        "protocol_version": protocol.manifest.get("protocol_version"),
+        "evaluation_boundary": protocol.manifest.get("evaluation_boundary"),
         "plan_sha256": plan_sha,
         "harness_commit": expected_head,
+        "canonical_runtime_commit": protocol.hashes.get("runtime_commit"),
+        "gca_sha256": protocol.manifest.get("gca_sha256"),
+        "frozen_document_manifest_sha256": protocol.manifest.get("frozen_document_manifest_sha256"),
+        "dependency_lock_sha256": protocol.manifest.get("dependency_lock_sha256"),
         "planned_units": len(plans),
         "pre_snapshot": pre,
     })
@@ -169,6 +229,18 @@ def run_official_start(*, protocol, source_root: Path, expected_head: str, plans
         ledger.append("PROVIDER_MODEL_METADATA_DRIFT", fields=drift)
         raise CampaignStartError("PROVIDER_MODEL_METADATA_DRIFT")
     ledger.append("POST_PROVIDER_SNAPSHOT_COMPLETE")
+    try:
+        output_directory = str(campaign_root.relative_to(source_root)).replace("\\", "/")
+    except ValueError:
+        output_directory = str(campaign_root).replace("\\", "/")
+    final_manifest = build_final_results_manifest(
+        protocol=protocol,
+        campaign_root=campaign_root,
+        expected_units=len(plans),
+        evaluation_id=expected_evaluation_id,
+        output_directory=output_directory,
+    )
+    _write_json(campaign_root / "final_results_manifest.json", final_manifest)
     ledger.append("PROMOTION_PENDING")
     ledger.append("PROMOTED")
     return "DISPATCHED"
@@ -260,7 +332,10 @@ def main(argv: list[str] | None = None) -> None:
     # build_full_plan(); the actual harness HEAD remains separately recorded
     # and checked by validate_source_head().
     eid = evaluation_id(protocol, protocol.hashes["runtime_commit"])
-    validate_start_confirmation(argv, eid, plan_sha)
+    validate_start_confirmation(
+        argv, eid, plan_sha,
+        protocol.manifest.get("evaluation_boundary", "FINAL_EVALUATION_1_7"),
+    )
     validate_source_head(source_root, expected_head)
     try:
         validate_execution_environment()
@@ -269,7 +344,9 @@ def main(argv: list[str] | None = None) -> None:
         raise CampaignStartError(str(exc)) from exc
     gate = ExecutionGate()
     gate.arm()
-    campaign_root = source_root / "evaluation" / "final_evaluation_v1_7"
+    campaign_root = source_root / protocol.manifest.get(
+        "output_directory", "evaluation/final_evaluation_v1_7"
+    )
     run_official_start(
         protocol=protocol,
         source_root=source_root,

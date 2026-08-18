@@ -25,6 +25,10 @@ def test_official_start_wires_pre_before_dispatch(tmp_path: Path, monkeypatch):
         assert (campaign_root / "ledger.jsonl").exists()
         assert all(isinstance(unit, PlannedRun) for unit in plan)
         assert plan[0].execution_class and plan[0].case_id
+        ledger = start.CampaignLedger(campaign_root / "ledger.jsonl")
+        attempt_id = plan[0].run_id + "/a0001"
+        ledger.append("ATTEMPT_RESERVED", attempt_id=attempt_id, run_id=plan[0].run_id)
+        ledger.append("COMPLETE", attempt_id=attempt_id, run_id=plan[0].run_id, unit_status="COMPLETE")
         events.append("DISPATCH")
         return []
 

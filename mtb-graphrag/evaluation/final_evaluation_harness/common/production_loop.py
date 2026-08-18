@@ -11,6 +11,25 @@ from .ledger import AppendOnlyLedger
 from .raw_writer import write_raw_once
 
 
+SCIENTIFIC_UNIT_STATUSES = frozenset({"FAILED", "STOPPED", "PARTIAL"})
+
+
+def _unit_status(result: ScientificExecutionResult) -> str:
+    """Return the explicit terminal status carried by a structured result.
+
+    A runtime ``PipelineRun`` with a scientific terminal status is a valid
+    unit outcome.  It must be persisted and must not be confused with an
+    infrastructure exception raised by the harness itself.
+    """
+
+    status = str(result.status or "COMPLETE")
+    if status == "COMPLETED":
+        return "COMPLETE"
+    if status in SCIENTIFIC_UNIT_STATUSES:
+        return status
+    return "COMPLETE"
+
+
 def _append_event(ledger: Any, event: str, *, attempt_id_value: str, run_id: str, **extra: Any) -> None:
     """Transport lifecycle events through the ledger's canonical API.
 
@@ -51,9 +70,16 @@ def execute_sealed_plan(plan: list[Any], context: RealExecutionContext, registry
                 result = ScientificExecutionResult.from_native(result)
             payload = {"attempt_id": aid, "run_id": unit.run_id, "started_at": started, **result.to_dict()}
             path, digest = write_raw_once(raw_root, aid, payload)
+            terminal_status = _unit_status(result)
             _append_event(ledger, "RAW_COMMITTED", attempt_id_value=aid, run_id=unit.run_id,
-                          raw_path=str(path), raw_sha256=digest)
-            _append_event(ledger, "COMPLETE", attempt_id_value=aid, run_id=unit.run_id)
+                          raw_path=str(path), raw_sha256=digest,
+                          unit_status=terminal_status,
+                          failure_class=result.failure_class,
+                          raw_reason_code=result.raw_reason_code)
+            _append_event(ledger, "COMPLETE", attempt_id_value=aid, run_id=unit.run_id,
+                          unit_status=terminal_status,
+                          failure_class=result.failure_class,
+                          raw_reason_code=result.raw_reason_code)
             results.append(result)
         except Exception:
             _append_event(ledger, "INFRASTRUCTURE_FAILED", attempt_id_value=aid, run_id=unit.run_id)

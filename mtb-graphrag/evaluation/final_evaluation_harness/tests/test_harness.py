@@ -121,8 +121,14 @@ def test_operational_cache_materialization_isolated(protocol, local_tmp):
     assert (local_tmp / "operational_cache_B_cache_miss_success").exists()
 def test_reliability_dry_run_count(): assert dry_run("reliability")["planned_executions"] == 30
 def test_latency_dry_run_count(): assert dry_run("latency")["planned_executions"] == 2
-def test_result_directory_absent(protocol): assert not (protocol.root.parent / "final_evaluation_v1_7").exists()
-def test_no_scientific_payloads(): assert protocol_result_dir_absent()
+def test_first_attempt_directory_is_preserved_as_diagnostic(protocol):
+    path = protocol.root.parent / "final_evaluation_v1_7"
+    assert path.exists()
+    assert not (path / "final_results_manifest.json").exists()
+
+
+def test_no_final_results_manifest_for_incomplete_first_attempt():
+    assert not (Path(__file__).resolve().parents[3] / "evaluation" / "final_evaluation_v1_7" / "final_results_manifest.json").exists()
 
 
 def protocol_result_dir_absent() -> bool:

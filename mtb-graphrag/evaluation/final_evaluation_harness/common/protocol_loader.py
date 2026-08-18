@@ -1,6 +1,6 @@
 """Load Protocol 1.7 and its unchanged inherited scientific contracts."""
 from __future__ import annotations
-import hashlib, json
+import hashlib, json, os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -47,13 +47,14 @@ def _digest(root: Path, files: list[str]) -> str:
 
 def load_protocol(repo_root: Path | None = None) -> Protocol:
     repo=repo_root or Path(__file__).resolve().parents[3]
-    root=repo/"evaluation"/"final_protocol_v1_7"
+    version = os.environ.get("MTB_EVALUATION_PROTOCOL_VERSION", "1.7")
+    root=repo/"evaluation"/f"final_protocol_v{version.replace('.', '_')}"
     manifest=_load(root,"protocol_manifest.json")
     operational_amendment=_load(root,"operational_amendment.json")
     projection=_load(root,"scientific_projection.json")
     seal=_load(root,"protocol_hash.json")
     lineage=_load(root,"lineage.json")
-    if manifest.get("protocol_version")!="1.7" or manifest.get("frozen") is not True or manifest.get("review_status")!="ACCEPTED": raise ProtocolGap("Protocol 1.7 is not accepted/frozen")
+    if manifest.get("protocol_version") not in {"1.7", "1.7.1"} or manifest.get("frozen") is not True or manifest.get("review_status")!="ACCEPTED": raise ProtocolGap("Protocol is not accepted/frozen")
     if manifest.get("runtime_commit") != lineage.get("runtime_commit") or operational_amendment.get("runtime_commit") != lineage.get("runtime_commit"): raise ProtocolGap("Protocol 1.7 runtime identity mismatch")
     if manifest.get("scientific_projection_sha256") != hashlib.sha256((root/"scientific_projection.json").read_bytes()).hexdigest(): raise ProtocolGap("Protocol 1.7 projection mismatch")
     normative_files = manifest.get("normative_files")

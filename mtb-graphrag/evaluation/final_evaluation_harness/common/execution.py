@@ -411,6 +411,39 @@ class ProductionAdapterFactory:
     @staticmethod
     def document_runtime(protocol: Any | None = None) -> Any:
         from backend.research_pipeline.documents.live_resolution import DocumentRuntime
+        if protocol is not None and protocol.manifest.get("frozen_document_manifest_path"):
+            # Protocol 1.7.1 supplies both paths and their hashes.  This
+            # evaluation-only branch binds the read-only runtime to the exact
+            # manifest sealed by the protocol; the canonical runtime default
+            # remains unchanged.
+            import hashlib
+            import json
+            from backend.research_pipeline.documents.cache_runtime import ReadOnlyDocumentCache, describe
+
+            manifest_path = Path(protocol.manifest["frozen_document_manifest_path"])
+            if not manifest_path.is_absolute():
+                manifest_path = (protocol.root / manifest_path).resolve()
+            expected = protocol.manifest.get("frozen_document_manifest_sha256")
+            observed = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+            if expected and observed != expected:
+                raise RuntimeError("FROZEN_DOCUMENT_MANIFEST_SHA256_MISMATCH")
+            cache_root = Path(protocol.manifest["frozen_document_cache_root"])
+            if not cache_root.is_absolute():
+                cache_root = (protocol.root / cache_root).resolve()
+            rows = [json.loads(line) for line in manifest_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+            cache = ReadOnlyDocumentCache(cache_root)
+            descriptor = describe(cache.root).to_dict()
+            descriptor.update({
+                "manifest_hash": observed,
+                "manifest_rows": len(rows),
+                "retrieval_mode": "OFFLINE_FROZEN_TRANSPORT_ONLY",
+            })
+            return DocumentRuntime(
+                cache=cache,
+                manifest_by_document_id={row["document_id"]: row for row in rows},
+                descriptor=descriptor,
+                network_enabled=False,
+            )
         if protocol is not None and protocol.manifest.get("document_transport_policy") == "OFFLINE_FROZEN_TRANSPORT_ONLY":
             # Evaluation-only dependency injection.  The runtime default
             # remains DocumentRuntime.open() (cache-first with authorized
