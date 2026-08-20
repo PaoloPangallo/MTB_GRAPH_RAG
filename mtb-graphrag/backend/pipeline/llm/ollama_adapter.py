@@ -34,7 +34,7 @@ from .credentials import (
 )
 
 DEFAULT_LOCAL_URL = "http://localhost:11434"
-DEFAULT_CLOUD_URL = "https://api.ollama.com"
+DEFAULT_CLOUD_URL = "https://ollama.com"
 CLOUD_HOST_MARKERS = ("api.ollama.com", "ollama.com")
 USER_AGENT = "mtb-graphrag/1.0"
 
