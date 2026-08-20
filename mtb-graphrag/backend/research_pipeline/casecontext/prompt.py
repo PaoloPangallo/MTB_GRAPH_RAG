@@ -1,59 +1,56 @@
-"""Prompt + forced-tool schema for the CaseContext Parser. Versioned as
-casecontext-parser-prompt/1.0. The parser receives only free clinical text --
-never the structured record it was derived from, never KG results."""
+"""Prompt and tool schema for the minimal CaseContext Parser v2."""
 from __future__ import annotations
 
 import hashlib
 import json
 from typing import Any
 
-PROMPT_VERSION = "casecontext-parser-prompt/1.0"
+PROMPT_VERSION = "casecontext-parser-prompt/2.0"
 TOOL_NAME = "submit_case_context"
 
-_SPAN_SCHEMA = {
-    "type": "object", "additionalProperties": False,
-    "required": ["quote", "start_offset", "end_offset"],
+_VALUE_SCHEMA = {
+    "type": ["object", "null"],
+    "additionalProperties": False,
+    "required": ["raw_value", "quote"],
     "properties": {
-        "quote": {"type": "string"},
-        "start_offset": {"type": ["integer", "null"]},
-        "end_offset": {"type": ["integer", "null"]},
+        "raw_value": {"type": ["string", "null"]},
+        "quote": {"type": ["string", "null"]},
     },
 }
 
-_FIELD_SCHEMA = {
-    "type": "object", "additionalProperties": False,
-    "required": ["raw_value", "normalized_value", "source_spans"],
+_NON_NULL_VALUE_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["raw_value", "quote"],
     "properties": {
-        "raw_value": {"type": ["string", "null"]},
-        "normalized_value": {"type": ["string", "null"]},
-        "source_spans": {"type": "array", "items": _SPAN_SCHEMA},
+        "raw_value": {"type": "string"},
+        "quote": {"type": "string"},
     },
 }
 
 _BIOMARKER_SCHEMA = {
-    "type": "object", "additionalProperties": False,
-    "required": ["gene", "alteration", "raw_value", "normalized_value", "source_spans"],
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["gene", "alteration"],
     "properties": {
-        "gene": {"type": ["string", "null"]},
-        "alteration": {"type": ["string", "null"]},
-        "raw_value": {"type": "string"},
-        "normalized_value": {"type": "string"},
-        "source_spans": {"type": "array", "items": _SPAN_SCHEMA},
+        "gene": _VALUE_SCHEMA,
+        "alteration": _VALUE_SCHEMA,
     },
 }
 
 CASECONTEXT_TOOL_SCHEMA = {
-    "type": "object", "additionalProperties": False,
-    "required": ["case_id", "disease", "biomarkers", "previous_interventions", "target_intervention", "query_intent", "clinical_question", "uncertainties"],
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["disease", "biomarkers", "previous_interventions", "target_intervention", "query_intent"],
     "properties": {
-        "case_id": {"type": "string"},
-        "disease": _FIELD_SCHEMA,
+        "disease": _VALUE_SCHEMA,
         "biomarkers": {"type": "array", "items": _BIOMARKER_SCHEMA},
-        "previous_interventions": {"type": "array", "items": _FIELD_SCHEMA},
-        "target_intervention": {"type": ["object", "null"], "additionalProperties": False, "properties": _FIELD_SCHEMA["properties"]},
-        "query_intent": {"type": "string", "enum": ["THERAPY_EVALUATION", "THERAPY_DISCOVERY"]},
-        "clinical_question": {"type": "string"},
-        "uncertainties": {"type": "array", "items": {"type": "string"}},
+        "previous_interventions": {"type": "array", "items": _NON_NULL_VALUE_SCHEMA},
+        "target_intervention": {"anyOf": [_NON_NULL_VALUE_SCHEMA, {"type": "null"}]},
+        "query_intent": {
+            "type": ["string", "null"],
+            "enum": ["THERAPY_EVALUATION", "THERAPY_DISCOVERY", None],
+        },
     },
 }
 
@@ -61,14 +58,14 @@ CASECONTEXT_TOOL_DEFINITION = {
     "type": "function",
     "function": {
         "name": TOOL_NAME,
-        "description": "Submit one structured CaseContext extracted only from the supplied free clinical text.",
+        "description": "Submit literal case-context mentions extracted only from the supplied clinical text.",
         "parameters": CASECONTEXT_TOOL_SCHEMA,
     },
 }
 
-SYSTEM_PROMPT = """You are a clinical case context extraction component. Read only the supplied free clinical text. Do not use external knowledge, do not query any database, do not know or guess what the correct or expected answer is. Extract disease, biomarkers (gene + alteration), any previous interventions, and -- only if the text names a specific drug the clinician wants evaluated -- a target intervention. If the text asks a discovery-style question ("what therapy options exist") without naming a specific drug, target_intervention must be null and query_intent must be THERAPY_DISCOVERY; do not invent a drug name to fill it. If the text names a specific drug to evaluate, query_intent must be THERAPY_EVALUATION. Every non-null field must carry at least one literal, contiguous, exact quotation from the supplied text as a source_spans entry (copy the quote exactly; do not paraphrase or translate). Do not add a drug, gene, alteration, or disease that is not literally present in the text. Do not invent molecular variants. Do not produce clinical recommendations. Record anything unclear or ambiguous in uncertainties. Call submit_case_context exactly once."""
+SYSTEM_PROMPT = """You are a clinical case context extraction component. Read only the supplied free clinical text. Do not use external knowledge, do not query any database, do not know or guess what the correct or expected answer is. Extract only disease, biomarkers (gene and alteration), previous interventions, and a specific target intervention when the text names one. For every extracted value, copy a literal, contiguous, exact quotation from the supplied text. If a value is not present, use null or an empty list. Do not invent a drug, gene, alteration, disease, or molecular variant. Suggest query_intent as THERAPY_EVALUATION when the text clearly evaluates a named therapy, THERAPY_DISCOVERY when it clearly asks for therapy options without a target therapy, and null when the intent is unclear. Do not produce clinical recommendations. Call submit_case_context exactly once."""
 
-TASK_PROMPT = """Populate every required field of the tool call strictly from the supplied text. Leave a field null (with an empty source_spans list) only when the text truly does not mention it. Do not guess a case_id beyond the one supplied in the input."""
+TASK_PROMPT = """Populate only the fields in the tool schema. Return raw values and exact quotes; do not return offsets, normalized values, case_id, clinical_question, uncertainties, or schema_version. Null and empty lists are valid when the text does not contain the information."""
 
 
 def prompt_hash() -> str:
@@ -81,11 +78,48 @@ def render_request(case_id: str, clinical_text: str) -> str:
     return f"{header}\n--- CLINICAL TEXT START ---\n<<<\n{clinical_text}\n>>>\n--- CLINICAL TEXT END ---"
 
 
+def _value_errors(value: Any, label: str, *, nullable: bool, required_strings: bool) -> list[str]:
+    if value is None and nullable:
+        return []
+    if not isinstance(value, dict):
+        return [f"{label}_NOT_OBJECT"]
+    errors = []
+    if set(value) != {"raw_value", "quote"}:
+        errors.append(f"{label}_KEYS_INVALID")
+        return errors
+    for key in ("raw_value", "quote"):
+        if not isinstance(value[key], str):
+            errors.append(f"{label}_{key.upper()}_REQUIRED_STRING" if required_strings else f"{label}_{key.upper()}_INVALID")
+    return errors
+
+
 def tool_argument_errors(arguments: Any) -> list[str]:
-    from ..models import case_context_schema_errors
     if not isinstance(arguments, dict):
         return ["ARGUMENTS_NOT_OBJECT"]
     expected = set(CASECONTEXT_TOOL_SCHEMA["properties"])
     if set(arguments) != expected:
         return [f"TOP_LEVEL_KEYS:{sorted(set(arguments) ^ expected)}"]
-    return case_context_schema_errors(arguments)
+
+    errors = _value_errors(arguments["disease"], "DISEASE", nullable=True, required_strings=False)
+    biomarkers = arguments["biomarkers"]
+    if not isinstance(biomarkers, list):
+        errors.append("BIOMARKERS_NOT_LIST")
+    else:
+        for index, biomarker in enumerate(biomarkers):
+            if not isinstance(biomarker, dict) or set(biomarker) != {"gene", "alteration"}:
+                errors.append(f"BIOMARKER_{index}_SHAPE_INVALID")
+                continue
+            errors.extend(_value_errors(biomarker["gene"], f"BIOMARKER_{index}_GENE", nullable=True, required_strings=False))
+            errors.extend(_value_errors(biomarker["alteration"], f"BIOMARKER_{index}_ALTERATION", nullable=True, required_strings=False))
+
+    previous = arguments["previous_interventions"]
+    if not isinstance(previous, list):
+        errors.append("PREVIOUS_INTERVENTIONS_NOT_LIST")
+    else:
+        for index, item in enumerate(previous):
+            errors.extend(_value_errors(item, f"PREVIOUS_INTERVENTION_{index}", nullable=False, required_strings=True))
+
+    errors.extend(_value_errors(arguments["target_intervention"], "TARGET_INTERVENTION", nullable=True, required_strings=True))
+    if arguments["query_intent"] not in {None, "THERAPY_EVALUATION", "THERAPY_DISCOVERY"}:
+        errors.append("QUERY_INTENT_INVALID")
+    return errors

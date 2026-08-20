@@ -292,6 +292,172 @@ class TransportFailureIsAFailureTest(OrchestratorTestBase):
         self.assertNotEqual(failed.status, stopped.status)
 
 
+class CandidateLocalSourceUnitFailureTest(OrchestratorTestBase):
+    """SourceUnit absence is candidate-local, not a run-level abort."""
+
+    @staticmethod
+    def _candidate(candidate_id: str, document_id: str) -> dict[str, Any]:
+        return {
+            "candidate_id": candidate_id,
+            "candidate_version": "2.0",
+            "disease": [{"label": "Metastatic colorectal cancer"}],
+            "biomarkers": [{"label": "KRAS G12D", "type": "Variant"}],
+            "interventions": [{"label": "panitumumab"}],
+            "direction": "Supports",
+            "predicate": "has_evidence_statement",
+            "document_identifiers": [{"pmid": document_id}],
+        }
+
+    @classmethod
+    def _retrieval(cls, candidate_specs: list[tuple[str, str]]) -> dict[str, Any]:
+        associations = []
+        for candidate_id, document_id in candidate_specs:
+            associations.append({
+                "candidate_id": candidate_id,
+                "candidate": cls._candidate(candidate_id, document_id),
+                "available_bundles": [{
+                    "bundle_id": f"live:{candidate_id}:{document_id}",
+                    "bundle_type": "PROVENANCE_DOCUMENT",
+                    "document_id": document_id,
+                    "source_unit_ids": [],
+                }],
+                "match_reason_codes": ["DISEASE_COMPATIBLE", "BIOMARKER_COMPATIBLE"],
+            })
+        return {
+            "query_intent": "THERAPY_EVALUATION",
+            "associations": associations,
+            "excluded_candidates": [],
+            "no_match": False,
+        }
+
+    @staticmethod
+    def _selection(selected: bool, candidate_id: str, document_id: str) -> dict[str, Any]:
+        if not selected:
+            return {
+                "candidate_id": candidate_id,
+                "selected_papers": [],
+                "excluded_papers": [{
+                    "bundle_id": f"live:{candidate_id}:{document_id}",
+                    "document_id": document_id,
+                    "reason_codes": ["SOURCEUNIT_SELECTION_FAILED"],
+                    "selector_status": "NO_RELEVANT_SOURCE_UNIT",
+                }],
+            }
+        return {
+            "candidate_id": candidate_id,
+            "selected_papers": [{
+                "bundle_id": f"live:{candidate_id}:{document_id}",
+                "document_id": document_id,
+                "resolved_source_unit_ids": [f"su:{candidate_id}"],
+            }],
+            "excluded_papers": [],
+        }
+
+    def _run_synthetic(self, candidate_specs: list[tuple[str, str]], selected_ids: set[str]):
+        retrieval = lambda _: self._retrieval(candidate_specs)
+
+        def select(association, _units, **_kwargs):
+            candidate_id = association["candidate_id"]
+            document_id = association["available_bundles"][0]["document_id"]
+            return self._selection(candidate_id in selected_ids, candidate_id, document_id)
+
+        units = {
+            f"su:{candidate_id}": {
+                "source_unit_id": f"su:{candidate_id}",
+                "document_id": document_id,
+                "text": "KRAS G12D and panitumumab in metastatic colorectal cancer.",
+            }
+            for candidate_id, document_id in candidate_specs
+            if candidate_id in selected_ids
+        }
+        return self.run_case(
+            "CASE-1-therapy-evaluation-strong-match",
+            retrieve_fn=retrieval,
+            select_papers_fn=select,
+            source_units_by_id=units,
+        )
+
+    def test_valid_candidate_survives_peer_without_source_unit(self) -> None:
+        run = self._run_synthetic([("A", "doc-a"), ("B", "doc-b")], {"A"})
+
+        self.assertNotEqual(run.status, "FAILED")
+        dossier = next(s for s in run.stages if s.stage_id == "stage_13_dossier")
+        entries = {e["candidate_id"]: e for e in dossier.output_preview["dossier"]["candidate_therapies"]}
+        self.assertEqual(entries["A"]["document_support"]["selected_papers"], ["live:A:doc-a"])
+        self.assertEqual(entries["B"]["document_support"]["selected_papers"], [])
+        self.assertIn("NO_RELEVANT_SOURCE_UNIT", entries["B"]["warnings"])
+        stage8 = next(s for s in run.stages if s.stage_id == "stage_8_paper_selection")
+        self.assertEqual(stage8.status, "WARNING")
+
+    def test_two_valid_candidates_are_preserved_with_one_local_failure(self) -> None:
+        run = self._run_synthetic([("A", "doc-a"), ("B", "doc-b"), ("C", "doc-c")], {"A", "B"})
+
+        self.assertNotEqual(run.status, "FAILED")
+        dossier = next(s for s in run.stages if s.stage_id == "stage_13_dossier")
+        entries = dossier.output_preview["dossier"]["candidate_therapies"]
+        self.assertEqual({e["candidate_id"] for e in entries}, {"A", "B", "C"})
+        self.assertEqual(entries[-1]["candidate_id"], "C")
+        self.assertEqual(entries[-1]["document_support"]["selected_papers"], [])
+
+    def test_candidate_with_one_failed_document_can_use_second_document(self) -> None:
+        def retrieval(_):
+            result = self._retrieval([("A", "doc-a")])
+            result["associations"][0]["available_bundles"].append({
+                "bundle_id": "live:A:doc-b", "bundle_type": "PROVENANCE_DOCUMENT",
+                "document_id": "doc-b", "source_unit_ids": [],
+            })
+            return result
+
+        def select(association, _units, **_kwargs):
+            return {
+                "candidate_id": "A",
+                "selected_papers": [{
+                    "bundle_id": "live:A:doc-b", "document_id": "doc-b",
+                    "resolved_source_unit_ids": ["su:A"],
+                }],
+                "excluded_papers": [{
+                    "bundle_id": "live:A:doc-a", "document_id": "doc-a",
+                    "reason_codes": ["SOURCEUNIT_SELECTION_FAILED"],
+                    "selector_status": "NO_RELEVANT_SOURCE_UNIT",
+                }],
+            }
+
+        run = self.run_case(
+            "CASE-1-therapy-evaluation-strong-match",
+            retrieve_fn=retrieval,
+            select_papers_fn=select,
+            source_units_by_id={"su:A": {
+                "source_unit_id": "su:A", "document_id": "doc-b", "text": "usable text",
+            }},
+        )
+        self.assertNotEqual(run.status, "FAILED")
+        dossier = next(s for s in run.stages if s.stage_id == "stage_13_dossier")
+        entry = dossier.output_preview["dossier"]["candidate_therapies"][0]
+        self.assertEqual(entry["document_support"]["selected_papers"], ["live:A:doc-b"])
+
+    def test_all_candidates_without_source_units_produce_controlled_partial_result(self) -> None:
+        run = self._run_synthetic([("A", "doc-a"), ("B", "doc-b")], set())
+
+        self.assertEqual(run.status, "PARTIAL")
+        self.assertNotEqual(run.stopped_at, "SOURCEUNIT_SELECTION_FAILED")
+        dossier = next(s for s in run.stages if s.stage_id == "stage_13_dossier")
+        entries = dossier.output_preview["dossier"]["candidate_therapies"]
+        self.assertEqual(len(entries), 2)
+        self.assertTrue(all(not e["document_support"]["selected_papers"] for e in entries))
+
+    def test_unexpected_selector_failure_remains_fatal(self) -> None:
+        class ExplodingSelector:
+            def __call__(self, *args, **kwargs):
+                raise RuntimeError("selector-independent infrastructure failure")
+
+        with self.assertRaises(RuntimeError):
+            self.run_case(
+                "CASE-1-therapy-evaluation-strong-match",
+                retrieve_fn=lambda _: self._retrieval([("A", "doc-a")]),
+                select_papers_fn=ExplodingSelector(),
+            )
+
+
 class LedgerIntegrityTest(OrchestratorTestBase):
     def test_the_event_chain_verifies(self) -> None:
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")
@@ -418,14 +584,18 @@ class FrozenReplayTest(OrchestratorTestBase):
         self.assertIn(run.status, ("COMPLETED", "PARTIAL"))
         self.assertEqual(by_id["stage_13_dossier"].status, "SUCCEEDED")
 
-    def test_an_accepted_quote_reaches_the_gates(self) -> None:
-        """CASE-1 ha una quote accettata nel pilot: deve arrivare allo status."""
+    def test_an_accepted_quote_without_strong_support_is_not_promoted(self) -> None:
+        """Una quote validata resta tracciabile, ma non basta senza support check forte."""
         run = self.run_replayed("CASE-1-therapy-evaluation-strong-match")
         by_id = {s.stage_id: s for s in run.stages}
         statuses = {s["status"] for s in by_id["stage_12_status"].output_preview["statuses"]}
 
         self.assertTrue(statuses)
-        self.assertNotEqual(statuses, {"AMBIGUOUS"})
+        self.assertEqual(statuses, {"AMBIGUOUS"})
+        validations = by_id["stage_10_enrichment_validation"].output_preview["validations"]
+        accepted = [v for v in validations if v["outcome"].startswith("ENRICHMENT_V2_ACCEPTED")]
+        self.assertTrue(accepted)
+        self.assertTrue(all(v["candidate_support"]["result"] != "STRONG_SUPPORT" for v in accepted))
 
     def test_abstentions_do_not_reach_the_gates(self) -> None:
         """CASE-4 ha solo astensioni: nessun supporto documentale."""
@@ -449,11 +619,12 @@ class FrozenReplayTest(OrchestratorTestBase):
         for rejected in ("REJECTED_QUOTE_NOT_FOUND", "ENRICHMENT_V2_ABSTAINED",
                          "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
                          "REJECTED_SOURCE_UNIT", "REJECTED_TRANSPORT"):
-            self.assertIsNone(_accepted_for_gates(rejected))
+            self.assertIsNone(_accepted_for_gates(rejected, {"result": "STRONG_SUPPORT"}))
 
     def test_the_v2_to_gate_adapter_admits_only_the_pilot_accepted_set(self) -> None:
         from backend.research_pipeline.orchestrator import _accepted_for_gates
 
-        self.assertEqual(_accepted_for_gates("ENRICHMENT_V2_ACCEPTED"), "ENRICHMENT_ACCEPTED")
-        self.assertEqual(_accepted_for_gates("ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY"),
+        strong = {"result": "STRONG_SUPPORT"}
+        self.assertEqual(_accepted_for_gates("ENRICHMENT_V2_ACCEPTED", strong), "ENRICHMENT_ACCEPTED")
+        self.assertEqual(_accepted_for_gates("ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY", strong),
                          "ENRICHMENT_ACCEPTED_WITH_WARNING")

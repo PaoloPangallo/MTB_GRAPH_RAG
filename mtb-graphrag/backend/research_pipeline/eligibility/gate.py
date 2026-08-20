@@ -223,6 +223,8 @@ def evaluate(
 
     if intent not in {"THERAPY_EVALUATION", "THERAPY_DISCOVERY"}:
         return decide(AMBIGUOUS_CASE_CONTEXT, ["QUERY_INTENT_NOT_DETERMINED"], warnings=warnings)
+    if intent == "THERAPY_DISCOVERY" and target:
+        return decide(AMBIGUOUS_CASE_CONTEXT, ["INTENT_TARGET_INCONSISTENT"], warnings=warnings)
 
     reasons = ["ONCOLOGY_ANCHOR_VERIFIED", "MINIMUM_FIELDS_SATISFIED"]
     reasons.append("INTERVENTION_REQUIRED" if intent == "THERAPY_EVALUATION"

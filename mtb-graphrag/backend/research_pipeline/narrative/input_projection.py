@@ -87,6 +87,51 @@ def _abstentions(entry: dict[str, Any]) -> list[str]:
     ]
 
 
+def _candidate_support_checks(entry: dict[str, Any]) -> list[dict[str, Any]]:
+    """Propagate every paper-scoped check without recalculating it."""
+    checks: list[dict[str, Any]] = []
+    direct = entry.get("candidate_support")
+    if isinstance(direct, dict):
+        checks.append({
+            "candidate_id": _text(entry.get("candidate_id")),
+            "document_id": _text(direct.get("paper_id")),
+            "source_unit_id": _text(direct.get("source_unit_id")),
+            "quote": "",
+            "candidate_support": direct,
+        })
+    for validation in entry.get("validation_results") or []:
+        if not isinstance(validation, dict):
+            continue
+        support = validation.get("candidate_support")
+        if isinstance(support, dict):
+            paper_id = _text(validation.get("paper_id") or support.get("paper_id"))
+            source_unit_id = _text(support.get("source_unit_id"))
+            quote = next(
+                (
+                    _text(enrichment.get("author_claim_quote"))
+                    for enrichment in entry.get("author_context") or []
+                    if _text(enrichment.get("paper_id")) == paper_id
+                    and _text(enrichment.get("source_unit_id")) == source_unit_id
+                ),
+                "",
+            )
+            checks.append({
+                "candidate_id": _text(entry.get("candidate_id")),
+                "document_id": paper_id,
+                "source_unit_id": source_unit_id,
+                "quote": quote,
+                "candidate_support": support,
+            })
+    return checks
+
+
+def _candidate_support(entry: dict[str, Any], checks: list[dict[str, Any]]) -> dict[str, Any] | None:
+    """Expose a singular check only when it is unambiguous."""
+    if len(checks) == 1:
+        return checks[0]["candidate_support"]
+    return None
+
+
 def _candidate(entry: dict[str, Any]) -> dict[str, Any]:
     mask = (entry.get("gate_results") or {}).get("support_mask") or {}
     direction = _text(mask.get("direction"))
@@ -95,6 +140,7 @@ def _candidate(entry: dict[str, Any]) -> dict[str, Any]:
     quotes = _validated_quotes(entry)
     selected = [p for p in (entry.get("document_support") or {}).get("selected_papers") or []
                 if isinstance(p, str)]
+    support_checks = _candidate_support_checks(entry)
     return {
         "candidate_id": _text(entry.get("candidate_id")),
         "drug": entry.get("drug"),
@@ -109,6 +155,8 @@ def _candidate(entry: dict[str, Any]) -> dict[str, Any]:
         "validated_quotes": quotes,
         "has_validated_quote": bool(quotes),
         "abstention_reasons": _abstentions(entry),
+        "candidate_support": _candidate_support(entry, support_checks),
+        "candidate_support_checks": support_checks,
         # Derivati espliciti: il modello non deve dedurli, e il verifier li usa
         # come atteso. Sono calcoli deterministici su dati già nel dossier.
         "expresses_support": (

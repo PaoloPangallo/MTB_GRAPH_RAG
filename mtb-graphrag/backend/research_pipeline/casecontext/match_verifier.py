@@ -10,7 +10,7 @@ from typing import Any
 
 from ..models import MATCH_FIELDS, MatchVerificationRecord
 
-ESSENTIAL_FIELDS = ("disease", "biomarker", "query_intent")
+ESSENTIAL_FIELDS = ("disease", "biomarker")
 
 
 def _norm(value: Any) -> str:
@@ -84,10 +84,16 @@ def verify_case_context(case_context: dict[str, Any], clinical_text: str) -> lis
 
     query_intent = case_context.get("query_intent")
     target = case_context.get("target_intervention")
-    structurally_consistent = (query_intent == "THERAPY_EVALUATION" and target is not None) or (query_intent == "THERAPY_DISCOVERY" and target is None)
+    if query_intent is None:
+        intent_status, intent_reason = "UNCERTAIN", "INTENT_NOT_DETERMINED"
+    elif query_intent == "THERAPY_EVALUATION" and target is None:
+        intent_status, intent_reason = "UNCERTAIN", "EVALUATION_TARGET_MISSING"
+    else:
+        structurally_consistent = (query_intent == "THERAPY_EVALUATION" and target is not None) or (query_intent == "THERAPY_DISCOVERY" and target is None)
+        intent_status = "MATCH" if structurally_consistent else "MISMATCH"
+        intent_reason = "INTENT_TARGET_CONSISTENT" if structurally_consistent else "INTENT_TARGET_INCONSISTENT"
     records.append(MatchVerificationRecord(
-        "query_intent", query_intent, "MATCH" if structurally_consistent else "MISMATCH", None, None, None,
-        "INTENT_TARGET_CONSISTENT" if structurally_consistent else "INTENT_TARGET_INCONSISTENT",
+        "query_intent", query_intent, intent_status, None, None, None, intent_reason,
     ))
     return records
 

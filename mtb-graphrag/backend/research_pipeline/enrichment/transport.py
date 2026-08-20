@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import time
 from typing import Any
 
@@ -94,6 +95,57 @@ def post_with_infra_retry(payload: dict) -> tuple[int | None, dict | None, str |
                 continue
             return None, None, f"{type(exc).__name__}:{exc}", retry_count
     return None, None, "PROVIDER_ERROR", retry_count
+
+
+def _sanitize_diagnostic(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {key: _sanitize_diagnostic(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_sanitize_diagnostic(item) for item in value]
+    if isinstance(value, str):
+        return re.sub(r"Bearer\s+\S+", "Bearer REDACTED", value)
+    return value
+
+
+def post_with_infra_retry_with_diagnostics(payload: dict) -> tuple[int | None, dict | None, str | None, int, dict[str, Any]]:
+    """Parser-only transport call preserving sanitized response diagnostics."""
+    retry_count = 0
+    target = endpoint()
+    safe_headers = {"content-type", "server", "date", "request-id", "x-request-id"}
+    for attempt in range(MAX_RETRIES_INFRA_ONLY + 1):
+        try:
+            response = requests.post(
+                target.url, json=payload,
+                headers=target.headers(llm_config.api_key()),
+                timeout=target.timeout_seconds,
+            )
+            try:
+                body = response.json()
+            except ValueError:
+                body = {"raw_text": response.text}
+            diagnostics = {
+                "http_status": response.status_code,
+                "response_headers": {k: v for k, v in response.headers.items() if k.lower() in safe_headers},
+                "raw_response_body": _sanitize_diagnostic(body),
+                "attempt_count": attempt + 1,
+            }
+            if response.status_code >= 500 and attempt < MAX_RETRIES_INFRA_ONLY:
+                retry_count += 1
+                time.sleep(1.0)
+                continue
+            return response.status_code, body, None, retry_count, diagnostics
+        except requests.exceptions.Timeout:
+            if attempt < MAX_RETRIES_INFRA_ONLY:
+                retry_count += 1
+                continue
+            return None, None, "TIMEOUT", retry_count, {"http_status": None, "response_headers": {}, "raw_response_body": None, "attempt_count": attempt + 1}
+        except requests.exceptions.RequestException as exc:
+            if attempt < MAX_RETRIES_INFRA_ONLY:
+                retry_count += 1
+                time.sleep(1.0)
+                continue
+            return None, None, f"{type(exc).__name__}:{exc}", retry_count, {"http_status": None, "response_headers": {}, "raw_response_body": None, "attempt_count": attempt + 1}
+    return None, None, "PROVIDER_ERROR", retry_count, {"http_status": None, "response_headers": {}, "raw_response_body": None, "attempt_count": MAX_RETRIES_INFRA_ONLY + 1}
 
 
 def transport_result(status_code: int | None, response_json: dict | None, network_error: str | None, expected_tool_name: str, argument_errors_fn) -> tuple[str, str | None, dict | None, list[str]]:

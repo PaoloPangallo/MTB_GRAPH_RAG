@@ -54,6 +54,7 @@ from backend.research_pipeline.determinism import gates as detpipe
 from backend.research_pipeline.documents.live_resolution import DocumentRuntime
 from backend.research_pipeline.dossier import builder as dossier_mod
 from backend.research_pipeline.enrichment import validator as enrichment_validator
+from backend.research_pipeline.enrichment.post_quote_support import assess_candidate_support
 from backend.research_pipeline.live_providers import LiveStageFailed
 from backend.research_pipeline.narrative import input_projection as narrative_projection
 from backend.research_pipeline.narrative import prompt as narrative_prompt
@@ -72,7 +73,10 @@ _V1_ACCEPTED = ("ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING")
 _V2_ACCEPTED = ("ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY")
 
 
-def _accepted_for_gates(outcome: str) -> str | None:
+def _accepted_for_gates(
+    outcome: str,
+    candidate_support: dict[str, Any] | None,
+) -> str | None:
     """Traduce un esito di validazione nel vocabolario atteso dai gate.
 
     Il pilot non ha mai collegato l'enricher v2 ai gate: ``run_pilot_v2.py`` usa
@@ -86,6 +90,8 @@ def _accepted_for_gates(outcome: str) -> str | None:
     inclusi — così un enrichment non validato non può in nessun caso influenzare
     status, mask, gate o bucket.
     """
+    if not isinstance(candidate_support, dict) or candidate_support.get("result") != "STRONG_SUPPORT":
+        return None
     if outcome in _V1_ACCEPTED:
         return outcome
     if outcome in _V2_ACCEPTED:
@@ -413,7 +419,10 @@ def run_case(
                         artifact_origin=replay_origin,
                         reason_codes=("PARSER_TRANSPORT_FAILED",),
                         errors=(str(transport),),
-                        output_preview={"transport_result": transport})
+                        output_preview={
+                            "transport_result": transport,
+                            "parser_diagnostics": parser_result.get("parser_diagnostics"),
+                        })
         return _finalize("FAILED", "PARSER_TRANSPORT_FAILED")
 
     case_context = parser_result["case_context_raw"]
@@ -679,7 +688,7 @@ def run_case(
     # STAGE 8-12 — Per associazione: selezione, enrichment, validazione, gate, status
     candidate_therapies: list[dict[str, Any]] = []
     selections, enrichment_calls, validations, evaluations = [], [], [], []
-    selection_failed = False
+    selection_failed_candidates: set[str] = set()
 
     for association in retrieval_result["associations"]:
         recorder.emit_domain_event(
@@ -711,9 +720,13 @@ def run_case(
                 any(paper.get("source_unit_ids") for paper in selection.get("selected_papers", []))
             ) if canonical else True,
         )
-        if canonical and association.get("available_bundles") and not selection.get("selected_papers"):
-            selection_failed = True
         candidate = association["candidate"]
+        candidate_selection_failed = bool(
+            association.get("available_bundles")
+            and not selection.get("selected_papers")
+        )
+        if candidate_selection_failed:
+            selection_failed_candidates.add(candidate["candidate_id"])
 
         enrichment_entries, validation_entries, validated = [], [], []
         for paper in selection["selected_papers"]:
@@ -761,10 +774,30 @@ def run_case(
                 requested_drug=requested_drug, case_id=case_id,
                 paper_id=paper["document_id"] if canonical else paper["bundle_id"],
             )
-            validations.append({"candidate_id": candidate["candidate_id"],
-                                "paper_id": paper["bundle_id"], **validation})
-            validation_entries.append({"paper_id": paper["bundle_id"], **validation})
-            gate_outcome = _accepted_for_gates(validation["outcome"])
+            validation_record = {"candidate_id": candidate["candidate_id"],
+                                 "paper_id": paper["bundle_id"], **validation}
+            if (
+                validation["outcome"] in _V1_ACCEPTED + _V2_ACCEPTED
+                and call.get("enrichment") is not None
+            ):
+                source_unit_id = call["enrichment"].get("source_unit_id")
+                source_unit_text = next(
+                    (unit.get("text") or "" for unit in paper_units
+                     if unit.get("source_unit_id") == source_unit_id),
+                    "",
+                )
+                validation_record["candidate_support"] = assess_candidate_support(
+                    candidate,
+                    call["enrichment"],
+                    source_unit_text=source_unit_text,
+                    paper_id=paper["document_id"] if canonical else paper["bundle_id"],
+                )
+            validations.append(validation_record)
+            validation_entries.append({"paper_id": paper["bundle_id"], **validation_record})
+            gate_outcome = _accepted_for_gates(
+                validation["outcome"],
+                validation_record.get("candidate_support"),
+            )
             if call["enrichment"] is not None:
                 # L'enrichment viaggia con il **proprio** esito di validazione.
                 # Prima veniva appeso nudo, e il dossier non conservava alcun modo
@@ -786,6 +819,11 @@ def run_case(
 
         evaluation = detpipe.evaluate_association(
             case_context.get("query_intent"), candidate, validated)
+        if candidate_selection_failed:
+            evaluation = dict(evaluation)
+            evaluation["warnings"] = list(evaluation["warnings"])
+            if "NO_RELEVANT_SOURCE_UNIT" not in evaluation["warnings"]:
+                evaluation["warnings"].append("NO_RELEVANT_SOURCE_UNIT")
         evaluations.append({"candidate_id": candidate["candidate_id"], **evaluation})
         candidate_therapies.append(dossier_mod.build_candidate_therapy_entry(
             candidate, graph_relation=candidate.get("predicate", ""),
@@ -795,22 +833,17 @@ def run_case(
             evaluation=evaluation,
         ))
 
-    if canonical and selection_failed:
-        p = _deterministic("paper_selection")
-        recorder.start("stage_8_paper_selection", p)
-        recorder.finish(
-            "stage_8_paper_selection", p, status="FAILED",
-            artifact_origin=em.NOT_EXECUTED,
-            reason_codes=("SOURCEUNIT_SELECTION_FAILED",),
-            output_preview={"selections": selections},
-        )
-        return _finalize("FAILED", "SOURCEUNIT_SELECTION_FAILED")
-
     p = _deterministic("paper_selection")
     recorder.start("stage_8_paper_selection", p)
     recorder.finish("stage_8_paper_selection", p,
+                    status="WARNING" if selection_failed_candidates else "SUCCEEDED",
                     artifact_origin=em.GENERATED_NOW if select_papers_fn is None else replay_origin,
                     domain_event=ev.PAPER_SELECTED,
+                    reason_codes=("SOURCEUNIT_SELECTION_FAILED",) if selection_failed_candidates else (),
+                    warnings=tuple(
+                        f"NO_RELEVANT_SOURCE_UNIT:{candidate_id}"
+                        for candidate_id in sorted(selection_failed_candidates)
+                    ),
                     output_preview={"selections": selections,
                                     "max_papers_per_association": 2,
                                     "max_source_units_per_paper": 5 if canonical else 4,

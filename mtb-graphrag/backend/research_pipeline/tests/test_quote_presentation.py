@@ -59,7 +59,9 @@ def _entry_for(args):
     validation = lp.validate_fn("V2_TRANSPORT_VALID", dict(args), candidate=CAND,
                                 paper_bundle=PAPER, source_units_by_id=UNITS,
                                 requested_drug="panitumumab")
-    gate = orchestrator._accepted_for_gates(validation["outcome"])
+    gate = orchestrator._accepted_for_gates(
+        validation["outcome"], {"result": "STRONG_SUPPORT"}
+    )
     validated = [] if gate is None else [{"validation_outcome": gate, "enrichment": dict(args)}]
     entry = builder.build_candidate_therapy_entry(
         CAND, graph_relation="has_evidence_statement",
@@ -209,14 +211,20 @@ class EndToEndThroughOrchestrator(unittest.TestCase):
         self.assertTrue(therapies, "la run deve produrre almeno una candidate")
         seen = 0
         for therapy in therapies:
+            support_by_paper = {
+                row["paper_id"]: (row.get("candidate_support") or {}).get("result")
+                for row in therapy["validation_results"]
+            }
             for voice in therapy["author_context"]:
                 seen += 1
                 self.assertIn("presentation_state", voice)
                 self.assertIn(voice["presentation_state"], (
                     VALIDATED_QUOTE, REJECTED_QUOTE, ABSTAINED, PROPOSED_QUOTE_NOT_VALIDATED))
                 if voice["presentation_state"] == VALIDATED_QUOTE:
-                    self.assertTrue(voice["accepted_for_gates"],
-                                    "presentabile ma non ammessa ai gate: incoerenza")
+                    if voice["accepted_for_gates"]:
+                        self.assertEqual(support_by_paper.get(voice["paper_id"]), "STRONG_SUPPORT")
+                    else:
+                        self.assertNotEqual(support_by_paper.get(voice["paper_id"]), "STRONG_SUPPORT")
         self.assertGreater(seen, 0, "il dossier deve contenere author_context")
 
 

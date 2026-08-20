@@ -88,6 +88,12 @@ REGOLE VINCOLANTI
    dovrebbe ricevere", "e' indicato", "terapia di scelta", "standard di cura".
 7. Distingui sempre CANDIDATE da RACCOMANDAZIONE. Una candidate e' una
    relazione proposta dal grafo, non una terapia consigliata.
+8. Usa ``candidate_support`` o, quando sono presenti piu' paper,
+   ``candidate_support_checks`` come decisione deterministica gia' calcolata:
+   non ricalcolarla e non modificarla. STRONG_SUPPORT puo' essere descritto
+   come supporto della candidate; PARTIAL_SUPPORT deve dire cosa e' supportato
+   e cosa non e' confermato; CONTEXT_ONLY e UNVERIFIABLE non sono supporto
+   della candidate; CONTRADICTORY va descritto come incompatibile/opposto.
 
 LINGUA
 Scrivi in italiano. NON tradurre: nomi di farmaci, geni, alterazioni, PMID,

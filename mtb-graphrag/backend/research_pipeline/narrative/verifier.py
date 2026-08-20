@@ -155,14 +155,23 @@ def _check_candidate_ids(narrative, narrator_input) -> tuple[list[str], list[str
 
 def _check_status(candidate, text) -> list[dict[str, Any]]:
     """Una candidate che non esprime supporto non può essere narrata come supportata."""
-    if candidate.get("expresses_support"):
+    support = candidate.get("candidate_support") or {}
+    support_result = support.get("result")
+    if candidate.get("expresses_support") and support_result in (None, "STRONG_SUPPORT"):
         return []
     hits = lx.support_claim_hits(text)
+    if re.search(r"\b(?:not\s+confirmed|non\s+confermat[oa])\b", text, re.IGNORECASE):
+        hits = [hit for hit in hits if hit.lower() not in {"confirmed", "confermata", "confermato"}]
+    if support_result in {"PARTIAL_SUPPORT", "CONTEXT_ONLY", "CONTRADICTORY", "UNVERIFIABLE"}:
+        exact_relation = re.search(r"\b(?:is|are)\s+associated\s+with\b", text, re.IGNORECASE)
+        if exact_relation:
+            hits.append(exact_relation.group(0))
     if not hits:
         return []
     return [{"candidate_id": candidate["candidate_id"],
              "canonical_status": candidate["canonical_status"],
              "support_direction": candidate["support_direction"],
+             "candidate_support": support_result,
              "phrases": hits}]
 
 
