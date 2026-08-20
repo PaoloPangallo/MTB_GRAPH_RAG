@@ -22,7 +22,11 @@ def validate_execution_environment(environ: Mapping[str,str] | None = None) -> d
 
 def validate_prompt_hashes() -> None:
     p=load_protocol(); import json
-    expected=json.loads((p.root.parent/'final_protocol_v1_3'/'generation_configuration.json').read_text(encoding='utf-8'))['roles']
+    identity_path = p.root / 'prompt_identity.json'
+    if identity_path.is_file():
+        expected = json.loads(identity_path.read_text(encoding='utf-8'))['roles']
+    else:
+        expected=json.loads((p.root.parent/'final_protocol_v1_3'/'generation_configuration.json').read_text(encoding='utf-8'))['roles']
     from backend.research_pipeline.casecontext import prompt as cp
     from backend.research_pipeline.enrichment import prompt_v2 as ep
     from backend.research_pipeline.narrative import prompt as np

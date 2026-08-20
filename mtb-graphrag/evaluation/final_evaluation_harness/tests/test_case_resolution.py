@@ -12,6 +12,10 @@ from evaluation.final_evaluation_harness.common.protocol_loader import load_prot
 from evaluation.final_evaluation_harness.common.production_loop import execute_sealed_plan
 from evaluation.final_evaluation_harness.common.registry import ExecutionAdapterRegistry
 from evaluation.final_evaluation_harness.common.runner import build_plan
+from evaluation.final_evaluation_harness.tests._official_start_test_helpers import (
+    dispatch_selected_only,
+    full_plan_with_selected_units,
+)
 
 
 def test_full_system_resolves_to_frozen_canonical_case():
@@ -137,6 +141,7 @@ def test_official_start_rq3_canonical_resolves_and_completes(tmp_path, monkeypat
 
     protocol = load_protocol()
     unit = next(item for item in build_plan("rq3", protocol) if item.arm == "CANONICAL")
+    plans, _ = full_plan_with_selected_units(protocol, {unit.run_id})
 
     class Run:
         def to_dict(self):
@@ -161,16 +166,16 @@ def test_official_start_rq3_canonical_resolves_and_completes(tmp_path, monkeypat
         protocol=protocol,
         source_root=protocol.root.parents[1],
         expected_head="a" * 40,
-        plans=[unit.__dict__],
+        plans=[planned.__dict__ for planned in plans],
         plan_sha=plan_sha,
         expected_evaluation_id="fe_rq3_fixture",
         argv=["--arm", "--confirm-evaluation-id", "fe_rq3_fixture", "--confirm-plan-sha", plan_sha,
-              "--confirm-start", "FINAL_EVALUATION_1_7"],
+              "--confirm-start", "FINAL_EVALUATION_1_7_2"],
         campaign_root=campaign,
         metadata_request=lambda _model: {"details": {"family": "gemma4", "parameter_size": "32682372656",
                                                        "quantization_level": "BF16"},
                                          "model_info": {"gemma4.context_length": 262144}},
-        dispatch=start.run_production_dispatch,
+        dispatch=dispatch_selected_only(start.run_production_dispatch, {unit.run_id}),
         environment_validator=lambda: None,
         prompt_validator=lambda: None,
         head_validator=lambda *_args: None,

@@ -27,7 +27,8 @@ def _env(**updates):
     return base
 
 
-def test_protocol_loader_accepts_frozen_v14():
+def test_protocol_loader_accepts_frozen_v14(monkeypatch):
+    monkeypatch.setenv("MTB_EVALUATION_PROTOCOL_VERSION", "1.7")
     protocol = load_protocol()
     assert protocol.manifest["protocol_version"] == "1.7"
     assert protocol.seal["protocol_sha256"] == "165791022ee91e6a751f82b2b8465f5e1a09e45a17a072e185e1956c11f2cab6"
@@ -35,6 +36,7 @@ def test_protocol_loader_accepts_frozen_v14():
 
 
 def test_protocol_loader_uses_v14_not_parent_as_execution_source(monkeypatch):
+    monkeypatch.setenv("MTB_EVALUATION_PROTOCOL_VERSION", "1.7")
     monkeypatch.setenv("FINAL_PROTOCOL_VERSION", "1.2")
     assert load_protocol().manifest["protocol_version"] == "1.7"
 

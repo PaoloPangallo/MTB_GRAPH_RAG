@@ -3,7 +3,13 @@ import hashlib
 
 import evaluation.final_evaluation_harness.start as start
 from evaluation.final_evaluation_harness.common.protocol_loader import load_protocol
-from evaluation.final_evaluation_harness.common.runner import PlannedRun, planned_runs_from_serialized
+from evaluation.final_evaluation_harness.common.runner import (
+    PlannedRun,
+    build_full_plan,
+    execution_plan_sha256,
+    planned_runs_from_serialized,
+)
+from evaluation.final_evaluation_harness.tests._official_start_test_helpers import dispatch_selected_only
 
 
 def _metadata(_model):
@@ -16,9 +22,8 @@ def _metadata(_model):
 
 def test_official_start_wires_pre_before_dispatch(tmp_path: Path, monkeypatch):
     protocol = load_protocol()
-    from evaluation.final_evaluation_harness.common.runner import build_full_plan
-    plans = [build_full_plan(protocol)[0].__dict__]
-    plan_sha = "p" * 64
+    plans = build_full_plan(protocol)
+    plan_sha = execution_plan_sha256(plans)
     events = []
 
     def fake_dispatch(plan, _protocol, campaign_root, **_kwargs):
@@ -36,13 +41,13 @@ def test_official_start_wires_pre_before_dispatch(tmp_path: Path, monkeypatch):
         protocol=protocol,
         source_root=protocol.root.parents[1],
         expected_head="a" * 40,
-        plans=plans,
+        plans=[planned.__dict__ for planned in plans],
         plan_sha=plan_sha,
         expected_evaluation_id="fe_fixture",
-        argv=["--arm", "--confirm-evaluation-id", "fe_fixture", "--confirm-plan-sha", plan_sha, "--confirm-start", "FINAL_EVALUATION_1_7"],
+        argv=["--arm", "--confirm-evaluation-id", "fe_fixture", "--confirm-plan-sha", plan_sha, "--confirm-start", "FINAL_EVALUATION_1_7_2"],
         campaign_root=tmp_path / "evaluation" / "final_evaluation",
         metadata_request=_metadata,
-        dispatch=fake_dispatch,
+        dispatch=dispatch_selected_only(fake_dispatch, {plans[0].run_id}),
         environment_validator=lambda: None,
         prompt_validator=lambda: None,
         head_validator=lambda *_: None,
@@ -90,11 +95,14 @@ def test_existing_campaign_is_not_overwritten(tmp_path: Path):
     marker.write_text('{"event":"CAMPAIGN_OPEN"}\n', encoding="utf-8")
     before = hashlib.sha256(marker.read_bytes()).hexdigest()
     protocol = load_protocol()
+    full_plan = build_full_plan(protocol)
+    plan_sha = execution_plan_sha256(full_plan)
     try:
         start.run_official_start(
             protocol=protocol, source_root=protocol.root.parents[1], expected_head="a" * 40,
-            plans=[], plan_sha="p" * 64, expected_evaluation_id="fe_fixture",
-            argv=["--arm", "--confirm-evaluation-id", "fe_fixture", "--confirm-plan-sha", "p" * 64, "--confirm-start", "FINAL_EVALUATION_1_7"],
+            plans=[planned.__dict__ for planned in full_plan], plan_sha=plan_sha, expected_evaluation_id="fe_fixture",
+            argv=["--arm", "--confirm-evaluation-id", "fe_fixture", "--confirm-plan-sha",
+                  plan_sha, "--confirm-start", "FINAL_EVALUATION_1_7_2"],
             campaign_root=campaign_a, metadata_request=_metadata, dispatch=lambda *_args, **_kwargs: None,
             environment_validator=lambda: None, prompt_validator=lambda: None,
             head_validator=lambda *_: None,
@@ -180,9 +188,9 @@ def test_production_dispatch_transports_attempt_events_to_campaign_ledger(tmp_pa
 
 def test_public_official_start_reaches_first_attempt_with_campaign_ledger(tmp_path: Path, monkeypatch):
     protocol = load_protocol()
-    from evaluation.final_evaluation_harness.common.runner import build_full_plan
     from evaluation.final_evaluation_harness.common.execution import ProductionAdapterFactory, ProductionUnitDispatcher
-    unit = build_full_plan(protocol)[0]
+    full_plan = build_full_plan(protocol)
+    unit = full_plan[0]
     fake = type("Fake", (), {"call": lambda self, *a, **k: {}, "select": lambda self, *a, **k: None,
                               "validate": lambda self, *a, **k: {}, "verify_authority": lambda self, *a, **k: {}})()
     monkeypatch.setattr(ProductionAdapterFactory, "canonical_runtime", staticmethod(lambda: fake))
@@ -194,14 +202,15 @@ def test_public_official_start_reaches_first_attempt_with_campaign_ledger(tmp_pa
     monkeypatch.setattr(ProductionAdapterFactory, "narrative_verifier", staticmethod(lambda *a, **k: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda protocol=None: type("Doc", (), {"resolve": lambda self, value: value})()))
     monkeypatch.setattr(ProductionUnitDispatcher, "_RQ1DeterministicExecutor", lambda self, planned, context: {"status": "COMPLETE"})
-    plan_sha = "p" * 64
+    plan_sha = execution_plan_sha256(full_plan)
     campaign = tmp_path / "evaluation" / "final_evaluation"
     result = start.run_official_start(
         protocol=protocol, source_root=protocol.root.parents[1], expected_head="a" * 40,
-        plans=[unit.__dict__], plan_sha=plan_sha, expected_evaluation_id="fe_official_fixture",
+        plans=[planned.__dict__ for planned in full_plan], plan_sha=plan_sha, expected_evaluation_id="fe_official_fixture",
         argv=["--arm", "--confirm-evaluation-id", "fe_official_fixture", "--confirm-plan-sha", plan_sha,
-              "--confirm-start", "FINAL_EVALUATION_1_7"], campaign_root=campaign,
-        metadata_request=_metadata, dispatch=start.run_production_dispatch,
+              "--confirm-start", "FINAL_EVALUATION_1_7_2"], campaign_root=campaign,
+        metadata_request=_metadata,
+        dispatch=dispatch_selected_only(start.run_production_dispatch, {unit.run_id}),
         environment_validator=lambda: None, prompt_validator=lambda: None, head_validator=lambda *_: None,
     )
     assert result == "DISPATCHED"

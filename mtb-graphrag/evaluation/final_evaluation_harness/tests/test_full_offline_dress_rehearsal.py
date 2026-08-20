@@ -80,10 +80,10 @@ class _FakeAdapters:
         return {"status": "CONTROLLED_FIXTURE"}
 
 
-def _tool_response(name: str, arguments: dict) -> tuple[int, dict, None, int]:
+def _tool_response(name: str, arguments: dict) -> tuple[int, dict, None, int, dict]:
     return 200, {"choices": [{"finish_reason": "tool_calls", "message": {
         "tool_calls": [{"function": {"name": name, "arguments": json.dumps(arguments)}}]
-    }}]}, None, 0
+    }}]}, None, 0, {"offline_fixture": True}
 
 
 def _transport_fixture_factory(counters: dict[str, int]):
@@ -158,10 +158,21 @@ def test_full_offline_dress_rehearsal_reaches_post_without_external_calls(tmp_pa
     monkeypatch.setattr(ProductionAdapterFactory, "selector", staticmethod(lambda: fake))
     monkeypatch.setattr(ProductionAdapterFactory, "document_runtime", staticmethod(lambda protocol=None: _FakeRuntime()))
     counters = {"parser_transport": 0, "enricher_transport": 0, "narrator_transport": 0}
+    offline_transport = _transport_fixture_factory(counters)
+    monkeypatch.setattr(
+        "backend.research_pipeline.enrichment.transport.post_with_infra_retry_with_diagnostics",
+        offline_transport,
+    )
     monkeypatch.setattr(
         "backend.research_pipeline.enrichment.transport.post_with_infra_retry",
-        _transport_fixture_factory(counters),
+        lambda payload: offline_transport(payload)[:4],
     )
+    monkeypatch.setattr("requests.post", lambda *args, **kwargs: (_ for _ in ()).throw(
+        AssertionError("offline dress rehearsal attempted requests.post")
+    ))
+    monkeypatch.setattr("requests.get", lambda *args, **kwargs: (_ for _ in ()).throw(
+        AssertionError("offline dress rehearsal attempted requests.get")
+    ))
 
     protocol = load_protocol()
     plans = build_full_plan(protocol)
@@ -179,7 +190,7 @@ def test_full_offline_dress_rehearsal_reaches_post_without_external_calls(tmp_pa
         plan_sha="p" * 64,
         expected_evaluation_id="fe_offline_dress",
         argv=["--arm", "--confirm-evaluation-id", "fe_offline_dress", "--confirm-plan-sha", "p" * 64,
-              "--confirm-start", "FINAL_EVALUATION_1_7"],
+              "--confirm-start", "FINAL_EVALUATION_1_7_2"],
         campaign_root=campaign,
         metadata_request=lambda _model: metadata,
         dispatch=start.run_production_dispatch,

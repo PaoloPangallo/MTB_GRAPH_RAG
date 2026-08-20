@@ -2,7 +2,8 @@ from evaluation.final_evaluation_harness.common.protocol_loader import load_prot
 from evaluation.final_evaluation_harness.common.runner import build_full_plan
 
 
-def test_loader_requires_frozen_protocol_16_and_exact_identities():
+def test_loader_requires_frozen_protocol_16_and_exact_identities(monkeypatch):
+    monkeypatch.setenv("MTB_EVALUATION_PROTOCOL_VERSION", "1.7")
     protocol = load_protocol()
     assert protocol.manifest["protocol_version"] == "1.7"
     assert protocol.manifest["frozen"] is True
@@ -12,7 +13,8 @@ def test_loader_requires_frozen_protocol_16_and_exact_identities():
     assert protocol.amendment["P17"]["runtime_commit"] == "628545074280e70f8382a457a352f85d3d64c094"
 
 
-def test_plan_has_exact_frozen_family_counts():
+def test_plan_has_exact_frozen_family_counts(monkeypatch):
+    monkeypatch.setenv("MTB_EVALUATION_PROTOCOL_VERSION", "1.7")
     plans = build_full_plan(load_protocol())
     counts = {}
     for plan in plans:

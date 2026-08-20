@@ -2,7 +2,8 @@ from evaluation.final_evaluation_harness.common.protocol_loader import load_prot
 from evaluation.final_evaluation_harness.common.readiness import audit_readiness
 
 
-def test_readiness_is_222_without_scientific_calls():
+def test_readiness_is_222_without_scientific_calls(monkeypatch):
+    monkeypatch.setenv("MTB_EVALUATION_PROTOCOL_VERSION", "1.7")
     report = audit_readiness(load_protocol(), harness_commit="a" * 40)
     assert report["units"] == 222
     assert report["registry_bound"] == 222
@@ -22,7 +23,8 @@ def test_readiness_is_222_without_scientific_calls():
     assert report["calls"] == {"runtime": 0, "selector": 0, "gemma": 0, "narrator": 0, "verifier": 0, "network": 0}
 
 
-def test_rq4_heldout_rows_bind_h01_identity():
+def test_rq4_heldout_rows_bind_h01_identity(monkeypatch):
+    monkeypatch.setenv("MTB_EVALUATION_PROTOCOL_VERSION", "1.7")
     report = audit_readiness(load_protocol(), harness_commit="a" * 40)
     rows = [row for row in report["rows"] if row["family"] == "RQ4_HELDOUT"]
     assert len(rows) == 35

@@ -37,8 +37,8 @@ def local_tmp():
         shutil.rmtree(path, ignore_errors=True)
 
 
-def test_protocol_sha_accepted(protocol): assert protocol.hashes["protocol_sha256"] == "165791022ee91e6a751f82b2b8465f5e1a09e45a17a072e185e1956c11f2cab6"
-def test_runtime_exact(protocol): assert protocol.hashes["runtime_commit"] == "628545074280e70f8382a457a352f85d3d64c094"
+def test_protocol_sha_accepted(protocol): assert protocol.hashes["protocol_sha256"] == "8a41650e88655e145e44e3419c4674e647fe7a09f321256fcf786c2830cb6580"
+def test_runtime_exact(protocol): assert protocol.hashes["runtime_commit"] == "f5d4bae5e98a04fa662c88c1bc06d6ad1cbfd02d"
 def test_lineage_exact(protocol): assert protocol.hashes["inherited_protocol_1_1_sha256"].startswith("83fcf870")
 def test_a01_exact(protocol): assert protocol.hashes["inherited_A01_sha256"].startswith("48c60928")
 def test_s01_exact(protocol): assert protocol.hashes["S01_raw_sha256"].startswith("83babfa5")
@@ -103,7 +103,7 @@ def test_ledger_reconcile_orphan(local_tmp):
 def test_ledger_reconcile_preserves_event(local_tmp):
     ledger = AppendOnlyLedger(local_tmp / "ledger.jsonl"); ledger.append({"event": "ATTEMPT_RESERVED", "attempt_id": "a"}); ledger.reconcile(); assert len(ledger.events()) == 2
 def test_envelope_required(protocol):
-    required = protocol.schemas["common_execution_envelope"]["required_fields"]; envelope = {key: {} for key in required}; envelope["normative_identity"] = {"protocol_version": "1.7"}; envelope["identity"] = {field: "x" for field in protocol.schemas["common_execution_envelope"]["identity_required"]}; envelope["dataset_hashes"] = {"dataset_bundle_sha256": "x"}; envelope["status"] = "COMPLETE"; validate_envelope(protocol, envelope)
+    required = protocol.schemas["common_execution_envelope"]["required_fields"]; envelope = {key: {} for key in required}; envelope["normative_identity"] = {"protocol_version": "1.7.2"}; envelope["identity"] = {field: "x" for field in protocol.schemas["common_execution_envelope"]["identity_required"]}; envelope["dataset_hashes"] = {"dataset_bundle_sha256": "x"}; envelope["status"] = "COMPLETE"; validate_envelope(protocol, envelope)
 def test_envelope_rejects_missing(protocol):
     with pytest.raises(ValueError): validate_envelope(protocol, {})
 def test_ranking_precision_denominator_k(): assert ranking_metrics(["a"], ["a"], 5)["Precision@5"] == 0.2
