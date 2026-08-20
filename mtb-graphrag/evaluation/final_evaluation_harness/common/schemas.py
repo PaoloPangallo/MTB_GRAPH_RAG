@@ -42,7 +42,7 @@ def build_envelope(protocol: Any, identity: dict[str, Any], *, dataset_hashes: d
         "frozen_client_side": {
             "runtime_commit": protocol.hashes["runtime_commit"],
             "protocol_sha256": protocol.hashes["protocol_sha256"],
-            "model_alias": "gemma4:31b-cloud",
+            "model_alias": protocol.manifest.get("model_alias", "gemma4:31b-cloud"),
             "endpoint": "https://ollama.com/v1/chat/completions",
         },
         "observable_provider_identity": {},

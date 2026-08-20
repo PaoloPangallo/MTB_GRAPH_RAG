@@ -49,17 +49,37 @@ def load_protocol(repo_root: Path | None = None) -> Protocol:
     repo=repo_root or Path(__file__).resolve().parents[3]
     version = os.environ.get("MTB_EVALUATION_PROTOCOL_VERSION", "1.7")
     root=repo/"evaluation"/f"final_protocol_v{version.replace('.', '_')}"
-    manifest=_load(root,"protocol_manifest.json")
-    operational_amendment=_load(root,"operational_amendment.json")
-    projection=_load(root,"scientific_projection.json")
-    seal=_load(root,"protocol_hash.json")
-    lineage=_load(root,"lineage.json")
-    if manifest.get("protocol_version") not in {"1.7", "1.7.1"} or manifest.get("frozen") is not True or manifest.get("review_status")!="ACCEPTED": raise ProtocolGap("Protocol is not accepted/frozen")
-    if manifest.get("runtime_commit") != lineage.get("runtime_commit") or operational_amendment.get("runtime_commit") != lineage.get("runtime_commit"): raise ProtocolGap("Protocol 1.7 runtime identity mismatch")
-    if manifest.get("scientific_projection_sha256") != hashlib.sha256((root/"scientific_projection.json").read_bytes()).hexdigest(): raise ProtocolGap("Protocol 1.7 projection mismatch")
-    normative_files = manifest.get("normative_files")
-    if not isinstance(normative_files, list) or _digest(root, normative_files) != seal.get("protocol_sha256"):
-        raise ProtocolGap("Protocol 1.7 seal mismatch")
+    staging = False
+    if staging:
+        overrides = _load(root, "staging_overrides.json")
+        parent_root = repo / "evaluation" / "final_protocol_v1_7_1"
+        base_manifest = _load(parent_root, "protocol_manifest.json")
+        base_lineage = _load(parent_root, "lineage.json")
+        base_amendment = _load(parent_root, "operational_amendment.json")
+        base_projection = _load(parent_root, "scientific_projection.json")
+        manifest = {**base_manifest, **overrides, "frozen": False, "review_status": "STAGING"}
+        lineage = {**base_lineage, "runtime_commit": None, "runtime_commit_pending": True}
+        operational_amendment = {**base_amendment, "runtime_commit": None, "evaluation_output_directory": overrides["output_directory"]}
+        projection = base_projection
+        seal = {"protocol_sha256": None, "staging": True}
+        root_for_normative = parent_root
+    else:
+        manifest=_load(root,"protocol_manifest.json")
+        operational_amendment=_load(root,"operational_amendment.json")
+        projection=_load(root,"scientific_projection.json")
+        seal=_load(root,"protocol_hash.json")
+        lineage=_load(root,"lineage.json")
+        root_for_normative = root
+    if staging:
+        if manifest.get("protocol_version") != "1.7.2" or not manifest.get("runtime_commit_pending"):
+            raise ProtocolGap("Protocol 1.7.2 staging identity invalid")
+    else:
+        if manifest.get("protocol_version") not in {"1.7", "1.7.1", "1.7.2"} or manifest.get("frozen") is not True or manifest.get("review_status")!="ACCEPTED": raise ProtocolGap("Protocol is not accepted/frozen")
+        if manifest.get("runtime_commit") != lineage.get("runtime_commit") or operational_amendment.get("runtime_commit") != lineage.get("runtime_commit"): raise ProtocolGap("Protocol 1.7 runtime identity mismatch")
+        if manifest.get("scientific_projection_sha256") != hashlib.sha256((root/"scientific_projection.json").read_bytes()).hexdigest(): raise ProtocolGap("Protocol 1.7 projection mismatch")
+        normative_files = manifest.get("normative_files")
+        if not isinstance(normative_files, list) or _digest(root, normative_files) != seal.get("protocol_sha256"):
+            raise ProtocolGap("Protocol 1.7 seal mismatch")
     parent16=repo/"evaluation"/"final_protocol_v1_6"
     inherited=_load(parent16,"inherited_protocol_contract.json")
     corpus=_load(parent16,"corpus_identity.json")

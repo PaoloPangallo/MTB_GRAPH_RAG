@@ -114,7 +114,10 @@ def _harness_commit(protocol: Protocol) -> str:
     # Plan/run identity is bound to the frozen runtime commit.  The official
     # start still validates the actual harness HEAD separately; this keeps the
     # sealed scientific plan stable across the protocol-only commit.
-    return protocol.hashes["runtime_commit"]
+    runtime_commit = protocol.hashes.get("runtime_commit")
+    if not isinstance(runtime_commit, str) or len(runtime_commit) != 40:
+        raise RuntimeError("RUNTIME_COMMIT_PENDING:seal_protocol_after_runtime_commit")
+    return runtime_commit
 
 
 def build_plan(kind: str, protocol: Protocol | None = None) -> list[PlannedRun]:

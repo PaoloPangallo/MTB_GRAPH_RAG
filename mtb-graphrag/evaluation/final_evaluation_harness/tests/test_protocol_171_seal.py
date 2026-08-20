@@ -30,8 +30,8 @@ def test_protocol_171_frozen_identity_is_hash_bound(monkeypatch):
     assert protocol.manifest["document_network_allowed"] is False
 
 
-def test_protocol_171_output_namespace_has_no_prior_campaign(monkeypatch):
-    monkeypatch.setenv("MTB_EVALUATION_PROTOCOL_VERSION", "1.7.1")
+def test_protocol_172_output_namespace_has_no_prior_campaign(monkeypatch):
+    monkeypatch.setenv("MTB_EVALUATION_PROTOCOL_VERSION", "1.7.2")
     protocol = load_protocol()
     output = Path(protocol.root.parents[1]) / protocol.manifest["output_directory"]
     assert not output.exists()

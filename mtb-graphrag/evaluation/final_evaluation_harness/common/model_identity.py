@@ -10,7 +10,8 @@ class GenerationIdentityError(RuntimeError): pass
 def validate_execution_environment(environ: Mapping[str,str] | None = None) -> dict:
     env=os.environ if environ is None else environ; p=load_protocol(); source=p.root.parent/'final_protocol_v1_3'; mi=__import__('json').loads((source/'model_identity_contract.json').read_text(encoding='utf-8')); gc=__import__('json').loads((source/'generation_configuration.json').read_text(encoding='utf-8'))
     model=env.get('RESEARCH_PIPELINE_MODEL','')
-    if model != mi['effective_model']: raise GenerationIdentityError('MODEL_IDENTITY_MISMATCH')
+    expected_model=p.manifest.get('model_alias') or mi['effective_model']
+    if model != expected_model: raise GenerationIdentityError('MODEL_IDENTITY_MISMATCH')
     base=env.get('RESEARCH_PIPELINE_LLM_BASE_URL','')
     if base not in ('','https://ollama.com'): raise GenerationIdentityError('ENDPOINT_IDENTITY_MISMATCH')
     if env.get('OLLAMA_BASE_URL','') not in ('',): raise GenerationIdentityError('ENDPOINT_IDENTITY_MISMATCH')

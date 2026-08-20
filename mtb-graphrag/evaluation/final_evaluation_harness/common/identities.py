@@ -28,6 +28,22 @@ def _legacy_identity(protocol: Any, harness_commit: str) -> dict[str, Any]:
 
 
 def plan_seed_id(protocol: Any, harness_commit: str) -> str:
+    if protocol.manifest.get("protocol_version") == "1.7.2":
+        return "fe_" + _sha({
+            "runtime_commit": protocol.hashes["runtime_commit"],
+            "protocol_version": protocol.manifest["protocol_version"],
+            "evaluation_boundary": protocol.manifest.get("evaluation_boundary"),
+            "gca_sha256": protocol.manifest.get("gca_sha256"),
+            "benchmark_sha256": protocol.manifest.get("benchmark_sha256"),
+            "gold_sha256": protocol.manifest.get("gold_sha256"),
+            "closure_manifest_sha256": protocol.manifest.get("closure_manifest_sha256"),
+            "frozen_document_manifest_sha256": protocol.manifest.get("frozen_document_manifest_sha256"),
+            "frozen_source_unit_index_sha256": protocol.manifest.get("frozen_source_unit_index_sha256"),
+            "model_config_sha256": protocol.manifest.get("model_config_sha256"),
+            "model_identity_sha256": protocol.manifest.get("model_identity_sha256"),
+            "prompt_identity_sha256": protocol.manifest.get("prompt_identity_sha256"),
+            "harness_commit": harness_commit,
+        })
     if protocol.manifest.get("protocol_version") != "1.7.1":
         return "fe_" + _sha(_legacy_identity(protocol, harness_commit))
     return "fe_" + _sha({
