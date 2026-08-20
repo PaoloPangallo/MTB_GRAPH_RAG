@@ -108,7 +108,7 @@ def test_protocol_172_preserves_experimental_unit_composition_after_runtime_free
     assert protocol.manifest["total_units"] == 222
     plan = build_full_plan(protocol)
     assert len(plan) == 222
-    assert protocol.hashes["runtime_commit"] == "f5d4bae5e98a04fa662c88c1bc06d6ad1cbfd02d"
+    assert protocol.hashes["runtime_commit"] == "3cebfcacc140d58f74892fa27beb74e1de8e28c1"
 
 
 def test_protocol_172_parent_plan_has_the_same_experimental_units(monkeypatch):

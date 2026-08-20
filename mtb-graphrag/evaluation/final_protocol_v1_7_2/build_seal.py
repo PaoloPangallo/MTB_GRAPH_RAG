@@ -36,13 +36,14 @@ def write_json(path: Path, value: object) -> None:
 
 
 def protocol_digest() -> str:
-    names = ["protocol_manifest.json", "lineage.json", "operational_amendment.json", "scientific_projection.json"]
+    manifest = json.loads((PROTOCOL_ROOT / "protocol_manifest.json").read_text(encoding="utf-8"))
+    names = manifest["normative_files"]
     lines = [f"{name}:{digest(PROTOCOL_ROOT / name)}" for name in sorted(names)]
     return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()
 
 
 def main() -> None:
-    runtime_commit = "f5d4bae5e98a04fa662c88c1bc06d6ad1cbfd02d"
+    runtime_commit = "3cebfcacc140d58f74892fa27beb74e1de8e28c1"
     manifest_path = PROTOCOL_ROOT / "protocol_manifest.json"
     lineage_path = PROTOCOL_ROOT / "lineage.json"
     amendment_path = PROTOCOL_ROOT / "operational_amendment.json"
@@ -71,6 +72,27 @@ def main() -> None:
     amendment = json.loads(amendment_path.read_text(encoding="utf-8"))
     amendment.update({"runtime_commit": runtime_commit, "evaluation_output_directory": "evaluation/final_evaluation_v1_7_2"})
     write_json(amendment_path, amendment)
+    from backend.research_pipeline.casecontext import prompt as case_prompt
+    from backend.research_pipeline.enrichment import prompt_v2 as paper_prompt
+    from backend.research_pipeline.narrative import prompt as narrator_prompt
+    narrator_hash = hashlib.sha256(json.dumps({
+        "version": narrator_prompt.NARRATOR_PROMPT_VERSION,
+        "system": narrator_prompt.SYSTEM_PROMPT,
+        "schema": narrator_prompt.TOOL_SCHEMA,
+        "language": narrator_prompt.NARRATIVE_LANGUAGE,
+    }, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    write_json(PROTOCOL_ROOT / "prompt_identity.json", {"roles": {
+        "case_context_parser": {"prompt_version": case_prompt.PROMPT_VERSION, "prompt_sha256": case_prompt.prompt_hash()},
+        "paper_context_enricher": {"prompt_version": paper_prompt.PROMPT_VERSION, "prompt_sha256": paper_prompt.prompt_hash()},
+        "dossier_narrator": {"prompt_version": narrator_prompt.NARRATOR_PROMPT_VERSION, "prompt_sha256": narrator_hash},
+    }})
+    manifest["prompt_identity_path"] = "prompt_identity.json"
+    manifest["prompt_identity_sha256"] = digest(PROTOCOL_ROOT / "prompt_identity.json")
+    normative_files = list(manifest.get("normative_files", []))
+    if "prompt_identity.json" not in normative_files:
+        normative_files.append("prompt_identity.json")
+    manifest["normative_files"] = normative_files
+    write_json(manifest_path, manifest)
     initial_protocol_sha = protocol_digest()
     write_json(PROTOCOL_ROOT / "protocol_hash.json", {
         "protocol_version": "1.7.2",
