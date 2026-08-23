@@ -177,15 +177,15 @@ def resolve_documents(
 
             availability = str(record.get("availability") or "UNKNOWN")
             relative = record.get("local_cache_path")
-            cache_hit = bool(relative) and (cache.root / relative).is_file()
+            cache_hit = cache.has_text_payload(record)
 
             reason_codes: tuple[str, ...]
-            if not relative:
-                reason_codes = ("DOCUMENT_UNAVAILABLE", "NO_LOCAL_CACHE_PATH")
-            elif not cache_hit:
-                reason_codes = ("DOCUMENT_UNAVAILABLE", "CACHE_MISS")
-            else:
+            if cache_hit:
                 reason_codes = ("DOCUMENT_RESOLVED_FROM_CACHE",)
+            elif not relative:
+                reason_codes = ("DOCUMENT_UNAVAILABLE", "NO_LOCAL_CACHE_PATH")
+            else:
+                reason_codes = ("DOCUMENT_UNAVAILABLE", "CACHE_MISS")
 
             is_trial = document_id.startswith(_TRIAL_PREFIX)
             has_text = cache_hit and (availability in _TEXT_AVAILABILITY or is_trial)
@@ -276,7 +276,11 @@ def resolve_live_documents(
             manifest_by_document_id[actual_id] = record
             availability = str(record.get("availability") or "UNKNOWN")
             is_trial = actual_id.startswith("nct:")
-            has_text = bool(record.get("local_cache_path")) and (
+            has_text = (
+                cache.has_text_payload(record)
+                if hasattr(cache, "has_text_payload")
+                else bool(record.get("local_cache_path"))
+            ) and (
                 availability in _TEXT_AVAILABILITY or is_trial
             )
             cache_hit = bool(record.get("cache_hit"))

@@ -92,10 +92,14 @@ def _candidate_support_checks(entry: dict[str, Any]) -> list[dict[str, Any]]:
     checks: list[dict[str, Any]] = []
     direct = entry.get("candidate_support")
     if isinstance(direct, dict):
+        fields = direct.get("fields") if isinstance(direct.get("fields"), dict) else {}
+        paper_id = _text(direct.get("paper_id") or fields.get("paper_id"))
+        document_id = _text(direct.get("document_id") or fields.get("document_id")) or paper_id
         checks.append({
             "candidate_id": _text(entry.get("candidate_id")),
-            "document_id": _text(direct.get("paper_id")),
-            "source_unit_id": _text(direct.get("source_unit_id")),
+            "paper_id": paper_id,
+            "document_id": document_id,
+            "source_unit_id": _text(direct.get("source_unit_id") or fields.get("source_unit_id")),
             "quote": "",
             "candidate_support": direct,
         })
@@ -104,8 +108,10 @@ def _candidate_support_checks(entry: dict[str, Any]) -> list[dict[str, Any]]:
             continue
         support = validation.get("candidate_support")
         if isinstance(support, dict):
-            paper_id = _text(validation.get("paper_id") or support.get("paper_id"))
-            source_unit_id = _text(support.get("source_unit_id"))
+            fields = support.get("fields") if isinstance(support.get("fields"), dict) else {}
+            paper_id = _text(validation.get("paper_id") or support.get("paper_id") or fields.get("paper_id"))
+            document_id = _text(validation.get("document_id") or support.get("document_id") or fields.get("document_id")) or paper_id
+            source_unit_id = _text(validation.get("source_unit_id") or support.get("source_unit_id") or fields.get("source_unit_id"))
             quote = next(
                 (
                     _text(enrichment.get("author_claim_quote"))
@@ -117,7 +123,8 @@ def _candidate_support_checks(entry: dict[str, Any]) -> list[dict[str, Any]]:
             )
             checks.append({
                 "candidate_id": _text(entry.get("candidate_id")),
-                "document_id": paper_id,
+                "paper_id": paper_id,
+                "document_id": document_id,
                 "source_unit_id": source_unit_id,
                 "quote": quote,
                 "candidate_support": support,

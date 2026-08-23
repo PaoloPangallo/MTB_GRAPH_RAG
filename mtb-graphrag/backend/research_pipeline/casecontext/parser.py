@@ -63,9 +63,29 @@ def normalize_disease_scalar(arguments: dict[str, Any], clinical_text: str) -> t
     }
 
 
-def _normalize_disease_in_response(response_json: dict[str, Any] | None, clinical_text: str) -> tuple[dict[str, Any] | None, dict[str, str] | None]:
+def normalize_target_intervention_scalar(arguments: dict[str, Any], clinical_text: str) -> tuple[dict[str, Any], dict[str, str] | None]:
+    """Convert only a uniquely verifiable scalar target intervention."""
+    target = arguments.get("target_intervention")
+    if not isinstance(target, str):
+        return arguments, None
+    if not target or clinical_text.count(target) != 1:
+        return arguments, None
+    start = clinical_text.find(target)
+    normalized = dict(arguments)
+    normalized["target_intervention"] = {"raw_value": target, "quote": clinical_text[start:start + len(target)]}
+    return normalized, {
+        "code": "TARGET_INTERVENTION_SCALAR_NORMALIZED",
+        "original_value": target,
+        "matched_quote": normalized["target_intervention"]["quote"],
+    }
+
+
+def _normalize_disease_in_response(
+    response_json: dict[str, Any] | None,
+    clinical_text: str,
+) -> tuple[dict[str, Any] | None, dict[str, str] | None, dict[str, str] | None]:
     if not isinstance(response_json, dict):
-        return response_json, None
+        return response_json, None, None
     normalized_response = copy.deepcopy(response_json)
     choices = normalized_response.get("choices") or []
     message = (choices[0].get("message") or {}) if choices else {}
@@ -76,16 +96,17 @@ def _normalize_disease_in_response(response_json: dict[str, Any] | None, clinica
         try:
             arguments = json.loads(raw_arguments)
         except (TypeError, ValueError):
-            return response_json, None
+            return response_json, None, None
     else:
         arguments = raw_arguments
     if not isinstance(arguments, dict):
-        return response_json, None
-    normalized_arguments, event = normalize_disease_scalar(arguments, clinical_text)
-    if event is None:
-        return response_json, None
+        return response_json, None, None
+    normalized_arguments, disease_event = normalize_disease_scalar(arguments, clinical_text)
+    normalized_arguments, target_event = normalize_target_intervention_scalar(normalized_arguments, clinical_text)
+    if disease_event is None and target_event is None:
+        return response_json, None, None
     function["arguments"] = json.dumps(normalized_arguments, ensure_ascii=False, separators=(",", ":")) if isinstance(raw_arguments, str) else normalized_arguments
-    return normalized_response, event
+    return normalized_response, disease_event, target_event
 
 
 def adapt_case_context(case_id: str, parser_output: dict[str, Any], clinical_text: str) -> dict[str, Any]:
@@ -124,7 +145,7 @@ def _run_parser_attempt(payload: dict[str, Any], clinical_text: str) -> dict[str
     status_code, response_json, network_error, retry_count, raw_diagnostics = tr.post_with_infra_retry_with_diagnostics(payload)
     latency_ms = round((time.perf_counter() - started) * 1000, 3)
     response_hash = tr.sha(str(response_json)) if response_json is not None else None
-    validation_response, disease_normalization = _normalize_disease_in_response(response_json, clinical_text)
+    validation_response, disease_normalization, target_intervention_normalization = _normalize_disease_in_response(response_json, clinical_text)
     transport, finish_reason, args, reasons = tr.transport_result(status_code, validation_response, network_error, prompt.TOOL_NAME, prompt.tool_argument_errors)
     usage = (response_json or {}).get("usage") or {}
     choices = (response_json or {}).get("choices") or []
@@ -140,6 +161,7 @@ def _run_parser_attempt(payload: dict[str, Any], clinical_text: str) -> dict[str
         "function_arguments_raw": function.get("arguments"),
         "validation_errors": reasons,
         "disease_normalization": disease_normalization,
+        "target_intervention_normalization": target_intervention_normalization,
     }
     return {
         "transport_result": transport,

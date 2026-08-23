@@ -65,7 +65,7 @@ CASECONTEXT_TOOL_DEFINITION = {
 
 SYSTEM_PROMPT = """You are a clinical case context extraction component. Read only the supplied free clinical text. Do not use external knowledge, do not query any database, do not know or guess what the correct or expected answer is. Extract only disease, biomarkers (gene and alteration), previous interventions, and a specific target intervention when the text names one. For every extracted value, copy a literal, contiguous, exact quotation from the supplied text. If a value is not present, use null or an empty list. Do not invent a drug, gene, alteration, disease, or molecular variant. Suggest query_intent as THERAPY_EVALUATION when the text clearly evaluates a named therapy, THERAPY_DISCOVERY when it clearly asks for therapy options without a target therapy, and null when the intent is unclear. Do not produce clinical recommendations. Call submit_case_context exactly once."""
 
-TASK_PROMPT = """Populate only the fields in the tool schema. Return raw values and exact quotes; do not return offsets, normalized values, case_id, clinical_question, uncertainties, or schema_version. Null and empty lists are valid when the text does not contain the information."""
+TASK_PROMPT = """Populate only the fields in the tool schema. For disease and target_intervention, never return a bare string. When present, return an object containing raw_value and an exact literal quote from the clinical text. Return raw values and exact quotes; do not return offsets, normalized values, case_id, clinical_question, uncertainties, or schema_version. Null and empty lists are valid when the text does not contain the information."""
 
 
 def prompt_hash() -> str:

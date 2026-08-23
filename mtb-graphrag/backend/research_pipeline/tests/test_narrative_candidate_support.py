@@ -96,6 +96,65 @@ def test_projection_passes_partial_support_fields_explicitly():
     assert candidate["candidate_support"] == support
 
 
+def test_projection_preserves_support_level_and_paper_provenance_for_writer():
+    support = _support(
+        "PARTIAL_SUPPORT",
+        gene="CONFIRMED",
+        alteration="NOT_CONFIRMED",
+        drug="CONFIRMED",
+        direction="CONFIRMED",
+        candidate_id="GCA-SUPPORT",
+        paper_id="PMID-1",
+        source_unit_id="SU-1",
+    )
+    dossier = _dossier()
+    dossier["candidate_therapies"][0]["author_context"] = [{
+        "paper_id": "PMID-1",
+        "source_unit_id": "SU-1",
+        "author_claim_quote": "KRAS mutations are resistant to panitumumab",
+        "presentation_state": "VALIDATED_QUOTE",
+    }]
+    dossier["candidate_therapies"][0]["validation_results"] = [{
+        "paper_id": "PMID-1",
+        "candidate_support": support,
+    }]
+
+    candidate = build_narrator_input(dossier)["candidates"][0]
+    check = candidate["candidate_support_checks"][0]
+    assert check["candidate_support"]["result"] == "PARTIAL_SUPPORT"
+    assert check["document_id"] == "PMID-1"
+    assert check["source_unit_id"] == "SU-1"
+    assert check["quote"] == "KRAS mutations are resistant to panitumumab"
+
+
+def test_partial_biomarker_uncertainty_cannot_be_narrated_as_fully_supported():
+    dossier = _dossier(_support(
+        "PARTIAL_SUPPORT",
+        gene="CONFIRMED",
+        alteration="NOT_CONFIRMED",
+        drug="CONFIRMED",
+        direction="CONFIRMED",
+    ))
+    dossier["candidate_therapies"][0]["warnings"] = ["BIOMARKER_MATCH_UNCERTAIN"]
+    narrative = _narrative(
+        "La corrispondenza biomarker-intervento per OLAPARIB è pienamente supportata."
+    )
+    result = verify_narrative(dossier, build_narrator_input(dossier), narrative)
+    assert result["status"] == FAIL
+    assert "NARRATIVE_SUPPORT_LEVEL_ESCALATION" in result["reason_codes"]
+
+
+def test_partial_missing_evidence_level_cannot_be_invented():
+    dossier = _dossier(_support("PARTIAL_SUPPORT", alteration="NOT_CONFIRMED"))
+    dossier["candidate_therapies"][0]["warnings"] = ["BIOMARKER_MATCH_UNCERTAIN"]
+    narrative = _narrative(
+        "La fonte attribuisce a OLAPARIB un livello di evidenza alto e definitivamente confermato."
+    )
+    result = verify_narrative(dossier, build_narrator_input(dossier), narrative)
+    assert result["status"] == FAIL
+    assert "NARRATIVE_SUPPORT_LEVEL_ESCALATION" in result["reason_codes"]
+
+
 def test_projection_passes_other_support_levels():
     for level in ("CONTEXT_ONLY", "CONTRADICTORY", "UNVERIFIABLE"):
         candidate = build_narrator_input(_dossier(_support(level)))["candidates"][0]

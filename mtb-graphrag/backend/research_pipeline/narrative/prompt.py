@@ -94,6 +94,13 @@ REGOLE VINCOLANTI
    come supporto della candidate; PARTIAL_SUPPORT deve dire cosa e' supportato
    e cosa non e' confermato; CONTEXT_ONLY e UNVERIFIABLE non sono supporto
    della candidate; CONTRADICTORY va descritto come incompatibile/opposto.
+   Non trasformare PARTIAL in "pienamente" o "completamente supportato",
+   non trasformare AMBIGUOUS in una raccomandazione o in una "opzione primaria",
+   e non trasformare DOES_NOT_SUPPORT o SOURCE_DOES_NOT_SUPPORT in supporto.
+   Preserva sempre warning, caveat e negazioni esplicite. Se manca una
+   validated_quote, non dire che il paper ha confermato direttamente la relazione.
+   Non dichiarare una variante specifica confermata quando il support level e'
+   parziale. Non inventare PMID, farmaci, biomarcatori o livelli di evidenza.
 
 LINGUA
 Scrivi in italiano. NON tradurre: nomi di farmaci, geni, alterazioni, PMID,

@@ -166,6 +166,98 @@ def test_disease_null_and_object_are_unchanged_and_gene_scalar_is_rejected():
     assert gene_event is None
 
 
+def test_target_intervention_scalar_is_normalized_only_when_literal_text_matches():
+    arguments = _minimal_output(target_intervention="panitumumab")
+    normalized, event = parser.normalize_target_intervention_scalar(
+        arguments,
+        "The oncologist is evaluating panitumumab.",
+    )
+    assert normalized["target_intervention"] == {
+        "raw_value": "panitumumab",
+        "quote": "panitumumab",
+    }
+    assert event == {
+        "code": "TARGET_INTERVENTION_SCALAR_NORMALIZED",
+        "original_value": "panitumumab",
+        "matched_quote": "panitumumab",
+    }
+    assert prompt.tool_argument_errors(normalized) == []
+
+
+def test_target_intervention_scalar_is_not_normalized_when_literal_text_is_absent():
+    arguments = _minimal_output(target_intervention="panitumumab")
+    normalized, event = parser.normalize_target_intervention_scalar(
+        arguments,
+        "The oncologist is evaluating cetuximab.",
+    )
+    assert normalized["target_intervention"] == "panitumumab"
+    assert event is None
+    assert prompt.tool_argument_errors(normalized) == ["TARGET_INTERVENTION_NOT_OBJECT"]
+
+
+def test_target_intervention_object_is_unchanged():
+    arguments = _minimal_output(
+        target_intervention={"raw_value": "panitumumab", "quote": "panitumumab"}
+    )
+    normalized, event = parser.normalize_target_intervention_scalar(
+        arguments,
+        "The oncologist is evaluating panitumumab.",
+    )
+    assert normalized == arguments
+    assert event is None
+
+
+def test_target_intervention_null_is_unchanged():
+    arguments = _minimal_output(target_intervention=None)
+    normalized, event = parser.normalize_target_intervention_scalar(
+        arguments,
+        "No target therapy is named.",
+    )
+    assert normalized == arguments
+    assert event is None
+
+
+def test_target_intervention_ambiguous_text_match_fails_closed():
+    arguments = _minimal_output(target_intervention="panitumumab")
+    normalized, event = parser.normalize_target_intervention_scalar(
+        arguments,
+        "The text mentions panitumumab and panitumumab again.",
+    )
+    assert normalized["target_intervention"] == "panitumumab"
+    assert event is None
+    assert prompt.tool_argument_errors(normalized) == ["TARGET_INTERVENTION_NOT_OBJECT"]
+
+
+def test_call_parser_normalizes_verifiable_target_intervention_scalar(monkeypatch):
+    response = {
+        "choices": [{
+            "message": {"content": "", "tool_calls": [{
+                "function": {
+                    "name": prompt.TOOL_NAME,
+                    "arguments": json.dumps(_minimal_output(target_intervention="panitumumab")),
+                },
+            }]},
+            "finish_reason": "tool_calls",
+        }],
+    }
+
+    monkeypatch.setattr(
+        "backend.research_pipeline.casecontext.parser.tr.post_with_infra_retry_with_diagnostics",
+        lambda _payload: _fake_attempt(response),
+    )
+    result = parser.call_parser("case-target-scalar", "A patient is evaluating panitumumab.")
+    assert result["transport_result"] == "FORCED_TOOL_VALID"
+    assert result["case_context_v2"]["target_intervention"] == {
+        "raw_value": "panitumumab",
+        "quote": "panitumumab",
+    }
+    assert result["parser_diagnostics"]["target_intervention_normalization"] == {
+        "code": "TARGET_INTERVENTION_SCALAR_NORMALIZED",
+        "original_value": "panitumumab",
+        "matched_quote": "panitumumab",
+    }
+
+
 def test_call_parser_logs_disease_scalar_normalization(monkeypatch):
     response = {
         "choices": [{

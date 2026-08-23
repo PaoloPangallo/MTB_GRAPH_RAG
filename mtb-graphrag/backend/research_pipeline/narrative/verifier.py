@@ -37,6 +37,7 @@ FAIL = "FAIL"
 
 REASON_UNAUTHORIZED_ENTITY = "NARRATIVE_UNAUTHORIZED_ENTITY"
 REASON_STATUS_ESCALATION = "NARRATIVE_STATUS_ESCALATION"
+REASON_SUPPORT_LEVEL_ESCALATION = "NARRATIVE_SUPPORT_LEVEL_ESCALATION"
 REASON_POLARITY_INVERSION = "NARRATIVE_POLARITY_INVERSION"
 REASON_NEGATION_LOST = "NARRATIVE_NEGATION_LOST"
 REASON_UNAUTHORIZED_QUOTE = "NARRATIVE_UNAUTHORIZED_QUOTE"
@@ -175,6 +176,40 @@ def _check_status(candidate, text) -> list[dict[str, Any]]:
              "phrases": hits}]
 
 
+def _check_support_level(candidate, text) -> list[dict[str, Any]]:
+    """Impedisce di narrare come piena una relazione non autorizzata."""
+    direct = candidate.get("candidate_support") or {}
+    levels = set()
+    if isinstance(direct, dict) and isinstance(direct.get("result"), str):
+        levels.add(direct["result"])
+    for check in candidate.get("candidate_support_checks") or []:
+        support = check.get("candidate_support") or {}
+        if isinstance(support, dict) and isinstance(support.get("result"), str):
+            levels.add(support["result"])
+
+    restricted = bool(levels & {"PARTIAL_SUPPORT", "CONTEXT_ONLY", "CONTRADICTORY", "UNVERIFIABLE"})
+    restricted = restricted or candidate.get("canonical_status") in {"PARTIAL", "AMBIGUOUS"}
+    if not restricted:
+        return []
+
+    hits = lx.support_level_escalation_hits(text)
+    fields = []
+    if isinstance(direct, dict):
+        fields = direct.get("fields") or []
+    uncertain_biomarker = "BIOMARKER_MATCH_UNCERTAIN" in (candidate.get("warnings") or [])
+    if uncertain_biomarker and lx.support_claim_hits(text):
+        hits += lx.support_claim_hits(text)
+    if not hits:
+        return []
+    return [{
+        "candidate_id": candidate["candidate_id"],
+        "candidate_support": sorted(levels) or None,
+        "canonical_status": candidate.get("canonical_status"),
+        "fields": fields,
+        "phrases": hits,
+    }]
+
+
 # ═══════════════════════════════════════════════════ §12 polarity preservation
 
 def _check_polarity(candidate, text) -> tuple[list[dict], list[dict]]:
@@ -304,14 +339,16 @@ def verify_narrative(
         cid = entry.get("candidate_id")
         text_by_id[cid] = f"{text_by_id.get(cid, '')}\n{entry.get('text') or ''}".strip()
 
-    escalations, inversions, negations_lost, omissions = [], [], [], []
+    escalations, support_escalations, inversions, negations_lost, omissions = [], [], [], [], []
     candidate_results = []
     for cid, candidate in by_id.items():
         text = text_by_id.get(cid, "")
         c_esc = _check_status(candidate, text)
+        c_support = _check_support_level(candidate, text)
         c_inv, c_lost = _check_polarity(candidate, text)
         c_omit = _check_omissions(candidate, text)
         escalations += c_esc
+        support_escalations += c_support
         inversions += c_inv
         negations_lost += c_lost
         omissions += c_omit
@@ -321,6 +358,7 @@ def verify_narrative(
             "support_direction": candidate["support_direction"],
             "narrated": bool(text),
             "status_escalation": bool(c_esc),
+            "support_level_escalation": bool(c_support),
             "polarity_inversion": bool(c_inv),
             "negation_lost": bool(c_lost),
             "critical_omissions": [o["omitted"] for o in c_omit],
@@ -328,6 +366,8 @@ def verify_narrative(
 
     if escalations:
         reason_codes.append(REASON_STATUS_ESCALATION)
+    if support_escalations:
+        reason_codes.append(REASON_SUPPORT_LEVEL_ESCALATION)
     if inversions:
         reason_codes.append(REASON_POLARITY_INVERSION)
     if negations_lost:
@@ -343,6 +383,7 @@ def verify_narrative(
         "missing_candidate_ids": missing_ids,
         "unauthorized_entities": unauthorized_entities,
         "status_escalations": escalations,
+        "support_level_escalations": support_escalations,
         "polarity_violations": inversions + negations_lost,
         "unauthorized_quotes": unauthorized_quotes + promoted_quotes,
         "recommendation_language": recommendation_language,

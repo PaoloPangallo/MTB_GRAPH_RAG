@@ -79,6 +79,17 @@ SUPPORT_CLAIM_PATTERNS: tuple[str, ...] = (
     r"\bl[ae]\s+evidenz[ae]\s+support",
 )
 
+# Affermazioni di completezza/certezza. Sono valutate solo quando i campi
+# strutturati del dossier non autorizzano supporto pieno.
+SUPPORT_LEVEL_ESCALATION_PATTERNS: tuple[str, ...] = (
+    r"\b(?:pienamente|completamente|definitivamente)\s+supportat[oa]\b",
+    r"\b(?:pienamente|completamente|definitivamente)\s+confermat[oa]\b",
+    r"\blivello\s+di\s+evidenza\s+(?:alto|forte|definitiv[oa])\b",
+    r"\b(?:evidenza|supporto)\s+(?:alto|forte|definitiv[oa])\b",
+    r"\b(?:fully|completely|definitively)\s+(?:supported|confirmed)\b",
+    r"\b(?:high|strong|definitive)\s+level\s+of\s+evidence\b",
+)
+
 # ─────────────────────────────────────────── §12 marcatori di negazione
 #
 # Presenti quando la narrativa preserva correttamente una polarità negativa.
@@ -120,6 +131,7 @@ NO_DOCUMENT_MARKER_PATTERNS: tuple[str, ...] = (
 
 RECOMMENDATION_RE = _compile(RECOMMENDATION_PATTERNS)
 SUPPORT_CLAIM_RE = _compile(SUPPORT_CLAIM_PATTERNS)
+SUPPORT_LEVEL_ESCALATION_RE = _compile(SUPPORT_LEVEL_ESCALATION_PATTERNS)
 NEGATION_MARKER_RE = _compile(NEGATION_MARKER_PATTERNS)
 UNCERTAINTY_MARKER_RE = _compile(UNCERTAINTY_MARKER_PATTERNS)
 NO_DOCUMENT_MARKER_RE = _compile(NO_DOCUMENT_MARKER_PATTERNS)
@@ -143,6 +155,11 @@ def recommendation_hits(text: str) -> list[str]:
 def support_claim_hits(text: str) -> list[str]:
     """Affermazioni di supporto stabilito trovate."""
     return _hits(text, SUPPORT_CLAIM_RE)
+
+
+def support_level_escalation_hits(text: str) -> list[str]:
+    """Formulazioni di supporto pieno o di evidenza forte."""
+    return _hits(text, SUPPORT_LEVEL_ESCALATION_RE)
 
 
 def has_negation_marker(text: str) -> bool:

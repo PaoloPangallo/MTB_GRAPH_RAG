@@ -11,8 +11,11 @@ from backend.research_pipeline.documents.authorized_cache import AuthorizedDocum
 from backend.research_pipeline.documents.live_resolution import (
     DocumentResolution,
     ResolvedDocument,
+    load_source_units,
+    resolve_documents,
     resolve_live_documents,
 )
+from backend.research_pipeline.documents.cache_runtime import ReadOnlyDocumentCache
 from backend.research_pipeline.retrieval.kg_retrieval import _live_provenance_bundles
 from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.retrieval.live_sourceunit_selection import (
@@ -131,6 +134,100 @@ class LiveRuntimeIntegrationTest(TestCase):
         result = _resolution(cache_hit=False)
         self.assertEqual(1, result.network_fetch_count)
         self.assertNotEqual("RECORDED_REAL_RUN", result.documents[0].lineage["retrieval_mode"])
+
+
+class CachedAbstractMaterializationTest(TestCase):
+    """The replay manifest may carry abstract text without a local payload path."""
+
+    ASSOCIATIONS = [{
+        "candidate_id": "GCA-cache-abstract",
+        "available_bundles": [{
+            "bundle_id": "bundle-cache-abstract",
+            "document_id": "pmid:19223544",
+            "source_unit_ids": [],
+        }],
+    }]
+    ABSTRACT = (
+        "The monoclonal antibody panitumumab was studied in colorectal cancer. "
+        "KRAS mutations were clinically resistant to treatment."
+    )
+
+    def _cache(self, root: Path | None = None) -> ReadOnlyDocumentCache:
+        return ReadOnlyDocumentCache(root or Path("C:/__document_cache_fixture_does_not_exist__"))
+
+    def _materialize(self, record: dict, root: Path):
+        cache = self._cache(root)
+        associations = [{
+            "candidate_id": "GCA-cache-abstract",
+            "available_bundles": [{
+                "bundle_id": "bundle-cache-abstract",
+                "document_id": record["document_id"],
+                "source_unit_ids": [],
+            }],
+        }]
+        resolution = resolve_documents(
+            associations, {record["document_id"]: record}, cache,
+        )
+        return resolution, load_source_units(
+            resolution, {record["document_id"]: record}, cache,
+        )
+
+    def test_cache_hit_with_inline_abstract_exposes_text_to_parser(self) -> None:
+        record = {
+            "document_id": "pmid:19223544",
+            "availability": "ABSTRACT_AVAILABLE",
+            "abstract_available": True,
+            "title": "A cached abstract",
+            "abstract": self.ABSTRACT,
+            "abstract_sections": [{"label": None, "text": self.ABSTRACT}],
+            "local_cache_path": None,
+        }
+        resolution, bundle = self._materialize(record, Path("C:/__document_cache_fixture_does_not_exist__"))
+
+        self.assertTrue(resolution.documents[0].resolved)
+        self.assertIn("DOCUMENT_RESOLVED_FROM_CACHE", resolution.documents[0].reason_codes)
+        self.assertGreater(bundle.with_text, 0)
+        self.assertTrue(any("KRAS" in unit["text"] and "panitumumab" in unit["text"]
+                            for unit in bundle.units_by_id.values()))
+
+    def test_cache_hit_with_full_text_payload_is_unchanged(self) -> None:
+        root = Path(__file__).resolve().parents[3] / "research_frozen_artifacts" / "operational_v2"
+        relative = "pmc/xml/PMC4157820.xml"
+        record = {
+            "document_id": "pmcid:PMC4157820",
+            "availability": "PMC_XML_AVAILABLE",
+            "local_cache_path": relative,
+        }
+        resolution, bundle = self._materialize(record, root)
+
+        self.assertTrue(resolution.documents[0].resolved)
+        self.assertGreater(bundle.with_text, 0)
+
+    def test_document_without_text_remains_empty(self) -> None:
+        record = {
+            "document_id": "pmid:no-text",
+            "availability": "ABSTRACT_AVAILABLE",
+            "abstract_available": True,
+            "local_cache_path": None,
+        }
+        resolution, bundle = self._materialize(record, Path("C:/__document_cache_fixture_does_not_exist__"))
+
+        self.assertFalse(resolution.documents[0].resolved)
+        self.assertEqual(bundle.with_text, 0)
+
+    def test_abstract_metadata_without_payload_does_not_invent_text(self) -> None:
+        record = {
+            "document_id": "pmid:metadata-only",
+            "availability": "ABSTRACT_AVAILABLE",
+            "abstract_available": True,
+            "local_cache_path": None,
+            "title": "Metadata only",
+        }
+        resolution, bundle = self._materialize(record, Path("C:/__document_cache_fixture_does_not_exist__"))
+
+        self.assertFalse(resolution.documents[0].resolved)
+        self.assertEqual(bundle.with_text, 0)
+        self.assertIn("NO_LOCAL_CACHE_PATH", resolution.documents[0].reason_codes)
 
 
 class CanonicalVsResearchBoundaryTest(TestCase):

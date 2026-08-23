@@ -287,6 +287,30 @@ class AuthorizedDocumentCache:
         return {"title": title, "abstract": abstract, "abstract_sections": sections,
                 "pmcid": pmcid, "doi": doi, "publication_types": publication_types}, pmcid
 
+    @staticmethod
+    def inline_abstract(record: dict[str, Any]) -> str | None:
+        """Return abstract text materialized in a manifest record, if any."""
+        abstract = record.get("abstract")
+        if isinstance(abstract, str) and abstract.strip():
+            return abstract
+        sections = record.get("abstract_sections")
+        if isinstance(sections, list):
+            value = "\n".join(
+                str(section.get("text") or "").strip()
+                for section in sections
+                if isinstance(section, dict) and str(section.get("text") or "").strip()
+            ).strip()
+            if value:
+                return value
+        return None
+
+    def has_text_payload(self, record: dict[str, Any]) -> bool:
+        """Whether a cache record exposes a real payload to the parser."""
+        if record.get("availability") == "ABSTRACT_AVAILABLE" and self.inline_abstract(record):
+            return True
+        relative = record.get("local_cache_path")
+        return bool(relative and (self.root / relative).is_file())
+
     def resolve_pmid(self, pmid: str) -> dict[str, Any]:
         pmid = _norm(pmid)
         document_id = f"pmid:{pmid}"
@@ -486,10 +510,14 @@ class AuthorizedDocumentCache:
         units: list[dict[str, Any]] = []
         document_id = record["document_id"]
         relative = record.get("local_cache_path")
-        if relative and record.get("availability") == "ABSTRACT_AVAILABLE":
-            payload = (self.root / relative).read_bytes()
-            fields, _ = self._pubmed_xml_fields(payload)
-            units = [unit.to_dict() for unit in PubMedAbstractParser().parse(document_id, fields.get("title"), fields.get("abstract"))]
+        if record.get("availability") == "ABSTRACT_AVAILABLE":
+            if relative and (self.root / relative).is_file():
+                payload = (self.root / relative).read_bytes()
+                fields, _ = self._pubmed_xml_fields(payload)
+                title, abstract = fields.get("title"), fields.get("abstract")
+            else:
+                title, abstract = record.get("title"), self.inline_abstract(record)
+            units = [unit.to_dict() for unit in PubMedAbstractParser().parse(document_id, title, abstract)]
         elif relative and record.get("availability") == "PMC_XML_AVAILABLE":
             xml_text = (self.root / relative).read_text(encoding="utf-8", errors="replace")
             root = ET.fromstring(xml_text)
