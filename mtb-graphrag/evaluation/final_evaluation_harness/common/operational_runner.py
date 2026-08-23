@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
-import tempfile
+import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -15,6 +15,10 @@ from backend.research_pipeline.documents.authorized_cache import AuthorizedDocum
 
 class OperationalArtifactError(RuntimeError):
     """A frozen operational input is missing, changed, or ambiguous."""
+
+
+class OperationalScratchError(RuntimeError):
+    """The Operational runner cannot create or clean its scratch sandbox."""
 
 
 @dataclass(frozen=True)
@@ -152,14 +156,53 @@ class CanonicalOperationalRunner:
             cache.manifest_path.write_text(json.dumps(row) + "\n", encoding="utf-8")
         return cache
 
+    def _scratch_parent(self) -> Path:
+        """Return the writable harness root, never the frozen corpus root."""
+        return Path(__file__).resolve().parents[1]
+
+    @staticmethod
+    def _verify_scratch(scratch: Path) -> None:
+        probe_dir = scratch / ".preflight" / "nested"
+        probe_file = probe_dir / "probe.txt"
+        probe_dir.mkdir(parents=True, exist_ok=False)
+        probe_file.write_text("operational-scratch-probe", encoding="utf-8")
+        if probe_file.read_text(encoding="utf-8") != "operational-scratch-probe":
+            raise OSError("scratch probe readback mismatch")
+        probe_file.unlink()
+        probe_dir.rmdir()
+        probe_dir.parent.rmdir()
+
+    def _create_scratch(self, scenario_id: str) -> Path:
+        parent = self._scratch_parent()
+        scratch: Path | None = None
+        try:
+            parent.mkdir(parents=True, exist_ok=True)
+            scratch = parent / f"operational_{scenario_id}_{uuid.uuid4().hex[:8]}"
+            scratch.mkdir()
+            self._verify_scratch(scratch)
+            return scratch
+        except Exception as exc:
+            if scratch is not None:
+                shutil.rmtree(scratch, ignore_errors=True)
+            raise OperationalScratchError(
+                f"Operational scratch preflight failed for {parent}: {exc}"
+            ) from exc
+
+    @staticmethod
+    def _cleanup_scratch(scratch: Path) -> None:
+        try:
+            shutil.rmtree(scratch)
+        except Exception as exc:
+            raise OperationalScratchError(
+                f"Operational scratch cleanup failed for {scratch}: {exc}"
+            ) from exc
+
     def run(self, scenario_id: str) -> OperationalResult:
         materialized = self.materialize(scenario_id)
         binding = materialized.binding
-        # Windows test environments may deny the user TEMP ACL. Keep the
-        # ephemeral sandbox under the writable worktree artifact root; it is
-        # still per-run, never shared, and is removed deterministically.
-        with tempfile.TemporaryDirectory(prefix=f"operational_{scenario_id}_", dir=self.corpus_root.parent) as temp:
-            cache = self._cache(scenario_id, Path(temp))
+        scratch = self._create_scratch(scenario_id)
+        try:
+            cache = self._cache(scenario_id, scratch)
             observables: dict[str, Any]
             component: str
             terminal: str
@@ -234,6 +277,8 @@ class CanonicalOperationalRunner:
                 "fixture_id": binding.get("fixture_id"),
             }, binding.get("initial_cache_contract", "FIXTURE"), component, observables, expected, actual,
             controlled, passed, terminal, "OK", {"corpus_manifest": str(self._manifest_path), "cache_isolated": True}, 0)
+        finally:
+            self._cleanup_scratch(scratch)
 
     @staticmethod
     def _property_pass(scenario_id: str, obs: dict[str, Any], actual: str) -> bool:

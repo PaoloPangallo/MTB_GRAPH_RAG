@@ -32,6 +32,17 @@ def test_missing_corpus_artifact_fails_closed(tmp_path):
         runner.materialize("A_cache_hit")
 
 
+def test_unusable_scratch_root_fails_before_cache_initialization(tmp_path, monkeypatch):
+    runner = _runner()
+    unusable_root = tmp_path / "existing-but-unusable-scratch-root"
+    unusable_root.write_text("not a directory", encoding="utf-8")
+    monkeypatch.setattr(runner, "_scratch_parent", lambda: unusable_root, raising=False)
+    monkeypatch.setattr(runner, "_cache", lambda *_args: pytest.fail("cache started before scratch preflight"))
+
+    with pytest.raises(RuntimeError, match="scratch"):
+        runner.run("A_cache_hit")
+
+
 def test_document_runner_uses_isolated_cache_and_records_component_path():
     result = _runner().run("A_cache_hit")
     assert result.scenario_id == "A_cache_hit"
@@ -57,4 +68,3 @@ def test_component_level_routing_evaluates_frozen_property(scenario_id, expected
     result = _runner().run(scenario_id)
     assert expected in result.actual_observable
     assert result.property_test_pass is True
-
