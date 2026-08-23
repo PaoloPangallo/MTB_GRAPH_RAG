@@ -21,6 +21,9 @@ from evaluation.final_evaluation_harness.common.runner import build_full_plan, e
 PLAN_PATH = PROTOCOL_ROOT / "sealed_execution_plan.json"
 SEAL_PATH = PROTOCOL_ROOT / "seal_manifest.json"
 SEAL_HASH_PATH = PROTOCOL_ROOT / "seal_manifest.sha256"
+RUNTIME_COMMIT = "586bf27885c11173510a6bd0b93db3f3ac0f222a"
+HARNESS_COMMIT = "3b0d326509d2a11fc69214b420074e4164ae354e"
+OUTPUT_DIRECTORY = "evaluation/final_evaluation_v1_7_3"
 
 
 def digest(path: Path) -> str:
@@ -43,7 +46,7 @@ def protocol_digest() -> str:
 
 
 def main() -> None:
-    runtime_commit = "3cebfcacc140d58f74892fa27beb74e1de8e28c1"
+    runtime_commit = RUNTIME_COMMIT
     manifest_path = PROTOCOL_ROOT / "protocol_manifest.json"
     lineage_path = PROTOCOL_ROOT / "lineage.json"
     amendment_path = PROTOCOL_ROOT / "operational_amendment.json"
@@ -52,8 +55,10 @@ def main() -> None:
         "protocol_version": "1.7.2",
         "protocol_id": "mtb-graphrag-final-evaluation/1.7.2",
         "evaluation_boundary": "FINAL_EVALUATION_1_7_2",
-        "output_directory": "evaluation/final_evaluation_v1_7_2",
+        "output_directory": OUTPUT_DIRECTORY,
         "runtime_commit": runtime_commit,
+        "harness_commit": HARNESS_COMMIT,
+        "evaluation_protocol_commit": HARNESS_COMMIT,
         "model_alias": "gemma4:31b-cloud",
         "review_status": "ACCEPTED",
         "frozen": True,
@@ -67,10 +72,10 @@ def main() -> None:
     })
     write_json(manifest_path, manifest)
     lineage = json.loads(lineage_path.read_text(encoding="utf-8"))
-    lineage.update({"runtime_commit": runtime_commit, "protocol_version": "1.7.2"})
+    lineage.update({"runtime_commit": runtime_commit, "harness_commit": HARNESS_COMMIT, "protocol_version": "1.7.2"})
     write_json(lineage_path, lineage)
     amendment = json.loads(amendment_path.read_text(encoding="utf-8"))
-    amendment.update({"runtime_commit": runtime_commit, "evaluation_output_directory": "evaluation/final_evaluation_v1_7_2"})
+    amendment.update({"runtime_commit": runtime_commit, "harness_commit": HARNESS_COMMIT, "evaluation_output_directory": OUTPUT_DIRECTORY})
     write_json(amendment_path, amendment)
     from backend.research_pipeline.casecontext import prompt as case_prompt
     from backend.research_pipeline.enrichment import prompt_v2 as paper_prompt
@@ -128,12 +133,13 @@ def main() -> None:
     plan_sha_again = execution_plan_sha256(plans_again)
     if plan_sha_again != plan_sha or [p.__dict__ for p in plans_again] != serialized_plan:
         raise RuntimeError("SEALED_PLAN_NONDETERMINISTIC")
-    final_id = evaluation_id(protocol, protocol.hashes["runtime_commit"])
+    final_id = evaluation_id(protocol, HARNESS_COMMIT)
     seal = {
         "protocol_version": "1.7.2",
         "boundary": "FINAL_EVALUATION_1_7_2",
         "evaluation_id": final_id,
         "canonical_runtime_commit": protocol.hashes["runtime_commit"],
+        "harness_commit": HARNESS_COMMIT,
         "gca_sha256": manifest["gca_sha256"],
         "benchmark_path": manifest["benchmark_path"],
         "benchmark_sha256": manifest["benchmark_sha256"],
@@ -178,6 +184,7 @@ def main() -> None:
     sealed_plan_manifest = {
         "protocol_version": "1.7.2",
         "runtime_commit": protocol.hashes["runtime_commit"],
+        "harness_commit": HARNESS_COMMIT,
         "protocol_sha256": protocol.hashes["protocol_sha256"],
         "boundary": "FINAL_EVALUATION_1_7_2",
         "plan_builder": "evaluation.final_evaluation_harness.common.runner.build_full_plan",

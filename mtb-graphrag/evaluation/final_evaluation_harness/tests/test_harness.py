@@ -37,8 +37,8 @@ def local_tmp():
         shutil.rmtree(path, ignore_errors=True)
 
 
-def test_protocol_sha_accepted(protocol): assert protocol.hashes["protocol_sha256"] == "7e22a2dfabdd0a46051ed30cd93400432fac9b90cd48b59c7cf519bc2563b1f3"
-def test_runtime_exact(protocol): assert protocol.hashes["runtime_commit"] == "3cebfcacc140d58f74892fa27beb74e1de8e28c1"
+def test_protocol_sha_accepted(protocol): assert protocol.hashes["protocol_sha256"] == "517335c74793afa8f752b06418165629b6a69c1fcde2fac142b6db8691199bcf"
+def test_runtime_exact(protocol): assert protocol.hashes["runtime_commit"] == "586bf27885c11173510a6bd0b93db3f3ac0f222a"
 def test_lineage_exact(protocol): assert protocol.hashes["inherited_protocol_1_1_sha256"].startswith("83fcf870")
 def test_a01_exact(protocol): assert protocol.hashes["inherited_A01_sha256"].startswith("48c60928")
 def test_s01_exact(protocol): assert protocol.hashes["S01_raw_sha256"].startswith("83babfa5")

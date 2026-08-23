@@ -92,7 +92,7 @@ def test_protocol_172_uses_clean_namespace_and_exact_model(monkeypatch):
 
     protocol = load_protocol()
     assert protocol.manifest["protocol_version"] == "1.7.2"
-    assert protocol.manifest["output_directory"] == "evaluation/final_evaluation_v1_7_2"
+    assert protocol.manifest["output_directory"] == "evaluation/final_evaluation_v1_7_3"
     env = dict(__import__("os").environ)
     env["OLLAMA_API_KEY"] = "present-for-offline-guard-test"
     assert validate_execution_environment(env)["model"] == "gemma4:31b-cloud"
@@ -108,7 +108,7 @@ def test_protocol_172_preserves_experimental_unit_composition_after_runtime_free
     assert protocol.manifest["total_units"] == 222
     plan = build_full_plan(protocol)
     assert len(plan) == 222
-    assert protocol.hashes["runtime_commit"] == "3cebfcacc140d58f74892fa27beb74e1de8e28c1"
+    assert protocol.hashes["runtime_commit"] == "586bf27885c11173510a6bd0b93db3f3ac0f222a"
 
 
 def test_protocol_172_parent_plan_has_the_same_experimental_units(monkeypatch):
