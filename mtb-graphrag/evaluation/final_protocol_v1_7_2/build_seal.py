@@ -133,7 +133,7 @@ def main() -> None:
     plan_sha_again = execution_plan_sha256(plans_again)
     if plan_sha_again != plan_sha or [p.__dict__ for p in plans_again] != serialized_plan:
         raise RuntimeError("SEALED_PLAN_NONDETERMINISTIC")
-    final_id = evaluation_id(protocol, HARNESS_COMMIT)
+    final_id = evaluation_id(protocol, protocol.hashes["runtime_commit"])
     seal = {
         "protocol_version": "1.7.2",
         "boundary": "FINAL_EVALUATION_1_7_2",
