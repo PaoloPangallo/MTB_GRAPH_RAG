@@ -37,6 +37,7 @@ from backend.research_pipeline.data_access import (
     read_candidate_corpus_utf8,
 )
 from backend.research_pipeline.documents.authorized_cache import expand_identifier
+from backend.research_pipeline.retrieval.relation_family import classify_relation_family
 
 # I percorsi arrivano da ``data_access``, non da ``Path(__file__).parents[n]``:
 # la profondità di questo file è cambiata con la promozione, e un percorso
@@ -204,7 +205,8 @@ def _retrieve(case_context: dict[str, Any], *, use_frozen_bundles: bool) -> dict
     def _authorized(candidate_id: str, candidate: dict[str, Any]) -> bool:
         if use_frozen_bundles:
             return candidate_id in bundles_by_candidate
-        return bool(candidate.get("document_identifiers"))
+        classify_relation_family(candidate)
+        return True
 
     authorized_candidate_ids = sorted(
         cid for cid, candidate in candidates.items() if _authorized(cid, candidate)
@@ -234,7 +236,9 @@ def _retrieve(case_context: dict[str, Any], *, use_frozen_bundles: bool) -> dict
             else _live_provenance_bundles(candidate)
         )
         associations.append({
-            "candidate_id": candidate_id, "candidate": candidate, "match_reason_codes": item["reason_codes"],
+            "candidate_id": candidate_id, "candidate": candidate,
+            "relation_family": classify_relation_family(candidate),
+            "match_reason_codes": item["reason_codes"],
             "available_bundles": [{"bundle_id": b["bundle_id"], "document_id": b["document_id"], "bundle_type": b.get("bundle_type"), "source_unit_ids": b.get("source_unit_ids", [])[:MAX_SOURCE_UNITS_PER_DOCUMENT], **({} if use_frozen_bundles else {"provenance_identifier": b["provenance_identifier"]})} for b in bundles],
         })
 
