@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-fff42a22261e97c1160749e9",
+  "direction": "Supports",
+  "disease": [
+    {
+      "canonical_id": "DOID:3908.0",
+      "id": "disease:label:Lung Non-small Cell Carcinoma",
+      "label": "Lung Non-small Cell Carcinoma"
+    },
+    {
+      "canonical_id": "DOID:3908",
+      "id": "Disease:8",
+      "label": "Lung Non-small Cell Carcinoma"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "25923550",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "25923550",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:646",
+    "label": "646",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-10",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:34",
+    "label": "T790M",
+    "type": "Variant"
+  }
+}

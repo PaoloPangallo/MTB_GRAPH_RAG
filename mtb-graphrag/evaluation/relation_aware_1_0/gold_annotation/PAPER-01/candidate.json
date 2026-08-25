@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-eed9f53846f3cc651e23a469",
+  "direction": "Does Not Support",
+  "disease": [
+    {
+      "canonical_id": "DOID:2997.0",
+      "id": "disease:label:Sertoli-Leydig Cell Tumor",
+      "label": "Sertoli-Leydig Cell Tumor"
+    },
+    {
+      "canonical_id": "DOID:2997",
+      "id": "Disease:195",
+      "label": "Sertoli-Leydig Cell Tumor"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "26428316",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "26428316",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Diagnostic",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:5534",
+    "label": "5534",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-01",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:2051",
+    "label": "D1709N",
+    "type": "Variant"
+  }
+}

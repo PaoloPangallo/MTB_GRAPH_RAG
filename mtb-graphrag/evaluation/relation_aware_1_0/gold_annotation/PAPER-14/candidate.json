@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-fc343592a215c4ac9c9a1c43",
+  "direction": "Adverse Response",
+  "disease": [
+    {
+      "canonical_id": "DOID:162.0",
+      "id": "disease:label:Cancer",
+      "label": "Cancer"
+    },
+    {
+      "canonical_id": "DOID:162",
+      "id": "Disease:13",
+      "label": "Cancer"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "23988873",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "23988873",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-to-drug",
+  "object": {
+    "canonical_id": null,
+    "id": "Drug:rxcui:4492",
+    "label": "FLUOROURACIL",
+    "type": "Drug"
+  },
+  "predicate": "associated_with_sensitivity_to",
+  "sample_id": "PAPER-14",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:738",
+    "label": "DPYD*13 HOMOZYGOSITY",
+    "type": "Variant"
+  }
+}

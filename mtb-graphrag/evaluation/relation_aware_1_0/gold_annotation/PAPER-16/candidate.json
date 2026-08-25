@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-fff906074758e0ee48366a8d",
+  "direction": "Resistance",
+  "disease": [
+    {
+      "canonical_id": "DOID:8552.0",
+      "id": "disease:label:Chronic Myeloid Leukemia",
+      "label": "Chronic Myeloid Leukemia"
+    },
+    {
+      "canonical_id": "DOID:8552",
+      "id": "Disease:4",
+      "label": "Chronic Myeloid Leukemia"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "16772610",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "16772610",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-to-drug",
+  "object": {
+    "canonical_id": null,
+    "id": "Drug:rxcui:662281",
+    "label": "NILOTINIB",
+    "type": "Drug"
+  },
+  "predicate": "associated_with_resistance_to",
+  "sample_id": "PAPER-16",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:2",
+    "label": "T315I",
+    "type": "Variant"
+  }
+}

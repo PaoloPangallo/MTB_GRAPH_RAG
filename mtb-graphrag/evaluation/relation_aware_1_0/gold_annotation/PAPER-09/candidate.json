@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffe5c124fb0b3bb1335a4014",
+  "direction": "Sensitivity/Response",
+  "disease": [
+    {
+      "canonical_id": "DOID:3910.0",
+      "id": "disease:label:Lung Adenocarcinoma",
+      "label": "Lung Adenocarcinoma"
+    },
+    {
+      "canonical_id": "DOID:3910",
+      "id": "Disease:17",
+      "label": "Lung Adenocarcinoma"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "20979473",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "20979473",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-to-drug",
+  "object": {
+    "canonical_id": null,
+    "id": "Drug:rxcui:1148495",
+    "label": "CRIZOTINIB",
+    "type": "Drug"
+  },
+  "predicate": "associated_with_sensitivity_to",
+  "sample_id": "PAPER-09",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:5",
+    "label": "Fusion",
+    "type": "Variant"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-e7edb50600fc5996b63b35e4",
+  "direction": "Reduced Sensitivity",
+  "disease": [
+    {
+      "canonical_id": "DOID:80630.0",
+      "id": "disease:label:B-lymphoblastic Leukemia/lymphoma",
+      "label": "B-lymphoblastic Leukemia/lymphoma"
+    },
+    {
+      "canonical_id": "DOID:80630",
+      "id": "Disease:59",
+      "label": "B-lymphoblastic Leukemia/lymphoma"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "21863287",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "21863287",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-to-drug",
+  "object": {
+    "canonical_id": null,
+    "id": "Drug:fda:DASATINIB",
+    "label": "DASATINIB",
+    "type": "Drug"
+  },
+  "predicate": "associated_with_sensitivity_to",
+  "sample_id": "PAPER-13",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:2681",
+    "label": "Fusion",
+    "type": "Variant"
+  }
+}

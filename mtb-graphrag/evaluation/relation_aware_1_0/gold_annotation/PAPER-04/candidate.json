@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffd2ba40df921cebf9d31e1a",
+  "direction": "Does Not Support",
+  "disease": [
+    {
+      "canonical_id": "DOID:3965.0",
+      "id": "disease:label:Merkel Cell Carcinoma",
+      "label": "Merkel Cell Carcinoma"
+    },
+    {
+      "canonical_id": "DOID:3965",
+      "id": "Disease:82",
+      "label": "Merkel Cell Carcinoma"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "27093365",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "27093365",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:1578",
+    "label": "1578",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-04",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:276",
+    "label": "Expression",
+    "type": "Variant"
+  }
+}

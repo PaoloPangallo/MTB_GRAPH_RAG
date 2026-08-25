@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffe78f2cb067426d4baf225d",
+  "direction": "Supports",
+  "disease": [
+    {
+      "canonical_id": "DOID:2531.0",
+      "id": "disease:label:Hematologic Cancer",
+      "label": "Hematologic Cancer"
+    },
+    {
+      "canonical_id": "DOID:2531",
+      "id": "Disease:48",
+      "label": "Hematologic Cancer"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "27069254",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "27069254",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Diagnostic",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:1436",
+    "label": "1436",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-02",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:571",
+    "label": "Fusion",
+    "type": "Variant"
+  }
+}

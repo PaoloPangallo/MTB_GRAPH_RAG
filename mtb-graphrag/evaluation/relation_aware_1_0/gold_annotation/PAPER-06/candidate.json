@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffcd72c534472ec5090eea1f",
+  "direction": "Supports",
+  "disease": [
+    {
+      "canonical_id": "DOID:2394.0",
+      "id": "disease:label:Ovarian Cancer",
+      "label": "Ovarian Cancer"
+    },
+    {
+      "canonical_id": "DOID:2394",
+      "id": "Disease:21",
+      "label": "Ovarian Cancer"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "27908594",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "27908594",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:2882",
+    "label": "2882",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-06",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:1250",
+    "label": "V211L",
+    "type": "Variant"
+  }
+}

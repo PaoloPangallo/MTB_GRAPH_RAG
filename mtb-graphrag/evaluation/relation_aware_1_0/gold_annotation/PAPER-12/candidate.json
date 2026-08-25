@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffbb1b3be5bd7e74024e8a2f",
+  "direction": "Supports",
+  "disease": [
+    {
+      "canonical_id": "DOID:80144.0",
+      "id": "disease:label:Childhood Acute Lymphocytic Leukemia",
+      "label": "Childhood Acute Lymphocytic Leukemia"
+    },
+    {
+      "canonical_id": "DOID:80144",
+      "id": "Disease:234",
+      "label": "Childhood Acute Lymphocytic Leukemia"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "23377183",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "23377183",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Prognostic",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:7863",
+    "label": "7863",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-12",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:2896",
+    "label": "R238W",
+    "type": "Variant"
+  }
+}

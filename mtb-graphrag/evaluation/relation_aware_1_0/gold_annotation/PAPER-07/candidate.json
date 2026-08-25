@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffd6d386640e05d3b78a3031",
+  "direction": "Sensitivity/Response",
+  "disease": [
+    {
+      "canonical_id": "DOID:9119.0",
+      "id": "disease:label:Acute Myeloid Leukemia",
+      "label": "Acute Myeloid Leukemia"
+    },
+    {
+      "canonical_id": "DOID:9119",
+      "id": "Disease:3",
+      "label": "Acute Myeloid Leukemia"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "21482694",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "21482694",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-to-drug",
+  "object": {
+    "canonical_id": null,
+    "id": "Drug:rxcui:495881",
+    "label": "SORAFENIB",
+    "type": "Drug"
+  },
+  "predicate": "associated_with_sensitivity_to",
+  "sample_id": "PAPER-07",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:1263",
+    "label": "N822K",
+    "type": "Variant"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffc4f3959a383c945a0f1cc5",
+  "direction": "Supports",
+  "disease": [
+    {
+      "canonical_id": "DOID:10283.0",
+      "id": "disease:label:Prostate Cancer",
+      "label": "Prostate Cancer"
+    },
+    {
+      "canonical_id": "DOID:10283",
+      "id": "Disease:40",
+      "label": "Prostate Cancer"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "25670080",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "25670080",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:414",
+    "label": "414",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-05",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:156",
+    "label": "Overexpression",
+    "type": "Variant"
+  }
+}

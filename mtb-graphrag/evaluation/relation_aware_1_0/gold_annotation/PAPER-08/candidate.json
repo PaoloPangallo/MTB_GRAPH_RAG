@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffdedde41ece1506673a5c0e",
+  "direction": "Supports",
+  "disease": [
+    {
+      "canonical_id": "DOID:5520.0",
+      "id": "disease:label:Head And Neck Squamous Cell Carcinoma",
+      "label": "Head And Neck Squamous Cell Carcinoma"
+    },
+    {
+      "canonical_id": "DOID:5520",
+      "id": "Disease:33",
+      "label": "Head And Neck Squamous Cell Carcinoma"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "36806911",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "36806911",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:12850",
+    "label": "12850",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-08",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:4943",
+    "label": "High",
+    "type": "Variant"
+  }
+}

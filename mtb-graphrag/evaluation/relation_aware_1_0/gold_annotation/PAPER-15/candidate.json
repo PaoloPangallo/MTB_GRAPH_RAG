@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ff97755cefae20a730170d54",
+  "direction": "Resistance",
+  "disease": [
+    {
+      "canonical_id": "DOID:1909.0",
+      "id": "disease:label:Melanoma",
+      "label": "Melanoma"
+    },
+    {
+      "canonical_id": "DOID:1909",
+      "id": "Disease:7",
+      "label": "Melanoma"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "24576830",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "24576830",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predictive",
+  "materialization_rule_id": "gca/2.0/evidence-to-drug",
+  "object": {
+    "canonical_id": null,
+    "id": "Drug:fda:TRAMETINIB",
+    "label": "TRAMETINIB",
+    "type": "Drug"
+  },
+  "predicate": "associated_with_resistance_to",
+  "sample_id": "PAPER-15",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:12",
+    "label": "V600E",
+    "type": "Variant"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "candidate_id": "GCA-ffb6a639dda7e2af9dc154e0",
+  "direction": "Supports",
+  "disease": [
+    {
+      "canonical_id": "DOID:14175.0",
+      "id": "disease:label:Von Hippel-Lindau Disease",
+      "label": "Von Hippel-Lindau Disease"
+    },
+    {
+      "canonical_id": "DOID:14175",
+      "id": "Disease:166",
+      "label": "Von Hippel-Lindau Disease"
+    }
+  ],
+  "document_identifiers": [
+    {
+      "pmid": "9829912",
+      "scope": "evidence_record"
+    },
+    {
+      "pmid": "9829912",
+      "scope": "linked_publication"
+    }
+  ],
+  "evidence_type": "Predisposing",
+  "materialization_rule_id": "gca/2.0/evidence-statement",
+  "object": {
+    "canonical_id": null,
+    "id": "Evidence:5275",
+    "label": "5275",
+    "type": "Evidence"
+  },
+  "predicate": "has_evidence_statement",
+  "sample_id": "PAPER-03",
+  "source_type": "PubMed",
+  "subject": {
+    "canonical_id": null,
+    "id": "Variant:1958",
+    "label": "H191FS (c.571delC)",
+    "type": "Variant"
+  }
+}
