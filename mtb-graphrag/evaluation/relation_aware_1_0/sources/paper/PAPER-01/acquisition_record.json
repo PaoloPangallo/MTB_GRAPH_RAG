@@ -1,0 +1,147 @@
+{
+  "acquired_at": "2026-08-25T09:30:03.426478+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-eed9f53846f3cc651e23a469",
+  "canonical_document_sha256": "70737c22527f284026b325d59cf2abc0c93bb7123f1edd305e7eec78415d010f",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:26428316",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=26428316"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=26428316"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": "PMC3459463",
+  "pmid": "26428316",
+  "raw_payload_sha256": "75edaa86d1577e5b71160db0a2dfebe4e04c70edd0d2ce9b46e6f70087fc2a24",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "Sertoli-Leydig cell tumors are characterized by the presence of somatic DICER1 hotspot mutations. In this study, we sought to define the association between DICER1 hotspot mutations and different morphologic subtypes of ovarian Sertoli-Leydig cell tumors. Furthermore, we aimed to assess whether DICER1 hotspot mutations occur in other ovarian sex cord-stromal tumors, testicular sex cord-stromal tumors, or other female genital tract tumors with rhabdomyosarcomatous differentiation. We subjected a series of ovarian Sertoli-Leydig cell tumors (n=32), Sertoli cell tumors (n=5) and gynandroblastomas (n=5), testicular sex cord-stromal tumors (n=15) and a diverse group of female genital tract tumors with rhabdomyosarcomatous morphology (n=10) to DICER1 hotspot mutation analysis using Sanger sequencing. We also tested two gynandroblastomas for the presence of FOXL2 hotspot mutations (p.C134W; c.402C>G). Twenty of 32 (63%) Sertoli-Leydig cell tumors harbored a DICER1 hotspot mutation, of which 80% had the p.E1705K mutation. No association was found between DICER1 mutation status and the presence of heterologous or retiform differentiation in Sertoli-Leydig cell tumors. DICER1 mutations were found at similar frequencies in gynandroblastoma (2/5; 40%) and ovarian Sertoli cell tumors (5/8; 63%; P>0.1), and all mutated tumors harbored a p.E1705K mutation. DICER1 hotspot mutations were also identified in a single cervical rhabdomyosarcoma and in the rhabdomyosarcomatous component of a uterine carcinosarcoma. No DICER1 mutations were detected in testicular sex cord-stromal tumors. Two DICER1 wild-type gynandroblastomas harbored a p.C134W FOXL2 hotspot mutation in both tumor components. In this study we confirmed that DICER1 hotspot mutations occur in over half of ovarian Sertoli-Leydig cell tumors, and are unrelated to tumor differentiation. We also widened the spectrum of ovarian sex cord-stromal tumors with sertoliform differentiation, in which DICER1 mutations are known to occur, to include Sertoli cell tumors and gynandroblastomas. Our results suggest that DICER1 mutations may not have a role in testicular sex cord-stromal tumorigenesis.",
+    "abstract_sections": [
+      {
+        "label": null,
+        "text": "Sertoli-Leydig cell tumors are characterized by the presence of somatic DICER1 hotspot mutations. In this study, we sought to define the association between DICER1 hotspot mutations and different morphologic subtypes of ovarian Sertoli-Leydig cell tumors. Furthermore, we aimed to assess whether DICER1 hotspot mutations occur in other ovarian sex cord-stromal tumors, testicular sex cord-stromal tumors, or other female genital tract tumors with rhabdomyosarcomatous differentiation. We subjected a series of ovarian Sertoli-Leydig cell tumors (n=32), Sertoli cell tumors (n=5) and gynandroblastomas (n=5), testicular sex cord-stromal tumors (n=15) and a diverse group of female genital tract tumors with rhabdomyosarcomatous morphology (n=10) to DICER1 hotspot mutation analysis using Sanger sequencing. We also tested two gynandroblastomas for the presence of FOXL2 hotspot mutations (p.C134W; c.402C>G). Twenty of 32 (63%) Sertoli-Leydig cell tumors harbored a DICER1 hotspot mutation, of which 80% had the p.E1705K mutation. No association was found between DICER1 mutation status and the presence of heterologous or retiform differentiation in Sertoli-Leydig cell tumors. DICER1 mutations were found at similar frequencies in gynandroblastoma (2/5; 40%) and ovarian Sertoli cell tumors (5/8; 63%; P>0.1), and all mutated tumors harbored a p.E1705K mutation. DICER1 hotspot mutations were also identified in a single cervical rhabdomyosarcoma and in the rhabdomyosarcomatous component of a uterine carcinosarcoma. No DICER1 mutations were detected in testicular sex cord-stromal tumors. Two DICER1 wild-type gynandroblastomas harbored a p.C134W FOXL2 hotspot mutation in both tumor components. In this study we confirmed that DICER1 hotspot mutations occur in over half of ovarian Sertoli-Leydig cell tumors, and are unrelated to tumor differentiation. We also widened the spectrum of ovarian sex cord-stromal tumors with sertoliform differentiation, in which DICER1 mutations are known to occur, to include Sertoli cell tumors and gynandroblastomas. Our results suggest that DICER1 mutations may not have a role in testicular sex cord-stromal tumorigenesis."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Conlon N"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Schultheis AM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Piscuoglio S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Silva A"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Guerra E"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Tornos C"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Reuter VE"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Soslow RA"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Young RH"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Oliva E"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Weigelt B"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "70737c22527f284026b325d59cf2abc0c93bb7123f1edd305e7eec78415d010f",
+    "content_type": "application/xml",
+    "degradation_reason": "PMC_RESOLUTION_FAILED",
+    "document_id": "pmid:26428316",
+    "doi": "10.1111/his.12747",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1111/his.12747",
+      "pmcid": "PMC3459463",
+      "pmid": "26428316"
+    },
+    "journal": "Modern pathology : an official journal of the United States and Canadian Academy of Pathology, Inc",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/26428316.xml",
+    "metadata_cache_path": "pubmed/metadata/26428316.json",
+    "metadata_hash": "f1b5f77dda9c4d9e781ff513ac715e032b38c0c4d349076f9a7e1d69e3f91997",
+    "payload_size": 20286,
+    "pmc_resolution": {
+      "availability": "PMC_RESOLUTION_FAILED",
+      "document_id": "pmcid:PMC3459463",
+      "errors": []
+    },
+    "pmcid": "PMC3459463",
+    "publication_types": [
+      "Journal Article",
+      "Research Support, N.I.H., Extramural",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=26428316"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=26428316"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:59Z",
+    "source": "NCBI E-utilities",
+    "title": "A survey of DICER1 hotspot mutations in ovarian and testicular sex cord-stromal tumors.",
+    "year": "2015 Dec"
+  },
+  "sample_id": "PAPER-01",
+  "sourceunit_bundle_sha256": "50c78af7548a23ed4247e719f5ddf41a5c76a1e94592b3e87394cf9b03b199db",
+  "sourceunit_count": 22
+}

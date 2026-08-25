@@ -1,0 +1,109 @@
+{
+  "acquired_at": "2026-08-25T09:29:54.756227+00:00",
+  "acquisition_status": "TRIAL_RESOLVED",
+  "candidate_id": "GCA-ffd320325629fdab6305da12",
+  "conditions": [
+    "Non-small Cell Lung Cancer"
+  ],
+  "eligibility_raw": null,
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT05009836"
+    }
+  ],
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Savolitinib"
+      ],
+      "description": "Subjects will receive Savolitinib 600 mg or 400 mg daily (including 600/400 mg QD or 300/200 mg BID) orally, 21day cycles (every 3 weeks) until disease progression, death, adverse event (AE) leading to discontinuation or withdrawal of consent.",
+      "name": "Savolitinib",
+      "otherNames": [
+        "HMPL-504"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "placebo"
+      ],
+      "description": "Subjects will receive Placebo 600 mg or 400 mg daily (including 600/400 mg QD or 300/200 mg BID) orally, 21day cycles (every 3 weeks) until disease progression, death, adverse event (AE) leading to discontinuation or withdrawal of consent.",
+      "name": "Placebo",
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT05009836",
+  "normalized_record_sha256": "55e95924ef4747817fef40255b84edf24f89151715c2327b953f1e917dfba647",
+  "phase": [
+    "PHASE3"
+  ],
+  "raw_payload_sha256": "2db1aeb4fcbeec460bf86b0602641f609db43642a40e318ca203bfa9ea67d1c0",
+  "relation_family": "CLINICAL_TRIAL",
+  "resolver_record": {
+    "availability": "METADATA_ONLY",
+    "brief_summary": "A Phase III Clinical Study on Savolitinib Combined with Osimertinib in Treatment of EGFRm+/MET+ Locally Advanced or Metastatic Non-small Cell Lung Cancer",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "conditions": [
+      "Non-small Cell Lung Cancer"
+    ],
+    "content_hash": "18690682089816f77cfd076ce1bfe4eaae81a14fcc6f54a4769f40bd294f998e",
+    "content_type": "application/json",
+    "detailed_description": "A Multicenter, Randomized, Double-blind, Phase III Clinical Study to Evaluate the Efficacy and Safety of Savolitinib Combined with Osimertinib versus Placebo Combined with Osimertinib as the First-line Therapy for Patients with EGFRm+/MET+ Locally Advanced or Metastatic Non-small Cell Lung Cancer",
+    "document_id": "nct:NCT05009836",
+    "errors": [],
+    "identifiers": {
+      "nct": "NCT05009836"
+    },
+    "interventions": [
+      {
+        "armGroupLabels": [
+          "Savolitinib"
+        ],
+        "description": "Subjects will receive Savolitinib 600 mg or 400 mg daily (including 600/400 mg QD or 300/200 mg BID) orally, 21day cycles (every 3 weeks) until disease progression, death, adverse event (AE) leading to discontinuation or withdrawal of consent.",
+        "name": "Savolitinib",
+        "otherNames": [
+          "HMPL-504"
+        ],
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "placebo"
+        ],
+        "description": "Subjects will receive Placebo 600 mg or 400 mg daily (including 600/400 mg QD or 300/200 mg BID) orally, 21day cycles (every 3 weeks) until disease progression, death, adverse event (AE) leading to discontinuation or withdrawal of consent.",
+        "name": "Placebo",
+        "type": "DRUG"
+      }
+    ],
+    "last_update": {
+      "date": "2026-06-10",
+      "type": "ACTUAL"
+    },
+    "license_status": "PUBLIC_METADATA",
+    "local_cache_path": "clinical_trials/NCT05009836.json",
+    "payload_size": 12003,
+    "phase": [
+      "PHASE3"
+    ],
+    "recruitment_status": "ACTIVE_NOT_RECRUITING",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT05009836"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:53Z",
+    "source": "ClinicalTrials.gov API v2",
+    "study_type": "INTERVENTIONAL",
+    "title": "Clinical Study on Savolitinib + Osimertinib in Treatment of EGFRm+/MET+ Locally Advanced or Metastatic NSCLC"
+  },
+  "sample_id": "TRIAL-06",
+  "status": "ACTIVE_NOT_RECRUITING",
+  "title": "Clinical Study on Savolitinib + Osimertinib in Treatment of EGFRm+/MET+ Locally Advanced or Metastatic NSCLC"
+}

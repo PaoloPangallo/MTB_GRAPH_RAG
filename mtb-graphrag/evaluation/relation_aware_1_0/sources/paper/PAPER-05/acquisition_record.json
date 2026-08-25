@@ -1,0 +1,196 @@
+{
+  "acquired_at": "2026-08-25T09:30:15.746720+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-ffc4f3959a383c945a0f1cc5",
+  "canonical_document_sha256": "932742ffe76ae1d9a689396c4d4cd8d4403d7b12a0410689d6dc8e8dec190166",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:25670080",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=25670080"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=25670080"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": "PMC2538883",
+  "pmid": "25670080",
+  "raw_payload_sha256": "f79fba4dee0ca8dacd89b3633e4bb3c930e60e87ce007752c8edb8c53e32f43c",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "Elucidating the determinants of aggressiveness in lethal prostate cancer may stimulate therapeutic strategies that improve clinical outcomes. We used experimental models and clinical databases to identify GATA2 as a regulator of chemotherapy resistance and tumorigenicity in this context. Mechanistically, direct upregulation of the growth hormone IGF2 emerged as a mediator of the aggressive properties regulated by GATA2. IGF2 in turn activated IGF1R and INSR as well as a downstream polykinase program. The characterization of this axis prompted a combination strategy whereby dual IGF1R/INSR inhibition restored the efficacy of chemotherapy and improved survival in preclinical models. These studies reveal a GATA2-IGF2 aggressiveness axis in lethal prostate cancer and identify a therapeutic opportunity in this challenging disease.",
+    "abstract_sections": [
+      {
+        "label": null,
+        "text": "Elucidating the determinants of aggressiveness in lethal prostate cancer may stimulate therapeutic strategies that improve clinical outcomes. We used experimental models and clinical databases to identify GATA2 as a regulator of chemotherapy resistance and tumorigenicity in this context. Mechanistically, direct upregulation of the growth hormone IGF2 emerged as a mediator of the aggressive properties regulated by GATA2. IGF2 in turn activated IGF1R and INSR as well as a downstream polykinase program. The characterization of this axis prompted a combination strategy whereby dual IGF1R/INSR inhibition restored the efficacy of chemotherapy and improved survival in preclinical models. These studies reveal a GATA2-IGF2 aggressiveness axis in lethal prostate cancer and identify a therapeutic opportunity in this challenging disease."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Vidal SJ"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Rodriguez-Bravo V"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Quinn SA"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Rodriguez-Barrueco R"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Lujambio A"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Williams E"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Sun X"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "de la Iglesia-Vicente J"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Lee A"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Readhead B"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Chen X"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Galsky M"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Esteve B"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Petrylak DP"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Dudley JT"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Rabadan R"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Silva JM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Hoshida Y"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Lowe SW"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Cordon-Cardo C"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Domingo-Domenech J"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "932742ffe76ae1d9a689396c4d4cd8d4403d7b12a0410689d6dc8e8dec190166",
+    "content_type": "application/xml",
+    "degradation_reason": "PMC_RESOLUTION_FAILED",
+    "document_id": "pmid:25670080",
+    "doi": "10.1016/j.ccell.2014.11.013",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1016/j.ccell.2014.11.013",
+      "pmcid": "PMC2538883",
+      "pmid": "25670080"
+    },
+    "journal": "Cancer cell",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/25670080.xml",
+    "metadata_cache_path": "pubmed/metadata/25670080.json",
+    "metadata_hash": "e327ba14aed56c4eeb06e0a9d44ffbe663e9e20bc62835b45c132479e2297237",
+    "payload_size": 32209,
+    "pmc_resolution": {
+      "availability": "PMC_RESOLUTION_FAILED",
+      "document_id": "pmcid:PMC2538883",
+      "errors": []
+    },
+    "pmcid": "PMC2538883",
+    "publication_types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=25670080"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=25670080"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:12Z",
+    "source": "NCBI E-utilities",
+    "title": "A targetable GATA2-IGF2 axis confers aggressiveness in lethal prostate cancer.",
+    "year": "2015 Feb 9"
+  },
+  "sample_id": "PAPER-05",
+  "sourceunit_bundle_sha256": "dac01099ad64addc5dfe878118f50dbc833e2a5d9fd3bed6a9fe53ac01e30a05",
+  "sourceunit_count": 8
+}

@@ -1,0 +1,139 @@
+{
+  "acquired_at": "2026-08-25T09:29:52.840303+00:00",
+  "acquisition_status": "TRIAL_RESOLVED",
+  "candidate_id": "GCA-ffe6624e0da7f2eebf55af2a",
+  "conditions": [
+    "Chronic Myeloid Leukemia, Chronic Phase",
+    "Withdrawal;Drug"
+  ],
+  "eligibility_raw": null,
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT04147533"
+    }
+  ],
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "initially treated patients"
+      ],
+      "description": "withdrawal of imatinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of imatinib is 50% of the standard dose (200 mg daily), during the second 6 months after study entry, the dose of imatinib is 200 mg every other day; 12 months after study entry, imatinib is discontinued, the patient is followed in line with the aims of the trial",
+      "name": "Imatinib withdrawal",
+      "otherNames": [
+        "Glivec withdrawal"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "initially treated patients"
+      ],
+      "description": "withdrawal of dasatinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of dasatinib is 50% of the standard dose (40 mg daily; tablets containing 50 mg are not available on the market), during the second 6 months after study entry, the dose of dasatinib is 40 mg every other day; 12 months after study entry, dasatinib is discontinued, the patient is followed in line with the aims of the trial",
+      "name": "Dasatinib",
+      "otherNames": [
+        "Sprycel withdrawal"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "initially treated patients"
+      ],
+      "description": "withdrawal of nilotinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of nilotinib is 50% of the standard dose (200 mg every 12 hours), during the second 6 months after study entry, the dose of nilotinib is 400 mg every other day; 12 months after study entry, nilotinib is discontinued, the patient is followed in line with the aims of the trial",
+      "name": "Nilotinib",
+      "otherNames": [
+        "Tasigna withdrawal"
+      ],
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT04147533",
+  "normalized_record_sha256": "64ec2370a5a36252ec4b07042951ec8d9d8a2147164cff760d2d886eecf3d810",
+  "phase": [
+    "PHASE2"
+  ],
+  "raw_payload_sha256": "57b5b99e69b7bd61410d25a392296d35fe13efad9688c535ddb8d857f81a8697",
+  "relation_family": "CLINICAL_TRIAL",
+  "resolver_record": {
+    "availability": "METADATA_ONLY",
+    "brief_summary": "Evaluation of the efficacy and safety of withdrawal of tyrosine kinase inhibitors after previous two-step dose reduction in patients with chronic myeloid leukemia in deep molecular remission",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "conditions": [
+      "Chronic Myeloid Leukemia, Chronic Phase",
+      "Withdrawal;Drug"
+    ],
+    "content_hash": "74c32e4a5f03d76f43f6370e2d071d7db15435a627c2bc673fb4babd83f9d837",
+    "content_type": "application/json",
+    "detailed_description": "In the first phase of the study (first 6 months after the study enrollment), 50% reduction of standard TKI dose follows.Physical and clinical examinations (focused on adverse effects and possible withdrawal syndrome manifestation) will be performed in predefined time intervals, pharmacological history of the subject will be taken, mandatory biochemical, hematological, and molecular-biological examinations will be performed.\n\nIn the following 6 months, the dose will be reduced by 50% i.e. medication will be administered every other day.\n\nTwelve months after enrollment, the medication will be stoped. The subject is followed in predefined time intervals.",
+    "document_id": "nct:NCT04147533",
+    "errors": [],
+    "identifiers": {
+      "nct": "NCT04147533"
+    },
+    "interventions": [
+      {
+        "armGroupLabels": [
+          "initially treated patients"
+        ],
+        "description": "withdrawal of imatinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of imatinib is 50% of the standard dose (200 mg daily), during the second 6 months after study entry, the dose of imatinib is 200 mg every other day; 12 months after study entry, imatinib is discontinued, the patient is followed in line with the aims of the trial",
+        "name": "Imatinib withdrawal",
+        "otherNames": [
+          "Glivec withdrawal"
+        ],
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "initially treated patients"
+        ],
+        "description": "withdrawal of dasatinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of dasatinib is 50% of the standard dose (40 mg daily; tablets containing 50 mg are not available on the market), during the second 6 months after study entry, the dose of dasatinib is 40 mg every other day; 12 months after study entry, dasatinib is discontinued, the patient is followed in line with the aims of the trial",
+        "name": "Dasatinib",
+        "otherNames": [
+          "Sprycel withdrawal"
+        ],
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "initially treated patients"
+        ],
+        "description": "withdrawal of nilotinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of nilotinib is 50% of the standard dose (200 mg every 12 hours), during the second 6 months after study entry, the dose of nilotinib is 400 mg every other day; 12 months after study entry, nilotinib is discontinued, the patient is followed in line with the aims of the trial",
+        "name": "Nilotinib",
+        "otherNames": [
+          "Tasigna withdrawal"
+        ],
+        "type": "DRUG"
+      }
+    ],
+    "last_update": {
+      "date": "2024-11-26",
+      "type": "ACTUAL"
+    },
+    "license_status": "PUBLIC_METADATA",
+    "local_cache_path": "clinical_trials/NCT04147533.json",
+    "payload_size": 71260,
+    "phase": [
+      "PHASE2"
+    ],
+    "recruitment_status": "ACTIVE_NOT_RECRUITING",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT04147533"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:51Z",
+    "source": "ClinicalTrials.gov API v2",
+    "study_type": "INTERVENTIONAL",
+    "title": "Efficacy and Safety of TKIs' Withdrawal After a Two-step Dose Reduction in Patients with Chronic Myeloid Leukemia"
+  },
+  "sample_id": "TRIAL-04",
+  "status": "ACTIVE_NOT_RECRUITING",
+  "title": "Efficacy and Safety of TKIs' Withdrawal After a Two-step Dose Reduction in Patients with Chronic Myeloid Leukemia"
+}

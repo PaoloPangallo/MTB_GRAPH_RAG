@@ -1,0 +1,133 @@
+{
+  "acquired_at": "2026-08-25T09:29:55.783449+00:00",
+  "acquisition_status": "TRIAL_RESOLVED",
+  "candidate_id": "GCA-ffda92dd72f21725eee9c4ac",
+  "conditions": [
+    "Advanced Malignant Solid Neoplasm"
+  ],
+  "eligibility_raw": null,
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT01434316"
+    }
+  ],
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Treatment (veliparib and dinaciclib)"
+      ],
+      "description": "Given IV",
+      "name": "Dinaciclib",
+      "otherNames": [
+        "CDK Inhibitor SCH 727965",
+        "MK 7965",
+        "MK-7965",
+        "MK7965",
+        "SCH 727965",
+        "SCH-727965",
+        "SCH727965"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Treatment (veliparib and dinaciclib)"
+      ],
+      "description": "Given PO",
+      "name": "Veliparib",
+      "otherNames": [
+        "ABT 888",
+        "ABT-888",
+        "ABT888",
+        "PARP-1 inhibitor ABT-888"
+      ],
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT01434316",
+  "normalized_record_sha256": "a4b896079cc1979749bc401272d2a9a2b7a0cfe0b4f55f41ceb04e0eaa915c08",
+  "phase": [
+    "PHASE1"
+  ],
+  "raw_payload_sha256": "b47c0d821da4d4c00a2d81f6d48324db938d1138b1c4e36d9c66475f5f8550ef",
+  "relation_family": "CLINICAL_TRIAL",
+  "resolver_record": {
+    "availability": "METADATA_ONLY",
+    "brief_summary": "This phase I trial studies the side effects and the best dose of veliparib and dinaciclib in treating patients with solid tumors that have spread to other places in the body and usually cannot be cured or controlled with treatment. Veliparib and dinaciclib may stop the growth of tumor cells by blocking some of the enzymes needed for cell growth.",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "conditions": [
+      "Advanced Malignant Solid Neoplasm"
+    ],
+    "content_hash": "b4b88f6d4c3b5595121ad794131b84fb2c3a869fccfd643ce3526800b903c455",
+    "content_type": "application/json",
+    "detailed_description": "PRIMARY OBJECTIVES:\n\nI. To evaluate the safety and tolerability of veliparib (ABT-888) and dinaciclib (SCH727965) in patients with advanced solid tumors.\n\nII. To determine the recommended phase 2 dose (RP2D) for ABT-888 in combination with SCH727965, determined by evaluating the feasibility, safety, dose-limiting toxicities, and the maximally tolerated dose(s).\n\nSECONDARY OBJECTIVES:\n\nI. To confirm the safety of the combination of ABT-888 and SCH727965 in patients with known BRCA1 or BRCA2 germline mutation.\n\nII. To characterize the pharmacokinetic parameters of ABT-888 both alone and in combination with SCH727965.\n\nIII. To assess the pharmacodynamic effects of ABT-888 in combination with SCH727965, both in surrogate tissues and in tumor.\n\nIV. To assess preliminary antitumor activity of the ABT-888/SCH727965 combinations in subjects with solid tumors.\n\nOUTLINE: This is a dose-escalation study of veliparib and dinaciclib followed by expanded doublet cohort studies of non-breast BRCA-proficient patients and BRCA-proficient triple negative breast cancer (TNBC) patients, a safety doublet cohort for BRCA-deficient patients, and cohorts of BRCA-associated TNBC (PARP inhibitor-naive and PARP inhibitor-resistant).\n\nPART 1A: Patients receive veliparib orally (PO) twice daily (BID) on days 1-28 and dinaciclib intravenously (IV) over 2 hours on days 8 and 22. Cycles repeat every 28 days in the absence of disease progression or unacceptable toxicity.\n\nPART 1B: Patients receive veliparib and dinaciclib as patients in Part 1A. Cycles repeat every 28 days in the absence of disease progression or unacceptable toxicity.\n\nPART 1C: Patients receive veliparib PO BID on days 1-7 of cycle 0. Patients then receive veliparib PO BID on days 1-21 and dinaciclib IV over 2 hours on days 1, 4, 8, and 11 or days 1 and 8. Cycles repeat every 21 days in the absence of disease progression or unacceptable toxicity.\n\nAfter completion of study treatment, patients are followed up every 3 months.",
+    "document_id": "nct:NCT01434316",
+    "errors": [],
+    "identifiers": {
+      "nct": "NCT01434316"
+    },
+    "interventions": [
+      {
+        "armGroupLabels": [
+          "Treatment (veliparib and dinaciclib)"
+        ],
+        "description": "Given IV",
+        "name": "Dinaciclib",
+        "otherNames": [
+          "CDK Inhibitor SCH 727965",
+          "MK 7965",
+          "MK-7965",
+          "MK7965",
+          "SCH 727965",
+          "SCH-727965",
+          "SCH727965"
+        ],
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "Treatment (veliparib and dinaciclib)"
+        ],
+        "description": "Given PO",
+        "name": "Veliparib",
+        "otherNames": [
+          "ABT 888",
+          "ABT-888",
+          "ABT888",
+          "PARP-1 inhibitor ABT-888"
+        ],
+        "type": "DRUG"
+      }
+    ],
+    "last_update": {
+      "date": "2026-08-03",
+      "type": "ACTUAL"
+    },
+    "license_status": "PUBLIC_METADATA",
+    "local_cache_path": "clinical_trials/NCT01434316.json",
+    "payload_size": 17473,
+    "phase": [
+      "PHASE1"
+    ],
+    "recruitment_status": "ACTIVE_NOT_RECRUITING",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT01434316"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:54Z",
+    "source": "ClinicalTrials.gov API v2",
+    "study_type": "INTERVENTIONAL",
+    "title": "Veliparib and Dinaciclib in Treating Patients With Advanced Solid Tumors"
+  },
+  "sample_id": "TRIAL-07",
+  "status": "ACTIVE_NOT_RECRUITING",
+  "title": "Veliparib and Dinaciclib in Treating Patients With Advanced Solid Tumors"
+}

@@ -1,0 +1,250 @@
+{
+  "acquired_at": "2026-08-25T09:30:31.309856+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-fff42a22261e97c1160749e9",
+  "canonical_document_sha256": "31c7b9da37e2f0c63be991d4fc9add3823eb64f885ef00d338b0f4757b427bc0",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:25923550",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=25923550"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=25923550"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": null,
+  "pmid": "25923550",
+  "raw_payload_sha256": "07cbe6c2d29967ea58537aec3b00c73c05bf081d837f7ae6f2e66277559b72b6",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "Non-small-cell lung cancer (NSCLC) with a mutation in the gene encoding epidermal growth factor receptor (EGFR) is sensitive to approved EGFR inhibitors, but resistance develops, mediated by the T790M EGFR mutation in most cases. Rociletinib (CO-1686) is an EGFR inhibitor active in preclinical models of EGFR-mutated NSCLC with or without T790M.\nIn this phase 1-2 study, we administered rociletinib to patients with EGFR-mutated NSCLC who had disease progression during previous treatment with an existing EGFR inhibitor. In the expansion (phase 2) part of the study, patients with T790M-positive disease received rociletinib at a dose of 500 mg twice daily, 625 mg twice daily, or 750 mg twice daily. Key objectives were assessment of safety, side-effect profile, pharmacokinetics, and preliminary antitumor activity of rociletinib. Tumor biopsies to identify T790M were performed during screening. Treatment was administered in continuous 21-day cycles.\nA total of 130 patients were enrolled. The first 57 patients to be enrolled received the free-base form of rociletinib (150 mg once daily to 900 mg twice daily). The remaining patients received the hydrogen bromide salt (HBr) form (500 mg twice daily to 1000 mg twice daily). A maximum tolerated dose (the highest dose associated with a rate of dose-limiting toxic effects of less than 33%) was not identified. The only common dose-limiting adverse event was hyperglycemia. In an efficacy analysis that included patients who received free-base rociletinib at a dose of 900 mg twice daily or the HBr form at any dose, the objective response rate among the 46 patients with T790M-positive disease who could be evaluated was 59% (95% confidence interval [CI], 45 to 73), and the rate among the 17 patients with T790M-negative disease who could be evaluated was 29% (95% CI, 8 to 51).\nRociletinib was active in patients with EGFR-mutated NSCLC associated with the T790M resistance mutation. (Funded by Clovis Oncology; ClinicalTrials.gov number, NCT01526928.).",
+    "abstract_sections": [
+      {
+        "label": "BACKGROUND",
+        "text": "Non-small-cell lung cancer (NSCLC) with a mutation in the gene encoding epidermal growth factor receptor (EGFR) is sensitive to approved EGFR inhibitors, but resistance develops, mediated by the T790M EGFR mutation in most cases. Rociletinib (CO-1686) is an EGFR inhibitor active in preclinical models of EGFR-mutated NSCLC with or without T790M."
+      },
+      {
+        "label": "METHODS",
+        "text": "In this phase 1-2 study, we administered rociletinib to patients with EGFR-mutated NSCLC who had disease progression during previous treatment with an existing EGFR inhibitor. In the expansion (phase 2) part of the study, patients with T790M-positive disease received rociletinib at a dose of 500 mg twice daily, 625 mg twice daily, or 750 mg twice daily. Key objectives were assessment of safety, side-effect profile, pharmacokinetics, and preliminary antitumor activity of rociletinib. Tumor biopsies to identify T790M were performed during screening. Treatment was administered in continuous 21-day cycles."
+      },
+      {
+        "label": "RESULTS",
+        "text": "A total of 130 patients were enrolled. The first 57 patients to be enrolled received the free-base form of rociletinib (150 mg once daily to 900 mg twice daily). The remaining patients received the hydrogen bromide salt (HBr) form (500 mg twice daily to 1000 mg twice daily). A maximum tolerated dose (the highest dose associated with a rate of dose-limiting toxic effects of less than 33%) was not identified. The only common dose-limiting adverse event was hyperglycemia. In an efficacy analysis that included patients who received free-base rociletinib at a dose of 900 mg twice daily or the HBr form at any dose, the objective response rate among the 46 patients with T790M-positive disease who could be evaluated was 59% (95% confidence interval [CI], 45 to 73), and the rate among the 17 patients with T790M-negative disease who could be evaluated was 29% (95% CI, 8 to 51)."
+      },
+      {
+        "label": "CONCLUSIONS",
+        "text": "Rociletinib was active in patients with EGFR-mutated NSCLC associated with the T790M resistance mutation. (Funded by Clovis Oncology; ClinicalTrials.gov number, NCT01526928.)."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Sequist LV"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Soria JC"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Goldman JW"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Wakelee HA"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Gadgeel SM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Varga A"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Papadimitrakopoulou V"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Solomon BJ"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Oxnard GR"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Dziadziuszko R"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Aisner DL"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Doebele RC"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Galasso C"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Garon EB"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Heist RS"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Logan J"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Neal JW"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Mendenhall MA"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Nichols S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Piotrowska Z"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Wozniak AJ"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Raponi M"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Karlovich CA"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Jaw-Tsai S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Isaacson J"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Despain D"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Matheny SL"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Rolfe L"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Allen AR"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Camidge DR"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "31c7b9da37e2f0c63be991d4fc9add3823eb64f885ef00d338b0f4757b427bc0",
+    "content_type": "application/xml",
+    "document_id": "pmid:25923550",
+    "doi": "10.1056/nejmoa1413654",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1056/nejmoa1413654",
+      "pmid": "25923550"
+    },
+    "journal": "The New England journal of medicine",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/25923550.xml",
+    "metadata_cache_path": "pubmed/metadata/25923550.json",
+    "metadata_hash": "809f45a75045d72ebe4588c999040d1c1638e01a4ed25c06da0cfc76ec9f536f",
+    "payload_size": 14303,
+    "pmcid": null,
+    "publication_types": [
+      "Clinical Trial, Phase I",
+      "Clinical Trial, Phase II",
+      "Journal Article",
+      "Multicenter Study",
+      "Randomized Controlled Trial",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=25923550"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=25923550"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:28Z",
+    "source": "NCBI E-utilities",
+    "title": "Rociletinib in EGFR-mutated non-small-cell lung cancer.",
+    "year": "2015 Apr 30"
+  },
+  "sample_id": "PAPER-10",
+  "sourceunit_bundle_sha256": "b07da387585def0187386a22a68e096eaaac5ed39686f03a05e7f5b93c9feb3f",
+  "sourceunit_count": 19
+}

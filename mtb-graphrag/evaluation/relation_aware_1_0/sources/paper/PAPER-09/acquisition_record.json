@@ -1,0 +1,165 @@
+{
+  "acquired_at": "2026-08-25T09:30:28.851343+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-ffe5c124fb0b3bb1335a4014",
+  "canonical_document_sha256": "d37f74568a54d25a95054523a3e3782657ef51a40bcdd9abbab8fbb43d3a0db1",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:20979473",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=20979473"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=20979473"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": null,
+  "pmid": "20979473",
+  "raw_payload_sha256": "48e04b21e7775f6d8f2139db7d077cb71598416f659d3ad1acffdda262bafff0",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "The EML4 (echinoderm microtubule-associated protein-like 4)-ALK (anaplastic lymphoma kinase) fusion-type tyrosine kinase is an oncoprotein found in 4 to 5% of non-small-cell lung cancers, and clinical trials of specific inhibitors of ALK for the treatment of such tumors are currently under way. Here, we report the discovery of two secondary mutations within the kinase domain of EML4-ALK in tumor cells isolated from a patient during the relapse phase of treatment with an ALK inhibitor. Each mutation developed independently in subclones of the tumor and conferred marked resistance to two different ALK inhibitors. (Funded by the Ministry of Health, Labor, and Welfare of Japan, and others.).",
+    "abstract_sections": [
+      {
+        "label": null,
+        "text": "The EML4 (echinoderm microtubule-associated protein-like 4)-ALK (anaplastic lymphoma kinase) fusion-type tyrosine kinase is an oncoprotein found in 4 to 5% of non-small-cell lung cancers, and clinical trials of specific inhibitors of ALK for the treatment of such tumors are currently under way. Here, we report the discovery of two secondary mutations within the kinase domain of EML4-ALK in tumor cells isolated from a patient during the relapse phase of treatment with an ALK inhibitor. Each mutation developed independently in subclones of the tumor and conferred marked resistance to two different ALK inhibitors. (Funded by the Ministry of Health, Labor, and Welfare of Japan, and others.)."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Choi YL"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Soda M"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Yamashita Y"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Ueno T"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Takashima J"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Nakajima T"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Yatabe Y"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Takeuchi K"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Hamada T"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Haruta H"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Ishikawa Y"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Kimura H"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Mitsudomi T"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Tanio Y"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Mano H"
+      },
+      {
+        "authtype": "CollectiveName",
+        "clusterid": "",
+        "name": "ALK Lung Cancer Study Group"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "d37f74568a54d25a95054523a3e3782657ef51a40bcdd9abbab8fbb43d3a0db1",
+    "content_type": "application/xml",
+    "document_id": "pmid:20979473",
+    "doi": "10.1056/nejmoa1007478",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1056/nejmoa1007478",
+      "pmid": "20979473"
+    },
+    "journal": "The New England journal of medicine",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/20979473.xml",
+    "metadata_cache_path": "pubmed/metadata/20979473.json",
+    "metadata_hash": "5fb051ad9de9d27f2a6bd3bc1b9990bb05b2be682456f01709c71e4c7af81061",
+    "payload_size": 11072,
+    "pmcid": null,
+    "publication_types": [
+      "Case Reports",
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=20979473"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=20979473"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:26Z",
+    "source": "NCBI E-utilities",
+    "title": "EML4-ALK mutations in lung cancer that confer resistance to ALK inhibitors.",
+    "year": "2010 Oct 28"
+  },
+  "sample_id": "PAPER-09",
+  "sourceunit_bundle_sha256": "273d74c6ca70926d8ea7ad0571c5b88e2c1b749341d98cd849a91c6e33d1f141",
+  "sourceunit_count": 7
+}

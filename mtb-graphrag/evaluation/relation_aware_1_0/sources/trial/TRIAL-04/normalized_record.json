@@ -1,0 +1,48 @@
+{
+  "conditions": [
+    "Chronic Myeloid Leukemia, Chronic Phase",
+    "Withdrawal;Drug"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "initially treated patients"
+      ],
+      "description": "withdrawal of imatinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of imatinib is 50% of the standard dose (200 mg daily), during the second 6 months after study entry, the dose of imatinib is 200 mg every other day; 12 months after study entry, imatinib is discontinued, the patient is followed in line with the aims of the trial",
+      "name": "Imatinib withdrawal",
+      "otherNames": [
+        "Glivec withdrawal"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "initially treated patients"
+      ],
+      "description": "withdrawal of dasatinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of dasatinib is 50% of the standard dose (40 mg daily; tablets containing 50 mg are not available on the market), during the second 6 months after study entry, the dose of dasatinib is 40 mg every other day; 12 months after study entry, dasatinib is discontinued, the patient is followed in line with the aims of the trial",
+      "name": "Dasatinib",
+      "otherNames": [
+        "Sprycel withdrawal"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "initially treated patients"
+      ],
+      "description": "withdrawal of nilotinib after previous two-step dose reduction: during the first 6 months after study entry, the dose of nilotinib is 50% of the standard dose (200 mg every 12 hours), during the second 6 months after study entry, the dose of nilotinib is 400 mg every other day; 12 months after study entry, nilotinib is discontinued, the patient is followed in line with the aims of the trial",
+      "name": "Nilotinib",
+      "otherNames": [
+        "Tasigna withdrawal"
+      ],
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT04147533",
+  "overall_status": "ACTIVE_NOT_RECRUITING",
+  "phase": [
+    "PHASE2"
+  ],
+  "title": "Efficacy and Safety of TKIs' Withdrawal After a Two-step Dose Reduction in Patients with Chronic Myeloid Leukemia"
+}

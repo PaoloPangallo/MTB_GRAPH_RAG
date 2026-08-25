@@ -1,0 +1,105 @@
+{
+  "acquired_at": "2026-08-25T09:29:50.346168+00:00",
+  "acquisition_status": "TRIAL_RESOLVED",
+  "candidate_id": "GCA-ffc804e44f248c10e40f1c4c",
+  "conditions": [
+    "Solid Tumors, KRAS Mutation; SOS1"
+  ],
+  "eligibility_raw": null,
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT04111458"
+    }
+  ],
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "BI 1701963 + Trametinib",
+        "BI 1701963 monotherapy"
+      ],
+      "description": "Tablet",
+      "name": "BI 1701963",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "BI 1701963 + Trametinib"
+      ],
+      "description": "Tablet",
+      "name": "Trametinib",
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT04111458",
+  "normalized_record_sha256": "b501d6a79428a9bf6703365223ab59a6d8862d06ae71130465c5adf5bf2d01dd",
+  "phase": [
+    "PHASE1"
+  ],
+  "raw_payload_sha256": "92b1fd1166bfdcbe4da309e45c0a2736531fef621fdd3c4b804e6e1afc92038c",
+  "relation_family": "CLINICAL_TRIAL",
+  "resolver_record": {
+    "availability": "METADATA_ONLY",
+    "brief_summary": "This is a study in adults with advanced cancer (solid tumours) in whom previous chemotherapy was not successful. Only people who have a tumour with a KRAS mutation can participate in the study. A KRAS mutation makes cancer grow faster.\n\nThe study tests 2 medicines called BI 1701963 and trametinib. BI 1701963 prevents reactivation of KRAS. In this study, BI 1701963 is given to humans for the first time. Trametinib is an approved medicine (MEK inhibitor).\n\nThe purpose of this study is to find out the highest dose of BI 1701963 alone and in combination with trametinib the participants can tolerate. Another purpose is to check whether BI 1701963 in combination with trametinib is able to make tumours shrink.\n\nParticipants can stay in the study as long as they benefit from treatment and can tolerate it.\n\nDuring this time, they get tablets of BI 1701963 and trametinib once daily. The doctors regularly monitor the size of the tumour. Doctors also regularly record any unwanted effects and check participants' health.",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "conditions": [
+      "Solid Tumors, KRAS Mutation; SOS1"
+    ],
+    "content_hash": "eeac1eba9f3656a565e5a1daf95d52718b79c9a7520bbcd2dda6aa65c37e851a",
+    "content_type": "application/json",
+    "detailed_description": null,
+    "document_id": "nct:NCT04111458",
+    "errors": [],
+    "identifiers": {
+      "nct": "NCT04111458"
+    },
+    "interventions": [
+      {
+        "armGroupLabels": [
+          "BI 1701963 + Trametinib",
+          "BI 1701963 monotherapy"
+        ],
+        "description": "Tablet",
+        "name": "BI 1701963",
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "BI 1701963 + Trametinib"
+        ],
+        "description": "Tablet",
+        "name": "Trametinib",
+        "type": "DRUG"
+      }
+    ],
+    "last_update": {
+      "date": "2026-08-04",
+      "type": "ACTUAL"
+    },
+    "license_status": "PUBLIC_METADATA",
+    "local_cache_path": "clinical_trials/NCT04111458.json",
+    "payload_size": 12651,
+    "phase": [
+      "PHASE1"
+    ],
+    "recruitment_status": "ACTIVE_NOT_RECRUITING",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT04111458"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:49Z",
+    "source": "ClinicalTrials.gov API v2",
+    "study_type": "INTERVENTIONAL",
+    "title": "A Study to Test Different Doses of BI 1701963 Alone and Combined With Trametinib in Patients With Different Types of Advanced Cancer (Solid Tumours With KRAS Mutation)"
+  },
+  "sample_id": "TRIAL-02",
+  "status": "ACTIVE_NOT_RECRUITING",
+  "title": "A Study to Test Different Doses of BI 1701963 Alone and Combined With Trametinib in Patients With Different Types of Advanced Cancer (Solid Tumours With KRAS Mutation)"
+}

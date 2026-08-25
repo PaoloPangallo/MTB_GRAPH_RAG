@@ -1,0 +1,228 @@
+{
+  "conditions": [
+    "Advanced Lung Non-Squamous Non-Small Cell Carcinoma",
+    "Metastatic Lung Non-Squamous Non-Small Cell Carcinoma",
+    "Recurrent Lung Non-Squamous Non-Small Cell Carcinoma",
+    "Stage IIIB Lung Cancer AJCC v8",
+    "Stage IV Lung Cancer AJCC v8"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Arm B (osimertinib, bevacizumab)"
+      ],
+      "description": "Given IV",
+      "name": "Bevacizumab",
+      "otherNames": [
+        "ABP 215",
+        "ABP-215",
+        "ABP215",
+        "Alymsys",
+        "Anti-VEGF",
+        "Anti-VEGF Humanized Monoclonal Antibody",
+        "Anti-VEGF Monoclonal Antibody SIBP04",
+        "Anti-VEGF rhuMAb",
+        "Avastin",
+        "Avegra",
+        "Avzivi",
+        "Aybintio",
+        "BAT 1706",
+        "BAT-1706",
+        "BAT1706",
+        "BAT1706 Biosimilar",
+        "Bevacizumab awwb",
+        "Bevacizumab Biosimilar ABP 215",
+        "Bevacizumab Biosimilar BAT1706",
+        "Bevacizumab Biosimilar BEVZ92",
+        "Bevacizumab Biosimilar BI 695502",
+        "Bevacizumab Biosimilar CBT 124",
+        "Bevacizumab Biosimilar CT-P16",
+        "Bevacizumab Biosimilar FKB238",
+        "Bevacizumab Biosimilar GB-222",
+        "Bevacizumab Biosimilar HD204",
+        "Bevacizumab Biosimilar HLX04",
+        "Bevacizumab Biosimilar IBI305",
+        "Bevacizumab Biosimilar LY01008",
+        "Bevacizumab Biosimilar MB02",
+        "Bevacizumab Biosimilar MIL60",
+        "Bevacizumab Biosimilar Mvasi",
+        "Bevacizumab Biosimilar MYL-1402O",
+        "Bevacizumab Biosimilar QL 1101",
+        "Bevacizumab Biosimilar QL1101",
+        "Bevacizumab Biosimilar RPH-001",
+        "Bevacizumab Biosimilar SCT501",
+        "Bevacizumab Biosimilar Zirabev",
+        "Bevacizumab-adcd",
+        "Bevacizumab-aveg",
+        "Bevacizumab-awwb",
+        "Bevacizumab-aybi",
+        "Bevacizumab-bvzr",
+        "Bevacizumab-byva",
+        "Bevacizumab-equi",
+        "Bevacizumab-maly",
+        "Bevacizumab-nwgd",
+        "Bevacizumab-onbe",
+        "Bevacizumab-tnjn",
+        "BP102",
+        "BP102 Biosimilar",
+        "Byvasda",
+        "CT P16",
+        "CT-P16",
+        "CTP16",
+        "Equidacent",
+        "FKB 238",
+        "FKB-238",
+        "FKB238",
+        "HD204",
+        "IBI 305",
+        "IBI-305",
+        "IBI305",
+        "Immunoglobulin G1 (Human-Mouse Monoclonal rhuMab-VEGF Gamma-Chain Anti-Human Vascular Endothelial Growth Factor), Disulfide With Human-Mouse Monoclonal rhuMab-VEGF Light Chain, Dimer",
+        "Jobevne",
+        "MB 02",
+        "MB-02",
+        "MB02",
+        "Mvasi",
+        "MYL-1402O",
+        "Onbevzi",
+        "Oyavas",
+        "PF 06439535",
+        "PF-06439535",
+        "PF06439535",
+        "QL1101",
+        "Recombinant Humanized Anti-VEGF Monoclonal Antibody",
+        "rhuMab-VEGF",
+        "SCT501",
+        "SIBP 04",
+        "SIBP-04",
+        "SIBP04",
+        "Vegzelma",
+        "Zirabev"
+      ],
+      "type": "BIOLOGICAL"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (osimertinib)",
+        "Arm B (osimertinib, bevacizumab)"
+      ],
+      "description": "Undergo blood and urine sample collection",
+      "name": "Biospecimen Collection",
+      "otherNames": [
+        "Biological Sample Collection",
+        "Biospecimen Collected",
+        "Sample Collection",
+        "Specimen Collection"
+      ],
+      "type": "PROCEDURE"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (osimertinib)",
+        "Arm B (osimertinib, bevacizumab)"
+      ],
+      "description": "Undergo CT",
+      "name": "Computed Tomography",
+      "otherNames": [
+        "CAT",
+        "CAT Scan",
+        "Computed Axial Tomography",
+        "Computerized Axial Tomography",
+        "Computerized axial tomography (procedure)",
+        "Computerized Tomography",
+        "Computerized Tomography (CT) scan",
+        "CT",
+        "CT Scan",
+        "Diagnostic CAT Scan",
+        "Diagnostic CAT Scan Service Type",
+        "tomography"
+      ],
+      "type": "PROCEDURE"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (osimertinib)",
+        "Arm B (osimertinib, bevacizumab)"
+      ],
+      "description": "Undergo ECHO",
+      "name": "Echocardiography Test",
+      "otherNames": [
+        "EC",
+        "Echocardiography"
+      ],
+      "type": "PROCEDURE"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (osimertinib)",
+        "Arm B (osimertinib, bevacizumab)"
+      ],
+      "description": "Undergo MRI",
+      "name": "Magnetic Resonance Imaging",
+      "otherNames": [
+        "Magnetic Resonance",
+        "Magnetic Resonance Imaging (MRI)",
+        "Magnetic resonance imaging (procedure)",
+        "Magnetic Resonance Imaging Scan",
+        "Medical Imaging, Magnetic Resonance / Nuclear Magnetic Resonance",
+        "MR",
+        "MR Imaging",
+        "MRI",
+        "MRI Scan",
+        "MRIs",
+        "NMR Imaging",
+        "NMRI",
+        "Nuclear Magnetic Resonance Imaging",
+        "sMRI",
+        "Structural MRI"
+      ],
+      "type": "PROCEDURE"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (osimertinib)",
+        "Arm B (osimertinib, bevacizumab)"
+      ],
+      "description": "Undergo MUGA",
+      "name": "Multigated Acquisition Scan",
+      "otherNames": [
+        "Blood Pool Scan",
+        "Equilibrium Radionuclide Angiography",
+        "Gated Blood Pool Imaging",
+        "Gated Heart Pool Scan",
+        "MUGA",
+        "MUGA Scan",
+        "Multi-Gated Acquisition Scan",
+        "Radionuclide Ventriculogram Scan",
+        "Radionuclide Ventriculography",
+        "RNV Scan",
+        "RNVG",
+        "SYMA Scanning",
+        "Synchronized Multigated Acquisition Scanning"
+      ],
+      "type": "PROCEDURE"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (osimertinib)",
+        "Arm B (osimertinib, bevacizumab)"
+      ],
+      "description": "Given PO",
+      "name": "Osimertinib",
+      "otherNames": [
+        "AZD 9291",
+        "AZD-9291",
+        "AZD9291",
+        "Mereletinib"
+      ],
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT04181060",
+  "overall_status": "RECRUITING",
+  "phase": [
+    "PHASE3"
+  ],
+  "title": "Osimertinib With or Without Bevacizumab as Initial Treatment for Patients With EGFR-Mutant Lung Cancer"
+}

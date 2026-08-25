@@ -1,0 +1,147 @@
+{
+  "acquired_at": "2026-08-25T09:29:59.344182+00:00",
+  "acquisition_status": "TRIAL_RESOLVED",
+  "candidate_id": "GCA-fffdd7852d7adf352cbbab1b",
+  "conditions": [
+    "ALK Gene Rearrangement",
+    "ALK Gene Translocation",
+    "ALK Positive",
+    "Stage IB Non-Small Cell Lung Carcinoma AJCC v7",
+    "Stage II Non-Small Cell Lung Cancer AJCC v7",
+    "Stage IIA Non-Small Cell Lung Carcinoma AJCC v7",
+    "Stage IIB Non-Small Cell Lung Carcinoma AJCC v7",
+    "Stage IIIA Non-Small Cell Lung Cancer AJCC v7"
+  ],
+  "eligibility_raw": null,
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT02201992"
+    }
+  ],
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Arm B (observation)"
+      ],
+      "description": "Undergo observation",
+      "name": "Clinical Observation",
+      "type": "OTHER"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (crizotinib)"
+      ],
+      "description": "Given PO",
+      "name": "Crizotinib",
+      "otherNames": [
+        "MET tyrosine kinase inhibitor PF-02341066",
+        "PF-02341066",
+        "PF-2341066",
+        "Xalkori"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (crizotinib)",
+        "Arm B (observation)"
+      ],
+      "description": "Correlative studies",
+      "name": "Laboratory Biomarker Analysis",
+      "type": "OTHER"
+    }
+  ],
+  "nct_id": "NCT02201992",
+  "normalized_record_sha256": "3d8e115a6059fe23ba301d64efcfac8474fd7922d31188b9394c790ff75ac8be",
+  "phase": [
+    "PHASE3"
+  ],
+  "raw_payload_sha256": "25bf74ed819de704a65c1b9febf743e8d222f219f0adeb72c2a7e1855c36a16c",
+  "relation_family": "CLINICAL_TRIAL",
+  "resolver_record": {
+    "availability": "METADATA_ONLY",
+    "brief_summary": "This randomized phase III trial studies how well crizotinib works in treating patients with stage IB-IIIA non-small cell lung cancer that has been removed by surgery and has a mutation in a protein called anaplastic lymphoma kinase (ALK). Mutations, or changes, in ALK can make it very active and important for tumor cell growth and progression. Crizotinib may stop the growth of tumor cells by blocking the ALK protein from working. Crizotinib may be an effective treatment for patients with non-small cell lung cancer and an ALK fusion mutation.",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "conditions": [
+      "ALK Gene Rearrangement",
+      "ALK Gene Translocation",
+      "ALK Positive",
+      "Stage IB Non-Small Cell Lung Carcinoma AJCC v7",
+      "Stage II Non-Small Cell Lung Cancer AJCC v7",
+      "Stage IIA Non-Small Cell Lung Carcinoma AJCC v7",
+      "Stage IIB Non-Small Cell Lung Carcinoma AJCC v7",
+      "Stage IIIA Non-Small Cell Lung Cancer AJCC v7"
+    ],
+    "content_hash": "cf03b3cdb43933ce0cdb9ce67d96aabbf17f82715148a2b46ce954b0fe82bbcc",
+    "content_type": "application/json",
+    "detailed_description": "PRIMARY OBJECTIVES:\n\nI. To evaluate whether adjuvant therapy with crizotinib will result in improved overall survival (OS) for patients with stage IB \\>= 4 cm, II and IIIA, ALK-positive non-small cell lung cancer (NSCLC) following surgical resection.\n\nSECONDARY OBJECTIVES:\n\nI. To evaluate and compare disease-free survival (DFS) associated with crizotinib.\n\nII. To evaluate the safety profile of crizotinib when given in the adjuvant therapy setting.\n\nIII. To collect tumor tissue and blood specimens for future research.\n\nOUTLINE: Patients are randomized to 1 of 2 treatment arms.\n\nARM A: Patients receive crizotinib orally (PO) twice daily (BID) on days 1-21. Treatment repeats every 21 days for up to 2 years in the absence of disease progression or unacceptable toxicity.\n\nARM B: Patients undergo observation.\n\nAfter completion of study treatment, patients are followed up every 6 months if \\< 4 or 5 years from study entry, and every 12 months if 5-10 or 6-10 years from study entry.",
+    "document_id": "nct:NCT02201992",
+    "errors": [],
+    "identifiers": {
+      "nct": "NCT02201992"
+    },
+    "interventions": [
+      {
+        "armGroupLabels": [
+          "Arm B (observation)"
+        ],
+        "description": "Undergo observation",
+        "name": "Clinical Observation",
+        "type": "OTHER"
+      },
+      {
+        "armGroupLabels": [
+          "Arm A (crizotinib)"
+        ],
+        "description": "Given PO",
+        "name": "Crizotinib",
+        "otherNames": [
+          "MET tyrosine kinase inhibitor PF-02341066",
+          "PF-02341066",
+          "PF-2341066",
+          "Xalkori"
+        ],
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "Arm A (crizotinib)",
+          "Arm B (observation)"
+        ],
+        "description": "Correlative studies",
+        "name": "Laboratory Biomarker Analysis",
+        "type": "OTHER"
+      }
+    ],
+    "last_update": {
+      "date": "2025-12-19",
+      "type": "ACTUAL"
+    },
+    "license_status": "PUBLIC_METADATA",
+    "local_cache_path": "clinical_trials/NCT02201992.json",
+    "payload_size": 293677,
+    "phase": [
+      "PHASE3"
+    ],
+    "recruitment_status": "ACTIVE_NOT_RECRUITING",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT02201992"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:57Z",
+    "source": "ClinicalTrials.gov API v2",
+    "study_type": "INTERVENTIONAL",
+    "title": "Crizotinib in Treating Patients With Stage IB-IIIA Non-small Cell Lung Cancer That Has Been Removed by Surgery and ALK Fusion Mutations (An ALCHEMIST Treatment Trial)"
+  },
+  "sample_id": "TRIAL-10",
+  "status": "ACTIVE_NOT_RECRUITING",
+  "title": "Crizotinib in Treating Patients With Stage IB-IIIA Non-small Cell Lung Cancer That Has Been Removed by Surgery and ALK Fusion Mutations (An ALCHEMIST Treatment Trial)"
+}

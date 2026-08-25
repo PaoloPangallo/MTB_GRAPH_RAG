@@ -1,0 +1,152 @@
+{
+  "acquired_at": "2026-08-25T09:30:21.996760+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-ffd6d386640e05d3b78a3031",
+  "canonical_document_sha256": "023426ced6f5bfabee50f14a28b2b63a8f2aed9bfe94226777280ad5aec4b5e6",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:21482694",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=21482694"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=21482694"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": "PMC2673122",
+  "pmid": "21482694",
+  "raw_payload_sha256": "50d89d20468f59539af6fed5e624307f3430daa8887f612c26b381d23d576899",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "Ponatinib (AP24534) is a novel multitargeted kinase inhibitor that potently inhibits native and mutant BCR-ABL at clinically achievable drug levels. Ponatinib also has in vitro inhibitory activity against a discrete set of kinases implicated in the pathogenesis of other hematologic malignancies, including FLT3, KIT, fibroblast growth factor receptor 1 (FGFR1), and platelet derived growth factor receptor α (PDGFRα). Here, using leukemic cell lines containing activated forms of each of these receptors, we show that ponatinib potently inhibits receptor phosphorylation and cellular proliferation with IC50 values comparable to those required for inhibition of BCR-ABL (0.3 to 20 nmol/L). The activity of ponatinib against the FLT3-ITD mutant, found in up to 30% of acute myeloid leukemia (AML) patients, was particularly notable. In MV4-11 (FLT3-ITD(+/+)) but not RS4;11 (FLT3-ITD(-/-)) AML cells, ponatinib inhibited FLT3 signaling and induced apoptosis at concentrations of less than 10 nmol/L. In an MV4-11 mouse xenograft model, once daily oral dosing of ponatinib led to a dose-dependent inhibition of signaling and tumor regression. Ponatinib inhibited viability of primary leukemic blasts from a FLT3-ITD positive AML patient (IC50 4 nmol/L) but not those isolated from 3 patients with AML expressing native FLT3. Overall, these results support the investigation of ponatinib in patients with FLT3-ITD-driven AML and other hematologic malignancies driven by KIT, FGFR1, or PDGFRα.",
+    "abstract_sections": [
+      {
+        "label": null,
+        "text": "Ponatinib (AP24534) is a novel multitargeted kinase inhibitor that potently inhibits native and mutant BCR-ABL at clinically achievable drug levels. Ponatinib also has in vitro inhibitory activity against a discrete set of kinases implicated in the pathogenesis of other hematologic malignancies, including FLT3, KIT, fibroblast growth factor receptor 1 (FGFR1), and platelet derived growth factor receptor α (PDGFRα). Here, using leukemic cell lines containing activated forms of each of these receptors, we show that ponatinib potently inhibits receptor phosphorylation and cellular proliferation with IC50 values comparable to those required for inhibition of BCR-ABL (0.3 to 20 nmol/L). The activity of ponatinib against the FLT3-ITD mutant, found in up to 30% of acute myeloid leukemia (AML) patients, was particularly notable. In MV4-11 (FLT3-ITD(+/+)) but not RS4;11 (FLT3-ITD(-/-)) AML cells, ponatinib inhibited FLT3 signaling and induced apoptosis at concentrations of less than 10 nmol/L. In an MV4-11 mouse xenograft model, once daily oral dosing of ponatinib led to a dose-dependent inhibition of signaling and tumor regression. Ponatinib inhibited viability of primary leukemic blasts from a FLT3-ITD positive AML patient (IC50 4 nmol/L) but not those isolated from 3 patients with AML expressing native FLT3. Overall, these results support the investigation of ponatinib in patients with FLT3-ITD-driven AML and other hematologic malignancies driven by KIT, FGFR1, or PDGFRα."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Gozgit JM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Wong MJ"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Wardwell S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Tyner JW"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Loriaux MM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Mohemmad QK"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Narasimhan NI"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Shakespeare WC"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Wang F"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Druker BJ"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Clackson T"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Rivera VM"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "023426ced6f5bfabee50f14a28b2b63a8f2aed9bfe94226777280ad5aec4b5e6",
+    "content_type": "application/xml",
+    "degradation_reason": "PMC_RESOLUTION_FAILED",
+    "document_id": "pmid:21482694",
+    "doi": "10.1158/1535-7163.mct-10-1044",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1158/1535-7163.mct-10-1044",
+      "pmcid": "PMC2673122",
+      "pmid": "21482694"
+    },
+    "journal": "Molecular cancer therapeutics",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/21482694.xml",
+    "metadata_cache_path": "pubmed/metadata/21482694.json",
+    "metadata_hash": "862cad66dbbe5120f266e4da4cb9b727b665c61ee4f154b64dc04589c9c7c30b",
+    "payload_size": 19135,
+    "pmc_resolution": {
+      "availability": "PMC_RESOLUTION_FAILED",
+      "document_id": "pmcid:PMC2673122",
+      "errors": []
+    },
+    "pmcid": "PMC2673122",
+    "publication_types": [
+      "Journal Article",
+      "Research Support, N.I.H., Extramural",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=21482694"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=21482694"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:17Z",
+    "source": "NCBI E-utilities",
+    "title": "Potent activity of ponatinib (AP24534) in models of FLT3-driven acute myeloid leukemia and other hematologic malignancies.",
+    "year": "2011 Jun"
+  },
+  "sample_id": "PAPER-07",
+  "sourceunit_bundle_sha256": "679868224857dafd57e48ec8f25f185b67db73c0f6d17ce57bb0c18ad57b3b2a",
+  "sourceunit_count": 11
+}

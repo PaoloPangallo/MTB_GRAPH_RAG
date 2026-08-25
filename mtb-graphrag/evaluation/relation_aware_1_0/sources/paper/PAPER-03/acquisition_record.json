@@ -1,0 +1,119 @@
+{
+  "acquired_at": "2026-08-25T09:30:08.090541+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-ffb6a639dda7e2af9dc154e0",
+  "canonical_document_sha256": "33d16567d089e8f301d984bf66f3b65c8ba6d7c187e3efc4d12ed015109b331e",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:9829912",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=9829912"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=9829912"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": null,
+  "pmid": "9829912",
+  "raw_payload_sha256": "223b233a062a7eb4f30365f114914628a1708134a1183917b4dc9143c4742546",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "von Hippel-Lindau (VHL) disease is a dominantly inherited disorder predisposing those afflicted to hemangioblastomas of the central nervous system and the retina, renal cell carcinomas, pheochromocytomas, and pancreatic tumors. The disease has been associated with mutations of the VHL gene. The screening of 92 unrelated patients with VHL disease for point mutations in this gene revealed 61 DNA variants. In addition, a search for EcoR1 rearrangements revealed germline anomalies in 5 patients. The 61 variants could be subdivided in 20 mutations predicted to alter the open reading frame (8 nonsense mutations, 8 frame shift mutations, and 4 mutations in consensus splicing sites) and 43 DNA sequence variants of a priori unknown biological consequence (4 in-frame insertions or deletions, 36 missense mutations, and 3 apparently silent variations). The 3' end of the coding sequence of the VHL gene, which encodes the Elongin binding domain was the site of 5 of 20 truncating mutations (25%) and of 18 of 41 DNA variants (44%) causing uncertain functional impairment. A similar screening in 18 patients with sporadic hemangioblastoma revealed 2 missense DNA variants. In order to corroborate this latter observation, a systematic screening for germline alteration of the VHL gene might be performed in a larger series of sporadic hemangioblastoma. If this preliminary result is confirmed, more than 10% of sporadic hemangioblastoma might be related to a mild VHL disease, thus a follow-up program similar to that recommended in cases of VHL disease should probably be discussed in the corresponding families.",
+    "abstract_sections": [
+      {
+        "label": null,
+        "text": "von Hippel-Lindau (VHL) disease is a dominantly inherited disorder predisposing those afflicted to hemangioblastomas of the central nervous system and the retina, renal cell carcinomas, pheochromocytomas, and pancreatic tumors. The disease has been associated with mutations of the VHL gene. The screening of 92 unrelated patients with VHL disease for point mutations in this gene revealed 61 DNA variants. In addition, a search for EcoR1 rearrangements revealed germline anomalies in 5 patients. The 61 variants could be subdivided in 20 mutations predicted to alter the open reading frame (8 nonsense mutations, 8 frame shift mutations, and 4 mutations in consensus splicing sites) and 43 DNA sequence variants of a priori unknown biological consequence (4 in-frame insertions or deletions, 36 missense mutations, and 3 apparently silent variations). The 3' end of the coding sequence of the VHL gene, which encodes the Elongin binding domain was the site of 5 of 20 truncating mutations (25%) and of 18 of 41 DNA variants (44%) causing uncertain functional impairment. A similar screening in 18 patients with sporadic hemangioblastoma revealed 2 missense DNA variants. In order to corroborate this latter observation, a systematic screening for germline alteration of the VHL gene might be performed in a larger series of sporadic hemangioblastoma. If this preliminary result is confirmed, more than 10% of sporadic hemangioblastoma might be related to a mild VHL disease, thus a follow-up program similar to that recommended in cases of VHL disease should probably be discussed in the corresponding families."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Olschwang S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Richard S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Boisson C"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Giraud S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Laurent-Puig P"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Resche F"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Thomas G"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "33d16567d089e8f301d984bf66f3b65c8ba6d7c187e3efc4d12ed015109b331e",
+    "content_type": "application/xml",
+    "document_id": "pmid:9829912",
+    "doi": "10.1002/(sici)1098-1004(1998)12:6<424::aid-humu9>3.0.co;2-h",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1002/(sici)1098-1004(1998)12:6<424::aid-humu9>3.0.co;2-h",
+      "pmid": "9829912"
+    },
+    "journal": "Human mutation",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/9829912.xml",
+    "metadata_cache_path": "pubmed/metadata/9829912.json",
+    "metadata_hash": "e2c72ea7376960a66da9a712d402f5c1a4840e9e50f87e299aeee0da519d6dcf",
+    "payload_size": 8011,
+    "pmcid": null,
+    "publication_types": [
+      "Journal Article",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=9829912"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=9829912"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:05Z",
+    "source": "NCBI E-utilities",
+    "title": "Germline mutation profile of the VHL gene in von Hippel-Lindau disease and in sporadic hemangioblastoma.",
+    "year": "1998"
+  },
+  "sample_id": "PAPER-03",
+  "sourceunit_bundle_sha256": "899d944a399c4a09eae089e42ad74ccd730ec0d0bb8dbc35f6e9669c9e177940",
+  "sourceunit_count": 11
+}

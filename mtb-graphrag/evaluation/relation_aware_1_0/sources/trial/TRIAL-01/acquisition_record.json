@@ -1,0 +1,123 @@
+{
+  "acquired_at": "2026-08-25T09:29:49.350075+00:00",
+  "acquisition_status": "TRIAL_RESOLVED",
+  "candidate_id": "GCA-ffc68173126eef8c14b23b38",
+  "conditions": [
+    "Clear Cell Renal Cell Carcinoma",
+    "Clear Cell Renal Cell Carcinoma Metastatic"
+  ],
+  "eligibility_raw": null,
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT05363631"
+    }
+  ],
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Seleno-L Methionine (SLM) in Combination with Axitinib and Pembrolizumab"
+      ],
+      "description": "Selenium (Se) is a natural element present in the earth's crust often in association with sulfur-containing compounds. Humans get their dietary requirements mainly from food. In this study Selenium will be administered in the chemical composition of selenomethionine (SLM)",
+      "name": "Selenomethionine (SLM)",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Seleno-L Methionine (SLM) in Combination with Axitinib and Pembrolizumab"
+      ],
+      "description": "Axitinib is a small molecule tyrosine kinase inhibitor.",
+      "name": "Axitinib",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Seleno-L Methionine (SLM) in Combination with Axitinib and Pembrolizumab"
+      ],
+      "description": "Pembrolizumab is a type of immunotherapy",
+      "name": "Pembrolizumab",
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT05363631",
+  "normalized_record_sha256": "dbcc7103a739bef8a3e390d8b2f6041207a4b59375e8f5ea3695f9a686e43a7a",
+  "phase": [
+    "PHASE1",
+    "PHASE2"
+  ],
+  "raw_payload_sha256": "75e8e39c2690264d6fbcf8ed5bf781e6203e7807b7706b16d5aca239934c28fc",
+  "relation_family": "CLINICAL_TRIAL",
+  "resolver_record": {
+    "availability": "METADATA_ONLY",
+    "brief_summary": "The purpose of this research study is to test the safety and effectiveness of Seleno-L Methionine (SLM) when combined with the standard dose and schedule of Axitinib and Pembrolizumab in patients who have locally advanced or metastatic clear cell renal cell carcinoma (ccRCC).",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "conditions": [
+      "Clear Cell Renal Cell Carcinoma",
+      "Clear Cell Renal Cell Carcinoma Metastatic"
+    ],
+    "content_hash": "707fb96c4c112887dd00c89143d6274cbd7444e7d408375bb56172a3a0f23d62",
+    "content_type": "application/json",
+    "detailed_description": "The proposed study is a single arm, open-label Phase I/II trial of Seleno-L Methionine (SLM) in sequential combination with the standard dose and schedule of Axitinib and Pembrolizumab in previously untreated patients with advanced ccRCC. The hypothesis is that adding SLM to the Pembrolizumab and Axitinib combination will improve efficacy without added toxicity.\n\nThis is a two-part study:\n\n* Escalation Part 1: The study will begin with a dose-escalation study to find the maximum tolerated dose (MTD) of study drug, SLM.\n* Expansion Part 2: Once the appropriate dose of SLM is determined, the second part of the study will begin.",
+    "document_id": "nct:NCT05363631",
+    "errors": [],
+    "identifiers": {
+      "nct": "NCT05363631"
+    },
+    "interventions": [
+      {
+        "armGroupLabels": [
+          "Seleno-L Methionine (SLM) in Combination with Axitinib and Pembrolizumab"
+        ],
+        "description": "Selenium (Se) is a natural element present in the earth's crust often in association with sulfur-containing compounds. Humans get their dietary requirements mainly from food. In this study Selenium will be administered in the chemical composition of selenomethionine (SLM)",
+        "name": "Selenomethionine (SLM)",
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "Seleno-L Methionine (SLM) in Combination with Axitinib and Pembrolizumab"
+        ],
+        "description": "Axitinib is a small molecule tyrosine kinase inhibitor.",
+        "name": "Axitinib",
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "Seleno-L Methionine (SLM) in Combination with Axitinib and Pembrolizumab"
+        ],
+        "description": "Pembrolizumab is a type of immunotherapy",
+        "name": "Pembrolizumab",
+        "type": "DRUG"
+      }
+    ],
+    "last_update": {
+      "date": "2025-12-10",
+      "type": "ACTUAL"
+    },
+    "license_status": "PUBLIC_METADATA",
+    "local_cache_path": "clinical_trials/NCT05363631.json",
+    "payload_size": 11336,
+    "phase": [
+      "PHASE1",
+      "PHASE2"
+    ],
+    "recruitment_status": "ACTIVE_NOT_RECRUITING",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT05363631"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:48Z",
+    "source": "ClinicalTrials.gov API v2",
+    "study_type": "INTERVENTIONAL",
+    "title": "Seleno-L Methionine (SLM)-Axitinib-Pembrolizumab"
+  },
+  "sample_id": "TRIAL-01",
+  "status": "ACTIVE_NOT_RECRUITING",
+  "title": "Seleno-L Methionine (SLM)-Axitinib-Pembrolizumab"
+}

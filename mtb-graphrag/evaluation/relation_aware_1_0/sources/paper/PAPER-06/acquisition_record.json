@@ -1,0 +1,256 @@
+{
+  "acquired_at": "2026-08-25T09:30:17.884212+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-ffcd72c534472ec5090eea1f",
+  "canonical_document_sha256": "19607f7b114235e897e3363f27a342a159f1b19db998ad1b3b9e6918ffa8c8f7",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:27908594",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=27908594"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=27908594"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": null,
+  "pmid": "27908594",
+  "raw_payload_sha256": "77fcc1d3867319d25954ad2a38f17a25922b6ebe851f80f15994810d8acac8f1",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "Poly(ADP-ribose) polymerase (PARP) inhibitors have activity in ovarian carcinomas with homologous recombination deficiency. Along with BRCA1 and BRCA2 (BRCA) mutations genomic loss of heterozygosity (LOH) might also represent homologous recombination deficiency. In ARIEL2, we assessed the ability of tumour genomic LOH, quantified with a next-generation sequencing assay, to predict response to rucaparib, an oral PARP inhibitor.\nARIEL2 is an international, multicentre, two-part, phase 2, open-label study done at 49 hospitals and cancer centres in Australia, Canada, France, Spain, the UK, and the USA. In ARIEL2 Part 1, patients with recurrent, platinum-sensitive, high-grade ovarian carcinoma were classified into one of three predefined homologous recombination deficiency subgroups on the basis of tumour mutational analysis: BRCA mutant (deleterious germline or somatic), BRCA wild-type and LOH high (LOH high group), or BRCA wild-type and LOH low (LOH low group). We prespecified a cutoff of 14% or more genomic LOH for LOH high. Patients began treatment with oral rucaparib at 600 mg twice per day for continuous 28 day cycles until disease progression or any other reason for discontinuation. The primary endpoint was progression-free survival. All patients treated with at least one dose of rucaparib were included in the safety analyses and all treated patients who were classified were included in the primary endpoint analysis. This trial is registered with ClinicalTrials.gov, number NCT01891344. Enrolment into ARIEL2 Part 1 is complete, although an extension (Part 2) is ongoing.\n256 patients were screened and 206 were enrolled between Oct 30, 2013, and Dec 19, 2014. At the data cutoff date (Jan 18, 2016), 204 patients had received rucaparib, with 28 patients remaining in the study. 192 patients could be classified into one of the three predefined homologous recombination deficiency subgroups: BRCA mutant (n=40), LOH high (n=82), or LOH low (n=70). Tumours from 12 patients were established as BRCA wild-type, but could not be classified for LOH, because of insufficient neoplastic nuclei in the sample. The median duration of treatment for the 204 patients was 5·7 months (IQR 2·8-10·1). 24 patients in the BRCA mutant subgroup, 56 patients in the LOH high subgroup, and 59 patients in the LOH low subgroup had disease progression or died. Median progression-free survival after rucaparib treatment was 12·8 months (95% CI 9·0-14·7) in the BRCA mutant subgroup, 5·7 months (5·3-7·6) in the LOH high subgroup, and 5·2 months (3·6-5·5) in the LOH low subgroup. Progression-free survival was significantly longer in the BRCA mutant (hazard ratio 0·27, 95% CI 0·16-0·44, p<0·0001) and LOH high (0·62, 0·42-0·90, p=0·011) subgroups compared with the LOH low subgroup. The most common grade 3 or worse treatment-emergent adverse events were anaemia or decreased haemoglobin (45 [22%] patients), and elevations in alanine aminotransferase or aspartate aminotransferase (25 [12%]). Common serious adverse events included small intestinal obstruction (10 [5%] of 204 patients), malignant neoplasm progression (10 [5%]), and anaemia (nine [4%]). Three patients died during the study (two because of disease progression and one because of sepsis and disease progression). No treatment-related deaths occurred.\nIn patients with BRCA mutant or BRCA wild-type and LOH high platinum-sensitive ovarian carcinomas treated with rucaparib, progression-free survival was longer than in patients with BRCA wild-type LOH low carcinomas. Our results suggest that assessment of tumour LOH can be used to identify patients with BRCA wild-type platinum-sensitive ovarian cancers who might benefit from rucaparib. These results extend the potential usefulness of PARP inhibitors in the treatment setting beyond BRCA mutant tumours.\nClovis Oncology, US Department of Defense Ovarian Cancer Research Program, Stand Up To Cancer-Ovarian Cancer Research Fund Alliance-National Ovarian Cancer Coalition Dream Team Translational Research Grant, and V Foundation Translational Award.",
+    "abstract_sections": [
+      {
+        "label": "BACKGROUND",
+        "text": "Poly(ADP-ribose) polymerase (PARP) inhibitors have activity in ovarian carcinomas with homologous recombination deficiency. Along with BRCA1 and BRCA2 (BRCA) mutations genomic loss of heterozygosity (LOH) might also represent homologous recombination deficiency. In ARIEL2, we assessed the ability of tumour genomic LOH, quantified with a next-generation sequencing assay, to predict response to rucaparib, an oral PARP inhibitor."
+      },
+      {
+        "label": "METHODS",
+        "text": "ARIEL2 is an international, multicentre, two-part, phase 2, open-label study done at 49 hospitals and cancer centres in Australia, Canada, France, Spain, the UK, and the USA. In ARIEL2 Part 1, patients with recurrent, platinum-sensitive, high-grade ovarian carcinoma were classified into one of three predefined homologous recombination deficiency subgroups on the basis of tumour mutational analysis: BRCA mutant (deleterious germline or somatic), BRCA wild-type and LOH high (LOH high group), or BRCA wild-type and LOH low (LOH low group). We prespecified a cutoff of 14% or more genomic LOH for LOH high. Patients began treatment with oral rucaparib at 600 mg twice per day for continuous 28 day cycles until disease progression or any other reason for discontinuation. The primary endpoint was progression-free survival. All patients treated with at least one dose of rucaparib were included in the safety analyses and all treated patients who were classified were included in the primary endpoint analysis. This trial is registered with ClinicalTrials.gov, number NCT01891344. Enrolment into ARIEL2 Part 1 is complete, although an extension (Part 2) is ongoing."
+      },
+      {
+        "label": "FINDINGS",
+        "text": "256 patients were screened and 206 were enrolled between Oct 30, 2013, and Dec 19, 2014. At the data cutoff date (Jan 18, 2016), 204 patients had received rucaparib, with 28 patients remaining in the study. 192 patients could be classified into one of the three predefined homologous recombination deficiency subgroups: BRCA mutant (n=40), LOH high (n=82), or LOH low (n=70). Tumours from 12 patients were established as BRCA wild-type, but could not be classified for LOH, because of insufficient neoplastic nuclei in the sample. The median duration of treatment for the 204 patients was 5·7 months (IQR 2·8-10·1). 24 patients in the BRCA mutant subgroup, 56 patients in the LOH high subgroup, and 59 patients in the LOH low subgroup had disease progression or died. Median progression-free survival after rucaparib treatment was 12·8 months (95% CI 9·0-14·7) in the BRCA mutant subgroup, 5·7 months (5·3-7·6) in the LOH high subgroup, and 5·2 months (3·6-5·5) in the LOH low subgroup. Progression-free survival was significantly longer in the BRCA mutant (hazard ratio 0·27, 95% CI 0·16-0·44, p<0·0001) and LOH high (0·62, 0·42-0·90, p=0·011) subgroups compared with the LOH low subgroup. The most common grade 3 or worse treatment-emergent adverse events were anaemia or decreased haemoglobin (45 [22%] patients), and elevations in alanine aminotransferase or aspartate aminotransferase (25 [12%]). Common serious adverse events included small intestinal obstruction (10 [5%] of 204 patients), malignant neoplasm progression (10 [5%]), and anaemia (nine [4%]). Three patients died during the study (two because of disease progression and one because of sepsis and disease progression). No treatment-related deaths occurred."
+      },
+      {
+        "label": "INTERPRETATION",
+        "text": "In patients with BRCA mutant or BRCA wild-type and LOH high platinum-sensitive ovarian carcinomas treated with rucaparib, progression-free survival was longer than in patients with BRCA wild-type LOH low carcinomas. Our results suggest that assessment of tumour LOH can be used to identify patients with BRCA wild-type platinum-sensitive ovarian cancers who might benefit from rucaparib. These results extend the potential usefulness of PARP inhibitors in the treatment setting beyond BRCA mutant tumours."
+      },
+      {
+        "label": "FUNDING",
+        "text": "Clovis Oncology, US Department of Defense Ovarian Cancer Research Program, Stand Up To Cancer-Ovarian Cancer Research Fund Alliance-National Ovarian Cancer Coalition Dream Team Translational Research Grant, and V Foundation Translational Award."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Swisher EM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Lin KK"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Oza AM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Scott CL"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Giordano H"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Sun J"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Konecny GE"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Coleman RL"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Tinker AV"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "O'Malley DM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Kristeleit RS"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Ma L"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Bell-McGuinn KM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Brenton JD"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Cragun JM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Oaknin A"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Ray-Coquard I"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Harrell MI"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Mann E"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Kaufmann SH"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Floquet A"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Leary A"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Harding TC"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Goble S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Maloney L"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Isaacson J"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Allen AR"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Rolfe L"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Yelensky R"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Raponi M"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "McNeish IA"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "19607f7b114235e897e3363f27a342a159f1b19db998ad1b3b9e6918ffa8c8f7",
+    "content_type": "application/xml",
+    "document_id": "pmid:27908594",
+    "doi": "10.1016/s1470-2045(16)30559-9",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1016/s1470-2045(16)30559-9",
+      "pmid": "27908594"
+    },
+    "journal": "The Lancet. Oncology",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/27908594.xml",
+    "metadata_cache_path": "pubmed/metadata/27908594.json",
+    "metadata_hash": "49949b1c1a90b8e6140e75421b1840a647dfb179a13366271a8d21a8fc484f71",
+    "payload_size": 21104,
+    "pmcid": null,
+    "publication_types": [
+      "Clinical Trial, Phase II",
+      "Journal Article",
+      "Multicenter Study"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=27908594"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=27908594"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:15Z",
+    "source": "NCBI E-utilities",
+    "title": "Rucaparib in relapsed, platinum-sensitive high-grade ovarian carcinoma (ARIEL2 Part 1): an international, multicentre, open-label, phase 2 trial.",
+    "year": "2017 Jan"
+  },
+  "sample_id": "PAPER-06",
+  "sourceunit_bundle_sha256": "c6e5c9b22b3405bce2ab9e1e18b9736ed8b0ad99bcd8779b48c8c30ee53f93df",
+  "sourceunit_count": 30
+}

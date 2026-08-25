@@ -1,0 +1,143 @@
+{
+  "acquired_at": "2026-08-25T09:29:56.726347+00:00",
+  "acquisition_status": "TRIAL_RESOLVED",
+  "candidate_id": "GCA-ffe657170ffed5970eb573ad",
+  "conditions": [
+    "Mantle Cell Lymphoma (MCL)"
+  ],
+  "eligibility_raw": null,
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT06496308"
+    }
+  ],
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Orelabrutinib (O)",
+        "Orelabrutinib + Bendamustine + Rituximab (OBR)",
+        "Orelabrutinib + Venetoclax (OV)"
+      ],
+      "description": "Orelabrutinib PO will be administered as per the schedule specified in the respective arm.",
+      "name": "Orelabrutinib",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Bendamustine + Rituximab (BR)",
+        "Orelabrutinib + Bendamustine + Rituximab (OBR)"
+      ],
+      "description": "Bendamustine IV will be administered as per the schedule specified in the respective arm.",
+      "name": "Bendamustine",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Bendamustine + Rituximab (BR)",
+        "Orelabrutinib + Bendamustine + Rituximab (OBR)"
+      ],
+      "description": "Rituximab IV will be administered as per the schedule specified in the respective arm.",
+      "name": "Rituximab",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Orelabrutinib + Venetoclax (OV)"
+      ],
+      "description": "Venetoclax PO will be administered as per the schedule specified in the respective arm.",
+      "name": "Venetoclax",
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT06496308",
+  "normalized_record_sha256": "47739d6fb78bc71f4205debd543d3303905dd1fd12f89b53dc6b08f83e6c7d40",
+  "phase": [
+    "PHASE3"
+  ],
+  "raw_payload_sha256": "92150b7155a170de27a19761d47d2339b5f563faf0fda5bc3486ee227c95d338",
+  "relation_family": "CLINICAL_TRIAL",
+  "resolver_record": {
+    "availability": "METADATA_ONLY",
+    "brief_summary": "This multicenter, open-label, randomized controlled trial aims to evaluate the efficacy and safety of Orelabrutinib in combination with Bendamustine and Rituximab (OBR) versus Bendamustine and Rituximab (BR) in patients with intermediate- to high-risk mantle cell lymphoma (MCL) who are ineligible for transplantation. The primary objective is to assess the complete response (CR) rate during the induction phase, with secondary objectives including progression-free survival (PFS), overall survival (OS), objective response rate (ORR), and safety. Exploratory analysis will investigate the correlation between tumor biomarkers and treatment efficacy.",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "conditions": [
+      "Mantle Cell Lymphoma (MCL)"
+    ],
+    "content_hash": "5c9ae8d327dad6eab533da6130b21506c7570e4e65e67b61d7c92b06cf453106",
+    "content_type": "application/json",
+    "detailed_description": null,
+    "document_id": "nct:NCT06496308",
+    "errors": [],
+    "identifiers": {
+      "nct": "NCT06496308"
+    },
+    "interventions": [
+      {
+        "armGroupLabels": [
+          "Orelabrutinib (O)",
+          "Orelabrutinib + Bendamustine + Rituximab (OBR)",
+          "Orelabrutinib + Venetoclax (OV)"
+        ],
+        "description": "Orelabrutinib PO will be administered as per the schedule specified in the respective arm.",
+        "name": "Orelabrutinib",
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "Bendamustine + Rituximab (BR)",
+          "Orelabrutinib + Bendamustine + Rituximab (OBR)"
+        ],
+        "description": "Bendamustine IV will be administered as per the schedule specified in the respective arm.",
+        "name": "Bendamustine",
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "Bendamustine + Rituximab (BR)",
+          "Orelabrutinib + Bendamustine + Rituximab (OBR)"
+        ],
+        "description": "Rituximab IV will be administered as per the schedule specified in the respective arm.",
+        "name": "Rituximab",
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "Orelabrutinib + Venetoclax (OV)"
+        ],
+        "description": "Venetoclax PO will be administered as per the schedule specified in the respective arm.",
+        "name": "Venetoclax",
+        "type": "DRUG"
+      }
+    ],
+    "last_update": {
+      "date": "2024-07-11",
+      "type": "ACTUAL"
+    },
+    "license_status": "PUBLIC_METADATA",
+    "local_cache_path": "clinical_trials/NCT06496308.json",
+    "payload_size": 11710,
+    "phase": [
+      "PHASE3"
+    ],
+    "recruitment_status": "RECRUITING",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT06496308"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:55Z",
+    "source": "ClinicalTrials.gov API v2",
+    "study_type": "INTERVENTIONAL",
+    "title": "Bendamustine and Rituximab With or Without Orelabrutinib in MCL Treatment"
+  },
+  "sample_id": "TRIAL-08",
+  "status": "RECRUITING",
+  "title": "Bendamustine and Rituximab With or Without Orelabrutinib in MCL Treatment"
+}

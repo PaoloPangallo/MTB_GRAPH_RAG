@@ -1,0 +1,52 @@
+{
+  "conditions": [
+    "ALK Gene Rearrangement",
+    "ALK Gene Translocation",
+    "ALK Positive",
+    "Stage IB Non-Small Cell Lung Carcinoma AJCC v7",
+    "Stage II Non-Small Cell Lung Cancer AJCC v7",
+    "Stage IIA Non-Small Cell Lung Carcinoma AJCC v7",
+    "Stage IIB Non-Small Cell Lung Carcinoma AJCC v7",
+    "Stage IIIA Non-Small Cell Lung Cancer AJCC v7"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Arm B (observation)"
+      ],
+      "description": "Undergo observation",
+      "name": "Clinical Observation",
+      "type": "OTHER"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (crizotinib)"
+      ],
+      "description": "Given PO",
+      "name": "Crizotinib",
+      "otherNames": [
+        "MET tyrosine kinase inhibitor PF-02341066",
+        "PF-02341066",
+        "PF-2341066",
+        "Xalkori"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Arm A (crizotinib)",
+        "Arm B (observation)"
+      ],
+      "description": "Correlative studies",
+      "name": "Laboratory Biomarker Analysis",
+      "type": "OTHER"
+    }
+  ],
+  "nct_id": "NCT02201992",
+  "overall_status": "ACTIVE_NOT_RECRUITING",
+  "phase": [
+    "PHASE3"
+  ],
+  "title": "Crizotinib in Treating Patients With Stage IB-IIIA Non-small Cell Lung Cancer That Has Been Removed by Surgery and ALK Fusion Mutations (An ALCHEMIST Treatment Trial)"
+}

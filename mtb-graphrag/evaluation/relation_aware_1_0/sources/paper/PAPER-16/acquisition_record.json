@@ -1,0 +1,133 @@
+{
+  "acquired_at": "2026-08-25T09:30:52.661701+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-fff906074758e0ee48366a8d",
+  "canonical_document_sha256": "2679faadc81d749e3d1645ab6b6df8bf703b7b361df3da41c67de3a9a66d81e4",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:16772610",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=16772610"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=16772610"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": "PMC552942",
+  "pmid": "16772610",
+  "raw_payload_sha256": "964a6c57d2b1034e2e8a779d86a8c893a6eb935523820029aab25132e80d4b17",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "BMS-354825 (dasatinib) and AMN107 (nilotinib) are potent alternate Abl inhibitors with activity against many imatinib mesylate-resistant BCR-ABL kinase domain (KD) mutants, except T315I. We used N-ethyl-N-nitrosourea (ENU)-exposed Ba/F3-p210(BCR-ABL) cells to compare incidence and types of KD mutants emerging in the presence of imatinib mesylate, dasatinib, and nilotinib, alone and in dual combinations. Although ENU is expected to induce mutations in multiple proteins, resistant clones were almost exclusively BCR-ABL KD mutant at relevant concentrations of nilotinib and dasatinib, consistent with a central role of KD mutations for resistance to these drugs. Twenty different mutations were identified with imatinib mesylate, 10 with nilotinib (including only 1 novel mutation, E292V) and 9 with dasatinib. At intermediate drug levels the spectrum narrowed to F317V and T315I for dasatinib and Y253H, E255V, and T315I for nilotinib. Thus, cross-resistance is limited to T315I, which is also the only mutant isolated at drug concentrations equivalent to maximal achievable plasma trough levels. With drug combinations maximal suppression of resistant clone outgrowth was achieved at lower concentrations compared with single agents, suggesting that such combinations may be equipotent to higher-dose single agents. However, sequencing uniformly revealed T315I, consistent with the need for a T315I inhibitor, to completely block resistance.",
+    "abstract_sections": [
+      {
+        "label": null,
+        "text": "BMS-354825 (dasatinib) and AMN107 (nilotinib) are potent alternate Abl inhibitors with activity against many imatinib mesylate-resistant BCR-ABL kinase domain (KD) mutants, except T315I. We used N-ethyl-N-nitrosourea (ENU)-exposed Ba/F3-p210(BCR-ABL) cells to compare incidence and types of KD mutants emerging in the presence of imatinib mesylate, dasatinib, and nilotinib, alone and in dual combinations. Although ENU is expected to induce mutations in multiple proteins, resistant clones were almost exclusively BCR-ABL KD mutant at relevant concentrations of nilotinib and dasatinib, consistent with a central role of KD mutations for resistance to these drugs. Twenty different mutations were identified with imatinib mesylate, 10 with nilotinib (including only 1 novel mutation, E292V) and 9 with dasatinib. At intermediate drug levels the spectrum narrowed to F317V and T315I for dasatinib and Y253H, E255V, and T315I for nilotinib. Thus, cross-resistance is limited to T315I, which is also the only mutant isolated at drug concentrations equivalent to maximal achievable plasma trough levels. With drug combinations maximal suppression of resistant clone outgrowth was achieved at lower concentrations compared with single agents, suggesting that such combinations may be equipotent to higher-dose single agents. However, sequencing uniformly revealed T315I, consistent with the need for a T315I inhibitor, to completely block resistance."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Bradeen HA"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Eide CA"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "O'Hare T"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Johnson KJ"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Willis SG"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Lee FY"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Druker BJ"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Deininger MW"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "2679faadc81d749e3d1645ab6b6df8bf703b7b361df3da41c67de3a9a66d81e4",
+    "content_type": "application/xml",
+    "degradation_reason": "PMC_RESOLUTION_FAILED",
+    "document_id": "pmid:16772610",
+    "doi": "10.1182/blood-2006-02-004580",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1182/blood-2006-02-004580",
+      "pmcid": "PMC552942",
+      "pmid": "16772610"
+    },
+    "journal": "Blood",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/16772610.xml",
+    "metadata_cache_path": "pubmed/metadata/16772610.json",
+    "metadata_hash": "c43459d0dd852e27ba7cac7321787655ce3cdc9213badf15b3c701bea272fd80",
+    "payload_size": 20319,
+    "pmc_resolution": {
+      "availability": "PMC_RESOLUTION_FAILED",
+      "document_id": "pmcid:PMC552942",
+      "errors": []
+    },
+    "pmcid": "PMC552942",
+    "publication_types": [
+      "Comparative Study",
+      "Journal Article",
+      "Research Support, N.I.H., Extramural",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=16772610"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=16772610"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:49Z",
+    "source": "NCBI E-utilities",
+    "title": "Comparison of imatinib mesylate, dasatinib (BMS-354825), and nilotinib (AMN107) in an N-ethyl-N-nitrosourea (ENU)-based mutagenesis screen: high efficacy of drug combinations.",
+    "year": "2006 Oct 1"
+  },
+  "sample_id": "PAPER-16",
+  "sourceunit_bundle_sha256": "3189d3db05f600427e20000a5270c6d59e2dae7bed79470bba4973b680c7337f",
+  "sourceunit_count": 10
+}

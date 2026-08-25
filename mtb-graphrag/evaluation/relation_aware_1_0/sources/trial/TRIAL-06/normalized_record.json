@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    "Non-small Cell Lung Cancer"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Savolitinib"
+      ],
+      "description": "Subjects will receive Savolitinib 600 mg or 400 mg daily (including 600/400 mg QD or 300/200 mg BID) orally, 21day cycles (every 3 weeks) until disease progression, death, adverse event (AE) leading to discontinuation or withdrawal of consent.",
+      "name": "Savolitinib",
+      "otherNames": [
+        "HMPL-504"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "placebo"
+      ],
+      "description": "Subjects will receive Placebo 600 mg or 400 mg daily (including 600/400 mg QD or 300/200 mg BID) orally, 21day cycles (every 3 weeks) until disease progression, death, adverse event (AE) leading to discontinuation or withdrawal of consent.",
+      "name": "Placebo",
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT05009836",
+  "overall_status": "ACTIVE_NOT_RECRUITING",
+  "phase": [
+    "PHASE3"
+  ],
+  "title": "Clinical Study on Savolitinib + Osimertinib in Treatment of EGFRm+/MET+ Locally Advanced or Metastatic NSCLC"
+}

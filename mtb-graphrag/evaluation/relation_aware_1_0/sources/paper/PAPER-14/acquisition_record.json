@@ -1,0 +1,57 @@
+{
+  "acquired_at": "2026-08-25T09:30:44.857799+00:00",
+  "acquisition_status": "PAPER_RESOLVED_PMC",
+  "candidate_id": "GCA-fc343592a215c4ac9c9a1c43",
+  "canonical_document_sha256": "fe9b76c877331e673890dd55607df3c5c301fe110fbf3438bf52080155917955",
+  "canonical_document_type": "PMC_FULLTEXT",
+  "document_id": "pmcid:PMC2362417",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:2362417"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": "PMC2362417",
+  "pmid": "23988873",
+  "raw_payload_sha256": "56721503b8ae37921fa3780b23dfb6e0ec16e6989c6827b0ab12e0ca87bd1c4e",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "availability": "PMC_XML_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "fe9b76c877331e673890dd55607df3c5c301fe110fbf3438bf52080155917955",
+    "content_type": "application/xml",
+    "derived_pmcid": "PMC2362417",
+    "document_id": "pmcid:PMC2362417",
+    "errors": [],
+    "identifiers": {
+      "pmcid": "PMC2362417"
+    },
+    "license_status": "PMC_ACCESSIBLE",
+    "local_cache_path": "pmc/xml/PMC2362417.xml",
+    "payload_size": 46601,
+    "pmid_resolution": {
+      "availability": "ABSTRACT_AVAILABLE",
+      "cache_hit": false,
+      "document_id": "pmid:23988873"
+    },
+    "requested_document_id": "pmid:23988873",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi?verb=GetRecord&metadataPrefix=pmc&identifier=oai:pubmedcentral.nih.gov:2362417"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:42Z",
+    "source": "NCBI PMC OAI"
+  },
+  "sample_id": "PAPER-14",
+  "sourceunit_bundle_sha256": "19064065b58ef9e7f0068695b4159979368188a1be64b3937497beccfdbb72d4",
+  "sourceunit_count": 1
+}

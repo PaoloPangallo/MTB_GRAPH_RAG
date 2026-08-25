@@ -1,0 +1,50 @@
+{
+  "conditions": [
+    "Mantle Cell Lymphoma (MCL)"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Orelabrutinib (O)",
+        "Orelabrutinib + Bendamustine + Rituximab (OBR)",
+        "Orelabrutinib + Venetoclax (OV)"
+      ],
+      "description": "Orelabrutinib PO will be administered as per the schedule specified in the respective arm.",
+      "name": "Orelabrutinib",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Bendamustine + Rituximab (BR)",
+        "Orelabrutinib + Bendamustine + Rituximab (OBR)"
+      ],
+      "description": "Bendamustine IV will be administered as per the schedule specified in the respective arm.",
+      "name": "Bendamustine",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Bendamustine + Rituximab (BR)",
+        "Orelabrutinib + Bendamustine + Rituximab (OBR)"
+      ],
+      "description": "Rituximab IV will be administered as per the schedule specified in the respective arm.",
+      "name": "Rituximab",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Orelabrutinib + Venetoclax (OV)"
+      ],
+      "description": "Venetoclax PO will be administered as per the schedule specified in the respective arm.",
+      "name": "Venetoclax",
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT06496308",
+  "overall_status": "RECRUITING",
+  "phase": [
+    "PHASE3"
+  ],
+  "title": "Bendamustine and Rituximab With or Without Orelabrutinib in MCL Treatment"
+}

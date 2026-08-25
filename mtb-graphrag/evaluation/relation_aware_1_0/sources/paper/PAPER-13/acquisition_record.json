@@ -1,0 +1,119 @@
+{
+  "acquired_at": "2026-08-25T09:30:40.271638+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-e7edb50600fc5996b63b35e4",
+  "canonical_document_sha256": "aa148303ece3bcb4032262fbc6e4bc1506f2274fb58c3db0b9d829add67b8eac",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:21863287",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=21863287"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=21863287"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": null,
+  "pmid": "21863287",
+  "raw_payload_sha256": "4f5f346455cacf30c902069a36818c06e640dcfaf2752abc1867cb753139e350",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "Recently, RCSD1 was identified as a novel gene fusion partner of the ABL1 gene. The RCSD1 gene, located at 1q23, is involved in t(1;9)(q23;q34) translocation in acute B lymphoblastic leukemia. Here we describe RCSD1-ABL1-positive B-cell acute lymphoblastic leukemia (ALL) followed by rapid clonal evolution exhibiting three rare reciprocal translocations. We performed breakpoint analysis of the transcript expressed by the RCSD1-ABL1 fusion gene. RT-PCR and sequence analyses detected transcription of a single RCSD1-ABL1 fusion gene variant, which had breakpoints in exon 3 of RCSD1 and exon 4 of ABL1. The RCSD1 portion of the RCSD1-ABL1 fusion transcript consists of exons 1, 2, and 3. Tyrosine kinase inhibitors, imatinib and dasatinib, coadministered with dexamethasone achieved transient clinical effects in the present RCSD1-ABL1-positive ALL. However, leukemic cells rapidly became refractory to this treatment following the subsequent development of three additional reciprocal chromosomal translocations, t(5;16)(q33;q24), dic(18;20)(p11.2;q11.2) and t(10;19)(q24;p13.3). The present RCSD1-ABL1-positive ALL may represent a state of high chromosomal instability.",
+    "abstract_sections": [
+      {
+        "label": null,
+        "text": "Recently, RCSD1 was identified as a novel gene fusion partner of the ABL1 gene. The RCSD1 gene, located at 1q23, is involved in t(1;9)(q23;q34) translocation in acute B lymphoblastic leukemia. Here we describe RCSD1-ABL1-positive B-cell acute lymphoblastic leukemia (ALL) followed by rapid clonal evolution exhibiting three rare reciprocal translocations. We performed breakpoint analysis of the transcript expressed by the RCSD1-ABL1 fusion gene. RT-PCR and sequence analyses detected transcription of a single RCSD1-ABL1 fusion gene variant, which had breakpoints in exon 3 of RCSD1 and exon 4 of ABL1. The RCSD1 portion of the RCSD1-ABL1 fusion transcript consists of exons 1, 2, and 3. Tyrosine kinase inhibitors, imatinib and dasatinib, coadministered with dexamethasone achieved transient clinical effects in the present RCSD1-ABL1-positive ALL. However, leukemic cells rapidly became refractory to this treatment following the subsequent development of three additional reciprocal chromosomal translocations, t(5;16)(q33;q24), dic(18;20)(p11.2;q11.2) and t(10;19)(q24;p13.3). The present RCSD1-ABL1-positive ALL may represent a state of high chromosomal instability."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Inokuchi K"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Wakita S"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Hirakawa T"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Tamai H"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Yokose N"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Yamaguchi H"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Dan K"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "aa148303ece3bcb4032262fbc6e4bc1506f2274fb58c3db0b9d829add67b8eac",
+    "content_type": "application/xml",
+    "document_id": "pmid:21863287",
+    "doi": "10.1007/s12185-011-0910-z",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1007/s12185-011-0910-z",
+      "pmid": "21863287"
+    },
+    "journal": "International journal of hematology",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/21863287.xml",
+    "metadata_cache_path": "pubmed/metadata/21863287.json",
+    "metadata_hash": "6589724435fd4515492f35e5187ae53ea7c054530b63f1fdc6ebc13b22626dc1",
+    "payload_size": 12486,
+    "pmcid": null,
+    "publication_types": [
+      "Case Reports",
+      "Journal Article"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=21863287"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=21863287"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:37Z",
+    "source": "NCBI E-utilities",
+    "title": "RCSD1-ABL1-positive B lymphoblastic leukemia is sensitive to dexamethasone and tyrosine kinase inhibitors and rapidly evolves clonally by chromosomal translocations.",
+    "year": "2011 Sep"
+  },
+  "sample_id": "PAPER-13",
+  "sourceunit_bundle_sha256": "cb2dcdd1f085b0496a108b50738856dd50875898da43d2e65c9ebed691f2b0ec",
+  "sourceunit_count": 14
+}

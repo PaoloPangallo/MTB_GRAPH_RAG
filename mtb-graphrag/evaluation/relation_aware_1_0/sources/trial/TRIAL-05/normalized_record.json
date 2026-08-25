@@ -1,0 +1,38 @@
+{
+  "conditions": [
+    "Non Small Cell Lung Cancer",
+    "Lung Cancer"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Osimertinib with Carotuximab"
+      ],
+      "description": "Osimertinib given by mouth daily at 40mg or 80mg depending on the starting dose level assigned per investigator. Therapy will continue until disease progression, patient withdrawal, or treatment intolerance.",
+      "name": "Osimertinib",
+      "otherNames": [
+        "TAGRISSO"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Osimertinib with Carotuximab"
+      ],
+      "description": "Carotuximab is administered intravenously weekly for the first 4 weeks, then every 2 weeks at 10mg/kg or 15 mg/kg depending on the starting dose level assigned per investigator. Therapy will continue until disease progression, patient withdrawal, or treatment intolerance.",
+      "name": "Carotuximab",
+      "otherNames": [
+        "ENV105",
+        "TRC105"
+      ],
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT05401110",
+  "overall_status": "RECRUITING",
+  "phase": [
+    "PHASE1"
+  ],
+  "title": "Study of Osimertinib With Carotuximab in Advanced, EGFR-mutated Non-Small Cell Lung Cancer"
+}

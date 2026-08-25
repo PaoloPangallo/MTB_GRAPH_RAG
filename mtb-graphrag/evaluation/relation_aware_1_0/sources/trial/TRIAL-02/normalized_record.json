@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    "Solid Tumors, KRAS Mutation; SOS1"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "BI 1701963 + Trametinib",
+        "BI 1701963 monotherapy"
+      ],
+      "description": "Tablet",
+      "name": "BI 1701963",
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "BI 1701963 + Trametinib"
+      ],
+      "description": "Tablet",
+      "name": "Trametinib",
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT04111458",
+  "overall_status": "ACTIVE_NOT_RECRUITING",
+  "phase": [
+    "PHASE1"
+  ],
+  "title": "A Study to Test Different Doses of BI 1701963 Alone and Combined With Trametinib in Patients With Different Types of Advanced Cancer (Solid Tumours With KRAS Mutation)"
+}

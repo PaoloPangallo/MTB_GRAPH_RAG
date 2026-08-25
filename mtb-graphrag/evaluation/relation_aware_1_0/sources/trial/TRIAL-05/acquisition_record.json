@@ -1,0 +1,119 @@
+{
+  "acquired_at": "2026-08-25T09:29:53.828996+00:00",
+  "acquisition_status": "TRIAL_RESOLVED",
+  "candidate_id": "GCA-ffe7ebc77df03ce611a57e2f",
+  "conditions": [
+    "Non Small Cell Lung Cancer",
+    "Lung Cancer"
+  ],
+  "eligibility_raw": null,
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT05401110"
+    }
+  ],
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Osimertinib with Carotuximab"
+      ],
+      "description": "Osimertinib given by mouth daily at 40mg or 80mg depending on the starting dose level assigned per investigator. Therapy will continue until disease progression, patient withdrawal, or treatment intolerance.",
+      "name": "Osimertinib",
+      "otherNames": [
+        "TAGRISSO"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Osimertinib with Carotuximab"
+      ],
+      "description": "Carotuximab is administered intravenously weekly for the first 4 weeks, then every 2 weeks at 10mg/kg or 15 mg/kg depending on the starting dose level assigned per investigator. Therapy will continue until disease progression, patient withdrawal, or treatment intolerance.",
+      "name": "Carotuximab",
+      "otherNames": [
+        "ENV105",
+        "TRC105"
+      ],
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT05401110",
+  "normalized_record_sha256": "44c5d5fa50a598607336f64e7ea130afc0d53185ce5e20f1744aa3ea700e4797",
+  "phase": [
+    "PHASE1"
+  ],
+  "raw_payload_sha256": "c9236e454e01a9f28a7fb515160e0e59b95a1712bffbc4164125aced8613c788",
+  "relation_family": "CLINICAL_TRIAL",
+  "resolver_record": {
+    "availability": "METADATA_ONLY",
+    "brief_summary": "The purpose of this study is to examine the combination of osimertinib and carotuximab to assess the safety and find the recommended dose for treatment of advanced EGFR-mutated non-small cell lung cancer (NSCLC). Safety and tolerability will be measured by the number of dose-limiting toxicities, according to National Cancer Institute Common Toxicity Criteria for Adverse Events (NCI CTCAE) Version 5, to find the maximum tolerated dose. The secondary objectives include evaluating the rate of objective response rate, duration of response, progression-free survival, and disease control rate, along with assessing biomarkers through tumor tissue and circulating tumor DNA.",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "conditions": [
+      "Non Small Cell Lung Cancer",
+      "Lung Cancer"
+    ],
+    "content_hash": "f2309d2f09f7a8bca99fa2371d4acb81a6ce4369142856d636d8ec532f1a3cc1",
+    "content_type": "application/json",
+    "detailed_description": null,
+    "document_id": "nct:NCT05401110",
+    "errors": [],
+    "identifiers": {
+      "nct": "NCT05401110"
+    },
+    "interventions": [
+      {
+        "armGroupLabels": [
+          "Osimertinib with Carotuximab"
+        ],
+        "description": "Osimertinib given by mouth daily at 40mg or 80mg depending on the starting dose level assigned per investigator. Therapy will continue until disease progression, patient withdrawal, or treatment intolerance.",
+        "name": "Osimertinib",
+        "otherNames": [
+          "TAGRISSO"
+        ],
+        "type": "DRUG"
+      },
+      {
+        "armGroupLabels": [
+          "Osimertinib with Carotuximab"
+        ],
+        "description": "Carotuximab is administered intravenously weekly for the first 4 weeks, then every 2 weeks at 10mg/kg or 15 mg/kg depending on the starting dose level assigned per investigator. Therapy will continue until disease progression, patient withdrawal, or treatment intolerance.",
+        "name": "Carotuximab",
+        "otherNames": [
+          "ENV105",
+          "TRC105"
+        ],
+        "type": "DRUG"
+      }
+    ],
+    "last_update": {
+      "date": "2026-08-06",
+      "type": "ACTUAL"
+    },
+    "license_status": "PUBLIC_METADATA",
+    "local_cache_path": "clinical_trials/NCT05401110.json",
+    "payload_size": 11824,
+    "phase": [
+      "PHASE1"
+    ],
+    "recruitment_status": "RECRUITING",
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT05401110"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:29:52Z",
+    "source": "ClinicalTrials.gov API v2",
+    "study_type": "INTERVENTIONAL",
+    "title": "Study of Osimertinib With Carotuximab in Advanced, EGFR-mutated Non-Small Cell Lung Cancer"
+  },
+  "sample_id": "TRIAL-05",
+  "status": "RECRUITING",
+  "title": "Study of Osimertinib With Carotuximab in Advanced, EGFR-mutated Non-Small Cell Lung Cancer"
+}

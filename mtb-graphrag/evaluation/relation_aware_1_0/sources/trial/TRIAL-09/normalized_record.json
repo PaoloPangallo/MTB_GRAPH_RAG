@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    "Candidates for Hereditary Pancreatic Cancer Testing"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Doxy.me plus Color Genomics Arm (Arm 1)"
+      ],
+      "description": "Doxy.me is a HIPAA compliant telemedicine platform that allows clinicians to provide education to remote patients.\n\nGenetic education via Doxy.me will consist of a pre-recorded genetic education video and a live interactive video conferencing session with a GENERATE genetic counselor.\n\nGenetic education via Color Genomics will consist of both written information and an educational video on the Color Genomics website.",
+      "name": "Doxy.me genetic education +/- Color Genomics genetic education",
+      "type": "OTHER"
+    },
+    {
+      "armGroupLabels": [
+        "Color Genomics Only Arm (Arm 2)"
+      ],
+      "description": "Genetic education via Color Genomics will consist of both written information and an educational video on the Color Genomics website.",
+      "name": "Color Genomics genetic education",
+      "type": "OTHER"
+    }
+  ],
+  "nct_id": "NCT03762590",
+  "overall_status": "ACTIVE_NOT_RECRUITING",
+  "phase": [
+    "NA"
+  ],
+  "title": "GENetic Education Risk Assessment and TEsting Study"
+}

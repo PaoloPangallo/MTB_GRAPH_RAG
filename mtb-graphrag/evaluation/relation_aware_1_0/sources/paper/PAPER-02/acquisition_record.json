@@ -1,0 +1,130 @@
+{
+  "acquired_at": "2026-08-25T09:30:05.728393+00:00",
+  "acquisition_status": "PAPER_RESOLVED_ABSTRACT",
+  "candidate_id": "GCA-ffe78f2cb067426d4baf225d",
+  "canonical_document_sha256": "bf11d130e62cf8e38068af62c055edebee81c0606cb3c0cb48af7a67bc8b1793",
+  "canonical_document_type": "PUBMED_ABSTRACT",
+  "document_id": "pmid:27069254",
+  "http_attempts": [
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=27069254"
+    },
+    {
+      "attempt": 1,
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=27069254"
+    }
+  ],
+  "parser_error": null,
+  "parser_status": "PARSED",
+  "pmcid": null,
+  "pmid": "27069254",
+  "raw_payload_sha256": "0159144b4f6ab63554beebd875764ef33ea4eb6ab69d2899210d1d270b903769",
+  "relation_family": "PAPER_EVIDENCE",
+  "resolver_record": {
+    "abstract": "The World Health Organization (WHO) classification of tumors of the hematopoietic and lymphoid tissues was last updated in 2008. Since then, there have been numerous advances in the identification of unique biomarkers associated with some myeloid neoplasms and acute leukemias, largely derived from gene expression analysis and next-generation sequencing that can significantly improve the diagnostic criteria as well as the prognostic relevance of entities currently included in the WHO classification and that also suggest new entities that should be added. Therefore, there is a clear need for a revision to the current classification. The revisions to the categories of myeloid neoplasms and acute leukemia will be published in a monograph in 2016 and reflect a consensus of opinion of hematopathologists, hematologists, oncologists, and geneticists. The 2016 edition represents a revision of the prior classification rather than an entirely new classification and attempts to incorporate new clinical, prognostic, morphologic, immunophenotypic, and genetic data that have emerged since the last edition. The major changes in the classification and their rationale are presented here.",
+    "abstract_sections": [
+      {
+        "label": null,
+        "text": "The World Health Organization (WHO) classification of tumors of the hematopoietic and lymphoid tissues was last updated in 2008. Since then, there have been numerous advances in the identification of unique biomarkers associated with some myeloid neoplasms and acute leukemias, largely derived from gene expression analysis and next-generation sequencing that can significantly improve the diagnostic criteria as well as the prognostic relevance of entities currently included in the WHO classification and that also suggest new entities that should be added. Therefore, there is a clear need for a revision to the current classification. The revisions to the categories of myeloid neoplasms and acute leukemia will be published in a monograph in 2016 and reflect a consensus of opinion of hematopathologists, hematologists, oncologists, and geneticists. The 2016 edition represents a revision of the prior classification rather than an entirely new classification and attempts to incorporate new clinical, prognostic, morphologic, immunophenotypic, and genetic data that have emerged since the last edition. The major changes in the classification and their rationale are presented here."
+      }
+    ],
+    "authors": [
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Arber DA"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Orazi A"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Hasserjian R"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Thiele J"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Borowitz MJ"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Le Beau MM"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Bloomfield CD"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Cazzola M"
+      },
+      {
+        "authtype": "Author",
+        "clusterid": "",
+        "name": "Vardiman JW"
+      }
+    ],
+    "availability": "ABSTRACT_AVAILABLE",
+    "cache_hit": false,
+    "candidate_ids": [],
+    "content_hash": "bf11d130e62cf8e38068af62c055edebee81c0606cb3c0cb48af7a67bc8b1793",
+    "content_type": "application/xml",
+    "document_id": "pmid:27069254",
+    "doi": "10.1182/blood-2016-03-643544",
+    "errors": [],
+    "identifiers": {
+      "doi": "10.1182/blood-2016-03-643544",
+      "pmid": "27069254"
+    },
+    "journal": "Blood",
+    "language": [
+      "eng"
+    ],
+    "license_status": "PUBLIC_METADATA_ABSTRACT",
+    "local_cache_path": "pubmed/abstracts/27069254.xml",
+    "metadata_cache_path": "pubmed/metadata/27069254.json",
+    "metadata_hash": "9e78fb10aa5c29a03164eecd05b211488459145d0e2affe2301a5ee23ab909df",
+    "payload_size": 9428,
+    "pmcid": null,
+    "publication_types": [
+      "Journal Article",
+      "Review",
+      "Research Support, Non-U.S. Gov't"
+    ],
+    "resolution_attempts": [
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=27069254"
+      },
+      {
+        "attempt": 1,
+        "status": 200,
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=27069254"
+      }
+    ],
+    "resolver_version": "authorized-cache/1.0",
+    "retrieval_mode": "LIVE_FETCH",
+    "retrieved_at": "2026-08-25T09:30:03Z",
+    "source": "NCBI E-utilities",
+    "title": "The 2016 revision to the World Health Organization classification of myeloid neoplasms and acute leukemia.",
+    "year": "2016 May 19"
+  },
+  "sample_id": "PAPER-02",
+  "sourceunit_bundle_sha256": "45b6f25c7a25d3208e2a4fe10ca42242b59c9c27507e16d2e29f655753de3886",
+  "sourceunit_count": 8
+}

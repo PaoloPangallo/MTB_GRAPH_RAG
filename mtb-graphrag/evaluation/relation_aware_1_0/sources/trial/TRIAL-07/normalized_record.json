@@ -1,0 +1,45 @@
+{
+  "conditions": [
+    "Advanced Malignant Solid Neoplasm"
+  ],
+  "eligibility": null,
+  "interventions": [
+    {
+      "armGroupLabels": [
+        "Treatment (veliparib and dinaciclib)"
+      ],
+      "description": "Given IV",
+      "name": "Dinaciclib",
+      "otherNames": [
+        "CDK Inhibitor SCH 727965",
+        "MK 7965",
+        "MK-7965",
+        "MK7965",
+        "SCH 727965",
+        "SCH-727965",
+        "SCH727965"
+      ],
+      "type": "DRUG"
+    },
+    {
+      "armGroupLabels": [
+        "Treatment (veliparib and dinaciclib)"
+      ],
+      "description": "Given PO",
+      "name": "Veliparib",
+      "otherNames": [
+        "ABT 888",
+        "ABT-888",
+        "ABT888",
+        "PARP-1 inhibitor ABT-888"
+      ],
+      "type": "DRUG"
+    }
+  ],
+  "nct_id": "NCT01434316",
+  "overall_status": "ACTIVE_NOT_RECRUITING",
+  "phase": [
+    "PHASE1"
+  ],
+  "title": "Veliparib and Dinaciclib in Treating Patients With Advanced Solid Tumors"
+}
