@@ -163,6 +163,14 @@ def test_disease_match_does_not_override_unrelated_explicit_gene():
     assert matched is False
 
 
+def test_different_gene_cannot_match_generic_candidate_alteration():
+    matched, _ = kg_retrieval._match_candidate(
+        _case(gene="ZZTK9", alteration="P44R alteration"),
+        _candidate(gene="TP53", alteration="ALTERATION"),
+    )
+    assert matched is False
+
+
 def test_same_gene_is_relevant_even_when_candidate_has_no_explicit_alteration():
     matched, _ = kg_retrieval._match_candidate(
         _case(gene="KRAS", alteration="G12D"), _candidate(gene="KRAS")

@@ -179,7 +179,13 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
     conflicting_alteration = bool(
         gene_match and case_alterations and candidate_alteration_labels and not alteration_match
     )
-    molecular_anchor_match = (gene_match and not conflicting_alteration) or alteration_match
+    explicit_gene_conflict = bool(
+        case_genes and candidate_gene_labels and not gene_match
+    )
+    molecular_anchor_match = (
+        not explicit_gene_conflict
+        and ((gene_match and not conflicting_alteration) or alteration_match)
+    )
     if case_genes or case_alterations:
         gene_ok = molecular_anchor_match
     else:
