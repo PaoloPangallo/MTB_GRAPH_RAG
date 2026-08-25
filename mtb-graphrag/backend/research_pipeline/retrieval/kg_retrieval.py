@@ -152,17 +152,38 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
     # descriptive word in `gene` (observed: "microsatellite") that alone loses the
     # abbreviation/qualifier ("MSI"/"High") carried by normalized_value -- matching
     # against the union of fields is more robust than trusting a single field.
-    case_biomarker_terms = {
-        _norm(value)
+    case_genes = {_norm(b.get("gene")) for b in (case_context.get("biomarkers") or []) if b.get("gene")}
+    case_alterations = {
+        _norm(b.get("alteration"))
         for b in (case_context.get("biomarkers") or [])
-        for value in (b.get("gene"), b.get("normalized_value"), b.get("raw_value"))
-        if value
+        if b.get("alteration")
     }
-    candidate_biomarker_labels = _labels(candidate.get("biomarkers") or [])
-    gene_ok = not candidate_biomarker_labels or (
-        bool(case_biomarker_terms)
-        and any(any(_term_matches(term, label) for label in candidate_biomarker_labels) for term in case_biomarker_terms)
+    candidate_biomarkers = candidate.get("biomarkers") or []
+    candidate_gene_labels = _labels([
+        item for item in candidate_biomarkers
+        if item.get("type", "Gene").casefold() == "gene"
+    ])
+    candidate_alteration_labels = _labels([
+        item for item in candidate_biomarkers
+        if item.get("type", "").casefold() in {"variant", "alteration"}
+    ])
+    gene_match = bool(case_genes and candidate_gene_labels and any(
+        _term_matches(case_gene, candidate_gene)
+        for case_gene in case_genes for candidate_gene in candidate_gene_labels
+    ))
+    alteration_match = bool(case_alterations and candidate_alteration_labels and any(
+        _term_matches(case_alteration, candidate_alteration)
+        for case_alteration in case_alterations
+        for candidate_alteration in candidate_alteration_labels
+    ))
+    conflicting_alteration = bool(
+        gene_match and case_alterations and candidate_alteration_labels and not alteration_match
     )
+    molecular_anchor_match = (gene_match and not conflicting_alteration) or alteration_match
+    if case_genes or case_alterations:
+        gene_ok = molecular_anchor_match
+    else:
+        gene_ok = True
     if not gene_ok:
         reasons.append("BIOMARKER_GENE_NOT_COMPATIBLE")
 
@@ -173,23 +194,25 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
     intervention_ok = not candidate_interventions or not target_value or any(
         _term_matches(target_value, label) for label in candidate_interventions
     )
+    intervention_match = bool(target_value and candidate_interventions and intervention_ok)
     if intent == "THERAPY_EVALUATION" and candidate_interventions:
         if not intervention_ok:
             reasons.append("TARGET_INTERVENTION_NOT_COMPATIBLE")
 
-    positive_anchor = any((
-        bool(candidate_disease and disease_ok),
-        bool(candidate_biomarker_labels and gene_ok),
-        bool(candidate_interventions and target_value and intervention_ok),
-    ))
-    ok = disease_ok and gene_ok and intervention_ok and positive_anchor
+    case_has_non_disease_anchor = bool(case_genes or case_alterations or target_value)
+    positive_anchor = (
+        (molecular_anchor_match or intervention_match)
+        if case_has_non_disease_anchor
+        else any((bool(candidate_disease and disease_ok), bool(candidate_biomarkers and gene_ok)))
+    )
+    ok = disease_ok and intervention_ok and positive_anchor
     if ok:
         reasons = []
         if candidate_disease:
             reasons.append("DISEASE_COMPATIBLE")
-        if candidate_biomarker_labels:
+        if molecular_anchor_match:
             reasons.append("BIOMARKER_COMPATIBLE")
-        if candidate_interventions and target_value:
+        if intervention_match:
             reasons.append("INTERVENTION_COMPATIBLE")
     return ok, reasons
 

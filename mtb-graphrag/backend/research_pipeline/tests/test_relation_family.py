@@ -126,3 +126,84 @@ def test_live_retrieval_admits_real_trial_without_calling_provider(monkeypatch, 
 
     assert result["associations"][0]["candidate_id"] == target["candidate_id"]
     assert classify_relation_family(result["associations"][0]["candidate"]) == CLINICAL_TRIAL
+
+
+def _case(*, gene=None, alteration=None, intervention=None):
+    return {
+        "disease": {"normalized_value": "colorectal cancer"},
+        "biomarkers": ([{
+            "gene": gene,
+            "alteration": alteration,
+            "normalized_value": " ".join(value for value in (gene, alteration) if value),
+        }] if gene or alteration else []),
+        "target_intervention": ({"normalized_value": intervention} if intervention else None),
+        "query_intent": None,
+    }
+
+
+def _candidate(*, gene=None, alteration=None, intervention=None, disease="Colorectal Cancer"):
+    biomarkers = []
+    if gene:
+        biomarkers.append({"label": gene, "type": "Gene"})
+    if alteration:
+        biomarkers.append({"label": alteration, "type": "Variant"})
+    return {
+        "candidate_id": "synthetic",
+        "disease": ([{"label": disease}] if disease else []),
+        "biomarkers": biomarkers,
+        "interventions": ([{"label": intervention, "type": "Drug"}] if intervention else []),
+        "document_identifiers": [],
+    }
+
+
+def test_disease_match_does_not_override_unrelated_explicit_gene():
+    matched, _ = kg_retrieval._match_candidate(
+        _case(gene="ZZTK9", alteration="P44R"), _candidate(gene="KRAS", alteration="G12D")
+    )
+    assert matched is False
+
+
+def test_same_gene_is_relevant_even_when_candidate_has_no_explicit_alteration():
+    matched, _ = kg_retrieval._match_candidate(
+        _case(gene="KRAS", alteration="G12D"), _candidate(gene="KRAS")
+    )
+    assert matched is True
+
+
+def test_same_gene_with_conflicting_alteration_is_rejected_without_other_anchor():
+    matched, _ = kg_retrieval._match_candidate(
+        _case(gene="KRAS", alteration="G12D"), _candidate(gene="KRAS", alteration="G13D")
+    )
+    assert matched is False
+
+
+def test_intervention_match_is_independent_relevance_anchor():
+    matched, _ = kg_retrieval._match_candidate(
+        _case(gene="ZZTK9", alteration="P44R", intervention="panitumumab"),
+        _candidate(gene="KRAS", intervention="panitumumab"),
+    )
+    assert matched is True
+
+
+def test_real_trial_drug_is_reachable_by_intervention(real_examples):
+    matched, _ = kg_retrieval._match_candidate(
+        _case(intervention="EMB-01"), real_examples["trial_drug"]
+    )
+    assert matched is True
+
+
+def test_real_trial_gene_is_reachable_by_gene(real_examples):
+    candidate = real_examples["trial_gene"]
+    gene = next(item["label"] for item in candidate["biomarkers"] if item.get("type") == "Gene")
+    matched, _ = kg_retrieval._match_candidate(_case(gene=gene), candidate)
+    assert matched is True
+
+
+def test_real_kg_only_gene_drug_is_reachable_by_gene_or_drug(real_examples):
+    candidate = real_examples["kg_drug"]
+    gene = candidate["biomarkers"][0]["label"]
+    matched_by_gene, _ = kg_retrieval._match_candidate(_case(gene=gene), candidate)
+    drug = candidate["interventions"][0]["label"]
+    matched_by_drug, _ = kg_retrieval._match_candidate(_case(intervention=drug), candidate)
+    assert matched_by_gene is True
+    assert matched_by_drug is True
