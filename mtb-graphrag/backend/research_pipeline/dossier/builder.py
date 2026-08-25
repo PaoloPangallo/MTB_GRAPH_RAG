@@ -145,6 +145,25 @@ def _candidate_result(results: Any, candidate_id: str) -> dict[str, Any]:
     return {}
 
 
+def _paper_result_fields(result: dict[str, Any]) -> dict[str, Any]:
+    """Project existing paper-pipeline records without recomputing them."""
+    enrichment = result.get("enrichment") or {}
+    validation = result.get("validation") or {}
+    support = result.get("candidate_support") or {}
+    selected = result.get("selected_source_units") or []
+    return {
+        "document_source": result.get("document_source"),
+        "document_resolution_status": result.get("document_resolution_status"),
+        "selected_source_units": selected,
+        "reader_status": enrichment.get("decision") or result.get("reader_status"),
+        "quote": result.get("quote") or enrichment.get("author_claim_quote"),
+        "quote_validation": result.get("quote_validation") or validation.get("outcome"),
+        "support_fields": result.get("support_fields") or support.get("fields"),
+        "support_level": result.get("support_level") or support.get("result"),
+        "reason": result.get("reason") or support.get("reason"),
+    }
+
+
 def _case_summary(case_context: dict[str, Any]) -> dict[str, Any]:
     biomarkers = case_context.get("biomarkers") or []
     first = biomarkers[0] if biomarkers else {}
@@ -188,17 +207,14 @@ def build_relation_aware_report(
         }
         if family == PAPER_EVIDENCE:
             result = _candidate_result(paper_results, candidate_id)
+            paper_fields = _paper_result_fields(result)
             paper_evidence.append({
                 **common,
                 "evidence_type": candidate.get("evidence_scope") or candidate.get("source_properties", {}).get("evidence", {}).get("evidence_type"),
                 "document_id": _document_id(candidate),
                 "source_type": candidate.get("source_properties", {}).get("evidence", {}).get("source_type"),
-                "quote": result.get("quote"),
-                "quote_validation": result.get("quote_validation"),
-                "support_fields": result.get("support_fields"),
-                "support_level": result.get("support_level"),
+                **paper_fields,
                 "support_status": result.get("support_status") or ("NOT_EVALUATED" if not result else None),
-                "reason": result.get("reason"),
             })
             if not result:
                 limitations.add("PAPER_SUPPORT_NOT_EVALUATED")
