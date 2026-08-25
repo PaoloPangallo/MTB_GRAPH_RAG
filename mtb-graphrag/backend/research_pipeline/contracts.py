@@ -383,6 +383,7 @@ class PipelineRun:
     requested_mode: str = "LIVE"
     document_cache: Mapping[str, Any] = field(default_factory=dict)
     llm_calls: int = 0
+    relation_aware_report: Mapping[str, Any] | None = None
 
     def __post_init__(self) -> None:
         if self.status not in RUN_STATUSES:
@@ -451,5 +452,8 @@ class PipelineRun:
             "document_cache": dict(self.document_cache),
             "document_acquisition": document_acquisition_summary(stages),
             "llm_calls": self.llm_calls,
+            "relation_aware_report": (
+                dict(self.relation_aware_report) if self.relation_aware_report is not None else None
+            ),
             **self.mode_summary(),
         }

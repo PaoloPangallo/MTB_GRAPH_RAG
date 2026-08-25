@@ -63,6 +63,11 @@ from backend.research_pipeline.redaction import redact_retrieval_result
 from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.retrieval.paper_selection import select_papers_for_association
 from backend.research_pipeline.retrieval.live_sourceunit_selection import select_live_papers_for_association
+from backend.research_pipeline.retrieval.relation_family import (
+    CLINICAL_TRIAL,
+    PAPER_EVIDENCE,
+    classify_relation_family,
+)
 
 #: Esiti che il validatore v1 considera accettati. ``gates.evaluate_association``
 #: filtra su questi nomi.
@@ -370,6 +375,7 @@ def run_case(
     llm_calls = 0
 
     def _finalize(status: str, stopped_at: str | None, **extra: Any) -> PipelineRun:
+        relation_aware_report = extra.pop("relation_aware_report", None)
         if stopped_at is not None:
             recorder.skip_remaining(stopped_at)
         else:
@@ -385,6 +391,7 @@ def run_case(
             requested_mode=execution_mode,
             document_cache=cache_descriptor,
             llm_calls=llm_calls,
+            relation_aware_report=relation_aware_report,
             **extra,
         )
 
@@ -530,6 +537,10 @@ def run_case(
         if chain is not None else case_context
     )
     retrieval_result = retrieve(retrieval_case_context)
+    document_bearing_associations = [
+        association for association in retrieval_result["associations"]
+        if association.get("available_bundles")
+    ]
     redacted = redact_retrieval_result(retrieval_result)
     retrieval_preview = {
         "graph_derived": True,
@@ -568,7 +579,7 @@ def run_case(
         resolution = document_runtime.resolve(retrieval_result["associations"])
         resolution_preview = {**cache_descriptor, **resolution.to_preview()}
         resolved_any = any(doc.resolved for doc in resolution.documents)
-        if canonical and not resolved_any:
+        if canonical and document_bearing_associations and not resolved_any:
             recorder.finish("stage_6_document_resolution", p, status="FAILED",
                             artifact_origin=em.DETERMINISTIC_CACHE,
                             reason_codes=("NO_DOCUMENT_RESOLVED", "DOCUMENT_UNAVAILABLE"),
@@ -668,7 +679,7 @@ def run_case(
             documents_parsed=bundle_units.documents_parsed, source_unit_count=len(bundle_units.units_by_id),
             with_exact_text=with_text, parser_mode="CANONICAL" if canonical else "CACHE",
         )
-        if canonical and not with_text:
+        if canonical and document_bearing_associations and not with_text:
             return _finalize("FAILED", "PARSER_FAILED")
     else:
         units_for_decisions = dict(source_units_by_id)
@@ -689,6 +700,8 @@ def run_case(
     candidate_therapies: list[dict[str, Any]] = []
     selections, enrichment_calls, validations, evaluations = [], [], [], []
     selection_failed_candidates: set[str] = set()
+    relation_paper_results: dict[str, dict[str, Any]] = {}
+    relation_trial_results: dict[str, dict[str, Any]] = {}
 
     for association in retrieval_result["associations"]:
         recorder.emit_domain_event(
@@ -825,6 +838,36 @@ def run_case(
             if "NO_RELEVANT_SOURCE_UNIT" not in evaluation["warnings"]:
                 evaluation["warnings"].append("NO_RELEVANT_SOURCE_UNIT")
         evaluations.append({"candidate_id": candidate["candidate_id"], **evaluation})
+        family = classify_relation_family(candidate)
+        if family == PAPER_EVIDENCE:
+            selected_source_units = [
+                unit_id
+                for paper in selection["selected_papers"]
+                for unit_id in paper.get("resolved_source_unit_ids", [])
+            ]
+            resolved_documents = [
+                resolution.records_by_bundle_id.get(paper.get("bundle_id"))
+                for paper in selection["selected_papers"]
+            ] if resolution is not None else []
+            resolved_document = next((item for item in resolved_documents if item is not None), None)
+            latest_validation = validation_entries[-1] if validation_entries else {}
+            relation_paper_results[candidate["candidate_id"]] = {
+                "document_source": resolved_document.source if resolved_document else None,
+                "document_resolution_status": resolved_document.availability if resolved_document else None,
+                "selected_source_units": selected_source_units,
+                "enrichment": enrichment_entries[-1] if enrichment_entries else {},
+                "validation": latest_validation,
+                "candidate_support": latest_validation.get("candidate_support"),
+            }
+        elif family == CLINICAL_TRIAL:
+            nct_id = next(
+                (item.get("nct") for item in candidate.get("document_identifiers") or [] if item.get("nct")),
+                None,
+            )
+            relation_trial_results[candidate["candidate_id"]] = (
+                document_runtime.manifest_by_document_id.get(f"nct:{nct_id}", {})
+                if document_runtime is not None and nct_id else {}
+            )
         candidate_therapies.append(dossier_mod.build_candidate_therapy_entry(
             candidate, graph_relation=candidate.get("predicate", ""),
             document_support={"selected_papers": [pp["bundle_id"] for pp in selection["selected_papers"]],
@@ -917,6 +960,12 @@ def run_case(
     # STAGE 13 — Dossier
     p = _deterministic("dossier_builder", DOSSIER_VERSION)
     recorder.start("stage_13_dossier", p)
+    relation_aware_report = dossier_mod.build_relation_aware_report(
+        case_context,
+        [association["candidate"] for association in retrieval_result["associations"]],
+        paper_results=relation_paper_results,
+        trial_results=relation_trial_results,
+    )
     dossier = dossier_mod.build_dossier_preview(
         case_id, case_context,
         {"records": [r.to_dict() for r in records], "essential_fields_pass": essential_ok,
@@ -934,6 +983,7 @@ def run_case(
     recorder.finish("stage_13_dossier", p, domain_event=ev.DOSSIER_BUILT,
                     output_preview={"candidate_count": len(candidate_therapies),
                                     "dossier": dossier,
+                                    "relation_aware_report": relation_aware_report,
                                     "limitations": dossier["limitations"]})
 
     # STAGE 14-15 — Narrazione e verifica.
@@ -948,7 +998,10 @@ def run_case(
     has_warning = any(stage.status == "WARNING" for stage in recorder.stages)
     if narrative_verifier_mode == "OFFLINE_ABLATION_BYPASS":
         has_warning = True
-    return _finalize("PARTIAL" if has_warning else "COMPLETED", None, dossier_id=case_id)
+    return _finalize(
+        "PARTIAL" if has_warning else "COMPLETED", None,
+        dossier_id=case_id, relation_aware_report=relation_aware_report,
+    )
 
 
 def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
