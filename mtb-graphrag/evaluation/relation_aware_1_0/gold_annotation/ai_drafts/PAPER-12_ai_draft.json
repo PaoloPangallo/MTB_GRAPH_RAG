@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-12",
+  "candidate_id": "GCA-ffbb1b3be5bd7e74024e8a2f",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "NO",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "NO",
+  "drug_supported": "NOT_APPLICABLE",
+  "direction_supported": "NO",
+  "evidence_type_supported": "NO",
+  "overall_gold_draft": "UNVERIFIABLE",
+  "gold_source_unit_ids_draft": [
+    "SU-d79ac777bedabbc801f68620"
+  ],
+  "gold_quote_draft": "A method and server for predicting damaging missense mutations",
+  "reasoning_summary": "The frozen SourceUnit bundle contains only the title and a supplementary-material label. It does not provide enough frozen document content to make a motivated judgement about R238W, childhood ALL, or a prognostic relation. The candidate has no explicit gene field.",
+  "uncertainty": "HIGH",
+  "author_review_required": true
+}

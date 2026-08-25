@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-15",
+  "candidate_id": "GCA-ff97755cefae20a730170d54",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "YES",
+  "drug_supported": "YES",
+  "direction_supported": "YES",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "PARTIAL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-d15474b67cf73a3ab49e3751"
+  ],
+  "gold_quote_draft": "Characterization of surviving cells identified inactivation of NF1 as a novel mechanism of resistance to both B-RAF and MEK inhibition.",
+  "reasoning_summary": "The source covers B-RAFV600E melanoma, trametinib/MEK-inhibitor context, and resistance, but identifies NF1 inactivation rather than V600E as the resistance mechanism. The candidate has no explicit gene field.",
+  "uncertainty": "MEDIUM",
+  "author_review_required": true
+}

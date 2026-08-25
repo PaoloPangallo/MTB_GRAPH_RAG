@@ -1,0 +1,165 @@
+{
+  "annotation_status": "AI_DRAFT",
+  "system_output_used": false,
+  "author_review_required": true,
+  "papers_annotated": 16,
+  "overall_draft_counts": {
+    "FULL_SUPPORT": 3,
+    "NO_SUPPORT": 3,
+    "PARTIAL_SUPPORT": 8,
+    "UNVERIFIABLE": 2
+  },
+  "uncertainty_counts": {
+    "HIGH": 4,
+    "LOW": 4,
+    "MEDIUM": 8
+  },
+  "high_uncertainty_cases": [
+    {
+      "sample_id": "PAPER-05",
+      "reasoning_summary": "The source documents a predictive/aggressiveness context in lethal prostate cancer and describes molecular upregulation, but the candidate subject is only the unspecific label Overexpression and does not identify the molecular entity. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-08",
+      "reasoning_summary": "The source supports a high/low biomarker-based predictive relation in the stated disease context, but the candidate subject is the unqualified label High and does not identify the measured biomarker. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-12",
+      "reasoning_summary": "The frozen SourceUnit bundle contains only the title and a supplementary-material label. It does not provide enough frozen document content to make a motivated judgement about R238W, childhood ALL, or a prognostic relation. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-14",
+      "reasoning_summary": "The frozen SourceUnit bundle contains only the title. It names a broad fluorouracil-toxicity topic but cannot establish the candidate DPYD*13 homozygosity, cancer context, or the required specificity. The candidate has no explicit gene field."
+    }
+  ],
+  "records": [
+    {
+      "sample_id": "PAPER-01",
+      "candidate_id": "GCA-eed9f53846f3cc651e23a469",
+      "assertion": "D1709N / has_evidence_statement / 5534",
+      "overall_draft": "NO_SUPPORT",
+      "uncertainty": "MEDIUM",
+      "reasoning_summary": "The frozen abstract covers the disease and DICER1 hotspot mutations generally, but it does not document the candidate alteration D1709N or a diagnostic ‘Does Not Support’ relation. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-02",
+      "candidate_id": "GCA-ffe78f2cb067426d4baf225d",
+      "assertion": "Fusion / has_evidence_statement / 1436",
+      "overall_draft": "PARTIAL_SUPPORT",
+      "uncertainty": "MEDIUM",
+      "reasoning_summary": "The source supports diagnostic biomarker work in hematologic malignancies in general, but the frozen candidate’s Fusion subject is not identified in the document. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-03",
+      "candidate_id": "GCA-ffb6a639dda7e2af9dc154e0",
+      "assertion": "H191FS (c.571delC) / has_evidence_statement / 5275",
+      "overall_draft": "PARTIAL_SUPPORT",
+      "uncertainty": "MEDIUM",
+      "reasoning_summary": "The source supports the VHL-disease and mutation context, including a predisposing disease description, but does not identify the candidate H191FS (c.571delC) alteration. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-04",
+      "candidate_id": "GCA-ffd2ba40df921cebf9d31e1a",
+      "assertion": "Expression / has_evidence_statement / 1578",
+      "overall_draft": "NO_SUPPORT",
+      "uncertainty": "LOW",
+      "reasoning_summary": "The cited full text discusses mutation heterogeneity and expression across cancers, not Merkel cell carcinoma or a predictive ‘Does Not Support’ assertion for the candidate Expression subject. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-05",
+      "candidate_id": "GCA-ffc4f3959a383c945a0f1cc5",
+      "assertion": "Overexpression / has_evidence_statement / 414",
+      "overall_draft": "PARTIAL_SUPPORT",
+      "uncertainty": "HIGH",
+      "reasoning_summary": "The source documents a predictive/aggressiveness context in lethal prostate cancer and describes molecular upregulation, but the candidate subject is only the unspecific label Overexpression and does not identify the molecular entity. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-06",
+      "candidate_id": "GCA-ffcd72c534472ec5090eea1f",
+      "assertion": "V211L / has_evidence_statement / 2882",
+      "overall_draft": "PARTIAL_SUPPORT",
+      "uncertainty": "MEDIUM",
+      "reasoning_summary": "The source supports a predictive biomarker relation in ovarian carcinoma, but it does not identify the candidate V211L alteration. The candidate is an evidence statement without a drug field and has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-07",
+      "candidate_id": "GCA-ffd6d386640e05d3b78a3031",
+      "assertion": "N822K / associated_with_sensitivity_to / SORAFENIB",
+      "overall_draft": "NO_SUPPORT",
+      "uncertainty": "LOW",
+      "reasoning_summary": "The source concerns FLT3-ITD and ponatinib in AML, not the candidate N822K alteration or sorafenib. It therefore does not support the specific sensitivity relation. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-08",
+      "candidate_id": "GCA-ffdedde41ece1506673a5c0e",
+      "assertion": "High / has_evidence_statement / 12850",
+      "overall_draft": "PARTIAL_SUPPORT",
+      "uncertainty": "HIGH",
+      "reasoning_summary": "The source supports a high/low biomarker-based predictive relation in the stated disease context, but the candidate subject is the unqualified label High and does not identify the measured biomarker. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-09",
+      "candidate_id": "GCA-ffe5c124fb0b3bb1335a4014",
+      "assertion": "Fusion / associated_with_sensitivity_to / CRIZOTINIB",
+      "overall_draft": "PARTIAL_SUPPORT",
+      "uncertainty": "MEDIUM",
+      "reasoning_summary": "The source supports a fusion context in lung cancer but does not name crizotinib and describes resistance caused by secondary mutations rather than the candidate Fusion-to-crizotinib sensitivity relation. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-10",
+      "candidate_id": "GCA-fff42a22261e97c1160749e9",
+      "assertion": "T790M / has_evidence_statement / 646",
+      "overall_draft": "FULL_SUPPORT",
+      "uncertainty": "LOW",
+      "reasoning_summary": "The frozen abstract explicitly connects T790M-mutated NSCLC with therapeutic activity, matching the candidate’s disease, alteration, supportive direction, and predictive evidence type. The candidate has no explicit gene or drug field."
+    },
+    {
+      "sample_id": "PAPER-11",
+      "candidate_id": "GCA-ff6bdc720cc1fcd9134bf399",
+      "assertion": "R132 / has_evidence_statement / 323",
+      "overall_draft": "FULL_SUPPORT",
+      "uncertainty": "LOW",
+      "reasoning_summary": "The frozen abstract directly states the candidate’s negative prognostic relation for R132 mutations in AML. The candidate has no explicit gene or drug field."
+    },
+    {
+      "sample_id": "PAPER-12",
+      "candidate_id": "GCA-ffbb1b3be5bd7e74024e8a2f",
+      "assertion": "R238W / has_evidence_statement / 7863",
+      "overall_draft": "UNVERIFIABLE",
+      "uncertainty": "HIGH",
+      "reasoning_summary": "The frozen SourceUnit bundle contains only the title and a supplementary-material label. It does not provide enough frozen document content to make a motivated judgement about R238W, childhood ALL, or a prognostic relation. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-13",
+      "candidate_id": "GCA-e7edb50600fc5996b63b35e4",
+      "assertion": "Fusion / associated_with_sensitivity_to / DASATINIB",
+      "overall_draft": "FULL_SUPPORT",
+      "uncertainty": "MEDIUM",
+      "reasoning_summary": "The source explicitly identifies the fusion and disease, includes dasatinib, and reports transient effects followed by refractoriness, supporting the candidate’s reduced-sensitivity relation. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-14",
+      "candidate_id": "GCA-fc343592a215c4ac9c9a1c43",
+      "assertion": "DPYD*13 HOMOZYGOSITY / associated_with_sensitivity_to / FLUOROURACIL",
+      "overall_draft": "UNVERIFIABLE",
+      "uncertainty": "HIGH",
+      "reasoning_summary": "The frozen SourceUnit bundle contains only the title. It names a broad fluorouracil-toxicity topic but cannot establish the candidate DPYD*13 homozygosity, cancer context, or the required specificity. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-15",
+      "candidate_id": "GCA-ff97755cefae20a730170d54",
+      "assertion": "V600E / associated_with_resistance_to / TRAMETINIB",
+      "overall_draft": "PARTIAL_SUPPORT",
+      "uncertainty": "MEDIUM",
+      "reasoning_summary": "The source covers B-RAFV600E melanoma, trametinib/MEK-inhibitor context, and resistance, but identifies NF1 inactivation rather than V600E as the resistance mechanism. The candidate has no explicit gene field."
+    },
+    {
+      "sample_id": "PAPER-16",
+      "candidate_id": "GCA-fff906074758e0ee48366a8d",
+      "assertion": "T315I / associated_with_resistance_to / NILOTINIB",
+      "overall_draft": "PARTIAL_SUPPORT",
+      "uncertainty": "MEDIUM",
+      "reasoning_summary": "The frozen abstract directly supports T315I-associated resistance to nilotinib, but the supplied abstract does not explicitly state the candidate chronic myeloid leukemia disease context. The candidate has no explicit gene field."
+    }
+  ]
+}

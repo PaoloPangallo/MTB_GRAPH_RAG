@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-13",
+  "candidate_id": "GCA-e7edb50600fc5996b63b35e4",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "YES",
+  "drug_supported": "YES",
+  "direction_supported": "YES",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "FULL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-e6cd8f8c4b8dfe535c1f34e4"
+  ],
+  "gold_quote_draft": "Tyrosine kinase inhibitors, imatinib and dasatinib, coadministered with dexamethasone achieved transient clinical effects in the present RCSD1-ABL1-positive ALL. However, leukemic cells rapidly became refractory to this treatment following the subsequent development of three additional reciprocal chromosomal translocations, t(5;16)(q33;q24), dic(18;20)(p11.",
+  "reasoning_summary": "The source explicitly identifies the fusion and disease, includes dasatinib, and reports transient effects followed by refractoriness, supporting the candidate’s reduced-sensitivity relation. The candidate has no explicit gene field.",
+  "uncertainty": "MEDIUM",
+  "author_review_required": true
+}

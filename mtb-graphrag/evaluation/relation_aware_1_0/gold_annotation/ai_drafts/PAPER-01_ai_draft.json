@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-01",
+  "candidate_id": "GCA-eed9f53846f3cc651e23a469",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "NO",
+  "drug_supported": "NOT_APPLICABLE",
+  "direction_supported": "NO",
+  "evidence_type_supported": "NO",
+  "overall_gold_draft": "NO_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-e85dc884b6309265871d65d9"
+  ],
+  "gold_quote_draft": "Sertoli-Leydig cell tumors are characterized by the presence of somatic DICER1 hotspot mutations.",
+  "reasoning_summary": "The frozen abstract covers the disease and DICER1 hotspot mutations generally, but it does not document the candidate alteration D1709N or a diagnostic ‘Does Not Support’ relation. The candidate has no explicit gene field.",
+  "uncertainty": "MEDIUM",
+  "author_review_required": true
+}

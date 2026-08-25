@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-08",
+  "candidate_id": "GCA-ffdedde41ece1506673a5c0e",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "YES",
+  "drug_supported": "NOT_APPLICABLE",
+  "direction_supported": "YES",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "PARTIAL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-312c39511ce92a06d5bddd85"
+  ],
+  "gold_quote_draft": "NLR and fibrinogen levels are simple, inexpensive and readily available biomarkers that could be incorporated into an on-treatment scoring system and used to help predict survival and response to ICI in patients with R/M HNSCC.",
+  "reasoning_summary": "The source supports a high/low biomarker-based predictive relation in the stated disease context, but the candidate subject is the unqualified label High and does not identify the measured biomarker. The candidate has no explicit gene field.",
+  "uncertainty": "HIGH",
+  "author_review_required": true
+}

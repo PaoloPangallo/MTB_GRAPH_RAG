@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-16",
+  "candidate_id": "GCA-fff906074758e0ee48366a8d",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "NO",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "YES",
+  "drug_supported": "YES",
+  "direction_supported": "YES",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "PARTIAL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-6468f4e0e5a568490fd4a917"
+  ],
+  "gold_quote_draft": "BMS-354825 (dasatinib) and AMN107 (nilotinib) are potent alternate Abl inhibitors with activity against many imatinib mesylate-resistant BCR-ABL kinase domain (KD) mutants, except T315I.",
+  "reasoning_summary": "The frozen abstract directly supports T315I-associated resistance to nilotinib, but the supplied abstract does not explicitly state the candidate chronic myeloid leukemia disease context. The candidate has no explicit gene field.",
+  "uncertainty": "MEDIUM",
+  "author_review_required": true
+}

@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-03",
+  "candidate_id": "GCA-ffb6a639dda7e2af9dc154e0",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "NO",
+  "drug_supported": "NOT_APPLICABLE",
+  "direction_supported": "YES",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "PARTIAL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-792f163154f2bcd416b3533f"
+  ],
+  "gold_quote_draft": "The disease has been associated with mutations of the VHL gene.",
+  "reasoning_summary": "The source supports the VHL-disease and mutation context, including a predisposing disease description, but does not identify the candidate H191FS (c.571delC) alteration. The candidate has no explicit gene field.",
+  "uncertainty": "MEDIUM",
+  "author_review_required": true
+}

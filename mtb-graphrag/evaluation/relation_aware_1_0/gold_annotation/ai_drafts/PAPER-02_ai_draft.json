@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-02",
+  "candidate_id": "GCA-ffe78f2cb067426d4baf225d",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "NO",
+  "drug_supported": "NOT_APPLICABLE",
+  "direction_supported": "YES",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "PARTIAL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-23b4c112b4ef9a4ecd7ef0a1"
+  ],
+  "gold_quote_draft": "Since then, there have been numerous advances in the identification of unique biomarkers associated with some myeloid neoplasms and acute leukemias, largely derived from gene expression analysis and next-generation sequencing that can significantly improve the diagnostic criteria as well as the prognostic relevance of entities currently included in the WHO classification and that also suggest new entities that should be added.",
+  "reasoning_summary": "The source supports diagnostic biomarker work in hematologic malignancies in general, but the frozen candidate’s Fusion subject is not identified in the document. The candidate has no explicit gene field.",
+  "uncertainty": "MEDIUM",
+  "author_review_required": true
+}

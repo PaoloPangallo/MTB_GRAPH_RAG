@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-11",
+  "candidate_id": "GCA-ff6bdc720cc1fcd9134bf399",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "YES",
+  "drug_supported": "NOT_APPLICABLE",
+  "direction_supported": "YES",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "FULL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-b6b3e32524c246e386d66f09"
+  ],
+  "gold_quote_draft": "IDH1 R132 mutations had no impact on prognosis.",
+  "reasoning_summary": "The frozen abstract directly states the candidate’s negative prognostic relation for R132 mutations in AML. The candidate has no explicit gene or drug field.",
+  "uncertainty": "LOW",
+  "author_review_required": true
+}

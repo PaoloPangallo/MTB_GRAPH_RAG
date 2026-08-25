@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-05",
+  "candidate_id": "GCA-ffc4f3959a383c945a0f1cc5",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "YES",
+  "drug_supported": "NOT_APPLICABLE",
+  "direction_supported": "YES",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "PARTIAL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-5fe2352856aefa860bcc5b3f"
+  ],
+  "gold_quote_draft": "We used experimental models and clinical databases to identify GATA2 as a regulator of chemotherapy resistance and tumorigenicity in this context.",
+  "reasoning_summary": "The source documents a predictive/aggressiveness context in lethal prostate cancer and describes molecular upregulation, but the candidate subject is only the unspecific label Overexpression and does not identify the molecular entity. The candidate has no explicit gene field.",
+  "uncertainty": "HIGH",
+  "author_review_required": true
+}

@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-07",
+  "candidate_id": "GCA-ffd6d386640e05d3b78a3031",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "NO",
+  "drug_supported": "NO",
+  "direction_supported": "NO",
+  "evidence_type_supported": "NO",
+  "overall_gold_draft": "NO_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-4948d2223db0812e37ff8a20"
+  ],
+  "gold_quote_draft": "The activity of ponatinib against the FLT3-ITD mutant, found in up to 30% of acute myeloid leukemia (AML) patients, was particularly notable.",
+  "reasoning_summary": "The source concerns FLT3-ITD and ponatinib in AML, not the candidate N822K alteration or sorafenib. It therefore does not support the specific sensitivity relation. The candidate has no explicit gene field.",
+  "uncertainty": "LOW",
+  "author_review_required": true
+}

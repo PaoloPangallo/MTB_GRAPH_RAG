@@ -1,0 +1,19 @@
+{
+  "sample_id": "PAPER-09",
+  "candidate_id": "GCA-ffe5c124fb0b3bb1335a4014",
+  "annotation_status": "AI_DRAFT",
+  "disease_supported": "YES",
+  "gene_supported": "NOT_APPLICABLE",
+  "alteration_supported": "YES",
+  "drug_supported": "NO",
+  "direction_supported": "NO",
+  "evidence_type_supported": "YES",
+  "overall_gold_draft": "PARTIAL_SUPPORT",
+  "gold_source_unit_ids_draft": [
+    "SU-3c966e52e24515bed27bcd81"
+  ],
+  "gold_quote_draft": "The EML4 (echinoderm microtubule-associated protein-like 4)-ALK (anaplastic lymphoma kinase) fusion-type tyrosine kinase is an oncoprotein found in 4 to 5% of non-small-cell lung cancers, and clinical trials of specific inhibitors of ALK for the treatment of such tumors are currently under way.",
+  "reasoning_summary": "The source supports a fusion context in lung cancer but does not name crizotinib and describes resistance caused by secondary mutations rather than the candidate Fusion-to-crizotinib sensitivity relation. The candidate has no explicit gene field.",
+  "uncertainty": "MEDIUM",
+  "author_review_required": true
+}
