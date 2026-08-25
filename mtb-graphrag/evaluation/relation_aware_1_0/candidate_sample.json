@@ -1,0 +1,1973 @@
+{
+  "core_commit": "dd010056ae348e42e66a6f0098c9e9eb26890d6b2",
+  "entries": [
+    {
+      "candidate_id": "GCA-ffc68173126eef8c14b23b38",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT05363631",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_drug:d1dc6240cb368592"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT05363631",
+          "Drug:SELENOMETHIONINE"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-drug",
+        "node_ids": [
+          "ClinicalTrial:NCT05363631",
+          "Drug:SELENOMETHIONINE"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:SELENOMETHIONINE",
+        "label": "SELENOMETHIONINE",
+        "type": "Drug"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-01",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_drug",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT05363631",
+        "label": "NCT05363631",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffc804e44f248c10e40f1c4c",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT04111458",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_drug:c10a0dc91d60ebe7"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT04111458",
+          "Drug:TRAMETINIB"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-drug",
+        "node_ids": [
+          "ClinicalTrial:NCT04111458",
+          "Drug:TRAMETINIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:TRAMETINIB",
+        "label": "TRAMETINIB",
+        "type": "Drug"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-02",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_drug",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT04111458",
+        "label": "NCT04111458",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffdff4bae542f19f6e1f25e0",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT04181060",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_drug:a9bab280994691cf"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT04181060",
+          "Drug:OSIMERTINIB"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-drug",
+        "node_ids": [
+          "ClinicalTrial:NCT04181060",
+          "Drug:OSIMERTINIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:OSIMERTINIB",
+        "label": "OSIMERTINIB",
+        "type": "Drug"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-03",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_drug",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT04181060",
+        "label": "NCT04181060",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffe6624e0da7f2eebf55af2a",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT04147533",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_drug:bf2bcd5b8486f6c4"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT04147533",
+          "Drug:IMATINIB"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-drug",
+        "node_ids": [
+          "ClinicalTrial:NCT04147533",
+          "Drug:IMATINIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:IMATINIB",
+        "label": "IMATINIB",
+        "type": "Drug"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-04",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_drug",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT04147533",
+        "label": "NCT04147533",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffe7ebc77df03ce611a57e2f",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT05401110",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_drug:b11c17a07d75085a"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT05401110",
+          "Drug:CAROTUXIMAB"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-drug",
+        "node_ids": [
+          "ClinicalTrial:NCT05401110",
+          "Drug:CAROTUXIMAB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:CAROTUXIMAB",
+        "label": "CAROTUXIMAB",
+        "type": "Drug"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-05",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_drug",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT05401110",
+        "label": "NCT05401110",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffd320325629fdab6305da12",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT05009836",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_gene:40724281ad012c58"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT05009836",
+          "Gene:MET"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-gene",
+        "node_ids": [
+          "ClinicalTrial:NCT05009836",
+          "Gene:MET"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-gene",
+      "object": {
+        "canonical_id": null,
+        "id": "Gene:MET",
+        "label": "MET",
+        "type": "Gene"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-06",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_gene",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT05009836",
+        "label": "NCT05009836",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffda92dd72f21725eee9c4ac",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT01434316",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_gene:c4feba6a609ee702"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT01434316",
+          "Gene:BRCA1"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-gene",
+        "node_ids": [
+          "ClinicalTrial:NCT01434316",
+          "Gene:BRCA1"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-gene",
+      "object": {
+        "canonical_id": null,
+        "id": "Gene:BRCA1",
+        "label": "BRCA1",
+        "type": "Gene"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-07",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_gene",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT01434316",
+        "label": "NCT01434316",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffe657170ffed5970eb573ad",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT06496308",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_gene:85797fda411ec379"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT06496308",
+          "Gene:TP53"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-gene",
+        "node_ids": [
+          "ClinicalTrial:NCT06496308",
+          "Gene:TP53"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-gene",
+      "object": {
+        "canonical_id": null,
+        "id": "Gene:TP53",
+        "label": "TP53",
+        "type": "Gene"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-08",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_gene",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT06496308",
+        "label": "NCT06496308",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-fffbd8096567753b30a2d9a9",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT03762590",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_gene:55b2f6b56d9ff801"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT03762590",
+          "Gene:PALB2"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-gene",
+        "node_ids": [
+          "ClinicalTrial:NCT03762590",
+          "Gene:PALB2"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-gene",
+      "object": {
+        "canonical_id": null,
+        "id": "Gene:PALB2",
+        "label": "PALB2",
+        "type": "Gene"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-09",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_gene",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT03762590",
+        "label": "NCT03762590",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-fffdd7852d7adf352cbbab1b",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [
+        {
+          "nct": "NCT02201992",
+          "scope": "clinical_trial"
+        }
+      ],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edges_trial_gene:cfc6aa73aa137fef"
+        ],
+        "graph_path": [
+          "ClinicalTrial:NCT02201992",
+          "Gene:ALK"
+        ],
+        "materialization_rule_id": "gca/2.0/trial-gene",
+        "node_ids": [
+          "ClinicalTrial:NCT02201992",
+          "Gene:ALK"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/trial-gene",
+      "object": {
+        "canonical_id": null,
+        "id": "Gene:ALK",
+        "label": "ALK",
+        "type": "Gene"
+      },
+      "predicate": "trial_association",
+      "relation_family": "CLINICAL_TRIAL",
+      "sample_id": "TRIAL-10",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "trial_gene",
+      "subject": {
+        "canonical_id": null,
+        "id": "ClinicalTrial:NCT02201992",
+        "label": "NCT02201992",
+        "type": "ClinicalTrial"
+      }
+    },
+    {
+      "candidate_id": "GCA-f8d9448c17d04e5d1fcd34d9",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_has_companion_diagnostic:670ab0034da49383",
+          "edge:edge_diagnoses_gene:19208b99ffd64a35"
+        ],
+        "graph_path": [
+          "Gene:3417",
+          "CompanionDiagnostic:cdx:ONCOMINEDXTARGE:IDH1:VORASIDENIB"
+        ],
+        "materialization_rule_id": "gca/2.0/companion-diagnostic",
+        "node_ids": [
+          "Gene:3417",
+          "CompanionDiagnostic:cdx:ONCOMINEDXTARGE:IDH1:VORASIDENIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/companion-diagnostic",
+      "object": {
+        "canonical_id": null,
+        "id": "CompanionDiagnostic:cdx:ONCOMINEDXTARGE:IDH1:VORASIDENIB",
+        "label": "Oncomine Dx Target Test  (Life Technologies Corporation)",
+        "type": "CompanionDiagnostic"
+      },
+      "predicate": "has_companion_diagnostic",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-01",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "companion_diagnostic",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:3417",
+        "label": "IDH1",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fa8629f46f58eb9845c1338c",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_has_companion_diagnostic:b837520d331267f1",
+          "edge:edge_diagnoses_gene:25b83785d448857b"
+        ],
+        "graph_path": [
+          "Gene:2322",
+          "CompanionDiagnostic:cdx:LEUKOSTRATCDXFL:FLT3:GILTERITINIB"
+        ],
+        "materialization_rule_id": "gca/2.0/companion-diagnostic",
+        "node_ids": [
+          "Gene:2322",
+          "CompanionDiagnostic:cdx:LEUKOSTRATCDXFL:FLT3:GILTERITINIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/companion-diagnostic",
+      "object": {
+        "canonical_id": null,
+        "id": "CompanionDiagnostic:cdx:LEUKOSTRATCDXFL:FLT3:GILTERITINIB",
+        "label": "LeukoStrat CDx FLT3 Mutation Assay  (Invivoscribe Technologies, Inc.)",
+        "type": "CompanionDiagnostic"
+      },
+      "predicate": "has_companion_diagnostic",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-02",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "companion_diagnostic",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:2322",
+        "label": "FLT3",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fad756b260ddb3404ffc15ba",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_has_companion_diagnostic:d6ce1485d4a4bed9",
+          "edge:edge_diagnoses_gene:13a1689d4af4cba1"
+        ],
+        "graph_path": [
+          "Gene:675",
+          "CompanionDiagnostic:cdx:BRACANALYSISCDX:BRCA2:OLAPARIB"
+        ],
+        "materialization_rule_id": "gca/2.0/companion-diagnostic",
+        "node_ids": [
+          "Gene:675",
+          "CompanionDiagnostic:cdx:BRACANALYSISCDX:BRCA2:OLAPARIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/companion-diagnostic",
+      "object": {
+        "canonical_id": null,
+        "id": "CompanionDiagnostic:cdx:BRACANALYSISCDX:BRCA2:OLAPARIB",
+        "label": "BRACAnalysis CDx  (Myriad Genetic Laboratories, Inc.)",
+        "type": "CompanionDiagnostic"
+      },
+      "predicate": "has_companion_diagnostic",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-03",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "companion_diagnostic",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:675",
+        "label": "BRCA2",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fb4f68043113be79bf96557e",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_has_companion_diagnostic:dc62e9b5c97a3ada",
+          "edge:edge_diagnoses_gene:52545a8a9858be0a"
+        ],
+        "graph_path": [
+          "Gene:4915",
+          "CompanionDiagnostic:cdx:TRUSIGHTONCOLOG:NTRK2:LAROTRECTINIB"
+        ],
+        "materialization_rule_id": "gca/2.0/companion-diagnostic",
+        "node_ids": [
+          "Gene:4915",
+          "CompanionDiagnostic:cdx:TRUSIGHTONCOLOG:NTRK2:LAROTRECTINIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/companion-diagnostic",
+      "object": {
+        "canonical_id": null,
+        "id": "CompanionDiagnostic:cdx:TRUSIGHTONCOLOG:NTRK2:LAROTRECTINIB",
+        "label": "TruSight Oncology Comprehensive (Illumina, Inc.)",
+        "type": "CompanionDiagnostic"
+      },
+      "predicate": "has_companion_diagnostic",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-04",
+      "snapshot_available": false,
+      "source_database": null,
+      "source_type": null,
+      "stratum": "companion_diagnostic",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:4915",
+        "label": "NTRK2",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fff335ea26b2c8334146a843",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_interacts_with:143fa0cf57154b04"
+        ],
+        "graph_path": [
+          "Gene:1019",
+          "Drug:rxcui:1946825"
+        ],
+        "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+        "node_ids": [
+          "Gene:1019",
+          "Drug:rxcui:1946825"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:rxcui:1946825",
+        "label": "ABEMACICLIB",
+        "type": "Drug"
+      },
+      "predicate": "gene_drug_interaction",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-05",
+      "snapshot_available": false,
+      "source_database": "CancerCommons",
+      "source_type": null,
+      "stratum": "gene_drug_interaction",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:1019",
+        "label": "CDK4",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fff8240fe8b8a9f4c410139f",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_interacts_with:12e77ad207dc2c38"
+        ],
+        "graph_path": [
+          "Gene:2064",
+          "Drug:rxcui:318341"
+        ],
+        "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+        "node_ids": [
+          "Gene:2064",
+          "Drug:rxcui:318341"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:rxcui:318341",
+        "label": "CETUXIMAB",
+        "type": "Drug"
+      },
+      "predicate": "gene_drug_interaction",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-06",
+      "snapshot_available": false,
+      "source_database": "CIViC",
+      "source_type": null,
+      "stratum": "gene_drug_interaction",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:2064",
+        "label": "ERBB2",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fffabda0cd34b82eea82213d",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_interacts_with:76ad9795b084a4a1"
+        ],
+        "graph_path": [
+          "Gene:367",
+          "Drug:rxcui:9947"
+        ],
+        "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+        "node_ids": [
+          "Gene:367",
+          "Drug:rxcui:9947"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:rxcui:9947",
+        "label": "SOTALOL",
+        "type": "Drug"
+      },
+      "predicate": "gene_drug_interaction",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-07",
+      "snapshot_available": false,
+      "source_database": "DTC",
+      "source_type": null,
+      "stratum": "gene_drug_interaction",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:367",
+        "label": "AR",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fffbe8cfbef2efbed108f4aa",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_interacts_with:e7154fd33331a912"
+        ],
+        "graph_path": [
+          "Gene:5287",
+          "Drug:ncit:C90565"
+        ],
+        "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+        "node_ids": [
+          "Gene:5287",
+          "Drug:ncit:C90565"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:ncit:C90565",
+        "label": "BUPARLISIB",
+        "type": "Drug"
+      },
+      "predicate": "gene_drug_interaction",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-08",
+      "snapshot_available": false,
+      "source_database": "MyCancerGenome",
+      "source_type": null,
+      "stratum": "gene_drug_interaction",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:5287",
+        "label": "PIK3C2B",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fffe340d756110ddb811ce27",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_interacts_with:eedeb06eccc1a369"
+        ],
+        "graph_path": [
+          "Gene:6098",
+          "Drug:rxcui:1148495"
+        ],
+        "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+        "node_ids": [
+          "Gene:6098",
+          "Drug:rxcui:1148495"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:rxcui:1148495",
+        "label": "CRIZOTINIB",
+        "type": "Drug"
+      },
+      "predicate": "gene_drug_interaction",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-09",
+      "snapshot_available": false,
+      "source_database": "PharmGKB",
+      "source_type": null,
+      "stratum": "gene_drug_interaction",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:6098",
+        "label": "ROS1",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-fffed9021edac5fe4e483dc7",
+      "development_exposed": false,
+      "direction": null,
+      "disease": [],
+      "document_identifiers": [],
+      "evidence_type": null,
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_interacts_with:1b798f99c5ac4f7a"
+        ],
+        "graph_path": [
+          "Gene:2322",
+          "Drug:ncit:C201247"
+        ],
+        "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+        "node_ids": [
+          "Gene:2322",
+          "Drug:ncit:C201247"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/gene-drug-interaction",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:ncit:C201247",
+        "label": "FLT3 INHIBITOR BMF-500",
+        "type": "Drug"
+      },
+      "predicate": "gene_drug_interaction",
+      "relation_family": "KG_ONLY",
+      "sample_id": "KGONLY-10",
+      "snapshot_available": false,
+      "source_database": "JAX-CKB",
+      "source_type": null,
+      "stratum": "gene_drug_interaction",
+      "subject": {
+        "canonical_id": null,
+        "id": "Gene:2322",
+        "label": "FLT3",
+        "type": "Gene"
+      }
+    },
+    {
+      "candidate_id": "GCA-eed9f53846f3cc651e23a469",
+      "development_exposed": false,
+      "direction": "Does Not Support",
+      "disease": [
+        {
+          "canonical_id": "DOID:2997.0",
+          "id": "disease:label:Sertoli-Leydig Cell Tumor",
+          "label": "Sertoli-Leydig Cell Tumor"
+        },
+        {
+          "canonical_id": "DOID:2997",
+          "id": "Disease:195",
+          "label": "Sertoli-Leydig Cell Tumor"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "26428316",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "26428316",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Diagnostic",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:490f3760e91e8e3c",
+          "edge:edge_has_variant:8f5dde53993a0b8b",
+          "edge:edge_has_evidence:19d91c7ba6cbab63"
+        ],
+        "graph_path": [
+          "Variant:2051",
+          "MolecularProfile:1927",
+          "Evidence:5534"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:2051",
+          "MolecularProfile:1927",
+          "Evidence:5534"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:5534",
+        "label": "5534",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-01",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "diagnostic",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:2051",
+        "label": "D1709N",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffe78f2cb067426d4baf225d",
+      "development_exposed": false,
+      "direction": "Supports",
+      "disease": [
+        {
+          "canonical_id": "DOID:2531.0",
+          "id": "disease:label:Hematologic Cancer",
+          "label": "Hematologic Cancer"
+        },
+        {
+          "canonical_id": "DOID:2531",
+          "id": "Disease:48",
+          "label": "Hematologic Cancer"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "27069254",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "27069254",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Diagnostic",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:c837276c67a0af37",
+          "edge:edge_has_evidence:e2ee7a70f967a3ab"
+        ],
+        "graph_path": [
+          "Variant:571",
+          "MolecularProfile:567",
+          "Evidence:1436"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:571",
+          "MolecularProfile:567",
+          "Evidence:1436"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:1436",
+        "label": "1436",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-02",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "diagnostic",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:571",
+        "label": "Fusion",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffb6a639dda7e2af9dc154e0",
+      "development_exposed": false,
+      "direction": "Supports",
+      "disease": [
+        {
+          "canonical_id": "DOID:14175.0",
+          "id": "disease:label:Von Hippel-Lindau Disease",
+          "label": "Von Hippel-Lindau Disease"
+        },
+        {
+          "canonical_id": "DOID:14175",
+          "id": "Disease:166",
+          "label": "Von Hippel-Lindau Disease"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "9829912",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "9829912",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predisposing",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:5b97b2fdf9b67116",
+          "edge:edge_has_variant:4182e2b1c5b7d1f6",
+          "edge:edge_has_evidence:b6d75f8d5bdb16e5"
+        ],
+        "graph_path": [
+          "Variant:1958",
+          "MolecularProfile:1834",
+          "Evidence:5275"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:1958",
+          "MolecularProfile:1834",
+          "Evidence:5275"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:5275",
+        "label": "5275",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-03",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "other",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:1958",
+        "label": "H191FS (c.571delC)",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffd2ba40df921cebf9d31e1a",
+      "development_exposed": false,
+      "direction": "Does Not Support",
+      "disease": [
+        {
+          "canonical_id": "DOID:3965.0",
+          "id": "disease:label:Merkel Cell Carcinoma",
+          "label": "Merkel Cell Carcinoma"
+        },
+        {
+          "canonical_id": "DOID:3965",
+          "id": "Disease:82",
+          "label": "Merkel Cell Carcinoma"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "27093365",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "27093365",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:f1a8c8a72a1df017",
+          "edge:edge_has_variant:985ba631758524b0",
+          "edge:edge_has_evidence:1353d71241e35e2d"
+        ],
+        "graph_path": [
+          "Variant:276",
+          "MolecularProfile:272",
+          "Evidence:1578"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:276",
+          "MolecularProfile:272",
+          "Evidence:1578"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:1578",
+        "label": "1578",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-04",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "other",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:276",
+        "label": "Expression",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffc4f3959a383c945a0f1cc5",
+      "development_exposed": false,
+      "direction": "Supports",
+      "disease": [
+        {
+          "canonical_id": "DOID:10283.0",
+          "id": "disease:label:Prostate Cancer",
+          "label": "Prostate Cancer"
+        },
+        {
+          "canonical_id": "DOID:10283",
+          "id": "Disease:40",
+          "label": "Prostate Cancer"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "25670080",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "25670080",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:2b7f2e653f14948f",
+          "edge:edge_has_variant:d49c266f5942b01a",
+          "edge:edge_has_evidence:daa4880935c2f854"
+        ],
+        "graph_path": [
+          "Variant:156",
+          "MolecularProfile:156",
+          "Evidence:414"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:156",
+          "MolecularProfile:156",
+          "Evidence:414"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:414",
+        "label": "414",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-05",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "predictive_sensitivity_response",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:156",
+        "label": "Overexpression",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffcd72c534472ec5090eea1f",
+      "development_exposed": false,
+      "direction": "Supports",
+      "disease": [
+        {
+          "canonical_id": "DOID:2394.0",
+          "id": "disease:label:Ovarian Cancer",
+          "label": "Ovarian Cancer"
+        },
+        {
+          "canonical_id": "DOID:2394",
+          "id": "Disease:21",
+          "label": "Ovarian Cancer"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "27908594",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "27908594",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:b3ff31d4bb7392d4",
+          "edge:edge_has_variant:b303a5686756e30a",
+          "edge:edge_has_evidence:e94ddc0360a608a4"
+        ],
+        "graph_path": [
+          "Variant:1250",
+          "MolecularProfile:1224",
+          "Evidence:2882"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:1250",
+          "MolecularProfile:1224",
+          "Evidence:2882"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:2882",
+        "label": "2882",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-06",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "predictive_sensitivity_response",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:1250",
+        "label": "V211L",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffd6d386640e05d3b78a3031",
+      "development_exposed": false,
+      "direction": "Sensitivity/Response",
+      "disease": [
+        {
+          "canonical_id": "DOID:9119.0",
+          "id": "disease:label:Acute Myeloid Leukemia",
+          "label": "Acute Myeloid Leukemia"
+        },
+        {
+          "canonical_id": "DOID:9119",
+          "id": "Disease:3",
+          "label": "Acute Myeloid Leukemia"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "21482694",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "21482694",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:497ae88a448418ac",
+          "edge:edge_has_variant:4757002bbb1053a8",
+          "edge:edge_has_evidence:56206e26c8a4afb6",
+          "edge:edge_targets_drug:8a552a09b0504751"
+        ],
+        "graph_path": [
+          "Variant:1263",
+          "MolecularProfile:1237",
+          "Evidence:7370",
+          "Drug:rxcui:495881"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-to-drug",
+        "node_ids": [
+          "Variant:1263",
+          "MolecularProfile:1237",
+          "Evidence:7370",
+          "Drug:rxcui:495881"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-to-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:rxcui:495881",
+        "label": "SORAFENIB",
+        "type": "Drug"
+      },
+      "predicate": "associated_with_sensitivity_to",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-07",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "predictive_sensitivity_response",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:1263",
+        "label": "N822K",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffdedde41ece1506673a5c0e",
+      "development_exposed": false,
+      "direction": "Supports",
+      "disease": [
+        {
+          "canonical_id": "DOID:5520.0",
+          "id": "disease:label:Head And Neck Squamous Cell Carcinoma",
+          "label": "Head And Neck Squamous Cell Carcinoma"
+        },
+        {
+          "canonical_id": "DOID:5520",
+          "id": "Disease:33",
+          "label": "Head And Neck Squamous Cell Carcinoma"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "36806911",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "36806911",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:d578dfd430bbaac3",
+          "edge:edge_has_evidence:c9fdc584909e5749"
+        ],
+        "graph_path": [
+          "Variant:4943",
+          "MolecularProfile:5117",
+          "Evidence:12850"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:4943",
+          "MolecularProfile:5117",
+          "Evidence:12850"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:12850",
+        "label": "12850",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-08",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "predictive_sensitivity_response",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:4943",
+        "label": "High",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffe5c124fb0b3bb1335a4014",
+      "development_exposed": false,
+      "direction": "Sensitivity/Response",
+      "disease": [
+        {
+          "canonical_id": "DOID:3910.0",
+          "id": "disease:label:Lung Adenocarcinoma",
+          "label": "Lung Adenocarcinoma"
+        },
+        {
+          "canonical_id": "DOID:3910",
+          "id": "Disease:17",
+          "label": "Lung Adenocarcinoma"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "20979473",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "20979473",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:3add4fca2d06ee4b",
+          "edge:edge_has_evidence:46df8b1203bad0de",
+          "edge:edge_targets_drug:dcefa564b561c9cb"
+        ],
+        "graph_path": [
+          "Variant:5",
+          "MolecularProfile:5",
+          "Evidence:262",
+          "Drug:rxcui:1148495"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-to-drug",
+        "node_ids": [
+          "Variant:5",
+          "MolecularProfile:5",
+          "Evidence:262",
+          "Drug:rxcui:1148495"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-to-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:rxcui:1148495",
+        "label": "CRIZOTINIB",
+        "type": "Drug"
+      },
+      "predicate": "associated_with_sensitivity_to",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-09",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "predictive_sensitivity_response",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:5",
+        "label": "Fusion",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-fff42a22261e97c1160749e9",
+      "development_exposed": false,
+      "direction": "Supports",
+      "disease": [
+        {
+          "canonical_id": "DOID:3908.0",
+          "id": "disease:label:Lung Non-small Cell Carcinoma",
+          "label": "Lung Non-small Cell Carcinoma"
+        },
+        {
+          "canonical_id": "DOID:3908",
+          "id": "Disease:8",
+          "label": "Lung Non-small Cell Carcinoma"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "25923550",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "25923550",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:77dcc09326fd6663",
+          "edge:edge_has_variant:32cfaa6624601870",
+          "edge:edge_has_evidence:30f6ade5ba9dadee"
+        ],
+        "graph_path": [
+          "Variant:34",
+          "MolecularProfile:34",
+          "Evidence:646"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:34",
+          "MolecularProfile:34",
+          "Evidence:646"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:646",
+        "label": "646",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-10",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "predictive_sensitivity_response",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:34",
+        "label": "T790M",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ff6bdc720cc1fcd9134bf399",
+      "development_exposed": false,
+      "direction": "Does Not Support",
+      "disease": [
+        {
+          "canonical_id": "DOID:9119.0",
+          "id": "disease:label:Acute Myeloid Leukemia",
+          "label": "Acute Myeloid Leukemia"
+        },
+        {
+          "canonical_id": "DOID:9119",
+          "id": "Disease:3",
+          "label": "Acute Myeloid Leukemia"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "20368538",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "20368538",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Prognostic",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:b29d681dc129cc6a",
+          "edge:edge_has_variant:6ad7a4c926f10d9d",
+          "edge:edge_has_evidence:b7ced546b475f721"
+        ],
+        "graph_path": [
+          "Variant:58",
+          "MolecularProfile:58",
+          "Evidence:323"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:58",
+          "MolecularProfile:58",
+          "Evidence:323"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:323",
+        "label": "323",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-11",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "prognostic",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:58",
+        "label": "R132",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ffbb1b3be5bd7e74024e8a2f",
+      "development_exposed": false,
+      "direction": "Supports",
+      "disease": [
+        {
+          "canonical_id": "DOID:80144.0",
+          "id": "disease:label:Childhood Acute Lymphocytic Leukemia",
+          "label": "Childhood Acute Lymphocytic Leukemia"
+        },
+        {
+          "canonical_id": "DOID:80144",
+          "id": "Disease:234",
+          "label": "Childhood Acute Lymphocytic Leukemia"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "23377183",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "23377183",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Prognostic",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:2a1b679ab0db8faa",
+          "edge:edge_has_variant:b6c4905804ac0f52",
+          "edge:edge_has_evidence:b5fb02ece67a51f9"
+        ],
+        "graph_path": [
+          "Variant:2896",
+          "MolecularProfile:2765",
+          "Evidence:7863"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-statement",
+        "node_ids": [
+          "Variant:2896",
+          "MolecularProfile:2765",
+          "Evidence:7863"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-statement",
+      "object": {
+        "canonical_id": null,
+        "id": "Evidence:7863",
+        "label": "7863",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-12",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "prognostic",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:2896",
+        "label": "R238W",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-e7edb50600fc5996b63b35e4",
+      "development_exposed": false,
+      "direction": "Reduced Sensitivity",
+      "disease": [
+        {
+          "canonical_id": "DOID:80630.0",
+          "id": "disease:label:B-lymphoblastic Leukemia/lymphoma",
+          "label": "B-lymphoblastic Leukemia/lymphoma"
+        },
+        {
+          "canonical_id": "DOID:80630",
+          "id": "Disease:59",
+          "label": "B-lymphoblastic Leukemia/lymphoma"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "21863287",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "21863287",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:194af7dd834d668b",
+          "edge:edge_has_evidence:294024087c9054df",
+          "edge:edge_targets_drug:680d28a4bb6826ec"
+        ],
+        "graph_path": [
+          "Variant:2681",
+          "MolecularProfile:2550",
+          "Evidence:9166",
+          "Drug:fda:DASATINIB"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-to-drug",
+        "node_ids": [
+          "Variant:2681",
+          "MolecularProfile:2550",
+          "Evidence:9166",
+          "Drug:fda:DASATINIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-to-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:fda:DASATINIB",
+        "label": "DASATINIB",
+        "type": "Drug"
+      },
+      "predicate": "associated_with_sensitivity_to",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-13",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "resistance_reduced_adverse",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:2681",
+        "label": "Fusion",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-fc343592a215c4ac9c9a1c43",
+      "development_exposed": false,
+      "direction": "Adverse Response",
+      "disease": [
+        {
+          "canonical_id": "DOID:162.0",
+          "id": "disease:label:Cancer",
+          "label": "Cancer"
+        },
+        {
+          "canonical_id": "DOID:162",
+          "id": "Disease:13",
+          "label": "Cancer"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "23988873",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "23988873",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:c40af1108c977570",
+          "edge:edge_has_variant:ff356a9c1793be7f",
+          "edge:edge_has_evidence:b37c59a9a23555de",
+          "edge:edge_targets_drug:dcf0142130a46eb1"
+        ],
+        "graph_path": [
+          "Variant:738",
+          "MolecularProfile:719",
+          "Evidence:1801",
+          "Drug:rxcui:4492"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-to-drug",
+        "node_ids": [
+          "Variant:738",
+          "MolecularProfile:719",
+          "Evidence:1801",
+          "Drug:rxcui:4492"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-to-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:rxcui:4492",
+        "label": "FLUOROURACIL",
+        "type": "Drug"
+      },
+      "predicate": "associated_with_sensitivity_to",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-14",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "resistance_reduced_adverse",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:738",
+        "label": "DPYD*13 HOMOZYGOSITY",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-ff97755cefae20a730170d54",
+      "development_exposed": false,
+      "direction": "Resistance",
+      "disease": [
+        {
+          "canonical_id": "DOID:1909.0",
+          "id": "disease:label:Melanoma",
+          "label": "Melanoma"
+        },
+        {
+          "canonical_id": "DOID:1909",
+          "id": "Disease:7",
+          "label": "Melanoma"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "24576830",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "24576830",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:e7cc430c9153da47",
+          "edge:edge_has_variant:f4f2c45e67d43117",
+          "edge:edge_has_evidence:57c5ca82d7d5bfbb",
+          "edge:edge_targets_drug:15b8c097f489b362"
+        ],
+        "graph_path": [
+          "Variant:12",
+          "MolecularProfile:12",
+          "Evidence:86",
+          "Drug:fda:TRAMETINIB"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-to-drug",
+        "node_ids": [
+          "Variant:12",
+          "MolecularProfile:12",
+          "Evidence:86",
+          "Drug:fda:TRAMETINIB"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-to-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:fda:TRAMETINIB",
+        "label": "TRAMETINIB",
+        "type": "Drug"
+      },
+      "predicate": "associated_with_resistance_to",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-15",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "resistance_reduced_adverse",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:12",
+        "label": "V600E",
+        "type": "Variant"
+      }
+    },
+    {
+      "candidate_id": "GCA-fff906074758e0ee48366a8d",
+      "development_exposed": false,
+      "direction": "Resistance",
+      "disease": [
+        {
+          "canonical_id": "DOID:8552.0",
+          "id": "disease:label:Chronic Myeloid Leukemia",
+          "label": "Chronic Myeloid Leukemia"
+        },
+        {
+          "canonical_id": "DOID:8552",
+          "id": "Disease:4",
+          "label": "Chronic Myeloid Leukemia"
+        }
+      ],
+      "document_identifiers": [
+        {
+          "pmid": "16772610",
+          "scope": "evidence_record"
+        },
+        {
+          "pmid": "16772610",
+          "scope": "linked_publication"
+        }
+      ],
+      "evidence_type": "Predictive",
+      "graph_provenance": {
+        "edge_ids": [
+          "edge:edge_in_molecular_profile:cd5e451101180fc7",
+          "edge:edge_in_molecular_profile:050532f352930881",
+          "edge:edge_has_variant:b3bd5f4c74a9a4ed",
+          "edge:edge_has_evidence:a116051aecb14d61",
+          "edge:edge_targets_drug:8bafefb6a6978f5f"
+        ],
+        "graph_path": [
+          "Variant:2",
+          "MolecularProfile:4373",
+          "Evidence:6196",
+          "Drug:rxcui:662281"
+        ],
+        "materialization_rule_id": "gca/2.0/evidence-to-drug",
+        "node_ids": [
+          "Variant:2",
+          "MolecularProfile:4373",
+          "Evidence:6196",
+          "Drug:rxcui:662281"
+        ]
+      },
+      "materialization_rule_id": "gca/2.0/evidence-to-drug",
+      "object": {
+        "canonical_id": null,
+        "id": "Drug:rxcui:662281",
+        "label": "NILOTINIB",
+        "type": "Drug"
+      },
+      "predicate": "associated_with_resistance_to",
+      "relation_family": "PAPER_EVIDENCE",
+      "sample_id": "PAPER-16",
+      "snapshot_available": false,
+      "source_database": "PubMed",
+      "source_type": "PubMed",
+      "stratum": "resistance_reduced_adverse",
+      "subject": {
+        "canonical_id": null,
+        "id": "Variant:2",
+        "label": "T315I",
+        "type": "Variant"
+      }
+    }
+  ],
+  "sample_version": "relation-aware-evaluation/1.0",
+  "selection_seed": 20260825,
+  "total": 36
+}
