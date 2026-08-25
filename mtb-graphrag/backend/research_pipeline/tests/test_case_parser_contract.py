@@ -106,3 +106,50 @@ def test_null_intent_with_empty_context_stops_for_insufficient_context():
         "missing": ["disease", "clinical_anchor"],
         "ambiguities": [],
     }
+
+
+def test_semantically_empty_alteration_object_is_normalized_to_null():
+    arguments = _arguments(
+        biomarkers=[{
+            "gene": _value("CYP2D6"),
+            "alteration": {"raw_value": None, "quote": None},
+        }]
+    )
+
+    normalized = parser.normalize_empty_alterations(arguments)
+
+    assert normalized["biomarkers"][0]["alteration"] is None
+
+
+def test_non_empty_alteration_object_is_preserved():
+    alteration = {"raw_value": "G12D", "quote": "KRAS G12D"}
+    arguments = _arguments(
+        biomarkers=[{"gene": _value("KRAS"), "alteration": alteration}]
+    )
+
+    normalized = parser.normalize_empty_alterations(arguments)
+
+    assert normalized["biomarkers"][0]["alteration"] == alteration
+
+
+def test_gene_only_biomarker_remains_valid_after_empty_normalization():
+    arguments = parser.normalize_empty_alterations(_arguments(
+        biomarkers=[{
+            "gene": _value("CYP2D6"),
+            "alteration": {"raw_value": None, "quote": None},
+        }]
+    ))
+
+    assert prompt.tool_argument_errors(arguments) == []
+    assert parser.adapt_case_context("case-cyp2d6", arguments, "CYP2D6")["biomarkers"][0]["alteration"] is None
+
+
+def test_malformed_non_empty_alteration_object_remains_rejected():
+    arguments = _arguments(
+        biomarkers=[{
+            "gene": _value("KRAS"),
+            "alteration": {"raw_value": "G12D"},
+        }]
+    )
+
+    assert prompt.tool_argument_errors(arguments) == ["BIOMARKER_0_ALTERATION_KEYS_INVALID"]

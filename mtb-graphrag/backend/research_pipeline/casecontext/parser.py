@@ -80,6 +80,20 @@ def normalize_target_intervention_scalar(arguments: dict[str, Any], clinical_tex
     }
 
 
+def normalize_empty_alterations(arguments: dict[str, Any]) -> dict[str, Any]:
+    """Canonicalize only an alteration object that contains no information."""
+    normalized = copy.deepcopy(arguments)
+    for biomarker in normalized.get("biomarkers") or []:
+        alteration = biomarker.get("alteration") if isinstance(biomarker, dict) else None
+        if (
+            isinstance(alteration, dict)
+            and set(alteration) == {"raw_value", "quote"}
+            and all(value is None or value == "" for value in alteration.values())
+        ):
+            biomarker["alteration"] = None
+    return normalized
+
+
 def _normalize_disease_in_response(
     response_json: dict[str, Any] | None,
     clinical_text: str,
@@ -101,9 +115,11 @@ def _normalize_disease_in_response(
         arguments = raw_arguments
     if not isinstance(arguments, dict):
         return response_json, None, None
-    normalized_arguments, disease_event = normalize_disease_scalar(arguments, clinical_text)
+    normalized_arguments = normalize_empty_alterations(arguments)
+    empty_alteration_normalized = normalized_arguments != arguments
+    normalized_arguments, disease_event = normalize_disease_scalar(normalized_arguments, clinical_text)
     normalized_arguments, target_event = normalize_target_intervention_scalar(normalized_arguments, clinical_text)
-    if disease_event is None and target_event is None:
+    if disease_event is None and target_event is None and not empty_alteration_normalized:
         return response_json, None, None
     function["arguments"] = json.dumps(normalized_arguments, ensure_ascii=False, separators=(",", ":")) if isinstance(raw_arguments, str) else normalized_arguments
     return normalized_response, disease_event, target_event
