@@ -26,6 +26,7 @@ def test_parser_v2_schema_accepts_absent_intent_and_omits_derived_fields():
         "previous_interventions",
         "target_intervention",
         "query_intent",
+        "ambiguities",
     }
     assert prompt.tool_argument_errors(_minimal_output()) == []
 

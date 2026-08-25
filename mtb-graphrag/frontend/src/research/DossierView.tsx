@@ -78,11 +78,37 @@ interface CandidateTherapy {
 }
 
 export interface Dossier {
+  run_status?: string;
+  case_summary?: Record<string, unknown>;
+  retrieval_summary?: Record<string, unknown>;
+  paper_evidence?: CanonicalEntry[];
+  clinical_trials?: CanonicalEntry[];
+  kg_only_relations?: CanonicalEntry[];
   case_id?: string;
   case_context?: Record<string, unknown>;
   candidate_therapies?: CandidateTherapy[];
   limitations?: string[];
   provenance?: { gemma_role?: string; gemma_never_decides?: string[] };
+}
+
+interface CanonicalEntry {
+  candidate_id: string;
+  relation?: string;
+  subject?: { label?: string } | null;
+  object?: { label?: string } | null;
+  document_id?: string | null;
+  nct_id?: string | null;
+  title?: string | null;
+  status?: string | null;
+  phase?: string[] | string | null;
+  conditions?: unknown[];
+  interventions?: unknown[];
+  quote?: string | null;
+  quote_source_unit_id?: string | null;
+  support_level?: string | null;
+  evidence_interpretation?: string;
+  verification_status?: string;
+  document_provenance?: string;
 }
 
 function SectionTitle({ letter, children }: { letter: string; children: React.ReactNode }) {
@@ -287,6 +313,66 @@ function CandidateCard({ entry }: { entry: CandidateTherapy }) {
   );
 }
 
+function CanonicalSection({ title, entries, kind }: {
+  title: string; entries: CanonicalEntry[]; kind: 'paper' | 'trial' | 'kg';
+}) {
+  return (
+    <Box sx={{ mb: 4 }}>
+      <Typography sx={{ fontFamily: font.display, fontSize: 24, color: color.ink, mb: 1.5 }}>
+        {title}
+      </Typography>
+      {entries.map((entry) => (
+        <Box key={entry.candidate_id} sx={{ py: 2, borderTop: `1px solid ${color.borderLight}` }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} sx={{ justifyContent: 'space-between' }}>
+            <Box>
+              <Mono>{entry.candidate_id}</Mono>
+              <Text>{entry.subject?.label ?? 'Relazione'} → {entry.relation ?? 'non specificata'} → {entry.object?.label ?? 'oggetto non specificato'}</Text>
+            </Box>
+            <Chip label={entry.support_level ?? entry.verification_status ?? entry.status ?? kind.toUpperCase()} size="small" />
+          </Stack>
+          {kind === 'paper' && (
+            <Box sx={{ mt: 1 }}>
+              <Mono>{entry.document_id ?? 'Documento non disponibile'} · {entry.quote_source_unit_id ?? 'SourceUnit non disponibile'}</Mono>
+              {entry.quote && <Typography sx={{ mt: 1, pl: 1.5, borderLeft: `2px solid ${color.coral}`, fontStyle: 'italic' }}>“{entry.quote}”</Typography>}
+            </Box>
+          )}
+          {kind === 'trial' && (
+            <Box sx={{ mt: 1 }}>
+              <Text>{entry.title ?? 'Record trial non disponibile'} · {entry.nct_id ?? 'NCT non disponibile'}</Text>
+              <Typography sx={{ fontFamily: font.body, fontSize: 12, color: color.slate }}>
+                Associazione a trial; non costituisce prova di efficacia né valutazione di eleggibilità.
+              </Typography>
+            </Box>
+          )}
+          {kind === 'kg' && <Text>Provenance documentale: {entry.document_provenance ?? 'NOT_AVAILABLE'}</Text>}
+        </Box>
+      ))}
+      {entries.length === 0 && <Text>Nessuna voce in questa sezione.</Text>}
+    </Box>
+  );
+}
+
+function CanonicalDossierView({ dossier }: { dossier: Dossier }) {
+  return (
+    <Box>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: 'space-between', mb: 4 }}>
+        <Box>
+          <Typography sx={{ fontFamily: font.display, fontSize: 30, color: color.ink }}>Dossier MTB relation-aware</Typography>
+          <Text>{String(dossier.case_summary?.disease ?? 'Contesto clinico non disponibile')}</Text>
+        </Box>
+        <Chip label={dossier.run_status ?? 'COMPLETED'} />
+      </Stack>
+      <CanonicalSection title="Paper evidence" entries={dossier.paper_evidence ?? []} kind="paper" />
+      <CanonicalSection title="Clinical trials" entries={dossier.clinical_trials ?? []} kind="trial" />
+      <CanonicalSection title="Relazioni del Knowledge Graph" entries={dossier.kg_only_relations ?? []} kind="kg" />
+      <Box sx={{ borderTop: `1px solid ${color.hairline}`, pt: 2 }}>
+        <SectionTitle letter="L">Limitazioni</SectionTitle>
+        {(dossier.limitations ?? []).map((item) => <Text key={item}>{reasonLabel(item)}</Text>)}
+      </Box>
+    </Box>
+  );
+}
+
 export default function DossierView({ dossier }: { dossier: Dossier | null }) {
   if (!dossier) {
     return (
@@ -294,6 +380,10 @@ export default function DossierView({ dossier }: { dossier: Dossier | null }) {
         Nessun dossier per questa run.
       </Typography>
     );
+  }
+
+  if (dossier.paper_evidence || dossier.clinical_trials || dossier.kg_only_relations) {
+    return <CanonicalDossierView dossier={dossier} />;
   }
 
   const candidates = dossier.candidate_therapies ?? [];

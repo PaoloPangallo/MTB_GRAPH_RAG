@@ -30,8 +30,9 @@ import json
 from typing import Any
 
 from backend.research_pipeline.casecontext import parser as cc_parser
-from backend.research_pipeline.enrichment import enricher_v2
+from backend.research_pipeline.enrichment import enricher_v3
 from backend.research_pipeline.enrichment.validator_v2 import validate_enrichment_v2
+from backend.research_pipeline.enrichment.validator_v3 import validate_enrichment_v3
 
 #: Campi del contratto v2.0 che il validatore legge. Un enrichment che non li ha
 #: tutti non è un enrichment v2 e non va passato al validatore v2.
@@ -77,17 +78,16 @@ def enricher_fn(
     drug: str,
     source_units: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """Paper Context Enricher v2.0 reale, con gli argomenti nell'ordine giusto.
+    """Canonical Paper Reader v3, with a strict observation-only contract.
 
     Le SourceUnit arrivano già limitate a monte: al massimo 5 per documento
     e al massimo 2 documenti per associazione. Nessun articolo integrale
     raggiunge il modello.
     """
-    budget.spend("paper_context_enricher_v2", case_id)
+    budget.spend("paper_context_enricher_v3", case_id)
     try:
-        result = enricher_v2.call_enricher_v2(
-            case_id, candidate_id, paper_id, case_context,
-            candidate_summary, drug, source_units,
+        result = enricher_v3.call_enricher_v3(
+            case_id, candidate_id, paper_id, case_context, candidate_summary, source_units,
         )
     except Exception as exc:  # noqa: BLE001
         raise LiveStageFailed("stage_9_paper_context_enricher", "LIVE_STAGE_FAILED", str(exc)) from exc
@@ -123,6 +123,15 @@ def validate_fn(
     validatore: una quote che coincide con il testo del caso o con la candidate
     non proviene dal documento.
     """
+    if transport_result == "V3_TRANSPORT_VALID":
+        result = validate_enrichment_v3(
+            transport_result, enrichment, candidate=candidate, paper_bundle=paper_bundle,
+            source_units_by_id=source_units_by_id,
+        )
+        return {
+            **result, "validator": "PaperRelationObservationValidatorV3",
+            "replayed": False, "artifact_origin": "GENERATED_NOW",
+        }
     args = _as_v2_arguments(enrichment)
     result = validate_enrichment_v2(
         transport_result, args,

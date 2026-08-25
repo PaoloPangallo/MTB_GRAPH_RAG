@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KG-grounded evidence reporting for Molecular Tumor Boards</title>
+  <style>
+    :root {
+      --paper: #f5f7f6;
+      --ink: #172421;
+      --muted: #60716d;
+      --line: #cbd3cc;
+      --panel: #ffffff;
+      --green: #0c6b58;
+      --green-soft: #dcece6;
+      --blue: #245b78;
+      --blue-soft: #dce9ef;
+      --ochre: #926527;
+      --ochre-soft: #f1e7d3;
+      --red: #984f43;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin-inline: auto; position: relative; }
+    .eyebrow { color: var(--green); font-size: .85rem; font-weight: 750; }
+    h1, h2, h3 { margin: 0; line-height: 1.08; letter-spacing: -.035em; }
+    h1 { max-width: 940px; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 680; text-wrap: balance; }
+    h2 { font-size: clamp(1.9rem, 4vw, 3.15rem); font-weight: 650; text-wrap: balance; }
+    h3 { font-size: 1.05rem; letter-spacing: -.015em; }
+    p { margin: 0; text-wrap: pretty; }
+    .hero { padding: 70px 0 54px; color: white; background: #0b3d35; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 300px; gap: 50px; align-items: end; }
+    .hero .eyebrow { margin-bottom: 22px; color: #9bd8c8; }
+    .lead { max-width: 760px; margin-top: 28px; color: #c9ddd7; font-size: clamp(1.12rem, 2vw, 1.45rem); }
+    .hero-note { border-top: 1px solid #76a99d; padding-top: 16px; font-size: .94rem; color: #c9ddd7; }
+    .hero-note strong { color: white; }
+    nav { position: sticky; top: 12px; z-index: 10; margin-bottom: 58px; }
+    nav .inner { display: flex; gap: 8px; overflow-x: auto; padding: 8px; border: 1px solid rgba(203,211,204,.8); border-radius: 999px; background: #f9faf9; }
+    nav a { flex: 0 0 auto; padding: 8px 13px; border-radius: 999px; text-decoration: none; color: var(--muted); font-size: .8rem; font-weight: 700; }
+    nav a:hover { background: var(--ink); color: white; }
+    section { padding: 70px 0; }
+    .section-head { display: grid; grid-template-columns: 260px 1fr; gap: 45px; align-items: start; margin-bottom: 36px; }
+    .section-head p { max-width: 720px; color: var(--muted); font-size: 1.08rem; }
+    .architecture { border: 1px solid var(--line); border-radius: 16px; background: #fff; padding: clamp(20px, 4vw, 48px); }
+    .flow-top { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; align-items: stretch; }
+    .node { min-height: 106px; display: flex; flex-direction: column; justify-content: space-between; padding: 17px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+    .node small { color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .node strong { font-size: 1rem; }
+    .arrow { display: none; }
+    .decision { margin: 24px auto; width: min(420px, 100%); padding: 13px 20px; text-align: center; color: white; background: var(--ink); border-radius: 999px; font-weight: 800; }
+    .branches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .branch { border-radius: 12px; padding: 22px; min-height: 238px; }
+    .branch.paper { background: var(--green-soft); color: #10483d; }
+    .branch.trial { background: var(--blue-soft); color: #183f55; }
+    .branch.kg { background: var(--ochre-soft); color: #63451f; }
+    .branch-tag { display: inline-flex; padding: 5px 9px; border: 1px solid currentColor; border-radius: 999px; font-size: .7rem; font-weight: 900; letter-spacing: .08em; }
+    .branch h3 { margin: 15px 0 13px; font-size: 1.35rem; }
+    .branch ol { margin: 0; padding-left: 20px; }
+    .branch li + li { margin-top: 6px; }
+    .dossier-node { margin: 18px auto 0; max-width: 650px; padding: 22px; text-align: center; border-radius: 12px; color: white; background: var(--green); }
+    .dossier-node small { display: block; margin-top: 5px; opacity: .78; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .card .num { display: inline-block; margin-bottom: 30px; color: var(--green); font-size: .8rem; font-weight: 800; }
+    .card p { margin-top: 10px; color: var(--muted); }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .feature { padding: 32px; border-radius: 14px; background: var(--ink); color: white; }
+    .feature.light { background: white; color: var(--ink); border: 1px solid var(--line); }
+    .feature p { margin-top: 14px; color: #c7d3cf; }
+    .feature.light p { color: var(--muted); }
+    .trace { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 25px; }
+    .trace span { padding: 8px 11px; border-radius: 10px; background: rgba(255,255,255,.12); font-size: .8rem; font-weight: 700; }
+    .trace i { opacity: .55; font-style: normal; }
+    .case { display: grid; grid-template-columns: .85fr 1.4fr; overflow: hidden; border-radius: 16px; background: #102a25; color: white; }
+    .case-intro { padding: 38px; background: var(--green); }
+    .case-intro .eyebrow { color: #cfe8df; }
+    .case-intro h2 { margin-top: 14px; }
+    .case-data { display: grid; gap: 1px; padding: 1px; background: rgba(255,255,255,.18); }
+    .case-row { display: grid; grid-template-columns: 180px 1fr; gap: 20px; padding: 18px 24px; background: #102a25; }
+    .case-row span { color: #9fb7b0; font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .result { color: #d1f0e4; font-weight: 800; }
+    .llm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .llm { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+    .llm b { display: block; margin-bottom: 10px; color: var(--green); }
+    .not-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 24px; }
+    .not-list div { padding: 15px 17px; border: 1px solid rgba(152,79,67,.28); border-radius: 8px; background: rgba(152,79,67,.06); }
+    .refs { display: grid; gap: 10px; margin-top: 24px; }
+    .ref { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+    .ref strong { color: var(--green); }
+    footer { margin-top: 60px; padding: 32px 0 52px; border-top: 1px solid var(--line); color: var(--muted); font-size: .86rem; }
+    @media (max-width: 900px) {
+      .hero-grid, .section-head, .case { grid-template-columns: 1fr; }
+      .flow-top { grid-template-columns: 1fr 1fr; }
+      .branches, .cards { grid-template-columns: 1fr; }
+      .hero-note { max-width: 300px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 24px, 1180px); }
+      .hero { padding-top: 42px; }
+      h1 { font-size: 3rem; }
+      .flow-top, .split, .llm-grid, .not-list { grid-template-columns: 1fr; }
+      .case-row { grid-template-columns: 1fr; gap: 5px; }
+      nav { display: none; }
+      section { padding: 50px 0; }
+    }
+    @media print {
+      nav { display: none; }
+      body { background: white; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">MTB GraphRAG · architettura canonica</div>
+        <h1>KG-grounded evidence reporting for Molecular Tumor Boards</h1>
+        <p class="lead">Dal caso clinico alle relazioni del Knowledge Graph, dalle relazioni alle fonti, dalle fonti a un dossier verificabile.</p>
+      </div>
+      <aside class="hero-note"><strong>46.864</strong>relazioni candidate materializzate, interrogate come struttura e non trattate automaticamente come evidenza.</aside>
+    </div>
+  </header>
+
+  <nav class="wrap" aria-label="Indice">
+    <div class="inner">
+      <a href="#flusso">Flusso</a><a href="#problema">Problema</a><a href="#provenance">Provenance</a><a href="#paper">Paper</a><a href="#esempio">Esempio</a><a href="#llm">LLM</a><a href="#posizionamento">Posizionamento</a><a href="#limiti">Limiti</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="flusso">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Il percorso canonico</div><div><h2>Una relazione determina il modo in cui può essere verificata.</h2><p>Il branching avviene prima dell’elaborazione documentale. Paper, trial e relazioni senza fonte seguono percorsi incompatibili per costruzione.</p></div></div>
+        <div class="architecture">
+          <div class="flow-top">
+            <div class="node"><small>Input</small><strong>Caso clinico</strong></div>
+            <div class="node"><small>LLM #1</small><strong>Case Parser</strong></div>
+            <div class="node"><small>Struttura</small><strong>CaseContext</strong></div>
+            <div class="node"><small>Retrieval</small><strong>Knowledge Graph / GCA</strong></div>
+            <div class="node"><small>Output</small><strong>Relazioni pertinenti</strong></div>
+          </div>
+          <div class="decision">Classificazione della provenance</div>
+          <div class="branches">
+            <article class="branch paper"><span class="branch-tag">PMID · PAPER</span><h3>Verifica documentale</h3><ol><li>Fonte PubMed / PMC</li><li>SourceUnit ed estratto</li><li>Paper Reader</li><li>Quote e support verification</li></ol></article>
+            <article class="branch trial"><span class="branch-tag">NCT · TRIAL</span><h3>Record strutturato</h3><ol><li>ClinicalTrials.gov</li><li>Stato, fase, condizioni</li><li>Interventi</li><li>Nessuna inferenza di efficacia</li></ol></article>
+            <article class="branch kg"><span class="branch-tag">NO ID · KG ONLY</span><h3>Provenance grafica</h3><ol><li>Relazione preservata</li><li>Database e materializzazione</li><li>Node / edge / graph path</li><li>Nessuna fonte inventata</li></ol></article>
+          </div>
+          <div class="dossier-node"><strong>Dossier MTB canonico</strong><small>Strutturato · deterministico · tracciabile</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problema">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Il problema</div><div><h2>Stessa schermata, diversa forza epistemica.</h2><p>Una citazione verificata, un’associazione a trial e una relazione presente soltanto nel grafo non sono intercambiabili. Il dossier rende questa differenza visibile.</p></div></div>
+        <div class="cards">
+          <article class="card"><span class="num">STRUTTURA</span><h3>Conoscenza eterogenea</h3><p>Varianti, malattie, farmaci, evidenze e trial sono collegati da relazioni con semantiche diverse.</p></article>
+          <article class="card"><span class="num">FONTE</span><h3>Fonti non uniformi</h3><p>Alcune GCA hanno PMID, altre NCT, altre soltanto lineage del Knowledge Graph.</p></article>
+          <article class="card"><span class="num">SIGNIFICATO</span><h3>Specificità da preservare</h3><p>Il supporto a un gene non conferma automaticamente una variante specifica; un trial non dimostra efficacia.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="provenance">
+      <div class="wrap split">
+        <article class="feature"><div class="eyebrow">Ruolo del Knowledge Graph</div><h2>Propone. Tipizza. Collega.</h2><p>Il KG identifica associazioni pertinenti e conserva il percorso che le ha generate. Non prescrive e non sostituisce la verifica della fonte.</p><div class="trace"><span>Caso</span><i>→</i><span>GCA</span><i>→</i><span>Relazione</span><i>→</i><span>Provenance</span></div></article>
+        <article class="feature light"><div class="eyebrow">Stop pulito</div><h2>Il vuoto è un risultato.</h2><p>Un caso insufficiente si ferma prima del retrieval. Se non ci sono GCA pertinenti, viene prodotto un dossier vuoto con `NO_RELEVANT_KG_EVIDENCE`: nessun Reader e nessuna narrativa compensativa.</p></article>
+      </div>
+    </section>
+
+    <section id="paper">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Verifica dei paper</div><div><h2>Il Reader osserva; il codice decide la corrispondenza.</h2><p>Gemma vede soltanto gli estratti selezionati e restituisce una quote letterale con entità osservate. Quote validation e support level sono deterministici.</p></div></div>
+        <div class="cards">
+          <article class="card"><span class="num">A</span><h3>Fonte canonica</h3><p>PMC full text quando disponibile e parsabile; altrimenti abstract PubMed. Mai un paper alternativo cercato liberamente.</p></article>
+          <article class="card"><span class="num">B</span><h3>Quote verificabile</h3><p>SourceUnit ID esistente, testo letteralmente presente e provenance coerente. Una quote invalida produce `UNVERIFIABLE`.</p></article>
+          <article class="card"><span class="num">C</span><h3>Profilo relation-aware</h3><p>Le relazioni terapeutiche verificano farmaco e direzione; diagnostiche e prognostiche non vengono forzate in uno schema terapeutico.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="esempio">
+      <div class="wrap">
+        <div class="case">
+          <div class="case-intro"><div class="eyebrow">Esempio di specificità</div><h2>mCRC<br>KRAS G12D<br>panitumumab</h2></div>
+          <div class="case-data">
+            <div class="case-row"><span>KG candidate</span><div>Resistenza a panitumumab · PMID 19223544</div></div>
+            <div class="case-row"><span>Paper</span><div>Documenta resistenza a panitumumab per pazienti mCRC con mutazioni KRAS.</div></div>
+            <div class="case-row"><span>Specificità</span><div>La variante G12D non è confermata in modo specifico dalla quote.</div></div>
+            <div class="case-row"><span>Dossier</span><div class="result">PARTIAL_SUPPORT</div></div>
+            <div class="case-row"><span>Principio</span><div>Il sistema non completa automaticamente la specificità mancante.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="llm">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Ruolo limitato degli LLM</div><div><h2>Due compiti, nessuna autorità clinica.</h2><p>Il normale percorso non usa Writer né Narrative Verifier. Tutto ciò che determina retrieval, supporto e dossier resta strutturato o deterministico.</p></div></div>
+        <div class="llm-grid">
+          <article class="llm"><b>LLM #1 · Case Parser</b><h3>“Cosa ha scritto il medico?”</h3><p>Estrae fatti espliciti in un CaseContext; segnala ambiguità invece di colmare i vuoti.</p></article>
+          <article class="llm"><b>LLM #2 · Paper Reader</b><h3>“Cosa dice realmente questo estratto?”</h3><p>Restituisce osservazioni e una quote letterale; non assegna support level e non raccomanda terapie.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="posizionamento">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Related work</div><div><h2>Dalla conoscenza organizzata al reporting verificabile.</h2><p>MTB digitali, evidence-driven reporting e knowledge base oncologiche motivano l’integrazione. Il contributo qui è la separazione esplicita tra relazione del grafo, fonte documentale e supporto osservabile.</p></div></div>
+        <div class="refs">
+          <div class="ref"><strong>MTB</strong><div>Tsimberidou et al. (2023); Tamborero et al. (2022): complessità interpretativa, piattaforme digitali e reporting.</div></div>
+          <div class="ref"><strong>KB</strong><div>Griffith et al. — CIViC (2017); Chakravarty et al. — OncoKB (2017): relazioni eterogenee, contesto e provenance.</div></div>
+          <div class="ref"><strong>Report</strong><div>Perera-Bel et al. (2018): reporting evidence-driven per i Molecular Tumor Board.</div></div>
+          <div class="ref"><strong>RAG</strong><div>Berman et al. (2025): l’uso di RAG nei MTB motiva controlli conservativi; non costituisce un confronto di superiorità.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="limiti">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Confini e limitazioni</div><div><h2>Un dossier di evidenza, non una decisione.</h2><p>Il valore dell’architettura sta anche nel dichiarare cosa non può concludere.</p></div></div>
+        <div class="not-list">
+          <div>NON prescrive una terapia.</div><div>NON sostituisce il giudizio clinico.</div>
+          <div>NON interpreta un trial come prova di efficacia.</div><div>NON dichiara l’eleggibilità del paziente.</div>
+          <div>NON considera il KG verità documentale.</div><div>NON inventa fonti per relazioni KG-only.</div>
+        </div>
+        <p style="margin-top:24px;color:var(--muted)">La copertura dipende dal corpus GCA e dalla disponibilità delle fonti. Il selector può non mostrare al Reader un passaggio rilevante. Il supporto descrive la corrispondenza con la fonte associata, non una validazione clinica globale.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap">MTB GraphRAG · Architettura canonica relation-aware · Dossier JSON deterministico e tracciabile</div></footer>
+</body>
+</html>

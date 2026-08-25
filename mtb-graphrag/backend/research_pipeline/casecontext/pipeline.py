@@ -23,6 +23,35 @@ from .semantic_verifier import verify as verify_semantics
 DETERMINISTIC_CHAIN_VERSION = "casecontext-deterministic-chain/1.0"
 
 
+def validate_minimal_case_context(case_context: dict[str, Any] | None) -> dict[str, Any]:
+    """Minimal canonical admission: disease plus one explicit clinical anchor."""
+    if not isinstance(case_context, dict):
+        return {"valid": False, "run_status": "INVALID_CASE_CONTEXT", "missing": ["case_context"]}
+    disease = case_context.get("disease") or {}
+    disease_value = disease.get("normalized_value") or disease.get("raw_value")
+    biomarkers = case_context.get("biomarkers") or []
+    molecular_anchor = any(
+        item.get("gene") or item.get("alteration") or item.get("normalized_value") or item.get("raw_value")
+        for item in biomarkers if isinstance(item, dict)
+    )
+    interventions = [case_context.get("target_intervention"), *(case_context.get("previous_interventions") or [])]
+    intervention_anchor = any(
+        isinstance(item, dict) and (item.get("normalized_value") or item.get("raw_value"))
+        for item in interventions
+    )
+    missing = []
+    if not disease_value:
+        missing.append("disease")
+    if not molecular_anchor and not intervention_anchor:
+        missing.append("clinical_anchor")
+    return {
+        "valid": not missing,
+        "run_status": "COMPLETED" if not missing else "INSUFFICIENT_CASE_CONTEXT",
+        "missing": missing,
+        "ambiguities": list(case_context.get("uncertainties") or []),
+    }
+
+
 def build_retrieval_case_context(
     case_context: dict[str, Any], mentions: list[Any],
 ) -> dict[str, Any]:

@@ -19,6 +19,7 @@ from typing import Any
 
 from backend.research_pipeline.retrieval.relation_family import (
     CLINICAL_TRIAL,
+    INVALID_PROVENANCE,
     KG_ONLY,
     PAPER_EVIDENCE,
     classify_relation_family,
@@ -40,11 +41,13 @@ PRESENTABLE_AS_AUTHOR_CLAIM: frozenset[str] = frozenset({VALIDATED_QUOTE})
 _ACCEPTED_OUTCOMES: frozenset[str] = frozenset({
     "ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING",
     "ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY",
+    "ENRICHMENT_V3_ACCEPTED",
 })
 
 _ABSTAIN_OUTCOMES: frozenset[str] = frozenset({
     "ENRICHMENT_ABSTAINED", "ENRICHMENT_V2_ABSTAINED",
     "ENRICHMENT_V2_ABSTAINED_WITH_INCONSISTENT_FIELDS",
+    "ENRICHMENT_V3_ABSTAINED",
 })
 
 
@@ -77,7 +80,9 @@ def annotate_enrichment(
     da una citazione validata.
     """
     outcome = (validation or {}).get("outcome")
-    has_quote = bool((enrichment or {}).get("author_claim_quote"))
+    has_quote = bool(
+        (enrichment or {}).get("quote") or (enrichment or {}).get("author_claim_quote")
+    )
     return {
         **(enrichment or {}),
         "paper_id": paper_id,
@@ -152,15 +157,22 @@ def _paper_result_fields(result: dict[str, Any]) -> dict[str, Any]:
     support = result.get("candidate_support") or {}
     selected = result.get("selected_source_units") or []
     return {
+        "pmcid": result.get("pmcid"),
+        "document_type": result.get("document_type"),
         "document_source": result.get("document_source"),
         "document_resolution_status": result.get("document_resolution_status"),
         "selected_source_units": selected,
+        "selected_source_unit_ids": result.get("selected_source_unit_ids") or selected,
         "reader_status": enrichment.get("decision") or result.get("reader_status"),
-        "quote": result.get("quote") or enrichment.get("author_claim_quote"),
+        "reader_decision": enrichment.get("decision") or result.get("reader_decision"),
+        "quote": result.get("quote") or enrichment.get("quote") or enrichment.get("author_claim_quote"),
+        "quote_source_unit_id": result.get("quote_source_unit_id") or enrichment.get("source_unit_id"),
+        "quote_valid": result.get("quote_valid"),
         "quote_validation": result.get("quote_validation") or validation.get("outcome"),
         "support_fields": result.get("support_fields") or support.get("fields"),
         "support_level": result.get("support_level") or support.get("result"),
         "reason": result.get("reason") or support.get("reason"),
+        "support_reason": result.get("support_reason") or result.get("reason") or support.get("reason"),
     }
 
 
@@ -190,6 +202,9 @@ def _trial_result_fields(result: dict[str, Any]) -> dict[str, Any]:
             "TRIAL_RECORD_RESOLVED" if result else "NOT_EVALUATED"
         ),
         "eligibility_status": result.get("eligibility_status") or "NOT_EVALUATED",
+        "trial_resolution_status": result.get("trial_resolution_status") or (
+            "RESOLVED" if result else "UNAVAILABLE"
+        ),
     }
 
 
@@ -198,6 +213,10 @@ def build_relation_aware_report(
     candidates: list[dict[str, Any]],
     paper_results: Any = None,
     trial_results: Any = None,
+    *,
+    run_status: str = "COMPLETED",
+    retrieval_summary: dict[str, Any] | None = None,
+    extra_limitations: list[str] | None = None,
 ) -> dict[str, Any]:
     """Project GCA candidates into a deterministic, provenance-aware report.
 
@@ -207,11 +226,22 @@ def build_relation_aware_report(
     paper_evidence: list[dict[str, Any]] = []
     clinical_trials: list[dict[str, Any]] = []
     kg_only_relations: list[dict[str, Any]] = []
-    limitations: set[str] = set()
+    limitations: set[str] = set(extra_limitations or [])
+    candidate_ids: list[str] = []
 
     for candidate in sorted(candidates, key=lambda item: str(item.get("candidate_id", ""))):
         candidate_id = candidate["candidate_id"]
         family = classify_relation_family(candidate)
+        if family == INVALID_PROVENANCE:
+            limitations.add(f"INVALID_PROVENANCE:{candidate_id}")
+            continue
+        candidate_ids.append(candidate_id)
+        graph_provenance = {
+            "node_ids": candidate.get("node_ids") or [],
+            "edge_ids": candidate.get("edge_ids") or [],
+            "graph_path": candidate.get("graph_path") or [],
+            "materialization_rule_id": candidate.get("materialization_rule_id"),
+        }
         common = {
             "candidate_id": candidate_id,
             "relation_family": family,
@@ -220,6 +250,8 @@ def build_relation_aware_report(
             "object": candidate.get("object"),
             "disease_context": _labels(candidate.get("disease")),
             "direction": candidate.get("direction"),
+            "evidence_type": candidate.get("evidence_scope") or candidate.get("diagnostic_scope"),
+            "graph_provenance": graph_provenance,
         }
         if family == PAPER_EVIDENCE:
             result = _candidate_result(paper_results, candidate_id)
@@ -234,6 +266,16 @@ def build_relation_aware_report(
             })
             if not result:
                 limitations.add("PAPER_SUPPORT_NOT_EVALUATED")
+            elif paper_fields["support_level"] == "PARTIAL_SUPPORT":
+                limitations.add("CANDIDATE_PARTIALLY_SUPPORTED")
+            if result and paper_fields["document_resolution_status"] in {
+                "UNAVAILABLE", "DOCUMENT_UNAVAILABLE"
+            }:
+                limitations.add("DOCUMENT_UNAVAILABLE")
+            if paper_fields["reader_status"] == "ABSTAIN":
+                limitations.add("READER_ABSTAINED")
+            if paper_fields["quote_valid"] is False:
+                limitations.add("QUOTE_INVALID")
         elif family == CLINICAL_TRIAL:
             result = _candidate_result(trial_results, candidate_id)
             trial_fields = _trial_result_fields(result)
@@ -247,13 +289,12 @@ def build_relation_aware_report(
                 "evidence_interpretation": "TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE",
             })
             limitations.add("TRIAL_ASSOCIATION_IS_NOT_EFFICACY_EVIDENCE")
+            if (
+                trial_fields["trial_resolution_status"] == "UNAVAILABLE"
+                or trial_fields["provenance_status"] not in {"TRIAL_RECORD_RESOLVED", "RESOLVED"}
+            ):
+                limitations.add("TRIAL_RECORD_UNAVAILABLE")
         else:
-            graph_provenance = {
-                "node_ids": candidate.get("node_ids") or [],
-                "edge_ids": candidate.get("edge_ids") or [],
-                "graph_path": candidate.get("graph_path") or [],
-                "materialization_rule_id": candidate.get("materialization_rule_id"),
-            }
             properties = candidate.get("source_properties") or {}
             source_database = (
                 properties.get("evidence", {}).get("source_type")
@@ -272,9 +313,29 @@ def build_relation_aware_report(
             limitations.add("DOCUMENT_PROVENANCE_NOT_AVAILABLE")
 
     return {
+        "run_status": run_status,
         "case_summary": _case_summary(case_context),
+        "retrieval_summary": {
+            "total_candidates": len(candidate_ids),
+            "paper_candidates": len(paper_evidence),
+            "trial_candidates": len(clinical_trials),
+            "kg_only_candidates": len(kg_only_relations),
+            **(retrieval_summary or {}),
+        },
         "paper_evidence": paper_evidence,
         "clinical_trials": clinical_trials,
         "kg_only_relations": kg_only_relations,
         "limitations": sorted(limitations),
+        "provenance_summary": {
+            "candidate_ids": sorted(candidate_ids),
+            "paper_document_ids": sorted(
+                entry["document_id"] for entry in paper_evidence if entry.get("document_id")
+            ),
+            "trial_ids": sorted(
+                entry["nct_id"] for entry in clinical_trials if entry.get("nct_id")
+            ),
+            "graph_only_candidate_ids": sorted(
+                entry["candidate_id"] for entry in kg_only_relations
+            ),
+        },
     }

@@ -162,8 +162,9 @@ class RunPersistenceTest(TestCase):
 
         self.assertEqual(response.status_code, 200, response.text)
         dossier = response.json()["dossier"]
-        for section in ("candidate_therapies", "limitations"):
+        for section in ("paper_evidence", "clinical_trials", "kg_only_relations", "limitations"):
             self.assertIn(section, dossier)
+        self.assertIn("candidate_therapies", response.json()["legacy_dossier"])
 
     def test_provenance_is_rebuilt(self) -> None:
         run_id = self._completed_run()

@@ -398,7 +398,7 @@ class CanonicalRetrievalAndSelectionTest(CanonicalRuntimeFixture):
             result = retrieval_mod.retrieve(_case_context())
 
         candidate_ids = [row["candidate_id"] for row in result["associations"]]
-        self.assertEqual(["GCA-canonical-test"], candidate_ids)
+        self.assertEqual(["GCA-canonical-test", "GCA-without-provenance"], candidate_ids)
         bundle = result["associations"][0]["available_bundles"][0]
         self.assertEqual({"pmid": PMID}, bundle["provenance_identifier"])
         self.assertEqual([], bundle["source_unit_ids"])
@@ -505,10 +505,11 @@ class ControlledFailureTest(CanonicalRuntimeFixture):
         cache._request = lambda url: (None, {"status": 404, "url": url})  # type: ignore[method-assign]
         run, recorded = self.execute(self.runtime(cache))
 
-        self.assertEqual("FAILED", run.status)
-        self.assertEqual("NO_DOCUMENT_RESOLVED", run.stopped_at)
+        self.assertEqual("PARTIAL", run.status)
+        self.assertIsNone(run.stopped_at)
+        self.assertIn("DOCUMENT_UNAVAILABLE", run.relation_aware_report["limitations"])
         self.assertEqual([], recorded["enricher"])
-        self.assertEqual([], recorded["narrator"])
+        self.assertEqual(["CASE-canonical"], recorded["narrator"], "an explicitly injected legacy narrator remains optional")
 
     def test_an_aborted_run_produces_no_canonical_dossier(self) -> None:
         run, _ = self.execute(None)

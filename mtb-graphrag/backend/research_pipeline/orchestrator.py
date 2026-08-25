@@ -51,10 +51,11 @@ from backend.research_pipeline.contracts import (
 )
 from backend.research_pipeline.determinism import check_origin
 from backend.research_pipeline.determinism import gates as detpipe
-from backend.research_pipeline.documents.live_resolution import DocumentRuntime
+from backend.research_pipeline.documents.live_resolution import DocumentResolution, DocumentRuntime
 from backend.research_pipeline.dossier import builder as dossier_mod
 from backend.research_pipeline.enrichment import validator as enrichment_validator
 from backend.research_pipeline.enrichment.post_quote_support import assess_candidate_support
+from backend.research_pipeline.enrichment.relation_support import assess_relation_support
 from backend.research_pipeline.live_providers import LiveStageFailed
 from backend.research_pipeline.narrative import input_projection as narrative_projection
 from backend.research_pipeline.narrative import prompt as narrative_prompt
@@ -65,6 +66,8 @@ from backend.research_pipeline.retrieval.paper_selection import select_papers_fo
 from backend.research_pipeline.retrieval.live_sourceunit_selection import select_live_papers_for_association
 from backend.research_pipeline.retrieval.relation_family import (
     CLINICAL_TRIAL,
+    INVALID_PROVENANCE,
+    KG_ONLY,
     PAPER_EVIDENCE,
     classify_relation_family,
 )
@@ -76,6 +79,7 @@ _V1_ACCEPTED = ("ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING")
 #: Esiti che il validatore v2 considera accettati, secondo la definizione data
 #: dal pilot stesso in ``run_pilot_v2.py`` riga 83.
 _V2_ACCEPTED = ("ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY")
+_V3_ACCEPTED = ("ENRICHMENT_V3_ACCEPTED",)
 
 
 def _accepted_for_gates(
@@ -99,7 +103,7 @@ def _accepted_for_gates(
         return None
     if outcome in _V1_ACCEPTED:
         return outcome
-    if outcome in _V2_ACCEPTED:
+    if outcome in _V2_ACCEPTED + _V3_ACCEPTED:
         return "ENRICHMENT_ACCEPTED_WITH_WARNING" if outcome.endswith("SUMMARY_EMPTY") else "ENRICHMENT_ACCEPTED"
     return None
 
@@ -504,7 +508,48 @@ def run_case(
             "policy_version": eligibility["policy_version"],
             "producer": eligibility["producer"],
         }
-        if not eligibility["eligible"]:
+        legacy_input_stop = eligibility["eligibility_status"] in {
+            "INVALID_INPUT", "OUT_OF_SCOPE", "NON_ACTIONABLE_MEDICAL_INPUT",
+        }
+        if legacy_input_stop:
+            recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p, status="WARNING",
+                            reason_codes=tuple(eligibility["reason_codes"]),
+                            warnings=tuple(eligibility["warning_codes"]),
+                            output_preview=gate_preview)
+            empty_report = dossier_mod.build_relation_aware_report(
+                case_context, [], run_status="INSUFFICIENT_CASE_CONTEXT",
+                extra_limitations=["INSUFFICIENT_CASE_CONTEXT"],
+            )
+            return _finalize("STOPPED", eligibility["eligibility_status"],
+                             relation_aware_report=empty_report)
+        minimal_validation = cc_pipeline.validate_minimal_case_context(case_context)
+        if not minimal_validation["valid"]:
+            gate_preview.update(minimal_validation)
+            gate_preview["eligibility_status"] = "INSUFFICIENT_ONCOLOGY_CONTEXT"
+            recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p, status="WARNING",
+                            reason_codes=(minimal_validation["run_status"],),
+                            output_preview=gate_preview)
+            empty_report = dossier_mod.build_relation_aware_report(
+                case_context, [], run_status=minimal_validation["run_status"],
+                extra_limitations=[minimal_validation["run_status"]],
+            )
+            return _finalize("STOPPED", "INSUFFICIENT_ONCOLOGY_CONTEXT",
+                             relation_aware_report=empty_report)
+        blocking_ambiguity = eligibility_gate_fn is None and eligibility["eligibility_status"] in {
+            "CONTRADICTORY_CASE_CONTEXT", "ADVERSARIAL_OR_CONTROL_INPUT", "AMBIGUOUS_CASE_CONTEXT",
+        }
+        if blocking_ambiguity:
+            recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p, status="WARNING",
+                            reason_codes=("NEEDS_CLARIFICATION",),
+                            warnings=tuple(eligibility["warning_codes"]),
+                            output_preview=gate_preview)
+            empty_report = dossier_mod.build_relation_aware_report(
+                case_context, [], run_status="NEEDS_CLARIFICATION",
+                extra_limitations=["NEEDS_CLARIFICATION"],
+            )
+            return _finalize("STOPPED", eligibility["eligibility_status"],
+                             relation_aware_report=empty_report)
+        if eligibility_gate_fn is not None and not eligibility["eligible"]:
             recorder.finish("stage_3b_pre_retrieval_eligibility_gate", p, status="WARNING",
                             reason_codes=tuple(eligibility["reason_codes"]),
                             warnings=tuple(eligibility["warning_codes"]),
@@ -537,8 +582,22 @@ def run_case(
         if chain is not None else case_context
     )
     retrieval_result = retrieve(retrieval_case_context)
+    valid_associations: list[dict[str, Any]] = []
+    invalid_candidate_ids: list[str] = []
+    for association in retrieval_result["associations"]:
+        family = classify_relation_family(association["candidate"])
+        association["relation_family"] = family
+        if family == INVALID_PROVENANCE:
+            invalid_candidate_ids.append(association["candidate_id"])
+        else:
+            valid_associations.append(association)
+    retrieval_result["associations"] = valid_associations
+    retrieval_result["no_match"] = not valid_associations
+    paper_associations = [a for a in valid_associations if a["relation_family"] == PAPER_EVIDENCE]
+    trial_associations = [a for a in valid_associations if a["relation_family"] == CLINICAL_TRIAL]
+    kg_only_associations = [a for a in valid_associations if a["relation_family"] == KG_ONLY]
     document_bearing_associations = [
-        association for association in retrieval_result["associations"]
+        association for association in paper_associations + trial_associations
         if association.get("available_bundles")
     ]
     redacted = redact_retrieval_result(retrieval_result)
@@ -553,7 +612,14 @@ def run_case(
         recorder.finish("stage_5_kg_retrieval", p, status="WARNING",
                         domain_event=ev.CANDIDATES_FOUND,
                         reason_codes=("RETRIEVAL_NO_MATCH",), output_preview=retrieval_preview)
-        return _finalize("STOPPED", "RETRIEVAL_NO_MATCH")
+        empty_report = dossier_mod.build_relation_aware_report(
+            case_context, [], run_status="NO_RELEVANT_KG_EVIDENCE",
+            retrieval_summary=retrieval_result.get("retrieval_summary"),
+            extra_limitations=["NO_RELEVANT_KG_EVIDENCE"] + [
+                f"INVALID_PROVENANCE:{candidate_id}" for candidate_id in invalid_candidate_ids
+            ],
+        )
+        return _finalize("STOPPED", "RETRIEVAL_NO_MATCH", relation_aware_report=empty_report)
     recorder.finish("stage_5_kg_retrieval", p, domain_event=ev.CANDIDATES_FOUND,
                     output_preview=retrieval_preview)
 
@@ -576,15 +642,12 @@ def run_case(
         return _finalize("FAILED", "DOCUMENT_CACHE_UNAVAILABLE")
 
     if document_runtime is not None:
-        resolution = document_runtime.resolve(retrieval_result["associations"])
+        resolution = document_runtime.resolve(document_bearing_associations) if document_bearing_associations else DocumentResolution(
+            documents=(), cache_path_redacted=str(cache_descriptor.get("cache_path_redacted") or ""),
+            manifest_hash=document_runtime.manifest_hash,
+        )
         resolution_preview = {**cache_descriptor, **resolution.to_preview()}
         resolved_any = any(doc.resolved for doc in resolution.documents)
-        if canonical and document_bearing_associations and not resolved_any:
-            recorder.finish("stage_6_document_resolution", p, status="FAILED",
-                            artifact_origin=em.DETERMINISTIC_CACHE,
-                            reason_codes=("NO_DOCUMENT_RESOLVED", "DOCUMENT_UNAVAILABLE"),
-                            output_preview=resolution_preview)
-            return _finalize("FAILED", "NO_DOCUMENT_RESOLVED")
         unavailable = tuple(
             f"DOCUMENT_UNAVAILABLE:{doc.document_id}"
             for doc in resolution.documents if not doc.resolved
@@ -654,8 +717,15 @@ def run_case(
         for uid in bundle.get("source_unit_ids", [])
     })
 
-    if document_runtime is not None and resolution is not None:
-        bundle_units = document_runtime.load_units(resolution)
+    if document_runtime is not None and resolution is not None and paper_associations:
+        paper_ids = {item["candidate_id"] for item in paper_associations}
+        paper_resolution = DocumentResolution(
+            documents=tuple(doc for doc in resolution.documents if doc.candidate_id in paper_ids),
+            cache_path_redacted=resolution.cache_path_redacted,
+            manifest_hash=resolution.manifest_hash,
+        )
+        bundle_units = document_runtime.load_units(paper_resolution)
+        resolution = paper_resolution
         units_for_decisions: Mapping[str, dict[str, Any]] = bundle_units.units_by_id
         units_preview = bundle_units.to_preview(requested_unit_ids)
         with_text = (
@@ -679,8 +749,13 @@ def run_case(
             documents_parsed=bundle_units.documents_parsed, source_unit_count=len(bundle_units.units_by_id),
             with_exact_text=with_text, parser_mode="CANONICAL" if canonical else "CACHE",
         )
-        if canonical and document_bearing_associations and not with_text:
-            return _finalize("FAILED", "PARSER_FAILED")
+    elif document_runtime is not None:
+        units_for_decisions = {}
+        recorder.finish("stage_7_source_units", p, status="SKIPPED",
+                        artifact_origin=em.NOT_APPLICABLE,
+                        reason_codes=("NO_PAPER_CANDIDATES",),
+                        output_preview={"source_units": [], "source_unit_count": 0,
+                                        "text_never_exposed": True})
     else:
         units_for_decisions = dict(source_units_by_id)
         # Solo locatori e hash: il testo non lascia mai l'enricher.
@@ -703,7 +778,7 @@ def run_case(
     relation_paper_results: dict[str, dict[str, Any]] = {}
     relation_trial_results: dict[str, dict[str, Any]] = {}
 
-    for association in retrieval_result["associations"]:
+    for association in paper_associations:
         recorder.emit_domain_event(
             ev.SOURCEUNIT_SELECTION_STARTED, "stage_8_paper_selection",
             _deterministic("sourceunit_selector"), candidate_id=association["candidate_id"],
@@ -755,15 +830,14 @@ def run_case(
                 call = call_enricher_fn(
                     budget, case_id, candidate["candidate_id"],
                     paper["document_id"] if canonical else paper["bundle_id"], case_context,
-                    {"candidate_id": candidate["candidate_id"], "disease": candidate.get("disease"),
-                     "biomarkers": candidate.get("biomarkers")},
+                    candidate,
                     requested_drug, paper_units,
                 )
             except LiveStageFailed as failure:
                 enricher_producer = StageProducer(
-                    kind="LLM", component="paper_context_enricher_v2",
-                    version="paper-context-enricher/2.0",
-                    model="gemma4:cloud", prompt_version="paper-context-enricher-prompt/2.0",
+                    kind="LLM", component="paper_context_enricher_v3",
+                    version="paper-context-enricher/3.0",
+                    model="gemma4:cloud", prompt_version="paper-context-enricher-prompt/3.0",
                 )
                 recorder.start("stage_8_paper_selection", _deterministic("paper_selection"))
                 recorder.finish("stage_8_paper_selection", _deterministic("paper_selection"),
@@ -790,7 +864,7 @@ def run_case(
             validation_record = {"candidate_id": candidate["candidate_id"],
                                  "paper_id": paper["bundle_id"], **validation}
             if (
-                validation["outcome"] in _V1_ACCEPTED + _V2_ACCEPTED
+                validation["outcome"] in _V1_ACCEPTED + _V2_ACCEPTED + _V3_ACCEPTED
                 and call.get("enrichment") is not None
             ):
                 source_unit_id = call["enrichment"].get("source_unit_id")
@@ -799,12 +873,17 @@ def run_case(
                      if unit.get("source_unit_id") == source_unit_id),
                     "",
                 )
-                validation_record["candidate_support"] = assess_candidate_support(
-                    candidate,
-                    call["enrichment"],
-                    source_unit_text=source_unit_text,
-                    paper_id=paper["document_id"] if canonical else paper["bundle_id"],
-                )
+                if "observed_evidence_type" in call["enrichment"]:
+                    validation_record["candidate_support"] = assess_relation_support(
+                        candidate, call["enrichment"]
+                    )
+                else:
+                    validation_record["candidate_support"] = assess_candidate_support(
+                        candidate,
+                        call["enrichment"],
+                        source_unit_text=source_unit_text,
+                        paper_id=paper["document_id"] if canonical else paper["bundle_id"],
+                    )
             validations.append(validation_record)
             validation_entries.append({"paper_id": paper["bundle_id"], **validation_record})
             gate_outcome = _accepted_for_gates(
@@ -850,24 +929,30 @@ def run_case(
                 for paper in selection["selected_papers"]
             ] if resolution is not None else []
             resolved_document = next((item for item in resolved_documents if item is not None), None)
+            selected_paper = next(iter(selection["selected_papers"]), {})
+            frozen_document_type = {
+                "FULLTEXT_LOCAL_CONTEXT_BUNDLE": "PMC_FULLTEXT",
+                "ABSTRACT_BUNDLE": "PUBMED_ABSTRACT",
+            }.get(selected_paper.get("bundle_type"), selected_paper.get("bundle_type"))
             latest_validation = validation_entries[-1] if validation_entries else {}
             relation_paper_results[candidate["candidate_id"]] = {
-                "document_source": resolved_document.source if resolved_document else None,
-                "document_resolution_status": resolved_document.availability if resolved_document else None,
+                "pmcid": (
+                    resolved_document.lineage.get("derived_pmcid")
+                    if resolved_document else None
+                ),
+                "document_type": resolved_document.document_type if resolved_document else frozen_document_type,
+                "document_source": resolved_document.source if resolved_document else candidate.get("source_type"),
+                "document_resolution_status": (
+                    resolved_document.availability
+                    if resolved_document else
+                    ("RESOLVED_FROZEN_BUNDLE" if selected_source_units else "DOCUMENT_UNAVAILABLE")
+                ),
                 "selected_source_units": selected_source_units,
                 "enrichment": enrichment_entries[-1] if enrichment_entries else {},
                 "validation": latest_validation,
+                "quote_valid": latest_validation.get("outcome") in _V1_ACCEPTED + _V2_ACCEPTED + _V3_ACCEPTED,
                 "candidate_support": latest_validation.get("candidate_support"),
             }
-        elif family == CLINICAL_TRIAL:
-            nct_id = next(
-                (item.get("nct") for item in candidate.get("document_identifiers") or [] if item.get("nct")),
-                None,
-            )
-            relation_trial_results[candidate["candidate_id"]] = (
-                document_runtime.manifest_by_document_id.get(f"nct:{nct_id}", {})
-                if document_runtime is not None and nct_id else {}
-            )
         candidate_therapies.append(dossier_mod.build_candidate_therapy_entry(
             candidate, graph_relation=candidate.get("predicate", ""),
             document_support={"selected_papers": [pp["bundle_id"] for pp in selection["selected_papers"]],
@@ -875,6 +960,24 @@ def run_case(
             enrichments=enrichment_entries, validation_results=validation_entries,
             evaluation=evaluation,
         ))
+
+    for association in trial_associations:
+        candidate = association["candidate"]
+        nct_id = next(
+            (item.get("nct") for item in candidate.get("document_identifiers") or [] if item.get("nct")),
+            None,
+        )
+        record = (
+            dict(document_runtime.manifest_by_document_id.get(f"nct:{nct_id}", {}))
+            if document_runtime is not None and nct_id else {}
+        )
+        if not record:
+            record = {
+                "provenance_status": "TRIAL_RECORD_UNAVAILABLE",
+                "trial_resolution_status": "UNAVAILABLE",
+                "eligibility_status": "NOT_EVALUATED",
+            }
+        relation_trial_results[candidate["candidate_id"]] = record
 
     p = _deterministic("paper_selection")
     recorder.start("stage_8_paper_selection", p)
@@ -893,8 +996,8 @@ def run_case(
                                     "recomputed_during_run": select_papers_fn is None})
 
     enricher_producer = StageProducer(
-        kind="LLM", component="paper_context_enricher_v2",
-        version="paper-context-enricher/2.0",
+        kind="LLM", component="paper_context_enricher_v3",
+        version="paper-context-enricher/3.0",
         model=(enrichment_calls[0].get("model") if enrichment_calls else None) or "unknown",
         prompt_version=(enrichment_calls[0].get("prompt_version") if enrichment_calls else None) or "unknown",
         transport_version=(enrichment_calls[0].get("transport_version") if enrichment_calls else None),
@@ -923,7 +1026,7 @@ def run_case(
                     domain_event=ev.ENRICHMENT_VALIDATED,
                     output_preview={
                         "validations": validations,
-                        "accepted_outcomes": list(_V1_ACCEPTED + _V2_ACCEPTED),
+                        "accepted_outcomes": list(_V1_ACCEPTED + _V2_ACCEPTED + _V3_ACCEPTED),
                         "revalidated_during_run": validate_fn is None,
                         "gate_admission_note": (
                             "solo gli esiti accettati raggiungono i gate; astensioni e "
@@ -965,7 +1068,19 @@ def run_case(
         [association["candidate"] for association in retrieval_result["associations"]],
         paper_results=relation_paper_results,
         trial_results=relation_trial_results,
+        run_status="COMPLETED",
+        retrieval_summary=retrieval_result.get("retrieval_summary"),
+        extra_limitations=[
+            f"INVALID_PROVENANCE:{candidate_id}" for candidate_id in invalid_candidate_ids
+        ],
     )
+    if (
+        any(entry.get("support_level") not in (None, "FULL_SUPPORT")
+            for entry in relation_aware_report["paper_evidence"])
+        or any(entry.get("trial_resolution_status") == "UNAVAILABLE"
+               for entry in relation_aware_report["clinical_trials"])
+    ):
+        relation_aware_report["run_status"] = "PARTIAL"
     dossier = dossier_mod.build_dossier_preview(
         case_id, case_context,
         {"records": [r.to_dict() for r in records], "essential_fields_pass": essential_ok,
@@ -991,9 +1106,10 @@ def run_case(
     # Il dossier canonico **esiste già**: quanto segue produce una vista di
     # presentazione e non può modificarlo. Un fallimento qui non invalida la run
     # — attiva il fallback strutturato — perché la narrativa non è evidenza.
-    _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
-                        verify_narrative_fn, canonical, replay_origin,
-                        narrative_verifier_mode)
+    if call_narrator_fn is not None:
+        _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
+                            verify_narrative_fn, canonical, replay_origin,
+                            narrative_verifier_mode)
 
     has_warning = any(stage.status == "WARNING" for stage in recorder.stages)
     if narrative_verifier_mode == "OFFLINE_ABLATION_BYPASS":

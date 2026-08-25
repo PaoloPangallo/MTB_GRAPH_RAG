@@ -8,6 +8,7 @@ from typing import Any
 PAPER_EVIDENCE = "PAPER_EVIDENCE"
 CLINICAL_TRIAL = "CLINICAL_TRIAL"
 KG_ONLY = "KG_ONLY"
+INVALID_PROVENANCE = "INVALID_PROVENANCE"
 
 
 def classify_relation_family(candidate: dict[str, Any]) -> str:
@@ -21,9 +22,7 @@ def classify_relation_family(candidate: dict[str, Any]) -> str:
     has_pmid = any(item.get("pmid") for item in identifiers if isinstance(item, dict))
     has_nct = any(item.get("nct") for item in identifiers if isinstance(item, dict))
     if has_pmid and has_nct:
-        raise ValueError(
-            "candidate contains both PMID and NCT; mixed provenance has no relation family"
-        )
+        return INVALID_PROVENANCE
     if has_pmid:
         return PAPER_EVIDENCE
     if has_nct:

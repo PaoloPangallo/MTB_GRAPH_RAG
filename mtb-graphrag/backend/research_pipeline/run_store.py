@@ -214,7 +214,6 @@ class RunStore:
             "call_parser_fn": live_providers.parser_fn,
             "call_enricher_fn": live_providers.enricher_fn,
             "validate_fn": live_providers.validate_fn,
-            "call_narrator_fn": live_providers.narrator_fn,
         }
 
 

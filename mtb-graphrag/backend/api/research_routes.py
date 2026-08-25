@@ -248,13 +248,14 @@ def get_stage(run_id: str, stage_id: str) -> dict[str, Any]:
 def get_dossier(run_id: str) -> dict[str, Any]:
     snapshot = _snapshot_or_404(run_id)
     stage = next((s for s in snapshot["stages"] if s["stage_id"] == "stage_13_dossier"), None)
-    if stage is None or stage["status"] != "SUCCEEDED":
+    canonical = snapshot.get("relation_aware_report")
+    if canonical is None and (stage is None or stage["status"] != "SUCCEEDED"):
         raise HTTPException(
             status_code=409,
             detail=f"nessun dossier: la run è {snapshot['status']}"
                    + (f" ({snapshot['stopped_at']})" if snapshot.get("stopped_at") else ""),
         )
-    preview = stage["output_preview"]
+    preview = (stage or {}).get("output_preview") or {}
     verification_stage = next(
         (s for s in snapshot["stages"] if s["stage_id"] == "stage_15_narrative_verifier"), None)
     verification = (verification_stage or {}).get("output_preview") or {}
@@ -263,8 +264,12 @@ def get_dossier(run_id: str) -> dict[str, Any]:
         "run_id": run_id,
         # Il dossier vero, non la preview che lo contiene: annidarlo
         # costringerebbe ogni client a conoscere la forma dello stage.
-        "dossier": preview.get("dossier", preview),
-        "candidate_count": preview.get("candidate_count"),
+        "dossier": canonical or preview.get("relation_aware_report", preview),
+        "legacy_dossier": preview.get("dossier"),
+        "candidate_count": (
+            (canonical or {}).get("retrieval_summary", {}).get("selected_total")
+            if canonical else preview.get("candidate_count")
+        ),
         "status": snapshot["status"],
         # La narrativa e' una vista, e viaggia separata dal dossier canonico.
         # ``narrative`` e' popolata SOLO se il verifier deterministico ha

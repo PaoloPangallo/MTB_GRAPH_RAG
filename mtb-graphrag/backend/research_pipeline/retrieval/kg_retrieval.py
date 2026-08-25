@@ -28,6 +28,7 @@ funzione, con un altro nome, che nessun percorso operativo chiama.
 from __future__ import annotations
 
 import json
+import os
 import re
 from functools import lru_cache
 from typing import Any
@@ -37,13 +38,17 @@ from backend.research_pipeline.data_access import (
     read_candidate_corpus_utf8,
 )
 from backend.research_pipeline.documents.authorized_cache import expand_identifier
-from backend.research_pipeline.retrieval.relation_family import classify_relation_family
+from backend.research_pipeline.retrieval.relation_family import (
+    INVALID_PROVENANCE,
+    classify_relation_family,
+)
 
 # I percorsi arrivano da ``data_access``, non da ``Path(__file__).parents[n]``:
 # la profondità di questo file è cambiata con la promozione, e un percorso
 # derivato dalla posizione del sorgente si sarebbe rotto in silenzio.
 
 MAX_ASSOCIATIONS_PER_CASE = 3
+MAX_ASSOCIATIONS_PER_FAMILY = int(os.getenv("RESEARCH_PIPELINE_MAX_CANDIDATES_PER_FAMILY", "3"))
 MAX_DOCUMENTS_PER_ASSOCIATION = 2
 MAX_SOURCE_UNITS_PER_DOCUMENT = 4
 
@@ -135,10 +140,9 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
     reasons: list[str] = []
     case_disease = _norm((case_context.get("disease") or {}).get("normalized_value") or (case_context.get("disease") or {}).get("raw_value"))
     candidate_disease = _labels(candidate.get("disease") or [])
-    relation_family = classify_relation_family(candidate)
-    disease_ok = (
-        relation_family == "KG_ONLY" and not candidate_disease
-    ) or (bool(case_disease) and any(case_disease in cd or cd in case_disease for cd in candidate_disease))
+    disease_ok = not candidate_disease or (
+        bool(case_disease) and any(_term_matches(case_disease, label) for label in candidate_disease)
+    )
     if not disease_ok:
         reasons.append("DISEASE_NOT_COMPATIBLE")
 
@@ -155,23 +159,38 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
         if value
     }
     candidate_biomarker_labels = _labels(candidate.get("biomarkers") or [])
-    gene_ok = bool(case_biomarker_terms) and any(any(_term_matches(term, label) for label in candidate_biomarker_labels) for term in case_biomarker_terms)
+    gene_ok = not candidate_biomarker_labels or (
+        bool(case_biomarker_terms)
+        and any(any(_term_matches(term, label) for label in candidate_biomarker_labels) for term in case_biomarker_terms)
+    )
     if not gene_ok:
         reasons.append("BIOMARKER_GENE_NOT_COMPATIBLE")
 
     intent = case_context.get("query_intent")
-    intervention_ok = True
-    if intent == "THERAPY_EVALUATION":
-        target = case_context.get("target_intervention") or {}
-        target_value = _norm(target.get("normalized_value") or target.get("raw_value"))
-        candidate_interventions = _labels(candidate.get("interventions") or [])
-        intervention_ok = bool(target_value) and any(target_value in label or label in target_value for label in candidate_interventions)
+    target = case_context.get("target_intervention") or {}
+    target_value = _norm(target.get("normalized_value") or target.get("raw_value"))
+    candidate_interventions = _labels(candidate.get("interventions") or [])
+    intervention_ok = not candidate_interventions or not target_value or any(
+        _term_matches(target_value, label) for label in candidate_interventions
+    )
+    if intent == "THERAPY_EVALUATION" and candidate_interventions:
         if not intervention_ok:
             reasons.append("TARGET_INTERVENTION_NOT_COMPATIBLE")
 
-    ok = disease_ok and gene_ok and intervention_ok
+    positive_anchor = any((
+        bool(candidate_disease and disease_ok),
+        bool(candidate_biomarker_labels and gene_ok),
+        bool(candidate_interventions and target_value and intervention_ok),
+    ))
+    ok = disease_ok and gene_ok and intervention_ok and positive_anchor
     if ok:
-        reasons = ["DISEASE_COMPATIBLE", "BIOMARKER_COMPATIBLE"] + (["INTERVENTION_COMPATIBLE"] if intent == "THERAPY_EVALUATION" else ["DISCOVERY_NO_INTERVENTION_FILTER"])
+        reasons = []
+        if candidate_disease:
+            reasons.append("DISEASE_COMPATIBLE")
+        if candidate_biomarker_labels:
+            reasons.append("BIOMARKER_COMPATIBLE")
+        if candidate_interventions and target_value:
+            reasons.append("INTERVENTION_COMPATIBLE")
     return ok, reasons
 
 
@@ -208,8 +227,7 @@ def _retrieve(case_context: dict[str, Any], *, use_frozen_bundles: bool) -> dict
     def _authorized(candidate_id: str, candidate: dict[str, Any]) -> bool:
         if use_frozen_bundles:
             return candidate_id in bundles_by_candidate
-        classify_relation_family(candidate)
-        return True
+        return classify_relation_family(candidate) != INVALID_PROVENANCE
 
     authorized_candidate_ids = sorted(
         cid for cid, candidate in candidates.items() if _authorized(cid, candidate)
@@ -226,8 +244,20 @@ def _retrieve(case_context: dict[str, Any], *, use_frozen_bundles: bool) -> dict
         else:
             excluded.append(record)
 
-    accepted = matched[:MAX_ASSOCIATIONS_PER_CASE]
-    capped_out = [{"candidate_id": item["candidate_id"], "reason_codes": ["MAX_ASSOCIATIONS_PER_CASE_EXCEEDED"]} for item in matched[MAX_ASSOCIATIONS_PER_CASE:]]
+    if use_frozen_bundles:
+        accepted = matched[:MAX_ASSOCIATIONS_PER_CASE]
+        capped = matched[MAX_ASSOCIATIONS_PER_CASE:]
+    else:
+        accepted, capped = [], []
+        family_counts: dict[str, int] = {}
+        for item in matched:
+            family = classify_relation_family(candidates[item["candidate_id"]])
+            if family_counts.get(family, 0) < MAX_ASSOCIATIONS_PER_FAMILY:
+                accepted.append(item)
+                family_counts[family] = family_counts.get(family, 0) + 1
+            else:
+                capped.append(item)
+    capped_out = [{"candidate_id": item["candidate_id"], "reason_codes": ["RELATION_FAMILY_CAP_EXCEEDED"]} for item in capped]
 
     associations = []
     for item in accepted:
@@ -250,4 +280,14 @@ def _retrieve(case_context: dict[str, Any], *, use_frozen_bundles: bool) -> dict
         "associations": associations,
         "excluded_candidates": excluded + capped_out,
         "no_match": len(associations) == 0,
+        "retrieval_summary": {
+            "matched_total": len(matched),
+            "selected_total": len(associations),
+            "cap_per_family": None if use_frozen_bundles else MAX_ASSOCIATIONS_PER_FAMILY,
+            "historical_global_cap": MAX_ASSOCIATIONS_PER_CASE if use_frozen_bundles else None,
+            "selected_by_family": {
+                family: sum(1 for item in associations if item["relation_family"] == family)
+                for family in sorted({item["relation_family"] for item in associations})
+            },
+        },
     }

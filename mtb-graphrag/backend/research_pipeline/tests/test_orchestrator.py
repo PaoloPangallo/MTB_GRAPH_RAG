@@ -143,12 +143,12 @@ class RoleAttributionTest(OrchestratorTestBase):
 class NarrationStagesTest(OrchestratorTestBase):
     """Gli stage 14-15 sono eseguiti e restano una vista di presentazione."""
 
-    def test_narration_stages_are_executed_not_skipped(self) -> None:
+    def test_narration_stages_are_skipped_without_an_explicit_optional_narrator(self) -> None:
         run = self.run_case("CASE-1-therapy-evaluation-strong-match")
         by_id = {s.stage_id: s for s in run.stages}
 
         for stage_id in ("stage_14_narrator", "stage_15_narrative_verifier"):
-            self.assertNotEqual(by_id[stage_id].status, "SKIPPED")
+            self.assertEqual(by_id[stage_id].status, "SKIPPED")
 
     def test_canonical_dossier_is_built_before_narration(self) -> None:
         """L'ordine e' il contratto: il dossier esiste prima del Narrator."""
@@ -172,9 +172,7 @@ class NarrationStagesTest(OrchestratorTestBase):
 
         self.assertEqual(by_id["stage_13_dossier"].status, "SUCCEEDED")
         self.assertTrue(dossier["candidate_therapies"])
-        verification = by_id["stage_15_narrative_verifier"].output_preview
-        self.assertEqual(verification["presentation_mode"], "STRUCTURED_DOSSIER_FALLBACK")
-        self.assertIsNone(verification["verified_narrative"])
+        self.assertEqual(by_id["stage_15_narrative_verifier"].status, "SKIPPED")
 
     def test_no_event_vocabulary_entry_is_unemittable(self) -> None:
         self.assertEqual(ev.NEVER_EMITTED, frozenset())

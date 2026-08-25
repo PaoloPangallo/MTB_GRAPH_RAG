@@ -7,6 +7,7 @@ from backend.research_pipeline.retrieval import kg_retrieval
 from backend.research_pipeline.retrieval.relation_family import (
     CLINICAL_TRIAL,
     KG_ONLY,
+    INVALID_PROVENANCE,
     PAPER_EVIDENCE,
     classify_relation_family,
 )
@@ -91,8 +92,9 @@ def test_source_type_does_not_create_document_provenance():
 
 
 def test_pmid_and_nct_are_rejected_explicitly():
-    with pytest.raises(ValueError, match="both PMID and NCT"):
-        classify_relation_family({"document_identifiers": [{"pmid": "1", "nct": "NCT1"}]})
+    assert classify_relation_family(
+        {"document_identifiers": [{"pmid": "1", "nct": "NCT1"}]}
+    ) == INVALID_PROVENANCE
 
 
 def test_live_retrieval_admits_real_kg_only_without_identifier(monkeypatch, real_examples):

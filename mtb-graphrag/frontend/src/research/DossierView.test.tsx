@@ -41,6 +41,22 @@ const DOSSIER: Dossier = {
 };
 
 describe('DossierView', () => {
+  it('renders the canonical paper, trial and KG sections as the primary dossier', () => {
+    render(<DossierView dossier={{
+      run_status: 'COMPLETED',
+      case_summary: { disease: 'colorectal cancer', gene: 'KRAS', variant: 'G12D' },
+      paper_evidence: [{ candidate_id: 'GCA-P', relation: 'resistance', document_id: 'pmid:19223544', support_level: 'PARTIAL_SUPPORT', quote: 'KRAS mutations are resistant.', quote_source_unit_id: 'SU-1' }],
+      clinical_trials: [{ candidate_id: 'GCA-T', relation: 'trial_association', nct_id: 'NCT05176665', title: 'Structured trial', evidence_interpretation: 'TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE' }],
+      kg_only_relations: [{ candidate_id: 'GCA-K', relation: 'gene_drug_interaction', subject: { label: 'CYP2D6' }, object: { label: 'RACLOPRIDE' }, verification_status: 'KG_ONLY', document_provenance: 'NOT_AVAILABLE' }],
+      limitations: ['DOCUMENT_PROVENANCE_NOT_AVAILABLE'],
+    }} />);
+    expect(screen.getByText('Paper evidence')).toBeInTheDocument();
+    expect(screen.getByText('Clinical trials')).toBeInTheDocument();
+    expect(screen.getByText('Relazioni del Knowledge Graph')).toBeInTheDocument();
+    expect(screen.getByText('PARTIAL_SUPPORT')).toBeInTheDocument();
+    expect(screen.getByText(/non costituisce prova di efficacia/i)).toBeInTheDocument();
+  });
+
   it('tiene separate le tre sezioni', () => {
     render(<DossierView dossier={DOSSIER} />);
 

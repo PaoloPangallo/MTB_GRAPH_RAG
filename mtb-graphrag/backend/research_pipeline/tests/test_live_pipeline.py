@@ -274,24 +274,24 @@ class LiveProviderWiringTest(TestCase):
         """
         seen: dict = {}
 
-        def fake(case_id, candidate_id, paper_id, case_context, summary, drug, units, run_index=0):
+        def fake(case_id, candidate_id, paper_id, case_context, summary, units, run_index=0):
             seen.update(case_id=case_id, candidate_id=candidate_id, paper_id=paper_id,
-                        drug=drug, units=units)
-            return {"transport_result": "V2_TRANSPORT_VALID", "enrichment": None}
+                        units=units)
+            return {"transport_result": "V3_TRANSPORT_VALID", "enrichment": None}
 
         budget = CallBudget(5)
-        with mock.patch("backend.research_pipeline.enrichment.enricher_v2.call_enricher_v2", fake):
+        with mock.patch("backend.research_pipeline.enrichment.enricher_v3.call_enricher_v3", fake):
             live_providers.enricher_fn(budget, "CASE-A", "GCA-1", "EB-1", {}, {}, "drugX", [{"a": 1}])
 
         self.assertEqual(seen["case_id"], "CASE-A")
         self.assertEqual(seen["candidate_id"], "GCA-1")
         self.assertEqual(seen["paper_id"], "EB-1")
-        self.assertEqual(seen["drug"], "drugX")
+        self.assertEqual(seen["units"], [{"a": 1}])
 
     def test_every_live_call_spends_the_budget(self) -> None:
         budget = CallBudget(2)
-        with mock.patch("backend.research_pipeline.enrichment.enricher_v2.call_enricher_v2",
-                        return_value={"transport_result": "V2_TRANSPORT_VALID", "enrichment": None}):
+        with mock.patch("backend.research_pipeline.enrichment.enricher_v3.call_enricher_v3",
+                        return_value={"transport_result": "V3_TRANSPORT_VALID", "enrichment": None}):
             live_providers.enricher_fn(budget, "C", "G", "P", {}, {}, "d", [])
             live_providers.enricher_fn(budget, "C", "G", "P", {}, {}, "d", [])
             self.assertEqual(budget.used, 2)
@@ -300,7 +300,7 @@ class LiveProviderWiringTest(TestCase):
 
     def test_a_provider_failure_becomes_a_live_stage_failure(self) -> None:
         """Non un'astensione: la differenza fra "si è astenuto" e "non ho chiamato"."""
-        with mock.patch("backend.research_pipeline.enrichment.enricher_v2.call_enricher_v2",
+        with mock.patch("backend.research_pipeline.enrichment.enricher_v3.call_enricher_v3",
                         side_effect=ConnectionError("refused")):
             with self.assertRaises(live_providers.LiveStageFailed) as caught:
                 live_providers.enricher_fn(CallBudget(2), "C", "G", "P", {}, {}, "d", [])

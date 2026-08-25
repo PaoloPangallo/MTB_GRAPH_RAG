@@ -144,7 +144,11 @@ class RetrievalTests(unittest.TestCase):
         self.assertIn("GCA-0031c17c5ff5ae29ff221b1e", [a["candidate_id"] for a in result["associations"]])
 
     def test_fabricated_gene_yields_no_match(self):
-        cc = _valid_case_context(biomarkers=[{"gene": "ZZTK9", "alteration": "P44R", "raw_value": "ZZTK9 P44R", "normalized_value": "zztk9 p44r", "source_spans": []}])
+        cc = _valid_case_context(
+            query_intent="THERAPY_DISCOVERY",
+            target_intervention=None,
+            biomarkers=[{"gene": "ZZTK9", "alteration": "P44R", "raw_value": "ZZTK9 P44R", "normalized_value": "zztk9 p44r", "source_spans": []}],
+        )
         result = retrieval.retrieve(cc)
         self.assertTrue(result["no_match"])
         self.assertEqual(result["associations"], [])
@@ -327,14 +331,15 @@ class BudgetAndNoUnnecessaryCallTests(unittest.TestCase):
         self.assertEqual(trace["stopped_at"], "CASECONTEXT_MISMATCH")
 
     def test_enricher_never_called_on_no_match(self):
-        text = "Patient with colorectal cancer, research panel found ZZTK9 P44R, considering panitumumab."
+        text = "Patient with colorectal cancer, research panel found ZZTK9 P44R; identify relevant evidence."
 
         def fake_parser(budget, case_id, text):
             budget.spend("casecontext_parser", case_id)
             cc = _valid_case_context(
                 disease={"raw_value": "colorectal cancer", "normalized_value": "colorectal cancer", "source_spans": [{"quote": "colorectal cancer", "start_offset": None, "end_offset": None}]},
                 biomarkers=[{"gene": "ZZTK9", "alteration": "P44R", "raw_value": "ZZTK9 P44R", "normalized_value": "zztk9 p44r", "source_spans": [{"quote": "ZZTK9 P44R", "start_offset": None, "end_offset": None}]}],
-                target_intervention={"raw_value": "panitumumab", "normalized_value": "panitumumab", "source_spans": [{"quote": "panitumumab", "start_offset": None, "end_offset": None}]},
+                query_intent="THERAPY_DISCOVERY",
+                target_intervention=None,
             )
             return {"case_id": case_id, "transport_result": "FORCED_TOOL_VALID", "case_context_raw": cc}
 

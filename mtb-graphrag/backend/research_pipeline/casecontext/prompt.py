@@ -1,11 +1,11 @@
-"""Prompt and tool schema for the minimal CaseContext Parser v2."""
+"""Prompt and tool schema for the canonical minimal CaseContext Parser."""
 from __future__ import annotations
 
 import hashlib
 import json
 from typing import Any
 
-PROMPT_VERSION = "casecontext-parser-prompt/2.0"
+PROMPT_VERSION = "casecontext-parser-prompt/3.0"
 TOOL_NAME = "submit_case_context"
 
 _VALUE_SCHEMA = {
@@ -51,6 +51,7 @@ CASECONTEXT_TOOL_SCHEMA = {
             "type": ["string", "null"],
             "enum": ["THERAPY_EVALUATION", "THERAPY_DISCOVERY", None],
         },
+        "ambiguities": {"type": "array", "items": {"type": "string"}},
     },
 }
 
@@ -63,9 +64,9 @@ CASECONTEXT_TOOL_DEFINITION = {
     },
 }
 
-SYSTEM_PROMPT = """You are a clinical case context extraction component. Read only the supplied free clinical text. Do not use external knowledge, do not query any database, do not know or guess what the correct or expected answer is. Extract only disease, biomarkers (gene and alteration), previous interventions, and a specific target intervention when the text names one. For every extracted value, copy a literal, contiguous, exact quotation from the supplied text. If a value is not present, use null or an empty list. Do not invent a drug, gene, alteration, disease, or molecular variant. Suggest query_intent as THERAPY_EVALUATION when the text clearly evaluates a named therapy, THERAPY_DISCOVERY when it clearly asks for therapy options without a target therapy, and null when the intent is unclear. Do not produce clinical recommendations. Call submit_case_context exactly once."""
+SYSTEM_PROMPT = """You extract structured facts from the supplied clinical text. Do not infer facts that are not explicitly written and do not use external knowledge. Never invent disease, gene, alteration, drug, treatment status, or clinical status. Preserve specificity: a gene is not a specific variant, and KRAS is not KRAS G12D. Distinguish previous treatment from a treatment currently being evaluated. If a value is absent, return null or an empty list. If wording is ambiguous, add a short ambiguity flag instead of completing it by intuition. Do not propose or recommend therapy. Every populated clinical value must include one literal contiguous quote from the input. Return only JSON through submit_case_context exactly once."""
 
-TASK_PROMPT = """Populate only the fields in the tool schema. For disease and target_intervention, never return a bare string. When present, return an object containing raw_value and an exact literal quote from the clinical text. Return raw values and exact quotes; do not return offsets, normalized values, case_id, clinical_question, uncertainties, or schema_version. Null and empty lists are valid when the text does not contain the information."""
+TASK_PROMPT = """Populate only the tool schema. Disease, gene, alteration, previous interventions and target intervention must be copied from the text, never inferred. Use query_intent only when the question is explicit. Use ambiguities for unresolved wording. Do not produce prose or recommendations."""
 
 
 def prompt_hash() -> str:
@@ -97,7 +98,8 @@ def tool_argument_errors(arguments: Any) -> list[str]:
     if not isinstance(arguments, dict):
         return ["ARGUMENTS_NOT_OBJECT"]
     expected = set(CASECONTEXT_TOOL_SCHEMA["properties"])
-    if set(arguments) != expected:
+    required = set(CASECONTEXT_TOOL_SCHEMA["required"])
+    if not required <= set(arguments) or not set(arguments) <= expected:
         return [f"TOP_LEVEL_KEYS:{sorted(set(arguments) ^ expected)}"]
 
     errors = _value_errors(arguments["disease"], "DISEASE", nullable=True, required_strings=False)
@@ -122,4 +124,9 @@ def tool_argument_errors(arguments: Any) -> list[str]:
     errors.extend(_value_errors(arguments["target_intervention"], "TARGET_INTERVENTION", nullable=True, required_strings=True))
     if arguments["query_intent"] not in {None, "THERAPY_EVALUATION", "THERAPY_DISCOVERY"}:
         errors.append("QUERY_INTENT_INVALID")
+    if "ambiguities" in arguments and (
+        not isinstance(arguments["ambiguities"], list)
+        or any(not isinstance(item, str) for item in arguments["ambiguities"])
+    ):
+        errors.append("AMBIGUITIES_INVALID")
     return errors

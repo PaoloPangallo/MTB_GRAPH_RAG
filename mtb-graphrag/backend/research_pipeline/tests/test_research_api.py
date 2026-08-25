@@ -186,12 +186,18 @@ class RunLifecycleTest(ResearchApiTestBase):
         self.assertEqual(snapshot["status"], "STOPPED")
         self.assertIsNotNone(snapshot["stopped_at"])
 
-    def test_a_stopped_run_has_no_dossier_and_says_why(self) -> None:
+    def test_a_stopped_run_returns_a_clean_canonical_dossier(self) -> None:
         run_id = self.run_demo(STOPPED_CASE)
         response = self.client.get(f"{BASE}/runs/{run_id}/dossier")
 
-        self.assertEqual(response.status_code, 409)
-        self.assertIn("STOPPED", response.json()["detail"])
+        self.assertEqual(response.status_code, 200)
+        dossier = response.json()["dossier"]
+        self.assertIn(dossier["run_status"], {
+            "INSUFFICIENT_CASE_CONTEXT", "NEEDS_CLARIFICATION", "NO_RELEVANT_KG_EVIDENCE",
+        })
+        self.assertEqual([], dossier["paper_evidence"])
+        self.assertEqual([], dossier["clinical_trials"])
+        self.assertEqual([], dossier["kg_only_relations"])
 
     def test_unknown_run_is_404(self) -> None:
         self.assertEqual(self.client.get(f"{BASE}/runs/does-not-exist").status_code, 404)
@@ -417,14 +423,14 @@ class DossierContentTest(ResearchApiTestBase):
         run_id = self.run_demo()
         dossier = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()["dossier"]
 
-        self.assertIn("case_context", dossier)
-        self.assertIn("candidate_therapies", dossier)
-        self.assertIn("limitations", dossier)
+        for section in ("case_summary", "paper_evidence", "clinical_trials",
+                        "kg_only_relations", "limitations"):
+            self.assertIn(section, dossier)
 
     def test_each_candidate_separates_deterministic_evidence_from_author_context(self) -> None:
         run_id = self.run_demo()
-        dossier = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()["dossier"]
-        entry = dossier["candidate_therapies"][0]
+        response = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()
+        entry = response["legacy_dossier"]["candidate_therapies"][0]
 
         # Evidenza deterministica e contesto d'autore restano campi distinti:
         # l'author context non può essere scambiato per la claim.
@@ -434,8 +440,8 @@ class DossierContentTest(ResearchApiTestBase):
 
     def test_dossier_declares_that_gemma_never_decides(self) -> None:
         run_id = self.run_demo()
-        dossier = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()["dossier"]
-        provenance = dossier["provenance"]
+        response = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()
+        provenance = response["legacy_dossier"]["provenance"]
 
         self.assertEqual(provenance["gemma_role"], "paper_context_enricher_only")
         for decision in ("support_status", "direction", "gate", "score", "bucket"):
