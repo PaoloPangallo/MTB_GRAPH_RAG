@@ -177,6 +177,22 @@ def _case_summary(case_context: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _trial_result_fields(result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "title": result.get("title"),
+        "status": result.get("status") or result.get("overall_status") or result.get("recruitment_status"),
+        "phase": result.get("phase") or result.get("phases"),
+        "conditions": result.get("conditions") or [],
+        "interventions": result.get("interventions") or [],
+        "biomarker_gene": result.get("biomarker_gene"),
+        "source": result.get("source") or "ClinicalTrials.gov",
+        "provenance_status": result.get("provenance_status") or (
+            "TRIAL_RECORD_RESOLVED" if result else "NOT_EVALUATED"
+        ),
+        "eligibility_status": result.get("eligibility_status") or "NOT_EVALUATED",
+    }
+
+
 def build_relation_aware_report(
     case_context: dict[str, Any],
     candidates: list[dict[str, Any]],
@@ -220,16 +236,14 @@ def build_relation_aware_report(
                 limitations.add("PAPER_SUPPORT_NOT_EVALUATED")
         elif family == CLINICAL_TRIAL:
             result = _candidate_result(trial_results, candidate_id)
+            trial_fields = _trial_result_fields(result)
             nct_id = next((item.get("nct") for item in candidate.get("document_identifiers") or [] if item.get("nct")), None)
             clinical_trials.append({
                 **common,
                 "nct_id": nct_id,
-                "title": result.get("title"),
-                "status": result.get("status"),
-                "phase": result.get("phase"),
-                "conditions": result.get("conditions"),
-                "interventions": result.get("interventions") or _labels(candidate.get("interventions")),
-                "biomarker_gene": result.get("biomarker_gene") or _labels(candidate.get("biomarkers")),
+                **trial_fields,
+                "interventions": trial_fields["interventions"] or _labels(candidate.get("interventions")),
+                "biomarker_gene": trial_fields["biomarker_gene"] or _labels(candidate.get("biomarkers")),
                 "evidence_interpretation": "TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE",
             })
             limitations.add("TRIAL_ASSOCIATION_IS_NOT_EFFICACY_EVIDENCE")
