@@ -248,11 +248,24 @@ def build_relation_aware_report(
             })
             limitations.add("TRIAL_ASSOCIATION_IS_NOT_EFFICACY_EVIDENCE")
         else:
+            graph_provenance = {
+                "node_ids": candidate.get("node_ids") or [],
+                "edge_ids": candidate.get("edge_ids") or [],
+                "graph_path": candidate.get("graph_path") or [],
+                "materialization_rule_id": candidate.get("materialization_rule_id"),
+            }
+            properties = candidate.get("source_properties") or {}
+            source_database = (
+                properties.get("evidence", {}).get("source_type")
+                or properties.get("interaction", {}).get("source_db")
+                or properties.get("diagnostic", {}).get("source_db")
+                or "KG"
+            )
             kg_only_relations.append({
                 **common,
                 "document_id": None,
-                "graph_provenance": candidate.get("source_properties") or candidate.get("materialization_rule_id"),
-                "source_database": candidate.get("source_properties", {}).get("evidence", {}).get("source_type") or "KG",
+                "graph_provenance": graph_provenance,
+                "source_database": source_database,
                 "verification_status": "KG_ONLY",
                 "document_provenance": "NOT_AVAILABLE",
             })

@@ -135,7 +135,10 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
     reasons: list[str] = []
     case_disease = _norm((case_context.get("disease") or {}).get("normalized_value") or (case_context.get("disease") or {}).get("raw_value"))
     candidate_disease = _labels(candidate.get("disease") or [])
-    disease_ok = bool(case_disease) and any(case_disease in cd or cd in case_disease for cd in candidate_disease)
+    relation_family = classify_relation_family(candidate)
+    disease_ok = (
+        relation_family == "KG_ONLY" and not candidate_disease
+    ) or (bool(case_disease) and any(case_disease in cd or cd in case_disease for cd in candidate_disease))
     if not disease_ok:
         reasons.append("DISEASE_NOT_COMPATIBLE")
 
