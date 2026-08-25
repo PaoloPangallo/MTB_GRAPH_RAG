@@ -221,14 +221,20 @@ def evaluate(
         return decide(MISSING_REQUIRED_FIELDS, ["MINIMUM_FIELDS_NOT_SATISFIED"],
                       missing=missing, warnings=warnings)
 
-    if intent not in {"THERAPY_EVALUATION", "THERAPY_DISCOVERY"}:
+    if intent is None:
+        warnings.append("QUERY_INTENT_NOT_DETERMINED")
+    elif intent not in {"THERAPY_EVALUATION", "THERAPY_DISCOVERY"}:
         return decide(AMBIGUOUS_CASE_CONTEXT, ["QUERY_INTENT_NOT_DETERMINED"], warnings=warnings)
     if intent == "THERAPY_DISCOVERY" and target:
         return decide(AMBIGUOUS_CASE_CONTEXT, ["INTENT_TARGET_INCONSISTENT"], warnings=warnings)
 
     reasons = ["ONCOLOGY_ANCHOR_VERIFIED", "MINIMUM_FIELDS_SATISFIED"]
-    reasons.append("INTERVENTION_REQUIRED" if intent == "THERAPY_EVALUATION"
-                   else "INTERVENTION_NOT_APPLICABLE")
+    if intent == "THERAPY_EVALUATION":
+        reasons.append("INTERVENTION_REQUIRED")
+    elif intent == "THERAPY_DISCOVERY":
+        reasons.append("INTERVENTION_NOT_APPLICABLE")
+    else:
+        reasons.append("QUERY_INTENT_NOT_DETERMINED")
     if any(m.warnings for m in mentions if m.accepted_for_casecontext):
         warnings.append("UNCERTAIN_MENTION_ACCEPTED")
     if contradictions:

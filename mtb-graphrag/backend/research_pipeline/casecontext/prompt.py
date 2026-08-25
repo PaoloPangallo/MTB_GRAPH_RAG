@@ -5,7 +5,7 @@ import hashlib
 import json
 from typing import Any
 
-PROMPT_VERSION = "casecontext-parser-prompt/3.0"
+PROMPT_VERSION = "casecontext-parser-prompt/3.1"
 TOOL_NAME = "submit_case_context"
 
 _VALUE_SCHEMA = {
@@ -41,7 +41,14 @@ _BIOMARKER_SCHEMA = {
 CASECONTEXT_TOOL_SCHEMA = {
     "type": "object",
     "additionalProperties": False,
-    "required": ["disease", "biomarkers", "previous_interventions", "target_intervention", "query_intent"],
+    "required": [
+        "disease",
+        "biomarkers",
+        "previous_interventions",
+        "target_intervention",
+        "query_intent",
+        "clinical_question",
+    ],
     "properties": {
         "disease": _VALUE_SCHEMA,
         "biomarkers": {"type": "array", "items": _BIOMARKER_SCHEMA},
@@ -51,6 +58,7 @@ CASECONTEXT_TOOL_SCHEMA = {
             "type": ["string", "null"],
             "enum": ["THERAPY_EVALUATION", "THERAPY_DISCOVERY", None],
         },
+        "clinical_question": {"type": ["string", "null"]},
         "ambiguities": {"type": "array", "items": {"type": "string"}},
     },
 }
@@ -64,9 +72,9 @@ CASECONTEXT_TOOL_DEFINITION = {
     },
 }
 
-SYSTEM_PROMPT = """You extract structured facts from the supplied clinical text. Do not infer facts that are not explicitly written and do not use external knowledge. Never invent disease, gene, alteration, drug, treatment status, or clinical status. Preserve specificity: a gene is not a specific variant, and KRAS is not KRAS G12D. Distinguish previous treatment from a treatment currently being evaluated. If a value is absent, return null or an empty list. If wording is ambiguous, add a short ambiguity flag instead of completing it by intuition. Do not propose or recommend therapy. Every populated clinical value must include one literal contiguous quote from the input. Return only JSON through submit_case_context exactly once."""
+SYSTEM_PROMPT = """You extract structured facts from the supplied clinical text. Do not infer facts that are not explicitly written and do not use external knowledge. Never invent disease, gene, alteration, drug, treatment status, or clinical status. Preserve specificity: a gene is not a specific variant, and KRAS is not KRAS G12D. Preserve an explicitly mentioned gene even when no alteration is stated, including a gene mentioned in a gene-drug question. Distinguish previous treatment from a treatment currently being evaluated. If a value is absent, return null or an empty list. If wording is ambiguous, add a short ambiguity flag instead of completing it by intuition. Do not propose or recommend therapy. Every populated clinical value must include one literal contiguous quote from the input. Return only JSON through submit_case_context exactly once."""
 
-TASK_PROMPT = """Populate only the tool schema. Disease, gene, alteration, previous interventions and target intervention must be copied from the text, never inferred. Use query_intent only when the question is explicit. Use ambiguities for unresolved wording. Do not produce prose or recommendations."""
+TASK_PROMPT = """Populate only the tool schema. Disease, gene, alteration, previous interventions and target intervention must be copied from the text, never inferred. clinical_question is the original free-text clinical question when present, otherwise null. query_intent is an enum only: use THERAPY_EVALUATION only when an explicitly named therapy is being evaluated; use THERAPY_DISCOVERY only when the user asks for therapeutic options without naming a target therapy; otherwise use null. Never place free text, a paraphrase, or arbitrary words in query_intent. When uncertain, use query_intent null and preserve the wording only in clinical_question. Gene and alteration are separate: preserve an explicitly mentioned gene even without an alteration. Use ambiguities for unresolved wording. Do not produce prose or recommendations."""
 
 
 def prompt_hash() -> str:
@@ -124,6 +132,8 @@ def tool_argument_errors(arguments: Any) -> list[str]:
     errors.extend(_value_errors(arguments["target_intervention"], "TARGET_INTERVENTION", nullable=True, required_strings=True))
     if arguments["query_intent"] not in {None, "THERAPY_EVALUATION", "THERAPY_DISCOVERY"}:
         errors.append("QUERY_INTENT_INVALID")
+    if arguments["clinical_question"] is not None and not isinstance(arguments["clinical_question"], str):
+        errors.append("CLINICAL_QUESTION_INVALID")
     if "ambiguities" in arguments and (
         not isinstance(arguments["ambiguities"], list)
         or any(not isinstance(item, str) for item in arguments["ambiguities"])

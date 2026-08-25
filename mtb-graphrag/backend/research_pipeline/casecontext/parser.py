@@ -135,7 +135,7 @@ def adapt_case_context(case_id: str, parser_output: dict[str, Any], clinical_tex
         "previous_interventions": [_field(item, clinical_text) for item in parser_output.get("previous_interventions") or []],
         "target_intervention": _field(parser_output["target_intervention"], clinical_text) if parser_output.get("target_intervention") else None,
         "query_intent": parser_output.get("query_intent"),
-        "clinical_question": clinical_text,
+        "clinical_question": parser_output.get("clinical_question"),
         "uncertainties": list(parser_output.get("ambiguities") or []),
     }
 

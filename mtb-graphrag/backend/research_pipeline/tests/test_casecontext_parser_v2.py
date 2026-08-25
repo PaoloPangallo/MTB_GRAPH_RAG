@@ -13,6 +13,7 @@ def _minimal_output(**overrides):
         "previous_interventions": [],
         "target_intervention": None,
         "query_intent": None,
+        "clinical_question": None,
     }
     value.update(overrides)
     return value
@@ -26,6 +27,7 @@ def test_parser_v2_schema_accepts_absent_intent_and_omits_derived_fields():
         "previous_interventions",
         "target_intervention",
         "query_intent",
+        "clinical_question",
         "ambiguities",
     }
     assert prompt.tool_argument_errors(_minimal_output()) == []
@@ -58,7 +60,7 @@ def test_parser_v2_adapter_builds_legacy_context_and_offsets():
     }
     context = parser.adapt_case_context("case-1", value, text)
     assert context["case_id"] == "case-1"
-    assert context["clinical_question"] == text
+    assert context["clinical_question"] is None
     assert context["disease"]["source_spans"][0]["start_offset"] == 0
     assert context["target_intervention"]["source_spans"][0]["start_offset"] == text.index("panitumumab")
     assert context["biomarkers"][0]["gene"] == "KRAS"
@@ -263,7 +265,7 @@ def test_call_parser_logs_disease_scalar_normalization(monkeypatch):
     response = {
         "choices": [{
             "message": {"content": "", "tool_calls": [{
-                "function": {"name": prompt.TOOL_NAME, "arguments": '{"disease":"gastric cancer","biomarkers":[],"previous_interventions":[],"target_intervention":null,"query_intent":null}'},
+                "function": {"name": prompt.TOOL_NAME, "arguments": '{"disease":"gastric cancer","biomarkers":[],"previous_interventions":[],"target_intervention":null,"query_intent":null,"clinical_question":null}'},
             }]},
             "finish_reason": "tool_calls",
         }],
@@ -412,7 +414,7 @@ def test_valid_null_intent_does_not_retry(monkeypatch):
     assert result["retry_result"] is None
 
 
-def test_null_intent_reaches_software_gate_as_ambiguous():
+def test_null_intent_with_sufficient_anchors_reaches_retrieval():
     from backend.research_pipeline.eligibility import gate
     from backend.research_pipeline.casecontext.mentions import build_mentions
 
@@ -429,7 +431,8 @@ def test_null_intent_reaches_software_gate_as_ambiguous():
         text,
     )
     decision = gate.evaluate(text, context, build_mentions(context, text), [], [], transport_ok=True)
-    assert decision.eligibility_status == gate.AMBIGUOUS_CASE_CONTEXT
+    assert decision.eligibility_status == gate.ELIGIBLE_FOR_RETRIEVAL
+    assert "QUERY_INTENT_NOT_DETERMINED" in decision.warning_codes
 
 
 def test_therapy_evaluation_without_target_is_not_parser_error():

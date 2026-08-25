@@ -46,7 +46,7 @@ def _parser(case_context):
     return lambda budget, case_id, text: {
         "transport_result": "FORCED_TOOL_VALID",
         "model": "offline-parser",
-        "prompt_version": "casecontext-parser-prompt/3.0",
+        "prompt_version": "casecontext-parser-prompt/3.1",
         "case_context_raw": case_context,
     }
 
@@ -221,7 +221,7 @@ def test_canonical_report_exposes_run_retrieval_and_provenance_summaries():
 
 
 def test_parser_v3_prompt_forbids_inference_and_preserves_ambiguity():
-    assert case_prompt.PROMPT_VERSION == "casecontext-parser-prompt/3.0"
+    assert case_prompt.PROMPT_VERSION == "casecontext-parser-prompt/3.1"
     text = (case_prompt.SYSTEM_PROMPT + case_prompt.TASK_PROMPT).casefold()
     assert "do not infer" in text
     assert "ambigu" in text
