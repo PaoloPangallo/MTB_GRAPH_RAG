@@ -99,7 +99,16 @@ def _accepted_for_gates(
     inclusi — così un enrichment non validato non può in nessun caso influenzare
     status, mask, gate o bucket.
     """
-    if not isinstance(candidate_support, dict) or candidate_support.get("result") != "STRONG_SUPPORT":
+    # The relation-aware Reader v3 uses a distinct support vocabulary.  Its
+    # highest positive state is ``FULL_SUPPORT``; the legacy gate accepts the
+    # equivalent legacy state ``STRONG_SUPPORT``.  Adapt a shallow, ephemeral
+    # view here rather than mutating ``candidate_support``: that original object
+    # is later projected verbatim into the relation-aware dossier.
+    legacy_gate_support = dict(candidate_support) if isinstance(candidate_support, dict) else None
+    if legacy_gate_support is not None and legacy_gate_support.get("result") == "FULL_SUPPORT":
+        legacy_gate_support["result"] = "STRONG_SUPPORT"
+
+    if legacy_gate_support is None or legacy_gate_support.get("result") != "STRONG_SUPPORT":
         return None
     if outcome in _V1_ACCEPTED:
         return outcome

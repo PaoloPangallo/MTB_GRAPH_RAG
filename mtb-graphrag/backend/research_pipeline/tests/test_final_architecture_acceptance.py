@@ -4,6 +4,7 @@ from tempfile import TemporaryDirectory
 
 from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import orchestrator
+from backend.research_pipeline.determinism import gates as deterministic_gates
 from backend.research_pipeline.dossier.builder import build_relation_aware_report
 from backend.research_pipeline.enrichment.relation_support import assess_relation_support
 from backend.research_pipeline.enrichment import prompt_v3
@@ -170,6 +171,56 @@ def test_v3_reader_observation_is_projected_into_the_canonical_paper_entry():
     assert entry["quote"] == enrichment["quote"]
     assert entry["quote_source_unit_id"] == "SU-CASE1"
     assert entry["support_level"] == "PARTIAL_SUPPORT"
+
+
+def test_full_relation_support_is_admitted_by_legacy_gate_without_changing_report_vocabulary():
+    candidate = {
+        "candidate_id": "GCA-FULL-SUPPORT",
+        "disease": [{"label": "Lymphoid Leukemia"}],
+        "biomarkers": [
+            {"type": "Gene", "label": "JAK2"},
+            {"type": "Variant", "label": "V617F"},
+        ],
+        "interventions": [],
+        "direction": "SUPPORTS",
+        "evidence_scope": "DIAGNOSTIC",
+        "document_identifiers": [{"pmid": "12345678"}],
+    }
+    enrichment = {
+        "decision": "QUOTE", "source_unit_id": "SU-FULL",
+        "quote": "JAK2 V617F supports diagnosis of lymphoid leukemia.",
+        "observed_disease": "Lymphoid Leukemia", "observed_gene": "JAK2",
+        "observed_alteration": "V617F", "observed_drug": "",
+        "observed_direction": "SUPPORTS", "observed_evidence_type": "DIAGNOSTIC",
+    }
+    validation = validate_enrichment_v3(
+        "V3_TRANSPORT_VALID", enrichment, candidate=candidate,
+        paper_bundle={"document_id": "pmid:12345678", "resolved_source_unit_ids": ["SU-FULL"]},
+        source_units_by_id={"SU-FULL": {
+            "source_unit_id": "SU-FULL", "document_id": "pmid:12345678",
+            "text": enrichment["quote"],
+        }},
+    )
+    support = assess_relation_support(candidate, enrichment)
+
+    assert validation["outcome"] == "ENRICHMENT_V3_ACCEPTED"
+    assert support["result"] == "FULL_SUPPORT"
+    gate_outcome = orchestrator._accepted_for_gates(validation["outcome"], support)
+    assert gate_outcome == "ENRICHMENT_ACCEPTED"
+    assert support["result"] == "FULL_SUPPORT"
+    assert deterministic_gates.evaluate_association(
+        "THERAPY_EVALUATION", candidate,
+        [{"validation_outcome": gate_outcome, "enrichment": enrichment}],
+    )["status"] == "DIRECT"
+
+    report = build_relation_aware_report(_context(disease="Lymphoid Leukemia"), [candidate], paper_results={
+        candidate["candidate_id"]: {
+            "document_resolution_status": "RESOLVED", "selected_source_units": ["SU-FULL"],
+            "enrichment": enrichment, "validation": validation,
+            "quote_valid": True, "candidate_support": support,
+        },
+    })
+    assert report["paper_evidence"][0]["support_level"] == "FULL_SUPPORT"
 
 
 def test_diagnostic_and_prognostic_profiles_do_not_require_drug_or_therapeutic_direction():
