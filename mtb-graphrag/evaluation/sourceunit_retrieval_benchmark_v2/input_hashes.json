@@ -1,0 +1,31 @@
+{
+  "input_sha256": {
+    "candidate_inventory": "859608dce8fda6707f995930a9b5521fcad218a973de46c455993b544da2ba1b",
+    "gold_annotation_manifest": "28c01537e000be4d2ba206538e2649262ce9e8d702da28bb3f3822a5da90bf0d",
+    "gold_annotations": "d7c4dc142b87e18204c08eba874b4ac30a1ba1dab3d1de933a6a0e7ae4f86621",
+    "protocol": "436d1fc80b5f73004fbdb24c9fc72b71cb989abca1e45e1c744e74746bafbedb",
+    "s01_sourceunit_corpus": "83babfa59b0cf9cde320fe8fbdffd2d28c31b117d974bd4472c6015ee2a74f99",
+    "sealed_plan": "2ee7d6e0301ea4b8cc7753addf71dc29acc7ccc0936a4fca506823482d12bf80"
+  },
+  "invariants": {
+    "broad_negative_pairs": 10,
+    "broad_positive_pairs": 10,
+    "pair_count": 20,
+    "sourceunit_count": 1697,
+    "strict_positive_pairs": 9
+  },
+  "ranking_execution": "NOT_EXECUTED",
+  "rq2_protocol_version": "sourceunit-retrieval-benchmark/2.0",
+  "selector_identity": {
+    "bm25_b": 0.75,
+    "bm25_k1": 1.5,
+    "file_sha256": "b7817ea4b033a7f0857067aadd379de862d72e02e12ba4b5b0e8d583c175061c",
+    "functions": {
+      "BM25": "select_bm25",
+      "DETERMINISTIC_SELECTOR": "select",
+      "FIRST_K": "select_first_k"
+    },
+    "module": "backend.research_pipeline.experimental.sourceunit_selector",
+    "version": "deterministic-sourceunit-selector/1.0"
+  }
+}
