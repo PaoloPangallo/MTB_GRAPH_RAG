@@ -1,0 +1,51 @@
+{
+  "input_sha256": {
+    "annotation_manifest": "2536b27bf57862d6cd062e4f81a788a7994330fe1ae052c499622040a31f9bbb",
+    "benchmark_implementation": "0fd64a1f641928c58c4d9d4a7593bd64d223b53667281588096f97d72e8f382a",
+    "candidate_inventory": "bbb89212e0fc2b65722418f29e737c622f7dc0f21e95903c331e7c2d3aeb2c3e",
+    "dataset_manifest": "00f161909fddc9bd34576910a99a78d5d38d5f2033451790c18ad7a8145ae3f3",
+    "document_inventory": "441aaff62b1ea34e46efec1d8d823105023a387b06e22485d397e6f3dc773291",
+    "gold_annotations": "b99829a7241b211c39bc8880fa40b5926f65293afa933cec75e92bf5154ea20e",
+    "protocol": "9bb372793af8705a53711166d6a07cb39258b6c4f54e9534d931c91fa78fe75d",
+    "remediation_manifest": "d4543a87bb128afadbc25d251a1b581346f12fcaefe510efa2b10e0cd2b81d5b",
+    "replacement_selection_manifest": "1c509f17db88456b3a942953bb6afc6106e5839380e5066d0ba9f8ea5f4c461e",
+    "sealed_plan": "c125d687cd3b1dafd652437e18f9fcb34afdf764e8727ce9a63819e32c840de5",
+    "selector_production_file": "b7817ea4b033a7f0857067aadd379de862d72e02e12ba4b5b0e8d583c175061c",
+    "sourceunit_corpus": "1bb95a0e7b606faacea206fd1e1cee1f05088bb9d85775f91eebf19161e70d76"
+  },
+  "invariants": {
+    "broad_negative_pairs": 10,
+    "broad_positive_pairs": 10,
+    "label_counts": {
+      "CONTEXT_ONLY": 364,
+      "DIRECTLY_RELEVANT": 30,
+      "NOT_RELEVANT": 1261,
+      "PARTIALLY_RELEVANT": 51
+    },
+    "pair_count": 20,
+    "replacement_annotation_counts": {
+      "CONTEXT_ONLY": 9,
+      "DIRECTLY_RELEVANT": 3,
+      "NOT_RELEVANT": 0,
+      "PARTIALLY_RELEVANT": 2
+    },
+    "retained_gold_label_changes": 0,
+    "sourceunit_count": 1706,
+    "strict_positive_pairs": 9
+  },
+  "plan_deterministic": true,
+  "ranking_execution": "NOT_EXECUTED",
+  "rq2_protocol_version": "sourceunit-retrieval-benchmark/2.1",
+  "selector_identity": {
+    "bm25_b": 0.75,
+    "bm25_k1": 1.5,
+    "file_sha256": "b7817ea4b033a7f0857067aadd379de862d72e02e12ba4b5b0e8d583c175061c",
+    "functions": {
+      "BM25": "select_bm25",
+      "DETERMINISTIC_SELECTOR": "select",
+      "FIRST_K": "select_first_k"
+    },
+    "module": "backend.research_pipeline.experimental.sourceunit_selector",
+    "version": "deterministic-sourceunit-selector/1.0"
+  }
+}

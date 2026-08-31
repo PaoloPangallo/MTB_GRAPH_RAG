@@ -1,0 +1,22 @@
+{
+  "annotation_completed": true,
+  "annotation_input": "GCA fields + document text + SourceUnit text",
+  "annotation_method": "MANUAL_REVIEW",
+  "annotation_protocol_version": "independent_relevance_annotation_v2_with_manual_replacement_v2_1",
+  "bm25_output_visible_to_annotator": false,
+  "dataset_version": "SOURCEUNIT_SELECTOR_EXTERNAL_VALIDATION_20_V2",
+  "dual_annotation_claimed": false,
+  "first_k_output_visible_to_annotator": false,
+  "gold_annotation_hash": "b99829a7241b211c39bc8880fa40b5926f65293afa933cec75e92bf5154ea20e",
+  "inter_annotator_agreement_claimed": false,
+  "replacement_annotation_counts": {
+    "CONTEXT_ONLY": 9,
+    "DIRECTLY_RELEVANT": 3,
+    "PARTIALLY_RELEVANT": 2
+  },
+  "replacement_pair": "GCA-00e16c83d9144ac87139b7a3|pmid:15928335",
+  "replacement_selected_before_annotation": true,
+  "retained_annotation_source": "evaluation/sourceunit_selector_independent/gold_annotations.csv",
+  "retriever_output_visible_to_annotator": false,
+  "selector_output_visible_to_annotator": false
+}
