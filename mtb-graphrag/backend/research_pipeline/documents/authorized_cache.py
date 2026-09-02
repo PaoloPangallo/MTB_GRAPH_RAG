@@ -38,6 +38,29 @@ def file_hash(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def finalize_source_unit_occurrence_ids(
+    document_id: str,
+    units: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Assign deterministic, document-scoped identities to parser occurrences.
+
+    Parsers may legitimately emit identical text at distinct structural
+    occurrences.  Their content-derived IDs are therefore finalized only once
+    the complete canonical parser order is available.
+    """
+    finalized: list[dict[str, Any]] = []
+    for final_ordinal, source in enumerate(units):
+        unit = dict(source)
+        content = {key: value for key, value in unit.items()
+                   if key not in {"source_unit_id", "content_hash"}}
+        digest = stable_hash({"document_id": document_id,
+                              "final_ordinal": final_ordinal,
+                              "canonical_sourceunit_content": content})
+        unit["source_unit_id"] = f"SU-{digest[:24]}"
+        finalized.append(unit)
+    return finalized
+
+
 def cache_root_from_env() -> Path:
     return Path(os.environ.get("DOCUMENT_GROUNDING_CACHE", "data_cache/document_grounding"))
 
@@ -548,7 +571,7 @@ class AuthorizedDocumentCache:
                     unit = SourceUnit.from_document_text(document_id, "ABSTRACT", str(text), locator_confidence="STRUCTURAL")
                     unit.unit_type = unit_type
                     units.append(unit.to_dict())
-        return units
+        return finalize_source_unit_occurrence_ids(document_id, units)
 
 
 def attach_candidate_ids(records: list[dict[str, Any]], candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
