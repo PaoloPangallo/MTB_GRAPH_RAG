@@ -144,7 +144,7 @@ def test_case1_relation_support_preserves_variant_specificity():
     result = assess_relation_support(candidate, observed)
     assert result["fields"] == {
         "disease": "CONFIRMED", "gene": "CONFIRMED", "alteration": "NOT_CONFIRMED",
-        "drug": "CONFIRMED", "direction": "CONFIRMED", "evidence_type": "CONFIRMED",
+        "drug": "CONFIRMED", "direction": "CONFIRMED",
     }
     assert result["result"] == "PARTIAL_SUPPORT"
 
@@ -173,7 +173,7 @@ def test_v3_reader_observation_is_projected_into_the_canonical_paper_entry():
     assert entry["support_level"] == "PARTIAL_SUPPORT"
 
 
-def test_full_relation_support_is_admitted_by_legacy_gate_without_changing_report_vocabulary():
+def test_legacy_observation_is_readable_but_cannot_establish_full_support():
     candidate = {
         "candidate_id": "GCA-FULL-SUPPORT",
         "disease": [{"label": "Lymphoid Leukemia"}],
@@ -204,14 +204,10 @@ def test_full_relation_support_is_admitted_by_legacy_gate_without_changing_repor
     support = assess_relation_support(candidate, enrichment)
 
     assert validation["outcome"] == "ENRICHMENT_V3_ACCEPTED"
-    assert support["result"] == "FULL_SUPPORT"
+    assert support["result"] == "PARTIAL_SUPPORT"
     gate_outcome = orchestrator._accepted_for_gates(validation["outcome"], support)
-    assert gate_outcome == "ENRICHMENT_ACCEPTED"
-    assert support["result"] == "FULL_SUPPORT"
-    assert deterministic_gates.evaluate_association(
-        "THERAPY_EVALUATION", candidate,
-        [{"validation_outcome": gate_outcome, "enrichment": enrichment}],
-    )["status"] == "DIRECT"
+    assert gate_outcome is None
+    assert support["result"] == "PARTIAL_SUPPORT"
 
     report = build_relation_aware_report(_context(disease="Lymphoid Leukemia"), [candidate], paper_results={
         candidate["candidate_id"]: {
@@ -220,7 +216,7 @@ def test_full_relation_support_is_admitted_by_legacy_gate_without_changing_repor
             "quote_valid": True, "candidate_support": support,
         },
     })
-    assert report["paper_evidence"][0]["support_level"] == "FULL_SUPPORT"
+    assert report["paper_evidence"][0]["support_level"] == "PARTIAL_SUPPORT"
 
 
 def test_diagnostic_and_prognostic_profiles_do_not_require_drug_or_therapeutic_direction():
@@ -237,7 +233,7 @@ def test_diagnostic_and_prognostic_profiles_do_not_require_drug_or_therapeutic_d
             "observed_evidence_type": evidence_type,
         })
         assert result["fields"]["drug"] == "NOT_APPLICABLE"
-        assert result["result"] == "FULL_SUPPORT"
+        assert result["result"] == "PARTIAL_SUPPORT"
 
 
 def test_disease_context_alone_is_not_partial_relation_support():
@@ -281,11 +277,8 @@ def test_parser_v3_prompt_forbids_inference_and_preserves_ambiguity():
 
 def test_reader_v3_contract_describes_observations_not_support_labels():
     required = set(prompt_v3.TOOL_SCHEMA["required"])
-    assert {
-        "decision", "source_unit_id", "quote", "observed_disease", "observed_gene",
-        "observed_alteration", "observed_drug", "observed_direction",
-        "observed_evidence_type", "abstain_reason",
-    } <= required
+    assert {"decision", "source_unit_id", "quote", "observed_relation", "abstain_reason"} <= required
+    assert set(prompt_v3._LEGACY_FIELDS).isdisjoint(required)
     serialized = json.dumps(prompt_v3.TOOL_SCHEMA)
     assert "FULL_SUPPORT" not in serialized
     assert "PARTIAL_SUPPORT" not in serialized

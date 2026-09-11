@@ -4,7 +4,7 @@ from backend.research_pipeline.enrichment.validator_v3 import validate_enrichmen
 
 def test_v31_prompt_requires_quote_for_partial_or_opposite_literal_evidence():
     policy = prompt_v3.SYSTEM_PROMPT
-    assert prompt_v3.PROMPT_VERSION == "paper-context-enricher-prompt/3.2"
+    assert prompt_v3.PROMPT_VERSION == "paper-context-enricher-prompt/4.0"
     for phrase in (
         "generic gene evidence",
         "opposite direction",

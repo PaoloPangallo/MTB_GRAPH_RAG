@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 from typing import Any
 
-PROMPT_VERSION = "paper-context-enricher-prompt/3.2"
-TRANSPORT_VERSION = "paper-context-enrichment-transport/3.2"
+PROMPT_VERSION = "paper-context-enricher-prompt/4.0"
+TRANSPORT_VERSION = "paper-context-enrichment-transport/4.0"
 TOOL_NAME = "submit_paper_relation_observation"
 
 DIRECTIONS = (
@@ -17,21 +17,34 @@ EVIDENCE_TYPES = (
     "PREDICTIVE", "DIAGNOSTIC", "PROGNOSTIC", "PREDISPOSING", "FUNCTIONAL",
     "ONCOGENIC", "UNKNOWN", "NOT_APPLICABLE",
 )
+ABSTAIN_REASONS = (
+    "NO_RELEVANT_EVIDENCE", "INSUFFICIENT_RELATION", "MISSING_REQUIRED_ANCHOR",
+    "AMBIGUOUS_EVIDENCE", "COMPOSITION_UNCLEAR", "EVIDENCE_CONTEXT_UNCLEAR", "OTHER",
+)
 _FIELDS = (
-    "decision", "source_unit_id", "quote", "observed_disease", "observed_gene",
-    "observed_alteration", "observed_drug", "observed_direction",
-    "observed_evidence_type", "observed_relation", "notes", "abstain_reason",
+    "decision", "source_unit_id", "quote", "observed_relation", "notes", "abstain_reason",
+)
+_LEGACY_FIELDS = (
+    "observed_disease", "observed_gene", "observed_alteration", "observed_drug",
+    "observed_direction", "observed_evidence_type",
 )
 TOOL_SCHEMA = {
     "type": "object", "additionalProperties": False, "required": list(_FIELDS),
     "properties": {
         **{name: {"type": "string"} for name in _FIELDS if name != "observed_relation"},
-        "observed_relation": {"type": "object", "additionalProperties": False,
-            "required": ["subjects", "intervention", "effect_direction", "relation_scope", "evidence_scope", "evidence_context"],
+        **{name: {"type": "string"} for name in _LEGACY_FIELDS},
+        "observed_relation": {"type": ["object", "null"], "additionalProperties": False,
+            "required": ["disease", "subjects", "intervention", "observed_stance", "effect_direction", "relation_scope", "evidence_scope", "evidence_context"],
             "properties": {
+                "disease": {"type": ["string", "null"]},
                 "subjects": {"type": "array", "items": {"type": "object", "additionalProperties": False,
-                    "required": ["type", "value"], "properties": {"type": {"type": "string"}, "value": {"type": "string"}}}},
+                    "required": ["type", "surface_value"], "properties": {
+                        "type": {"type": "string", "enum": ["GENE", "ALTERATION", "BIOMARKER", "OTHER"]},
+                        "surface_value": {"type": "string"},
+                        "linked_gene": {"type": ["string", "null"]},
+                    }}},
                 "intervention": {"type": ["string", "null"]},
+                "observed_stance": {"type": "string", "enum": ["SUPPORTS", "DOES_NOT_SUPPORT", "UNKNOWN", "NOT_APPLICABLE"]},
                 "effect_direction": {"type": "string", "enum": list(DIRECTIONS)},
                 "relation_scope": {"type": "string", "enum": ["SINGLE", "COEXPRESSION", "COMBINATION", "CONDITIONAL", "UNKNOWN"]},
                 "evidence_scope": {"type": "string", "enum": list(EVIDENCE_TYPES)},
@@ -64,19 +77,25 @@ eligibility, invent a source, or complete missing entities.
 
 Choose QUOTE whenever at least one relevant observed field is explicitly stated in a supplied
 SourceUnit. The quote must be one exact contiguous substring from exactly one supplied SourceUnit.
-Populate only fields observed in that quote; use empty strings for unobserved fields. Missing or
-mismatched GCA fields are not a reason to ABSTAIN. This includes generic gene evidence when a
-specific variant is challenged, an opposite direction, a different intervention, and disease-only
-context. ABSTAIN only if no supplied SourceUnit contains any relevant statement or no literal quote
-can be produced. If decision is ABSTAIN, source_unit_id, quote, and every observed field must be
-empty. Gene support is not variant support: a generic mutation statement does not confirm a specific
-variant. Absence of a variant is not DOES_NOT_SUPPORT. A trial mention is not efficacy evidence.
+Populate only fields observed in that quote. `observed_relation` is the only canonical observation:
+for QUOTE it contains disease (or null), every necessary typed subject using its literal
+`surface_value`, intervention (or null), observed_stance, effect_direction, relation_scope, and
+evidence_context. Missing or mismatched GCA fields are not a reason to ABSTAIN. This includes generic gene evidence when a specific variant is challenged, an opposite direction, a different intervention,
+and disease-only context. ABSTAIN only if no supplied SourceUnit contains any relevant statement or no
+literal quote can be produced. If decision is ABSTAIN, source_unit_id and quote must be empty,
+observed_relation must be null, and abstain_reason must be populated. Gene support is not variant
+support: a generic mutation statement does not confirm a specific variant. Absence of a variant is
+not DOES_NOT_SUPPORT. A trial mention is not efficacy evidence.
 
 Examples: for KRAS G12D and "KRAS mutations were associated with resistance", QUOTE that sentence,
 set observed_gene=KRAS and leave observed_alteration empty. For challenged sensitivity and a source
-stating resistance, QUOTE and set observed_direction=RESISTANCE. Populate observed_relation with every subject that necessarily participates in the quoted proposition; use COEXPRESSION, COMBINATION, or CONDITIONAL when applicable and UNKNOWN when unclear. Populate evidence_context.subject_level and claim_type from the quote (for example, one patient with a response is INDIVIDUAL + OBSERVED_RESPONSE, not a predictive association). Do not decide whether the relation matches the GCA or whether it is FULL_SUPPORT. For challenged Drug A and a source
-stating Drug B, QUOTE and set observed_drug=Drug B. For a disease-only statement, QUOTE and populate
-only observed_disease. Return exactly one tool call."""
+stating resistance, QUOTE and set effect_direction=RESISTANCE. `observed_stance` describes whether
+the source supports or does not support a relation; it is never a therapeutic effect. Stance and
+clinical effect are distinct: SUPPORTS plus RESISTANCE is not a contradiction. Use COEXPRESSION,
+COMBINATION, or CONDITIONAL when applicable and UNKNOWN when unclear. Populate
+evidence_context.subject_level and claim_type from the quote (for example, one patient with a response
+is INDIVIDUAL + OBSERVED_RESPONSE, not a predictive association). Do not decide whether the relation
+matches the GCA or whether it is FULL_SUPPORT. Return exactly one tool call."""
 
 
 def render_request(case_context: dict[str, Any], candidate: dict[str, Any], paper_id: str,

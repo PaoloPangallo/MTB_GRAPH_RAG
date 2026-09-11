@@ -9,6 +9,7 @@ from typing import Any
 
 from . import prompt_v3 as prompt
 from . import transport as tr
+from .canonical_normalizer import normalize_observed_relation
 
 
 def _transport(status: int | None, response: dict | None, error: str | None):
@@ -24,12 +25,36 @@ def _transport(status: int | None, response: dict | None, error: str | None):
         return "INVALID_TOOL_ARGUMENTS", None, ["ARGUMENTS_NOT_JSON"]
     required = set(prompt.TOOL_SCHEMA["required"])
     if not isinstance(args, dict) or not required.issubset(args) or any(
-            not isinstance(args[k], (str, dict)) for k in required):
+            not isinstance(args[k], (str, dict))
+            and not (k == "observed_relation" and args[k] is None)
+            for k in required):
         return "INVALID_TOOL_ARGUMENTS", None, ["ARGUMENT_SHAPE_INVALID"]
     if args["decision"] not in {"QUOTE", "ABSTAIN"} \
-            or args["observed_direction"] not in prompt.DIRECTIONS \
-            or args["observed_evidence_type"] not in prompt.EVIDENCE_TYPES:
+            or args.get("observed_direction", "UNKNOWN") not in prompt.DIRECTIONS \
+            or args.get("observed_evidence_type", "UNKNOWN") not in prompt.EVIDENCE_TYPES:
         return "INVALID_TOOL_ARGUMENTS", None, ["ENUM_VALUE_INVALID"]
+    if args["decision"] == "ABSTAIN" and args.get("abstain_reason") not in prompt.ABSTAIN_REASONS:
+        return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_REASON_INVALID"]
+    relation = args.get("observed_relation")
+    if args["decision"] == "QUOTE" and not isinstance(relation, dict):
+        return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_REQUIRED_FOR_QUOTE"]
+    if args["decision"] == "ABSTAIN" and relation is not None:
+        return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_PRESENT_DESPITE_ABSTAIN"]
+    if isinstance(relation, dict):
+        if not isinstance(relation.get("subjects"), list) or any(not isinstance(item, dict) for item in relation["subjects"]):
+            return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_SUBJECTS_INVALID"]
+        args["observed_relation"] = normalize_observed_relation(relation)
+        # Legacy fields are compatibility telemetry derived from the canonical
+        # relation; they are never accepted as an independent source of truth.
+        subjects = args["observed_relation"].get("subjects") or []
+        args.update({
+            "observed_disease": args["observed_relation"].get("disease") or "",
+            "observed_gene": next((item["surface_value"] for item in subjects if item.get("type") == "GENE"), ""),
+            "observed_alteration": next((item["surface_value"] for item in subjects if item.get("type") == "ALTERATION"), ""),
+            "observed_drug": args["observed_relation"].get("intervention") or "",
+            "observed_direction": args["observed_relation"].get("effect_direction") or "UNKNOWN",
+            "observed_evidence_type": args["observed_relation"].get("evidence_scope") or "UNKNOWN",
+        })
     return "V3_TRANSPORT_VALID", {
         k: value.strip() if isinstance(value, str) else value for k, value in args.items()
     }, []

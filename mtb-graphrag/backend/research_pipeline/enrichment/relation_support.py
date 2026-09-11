@@ -8,6 +8,9 @@ from typing import Any
 from backend.research_pipeline.determinism.direction_semantics import (
     compare_relation_axes, derive_expected_effect, derive_source_stance,
 )
+from .canonical_normalizer import entity_relation
+
+VERIFIER_POLICY_VERSION = "paper-relation-verifier/4.0"
 
 CONFIRMED = "CONFIRMED"
 NOT_CONFIRMED = "NOT_CONFIRMED"
@@ -33,24 +36,42 @@ def _labels(candidate: dict[str, Any], key: str, types: set[str] | None = None) 
     ]
 
 
-def _matches(expected: list[str], observed: Any) -> str:
+def _matches(expected: list[str], observed: Any, *, allow_hierarchy: bool = False) -> str:
     if not expected:
         return NOT_APPLICABLE
-    actual = _norm(observed)
-    if not actual or actual in {"unknown", "not applicable"}:
+    values = observed if isinstance(observed, list) else [observed]
+    if not any(_norm(value) for value in values):
         return NOT_CONFIRMED
-    return CONFIRMED if any(_norm(value) in actual or actual in _norm(value) for value in expected) else NOT_CONFIRMED
+    allowed = {"IDENTICAL", "CANONICAL_ALIAS"}
+    if allow_hierarchy:
+        allowed.update({"SOURCE_BROADER", "SOURCE_NARROWER"})
+    return CONFIRMED if any(entity_relation(value, actual) in allowed
+                            for value in expected for actual in values) else NOT_CONFIRMED
 
 
-def _direction(candidate: dict[str, Any], observed: Any) -> str:
+def _relation_values(observed: dict[str, Any], kind: str) -> list[str]:
+    has_canonical_relation = "observed_relation" in observed and observed.get("observed_relation") is not None
+    relation = observed.get("observed_relation") or {}
+    if kind == "disease":
+        return [relation.get("disease")] if has_canonical_relation else [observed.get("observed_disease")]
+    if kind == "drug":
+        return [relation.get("intervention")] if has_canonical_relation else [observed.get("observed_drug")]
+    types = {"gene": {"GENE"}, "alteration": {"ALTERATION"}, "biomarker": {"GENE", "ALTERATION", "BIOMARKER"}}[kind]
+    values = [item.get("canonical_value") or item.get("surface_value") or item.get("value")
+              for item in relation.get("subjects") or []
+              if isinstance(item, dict) and str(item.get("type") or "").upper() in types]
+    if has_canonical_relation:
+        return values
+    return [observed.get({"gene": "observed_gene", "alteration": "observed_alteration"}.get(kind, ""))]
+
+
+def _direction(candidate: dict[str, Any], observed: Any, observed_stance: Any = None) -> str:
     expected_stance = derive_source_stance(candidate)
     expected_effect = derive_expected_effect(candidate)
     if expected_stance == "UNKNOWN" and expected_effect == "UNKNOWN" and not _norm(candidate.get("direction")):
         return NOT_APPLICABLE
-    if not _norm(observed) or _norm(observed) in {"unknown", "not applicable"}:
-        return NOT_CONFIRMED
     comparison = compare_relation_axes(
-        candidate.get("predicate"), expected_stance, expected_effect, observed,
+        candidate.get("predicate"), expected_stance, expected_effect, observed, observed_stance,
     )
     if comparison == "CONSISTENT":
         return CONFIRMED
@@ -66,7 +87,8 @@ def _composition_state(candidate: dict[str, Any], observed: dict[str, Any]) -> s
     scope = str(relation.get("relation_scope") or "UNKNOWN")
     subjects = relation.get("subjects") or []
     expected = [*_labels(candidate, "biomarkers", {"gene", "variant", "alteration"})]
-    values = {_norm(item.get("value")) for item in subjects if isinstance(item, dict)}
+    values = {_norm(item.get("canonical_value") or item.get("surface_value") or item.get("value"))
+              for item in subjects if isinstance(item, dict)}
     expected_values = {_norm(value) for value in expected}
     if scope == "UNKNOWN":
         return "UNKNOWN"
@@ -103,17 +125,20 @@ def assess_relation_support(candidate: dict[str, Any], observed: dict[str, Any])
     if observed.get("decision") != "QUOTE":
         return {"fields": {}, "result": UNVERIFIABLE, "reason": "READER_ABSTAINED"}
 
-    evidence_scope = candidate.get("evidence_scope") or candidate.get("diagnostic_scope")
     fields = {
-        "disease": _matches(_labels(candidate, "disease"), observed.get("observed_disease")),
-        "gene": _matches(_labels(candidate, "biomarkers", {"gene"}), observed.get("observed_gene")),
+        "disease": _matches(_labels(candidate, "disease"), _relation_values(observed, "disease"), allow_hierarchy=True),
+        "gene": _matches(_labels(candidate, "biomarkers", {"gene"}), _relation_values(observed, "gene")),
         "alteration": _matches(
             _labels(candidate, "biomarkers", {"variant", "alteration"}),
-            observed.get("observed_alteration"),
+            _relation_values(observed, "alteration"),
         ),
-        "drug": _matches(_labels(candidate, "interventions"), observed.get("observed_drug")),
-        "direction": _direction(candidate, observed.get("observed_direction")),
-        "evidence_type": _matches([str(evidence_scope)] if evidence_scope else [], observed.get("observed_evidence_type")),
+        "drug": _matches(_labels(candidate, "interventions"), _relation_values(observed, "drug")),
+        "direction": _direction(
+            candidate,
+            ((observed.get("observed_relation") or {}).get("effect_direction")
+             if observed.get("observed_relation") is not None else observed.get("observed_direction")),
+            (observed.get("observed_relation") or {}).get("observed_stance"),
+        ),
     }
     composition = _composition_state(candidate, observed)
     if composition in {"COMPOSITE_MISMATCH", "DIFFERENT"}:
@@ -129,9 +154,11 @@ def assess_relation_support(candidate: dict[str, Any], observed: dict[str, Any])
         return {"fields": fields, "result": PARTIAL_SUPPORT,
                 "reason": "OBSERVED_RELATION_COMPOSITION_UNRESOLVED",
                 "relation_composition": composition}
+    if evidence_context == "EXACT":
+        fields["evidence_context"] = CONFIRMED
     applicable = [value for value in fields.values() if value != NOT_APPLICABLE]
-    core_names = ("gene", "alteration", "drug", "direction", "evidence_type")
-    core = [fields[name] for name in core_names if fields[name] != NOT_APPLICABLE]
+    core_names = ("gene", "alteration", "drug", "direction", "evidence_context")
+    core = [fields[name] for name in core_names if fields.get(name, NOT_APPLICABLE) != NOT_APPLICABLE]
     if CONTRADICTORY in applicable:
         overall, reason = CONTRADICTORY, "SOURCE_CONTRADICTS_REQUIRED_RELATION_FIELD"
     elif not core:
@@ -142,4 +169,6 @@ def assess_relation_support(candidate: dict[str, Any], observed: dict[str, Any])
         overall, reason = PARTIAL_SUPPORT, "RELATION_CORE_PRESENT_WITH_MISSING_SPECIFICITY"
     else:
         overall, reason = NO_SUPPORT, "RELATION_CORE_NOT_CONFIRMED"
+    if observed.get("observed_relation") is None and overall == FULL_SUPPORT:
+        overall, reason = PARTIAL_SUPPORT, "LEGACY_OBSERVATION_CANNOT_ESTABLISH_FULL_SUPPORT"
     return {"fields": fields, "result": overall, "reason": reason}

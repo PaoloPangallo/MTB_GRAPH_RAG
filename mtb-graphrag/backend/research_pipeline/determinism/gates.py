@@ -182,14 +182,14 @@ def candidate_direction_consistency(candidate: dict[str, Any], evidence_kind: st
     Ogni consumatore che decida sul **supporto** deve usare questa funzione o
     ``evaluate_association``.
     """
-    if evidence_kind in {"RESISTANCE", "SENSITIVITY_RESPONSE", "RESPONSE"}:
-        result = compare_relation_axes(
-            candidate.get("predicate"), derive_source_stance(candidate),
-            derive_expected_effect(candidate), evidence_kind,
-        )
-        return {"CONSISTENT": "CONSISTENT", "CONFLICTING": "CONFLICTING"}.get(result, "UNRELATED")
-    return direction_consistency(candidate.get("direction"), evidence_kind,
-                                 source_polarity_value=candidate_source_polarity(candidate))
+    # PAPER support semantics have one owner: direction_semantics.  The legacy
+    # two-field helper remains for non-PAPER compatibility only and must not be
+    # reached through this candidate-aware entry point.
+    result = compare_relation_axes(
+        candidate.get("predicate"), derive_source_stance(candidate),
+        derive_expected_effect(candidate), evidence_kind,
+    )
+    return {"CONSISTENT": "CONSISTENT", "CONFLICTING": "CONFLICTING"}.get(result, "UNRELATED")
 
 
 def structured_direction_consistency(candidate: dict[str, Any]) -> str:

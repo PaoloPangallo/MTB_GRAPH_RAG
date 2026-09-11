@@ -6,6 +6,7 @@ reimplement selector, Reader, validation, or relation-support behavior.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from contextlib import contextmanager
 from pathlib import Path
@@ -14,11 +15,15 @@ from typing import Any, Iterator
 from backend.research_pipeline.experimental.sourceunit_selector import SourceUnitSelectionInput, select
 from backend.research_pipeline.enrichment.enricher_v3 import call_enricher_v3
 from backend.research_pipeline.enrichment.relation_support import assess_relation_support
-from backend.research_pipeline.enrichment.validator_v3 import validate_enrichment_v3
+from backend.research_pipeline.enrichment.relation_support import VERIFIER_POLICY_VERSION
+from backend.research_pipeline.enrichment.validator_v3 import VALIDATOR_VERSION, validate_enrichment_v3
+from backend.research_pipeline.enrichment.prompt_v3 import PROMPT_VERSION, TRANSPORT_VERSION
+from backend.research_pipeline.enrichment.canonical_normalizer import ALIAS_TABLE_VERSION, NORMALIZER_VERSION
 
 ROOT = Path(__file__).parent
-RESULTS = ROOT / "results_postfix_relation_aware_v1"
+RESULTS = ROOT / "results_runtime_v4_paired_200"
 VALIDATED_FOR_RELATION_SUPPORT = frozenset({"ENRICHMENT_V3_ACCEPTED"})
+EVIDENCE_CONTEXT_POLICY_VERSION = "paper-evidence-context/1.0"
 
 
 def relation_support_allowed(validation: dict[str, Any]) -> bool:
@@ -40,6 +45,32 @@ def target_rows() -> list[dict[str, Any]]:
 
 def output_path(condition: str) -> Path:
     return RESULTS / f"rq3_{condition}_predictions_clean.jsonl"
+
+
+def runtime_identity() -> dict[str, str]:
+    return {
+        "prompt_version": PROMPT_VERSION,
+        "transport_version": TRANSPORT_VERSION,
+        "normalizer_version": NORMALIZER_VERSION,
+        "validator_version": VALIDATOR_VERSION,
+        "verifier_policy_version": VERIFIER_POLICY_VERSION,
+        "alias_table_version": ALIAS_TABLE_VERSION,
+        "evidence_context_policy_version": EVIDENCE_CONTEXT_POLICY_VERSION,
+    }
+
+
+def write_execution_manifest() -> None:
+    """Seal deterministic input identity before a paired run; no sample is regenerated."""
+    manifest = ROOT / "rq3_scoring_unit_manifest.jsonl"
+    units = ROOT / "sourceunits/sourceunits.jsonl"
+    payload = {
+        "benchmark_role": "FIXED_PAIRED_REGRESSION_DIAGNOSTIC_BENCHMARK",
+        "main_rows": len(target_rows()), "top_k": 5,
+        "runtime": runtime_identity(),
+        "scoring_manifest_sha256": hashlib.sha256(manifest.read_bytes()).hexdigest(),
+        "sourceunits_sha256": hashlib.sha256(units.read_bytes()).hexdigest(),
+    }
+    (RESULTS / "execution_manifest.json").write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
 def terminal_row(row: dict[str, Any]) -> bool:
@@ -89,6 +120,7 @@ def run_condition(condition: str) -> None:
     if condition not in {"full_pipeline", "gold_context"}:
         raise ValueError(condition)
     RESULTS.mkdir(parents=True, exist_ok=True)
+    write_execution_manifest()
     scoring = target_rows()
     authoritative_keys = {(row["candidate_id"], row["document_id"]) for row in scoring}
     refs = {row["candidate_id"]: row for row in jsonl_rows(ROOT / "annotation/main_reference_annotation_draft_v1.jsonl")}

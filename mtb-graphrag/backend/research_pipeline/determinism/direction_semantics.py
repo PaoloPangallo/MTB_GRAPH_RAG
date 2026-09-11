@@ -37,6 +37,18 @@ def normalize_observed_effect(value: Any) -> str:
     return aliases.get(key, UNKNOWN if key not in {"", "not applicable"} else NOT_APPLICABLE)
 
 
+def normalize_observed_stance(value: Any) -> str:
+    """Normalize only the evidence-stance axis; never map it to an effect."""
+    key = _norm(value)
+    aliases = {
+        "supports": SUPPORTS,
+        "does not support": DOES_NOT_SUPPORT,
+        "contradicts": CONTRADICTS,
+        "contradicts assertion": CONTRADICTS,
+    }
+    return aliases.get(key, UNKNOWN if key not in {"", "not applicable"} else NOT_APPLICABLE)
+
+
 def derive_source_stance(candidate: dict[str, Any]) -> str:
     evidence = (candidate.get("source_properties") or {}).get("evidence") or {}
     key = _norm(evidence.get("evidence_direction"))
@@ -73,18 +85,26 @@ def derive_expected_effect(candidate: dict[str, Any]) -> str:
 
 
 def compare_relation_axes(predicate: Any, expected_stance: str,
-                          expected_effect: str, observed_direction: Any) -> str:
+                          expected_effect: str, observed_direction: Any,
+                          observed_stance: Any = None) -> str:
     """Return CONSISTENT, CONFLICTING, or UNRELATED for the relevant axes."""
     raw = _norm(observed_direction)
     observed = normalize_observed_effect(observed_direction)
+    stance = normalize_observed_stance(observed_stance)
+    # Legacy payloads put stance labels in the overloaded direction field.
+    if stance in {UNKNOWN, NOT_APPLICABLE}:
+        stance = normalize_observed_stance(observed_direction)
     pred = _norm(predicate)
-    if not pred and raw == "supports":
-        return "CONSISTENT" if expected_stance == SUPPORTS else "CONFLICTING"
+    if not pred and stance not in {UNKNOWN, NOT_APPLICABLE}:
+        return "CONSISTENT" if expected_stance == stance else "CONFLICTING"
     if pred == "has evidence statement":
-        if raw == "supports":
-            return "CONSISTENT" if expected_stance == SUPPORTS else "CONFLICTING"
-        if raw in {"does not support", "contradicts", "contradicts assertion"}:
-            return "CONFLICTING" if expected_stance == SUPPORTS else "CONSISTENT"
+        if stance not in {UNKNOWN, NOT_APPLICABLE} and expected_stance not in {UNKNOWN, NOT_APPLICABLE}:
+            if stance != expected_stance:
+                return "CONFLICTING"
+            # A stance-only evidence statement can confirm stance, but a clinical
+            # effect is never inferred from that stance alone.
+            if expected_effect == UNKNOWN:
+                return "CONSISTENT"
     if observed in {UNKNOWN, NOT_APPLICABLE}:
         return "UNRELATED"
     if pred == "has evidence statement":
