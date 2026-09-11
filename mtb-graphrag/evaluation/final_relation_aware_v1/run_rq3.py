@@ -21,7 +21,7 @@ from backend.research_pipeline.enrichment.prompt_v3 import PROMPT_VERSION, TRANS
 from backend.research_pipeline.enrichment.canonical_normalizer import ALIAS_TABLE_VERSION, NORMALIZER_VERSION
 
 ROOT = Path(__file__).parent
-RESULTS = ROOT / "results_runtime_v4_paired_200"
+RESULTS = ROOT / "results_runtime_v4_1_paired_200"
 VALIDATED_FOR_RELATION_SUPPORT = frozenset({"ENRICHMENT_V3_ACCEPTED"})
 EVIDENCE_CONTEXT_POLICY_VERSION = "paper-evidence-context/1.0"
 
