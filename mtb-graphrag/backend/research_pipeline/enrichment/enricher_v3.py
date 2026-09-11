@@ -1,4 +1,4 @@
-"""Canonical Paper Reader caller for prompt/transport 3.0."""
+"""Canonical Paper Reader caller for prompt/transport 4.5."""
 
 from __future__ import annotations
 
@@ -7,30 +7,48 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
+from jsonschema import Draft7Validator
+
 from . import prompt_v3 as prompt
 from . import transport as tr
 from .canonical_normalizer import normalize_observed_relation
 
 
-def _normalize_wire_compatibility(args: dict[str, Any]) -> dict[str, Any]:
-    """Accept legacy wire spellings without changing the canonical semantics."""
-    for field in ("observed_direction", "observed_evidence_type"):
-        if args.get(field) is None:
-            args[field] = "UNKNOWN"
-    relation = args.get("observed_relation")
-    if isinstance(relation, dict):
-        subjects = []
-        type_map = {"gene": "GENE", "variant": "ALTERATION", "gene_variant": "ALTERATION",
-                    "alteration": "ALTERATION", "biomarker": "BIOMARKER", "other": "OTHER"}
-        for item in relation.get("subjects") or []:
-            if isinstance(item, dict):
-                item = dict(item)
-                if "surface_value" not in item and "value" in item:
-                    item["surface_value"] = item.pop("value")
-                item["type"] = type_map.get(str(item.get("type") or "").casefold(), item.get("type"))
-                subjects.append(item)
-        relation["subjects"] = subjects
-    return args
+def _build_observed_relation(args: dict[str, Any]) -> tuple[dict[str, Any] | None, list[str]]:
+    """Build the canonical relation from validated flat wire fields only."""
+    subjects = []
+    for index in range(1, 5):
+        subject_type = args.get(f"subject_{index}_type")
+        subject_value = args.get(f"subject_{index}_value")
+        linked_gene = args.get(f"subject_{index}_linked_gene")
+        # Empty strings are tolerated as omitted nullable fields, but a
+        # whitespace-only value is malformed and must not enter the
+        # canonical relation.
+        for value in (subject_type, subject_value, linked_gene):
+            if isinstance(value, str) and value != "" and not value.strip():
+                return None, ["SUBJECT_SLOT_INVALID"]
+        type_present = isinstance(subject_type, str) and bool(subject_type.strip())
+        value_present = isinstance(subject_value, str) and bool(subject_value.strip())
+        link_present = isinstance(linked_gene, str) and bool(linked_gene.strip())
+        if link_present and not (type_present and value_present):
+            return None, ["SUBJECT_SLOT_INVALID"]
+        if type_present != value_present:
+            return None, ["SUBJECT_SLOT_INVALID"]
+        if type_present:
+            subjects.append({"type": subject_type, "surface_value": subject_value,
+                             "linked_gene": linked_gene})
+    return {
+        "disease": args.get("disease"),
+        "subjects": subjects,
+        "intervention": args.get("intervention"),
+        "observed_stance": args.get("observed_stance") or "UNKNOWN",
+        "effect_direction": args.get("effect_direction") or "UNKNOWN",
+        "relation_scope": args.get("relation_scope") or "UNKNOWN",
+        "evidence_context": {
+            "subject_level": args.get("subject_level") or "UNKNOWN",
+            "claim_type": args.get("claim_type") or "UNKNOWN",
+        },
+    }, []
 
 
 def _transport(status: int | None, response: dict | None, error: str | None):
@@ -48,30 +66,41 @@ def _transport(status: int | None, response: dict | None, error: str | None):
     if not isinstance(args, dict) or not required.issubset(args) or any(
             not isinstance(args[k], (str, dict, type(None))) for k in required):
         return "INVALID_TOOL_ARGUMENTS", None, ["ARGUMENT_SHAPE_INVALID"]
-    args = _normalize_wire_compatibility(args)
-    if args["decision"] not in {"QUOTE", "ABSTAIN"} \
-            or args.get("observed_direction", "UNKNOWN") not in prompt.DIRECTIONS \
-            or args.get("observed_evidence_type", "UNKNOWN") not in prompt.EVIDENCE_TYPES:
-        return "INVALID_TOOL_ARGUMENTS", None, ["ENUM_VALUE_INVALID"]
-    if args["decision"] == "ABSTAIN" and args.get("abstain_reason") not in prompt.ABSTAIN_REASONS:
-        return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_REASON_INVALID"]
-    relation = args.get("observed_relation")
+    schema_errors = sorted(
+        Draft7Validator(prompt.TOOL_SCHEMA).iter_errors(args),
+        key=lambda item: list(item.path),
+    )
+    if schema_errors:
+        reasons = ["NESTED_SCHEMA_VALIDATION_FAILED"]
+        reasons.extend(
+            f"{'.'.join(str(part) for part in error.path) or '<root>'}: {error.message}"
+            for error in schema_errors[:5]
+        )
+        return "INVALID_TOOL_ARGUMENTS", None, reasons
     if args["decision"] == "QUOTE":
         if not isinstance(args.get("quote"), str) or not isinstance(args.get("source_unit_id"), str):
             return "INVALID_TOOL_ARGUMENTS", None, ["QUOTE_FIELDS_REQUIRED_FOR_QUOTE"]
-        if not isinstance(relation, dict):
-            return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_REQUIRED_FOR_QUOTE"]
+        if not args["quote"].strip() or not args["source_unit_id"].strip():
+            return "INVALID_TOOL_ARGUMENTS", None, ["QUOTE_FIELDS_REQUIRED_FOR_QUOTE"]
         if args.get("abstain_reason") is not None:
             return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_REASON_PRESENT_DESPITE_QUOTE"]
     if args["decision"] == "ABSTAIN":
-        if relation is not None or args.get("quote") is not None or args.get("source_unit_id") is not None:
+        semantic_fields = ("disease", "intervention", "observed_stance", "effect_direction",
+                           "relation_scope", "subject_level", "claim_type")
+        slot_fields = tuple(f"subject_{i}_{suffix}" for i in range(1, 5) for suffix in ("type", "value", "linked_gene"))
+        if args.get("quote") is not None or args.get("source_unit_id") is not None \
+                or any(args.get(field) is not None for field in (*semantic_fields, *slot_fields)):
             return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_FIELDS_PRESENT"]
         if args.get("abstain_reason") not in prompt.ABSTAIN_REASONS:
             return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_REASON_REQUIRED_FOR_ABSTAIN"]
-    if isinstance(relation, dict):
-        if not isinstance(relation.get("subjects"), list) or any(not isinstance(item, dict) for item in relation["subjects"]):
-            return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_SUBJECTS_INVALID"]
+    relation, relation_errors = _build_observed_relation(args) if args["decision"] == "QUOTE" else (None, [])
+    if relation_errors:
+        return "INVALID_TOOL_ARGUMENTS", None, relation_errors
+    if relation is not None:
         args["observed_relation"] = normalize_observed_relation(relation)
+    else:
+        args["observed_relation"] = None
+    if relation is not None:
         # Legacy fields are compatibility telemetry derived from the canonical
         # relation; they are never accepted as an independent source of truth.
         subjects = args["observed_relation"].get("subjects") or []
@@ -81,8 +110,19 @@ def _transport(status: int | None, response: dict | None, error: str | None):
             "observed_alteration": next((item["surface_value"] for item in subjects if item.get("type") == "ALTERATION"), ""),
             "observed_drug": args["observed_relation"].get("intervention") or "",
             "observed_direction": args["observed_relation"].get("effect_direction") or "UNKNOWN",
-            "observed_evidence_type": args["observed_relation"].get("evidence_scope") or "UNKNOWN",
+            "observed_evidence_type": {
+                "PREDICTIVE_ASSOCIATION": "PREDICTIVE",
+                "PROGNOSTIC_ASSOCIATION": "PROGNOSTIC",
+                "DIAGNOSTIC_ASSOCIATION": "DIAGNOSTIC",
+                "FUNCTIONAL_EFFECT": "FUNCTIONAL",
+            }.get(args["observed_relation"].get("evidence_context", {}).get("claim_type"), "UNKNOWN"),
         })
+    for field in ("source_unit_id", "quote", "disease", "intervention", "notes", "abstain_reason",
+                  "observed_stance", "effect_direction", "relation_scope", "subject_level", "claim_type"):
+        args.setdefault(field, None)
+    for index in range(1, 5):
+        for suffix in ("type", "value", "linked_gene"):
+            args.setdefault(f"subject_{index}_{suffix}", None)
     return "V3_TRANSPORT_VALID", {
         k: value.strip() if isinstance(value, str) else value for k, value in args.items()
     }, []

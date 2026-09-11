@@ -5,59 +5,53 @@ from __future__ import annotations
 import json
 from typing import Any
 
-PROMPT_VERSION = "paper-context-enricher-prompt/4.1"
-TRANSPORT_VERSION = "paper-context-enrichment-transport/4.1"
+PROMPT_VERSION = "paper-context-enricher-prompt/4.5"
+TRANSPORT_VERSION = "paper-context-enrichment-transport/4.5"
 TOOL_NAME = "submit_paper_relation_observation"
 
-DIRECTIONS = (
-    "SUPPORTS", "DOES_NOT_SUPPORT", "SENSITIVITY_RESPONSE", "RESISTANCE",
-    "REDUCED_SENSITIVITY", "ADVERSE_RESPONSE", "UNKNOWN", "NOT_APPLICABLE",
+STANCES = ("SUPPORTS", "DOES_NOT_SUPPORT", "UNKNOWN", "NOT_APPLICABLE")
+EFFECT_DIRECTIONS = (
+    "SENSITIVITY_RESPONSE", "RESISTANCE", "REDUCED_SENSITIVITY",
+    "ADVERSE_RESPONSE", "UNKNOWN", "NOT_APPLICABLE",
 )
 EVIDENCE_TYPES = (
     "PREDICTIVE", "DIAGNOSTIC", "PROGNOSTIC", "PREDISPOSING", "FUNCTIONAL",
     "ONCOGENIC", "UNKNOWN", "NOT_APPLICABLE",
 )
+RELATION_SCOPES = ("SINGLE", "COEXPRESSION", "COMBINATION", "CONDITIONAL", "UNKNOWN")
+SUBJECT_LEVELS = ("INDIVIDUAL", "COHORT", "POPULATION", "CELL_MODEL", "ANIMAL_MODEL", "OTHER", "UNKNOWN")
+CLAIM_TYPES = (
+    "OBSERVED_RESPONSE", "PREDICTIVE_ASSOCIATION", "PROGNOSTIC_ASSOCIATION",
+    "DIAGNOSTIC_ASSOCIATION", "FUNCTIONAL_EFFECT", "MECHANISTIC_EFFECT",
+    "ASSOCIATION", "OTHER", "UNKNOWN",
+)
 ABSTAIN_REASONS = (
     "NO_RELEVANT_EVIDENCE", "INSUFFICIENT_RELATION", "MISSING_REQUIRED_ANCHOR",
     "AMBIGUOUS_EVIDENCE", "COMPOSITION_UNCLEAR", "EVIDENCE_CONTEXT_UNCLEAR", "OTHER",
 )
-_FIELDS = (
-    "decision", "source_unit_id", "quote", "observed_relation", "notes", "abstain_reason",
-)
-_LEGACY_FIELDS = (
-    "observed_disease", "observed_gene", "observed_alteration", "observed_drug",
-    "observed_direction", "observed_evidence_type",
+SUBJECT_TYPES = ("GENE", "ALTERATION", "BIOMARKER", "OTHER")
+TOP_LEVEL_FIELDS = (
+    "decision", "source_unit_id", "quote", "disease", "intervention", "observed_stance",
+    "effect_direction", "relation_scope", "subject_level", "claim_type", "notes", "abstain_reason",
 )
 TOOL_SCHEMA = {
-    "type": "object", "additionalProperties": False, "required": list(_FIELDS),
+    "type": "object", "additionalProperties": False, "required": ["decision"],
     "properties": {
-        **{name: {"type": ["string", "null"]} for name in _FIELDS if name != "observed_relation"},
-        **{name: {"type": ["string", "null"]} for name in _LEGACY_FIELDS},
-        "observed_relation": {"type": ["object", "null"], "additionalProperties": False,
-            "required": ["disease", "subjects", "intervention", "observed_stance", "effect_direction", "relation_scope", "evidence_scope", "evidence_context"],
-            "properties": {
-                "disease": {"type": ["string", "null"]},
-                "subjects": {"type": "array", "items": {"type": "object", "additionalProperties": False,
-                    "required": ["type", "surface_value"], "properties": {
-                        "type": {"type": "string", "enum": ["GENE", "ALTERATION", "BIOMARKER", "OTHER"]},
-                        "surface_value": {"type": "string"},
-                        "linked_gene": {"type": ["string", "null"]},
-                    }}},
-                "intervention": {"type": ["string", "null"]},
-                "observed_stance": {"type": "string", "enum": ["SUPPORTS", "DOES_NOT_SUPPORT", "UNKNOWN", "NOT_APPLICABLE"]},
-                "effect_direction": {"type": "string", "enum": list(DIRECTIONS)},
-                "relation_scope": {"type": "string", "enum": ["SINGLE", "COEXPRESSION", "COMBINATION", "CONDITIONAL", "UNKNOWN"]},
-                "evidence_scope": {"type": "string", "enum": list(EVIDENCE_TYPES)},
-                "evidence_context": {"type": "object", "additionalProperties": False,
-                    "required": ["subject_level", "claim_type"],
-                    "properties": {
-                        "subject_level": {"type": "string", "enum": ["INDIVIDUAL", "COHORT", "POPULATION", "CELL_MODEL", "ANIMAL_MODEL", "OTHER", "UNKNOWN"]},
-                        "claim_type": {"type": "string", "enum": ["OBSERVED_RESPONSE", "PREDICTIVE_ASSOCIATION", "PROGNOSTIC_ASSOCIATION", "DIAGNOSTIC_ASSOCIATION", "FUNCTIONAL_EFFECT", "MECHANISTIC_EFFECT", "ASSOCIATION", "OTHER", "UNKNOWN"]},
-                    }},
-            }},
         "decision": {"type": "string", "enum": ["QUOTE", "ABSTAIN"]},
-        "observed_direction": {"type": "string", "enum": list(DIRECTIONS)},
-        "observed_evidence_type": {"type": "string", "enum": list(EVIDENCE_TYPES)},
+        "source_unit_id": {"type": ["string", "null"]},
+        "quote": {"type": ["string", "null"]},
+        "disease": {"type": ["string", "null"]},
+        "intervention": {"type": ["string", "null"]},
+        **{f"subject_{i}_type": {"type": ["string", "null"], "enum": [*SUBJECT_TYPES, None]} for i in range(1, 5)},
+        **{f"subject_{i}_value": {"type": ["string", "null"]} for i in range(1, 5)},
+        **{f"subject_{i}_linked_gene": {"type": ["string", "null"]} for i in range(1, 5)},
+        "observed_stance": {"type": ["string", "null"], "enum": [*STANCES, None]},
+        "effect_direction": {"type": ["string", "null"], "enum": [*EFFECT_DIRECTIONS, None]},
+        "relation_scope": {"type": ["string", "null"], "enum": [*RELATION_SCOPES, None]},
+        "subject_level": {"type": ["string", "null"], "enum": [*SUBJECT_LEVELS, None]},
+        "claim_type": {"type": ["string", "null"], "enum": [*CLAIM_TYPES, None]},
+        "notes": {"type": ["string", "null"]},
+        "abstain_reason": {"type": ["string", "null"], "enum": [*ABSTAIN_REASONS, None]},
     },
 }
 TOOL_DEFINITION = {
@@ -69,41 +63,40 @@ TOOL_DEFINITION = {
     },
 }
 
-SYSTEM_PROMPT = """You are an evidence extractor. Read biomedical SOURCE UNITS and report only what one
-supplied SourceUnit literally states that is relevant to the challenged GCA. Do not decide
-FULL_SUPPORT, PARTIAL_SUPPORT, NO_SUPPORT, CONTRADICTORY, or UNVERIFIABLE: deterministic relation
-support makes those decisions later. Use no external knowledge; never recommend therapy, decide
-eligibility, invent a source, or complete missing entities.
+SYSTEM_PROMPT = """You extract structured facts from exactly one quoted biomedical SourceUnit.
+Do not decide whether the challenged GCA is supported, and never decide FULL_SUPPORT,
+PARTIAL_SUPPORT, CONTRADICTORY, or UNVERIFIABLE. Use no external knowledge, do not invent
+missing entities, and use exactly the flat tool fields provided.
 
-Choose QUOTE whenever at least one relevant observed field is explicitly stated in a supplied
-SourceUnit. The quote must be one exact contiguous substring from exactly one supplied SourceUnit.
-Populate only fields observed in that quote. `observed_relation` is the only canonical observation:
-for QUOTE it contains disease (or null), every necessary typed subject using its literal
-`surface_value`, intervention (or null), observed_stance, effect_direction, relation_scope, and
-evidence_context. Missing or mismatched GCA fields are not a reason to ABSTAIN. This includes generic gene evidence when a specific variant is challenged, an opposite direction, a different intervention,
-and disease-only context. ABSTAIN only if no supplied SourceUnit contains any relevant statement or no
-literal quote can be produced. Every tool call must include all top-level fields, using null when a
-field is not applicable. If decision is ABSTAIN, quote, source_unit_id, and observed_relation must be
-null, and abstain_reason MUST contain exactly one enum value. If decision is QUOTE, quote and
-source_unit_id must be strings, observed_relation must be populated, and abstain_reason must be null.
-Gene support is not variant
-support: a generic mutation statement does not confirm a specific variant. Absence of a variant is
-not DOES_NOT_SUPPORT. A trial mention is not efficacy evidence.
+Choose QUOTE when one supplied SourceUnit contains a relevant literal statement. Choose ABSTAIN
+only when no relevant literal statement can be quoted. For QUOTE provide source_unit_id and an exact
+contiguous quote. Use subject_1 through subject_4 for molecular participants explicitly present in
+the quoted relation; each used slot needs both type and value, and participants must not be collapsed.
+Use null or omit absent entity fields and UNKNOWN (or omit) for uncertain semantic enums.
 
-Examples: for KRAS G12D and "KRAS mutations were associated with resistance", QUOTE that sentence,
-set observed_gene=KRAS and leave observed_alteration empty. For challenged sensitivity and a source
-stating resistance, QUOTE and set effect_direction=RESISTANCE. `observed_stance` describes whether
-the source supports or does not support a relation; it is never a therapeutic effect. Stance and
-clinical effect are distinct: SUPPORTS plus RESISTANCE is not a contradiction. Use COEXPRESSION,
-COMBINATION, or CONDITIONAL when applicable and UNKNOWN when unclear. Populate
-evidence_context.subject_level and claim_type from the quote (for example, one patient with a response
-is INDIVIDUAL + OBSERVED_RESPONSE, not a predictive association). Do not decide whether the relation
-matches the GCA or whether it is FULL_SUPPORT.
+observed_stance asks only whether the source supports the proposition: SUPPORTS, DOES_NOT_SUPPORT,
+UNKNOWN, NOT_APPLICABLE. effect_direction asks only for the explicit therapeutic effect:
+SENSITIVITY_RESPONSE, RESISTANCE, REDUCED_SENSITIVITY, ADVERSE_RESPONSE, UNKNOWN, NOT_APPLICABLE.
+relation_scope asks only how participants are composed: SINGLE, COEXPRESSION, COMBINATION, CONDITIONAL,
+UNKNOWN. claim_type asks what kind of claim is expressed: OBSERVED_RESPONSE, PREDICTIVE_ASSOCIATION,
+PROGNOSTIC_ASSOCIATION, DIAGNOSTIC_ASSOCIATION, FUNCTIONAL_EFFECT, MECHANISTIC_EFFECT, ASSOCIATION,
+OTHER, UNKNOWN. Never use a value from one enum in another; uncertain values must be UNKNOWN.
+subject_level is INDIVIDUAL, COHORT, POPULATION, CELL_MODEL, ANIMAL_MODEL, OTHER, or UNKNOWN.
+For ABSTAIN set abstain_reason to exactly one allowed enum and leave quote/source_unit_id null.
 
-Schematic QUOTE output: {"decision":"QUOTE","quote":"...","source_unit_id":"SU-...",
-"observed_relation":{...},"abstain_reason":null}.
-Schematic ABSTAIN output: {"decision":"ABSTAIN","quote":null,"source_unit_id":null,
-"observed_relation":null,"abstain_reason":"NO_RELEVANT_EVIDENCE"}.
+Examples:
+A: "In a cohort of patients, variant V was associated with improved response to drug X." →
+QUOTE, subject_1_type=ALTERATION, subject_1_value="variant V", intervention="drug X",
+observed_stance=SUPPORTS, effect_direction=SENSITIVITY_RESPONSE, relation_scope=SINGLE,
+subject_level=COHORT, claim_type=PREDICTIVE_ASSOCIATION.
+B: "One patient carrying variant V achieved a complete response to drug X." →
+subject_level=INDIVIDUAL, claim_type=OBSERVED_RESPONSE, effect_direction=SENSITIVITY_RESPONSE.
+Do not label this PREDICTIVE_ASSOCIATION solely because a response occurred.
+C: "Coexpression of EGFRvIII and PTEN sensitized cells to drug X." →
+subject_1_type=ALTERATION, subject_1_value="EGFRvIII", subject_2_type=GENE,
+subject_2_value="PTEN", intervention="drug X", relation_scope=COEXPRESSION,
+subject_level=CELL_MODEL, claim_type=FUNCTIONAL_EFFECT, effect_direction=SENSITIVITY_RESPONSE.
+D: no relevant relation → decision=ABSTAIN, abstain_reason=NO_RELEVANT_EVIDENCE.
 Return exactly one tool call."""
 
 
@@ -113,7 +106,11 @@ def render_request(case_context: dict[str, Any], candidate: dict[str, Any], pape
         "case_context": case_context,
         "candidate": candidate,
         "paper_id": paper_id,
-        "instruction": "Describe observed fields; empty string means not observed.",
+        "instruction": (
+            "Extract one flat paper observation using only the tool fields. Quote exactly one supplied "
+            "SourceUnit. Omit or use null for absent entity fields and use UNKNOWN for uncertain "
+            "semantic enums."
+        ),
     }
     units = [
         {"source_unit_id": unit.get("source_unit_id"), "document_id": unit.get("document_id"),
