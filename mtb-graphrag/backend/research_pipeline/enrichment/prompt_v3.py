@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 from typing import Any
 
-PROMPT_VERSION = "paper-context-enricher-prompt/4.0"
-TRANSPORT_VERSION = "paper-context-enrichment-transport/4.0"
+PROMPT_VERSION = "paper-context-enricher-prompt/4.1"
+TRANSPORT_VERSION = "paper-context-enrichment-transport/4.1"
 TOOL_NAME = "submit_paper_relation_observation"
 
 DIRECTIONS = (
@@ -31,8 +31,8 @@ _LEGACY_FIELDS = (
 TOOL_SCHEMA = {
     "type": "object", "additionalProperties": False, "required": list(_FIELDS),
     "properties": {
-        **{name: {"type": "string"} for name in _FIELDS if name != "observed_relation"},
-        **{name: {"type": "string"} for name in _LEGACY_FIELDS},
+        **{name: {"type": ["string", "null"]} for name in _FIELDS if name != "observed_relation"},
+        **{name: {"type": ["string", "null"]} for name in _LEGACY_FIELDS},
         "observed_relation": {"type": ["object", "null"], "additionalProperties": False,
             "required": ["disease", "subjects", "intervention", "observed_stance", "effect_direction", "relation_scope", "evidence_scope", "evidence_context"],
             "properties": {
@@ -82,8 +82,11 @@ for QUOTE it contains disease (or null), every necessary typed subject using its
 `surface_value`, intervention (or null), observed_stance, effect_direction, relation_scope, and
 evidence_context. Missing or mismatched GCA fields are not a reason to ABSTAIN. This includes generic gene evidence when a specific variant is challenged, an opposite direction, a different intervention,
 and disease-only context. ABSTAIN only if no supplied SourceUnit contains any relevant statement or no
-literal quote can be produced. If decision is ABSTAIN, source_unit_id and quote must be empty,
-observed_relation must be null, and abstain_reason must be populated. Gene support is not variant
+literal quote can be produced. Every tool call must include all top-level fields, using null when a
+field is not applicable. If decision is ABSTAIN, quote, source_unit_id, and observed_relation must be
+null, and abstain_reason MUST contain exactly one enum value. If decision is QUOTE, quote and
+source_unit_id must be strings, observed_relation must be populated, and abstain_reason must be null.
+Gene support is not variant
 support: a generic mutation statement does not confirm a specific variant. Absence of a variant is
 not DOES_NOT_SUPPORT. A trial mention is not efficacy evidence.
 
@@ -95,7 +98,13 @@ clinical effect are distinct: SUPPORTS plus RESISTANCE is not a contradiction. U
 COMBINATION, or CONDITIONAL when applicable and UNKNOWN when unclear. Populate
 evidence_context.subject_level and claim_type from the quote (for example, one patient with a response
 is INDIVIDUAL + OBSERVED_RESPONSE, not a predictive association). Do not decide whether the relation
-matches the GCA or whether it is FULL_SUPPORT. Return exactly one tool call."""
+matches the GCA or whether it is FULL_SUPPORT.
+
+Schematic QUOTE output: {"decision":"QUOTE","quote":"...","source_unit_id":"SU-...",
+"observed_relation":{...},"abstain_reason":null}.
+Schematic ABSTAIN output: {"decision":"ABSTAIN","quote":null,"source_unit_id":null,
+"observed_relation":null,"abstain_reason":"NO_RELEVANT_EVIDENCE"}.
+Return exactly one tool call."""
 
 
 def render_request(case_context: dict[str, Any], candidate: dict[str, Any], paper_id: str,

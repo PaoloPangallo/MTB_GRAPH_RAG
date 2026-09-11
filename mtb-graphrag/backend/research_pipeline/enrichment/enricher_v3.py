@@ -25,9 +25,7 @@ def _transport(status: int | None, response: dict | None, error: str | None):
         return "INVALID_TOOL_ARGUMENTS", None, ["ARGUMENTS_NOT_JSON"]
     required = set(prompt.TOOL_SCHEMA["required"])
     if not isinstance(args, dict) or not required.issubset(args) or any(
-            not isinstance(args[k], (str, dict))
-            and not (k == "observed_relation" and args[k] is None)
-            for k in required):
+            not isinstance(args[k], (str, dict, type(None))) for k in required):
         return "INVALID_TOOL_ARGUMENTS", None, ["ARGUMENT_SHAPE_INVALID"]
     if args["decision"] not in {"QUOTE", "ABSTAIN"} \
             or args.get("observed_direction", "UNKNOWN") not in prompt.DIRECTIONS \
@@ -36,10 +34,18 @@ def _transport(status: int | None, response: dict | None, error: str | None):
     if args["decision"] == "ABSTAIN" and args.get("abstain_reason") not in prompt.ABSTAIN_REASONS:
         return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_REASON_INVALID"]
     relation = args.get("observed_relation")
-    if args["decision"] == "QUOTE" and not isinstance(relation, dict):
-        return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_REQUIRED_FOR_QUOTE"]
-    if args["decision"] == "ABSTAIN" and relation is not None:
-        return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_PRESENT_DESPITE_ABSTAIN"]
+    if args["decision"] == "QUOTE":
+        if not isinstance(args.get("quote"), str) or not isinstance(args.get("source_unit_id"), str):
+            return "INVALID_TOOL_ARGUMENTS", None, ["QUOTE_FIELDS_REQUIRED_FOR_QUOTE"]
+        if not isinstance(relation, dict):
+            return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_REQUIRED_FOR_QUOTE"]
+        if args.get("abstain_reason") is not None:
+            return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_REASON_PRESENT_DESPITE_QUOTE"]
+    if args["decision"] == "ABSTAIN":
+        if relation is not None or args.get("quote") is not None or args.get("source_unit_id") is not None:
+            return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_FIELDS_PRESENT"]
+        if args.get("abstain_reason") not in prompt.ABSTAIN_REASONS:
+            return "INVALID_TOOL_ARGUMENTS", None, ["ABSTAIN_REASON_REQUIRED_FOR_ABSTAIN"]
     if isinstance(relation, dict):
         if not isinstance(relation.get("subjects"), list) or any(not isinstance(item, dict) for item in relation["subjects"]):
             return "INVALID_TOOL_ARGUMENTS", None, ["OBSERVED_RELATION_SUBJECTS_INVALID"]

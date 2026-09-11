@@ -1,6 +1,9 @@
+import json
+
 from backend.research_pipeline.determinism.direction_semantics import compare_relation_axes
 from backend.research_pipeline.enrichment.canonical_normalizer import entity_relation, normalize_anchor, subject_level_consistency
 from backend.research_pipeline.enrichment.prompt_v3 import PROMPT_VERSION, TRANSPORT_VERSION
+from backend.research_pipeline.enrichment.enricher_v3 import _transport
 
 
 def test_punctuation_variant_normalizes_without_collapsing_distinct_variant():
@@ -30,5 +33,44 @@ def test_explicit_stance_never_becomes_a_clinical_effect():
 
 
 def test_v4_versions_are_explicit():
-    assert PROMPT_VERSION == "paper-context-enricher-prompt/4.0"
-    assert TRANSPORT_VERSION == "paper-context-enrichment-transport/4.0"
+    assert PROMPT_VERSION == "paper-context-enricher-prompt/4.1"
+    assert TRANSPORT_VERSION == "paper-context-enrichment-transport/4.1"
+
+
+def _args(decision, **overrides):
+    args = {
+        "decision": decision, "source_unit_id": None, "quote": None,
+        "observed_relation": None, "notes": None, "abstain_reason": None,
+    }
+    args.update(overrides)
+    return args
+
+
+def test_transport_accepts_quote_with_canonical_relation_and_null_abstain_reason():
+    relation = {"disease": None, "subjects": [], "intervention": None,
+                "observed_stance": "SUPPORTS", "effect_direction": "UNKNOWN",
+                "relation_scope": "SINGLE", "evidence_scope": "UNKNOWN",
+                "evidence_context": {"subject_level": "UNKNOWN", "claim_type": "UNKNOWN"}}
+    outcome, parsed, reasons = _transport(200, {"choices": [{"message": {"tool_calls": [{
+        "function": {"name": "submit_paper_relation_observation", "arguments": json.dumps(_args(
+            "QUOTE", source_unit_id="SU-1", quote="literal", observed_relation=relation))}}]}}]}, None)
+    assert outcome == "V3_TRANSPORT_VALID"
+    assert parsed["observed_relation"]["subjects"] == []
+    assert reasons == []
+
+
+def test_transport_accepts_abstain_with_null_payload_and_reason():
+    outcome, parsed, reasons = _transport(200, {"choices": [{"message": {"tool_calls": [{
+        "function": {"name": "submit_paper_relation_observation", "arguments": json.dumps(
+            _args("ABSTAIN", abstain_reason="NO_RELEVANT_EVIDENCE"))}}]}}]}, None)
+    assert outcome == "V3_TRANSPORT_VALID"
+    assert parsed["observed_relation"] is None
+    assert reasons == []
+
+
+def test_transport_rejects_crossed_quote_and_abstain_fields():
+    outcome, _, reasons = _transport(200, {"choices": [{"message": {"tool_calls": [{
+        "function": {"name": "submit_paper_relation_observation", "arguments": json.dumps(
+            _args("QUOTE", source_unit_id="SU-1", quote="literal", abstain_reason="OTHER"))}}]}}]}, None)
+    assert outcome == "INVALID_TOOL_ARGUMENTS"
+    assert reasons == ["OBSERVED_RELATION_REQUIRED_FOR_QUOTE"]
