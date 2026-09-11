@@ -12,6 +12,10 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from .direction_semantics import (
+    compare_relation_axes, derive_expected_effect, derive_source_stance,
+)
+
 POSITIVE_EVIDENCE_KINDS = {"RESPONSE", "BENEFIT"}
 GATE_BUCKETS = ("PRIMARY_BUCKET", "WARNING_BUCKET", "REJECTED_BUCKET", "DISCOVERY_BUCKET")
 STATUS_VALUES = ("DIRECT", "PARTIAL", "AMBIGUOUS", "CONTRADICTED", "DISCOVERED", "NO_MATCH")
@@ -178,6 +182,12 @@ def candidate_direction_consistency(candidate: dict[str, Any], evidence_kind: st
     Ogni consumatore che decida sul **supporto** deve usare questa funzione o
     ``evaluate_association``.
     """
+    if evidence_kind in {"RESISTANCE", "SENSITIVITY_RESPONSE", "RESPONSE"}:
+        result = compare_relation_axes(
+            candidate.get("predicate"), derive_source_stance(candidate),
+            derive_expected_effect(candidate), evidence_kind,
+        )
+        return {"CONSISTENT": "CONSISTENT", "CONFLICTING": "CONFLICTING"}.get(result, "UNRELATED")
     return direction_consistency(candidate.get("direction"), evidence_kind,
                                  source_polarity_value=candidate_source_polarity(candidate))
 

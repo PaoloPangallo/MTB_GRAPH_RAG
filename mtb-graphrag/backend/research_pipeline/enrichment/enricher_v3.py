@@ -23,13 +23,16 @@ def _transport(status: int | None, response: dict | None, error: str | None):
     except (TypeError, ValueError):
         return "INVALID_TOOL_ARGUMENTS", None, ["ARGUMENTS_NOT_JSON"]
     required = set(prompt.TOOL_SCHEMA["required"])
-    if not isinstance(args, dict) or set(args) != required or any(not isinstance(args[k], str) for k in required):
+    if not isinstance(args, dict) or not required.issubset(args) or any(
+            not isinstance(args[k], (str, dict)) for k in required):
         return "INVALID_TOOL_ARGUMENTS", None, ["ARGUMENT_SHAPE_INVALID"]
     if args["decision"] not in {"QUOTE", "ABSTAIN"} \
             or args["observed_direction"] not in prompt.DIRECTIONS \
             or args["observed_evidence_type"] not in prompt.EVIDENCE_TYPES:
         return "INVALID_TOOL_ARGUMENTS", None, ["ENUM_VALUE_INVALID"]
-    return "V3_TRANSPORT_VALID", {k: value.strip() for k, value in args.items()}, []
+    return "V3_TRANSPORT_VALID", {
+        k: value.strip() if isinstance(value, str) else value for k, value in args.items()
+    }, []
 
 
 def call_enricher_v3(case_id: str, candidate_id: str, paper_id: str,
