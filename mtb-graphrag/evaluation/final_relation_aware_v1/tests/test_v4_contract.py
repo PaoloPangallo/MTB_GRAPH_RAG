@@ -74,3 +74,16 @@ def test_transport_rejects_crossed_quote_and_abstain_fields():
             _args("QUOTE", source_unit_id="SU-1", quote="literal", abstain_reason="OTHER"))}}]}}]}, None)
     assert outcome == "INVALID_TOOL_ARGUMENTS"
     assert reasons == ["OBSERVED_RELATION_REQUIRED_FOR_QUOTE"]
+
+
+def test_transport_accepts_legacy_wire_anchor_spelling_as_compatibility():
+    relation = {"disease": None, "subjects": [{"type": "gene_variant", "value": "PIK3CA E545K"}],
+                "intervention": None, "observed_stance": "SUPPORTS", "effect_direction": "UNKNOWN",
+                "relation_scope": "SINGLE", "evidence_scope": "UNKNOWN",
+                "evidence_context": {"subject_level": "UNKNOWN", "claim_type": "UNKNOWN"}}
+    outcome, parsed, _ = _transport(200, {"choices": [{"message": {"tool_calls": [{
+        "function": {"name": "submit_paper_relation_observation", "arguments": json.dumps(_args(
+            "QUOTE", source_unit_id="SU-1", quote="literal", observed_relation=relation))}}]}}]}, None)
+    assert outcome == "V3_TRANSPORT_VALID"
+    assert parsed["observed_relation"]["subjects"][0]["type"] == "ALTERATION"
+    assert parsed["observed_relation"]["subjects"][0]["surface_value"] == "PIK3CA E545K"

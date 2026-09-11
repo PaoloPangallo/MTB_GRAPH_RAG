@@ -12,6 +12,27 @@ from . import transport as tr
 from .canonical_normalizer import normalize_observed_relation
 
 
+def _normalize_wire_compatibility(args: dict[str, Any]) -> dict[str, Any]:
+    """Accept legacy wire spellings without changing the canonical semantics."""
+    for field in ("observed_direction", "observed_evidence_type"):
+        if args.get(field) is None:
+            args[field] = "UNKNOWN"
+    relation = args.get("observed_relation")
+    if isinstance(relation, dict):
+        subjects = []
+        type_map = {"gene": "GENE", "variant": "ALTERATION", "gene_variant": "ALTERATION",
+                    "alteration": "ALTERATION", "biomarker": "BIOMARKER", "other": "OTHER"}
+        for item in relation.get("subjects") or []:
+            if isinstance(item, dict):
+                item = dict(item)
+                if "surface_value" not in item and "value" in item:
+                    item["surface_value"] = item.pop("value")
+                item["type"] = type_map.get(str(item.get("type") or "").casefold(), item.get("type"))
+                subjects.append(item)
+        relation["subjects"] = subjects
+    return args
+
+
 def _transport(status: int | None, response: dict | None, error: str | None):
     if error or (status is not None and status >= 400):
         return "HTTP_ERROR", None, [error or f"HTTP_{status}"]
@@ -27,6 +48,7 @@ def _transport(status: int | None, response: dict | None, error: str | None):
     if not isinstance(args, dict) or not required.issubset(args) or any(
             not isinstance(args[k], (str, dict, type(None))) for k in required):
         return "INVALID_TOOL_ARGUMENTS", None, ["ARGUMENT_SHAPE_INVALID"]
+    args = _normalize_wire_compatibility(args)
     if args["decision"] not in {"QUOTE", "ABSTAIN"} \
             or args.get("observed_direction", "UNKNOWN") not in prompt.DIRECTIONS \
             or args.get("observed_evidence_type", "UNKNOWN") not in prompt.EVIDENCE_TYPES:
