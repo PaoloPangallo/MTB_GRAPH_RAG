@@ -2,7 +2,7 @@ import json
 
 from backend.research_pipeline.determinism.direction_semantics import compare_relation_axes
 from backend.research_pipeline.enrichment.canonical_normalizer import entity_relation, normalize_anchor, subject_level_consistency
-from backend.research_pipeline.enrichment.prompt_v3 import PROMPT_VERSION, TOOL_SCHEMA, TRANSPORT_VERSION
+from backend.research_pipeline.enrichment.prompt_v3 import PROMPT_VERSION, SYSTEM_PROMPT, TOOL_SCHEMA, TRANSPORT_VERSION
 from backend.research_pipeline.enrichment.enricher_v3 import _transport
 
 
@@ -33,8 +33,30 @@ def test_explicit_stance_never_becomes_a_clinical_effect():
 
 
 def test_v4_versions_are_explicit():
-    assert PROMPT_VERSION == "paper-context-enricher-prompt/4.5"
+    assert PROMPT_VERSION == "paper-context-enricher-prompt/4.8"
     assert TRANSPORT_VERSION == "paper-context-enrichment-transport/4.5"
+
+
+def test_prompt_preserves_explicit_gene_alteration_granularity_without_case_rules():
+    assert "Preserve explicitly stated genes and alterations as separate subjects." in SYSTEM_PROMPT
+    assert "If an alteration is explicitly linked to a gene in the source, use linked_gene." in SYSTEM_PROMPT
+    assert "Do not infer gene-alteration links from external knowledge." in SYSTEM_PROMPT
+    for benchmark_entity in ("PIK3CA", "PTEN", "FLT3", "FGFR3", "SMARCB1", "CEBPA", "E545K", "A391E"):
+        assert benchmark_entity not in SYSTEM_PROMPT
+
+
+def test_prompt_requires_gene_subject_when_linked_gene_is_explicit():
+    assert "linked_gene does not replace the GENE subject" in SYSTEM_PROMPT
+    assert "smallest textual span" in SYSTEM_PROMPT
+    assert "Do not strip explanatory words" not in SYSTEM_PROMPT
+
+
+def test_prompt_requires_atomic_alteration_spans_without_mechanical_shortcuts():
+    assert "Atomic alteration value" in SYSTEM_PROMPT
+    assert "minimal textual span" in SYSTEM_PROMPT
+    assert "Do not include an explicitly represented gene name inside ALTERATION" in SYSTEM_PROMPT
+    assert "do not invent ITD" in SYSTEM_PROMPT
+    assert "Do not use regex or mechanical splitting" in SYSTEM_PROMPT
 
 
 def _args(decision, **overrides):

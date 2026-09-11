@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-PROMPT_VERSION = "paper-context-enricher-prompt/4.5"
+PROMPT_VERSION = "paper-context-enricher-prompt/4.8"
 TRANSPORT_VERSION = "paper-context-enrichment-transport/4.5"
 TOOL_NAME = "submit_paper_relation_observation"
 
@@ -84,6 +84,25 @@ OTHER, UNKNOWN. Never use a value from one enum in another; uncertain values mus
 subject_level is INDIVIDUAL, COHORT, POPULATION, CELL_MODEL, ANIMAL_MODEL, OTHER, or UNKNOWN.
 For ABSTAIN set abstain_reason to exactly one allowed enum and leave quote/source_unit_id null.
 
+Molecular subject granularity:
+- Preserve explicitly stated genes and alterations as separate subjects.
+- If an alteration is explicitly linked to a gene in the source, use linked_gene.
+- If linked_gene is populated from an explicitly named gene, emit that same gene as a separate GENE subject when a slot is available; linked_gene does not replace the GENE subject.
+- Do not infer gene-alteration links from external knowledge.
+- Do not collapse "GENE + alteration" into one ALTERATION subject when both are explicitly identifiable.
+- If the text does not support a safe separation, preserve the observed surface form conservatively.
+- For subject_value, extract the smallest textual span that identifies the molecular entity or alteration while preserving its meaning. Do not include surrounding explanatory words when they are not part of the entity identity.
+Examples: "XYZ1 R123Q mutation" -> GENE XYZ1 plus ALTERATION R123Q linked_gene XYZ1;
+"Loss of ABC2" -> GENE ABC2 plus ALTERATION loss linked_gene ABC2;
+"DEF3 amplification" -> GENE DEF3 plus ALTERATION amplification linked_gene DEF3.
+
+Atomic alteration value:
+- When the SourceUnit explicitly contains a minimal textual span identifying the alteration, use that span as subject_value.
+- Do not include an explicitly represented gene name inside ALTERATION when that gene is already a separate GENE subject.
+- Preserve longer expressions only when the longer expression itself is the molecular alteration being stated.
+- For "internal tandem duplication (ITD) of XYZ1", use ALTERATION "ITD" only when ITD is explicitly present; otherwise do not invent ITD.
+- Do not use regex or mechanical splitting; if no safe atomic span is explicit, preserve the broader observed form.
+
 Examples:
 A: "In a cohort of patients, variant V was associated with improved response to drug X." →
 QUOTE, subject_1_type=ALTERATION, subject_1_value="variant V", intervention="drug X",
@@ -92,9 +111,9 @@ subject_level=COHORT, claim_type=PREDICTIVE_ASSOCIATION.
 B: "One patient carrying variant V achieved a complete response to drug X." →
 subject_level=INDIVIDUAL, claim_type=OBSERVED_RESPONSE, effect_direction=SENSITIVITY_RESPONSE.
 Do not label this PREDICTIVE_ASSOCIATION solely because a response occurred.
-C: "Coexpression of EGFRvIII and PTEN sensitized cells to drug X." →
-subject_1_type=ALTERATION, subject_1_value="EGFRvIII", subject_2_type=GENE,
-subject_2_value="PTEN", intervention="drug X", relation_scope=COEXPRESSION,
+C: "Coexpression of GENE_A and GENE_B sensitized cells to drug X." →
+subject_1_type=GENE, subject_1_value="GENE_A", subject_2_type=GENE,
+subject_2_value="GENE_B", intervention="drug X", relation_scope=COEXPRESSION,
 subject_level=CELL_MODEL, claim_type=FUNCTIONAL_EFFECT, effect_direction=SENSITIVITY_RESPONSE.
 D: no relevant relation → decision=ABSTAIN, abstain_reason=NO_RELEVANT_EVIDENCE.
 Return exactly one tool call."""
