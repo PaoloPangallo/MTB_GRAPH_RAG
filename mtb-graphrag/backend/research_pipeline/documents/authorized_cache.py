@@ -286,6 +286,72 @@ class AuthorizedDocumentCache:
         return found
 
     @staticmethod
+    def _cache_record_payload(
+        root: Path, record: dict[str, Any], *, require_hash: bool = False
+    ) -> Path | None:
+        """Return a validated local payload path, or ``None``.
+
+        A manifest row is not evidence of availability by itself: the indexed
+        path must resolve to a readable file and, when supplied, its digest must
+        agree with the recorded content hash.  Absolute paths are rejected so
+        cache records cannot escape their declared root.
+        """
+        relative = record.get("local_cache_path")
+        if not relative or record.get("availability") != "PMC_XML_AVAILABLE":
+            return None
+        candidate = Path(str(relative))
+        if candidate.is_absolute():
+            return None
+        path = (root / candidate).resolve()
+        try:
+            path.relative_to(root.resolve())
+        except ValueError:
+            return None
+        if not path.is_file():
+            return None
+        expected = record.get("content_hash")
+        if require_hash and not expected:
+            return None
+        if expected and file_hash(path) != expected:
+            return None
+        return path
+
+    def _authoritative_cached_manifest(self, document_id: str) -> dict[str, Any] | None:
+        """Read an explicitly configured sibling cache without network or writes.
+
+        This is deliberately opt-in via ``RESEARCH_DOCUMENT_AUTHORITATIVE_CACHE_ROOT``;
+        it prevents an offline evaluation from silently depending on a stale
+        primary index while keeping the resolver's fail-closed behaviour.
+        """
+        configured = os.environ.get("RESEARCH_DOCUMENT_AUTHORITATIVE_CACHE_ROOT", "").strip()
+        if not configured:
+            return None
+        authoritative_root = Path(configured).expanduser().resolve()
+        if authoritative_root == self.root.resolve():
+            return None
+        manifest = authoritative_root / "manifests" / "documents.jsonl"
+        if not manifest.is_file():
+            return None
+        found = None
+        for line in manifest.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                row = json.loads(line)
+                if row.get("document_id") == document_id:
+                    found = row
+        if not found:
+            return None
+        payload = self._cache_record_payload(authoritative_root, found, require_hash=True)
+        if payload is None:
+            return None
+        result = dict(found)
+        result["local_cache_path"] = str(payload)
+        result["cache_hit"] = True
+        result["retrieval_mode"] = "CACHE_ONLY"
+        result["cache_root_identity"] = str(authoritative_root)
+        result.setdefault("resolver_version", self.resolver_version)
+        return result
+
+    @staticmethod
     def _pubmed_xml_fields(payload: bytes) -> tuple[dict[str, Any], str | None]:
         root = ET.fromstring(payload)
         article = root.find(".//PubmedArticle")
@@ -334,10 +400,10 @@ class AuthorizedDocumentCache:
         relative = record.get("local_cache_path")
         return bool(relative and (self.root / relative).is_file())
 
-    def resolve_pmid(self, pmid: str) -> dict[str, Any]:
+    def resolve_pmid(self, pmid: str, *, force_refresh: bool = False) -> dict[str, Any]:
         pmid = _norm(pmid)
         document_id = f"pmid:{pmid}"
-        cached = self._cached_manifest(document_id)
+        cached = None if force_refresh else self._cached_manifest(document_id)
         if cached:
             cached = dict(cached)
             cached["cache_hit"] = True
@@ -399,9 +465,12 @@ class AuthorizedDocumentCache:
         pmcid = _norm(pmcid).upper()
         document_id = f"pmcid:{pmcid}"
         cached = self._cached_manifest(document_id)
-        if cached:
+        if cached and self._cache_record_payload(self.root, cached):
             cached["cache_hit"] = True
             return cached
+        authoritative = self._authoritative_cached_manifest(document_id)
+        if authoritative:
+            return authoritative
         record = {"document_id": document_id, "identifiers": {"pmcid": pmcid}, "candidate_ids": [],
                   "availability": "PMC_RESOLUTION_FAILED", "content_type": None, "local_cache_path": None,
                   "source": "NCBI PMC OAI", "retrieved_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -507,26 +576,127 @@ class AuthorizedDocumentCache:
         record = self.resolve_identifier(item)
         if keyed is None or keyed[0] != "pmid":
             return record
-        pmcid = (record.get("identifiers") or {}).get("pmcid")
-        if not pmcid:
+        requested_pmid = keyed[1]
+        identifiers = record.get("identifiers") or {}
+        pmcid_candidates = []
+        if identifiers.get("pmcid"):
+            pmcid_candidates.append(str(identifiers["pmcid"]))
+        for candidate in record.get("pmcid_candidates") or []:
+            if candidate and str(candidate) not in pmcid_candidates:
+                pmcid_candidates.append(str(candidate))
+        if not pmcid_candidates:
             return record
-        pmc_record = self.resolve_pmc(pmcid)
-        if pmc_record.get("availability") == "PMC_XML_AVAILABLE":
+        rejected_pmcids = []
+        for pmcid in pmcid_candidates:
+            pmc_record = self.resolve_pmc(pmcid)
+            if pmc_record.get("availability") != "PMC_XML_AVAILABLE":
+                continue
+            resolved_pmid = self._pmc_article_pmid(pmc_record)
+            if resolved_pmid != requested_pmid:
+                rejected_pmcids.append({
+                    "pmcid": pmcid,
+                    "article_pmid": resolved_pmid or None,
+                })
+                continue
+            pmc_record = dict(pmc_record)
+            pmc_record.setdefault("identifiers", {})["pmid"] = requested_pmid
             pmc_record["requested_document_id"] = record.get("document_id")
             pmc_record["derived_pmcid"] = pmcid
             pmc_record["pmid_resolution"] = {
                 "document_id": record.get("document_id"),
                 "cache_hit": record.get("cache_hit", False),
                 "availability": record.get("availability"),
+                "requested_pmid": requested_pmid,
+                "resolved_pmid": resolved_pmid,
             }
             return self._record(pmc_record) if not pmc_record.get("cache_hit") else pmc_record
+        if rejected_pmcids:
+            # A stale PMID cache entry can carry the wrong PMCID.  Ask the
+            # configured NCBI resolver once for a fresh PMID record before
+            # degrading to the already cached abstract.
+            if self.network:
+                refreshed = self.resolve_pmid(requested_pmid, force_refresh=True)
+                refreshed_pmcid = (refreshed.get("identifiers") or {}).get("pmcid")
+                if refreshed_pmcid and str(refreshed_pmcid) not in pmcid_candidates:
+                    refreshed_pmc = self.resolve_pmc(str(refreshed_pmcid))
+                    if refreshed_pmc.get("availability") == "PMC_XML_AVAILABLE":
+                        refreshed_article_pmid = self._pmc_article_pmid(refreshed_pmc)
+                        if refreshed_article_pmid == requested_pmid:
+                            refreshed_pmc = dict(refreshed_pmc)
+                            refreshed_pmc.setdefault("identifiers", {})["pmid"] = requested_pmid
+                            refreshed_pmc["requested_document_id"] = record.get("document_id")
+                            refreshed_pmc["derived_pmcid"] = str(refreshed_pmcid)
+                            refreshed_pmc["pmid_resolution"] = {
+                                "document_id": record.get("document_id"),
+                                "cache_hit": refreshed.get("cache_hit", False),
+                                "availability": refreshed.get("availability"),
+                                "requested_pmid": requested_pmid,
+                                "resolved_pmid": refreshed_article_pmid,
+                                "recovery": "FORCED_NCBI_REFRESH",
+                            }
+                            return self._record(refreshed_pmc) if not refreshed_pmc.get("cache_hit") else refreshed_pmc
+                        rejected_pmcids.append({
+                            "pmcid": str(refreshed_pmcid),
+                            "article_pmid": refreshed_article_pmid or None,
+                        })
+            # Never expose a rejected PMCID as the resolved document.  Retain
+            # the PMID record so an authorized abstract can be used instead.
+            record = dict(record)
+            record["identifiers"] = {
+                key: value for key, value in identifiers.items() if key != "pmcid"
+            }
+            record["degradation_reason"] = "PMC_IDENTITY_MISMATCH"
+            record.setdefault("errors", []).append({
+                "kind": "PMC_IDENTITY_MISMATCH",
+                "requested_pmid": requested_pmid,
+                "rejected_pmcids": rejected_pmcids,
+            })
+            record["rejected_pmcids"] = rejected_pmcids
+            record["pmc_resolution"] = {
+                "requested_pmid": requested_pmid,
+                "rejected_pmcids": rejected_pmcids,
+            }
+            if record.get("availability") != "ABSTRACT_AVAILABLE":
+                record["availability"] = "DOCUMENT_UNAVAILABLE"
+            return self._record(record) if not record.get("cache_hit") else record
         record["degradation_reason"] = "PMC_RESOLUTION_FAILED"
         record["pmc_resolution"] = {
-            "document_id": pmc_record.get("document_id"),
-            "availability": pmc_record.get("availability"),
-            "errors": pmc_record.get("errors", []),
+            "requested_pmid": requested_pmid,
+            "pmcid_candidates": pmcid_candidates,
         }
+        if record.get("availability") != "ABSTRACT_AVAILABLE":
+            record = dict(record)
+            record["availability"] = "DOCUMENT_UNAVAILABLE"
         return self._record(record) if not record.get("cache_hit") else record
+
+    def _pmc_article_pmid(self, record: dict[str, Any]) -> str | None:
+        """Read the PMID declared by a cached PMC XML payload.
+
+        PMC identity is authoritative only when the payload itself declares a
+        PMID.  Missing or malformed identity is therefore treated as a failed
+        identity check by ``resolve_live_identifier``.
+        """
+        relative = record.get("local_cache_path")
+        if not relative:
+            return None
+        path = self.root / relative
+        if not path.is_file():
+            return None
+        try:
+            root = ET.parse(path).getroot()
+        except (ET.ParseError, OSError):
+            return None
+        for element in root.iter():
+            tag = element.tag.rsplit("}", 1)[-1] if isinstance(element.tag, str) else ""
+            if tag == "article-id" and element.attrib.get("pub-id-type", "").lower() == "pmid":
+                value = _norm(element.text)
+                if value:
+                    return value
+            if tag.lower() == "pmid":
+                value = _norm(element.text)
+                if value:
+                    return value
+        return None
 
 
     def source_units_for_record(self, record: dict[str, Any]) -> list[dict[str, Any]]:
