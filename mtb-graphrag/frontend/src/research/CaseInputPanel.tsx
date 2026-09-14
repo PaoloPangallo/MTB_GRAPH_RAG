@@ -44,6 +44,27 @@ function caseLabel(caseId: string): string {
   return caseId.replace(/^CASE-\d+-/, '').replace(/-/g, ' ');
 }
 
+const BRANCH_EXAMPLES = [
+  {
+    branch: 'PAPER',
+    caseText: 'Carcinoma colorettale metastatico, KRAS G12D, panitumumab in valutazione',
+    source: 'GCA-008ae3aad1a64c118318ef79 · PMID 19223544',
+    outcome: 'Verifica documentale → PARTIAL_SUPPORT',
+  },
+  {
+    branch: 'TRIAL',
+    caseText: 'Carcinoma mammario, relazione con TESTOSTERONE',
+    source: 'GCA-8e3f4fd1f400f63be32155b1 · NCT00080756',
+    outcome: 'Record trial recuperato · eleggibilità non valutata',
+  },
+  {
+    branch: 'KG ONLY',
+    caseText: 'Relazione EGFR → panitumumab',
+    source: 'GCA-0276da89aa3557e9b8753213 · MyCancerGenome · nessun PMID/NCT',
+    outcome: 'Relazione mantenuta con provenance KG',
+  },
+] as const;
+
 export default function CaseInputPanel({
   cases, busy, onRun, documentCacheAvailable = true,
 }: CaseInputPanelProps) {
@@ -159,6 +180,33 @@ export default function CaseInputPanel({
                   backgroundColor: touchedCaseId === demo.case_id ? color.ink : color.stone,
                   color: touchedCaseId === demo.case_id ? '#fff' : color.body,
                   '&:hover': { backgroundColor: touchedCaseId === demo.case_id ? '#000' : color.hairline },
+                }}
+              />
+            </Tooltip>
+          ))}
+          {BRANCH_EXAMPLES.map((example) => (
+            <Tooltip
+              key={example.branch}
+              title={(
+                <Box sx={{ maxWidth: 360, py: 0.25 }}>
+                  <Typography sx={{ fontFamily: font.body, fontSize: 12, fontWeight: 600 }}>
+                    {example.caseText}
+                  </Typography>
+                  <Typography sx={{ fontFamily: font.mono, fontSize: 10, mt: 0.5 }}>
+                    {example.source}
+                  </Typography>
+                  <Typography sx={{ fontFamily: font.body, fontSize: 11, mt: 0.5 }}>
+                    {example.outcome}
+                  </Typography>
+                </Box>
+              )}
+            >
+              <Chip
+                label={example.branch}
+                variant="outlined"
+                sx={{
+                  fontFamily: font.mono, fontSize: 11, borderRadius: `${radius.pill}px`, height: 30,
+                  borderColor: color.hairline, color: color.body,
                 }}
               />
             </Tooltip>

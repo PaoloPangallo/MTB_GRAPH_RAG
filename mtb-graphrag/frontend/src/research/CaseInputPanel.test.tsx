@@ -36,6 +36,14 @@ function fillWithDemoText() {
 }
 
 describe('CaseInputPanel', () => {
+  it('mostra i tre esempi di ramo oltre ai casi dimostrativi caricati', () => {
+    renderPanel();
+
+    expect(screen.getByText('PAPER')).toBeInTheDocument();
+    expect(screen.getByText('TRIAL')).toBeInTheDocument();
+    expect(screen.getByText('KG ONLY')).toBeInTheDocument();
+  });
+
   it('non offre alcun selettore di modalità', () => {
     renderPanel();
 
