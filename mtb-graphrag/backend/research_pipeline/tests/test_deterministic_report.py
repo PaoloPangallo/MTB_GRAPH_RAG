@@ -73,6 +73,27 @@ def test_enrichment_is_projected_without_being_invented():
     assert entry["reason"] == "alteration not explicit"
 
 
+def test_paper_report_distinguishes_requested_and_resolved_document_identity():
+    candidate = _real_candidates()[0]
+    requested = next(
+        f"pmid:{identifier['pmid']}"
+        for identifier in candidate["document_identifiers"]
+        if identifier.get("pmid")
+    )
+    report = build_relation_aware_report(
+        {}, [candidate],
+        paper_results={candidate["candidate_id"]: {
+            "document_id": "pmcid:PMC1234567",
+            "requested_document_id": requested,
+            "support_level": "UNVERIFIABLE",
+        }},
+    )
+
+    entry = report["paper_evidence"][0]
+    assert entry["document_id"] == "pmcid:PMC1234567"
+    assert entry["requested_document_id"] == requested
+
+
 def test_report_order_is_deterministic_and_json_serializable():
     candidates = list(reversed(_real_candidates()))
     first = build_relation_aware_report({}, candidates)

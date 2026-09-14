@@ -16,11 +16,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+from copy import deepcopy
 from typing import Any
 
 from ..dossier.builder import PRESENTABLE_AS_AUTHOR_CLAIM
 
-NARRATOR_INPUT_VERSION = "dossier-narrator-input/1.0"
+NARRATOR_INPUT_VERSION = "dossier-narrator-input/1.1"
+NARRATIVE_TRACE_VERSION = "dossier-narrative-trace/1.0"
 
 #: Warning che la narrativa **deve** riflettere. Gli altri sono tecnici: utili
 #: nel dossier strutturato, non obbligatori nella prosa. La distinzione è
@@ -175,6 +177,68 @@ def _candidate(entry: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _relation_candidate(entry: dict[str, Any], branch: str) -> dict[str, Any]:
+    """Project one canonical relation entry without inventing support."""
+    entry = deepcopy(entry)
+    support_level = _text(entry.get("support_level"))
+    status = support_level or ("CONTEXT_ONLY" if branch != "PAPER" else "AMBIGUOUS")
+    warnings = []
+    if branch == "TRIAL":
+        warnings.append("TRIAL_ASSOCIATION_IS_NOT_EFFICACY_EVIDENCE")
+    if branch == "KG_ONLY":
+        warnings.append("DOCUMENT_PROVENANCE_NOT_AVAILABLE")
+    paper_id = _text(entry.get("document_id"))
+    quote = _text(entry.get("quote")) if entry.get("quote_valid") else ""
+    candidate = {
+        "candidate_id": _text(entry.get("candidate_id")),
+        "branch": branch,
+        "drug": None,
+        "graph_relation": _text(entry.get("relation")),
+        "canonical_status": status,
+        "gate_bucket": "",
+        "support_direction": _text(entry.get("direction")),
+        "support_mask": deepcopy({k: v for k, v in (entry.get("support_fields") or {}).items()
+                                   if isinstance(v, str)}),
+        "warnings": warnings,
+        "critical_warnings": warnings,
+        "selected_paper_ids": [paper_id] if paper_id else [],
+        "validated_quotes": ([{"quote": quote, "source_unit_id": _text(entry.get("quote_source_unit_id")),
+                                "paper_id": paper_id, "author_context_summary": ""}] if quote else []),
+        "has_validated_quote": bool(quote),
+        "abstention_reasons": [],
+        "candidate_support": ({"result": support_level, "fields": deepcopy(entry.get("support_fields") or {})}
+                              if support_level else None),
+        "candidate_support_checks": [],
+        "expresses_support": branch == "PAPER" and support_level == "FULL_SUPPORT",
+        "source_does_not_support": False,
+    }
+    source_refs = []
+    source_refs.extend(candidate["selected_paper_ids"])
+    source_refs.extend(
+        q[key]
+        for q in candidate["validated_quotes"]
+        for key in ("paper_id", "source_unit_id")
+        if q.get(key)
+    )
+    if branch == "TRIAL":
+        candidate["trial_context"] = deepcopy({k: entry.get(k) for k in (
+            "nct_id", "title", "conditions", "interventions", "phase", "status",
+            "trial_resolution_status", "eligibility_status", "evidence_interpretation",
+            "graph_provenance")})
+        if candidate["trial_context"].get("nct_id"):
+            source_refs.append(candidate["trial_context"]["nct_id"])
+    elif branch == "KG_ONLY":
+        candidate["kg_context"] = deepcopy({k: entry.get(k) for k in (
+            "subject", "relation", "object", "disease_context", "direction",
+            "evidence_type", "source_database", "graph_provenance",
+            "verification_status", "document_provenance")})
+        provenance = candidate["kg_context"].get("graph_provenance") or {}
+        for key in ("edge_ids", "node_ids"):
+            source_refs.extend(provenance.get(key) or [])
+    candidate["source_refs"] = list(dict.fromkeys(str(ref) for ref in source_refs if ref))
+    return candidate
+
+
 def _case(dossier: dict[str, Any]) -> dict[str, Any]:
     context = dossier.get("case_context") or {}
 
@@ -207,6 +271,105 @@ def narrator_input_hash(payload: dict[str, Any]) -> str:
     return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 
 
+def _trace_hash(payload: dict[str, Any]) -> str:
+    body = {k: v for k, v in payload.items() if k != "trace_hash"}
+    encoded = json.dumps(body, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+
+
+def _paper_trace(entry: dict[str, Any]) -> dict[str, Any]:
+    quote_valid = entry.get("quote_valid") is True
+    return {
+        "candidate_id": _text(entry.get("candidate_id")),
+        "branch": "PAPER",
+        "relation": _text(entry.get("relation")),
+        "document": {
+            "document_id": _text(entry.get("document_id")),
+            "requested_document_id": _text(entry.get("requested_document_id")),
+            "pmcid": _text(entry.get("pmcid")),
+            "document_source": _text(entry.get("document_source")),
+            "document_type": _text(entry.get("document_type")),
+            "document_resolution_status": _text(entry.get("document_resolution_status")),
+            "source_unit_id": _text(entry.get("quote_source_unit_id")),
+            "validated_quote": _text(entry.get("quote")) if quote_valid else "",
+            "quote_valid": quote_valid,
+            "quote_validation": deepcopy(entry.get("quote_validation") or {}),
+        },
+        "support": {
+            "support_level": _text(entry.get("support_level")),
+            "support_status": _text(entry.get("support_status")),
+            "support_reason": _text(entry.get("support_reason")),
+            "support_fields": deepcopy(entry.get("support_fields") or {}),
+            "reader_decision": _text(entry.get("reader_decision")),
+            "reader_status": _text(entry.get("reader_status")),
+            "reason": _text(entry.get("reason")),
+        },
+        "graph_provenance": deepcopy(entry.get("graph_provenance") or {}),
+    }
+
+
+def _trial_trace(entry: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "candidate_id": _text(entry.get("candidate_id")),
+        "branch": "TRIAL",
+        "relation": _text(entry.get("relation")),
+        "trial": deepcopy({key: entry.get(key) for key in (
+            "nct_id", "title", "conditions", "interventions", "phase", "status",
+            "trial_resolution_status", "eligibility_status", "evidence_interpretation",
+            "provenance_status", "source",
+        )}),
+        "graph_provenance": deepcopy(entry.get("graph_provenance") or {}),
+    }
+
+
+def _kg_only_trace(entry: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "candidate_id": _text(entry.get("candidate_id")),
+        "branch": "KG_ONLY",
+        "graph": deepcopy({key: entry.get(key) for key in (
+            "subject", "relation", "object", "disease_context", "direction", "evidence_type",
+            "source_database", "verification_status", "document_provenance", "document_id",
+        )}),
+        "graph_provenance": deepcopy(entry.get("graph_provenance") or {}),
+    }
+
+
+def build_narrative_trace(canonical_dossier: dict[str, Any]) -> dict[str, Any]:
+    """Create a source-level, deterministic trace for narrative consumers."""
+    dossier = canonical_dossier or {}
+    candidates: list[dict[str, Any]] = []
+    candidates.extend(_paper_trace(entry) for entry in dossier.get("paper_evidence") or []
+                      if isinstance(entry, dict))
+    candidates.extend(_trial_trace(entry) for entry in dossier.get("clinical_trials") or []
+                      if isinstance(entry, dict))
+    candidates.extend(_kg_only_trace(entry) for entry in dossier.get("kg_only_relations") or []
+                      if isinstance(entry, dict))
+    payload = {
+        "contract_version": NARRATIVE_TRACE_VERSION,
+        "case_id": _text(dossier.get("case_id")),
+        "candidates": candidates,
+    }
+    payload["trace_hash"] = _trace_hash(payload)
+    return payload
+
+
+def _presentation_entries(entries: Any, branch: str) -> list[dict[str, Any]]:
+    """Return isolated, presentation-safe copies of canonical branch entries."""
+    projected: list[dict[str, Any]] = []
+    for raw in entries or []:
+        if not isinstance(raw, dict):
+            continue
+        entry = deepcopy(raw)
+        if branch == "PAPER":
+            if entry.get("quote_valid") is False:
+                entry.pop("quote", None)
+                entry.pop("author_claim_quote", None)
+            entry.pop("rejected_quotes", None)
+            entry.pop("author_context", None)
+        projected.append(entry)
+    return projected
+
+
 def build_narrator_input(canonical_dossier: dict[str, Any]) -> dict[str, Any]:
     """Proiezione del dossier canonico ammessa al Narrator.
 
@@ -215,16 +378,26 @@ def build_narrator_input(canonical_dossier: dict[str, Any]) -> dict[str, Any]:
     validatore, documenti integrali, SourceUnit non selezionate, gold label.
     """
     dossier = canonical_dossier or {}
-    candidates = [_candidate(e) for e in dossier.get("candidate_therapies") or []]
+    if any(key in dossier for key in ("paper_evidence", "clinical_trials", "kg_only_relations")):
+        candidates = (
+            [_relation_candidate(e, "PAPER") for e in dossier.get("paper_evidence") or []]
+            + [_relation_candidate(e, "TRIAL") for e in dossier.get("clinical_trials") or []]
+            + [_relation_candidate(e, "KG_ONLY") for e in dossier.get("kg_only_relations") or []]
+        )
+    else:
+        candidates = [_candidate(e) for e in dossier.get("candidate_therapies") or []]
     payload = {
         "contract_version": NARRATOR_INPUT_VERSION,
         "case": _case(dossier),
         "candidates": candidates,
+        "paper_evidence": _presentation_entries(dossier.get("paper_evidence"), "PAPER"),
+        "clinical_trials": _presentation_entries(dossier.get("clinical_trials"), "TRIAL"),
+        "kg_only_relations": _presentation_entries(dossier.get("kg_only_relations"), "KG_ONLY"),
         "limitations": [x for x in dossier.get("limitations") or [] if isinstance(x, str)],
         "provenance_summary": {
-            "dossier_version": _text((dossier.get("provenance") or {}).get("dossier_version")),
-            "dossier_kind": _text((dossier.get("provenance") or {}).get("dossier_kind")),
-            "llm_never_decides": list((dossier.get("provenance") or {}).get("gemma_never_decides") or []),
+            "dossier_version": _text((dossier.get("provenance") or dossier.get("provenance_summary") or {}).get("dossier_version")),
+            "dossier_kind": _text((dossier.get("provenance") or dossier.get("provenance_summary") or {}).get("dossier_kind")),
+            "llm_never_decides": list((dossier.get("provenance") or dossier.get("provenance_summary") or {}).get("gemma_never_decides") or []),
         },
         "counts": {
             "candidates": len(candidates),
@@ -256,6 +429,12 @@ def allowed_entities(narrator_input: dict[str, Any]) -> dict[str, set[str]]:
                 papers.add(q["paper_id"])
             if q.get("source_unit_id"):
                 papers.add(q["source_unit_id"])
+        # NCT is already authorized in the TRIAL projection. Identifier checks
+        # are stricter than token checks, so it must be added explicitly.
+        trial = c.get("trial_context") or {}
+        nct_id = _text(trial.get("nct_id"))
+        if nct_id:
+            papers.add(nct_id)
     if case.get("target_intervention"):
         drugs.add(case["target_intervention"])
     return {

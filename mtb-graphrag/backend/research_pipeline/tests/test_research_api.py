@@ -6,6 +6,7 @@ import json
 import os
 import time
 from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 from unittest import TestCase, mock
 
 from fastapi.testclient import TestClient
@@ -136,6 +137,28 @@ class ExistingApiIsUntouchedTest(ResearchApiTestBase):
         self.assertIn("/api/v1/v3/retrieve", paths)
 
 
+class CacheGateRoutingTest(TestCase):
+    def test_run_creation_defers_cache_requirement_until_branch_routing(self) -> None:
+        client = TestClient(app)
+        handle = SimpleNamespace(run_id="RUN-1", case_id="CASE-1", status="RUNNING")
+        with (
+            mock.patch.dict(os.environ, {"VERIFIABLE_PIPELINE_RESEARCH_ENABLED": "1"}),
+            mock.patch.object(research_routes.llm_config, "resolve_endpoint",
+                              return_value=("http://model.invalid", "test-key")),
+            mock.patch.object(research_routes.cache_runtime, "is_available", return_value=False),
+            mock.patch.object(research_routes, "get_store") as store,
+        ):
+            store.return_value.start.return_value = handle
+            response = client.post(f"{BASE}/runs", json={
+                "case_id": "CASE-1", "clinical_text": "testo clinico valido",
+            })
+
+        self.assertEqual(response.status_code, 201, response.text)
+        store.return_value.start.assert_called_once_with(
+            case_id="CASE-1", clinical_text="testo clinico valido",
+        )
+
+
 class DemoCasesTest(ResearchApiTestBase):
     def test_five_synthetic_cases_are_offered(self) -> None:
         payload = self.client.get(f"{BASE}/cases").json()
@@ -161,6 +184,18 @@ class DemoCasesTest(ResearchApiTestBase):
         payload = self.client.get(f"{BASE}/config").json()
         self.assertIn("stage_14_narrator", payload["llm_stages"])
         self.assertNotIn("stage_15_narrative_verifier", payload["llm_stages"])
+
+    def test_config_reports_narrator_disabled_by_default(self) -> None:
+        with mock.patch.dict(os.environ, {"RESEARCH_NARRATOR_ENABLED": "0"}):
+            payload = self.client.get(f"{BASE}/config").json()
+
+        self.assertFalse(payload["runtime"]["narrator_enabled"])
+
+    def test_config_reports_explicitly_enabled_narrator(self) -> None:
+        with mock.patch.dict(os.environ, {"RESEARCH_NARRATOR_ENABLED": "1"}):
+            payload = self.client.get(f"{BASE}/config").json()
+
+        self.assertTrue(payload["runtime"]["narrator_enabled"])
 
 
 class RunLifecycleTest(ResearchApiTestBase):
@@ -253,6 +288,42 @@ class EventsTest(ResearchApiTestBase):
 
 
 class StageAndProvenanceTest(ResearchApiTestBase):
+    def test_v3_accepted_quote_is_document_grounded(self) -> None:
+        snapshot = {
+            "run_id": "RUN-v3", "case_id": "CASE-v3", "status": "COMPLETED",
+            "stages": [
+                {"stage_id": "stage_2_casecontext_parser", "output_preview": {"case_context": {}}},
+                {"stage_id": "stage_3_casecontext_match", "output_preview": {"records": []}},
+                {"stage_id": "stage_5_kg_retrieval", "output_preview": {"associations": [{
+                    "candidate_id": "GCA-v3", "candidate": {}, "available_bundles": [],
+                }]}},
+                {"stage_id": "stage_6_document_resolution", "artifact_origin": "GENERATED_NOW",
+                 "output_preview": {"documents": []}},
+                {"stage_id": "stage_7_source_units", "output_preview": {"source_units": []}},
+                {"stage_id": "stage_8_paper_selection", "output_preview": {"selections": [{
+                    "candidate_id": "GCA-v3", "selected_papers": [],
+                }]}},
+                {"stage_id": "stage_9_paper_context_enricher", "output_preview": {"calls": [{
+                    "candidate_id": "GCA-v3", "paper_id": "pmcid:PMC1",
+                    "enrichment": {"source_unit_id": "SU-1", "author_claim_quote": "literal quote"},
+                }]}},
+                {"stage_id": "stage_10_enrichment_validation", "output_preview": {"validations": [{
+                    "candidate_id": "GCA-v3", "paper_id": "pmcid:PMC1",
+                    "outcome": "ENRICHMENT_V3_ACCEPTED",
+                }]}},
+                {"stage_id": "stage_11_deterministic_gates", "output_preview": {"checks_by_candidate": []}},
+                {"stage_id": "stage_12_status", "output_preview": {"statuses": []}},
+            ],
+        }
+
+        with mock.patch.object(research_routes, "_snapshot_or_404", return_value=snapshot):
+            item = research_routes.get_provenance("RUN-v3")["items"][0]
+
+        self.assertTrue(item["document_grounded"])
+        self.assertEqual(item["provenance_level"], "DOCUMENT_GROUNDED")
+        quote_level = next(level for level in item["chain"] if level["level"] == "AUTHOR_QUOTE")
+        self.assertEqual(len(quote_level["accepted_quotes"]), 1)
+
     def test_a_single_stage_can_be_inspected_with_its_events(self) -> None:
         run_id = self.run_demo()
         payload = self.client.get(f"{BASE}/runs/{run_id}/stages/stage_11_deterministic_gates").json()
@@ -426,6 +497,15 @@ class DossierContentTest(ResearchApiTestBase):
         for section in ("case_summary", "paper_evidence", "clinical_trials",
                         "kg_only_relations", "limitations"):
             self.assertIn(section, dossier)
+
+    def test_dossier_response_exposes_a_deterministic_narrative_trace(self) -> None:
+        run_id = self.run_demo()
+        response = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()
+
+        trace = response["narrative_trace"]
+        self.assertEqual(trace["contract_version"], "dossier-narrative-trace/1.0")
+        self.assertTrue(trace["trace_hash"])
+        self.assertIsInstance(trace["candidates"], list)
 
     def test_each_candidate_separates_deterministic_evidence_from_author_context(self) -> None:
         run_id = self.run_demo()

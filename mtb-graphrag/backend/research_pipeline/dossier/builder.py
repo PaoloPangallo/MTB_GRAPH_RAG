@@ -156,6 +156,14 @@ def _paper_result_fields(result: dict[str, Any]) -> dict[str, Any]:
     validation = result.get("validation") or {}
     support = result.get("candidate_support") or {}
     selected = result.get("selected_source_units") or []
+    rejected_quotes = []
+    proposed_quote = enrichment.get("author_claim_quote") or enrichment.get("quote")
+    if proposed_quote and result.get("quote_valid") is False:
+        rejected_quotes.append({
+            "quote": proposed_quote,
+            "source_unit_id": enrichment.get("source_unit_id"),
+            "paper_id": result.get("document_id") or enrichment.get("paper_id"),
+        })
     return {
         "pmcid": result.get("pmcid"),
         "document_type": result.get("document_type"),
@@ -173,6 +181,9 @@ def _paper_result_fields(result: dict[str, Any]) -> dict[str, Any]:
         "support_level": result.get("support_level") or support.get("result"),
         "reason": result.get("reason") or support.get("reason"),
         "support_reason": result.get("support_reason") or result.get("reason") or support.get("reason"),
+        # Canonical metadata needed by the narrative verifier to detect a
+        # rejected quote without consulting the legacy dossier preview.
+        "rejected_quotes": rejected_quotes,
     }
 
 
@@ -259,7 +270,8 @@ def build_relation_aware_report(
             paper_evidence.append({
                 **common,
                 "evidence_type": candidate.get("evidence_scope") or candidate.get("source_properties", {}).get("evidence", {}).get("evidence_type"),
-                "document_id": _document_id(candidate),
+                "document_id": result.get("document_id") or _document_id(candidate),
+                "requested_document_id": result.get("requested_document_id") or _document_id(candidate),
                 "source_type": candidate.get("source_properties", {}).get("evidence", {}).get("source_type"),
                 **paper_fields,
                 "support_status": result.get("support_status") or ("NOT_EVALUATED" if not result else None),

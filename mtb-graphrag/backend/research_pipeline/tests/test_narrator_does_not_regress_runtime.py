@@ -10,6 +10,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import data_access as da
@@ -71,6 +72,14 @@ class CanonicalDossierPrecedesNarratorTest(unittest.TestCase):
         stages = _stages(run)
         self.assertEqual(stages["stage_13_dossier"].status, "SUCCEEDED")
         self.assertTrue(stages["stage_13_dossier"].output_preview["dossier"]["candidate_therapies"])
+
+    def test_unconfigured_narrator_is_not_reported_as_unimplemented(self) -> None:
+        run, _ = _run(call_narrator_fn=None)
+        stages = _stages(run)
+
+        for stage_id in ("stage_14_narrator", "stage_15_narrative_verifier"):
+            self.assertEqual(stages[stage_id].status, "SKIPPED")
+            self.assertEqual(stages[stage_id].reason_codes, ("NARRATOR_NOT_CONFIGURED",))
 
     def test_stage_sequence_declares_the_order(self) -> None:
         seq = list(STAGE_SEQUENCE)
@@ -239,7 +248,8 @@ class Rq3BoundaryMatrixTest(unittest.TestCase):
             "narrative_summary", "candidate_narratives", "limitations_summary", "closing_note"})
         item = TOOL_SCHEMA["properties"]["candidate_narratives"]["items"]
         self.assertFalse(item["additionalProperties"])
-        self.assertEqual(set(item["properties"]), {"candidate_id", "text"})
+        self.assertEqual(set(item["properties"]), {"candidate_id", "text", "source_refs", "claims"})
+        self.assertEqual(set(item["required"]), {"candidate_id", "text", "source_refs", "claims"})
 
     def test_narrator_transport_rejects_extra_keys(self) -> None:
         from backend.research_pipeline.narrative.narrator import _argument_errors
@@ -251,6 +261,39 @@ class Rq3BoundaryMatrixTest(unittest.TestCase):
             with self.subTest(extra=extra):
                 errors = _argument_errors({**base, extra: "x"})
                 self.assertTrue(any("EXTRA_KEYS" in e for e in errors))
+
+    def test_narrator_contract_preserves_source_attribution_fields(self) -> None:
+        from backend.research_pipeline.narrative.narrator import _argument_errors, _trim_only
+
+        args = {
+            "narrative_summary": "s", "limitations_summary": "l", "closing_note": "c",
+            "candidate_narratives": [{
+                "candidate_id": "GCA-1", "text": "t", "source_refs": ["PMID:1"],
+                "claims": [{"claim": "t", "source_ref": "PMID:1", "claim_type": "documentary"}],
+            }],
+        }
+        self.assertEqual(_argument_errors(args), [])
+        trimmed = _trim_only(args)
+        self.assertEqual(trimmed["candidate_narratives"][0]["source_refs"], ["PMID:1"])
+        self.assertEqual(trimmed["candidate_narratives"][0]["claims"][0]["source_ref"], "PMID:1")
+
+    def test_call_narrator_returns_source_attribution_fields(self) -> None:
+        from backend.research_pipeline.narrative import narrator
+
+        args = {
+            "narrative_summary": "s", "limitations_summary": "l", "closing_note": "c",
+            "candidate_narratives": [{
+                "candidate_id": "GCA-1", "text": "t", "source_refs": ["PMID:1"],
+                "claims": [{"claim": "t", "source_ref": "PMID:1", "claim_type": "documentary"}],
+            }],
+        }
+        with patch.object(narrator.tr, "post_with_infra_retry", return_value=(200, {"usage": {}}, None, 0)), \
+             patch.object(narrator.tr, "transport_result", return_value=(
+                 "FORCED_TOOL_VALID", "stop", args, [])):
+            result = narrator.call_narrator("CASE-1", {"narrator_input_hash": "h", "candidates": []})
+        entry = result["narrative"]["candidate_narratives"][0]
+        self.assertEqual(entry["source_refs"], ["PMID:1"])
+        self.assertEqual(entry["claims"][0]["claim_type"], "documentary")
 
     def test_narration_events_are_emitted_as_domain_events(self) -> None:
         for event_type in (ev.NARRATION_GENERATED, ev.NARRATION_VERIFIED,

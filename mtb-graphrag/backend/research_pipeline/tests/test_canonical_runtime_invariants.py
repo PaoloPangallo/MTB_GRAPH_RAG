@@ -71,7 +71,7 @@ EFETCH = f"""<?xml version="1.0"?>
 PMC_XML = b"""<?xml version="1.0"?>
 <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><GetRecord><record><metadata>
   <article xmlns="http://jats.nlm.nih.gov">
-    <front><article-meta><title-group>
+    <front><article-meta><article-id pub-id-type="pmid">24658966</article-id><title-group>
       <article-title>ABL1 V299L and dasatinib in chronic myeloid leukemia</article-title>
     </title-group></article-meta></front>
     <body><sec>
@@ -333,6 +333,9 @@ class DocumentAcquisitionTest(CanonicalRuntimeFixture):
         self.assertTrue(document["full_text_available"])
         self.assertEqual(PMCID, document["lineage"]["derived_pmcid"])
         self.assertTrue(any("pmc/oai" in url for url in calls))
+        paper_entry = run.relation_aware_report["paper_evidence"][0]
+        self.assertEqual(f"pmcid:{PMCID}", paper_entry["document_id"])
+        self.assertEqual(f"pmid:{PMID}", paper_entry["requested_document_id"])
 
     def test_an_unavailable_full_text_degrades_to_the_abstract(self) -> None:
         cache, _ = self.cache(pmc=PMC_CLOSED)
@@ -493,6 +496,32 @@ class ReplayAdapterIsUnreachableTest(CanonicalRuntimeFixture):
 
 
 class ControlledFailureTest(CanonicalRuntimeFixture):
+    def test_kg_only_run_does_not_require_a_document_runtime(self) -> None:
+        candidate = {
+            **_candidate(),
+            "candidate_id": "GCA-kg-only",
+            "document_identifiers": [],
+        }
+        retrieval = {
+            "associations": [{
+                "candidate_id": candidate["candidate_id"],
+                "candidate": candidate,
+                "available_bundles": [],
+            }],
+            "excluded_candidates": [],
+            "no_match": False,
+            "retrieval_summary": {"selected_total": 1},
+        }
+
+        run, recorded = self.execute(None, retrieve_fn=lambda _: retrieval)
+
+        self.assertNotEqual(run.status, "FAILED")
+        self.assertIsNone(run.stopped_at)
+        self.assertEqual(["GCA-kg-only"], [
+            entry["candidate_id"] for entry in run.relation_aware_report["kg_only_relations"]
+        ])
+        self.assertEqual([], recorded["enricher"])
+
     def test_without_a_document_runtime_the_run_fails_instead_of_replaying(self) -> None:
         run, recorded = self.execute(None)
 
@@ -532,6 +561,25 @@ class ControlledFailureTest(CanonicalRuntimeFixture):
 
 
 class CanonicalPerimeterTest(TestCase):
+    def test_narrator_provider_is_opt_in_and_disabled_by_default(self) -> None:
+        with mock.patch.dict(os.environ, {"RESEARCH_NARRATOR_ENABLED": "0"}):
+            self.assertNotIn("call_narrator_fn", run_store.RunStore._canonical_providers())
+
+        with mock.patch.dict(os.environ, {"RESEARCH_NARRATOR_ENABLED": "1"}):
+            from backend.research_pipeline import live_providers
+
+            providers = run_store.RunStore._canonical_providers()
+            self.assertIs(providers["call_narrator_fn"], live_providers.narrator_fn)
+
+    def test_call_budget_covers_parser_and_every_reachable_paper_document(self) -> None:
+        reachable_calls = (
+            1
+            + retrieval_mod.MAX_ASSOCIATIONS_PER_FAMILY
+            * retrieval_mod.MAX_DOCUMENTS_PER_ASSOCIATION
+        )
+
+        self.assertGreaterEqual(run_store.MAX_LLM_CALLS_PER_RUN, reachable_calls)
+
     def test_oncokb_is_not_part_of_the_canonical_runtime(self) -> None:
         """Resta un pilot fuori dal runtime, e la tesi non deve poterlo promuovere."""
         package = Path(run_store.__file__).parent

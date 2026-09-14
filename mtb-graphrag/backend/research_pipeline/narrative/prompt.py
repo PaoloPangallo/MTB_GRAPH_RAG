@@ -11,7 +11,7 @@ serve a rendere probabile una narrativa che il verifier accetti.
 
 from __future__ import annotations
 
-NARRATOR_PROMPT_VERSION = "dossier-narrator-prompt/1.0"
+NARRATOR_PROMPT_VERSION = "dossier-narrator-prompt/1.1"
 TOOL_NAME = "emit_dossier_narrative"
 
 #: Lingua della narrativa. Coerente con il frontend, che è in italiano.
@@ -41,8 +41,29 @@ TOOL_SCHEMA: dict = {
                         "description": "Descrizione in italiano di questa candidate, fedele allo "
                                        "stato canonico, ai warning e alla direzione forniti.",
                     },
+                    "source_refs": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Riferimenti autorizzati gia' presenti nel dossier (PMID, PMCID, NCT, source_unit_id o graph edge).",
+                    },
+                    "claims": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "properties": {
+                                "claim": {"type": "string"},
+                                "source_ref": {"type": "string"},
+                                "claim_type": {
+                                    "type": "string",
+                                    "enum": ["documentary", "trial_context", "kg_provenance"],
+                                },
+                            },
+                            "required": ["claim", "source_ref", "claim_type"],
+                        },
+                    },
                 },
-                "required": ["candidate_id", "text"],
+                "required": ["candidate_id", "text", "source_refs", "claims"],
             },
         },
         "limitations_summary": {
@@ -90,7 +111,7 @@ REGOLE VINCOLANTI
    relazione proposta dal grafo, non una terapia consigliata.
 8. Usa ``candidate_support`` o, quando sono presenti piu' paper,
    ``candidate_support_checks`` come decisione deterministica gia' calcolata:
-   non ricalcolarla e non modificarla. STRONG_SUPPORT puo' essere descritto
+   non ricalcolarla e non modificarla. FULL_SUPPORT puo' essere descritto
    come supporto della candidate; PARTIAL_SUPPORT deve dire cosa e' supportato
    e cosa non e' confermato; CONTEXT_ONLY e UNVERIFIABLE non sono supporto
    della candidate; CONTRADICTORY va descritto come incompatibile/opposto.
@@ -101,6 +122,23 @@ REGOLE VINCOLANTI
    validated_quote, non dire che il paper ha confermato direttamente la relazione.
    Non dichiarare una variante specifica confermata quando il support level e'
    parziale. Non inventare PMID, farmaci, biomarcatori o livelli di evidenza.
+
+9. Per ogni candidate, quando riporti una fonte, valorizza ``source_refs`` con
+   riferimenti presenti nel dossier. Se una frase esprime un'affermazione
+   verificabile, aggiungi un elemento in ``claims`` con ``claim``, ``source_ref``
+   e ``claim_type``. Non usare riferimenti inventati e non attribuire una claim
+   a una famiglia diversa da quella indicata nel dossier.
+
+FAMIGLIE DI EVIDENZA
+- PAPER: preserva esattamente FULL_SUPPORT, PARTIAL_SUPPORT, NO_SUPPORT,
+  CONTRADICTORY o UNVERIFIABLE; non aumentare mai il livello.
+- TRIAL: ``TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE`` indica contesto di trial,
+  non prova di efficacia. ``eligibility_status=NOT_EVALUATED`` non autorizza
+  alcuna conclusione sull'eleggibilita' del paziente.
+- KG_ONLY: ``verification_status=KG_ONLY`` e
+  ``document_provenance=NOT_AVAILABLE`` indicano provenance grafica senza
+  verifica documentale. Non chiamarla paper, documentaria, validata o
+  source-grounded evidence.
 
 LINGUA
 Scrivi in italiano. NON tradurre: nomi di farmaci, geni, alterazioni, PMID,

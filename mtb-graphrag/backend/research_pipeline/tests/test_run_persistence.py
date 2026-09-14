@@ -104,6 +104,16 @@ class RunPersistenceTest(TestCase):
         self.assertEqual(rebuilt["status"], before["status"])
         self.assertEqual(rebuilt["case_id"], before["case_id"])
 
+    def test_canonical_relation_aware_report_survives_restart_at_top_level(self) -> None:
+        run_id = self._completed_run()
+        before = self.client.get(f"{BASE}/runs/{run_id}").json()
+        self.assertIsNotNone(before["relation_aware_report"])
+
+        self._restart_backend()
+        after = self.client.get(f"{BASE}/runs/{run_id}").json()
+
+        self.assertEqual(after["relation_aware_report"], before["relation_aware_report"])
+
     def test_every_stage_is_rebuilt_in_order(self) -> None:
         run_id = self._completed_run()
         self._restart_backend()

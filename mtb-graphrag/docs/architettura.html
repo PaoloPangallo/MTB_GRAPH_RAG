@@ -638,7 +638,7 @@
 
       <div class="path-note" aria-live="polite">
         <strong id="path-title">Panoramica</strong>
-        <p id="path-description">Il caso viene strutturato, validato e confrontato con le GCA. La provenance separa paper, trial e relazioni KG-only prima di ogni enrichment.</p>
+        <p id="path-description">Il caso viene strutturato, validato e confrontato con le GCA. La provenance separa Paper, Trial e relazioni KG only prima di ogni enrichment.</p>
       </div>
     </section>
 
@@ -678,7 +678,7 @@
       <div class="legend">
         <div class="legend__item"><span class="swatch swatch--llm"></span><span><span class="legend__name">Gemma</span><span class="legend__desc">Coral: struttura il caso o legge i soli passaggi selezionati del paper.</span></span></div>
         <div class="legend__item"><span class="swatch swatch--det"></span><span><span class="legend__name">Passaggio deterministico</span><span class="legend__desc">Regole esplicite per controllo del caso, ricerca, classificazione e verifica.</span></span></div>
-        <div class="legend__item"><span class="swatch swatch--doc"></span><span><span class="legend__name">Fonte</span><span class="legend__desc">Paper PubMed/PMC, source unit o record ClinicalTrials.gov.</span></span></div>
+        <div class="legend__item"><span class="swatch swatch--doc"></span><span><span class="legend__name">Fonte</span><span class="legend__desc">Paper PubMed/PMC, passaggi del documento (SourceUnit) o record ClinicalTrials.gov.</span></span></div>
         <div class="legend__item"><span class="swatch swatch--out"></span><span><span class="legend__name">Output</span><span class="legend__desc">Dossier MTB strutturato, poi presentato da API o interfaccia.</span></span></div>
         <div class="legend__item"><span class="swatch swatch--stop"></span><span><span class="legend__name">Stop controllato</span><span class="legend__desc">Il sistema spiega perché si ferma senza inventare risultati.</span></span></div>
       </div>
@@ -709,7 +709,7 @@
           </div>
         </div>
         <div class="duo__col duo__col--alert">
-          <p class="duo__label">Confine epistemico</p>
+          <p class="duo__label">Cosa possiamo affermare</p>
           <h3 class="duo__title">Non equivale a prova clinica</h3>
           <div class="duo__list">
             <div class="duo__row"><span class="duo__dot duo__dot--no"></span><span>Una relazione del KG non viene trattata automaticamente come verità documentale.</span></div>
@@ -746,7 +746,8 @@
           <h3 class="duo__title">Gemma fa</h3>
           <div class="duo__list">
             <div class="duo__row"><span class="duo__dot duo__dot--llm"></span><span>Estrae dal testo fatti espliciti e ambiguità nel CaseContext.</span></div>
-            <div class="duo__row"><span class="duo__dot duo__dot--llm"></span><span>Legge SourceUnit già selezionate e restituisce una quote letterale o ABSTAIN.</span></div>
+            <div class="duo__row"><span class="duo__dot duo__dot--llm"></span><span>Legge i passaggi del documento (SourceUnit) già selezionati e restituisce una quote letterale o ABSTAIN.</span></div>
+            <div class="duo__row"><span class="duo__dot duo__dot--llm"></span><span>Le run composte soltanto da Trial o KG only non richiedono il secondo LLM.</span></div>
           </div>
         </div>
         <div class="duo__col duo__col--alert">
@@ -765,10 +766,10 @@
       <p class="section__eyebrow">Related work</p>
       <h2 class="section__title" id="related-title">Dalla conoscenza organizzata al reporting verificabile</h2>
       <div class="reference-list">
-        <div class="reference"><span class="reference__kind">MTB</span><p>Tsimberidou et al. (2023) e Tamborero et al. (2022): complessità interpretativa, piattaforme digitali e reporting.</p></div>
-        <div class="reference"><span class="reference__kind">Knowledge base</span><p>Griffith et al. — CIViC (2017) e Chakravarty et al. — OncoKB (2017): relazioni eterogenee, contesto e provenance.</p></div>
-        <div class="reference"><span class="reference__kind">Evidence report</span><p>Perera-Bel et al. (2018): reporting evidence-driven per Molecular Tumor Board.</p></div>
-        <div class="reference"><span class="reference__kind">RAG</span><p>Berman et al. (2025): l'uso di RAG nei MTB motiva controlli conservativi, non un confronto di superiorità.</p></div>
+        <div class="reference"><span class="reference__kind">MTB</span><p>Tsimberidou et al. (2023) e Tamborero et al. (2022) descrivono la crescente complessità dell'interpretazione molecolare nei Molecular Tumor Board e il bisogno di strumenti digitali e reporting strutturato. Da qui il dossier come prodotto finale della pipeline.</p></div>
+        <div class="reference"><span class="reference__kind">Knowledge base</span><p>CIViC (Griffith et al., 2017) e OncoKB (Chakravarty et al., 2017) mostrano come la conoscenza oncologica sia composta da relazioni eterogenee, dipendenti da contesto, tipo di evidenza e provenance. Da qui il ruolo del Knowledge Graph come struttura per proporre e tipizzare le relazioni.</p></div>
+        <div class="reference"><span class="reference__kind">Evidence report</span><p>Perera-Bel et al. (2018) propone un reporting evidence-driven per supportare l'interpretazione nei Molecular Tumor Board. Da qui l'idea di ricondurre ogni relazione alla propria fonte e rendere esplicito ciò che la fonte conferma realmente.</p></div>
+        <div class="reference"><span class="reference__kind">LLM / RAG</span><p>Berman et al. (2025) mostra il potenziale del retrieval-augmented generation nei Molecular Tumor Board, ma anche il problema di citazioni e riferimenti non sempre affidabili. Da qui un ruolo limitato dell'LLM: strutturazione del caso e lettura di fonti già determinate, non generazione autonoma dell'evidenza.</p></div>
       </div>
     </section>
 
@@ -792,8 +793,8 @@
 
       var PATHS = {
         overview: { title: "Panoramica", description: "Il caso viene strutturato, controllato e confrontato con il Knowledge Graph. La fonte della relazione decide se seguire il ramo Paper, Trial oppure KG only." },
-        paper: { title: "Ramo PAPER", description: "PMID → Paper (PubMed / PMC) → source unit → selezione dei passaggi → lettura del paper (Gemma) → controllo della citazione → controllo del supporto." },
-        trial: { title: "Ramo TRIAL", description: "NCT → record ClinicalTrials.gov → Dossier MTB. Questo ramo non usa Source unit, lettura del paper né citazioni." },
+        paper: { title: "Ramo PAPER", description: "PMID → Paper (PubMed / PMC) → passaggi del documento → selezione dei passaggi → lettura del paper (Gemma) → controllo della citazione → controllo del supporto." },
+        trial: { title: "Ramo TRIAL", description: "NCT → record ClinicalTrials.gov → Dossier MTB. Questo ramo non usa i passaggi del paper, il Paper Reader né citazioni." },
         kg: { title: "Ramo KG ONLY", description: "Nessun ID documento → relazione del grafo → Dossier MTB. La provenance grafica viene preservata senza cercare o inventare una fonte." },
         "no-match": { title: "Stop pulito", description: "Se il caso è insufficiente o il Knowledge Graph non trova relazioni pertinenti, il sistema restituisce un dossier esplicito senza forzare risultati." }
       };
@@ -803,18 +804,18 @@
         { id: "case-parser", label: "Parser del caso\n(Gemma)", tag: "LLM #1", kind: "llm", x: 42, y: 205, w: 200, h: 68, paths: ["overview", "paper", "trial", "kg", "no-match"], detail: { summary: "Usa Gemma per trasformare il testo libero in una bozza ordinata del caso. Estrae entità e relazioni utili alla ricerca, senza decidere l'esito clinico.", input: "Caso clinico in linguaggio naturale.", output: "Bozza strutturata del caso (CaseContext).", constraint: "Non propone terapie e non deve aggiungere fatti non presenti nel testo.", llm: "Sì — Gemma" } },
         { id: "validation", label: "Controllo\ndel caso", tag: "DETERMINISTICO", kind: "det", x: 42, y: 330, w: 200, h: 68, paths: ["overview", "paper", "trial", "kg", "no-match"], detail: { summary: "Controlla se il caso è abbastanza chiaro per procedere: campi essenziali, coerenza minima e contraddizioni evidenti.", input: "Bozza strutturata e testo originale.", output: "CaseContext validato oppure uno stop esplicito.", constraint: "Se mancano contesto clinico e un anchor utile al retrieval, il sistema si ferma.", llm: "No" } },
         { id: "context-stop", label: "Dati insufficienti /\nchiarire il caso", tag: "STOP", kind: "stop", x: 42, y: 500, w: 200, h: 68, paths: ["overview", "no-match"], detail: { summary: "Il caso non è abbastanza chiaro o completo per una ricerca affidabile.", input: "Esito negativo del controllo del caso.", output: "Dossier con stato di stop e limiti espliciti.", constraint: "Non vengono chiamati retrieval, resolver di documenti o Reader.", llm: "No" } },
-        { id: "gca-retrieval", label: "Ricerca nel\nKnowledge Graph", tag: "46.864 GCA", kind: "det", x: 300, y: 205, w: 220, h: 68, paths: ["overview", "paper", "trial", "kg", "no-match"], detail: { summary: "Cerca nel Knowledge Graph materializzato le relazioni candidate compatibili con il caso. Le candidate non sono ancora evidenze finali.", input: "Disease, gene, alterazione e intervento, quando disponibili.", output: "Relazioni candidate rilevanti.", constraint: "Mantiene il matching clinico: non restituisce indiscriminatamente tutte le relazioni del grafo.", llm: "No" } },
+        { id: "gca-retrieval", label: "Ricerca nel\nKnowledge Graph", tag: "46.864 GCA", kind: "det", x: 300, y: 205, w: 220, h: 68, paths: ["overview", "paper", "trial", "kg", "no-match"], detail: { summary: "Cerca nel Knowledge Graph materializzato le relazioni candidate compatibili con il caso. Le candidate non sono ancora evidenze finali.", input: "CaseContext validato: malattia, gene, alterazione e intervento, quando disponibili.", output: "Relazioni candidate pertinenti con relation type e provenance.", constraint: "Una candidate deve condividere almeno un elemento clinico specifico quando il caso lo contiene; un semplice disease match non basta a compensare un mismatch molecolare o terapeutico.", llm: "No" } },
         { id: "classifier", label: "Classificazione\ndella fonte", tag: "PMID / NCT / NESSUNO", kind: "det", x: 300, y: 365, w: 220, h: 68, paths: ["overview", "paper", "trial", "kg"], detail: { summary: "Guarda la provenance di ogni relazione candidata e sceglie il ramo appropriato: paper, trial o sola relazione del grafo.", input: "Identificatori documentali della candidate GCA.", output: "Instradamento verso PAPER, TRIAL oppure KG ONLY.", constraint: "PMID e NCT insieme sono una provenance non valida: la candidate non viene processata e viene segnalata come limite.", llm: "No" } },
-        { id: "no-match-stop", label: "Nessuna relazione\nrilevante nel KG", tag: "STOP", kind: "stop", x: 300, y: 500, w: 220, h: 68, paths: ["overview", "no-match"], detail: { summary: "Il caso è valido, ma il Knowledge Graph non restituisce relazioni candidate utili.", input: "Ricerca nel Knowledge Graph con zero risultati pertinenti.", output: "Dossier con sezioni vuote e stato NO_RELEVANT_KG_EVIDENCE.", constraint: "Non è un errore runtime e non attiva generazione compensativa di risultati.", llm: "No" } },
+        { id: "no-match-stop", label: "Nessuna relazione\nrilevante nel KG", tag: "STOP", kind: "stop", x: 300, y: 500, w: 220, h: 68, paths: ["overview", "no-match"], detail: { summary: "Il caso è valido, ma il Knowledge Graph non restituisce relazioni candidate utili.", input: "Ricerca nel Knowledge Graph con zero risultati pertinenti.", output: "Dossier con sezioni vuote e stato NO_RELEVANT_KG_EVIDENCE.", constraint: "Se nessuna relazione soddisfa i criteri di pertinenza, il sistema termina senza forzare risultati e senza invocare il Paper Reader.", llm: "No" } },
         { id: "paper-document", label: "Paper\n(PubMed / PMC)", tag: "RAMO PAPER", kind: "document", x: 590, y: 70, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Recupera il documento scientifico associato al PMID della relazione. Se possibile usa il full text PMC, altrimenti l'abstract PubMed.", input: "PMID della candidate GCA.", output: "Documento canonico: full text PMC oppure abstract PubMed.", constraint: "Se il documento non è disponibile, la candidate resta nel dossier come UNVERIFIABLE; non viene cercato un paper alternativo.", llm: "No" } },
-        { id: "source-units", label: "Source unit\ndel documento", tag: "RAMO PAPER", kind: "document", x: 590, y: 180, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Divide il documento in pezzi testuali più piccoli e tracciabili. Sono i blocchi che il sistema può selezionare e mostrare.", input: "Documento canonico.", output: "Lista di source unit con ID, posizione e testo.", constraint: "La divisione è deterministica e non usa un LLM.", llm: "No" } },
-        { id: "selector", label: "Selezione\ndei passaggi", tag: "RAMO PAPER", kind: "det", x: 590, y: 290, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Sceglie in modo deterministico i passaggi più rilevanti per la relazione candidata e riduce il contesto dato al Reader.", input: "Candidate GCA e tutte le source unit del documento.", output: "Top-k source unit selezionate.", constraint: "Non decide il supporto clinico e non modifica il testo del documento.", llm: "No" } },
-        { id: "paper-reader", label: "Lettura del paper\n(Gemma)", tag: "LLM #2 · PAPER", kind: "llm", x: 590, y: 400, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Riceve soltanto i passaggi selezionati, non l'intero paper. Cerca una citazione utile oppure si astiene.", input: "Candidate GCA e source unit selezionate.", output: "Citazione letterale oppure ABSTAIN, con i campi osservati.", constraint: "Non deve inventare contenuti, fonti o raccomandazioni cliniche.", llm: "Sì — Gemma" } },
-        { id: "quote-validation", label: "Controllo della\ncitazione", tag: "RAMO PAPER", kind: "det", x: 590, y: 510, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Verifica che la citazione proposta compaia davvero nella source unit e nel documento associato.", input: "Output del Reader, source unit e provenance del documento.", output: "Citazione validata oppure rifiutata.", constraint: "Se la citazione non è letterale, viene scartata: non è riparata con un altro LLM.", llm: "No" } },
+        { id: "source-units", label: "Passaggi\ndel documento", tag: "SOURCE UNIT · PAPER", kind: "document", x: 590, y: 180, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Divide il documento in pezzi testuali più piccoli e tracciabili. Ogni passaggio è una SourceUnit con identificatore e provenance stabile.", input: "Documento canonico.", output: "Lista di passaggi con ID, posizione e testo.", constraint: "La divisione è deterministica e non usa un LLM.", llm: "No" } },
+        { id: "selector", label: "Selezione\ndei passaggi", tag: "RAMO PAPER", kind: "det", x: 590, y: 290, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Sceglie in modo deterministico i passaggi più rilevanti per la relazione candidata e riduce il contesto dato al Reader.", input: "Candidate GCA e tutti i passaggi del documento.", output: "Top-k passaggi selezionati.", constraint: "Non decide il supporto clinico e non modifica il testo del documento.", llm: "No" } },
+        { id: "paper-reader", label: "Lettura del paper\n(Gemma)", tag: "LLM #2 · PAPER", kind: "llm", x: 590, y: 400, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Riceve soltanto i passaggi selezionati, non l'intero paper. Cerca una citazione utile oppure si astiene.", input: "Candidate GCA e passaggi del documento selezionati.", output: "Citazione letterale oppure ABSTAIN, con i campi osservati.", constraint: "Non deve inventare contenuti, fonti o raccomandazioni cliniche.", llm: "Sì — Gemma" } },
+        { id: "quote-validation", label: "Controllo della\ncitazione", tag: "RAMO PAPER", kind: "det", x: 590, y: 510, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Verifica che la citazione proposta compaia davvero nel passaggio del documento e nel documento associato.", input: "Output del Reader, passaggio del documento e provenance.", output: "Citazione validata oppure rifiutata.", constraint: "Se la citazione non è letterale, viene scartata: non è riparata con un altro LLM.", llm: "No" } },
         { id: "relation-support", label: "Controllo\ndel supporto", tag: "RAMO PAPER", kind: "det", x: 590, y: 620, w: 225, h: 68, paths: ["overview", "paper"], detail: { summary: "Valuta cosa supporta davvero la citazione rispetto alla relazione: supporto completo, parziale, ambiguo, assente o contraddittorio.", input: "Candidate GCA, citazione validata e campi osservati.", output: "Livello di supporto e limiti espliciti.", constraint: "Una citazione esistente non basta: deve sostenere la relazione con la giusta specificità. I paper non terapeutici non richiedono campi non applicabili.", llm: "No" } },
         { id: "trial-record", label: "Trial clinico\n(ClinicalTrials.gov)", tag: "RAMO TRIAL · NCT", kind: "document", x: 900, y: 245, w: 245, h: 76, paths: ["overview", "trial"], detail: { summary: "Usa il record del trial quando la relazione ha provenance NCT. Il ramo trial non passa dalla lettura del paper.", input: "NCT della candidate GCA.", output: "Titolo, stato, fase, condizioni, interventi e dati disponibili del trial.", constraint: "Non dichiara efficacia della terapia né eleggibilità del paziente; se il record manca, conserva NCT e segnala l'indisponibilità.", llm: "No" } },
-        { id: "kg-provenance", label: "Relazione\ndel grafo", tag: "RAMO KG ONLY · NESSUN ID", kind: "det", x: 900, y: 490, w: 245, h: 76, paths: ["overview", "kg"], detail: { summary: "Preserva la relazione del Knowledge Graph quando non esiste un PMID o un NCT associato.", input: "Candidate GCA senza identificatore documentale.", output: "Segnale KG-only con soggetto, relazione, oggetto e provenance grafica.", constraint: "Non chiama resolver, source unit, Reader o controllo della citazione. Non inventa una fonte e non equivale a evidenza clinicamente confermata.", llm: "No" } },
-        { id: "canonical-dossier", label: "Dossier MTB", tag: "OUTPUT CANONICO", kind: "output", x: 1225, y: 340, w: 205, h: 78, paths: ["overview", "paper", "trial", "kg"], detail: { summary: "Raccoglie i risultati dei tre rami in un output strutturato e tracciabile. È l'output canonico del sistema.", input: "Entry Paper, Trial e KG-only con provenance e limiti.", output: "Dossier con sezioni, stati, citazioni valide, supporto e motivi di stop.", constraint: "Non richiede Writer o Narrative Verifier e non prescrive una terapia.", llm: "No" } },
+        { id: "kg-provenance", label: "Relazione\ndel grafo", tag: "RAMO KG ONLY · NESSUN ID", kind: "det", x: 900, y: 490, w: 245, h: 76, paths: ["overview", "kg"], detail: { summary: "Preserva la relazione del Knowledge Graph quando non esiste un PMID o un NCT associato.", input: "Candidate GCA senza identificatore documentale.", output: "Segnale KG only con soggetto, relazione, oggetto e provenance grafica.", constraint: "Non effettua acquisizione documentale, non genera SourceUnit e non invoca il Paper Reader o il controllo della citazione. Non inventa una fonte e non equivale a evidenza clinicamente confermata.", llm: "No" } },
+        { id: "canonical-dossier", label: "Dossier MTB", tag: "OUTPUT CANONICO", kind: "output", x: 1225, y: 340, w: 205, h: 78, paths: ["overview", "paper", "trial", "kg"], detail: { summary: "Raccoglie i risultati dei tre rami in un output strutturato e tracciabile. È l'output canonico del sistema.", input: "Entry Paper, Trial e KG only con provenance e limiti.", output: "Dossier con sezioni, stati, citazioni valide, supporto e motivi di stop.", constraint: "Non richiede Writer o Narrative Verifier e non prescrive una terapia.", llm: "No" } },
         { id: "api-ui", label: "Interfaccia", tag: "API / UI", kind: "output", x: 1470, y: 350, w: 105, h: 58, paths: ["overview", "paper", "trial", "kg"], detail: { summary: "Espone il dossier tramite API o interfaccia utente. Presenta il contenuto senza cambiarlo.", input: "Dossier MTB canonico.", output: "Sezioni leggibili per Paper, Trial, KG only e limitazioni.", constraint: "Non interpreta, non modifica e non arricchisce il contenuto del dossier.", llm: "No" } }
       ];
 
@@ -860,6 +861,15 @@
       }
 
       function connectionPath(from, to) {
+        if (from.id === "classifier" && to.id === "paper-document") {
+          return "M 520 399 L 550 399 L 550 154 L 590 154 L 590 104";
+        }
+        if (from.id === "classifier" && to.id === "trial-record") {
+          return "M 520 399 L 548 399 L 548 710 L 850 710 L 850 283 L 900 283";
+        }
+        if (from.id === "classifier" && to.id === "kg-provenance") {
+          return "M 520 399 L 530 399 L 530 738 L 865 738 L 865 528 L 900 528";
+        }
         var vertical = Math.abs((from.x + from.w / 2) - (to.x + to.w / 2)) < 24;
         if (vertical) {
           var sx = from.x + from.w / 2;
@@ -905,10 +915,16 @@
           });
           layer.appendChild(path);
           if (edge[4]) {
+            var labelPosition = {
+              "paper-document": { x: 526, y: 383 },
+              "trial-record": { x: 553, y: 432 },
+              "kg-provenance": { x: 514, y: 454, anchor: "end" }
+            }[to.id];
             var label = svgElement("text", {
               class: "edge__label",
-              x: from.x + from.w + (to.x - (from.x + from.w)) * .42,
-              y: from.y + from.h / 2 + (to.y + to.h / 2 - (from.y + from.h / 2)) * .42 - 9,
+              x: labelPosition ? labelPosition.x : from.x + from.w + (to.x - (from.x + from.w)) * .42,
+              y: labelPosition ? labelPosition.y : from.y + from.h / 2 + (to.y + to.h / 2 - (from.y + from.h / 2)) * .42 - 9,
+              "text-anchor": labelPosition && labelPosition.anchor ? labelPosition.anchor : "start",
               "data-paths": edge[2].join(" ")
             });
             label.textContent = edge[4];

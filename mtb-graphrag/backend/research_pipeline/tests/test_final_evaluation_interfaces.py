@@ -36,6 +36,26 @@ def test_selector_strategy_injection_receives_canonical_input_and_keeps_wrapper(
     assert result["selected_papers"][0]["resolved_source_unit_ids"] == ["SU-1"]
 
 
+def test_evaluation_adapters_preserve_selector_rank_order():
+    from evaluation.final_relation_aware_v1 import run_authoritative_fulltext_200 as authoritative
+    from evaluation.final_relation_aware_v1 import run_final_document_integrity_200 as final_run
+    from evaluation.final_relation_aware_v1 import rerun_document_integrity_repair_58 as repair
+    from evaluation.final_relation_aware_v1 import run_rq3
+
+    units = [
+        {"source_unit_id": "SU-A", "text": "parser first"},
+        {"source_unit_id": "SU-B", "text": "parser second"},
+        {"source_unit_id": "SU-C", "text": "rank first"},
+    ]
+    selected = ["SU-C", "SU-A", "SU-B"]
+
+    expected = ["SU-C", "SU-A", "SU-B"]
+    assert [u["source_unit_id"] for u in authoritative._units_in_selection_order(units, selected)] == expected
+    assert [u["source_unit_id"] for u in final_run._units_in_selection_order(units, selected)] == expected
+    assert [u["source_unit_id"] for u in repair._units_in_selection_order(units, selected)] == expected
+    assert [u["source_unit_id"] for u in run_rq3._units_in_selection_order(units, selected)] == expected
+
+
 def test_validator_identity_seam_preserves_transport_gate():
     args = {"decision": "QUOTE", "source_unit_id": "SU-1", "author_claim_quote": "x", "author_context_summary": "y", "abstention_reason": ""}
     result = validate_enrichment_v2(

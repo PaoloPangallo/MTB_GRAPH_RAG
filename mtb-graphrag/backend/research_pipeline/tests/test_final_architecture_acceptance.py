@@ -99,6 +99,48 @@ def test_trial_drug_is_retrieved_from_real_corpus_using_intervention_anchor(monk
     assert result["associations"][0]["relation_family"] == CLINICAL_TRIAL
 
 
+def test_explicit_molecular_conflict_is_not_overridden_by_shared_intervention():
+    context = _context(
+        disease="colorectal cancer",
+        gene="EGFR",
+        alteration=None,
+        drug="panitumumab",
+    )
+    conflicting_candidate = {
+        "candidate_id": "GCA-KRAS-PANITUMUMAB",
+        "disease": [{"label": "colorectal cancer"}],
+        "biomarkers": [{"type": "Gene", "label": "KRAS"}],
+        "interventions": [{"label": "panitumumab"}],
+        "document_identifiers": [{"pmid": "1"}],
+    }
+
+    matched, reasons = kg_retrieval._match_candidate(context, conflicting_candidate)
+
+    assert matched is False
+    assert "BIOMARKER_GENE_NOT_COMPATIBLE" in reasons
+
+
+def test_intervention_only_trial_remains_eligible_when_it_declares_no_molecular_anchor():
+    context = _context(
+        disease="gastrointestinal cancer",
+        gene="ERBB2",
+        alteration=None,
+        drug="EMB-01",
+    )
+    intervention_only_trial = {
+        "candidate_id": "GCA-TRIAL-EMB-01",
+        "disease": [{"label": "gastrointestinal cancer"}],
+        "biomarkers": [],
+        "interventions": [{"label": "EMB-01"}],
+        "document_identifiers": [{"nct": "NCT00000001"}],
+    }
+
+    matched, reasons = kg_retrieval._match_candidate(context, intervention_only_trial)
+
+    assert matched is True
+    assert "INTERVENTION_COMPATIBLE" in reasons
+
+
 def test_mixed_runtime_never_sends_trial_or_kg_only_to_paper_selector():
     candidates = kg_retrieval.load_candidates()
     paper = candidates["GCA-008ae3aad1a64c118318ef79"]
@@ -277,8 +319,11 @@ def test_parser_v3_prompt_forbids_inference_and_preserves_ambiguity():
 
 def test_reader_v3_contract_describes_observations_not_support_labels():
     required = set(prompt_v3.TOOL_SCHEMA["required"])
-    assert {"decision", "source_unit_id", "quote", "observed_relation", "abstain_reason"} <= required
-    assert set(prompt_v3._LEGACY_FIELDS).isdisjoint(required)
+    assert required == {"decision"}
+    assert {
+        "source_unit_id", "quote", "observed_stance", "effect_direction",
+        "relation_scope", "subject_level", "claim_type", "abstain_reason",
+    } <= set(prompt_v3.TOOL_SCHEMA["properties"])
     serialized = json.dumps(prompt_v3.TOOL_SCHEMA)
     assert "FULL_SUPPORT" not in serialized
     assert "PARTIAL_SUPPORT" not in serialized

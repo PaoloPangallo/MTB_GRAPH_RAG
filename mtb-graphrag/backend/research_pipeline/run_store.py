@@ -32,11 +32,25 @@ from backend.research_pipeline.contracts import PipelineRun
 from backend.research_pipeline.documents import cache_runtime
 from backend.research_pipeline.documents.live_resolution import DocumentRuntime
 from backend.research_pipeline.pipeline import CallBudget
+from backend.research_pipeline.retrieval.kg_retrieval import (
+    MAX_ASSOCIATIONS_PER_FAMILY,
+    MAX_DOCUMENTS_PER_ASSOCIATION,
+)
 
 #: Tetto di chiamate reali al modello per una singola run. Il pilot autorizzava
 #: 20 chiamate complessive; questo lavoro ne autorizza 10 in totale, quindi il
 #: tetto per run Ã¨ piÃ¹ stretto di quello del budget storico.
-MAX_LLM_CALLS_PER_RUN = 6
+MAX_LLM_CALLS_PER_RUN = (
+    1 + MAX_ASSOCIATIONS_PER_FAMILY * MAX_DOCUMENTS_PER_ASSOCIATION
+)
+NARRATOR_ENABLED_ENV = "RESEARCH_NARRATOR_ENABLED"
+
+
+def narrator_enabled() -> bool:
+    """Whether the optional presentation LLM is explicitly enabled."""
+    return os.getenv(NARRATOR_ENABLED_ENV, "").strip().lower() in {
+        "1", "true", "yes", "on",
+    }
 
 
 def research_ledger_path() -> Path:
@@ -170,9 +184,15 @@ class RunStore:
 
     def _execute(self, handle: RunHandle, clinical_text: str) -> None:
         try:
-            # Cache-first con acquisizione autorizzata sul miss: e' l'unica cache
-            # che il runtime canonico apre, e la apre sempre.
-            document_runtime = DocumentRuntime.open()
+            # Cache-first con acquisizione autorizzata sul miss. L'apertura è
+            # tentata una volta; solo i rami documentali la richiedono davvero.
+            try:
+                document_runtime = DocumentRuntime.open()
+            except cache_runtime.DocumentCacheUnavailable:
+                # Routing precede l'uso dei documenti. KG_ONLY non deve dipendere
+                # da una cache che non consumerà; PAPER/TRIAL falliscono chiusi
+                # nello stage documentale dell'orchestratore.
+                document_runtime = None
             # L'indice delle SourceUnit congelate resta passato per compatibilita'
             # di firma: nel percorso canonico le unita' con testo arrivano da
             # ``DocumentRuntime`` e questo argomento non entra in alcuna decisione.
@@ -184,11 +204,6 @@ class RunStore:
                 document_runtime=document_runtime, **self._canonical_providers(),
             )
             handle.status = handle.run.status
-        except cache_runtime.DocumentCacheUnavailable as exc:
-            # La cache manca: la run non parte e **non** ripiega sul replay.
-            handle.status = "FAILED"
-            handle.error = str(exc)
-            handle.error_reason_code = "DOCUMENT_CACHE_UNAVAILABLE"
         except Exception as exc:  # noqa: BLE001 -- l'errore deve restare visibile
             # Un errore non diventa mai un risultato: la run resta FAILED e il
             # messaggio e' esposto, invece di essere confuso con un'astensione.
@@ -204,17 +219,21 @@ class RunStore:
         """Gli unici provider del runtime operativo.
 
         Parser ed enricher chiamano davvero il modello, spendono il budget e la
-        validazione passa dal validatore v2. Gli adattatori congelati di
+        validazione passa dal validatore corrente. Il Narrator è aggiunto solo
+        con opt-in esplicito e resta post-dossier. Gli adattatori congelati di
         ``replay.py`` non sono raggiungibili da qui: sono infrastruttura di
         ricerca e vanno iniettati esplicitamente in ``orchestrator.run_case``.
         """
         from backend.research_pipeline import live_providers
 
-        return {
+        providers = {
             "call_parser_fn": live_providers.parser_fn,
             "call_enricher_fn": live_providers.enricher_fn,
             "validate_fn": live_providers.validate_fn,
         }
+        if narrator_enabled():
+            providers["call_narrator_fn"] = live_providers.narrator_fn
+        return providers
 
 
 _STORE: RunStore | None = None

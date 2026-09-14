@@ -24,13 +24,15 @@ from pydantic import BaseModel, Field
 # raggiungere gli adattatori congelati, nemmeno per descriverli.
 from backend.research_pipeline import data_access, execution_mode, llm_config
 from backend.research_pipeline.documents import cache_runtime
+from backend.research_pipeline.narrative import input_projection as narrative_projection
+from backend.research_pipeline.narrative.markdown_renderer import render_dossier_markdown
 from backend.research_pipeline.contracts import (
     LLM_STAGE_IDS,
     NOT_IMPLEMENTED_STAGE_IDS,
     PRESENTATION_STAGE_IDS,
     PipelineRun,
 )
-from backend.research_pipeline.run_store import demo_cases, get_store
+from backend.research_pipeline.run_store import demo_cases, get_store, narrator_enabled
 
 router = APIRouter()
 
@@ -123,6 +125,7 @@ def config() -> dict[str, Any]:
             "document_acquisition": "CACHE_FIRST_API_ON_MISS",
             "available": cache["document_cache_available"],
             "unavailable_reason": cache["reason_codes"] or None,
+            "narrator_enabled": narrator_enabled(),
         },
         "stages_not_implemented": sorted(NOT_IMPLEMENTED_STAGE_IDS),
         # Stage che producono la vista di presentazione: un loro fallimento non
@@ -150,24 +153,13 @@ def create_run(request: CreateRunRequest) -> dict[str, Any]:
     if not case_id:
         raise HTTPException(status_code=422, detail="case_id obbligatorio per un testo libero")
 
-    # Precondizioni del runtime canonico, verificate **prima** di avviare la run:
-    # ciò che non può essere eseguito fallisce subito e con il proprio motivo,
-    # invece di degradare in un replay travestito. Non c'è più un ramo
-    # alternativo da offrire quando queste precondizioni non reggono — l'assenza
-    # di quel ramo è il punto di questa architettura.
+    # Il provider del parser è una precondizione globale. La cache documentale
+    # viene invece verificata dopo il routing: KG_ONLY non la consuma, mentre
+    # PAPER e TRIAL continuano a fallire chiusi senza document runtime.
     try:
         llm_config.resolve_endpoint()
     except llm_config.MissingLLMCredentials as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
-    if not cache_runtime.is_available():
-        available, reasons = cache_runtime.validate_cache()
-        raise HTTPException(
-            status_code=503,
-            detail=f"cache documentale non disponibile ({reasons}): il runtime "
-                   f"canonico non ripiega su artefatti registrati. Configurare "
-                   f"{cache_runtime.CACHE_PATH_ENV}.",
-        )
-
     handle = get_store().start(case_id=case_id, clinical_text=clinical_text)
     return {
         "run_id": handle.run_id,
@@ -259,12 +251,30 @@ def get_dossier(run_id: str) -> dict[str, Any]:
     verification_stage = next(
         (s for s in snapshot["stages"] if s["stage_id"] == "stage_15_narrative_verifier"), None)
     verification = (verification_stage or {}).get("output_preview") or {}
+    narrative_trace = (
+        narrative_projection.build_narrative_trace(canonical)
+        if canonical is not None else None
+    )
+    canonical_dossier = canonical or preview.get("relation_aware_report", preview)
+    verified_narrative = verification.get("verified_narrative")
+    verification_summary = {
+        "status": (verification.get("verification") or {}).get("status"),
+        "reason_codes": (verification.get("verification") or {}).get("reason_codes", []),
+        "verifier_version": (verification.get("verification") or {}).get("verifier_version"),
+        "narrative_hash": (verification.get("verification") or {}).get("narrative_hash"),
+        "input_hash": (verification.get("verification") or {}).get("input_hash"),
+    } if verification else None
 
     return {
         "run_id": run_id,
         # Il dossier vero, non la preview che lo contiene: annidarlo
         # costringerebbe ogni client a conoscere la forma dello stage.
-        "dossier": canonical or preview.get("relation_aware_report", preview),
+        "dossier": canonical_dossier,
+        "dossier_markdown": render_dossier_markdown(
+            canonical_dossier, verified_narrative,
+            verification.get("presentation_mode", "STRUCTURED_DOSSIER_FALLBACK"),
+            verification_summary,
+        ),
         "legacy_dossier": preview.get("dossier"),
         "candidate_count": (
             (canonical or {}).get("retrieval_summary", {}).get("selected_total")
@@ -275,15 +285,12 @@ def get_dossier(run_id: str) -> dict[str, Any]:
         # ``narrative`` e' popolata SOLO se il verifier deterministico ha
         # accettato: il client non deve decidere se mostrarla, deve leggere
         # ``presentation_mode``.
-        "narrative": verification.get("verified_narrative"),
+        "narrative": verified_narrative,
+        # Trace deterministica per candidate: deriva dal dossier canonico e
+        # resta disponibile anche se il Narrator è disabilitato o respinto.
+        "narrative_trace": narrative_trace,
         "presentation_mode": verification.get("presentation_mode", "STRUCTURED_DOSSIER_FALLBACK"),
-        "narrative_verification": {
-            "status": (verification.get("verification") or {}).get("status"),
-            "reason_codes": (verification.get("verification") or {}).get("reason_codes", []),
-            "verifier_version": (verification.get("verification") or {}).get("verifier_version"),
-            "narrative_hash": (verification.get("verification") or {}).get("narrative_hash"),
-            "input_hash": (verification.get("verification") or {}).get("input_hash"),
-        } if verification else None,
+        "narrative_verification": verification_summary,
         "research_notice": PipelineRun.research_notice(),
     }
 
@@ -292,7 +299,8 @@ def get_dossier(run_id: str) -> dict[str, Any]:
 #: rendono ``document_grounded`` vero: un'astensione o un rigetto lasciano la
 #: candidate al livello del grafo.
 _ACCEPTED_OUTCOMES = ("ENRICHMENT_ACCEPTED", "ENRICHMENT_ACCEPTED_WITH_WARNING",
-                      "ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY")
+                      "ENRICHMENT_V2_ACCEPTED", "ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY",
+                      "ENRICHMENT_V3_ACCEPTED")
 
 
 @router.get("/runs/{run_id}/provenance")

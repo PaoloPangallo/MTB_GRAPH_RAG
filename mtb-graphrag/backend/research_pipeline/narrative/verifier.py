@@ -46,6 +46,11 @@ REASON_UNAUTHORIZED_RECOMMENDATION = "NARRATIVE_UNAUTHORIZED_RECOMMENDATION"
 REASON_CRITICAL_OMISSION = "NARRATIVE_CRITICAL_LIMITATION_OMITTED"
 REASON_UNKNOWN_CANDIDATE = "NARRATIVE_UNKNOWN_CANDIDATE_ID"
 REASON_MISSING_CANDIDATE = "NARRATIVE_MISSING_CANDIDATE"
+REASON_TRIAL_EFFICACY_ESCALATION = "NARRATIVE_TRIAL_EFFICACY_ESCALATION"
+REASON_TRIAL_ELIGIBILITY_ESCALATION = "NARRATIVE_TRIAL_ELIGIBILITY_ESCALATION"
+REASON_KG_DOCUMENTARY_ESCALATION = "NARRATIVE_KG_ONLY_DOCUMENTARY_ESCALATION"
+REASON_UNAUTHORIZED_SOURCE_REF = "NARRATIVE_UNAUTHORIZED_SOURCE_REF"
+REASON_SOURCE_REF_TYPE_MISMATCH = "NARRATIVE_SOURCE_REF_TYPE_MISMATCH"
 
 #: Identificatori documentali riconoscibili nel testo. Volutamente stretti:
 #: cercano forme canoniche, non qualunque numero.
@@ -158,7 +163,7 @@ def _check_status(candidate, text) -> list[dict[str, Any]]:
     """Una candidate che non esprime supporto non può essere narrata come supportata."""
     support = candidate.get("candidate_support") or {}
     support_result = support.get("result")
-    if candidate.get("expresses_support") and support_result in (None, "STRONG_SUPPORT"):
+    if candidate.get("expresses_support") and support_result in (None, "STRONG_SUPPORT", "FULL_SUPPORT"):
         return []
     hits = lx.support_claim_hits(text)
     if re.search(r"\b(?:not\s+confirmed|non\s+confermat[oa])\b", text, re.IGNORECASE):
@@ -237,12 +242,20 @@ def _check_quotes(narrative, canonical_dossier, allowed) -> tuple[list[dict], li
     """
     unauthorized, promoted = [], []
     rejected = {
+        (quote.get("quote") or "").strip()
+        for entry in canonical_dossier.get("paper_evidence") or []
+        for quote in entry.get("rejected_quotes") or []
+        if (quote.get("quote") or "").strip()
+    }
+    # Compatibility fallback for dossiers produced before rejected_quotes was
+    # promoted to the canonical paper projection.
+    rejected.update({
         (v.get("author_claim_quote") or "").strip()
         for entry in canonical_dossier.get("candidate_therapies") or []
         for v in entry.get("author_context") or []
         if v.get("presentation_state") not in PRESENTABLE_AS_AUTHOR_CLAIM
         and (v.get("author_claim_quote") or "").strip()
-    }
+    })
     validated_norm = {_norm(q) for q in allowed["quotes"]}
 
     for label, text in _narrative_texts(narrative):
@@ -256,6 +269,55 @@ def _check_quotes(narrative, canonical_dossier, allowed) -> tuple[list[dict], li
             else:
                 unauthorized.append({"block": label, "quote": candidate_quote[:160]})
     return unauthorized, promoted
+
+
+def _authorized_source_refs(narrator_input: dict[str, Any]) -> dict[str, set[str]]:
+    """Collect source identifiers per candidate from the canonical projection."""
+    refs_by_candidate: dict[str, set[str]] = {}
+    for candidate in narrator_input.get("candidates") or []:
+        refs: set[str] = set()
+        cid = str(candidate.get("candidate_id") or "")
+        refs.update(str(v) for v in candidate.get("selected_paper_ids") or [] if v)
+        for quote in candidate.get("validated_quotes") or []:
+            for key in ("paper_id", "source_unit_id"):
+                if quote.get(key):
+                    refs.add(str(quote[key]))
+        trial = candidate.get("trial_context") or {}
+        if trial.get("nct_id"):
+            refs.add(str(trial["nct_id"]))
+        kg = candidate.get("kg_context") or {}
+        provenance = kg.get("graph_provenance") or {}
+        for key in ("edge_ids", "node_ids"):
+            refs.update(str(v) for v in provenance.get(key) or [] if v)
+        refs_by_candidate[cid] = refs
+    return refs_by_candidate
+
+
+def _check_source_refs(narrative, narrator_input) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Reject provenance claims that are not present in the dossier projection."""
+    authorized_by_candidate = _authorized_source_refs(narrator_input)
+    violations: list[dict[str, Any]] = []
+    type_violations: list[dict[str, Any]] = []
+    branch_by_id = {c.get("candidate_id"): c.get("branch") for c in narrator_input.get("candidates") or []}
+    allowed_types = {"PAPER": "documentary", "TRIAL": "trial_context", "KG_ONLY": "kg_provenance"}
+    for entry in narrative.get("candidate_narratives") or []:
+        cid = entry.get("candidate_id")
+        refs = list(entry.get("source_refs") or [])
+        refs.extend(
+            claim.get("source_ref")
+            for claim in entry.get("claims") or []
+            if isinstance(claim, dict) and claim.get("source_ref")
+        )
+        for ref in refs:
+            if ref not in authorized_by_candidate.get(str(cid), set()):
+                violations.append({"candidate_id": cid, "source_ref": ref})
+        expected_type = allowed_types.get(branch_by_id.get(cid))
+        if expected_type:
+            for claim in entry.get("claims") or []:
+                if isinstance(claim, dict) and claim.get("claim_type") != expected_type:
+                    type_violations.append({"candidate_id": cid, "claim_type": claim.get("claim_type"),
+                                            "expected": expected_type})
+    return violations, type_violations
 
 
 # ═══════════════════════════════════════════════════════ §14 recommendation
@@ -286,6 +348,53 @@ def _check_omissions(candidate, text) -> list[dict[str, Any]]:
         omissions.append({"candidate_id": candidate["candidate_id"],
                           "omitted": "SOURCE_DOES_NOT_SUPPORT_NOT_STATED"})
     return omissions
+
+
+def _check_branch_semantics(candidate: dict[str, Any], text: str) -> list[dict[str, Any]]:
+    """Prevent branch-specific context from being promoted in prose.
+
+    These checks are deliberately lexical and deterministic.  They protect the
+    semantic boundary already established by the structured dossier; they do
+    not infer clinical truth or recalculate support.
+    """
+    branch = candidate.get("branch")
+    lowered = (text or "").lower()
+    violations: list[dict[str, Any]] = []
+    if branch == "TRIAL":
+        trial = candidate.get("trial_context") or {}
+        efficacy = re.findall(
+            r"\b(?:efficacy|effective|effectiveness|response\s+rate|clinical\s+benefit|therapeutic\s+response|showed\s+benefit|suitable\s+for\s+treatment|would\s+benefit)\b",
+            lowered,
+        )
+        negative_efficacy = re.search(
+            r"\b(?:not|no|without|non)\s+(?:an?\s+)?(?:efficacy|effective|effectiveness|proof\s+of\s+efficacy)\b"
+            r"|\b(?:does\s+not|doesn't|did\s+not|didn't)\s+(?:demonstrate|show)\s+(?:efficacy|benefit)\b"
+            r"|\bnon\s+(?:dimostra|è\s+una\s+prova\s+di)\s+(?:efficacia|beneficio)\b",
+            lowered,
+        )
+        if efficacy and not negative_efficacy:
+            violations.append({"candidate_id": candidate.get("candidate_id"),
+                               "kind": "TRIAL_EFFICACY_ESCALATION", "phrases": efficacy})
+        positive_eligibility = re.search(
+            r"\b(?:the\s+)?(?:patient|participant|subject)\s+(?:is|appears|seems)\s+"
+            r"(?:eligible|qualified)\b|\b(?:would\s+be\s+)?(?:eligible|qualified)\b|"
+            r"\b(?:would\s+)?qualif(?:y|ies)\s+for\b|\b(?:could|can)\s+enroll\b|"
+            r"\bmeets?\s+(?:the\s+)?eligibility\s+criteria\b",
+            lowered,
+        )
+        if trial.get("eligibility_status") == "NOT_EVALUATED" and positive_eligibility:
+            violations.append({"candidate_id": candidate.get("candidate_id"),
+                               "kind": "TRIAL_ELIGIBILITY_ESCALATION"})
+    elif branch == "KG_ONLY":
+        documentary = re.findall(
+            r"\b(?:validated\s+(?:quote|evidence|source)|documentary\s+evidence|documented\s+evidence|paper\s+evidence|source[- ]grounded|"
+            r"supported\s+by\s+(?:the\s+)?(?:graph\s+and\s+)?(?:the\s+)?literature|paper\s+confirms)\b",
+            lowered,
+        )
+        if documentary:
+            violations.append({"candidate_id": candidate.get("candidate_id"),
+                               "kind": "KG_DOCUMENTARY_ESCALATION", "phrases": documentary})
+    return violations
 
 
 # ══════════════════════════════════════════════════════════════════ verify
@@ -333,6 +442,12 @@ def verify_narrative(
     if promoted_quotes:
         reason_codes.append(REASON_REJECTED_QUOTE_PROMOTED)
 
+    unauthorized_source_refs, source_ref_type_mismatches = _check_source_refs(narrative_output, narrator_input)
+    if unauthorized_source_refs:
+        reason_codes.append(REASON_UNAUTHORIZED_SOURCE_REF)
+    if source_ref_type_mismatches:
+        reason_codes.append(REASON_SOURCE_REF_TYPE_MISMATCH)
+
     by_id = {c["candidate_id"]: c for c in narrator_input.get("candidates") or []}
     text_by_id: dict[str, str] = {}
     for entry in narrative_output.get("candidate_narratives") or []:
@@ -340,6 +455,13 @@ def verify_narrative(
         text_by_id[cid] = f"{text_by_id.get(cid, '')}\n{entry.get('text') or ''}".strip()
 
     escalations, support_escalations, inversions, negations_lost, omissions = [], [], [], [], []
+    branch_violations: list[dict[str, Any]] = []
+    global_status_escalations: list[dict[str, Any]] = []
+    global_support_escalations: list[dict[str, Any]] = []
+    global_text = "\n".join(
+        str(narrative_output.get(key) or "")
+        for key in ("narrative_summary", "limitations_summary", "closing_note")
+    )
     candidate_results = []
     for cid, candidate in by_id.items():
         text = text_by_id.get(cid, "")
@@ -347,11 +469,30 @@ def verify_narrative(
         c_support = _check_support_level(candidate, text)
         c_inv, c_lost = _check_polarity(candidate, text)
         c_omit = _check_omissions(candidate, text)
+        branch_text = text
+        if candidate.get("branch") in {"TRIAL", "KG_ONLY"}:
+            branch_text += "\n" + "\n".join(
+                str(narrative_output.get(key) or "")
+                for key in ("narrative_summary", "limitations_summary", "closing_note")
+            )
+        c_branch = _check_branch_semantics(candidate, branch_text)
+        g_esc: list[dict[str, Any]] = []
+        g_support: list[dict[str, Any]] = []
+        if global_text:
+            # Global prose has no candidate identity; apply the same checks
+            # conservatively to every restricted candidate in the dossier.
+            g_esc = _check_status(candidate, global_text)
+            g_support = _check_support_level(candidate, global_text)
+            global_status_escalations += g_esc
+            global_support_escalations += g_support
+            escalations += g_esc
+            support_escalations += g_support
         escalations += c_esc
         support_escalations += c_support
         inversions += c_inv
         negations_lost += c_lost
         omissions += c_omit
+        branch_violations += c_branch
         candidate_results.append({
             "candidate_id": cid,
             "canonical_status": candidate["canonical_status"],
@@ -359,6 +500,8 @@ def verify_narrative(
             "narrated": bool(text),
             "status_escalation": bool(c_esc),
             "support_level_escalation": bool(c_support),
+            "global_status_escalation": bool(g_esc),
+            "global_support_level_escalation": bool(g_support),
             "polarity_inversion": bool(c_inv),
             "negation_lost": bool(c_lost),
             "critical_omissions": [o["omitted"] for o in c_omit],
@@ -374,6 +517,13 @@ def verify_narrative(
         reason_codes.append(REASON_NEGATION_LOST)
     if omissions:
         reason_codes.append(REASON_CRITICAL_OMISSION)
+    for violation in branch_violations:
+        if violation["kind"] == "TRIAL_EFFICACY_ESCALATION":
+            reason_codes.append(REASON_TRIAL_EFFICACY_ESCALATION)
+        elif violation["kind"] == "TRIAL_ELIGIBILITY_ESCALATION":
+            reason_codes.append(REASON_TRIAL_ELIGIBILITY_ESCALATION)
+        elif violation["kind"] == "KG_DOCUMENTARY_ESCALATION":
+            reason_codes.append(REASON_KG_DOCUMENTARY_ESCALATION)
 
     return {
         "status": FAIL if reason_codes else PASS,
@@ -384,10 +534,15 @@ def verify_narrative(
         "unauthorized_entities": unauthorized_entities,
         "status_escalations": escalations,
         "support_level_escalations": support_escalations,
+        "global_status_escalations": global_status_escalations,
+        "global_support_level_escalations": global_support_escalations,
         "polarity_violations": inversions + negations_lost,
         "unauthorized_quotes": unauthorized_quotes + promoted_quotes,
+        "unauthorized_source_refs": unauthorized_source_refs,
+        "source_ref_type_mismatches": source_ref_type_mismatches,
         "recommendation_language": recommendation_language,
         "critical_omissions": omissions,
+        "branch_semantic_violations": branch_violations,
         "verified_at": now,
         "verifier_version": VERIFIER_VERSION,
         "lexicon_version": lx.LEXICON_VERSION,

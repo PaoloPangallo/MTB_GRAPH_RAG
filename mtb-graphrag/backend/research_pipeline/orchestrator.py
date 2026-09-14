@@ -334,8 +334,9 @@ def run_case(
     fallback silenzioso rimosso.
 
     ``document_runtime`` è la cache aperta per la run. Nel percorso canonico è
-    obbligatorio: senza, gli stage 6-7 non possono essere eseguiti e la run
-    fallisce con ``DOCUMENT_CACHE_UNAVAILABLE`` invece di rigiocare artefatti.
+    obbligatorio solo quando il routing produce PAPER/TRIAL: senza, il ramo
+    documentale fallisce con ``DOCUMENT_CACHE_UNAVAILABLE`` invece di rigiocare
+    artefatti. Un run KG_ONLY non consuma la cache.
 
     ``research_frozen_artifacts`` è **infrastruttura di ricerca e regressione**,
     non una modalità utente. Vale ``False`` per definizione in ogni percorso
@@ -641,7 +642,7 @@ def run_case(
     p = _deterministic("document_resolution")
     recorder.start("stage_6_document_resolution", p)
 
-    if canonical and document_runtime is None:
+    if canonical and document_runtime is None and document_bearing_associations:
         recorder.finish("stage_6_document_resolution", p, status="FAILED",
                         artifact_origin=em.NOT_EXECUTED,
                         reason_codes=("DOCUMENT_CACHE_UNAVAILABLE",),
@@ -698,6 +699,16 @@ def run_case(
                     document_id=document.document_id, bundle_id=document.bundle_id,
                     degradation_reason="PMC_RESOLUTION_FAILED",
                 )
+    elif canonical:
+        resolution = DocumentResolution(
+            documents=(), cache_path_redacted="", manifest_hash=None,
+        )
+        recorder.finish(
+            "stage_6_document_resolution", p, status="SKIPPED",
+            artifact_origin=em.NOT_APPLICABLE,
+            reason_codes=("NO_DOCUMENT_BEARING_CANDIDATES",),
+            output_preview={"documents": [], "document_cache_available": False},
+        )
     else:
         # Solo REPLAY: i documenti sono quelli già citati dai bundle congelati.
         documents = [
@@ -765,6 +776,15 @@ def run_case(
                         reason_codes=("NO_PAPER_CANDIDATES",),
                         output_preview={"source_units": [], "source_unit_count": 0,
                                         "text_never_exposed": True})
+    elif canonical:
+        units_for_decisions = {}
+        recorder.finish(
+            "stage_7_source_units", p, status="SKIPPED",
+            artifact_origin=em.NOT_APPLICABLE,
+            reason_codes=("NO_PAPER_CANDIDATES",),
+            output_preview={"source_units": [], "source_unit_count": 0,
+                            "text_never_exposed": True},
+        )
     else:
         units_for_decisions = dict(source_units_by_id)
         # Solo locatori e hash: il testo non lascia mai l'enricher.
@@ -945,6 +965,14 @@ def run_case(
             }.get(selected_paper.get("bundle_type"), selected_paper.get("bundle_type"))
             latest_validation = validation_entries[-1] if validation_entries else {}
             relation_paper_results[candidate["candidate_id"]] = {
+                "document_id": (
+                    resolved_document.document_id
+                    if resolved_document else selected_paper.get("document_id")
+                ),
+                "requested_document_id": (
+                    resolved_document.lineage.get("requested_document_id")
+                    if resolved_document else selected_paper.get("document_id")
+                ),
                 "pmcid": (
                     resolved_document.lineage.get("derived_pmcid")
                     if resolved_document else None
@@ -1116,9 +1144,37 @@ def run_case(
     # presentazione e non può modificarlo. Un fallimento qui non invalida la run
     # — attiva il fallback strutturato — perché la narrativa non è evidenza.
     if call_narrator_fn is not None:
-        _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
+        # The relation-aware report is the single canonical source for
+        # narrative projection and verification.  Keep the legacy preview
+        # fields only as compatibility data for existing quote checks; they
+        # are never used to build the narrator input.
+        narrative_dossier = dict(relation_aware_report)
+        narrative_dossier.update({
+            "case_id": case_id,
+            "case_context": case_context,
+            "candidate_therapies": dossier.get("candidate_therapies", []),
+            "provenance": dossier.get("provenance", {}),
+        })
+        _narrate_and_verify(recorder, case_id, narrative_dossier, call_narrator_fn,
                             verify_narrative_fn, canonical, replay_origin,
                             narrative_verifier_mode)
+    else:
+        narrator_producer = StageProducer(
+            kind="LLM", component="dossier_narrator",
+            version=narrative_prompt.NARRATOR_PROMPT_VERSION,
+            model="not_configured", prompt_version=narrative_prompt.NARRATOR_PROMPT_VERSION,
+        )
+        recorder.finish(
+            "stage_14_narrator", narrator_producer, status="SKIPPED",
+            artifact_origin=em.NOT_EXECUTED,
+            reason_codes=("NARRATOR_NOT_CONFIGURED",),
+        )
+        recorder.finish(
+            "stage_15_narrative_verifier",
+            _deterministic("narrative_verifier", narrative_verifier.VERIFIER_VERSION),
+            status="SKIPPED", artifact_origin=em.NOT_EXECUTED,
+            reason_codes=("NARRATOR_NOT_CONFIGURED",),
+        )
 
     has_warning = any(stage.status == "WARNING" for stage in recorder.stages)
     if narrative_verifier_mode == "OFFLINE_ABLATION_BYPASS":
@@ -1129,7 +1185,7 @@ def run_case(
     )
 
 
-def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
+def _narrate_and_verify(recorder, case_id, canonical_dossier, call_narrator_fn,
                         verify_narrative_fn, canonical, replay_origin,
                         narrative_verifier_mode: str = "CANONICAL") -> None:
     """Stage 14 e 15. Separati dallo stage 13 in modo osservabile.
@@ -1137,7 +1193,7 @@ def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
     L'ordine è il contratto: il dossier canonico è già stato costruito ed emesso
     con ``DOSSIER_BUILT`` prima che il Narrator venga invocato.
     """
-    narrator_input = narrative_projection.build_narrator_input(dossier)
+    narrator_input = narrative_projection.build_narrator_input(canonical_dossier)
 
     # --- STAGE 14: narrazione (LLM) -----------------------------------------
     narrator_producer = StageProducer(
@@ -1214,7 +1270,7 @@ def _narrate_and_verify(recorder, case_id, dossier, call_narrator_fn,
     if narrative_verifier_mode != "CANONICAL":
         raise ValueError(f"unknown narrative_verifier_mode: {narrative_verifier_mode}")
     verifier = verify_narrative_fn or narrative_verifier.verify_narrative
-    result = verifier(dossier, narrator_input, narrative)
+    result = verifier(canonical_dossier, narrator_input, narrative)
     verified = result["status"] == narrative_verifier.PASS
 
     # Regola non negoziabile: una narrativa non verificata non viene mostrata.

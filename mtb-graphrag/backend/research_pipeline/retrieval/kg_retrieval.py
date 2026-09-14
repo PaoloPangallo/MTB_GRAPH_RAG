@@ -211,7 +211,13 @@ def _match_candidate(case_context: dict[str, Any], candidate: dict[str, Any]) ->
         if case_has_non_disease_anchor
         else any((bool(candidate_disease and disease_ok), bool(candidate_biomarkers and gene_ok)))
     )
-    ok = disease_ok and intervention_ok and positive_anchor
+    # A shared intervention is a useful retrieval anchor only when it does not
+    # contradict an explicitly stated molecular subject.  In particular,
+    # EGFR + panitumumab must not retrieve a KRAS + panitumumab candidate just
+    # because the drug matches.  Candidates that declare no molecular anchor
+    # (for example, intervention-only trial records) remain eligible through
+    # the normal intervention path.
+    ok = disease_ok and intervention_ok and positive_anchor and not explicit_gene_conflict
     if ok:
         reasons = []
         if candidate_disease:

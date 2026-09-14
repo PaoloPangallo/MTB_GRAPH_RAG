@@ -20,6 +20,8 @@ from backend.research_pipeline.narrative.verifier import (
     REASON_POLARITY_INVERSION, REASON_REJECTED_QUOTE_PROMOTED,
     REASON_STATUS_ESCALATION, REASON_UNAUTHORIZED_ENTITY,
     REASON_UNAUTHORIZED_QUOTE, REASON_UNAUTHORIZED_RECOMMENDATION,
+    REASON_UNAUTHORIZED_SOURCE_REF,
+    REASON_SOURCE_REF_TYPE_MISMATCH,
     VERIFIER_VERSION, result_fingerprint, verify_narrative,
 )
 
@@ -182,6 +184,112 @@ class HappyPathTest(unittest.TestCase):
                 self.assertEqual(result["status"], PASS,
                                  f"{case_id}: {result['reason_codes']}")
                 self.assertTrue(faithful)
+
+
+class SourceAttributionContractTest(unittest.TestCase):
+    def _canonical(self):
+        return {
+            "case_id": "CASE-SOURCE",
+            "case_context": {
+                "disease": {"normalized_value": "Colorectal Cancer"},
+                "biomarkers": [{"normalized_value": "KRAS G12D"}],
+                "target_intervention": {"normalized_value": "PANITUMUMAB"},
+                "query_intent": "THERAPY_EVALUATION",
+            },
+            "paper_evidence": [{
+                "candidate_id": "GCA-PAPER",
+                "relation": "resistance",
+                "document_id": "PMID:19223544",
+                "quote": "KRAS mutations were associated with resistance",
+                "quote_valid": True,
+                "quote_source_unit_id": "SU-PAPER-1",
+                "support_level": "PARTIAL_SUPPORT",
+                "support_fields": {"direction": "SUPPORTED"},
+            }],
+            "clinical_trials": [{
+                "candidate_id": "GCA-TRIAL",
+                "relation": "trial_association",
+                "nct_id": "NCT01234567",
+                "title": "A study",
+                "conditions": ["Colorectal Cancer"],
+                "interventions": [{"name": "PANITUMUMAB"}],
+                "phase": ["PHASE2"],
+                "status": "RECRUITING",
+                "trial_resolution_status": "RESOLVED",
+                "eligibility_status": "NOT_EVALUATED",
+                "evidence_interpretation": "TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE",
+            }],
+            "kg_only_relations": [{
+                "candidate_id": "GCA-KG",
+                "subject": {"label": "EGFR"},
+                "relation": "gene_drug_interaction",
+                "object": {"label": "PANITUMUMAB"},
+                "source_database": "MyCancerGenome",
+                "graph_provenance": {"edge_ids": ["edge:kg:1"]},
+                "verification_status": "KG_ONLY",
+                "document_provenance": "NOT_AVAILABLE",
+            }],
+            "limitations": [],
+            "provenance": {"dossier_version": "test/1.0"},
+        }
+
+    def test_projection_contains_authorized_refs_for_all_families(self):
+        projected = build_narrator_input(self._canonical())
+        by_id = {c["candidate_id"]: c for c in projected["candidates"]}
+        self.assertIn("PMID:19223544", by_id["GCA-PAPER"]["source_refs"])
+        self.assertIn("NCT01234567", by_id["GCA-TRIAL"]["source_refs"])
+        self.assertIn("edge:kg:1", by_id["GCA-KG"]["source_refs"])
+
+    def test_claim_with_unknown_source_ref_is_rejected(self):
+        dossier = self._canonical()
+        narrator_input = build_narrator_input(dossier)
+        narrative = {
+            "narrative_summary": "Sintesi",
+            "candidate_narratives": [{
+                "candidate_id": "GCA-PAPER", "text": "La relazione è parziale.",
+                "source_refs": ["PMID:99999999"],
+                "claims": [{"claim": "claim", "source_ref": "PMID:99999999", "claim_type": "documentary"}],
+            }],
+            "limitations_summary": "",
+            "closing_note": "",
+        }
+        result = verify_narrative(dossier, narrator_input, narrative)
+        self.assertEqual(result["status"], FAIL)
+        self.assertIn(REASON_UNAUTHORIZED_SOURCE_REF, result["reason_codes"])
+
+    def test_source_ref_cannot_be_attached_to_another_candidate(self):
+        dossier = self._canonical()
+        narrator_input = build_narrator_input(dossier)
+        narrative = {
+            "narrative_summary": "Sintesi",
+            "candidate_narratives": [{
+                "candidate_id": "GCA-TRIAL", "text": "Trial associato.",
+                "source_refs": ["PMID:19223544"],
+                "claims": [],
+            }],
+            "limitations_summary": "",
+            "closing_note": "",
+        }
+        result = verify_narrative(dossier, narrator_input, narrative)
+        self.assertEqual(result["status"], FAIL)
+        self.assertIn(REASON_UNAUTHORIZED_SOURCE_REF, result["reason_codes"])
+
+    def test_claim_type_must_match_branch(self):
+        dossier = self._canonical()
+        narrator_input = build_narrator_input(dossier)
+        narrative = {
+            "narrative_summary": "Sintesi",
+            "candidate_narratives": [{
+                "candidate_id": "GCA-KG", "text": "Relazione dal grafo.",
+                "source_refs": ["edge:kg:1"],
+                "claims": [{"claim": "Relazione", "source_ref": "edge:kg:1", "claim_type": "documentary"}],
+            }],
+            "limitations_summary": "",
+            "closing_note": "",
+        }
+        result = verify_narrative(dossier, narrator_input, narrative)
+        self.assertEqual(result["status"], FAIL)
+        self.assertIn(REASON_SOURCE_REF_TYPE_MISMATCH, result["reason_codes"])
 
 
 # ═════════════════════════════════════════════════ §22 invenzione di entità

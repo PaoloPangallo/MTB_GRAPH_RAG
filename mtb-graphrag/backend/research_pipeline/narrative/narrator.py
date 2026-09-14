@@ -67,15 +67,33 @@ def _argument_errors(args: dict[str, Any]) -> list[str]:
         if not isinstance(entry, dict):
             errors.append(f"candidate_narratives[{index}]:NOT_OBJECT")
             continue
-        allowed = {"candidate_id", "text"}
+        allowed = {"candidate_id", "text", "source_refs", "claims"}
         if set(entry) - allowed:
             errors.append(f"candidate_narratives[{index}]:EXTRA_KEYS:{sorted(set(entry) - allowed)}")
-        if allowed - set(entry):
-            errors.append(f"candidate_narratives[{index}]:MISSING:{sorted(allowed - set(entry))}")
+        required_entry = {"candidate_id", "text", "source_refs", "claims"}
+        if required_entry - set(entry):
+            errors.append(f"candidate_narratives[{index}]:MISSING:{sorted(required_entry - set(entry))}")
             continue
-        for key in allowed:
-            if not isinstance(entry[key], str):
+        for key in {"candidate_id", "text"}:
+            if key in {"candidate_id", "text"} and not isinstance(entry[key], str):
                 errors.append(f"candidate_narratives[{index}].{key}:NOT_STRING")
+        if "source_refs" in entry:
+            if not isinstance(entry["source_refs"], list) or not all(isinstance(v, str) for v in entry["source_refs"]):
+                errors.append(f"candidate_narratives[{index}].source_refs:NOT_STRING_ARRAY")
+        if "claims" in entry:
+            claims = entry["claims"]
+            if not isinstance(claims, list):
+                errors.append(f"candidate_narratives[{index}].claims:NOT_ARRAY")
+            else:
+                for cidx, claim in enumerate(claims):
+                    if not isinstance(claim, dict):
+                        errors.append(f"candidate_narratives[{index}].claims[{cidx}]:NOT_OBJECT")
+                        continue
+                    expected = {"claim", "source_ref", "claim_type"}
+                    if set(claim) != expected:
+                        errors.append(f"candidate_narratives[{index}].claims[{cidx}]:INVALID_KEYS")
+                    if not all(isinstance(claim.get(k), str) for k in expected):
+                        errors.append(f"candidate_narratives[{index}].claims[{cidx}]:INVALID_TYPES")
     return errors
 
 
@@ -96,10 +114,16 @@ def _narrative_id(case_id: str, input_hash: str, run_index: int) -> str:
 def _trim_only(args: dict[str, Any]) -> dict[str, Any]:
     """Solo trim degli spazi esterni. Nessuna altra normalizzazione."""
     trimmed = {k: (v.strip() if isinstance(v, str) else v) for k, v in args.items()}
-    trimmed["candidate_narratives"] = [
-        {"candidate_id": e["candidate_id"].strip(), "text": e["text"].strip()}
-        for e in args["candidate_narratives"]
-    ]
+    trimmed["candidate_narratives"] = []
+    for e in args["candidate_narratives"]:
+        item = {"candidate_id": e["candidate_id"].strip(), "text": e["text"].strip(),
+                "source_refs": [v.strip() for v in e["source_refs"]],
+                "claims": [
+                    {"claim": c["claim"].strip(), "source_ref": c["source_ref"].strip(),
+                     "claim_type": c["claim_type"].strip()}
+                    for c in e["claims"]
+                ]}
+        trimmed["candidate_narratives"].append(item)
     return trimmed
 
 

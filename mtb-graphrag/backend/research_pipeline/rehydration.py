@@ -178,6 +178,16 @@ def rehydrate(ledger: EventLedger, run_id: str) -> dict[str, Any] | None:
         stopped_at = None
         completed_at = None
 
+    dossier_stage = next(
+        (stage for stage in stages
+         if stage["stage_id"] == "stage_13_dossier" and stage["status"] == "SUCCEEDED"),
+        None,
+    )
+    relation_aware_report = (
+        (dossier_stage.get("output_preview") or {}).get("relation_aware_report")
+        if dossier_stage is not None else None
+    )
+
     return {
         "run_id": run_id,
         "case_id": created_payload.get("case_id", ""),
@@ -191,6 +201,7 @@ def rehydrate(ledger: EventLedger, run_id: str) -> dict[str, Any] | None:
         "dossier_id": created_payload.get("case_id") if any(
             s["stage_id"] == "stage_13_dossier" and s["status"] == "SUCCEEDED" for s in stages
         ) else None,
+        "relation_aware_report": relation_aware_report,
         "warnings": [],
         "errors": [],
         "versions": {},
