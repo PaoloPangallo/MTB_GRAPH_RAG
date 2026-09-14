@@ -72,6 +72,7 @@ def annotate_enrichment(
     paper_id: str | None,
     validation: dict[str, Any] | None,
     accepted_for_gates: bool,
+    source_unit_text: str | None = None,
 ) -> dict[str, Any]:
     """Copia dell'enrichment con il proprio esito di validazione allegato.
 
@@ -83,7 +84,7 @@ def annotate_enrichment(
     has_quote = bool(
         (enrichment or {}).get("quote") or (enrichment or {}).get("author_claim_quote")
     )
-    return {
+    annotated = {
         **(enrichment or {}),
         "paper_id": paper_id,
         "validation_outcome": outcome,
@@ -91,6 +92,9 @@ def annotate_enrichment(
         "presentation_state": presentation_state(outcome, has_quote=has_quote),
         "accepted_for_gates": bool(accepted_for_gates),
     }
+    if outcome in _ACCEPTED_OUTCOMES and isinstance(source_unit_text, str):
+        annotated["source_unit_text"] = source_unit_text
+    return annotated
 
 
 def build_dossier_preview(case_id: str, case_context: dict[str, Any], verification_summary: dict[str, Any], candidate_therapies: list[dict[str, Any]], limitations: list[str]) -> dict[str, Any]:
@@ -175,6 +179,7 @@ def _paper_result_fields(result: dict[str, Any]) -> dict[str, Any]:
         "reader_decision": enrichment.get("decision") or result.get("reader_decision"),
         "quote": result.get("quote") or enrichment.get("quote") or enrichment.get("author_claim_quote"),
         "quote_source_unit_id": result.get("quote_source_unit_id") or enrichment.get("source_unit_id"),
+        "source_unit_text": enrichment.get("source_unit_text"),
         "quote_valid": result.get("quote_valid"),
         "quote_validation": result.get("quote_validation") or validation.get("outcome"),
         "support_fields": result.get("support_fields") or support.get("fields"),

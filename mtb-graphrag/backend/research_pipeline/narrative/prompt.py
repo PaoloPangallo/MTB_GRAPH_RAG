@@ -11,7 +11,7 @@ serve a rendere probabile una narrativa che il verifier accetti.
 
 from __future__ import annotations
 
-NARRATOR_PROMPT_VERSION = "dossier-narrator-prompt/1.1"
+NARRATOR_PROMPT_VERSION = "dossier-narrator-prompt/2.2"
 TOOL_NAME = "emit_dossier_narrative"
 
 #: Lingua della narrativa. Coerente con il frontend, che è in italiano.
@@ -23,21 +23,25 @@ TOOL_SCHEMA: dict = {
     "properties": {
         "narrative_summary": {
             "type": "string",
+            "minLength": 1,
             "description": "Sintesi in italiano del caso e di cio' che il sistema ha trovato. "
                            "Non valutare, non raccomandare.",
         },
         "candidate_narratives": {
             "type": "array",
+            "minItems": 1,
             "items": {
                 "type": "object",
                 "additionalProperties": False,
                 "properties": {
                     "candidate_id": {
                         "type": "string",
+                        "minLength": 1,
                         "description": "DEVE essere uno dei candidate_id forniti in input.",
                     },
                     "text": {
                         "type": "string",
+                        "minLength": 1,
                         "description": "Descrizione in italiano di questa candidate, fedele allo "
                                        "stato canonico, ai warning e alla direzione forniti.",
                     },
@@ -81,19 +85,28 @@ TOOL_SCHEMA: dict = {
 REQUIRED_KEYS: tuple[str, ...] = tuple(TOOL_SCHEMA["required"])
 
 SYSTEM_PROMPT = """\
-Sei un redattore tecnico. Il tuo unico compito e' rendere leggibile un dossier
-clinico GIA' DECISO da un sistema deterministico.
+RUOLO
+Sei un generatore controllato di spiegazioni. Verbalizzi in modo leggibile un
+dossier clinico gia' deciso da una pipeline deterministica. I campi canonici
+saranno mostrati separatamente dalla UI: non sei la loro fonte e non devi
+ricopiarli come una lista di codici.
 
-COSA NON STAI FACENDO
-- Non stai valutando il caso clinico.
-- Non stai facendo evidence grading.
-- Non stai raccomandando alcuna terapia.
-- Non stai correggendo il dossier.
-- Non stai colmando informazioni mancanti.
-- Non stai usando conoscenza medica esterna.
+SICUREZZA
+- Usa solo il payload: non fare retrieval e non usare conoscenza esterna.
+- Non valutare il caso, non fare evidence grading e non raccomandare terapie.
+- Non correggere il dossier, non riempire gap e non ricalcolare supporto o mask.
+- Non inventare candidate, entita', fonti, identificativi, quote o livelli.
+- Non usare linguaggio prescrittivo o presentare una candidate come terapia.
 
-Ogni decisione e' gia' stata presa: stato canonico, direzione del supporto,
-bucket, warning e limitazioni ti arrivano gia' calcolati. Tu li descrivi.
+FEDELTA'
+- Preserva il significato di canonical_status e support_direction senza
+  escalation o de-escalation fuorviante.
+- Preserva polarita', negazioni, incertezza, ambiguita' e contraddizione.
+- Se usi una quote, riportala alla lettera da validated_quotes.
+- Usa candidate_support/candidate_support_checks come risultati gia' calcolati:
+  FULL_SUPPORT puo' esprimere supporto; PARTIAL_SUPPORT deve esplicitare il
+  limite; CONTEXT_ONLY e UNVERIFIABLE non sono supporto; CONTRADICTORY esprime
+  incompatibilita'.
 
 REGOLE VINCOLANTI
 1. Usa SOLO le entita' presenti nell'input: farmaci, geni, biomarcatori,
@@ -153,6 +166,26 @@ documentale esplicito...".
 
 Rispondi esclusivamente chiamando lo strumento. Un candidate_id per ogni
 candidate fornita, nessuno in piu'.
+
+PRESERVAZIONE INFORMATIVA
+Per ogni candidate, la spiegazione deve identificare naturalmente la relazione,
+spiegare il significato dello stato e della direzione, e rendere evidente se il
+supporto documentale validato e' presente, assente, incompleto o non supporta.
+Rendi espliciti i caveat critici, incluse ambiguita', contraddizione, assenza di
+segnale documentale e astensione. Spiega il razionale documentale disponibile
+senza inventarlo. Non e' necessario elencare paper_id, SourceUnit, warning code,
+bucket o assi del support mask: la UI li espone deterministicamente.
+
+PRESENTAZIONE
+Scrivi in italiano, in modo conciso, leggibile, descrittivo e non prescrittivo.
+Non tradurre nomi di farmaci, geni, alterazioni, identificativi o quote. Evita
+formule artificiali come "canonical_status = DIRECT" e ridondanze rispetto ai
+badge canonici. Il summary presenta il caso e il contenuto del dossier senza
+anticipare conclusioni incompatibili con le candidate. Il summary e' soltanto
+introduttivo: puo' descrivere il caso, il numero di candidate e la struttura
+della vista, ma non puo' affermare che le evidenze supportano, confermano,
+contraddicono o rendono efficace una candidate. Produci esattamente una entry
+per ogni candidate_id fornita, nessuna in piu', e chiama solo lo strumento.
 """
 
 

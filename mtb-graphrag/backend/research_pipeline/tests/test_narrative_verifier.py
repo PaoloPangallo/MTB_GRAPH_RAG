@@ -99,6 +99,15 @@ def _verify(dossier, narrative):
     return verify_narrative(dossier, build_narrator_input(dossier), narrative)
 
 
+def test_duplicate_candidate_id_is_rejected():
+    dossier = _synthetic_dossier()
+    narrative = _narrative("La candidate e' supportata.")
+    narrative["candidate_narratives"].append(dict(narrative["candidate_narratives"][0]))
+    result = _verify(dossier, narrative)
+    assert result["status"] == FAIL
+    assert "NARRATIVE_DUPLICATE_CANDIDATE_ID" in result["reason_codes"]
+
+
 # ══════════════════════════════════════════════════════════ §21 happy path
 
 class HappyPathTest(unittest.TestCase):
@@ -362,6 +371,19 @@ class StatusEscalationTest(unittest.TestCase):
                                      bucket="REJECTED_BUCKET")
         self._fails(dossier, "Il ruolo di PANITUMUMAB è confermato dagli studi.")
 
+    def test_negated_confirmation_is_not_status_escalation(self) -> None:
+        dossier = _synthetic_dossier(status="AMBIGUOUS", direction="NO_DOCUMENT_SIGNAL",
+                                     bucket="WARNING_BUCKET",
+                                     warnings=["NO_VALIDATED_ENRICHMENT_AVAILABLE"])
+        for text in (
+            "L'alterazione specifica non \u00e8 confermata.",
+            "L'alterazione specifica non confermata non consente una conclusione.",
+            "Non \u00e8 stato confermato il biomarcatore specifico.",
+        ):
+            with self.subTest(text=text):
+                result = _verify(dossier, _narrative(text))
+                self.assertNotIn(REASON_STATUS_ESCALATION, result["reason_codes"])
+
     def test_does_not_support_described_as_supporting_fails(self) -> None:
         dossier = _synthetic_dossier(status="AMBIGUOUS", direction="SOURCE_DOES_NOT_SUPPORT",
                                      bucket="WARNING_BUCKET",
@@ -380,6 +402,44 @@ class StatusEscalationTest(unittest.TestCase):
         dossier = _synthetic_dossier(status="DIRECT", direction="SUPPORTED")
         text = "La citazione validata supporta l'associazione descritta dal grafo."
         self.assertEqual(_verify(dossier, _narrative(text))["status"], PASS)
+
+    def test_positive_summary_claim_fails_for_ambiguous_candidate(self) -> None:
+        dossier = _synthetic_dossier(status="AMBIGUOUS", direction="NO_DOCUMENT_SIGNAL",
+                                     bucket="WARNING_BUCKET",
+                                     warnings=["NO_VALIDATED_ENRICHMENT_AVAILABLE"])
+        result = _verify(dossier, _narrative(
+            "La relazione rimane ambigua.",
+            summary="Le evidenze confermano la relazione."))
+        self.assertEqual(result["status"], FAIL)
+        self.assertIn("NARRATIVE_SUMMARY_STATUS_CLAIM", result["reason_codes"])
+
+    def test_positive_summary_claim_fails_for_non_supporting_source(self) -> None:
+        dossier = _synthetic_dossier(status="AMBIGUOUS", direction="SOURCE_DOES_NOT_SUPPORT",
+                                     bucket="WARNING_BUCKET",
+                                     warnings=["SOURCE_POLARITY_DOES_NOT_SUPPORT"])
+        result = _verify(dossier, _narrative(
+            "La fonte non supporta l'associazione.",
+            summary="La terapia risulta supportata."))
+        self.assertEqual(result["status"], FAIL)
+        self.assertIn("NARRATIVE_SUMMARY_STATUS_CLAIM", result["reason_codes"])
+
+    def test_neutral_summary_passes(self) -> None:
+        dossier = _synthetic_dossier(status="AMBIGUOUS", direction="NO_DOCUMENT_SIGNAL",
+                                     bucket="WARNING_BUCKET",
+                                     warnings=["NO_VALIDATED_ENRICHMENT_AVAILABLE"])
+        result = _verify(dossier, _narrative(
+            "La relazione rimane ambigua.",
+            summary="Sono state identificate due candidate, descritte nelle sezioni seguenti."))
+        self.assertNotIn("NARRATIVE_SUMMARY_STATUS_CLAIM", result["reason_codes"])
+
+    def test_recommendation_and_invented_entity_in_summary_still_fail(self) -> None:
+        dossier = _synthetic_dossier()
+        result = _verify(dossier, _narrative(
+            "La candidate è associata nel Knowledge Graph al caso.",
+            summary="Si raccomanda PEMBROLIZUMAB."))
+        self.assertEqual(result["status"], FAIL)
+        self.assertIn(REASON_UNAUTHORIZED_RECOMMENDATION, result["reason_codes"])
+        self.assertIn(REASON_UNAUTHORIZED_ENTITY, result["reason_codes"])
 
 
 # ═══════════════════════════════════════════════ §24 linguaggio prescrittivo
@@ -428,6 +488,37 @@ class RecommendationLanguageTest(unittest.TestCase):
 # ══════════════════════════════════════════════════════════════ §25 quote
 
 class QuoteTest(unittest.TestCase):
+
+    def test_validated_quote_relation_is_not_status_escalation(self) -> None:
+        dossier = _synthetic_dossier(
+            status="AMBIGUOUS", direction="NO_DOCUMENT_SIGNAL",
+            bucket="WARNING_BUCKET", quote=(
+                "Following the discovery that mutant KRAS is associated with resistance "
+                "to anti-EGFR antibodies."
+            ))
+        dossier["candidate_therapies"][0]["warnings"] = [
+            "NO_VALIDATED_ENRICHMENT_AVAILABLE"]
+        dossier["candidate_therapies"][0]["validation_results"] = [{
+            "candidate_support": {"result": "CONTEXT_ONLY", "fields": []},
+        }]
+        text = (
+            "La relazione rimane ambigua. Gli autori scrivono: "
+            '"Following the discovery that mutant KRAS is associated with resistance '
+            'to anti-EGFR antibodies."'
+        )
+        result = _verify(dossier, _narrative(text))
+        self.assertNotIn(REASON_STATUS_ESCALATION, result["reason_codes"])
+
+    def test_same_relation_outside_validated_quote_remains_escalation(self) -> None:
+        dossier = _synthetic_dossier(
+            status="AMBIGUOUS", direction="NO_DOCUMENT_SIGNAL",
+            bucket="WARNING_BUCKET", quote="validated documentary context")
+        dossier["candidate_therapies"][0]["validation_results"] = [{
+            "candidate_support": {"result": "CONTEXT_ONLY", "fields": []},
+        }]
+        result = _verify(dossier, _narrative(
+            "La relazione rimane ambigua. KRAS is associated with resistance."))
+        self.assertIn(REASON_STATUS_ESCALATION, result["reason_codes"])
 
     def test_invented_quote_fails(self) -> None:
         dossier = _synthetic_dossier(quote="patients responded to panitumumab")

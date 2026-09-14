@@ -13,7 +13,7 @@ from __future__ import annotations
 import re
 import unicodedata
 
-LEXICON_VERSION = "narrative-lexicon/1.0"
+LEXICON_VERSION = "narrative-lexicon/1.2"
 
 
 def normalize(text: str) -> str:
@@ -90,6 +90,20 @@ SUPPORT_LEVEL_ESCALATION_PATTERNS: tuple[str, ...] = (
     r"\b(?:high|strong|definitive)\s+level\s+of\s+evidence\b",
 )
 
+# Il summary globale è introduttivo: non può sintetizzare lo stato documentale
+# delle candidate, perché non è legato deterministicamente a una candidate.
+SUMMARY_STATUS_CLAIM_PATTERNS: tuple[str, ...] = (
+    r"\ble\s+evidenze\s+conferma(?:no|te|ta|to)\b",
+    r"\b(?:l[ae]|le)\s+evidenz[ae]\s+(?:supporta|supportano|supportat[aeoi])\b",
+    r"\b(?:la|le)\s+documentazione\s+(?:supporta|supportano|conferma|confermano|dimostra|dimostrano)\b",
+    r"\bla\s+fonte\s+(?:supporta|conferma|dimostra)\b",
+    r"\bla\s+terapia\s+risulta\s+supportat[aeoa]\b",
+    r"\b(?:le|la)\s+evidenz[ae]\s+(?:non\s+supporta|non\s+conferma|contraddice|sono\s+contraddittori)\b",
+    r"\b(?:nessun|nessuna)\s+(?:supporto|evidenza)\b",
+    r"\b(?:evidenza|documentazione|fonte)\s+(?:is\s+)?(?:supported|confirms|demonstrates|contradictory)\b",
+    r"\b(?:the\s+)?evidence\s+(?:supports|confirms|demonstrates|does\s+not\s+support)\b",
+)
+
 # ─────────────────────────────────────────── §12 marcatori di negazione
 #
 # Presenti quando la narrativa preserva correttamente una polarità negativa.
@@ -100,6 +114,15 @@ NEGATION_MARKER_PATTERNS: tuple[str, ...] = (
     r"\bdoes\s+not\s+support\b", r"\bno\s+support\b", r"\bnot\s+supported\b",
     r"\bfails\s+to\s+support\b", r"\bwithout\s+support\b",
     r"\bcontraddi", r"\bcontradict",
+)
+
+# Contesto negativo specifico per i match di ``confermata/o``: senza questa
+# regola ``non è confermata`` contiene comunque il token positivo e può essere
+# scambiato per escalation di status.
+NEGATED_CONFIRMATION_PATTERNS: tuple[str, ...] = (
+    r"\bnon\s+(?:è\s+)?confermat[oa]\b",
+    r"\bnon\s+è\s+stat[oa]\s+confermat[oa]\b",
+    r"\bnon\s+risultan[oa]\s+conferm",
 )
 
 #: Marcatori che segnalano incertezza. Attesi quando lo status è AMBIGUOUS.
@@ -132,7 +155,9 @@ NO_DOCUMENT_MARKER_PATTERNS: tuple[str, ...] = (
 RECOMMENDATION_RE = _compile(RECOMMENDATION_PATTERNS)
 SUPPORT_CLAIM_RE = _compile(SUPPORT_CLAIM_PATTERNS)
 SUPPORT_LEVEL_ESCALATION_RE = _compile(SUPPORT_LEVEL_ESCALATION_PATTERNS)
+SUMMARY_STATUS_CLAIM_RE = _compile(SUMMARY_STATUS_CLAIM_PATTERNS)
 NEGATION_MARKER_RE = _compile(NEGATION_MARKER_PATTERNS)
+NEGATED_CONFIRMATION_RE = _compile(NEGATED_CONFIRMATION_PATTERNS)
 UNCERTAINTY_MARKER_RE = _compile(UNCERTAINTY_MARKER_PATTERNS)
 NO_DOCUMENT_MARKER_RE = _compile(NO_DOCUMENT_MARKER_PATTERNS)
 
@@ -162,8 +187,18 @@ def support_level_escalation_hits(text: str) -> list[str]:
     return _hits(text, SUPPORT_LEVEL_ESCALATION_RE)
 
 
+def summary_status_claim_hits(text: str) -> list[str]:
+    """Claim documentali vietati nel summary non candidate-bound."""
+    return _hits(text, SUMMARY_STATUS_CLAIM_RE)
+
+
 def has_negation_marker(text: str) -> bool:
     return bool(_hits(text, NEGATION_MARKER_RE))
+
+
+def has_negated_confirmation(text: str) -> bool:
+    """Indica che ``confermata/o`` è usato in una costruzione negativa."""
+    return bool(_hits(text, NEGATED_CONFIRMATION_RE))
 
 
 def has_uncertainty_marker(text: str) -> bool:

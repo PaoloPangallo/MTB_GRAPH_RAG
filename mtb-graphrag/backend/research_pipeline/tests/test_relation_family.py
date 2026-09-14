@@ -185,12 +185,13 @@ def test_same_gene_with_conflicting_alteration_is_rejected_without_other_anchor(
     assert matched is False
 
 
-def test_intervention_match_is_independent_relevance_anchor():
-    matched, _ = kg_retrieval._match_candidate(
+def test_intervention_match_does_not_override_explicit_molecular_conflict():
+    matched, reasons = kg_retrieval._match_candidate(
         _case(gene="ZZTK9", alteration="P44R", intervention="panitumumab"),
         _candidate(gene="KRAS", intervention="panitumumab"),
     )
-    assert matched is True
+    assert matched is False
+    assert "BIOMARKER_GENE_NOT_COMPATIBLE" in reasons
 
 
 def test_real_trial_drug_is_reachable_by_intervention(real_examples):

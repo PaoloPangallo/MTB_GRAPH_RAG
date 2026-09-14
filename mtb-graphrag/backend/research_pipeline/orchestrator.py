@@ -60,6 +60,7 @@ from backend.research_pipeline.live_providers import LiveStageFailed
 from backend.research_pipeline.narrative import input_projection as narrative_projection
 from backend.research_pipeline.narrative import prompt as narrative_prompt
 from backend.research_pipeline.narrative import verifier as narrative_verifier
+from backend.research_pipeline.narrative import presentation as narrative_presentation
 from backend.research_pipeline.redaction import redact_retrieval_result
 from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 from backend.research_pipeline.retrieval.paper_selection import select_papers_for_association
@@ -892,6 +893,7 @@ def run_case(
             )
             validation_record = {"candidate_id": candidate["candidate_id"],
                                  "paper_id": paper["bundle_id"], **validation}
+            source_unit_text = ""
             if (
                 validation["outcome"] in _V1_ACCEPTED + _V2_ACCEPTED + _V3_ACCEPTED
                 and call.get("enrichment") is not None
@@ -932,6 +934,7 @@ def run_case(
                     paper_id=paper["bundle_id"],
                     validation=validation,
                     accepted_for_gates=gate_outcome is not None,
+                    source_unit_text=source_unit_text,
                 ))
             if gate_outcome is not None:
                 validated.append({"validation_outcome": gate_outcome,
@@ -1270,11 +1273,33 @@ def _narrate_and_verify(recorder, case_id, canonical_dossier, call_narrator_fn,
     if narrative_verifier_mode != "CANONICAL":
         raise ValueError(f"unknown narrative_verifier_mode: {narrative_verifier_mode}")
     verifier = verify_narrative_fn or narrative_verifier.verify_narrative
-    result = verifier(canonical_dossier, narrator_input, narrative)
+    try:
+        result = verifier(canonical_dossier, narrator_input, narrative)
+    except Exception:  # noqa: BLE001 - presentation failure must not invalidate stage 13
+        result = {
+            "status": narrative_verifier.FAIL,
+            "reason_codes": ["NARRATIVE_VERIFIER_INTERNAL_ERROR"],
+            "candidate_results": [],
+            "verifier_version": narrative_verifier.VERIFIER_VERSION,
+            "input_hash": narrator_input["narrator_input_hash"],
+            "narrative_hash": (narrative or {}).get("narrative_hash", ""),
+        }
     verified = result["status"] == narrative_verifier.PASS
 
     # Regola non negoziabile: una narrativa non verificata non viene mostrata.
     # Nessun secondo passaggio LLM, nessun retry semantico.
+    try:
+        presentation = narrative_presentation.build_narrative_presentation(
+            canonical_dossier, narrative if verified else None, result)
+    except Exception:  # noqa: BLE001 - presentation must not invalidate dossier
+        presentation_error = "NARRATIVE_PRESENTATION_INTERNAL_ERROR"
+        verified = False
+        result = {
+            **result,
+            "status": narrative_verifier.FAIL,
+            "reason_codes": sorted(set([*(result.get("reason_codes") or []), presentation_error])),
+        }
+        presentation = None
     recorder.finish(
         "stage_15_narrative_verifier", p,
         status="SUCCEEDED" if verified else "WARNING",
@@ -1285,6 +1310,7 @@ def _narrate_and_verify(recorder, case_id, canonical_dossier, call_narrator_fn,
             "narrative_available": verified,
             "presentation_mode": "VERIFIED_NARRATIVE" if verified else "STRUCTURED_DOSSIER_FALLBACK",
             "verified_narrative": narrative if verified else None,
+            "presentation": presentation,
             "fallback_reason": None if verified else (list(result["reason_codes"]) or ["NARRATION_UNAVAILABLE"]),
         },
     )

@@ -2,15 +2,15 @@ from backend.research_pipeline.enrichment import prompt_v3
 from backend.research_pipeline.enrichment.validator_v3 import validate_enrichment_v3
 
 
-def test_v31_prompt_requires_quote_for_partial_or_opposite_literal_evidence():
-    policy = prompt_v3.SYSTEM_PROMPT
-    assert prompt_v3.PROMPT_VERSION == "paper-context-enricher-prompt/4.1"
+def test_v48_prompt_extracts_literal_observations_without_deciding_gca_support():
+    policy = " ".join(prompt_v3.SYSTEM_PROMPT.split())
+    assert prompt_v3.PROMPT_VERSION == "paper-context-enricher-prompt/4.8"
     for phrase in (
-        "generic gene evidence",
-        "opposite direction",
-        "different intervention",
-        "disease-only",
-        "not a reason to ABSTAIN",
+        "Do not decide whether the challenged GCA is supported",
+        "relevant literal statement",
+        "exact contiguous quote",
+        "Do not infer gene-alteration links",
+        "For ABSTAIN set abstain_reason",
     ):
         assert phrase in policy
 

@@ -15,6 +15,9 @@ import RunSpine, { STAGE_FILTERS, matchesFilter, type StageFilterKey } from './R
 import RunModeHeader from './RunModeHeader';
 import StageInspector from './StageInspector';
 import DossierView, { type Dossier } from './DossierView';
+import NarrativeView, {
+  type Narrative, type NarrativePresentation, type NarrativeVerification,
+} from './NarrativeView';
 import ProvenanceTree from './ProvenanceTree';
 import SupervisorPanel from './SupervisorPanel';
 import CaseInputPanel, { type RunRequest } from './CaseInputPanel';
@@ -33,6 +36,10 @@ import { useRunStream } from './useRunStream';
 /** Ciò che si può leggere solo a run conclusa. */
 interface RunArtifacts {
   dossier: Dossier | null;
+  narrative: Narrative | null;
+  presentation: NarrativePresentation | null;
+  presentationMode: string;
+  narrativeVerification: NarrativeVerification | null;
   dossierUnavailable: string | null;
   provenance: ProvenanceItem[];
   metrics: RunMetrics | null;
@@ -40,7 +47,9 @@ interface RunArtifacts {
 }
 
 const NO_ARTIFACTS: RunArtifacts = {
-  dossier: null, dossierUnavailable: null, provenance: [], metrics: null, hashChainValid: null,
+  dossier: null, narrative: null, presentation: null,
+  presentationMode: 'STRUCTURED_DOSSIER_FALLBACK', narrativeVerification: null,
+  dossierUnavailable: null, provenance: [], metrics: null, hashChainValid: null,
 };
 
 function Notice() {
@@ -170,6 +179,16 @@ export default function ResearchConsole() {
         // serve una richiesta per sentirselo ripetere.
         dossierUnavailable: failed ? (dossier as Error).message
           : dossier === null ? noDossierReason : null,
+        narrative: failed || dossier === null
+          ? null : ((dossier as { narrative?: Narrative | null }).narrative ?? null),
+        presentation: failed || dossier === null
+          ? null : ((dossier as { presentation?: NarrativePresentation | null }).presentation ?? null),
+        presentationMode: failed || dossier === null
+          ? 'STRUCTURED_DOSSIER_FALLBACK'
+          : ((dossier as { presentation_mode?: string }).presentation_mode ?? 'STRUCTURED_DOSSIER_FALLBACK'),
+        narrativeVerification: failed || dossier === null
+          ? null
+          : ((dossier as { narrative_verification?: NarrativeVerification | null }).narrative_verification ?? null),
         provenance: (provenance as { items: ProvenanceItem[] }).items ?? [],
         metrics: metrics as RunMetrics | null,
         hashChainValid: events ? events.hash_chain_valid : null,
@@ -390,13 +409,22 @@ export default function ResearchConsole() {
                   onChange={(_, next: number) => setLowerTab(next)}
                   sx={{ borderBottom: `1px solid ${color.hairline}`, minHeight: 44 }}
                 >
-                  <Tab label="Dossier" />
+                  <Tab label="Vista consultabile" />
+                  <Tab label="Dossier tecnico" />
                   <Tab label="Provenienza" />
                   <Tab label="Modalità relatore" />
                 </Tabs>
 
                 <Box sx={{ pt: 3 }}>
                   {lowerTab === 0 && (
+                    artifacts.dossierUnavailable
+                      ? <Alert severity="info">{artifacts.dossierUnavailable}</Alert>
+                      : <NarrativeView narrative={artifacts.narrative}
+                                       presentation={artifacts.presentation}
+                                       presentationMode={artifacts.presentationMode}
+                                       verification={artifacts.narrativeVerification} />
+                  )}
+                  {lowerTab === 1 && (
                     artifacts.dossierUnavailable
                       ? (
                         <Alert severity="info" sx={{ borderRadius: '8px' }}>
@@ -405,8 +433,8 @@ export default function ResearchConsole() {
                       )
                       : <DossierView dossier={artifacts.dossier} />
                   )}
-                  {lowerTab === 1 && <ProvenanceTree items={artifacts.provenance} />}
-                  {lowerTab === 2 && (
+                  {lowerTab === 2 && <ProvenanceTree items={artifacts.provenance} />}
+                  {lowerTab === 3 && (
                     <SupervisorPanel
                       metrics={artifacts.metrics}
                       events={state.events}

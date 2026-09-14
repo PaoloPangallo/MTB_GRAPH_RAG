@@ -14,6 +14,7 @@ from fastapi.testclient import TestClient
 from backend.api import research_routes
 from backend.api.main import app
 from backend.research_pipeline import replay, run_store
+from backend.research_pipeline import orchestrator
 from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
 
 BASE = "/api/v1/research/pipeline"
@@ -243,6 +244,37 @@ class RunLifecycleTest(ResearchApiTestBase):
 
     def test_empty_request_is_rejected(self) -> None:
         self.assertEqual(self.client.post(f"{BASE}/runs", json={}).status_code, 422)
+
+    def test_verified_dossier_response_exposes_deterministic_presentation(self) -> None:
+        def valid_narrator(case_id, narrator_input, run_index=0):
+            entries = []
+            for candidate in narrator_input["candidates"]:
+                entries.append({
+                    "candidate_id": candidate["candidate_id"],
+                    "text": (f"La candidate relativa a {candidate['drug']} mantiene stato "
+                             f"{candidate['canonical_status']} e direzione "
+                             f"{candidate['support_direction']}."),
+                })
+            narrative = {
+                "narrative_summary": "Il sistema descrive il caso.",
+                "candidate_narratives": entries,
+                "limitations_summary": "Restano le limitazioni del dossier.",
+                "closing_note": "Descrizione non prescrittiva.",
+                "narrative_hash": "api-test-hash",
+            }
+            return {"transport_result": "FORCED_TOOL_VALID", "narrative": narrative}
+
+        with mock.patch.object(replay, "narrator_fn", valid_narrator):
+            run_id = self.run_demo()
+        payload = self.client.get(f"{BASE}/runs/{run_id}/dossier").json()
+        presentation = payload["presentation"]
+        candidate = presentation["candidates"][0]
+
+        assert presentation["presentation_mode"] == "VERIFIED_NARRATIVE", payload["narrative_verification"]
+        paper = payload["dossier"]["paper_evidence"][0]
+        assert candidate["canonical_status"] == paper["support_level"]
+        assert candidate["support_direction"] == paper["support_fields"]["direction"]
+        assert candidate["generated_explanation"]
 
 
 class EventsTest(ResearchApiTestBase):
@@ -488,6 +520,21 @@ class SseTest(ResearchApiTestBase):
 
 
 class DossierContentTest(ResearchApiTestBase):
+    def test_presentation_builder_failure_keeps_dossier_api_available(self) -> None:
+        with mock.patch.object(orchestrator.narrative_presentation,
+                               "build_narrative_presentation",
+                               side_effect=RuntimeError("presentation exploded")):
+            run_id = self.run_demo()
+        payload = self.client.get(f"{BASE}/runs/{run_id}/dossier")
+        self.assertEqual(payload.status_code, 200, payload.text)
+        body = payload.json()
+        self.assertTrue(body["dossier"]["paper_evidence"])
+        self.assertIsNone(body["presentation"])
+        self.assertIsNone(body["narrative"])
+        self.assertEqual(body["presentation_mode"], "STRUCTURED_DOSSIER_FALLBACK")
+        self.assertIn("NARRATIVE_PRESENTATION_INTERNAL_ERROR",
+                      body["narrative_verification"]["reason_codes"])
+
     """Il dossier deve essere servito davvero, non soltanto contato."""
 
     def test_dossier_carries_the_three_sections(self) -> None:

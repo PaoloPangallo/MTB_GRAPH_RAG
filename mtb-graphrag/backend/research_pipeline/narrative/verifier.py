@@ -30,7 +30,7 @@ from ..dossier.builder import PRESENTABLE_AS_AUTHOR_CLAIM
 from . import lexicon as lx
 from .input_projection import NARRATIVE_CRITICAL_WARNINGS, allowed_entities
 
-VERIFIER_VERSION = "narrative-verifier/1.0"
+VERIFIER_VERSION = "narrative-verifier/2.2"
 
 PASS = "PASS"
 FAIL = "FAIL"
@@ -51,6 +51,8 @@ REASON_TRIAL_ELIGIBILITY_ESCALATION = "NARRATIVE_TRIAL_ELIGIBILITY_ESCALATION"
 REASON_KG_DOCUMENTARY_ESCALATION = "NARRATIVE_KG_ONLY_DOCUMENTARY_ESCALATION"
 REASON_UNAUTHORIZED_SOURCE_REF = "NARRATIVE_UNAUTHORIZED_SOURCE_REF"
 REASON_SOURCE_REF_TYPE_MISMATCH = "NARRATIVE_SOURCE_REF_TYPE_MISMATCH"
+REASON_DUPLICATE_CANDIDATE = "NARRATIVE_DUPLICATE_CANDIDATE_ID"
+REASON_SUMMARY_STATUS_CLAIM = "NARRATIVE_SUMMARY_STATUS_CLAIM"
 
 #: Identificatori documentali riconoscibili nel testo. Volutamente stretti:
 #: cercano forme canoniche, non qualunque numero.
@@ -151,25 +153,49 @@ def _check_entities(narrative, narrator_input, allowed) -> list[dict[str, Any]]:
     return violations
 
 
-def _check_candidate_ids(narrative, narrator_input) -> tuple[list[str], list[str]]:
+def _check_candidate_ids(narrative, narrator_input) -> tuple[list[str], list[str], list[str]]:
     known = {c["candidate_id"] for c in narrator_input.get("candidates") or []}
-    narrated = {e.get("candidate_id") for e in narrative.get("candidate_narratives") or []}
-    return sorted(narrated - known), sorted(known - narrated)
+    ids = [e.get("candidate_id") for e in narrative.get("candidate_narratives") or []]
+    narrated = set(ids)
+    duplicates = sorted({candidate_id for candidate_id in ids if ids.count(candidate_id) > 1})
+    return sorted(narrated - known), sorted(known - narrated), duplicates
 
 
 # ═════════════════════════════════════════════════════ §11 status preservation
 
 def _check_status(candidate, text) -> list[dict[str, Any]]:
     """Una candidate che non esprime supporto non può essere narrata come supportata."""
+    status_text = text
+    for quote in candidate.get("validated_quotes") or []:
+        if isinstance(quote, dict) and isinstance(quote.get("quote"), str):
+            status_text = status_text.replace(quote["quote"], " ")
     support = candidate.get("candidate_support") or {}
     support_result = support.get("result")
     if candidate.get("expresses_support") and support_result in (None, "STRONG_SUPPORT", "FULL_SUPPORT"):
         return []
-    hits = lx.support_claim_hits(text)
-    if re.search(r"\b(?:not\s+confirmed|non\s+confermat[oa])\b", text, re.IGNORECASE):
+    hits = lx.support_claim_hits(status_text)
+    if lx.has_negated_confirmation(status_text):
         hits = [hit for hit in hits if hit.lower() not in {"confirmed", "confermata", "confermato"}]
+    if (
+        support_result == "PARTIAL_SUPPORT"
+        and re.search(
+            r"\b(?:but|however|although|tuttavia|ma)\b.{0,180}"
+            r"\b(?:not\s+confirmed|non\s+(?:è\s+)?confermat[oa])\b",
+            status_text,
+            re.IGNORECASE | re.DOTALL,
+        )
+    ):
+        # A partial observation may truthfully say what the document supports
+        # when the same sentence preserves the explicit missing-confirmation
+        # caveat. Full-support wording remains covered by the level check.
+        hits = [
+            hit for hit in hits
+            if re.search(r"\b(?:strongly|firmly|clearly|fully|completely|"
+                         r"fortemente|chiaramente|pienamente|completamente)\b",
+                         hit, re.IGNORECASE)
+        ]
     if support_result in {"PARTIAL_SUPPORT", "CONTEXT_ONLY", "CONTRADICTORY", "UNVERIFIABLE"}:
-        exact_relation = re.search(r"\b(?:is|are)\s+associated\s+with\b", text, re.IGNORECASE)
+        exact_relation = re.search(r"\b(?:is|are)\s+associated\s+with\b", status_text, re.IGNORECASE)
         if exact_relation:
             hits.append(exact_relation.group(0))
     if not hits:
@@ -331,6 +357,12 @@ def _check_recommendation(narrative) -> list[dict[str, Any]]:
     return found
 
 
+def _check_summary_status_claim(narrative) -> list[dict[str, Any]]:
+    summary = narrative.get("narrative_summary") or ""
+    hits = lx.summary_status_claim_hits(summary)
+    return [{"block": "narrative_summary", "phrases": hits}] if hits else []
+
+
 # ═══════════════════════════════════════════════════════ §15 omissioni critiche
 
 def _check_omissions(candidate, text) -> list[dict[str, Any]]:
@@ -421,11 +453,13 @@ def verify_narrative(
     allowed = allowed_entities(narrator_input)
     reason_codes: list[str] = []
 
-    unknown_ids, missing_ids = _check_candidate_ids(narrative_output, narrator_input)
+    unknown_ids, missing_ids, duplicate_ids = _check_candidate_ids(narrative_output, narrator_input)
     if unknown_ids:
         reason_codes.append(REASON_UNKNOWN_CANDIDATE)
     if missing_ids:
         reason_codes.append(REASON_MISSING_CANDIDATE)
+    if duplicate_ids:
+        reason_codes.append(REASON_DUPLICATE_CANDIDATE)
 
     unauthorized_entities = _check_entities(narrative_output, narrator_input, allowed)
     if unauthorized_entities:
@@ -434,6 +468,10 @@ def verify_narrative(
     recommendation_language = _check_recommendation(narrative_output)
     if recommendation_language:
         reason_codes.append(REASON_UNAUTHORIZED_RECOMMENDATION)
+
+    summary_status_claims = _check_summary_status_claim(narrative_output)
+    if summary_status_claims:
+        reason_codes.append(REASON_SUMMARY_STATUS_CLAIM)
 
     unauthorized_quotes, promoted_quotes = _check_quotes(
         narrative_output, canonical_dossier or {}, allowed)
@@ -531,6 +569,7 @@ def verify_narrative(
         "candidate_results": candidate_results,
         "unknown_candidate_ids": unknown_ids,
         "missing_candidate_ids": missing_ids,
+        "duplicate_candidate_ids": duplicate_ids,
         "unauthorized_entities": unauthorized_entities,
         "status_escalations": escalations,
         "support_level_escalations": support_escalations,
@@ -541,6 +580,7 @@ def verify_narrative(
         "unauthorized_source_refs": unauthorized_source_refs,
         "source_ref_type_mismatches": source_ref_type_mismatches,
         "recommendation_language": recommendation_language,
+        "summary_status_claims": summary_status_claims,
         "critical_omissions": omissions,
         "branch_semantic_violations": branch_violations,
         "verified_at": now,

@@ -11,6 +11,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from unittest import mock
 
 from backend.pipeline.agentic.ledger import EventLedger
 from backend.research_pipeline import data_access as da
@@ -189,6 +190,37 @@ class FallbackPolicyTest(unittest.TestCase):
         _run(call_narrator_fn=counting_narrator)
         self.assertEqual(len(calls), 1)
 
+    def test_verifier_exception_preserves_dossier_and_uses_structured_fallback(self) -> None:
+        def exploding_verifier(*_args, **_kwargs):
+            raise RuntimeError("verifier exploded")
+
+        run, _ = _run(call_narrator_fn=replay.narrator_fn,
+                      verify_narrative_fn=exploding_verifier)
+        stages = _stages(run)
+        self.assertIn("dossier", stages["stage_13_dossier"].output_preview)
+        preview = stages["stage_15_narrative_verifier"].output_preview
+        self.assertEqual(preview["presentation_mode"], "STRUCTURED_DOSSIER_FALLBACK")
+        self.assertIsNone(preview["verified_narrative"])
+        self.assertEqual(preview["verification"]["reason_codes"],
+                         ["NARRATIVE_VERIFIER_INTERNAL_ERROR"])
+        self.assertTrue(preview["presentation"]["candidates"])
+        self.assertIsNone(preview["presentation"]["candidates"][0]["generated_explanation"])
+
+    def test_presentation_builder_exception_preserves_dossier_and_uses_safe_fallback(self) -> None:
+        with mock.patch.object(orchestrator.narrative_presentation,
+                               "build_narrative_presentation",
+                               side_effect=RuntimeError("presentation exploded")):
+            run, _ = _run(call_narrator_fn=replay.narrator_fn)
+        stages = _stages(run)
+        self.assertEqual(run.status, "PARTIAL")
+        self.assertEqual(stages["stage_13_dossier"].status, "SUCCEEDED")
+        self.assertIn("dossier", stages["stage_13_dossier"].output_preview)
+        preview = stages["stage_15_narrative_verifier"].output_preview
+        self.assertEqual(preview["presentation_mode"], "STRUCTURED_DOSSIER_FALLBACK")
+        self.assertIsNone(preview["verified_narrative"])
+        self.assertIsNone(preview["presentation"])
+        self.assertIn("NARRATIVE_PRESENTATION_INTERNAL_ERROR", preview["fallback_reason"])
+
     def test_narration_stages_are_declared_as_presentation(self) -> None:
         self.assertEqual(PRESENTATION_STAGE_IDS,
                          frozenset({"stage_14_narrator", "stage_15_narrative_verifier"}))
@@ -254,7 +286,9 @@ class Rq3BoundaryMatrixTest(unittest.TestCase):
     def test_narrator_transport_rejects_extra_keys(self) -> None:
         from backend.research_pipeline.narrative.narrator import _argument_errors
 
-        base = {"narrative_summary": "a", "candidate_narratives": [],
+        base = {"narrative_summary": "a", "candidate_narratives": [
+                    {"candidate_id": "GCA-1", "text": "explanation",
+                     "source_refs": [], "claims": []}],
                 "limitations_summary": "b", "closing_note": "c"}
         self.assertEqual(_argument_errors(base), [])
         for extra in ("canonical_status", "support_mask", "gate_bucket", "provenance", "pmid"):

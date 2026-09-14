@@ -289,6 +289,9 @@ def get_dossier(run_id: str) -> dict[str, Any]:
         # Trace deterministica per candidate: deriva dal dossier canonico e
         # resta disponibile anche se il Narrator è disabilitato o respinto.
         "narrative_trace": narrative_trace,
+        # V2 presentation contract: canonical fields are assembled in the
+        # backend and generated prose is attached only after verifier PASS.
+        "presentation": verification.get("presentation"),
         "presentation_mode": verification.get("presentation_mode", "STRUCTURED_DOSSIER_FALLBACK"),
         "narrative_verification": verification_summary,
         "research_notice": PipelineRun.research_notice(),

@@ -13,15 +13,41 @@ const NARRATIVE = {
 };
 
 const VERIFIED = { status: 'PASS', reason_codes: [], verifier_version: 'narrative-verifier/1.0' };
+const PRESENTATION = {
+  contract_version: 'narrative-presentation/2.0',
+  presentation_mode: 'VERIFIED_NARRATIVE',
+  summary: NARRATIVE.narrative_summary,
+  candidates: [{
+    candidate_id: 'GCA-1', intervention: 'PANITUMUMAB',
+    graph_relation: 'associated_with_resistance_to', canonical_status: 'AMBIGUOUS',
+    support_direction: 'NO_DOCUMENT_SIGNAL',
+    documentary_support_state: 'NO_VALIDATED_DOCUMENTARY_EVIDENCE',
+    sources: [{ paper_id: 'PMID-1', source_unit_id: 'SU-1', quote_available: true,
+                validated_quote: 'validated quote', source_unit_text: 'complete source unit text' }],
+    critical_notices: ['NO_VALIDATED_ENRICHMENT_AVAILABLE'],
+    generated_explanation: 'La relazione con PANITUMUMAB rimane ambigua.',
+  }],
+  canonical_limitations: ['research_only_pilot'],
+  limitations_explanation: NARRATIVE.limitations_summary,
+  closing_note: NARRATIVE.closing_note,
+  verification: VERIFIED,
+};
 
 describe('NarrativeView', () => {
   it('mostra la narrativa quando il backend la dichiara verificata', () => {
-    render(<NarrativeView narrative={NARRATIVE} presentationMode="VERIFIED_NARRATIVE"
+    render(<NarrativeView narrative={NARRATIVE} presentation={PRESENTATION} presentationMode="VERIFIED_NARRATIVE"
                           verification={VERIFIED} />);
 
     expect(screen.getByText('VERIFICATA')).toBeInTheDocument();
     expect(screen.getByText(/La relazione con PANITUMUMAB rimane ambigua/)).toBeInTheDocument();
-    expect(screen.getByText('GCA-1')).toBeInTheDocument();
+    expect(screen.getByText(/GCA-1 · associated_with_resistance_to/)).toBeInTheDocument();
+    expect(screen.getByText('PANITUMUMAB')).toBeInTheDocument();
+    expect(screen.getByText('AMBIGUOUS')).toBeInTheDocument();
+    expect(screen.getByText('Nessun supporto documentale validato')).toBeInTheDocument();
+    expect(screen.getByText(/Fonte selezionata: PMID-1 · SU-1/)).toBeInTheDocument();
+    expect(screen.getByText('Quote validata: sì')).toBeInTheDocument();
+    expect(screen.getByText('validated quote')).toBeInTheDocument();
+    expect(screen.getByText('complete source unit text')).toBeInTheDocument();
   });
 
   it('NON mostra la narrativa quando il verifier ha fallito', () => {

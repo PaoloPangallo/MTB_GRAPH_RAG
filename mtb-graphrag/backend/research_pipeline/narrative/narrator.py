@@ -59,10 +59,15 @@ def _argument_errors(args: dict[str, Any]) -> list[str]:
     for key in ("narrative_summary", "limitations_summary", "closing_note"):
         if not isinstance(args[key], str):
             errors.append(f"NOT_STRING:{key}")
+        elif not args[key].strip():
+            errors.append(f"EMPTY_STRING:{key}")
     entries = args["candidate_narratives"]
     if not isinstance(entries, list):
         errors.append("candidate_narratives:NOT_ARRAY")
         return errors
+    if not entries:
+        errors.append("candidate_narratives:EMPTY_ARRAY")
+    candidate_ids: list[str] = []
     for index, entry in enumerate(entries):
         if not isinstance(entry, dict):
             errors.append(f"candidate_narratives[{index}]:NOT_OBJECT")
@@ -77,6 +82,8 @@ def _argument_errors(args: dict[str, Any]) -> list[str]:
         for key in {"candidate_id", "text"}:
             if key in {"candidate_id", "text"} and not isinstance(entry[key], str):
                 errors.append(f"candidate_narratives[{index}].{key}:NOT_STRING")
+            elif not entry[key].strip():
+                errors.append(f"candidate_narratives[{index}].{key}:EMPTY_STRING")
         if "source_refs" in entry:
             if not isinstance(entry["source_refs"], list) or not all(isinstance(v, str) for v in entry["source_refs"]):
                 errors.append(f"candidate_narratives[{index}].source_refs:NOT_STRING_ARRAY")
@@ -94,6 +101,11 @@ def _argument_errors(args: dict[str, Any]) -> list[str]:
                         errors.append(f"candidate_narratives[{index}].claims[{cidx}]:INVALID_KEYS")
                     if not all(isinstance(claim.get(k), str) for k in expected):
                         errors.append(f"candidate_narratives[{index}].claims[{cidx}]:INVALID_TYPES")
+        if isinstance(entry.get("candidate_id"), str):
+            candidate_ids.append(entry["candidate_id"])
+    duplicates = sorted({value for value in candidate_ids if candidate_ids.count(value) > 1})
+    if duplicates:
+        errors.append(f"candidate_narratives:DUPLICATE_CANDIDATE_ID:{duplicates}")
     return errors
 
 
