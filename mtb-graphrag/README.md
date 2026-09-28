@@ -1,57 +1,78 @@
-# MTB GraphRAG
+# MTB GraphRAG — Research Implementation
 
-Prototipo di ricerca per preparare evidenze revisionabili destinate a un
-Molecular Tumor Board. Il sistema non produce decisioni terapeutiche autonome.
+Research prototype developed for a Master's thesis on **evidence-grounded AI support for Molecular Tumor Boards**.
 
-## Confronto delle architetture
+The project investigates how curated oncology knowledge, document retrieval, structured representations and language models can be combined while keeping the evidence trail inspectable by a human reviewer.
 
-La schermata **Confronta architetture** applica lo stesso caso a:
+> This software is a research prototype. It does not provide autonomous therapeutic decisions and is not a substitute for clinical assessment.
 
-1. traversal deterministico: piano fisso, query tipizzate, LLM a valle;
-2. architettura agentica verificabile: planner dinamico su strumenti allow-listed,
-   ledger append-only, vista canonica, rendering deterministico e verifica
-   claim--fonte.
+## Research goals
 
-La modalità `demo` funziona senza servizi esterni ed espone una fixture
-dichiarata. La modalità `live` richiede Neo4j, l'endpoint LLM configurato e
-accesso a PubMed. Ogni decisione e tool call viene inserita durante
-l'esecuzione in un ledger SQLite append-only con catena SHA-256. Le claim sono
-ammesse nel report soltanto dopo il confronto con record CIViC e abstract
-PubMed; esiti incerti o fonti non disponibili vengono inviati alla revisione
-umana.
+The implementation focuses on four engineering properties:
 
-## Dossier clinico comparativo
+- **structured knowledge** rather than free-text-only reasoning;
+- **traceable retrieval** from curated knowledge and documentary sources;
+- **explicit verification** before evidence is surfaced;
+- **reproducible evaluation** of retrieval, verification and dossier-generation behaviour.
 
-Il confronto accetta, oltre al profilo molecolare, stadio, setting di malattia,
-trattamenti e risposta precedenti, ECOG, interessamento del SNC,
-co-alterazioni, contesto regolatorio e obiettivo del MTB. I campi sono
-facoltativi: quelli non compilati vengono mostrati come dati mancanti e non
-sono ricostruiti dal modello.
+The repository also contains experimental and comparison code produced during the evolution of the thesis. Those utilities are retained for research reproducibility but are not the conceptual focus of the final thesis architecture.
 
-Entrambe le architetture restituiscono lo stesso contratto di dossier:
+## Application structure
 
-- riepilogo del caso e dati mancanti;
-- evidenze supportate documentalmente, con applicabilità clinica separata;
-- evidenze da revisionare o non verificate;
-- evidenze escluse con motivazione;
-- resistenze e trial potenzialmente pertinenti;
-- questioni da discutere nel Molecular Tumor Board.
+```text
+mtb-graphrag/
+├── backend/
+│   ├── api/
+│   ├── comparison/
+│   ├── evaluation/
+│   ├── pipeline/
+│   └── tests/
+├── frontend/
+└── experiments/
+```
 
-Il dossier mantiene due assi distinti: supporto della claim rispetto alla fonte
-e compatibilità con i dati clinici dichiarati. Se il caso è incompleto,
-l'applicabilità resta indeterminata anche quando la fonte supporta la claim.
+The backend contains the retrieval, orchestration, evidence-processing and evaluation components. The frontend provides an interface for inspecting cases, evidence and experimental outputs.
 
-## Avvio
+## Evidence-oriented workflow
+
+At a high level, the system:
+
+1. receives a structured molecular/clinical case;
+2. retrieves relevant structured knowledge and supporting documents;
+3. keeps source information attached to the retrieved evidence;
+4. verifies whether candidate statements are supported by the authorized source material;
+5. separates supported, uncertain and excluded evidence;
+6. produces a structured dossier intended for human review.
+
+Incomplete case information is kept explicit rather than silently reconstructed by the model.
+
+## Running locally
+
+Copy the environment template:
 
 ```bash
 cp .env.example .env
+```
+
+Create a Python environment and install the backend dependencies:
+
+```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r backend/config/requirements.txt
 uvicorn backend.api.main:app --reload
 ```
 
-In un secondo terminale:
+On Windows PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r backend/config/requirements.txt
+uvicorn backend.api.main:app --reload
+```
+
+Start the frontend in a second terminal:
 
 ```bash
 cd frontend
@@ -59,19 +80,18 @@ npm ci
 npm run dev
 ```
 
-Aprire `http://localhost:5173` e scegliere **Confronta architetture**.
+## Configuration
 
-Per un deployment persistente, impostare `AGENT_LEDGER_PATH` su una directory
-montata come volume. Il valore predefinito è `./data/agent_events.sqlite3`.
+The live application can depend on services such as Neo4j, LLM endpoints and external evidence sources. Secrets must be supplied through environment variables and must never be committed.
 
-## Sicurezza e riproducibilità
+Only synthetic or public cases should be used in demonstrations.
 
-- non committare `.env`, password, token o casi clinici identificabili;
-- usare solo casi sintetici/pubblici nella demo;
-- conservare gli artefatti pesanti fuori da Git con checksum;
-- considerare `claim support` come esito di provenienza, regole cliniche e
-  verifica semantica sulla fonte disponibile, non come sostituto della
-  valutazione clinica dell'oncologo.
+## Reproducibility
 
-Gli script della tesi sono in `experiments/reproducibility/` con una nota sugli
-artefatti richiesti.
+Evaluation and reproducibility assets are kept under the dedicated evaluation / experiment directories. Generated logs, temporary reports, executed-notebook copies and local databases are intentionally excluded from version control.
+
+## Author
+
+**Paolo Pangallo**  
+M.Sc. Computer Engineering — Artificial Intelligence  
+University of Calabria

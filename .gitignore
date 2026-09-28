@@ -35,3 +35,15 @@ debug_err.txt
 debug_out.txt
 debug_step.txt
 pandas_test.txt
+
+
+# Generated research artifacts
+*_executed.ipynb
+inspection_results*.txt
+benchmark_papers_not_available*.txt
+download_trials_log.txt
+mtb-graphrag/results_output*.txt
+mtb-graphrag/compute_metrics_out.txt
+
+# Local archives
+*.zip
