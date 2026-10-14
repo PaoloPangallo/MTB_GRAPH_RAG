@@ -1,5 +1,18 @@
 # MTB GraphRAG
 
+<div align="center">
+
+![AI Research](https://img.shields.io/badge/AI_Research-8B5CF6?style=for-the-badge)
+![GraphRAG](https://img.shields.io/badge/GraphRAG-07A8AA?style=for-the-badge)
+![Evidence](https://img.shields.io/badge/Evidence_Verification-1C9E75?style=for-the-badge)
+![Human Review](https://img.shields.io/badge/Human--in--the--loop-F09D4E?style=for-the-badge)
+
+**Knowledge graphs · controlled retrieval · provenance · claim verification**
+
+[**Architecture overview →**](docs/ARCHITECTURE_OVERVIEW.md) · [**Research implementation →**](mtb-graphrag/README.md)
+
+</div>
+
 **Evidence-grounded AI architecture for Molecular Tumor Board support**
 
 MTB GraphRAG is a research prototype developed as part of my Master's thesis in Artificial Intelligence at the University of Calabria. The project explores how structured oncology knowledge, document retrieval and language models can be combined while keeping the evidence trail inspectable and reproducible.
