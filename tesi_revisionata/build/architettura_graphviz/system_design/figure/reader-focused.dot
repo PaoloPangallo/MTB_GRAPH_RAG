@@ -1,0 +1,16 @@
+digraph phase {
+graph [rankdir=LR, bgcolor="transparent", pad="0.25", nodesep="0.35", ranksep="0.4", splines=polyline];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=14, color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontsize=10, arrowsize=0.65];
+"paper" [id="node-paper", label="Pubblicazione\n\nDATO", fillcolor="#EAF0F5", tooltip="Continua a usare il Reader."];
+"llm" [id="node-llm", label="Reader LLM\n\nMODELLO", fillcolor="#FBF1DD", tooltip="Stessa responsabilità di osservazione."];
+"nct" [id="node-nct", label="Snapshot NCT\n\nDATO", fillcolor="#EAF0F5", tooltip="Identità e hash del registro."];
+"facts" [id="node-facts", label="Fatti strutturati\n\nCODICE", fillcolor="#E8F4F0", tooltip="Estrazione e riuso per documento e hash."];
+"bind" [id="node-bind", label="Bind alla relazione\n\nCODICE", fillcolor="#E8F4F0", tooltip="Osservazione citata o astensione senza chiamata generativa."];
+"obs" [id="node-obs", label="Output da validare\n\nRISULTATO", fillcolor="#E6F3EC", tooltip="Autenticazione e policy restano necessarie."];
+"paper" -> "llm" [label="", style="solid"];
+"llm" -> "obs" [label="", style="solid"];
+"nct" -> "facts" [label="", style="solid"];
+"facts" -> "bind" [label="", style="solid"];
+"bind" -> "obs" [label="", style="solid"];
+}

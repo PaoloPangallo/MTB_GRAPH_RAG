@@ -1,0 +1,11 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Applicare le regole di valutazione · Registro di studio clinico", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"record" [id="node-record", label="Registro NCT02279004", shape="box", fillcolor="#EAF0F5", tooltip="Registro NCT02279004"];
+"gate" [id="node-gate", label="Gate operativo dell’esempio\nAmbiguo: nessuna osservazione ammessa", shape="box", fillcolor="#F0EBF6", tooltip="Gate operativo dell’esempio\nAmbiguo: nessuna osservazione ammessa"];
+"distinzione" [id="node-distinzione", label="Tenere separato il contenuto del registro\nL’eleggibilità individuale non è valutata", shape="box", fillcolor="#E6F3EC", tooltip="Tenere separato il contenuto del registro\nL’eleggibilità individuale non è valutata"];
+"record" -> "gate" [label="esiti del percorso documentale", style="solid"];
+"gate" -> "distinzione" [label="nessun giudizio di eleggibilità", style="solid"];
+}

@@ -1,0 +1,650 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Audit GCA · struttura e corpus</title><style>:root{--paper:#fff;--surface:#f6f8f8;--ink:#17343f;--muted:#526b75;--accent:#116f64;--accent-soft:#e8f3ef;--rule:#dce5e7;--control:#69518d;--model:#895812;--model-soft:#fbf1dd;--limit:#8a5948;--focus:#247fba;--sidebar:258px;--radius:12px;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);font-synthesis:none}
+.audit-main .table-scroll{border:1px solid var(--rule);border-radius:10px;background:var(--paper);margin:24px 0;scrollbar-color:#b8cbcd transparent}
+.audit-main .audit-table{width:100%;border-collapse:separate;border-spacing:0;min-width:580px;font-size:14px;line-height:1.6;text-align:left}
+.audit-table thead th{padding:13px 18px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:600;line-height:1.5;border-bottom:1px solid #c7dcd4;text-align:left;vertical-align:top}
+.audit-table tbody th,.audit-table tbody td{padding:15px 18px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left}
+.audit-table tbody th{font-weight:600;color:var(--ink);width:27%;min-width:155px}
+.audit-table tbody td{color:var(--muted)}
+.audit-table tbody tr:nth-child(even){background:#f8faf9}
+.audit-table tbody tr:last-child>*{border-bottom:0}
+.audit-table th.is-numeric,.audit-table td.is-numeric{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.audit-table tbody th code{font-size:12px;line-height:1.7;font-weight:400;color:var(--accent);background:transparent;white-space:normal;overflow-wrap:anywhere}
+@media(hover:hover){.audit-table tbody tr:hover{background:#edf5f1}}
+@media(max-width:700px){.audit-table thead th,.audit-table tbody th,.audit-table tbody td{padding:12px 14px}.audit-main .audit-table{font-size:13px}}
+@media print{.audit-main .table-scroll{border-radius:0;border-color:#b9c9cc;break-inside:auto}.audit-main .audit-table{min-width:0;font-size:9pt}.audit-table thead{display:table-header-group}.audit-table thead th{background:#edf3f0;color:#17343f}.audit-table thead th,.audit-table tbody th,.audit-table tbody td{padding:6pt 8pt}.audit-table tbody th{min-width:0}.audit-table tr{break-inside:avoid}.audit-table tbody th code{font-size:8pt}.audit-table .is-numeric{white-space:normal}}
+*{box-sizing:border-box}body{margin:0;font-size:15px;line-height:1.6}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}a{color:var(--accent);text-underline-offset:4px}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--focus);outline-offset:4px}::selection{color:#fff;background:var(--accent)}input{caret-color:var(--accent)}:focus{scroll-margin:100px}button:disabled{cursor:default;opacity:.45}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(29px,3.2vw,43px);line-height:1.15;letter-spacing:-.025em;max-width:25ch;text-wrap:balance;margin-bottom:18px}h2{font-size:23px;line-height:1.25;letter-spacing:-.015em}h3{font-size:17px;line-height:1.35}p{max-width:74ch}svg{display:block}code,pre{font-family:Consolas,'Courier New',monospace}code{font-size:.86em;overflow-wrap:anywhere}pre{font-size:12.5px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}button svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}[hidden]{display:none!important}
+.skip-link{position:fixed;top:10px;left:12px;background:var(--ink);color:white;padding:12px 20px;z-index:50;transform:translateY(-160%)}.skip-link:focus{transform:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.topbar{height:78px;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:0 28px;border-bottom:1px solid var(--rule);background:var(--paper)}.brand{display:flex;align-items:center;gap:13px;font-size:17px;font-weight:600;white-space:nowrap}.brand-mark{display:grid;place-items:center;width:31px;height:31px;background:var(--ink);color:white;border-radius:8px;font-family:Georgia,serif;font-size:27px;line-height:1}.brand-separator{font-weight:400;color:#9cb0b8;padding:0 9px}.top-actions{display:flex;align-items:center;gap:18px}.profile-control{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}select{max-width:190px;padding:8px 30px 8px 10px;background:#fff;border:1px solid #b8cacd;border-radius:7px;color:var(--ink);font-size:13px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #b8cacd;border-radius:7px;padding:8px 12px;background:#fff;color:var(--ink);font-size:13px;line-height:1.4;text-decoration:none;min-height:36px}.button:hover{background:var(--surface);border-color:#698d95}.button.quiet{border-color:transparent}.button.quiet:hover{background:var(--surface)}.menu-button{display:none}.layout{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);max-width:1800px;margin:auto}.sidebar{height:calc(100dvh - 78px);position:sticky;top:78px;overflow:auto;border-right:1px solid var(--rule);padding:28px 17px 20px 22px;scrollbar-width:thin;scrollbar-color:#b8cbcd transparent}.sidebar-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.sidebar-heading h2{font-size:16px;margin:0}.sidebar-heading span{font-size:11px;color:var(--muted)}.search-label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.search{width:100%;border:1px solid #c4d3d7;border-radius:7px;padding:9px 10px;font-size:13px;color:var(--ink);background:white;margin-bottom:22px}.search::placeholder{color:#607780}.nav-overview,.nav-phase{display:flex;gap:11px;align-items:center;text-decoration:none;color:var(--muted);padding:8px 9px;border-radius:6px;font-size:12.5px;line-height:1.4;min-height:36px}.nav-overview{font-weight:600;font-size:13px;margin-bottom:14px}.nav-overview:hover,.nav-phase:hover{background:var(--surface);color:var(--ink)}.nav-phase[aria-current=page],.nav-overview[aria-current=page]{background:var(--accent-soft);color:var(--accent);font-weight:600}.nav-number{font-size:11px;font-variant-numeric:tabular-nums;width:20px;flex-shrink:0;color:inherit}.nav-group{margin:0 0 14px}.nav-group h3{font-size:11px;color:var(--muted);margin:0 0 3px 9px;font-weight:600}.sidebar-foot{border-top:1px solid var(--rule);padding:18px 9px 0;color:var(--muted);font-size:11px;line-height:1.6;margin:20px 0 0}.empty-state{font-size:13px;color:var(--muted);padding:8px}main{padding:40px 44px 24px;min-width:0;outline:none}.intro{padding-bottom:27px;border-bottom:1px solid var(--rule);margin-bottom:28px}.intro p{font-size:16px;line-height:1.75;color:var(--muted);margin-bottom:0}.intro .phase-meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px;font-size:12px;color:var(--muted)}.type-label{display:inline-flex;gap:6px;align-items:center;font-weight:600;font-size:11px}.type-label:before{content:'';width:7px;height:7px;border-radius:2px;background:var(--accent)}.type-label.modello:before,.type-label.misto:before{background:var(--model)}.type-label.controllo:before{background:var(--control)}.section-heading{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:17px}.section-heading h2{margin-bottom:0}.section-heading span{font-size:12px;color:var(--muted)}.map{margin-bottom:36px}.map-lane{display:grid;grid-template-columns:155px minmax(0,1fr);gap:18px;padding:19px 0;border-bottom:1px solid var(--rule);position:relative}.map-lane:first-child{border-top:1px solid var(--rule)}.map-lane-label{padding-top:9px}.map-lane-label h3{font-size:14px;margin-bottom:4px}.map-lane-label p{font-size:11px;line-height:1.5;color:var(--muted);margin-bottom:0}.map-lane-nodes{display:flex;gap:9px;flex-wrap:wrap;align-items:stretch}.map-node{position:relative;flex:1 1 125px;max-width:210px;background:var(--surface);border:1px solid #d9e4e6;border-radius:8px;padding:13px 11px;color:var(--ink);text-align:left;line-height:1.3;transition:background .15s,border-color .15s}.map-node:hover{background:var(--accent-soft);border-color:#87b1a7}.map-node .number{display:block;color:var(--muted);font-size:11px;margin-bottom:9px;font-variant-numeric:tabular-nums}.map-node strong{display:block;font-size:12px;line-height:1.45}.map-node.modello{background:#fdf8ed}.map-node.controllo{background:#f7f4fb}.map-node.misto{background:#f8f3e8}.map-node .node-kind{display:block;font-size:10px;margin-top:8px;color:var(--muted)}.reading-note{display:flex;gap:16px;align-items:flex-start;background:var(--surface);padding:20px 22px;border-radius:var(--radius);margin:26px 0 36px}.reading-note h3{font-size:14px;min-width:160px;margin:0}.reading-note p{font-size:13px;color:var(--muted);margin:0}.overview-columns{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:40px}.overview-columns p{font-size:14px;color:var(--muted)}.storage-list{margin:0;padding:0;list-style:none}.storage-list li{display:grid;grid-template-columns:150px 1fr;gap:15px;font-size:13px;padding:11px 0;border-bottom:1px solid var(--rule)}.storage-list strong{font-size:12px}.storage-list span{color:var(--muted)}.table-scroll{overflow-x:auto;scrollbar-width:thin}.profile-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5}.profile-table th{text-align:left;font-size:11px;color:var(--muted);padding:12px 12px 12px 0;border-bottom:1px solid #aebfc5;vertical-align:top}.profile-table td{padding:15px 14px 15px 0;border-bottom:1px solid var(--rule);vertical-align:top;min-width:115px}.profile-table td:first-child{min-width:240px;max-width:290px}.profile-table code{font-size:10.5px;word-break:normal}.profile-table td:last-child{color:var(--muted);min-width:200px}.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:11px;color:var(--muted);margin-bottom:20px}.legend-item{display:flex;align-items:center;gap:7px}.legend-item:before{content:'';display:block;width:10px;height:10px;border-radius:2px;background:#e8f4f0;border:1px solid #8ba99f}.legend-item.model:before{background:#fbf1dd;border-color:#ae884a}.legend-item.control:before{background:#f0ebf6;border-color:#9b8db2}.legend-item.result:before{background:#e6f3ec;border-color:#72a48a}
+.tabs{display:flex;gap:20px;border-bottom:1px solid var(--rule);margin-bottom:28px;overflow-x:auto}.tab{white-space:nowrap;padding:11px 0 13px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--muted);font-size:13px}.tab[aria-selected=true]{color:var(--accent);font-weight:600;border-bottom-color:var(--accent)}.tab:hover{color:var(--ink)}.diagram-section{margin-bottom:28px}.diagram-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.diagram-heading h2{font-size:18px;margin:0}.diagram-tools{display:flex;align-items:center;gap:5px}.diagram-tools .button{font-size:11px;min-width:34px;padding:6px 9px}.zoom-value{font-size:11px;color:var(--muted);width:39px;text-align:center;font-variant-numeric:tabular-nums}.diagram-viewport{overflow:auto;border:1px solid var(--rule);border-radius:var(--radius);background:#fbfcfc;scrollbar-width:thin;scrollbar-color:#abc4c8 transparent;min-height:235px;padding:22px 18px}.diagram-inner{width:100%;min-width:550px;margin:auto;display:flex;justify-content:center;align-items:center;min-height:200px}.diagram-inner>svg{width:100%;height:auto;max-height:440px;overflow:visible}.diagram-inner .node{cursor:pointer;outline:none}.diagram-inner .node polygon,.diagram-inner .node path{transition:stroke .15s,stroke-width .15s}.diagram-inner .node:hover polygon,.diagram-inner .node:hover path,.diagram-inner .node.active polygon,.diagram-inner .node.active path{stroke:#116f64;stroke-width:2.3px}.diagram-inner .node:focus-visible polygon,.diagram-inner .node:focus-visible path{stroke:var(--focus);stroke-width:3px}.diagram-hint{font-size:11px;color:var(--muted);margin:9px 0 0}.component-inspector{margin-top:12px;padding:17px 20px;border:1px solid var(--rule);border-radius:8px;display:grid;grid-template-columns:185px 1fr;gap:18px}.component-inspector h3{font-size:13px;margin:0}.component-inspector p{font-size:12px;color:var(--muted);margin:0}.profile-note{padding:20px 22px;background:var(--accent-soft);border-radius:var(--radius);margin-bottom:29px}.profile-note h3{font-size:13px;color:var(--accent);margin-bottom:7px}.profile-note p{color:#335e53;font-size:13px;margin-bottom:0}.profile-note small{display:block;font-size:11px;margin-top:9px;color:#335e53}.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px}.detail-section{margin-bottom:28px}.detail-section h2{font-size:19px;margin-bottom:13px}.detail-section p,.detail-section li{font-size:14px;color:var(--muted)}.detail-section ul{padding-left:20px;margin-bottom:0}.detail-section li{padding:5px 0}.contract{width:100%;border-collapse:collapse;table-layout:fixed}.contract th{font-size:11px;color:var(--muted);text-align:left;font-weight:400;padding-bottom:9px;border-bottom:1px solid #b9cbcf}.contract th:first-child{width:34%}.contract td{font-size:13px;vertical-align:top;padding:15px 15px 15px 0;border-bottom:1px solid var(--rule);color:var(--muted)}.contract td:first-child{color:var(--ink);font-weight:600}.contract td code{font-size:11px;font-weight:400}.principle{padding-top:21px;border-top:1px solid var(--rule);margin-top:7px}.principle h3{font-size:14px}.principle p{font-size:14px;color:var(--muted);max-width:76ch}.status-list{padding:0;list-style:none}.status-list li{display:flex;gap:12px;margin:0 0 14px;font-size:14px;color:var(--muted)}.status-list li:before{content:'';border:1px solid #bda28f;border-radius:50%;width:7px;height:7px;margin-top:8px;flex-shrink:0}.reference{border-bottom:1px solid var(--rule);padding:19px 0}.reference:first-child{padding-top:0}.reference h3{font-size:14px;margin-bottom:6px;overflow-wrap:anywhere}.reference-meta{font-size:11px;color:var(--muted);margin-bottom:12px;overflow-wrap:anywhere}.reference details{margin-top:12px}.reference summary{cursor:pointer;font-size:12px;color:var(--accent);width:fit-content}.reference pre{padding:18px 20px;background:#f3f6f6;border-radius:8px;margin-bottom:0}.reference .hash{font-family:Consolas,monospace;font-size:10px;color:var(--muted);word-break:break-all}.technical-note{font-size:12px;color:var(--muted);margin-bottom:25px;max-width:80ch}.pagination{display:flex;justify-content:space-between;gap:25px;border-top:1px solid var(--rule);padding:24px 0;margin-top:36px}.page-link{display:flex;flex-direction:column;gap:4px;font-size:13px;text-decoration:none;max-width:45%}.page-link small{font-size:10px;color:var(--muted)}.page-link.next{text-align:right;margin-left:auto}.document-footer{border-top:1px solid var(--rule);padding-top:18px;display:flex;justify-content:space-between;gap:18px;font-size:10px;color:var(--muted)}#print-book{display:none}.noscript{padding:32px}
+.diagram-viewport{max-height:520px}
+.profile-control select{max-width:250px}
+.example-panel{border:1px solid #c9dbd3;background:#f2f7f4;border-radius:12px;padding:23px 25px;margin:0 0 28px}.example-panel h2{font-size:19px;margin:0 0 10px;color:#205747}.example-panel p{font-size:14px;line-height:1.75;color:#345e51;margin-bottom:10px;max-width:83ch}.example-panel .example-origin,.example-origin{font-size:11px;line-height:1.6;color:#526b61;margin:13px 0 0}.example-choices{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:17px}.example-choice{font:inherit;font-size:12px;line-height:1.5;padding:9px 13px;border:1px solid #bed2cb;border-radius:7px;background:white;color:#345e51}.example-choice[aria-pressed=true]{background:#e8f3ef;border-color:#729e8c;color:#205747;font-weight:600}.example-choice:hover{background:#f2f7f4}.example-detail>p{font-size:14px;color:var(--muted);line-height:1.8}.example-detail h2{font-size:23px;margin-bottom:13px}.example-detail h3{font-size:16px;margin-top:28px;margin-bottom:11px}.example-path{display:flex;flex-wrap:wrap;gap:12px 26px;margin:25px 0;padding:0 0 0 22px;color:var(--accent)}.example-path li{font-size:12px;padding:4px 8px 4px 2px}.example-detail blockquote{margin:18px 0;padding:18px 21px;border:1px solid var(--rule);border-radius:8px;font-family:Georgia,serif;font-size:17px;line-height:1.7;color:var(--ink);background:#fafbfb}.example-provenance{border-top:1px solid var(--rule);margin-top:28px;padding-top:1px}.example-provenance p{font-size:13px;color:var(--muted);line-height:1.8}.example-provenance a{font-size:13px}.example-provenance .example-origin{font-size:11px}
+@media(min-width:1500px){main{padding:46px 60px 24px}.map-node{flex-basis:145px}.diagram-viewport{padding:30px 26px}}
+@media(max-width:1050px){:root{--sidebar:230px}main{padding:32px 27px 24px}.topbar{padding:0 20px}.profile-control{gap:7px}.profile-control{font-size:0}.profile-control select{font-size:12px}.map-lane{grid-template-columns:120px minmax(0,1fr);gap:12px}.map-node{flex-basis:115px;max-width:100%}.overview-columns{gap:22px}.details-grid{grid-template-columns:1fr;gap:0}.reading-note{display:block}.reading-note h3{margin-bottom:8px}.top-actions{gap:9px}.storage-list li{grid-template-columns:120px 1fr}.component-inspector{grid-template-columns:140px 1fr}}
+@media(max-width:760px){.topbar{height:68px;padding:0 17px;gap:12px}.brand{font-size:14px;gap:8px}.brand-mark{width:26px;height:26px;font-size:23px}.brand-separator{padding:0 3px}.top-actions{gap:3px}.profile-control select{max-width:135px;padding:7px 17px 7px 7px;font-size:11px}.top-actions #print{display:none}.menu-button{display:inline-flex;padding:7px 9px;font-size:12px}.layout{display:block}.sidebar{display:none;position:fixed;left:0;top:68px;bottom:0;width:290px;height:auto;z-index:15;background:var(--paper);border-right:1px solid #aac2c7}.sidebar.is-open{display:block}main{padding:30px 20px 24px}.intro{margin-bottom:23px;padding-bottom:24px}h1{font-size:31px;max-width:23ch}.intro p{font-size:14px}.section-heading{display:block}.section-heading span{display:block;margin-top:7px}.map-lane{display:block;padding:18px 0}.map-lane-label{padding:0;margin-bottom:12px}.map-lane-label p{display:none}.map-lane-nodes{gap:8px}.map-node{flex:1 1 calc(50% - 8px);max-width:calc(50% - 4px);padding:13px}.map-node strong{font-size:12px}.map-node .number{margin-bottom:6px}.map-node .node-kind{margin-top:6px}.overview-columns{grid-template-columns:1fr;gap:18px}.legend{gap:12px}.reading-note{padding:18px}.diagram-heading{align-items:flex-start;flex-direction:column;gap:11px}.diagram-tools{width:100%;justify-content:flex-end}.diagram-heading h2{font-size:18px}.diagram-viewport{padding:15px 10px;min-height:200px}.diagram-inner{min-width:650px}.diagram-inner>svg{max-height:340px}.component-inspector{display:block;padding:16px}.component-inspector h3{margin-bottom:7px}.tabs{gap:21px;margin-bottom:22px}.tab{font-size:12px}.profile-note{padding:17px}.details-grid{grid-template-columns:1fr;gap:0}.contract td{font-size:12px}.contract th:first-child{width:36%}.document-footer{display:block}.document-footer span{display:block;margin-bottom:7px}.page-link{font-size:12px}.reference h3{font-size:13px}.reference pre{padding:14px;font-size:11px}}
+@media(max-width:760px){.example-panel{padding:18px}.example-panel h2{font-size:17px}.example-panel p{font-size:13px}.example-panel .example-origin{font-size:10.5px}.example-path{display:block}.example-path li{margin-bottom:8px}.profile-control select{max-width:145px}}
+@media(max-width:480px){.brand-separator,.brand-name{display:none}.profile-control select{max-width:145px}}
+.system-overview{margin:0 0 42px}.system-preparation,.system-coordination{background:var(--surface);padding:18px 22px;border:1px solid var(--rule);border-radius:8px}.system-preparation p,.system-coordination p{font-size:13px;margin:5px 0 0}.system-flow{list-style:none;padding:0;margin:26px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 30px;counter-reset:component}.system-step{counter-increment:component;border-top:1px solid var(--rule);padding-top:14px;min-width:0}.system-title{font-weight:700;font-size:17px}.system-title:before{content:counter(component) '. ';color:var(--muted)}.system-step p{font-size:13px;margin:9px 0}.system-transfer{font-weight:600;color:var(--accent)}.system-transfer:before{content:'Trasmette: ';font-weight:400}.source-branches{margin:30px 0}.source-branch{display:grid;grid-template-columns:150px minmax(0,1fr);gap:5px 22px;border-top:1px solid var(--rule);padding:17px 0}.source-branch h4{margin:0;grid-row:span 3;font-size:15px}.source-branch p{font-size:13px;margin:0}.source-branch a{font-size:13px}.branch-output{font-weight:600}.journey{list-style:none;padding:0;margin:22px 0 12px}.journey-step{display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;padding:16px 0;border-top:1px solid #c9dbd3}.journey-step h3{font-size:14px;margin:0}.journey-step p{margin:0!important}.journey-result p{font-weight:600}.journey-context{color:var(--accent);font-weight:600}.journey-next{display:inline-block;margin:8px 0 16px;font-size:14px}.example-panel .example-origin{margin-top:12px}.journey-next:after{content:' →'}
+@media(max-width:1050px){.system-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.journey-step{grid-template-columns:145px minmax(0,1fr)}}
+@media(max-width:760px){.system-flow{grid-template-columns:1fr;gap:16px}.source-branch,.journey-step{display:block}.source-branch h4,.journey-step h3{margin-bottom:8px}.source-branch p{margin:8px 0}.system-preparation,.system-coordination{padding:15px}.system-overview{margin-bottom:30px}}
+@media print{.journey-step{display:block;padding:5pt 0}.journey-next{display:none}.journey-step h3{margin:4pt 0}.journey-context{font-size:9pt}.example-panel{break-inside:auto}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+@media print{@page{size:A4 portrait;margin:15mm}body{font-size:10pt}.topbar,.layout,.skip-link,#announcement{display:none!important}#print-book{display:block}.print-cover{page-break-after:always;padding-top:25mm}.print-cover h1{font-size:34pt;max-width:18ch}.print-cover p{font-size:12pt}.print-phase{break-before:page}.print-phase h1{font-size:24pt}.print-phase h2{font-size:13pt;margin:16pt 0 7pt}.print-phase h3{font-size:11pt;margin:12pt 0 6pt}.print-phase p,.print-phase li,.print-phase td{font-size:10pt;line-height:1.5}.print-phase svg{width:100%;max-height:72mm}.print-phase table{width:100%;border-collapse:collapse}.print-phase td{border-bottom:1px solid #ddd;padding:7pt 10pt 7pt 0;vertical-align:top}.print-phase .print-refs{font-size:8pt;color:#526b75;overflow-wrap:anywhere}.print-phase pre{font-size:8pt}a{color:inherit;text-decoration:none}}
+.system-destination{display:block;font-weight:400;font-size:12px;margin-top:5px;color:var(--muted)}
+.diagram-section .diagram-viewport{max-height:none;min-height:0;background:#fff}.diagram-section .diagram-inner>svg{max-height:none;height:auto;width:100%}.phase-parent{display:inline-block;font-size:13px;margin-bottom:18px}.mechanism-list{padding-left:22px}.mechanism-list li{max-width:78ch;line-height:1.8;margin:16px 0}.diagram-section .diagram-tools{flex-wrap:wrap}.diagram-section .diagram-heading{flex-wrap:wrap}.diagram-section{margin-bottom:35px}
+.nav-macro{display:block;padding:10px 8px;margin:3px 0;text-decoration:none;color:var(--ink);font-size:13px;border-radius:6px}.nav-macro[aria-current]{color:var(--accent);background:var(--accent-soft);font-weight:700}.nav-macro:hover{background:var(--surface)}summary{cursor:pointer;font-weight:600;line-height:1.5}.nav-details{margin-top:24px;border-top:1px solid var(--rule);padding-top:18px}.nav-details>summary{font-size:12px;color:var(--muted)}.nav-details .nav-group{margin-top:18px}.macro-paths{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 23px}.macro-trail{display:flex;flex-wrap:wrap;gap:9px 16px;margin:0 0 24px;font-size:12px}.macro-trail a{color:var(--muted)}.macro-trail [aria-current]{font-weight:700;color:var(--accent)}.macro-figure{margin:35px 0 26px}.macro-figure h2{font-size:20px}.macro-figure .diagram-heading{flex-wrap:wrap;gap:12px}.macro-diagram{overflow:auto;border:1px solid var(--rule);border-radius:12px;padding:22px;background:#fff;scrollbar-width:thin;scrollbar-color:#b8cbcd transparent}.macro-diagram-inner{width:100%;min-width:700px}.macro-diagram svg{width:100%;height:auto;max-height:none}.macro-concepts{margin:30px 0}.macro-concepts li{max-width:78ch;margin:12px 0;line-height:1.75}.configuration-note,.macro-details,.overview-details{margin:28px 0;padding:20px 0;border-top:1px solid var(--rule)}.configuration-note>p{font-size:14px;margin-top:15px}.configuration-table,.rrf-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.7;margin:18px 0}.configuration-table th,.rrf-table th{text-align:left;color:var(--ink);font-size:12px}.configuration-table td,.configuration-table th,.rrf-table td,.rrf-table th{padding:12px 16px 12px 0;border-bottom:1px solid var(--rule);vertical-align:top}.configuration-table th:first-child{width:19%}.configuration-table th:not(:first-child){width:40.5%}.rrf-table td{font-variant-numeric:tabular-nums}.rrf-table td:nth-child(4){white-space:nowrap}.table-scroll{overflow:auto}.table-scroll table{min-width:620px}.detail-link{display:block;margin:13px 0;font-size:14px}.overview-details .map{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.overview-details .map-node{max-width:none;flex:1 1 230px;text-align:left}.dossier-example{padding:24px 0;border-top:1px solid var(--rule)}.macro-figure .diagram-tools{flex-wrap:wrap}.macro-example h2{font-size:20px}.macro-example .journey-step{grid-template-columns:160px minmax(0,1fr)}
+@media(max-width:760px){.macro-diagram{padding:14px}.macro-diagram-inner{min-width:680px}.macro-trail{gap:8px 13px}.macro-figure .diagram-tools{justify-content:flex-start}.macro-example .journey-step{display:block}.macro-figure h2{font-size:18px}.configuration-note,.macro-details,.overview-details{margin:22px 0}.macro-paths .example-choice{font-size:11px;padding:8px 10px}}
+@media print{.print-macro{break-before:page}.print-macro>svg{width:100%;height:auto;max-height:170mm}.print-macro h1{font-size:22pt}.print-macro .example-panel{padding:10pt;margin-top:12pt}.print-macro .journey-step{display:block}.print-macro p{font-size:10pt}.print-macro .example-origin{font-size:8pt}.print-macro .journey-step h3{font-size:10pt}.print-macro h2{font-size:14pt}}
+@media print{.print-phase svg{max-height:155mm;height:auto}}
+.complete-open{display:none}.top-actions{flex-wrap:wrap;gap:8px}.verification-deep{margin:22px 0;border-top:1px solid var(--rule);padding:18px 0}.verification-deep p{font-size:14px;margin-top:14px}body[data-edition=breve] .sidebar,body[data-edition=breve] #menu,body[data-edition=breve] #print,body[data-edition=breve] .brief-open,body[data-edition=breve] #pagination{display:none}body[data-edition=breve] .complete-open{display:inline-flex}body[data-edition=breve] .layout{display:block;max-width:1100px}body[data-edition=breve] .brief-body>.print-macro{margin:42px 0 60px;border-top:1px solid var(--rule);padding-top:30px}body[data-edition=breve] .brief-body>.print-macro>svg{width:100%;height:auto;max-height:650px}.brief-body .example-panel{margin-top:25px}
+@media print{.print-brief .print-macro{break-before:page}.print-brief .print-macro:first-child{break-before:auto}.print-brief .print-macro>svg{width:100%;height:auto;max-height:110mm}.print-brief .example-panel{padding:8pt;margin:10pt 0}.print-brief .journey-step{padding:5pt 0}.print-brief .example-origin{font-size:7pt}.print-brief h1{font-size:20pt}.print-brief .print-macro>p{font-size:9pt}}
+@media(max-width:1050px){.topbar{height:auto;min-height:78px;padding-top:10px;padding-bottom:10px}.top-actions{justify-content:flex-end}.brief-open,.complete-open{font-size:11px}.top-actions button{font-size:11px}.top-actions #print{display:none}}
+
+body{background:#f6f8f8}.audit-header{border-bottom:1px solid var(--rule);background:white;padding:22px max(24px,calc((100vw - 1180px)/2));display:flex;gap:20px;align-items:center;justify-content:space-between}.audit-main{max-width:1180px;margin:auto;padding:36px 24px}.audit-main h1{max-width:30ch}.audit-main section{padding:34px 0;border-top:1px solid var(--rule);scroll-margin-top:20px}.audit-main p{max-width:90ch}.audit-main figure{margin:24px 0;padding:22px;background:white;border:1px solid var(--rule);border-radius:12px;overflow:auto}.audit-main figure svg{width:100%;height:auto;min-width:650px}.audit-main details{background:white;padding:16px;margin:12px 0;border:1px solid var(--rule);border-radius:8px}.audit-main summary{cursor:pointer;font-weight:bold}.audit-main pre{max-height:600px;overflow:auto}.audit-nav{display:flex;flex-wrap:wrap;gap:10px 22px;margin:25px 0}.audit-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:32px 0}.audit-stats>div{padding:22px;background:white;border:1px solid var(--rule);border-radius:10px}.audit-stats strong{display:block;font-size:32px;line-height:1.3}.audit-stats span{font-size:13px;color:var(--muted)}.bar-row{display:grid;grid-template-columns:minmax(200px,1fr) minmax(80px,1fr) 145px;gap:16px;align-items:center;margin:14px 0}.track{height:14px;background:#e1eae8;border-radius:4px;overflow:hidden}.track>div{height:100%;background:#116f64}.bar-row strong{text-align:right;font-size:14px}.bar-row small{font-weight:normal}.audit-main td,.audit-main th{overflow-wrap:anywhere}.audit-main .table-scroll{margin:22px 0}.audit-main table{min-width:580px}.audit-main figcaption{margin-top:18px;font-size:13px}@media(max-width:700px){.audit-stats{grid-template-columns:repeat(2,1fr)}.bar-row{grid-template-columns:1fr 110px;gap:6px}.bar-row .track{grid-column:1;grid-row:auto}.bar-row strong{grid-column:2;grid-row:auto}.bar-row>span{grid-column:1/-1}.audit-header{flex-wrap:wrap}.audit-main{padding:24px 16px}}@media print{body{background:white}.audit-header,.audit-nav{display:none}.audit-main{max-width:none;padding:0}.audit-main section{break-before:auto}.audit-main h2,.audit-main h3{break-after:avoid}.audit-stats>div{padding:10px}.audit-stats strong{font-size:22px}.audit-main table{min-width:0;font-size:9pt}.audit-main .table-scroll{overflow:visible}.audit-main figure svg{min-width:0}.audit-main details{break-inside:avoid}.audit-main pre{max-height:none}.bar-row{break-inside:avoid}.audit-main section{padding:18px 0}#print-book{display:none!important}}</style></head><body><header class="audit-header"><a href="Architettura_per_il_relatore.html">← Architettura per il relatore</a></header><main class="audit-main" id="main"><p>Knowledge Graph · corpus GCA</p><h1>Dentro le associazioni candidate</h1><p>Struttura, provenienza e statistiche dell’intero corpus in uso. Ogni numero ha un denominatore esplicito; le anomalie restano visibili.</p><nav class="audit-nav" aria-label="Sezioni audit"><a href="#lettura">Perimetro</a><a href="#struttura">Record</a><a href="#famiglie">Famiglie</a><a href="#fonti">Fonti</a><a href="#integrita">Integrità</a><a href="#copertura">Copertura</a><a href="#statistiche">Statistiche</a><a href="#concentrazione">Concentrazione</a><a href="#esempi">Esempi</a><a href="#versioni">Versioni</a><a href="#metodo">Metodo</a></nav><div class="audit-stats"><div><strong>46.974</strong><span>associazioni candidate</span></div><div><strong>7</strong><span>famiglie di relazioni</span></div><div><strong>41.972</strong><span>chiavi semantiche distinte</span></div><div><strong>4</strong><span>riferimenti malformati nei record</span></div></div><section id="lettura"><h2>Che cos’è una GCA</h2><p>Una GCA è un record che rappresenta un’associazione candidata ricavata dal Knowledge Graph: collega un soggetto a un oggetto attraverso una relazione e conserva le informazioni sulla sua origine. È l’unità che il sistema recupera quando cerca associazioni pertinenti a un caso clinico. Da questo record partono la consultazione della fonte, i controlli e la costruzione del dossier.</p><p>Per esempio, una GCA può collegare BRAF a un farmaco, uno studio a un gene oppure un profilo molecolare a una descrizione di evidenza. Famiglia, contesto e riferimenti indicano al sistema come proseguire l’analisi.</p><p>Questa pagina descrive l’intero corpus congelato caricato dal runtime. L’esempio BRAF permette poi di riconoscere alcuni di questi record nel percorso dell’architettura. Ogni percentuale sulle GCA usa come denominatore 46.974 record, salvo diversa indicazione.</p></section><section id="struttura"><h2>Come è fatta una GCA</h2><p>Il record tiene distinti contenuto della relazione, identità, provenienza e riferimenti documentali.</p><figure><svg width="622pt" height="399pt"
+ viewBox="0.00 0.00 622.00 399.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(14.4 384.81)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-14.4,14.4 -14.4,-384.81 607.74,-384.81 607.74,14.4 -14.4,14.4"/>
+<!-- gca -->
+<g id="node1" class="node">
+<title>gca</title>
+<path fill="#eaf0f5" stroke="#afc4c8" d="M284.67,-214.03C284.67,-214.03 12,-214.03 12,-214.03 6,-214.03 0,-208.03 0,-202.03 0,-202.03 0,-168.37 0,-168.37 0,-162.37 6,-156.37 12,-156.37 12,-156.37 284.67,-156.37 284.67,-156.37 290.67,-156.37 296.67,-162.37 296.67,-168.37 296.67,-168.37 296.67,-202.03 296.67,-202.03 296.67,-208.03 290.67,-214.03 284.67,-214.03"/>
+<text xml:space="preserve" text-anchor="middle" x="148.34" y="-188.75" font-family="Arial" font-size="16.00">Una GCA</text>
+<text xml:space="preserve" text-anchor="middle" x="148.34" y="-170" font-family="Arial" font-size="16.00">Relazione candidata con provenienza</text>
+</g>
+<!-- relation -->
+<g id="node2" class="node">
+<title>relation</title>
+<path fill="#e8f3ef" stroke="#afc4c8" d="M581.34,-370.41C581.34,-370.41 344.67,-370.41 344.67,-370.41 338.67,-370.41 332.67,-364.41 332.67,-358.41 332.67,-358.41 332.67,-306 332.67,-306 332.67,-300 338.67,-294 344.67,-294 344.67,-294 581.34,-294 581.34,-294 587.34,-294 593.34,-300 593.34,-306 593.34,-306 593.34,-358.41 593.34,-358.41 593.34,-364.41 587.34,-370.41 581.34,-370.41"/>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-345.13" font-family="Arial" font-size="16.00">Relazione</text>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-326.38" font-family="Arial" font-size="16.00">Soggetto → predicato → oggetto</text>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-307.63" font-family="Arial" font-size="16.00">Famiglia e contesto</text>
+</g>
+<!-- gca&#45;&gt;relation -->
+<g id="edge1" class="edge">
+<title>gca&#45;&gt;relation</title>
+<path fill="none" stroke="#617e87" d="M199.81,-214.46C236.15,-234.95 286.67,-262.3 332.67,-283.2 338.01,-285.63 343.5,-288.04 349.07,-290.41"/>
+<polygon fill="#617e87" stroke="#617e87" points="347.92,-292.58 355.32,-293.03 349.81,-288.06 347.92,-292.58"/>
+</g>
+<!-- identity -->
+<g id="node3" class="node">
+<title>identity</title>
+<path fill="#e8f3ef" stroke="#afc4c8" d="M581.34,-272.41C581.34,-272.41 344.67,-272.41 344.67,-272.41 338.67,-272.41 332.67,-266.41 332.67,-260.41 332.67,-260.41 332.67,-208 332.67,-208 332.67,-202 338.67,-196 344.67,-196 344.67,-196 581.34,-196 581.34,-196 587.34,-196 593.34,-202 593.34,-208 593.34,-208 593.34,-260.41 593.34,-260.41 593.34,-266.41 587.34,-272.41 581.34,-272.41"/>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-247.13" font-family="Arial" font-size="16.00">Identità del record</text>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-228.38" font-family="Arial" font-size="16.00">Identificativo + chiave semantica</text>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-209.63" font-family="Arial" font-size="16.00">Regola di materializzazione</text>
+</g>
+<!-- gca&#45;&gt;identity -->
+<g id="edge2" class="edge">
+<title>gca&#45;&gt;identity</title>
+<path fill="none" stroke="#617e87" d="M296.97,-208.34C306.05,-209.76 315.17,-211.19 324.2,-212.61"/>
+<polygon fill="#617e87" stroke="#617e87" points="323.68,-215.01 330.98,-213.67 324.44,-210.17 323.68,-215.01"/>
+</g>
+<!-- lineage -->
+<g id="node4" class="node">
+<title>lineage</title>
+<path fill="#e8f3ef" stroke="#afc4c8" d="M576.84,-174.41C576.84,-174.41 349.17,-174.41 349.17,-174.41 343.17,-174.41 337.17,-168.41 337.17,-162.41 337.17,-162.41 337.17,-110 337.17,-110 337.17,-104 343.17,-98 349.17,-98 349.17,-98 576.84,-98 576.84,-98 582.84,-98 588.84,-104 588.84,-110 588.84,-110 588.84,-162.41 588.84,-162.41 588.84,-168.41 582.84,-174.41 576.84,-174.41"/>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-149.13" font-family="Arial" font-size="16.00">Provenienza</text>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-130.38" font-family="Arial" font-size="16.00">Dataset e righe sorgente</text>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-111.63" font-family="Arial" font-size="16.00">Nodi, archi e percorso nel grafo</text>
+</g>
+<!-- gca&#45;&gt;lineage -->
+<g id="edge3" class="edge">
+<title>gca&#45;&gt;lineage</title>
+<path fill="none" stroke="#617e87" d="M296.97,-162.07C307.45,-160.43 317.98,-158.78 328.38,-157.15"/>
+<polygon fill="#617e87" stroke="#617e87" points="328.65,-159.58 335.19,-156.08 327.89,-154.74 328.65,-159.58"/>
+</g>
+<!-- document -->
+<g id="node5" class="node">
+<title>document</title>
+<path fill="#f0ebf6" stroke="#afc4c8" d="M559.97,-76.41C559.97,-76.41 366.05,-76.41 366.05,-76.41 360.05,-76.41 354.05,-70.41 354.05,-64.41 354.05,-64.41 354.05,-12 354.05,-12 354.05,-6 360.05,0 366.05,0 366.05,0 559.97,0 559.97,0 565.97,0 571.97,-6 571.97,-12 571.97,-12 571.97,-64.41 571.97,-64.41 571.97,-70.41 565.97,-76.41 559.97,-76.41"/>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-51.13" font-family="Arial" font-size="16.00">Riferimenti della fonte</text>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-32.38" font-family="Arial" font-size="16.00">Pubblicazione, registro</text>
+<text xml:space="preserve" text-anchor="middle" x="463.01" y="-13.63" font-family="Arial" font-size="16.00">oppure nessun documento</text>
+</g>
+<!-- gca&#45;&gt;document -->
+<g id="edge4" class="edge">
+<title>gca&#45;&gt;document</title>
+<path fill="none" stroke="#617e87" d="M199.81,-155.95C236.15,-135.46 286.67,-108.11 332.67,-87.2 338.01,-84.78 343.5,-82.37 349.07,-80"/>
+<polygon fill="#617e87" stroke="#617e87" points="349.81,-82.35 355.32,-77.38 347.92,-77.83 349.81,-82.35"/>
+</g>
+</g>
+</svg>
+<figcaption>Schema del record · <a href="figure/audit-gca/anatomia.dot">DOT</a> · <a href="figure/audit-gca/anatomia.svg">SVG</a> · <a href="figure/audit-gca/anatomia.pdf">PDF vettoriale</a></figcaption></figure><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Campi"><table class="audit-table"><thead><tr><th scope="col">Campi</th><th scope="col">Significato</th></tr></thead><tbody><tr><th scope="row">subject, predicate, object</th><td>Chi è collegato a chi e con quale relazione; ogni estremità conserva tipo, identità e nome.</td></tr><tr><th scope="row"><code>relation_family, relation_origin</code></th><td>Famiglia scientifica e origine della relazione. DIRECT indica un collegamento diretto materializzato dal grafo; il supporto documentale viene valutato nelle verifiche successive.</td></tr><tr><th scope="row">context</th><td>Contesto esplicito della relazione, quando disponibile: malattia, tipo e livello di evidenza. Le proprietà sorgenti possono conservare ulteriori informazioni anche quando questo campo è vuoto.</td></tr><tr><th scope="row"><code>candidate_id, semantic_key</code></th><td>Identità del singolo record e chiave di raggruppamento. La chiave semantica può ricorrere in record provenienti da unità sorgenti distinte.</td></tr><tr><th scope="row"><code>document_identifiers</code></th><td>Riferimenti bibliografici o del registro che indirizzano il recupero della fonte. Accessibilità del testo, autenticità della citazione e supporto vengono controllati durante l’analisi documentale.</td></tr><tr><th scope="row"><code>source_datasets, source_record_ids</code></th><td>Tabelle e righe sorgenti che consentono di risalire all’origine della materializzazione.</td></tr><tr><th scope="row"><code>source_properties</code></th><td>Proprietà originali di nodi e archi conservate insieme al record. Il Reader aggiunge successivamente le osservazioni ricavate dalla fonte.</td></tr><tr><th scope="row"><code>graph_path, node_ids, edge_ids_by_dataset</code></th><td>Nodi e archi che ricostruiscono il contesto e la provenienza nel grafo. graph_path raccoglie la sequenza serializzata dal materializzatore; gli archi effettivi sono indicati in edge_ids_by_dataset.</td></tr><tr><th scope="row"><code>materialization_rule, materializer_version</code></th><td>Regola e versione del processo che ha prodotto il record.</td></tr></tbody></table></div><details><summary>Presenza dei singoli campi in tutti i record</summary><p>La tabella conta i record che contengono ciascuna chiave. Il valore associato può essere valorizzato oppure vuoto.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Campo"><table class="audit-table"><thead><tr><th scope="col">Campo</th><th scope="col" class="is-numeric">Record in cui è presente</th><th scope="col" class="is-numeric">% corpus</th></tr></thead><tbody><tr><th scope="row"><code>candidate_id</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row">context</th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>document_identifiers</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>edge_ids_by_dataset</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>graph_path</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>materialization_rule</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>materializer_version</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>node_ids</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row">object</th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row">predicate</th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>relation_family</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>relation_origin</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>semantic_key</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>source_datasets</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>source_properties</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row"><code>source_record_ids</code></th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr><tr><th scope="row">subject</th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr></tbody></table></div></details></section><section id="famiglie"><h2>Le famiglie di relazioni</h2><p>Una famiglia identifica il tipo di associazione da cercare e verificare. Frequenza nel corpus e forza scientifica sono grandezze diverse.</p><div class="bars" role="list"><div class="bar-row" role="listitem"><span>Gene → farmaco</span><div class="track"><div style="width:100.000%"></div></div><strong>25.589 <small>· 54,47%</small></strong></div><div class="bar-row" role="listitem"><span>Studio → intervento</span><div class="track"><div style="width:28.844%"></div></div><strong>7.381 <small>· 15,71%</small></strong></div><div class="bar-row" role="listitem"><span>Studio → gene</span><div class="track"><div style="width:21.498%"></div></div><strong>5.501 <small>· 11,71%</small></strong></div><div class="bar-row" role="listitem"><span>Profilo molecolare → descrizione di evidenza</span><div class="track"><div style="width:18.926%"></div></div><strong>4.843 <small>· 10,31%</small></strong></div><div class="bar-row" role="listitem"><span>Evidenza → farmaco</span><div class="track"><div style="width:13.080%"></div></div><strong>3.347 <small>· 7,13%</small></strong></div><div class="bar-row" role="listitem"><span>Test diagnostico → gene</span><div class="track"><div style="width:0.637%"></div></div><strong>163 <small>· 0,35%</small></strong></div><div class="bar-row" role="listitem"><span>Farmaco → test diagnostico associato</span><div class="track"><div style="width:0.586%"></div></div><strong>150 <small>· 0,32%</small></strong></div></div><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Relazione"><table class="audit-table"><thead><tr><th scope="col">Relazione</th><th scope="col">Nome tecnico</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% corpus</th><th scope="col" class="is-numeric">Chiavi distinte</th><th scope="col">Come interpretarla</th></tr></thead><tbody><tr><th scope="row">Gene → farmaco</th><td>GENE_DRUG</td><td class="is-numeric">25.589</td><td class="is-numeric">54,47%</td><td class="is-numeric">20.587</td><td>Descrive un’interazione a livello di gene, con le proprietà e la provenienza riportate nel grafo.</td></tr><tr><th scope="row">Studio → intervento</th><td>TRIAL_DRUG</td><td class="is-numeric">7.381</td><td class="is-numeric">15,71%</td><td class="is-numeric">7.381</td><td>Identifica un intervento associato a uno studio e permette di recuperarne il contesto dal registro.</td></tr><tr><th scope="row">Studio → gene</th><td>TRIAL_GENE</td><td class="is-numeric">5.501</td><td class="is-numeric">11,71%</td><td class="is-numeric">5.501</td><td>Identifica un gene associato a uno studio e indirizza la consultazione del registro.</td></tr><tr><th scope="row">Profilo molecolare → descrizione di evidenza</th><td>EVIDENCE_STATEMENT</td><td class="is-numeric">4.843</td><td class="is-numeric">10,31%</td><td class="is-numeric">4.843</td><td>Associazione a una descrizione curata; il testo della fonte deve ancora essere esaminato.</td></tr><tr><th scope="row">Evidenza → farmaco</th><td>EVIDENCE_DRUG</td><td class="is-numeric">3.347</td><td class="is-numeric">7,13%</td><td class="is-numeric">3.347</td><td>Collega una descrizione di evidenza a un farmaco e fornisce il riferimento per il successivo confronto con la fonte.</td></tr><tr><th scope="row">Test diagnostico → gene</th><td>COMPANION_DIAGNOSTIC_GENE</td><td class="is-numeric">163</td><td class="is-numeric">0,35%</td><td class="is-numeric">163</td><td>Descrive il collegamento del test al gene nel Knowledge Graph; la storia del caso è conservata nei dati clinici.</td></tr><tr><th scope="row">Farmaco → test diagnostico associato</th><td>DRUG_COMPANION_DIAGNOSTIC</td><td class="is-numeric">150</td><td class="is-numeric">0,32%</td><td class="is-numeric">150</td><td>Conserva il collegamento diretto tra un farmaco e il test diagnostico associato.</td></tr></tbody></table></div></section><section id="fonti"><h2>I percorsi delle fonti</h2><p>I riferimenti presenti nel record determinano il percorso della fonte: pubblicazione, registro o sola provenienza nel grafo. La categoria “solo grafo” raccoglie i record con elenco document_identifiers vuoto e conserva la provenienza del collegamento nel Knowledge Graph. La copertura della letteratura sul tema richiede una ricerca dedicata.</p><p><a href="Audit_paper_NCT_per_il_relatore.html">Apri la sezione dedicata: audit delle pubblicazioni e degli studi NCT →</a></p><div class="bars" role="list"><div class="bar-row" role="listitem"><span>Solo provenienza nel grafo</span><div class="track"><div style="width:100.000%"></div></div><strong>25.902 <small>· 55,14%</small></strong></div><div class="bar-row" role="listitem"><span>Registro</span><div class="track"><div style="width:49.734%"></div></div><strong>12.882 <small>· 27,42%</small></strong></div><div class="bar-row" role="listitem"><span>Pubblicazione</span><div class="track"><div style="width:31.619%"></div></div><strong>8.190 <small>· 17,44%</small></strong></div></div><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Famiglia"><table class="audit-table"><thead><tr><th scope="col">Famiglia</th><th scope="col" class="is-numeric">Pubblicazione</th><th scope="col" class="is-numeric">Registro</th><th scope="col" class="is-numeric">Pubblicazione e registro</th><th scope="col" class="is-numeric">Altro riferimento</th><th scope="col" class="is-numeric">Solo provenienza nel grafo</th></tr></thead><tbody><tr><th scope="row"><code>COMPANION_DIAGNOSTIC_GENE</code></th><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">163</td></tr><tr><th scope="row"><code>DRUG_COMPANION_DIAGNOSTIC</code></th><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">150</td></tr><tr><th scope="row"><code>EVIDENCE_DRUG</code></th><td class="is-numeric">3.347</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td></tr><tr><th scope="row"><code>EVIDENCE_STATEMENT</code></th><td class="is-numeric">4.843</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td></tr><tr><th scope="row"><code>GENE_DRUG</code></th><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">25.589</td></tr><tr><th scope="row"><code>TRIAL_DRUG</code></th><td class="is-numeric">0</td><td class="is-numeric">7.381</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td></tr><tr><th scope="row"><code>TRIAL_GENE</code></th><td class="is-numeric">0</td><td class="is-numeric">5.501</td><td class="is-numeric">0</td><td class="is-numeric">0</td><td class="is-numeric">0</td></tr></tbody></table></div><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Identificatore"><table class="audit-table"><thead><tr><th scope="col">Identificatore</th><th scope="col" class="is-numeric">Valori distinti</th><th scope="col" class="is-numeric">Legami GCA–identificatore</th></tr></thead><tbody><tr><th scope="row">PMID</th><td class="is-numeric">2.224</td><td class="is-numeric">8.190</td></tr><tr><th scope="row">PMCID</th><td class="is-numeric">1.172</td><td class="is-numeric">4.180</td></tr><tr><th scope="row">NCT</th><td class="is-numeric">4.136</td><td class="is-numeric">12.882</td></tr><tr><th scope="row">DOI</th><td class="is-numeric">0</td><td class="is-numeric">0</td></tr></tbody></table></div><p>Una pubblicazione o uno studio possono essere citati da molte GCA: per questo la tabella mostra sia gli identificatori distinti sia il numero di associazioni che li citano. PMID, PMCID e DOI offrono identificatori diversi della stessa pubblicazione; il conteggio dei documenti unici richiede di ricondurli alla medesima fonte. I valori grezzi comprendono anche gli identificatori segnalati nella sezione Integrità.</p></section><section id="risoluzione"><h2>Disponibilità delle pubblicazioni nello snapshot documentale</h2><p>L’incrocio tra i PMID distinti del corpus e il manifest locale mostra quale materiale documentale era disponibile nello snapshot conservato.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Stato nel manifest"><table class="audit-table"><thead><tr><th scope="col">Stato nel manifest</th><th scope="col" class="is-numeric">PMID distinti</th><th scope="col" class="is-numeric">% dei PMID del corpus</th></tr></thead><tbody><tr><th scope="row"><code>ABSTRACT_ONLY</code></th><td class="is-numeric">1.182</td><td class="is-numeric">53,15%</td></tr><tr><th scope="row"><code>DOCUMENT_UNAVAILABLE</code></th><td class="is-numeric">83</td><td class="is-numeric">3,73%</td></tr><tr><th scope="row"><code>FULL_TEXT_PMC</code></th><td class="is-numeric">917</td><td class="is-numeric">41,23%</td></tr><tr><th scope="row"><code>NON_PRESENTE_NEL_MANIFEST</code></th><td class="is-numeric">2</td><td class="is-numeric">0,09%</td></tr><tr><th scope="row"><code>TERMINAL_RESOLUTION_FAILURE</code></th><td class="is-numeric">40</td><td class="is-numeric">1,80%</td></tr></tbody></table></div><p>Il denominatore comprende tutti i PMID grezzi distinti, inclusi quelli segnalati come malformati. ABSTRACT_ONLY indica la disponibilità dell’abstract; FULL_TEXT_PMC quella del testo completo in PMC. Pertinenza e supporto alla relazione vengono valutati nei passaggi successivi dell’architettura.</p></section><section id="integrita"><h2>Integrità, ripetizioni e anomalie</h2><p>Le misure sono ricalcolate su tutti i record. Si distinguono duplicati di record, ricorrenze della stessa relazione e identificatori documentali malformati.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Controllo"><table class="audit-table"><thead><tr><th scope="col">Controllo</th><th scope="col" class="is-numeric">Valore</th><th scope="col">Definizione</th></tr></thead><tbody><tr><th scope="row">Identificativi di record ripetuti</th><td class="is-numeric">0</td><td>Duplicati dell’identificativo del singolo record.</td></tr><tr><th scope="row">Chiavi semantiche distinte</th><td class="is-numeric">41.972</td><td>Gruppi di record individuati dalla chiave definita nel materializzatore.</td></tr><tr><th scope="row">Ripetizioni oltre la prima della chiave semantica</th><td class="is-numeric">5.002</td><td>Totale record meno chiavi distinte: misura le ricorrenze della relazione tra unità sorgenti.</td></tr><tr><th scope="row">Gruppi con chiave ripetuta</th><td class="is-numeric">2.380</td><td>Numero di chiavi presenti in almeno due record.</td></tr><tr><th scope="row">Molteplicità massima di una chiave</th><td class="is-numeric">19</td><td>Numero massimo di record nello stesso gruppo.</td></tr><tr><th scope="row">Righe sorgenti distinte</th><td class="is-numeric">46.974</td><td>Identificativi di provenienza conservati nei record.</td></tr><tr><th scope="row">Estremità mancanti</th><td class="is-numeric">0</td><td>Soggetto o oggetto assente.</td></tr><tr><th scope="row">Record senza provenienza minima</th><td class="is-numeric">0</td><td>Mancano tabelle o righe sorgenti.</td></tr><tr><th scope="row">Record con struttura incompleta</th><td class="is-numeric">0</td><td>Manca almeno uno dei campi strutturali controllati.</td></tr><tr><th scope="row">Identità di estremità con più etichette</th><td class="is-numeric">0</td><td>Identificativi associati a etichette diverse, da interpretare attraverso il vocabolario delle identità.</td></tr></tbody></table></div><p>Il report di validazione conta le unità sorgenti duplicate; il confronto tra versioni conta le ricorrenze di semantic_key. Una stessa chiave può quindi comparire in più record, ciascuno con la propria unità sorgente e il proprio identificativo. La chiave di EVIDENCE_STATEMENT è costruita dalla famiglia e dall’identità dell’evidenza; nelle altre famiglie include soggetto e oggetto. Il candidate_id incorpora anche l’unità sorgente.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Riferimento anomalo"><table class="audit-table"><thead><tr><th scope="col">Riferimento anomalo</th><th scope="col">Famiglia</th><th scope="col">Record</th><th scope="col">Segnalato nel record</th></tr></thead><tbody><tr><th scope="row">PMID: 10.1182/blood-2021-148205</th><td>EVIDENCE_STATEMENT</td><td>GCA4-204c5eabead461962d0501bf</td><td>Sì</td></tr><tr><th scope="row">PMID: 10.1182/blood-2022-163099</th><td>EVIDENCE_DRUG</td><td>GCA4-87d1f3aed75262c94c73a401</td><td>Sì</td></tr><tr><th scope="row">PMID: 10.1182/blood-2022-163099</th><td>EVIDENCE_STATEMENT</td><td>GCA4-ac1b035f4b935241bdd7f461</td><td>Sì</td></tr><tr><th scope="row">PMID: 10.1182/blood-2021-148205</th><td>EVIDENCE_STATEMENT</td><td>GCA4-b3027ff41e538305fdee86ae</td><td>Sì</td></tr></tbody></table></div><p>Le anomalie elencate sono 4 occorrenze in record, relative a 2 valori distinti. Nel corpus corrente sono stringhe DOI collocate nel campo PMID. L’audit conserva questi valori e i relativi segnali, così da renderli rintracciabili durante il recupero documentale. La valutazione biologica della relazione appartiene all’analisi della fonte.</p></section><section id="copertura"><h2>Quante unità del grafo diventano GCA</h2><p>La copertura esprime la quota delle unità semantiche ammesse dal materializzatore che è stata trasformata in record GCA.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Famiglia"><table class="audit-table"><thead><tr><th scope="col">Famiglia</th><th scope="col" class="is-numeric">Unità ammesse</th><th scope="col" class="is-numeric">Materializzate</th><th scope="col" class="is-numeric">Escluse</th><th scope="col" class="is-numeric">Copertura</th></tr></thead><tbody><tr><th scope="row"><code>COMPANION_DIAGNOSTIC_GENE</code></th><td class="is-numeric">163</td><td class="is-numeric">163</td><td class="is-numeric">0</td><td class="is-numeric">100.0%</td></tr><tr><th scope="row"><code>DRUG_COMPANION_DIAGNOSTIC</code></th><td class="is-numeric">150</td><td class="is-numeric">150</td><td class="is-numeric">0</td><td class="is-numeric">100.0%</td></tr><tr><th scope="row"><code>EVIDENCE_DRUG</code></th><td class="is-numeric">3.347</td><td class="is-numeric">3.347</td><td class="is-numeric">0</td><td class="is-numeric">100.0%</td></tr><tr><th scope="row"><code>EVIDENCE_STATEMENT</code></th><td class="is-numeric">4.843</td><td class="is-numeric">4.843</td><td class="is-numeric">0</td><td class="is-numeric">100.0%</td></tr><tr><th scope="row"><code>GENE_DRUG</code></th><td class="is-numeric">25.589</td><td class="is-numeric">25.589</td><td class="is-numeric">0</td><td class="is-numeric">100.0%</td></tr><tr><th scope="row"><code>TRIAL_DRUG</code></th><td class="is-numeric">7.381</td><td class="is-numeric">7.381</td><td class="is-numeric">0</td><td class="is-numeric">100.0%</td></tr><tr><th scope="row"><code>TRIAL_GENE</code></th><td class="is-numeric">5.501</td><td class="is-numeric">5.501</td><td class="is-numeric">0</td><td class="is-numeric">100.0%</td></tr></tbody></table></div><p>Il denominatore comprende le associazioni autonome delle sette famiglie. Gli archi strutturali gene–variante e variante–profilo arricchiscono la provenienza dei record. I collegamenti farmaco–test e test–gene conservano ciascuno la propria relazione diretta. Il 100% indica che tutte le unità ammesse sono state materializzate; precisione del recupero e validità scientifica richiedono valutazioni dedicate.</p><h3>Da quali tabelle provengono le associazioni</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Dataset sorgente dichiarato"><table class="audit-table"><thead><tr><th scope="col">Dataset sorgente dichiarato</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% corpus</th></tr></thead><tbody><tr><th scope="row"><code>edge_diagnoses_gene.csv</code></th><td class="is-numeric">163</td><td class="is-numeric">0,35%</td></tr><tr><th scope="row"><code>edge_has_companion_diagnostic.csv</code></th><td class="is-numeric">150</td><td class="is-numeric">0,32%</td></tr><tr><th scope="row"><code>edge_has_evidence.csv</code></th><td class="is-numeric">4.843</td><td class="is-numeric">10,31%</td></tr><tr><th scope="row"><code>edge_interacts_with.csv</code></th><td class="is-numeric">25.589</td><td class="is-numeric">54,47%</td></tr><tr><th scope="row"><code>edge_targets_drug.csv</code></th><td class="is-numeric">3.347</td><td class="is-numeric">7,13%</td></tr><tr><th scope="row"><code>edges_trial_drug.csv</code></th><td class="is-numeric">7.381</td><td class="is-numeric">15,71%</td></tr><tr><th scope="row"><code>edges_trial_gene.csv</code></th><td class="is-numeric">5.501</td><td class="is-numeric">11,71%</td></tr></tbody></table></div><h3>Origine e predicato</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: relation_origin"><table class="audit-table"><thead><tr><th scope="col">relation_origin</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% corpus</th></tr></thead><tbody><tr><th scope="row">DIRECT</th><td class="is-numeric">46.974</td><td class="is-numeric">100,00%</td></tr></tbody></table></div><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Predicato"><table class="audit-table"><thead><tr><th scope="col">Predicato</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% corpus</th></tr></thead><tbody><tr><th scope="row"><code>diagnoses_gene</code></th><td class="is-numeric">163</td><td class="is-numeric">0,35%</td></tr><tr><th scope="row"><code>has_companion_diagnostic</code></th><td class="is-numeric">150</td><td class="is-numeric">0,32%</td></tr><tr><th scope="row"><code>has_evidence_statement</code></th><td class="is-numeric">4.843</td><td class="is-numeric">10,31%</td></tr><tr><th scope="row"><code>has_trial_gene</code></th><td class="is-numeric">5.501</td><td class="is-numeric">11,71%</td></tr><tr><th scope="row"><code>has_trial_intervention</code></th><td class="is-numeric">7.381</td><td class="is-numeric">15,71%</td></tr><tr><th scope="row"><code>interacts_with</code></th><td class="is-numeric">25.589</td><td class="is-numeric">54,47%</td></tr><tr><th scope="row"><code>targets_drug</code></th><td class="is-numeric">3.347</td><td class="is-numeric">7,13%</td></tr></tbody></table></div></section><section id="statistiche"><h2>Identità, contesto e dimensioni dei record</h2><p>Queste distribuzioni mostrano quali entità compaiono nelle relazioni e quanto contesto è conservato nei record. Le informazioni sono distribuite tra i campi espliciti e le proprietà originali della sorgente.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Tipo delle estremità"><table class="audit-table"><thead><tr><th scope="col">Tipo delle estremità</th><th scope="col" class="is-numeric">Identità distinte</th></tr></thead><tbody><tr><th scope="row">CompanionDiagnostic</th><td class="is-numeric">166</td></tr><tr><th scope="row">Drug</th><td class="is-numeric">8.503</td></tr><tr><th scope="row">DrugName</th><td class="is-numeric">702</td></tr><tr><th scope="row">Evidence</th><td class="is-numeric">4.843</td></tr><tr><th scope="row">Gene</th><td class="is-numeric">810</td></tr><tr><th scope="row">GeneSymbol</th><td class="is-numeric">47</td></tr><tr><th scope="row">MolecularProfile</th><td class="is-numeric">1.933</td></tr><tr><th scope="row">Trial</th><td class="is-numeric">4.136</td></tr></tbody></table></div><p>La tabella conta le identità presenti come soggetto o oggetto delle relazioni. I nodi aggiuntivi della provenienza sono descritti dalle distribuzioni strutturali più avanti. Gene e GeneSymbol, oppure Drug e DrugName, conservano lo spazio di identità previsto dalla sorgente.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Campo context valorizzato"><table class="audit-table"><thead><tr><th scope="col">Campo context valorizzato</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% corpus</th></tr></thead><tbody><tr><th scope="row">disease</th><td class="is-numeric">8.031</td><td class="is-numeric">17,10%</td></tr><tr><th scope="row">doid</th><td class="is-numeric">7.890</td><td class="is-numeric">16,80%</td></tr><tr><th scope="row"><code>evidence_level</code></th><td class="is-numeric">3.347</td><td class="is-numeric">7,13%</td></tr><tr><th scope="row"><code>evidence_type</code></th><td class="is-numeric">8.190</td><td class="is-numeric">17,44%</td></tr></tbody></table></div><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Famiglia"><table class="audit-table"><thead><tr><th scope="col">Famiglia</th><th scope="col" class="is-numeric">context valorizzato</th><th scope="col" class="is-numeric">Record della famiglia</th></tr></thead><tbody><tr><th scope="row"><code>COMPANION_DIAGNOSTIC_GENE</code></th><td class="is-numeric">0</td><td class="is-numeric">163</td></tr><tr><th scope="row"><code>DRUG_COMPANION_DIAGNOSTIC</code></th><td class="is-numeric">0</td><td class="is-numeric">150</td></tr><tr><th scope="row"><code>EVIDENCE_DRUG</code></th><td class="is-numeric">3.347</td><td class="is-numeric">3.347</td></tr><tr><th scope="row"><code>EVIDENCE_STATEMENT</code></th><td class="is-numeric">4.843</td><td class="is-numeric">4.843</td></tr><tr><th scope="row"><code>GENE_DRUG</code></th><td class="is-numeric">0</td><td class="is-numeric">25.589</td></tr><tr><th scope="row"><code>TRIAL_DRUG</code></th><td class="is-numeric">0</td><td class="is-numeric">7.381</td></tr><tr><th scope="row"><code>TRIAL_GENE</code></th><td class="is-numeric">0</td><td class="is-numeric">5.501</td></tr></tbody></table></div><h3>Malattie più frequenti in context</h3><p>Le GCA sono contate mantenendo le etichette originali della sorgente. I livelli di evidenza descrivono le proprietà già presenti nel dataset; gli esiti del verificatore sono prodotti durante l’analisi documentale.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Valore sorgente"><table class="audit-table"><thead><tr><th scope="col">Valore sorgente</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% dei valori valorizzati</th></tr></thead><tbody><tr><th scope="row">Lung Non-small Cell Carcinoma</th><td class="is-numeric">930</td><td class="is-numeric">11,58%</td></tr><tr><th scope="row">Colorectal Cancer</th><td class="is-numeric">727</td><td class="is-numeric">9,05%</td></tr><tr><th scope="row">Von Hippel-Lindau Disease</th><td class="is-numeric">626</td><td class="is-numeric">7,79%</td></tr><tr><th scope="row">Chronic Myeloid Leukemia</th><td class="is-numeric">600</td><td class="is-numeric">7,47%</td></tr><tr><th scope="row">Cancer</th><td class="is-numeric">502</td><td class="is-numeric">6,25%</td></tr><tr><th scope="row">Breast Cancer</th><td class="is-numeric">388</td><td class="is-numeric">4,83%</td></tr><tr><th scope="row">Melanoma</th><td class="is-numeric">308</td><td class="is-numeric">3,84%</td></tr><tr><th scope="row">Acute Myeloid Leukemia</th><td class="is-numeric">295</td><td class="is-numeric">3,67%</td></tr><tr><th scope="row">Lung Adenocarcinoma</th><td class="is-numeric">239</td><td class="is-numeric">2,98%</td></tr><tr><th scope="row">Her2-receptor Positive Breast Cancer</th><td class="is-numeric">185</td><td class="is-numeric">2,30%</td></tr><tr><th scope="row">Gastrointestinal Stromal Tumor</th><td class="is-numeric">172</td><td class="is-numeric">2,14%</td></tr><tr><th scope="row">B-lymphoblastic Leukemia/lymphoma</th><td class="is-numeric">160</td><td class="is-numeric">1,99%</td></tr></tbody></table></div><h3>Tipi di evidenza in context</h3><p>Le GCA sono contate mantenendo le etichette originali della sorgente. I livelli di evidenza descrivono le proprietà già presenti nel dataset; gli esiti del verificatore sono prodotti durante l’analisi documentale.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Valore sorgente"><table class="audit-table"><thead><tr><th scope="col">Valore sorgente</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% dei valori valorizzati</th></tr></thead><tbody><tr><th scope="row">Predictive</th><td class="is-numeric">6.190</td><td class="is-numeric">75,58%</td></tr><tr><th scope="row">Predisposing</th><td class="is-numeric">682</td><td class="is-numeric">8,33%</td></tr><tr><th scope="row">Prognostic</th><td class="is-numeric">536</td><td class="is-numeric">6,54%</td></tr><tr><th scope="row">Diagnostic</th><td class="is-numeric">493</td><td class="is-numeric">6,02%</td></tr><tr><th scope="row">Functional</th><td class="is-numeric">159</td><td class="is-numeric">1,94%</td></tr><tr><th scope="row">Oncogenic</th><td class="is-numeric">130</td><td class="is-numeric">1,59%</td></tr></tbody></table></div><h3>Livelli sorgenti in context</h3><p>Le GCA sono contate mantenendo le etichette originali della sorgente. I livelli di evidenza descrivono le proprietà già presenti nel dataset; gli esiti del verificatore sono prodotti durante l’analisi documentale.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Valore sorgente"><table class="audit-table"><thead><tr><th scope="col">Valore sorgente</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% dei valori valorizzati</th></tr></thead><tbody><tr><th scope="row">D</th><td class="is-numeric">1.355</td><td class="is-numeric">40,48%</td></tr><tr><th scope="row">B</th><td class="is-numeric">908</td><td class="is-numeric">27,13%</td></tr><tr><th scope="row">C</th><td class="is-numeric">826</td><td class="is-numeric">24,68%</td></tr><tr><th scope="row">A</th><td class="is-numeric">228</td><td class="is-numeric">6,81%</td></tr><tr><th scope="row">E</th><td class="is-numeric">30</td><td class="is-numeric">0,90%</td></tr></tbody></table></div><h3>Distribuzioni strutturali</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Elementi di graph_path"><table class="audit-table"><thead><tr><th scope="col" class="is-numeric">Elementi di graph_path</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% corpus</th></tr></thead><tbody><tr><th scope="row" class="is-numeric">2</th><td class="is-numeric">38.784</td><td class="is-numeric">82,56%</td></tr><tr><th scope="row" class="is-numeric">3</th><td class="is-numeric">4.314</td><td class="is-numeric">9,18%</td></tr><tr><th scope="row" class="is-numeric">4</th><td class="is-numeric">3.267</td><td class="is-numeric">6,95%</td></tr><tr><th scope="row" class="is-numeric">5</th><td class="is-numeric">505</td><td class="is-numeric">1,08%</td></tr><tr><th scope="row" class="is-numeric">6</th><td class="is-numeric">38</td><td class="is-numeric">0,08%</td></tr><tr><th scope="row" class="is-numeric">7</th><td class="is-numeric">12</td><td class="is-numeric">0,03%</td></tr><tr><th scope="row" class="is-numeric">8</th><td class="is-numeric">11</td><td class="is-numeric">0,02%</td></tr><tr><th scope="row" class="is-numeric">9</th><td class="is-numeric">10</td><td class="is-numeric">0,02%</td></tr><tr><th scope="row" class="is-numeric">10</th><td class="is-numeric">10</td><td class="is-numeric">0,02%</td></tr><tr><th scope="row" class="is-numeric">11</th><td class="is-numeric">6</td><td class="is-numeric">0,01%</td></tr><tr><th scope="row" class="is-numeric">12</th><td class="is-numeric">9</td><td class="is-numeric">0,02%</td></tr><tr><th scope="row" class="is-numeric">13</th><td class="is-numeric">4</td><td class="is-numeric">0,01%</td></tr><tr><th scope="row" class="is-numeric">14</th><td class="is-numeric">4</td><td class="is-numeric">0,01%</td></tr></tbody></table></div><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Elementi di node_ids"><table class="audit-table"><thead><tr><th scope="col" class="is-numeric">Elementi di node_ids</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% corpus</th></tr></thead><tbody><tr><th scope="row" class="is-numeric">2</th><td class="is-numeric">38.784</td><td class="is-numeric">82,56%</td></tr><tr><th scope="row" class="is-numeric">3</th><td class="is-numeric">4.314</td><td class="is-numeric">9,18%</td></tr><tr><th scope="row" class="is-numeric">4</th><td class="is-numeric">3.267</td><td class="is-numeric">6,95%</td></tr><tr><th scope="row" class="is-numeric">5</th><td class="is-numeric">505</td><td class="is-numeric">1,08%</td></tr><tr><th scope="row" class="is-numeric">6</th><td class="is-numeric">38</td><td class="is-numeric">0,08%</td></tr><tr><th scope="row" class="is-numeric">7</th><td class="is-numeric">12</td><td class="is-numeric">0,03%</td></tr><tr><th scope="row" class="is-numeric">8</th><td class="is-numeric">11</td><td class="is-numeric">0,02%</td></tr><tr><th scope="row" class="is-numeric">9</th><td class="is-numeric">10</td><td class="is-numeric">0,02%</td></tr><tr><th scope="row" class="is-numeric">10</th><td class="is-numeric">10</td><td class="is-numeric">0,02%</td></tr><tr><th scope="row" class="is-numeric">11</th><td class="is-numeric">6</td><td class="is-numeric">0,01%</td></tr><tr><th scope="row" class="is-numeric">12</th><td class="is-numeric">9</td><td class="is-numeric">0,02%</td></tr><tr><th scope="row" class="is-numeric">13</th><td class="is-numeric">4</td><td class="is-numeric">0,01%</td></tr><tr><th scope="row" class="is-numeric">14</th><td class="is-numeric">4</td><td class="is-numeric">0,01%</td></tr></tbody></table></div><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Riferimenti documentali per GCA"><table class="audit-table"><thead><tr><th scope="col" class="is-numeric">Riferimenti documentali per GCA</th><th scope="col" class="is-numeric">GCA</th><th scope="col" class="is-numeric">% corpus</th></tr></thead><tbody><tr><th scope="row" class="is-numeric">0</th><td class="is-numeric">25.902</td><td class="is-numeric">55,14%</td></tr><tr><th scope="row" class="is-numeric">1</th><td class="is-numeric">21.072</td><td class="is-numeric">44,86%</td></tr></tbody></table></div></section><section id="concentrazione"><h2>Dove si concentra il corpus</h2><p>Le tabelle mostrano le dieci identità e i dieci riferimenti più frequenti nelle associazioni. Permettono di riconoscere i temi maggiormente rappresentati dalle sorgenti del grafo. Efficacia e qualità delle evidenze vengono esaminate attraverso il contenuto delle fonti.</p><h3>Gene</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Nome sorgente"><table class="audit-table"><thead><tr><th scope="col">Nome sorgente</th><th scope="col">Identità</th><th scope="col" class="is-numeric">Presenze nelle estremità delle GCA</th></tr></thead><tbody><tr><th scope="row">AR</th><td>Gene:367</td><td class="is-numeric">984</td></tr><tr><th scope="row">NFE2L2</th><td>Gene:4780</td><td class="is-numeric">843</td></tr><tr><th scope="row">CYP2D6</th><td>Gene:1565</td><td class="is-numeric">661</td></tr><tr><th scope="row">TP53</th><td>Gene:7157</td><td class="is-numeric">502</td></tr><tr><th scope="row">IDH1</th><td>Gene:3417</td><td class="is-numeric">439</td></tr><tr><th scope="row">EGFR</th><td>Gene:1956</td><td class="is-numeric">401</td></tr><tr><th scope="row">PIK3CA</th><td>Gene:5290</td><td class="is-numeric">359</td></tr><tr><th scope="row">ESR1</th><td>Gene:2099</td><td class="is-numeric">344</td></tr><tr><th scope="row">BRAF</th><td>Gene:673</td><td class="is-numeric">335</td></tr><tr><th scope="row">ERBB2</th><td>Gene:2064</td><td class="is-numeric">298</td></tr></tbody></table></div><h3>GeneSymbol</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Nome sorgente"><table class="audit-table"><thead><tr><th scope="col">Nome sorgente</th><th scope="col">Identità</th><th scope="col" class="is-numeric">Presenze nelle estremità delle GCA</th></tr></thead><tbody><tr><th scope="row">ERBB2</th><td>GeneSymbol:ERBB2</td><td class="is-numeric">1.424</td></tr><tr><th scope="row">EGFR</th><td>GeneSymbol:EGFR</td><td class="is-numeric">728</td></tr><tr><th scope="row">ALK</th><td>GeneSymbol:ALK</td><td class="is-numeric">352</td></tr><tr><th scope="row">CDK4</th><td>GeneSymbol:CDK4</td><td class="is-numeric">341</td></tr><tr><th scope="row">KRAS</th><td>GeneSymbol:KRAS</td><td class="is-numeric">327</td></tr><tr><th scope="row">BRAF</th><td>GeneSymbol:BRAF</td><td class="is-numeric">320</td></tr><tr><th scope="row">ROS1</th><td>GeneSymbol:ROS1</td><td class="is-numeric">175</td></tr><tr><th scope="row">BRCA1</th><td>GeneSymbol:BRCA1</td><td class="is-numeric">157</td></tr><tr><th scope="row">MET</th><td>GeneSymbol:MET</td><td class="is-numeric">157</td></tr><tr><th scope="row">BRCA2</th><td>GeneSymbol:BRCA2</td><td class="is-numeric">111</td></tr></tbody></table></div><h3>Drug</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Nome sorgente"><table class="audit-table"><thead><tr><th scope="col">Nome sorgente</th><th scope="col">Identità</th><th scope="col" class="is-numeric">Presenze nelle estremità delle GCA</th></tr></thead><tbody><tr><th scope="row">IMATINIB</th><td>Drug:rxcui:282388</td><td class="is-numeric">279</td></tr><tr><th scope="row">CETUXIMAB</th><td>Drug:rxcui:318341</td><td class="is-numeric">220</td></tr><tr><th scope="row">ERLOTINIB</th><td>Drug:rxcui:337525</td><td class="is-numeric">196</td></tr><tr><th scope="row">CRIZOTINIB</th><td>Drug:rxcui:1148495</td><td class="is-numeric">188</td></tr><tr><th scope="row">SORAFENIB</th><td>Drug:rxcui:495881</td><td class="is-numeric">187</td></tr><tr><th scope="row">VEMURAFENIB</th><td>Drug:rxcui:1147220</td><td class="is-numeric">183</td></tr><tr><th scope="row">OLAPARIB</th><td>Drug:rxcui:1597582</td><td class="is-numeric">160</td></tr><tr><th scope="row">GEFITINIB</th><td>Drug:rxcui:328134</td><td class="is-numeric">155</td></tr><tr><th scope="row">SUNITINIB</th><td>Drug:rxcui:357977</td><td class="is-numeric">152</td></tr><tr><th scope="row">DASATINIB</th><td>Drug:fda:DASATINIB</td><td class="is-numeric">148</td></tr></tbody></table></div><h3>DrugName</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Nome sorgente"><table class="audit-table"><thead><tr><th scope="col">Nome sorgente</th><th scope="col">Identità</th><th scope="col" class="is-numeric">Presenze nelle estremità delle GCA</th></tr></thead><tbody><tr><th scope="row">CARBOPLATIN</th><td>DrugName:CARBOPLATIN</td><td class="is-numeric">260</td></tr><tr><th scope="row">PEMBROLIZUMAB</th><td>DrugName:PEMBROLIZUMAB</td><td class="is-numeric">260</td></tr><tr><th scope="row">PACLITAXEL</th><td>DrugName:PACLITAXEL</td><td class="is-numeric">220</td></tr><tr><th scope="row">TRASTUZUMAB</th><td>DrugName:TRASTUZUMAB</td><td class="is-numeric">217</td></tr><tr><th scope="row">CYCLOPHOSPHAMIDE</th><td>DrugName:CYCLOPHOSPHAMIDE</td><td class="is-numeric">186</td></tr><tr><th scope="row">CISPLATIN</th><td>DrugName:CISPLATIN</td><td class="is-numeric">161</td></tr><tr><th scope="row">FULVESTRANT</th><td>DrugName:FULVESTRANT</td><td class="is-numeric">148</td></tr><tr><th scope="row">CAPECITABINE</th><td>DrugName:CAPECITABINE</td><td class="is-numeric">141</td></tr><tr><th scope="row">NIVOLUMAB</th><td>DrugName:NIVOLUMAB</td><td class="is-numeric">124</td></tr><tr><th scope="row">CETUXIMAB</th><td>DrugName:CETUXIMAB</td><td class="is-numeric">123</td></tr></tbody></table></div><h3>PMID</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Riferimento"><table class="audit-table"><thead><tr><th scope="col" class="is-numeric">Riferimento</th><th scope="col" class="is-numeric">GCA che lo citano</th></tr></thead><tbody><tr><th scope="row" class="is-numeric">20619739</th><td class="is-numeric">114</td></tr><tr><th scope="row" class="is-numeric">25962120</th><td class="is-numeric">92</td></tr><tr><th scope="row" class="is-numeric">18191450</th><td class="is-numeric">73</td></tr><tr><th scope="row" class="is-numeric">25686603</th><td class="is-numeric">72</td></tr><tr><th scope="row" class="is-numeric">17024664</th><td class="is-numeric">67</td></tr><tr><th scope="row" class="is-numeric">16772610</th><td class="is-numeric">66</td></tr><tr><th scope="row" class="is-numeric">16775234</th><td class="is-numeric">64</td></tr><tr><th scope="row" class="is-numeric">22371878</th><td class="is-numeric">64</td></tr><tr><th scope="row" class="is-numeric">25239608</th><td class="is-numeric">62</td></tr><tr><th scope="row" class="is-numeric">21865346</th><td class="is-numeric">56</td></tr></tbody></table></div><h3>NCT</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Riferimento"><table class="audit-table"><thead><tr><th scope="col">Riferimento</th><th scope="col" class="is-numeric">GCA che lo citano</th></tr></thead><tbody><tr><th scope="row">NCT01042379</th><td class="is-numeric">30</td></tr><tr><th scope="row">NCT02465060</th><td class="is-numeric">28</td></tr><tr><th scope="row">NCT03007147</th><td class="is-numeric">22</td></tr><tr><th scope="row">NCT05420064</th><td class="is-numeric">22</td></tr><tr><th scope="row">NCT03117751</th><td class="is-numeric">22</td></tr><tr><th scope="row">NCT04116541</th><td class="is-numeric">22</td></tr><tr><th scope="row">NCT06998940</th><td class="is-numeric">19</td></tr><tr><th scope="row">NCT03944772</th><td class="is-numeric">19</td></tr><tr><th scope="row">NCT03126916</th><td class="is-numeric">18</td></tr><tr><th scope="row">NCT03424005</th><td class="is-numeric">18</td></tr></tbody></table></div></section><section id="esempi"><h2>Esempi reali e collegamento con BRAF</h2><p>I cinque record già documentati nella pagina dell’architettura appartengono a questo stesso corpus. Qui si mostra la loro struttura; gli esiti dell’analisi del caso restano separati dalle statistiche globali.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Famiglia"><table class="audit-table"><thead><tr><th scope="col">Famiglia</th><th scope="col">Soggetto (estratto)</th><th scope="col">Oggetto (estratto)</th><th scope="col">Percorso</th><th scope="col">Record</th></tr></thead><tbody><tr><th scope="row"><code>COMPANION_DIAGNOSTIC_GENE</code></th><td>FoundationOne CDx  (Foundation Medicine, Inc.)</td><td>BRAF</td><td>Solo provenienza nel grafo</td><td>GCA4-04b330bf787c3fb25a0f4abe</td></tr><tr><th scope="row"><code>TRIAL_GENE</code></th><td>A Prospective Study of Plasma Genotyping as a Noninvasive Biomarker for Genotype-directed Cance</td><td>BRAF</td><td>Registro</td><td>GCA4-1d0d2b23a0b1216b14a49011</td></tr><tr><th scope="row"><code>EVIDENCE_DRUG</code></th><td>Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was adminis</td><td>TRAMETINIB</td><td>Pubblicazione</td><td>GCA4-55e94d5dfe5e8cc4831e24b7</td></tr><tr><th scope="row"><code>EVIDENCE_DRUG</code></th><td>Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was adminis</td><td>DABRAFENIB</td><td>Pubblicazione</td><td>GCA4-90e1b87741de703c9b2274d4</td></tr><tr><th scope="row"><code>EVIDENCE_STATEMENT</code></th><td>BRAF V600K</td><td>Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was adminis</td><td>Pubblicazione</td><td>GCA4-9a002e06fa9adfdb6fa49a8a</td></tr></tbody></table></div><p>La tabella presenta un estratto delle etichette più lunghe. Qui sotto è disponibile un record completo per ciascuna famiglia, riportato con il contenuto originale.</p><details><summary>Test diagnostico → gene · record reale</summary><p>Il primo record della famiglia nell’ordine del corpus permette di osservare la struttura completa dei campi. Le statistiche precedenti descrivono invece l’intera famiglia.</p><pre>{
+  &quot;candidate_id&quot;: &quot;GCA4-039ca7831aca33a1e28296dc&quot;,
+  &quot;context&quot;: {},
+  &quot;document_identifiers&quot;: [],
+  &quot;edge_ids_by_dataset&quot;: {
+    &quot;edge_diagnoses_gene.csv&quot;: [
+      &quot;row:edge_diagnoses_gene.csv:29:1607bfe1156c37ec&quot;
+    ]
+  },
+  &quot;graph_path&quot;: [
+    &quot;CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB&quot;,
+    &quot;Gene:1956&quot;
+  ],
+  &quot;materialization_rule&quot;: &quot;gca/4.0/companion_diagnostic_gene&quot;,
+  &quot;materializer_version&quot;: &quot;gca-materializer/4.0&quot;,
+  &quot;node_ids&quot;: [
+    &quot;CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB&quot;,
+    &quot;Gene:1956&quot;
+  ],
+  &quot;object&quot;: {
+    &quot;id&quot;: &quot;Gene:1956&quot;,
+    &quot;label&quot;: &quot;EGFR&quot;,
+    &quot;type&quot;: &quot;Gene&quot;
+  },
+  &quot;predicate&quot;: &quot;diagnoses_gene&quot;,
+  &quot;relation_family&quot;: &quot;COMPANION_DIAGNOSTIC_GENE&quot;,
+  &quot;relation_origin&quot;: &quot;DIRECT&quot;,
+  &quot;semantic_key&quot;: &quot;COMPANION_DIAGNOSTIC_GENE|CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB|Gene:1956&quot;,
+  &quot;source_datasets&quot;: [
+    &quot;edge_diagnoses_gene.csv&quot;
+  ],
+  &quot;source_properties&quot;: {
+    &quot;device&quot;: {
+      &quot;device_id&quot;: &quot;cdx:FOUNDATIONONECD:EGFR:ERLOTINIB&quot;,
+      &quot;device_name&quot;: &quot;FoundationOne CDx  (Foundation Medicine, Inc.)&quot;,
+      &quot;drug&quot;: &quot;Erlotinib&quot;,
+      &quot;gene&quot;: &quot;EGFR&quot;,
+      &quot;platform_type&quot;: &quot;NGS&quot;,
+      &quot;specimen_types&quot;: &quot;FFPE&quot;
+    },
+    &quot;edge&quot;: {
+      &quot;source_device_id&quot;: &quot;cdx:FOUNDATIONONECD:EGFR:ERLOTINIB&quot;,
+      &quot;target_gene_entrez_id&quot;: &quot;1956&quot;
+    },
+    &quot;gene&quot;: {
+      &quot;aliases&quot;: &quot;ERBB;ERBB1;ERRP&quot;,
+      &quot;categories&quot;: &quot;CLINICALLY ACTIONABLE;DRUG RESISTANCE;DRUGGABLE GENOME;KINASE;TYROSINE KINASE;CELL SURFACE&quot;,
+      &quot;civic_description&quot;: &quot;EGFR is widely recognized for its importance in cancer. Amplification and mutations have been shown to be driving events in many cancer types. Its role in non-small cell lung cancer, glioblastoma and basal-like breast cancers has spurred many research and drug development efforts. Tyrosine kinase inhibitors have shown efficacy in EGFR amplfied tumors, most notably gefitinib and erlotinib. Mutations in EGFR have been shown to confer resistance to these drugs, particularly the variant T790M, which has been functionally characterized as a resistance marker for both of these drugs. The later generation TKI&#x27;s have seen some success in treating these resistant cases, and targeted sequencing of the EGFR locus has become a common practice in treatment of non-small cell lung cancer. Overproduction of ligands is another possible mechanism of activation of EGFR. ERBB ligands include EGF, TGF-a, AREG, EPG, BTC, HB-EGF, EPR and NRG1-4 (for detailed information please refer to the respective ligand section).&quot;,
+      &quot;entrez_id&quot;: &quot;1956&quot;,
+      &quot;gene_type&quot;: &quot;ONCOGENE&quot;,
+      &quot;grch38_isoform&quot;: &quot;ENST00000275493&quot;,
+      &quot;grch38_refseq&quot;: &quot;NM_005228.3&quot;,
+      &quot;hugo_symbol&quot;: &quot;EGFR&quot;,
+      &quot;is_oncokb_annotated&quot;: &quot;True&quot;
+    }
+  },
+  &quot;source_record_ids&quot;: [
+    &quot;row:edge_diagnoses_gene.csv:29:1607bfe1156c37ec&quot;
+  ],
+  &quot;subject&quot;: {
+    &quot;id&quot;: &quot;CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB&quot;,
+    &quot;label&quot;: &quot;FoundationOne CDx  (Foundation Medicine, Inc.)&quot;,
+    &quot;type&quot;: &quot;CompanionDiagnostic&quot;
+  }
+}</pre></details><details><summary>Farmaco → test diagnostico associato · record reale</summary><p>Il primo record della famiglia nell’ordine del corpus permette di osservare la struttura completa dei campi. Le statistiche precedenti descrivono invece l’intera famiglia.</p><pre>{
+  &quot;candidate_id&quot;: &quot;GCA4-020812a706240583694ae139&quot;,
+  &quot;context&quot;: {},
+  &quot;document_identifiers&quot;: [],
+  &quot;edge_ids_by_dataset&quot;: {
+    &quot;edge_has_companion_diagnostic.csv&quot;: [
+      &quot;row:edge_has_companion_diagnostic.csv:86:67aa395665d7eae1&quot;
+    ]
+  },
+  &quot;graph_path&quot;: [
+    &quot;Drug:fda:TRASTUZUMABDERUXTECAN&quot;,
+    &quot;CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU&quot;
+  ],
+  &quot;materialization_rule&quot;: &quot;gca/4.0/drug_companion_diagnostic&quot;,
+  &quot;materializer_version&quot;: &quot;gca-materializer/4.0&quot;,
+  &quot;node_ids&quot;: [
+    &quot;Drug:fda:TRASTUZUMABDERUXTECAN&quot;,
+    &quot;CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU&quot;
+  ],
+  &quot;object&quot;: {
+    &quot;id&quot;: &quot;CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU&quot;,
+    &quot;label&quot;: &quot;Guardant360 CDx  (Guardant Health, Inc.)&quot;,
+    &quot;type&quot;: &quot;CompanionDiagnostic&quot;
+  },
+  &quot;predicate&quot;: &quot;has_companion_diagnostic&quot;,
+  &quot;relation_family&quot;: &quot;DRUG_COMPANION_DIAGNOSTIC&quot;,
+  &quot;relation_origin&quot;: &quot;DIRECT&quot;,
+  &quot;semantic_key&quot;: &quot;DRUG_COMPANION_DIAGNOSTIC|Drug:fda:TRASTUZUMABDERUXTECAN|CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU&quot;,
+  &quot;source_datasets&quot;: [
+    &quot;edge_has_companion_diagnostic.csv&quot;
+  ],
+  &quot;source_properties&quot;: {
+    &quot;device&quot;: {
+      &quot;device_id&quot;: &quot;cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU&quot;,
+      &quot;device_name&quot;: &quot;Guardant360 CDx  (Guardant Health, Inc.)&quot;,
+      &quot;drug&quot;: &quot;Trastuzumab Deruxtecan&quot;,
+      &quot;gene&quot;: &quot;ERBB2&quot;,
+      &quot;platform_type&quot;: &quot;NGS&quot;,
+      &quot;specimen_types&quot;: &quot;cfDNA from plasma&quot;
+    },
+    &quot;drug&quot;: {
+      &quot;anti_neoplastic&quot;: &quot;True&quot;,
+      &quot;approved&quot;: &quot;True&quot;,
+      &quot;biomarker&quot;: &quot;*HER2+ (ERBB2 Amplification)\n*HER2-low\n*ERBB2 Oncogenic Mutations \n*HR+/HER2-low or HER2-ultralow&quot;,
+      &quot;concept_id&quot;: &quot;fda:TRASTUZUMABDERUXTECAN&quot;,
+      &quot;drug_claim_name&quot;: &quot;Trastuzumab deruxtecan&quot;,
+      &quot;drug_class&quot;: &quot;Antibody drug conjugate&quot;,
+      &quot;drug_name&quot;: &quot;TRASTUZUMAB DERUXTECAN&quot;,
+      &quot;fda_approval_year&quot;: &quot;2019.0&quot;,
+      &quot;immunotherapy&quot;: &quot;False&quot;,
+      &quot;mechanism&quot;: &quot;HER2 (ERBB2)-directed antibody and topoisomerase inhibitor conjugate&quot;,
+      &quot;nomenclature&quot;: &quot;FDA Precision Oncology&quot;,
+      &quot;source_db_name&quot;: &quot;FDA_Oncology_Therapies&quot;,
+      &quot;source_db_version&quot;: &quot;2023-07-25&quot;
+    },
+    &quot;edge&quot;: {
+      &quot;source_drug_concept_id&quot;: &quot;fda:TRASTUZUMABDERUXTECAN&quot;,
+      &quot;target_device_id&quot;: &quot;cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU&quot;
+    }
+  },
+  &quot;source_record_ids&quot;: [
+    &quot;row:edge_has_companion_diagnostic.csv:86:67aa395665d7eae1&quot;
+  ],
+  &quot;subject&quot;: {
+    &quot;id&quot;: &quot;Drug:fda:TRASTUZUMABDERUXTECAN&quot;,
+    &quot;label&quot;: &quot;TRASTUZUMAB DERUXTECAN&quot;,
+    &quot;type&quot;: &quot;Drug&quot;
+  }
+}</pre></details><details><summary>Evidenza → farmaco · record reale</summary><p>Il primo record della famiglia nell’ordine del corpus permette di osservare la struttura completa dei campi. Le statistiche precedenti descrivono invece l’intera famiglia.</p><pre>{
+  &quot;candidate_id&quot;: &quot;GCA4-003b2b5043291b445534e1f3&quot;,
+  &quot;context&quot;: {
+    &quot;disease&quot;: &quot;Melanoma&quot;,
+    &quot;doid&quot;: &quot;1909&quot;,
+    &quot;evidence_level&quot;: &quot;D&quot;,
+    &quot;evidence_type&quot;: &quot;Predictive&quot;
+  },
+  &quot;document_identifiers&quot;: [
+    {
+      &quot;pmcid&quot;: &quot;PMC4826182&quot;,
+      &quot;pmid&quot;: &quot;26678033&quot;,
+      &quot;scope&quot;: &quot;evidence_record&quot;
+    }
+  ],
+  &quot;edge_ids_by_dataset&quot;: {
+    &quot;edge_has_evidence.csv&quot;: [
+      &quot;row:edge_has_evidence.csv:837:946b96520de911a2&quot;
+    ],
+    &quot;edge_in_molecular_profile.csv&quot;: [
+      &quot;row:edge_in_molecular_profile.csv:9:2d8d607a5267b539&quot;
+    ],
+    &quot;edge_targets_drug.csv&quot;: [
+      &quot;row:edge_targets_drug.csv:596:12dc857dd9dceb73&quot;
+    ]
+  },
+  &quot;graph_path&quot;: [
+    &quot;Evidence:1005&quot;,
+    &quot;MolecularProfile:12&quot;,
+    &quot;Variant:12&quot;,
+    &quot;Drug:rxcui:2361596&quot;
+  ],
+  &quot;materialization_rule&quot;: &quot;gca/4.0/evidence_drug&quot;,
+  &quot;materializer_version&quot;: &quot;gca-materializer/4.0&quot;,
+  &quot;node_ids&quot;: [
+    &quot;Evidence:1005&quot;,
+    &quot;MolecularProfile:12&quot;,
+    &quot;Variant:12&quot;,
+    &quot;Drug:rxcui:2361596&quot;
+  ],
+  &quot;object&quot;: {
+    &quot;id&quot;: &quot;Drug:rxcui:2361596&quot;,
+    &quot;label&quot;: &quot;SELUMETINIB SULFATE&quot;,
+    &quot;type&quot;: &quot;Drug&quot;
+  },
+  &quot;predicate&quot;: &quot;targets_drug&quot;,
+  &quot;relation_family&quot;: &quot;EVIDENCE_DRUG&quot;,
+  &quot;relation_origin&quot;: &quot;DIRECT&quot;,
+  &quot;semantic_key&quot;: &quot;EVIDENCE_DRUG|Evidence:1005|Drug:rxcui:2361596&quot;,
+  &quot;source_datasets&quot;: [
+    &quot;edge_targets_drug.csv&quot;
+  ],
+  &quot;source_properties&quot;: {
+    &quot;drug&quot;: {
+      &quot;anti_neoplastic&quot;: &quot;False&quot;,
+      &quot;approved&quot;: &quot;True&quot;,
+      &quot;biomarker&quot;: &quot;NF1 Oncogenic Mutations&quot;,
+      &quot;concept_id&quot;: &quot;rxcui:2361596&quot;,
+      &quot;drug_claim_name&quot;: &quot;selumetinib sulfate&quot;,
+      &quot;drug_class&quot;: &quot;Small molecule kinase inhibitor&quot;,
+      &quot;drug_name&quot;: &quot;SELUMETINIB SULFATE&quot;,
+      &quot;fda_approval_year&quot;: &quot;2020.0&quot;,
+      &quot;immunotherapy&quot;: &quot;False&quot;,
+      &quot;mechanism&quot;: &quot;MEK1/2 inhibitor&quot;,
+      &quot;nomenclature&quot;: &quot;Primary Drug Name&quot;,
+      &quot;source_db_name&quot;: &quot;RxNorm&quot;,
+      &quot;source_db_version&quot;: &quot;20240401&quot;
+    },
+    &quot;edge&quot;: {
+      &quot;evidence_direction&quot;: &quot;Supports&quot;,
+      &quot;evidence_level&quot;: &quot;D&quot;,
+      &quot;significance&quot;: &quot;Sensitivity/Response&quot;,
+      &quot;source_evidence_id&quot;: &quot;1005&quot;,
+      &quot;target_drug_concept_id&quot;: &quot;rxcui:2361596&quot;
+    },
+    &quot;evidence&quot;: {
+      &quot;citation_id&quot;: &quot;26678033&quot;,
+      &quot;disease&quot;: &quot;Melanoma&quot;,
+      &quot;doid&quot;: &quot;1909&quot;,
+      &quot;evidence_direction&quot;: &quot;Supports&quot;,
+      &quot;evidence_id&quot;: &quot;1005&quot;,
+      &quot;evidence_level&quot;: &quot;D&quot;,
+      &quot;evidence_statement&quot;: &quot;49 BRAF-mutant melanoma cell lines from patients not previously treated with BRAF inhibition were analyzed. 21 exhibited primary resistance to BRAF inhibition using PLX4720. Inhibition of MEK1/2 (AZD6244 [selumetinib]) and PI3K/mTOR (BEZ235 [dactolisib]) was the most effective approach to counteract resistance in comparison to inhibition with the PLX4720 (progenitor of vemurafenib)-BEZ235 (where response was assessed by apoptosis, viability, p-ERK, p-Akt inhibition).&quot;,
+      &quot;evidence_type&quot;: &quot;Predictive&quot;,
+      &quot;rating&quot;: &quot;2&quot;,
+      &quot;significance&quot;: &quot;Sensitivity/Response&quot;,
+      &quot;source_type&quot;: &quot;PubMed&quot;,
+      &quot;variant_origin&quot;: &quot;Somatic&quot;
+    }
+  },
+  &quot;source_record_ids&quot;: [
+    &quot;row:edge_targets_drug.csv:596:12dc857dd9dceb73&quot;
+  ],
+  &quot;subject&quot;: {
+    &quot;id&quot;: &quot;Evidence:1005&quot;,
+    &quot;label&quot;: &quot;49 BRAF-mutant melanoma cell lines from patients not previously treated with BRAF inhibition were analyzed. 21 exhibited primary resistance to BRAF inhibition using PLX4720. Inhibition of MEK1/2 (AZD6244 [selumetinib]) and PI3K/mTOR (BEZ235 [dactolisib]) was the most effective approach to counteract resistance in comparison to inhibition with the PLX4720 (progenitor of vemurafenib)-BEZ235 (where response was assessed by apoptosis, viability, p-ERK, p-Akt inhibition).&quot;,
+    &quot;type&quot;: &quot;Evidence&quot;
+  }
+}</pre></details><details><summary>Profilo molecolare → descrizione di evidenza · record reale</summary><p>Il primo record della famiglia nell’ordine del corpus permette di osservare la struttura completa dei campi. Le statistiche precedenti descrivono invece l’intera famiglia.</p><pre>{
+  &quot;candidate_id&quot;: &quot;GCA4-000b81b1296a2cd3d24bdd8b&quot;,
+  &quot;context&quot;: {
+    &quot;disease&quot;: &quot;Colorectal Cancer&quot;,
+    &quot;doid&quot;: &quot;9256&quot;,
+    &quot;evidence_type&quot;: &quot;Predictive&quot;
+  },
+  &quot;document_identifiers&quot;: [
+    {
+      &quot;pmid&quot;: &quot;20619739&quot;,
+      &quot;scope&quot;: &quot;evidence_record&quot;
+    }
+  ],
+  &quot;edge_ids_by_dataset&quot;: {
+    &quot;edge_has_evidence.csv&quot;: [
+      &quot;row:edge_has_evidence.csv:2160:898cfc16e42b2131&quot;
+    ],
+    &quot;edge_in_molecular_profile.csv&quot;: [
+      &quot;row:edge_in_molecular_profile.csv:65:1b6f360b165972ba&quot;
+    ]
+  },
+  &quot;graph_path&quot;: [
+    &quot;MolecularProfile:81&quot;,
+    &quot;Variant:81&quot;,
+    &quot;Evidence:3881&quot;
+  ],
+  &quot;materialization_rule&quot;: &quot;gca/4.0/evidence_statement&quot;,
+  &quot;materializer_version&quot;: &quot;gca-materializer/4.0&quot;,
+  &quot;node_ids&quot;: [
+    &quot;MolecularProfile:81&quot;,
+    &quot;Variant:81&quot;,
+    &quot;Evidence:3881&quot;
+  ],
+  &quot;object&quot;: {
+    &quot;id&quot;: &quot;Evidence:3881&quot;,
+    &quot;label&quot;: &quot;This was a retrospective study of 691 cetuximab treated patients with metastatic colorectal cancer. Of those, 50 patients harbored KRAS G13D, were BRAF, NRAS and PIK3CA wt, and had individual response data. Nine patients had partial response, 19 had stable disease, and 22 progressed. Treatments included cetuximab + irinotecan (n=38), cetuximab + FOLFIRI (n=5), cetuximab monotherapy (n=4), cetuximab + oxaliplatin + 5FU (n=2), and cetuximab + irinotecan + oxaliplatin + 5FU (n=1). Median PFS was 16 weeks (3-101 weeks), median OS was 33 weeks (3-161 weeks), and median number of previous chemotherapy lines was 2 (0-4). Median age was 65 years old (34-78), and there were 29 males and 20 females. Authors concluded that KRAS mutation was strongly associated with poor response to cetuximab and suggested that mutation status of KRAS is the most informative compared to BRAF, NRAS, and PIK3CA exon 20 for predicting cetuximab response.&quot;,
+    &quot;type&quot;: &quot;Evidence&quot;
+  },
+  &quot;predicate&quot;: &quot;has_evidence_statement&quot;,
+  &quot;relation_family&quot;: &quot;EVIDENCE_STATEMENT&quot;,
+  &quot;relation_origin&quot;: &quot;DIRECT&quot;,
+  &quot;semantic_key&quot;: &quot;EVIDENCE_STATEMENT|Evidence:3881&quot;,
+  &quot;source_datasets&quot;: [
+    &quot;edge_has_evidence.csv&quot;
+  ],
+  &quot;source_properties&quot;: {
+    &quot;evidence&quot;: {
+      &quot;citation_id&quot;: &quot;20619739&quot;,
+      &quot;disease&quot;: &quot;Colorectal Cancer&quot;,
+      &quot;doid&quot;: &quot;9256&quot;,
+      &quot;evidence_direction&quot;: &quot;Supports&quot;,
+      &quot;evidence_id&quot;: &quot;3881&quot;,
+      &quot;evidence_level&quot;: &quot;B&quot;,
+      &quot;evidence_statement&quot;: &quot;This was a retrospective study of 691 cetuximab treated patients with metastatic colorectal cancer. Of those, 50 patients harbored KRAS G13D, were BRAF, NRAS and PIK3CA wt, and had individual response data. Nine patients had partial response, 19 had stable disease, and 22 progressed. Treatments included cetuximab + irinotecan (n=38), cetuximab + FOLFIRI (n=5), cetuximab monotherapy (n=4), cetuximab + oxaliplatin + 5FU (n=2), and cetuximab + irinotecan + oxaliplatin + 5FU (n=1). Median PFS was 16 weeks (3-101 weeks), median OS was 33 weeks (3-161 weeks), and median number of previous chemotherapy lines was 2 (0-4). Median age was 65 years old (34-78), and there were 29 males and 20 females. Authors concluded that KRAS mutation was strongly associated with poor response to cetuximab and suggested that mutation status of KRAS is the most informative compared to BRAF, NRAS, and PIK3CA exon 20 for predicting cetuximab response.&quot;,
+      &quot;evidence_type&quot;: &quot;Predictive&quot;,
+      &quot;rating&quot;: &quot;3&quot;,
+      &quot;significance&quot;: &quot;Resistance&quot;,
+      &quot;source_type&quot;: &quot;PubMed&quot;,
+      &quot;variant_origin&quot;: &quot;Somatic&quot;
+    },
+    &quot;profile&quot;: {
+      &quot;aliases&quot;: &quot;GLY13ASP;RS112445441&quot;,
+      &quot;evidence_score&quot;: &quot;108.5&quot;,
+      &quot;molecular_profile_id&quot;: &quot;81&quot;,
+      &quot;name&quot;: &quot;KRAS G13D&quot;,
+      &quot;summary&quot;: &quot;While the KRAS G13 region is a widely studied recurrent region in cancer, its impact on clinical action is still debated. Often associated with tumors that are wild-type for other drivers (EGFR and ALK specifically), the prognosis for patients with this mutation seems to be worse than the KRAS wild-type cohort. This mutation, along with the mutations affecting the neighboring G12 position, may result in a less responsive tumor when treated with first-generation TKI&#x27;s like gefitinib. However, results are conflicting with retrospective analyses suggesting a better response to EGFR-Inhibition. A recent prospective phase-II study (12 patients, Schirripa et. al. 2015) could not reproduce this finding and another prospective phase II trial is currently ongoing.&quot;
+    }
+  },
+  &quot;source_record_ids&quot;: [
+    &quot;row:edge_has_evidence.csv:2160:898cfc16e42b2131&quot;
+  ],
+  &quot;subject&quot;: {
+    &quot;id&quot;: &quot;MolecularProfile:81&quot;,
+    &quot;label&quot;: &quot;KRAS G13D&quot;,
+    &quot;type&quot;: &quot;MolecularProfile&quot;
+  }
+}</pre></details><details><summary>Gene → farmaco · record reale</summary><p>Il primo record della famiglia nell’ordine del corpus permette di osservare la struttura completa dei campi. Le statistiche precedenti descrivono invece l’intera famiglia.</p><pre>{
+  &quot;candidate_id&quot;: &quot;GCA4-000074f3d4ea7d88759bc423&quot;,
+  &quot;context&quot;: {},
+  &quot;document_identifiers&quot;: [],
+  &quot;edge_ids_by_dataset&quot;: {
+    &quot;edge_interacts_with.csv&quot;: [
+      &quot;row:edge_interacts_with.csv:23872:6b65d6c1b96412d3&quot;
+    ]
+  },
+  &quot;graph_path&quot;: [
+    &quot;Gene:4058&quot;,
+    &quot;Drug:chembl:CHEMBL1997335&quot;
+  ],
+  &quot;materialization_rule&quot;: &quot;gca/4.0/gene_drug&quot;,
+  &quot;materializer_version&quot;: &quot;gca-materializer/4.0&quot;,
+  &quot;node_ids&quot;: [
+    &quot;Gene:4058&quot;,
+    &quot;Drug:chembl:CHEMBL1997335&quot;
+  ],
+  &quot;object&quot;: {
+    &quot;id&quot;: &quot;Drug:chembl:CHEMBL1997335&quot;,
+    &quot;label&quot;: &quot;CHEMBL:CHEMBL1997335&quot;,
+    &quot;type&quot;: &quot;Drug&quot;
+  },
+  &quot;predicate&quot;: &quot;interacts_with&quot;,
+  &quot;relation_family&quot;: &quot;GENE_DRUG&quot;,
+  &quot;relation_origin&quot;: &quot;DIRECT&quot;,
+  &quot;semantic_key&quot;: &quot;GENE_DRUG|Gene:4058|Drug:chembl:CHEMBL1997335&quot;,
+  &quot;source_datasets&quot;: [
+    &quot;edge_interacts_with.csv&quot;
+  ],
+  &quot;source_properties&quot;: {
+    &quot;drug&quot;: {
+      &quot;anti_neoplastic&quot;: &quot;False&quot;,
+      &quot;approved&quot;: &quot;False&quot;,
+      &quot;biomarker&quot;: &quot;&quot;,
+      &quot;concept_id&quot;: &quot;chembl:CHEMBL1997335&quot;,
+      &quot;drug_claim_name&quot;: &quot;DNDI1417467&quot;,
+      &quot;drug_class&quot;: &quot;&quot;,
+      &quot;drug_name&quot;: &quot;CHEMBL:CHEMBL1997335&quot;,
+      &quot;fda_approval_year&quot;: &quot;&quot;,
+      &quot;immunotherapy&quot;: &quot;False&quot;,
+      &quot;mechanism&quot;: &quot;&quot;,
+      &quot;nomenclature&quot;: &quot;Primary Name&quot;,
+      &quot;source_db_name&quot;: &quot;DTC&quot;,
+      &quot;source_db_version&quot;: &quot;9/2/20&quot;
+    },
+    &quot;edge&quot;: {
+      &quot;interaction_score&quot;: &quot;0.054355767&quot;,
+      &quot;interaction_type&quot;: &quot;unknown&quot;,
+      &quot;source_db&quot;: &quot;DTC&quot;,
+      &quot;source_gene_entrez_id&quot;: &quot;4058&quot;,
+      &quot;target_drug_concept_id&quot;: &quot;chembl:CHEMBL1997335&quot;
+    },
+    &quot;gene&quot;: {
+      &quot;aliases&quot;: &quot;TYK1&quot;,
+      &quot;categories&quot;: &quot;CLINICALLY ACTIONABLE;DRUGGABLE GENOME;TYROSINE KINASE;KINASE;ENZYME&quot;,
+      &quot;civic_description&quot;: &quot;&quot;,
+      &quot;entrez_id&quot;: &quot;4058&quot;,
+      &quot;gene_type&quot;: &quot;ONCOGENE&quot;,
+      &quot;grch38_isoform&quot;: &quot;ENST00000263800&quot;,
+      &quot;grch38_refseq&quot;: &quot;NM_002344&quot;,
+      &quot;hugo_symbol&quot;: &quot;LTK&quot;,
+      &quot;is_oncokb_annotated&quot;: &quot;True&quot;
+    }
+  },
+  &quot;source_record_ids&quot;: [
+    &quot;row:edge_interacts_with.csv:23872:6b65d6c1b96412d3&quot;
+  ],
+  &quot;subject&quot;: {
+    &quot;id&quot;: &quot;Gene:4058&quot;,
+    &quot;label&quot;: &quot;LTK&quot;,
+    &quot;type&quot;: &quot;Gene&quot;
+  }
+}</pre></details><details><summary>Studio → intervento · record reale</summary><p>Il primo record della famiglia nell’ordine del corpus permette di osservare la struttura completa dei campi. Le statistiche precedenti descrivono invece l’intera famiglia.</p><pre>{
+  &quot;candidate_id&quot;: &quot;GCA4-0010f0196af8fc50247b929d&quot;,
+  &quot;context&quot;: {},
+  &quot;document_identifiers&quot;: [
+    {
+      &quot;nct&quot;: &quot;NCT04039607&quot;
+    }
+  ],
+  &quot;edge_ids_by_dataset&quot;: {
+    &quot;edges_trial_drug.csv&quot;: [
+      &quot;row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb&quot;
+    ]
+  },
+  &quot;graph_path&quot;: [
+    &quot;Trial:NCT04039607&quot;,
+    &quot;DrugName:SORAFENIB&quot;
+  ],
+  &quot;materialization_rule&quot;: &quot;gca/4.0/trial_drug&quot;,
+  &quot;materializer_version&quot;: &quot;gca-materializer/4.0&quot;,
+  &quot;node_ids&quot;: [
+    &quot;Trial:NCT04039607&quot;,
+    &quot;DrugName:SORAFENIB&quot;
+  ],
+  &quot;object&quot;: {
+    &quot;id&quot;: &quot;DrugName:SORAFENIB&quot;,
+    &quot;label&quot;: &quot;SORAFENIB&quot;,
+    &quot;type&quot;: &quot;DrugName&quot;
+  },
+  &quot;predicate&quot;: &quot;has_trial_intervention&quot;,
+  &quot;relation_family&quot;: &quot;TRIAL_DRUG&quot;,
+  &quot;relation_origin&quot;: &quot;DIRECT&quot;,
+  &quot;semantic_key&quot;: &quot;TRIAL_DRUG|Trial:NCT04039607|DrugName:SORAFENIB&quot;,
+  &quot;source_datasets&quot;: [
+    &quot;edges_trial_drug.csv&quot;
+  ],
+  &quot;source_properties&quot;: {
+    &quot;edge&quot;: {
+      &quot;drug_name_normalized&quot;: &quot;SORAFENIB&quot;,
+      &quot;drug_name_raw&quot;: &quot;Sorafenib&quot;,
+      &quot;nct_id&quot;: &quot;NCT04039607&quot;
+    },
+    &quot;trial&quot;: {
+      &quot;conditions&quot;: &quot;Hepatocellular Carcinoma&quot;,
+      &quot;interventions&quot;: &quot;Nivolumab | Ipilimumab | Sorafenib | lenvatinib&quot;,
+      &quot;keywords&quot;: &quot;&quot;,
+      &quot;nct_id&quot;: &quot;NCT04039607&quot;,
+      &quot;phase&quot;: &quot;PHASE3&quot;,
+      &quot;status&quot;: &quot;ACTIVE_NOT_RECRUITING&quot;,
+      &quot;title&quot;: &quot;A Study of Nivolumab in Combination With Ipilimumab in Participants With Advanced Hepatocellular Carcinoma&quot;
+    }
+  },
+  &quot;source_record_ids&quot;: [
+    &quot;row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb&quot;
+  ],
+  &quot;subject&quot;: {
+    &quot;id&quot;: &quot;Trial:NCT04039607&quot;,
+    &quot;label&quot;: &quot;A Study of Nivolumab in Combination With Ipilimumab in Participants With Advanced Hepatocellular Carcinoma&quot;,
+    &quot;type&quot;: &quot;Trial&quot;
+  }
+}</pre></details><details><summary>Studio → gene · record reale</summary><p>Il primo record della famiglia nell’ordine del corpus permette di osservare la struttura completa dei campi. Le statistiche precedenti descrivono invece l’intera famiglia.</p><pre>{
+  &quot;candidate_id&quot;: &quot;GCA4-0013389577078c441701877d&quot;,
+  &quot;context&quot;: {},
+  &quot;document_identifiers&quot;: [
+    {
+      &quot;nct&quot;: &quot;NCT07008638&quot;
+    }
+  ],
+  &quot;edge_ids_by_dataset&quot;: {
+    &quot;edges_trial_gene.csv&quot;: [
+      &quot;row:edges_trial_gene.csv:2821:94367d1942926c39&quot;
+    ]
+  },
+  &quot;graph_path&quot;: [
+    &quot;Trial:NCT07008638&quot;,
+    &quot;GeneSymbol:TP53&quot;
+  ],
+  &quot;materialization_rule&quot;: &quot;gca/4.0/trial_gene&quot;,
+  &quot;materializer_version&quot;: &quot;gca-materializer/4.0&quot;,
+  &quot;node_ids&quot;: [
+    &quot;Trial:NCT07008638&quot;,
+    &quot;GeneSymbol:TP53&quot;
+  ],
+  &quot;object&quot;: {
+    &quot;id&quot;: &quot;GeneSymbol:TP53&quot;,
+    &quot;label&quot;: &quot;TP53&quot;,
+    &quot;type&quot;: &quot;GeneSymbol&quot;
+  },
+  &quot;predicate&quot;: &quot;has_trial_gene&quot;,
+  &quot;relation_family&quot;: &quot;TRIAL_GENE&quot;,
+  &quot;relation_origin&quot;: &quot;DIRECT&quot;,
+  &quot;semantic_key&quot;: &quot;TRIAL_GENE|Trial:NCT07008638|GeneSymbol:TP53&quot;,
+  &quot;source_datasets&quot;: [
+    &quot;edges_trial_gene.csv&quot;
+  ],
+  &quot;source_properties&quot;: {
+    &quot;edge&quot;: {
+      &quot;gene_symbol&quot;: &quot;TP53&quot;,
+      &quot;nct_id&quot;: &quot;NCT07008638&quot;,
+      &quot;source&quot;: &quot;eligibility_criteria&quot;
+    },
+    &quot;trial&quot;: {
+      &quot;conditions&quot;: &quot;Acute Myeloid Leukemia | TP53&quot;,
+      &quot;interventions&quot;: &quot;Bortezomib | CPX-351&quot;,
+      &quot;keywords&quot;: &quot;&quot;,
+      &quot;nct_id&quot;: &quot;NCT07008638&quot;,
+      &quot;phase&quot;: &quot;PHASE1, PHASE2&quot;,
+      &quot;status&quot;: &quot;RECRUITING&quot;,
+      &quot;title&quot;: &quot;Phase I/II Clinical Trial of Proteasome Inhibitor in Combination With CPX-351 for the Treatment of Newly-Diagnosed TP53-mutated Acute Myeloid Leukemia (AML)&quot;
+    }
+  },
+  &quot;source_record_ids&quot;: [
+    &quot;row:edges_trial_gene.csv:2821:94367d1942926c39&quot;
+  ],
+  &quot;subject&quot;: {
+    &quot;id&quot;: &quot;Trial:NCT07008638&quot;,
+    &quot;label&quot;: &quot;Phase I/II Clinical Trial of Proteasome Inhibitor in Combination With CPX-351 for the Treatment of Newly-Diagnosed TP53-mutated Acute Myeloid Leukemia (AML)&quot;,
+    &quot;type&quot;: &quot;Trial&quot;
+  }
+}</pre></details></section><section id="versioni"><h2>Come è cambiato il corpus tra le versioni</h2><p>Il report congelato di confronto tra versioni documenta le variazioni nel numero e nella composizione delle associazioni. La tabella riprende quei risultati storici e permette di seguire l’evoluzione del corpus.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Famiglia"><table class="audit-table"><thead><tr><th scope="col">Famiglia</th><th scope="col" class="is-numeric">Record v2</th><th scope="col" class="is-numeric">Record v4</th><th scope="col" class="is-numeric">Solo v2</th><th scope="col" class="is-numeric">Solo v4</th></tr></thead><tbody><tr><th scope="row"><code>COMPANION_DIAGNOSTIC_GENE</code></th><td class="is-numeric">163</td><td class="is-numeric">163</td><td class="is-numeric">0</td><td class="is-numeric">0</td></tr><tr><th scope="row"><code>DRUG_COMPANION_DIAGNOSTIC</code></th><td class="is-numeric">0</td><td class="is-numeric">150</td><td class="is-numeric">0</td><td class="is-numeric">150</td></tr><tr><th scope="row"><code>EVIDENCE_DRUG</code></th><td class="is-numeric">3.370</td><td class="is-numeric">3.347</td><td class="is-numeric">23</td><td class="is-numeric">0</td></tr><tr><th scope="row"><code>EVIDENCE_STATEMENT</code></th><td class="is-numeric">4.860</td><td class="is-numeric">4.843</td><td class="is-numeric">17</td><td class="is-numeric">0</td></tr><tr><th scope="row"><code>GENE_DRUG</code></th><td class="is-numeric">25.589</td><td class="is-numeric">25.589</td><td class="is-numeric">0</td><td class="is-numeric">0</td></tr><tr><th scope="row"><code>TRIAL_DRUG</code></th><td class="is-numeric">7.381</td><td class="is-numeric">7.381</td><td class="is-numeric">0</td><td class="is-numeric">0</td></tr><tr><th scope="row"><code>TRIAL_GENE</code></th><td class="is-numeric">5.501</td><td class="is-numeric">5.501</td><td class="is-numeric">0</td><td class="is-numeric">0</td></tr></tbody></table></div></section><section id="metodo"><h2>Come sono stati ottenuti i numeri</h2><p>Il censimento legge tutti i record di candidates.jsonl, verifica l’impronta richiesta dal loader e confronta i conteggi con i report congelati. Ogni statistica globale è calcolata sull’intero corpus.</p><p>Il perimetro dell’audit è la struttura e la coerenza interna del corpus materializzato. La disponibilità documentale è ricavata dal manifest locale conservato, identificato dalla propria impronta. La ricostruzione dai CSV originali, la consultazione aggiornata delle fonti e la valutazione scientifica delle relazioni costituiscono attività di verifica dedicate.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Tabella: Controllo di concordanza"><table class="audit-table"><thead><tr><th scope="col">Controllo di concordanza</th><th scope="col">Esito</th></tr></thead><tbody><tr><th scope="row"><code>loader_hash</code></th><td>Conforme</td></tr><tr><th scope="row">total</th><td>Conforme</td></tr><tr><th scope="row">families</th><td>Conforme</td></tr><tr><th scope="row">datasets</th><td>Conforme</td></tr><tr><th scope="row"><code>duplicate_ids</code></th><td>Conforme</td></tr><tr><th scope="row"><code>semantic_repetitions</code></th><td>Conforme</td></tr><tr><th scope="row"><code>invalid_pmid_rows</code></th><td>Conforme</td></tr><tr><th scope="row"><code>invalid_nct_rows</code></th><td>Conforme</td></tr><tr><th scope="row"><code>graph_only</code></th><td>Conforme</td></tr></tbody></table></div><details><summary>File, impronte e controlli riproducibili</summary><pre>{
+  &quot;provenance&quot;: {
+    &quot;repository_version&quot;: &quot;graph_candidate_repository/4.0&quot;,
+    &quot;corpus&quot;: &quot;C:\\Users\\paolo\\Desktop\\mtb-relation-aware-core\\mtb-graphrag\\benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\candidates.jsonl&quot;,
+    &quot;sha256&quot;: &quot;4e197764dff17cb396c5026338f07e001c0573e37bec9fb0f8a32e652b9d7edd&quot;,
+    &quot;files&quot;: {
+      &quot;backend\\research_pipeline\\data_access.py&quot;: &quot;89d165e97705d754cdb2d598d64706bddd13c88ee2994a5eb322e438e22f4066&quot;,
+      &quot;mtb_gca_v4.py&quot;: &quot;9ebae9269c45387f9cbf70aae7a1aa656181fcd6a8448153a3ab904a51a2b9f0&quot;,
+      &quot;benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\manifest.json&quot;: &quot;f5086a3cc9c65de864fca0f888fad41a8e50b8584dad8d8eca2d3609c61a62c8&quot;,
+      &quot;benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\coverage_report.json&quot;: &quot;82839047e1aa0bf962addd42a7bfa29f62a6825b547580c6845b6c05e5856dfa&quot;,
+      &quot;benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\validation_report.json&quot;: &quot;23a0238ea59dfba302172e70a466c9f35f83e97a221089d470b19eb511233638&quot;,
+      &quot;benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\source_distribution.json&quot;: &quot;d00a156a1d6879d4f8bb171a145842a19b3fc55dfb7d7681dc928bb96e5747bd&quot;,
+      &quot;benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\semantic_diff_v2_v4.json&quot;: &quot;28250d9259b5c40b1f1aad2512035fd61bb4ba751d73fa64ec78ea89fe14b6e9&quot;,
+      &quot;benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\determinism_report.json&quot;: &quot;7a178d56ae17cd893badeb65858aab1a16fe7f8361ddeee13364b7cada44a8f2&quot;
+    },
+    &quot;scope&quot;: &quot;Census of pinned records; no live document retrieval, source rematerialization or clinical validation performed.&quot;
+  },
+  &quot;checks&quot;: {
+    &quot;loader_hash&quot;: true,
+    &quot;total&quot;: true,
+    &quot;families&quot;: true,
+    &quot;datasets&quot;: true,
+    &quot;duplicate_ids&quot;: true,
+    &quot;semantic_repetitions&quot;: true,
+    &quot;invalid_pmid_rows&quot;: true,
+    &quot;invalid_nct_rows&quot;: true,
+    &quot;graph_only&quot;: true
+  },
+  &quot;resolution_snapshot&quot;: {
+    &quot;available&quot;: true,
+    &quot;sha256&quot;: &quot;c5076846cab0a92c9d02d534ffd2951266d9d81372b51443e9fce127a6f1853e&quot;,
+    &quot;statuses&quot;: {
+      &quot;ABSTRACT_ONLY&quot;: 1182,
+      &quot;FULL_TEXT_PMC&quot;: 917,
+      &quot;DOCUMENT_UNAVAILABLE&quot;: 83,
+      &quot;TERMINAL_RESOLUTION_FAILURE&quot;: 40,
+      &quot;NON_PRESENTE_NEL_MANIFEST&quot;: 2
+    },
+    &quot;denominator&quot;: 2224
+  }
+}</pre></details><p><a href="verifica/gca-audit.json" download>Dati completi dell’audit · JSON</a> · <a href="verifica/gca-audit-tabelle.csv" download>Tabelle principali · CSV</a> · <a href="build-gca-audit.py">Generatore versionabile</a></p></section></main></body></html>

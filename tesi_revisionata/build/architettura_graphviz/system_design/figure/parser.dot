@@ -1,0 +1,16 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Case Parser: dal testo ai campi", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"testo" [id="node-testo", shape="box", label="Testo clinico\n«Melanoma metastatico … BRAF V600K»", fillcolor="#EAF0F5", tooltip="Testo clinico\n«Melanoma metastatico … BRAF V600K»"];
+"richiesta" [id="node-richiesta", shape="box", label="Richiesta di estrazione\nCampi attesi + citazioni obbligatorie", fillcolor="#E8F4F0", tooltip="Richiesta di estrazione\nCampi attesi + citazioni obbligatorie"];
+"modello" [id="node-modello", shape="box", label="Case Parser · modello linguistico\nPropone valori e riferimenti al testo", fillcolor="#FBF1DD", tooltip="Case Parser · modello linguistico\nPropone valori e riferimenti al testo"];
+"schema" [id="node-schema", shape="diamond", label="Risposta nello schema richiesto?", fillcolor="#F0EBF6", tooltip="Controllo del formato e degli argomenti della risposta."];
+"campi" [id="node-campi", shape="box", label="Caso strutturato proposto\nMalattia: melanoma metastatico\nBiomarcatore: gene BRAF, variante V600K\nIntervento cercato: dabrafenib e trametinib", fillcolor="#E6F3EC", tooltip="Caso strutturato proposto\nMalattia: melanoma metastatico\nBiomarcatore: gene BRAF, variante V600K\nIntervento cercato: dabrafenib e trametinib"];
+"errore" [id="node-errore", shape="box", label="Risposta inutilizzabile\nNessun caso estratto da inviare alla\nricerca", fillcolor="#F8EEE8", tooltip="Risposta inutilizzabile\nNessun caso estratto da inviare alla ricerca"];
+"testo" -> "richiesta" [label="testo", style="solid"];
+"richiesta" -> "modello" [label="istruzioni + schema", style="solid"];
+"modello" -> "schema" [label="risposta", style="solid"];
+"schema" -> "campi" [label="valida", style="solid"];
+"schema" -> "errore" [label="non valida", style="solid"];
+}

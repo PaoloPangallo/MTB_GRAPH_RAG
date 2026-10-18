@@ -1,0 +1,19 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Recupero GCA · Solo Knowledge Graph", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"caso" [id="macro-node-caso", label="Caso verificato\nBRAF V600K · melanoma metastatico", shape="box", fillcolor="#EAF0F5", tooltip="Caso verificato\nBRAF V600K · melanoma metastatico"];
+"identita" [id="macro-node-identita", label="Normalizzazione ed Entity Resolution\nUniformare le forme riconosciute\nNome o alias → identità, se risolta\nGene e variante restano collegati\nIl contesto metastatico resta visibile", shape="box", fillcolor="#E8F4F0", tooltip="Normalizzazione ed Entity Resolution\nUniformare le forme riconosciute\nNome o alias → identità, se risolta\nGene e variante restano collegati\nIl contesto metastatico resta visibile"];
+"gca" [id="macro-node-gca", label="GCA preparate dal Knowledge Graph\nRelazioni, argomenti e provenienza", shape="box", fillcolor="#EAF0F5", tooltip="GCA preparate dal Knowledge Graph\nRelazioni, argomenti e provenienza"];
+"compatibili" [id="macro-node-compatibili", label="Compatibilità\nFiltri dipendenti dalla famiglia\nMalattia, gene–variante, intervento", shape="box", fillcolor="#F0EBF6", tooltip="Compatibilità\nFiltri dipendenti dalla famiglia\nMalattia, gene–variante, intervento"];
+"escluse" [id="macro-node-escluse", label="Non compatibili\nEsclusione con motivo", shape="box", fillcolor="#F8EEE8", tooltip="Non compatibili\nEsclusione con motivo"];
+"specificita" [id="macro-node-specificita", label="Specificità delle relazioni ammesse\nOrdinamento lessicografico\nNessuna promozione da gene a variante", shape="box", fillcolor="#E8F4F0", tooltip="Specificità delle relazioni ammesse\nOrdinamento lessicografico\nNessuna promozione da gene a variante"];
+"selezionata" [id="macro-node-selezionata", label="FoundationOne CDx → gene BRAF\nFoundationOne CDx → BRAF\nSpecificità del gene, non V600K", shape="box", fillcolor="#E6F3EC", tooltip="FoundationOne CDx → gene BRAF\nFoundationOne CDx → BRAF\nSpecificità del gene, non V600K"];
+"caso" -> "identita" [label="campi", style="solid"];
+"identita" -> "compatibili" [label="identità riconosciute", style="solid"];
+"gca" -> "compatibili" [label="relazioni candidate", style="solid"];
+"compatibili" -> "escluse" [label="non ammesse", style="solid"];
+"compatibili" -> "specificita" [label="ammesse", style="solid"];
+"specificita" -> "selezionata" [label="relazione seguita nell’esempio", style="solid"];
+}

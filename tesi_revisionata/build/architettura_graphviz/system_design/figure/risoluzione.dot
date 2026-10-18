@@ -1,0 +1,18 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Raggiungere la fonte indicata", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"id" [id="node-id", shape="box", label="Riferimento nell’associazione\nPubMed, PMC o registro NCT", fillcolor="#EAF0F5", tooltip="Riferimento nell’associazione\nPubMed, PMC o registro NCT"];
+"cache" [id="node-cache", shape="diamond", label="Esiste una copia utilizzabile?", fillcolor="#F0EBF6", tooltip="Prima si consulta il contenuto locale disponibile."];
+"copia" [id="node-copia", shape="box", label="Caricare la copia della fonte", fillcolor="#E8F4F0", tooltip="Caricare la copia della fonte"];
+"remoto" [id="node-remoto", shape="box", label="Tentare il recupero autorizzato\nSolo se la copia manca", fillcolor="#E8F4F0", tooltip="Tentare il recupero autorizzato\nSolo se la copia manca"];
+"contenuto" [id="node-contenuto", shape="box", label="Contenuto con identità della fonte\nTesto completo · abstract · registro", fillcolor="#E6F3EC", tooltip="Contenuto con identità della fonte\nTesto completo · abstract · registro"];
+"indisponibile" [id="node-indisponibile", shape="box", label="Contenuto non disponibile\nIl riferimento non diventa prova letta", fillcolor="#F8EEE8", tooltip="Contenuto non disponibile\nIl riferimento non diventa prova letta"];
+"id" -> "cache" [label="riferimento", style="solid"];
+"cache" -> "copia" [label="sì", style="solid"];
+"cache" -> "remoto" [label="no", style="solid"];
+"copia" -> "contenuto" [label="contenuto disponibile", style="solid"];
+"remoto" -> "contenuto" [label="fonte raggiunta", style="solid"];
+"remoto" -> "indisponibile" [label="recupero fallito", style="solid"];
+{rank=same; "copia"; "remoto";}
+}

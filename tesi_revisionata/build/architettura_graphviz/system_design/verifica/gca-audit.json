@@ -1,0 +1,1986 @@
+{
+  "total": 46974,
+  "families": {
+    "GENE_DRUG": 25589,
+    "EVIDENCE_STATEMENT": 4843,
+    "TRIAL_DRUG": 7381,
+    "TRIAL_GENE": 5501,
+    "EVIDENCE_DRUG": 3347,
+    "DRUG_COMPANION_DIAGNOSTIC": 150,
+    "COMPANION_DIAGNOSTIC_GENE": 163
+  },
+  "paths": {
+    "kg": 25902,
+    "publication": 8190,
+    "registry": 12882
+  },
+  "origins": {
+    "DIRECT": 46974
+  },
+  "predicates": {
+    "interacts_with": 25589,
+    "has_evidence_statement": 4843,
+    "has_trial_intervention": 7381,
+    "has_trial_gene": 5501,
+    "targets_drug": 3347,
+    "has_companion_diagnostic": 150,
+    "diagnoses_gene": 163
+  },
+  "datasets": {
+    "edge_interacts_with.csv": 25589,
+    "edge_has_evidence.csv": 4843,
+    "edges_trial_drug.csv": 7381,
+    "edges_trial_gene.csv": 5501,
+    "edge_targets_drug.csv": 3347,
+    "edge_has_companion_diagnostic.csv": 150,
+    "edge_diagnoses_gene.csv": 163
+  },
+  "fields": {
+    "candidate_id": 46974,
+    "context": 46974,
+    "document_identifiers": 46974,
+    "edge_ids_by_dataset": 46974,
+    "graph_path": 46974,
+    "materialization_rule": 46974,
+    "materializer_version": 46974,
+    "node_ids": 46974,
+    "object": 46974,
+    "predicate": 46974,
+    "relation_family": 46974,
+    "relation_origin": 46974,
+    "semantic_key": 46974,
+    "source_datasets": 46974,
+    "source_properties": 46974,
+    "source_record_ids": 46974,
+    "subject": 46974
+  },
+  "context_fields": {
+    "disease": 8031,
+    "doid": 7890,
+    "evidence_type": 8190,
+    "evidence_level": 3347
+  },
+  "source_property_groups": {
+    "drug": 29086,
+    "edge": 42131,
+    "gene": 25752,
+    "evidence": 8190,
+    "profile": 4843,
+    "trial": 12882,
+    "device": 313
+  },
+  "path_lengths": {
+    "2": 38784,
+    "3": 4314,
+    "4": 3267,
+    "6": 38,
+    "5": 505,
+    "12": 9,
+    "7": 12,
+    "14": 4,
+    "13": 4,
+    "11": 6,
+    "10": 10,
+    "9": 10,
+    "8": 11
+  },
+  "node_counts": {
+    "2": 38784,
+    "3": 4314,
+    "4": 3267,
+    "6": 38,
+    "5": 505,
+    "12": 9,
+    "7": 12,
+    "14": 4,
+    "13": 4,
+    "11": 6,
+    "10": 10,
+    "9": 10,
+    "8": 11
+  },
+  "reference_counts": {
+    "0": 25902,
+    "1": 21072
+  },
+  "diseases": {
+    "Colorectal Cancer": 727,
+    "Papillary Thyroid Carcinoma": 29,
+    "Von Hippel-Lindau Disease": 626,
+    "Spindle Cell Rhabdomyosarcoma": 26,
+    "Cancer": 502,
+    "Melanoma": 308,
+    "B-lymphoblastic Leukemia/lymphoma, BCR-ABL1–like": 95,
+    "Lung Non-small Cell Carcinoma": 930,
+    "Round Cell Sarcoma With EWSR1-non-ETS Fusion": 9,
+    "Neuroendocrine Tumor": 4,
+    "Pancreatic Cancer": 69,
+    "Rectum Cancer": 5,
+    "Acinic Cell Carcinoma": 5,
+    "Head And Neck Squamous Cell Carcinoma": 83,
+    "Pancreatic Adenocarcinoma": 30,
+    "Chronic Myeloid Leukemia": 600,
+    "Acute Myeloid Leukemia": 295,
+    "Lung Cancer": 34,
+    "Triple-receptor Negative Breast Cancer": 16,
+    "Multiple Myeloma": 48,
+    "Medullary Thyroid Carcinoma": 30,
+    "Breast Cancer": 388,
+    "Her2-receptor Positive Breast Cancer": 185,
+    "B-lymphoblastic Leukemia/lymphoma": 160,
+    "Lung Adenocarcinoma": 239,
+    "B-lymphoblastic Leukemia With PAX5 P.P80R": 3,
+    "Malignant Astrocytoma": 8,
+    "Diffuse Astrocytoma, MYB- Or MYBL1-altered": 6,
+    "Endometrial Cancer": 39,
+    "Prostate Cancer": 63,
+    "Acute Promyelocytic Leukemia With PML-RARA": 5,
+    "CNS Neuroblastoma With FOXR2 Activation": 3,
+    "Extramammary Paget Disease": 2,
+    "Spindle Cell Sarcoma": 12,
+    "Follicular Lymphoma": 17,
+    "Biliary Tract Cancer": 9,
+    "Gastrointestinal Stromal Tumor": 172,
+    "NUT Midline Carcinoma": 11,
+    "Transitional Cell Carcinoma": 30,
+    "Pericytoma With T(7;12)": 1,
+    "Sarcoma": 36,
+    "Renal Cell Carcinoma": 44,
+    "Kidney Clear Cell Sarcoma": 10,
+    "Ovarian Serous Carcinoma": 11,
+    "Diffuse Large B-cell Lymphoma Activated B-cell Type": 6,
+    "Skin Melanoma": 125,
+    "Lung Small Cell Carcinoma": 16,
+    "Gastric Adenocarcinoma": 32,
+    "Ovarian Cancer": 114,
+    "Medulloblastoma": 8,
+    "High Grade Glioma": 22,
+    "Laryngeal Squamous Cell Carcinoma": 2,
+    "Stomach Cancer": 23,
+    "Lipofibromatosis-like Neural Tumor": 8,
+    "Anaplastic Large Cell Lymphoma": 10,
+    "Mammary Analogue Secretory Carcinoma": 6,
+    "Pancreatic Acinar Cell Adenocarcinoma": 2,
+    "Follicular Thyroid Carcinoma": 5,
+    "Glioblastoma Proneural Subtype": 2,
+    "Ovarian Clear Cell Carcinoma": 9,
+    "Ewing Sarcoma": 13,
+    "Vulva Squamous Cell Carcinoma": 2,
+    "Glioblastoma": 65,
+    "Cervix Carcinoma": 3,
+    "Breast Adenocarcinoma": 2,
+    "Systemic Mastocytosis": 6,
+    "Liposarcoma": 6,
+    "Diffuse Large B-cell Lymphoma": 20,
+    "Hepatocellular Carcinoma": 11,
+    "Childhood Acute Lymphocytic Leukemia": 30,
+    "Ovarian Carcinoma": 16,
+    "Solid Tumor": 54,
+    "Childhood B-cell Acute Lymphoblastic Leukemia": 16,
+    "Desmoid Tumor": 13,
+    "Malignant Peripheral Nerve Sheath Tumor": 4,
+    "Synovial Sarcoma": 14,
+    "Peritoneal Carcinoma": 2,
+    "Dermatofibrosarcoma Protuberans": 12,
+    "Osteosarcoma": 8,
+    "Low Grade Glioma": 12,
+    "B-cell Acute Lymphoblastic Leukemia": 2,
+    "Esophagus Squamous Cell Carcinoma": 10,
+    "B-lymphoblastic Leukemia With DUX4 Rearrangement": 4,
+    "Endometrial Carcinoma": 6,
+    "Colon Cancer": 25,
+    "Sezary's Disease": 2,
+    "Pancreatic Carcinoma": 7,
+    "Bladder Urothelial Carcinoma": 5,
+    "Renal Carcinoma": 4,
+    "Castration-resistant Prostate Carcinoma": 26,
+    "Colorectal Adenocarcinoma": 17,
+    "Childhood Pilocytic Astrocytoma": 9,
+    "Scrotum Paget's Disease": 2,
+    "Chronic Lymphocytic Leukemia": 67,
+    "Myeloid And Lymphoid Neoplasms With Eosinophilia And Abnormalities Of PDGFRA, PDGFRB, And FGFR1": 17,
+    "T-cell Acute Lymphoblastic Leukemia": 18,
+    "Papillary Adenocarcinoma": 2,
+    "Lung Squamous Cell Carcinoma": 15,
+    "Adrenal Carcinoma": 2,
+    "Renal Cell Carcinoma With MiT Translocations": 9,
+    "Skin Squamous Cell Carcinoma": 6,
+    "Acute Lymphoblastic Leukemia": 25,
+    "Ovarian Sex-cord Stromal Tumor": 1,
+    "Ewing Sarcoma Of Bone": 13,
+    "Astroblastoma, MN1-altered": 4,
+    "Supratentorial Ependymoma, ZFTA Fusion–positive": 13,
+    "Basal Cell Carcinoma": 13,
+    "Salivary Gland Cancer": 7,
+    "Estrogen-receptor Positive Breast Cancer": 22,
+    "Myelodysplastic Syndrome": 16,
+    "Neuroblastoma": 45,
+    "Thyroid Cancer": 19,
+    "Ureter Small Cell Carcinoma": 3,
+    "Clear Cell Renal Cell Carcinoma": 20,
+    "Colon Adenocarcinoma": 8,
+    "Chronic Myelomonocytic Leukemia": 3,
+    "Hairy Cell Leukemia": 5,
+    "Central Nervous System Tumor With BCOR Internal Tandem Duplication": 4,
+    "Head And Neck Cancer": 21,
+    "Angiocentric Glioma": 5,
+    "Ovary Serous Adenocarcinoma": 4,
+    "Childhood Low-grade Glioma": 18,
+    "Stomach Carcinoma": 28,
+    "Inflammatory Breast Carcinoma": 2,
+    "Inflammatory Myofibroblastic Tumor": 19,
+    "Alveolar Rhabdomyosarcoma": 10,
+    "Myxoid Liposarcoma": 6,
+    "Chondroblastoma": 1,
+    "Leukemia": 10,
+    "Peritoneal Mesothelioma": 4,
+    "Congenital Fibrosarcoma": 23,
+    "Acute Myeloid Leukemia With Mutated NPM1": 3,
+    "Renal Medullary Carcinoma": 3,
+    "B-lymphoblastic Leukaemia/lymphoma With KMT2A Rearrangement": 3,
+    "B-lymphoblastic Leukemia/lymphoma With ETV6-RUNX1": 4,
+    "Acute Myeloid Leukemia With T(8;21); (q22; Q22.1)": 5,
+    "Rhabdomyosarcoma": 6,
+    "Bronchiolo-alveolar Adenocarcinoma": 4,
+    "Acute Myeloid Leukemia With MLL Rearrangement": 4,
+    "Peutz-Jeghers Syndrome": 6,
+    "Papillary Renal Cell Carcinoma": 2,
+    "Sertoli-Leydig Cell Tumor": 7,
+    "Low-grade Fibromyxoid Sarcoma": 3,
+    "Congenital Mesoblastic Nephroma": 6,
+    "Acute Promyelocytic Leukemia": 21,
+    "Adrenal Gland Pheochromocytoma": 2,
+    "Ganglioneuroblastoma": 2,
+    "Breast Carcinoma": 3,
+    "B-lymphoblastic Leukemia With MYC Rearrangement": 3,
+    "Prostate Carcinoma": 3,
+    "Malignant Pleural Mesothelioma": 11,
+    "Brain Glioma": 11,
+    "Mantle Cell Lymphoma": 15,
+    "Cholangiocarcinoma": 44,
+    "Epithelial Ovarian Cancer": 13,
+    "Acute Myeloid Leukemia With NUP98 Rearrangement": 4,
+    "Uveal Melanoma": 38,
+    "Malignant Mesothelioma": 12,
+    "Oncocytic Carcinoma Of The Thyroid": 1,
+    "Embryonal Tumor With Multilayered Rosettes": 2,
+    "Acute Myeloid Leukemia With MECOM Rearrangement": 3,
+    "Mucosal Melanoma": 6,
+    "Myeloid Neoplasm": 8,
+    "Paraganglioma": 1,
+    "B-lymphoblastic Leukemia/lymphoma With TCF3-PBX1": 4,
+    "DOID:0070626": 3,
+    "Desmoplastic Infantile Ganglioglioma / Desmoplastic Infantile Astrocytoma": 2,
+    "Clear Cell Sarcoma": 3,
+    "Perivascular Epithelioid Cell Tumor": 3,
+    "Mesenchymal Chondrosarcoma": 6,
+    "Gastrointestinal Neuroendocrine Tumor": 4,
+    "Prostate Adenocarcinoma": 6,
+    "Merkel Cell Carcinoma": 4,
+    "Thyroid Gland Carcinoma": 6,
+    "Barrett's Adenocarcinoma": 1,
+    "Ganglioglioma": 7,
+    "Acute Myeloid Leukemia With BCR-ABL1": 3,
+    "Myofibroma And Myopericytoma": 4,
+    "Her2-receptor Negative Breast Cancer": 16,
+    "Bone Giant Cell Tumor": 3,
+    "Colon Mucinous Adenocarcinoma": 2,
+    "Gastroblastoma": 3,
+    "Pancreatic Ductal Adenocarcinoma": 17,
+    "Plexiform Neurofibroma": 4,
+    "Essential Thrombocythemia": 3,
+    "Epithelioid Sarcoma": 1,
+    "Acute Myeloid Leukemia With MNX1::ETV6 Fusion": 3,
+    "Acute Myeloid Leukemia With T(6;9) (p23;q34.1)": 3,
+    "Bladder Carcinoma": 29,
+    "Endometrial Serous Adenocarcinoma": 3,
+    "B-lymphoblastic Leukaemia/lymphoma With Other Defined Genetic Alterations": 3,
+    "Anaplastic Astrocytoma": 2,
+    "Malignant Epithelioid Hemangioendothelioma": 7,
+    "Glioma": 4,
+    "Anaplastic Thyroid Carcinoma": 9,
+    "Gliosarcoma": 2,
+    "Chondrosarcoma": 2,
+    "Diffuse Midline Glioma, H3 K27M-mutant": 15,
+    "Cervical Cancer": 9,
+    "Tuberous Sclerosis": 2,
+    "Uterine Cancer": 4,
+    "B-lymphoblastic Leukemia/lymphoma With IGH::IL3 Fusion": 3,
+    "Angiosarcoma": 10,
+    "Hematologic Cancer": 6,
+    "Chronic Lymphocytic Leukemia/small Lymphocytic Lymphoma": 2,
+    "Rhabdoid Cancer": 3,
+    "Vagina Sarcoma": 2,
+    "Endometrioid Ovary Carcinoma": 2,
+    "Pseudomyxoma Peritonei": 2,
+    "Desmoplastic Small Round Cell Tumor": 3,
+    "Brain Glioblastoma Multiforme": 6,
+    "Granulosa Cell Tumor": 2,
+    "Salivary Gland Carcinoma": 2,
+    "Acute Leukemia": 1,
+    "Alveolar Soft Part Sarcoma": 4,
+    "CIC-rearranged Sarcoma": 4,
+    "B-lymphoblastic Leukemia With NUTM1 Rearrangement": 3,
+    "Endometrial Adenocarcinoma": 2,
+    "Epithelioid Inflammatory Myofibroblastic Sarcoma": 2,
+    "AML With KAT6A::CREBBP Fusion": 3,
+    "Acute Myeloid Leukemia With Mutated CEBPA": 5,
+    "Pseudomyogenic Hemangioendothelioma": 3,
+    "Lung Carcinoma": 7,
+    "Myelofibrosis": 4,
+    "Thymic Carcinoma": 2,
+    "Esophagus Adenocarcinoma": 3,
+    "Breast Secretory Carcinoma": 6,
+    "Sarcoma With BCOR Genetic Alterations": 4,
+    "Childhood Medulloblastoma": 2,
+    "Esophageal Carcinoma": 3,
+    "Glandular Pattern Ovarian Yolk Sac Tumor": 2,
+    "Adult Spinal Cord Ependymoma": 1,
+    "Acute Myeloid Leukaemia With FUS::ERG Fusion": 3,
+    "Meningioma": 2,
+    "Intrahepatic Cholangiocarcinoma": 11,
+    "Polymorphous Low Grade Neuroepithelial Tumour Of The Young": 1,
+    "Esophageal Cancer": 3,
+    "B-lymphoblastic Leukemia/lymphoma With BCR-ABL1": 4,
+    "Pilocytic Astrocytoma": 7,
+    "Myoepithelial Tumors Of Soft Tissue": 4,
+    "Juvenile Myelomonocytic Leukemia": 1,
+    "Cecum Adenocarcinoma": 2,
+    "Acute Myeloid Leukemia With NPM1::MLF1 Fusion": 3,
+    "Cervical Adenocarcinoma": 2,
+    "Renal Wilms' Tumor": 1,
+    "Myeloproliferative Neoplasm": 4,
+    "B-lymphoblastic Leukemia With MEF2D Rearrangement": 3,
+    "B-lymphoblastic Leukemia/lymphoma With TCF3::HLF Fusion": 3,
+    "Gastric Adenosquamous Carcinoma": 1,
+    "Poorly Differentiated Thyroid Carcinoma": 1,
+    "Supratentorial Ependymoma, YAP1 Fusion–positive": 3,
+    "Oligodendroglioma": 5,
+    "Pancreatic Ductal Carcinoma": 2,
+    "Urinary Bladder Cancer": 4,
+    "Salivary Gland Mucoepidermoid Carcinoma": 3,
+    "Diffuse Glioma, H3 G34 Mutant": 1,
+    "Acute Myeloid Leukemia With CBFA2T3::GLIS2 Fusion": 4,
+    "Oropharynx Cancer": 3,
+    "Histiocytic And Dendritic Cell Cancer": 2,
+    "Chronic Neutrophilic Leukemia": 5,
+    "Villous Adenoma": 1,
+    "Mixed Fibrolamellar Hepatocellular Carcinoma": 1,
+    "Angiomatoid Fibrous Histiocytoma": 3,
+    "Acute Myeloid Leukemia With T(1;22)(p13;q13)": 3,
+    "Cribriform Neuroepithelial Tumor": 3,
+    "Acral Lentiginous Melanoma": 2,
+    "Fibrolamellar Carcinoma": 3,
+    "Spitzoid Melanoma": 2,
+    "Oral Squamous Cell Carcinoma": 2,
+    "Malignant Exocrine Pancreas Neoplasm": 1,
+    "T-cell Lymphoblastic Leukemia/lymphoma": 2,
+    "Ovarian Serous Cystadenocarcinoma": 3,
+    "Lung Acinar Adenocarcinoma": 2,
+    "Cholangiolocellular Carcinoma": 2,
+    "Malignant Anus Melanoma": 2,
+    "Chordoma": 2,
+    "Myofibroma": 2,
+    "Langerhans Cell Sarcoma": 2,
+    "Small-cell Carcinoma Of The Ovary Of Hypercalcemic Type": 2,
+    "Large B-cell Lymphoma With IRF4 Rearrangement": 3,
+    "Retinoblastoma": 2,
+    "Atypical Teratoid Rhabdoid Tumor": 1,
+    "Bone Epithelioid Hemangioma": 1,
+    "Diffuse Large B-cell Lymphoma Germinal Center B-cell Type": 2,
+    "Pancreatic Endocrine Carcinoma": 1,
+    "Invasive Bladder Transitional Cell Carcinoma": 2,
+    "Childhood Ependymoma": 2,
+    "Laryngeal Carcinoma": 1,
+    "Uterine Corpus Endometrial Carcinoma": 2,
+    "Medulloblastoma SHH Activated": 1,
+    "Lymphoplasmacytic Lymphoma": 4,
+    "Polycythemia Vera": 4,
+    "B-cell Non-Hodgkin Lymphoma": 2,
+    "Sclerosing Epithelioid Fibrosarcoma": 3,
+    "Parietal Lobe Ependymoma": 1,
+    "Lymphoma": 1,
+    "Chuvash Polycythemia": 2,
+    "Pharynx Squamous Cell Carcinoma": 2,
+    "Colon Signet Ring Adenocarcinoma": 2,
+    "Histiocytic Sarcoma": 1,
+    "Atypical Chronic Myeloid Leukemia, BCR-ABL1 Negative": 2,
+    "Adenosquamous Lung Carcinoma": 2,
+    "Mucinous Adenocarcinoma": 2,
+    "Anaplastic Ependymoma": 2,
+    "Female Reproductive Organ Cancer": 1,
+    "Langerhans-cell Histiocytosis": 2,
+    "Peripheral T-cell Lymphoma": 2,
+    "Cervical Sarcoma": 1,
+    "T-cell Large Granular Lymphocyte Leukemia": 1,
+    "Chronic Leukemia": 2,
+    "Acute Myeloid Leukemia With Inv(16)(p13.1q22) Or T(16;16)(p13.1;q22)": 3,
+    "Gynandroblastoma": 1,
+    "Lynch Syndrome": 1,
+    "Extraskeletal Myxoid Chondrosarcoma": 2,
+    "Lymphoid Leukemia": 1,
+    "Colon Carcinoma": 1,
+    "Adrenocortical Carcinoma": 1,
+    "B-cell Adult Acute Lymphocytic Leukemia": 3,
+    "Adult T-cell Leukemia/lymphoma": 1,
+    "Isomorphic Diffuse Glioma": 1,
+    "Cervical Squamous Cell Carcinoma": 1,
+    "Bone Marrow Cancer": 1,
+    "Bile Duct Adenocarcinoma": 2,
+    "Gastrointestinal Carcinoma": 1,
+    "Chromophobe Renal Cell Carcinoma": 1,
+    "Obsolete PTEN Hamartoma Tumor Syndrome": 1,
+    "Breast Tubular Carcinoma": 1,
+    "Head And Neck Carcinoma": 1,
+    "B-cell Lymphoma": 1,
+    "Pigmented Epithelioid Melanocytoma": 1,
+    "Solid Tumors, Advanced": 1,
+    "Juvenile Polyposis Syndrome": 1,
+    "Embryonal Tumor With Multilayered Rosettes, C19MC-altered": 1,
+    "Endometrial Hyperplasia": 1
+  },
+  "evidence_types": {
+    "Predictive": 6190,
+    "Prognostic": 536,
+    "Predisposing": 682,
+    "Diagnostic": 493,
+    "Functional": 159,
+    "Oncogenic": 130
+  },
+  "evidence_levels": {
+    "D": 1355,
+    "C": 826,
+    "B": 908,
+    "E": 30,
+    "A": 228
+  },
+  "candidate_ids_distinct": 46974,
+  "candidate_id_repetitions": 0,
+  "semantic_keys_distinct": 41972,
+  "semantic_key_repetitions": 5002,
+  "semantic_groups_repeated": 2380,
+  "semantic_max_multiplicity": 19,
+  "semantic_multiplicity": {
+    "1": 39592,
+    "6": 70,
+    "2": 1313,
+    "4": 256,
+    "3": 480,
+    "7": 36,
+    "5": 140,
+    "11": 6,
+    "13": 4,
+    "14": 7,
+    "16": 6,
+    "8": 18,
+    "12": 11,
+    "9": 19,
+    "10": 11,
+    "19": 1,
+    "15": 1,
+    "17": 1
+  },
+  "source_rows_distinct": 46974,
+  "sorted_candidate_ids": true,
+  "entities_distinct_by_type": {
+    "Gene": 810,
+    "Drug": 8503,
+    "MolecularProfile": 1933,
+    "Evidence": 4843,
+    "Trial": 4136,
+    "DrugName": 702,
+    "GeneSymbol": 47,
+    "CompanionDiagnostic": 166
+  },
+  "endpoint_ids_multiple_labels": 0,
+  "family_details": {
+    "GENE_DRUG": {
+      "count": 25589,
+      "paths": {
+        "kg": 25589
+      },
+      "context_nonempty": 0,
+      "semantic_keys": 20587,
+      "source_rows": 25589
+    },
+    "EVIDENCE_STATEMENT": {
+      "count": 4843,
+      "paths": {
+        "publication": 4843
+      },
+      "context_nonempty": 4843,
+      "semantic_keys": 4843,
+      "source_rows": 4843
+    },
+    "TRIAL_DRUG": {
+      "count": 7381,
+      "paths": {
+        "registry": 7381
+      },
+      "context_nonempty": 0,
+      "semantic_keys": 7381,
+      "source_rows": 7381
+    },
+    "TRIAL_GENE": {
+      "count": 5501,
+      "paths": {
+        "registry": 5501
+      },
+      "context_nonempty": 0,
+      "semantic_keys": 5501,
+      "source_rows": 5501
+    },
+    "EVIDENCE_DRUG": {
+      "count": 3347,
+      "paths": {
+        "publication": 3347
+      },
+      "context_nonempty": 3347,
+      "semantic_keys": 3347,
+      "source_rows": 3347
+    },
+    "DRUG_COMPANION_DIAGNOSTIC": {
+      "count": 150,
+      "paths": {
+        "kg": 150
+      },
+      "context_nonempty": 0,
+      "semantic_keys": 150,
+      "source_rows": 150
+    },
+    "COMPANION_DIAGNOSTIC_GENE": {
+      "count": 163,
+      "paths": {
+        "kg": 163
+      },
+      "context_nonempty": 0,
+      "semantic_keys": 163,
+      "source_rows": 163
+    }
+  },
+  "documents": {
+    "pmid": {
+      "distinct": 2224,
+      "candidate_links": 8190,
+      "top": [
+        [
+          "20619739",
+          114
+        ],
+        [
+          "25962120",
+          92
+        ],
+        [
+          "18191450",
+          73
+        ],
+        [
+          "25686603",
+          72
+        ],
+        [
+          "17024664",
+          67
+        ],
+        [
+          "16772610",
+          66
+        ],
+        [
+          "16775234",
+          64
+        ],
+        [
+          "22371878",
+          64
+        ],
+        [
+          "25239608",
+          62
+        ],
+        [
+          "21865346",
+          56
+        ]
+      ]
+    },
+    "pmcid": {
+      "distinct": 1172,
+      "candidate_links": 4180,
+      "top": [
+        [
+          "PMC4670083",
+          92
+        ],
+        [
+          "PMC1895563",
+          66
+        ],
+        [
+          "PMC4916559",
+          64
+        ],
+        [
+          "PMC4233175",
+          62
+        ],
+        [
+          "PMC4916618",
+          56
+        ],
+        [
+          "PMC3936420",
+          47
+        ],
+        [
+          "PMC4916940",
+          46
+        ],
+        [
+          "PMC2587064",
+          39
+        ],
+        [
+          "PMC4480710",
+          35
+        ],
+        [
+          "PMC2651076",
+          33
+        ]
+      ]
+    },
+    "nct": {
+      "distinct": 4136,
+      "candidate_links": 12882,
+      "top": [
+        [
+          "NCT01042379",
+          30
+        ],
+        [
+          "NCT02465060",
+          28
+        ],
+        [
+          "NCT03007147",
+          22
+        ],
+        [
+          "NCT05420064",
+          22
+        ],
+        [
+          "NCT03117751",
+          22
+        ],
+        [
+          "NCT04116541",
+          22
+        ],
+        [
+          "NCT06998940",
+          19
+        ],
+        [
+          "NCT03944772",
+          19
+        ],
+        [
+          "NCT03126916",
+          18
+        ],
+        [
+          "NCT03424005",
+          18
+        ]
+      ]
+    },
+    "doi": {
+      "distinct": 0,
+      "candidate_links": 0,
+      "top": []
+    }
+  },
+  "top_entities": {
+    "Gene": [
+      {
+        "id": "Gene:367",
+        "label": "AR",
+        "associations": 984
+      },
+      {
+        "id": "Gene:4780",
+        "label": "NFE2L2",
+        "associations": 843
+      },
+      {
+        "id": "Gene:1565",
+        "label": "CYP2D6",
+        "associations": 661
+      },
+      {
+        "id": "Gene:7157",
+        "label": "TP53",
+        "associations": 502
+      },
+      {
+        "id": "Gene:3417",
+        "label": "IDH1",
+        "associations": 439
+      },
+      {
+        "id": "Gene:1956",
+        "label": "EGFR",
+        "associations": 401
+      },
+      {
+        "id": "Gene:5290",
+        "label": "PIK3CA",
+        "associations": 359
+      },
+      {
+        "id": "Gene:2099",
+        "label": "ESR1",
+        "associations": 344
+      },
+      {
+        "id": "Gene:673",
+        "label": "BRAF",
+        "associations": 335
+      },
+      {
+        "id": "Gene:2064",
+        "label": "ERBB2",
+        "associations": 298
+      }
+    ],
+    "Drug": [
+      {
+        "id": "Drug:rxcui:282388",
+        "label": "IMATINIB",
+        "associations": 279
+      },
+      {
+        "id": "Drug:rxcui:318341",
+        "label": "CETUXIMAB",
+        "associations": 220
+      },
+      {
+        "id": "Drug:rxcui:337525",
+        "label": "ERLOTINIB",
+        "associations": 196
+      },
+      {
+        "id": "Drug:rxcui:1148495",
+        "label": "CRIZOTINIB",
+        "associations": 188
+      },
+      {
+        "id": "Drug:rxcui:495881",
+        "label": "SORAFENIB",
+        "associations": 187
+      },
+      {
+        "id": "Drug:rxcui:1147220",
+        "label": "VEMURAFENIB",
+        "associations": 183
+      },
+      {
+        "id": "Drug:rxcui:1597582",
+        "label": "OLAPARIB",
+        "associations": 160
+      },
+      {
+        "id": "Drug:rxcui:328134",
+        "label": "GEFITINIB",
+        "associations": 155
+      },
+      {
+        "id": "Drug:rxcui:357977",
+        "label": "SUNITINIB",
+        "associations": 152
+      },
+      {
+        "id": "Drug:fda:DASATINIB",
+        "label": "DASATINIB",
+        "associations": 148
+      }
+    ],
+    "MolecularProfile": [
+      {
+        "id": "MolecularProfile:12",
+        "label": "BRAF V600E",
+        "associations": 95
+      },
+      {
+        "id": "MolecularProfile:302",
+        "label": "ERBB2 Amplification",
+        "associations": 65
+      },
+      {
+        "id": "MolecularProfile:332",
+        "label": "KRAS Mutation",
+        "associations": 45
+      },
+      {
+        "id": "MolecularProfile:307",
+        "label": "PIK3CA Mutation",
+        "associations": 40
+      },
+      {
+        "id": "MolecularProfile:214",
+        "label": "PTEN Loss",
+        "associations": 38
+      },
+      {
+        "id": "MolecularProfile:495",
+        "label": "v::ALK Fusion",
+        "associations": 37
+      },
+      {
+        "id": "MolecularProfile:33",
+        "label": "EGFR L858R",
+        "associations": 37
+      },
+      {
+        "id": "MolecularProfile:55",
+        "label": "FLT3 ITD",
+        "associations": 31
+      },
+      {
+        "id": "MolecularProfile:34",
+        "label": "EGFR T790M",
+        "associations": 30
+      },
+      {
+        "id": "MolecularProfile:263",
+        "label": "FGFR1 Amplification",
+        "associations": 30
+      }
+    ],
+    "Evidence": [
+      {
+        "id": "Evidence:11086",
+        "label": "A panel of 13 FLT3 tyrosine kinase inhibitors was tested against Ba/F3 cells transfected with FLT3 D835Y using MTT growth/survival assay, and results were compared to Ba/F3 cells transfected with FLT3-ITD. 9 of the TKIs were not able to inhibit growth of D835Y cells within the range that authors considered sensitive, which was 20 fold of concentrations that were effective against FLT3-ITD. The TKIs tested that did not meet authors criteria for sensitivity were AG1295, AGS324, Linifanib, Quiz, Sunitinib, Sorafenib, R406, KW2449, and Ponatinib.",
+        "associations": 9
+      },
+      {
+        "id": "Evidence:700",
+        "label": "A pre-clinical study in 10 solid cancer cell lines. HRAS mutations (Q61L, Q61R and G12V) sensitized cell lines toward MEK inhibitors (AZD6244/selumetinib, MEK162 and PD0325901) and mTOR inhibitors (Everolimus and AZD8055).",
+        "associations": 6
+      },
+      {
+        "id": "Evidence:7366",
+        "label": "This prospective study reports on the prognosis of patients with B-ALL and an IKZF1 deletion and the impact of intensification of treatment in this subgroup. In 50 patients from the MS2003 cohort, the 5-year cumulative risk for relapse (CIR) associated with IKZF1 deletion was significantly higher than those without the deletion (CIR= 30.4% vs. 8.1%, p=8.7x10^-7). Of those with IKZF1 deletions, the study showed improvement in CIR and CID in both BCR-ABL1 positive, who were treated with imatinib and intensification therapy (CIR decreased from 66.7% to 20%), and BCR-ABL1 negative, who were treated with intensification therapy only (CIR decreased from 20.5% to 11.4%). Overall survival was also significantly improved for patients with IKZF1 deletion in both groups. Intensification therapy was achieved with higher doses of methotrexate 5g/m2, more blocks of delayed intensification, and for HR patients, two fludarabine-cytarabine-daunorubicin blocks. The study was not randomized, did not include IKZF1 mutation status, and did not consider all substratifications of IKZF1.",
+        "associations": 6
+      },
+      {
+        "id": "Evidence:4857",
+        "label": "In this meta-analysis of 14 studies with 2857 patients, the immunotherapy response rate was higher among PD-L1-positive patients (RR: 2.19, 95% CI: 1.63-2.94). PD-L1 expression was also related to better progression-free survival (HR: 0.69, 95% CI: 0.57-0.85) and better overall survival (HR: 0.77, 95% CI: 0.67-0.89).",
+        "associations": 6
+      },
+      {
+        "id": "Evidence:1307",
+        "label": "In the pancreatic cell lines PL11 (FANCC homozygous deletion) and Hs766T (FANCG-mutated), sensitivity to DNA cross-linking agents was observed. PL11 cells (empty vector transduced) were more sensitive to mitomycin C (MMC), cisplatin, chlorambucil, and melphalan than PL11 cells transduced with a vector wildtype FANCC. Similarly, mouse xenografts of PL11 cells (empty vector) were more sensitive to MMC or gemcitabine than PL11 cells expressing a wildtype FANCC.",
+        "associations": 6
+      },
+      {
+        "id": "Evidence:7927",
+        "label": "Lentiviral-mediated overexpression of PRPS1 D183E in Reh cells resulted no difference in response to Methotrexate, Cytarabine, Daunorubicin, or L-Asparginase compared to empty vector and wildtype PRPS1 overexpression controls as indicated similar cytotoxicity curves and IC50s.",
+        "associations": 5
+      },
+      {
+        "id": "Evidence:11093",
+        "label": "A panel of 13 FLT3 tyrosine kinase inhibitors was tested against Ba/F3 cells transfected with FLT3 D593del using MTT growth/survival assay, and results were compared to Ba/F3 cells transfected with FLT3-ITD. IC50 for Midostaurin, Lestaurtinib, TTT-3002, and Crenolanib against D593del were all within 2x the IC50 for ITD. FLT3-ITD was considered responsive by the authors to each of the TKIs tested. Authors also note that Lestaurtinib, midostaurin, and TTT-3002 inhibited all 10 FLT3 activation loop mutants they tested with similar or even greater strength compared to the FLT3-ITD cells.",
+        "associations": 5
+      },
+      {
+        "id": "Evidence:7925",
+        "label": "Lentiviral-mediated overexpression of PRPS1 S103N in Reh cells resulted no difference in response to Methotrexate, Cytarabine, Daunorubicin, or L-Asparginase compared to empty vector and wildtype PRPS1 overexpression controls as indicated similar cytotoxicity curves and IC50s.",
+        "associations": 5
+      },
+      {
+        "id": "Evidence:7926",
+        "label": "Lentiviral-mediated overexpression of PRPS1 K176N in Reh cells resulted no difference in response to Methotrexate, Cytarabine, Daunorubicin, or L-Asparginase compared to empty vector and wildtype PRPS1 overexpression controls as indicated similar cytotoxicity curves and IC50s.",
+        "associations": 5
+      },
+      {
+        "id": "Evidence:11085",
+        "label": "A panel of 13 FLT3 tyrosine kinase inhibitors was tested against Ba/F3 cells transfected with FLT3 D835Y using MTT growth/survival assay, and results were compared to Ba/F3 cells transfected with FLT3-ITD. 4 of the TKIs inhibited growth of D835Y cells within 20 fold of concentrations that were effective against FLT3-ITD: Midostaurin (10.0 vs 9.3), Lestaurtinib (9.8 vs 8.6), TTT-3002 (4.1 vs <1.0), and Crenolanib (58 vs 57) nM in D835Y vs ITD.",
+        "associations": 5
+      }
+    ],
+    "Trial": [
+      {
+        "id": "Trial:NCT01042379",
+        "label": "I-SPY TRIAL: Neoadjuvant and Personalized Adaptive Novel Agents to Treat Breast Cancer",
+        "associations": 30
+      },
+      {
+        "id": "Trial:NCT02465060",
+        "label": "Targeted Therapy Directed by Genetic Testing in Treating Patients With Advanced Refractory Solid Tumors, Lymphomas, or Multiple Myeloma (The MATCH Screening Trial)",
+        "associations": 28
+      },
+      {
+        "id": "Trial:NCT03007147",
+        "label": "Imatinib Mesylate and Combination Chemotherapy in Treating Patients With Newly Diagnosed Philadelphia Chromosome Positive Acute Lymphoblastic Leukemia",
+        "associations": 22
+      },
+      {
+        "id": "Trial:NCT05420064",
+        "label": "An Intervention to Increase Genetic Testing in Families Who May Share a Gene Mutation Related to Cancer Risk and An Intervention to Help Patients and Their Primary Care Providers Stay Up-to-date About Uncertain Genetic Test Results",
+        "associations": 22
+      },
+      {
+        "id": "Trial:NCT03117751",
+        "label": "Total Therapy XVII for Newly Diagnosed Patients With Acute Lymphoblastic Leukemia and Lymphoma",
+        "associations": 22
+      },
+      {
+        "id": "Trial:NCT04116541",
+        "label": "A Study Evaluating the Activity of Anti-cancer Treatments Targeting Tumor Molecular Alterations/Characteristics in Advanced / Metastatic Tumors.",
+        "associations": 22
+      },
+      {
+        "id": "Trial:NCT06998940",
+        "label": "Studying Chemotherapy With or Without Panitumumab for Unresectable, Locally Advanced, or Metastatic Pancreatic Cancer Without KRAS Mutations",
+        "associations": 19
+      },
+      {
+        "id": "Trial:NCT03944772",
+        "label": "Phase 2 Platform Study in Patients With Advanced Non-Small Lung Cancer Who Progressed on First-Line Osimertinib Therapy (ORCHARD)",
+        "associations": 19
+      },
+      {
+        "id": "Trial:NCT03126916",
+        "label": "Testing the Addition of 131I-MIBG or Lorlatinib to Intensive Therapy in People With High-Risk Neuroblastoma (NBL)",
+        "associations": 18
+      },
+      {
+        "id": "Trial:NCT03424005",
+        "label": "A Study Evaluating the Efficacy and Safety of Multiple Treatment Combinations in Patients With Metastatic or Locally Advanced Breast Cancer",
+        "associations": 18
+      }
+    ],
+    "DrugName": [
+      {
+        "id": "DrugName:CARBOPLATIN",
+        "label": "CARBOPLATIN",
+        "associations": 260
+      },
+      {
+        "id": "DrugName:PEMBROLIZUMAB",
+        "label": "PEMBROLIZUMAB",
+        "associations": 260
+      },
+      {
+        "id": "DrugName:PACLITAXEL",
+        "label": "PACLITAXEL",
+        "associations": 220
+      },
+      {
+        "id": "DrugName:TRASTUZUMAB",
+        "label": "TRASTUZUMAB",
+        "associations": 217
+      },
+      {
+        "id": "DrugName:CYCLOPHOSPHAMIDE",
+        "label": "CYCLOPHOSPHAMIDE",
+        "associations": 186
+      },
+      {
+        "id": "DrugName:CISPLATIN",
+        "label": "CISPLATIN",
+        "associations": 161
+      },
+      {
+        "id": "DrugName:FULVESTRANT",
+        "label": "FULVESTRANT",
+        "associations": 148
+      },
+      {
+        "id": "DrugName:CAPECITABINE",
+        "label": "CAPECITABINE",
+        "associations": 141
+      },
+      {
+        "id": "DrugName:NIVOLUMAB",
+        "label": "NIVOLUMAB",
+        "associations": 124
+      },
+      {
+        "id": "DrugName:CETUXIMAB",
+        "label": "CETUXIMAB",
+        "associations": 123
+      }
+    ],
+    "GeneSymbol": [
+      {
+        "id": "GeneSymbol:ERBB2",
+        "label": "ERBB2",
+        "associations": 1424
+      },
+      {
+        "id": "GeneSymbol:EGFR",
+        "label": "EGFR",
+        "associations": 728
+      },
+      {
+        "id": "GeneSymbol:ALK",
+        "label": "ALK",
+        "associations": 352
+      },
+      {
+        "id": "GeneSymbol:CDK4",
+        "label": "CDK4",
+        "associations": 341
+      },
+      {
+        "id": "GeneSymbol:KRAS",
+        "label": "KRAS",
+        "associations": 327
+      },
+      {
+        "id": "GeneSymbol:BRAF",
+        "label": "BRAF",
+        "associations": 320
+      },
+      {
+        "id": "GeneSymbol:ROS1",
+        "label": "ROS1",
+        "associations": 175
+      },
+      {
+        "id": "GeneSymbol:BRCA1",
+        "label": "BRCA1",
+        "associations": 157
+      },
+      {
+        "id": "GeneSymbol:MET",
+        "label": "MET",
+        "associations": 157
+      },
+      {
+        "id": "GeneSymbol:BRCA2",
+        "label": "BRCA2",
+        "associations": 111
+      }
+    ],
+    "CompanionDiagnostic": [
+      {
+        "id": "CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU",
+        "label": "Guardant360 CDx  (Guardant Health, Inc.)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB",
+        "label": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:FOUNDATIONONECD:CDK12:OLAPARIB",
+        "label": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:PRAXISEXTENDEDR:NRAS:PANITUMUMABPANI",
+        "label": "Praxis Extended RAS Panel  (Illumina, Inc.)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:FOUNDATIONONECD:BRAF:TRAMETINIB",
+        "label": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:GUARDANT360CDXG:KRAS:SOTORASIB",
+        "label": "Guardant360 CDx  (Guardant Health, Inc.)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:HER2CISHPHARMDX:ERBB2:TRASTUZUMABTRAS",
+        "label": "HER2 CISH pharmDx Kit  (Dako Denmark A/S)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:FOUNDATIONONELI:BRCA2:OLAPARIB",
+        "label": "FoundationOne Liquid CDx  (Foundation Medicine, Inc.)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:THERASCREENPIK3:PIK3CA:ALPELISIBFULVES",
+        "label": "therascreen PIK3CA RGQ PCR Kit  (QIAGEN GmbH)",
+        "associations": 2
+      },
+      {
+        "id": "CompanionDiagnostic:cdx:FOUNDATIONONECD:KRAS:PANITUMUMABPANI",
+        "label": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+        "associations": 2
+      }
+    ]
+  },
+  "issues": {},
+  "invalid_references": [
+    {
+      "candidate_id": "GCA4-204c5eabead461962d0501bf",
+      "family": "EVIDENCE_STATEMENT",
+      "field": "pmid",
+      "value": "10.1182/blood-2021-148205",
+      "flagged": true
+    },
+    {
+      "candidate_id": "GCA4-87d1f3aed75262c94c73a401",
+      "family": "EVIDENCE_DRUG",
+      "field": "pmid",
+      "value": "10.1182/blood-2022-163099",
+      "flagged": true
+    },
+    {
+      "candidate_id": "GCA4-ac1b035f4b935241bdd7f461",
+      "family": "EVIDENCE_STATEMENT",
+      "field": "pmid",
+      "value": "10.1182/blood-2022-163099",
+      "flagged": true
+    },
+    {
+      "candidate_id": "GCA4-b3027ff41e538305fdee86ae",
+      "family": "EVIDENCE_STATEMENT",
+      "field": "pmid",
+      "value": "10.1182/blood-2021-148205",
+      "flagged": true
+    }
+  ],
+  "examples": {
+    "GENE_DRUG": {
+      "candidate_id": "GCA4-000074f3d4ea7d88759bc423",
+      "context": {},
+      "document_identifiers": [],
+      "edge_ids_by_dataset": {
+        "edge_interacts_with.csv": [
+          "row:edge_interacts_with.csv:23872:6b65d6c1b96412d3"
+        ]
+      },
+      "graph_path": [
+        "Gene:4058",
+        "Drug:chembl:CHEMBL1997335"
+      ],
+      "materialization_rule": "gca/4.0/gene_drug",
+      "materializer_version": "gca-materializer/4.0",
+      "node_ids": [
+        "Gene:4058",
+        "Drug:chembl:CHEMBL1997335"
+      ],
+      "object": {
+        "id": "Drug:chembl:CHEMBL1997335",
+        "label": "CHEMBL:CHEMBL1997335",
+        "type": "Drug"
+      },
+      "predicate": "interacts_with",
+      "relation_family": "GENE_DRUG",
+      "relation_origin": "DIRECT",
+      "semantic_key": "GENE_DRUG|Gene:4058|Drug:chembl:CHEMBL1997335",
+      "source_datasets": [
+        "edge_interacts_with.csv"
+      ],
+      "source_properties": {
+        "drug": {
+          "anti_neoplastic": "False",
+          "approved": "False",
+          "biomarker": "",
+          "concept_id": "chembl:CHEMBL1997335",
+          "drug_claim_name": "DNDI1417467",
+          "drug_class": "",
+          "drug_name": "CHEMBL:CHEMBL1997335",
+          "fda_approval_year": "",
+          "immunotherapy": "False",
+          "mechanism": "",
+          "nomenclature": "Primary Name",
+          "source_db_name": "DTC",
+          "source_db_version": "9/2/20"
+        },
+        "edge": {
+          "interaction_score": "0.054355767",
+          "interaction_type": "unknown",
+          "source_db": "DTC",
+          "source_gene_entrez_id": "4058",
+          "target_drug_concept_id": "chembl:CHEMBL1997335"
+        },
+        "gene": {
+          "aliases": "TYK1",
+          "categories": "CLINICALLY ACTIONABLE;DRUGGABLE GENOME;TYROSINE KINASE;KINASE;ENZYME",
+          "civic_description": "",
+          "entrez_id": "4058",
+          "gene_type": "ONCOGENE",
+          "grch38_isoform": "ENST00000263800",
+          "grch38_refseq": "NM_002344",
+          "hugo_symbol": "LTK",
+          "is_oncokb_annotated": "True"
+        }
+      },
+      "source_record_ids": [
+        "row:edge_interacts_with.csv:23872:6b65d6c1b96412d3"
+      ],
+      "subject": {
+        "id": "Gene:4058",
+        "label": "LTK",
+        "type": "Gene"
+      }
+    },
+    "EVIDENCE_STATEMENT": {
+      "candidate_id": "GCA4-000b81b1296a2cd3d24bdd8b",
+      "context": {
+        "disease": "Colorectal Cancer",
+        "doid": "9256",
+        "evidence_type": "Predictive"
+      },
+      "document_identifiers": [
+        {
+          "pmid": "20619739",
+          "scope": "evidence_record"
+        }
+      ],
+      "edge_ids_by_dataset": {
+        "edge_has_evidence.csv": [
+          "row:edge_has_evidence.csv:2160:898cfc16e42b2131"
+        ],
+        "edge_in_molecular_profile.csv": [
+          "row:edge_in_molecular_profile.csv:65:1b6f360b165972ba"
+        ]
+      },
+      "graph_path": [
+        "MolecularProfile:81",
+        "Variant:81",
+        "Evidence:3881"
+      ],
+      "materialization_rule": "gca/4.0/evidence_statement",
+      "materializer_version": "gca-materializer/4.0",
+      "node_ids": [
+        "MolecularProfile:81",
+        "Variant:81",
+        "Evidence:3881"
+      ],
+      "object": {
+        "id": "Evidence:3881",
+        "label": "This was a retrospective study of 691 cetuximab treated patients with metastatic colorectal cancer. Of those, 50 patients harbored KRAS G13D, were BRAF, NRAS and PIK3CA wt, and had individual response data. Nine patients had partial response, 19 had stable disease, and 22 progressed. Treatments included cetuximab + irinotecan (n=38), cetuximab + FOLFIRI (n=5), cetuximab monotherapy (n=4), cetuximab + oxaliplatin + 5FU (n=2), and cetuximab + irinotecan + oxaliplatin + 5FU (n=1). Median PFS was 16 weeks (3-101 weeks), median OS was 33 weeks (3-161 weeks), and median number of previous chemotherapy lines was 2 (0-4). Median age was 65 years old (34-78), and there were 29 males and 20 females. Authors concluded that KRAS mutation was strongly associated with poor response to cetuximab and suggested that mutation status of KRAS is the most informative compared to BRAF, NRAS, and PIK3CA exon 20 for predicting cetuximab response.",
+        "type": "Evidence"
+      },
+      "predicate": "has_evidence_statement",
+      "relation_family": "EVIDENCE_STATEMENT",
+      "relation_origin": "DIRECT",
+      "semantic_key": "EVIDENCE_STATEMENT|Evidence:3881",
+      "source_datasets": [
+        "edge_has_evidence.csv"
+      ],
+      "source_properties": {
+        "evidence": {
+          "citation_id": "20619739",
+          "disease": "Colorectal Cancer",
+          "doid": "9256",
+          "evidence_direction": "Supports",
+          "evidence_id": "3881",
+          "evidence_level": "B",
+          "evidence_statement": "This was a retrospective study of 691 cetuximab treated patients with metastatic colorectal cancer. Of those, 50 patients harbored KRAS G13D, were BRAF, NRAS and PIK3CA wt, and had individual response data. Nine patients had partial response, 19 had stable disease, and 22 progressed. Treatments included cetuximab + irinotecan (n=38), cetuximab + FOLFIRI (n=5), cetuximab monotherapy (n=4), cetuximab + oxaliplatin + 5FU (n=2), and cetuximab + irinotecan + oxaliplatin + 5FU (n=1). Median PFS was 16 weeks (3-101 weeks), median OS was 33 weeks (3-161 weeks), and median number of previous chemotherapy lines was 2 (0-4). Median age was 65 years old (34-78), and there were 29 males and 20 females. Authors concluded that KRAS mutation was strongly associated with poor response to cetuximab and suggested that mutation status of KRAS is the most informative compared to BRAF, NRAS, and PIK3CA exon 20 for predicting cetuximab response.",
+          "evidence_type": "Predictive",
+          "rating": "3",
+          "significance": "Resistance",
+          "source_type": "PubMed",
+          "variant_origin": "Somatic"
+        },
+        "profile": {
+          "aliases": "GLY13ASP;RS112445441",
+          "evidence_score": "108.5",
+          "molecular_profile_id": "81",
+          "name": "KRAS G13D",
+          "summary": "While the KRAS G13 region is a widely studied recurrent region in cancer, its impact on clinical action is still debated. Often associated with tumors that are wild-type for other drivers (EGFR and ALK specifically), the prognosis for patients with this mutation seems to be worse than the KRAS wild-type cohort. This mutation, along with the mutations affecting the neighboring G12 position, may result in a less responsive tumor when treated with first-generation TKI's like gefitinib. However, results are conflicting with retrospective analyses suggesting a better response to EGFR-Inhibition. A recent prospective phase-II study (12 patients, Schirripa et. al. 2015) could not reproduce this finding and another prospective phase II trial is currently ongoing."
+        }
+      },
+      "source_record_ids": [
+        "row:edge_has_evidence.csv:2160:898cfc16e42b2131"
+      ],
+      "subject": {
+        "id": "MolecularProfile:81",
+        "label": "KRAS G13D",
+        "type": "MolecularProfile"
+      }
+    },
+    "TRIAL_DRUG": {
+      "candidate_id": "GCA4-0010f0196af8fc50247b929d",
+      "context": {},
+      "document_identifiers": [
+        {
+          "nct": "NCT04039607"
+        }
+      ],
+      "edge_ids_by_dataset": {
+        "edges_trial_drug.csv": [
+          "row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb"
+        ]
+      },
+      "graph_path": [
+        "Trial:NCT04039607",
+        "DrugName:SORAFENIB"
+      ],
+      "materialization_rule": "gca/4.0/trial_drug",
+      "materializer_version": "gca-materializer/4.0",
+      "node_ids": [
+        "Trial:NCT04039607",
+        "DrugName:SORAFENIB"
+      ],
+      "object": {
+        "id": "DrugName:SORAFENIB",
+        "label": "SORAFENIB",
+        "type": "DrugName"
+      },
+      "predicate": "has_trial_intervention",
+      "relation_family": "TRIAL_DRUG",
+      "relation_origin": "DIRECT",
+      "semantic_key": "TRIAL_DRUG|Trial:NCT04039607|DrugName:SORAFENIB",
+      "source_datasets": [
+        "edges_trial_drug.csv"
+      ],
+      "source_properties": {
+        "edge": {
+          "drug_name_normalized": "SORAFENIB",
+          "drug_name_raw": "Sorafenib",
+          "nct_id": "NCT04039607"
+        },
+        "trial": {
+          "conditions": "Hepatocellular Carcinoma",
+          "interventions": "Nivolumab | Ipilimumab | Sorafenib | lenvatinib",
+          "keywords": "",
+          "nct_id": "NCT04039607",
+          "phase": "PHASE3",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "title": "A Study of Nivolumab in Combination With Ipilimumab in Participants With Advanced Hepatocellular Carcinoma"
+        }
+      },
+      "source_record_ids": [
+        "row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb"
+      ],
+      "subject": {
+        "id": "Trial:NCT04039607",
+        "label": "A Study of Nivolumab in Combination With Ipilimumab in Participants With Advanced Hepatocellular Carcinoma",
+        "type": "Trial"
+      }
+    },
+    "TRIAL_GENE": {
+      "candidate_id": "GCA4-0013389577078c441701877d",
+      "context": {},
+      "document_identifiers": [
+        {
+          "nct": "NCT07008638"
+        }
+      ],
+      "edge_ids_by_dataset": {
+        "edges_trial_gene.csv": [
+          "row:edges_trial_gene.csv:2821:94367d1942926c39"
+        ]
+      },
+      "graph_path": [
+        "Trial:NCT07008638",
+        "GeneSymbol:TP53"
+      ],
+      "materialization_rule": "gca/4.0/trial_gene",
+      "materializer_version": "gca-materializer/4.0",
+      "node_ids": [
+        "Trial:NCT07008638",
+        "GeneSymbol:TP53"
+      ],
+      "object": {
+        "id": "GeneSymbol:TP53",
+        "label": "TP53",
+        "type": "GeneSymbol"
+      },
+      "predicate": "has_trial_gene",
+      "relation_family": "TRIAL_GENE",
+      "relation_origin": "DIRECT",
+      "semantic_key": "TRIAL_GENE|Trial:NCT07008638|GeneSymbol:TP53",
+      "source_datasets": [
+        "edges_trial_gene.csv"
+      ],
+      "source_properties": {
+        "edge": {
+          "gene_symbol": "TP53",
+          "nct_id": "NCT07008638",
+          "source": "eligibility_criteria"
+        },
+        "trial": {
+          "conditions": "Acute Myeloid Leukemia | TP53",
+          "interventions": "Bortezomib | CPX-351",
+          "keywords": "",
+          "nct_id": "NCT07008638",
+          "phase": "PHASE1, PHASE2",
+          "status": "RECRUITING",
+          "title": "Phase I/II Clinical Trial of Proteasome Inhibitor in Combination With CPX-351 for the Treatment of Newly-Diagnosed TP53-mutated Acute Myeloid Leukemia (AML)"
+        }
+      },
+      "source_record_ids": [
+        "row:edges_trial_gene.csv:2821:94367d1942926c39"
+      ],
+      "subject": {
+        "id": "Trial:NCT07008638",
+        "label": "Phase I/II Clinical Trial of Proteasome Inhibitor in Combination With CPX-351 for the Treatment of Newly-Diagnosed TP53-mutated Acute Myeloid Leukemia (AML)",
+        "type": "Trial"
+      }
+    },
+    "EVIDENCE_DRUG": {
+      "candidate_id": "GCA4-003b2b5043291b445534e1f3",
+      "context": {
+        "disease": "Melanoma",
+        "doid": "1909",
+        "evidence_level": "D",
+        "evidence_type": "Predictive"
+      },
+      "document_identifiers": [
+        {
+          "pmcid": "PMC4826182",
+          "pmid": "26678033",
+          "scope": "evidence_record"
+        }
+      ],
+      "edge_ids_by_dataset": {
+        "edge_has_evidence.csv": [
+          "row:edge_has_evidence.csv:837:946b96520de911a2"
+        ],
+        "edge_in_molecular_profile.csv": [
+          "row:edge_in_molecular_profile.csv:9:2d8d607a5267b539"
+        ],
+        "edge_targets_drug.csv": [
+          "row:edge_targets_drug.csv:596:12dc857dd9dceb73"
+        ]
+      },
+      "graph_path": [
+        "Evidence:1005",
+        "MolecularProfile:12",
+        "Variant:12",
+        "Drug:rxcui:2361596"
+      ],
+      "materialization_rule": "gca/4.0/evidence_drug",
+      "materializer_version": "gca-materializer/4.0",
+      "node_ids": [
+        "Evidence:1005",
+        "MolecularProfile:12",
+        "Variant:12",
+        "Drug:rxcui:2361596"
+      ],
+      "object": {
+        "id": "Drug:rxcui:2361596",
+        "label": "SELUMETINIB SULFATE",
+        "type": "Drug"
+      },
+      "predicate": "targets_drug",
+      "relation_family": "EVIDENCE_DRUG",
+      "relation_origin": "DIRECT",
+      "semantic_key": "EVIDENCE_DRUG|Evidence:1005|Drug:rxcui:2361596",
+      "source_datasets": [
+        "edge_targets_drug.csv"
+      ],
+      "source_properties": {
+        "drug": {
+          "anti_neoplastic": "False",
+          "approved": "True",
+          "biomarker": "NF1 Oncogenic Mutations",
+          "concept_id": "rxcui:2361596",
+          "drug_claim_name": "selumetinib sulfate",
+          "drug_class": "Small molecule kinase inhibitor",
+          "drug_name": "SELUMETINIB SULFATE",
+          "fda_approval_year": "2020.0",
+          "immunotherapy": "False",
+          "mechanism": "MEK1/2 inhibitor",
+          "nomenclature": "Primary Drug Name",
+          "source_db_name": "RxNorm",
+          "source_db_version": "20240401"
+        },
+        "edge": {
+          "evidence_direction": "Supports",
+          "evidence_level": "D",
+          "significance": "Sensitivity/Response",
+          "source_evidence_id": "1005",
+          "target_drug_concept_id": "rxcui:2361596"
+        },
+        "evidence": {
+          "citation_id": "26678033",
+          "disease": "Melanoma",
+          "doid": "1909",
+          "evidence_direction": "Supports",
+          "evidence_id": "1005",
+          "evidence_level": "D",
+          "evidence_statement": "49 BRAF-mutant melanoma cell lines from patients not previously treated with BRAF inhibition were analyzed. 21 exhibited primary resistance to BRAF inhibition using PLX4720. Inhibition of MEK1/2 (AZD6244 [selumetinib]) and PI3K/mTOR (BEZ235 [dactolisib]) was the most effective approach to counteract resistance in comparison to inhibition with the PLX4720 (progenitor of vemurafenib)-BEZ235 (where response was assessed by apoptosis, viability, p-ERK, p-Akt inhibition).",
+          "evidence_type": "Predictive",
+          "rating": "2",
+          "significance": "Sensitivity/Response",
+          "source_type": "PubMed",
+          "variant_origin": "Somatic"
+        }
+      },
+      "source_record_ids": [
+        "row:edge_targets_drug.csv:596:12dc857dd9dceb73"
+      ],
+      "subject": {
+        "id": "Evidence:1005",
+        "label": "49 BRAF-mutant melanoma cell lines from patients not previously treated with BRAF inhibition were analyzed. 21 exhibited primary resistance to BRAF inhibition using PLX4720. Inhibition of MEK1/2 (AZD6244 [selumetinib]) and PI3K/mTOR (BEZ235 [dactolisib]) was the most effective approach to counteract resistance in comparison to inhibition with the PLX4720 (progenitor of vemurafenib)-BEZ235 (where response was assessed by apoptosis, viability, p-ERK, p-Akt inhibition).",
+        "type": "Evidence"
+      }
+    },
+    "DRUG_COMPANION_DIAGNOSTIC": {
+      "candidate_id": "GCA4-020812a706240583694ae139",
+      "context": {},
+      "document_identifiers": [],
+      "edge_ids_by_dataset": {
+        "edge_has_companion_diagnostic.csv": [
+          "row:edge_has_companion_diagnostic.csv:86:67aa395665d7eae1"
+        ]
+      },
+      "graph_path": [
+        "Drug:fda:TRASTUZUMABDERUXTECAN",
+        "CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU"
+      ],
+      "materialization_rule": "gca/4.0/drug_companion_diagnostic",
+      "materializer_version": "gca-materializer/4.0",
+      "node_ids": [
+        "Drug:fda:TRASTUZUMABDERUXTECAN",
+        "CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU"
+      ],
+      "object": {
+        "id": "CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU",
+        "label": "Guardant360 CDx  (Guardant Health, Inc.)",
+        "type": "CompanionDiagnostic"
+      },
+      "predicate": "has_companion_diagnostic",
+      "relation_family": "DRUG_COMPANION_DIAGNOSTIC",
+      "relation_origin": "DIRECT",
+      "semantic_key": "DRUG_COMPANION_DIAGNOSTIC|Drug:fda:TRASTUZUMABDERUXTECAN|CompanionDiagnostic:cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU",
+      "source_datasets": [
+        "edge_has_companion_diagnostic.csv"
+      ],
+      "source_properties": {
+        "device": {
+          "device_id": "cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU",
+          "device_name": "Guardant360 CDx  (Guardant Health, Inc.)",
+          "drug": "Trastuzumab Deruxtecan",
+          "gene": "ERBB2",
+          "platform_type": "NGS",
+          "specimen_types": "cfDNA from plasma"
+        },
+        "drug": {
+          "anti_neoplastic": "True",
+          "approved": "True",
+          "biomarker": "*HER2+ (ERBB2 Amplification)\n*HER2-low\n*ERBB2 Oncogenic Mutations \n*HR+/HER2-low or HER2-ultralow",
+          "concept_id": "fda:TRASTUZUMABDERUXTECAN",
+          "drug_claim_name": "Trastuzumab deruxtecan",
+          "drug_class": "Antibody drug conjugate",
+          "drug_name": "TRASTUZUMAB DERUXTECAN",
+          "fda_approval_year": "2019.0",
+          "immunotherapy": "False",
+          "mechanism": "HER2 (ERBB2)-directed antibody and topoisomerase inhibitor conjugate",
+          "nomenclature": "FDA Precision Oncology",
+          "source_db_name": "FDA_Oncology_Therapies",
+          "source_db_version": "2023-07-25"
+        },
+        "edge": {
+          "source_drug_concept_id": "fda:TRASTUZUMABDERUXTECAN",
+          "target_device_id": "cdx:GUARDANT360CDXG:ERBB2:TRASTUZUMABDERU"
+        }
+      },
+      "source_record_ids": [
+        "row:edge_has_companion_diagnostic.csv:86:67aa395665d7eae1"
+      ],
+      "subject": {
+        "id": "Drug:fda:TRASTUZUMABDERUXTECAN",
+        "label": "TRASTUZUMAB DERUXTECAN",
+        "type": "Drug"
+      }
+    },
+    "COMPANION_DIAGNOSTIC_GENE": {
+      "candidate_id": "GCA4-039ca7831aca33a1e28296dc",
+      "context": {},
+      "document_identifiers": [],
+      "edge_ids_by_dataset": {
+        "edge_diagnoses_gene.csv": [
+          "row:edge_diagnoses_gene.csv:29:1607bfe1156c37ec"
+        ]
+      },
+      "graph_path": [
+        "CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB",
+        "Gene:1956"
+      ],
+      "materialization_rule": "gca/4.0/companion_diagnostic_gene",
+      "materializer_version": "gca-materializer/4.0",
+      "node_ids": [
+        "CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB",
+        "Gene:1956"
+      ],
+      "object": {
+        "id": "Gene:1956",
+        "label": "EGFR",
+        "type": "Gene"
+      },
+      "predicate": "diagnoses_gene",
+      "relation_family": "COMPANION_DIAGNOSTIC_GENE",
+      "relation_origin": "DIRECT",
+      "semantic_key": "COMPANION_DIAGNOSTIC_GENE|CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB|Gene:1956",
+      "source_datasets": [
+        "edge_diagnoses_gene.csv"
+      ],
+      "source_properties": {
+        "device": {
+          "device_id": "cdx:FOUNDATIONONECD:EGFR:ERLOTINIB",
+          "device_name": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+          "drug": "Erlotinib",
+          "gene": "EGFR",
+          "platform_type": "NGS",
+          "specimen_types": "FFPE"
+        },
+        "edge": {
+          "source_device_id": "cdx:FOUNDATIONONECD:EGFR:ERLOTINIB",
+          "target_gene_entrez_id": "1956"
+        },
+        "gene": {
+          "aliases": "ERBB;ERBB1;ERRP",
+          "categories": "CLINICALLY ACTIONABLE;DRUG RESISTANCE;DRUGGABLE GENOME;KINASE;TYROSINE KINASE;CELL SURFACE",
+          "civic_description": "EGFR is widely recognized for its importance in cancer. Amplification and mutations have been shown to be driving events in many cancer types. Its role in non-small cell lung cancer, glioblastoma and basal-like breast cancers has spurred many research and drug development efforts. Tyrosine kinase inhibitors have shown efficacy in EGFR amplfied tumors, most notably gefitinib and erlotinib. Mutations in EGFR have been shown to confer resistance to these drugs, particularly the variant T790M, which has been functionally characterized as a resistance marker for both of these drugs. The later generation TKI's have seen some success in treating these resistant cases, and targeted sequencing of the EGFR locus has become a common practice in treatment of non-small cell lung cancer. Overproduction of ligands is another possible mechanism of activation of EGFR. ERBB ligands include EGF, TGF-a, AREG, EPG, BTC, HB-EGF, EPR and NRG1-4 (for detailed information please refer to the respective ligand section).",
+          "entrez_id": "1956",
+          "gene_type": "ONCOGENE",
+          "grch38_isoform": "ENST00000275493",
+          "grch38_refseq": "NM_005228.3",
+          "hugo_symbol": "EGFR",
+          "is_oncokb_annotated": "True"
+        }
+      },
+      "source_record_ids": [
+        "row:edge_diagnoses_gene.csv:29:1607bfe1156c37ec"
+      ],
+      "subject": {
+        "id": "CompanionDiagnostic:cdx:FOUNDATIONONECD:EGFR:ERLOTINIB",
+        "label": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+        "type": "CompanionDiagnostic"
+      }
+    }
+  },
+  "checks": {
+    "loader_hash": true,
+    "total": true,
+    "families": true,
+    "datasets": true,
+    "duplicate_ids": true,
+    "semantic_repetitions": true,
+    "invalid_pmid_rows": true,
+    "invalid_nct_rows": true,
+    "graph_only": true
+  },
+  "reports": {
+    "coverage_report": {
+      "coverage": {
+        "COMPANION_DIAGNOSTIC_GENE": {
+          "coverage_percent": 100.0,
+          "eligible": 163,
+          "excluded": 0,
+          "materialized": 163
+        },
+        "DRUG_COMPANION_DIAGNOSTIC": {
+          "coverage_percent": 100.0,
+          "eligible": 150,
+          "excluded": 0,
+          "materialized": 150
+        },
+        "EVIDENCE_DRUG": {
+          "coverage_percent": 100.0,
+          "eligible": 3347,
+          "excluded": 0,
+          "materialized": 3347
+        },
+        "EVIDENCE_STATEMENT": {
+          "coverage_percent": 100.0,
+          "eligible": 4843,
+          "excluded": 0,
+          "materialized": 4843
+        },
+        "GENE_DRUG": {
+          "coverage_percent": 100.0,
+          "eligible": 25589,
+          "excluded": 0,
+          "materialized": 25589
+        },
+        "TRIAL_DRUG": {
+          "coverage_percent": 100.0,
+          "eligible": 7381,
+          "excluded": 0,
+          "materialized": 7381
+        },
+        "TRIAL_GENE": {
+          "coverage_percent": 100.0,
+          "eligible": 5501,
+          "excluded": 0,
+          "materialized": 5501
+        }
+      },
+      "summary": {
+        "document_coverage": {
+          "abstract_only_pmids": 1182,
+          "candidates_only_kg": 25902,
+          "candidates_with_nct": 12882,
+          "candidates_with_pmid": 8190,
+          "full_text_pmc_pmids": 917,
+          "manifest_used": "C:\\Users\\paolo\\Desktop\\mtb-relation-aware-core\\mtb-graphrag\\data_cache\\document_grounding\\manifests\\runtime_v2_pmid_resolution.jsonl",
+          "nct_distinct": 4136,
+          "pmcid_distinct": 1172,
+          "pmid_distinct": 2224,
+          "unavailable_pmids": 123
+        },
+        "eligible_semantic_units": 46974,
+        "excluded_with_reason": 0,
+        "families": {
+          "COMPANION_DIAGNOSTIC_GENE": {
+            "coverage_percent": 100.0,
+            "eligible": 163,
+            "excluded": 0,
+            "materialized": 163
+          },
+          "DRUG_COMPANION_DIAGNOSTIC": {
+            "coverage_percent": 100.0,
+            "eligible": 150,
+            "excluded": 0,
+            "materialized": 150
+          },
+          "EVIDENCE_DRUG": {
+            "coverage_percent": 100.0,
+            "eligible": 3347,
+            "excluded": 0,
+            "materialized": 3347
+          },
+          "EVIDENCE_STATEMENT": {
+            "coverage_percent": 100.0,
+            "eligible": 4843,
+            "excluded": 0,
+            "materialized": 4843
+          },
+          "GENE_DRUG": {
+            "coverage_percent": 100.0,
+            "eligible": 25589,
+            "excluded": 0,
+            "materialized": 25589
+          },
+          "TRIAL_DRUG": {
+            "coverage_percent": 100.0,
+            "eligible": 7381,
+            "excluded": 0,
+            "materialized": 7381
+          },
+          "TRIAL_GENE": {
+            "coverage_percent": 100.0,
+            "eligible": 5501,
+            "excluded": 0,
+            "materialized": 5501
+          }
+        },
+        "materialized_candidates": 46974,
+        "unaccounted_eligible_units": 0
+      }
+    },
+    "validation_report": {
+      "derived_companion_composite_materialized": false,
+      "duplicate_candidate_ids": 0,
+      "duplicate_semantic_units": 0,
+      "invalid_nct": 0,
+      "invalid_pmid": 4,
+      "invalid_references_unreported": 0,
+      "missing_subject_or_object": 0,
+      "source_traceability_incomplete": 0,
+      "structural_edges_excluded_from_eligible_denominator": [
+        "edge_has_variant.csv",
+        "edge_in_molecular_profile.csv"
+      ],
+      "trial_eligibility_treated_as_context": true
+    },
+    "source_distribution": {
+      "edge_diagnoses_gene.csv": {
+        "candidate_count": 163,
+        "percent": 0.347
+      },
+      "edge_has_companion_diagnostic.csv": {
+        "candidate_count": 150,
+        "percent": 0.319326
+      },
+      "edge_has_evidence.csv": {
+        "candidate_count": 4843,
+        "percent": 10.309959
+      },
+      "edge_interacts_with.csv": {
+        "candidate_count": 25589,
+        "percent": 54.474816
+      },
+      "edge_targets_drug.csv": {
+        "candidate_count": 3347,
+        "percent": 7.125218
+      },
+      "edges_trial_drug.csv": {
+        "candidate_count": 7381,
+        "percent": 15.712948
+      },
+      "edges_trial_gene.csv": {
+        "candidate_count": 5501,
+        "percent": 11.710734
+      }
+    },
+    "semantic_diff_v2_v4": {
+      "by_family": {
+        "COMPANION_DIAGNOSTIC_GENE": {
+          "semantic_common": 163,
+          "v2": 163,
+          "v2_only": 0,
+          "v4": 163,
+          "v4_only": 0
+        },
+        "DRUG_COMPANION_DIAGNOSTIC": {
+          "semantic_common": 0,
+          "v2": 0,
+          "v2_only": 0,
+          "v4": 150,
+          "v4_only": 150
+        },
+        "EVIDENCE_DRUG": {
+          "semantic_common": 3347,
+          "v2": 3370,
+          "v2_only": 23,
+          "v4": 3347,
+          "v4_only": 0
+        },
+        "EVIDENCE_STATEMENT": {
+          "semantic_common": 4843,
+          "v2": 4860,
+          "v2_only": 17,
+          "v4": 4843,
+          "v4_only": 0
+        },
+        "GENE_DRUG": {
+          "semantic_common": 25589,
+          "v2": 25589,
+          "v2_only": 0,
+          "v4": 25589,
+          "v4_only": 0
+        },
+        "TRIAL_DRUG": {
+          "semantic_common": 7381,
+          "v2": 7381,
+          "v2_only": 0,
+          "v4": 7381,
+          "v4_only": 0
+        },
+        "TRIAL_GENE": {
+          "semantic_common": 5501,
+          "v2": 5501,
+          "v2_only": 0,
+          "v4": 5501,
+          "v4_only": 0
+        }
+      },
+      "semantic_common": 46824,
+      "status": "COMPARED",
+      "v2_candidates": 46864,
+      "v2_duplicate_semantic_keys": 5002,
+      "v2_only": 40,
+      "v4_candidates": 46974,
+      "v4_duplicate_semantic_keys": 5002,
+      "v4_only": 150
+    },
+    "determinism_report": {
+      "candidates_sha256": "4e197764dff17cb396c5026338f07e001c0573e37bec9fb0f8a32e652b9d7edd",
+      "exclusions_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "materializer_version": "gca-materializer/4.0",
+      "sorted_candidate_ids": true,
+      "sorted_exclusion_ids": true
+    }
+  },
+  "materialization_summary": {
+    "document_coverage": {
+      "abstract_only_pmids": 1182,
+      "candidates_only_kg": 25902,
+      "candidates_with_nct": 12882,
+      "candidates_with_pmid": 8190,
+      "full_text_pmc_pmids": 917,
+      "manifest_used": "C:\\Users\\paolo\\Desktop\\mtb-relation-aware-core\\mtb-graphrag\\data_cache\\document_grounding\\manifests\\runtime_v2_pmid_resolution.jsonl",
+      "nct_distinct": 4136,
+      "pmcid_distinct": 1172,
+      "pmid_distinct": 2224,
+      "unavailable_pmids": 123
+    },
+    "eligible_semantic_units": 46974,
+    "excluded_with_reason": 0,
+    "families": {
+      "COMPANION_DIAGNOSTIC_GENE": {
+        "coverage_percent": 100.0,
+        "eligible": 163,
+        "excluded": 0,
+        "materialized": 163
+      },
+      "DRUG_COMPANION_DIAGNOSTIC": {
+        "coverage_percent": 100.0,
+        "eligible": 150,
+        "excluded": 0,
+        "materialized": 150
+      },
+      "EVIDENCE_DRUG": {
+        "coverage_percent": 100.0,
+        "eligible": 3347,
+        "excluded": 0,
+        "materialized": 3347
+      },
+      "EVIDENCE_STATEMENT": {
+        "coverage_percent": 100.0,
+        "eligible": 4843,
+        "excluded": 0,
+        "materialized": 4843
+      },
+      "GENE_DRUG": {
+        "coverage_percent": 100.0,
+        "eligible": 25589,
+        "excluded": 0,
+        "materialized": 25589
+      },
+      "TRIAL_DRUG": {
+        "coverage_percent": 100.0,
+        "eligible": 7381,
+        "excluded": 0,
+        "materialized": 7381
+      },
+      "TRIAL_GENE": {
+        "coverage_percent": 100.0,
+        "eligible": 5501,
+        "excluded": 0,
+        "materialized": 5501
+      }
+    },
+    "materialized_candidates": 46974,
+    "unaccounted_eligible_units": 0
+  },
+  "resolution_snapshot": {
+    "available": true,
+    "sha256": "c5076846cab0a92c9d02d534ffd2951266d9d81372b51443e9fce127a6f1853e",
+    "statuses": {
+      "ABSTRACT_ONLY": 1182,
+      "FULL_TEXT_PMC": 917,
+      "DOCUMENT_UNAVAILABLE": 83,
+      "TERMINAL_RESOLUTION_FAILURE": 40,
+      "NON_PRESENTE_NEL_MANIFEST": 2
+    },
+    "denominator": 2224
+  },
+  "provenance": {
+    "repository_version": "graph_candidate_repository/4.0",
+    "corpus": "C:\\Users\\paolo\\Desktop\\mtb-relation-aware-core\\mtb-graphrag\\benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\candidates.jsonl",
+    "sha256": "4e197764dff17cb396c5026338f07e001c0573e37bec9fb0f8a32e652b9d7edd",
+    "files": {
+      "backend\\research_pipeline\\data_access.py": "89d165e97705d754cdb2d598d64706bddd13c88ee2994a5eb322e438e22f4066",
+      "mtb_gca_v4.py": "9ebae9269c45387f9cbf70aae7a1aa656181fcd6a8448153a3ab904a51a2b9f0",
+      "benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\manifest.json": "f5086a3cc9c65de864fca0f888fad41a8e50b8584dad8d8eca2d3609c61a62c8",
+      "benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\coverage_report.json": "82839047e1aa0bf962addd42a7bfa29f62a6825b547580c6845b6c05e5856dfa",
+      "benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\validation_report.json": "23a0238ea59dfba302172e70a466c9f35f83e97a221089d470b19eb511233638",
+      "benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\source_distribution.json": "d00a156a1d6879d4f8bb171a145842a19b3fc55dfb7d7681dc928bb96e5747bd",
+      "benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\semantic_diff_v2_v4.json": "28250d9259b5c40b1f1aad2512035fd61bb4ba751d73fa64ec78ea89fe14b6e9",
+      "benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\determinism_report.json": "7a178d56ae17cd893badeb65858aab1a16fe7f8361ddeee13364b7cada44a8f2"
+    },
+    "scope": "Census of pinned records; no live document retrieval, source rematerialization or clinical validation performed."
+  }
+}

@@ -1,0 +1,16 @@
+digraph phase {
+graph [rankdir=LR, bgcolor="transparent", pad="0.25", nodesep="0.35", ranksep="0.4", splines=polyline];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=14, color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontsize=10, arrowsize=0.65];
+"units" [id="node-units", label="Documenti e metadati\n\nDATO", fillcolor="#EAF0F5", tooltip="Identità documentali e porzioni disponibili."];
+"plan" [id="node-plan", label="Piano focused\n\nCODICE", fillcolor="#E8F4F0", tooltip="Copertura terminologica nei metadati; differimenti."];
+"select" [id="node-select", label="Selezione ibrida\n\nCODICE", fillcolor="#E8F4F0", tooltip="RRF o ripiego, con intento del caso distinto."];
+"cache" [id="node-cache", label="Riuso nella run\n\nCODICE", fillcolor="#E8F4F0", tooltip="Input equivalenti, con legame ai candidati."];
+"pack" [id="node-pack", label="Budget di testo\n\nCONTROLLO", fillcolor="#F0EBF6", tooltip="Limite di caratteri Reader solo se configurato."];
+"docs" [id="node-docs", label="Contesto al Reader\n\nRISULTATO", fillcolor="#E6F3EC", tooltip="Documenti e porzioni entro le policy."];
+"units" -> "plan" [label="", style="solid"];
+"plan" -> "select" [label="", style="solid"];
+"select" -> "cache" [label="", style="solid"];
+"cache" -> "pack" [label="", style="solid"];
+"pack" -> "docs" [label="", style="solid"];
+}

@@ -1,0 +1,11 @@
+digraph G {
+graph [rankdir=LR,bgcolor="white",pad="0.2",nodesep="0.3",ranksep="0.5"];
+node [shape=box,style="rounded,filled",fillcolor="#e8f3ef",color="#afc4c8",fontname="Arial",fontsize=16,margin="0.18,0.14"];
+edge [color="#617e87",arrowsize=0.7];
+gca [label="Una GCA\nRelazione candidata con provenienza",fillcolor="#eaf0f5"];
+relation [label="Relazione\nSoggetto → predicato → oggetto\nFamiglia e contesto"];
+identity [label="Identità del record\nIdentificativo + chiave semantica\nRegola di materializzazione"];
+lineage [label="Provenienza\nDataset e righe sorgente\nNodi, archi e percorso nel grafo"];
+document [label="Riferimenti della fonte\nPubblicazione, registro\noppure nessun documento",fillcolor="#f0ebf6"];
+gca -> relation; gca -> identity; gca -> lineage; gca -> document;
+}

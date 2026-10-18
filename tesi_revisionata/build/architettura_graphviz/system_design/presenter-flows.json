@@ -1,0 +1,1659 @@
+{
+  "flows": {
+    "corpus": {
+      "nodes": [
+        {
+          "id": "nodi",
+          "title": "Nodi del Knowledge Graph\nVarianti · evidenze · farmaci · studi",
+          "kind": "dato",
+          "detail": "Nodi del Knowledge Graph\nVarianti · evidenze · farmaci · studi",
+          "shape": "box"
+        },
+        {
+          "id": "archi",
+          "title": "Archi e riferimenti\nQuali entità sono collegate?",
+          "kind": "dato",
+          "detail": "Archi e riferimenti\nQuali entità sono collegate?",
+          "shape": "box"
+        },
+        {
+          "id": "materializzare",
+          "title": "Materializzare le GCA\nSoggetto + relazione + oggetto",
+          "kind": "codice",
+          "detail": "Materializzare le GCA\nSoggetto + relazione + oggetto",
+          "shape": "box"
+        },
+        {
+          "id": "collegare",
+          "title": "Comporre relazioni complementari\nSolo con riferimenti di evidenza coincidenti",
+          "kind": "codice",
+          "detail": "Comporre relazioni complementari\nSolo con riferimenti di evidenza coincidenti",
+          "shape": "box"
+        },
+        {
+          "id": "provenienza",
+          "title": "Conservare nodi, archi e fonte\nOgni relazione resta ricostruibile",
+          "kind": "controllo",
+          "detail": "Conservare nodi, archi e fonte\nOgni relazione resta ricostruibile",
+          "shape": "box"
+        },
+        {
+          "id": "corpus",
+          "title": "Corpus delle relazioni candidate\nPronto per compatibilità e specificità",
+          "kind": "risultato",
+          "detail": "Corpus delle relazioni candidate\nPronto per compatibilità e specificità",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "nodi",
+          "materializzare",
+          "entità"
+        ],
+        [
+          "archi",
+          "materializzare",
+          "collegamenti"
+        ],
+        [
+          "materializzare",
+          "collegare",
+          "record di relazione"
+        ],
+        [
+          "collegare",
+          "provenienza",
+          "origine dei record collegati"
+        ],
+        [
+          "provenienza",
+          "corpus",
+          "relazioni con provenienza"
+        ]
+      ],
+      "ranks": [
+        [
+          "nodi",
+          "archi"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "retrieval": {
+      "nodes": [
+        {
+          "id": "caso",
+          "title": "Contesto del caso\nIdentità, coppie molecolari e valori originali",
+          "kind": "dato",
+          "detail": "Contesto del caso\nIdentità, coppie molecolari e valori originali",
+          "shape": "box"
+        },
+        {
+          "id": "gca",
+          "title": "Corpus GCA\nRelazioni con argomenti e provenienza",
+          "kind": "dato",
+          "detail": "Corpus GCA\nRelazioni con argomenti e provenienza",
+          "shape": "box"
+        },
+        {
+          "id": "filtri",
+          "title": "Filtrare per compatibilità\nRegole specifiche della famiglia",
+          "kind": "controllo",
+          "detail": "Filtrare per compatibilità\nRegole specifiche della famiglia",
+          "shape": "box"
+        },
+        {
+          "id": "escluse",
+          "title": "Relazioni non compatibili\nEscluse con il motivo del confronto",
+          "kind": "limite",
+          "detail": "Relazioni non compatibili\nEscluse con il motivo del confronto",
+          "shape": "box"
+        },
+        {
+          "id": "ordine",
+          "title": "Ordinare le relazioni compatibili\nSpecificità lessicografica",
+          "kind": "codice",
+          "detail": "Ordinare le relazioni compatibili\nSpecificità lessicografica",
+          "shape": "box"
+        },
+        {
+          "id": "gruppi",
+          "title": "Raggruppare record equivalenti\nApplicare i limiti per famiglia",
+          "kind": "codice",
+          "detail": "Raggruppare record equivalenti\nApplicare i limiti per famiglia",
+          "shape": "box"
+        },
+        {
+          "id": "fonti",
+          "title": "Relazioni da approfondire\nPubblicazione · registro · solo grafo",
+          "kind": "risultato",
+          "detail": "Relazioni da approfondire\nPubblicazione · registro · solo grafo",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "caso",
+          "filtri",
+          "domanda"
+        ],
+        [
+          "gca",
+          "filtri",
+          "relazioni"
+        ],
+        [
+          "filtri",
+          "escluse",
+          "incompatibili"
+        ],
+        [
+          "filtri",
+          "ordine",
+          "compatibili"
+        ],
+        [
+          "ordine",
+          "gruppi",
+          "ordine di specificità"
+        ],
+        [
+          "gruppi",
+          "fonti",
+          "relazioni selezionate"
+        ]
+      ],
+      "ranks": [
+        [
+          "caso",
+          "gca"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "selezione": {
+      "nodes": [
+        {
+          "id": "domanda",
+          "title": "Relazione cercata + unità del documento",
+          "kind": "dato",
+          "detail": "Relazione cercata + unità del documento",
+          "shape": "box"
+        },
+        {
+          "id": "filtri",
+          "title": "Escludere unità non ammissibili\nPrima della fusione",
+          "kind": "controllo",
+          "detail": "Escludere unità non ammissibili\nPrima della fusione",
+          "shape": "box"
+        },
+        {
+          "id": "bm25",
+          "title": "BM25 strutturale\nParole × prior e fattore di sezione",
+          "kind": "codice",
+          "detail": "BM25 strutturale\nParole × prior e fattore di sezione",
+          "shape": "box"
+        },
+        {
+          "id": "dense",
+          "title": "MedCPT\nPertinenza semantica",
+          "kind": "encoder",
+          "detail": "MedCPT\nPertinenza semantica",
+          "shape": "box"
+        },
+        {
+          "id": "rrf",
+          "title": "Reciprocal Rank Fusion\nSomma di 1 / (60 + rango)",
+          "kind": "codice",
+          "detail": "Reciprocal Rank Fusion\nSomma di 1 / (60 + rango)",
+          "shape": "box"
+        },
+        {
+          "id": "top",
+          "title": "Selezionare fino a top-k passaggi\nApplicare vincoli di sovrapposizione",
+          "kind": "codice",
+          "detail": "Selezionare fino a top-k passaggi\nApplicare vincoli di sovrapposizione",
+          "shape": "box"
+        },
+        {
+          "id": "reader",
+          "title": "Unità autorizzate per il Reader",
+          "kind": "risultato",
+          "detail": "Unità autorizzate per il Reader",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "domanda",
+          "filtri",
+          "unità e relazione"
+        ],
+        [
+          "filtri",
+          "bm25",
+          "unità ammissibili"
+        ],
+        [
+          "filtri",
+          "dense",
+          "unità ammissibili"
+        ],
+        [
+          "bm25",
+          "rrf",
+          "posizioni nella classifica"
+        ],
+        [
+          "dense",
+          "rrf",
+          "posizioni nella classifica"
+        ],
+        [
+          "rrf",
+          "top",
+          "ordine fuso"
+        ],
+        [
+          "bm25",
+          "top",
+          "ripiego se MedCPT non disponibile",
+          "dashed"
+        ],
+        [
+          "top",
+          "reader",
+          "passaggi selezionati"
+        ]
+      ],
+      "ranks": [
+        [
+          "bm25",
+          "dense"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "reader": {
+      "nodes": [
+        {
+          "id": "evidenza",
+          "title": "Passaggi selezionati\nAutorizzati alla citazione",
+          "kind": "dato",
+          "detail": "Passaggi selezionati\nAutorizzati alla citazione",
+          "shape": "box"
+        },
+        {
+          "id": "contesto",
+          "title": "Contesto adiacente, quando necessario\nSolo per chiarire riferimenti locali",
+          "kind": "dato",
+          "detail": "Contesto adiacente, quando necessario\nSolo per chiarire riferimenti locali",
+          "shape": "box"
+        },
+        {
+          "id": "lettore",
+          "title": "Reader · modello linguistico\nDescrivere relazione e contesto della fonte",
+          "kind": "modello",
+          "detail": "Reader · modello linguistico\nDescrivere relazione e contesto della fonte",
+          "shape": "box"
+        },
+        {
+          "id": "osservazione",
+          "title": "Osservazione + citazione\nSoggetti, intervento, contesto e direzione",
+          "kind": "risultato",
+          "detail": "Osservazione + citazione\nSoggetti, intervento, contesto e direzione",
+          "shape": "box"
+        },
+        {
+          "id": "astensione",
+          "title": "Astensione\nIl testo non consente un’osservazione",
+          "kind": "limite",
+          "detail": "Astensione\nIl testo non consente un’osservazione",
+          "shape": "box"
+        },
+        {
+          "id": "registro",
+          "title": "Registro risolto",
+          "kind": "dato",
+          "detail": "Registro risolto",
+          "shape": "box"
+        },
+        {
+          "id": "organizzare",
+          "title": "Solo focused-v1\nEstrarre e collegare fatti del registro",
+          "kind": "codice",
+          "detail": "Solo focused-v1\nEstrarre e collegare fatti del registro",
+          "shape": "box"
+        },
+        {
+          "id": "solo-grafo",
+          "title": "Relazione senza documento",
+          "kind": "dato",
+          "detail": "Relazione senza documento",
+          "shape": "box"
+        },
+        {
+          "id": "origine",
+          "title": "Solo Knowledge Graph\nConservare la relazione senza citazione",
+          "kind": "risultato",
+          "detail": "Solo Knowledge Graph\nConservare la relazione senza citazione",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "evidenza",
+          "lettore",
+          "testo citabile"
+        ],
+        [
+          "contesto",
+          "lettore",
+          "contesto separato",
+          "dashed"
+        ],
+        [
+          "lettore",
+          "osservazione",
+          "osservazione proposta"
+        ],
+        [
+          "lettore",
+          "astensione",
+          "evidenza insufficiente"
+        ],
+        [
+          "registro",
+          "evidenza",
+          "percorso predefinito"
+        ],
+        [
+          "registro",
+          "organizzare",
+          "opzione focused-v1",
+          "dashed"
+        ],
+        [
+          "organizzare",
+          "osservazione",
+          "informazioni di registro",
+          "dashed"
+        ],
+        [
+          "solo-grafo",
+          "origine",
+          "nessun documento da leggere"
+        ]
+      ],
+      "ranks": [],
+      "direction": "TB"
+    },
+    "validazione": {
+      "nodes": [
+        {
+          "id": "citazione",
+          "title": "Citazione + unità selezionata + documento",
+          "kind": "dato",
+          "detail": "Citazione + unità selezionata + documento",
+          "shape": "box"
+        },
+        {
+          "id": "letterale",
+          "title": "Autenticare la citazione\nTesto letterale nella fonte corretta",
+          "kind": "controllo",
+          "detail": "Autenticare la citazione\nTesto letterale nella fonte corretta",
+          "shape": "box"
+        },
+        {
+          "id": "osservazione",
+          "title": "Verificare gli argomenti osservati\nSoggetti e intervento presenti nel testo",
+          "kind": "controllo",
+          "detail": "Verificare gli argomenti osservati\nSoggetti e intervento presenti nel testo",
+          "shape": "box"
+        },
+        {
+          "id": "famiglia",
+          "title": "Quale famiglia di relazione?",
+          "kind": "controllo",
+          "detail": "La policy di supporto dipende dalla famiglia.",
+          "shape": "diamond"
+        },
+        {
+          "id": "altri",
+          "title": "Altre famiglie\nValutare campi e relazione secondo policy",
+          "kind": "codice",
+          "detail": "Altre famiglie\nValutare campi e relazione secondo policy",
+          "shape": "box"
+        },
+        {
+          "id": "struttura",
+          "title": "EVIDENCE_DRUG\nIdentità, provenienza e legami strutturali",
+          "kind": "controllo",
+          "detail": "EVIDENCE_DRUG\nIdentità, provenienza e legami strutturali",
+          "shape": "box"
+        },
+        {
+          "id": "semantica",
+          "title": "Solo con struttura PASS\nConfronto semantico relazione ↔ fonte",
+          "kind": "modello",
+          "detail": "Solo con struttura PASS\nConfronto semantico relazione ↔ fonte",
+          "shape": "box"
+        },
+        {
+          "id": "fermo",
+          "title": "Struttura incompatibile o non risolta\nSemantica non eseguita",
+          "kind": "limite",
+          "detail": "Struttura incompatibile o non risolta\nSemantica non eseguita",
+          "shape": "box"
+        },
+        {
+          "id": "ammissione",
+          "title": "Applicare la regola di ammissione\nSupporto pieno/parziale · contraddizione\nNessun supporto · insufficiente/non verificabile",
+          "kind": "risultato",
+          "detail": "Applicare la regola di ammissione\nSupporto pieno/parziale · contraddizione\nNessun supporto · insufficiente/non verificabile",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "citazione",
+          "letterale",
+          "testo e origine"
+        ],
+        [
+          "letterale",
+          "osservazione",
+          "citazione autentica"
+        ],
+        [
+          "osservazione",
+          "famiglia",
+          "osservazione ammessa"
+        ],
+        [
+          "famiglia",
+          "altri",
+          "altra famiglia"
+        ],
+        [
+          "famiglia",
+          "struttura",
+          "EVIDENCE_DRUG"
+        ],
+        [
+          "struttura",
+          "semantica",
+          "PASS"
+        ],
+        [
+          "struttura",
+          "fermo",
+          "incompatibile o incerta"
+        ],
+        [
+          "altri",
+          "ammissione",
+          "valutazione"
+        ],
+        [
+          "semantica",
+          "ammissione",
+          "confronto + regole"
+        ]
+      ],
+      "ranks": [
+        [
+          "altri",
+          "struttura"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "dossier": {
+      "nodes": [
+        {
+          "id": "paper",
+          "title": "Pubblicazioni\nOsservazioni, citazioni e controlli",
+          "kind": "dato",
+          "detail": "Pubblicazioni\nOsservazioni, citazioni e controlli",
+          "shape": "box"
+        },
+        {
+          "id": "registri",
+          "title": "Registri di studio\nInformazioni e limiti di eleggibilità",
+          "kind": "dato",
+          "detail": "Registri di studio\nInformazioni e limiti di eleggibilità",
+          "shape": "box"
+        },
+        {
+          "id": "grafo",
+          "title": "Solo Knowledge Graph\nRelazioni e provenienza",
+          "kind": "dato",
+          "detail": "Solo Knowledge Graph\nRelazioni e provenienza",
+          "shape": "box"
+        },
+        {
+          "id": "aggregare",
+          "title": "Aggregare osservazioni per relazione\nConservare supporto, conflitti e incertezze",
+          "kind": "codice",
+          "detail": "Aggregare osservazioni per relazione\nConservare supporto, conflitti e incertezze",
+          "shape": "box"
+        },
+        {
+          "id": "sezioni",
+          "title": "Costruire le sezioni del dossier\nRelazione + fonte + osservazione\nControlli + limiti",
+          "kind": "codice",
+          "detail": "Costruire le sezioni del dossier\nRelazione + fonte + osservazione\nControlli + limiti",
+          "shape": "box"
+        },
+        {
+          "id": "accounting",
+          "title": "Confrontare risultati e lavoro svolto\nRendere visibili omissioni e attività non eseguite",
+          "kind": "controllo",
+          "detail": "Confrontare risultati e lavoro svolto\nRendere visibili omissioni e attività non eseguite",
+          "shape": "box"
+        },
+        {
+          "id": "dossier",
+          "title": "Dossier di riferimento\nGià disponibile prima della spiegazione",
+          "kind": "risultato",
+          "detail": "Dossier di riferimento\nGià disponibile prima della spiegazione",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "paper",
+          "aggregare",
+          "tutte le osservazioni"
+        ],
+        [
+          "aggregare",
+          "sezioni",
+          "esito documentale della relazione"
+        ],
+        [
+          "registri",
+          "sezioni",
+          "contesto di studio"
+        ],
+        [
+          "grafo",
+          "sezioni",
+          "origine nel grafo"
+        ],
+        [
+          "sezioni",
+          "accounting",
+          "voci del dossier"
+        ],
+        [
+          "accounting",
+          "dossier",
+          "contenuto riconciliato"
+        ]
+      ],
+      "ranks": [
+        [
+          "paper",
+          "registri",
+          "grafo"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "narratore": {
+      "nodes": [
+        {
+          "id": "dossier",
+          "title": "Dossier già costruito",
+          "kind": "dato",
+          "detail": "Dossier già costruito",
+          "shape": "box"
+        },
+        {
+          "id": "catalogo",
+          "title": "Proiettare i fatti in un catalogo\nVarianti di testo autorizzate",
+          "kind": "codice",
+          "detail": "Proiettare i fatti in un catalogo\nVarianti di testo autorizzate",
+          "shape": "box"
+        },
+        {
+          "id": "piano",
+          "title": "Modello: scegliere le formulazioni\nUn piano, non nuove conclusioni",
+          "kind": "modello",
+          "detail": "Modello: scegliere le formulazioni\nUn piano, non nuove conclusioni",
+          "shape": "box"
+        },
+        {
+          "id": "validare",
+          "title": "Validare identità, ordine e copertura\nTutte le scelte appartengono al catalogo?",
+          "kind": "controllo",
+          "detail": "Validare identità, ordine e copertura\nTutte le scelte appartengono al catalogo?",
+          "shape": "box"
+        },
+        {
+          "id": "comporre",
+          "title": "Comporre il testo dal piano valido",
+          "kind": "codice",
+          "detail": "Comporre il testo dal piano valido",
+          "shape": "box"
+        },
+        {
+          "id": "alternativa",
+          "title": "Piano inutilizzabile\nUsare il piano deterministico alternativo",
+          "kind": "codice",
+          "detail": "Piano inutilizzabile\nUsare il piano deterministico alternativo",
+          "shape": "box"
+        },
+        {
+          "id": "testo",
+          "title": "Testo proposto per la verifica finale",
+          "kind": "risultato",
+          "detail": "Testo proposto per la verifica finale",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "dossier",
+          "catalogo",
+          "fatti e limiti"
+        ],
+        [
+          "catalogo",
+          "piano",
+          "varianti disponibili"
+        ],
+        [
+          "piano",
+          "validare",
+          "scelte"
+        ],
+        [
+          "validare",
+          "comporre",
+          "piano valido"
+        ],
+        [
+          "validare",
+          "alternativa",
+          "piano non valido"
+        ],
+        [
+          "comporre",
+          "testo",
+          "testo realizzato"
+        ],
+        [
+          "alternativa",
+          "testo",
+          "alternativa realizzata"
+        ]
+      ],
+      "ranks": [
+        [
+          "comporre",
+          "alternativa"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "fedelta": {
+      "nodes": [
+        {
+          "id": "dossier",
+          "title": "Dossier di riferimento",
+          "kind": "dato",
+          "detail": "Dossier di riferimento",
+          "shape": "box"
+        },
+        {
+          "id": "ricostruire",
+          "title": "Ricostruire catalogo e testo atteso\nIndipendentemente dalla proposta",
+          "kind": "codice",
+          "detail": "Ricostruire catalogo e testo atteso\nIndipendentemente dalla proposta",
+          "shape": "box"
+        },
+        {
+          "id": "proposta",
+          "title": "Testo e piano proposti\nDal modello o dall’alternativa",
+          "kind": "dato",
+          "detail": "Testo e piano proposti\nDal modello o dall’alternativa",
+          "shape": "box"
+        },
+        {
+          "id": "piano",
+          "title": "Verificare piano, identità e copertura",
+          "kind": "controllo",
+          "detail": "Verificare piano, identità e copertura",
+          "shape": "box"
+        },
+        {
+          "id": "confronto",
+          "title": "Confrontare i campi del testo\nContenuto e ordine coincidono?",
+          "kind": "controllo",
+          "detail": "Il confronto riguarda i campi autorevoli della presentazione.",
+          "shape": "diamond"
+        },
+        {
+          "id": "fedele",
+          "title": "Spiegazione fedele al dossier\nUtilizzabile con gli stessi limiti",
+          "kind": "risultato",
+          "detail": "Spiegazione fedele al dossier\nUtilizzabile con gli stessi limiti",
+          "shape": "box"
+        },
+        {
+          "id": "rifiuto",
+          "title": "Testo non verificato\nIl dossier resta il riferimento",
+          "kind": "limite",
+          "detail": "Testo non verificato\nIl dossier resta il riferimento",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "dossier",
+          "ricostruire",
+          "fatti autorevoli"
+        ],
+        [
+          "proposta",
+          "piano",
+          "piano e testo"
+        ],
+        [
+          "piano",
+          "confronto",
+          "piano verificato"
+        ],
+        [
+          "ricostruire",
+          "confronto",
+          "testo atteso"
+        ],
+        [
+          "confronto",
+          "fedele",
+          "coincidono"
+        ],
+        [
+          "confronto",
+          "rifiuto",
+          "differiscono"
+        ]
+      ],
+      "ranks": [],
+      "direction": "TB"
+    },
+    "input": {
+      "nodes": [
+        {
+          "id": "testo",
+          "title": "Testo clinico originale\nDescrizione e domanda da approfondire",
+          "kind": "dato",
+          "detail": "Testo clinico originale\nDescrizione e domanda da approfondire",
+          "shape": "box"
+        },
+        {
+          "id": "inizio",
+          "title": "Aprire l’analisi\nCollegare il lavoro al caso",
+          "kind": "codice",
+          "detail": "Aprire l’analisi\nCollegare il lavoro al caso",
+          "shape": "box"
+        },
+        {
+          "id": "risorse",
+          "title": "Inizializzare il budget\nLimiti delle chiamate ai modelli",
+          "kind": "codice",
+          "detail": "Inizializzare il budget\nLimiti delle chiamate ai modelli",
+          "shape": "box"
+        },
+        {
+          "id": "registrazione",
+          "title": "Registrare avvio e avanzamento\nConservare il testo originale",
+          "kind": "codice",
+          "detail": "Registrare avvio e avanzamento\nConservare il testo originale",
+          "shape": "box"
+        },
+        {
+          "id": "parser",
+          "title": "Inviare il testo al Case Parser\nLa lettura strutturata inizia dopo",
+          "kind": "risultato",
+          "detail": "Inviare il testo al Case Parser\nLa lettura strutturata inizia dopo",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "testo",
+          "inizio",
+          "testo invariato"
+        ],
+        [
+          "inizio",
+          "risorse",
+          "impostazioni"
+        ],
+        [
+          "risorse",
+          "registrazione",
+          "contesto del lavoro"
+        ],
+        [
+          "registrazione",
+          "parser",
+          "testo + caso"
+        ]
+      ],
+      "ranks": [],
+      "direction": "TB"
+    },
+    "parser": {
+      "nodes": [
+        {
+          "id": "testo",
+          "title": "Testo clinico\n«Melanoma metastatico … BRAF V600K»",
+          "kind": "dato",
+          "detail": "Testo clinico\n«Melanoma metastatico … BRAF V600K»",
+          "shape": "box"
+        },
+        {
+          "id": "richiesta",
+          "title": "Richiesta di estrazione\nCampi attesi + citazioni obbligatorie",
+          "kind": "codice",
+          "detail": "Richiesta di estrazione\nCampi attesi + citazioni obbligatorie",
+          "shape": "box"
+        },
+        {
+          "id": "modello",
+          "title": "Case Parser · modello linguistico\nPropone valori e riferimenti al testo",
+          "kind": "modello",
+          "detail": "Case Parser · modello linguistico\nPropone valori e riferimenti al testo",
+          "shape": "box"
+        },
+        {
+          "id": "schema",
+          "title": "Risposta nello schema richiesto?",
+          "kind": "controllo",
+          "detail": "Controllo del formato e degli argomenti della risposta.",
+          "shape": "diamond"
+        },
+        {
+          "id": "campi",
+          "title": "Caso strutturato proposto\nMalattia: melanoma metastatico\nBiomarcatore: gene BRAF, variante V600K\nIntervento cercato: dabrafenib e trametinib",
+          "kind": "risultato",
+          "detail": "Caso strutturato proposto\nMalattia: melanoma metastatico\nBiomarcatore: gene BRAF, variante V600K\nIntervento cercato: dabrafenib e trametinib",
+          "shape": "box"
+        },
+        {
+          "id": "errore",
+          "title": "Risposta inutilizzabile\nNessun caso estratto da inviare alla ricerca",
+          "kind": "limite",
+          "detail": "Risposta inutilizzabile\nNessun caso estratto da inviare alla ricerca",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "testo",
+          "richiesta",
+          "testo"
+        ],
+        [
+          "richiesta",
+          "modello",
+          "istruzioni + schema"
+        ],
+        [
+          "modello",
+          "schema",
+          "risposta"
+        ],
+        [
+          "schema",
+          "campi",
+          "valida"
+        ],
+        [
+          "schema",
+          "errore",
+          "non valida"
+        ]
+      ],
+      "ranks": [],
+      "direction": "TB"
+    },
+    "ancoraggio": {
+      "nodes": [
+        {
+          "id": "campo",
+          "title": "Valore del parser + citazione\nEsempio: variante V600K, citazione «V600K»",
+          "kind": "dato",
+          "detail": "Valore del parser + citazione\nEsempio: variante V600K, citazione «V600K»",
+          "shape": "box"
+        },
+        {
+          "id": "originale",
+          "title": "Testo clinico originale",
+          "kind": "dato",
+          "detail": "Testo clinico originale",
+          "shape": "box"
+        },
+        {
+          "id": "ricerca",
+          "title": "Cercare la citazione letterale\nContare le occorrenze nel testo",
+          "kind": "codice",
+          "detail": "Cercare la citazione letterale\nContare le occorrenze nel testo",
+          "shape": "box"
+        },
+        {
+          "id": "posizione",
+          "title": "Ricostruire o disambiguare la posizione\nGli offset aiutano solo se coerenti",
+          "kind": "codice",
+          "detail": "Ricostruire o disambiguare la posizione\nGli offset aiutano solo se coerenti",
+          "shape": "box"
+        },
+        {
+          "id": "valore",
+          "title": "Confrontare valore e citazione\nControllare separatamente gene e variante",
+          "kind": "controllo",
+          "detail": "Confrontare valore e citazione\nControllare separatamente gene e variante",
+          "shape": "box"
+        },
+        {
+          "id": "esiti",
+          "title": "Campo ancorato · non corrispondente · incerto\nCampo non valorizzato → assente",
+          "kind": "risultato",
+          "detail": "Campo ancorato · non corrispondente · incerto\nCampo non valorizzato → assente",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "campo",
+          "ricerca",
+          "citazione proposta"
+        ],
+        [
+          "originale",
+          "ricerca",
+          "testo autorevole"
+        ],
+        [
+          "ricerca",
+          "posizione",
+          "occorrenze"
+        ],
+        [
+          "posizione",
+          "valore",
+          "citazione localizzata"
+        ],
+        [
+          "valore",
+          "esiti",
+          "esito per campo"
+        ]
+      ],
+      "ranks": [
+        [
+          "campo",
+          "originale"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "ammissibilita": {
+      "nodes": [
+        {
+          "id": "menzioni",
+          "title": "Menzioni ancorate al testo\nTipo, ruolo e stato dell’asserzione",
+          "kind": "dato",
+          "detail": "Menzioni ancorate al testo\nTipo, ruolo e stato dell’asserzione",
+          "shape": "box"
+        },
+        {
+          "id": "semantica",
+          "title": "Verifiche deterministiche sulle menzioni\nNegazione · ruolo clinico · tipo di entità",
+          "kind": "controllo",
+          "detail": "Verifiche deterministiche sulle menzioni\nNegazione · ruolo clinico · tipo di entità",
+          "shape": "box"
+        },
+        {
+          "id": "contraddizioni",
+          "title": "Rilevare contraddizioni\nSeparare istruzioni e fatti clinici",
+          "kind": "controllo",
+          "detail": "Rilevare contraddizioni\nSeparare istruzioni e fatti clinici",
+          "shape": "box"
+        },
+        {
+          "id": "sufficienza",
+          "title": "Dati sufficienti per questa domanda?\nValutazione di terapia → intervento richiesto",
+          "kind": "controllo",
+          "detail": "Il controllo dipende dall’intento dichiarato.",
+          "shape": "diamond"
+        },
+        {
+          "id": "ammesso",
+          "title": "Proiettare solo i fatti accettati\nIl recupero GCA può iniziare",
+          "kind": "risultato",
+          "detail": "Proiettare solo i fatti accettati\nIl recupero GCA può iniziare",
+          "shape": "box"
+        },
+        {
+          "id": "fermo",
+          "title": "Recupero non avviato\nDati mancanti, ambigui, fuori ambito\no contraddittori: motivo esplicito",
+          "kind": "limite",
+          "detail": "Recupero non avviato\nDati mancanti, ambigui, fuori ambito\no contraddittori: motivo esplicito",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "menzioni",
+          "semantica",
+          "menzioni"
+        ],
+        [
+          "semantica",
+          "contraddizioni",
+          "menzioni accettate o escluse"
+        ],
+        [
+          "contraddizioni",
+          "sufficienza",
+          "fatti + intento"
+        ],
+        [
+          "sufficienza",
+          "ammesso",
+          "sì"
+        ],
+        [
+          "sufficienza",
+          "fermo",
+          "no"
+        ]
+      ],
+      "ranks": [],
+      "direction": "TB"
+    },
+    "piano": {
+      "nodes": [
+        {
+          "id": "menzioni",
+          "title": "Fatti accettati del caso\nMalattia · biomarcatori · intervento",
+          "kind": "dato",
+          "detail": "Fatti accettati del caso\nMalattia · biomarcatori · intervento",
+          "shape": "box"
+        },
+        {
+          "id": "proiezione",
+          "title": "Proiezione per il recupero\nEscludere le menzioni non accettate",
+          "kind": "codice",
+          "detail": "Proiezione per il recupero\nEscludere le menzioni non accettate",
+          "shape": "box"
+        },
+        {
+          "id": "malattia",
+          "title": "Risolvere la malattia\nConcetto ontologico + contesto separato",
+          "kind": "codice",
+          "detail": "Risolvere la malattia\nConcetto ontologico + contesto separato",
+          "shape": "box"
+        },
+        {
+          "id": "gene",
+          "title": "Risolvere il gene\nNome o sinonimo → identità del gene",
+          "kind": "codice",
+          "detail": "Risolvere il gene\nNome o sinonimo → identità del gene",
+          "shape": "box"
+        },
+        {
+          "id": "variante",
+          "title": "Risolvere la variante nel suo gene\nConservare la coppia gene–variante",
+          "kind": "codice",
+          "detail": "Risolvere la variante nel suo gene\nConservare la coppia gene–variante",
+          "shape": "box"
+        },
+        {
+          "id": "intervento",
+          "title": "Cercare nomi e alias dell’intervento\nNon forzare un’identità assente",
+          "kind": "codice",
+          "detail": "Cercare nomi e alias dell’intervento\nNon forzare un’identità assente",
+          "shape": "box"
+        },
+        {
+          "id": "contesto",
+          "title": "Contesto di ricerca\nValori originali + identità + stati\nContesto di malattia e coppie molecolari",
+          "kind": "risultato",
+          "detail": "Contesto di ricerca\nValori originali + identità + stati\nContesto di malattia e coppie molecolari",
+          "shape": "box"
+        },
+        {
+          "id": "nonrisolti",
+          "title": "Nomi non risolti o ambigui\nRestano dichiarati, senza equivalenze inventate",
+          "kind": "limite",
+          "detail": "Nomi non risolti o ambigui\nRestano dichiarati, senza equivalenze inventate",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "menzioni",
+          "proiezione",
+          "solo dati accettati"
+        ],
+        [
+          "proiezione",
+          "malattia",
+          "malattia"
+        ],
+        [
+          "proiezione",
+          "gene",
+          "biomarcatore"
+        ],
+        [
+          "gene",
+          "variante",
+          "gene riconosciuto + alterazione"
+        ],
+        [
+          "proiezione",
+          "intervento",
+          "intervento cercato"
+        ],
+        [
+          "malattia",
+          "contesto",
+          "concetto + contesto"
+        ],
+        [
+          "variante",
+          "contesto",
+          "gene + variante"
+        ],
+        [
+          "intervento",
+          "contesto",
+          "identità o valore originale"
+        ],
+        [
+          "intervento",
+          "nonrisolti",
+          "nome non riconosciuto"
+        ],
+        [
+          "nonrisolti",
+          "contesto",
+          "stato conservato"
+        ]
+      ],
+      "ranks": [
+        [
+          "malattia",
+          "gene",
+          "intervento"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "risoluzione": {
+      "nodes": [
+        {
+          "id": "id",
+          "title": "Riferimento nell’associazione\nPubMed, PMC o registro NCT",
+          "kind": "dato",
+          "detail": "Riferimento nell’associazione\nPubMed, PMC o registro NCT",
+          "shape": "box"
+        },
+        {
+          "id": "cache",
+          "title": "Esiste una copia utilizzabile?",
+          "kind": "controllo",
+          "detail": "Prima si consulta il contenuto locale disponibile.",
+          "shape": "diamond"
+        },
+        {
+          "id": "copia",
+          "title": "Caricare la copia della fonte",
+          "kind": "codice",
+          "detail": "Caricare la copia della fonte",
+          "shape": "box"
+        },
+        {
+          "id": "remoto",
+          "title": "Tentare il recupero autorizzato\nSolo se la copia manca",
+          "kind": "codice",
+          "detail": "Tentare il recupero autorizzato\nSolo se la copia manca",
+          "shape": "box"
+        },
+        {
+          "id": "contenuto",
+          "title": "Contenuto con identità della fonte\nTesto completo · abstract · registro",
+          "kind": "risultato",
+          "detail": "Contenuto con identità della fonte\nTesto completo · abstract · registro",
+          "shape": "box"
+        },
+        {
+          "id": "indisponibile",
+          "title": "Contenuto non disponibile\nIl riferimento non diventa prova letta",
+          "kind": "limite",
+          "detail": "Contenuto non disponibile\nIl riferimento non diventa prova letta",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "id",
+          "cache",
+          "riferimento"
+        ],
+        [
+          "cache",
+          "copia",
+          "sì"
+        ],
+        [
+          "cache",
+          "remoto",
+          "no"
+        ],
+        [
+          "copia",
+          "contenuto",
+          "contenuto disponibile"
+        ],
+        [
+          "remoto",
+          "contenuto",
+          "fonte raggiunta"
+        ],
+        [
+          "remoto",
+          "indisponibile",
+          "recupero fallito"
+        ]
+      ],
+      "ranks": [
+        [
+          "copia",
+          "remoto"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "unita": {
+      "nodes": [
+        {
+          "id": "documento",
+          "title": "Contenuto risolto + formato\nArticolo, abstract, PDF o registro",
+          "kind": "dato",
+          "detail": "Contenuto risolto + formato\nArticolo, abstract, PDF o registro",
+          "shape": "box"
+        },
+        {
+          "id": "parsing",
+          "title": "Interpretare la struttura del documento",
+          "kind": "codice",
+          "detail": "Interpretare la struttura del documento",
+          "shape": "box"
+        },
+        {
+          "id": "segmenti",
+          "title": "Estrarre unità della fonte\nFrasi · paragrafi · tabelle · didascalie",
+          "kind": "codice",
+          "detail": "Estrarre unità della fonte\nFrasi · paragrafi · tabelle · didascalie",
+          "shape": "box"
+        },
+        {
+          "id": "posizioni",
+          "title": "Associare documento e posizione\nSezione, frase o pagina disponibili",
+          "kind": "codice",
+          "detail": "Associare documento e posizione\nSezione, frase o pagina disponibili",
+          "shape": "box"
+        },
+        {
+          "id": "occorrenze",
+          "title": "Distinguere le occorrenze\nTesto uguale non implica stessa posizione",
+          "kind": "codice",
+          "detail": "Distinguere le occorrenze\nTesto uguale non implica stessa posizione",
+          "shape": "box"
+        },
+        {
+          "id": "unita",
+          "title": "Unità selezionabili e citabili\nTesto + fonte + posizione",
+          "kind": "risultato",
+          "detail": "Unità selezionabili e citabili\nTesto + fonte + posizione",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "documento",
+          "parsing",
+          "formato"
+        ],
+        [
+          "parsing",
+          "segmenti",
+          "struttura"
+        ],
+        [
+          "segmenti",
+          "posizioni",
+          "testo"
+        ],
+        [
+          "posizioni",
+          "occorrenze",
+          "origine"
+        ],
+        [
+          "occorrenze",
+          "unita",
+          "unità identificabili"
+        ]
+      ],
+      "ranks": [],
+      "direction": "TB"
+    },
+    "gates": {
+      "nodes": [
+        {
+          "id": "validazioni",
+          "title": "Esiti delle osservazioni\nValidazione e supporto alla relazione",
+          "kind": "dato",
+          "detail": "Esiti delle osservazioni\nValidazione e supporto alla relazione",
+          "shape": "box"
+        },
+        {
+          "id": "filtro",
+          "title": "Adattatore di ammissione al gate\nEsito accettato + supporto forte/pieno",
+          "kind": "controllo",
+          "detail": "Adattatore di ammissione al gate\nEsito accettato + supporto forte/pieno",
+          "shape": "box"
+        },
+        {
+          "id": "intento",
+          "title": "Quale intento della domanda?",
+          "kind": "controllo",
+          "detail": "Ricerca di interventi o valutazione di un intervento.",
+          "shape": "diamond"
+        },
+        {
+          "id": "scoperta",
+          "title": "Ricerca di interventi\nClassificare come relazione scoperta",
+          "kind": "codice",
+          "detail": "Ricerca di interventi\nClassificare come relazione scoperta",
+          "shape": "box"
+        },
+        {
+          "id": "valutazione",
+          "title": "Valutazione dell’intervento\nConfrontare direzione e osservazioni ammesse",
+          "kind": "codice",
+          "detail": "Valutazione dell’intervento\nConfrontare direzione e osservazioni ammesse",
+          "shape": "box"
+        },
+        {
+          "id": "assenza",
+          "title": "Nessuna osservazione ammessa\nDirezione senza segnale documentale",
+          "kind": "limite",
+          "detail": "Nessuna osservazione ammessa\nDirezione senza segnale documentale",
+          "shape": "box"
+        },
+        {
+          "id": "esito",
+          "title": "Esito deterministico della relazione\nStato, dimensioni controllate e avvisi",
+          "kind": "risultato",
+          "detail": "Esito deterministico della relazione\nStato, dimensioni controllate e avvisi",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "validazioni",
+          "filtro",
+          "esiti originali conservati"
+        ],
+        [
+          "filtro",
+          "intento",
+          "osservazioni ammesse"
+        ],
+        [
+          "intento",
+          "scoperta",
+          "ricerca"
+        ],
+        [
+          "intento",
+          "valutazione",
+          "valutazione"
+        ],
+        [
+          "valutazione",
+          "assenza",
+          "nessuna osservazione valida"
+        ],
+        [
+          "scoperta",
+          "esito",
+          "relazione scoperta"
+        ],
+        [
+          "valutazione",
+          "esito",
+          "concordanza, conflitto o incertezza"
+        ],
+        [
+          "assenza",
+          "esito",
+          "esito ambiguo"
+        ]
+      ],
+      "ranks": [
+        [
+          "scoperta",
+          "valutazione"
+        ]
+      ],
+      "direction": "TB"
+    },
+    "status": {
+      "nodes": [
+        {
+          "id": "valutazioni",
+          "title": "Valutazioni deterministiche\nUna per associazione",
+          "kind": "dato",
+          "detail": "Valutazioni deterministiche\nUna per associazione",
+          "shape": "box"
+        },
+        {
+          "id": "stati",
+          "title": "Esporre lo stato della relazione\nDiretta, parziale, contraddetta o ambigua",
+          "kind": "codice",
+          "detail": "Esporre lo stato della relazione\nDiretta, parziale, contraddetta o ambigua",
+          "shape": "box"
+        },
+        {
+          "id": "avvisi",
+          "title": "Associare avvisi e motivi\nPer esempio: nessun segnale documentale",
+          "kind": "codice",
+          "detail": "Associare avvisi e motivi\nPer esempio: nessun segnale documentale",
+          "shape": "box"
+        },
+        {
+          "id": "statoanalisi",
+          "title": "Stato del lavoro\nCompletato, parziale o interrotto",
+          "kind": "dato",
+          "detail": "Stato del lavoro\nCompletato, parziale o interrotto",
+          "shape": "box"
+        },
+        {
+          "id": "risultati",
+          "title": "Risultati consultabili\nRelazione + stato + motivo\nStato del lavoro esposto separatamente",
+          "kind": "risultato",
+          "detail": "Risultati consultabili\nRelazione + stato + motivo\nStato del lavoro esposto separatamente",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "valutazioni",
+          "stati",
+          "esiti già calcolati"
+        ],
+        [
+          "stati",
+          "avvisi",
+          "stato e raggruppamento"
+        ],
+        [
+          "avvisi",
+          "risultati",
+          "motivi conservati"
+        ],
+        [
+          "statoanalisi",
+          "risultati",
+          "avanzamento, non supporto scientifico"
+        ]
+      ],
+      "ranks": [],
+      "direction": "TB"
+    },
+    "runtime": {
+      "nodes": [
+        {
+          "id": "orchestratore",
+          "title": "Orchestratore\nOrdine e avanzamento dei passaggi",
+          "kind": "codice",
+          "detail": "Orchestratore\nOrdine e avanzamento dei passaggi",
+          "shape": "box"
+        },
+        {
+          "id": "budget",
+          "title": "Prima di chiamare un modello\nVerificare il budget disponibile",
+          "kind": "controllo",
+          "detail": "Prima di chiamare un modello\nVerificare il budget disponibile",
+          "shape": "box"
+        },
+        {
+          "id": "chiamata",
+          "title": "Eseguire la chiamata consentita\nParser, Reader, confronto o narratore",
+          "kind": "modello",
+          "detail": "Eseguire la chiamata consentita\nParser, Reader, confronto o narratore",
+          "shape": "box"
+        },
+        {
+          "id": "risorse",
+          "title": "Budget esaurito o chiamata fallita\nNon inventare l’operazione mancante",
+          "kind": "limite",
+          "detail": "Budget esaurito o chiamata fallita\nNon inventare l’operazione mancante",
+          "shape": "box"
+        },
+        {
+          "id": "eventi",
+          "title": "Registrare esiti e lavoro non eseguito\nPreservare l’origine delle operazioni",
+          "kind": "codice",
+          "detail": "Registrare esiti e lavoro non eseguito\nPreservare l’origine delle operazioni",
+          "shape": "box"
+        },
+        {
+          "id": "consultazione",
+          "title": "Stato del lavoro consultabile\nSeparato dal supporto scientifico",
+          "kind": "risultato",
+          "detail": "Stato del lavoro consultabile\nSeparato dal supporto scientifico",
+          "shape": "box"
+        }
+      ],
+      "edges": [
+        [
+          "orchestratore",
+          "budget",
+          "attività che richiede un modello"
+        ],
+        [
+          "budget",
+          "chiamata",
+          "risorse disponibili"
+        ],
+        [
+          "budget",
+          "risorse",
+          "risorse non disponibili"
+        ],
+        [
+          "chiamata",
+          "eventi",
+          "esito della chiamata"
+        ],
+        [
+          "risorse",
+          "eventi",
+          "motivo e attività mancanti"
+        ],
+        [
+          "orchestratore",
+          "eventi",
+          "avanzamento dei passaggi"
+        ],
+        [
+          "eventi",
+          "consultazione",
+          "lavoro realmente svolto"
+        ]
+      ],
+      "ranks": [],
+      "direction": "TB"
+    }
+  },
+  "bypass": {
+    "nodes": [
+      {
+        "id": "associazione",
+        "title": "Associazione nel Knowledge Graph",
+        "kind": "dato",
+        "detail": "Il collegamento FoundationOne CDx–BRAF è presente nella conoscenza."
+      },
+      {
+        "id": "assenza",
+        "title": "Nessun documento associato",
+        "kind": "controllo",
+        "detail": "Per questo collegamento non sono disponibili riferimenti a una pubblicazione o a uno studio."
+      },
+      {
+        "id": "origine",
+        "title": "Origine conservata",
+        "kind": "risultato",
+        "detail": "Il sistema non simula la lettura di un documento assente."
+      },
+      {
+        "id": "dossier",
+        "title": "Informazione nel dossier",
+        "kind": "risultato",
+        "detail": "L’associazione rimane consultabile con il proprio limite."
+      }
+    ],
+    "edges": [
+      [
+        "associazione",
+        "assenza",
+        ""
+      ],
+      [
+        "assenza",
+        "origine",
+        ""
+      ],
+      [
+        "origine",
+        "dossier",
+        ""
+      ]
+    ]
+  }
+}

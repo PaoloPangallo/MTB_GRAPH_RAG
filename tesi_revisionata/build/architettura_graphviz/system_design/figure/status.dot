@@ -1,0 +1,14 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Rendere leggibili gli esiti", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"valutazioni" [id="node-valutazioni", shape="box", label="Valutazioni deterministiche\nUna per associazione", fillcolor="#EAF0F5", tooltip="Valutazioni deterministiche\nUna per associazione"];
+"stati" [id="node-stati", shape="box", label="Esporre lo stato della relazione\nDiretta, parziale, contraddetta o ambigua", fillcolor="#E8F4F0", tooltip="Esporre lo stato della relazione\nDiretta, parziale, contraddetta o ambigua"];
+"avvisi" [id="node-avvisi", shape="box", label="Associare avvisi e motivi\nPer esempio: nessun segnale documentale", fillcolor="#E8F4F0", tooltip="Associare avvisi e motivi\nPer esempio: nessun segnale documentale"];
+"statoanalisi" [id="node-statoanalisi", shape="box", label="Stato del lavoro\nCompletato, parziale o interrotto", fillcolor="#EAF0F5", tooltip="Stato del lavoro\nCompletato, parziale o interrotto"];
+"risultati" [id="node-risultati", shape="box", label="Risultati consultabili\nRelazione + stato + motivo\nStato del lavoro esposto separatamente", fillcolor="#E6F3EC", tooltip="Risultati consultabili\nRelazione + stato + motivo\nStato del lavoro esposto separatamente"];
+"valutazioni" -> "stati" [label="esiti già calcolati", style="solid"];
+"stati" -> "avvisi" [label="stato e raggruppamento", style="solid"];
+"avvisi" -> "risultati" [label="motivi conservati", style="solid"];
+"statoanalisi" -> "risultati" [label="avanzamento, non supporto\nscientifico", style="solid"];
+}

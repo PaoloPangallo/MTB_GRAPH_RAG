@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Come funziona l’architettura: passaggi spiegati in modo chiaro, con esempi verificati nel Knowledge Graph del sistema.">
+  <title>Come funziona l’architettura — MTB</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">m</span><span>MTB <span class="brand-separator">/</span> <span class="brand-name">Come funziona</span></span></div>
+    <div class="top-actions">
+      <label class="profile-control">Esempio da seguire
+        <select id="example"><option value="melanoma">BRAF · pubblicazione</option><option value="studio">BRAF · registro di studio</option><option value="diagnostica">BRAF · solo grafo</option></select>
+      </label>
+      <a class="dashboard-home" href="Architettura_per_il_relatore.html#panoramica">Dashboard</a>
+      <button id="menu" class="button menu-button" type="button" aria-controls="sidebar" aria-expanded="false">Fasi</button>
+    </div>
+  </header>
+  <div class="layout">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-heading"><h2>Il percorso</h2><span>Architettura attuale</span></div>
+      <label class="search-label" for="search">Cerca una fase</label>
+      <input id="search" class="search" type="search" placeholder="Caso, fonti, dossier…" autocomplete="off">
+      <nav id="navigation" aria-label="Fasi dell’architettura"></nav>
+      <p id="no-results" class="empty-state" hidden>Nessun passaggio corrisponde alla ricerca. Prova un nome o un numero del percorso.</p>
+      <p class="sidebar-foot">Dal caso alle fonti e dalle fonti al dossier.<br>Ogni passaggio conserva ciò che si sa e ciò che rimane da chiarire.</p>
+    </aside>
+    <main id="main" tabindex="-1">
+      <section id="dashboard" class="dashboard" aria-labelledby="dashboard-title">
+        <div class="dashboard-heading">
+          <h2 id="dashboard-title">Esplora il sistema</h2>
+          <p>Segui il percorso dal caso al dossier, esamina le fonti e scopri come vengono usati e verificati i modelli.</p>
+        </div>
+        <div class="dashboard-start">
+          <a class="dashboard-feature" href="#macro-caso">
+            <h3>Dal caso alla spiegazione</h3>
+            <p>Sei macrofasi e un esempio BRAF che mostra come cambiano le informazioni. I diciotto passaggi approfondiscono i singoli componenti.</p>
+            <span class="dashboard-action">Inizia il percorso <span aria-hidden="true">→</span></span>
+          </a>
+          <div class="dashboard-reading">
+            <a class="dashboard-entry" href="Architettura_per_il_relatore_breve.html">
+              <h3>Lettura breve per il relatore</h3>
+              <p>Le sei macrofasi e l’esempio trasversale in una versione essenziale.</p>
+              <span class="dashboard-action">Apri la lettura breve <span aria-hidden="true">→</span></span>
+            </a>
+            <button id="download-brief" class="dashboard-download" type="button">Scarica il PDF dell’esempio selezionato</button>
+          </div>
+        </div>
+        <nav class="dashboard-path" aria-label="Le sei macrofasi">
+          <a href="#macro-caso"><span>1</span> Comprensione del caso</a>
+          <a href="#macro-recupero"><span>2</span> Recupero GCA</a>
+          <a href="#macro-fonti"><span>3</span> Analisi delle fonti</a>
+          <a href="#macro-verifiche"><span>4</span> Verifiche</a>
+          <a href="#macro-dossier"><span>5</span> Dossier</a>
+          <a href="#macro-presentazione"><span>6</span> Presentazione</a>
+        </nav>
+        <div class="dashboard-sections">
+          <section class="dashboard-group" aria-labelledby="dashboard-data">
+            <h3 id="dashboard-data">Esaminare i dati</h3>
+            <a class="dashboard-entry" href="Audit_GCA_per_il_relatore.html">
+              <h4>Associazioni candidate · GCA</h4>
+              <p>Struttura delle relazioni, provenienza e statistiche del corpus.</p>
+              <span class="dashboard-action">Esplora le GCA <span aria-hidden="true">→</span></span>
+            </a>
+            <a class="dashboard-entry" href="Audit_paper_NCT_per_il_relatore.html">
+              <h4>Pubblicazioni e registri degli studi</h4>
+              <p>Dai riferimenti PubMed e NCT ai metadati e ai contenuti disponibili.</p>
+              <span class="dashboard-action">Esamina le fonti <span aria-hidden="true">→</span></span>
+            </a>
+            <a class="dashboard-entry" href="Audit_source_unit_per_il_relatore.html">
+              <h4>Source unit</h4>
+              <p>Come il sistema rappresenta, localizza e seleziona i passaggi delle fonti.</p>
+              <span class="dashboard-action">Esplora i passaggi <span aria-hidden="true">→</span></span>
+            </a>
+          </section>
+          <section class="dashboard-group" aria-labelledby="dashboard-models">
+            <h3 id="dashboard-models">Comprendere e verificare i modelli</h3>
+            <a class="dashboard-entry" href="Prompt_di_sistema_per_il_relatore.html">
+              <h4>I quattro prompt di sistema</h4>
+              <p>Ruoli, istruzioni, esempi, tool call e posizione dei modelli nell’architettura.</p>
+              <span class="dashboard-action">Leggi i prompt <span aria-hidden="true">→</span></span>
+            </a>
+            <a class="dashboard-entry" href="Prove_narratore_per_il_relatore.html">
+              <h4>Il narratore alla prova</h4>
+              <p>Dieci scenari con le risposte effettive, i controlli superati, i rifiuti e le alterazioni intenzionali.</p>
+              <span class="dashboard-action">Leggi le prove <span aria-hidden="true">→</span></span>
+            </a>
+          </section>
+        </div>
+      </section>
+      <div id="content"></div>
+      <nav id="pagination" class="pagination" aria-label="Navigazione tra le fasi"></nav>
+      <footer class="document-footer"><span>Esempi documentati nel Knowledge Graph e nelle fonti.</span><span>Caso sintetico · nessuna raccomandazione terapeutica</span></footer>
+    </main>
+  </div>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+  <section id="print-book" aria-label="Documento completo per la stampa"></section>
+  <noscript><p class="noscript">Per navigare nelle fasi attiva JavaScript. Il documento funziona localmente e non invia dati a servizi esterni.</p></noscript>
+  <script src="public-data.js"></script>
+  <script src="macro-data.js"></script>
+  <script src="path-views.js"></script>
+  <script src="view-model.js"></script>
+  <script src="assets.js"></script>
+  <script src="examples.js"></script>
+  <script src="journey.js"></script>
+  <script src="macro-ui.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

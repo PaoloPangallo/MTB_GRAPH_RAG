@@ -1,0 +1,19 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Comprensione del caso · Registro di studio clinico", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"testo" [id="macro-node-testo", label="Caso sintetico · estratto\nDiagnosi: melanoma metastatico\nProfilo molecolare: BRAF V600K\nIntervento da cercare: dabrafenib e trametinib", shape="box", fillcolor="#EAF0F5", tooltip="Caso sintetico · estratto\nDiagnosi: melanoma metastatico\nProfilo molecolare: BRAF V600K\nIntervento da cercare: dabrafenib e trametinib"];
+"parser" [id="macro-node-parser", label="Case Parser\nEstrazione con modello linguistico", shape="box", fillcolor="#FBF1DD", tooltip="Case Parser\nEstrazione con modello linguistico"];
+"campi" [id="macro-node-campi", label="Campi estratti\nMalattia = melanoma metastatico\nGene = BRAF · Variante = V600K\nIntervento = dabrafenib e trametinib\nTerapie pregresse = non dichiarate", shape="box", fillcolor="#EAF0F5", tooltip="Campi estratti\nMalattia = melanoma metastatico\nGene = BRAF · Variante = V600K\nIntervento = dabrafenib e trametinib\nTerapie pregresse = non dichiarate"];
+"testo-check" [id="macro-node-testo-check", label="Ancoraggio al testo\nOgni valore ha un riscontro letterale", shape="box", fillcolor="#F0EBF6", tooltip="Ancoraggio al testo\nOgni valore ha un riscontro letterale"];
+"gate" [id="macro-node-gate", label="Informazioni sufficienti\nper la ricerca?", shape="diamond", fillcolor="#F0EBF6", tooltip="Il gate controlla i dati minimi richiesti dalla domanda."];
+"caso" [id="macro-node-caso", label="Caso verificato\nPronto per il recupero GCA", shape="box", fillcolor="#E6F3EC", tooltip="Caso verificato\nPronto per il recupero GCA"];
+"chiarire" [id="macro-node-chiarire", label="Chiarire o fermare\nDati assenti o incoerenti", shape="box", fillcolor="#F8EEE8", tooltip="Chiarire o fermare\nDati assenti o incoerenti"];
+"testo" -> "parser" [label="testo libero", style="solid"];
+"parser" -> "campi" [label="campi proposti", style="solid"];
+"campi" -> "testo-check" [label="valori e citazioni", style="solid"];
+"testo-check" -> "gate" [label="dati controllati", style="solid"];
+"gate" -> "caso" [label="sì", style="solid"];
+"gate" -> "chiarire" [label="no", style="solid"];
+}

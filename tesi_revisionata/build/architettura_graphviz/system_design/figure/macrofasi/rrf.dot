@@ -1,0 +1,19 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Reciprocal Rank Fusion (RRF)", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"passaggi" [id="macro-node-passaggi", label="Passaggi dello stesso documento\nFiltri di ammissibilità prima della fusione", shape="box", fillcolor="#EAF0F5", tooltip="Passaggi dello stesso documento\nFiltri di ammissibilità prima della fusione"];
+"bm25" [id="macro-node-bm25", label="BM25 strutturale\nBM25 × prior di sezione × fattore di sezione\nInizio classifica: A, B, C, D, …", shape="box", fillcolor="#E8F4F0", tooltip="BM25 strutturale\nBM25 × prior di sezione × fattore di sezione\nInizio classifica: A, B, C, D, …"];
+"medcpt" [id="macro-node-medcpt", label="MedCPT\nPertinenza semantica\nInizio classifica: B, C, A, …\nD è oltre i primi 25", shape="box", fillcolor="#FBF1DD", tooltip="MedCPT\nPertinenza semantica\nInizio classifica: B, C, A, …\nD è oltre i primi 25"];
+"fusione" [id="macro-node-fusione", label="Reciprocal Rank Fusion · RRF\nS(u) = Σ 1 / (60 + rango)\nRanghi da 1 · pesi uguali\nFino a 25 elementi per classifica", shape="box", fillcolor="#E8F4F0", tooltip="Reciprocal Rank Fusion · RRF\nS(u) = Σ 1 / (60 + rango)\nRanghi da 1 · pesi uguali\nFino a 25 elementi per classifica"];
+"ordine" [id="macro-node-ordine", label="Punteggi dei passaggi mostrati\nB = 0,03252247\nA = 0,03226646\nC = 0,03200205\nD = 0,01562500", shape="box", fillcolor="#E6F3EC", tooltip="Punteggi dei passaggi mostrati\nB = 0,03252247\nA = 0,03226646\nC = 0,03200205\nD = 0,01562500"];
+"scelta" [id="macro-node-scelta", label="Selezione dei passaggi\nVincoli di sovrapposizione e top-k\nAl Reader: normalmente fino a 5 passaggi", shape="box", fillcolor="#E6F3EC", tooltip="Selezione dei passaggi\nVincoli di sovrapposizione e top-k\nAl Reader: normalmente fino a 5 passaggi"];
+"passaggi" -> "bm25" [label="parole e struttura", style="solid"];
+"passaggi" -> "medcpt" [label="significato", style="solid"];
+"bm25" -> "fusione" [label="posizioni", style="solid"];
+"medcpt" -> "fusione" [label="posizioni", style="solid"];
+"fusione" -> "ordine" [label="somma dei contributi", style="solid"];
+"ordine" -> "scelta" [label="non misura di supporto", style="solid"];
+{rank=same; "bm25"; "medcpt";}
+}

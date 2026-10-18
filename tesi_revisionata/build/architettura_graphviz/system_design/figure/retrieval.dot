@@ -1,0 +1,19 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Trovare le associazioni pertinenti", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"caso" [id="node-caso", shape="box", label="Contesto del caso\nIdentità, coppie molecolari e valori\noriginali", fillcolor="#EAF0F5", tooltip="Contesto del caso\nIdentità, coppie molecolari e valori originali"];
+"gca" [id="node-gca", shape="box", label="Corpus GCA\nRelazioni con argomenti e provenienza", fillcolor="#EAF0F5", tooltip="Corpus GCA\nRelazioni con argomenti e provenienza"];
+"filtri" [id="node-filtri", shape="box", label="Filtrare per compatibilità\nRegole specifiche della famiglia", fillcolor="#F0EBF6", tooltip="Filtrare per compatibilità\nRegole specifiche della famiglia"];
+"escluse" [id="node-escluse", shape="box", label="Relazioni non compatibili\nEscluse con il motivo del confronto", fillcolor="#F8EEE8", tooltip="Relazioni non compatibili\nEscluse con il motivo del confronto"];
+"ordine" [id="node-ordine", shape="box", label="Ordinare le relazioni compatibili\nSpecificità lessicografica", fillcolor="#E8F4F0", tooltip="Ordinare le relazioni compatibili\nSpecificità lessicografica"];
+"gruppi" [id="node-gruppi", shape="box", label="Raggruppare record equivalenti\nApplicare i limiti per famiglia", fillcolor="#E8F4F0", tooltip="Raggruppare record equivalenti\nApplicare i limiti per famiglia"];
+"fonti" [id="node-fonti", shape="box", label="Relazioni da approfondire\nPubblicazione · registro · solo grafo", fillcolor="#E6F3EC", tooltip="Relazioni da approfondire\nPubblicazione · registro · solo grafo"];
+"caso" -> "filtri" [label="domanda", style="solid"];
+"gca" -> "filtri" [label="relazioni", style="solid"];
+"filtri" -> "escluse" [label="incompatibili", style="solid"];
+"filtri" -> "ordine" [label="compatibili", style="solid"];
+"ordine" -> "gruppi" [label="ordine di specificità", style="solid"];
+"gruppi" -> "fonti" [label="relazioni selezionate", style="solid"];
+{rank=same; "caso"; "gca";}
+}

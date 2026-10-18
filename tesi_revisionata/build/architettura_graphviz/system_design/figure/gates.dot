@@ -1,0 +1,21 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Applicare le regole di valutazione", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"validazioni" [id="node-validazioni", shape="box", label="Esiti delle osservazioni\nValidazione e supporto alla relazione", fillcolor="#EAF0F5", tooltip="Esiti delle osservazioni\nValidazione e supporto alla relazione"];
+"filtro" [id="node-filtro", shape="box", label="Adattatore di ammissione al gate\nEsito accettato + supporto forte/pieno", fillcolor="#F0EBF6", tooltip="Adattatore di ammissione al gate\nEsito accettato + supporto forte/pieno"];
+"intento" [id="node-intento", shape="diamond", label="Quale intento della domanda?", fillcolor="#F0EBF6", tooltip="Ricerca di interventi o valutazione di un intervento."];
+"scoperta" [id="node-scoperta", shape="box", label="Ricerca di interventi\nClassificare come relazione scoperta", fillcolor="#E8F4F0", tooltip="Ricerca di interventi\nClassificare come relazione scoperta"];
+"valutazione" [id="node-valutazione", shape="box", label="Valutazione dell’intervento\nConfrontare direzione e osservazioni\nammesse", fillcolor="#E8F4F0", tooltip="Valutazione dell’intervento\nConfrontare direzione e osservazioni ammesse"];
+"assenza" [id="node-assenza", shape="box", label="Nessuna osservazione ammessa\nDirezione senza segnale documentale", fillcolor="#F8EEE8", tooltip="Nessuna osservazione ammessa\nDirezione senza segnale documentale"];
+"esito" [id="node-esito", shape="box", label="Esito deterministico della relazione\nStato, dimensioni controllate e avvisi", fillcolor="#E6F3EC", tooltip="Esito deterministico della relazione\nStato, dimensioni controllate e avvisi"];
+"validazioni" -> "filtro" [label="esiti originali conservati", style="solid"];
+"filtro" -> "intento" [label="osservazioni ammesse", style="solid"];
+"intento" -> "scoperta" [label="ricerca", style="solid"];
+"intento" -> "valutazione" [label="valutazione", style="solid"];
+"valutazione" -> "assenza" [label="nessuna osservazione valida", style="solid"];
+"scoperta" -> "esito" [label="relazione scoperta", style="solid"];
+"valutazione" -> "esito" [label="concordanza, conflitto o\nincertezza", style="solid"];
+"assenza" -> "esito" [label="esito ambiguo", style="solid"];
+{rank=same; "scoperta"; "valutazione";}
+}

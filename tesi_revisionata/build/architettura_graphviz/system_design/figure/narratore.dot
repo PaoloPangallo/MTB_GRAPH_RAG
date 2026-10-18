@@ -1,0 +1,20 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Preparare una spiegazione fedele", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"dossier" [id="node-dossier", shape="box", label="Dossier già costruito", fillcolor="#EAF0F5", tooltip="Dossier già costruito"];
+"catalogo" [id="node-catalogo", shape="box", label="Proiettare i contenuti ammessi\nCaso, fonti, osservazioni, controlli e\nlimiti", fillcolor="#E8F4F0", tooltip="Proiettare i contenuti ammessi\nCaso, fonti, osservazioni, controlli e limiti"];
+"piano" [id="node-piano", shape="box", label="Modello: spiegare il dossier ricevuto\nPrompt inglese, testo italiano", fillcolor="#FBF1DD", tooltip="Modello: spiegare il dossier ricevuto\nPrompt inglese, testo italiano"];
+"validare" [id="node-validare", shape="box", label="Validare formato, identità e copertura", fillcolor="#F0EBF6", tooltip="Validare formato, identità e copertura"];
+"comporre" [id="node-comporre", shape="box", label="Testo generato da verificare", fillcolor="#E8F4F0", tooltip="Testo generato da verificare"];
+"alternativa" [id="node-alternativa", shape="box", label="Preparare il testo deterministico\nalternativo", fillcolor="#E8F4F0", tooltip="Preparare il testo deterministico alternativo"];
+"testo" [id="node-testo", shape="box", label="Testo proposto per la verifica finale", fillcolor="#E6F3EC", tooltip="Testo proposto per la verifica finale"];
+"dossier" -> "catalogo" [label="fatti e limiti", style="solid"];
+"catalogo" -> "piano" [label="contenuti", style="solid"];
+"piano" -> "validare" [label="spiegazione", style="solid"];
+"validare" -> "comporre" [label="formato valido", style="solid"];
+"dossier" -> "alternativa" [label="ripiego distinto", style="solid"];
+"comporre" -> "testo" [label="proposta", style="solid"];
+"alternativa" -> "testo" [label="alternativa da verificare", style="solid"];
+{rank=same; "comporre"; "alternativa";}
+}

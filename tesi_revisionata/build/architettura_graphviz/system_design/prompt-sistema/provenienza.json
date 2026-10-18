@@ -1,0 +1,34 @@
+[
+  {
+    "role": "parser",
+    "source": "mtb-graphrag/backend/research_pipeline/casecontext/prompt.py",
+    "source_sha256": "e7b1b6e889d7a19c90b8a9bead44cab2656a1df167abb13fb2c9333afc0de1d3",
+    "prompt_sha256": "eb48b4bf9a6d0a40d45493719ebcf847009b75ef21733123afa144a3c79ef0d0",
+    "version": "casecontext-parser-prompt/3.6",
+    "tool": "submit_case_context"
+  },
+  {
+    "role": "reader",
+    "source": "mtb-graphrag/backend/research_pipeline/enrichment/prompt_v3.py",
+    "source_sha256": "975dec7b788ddde5309876ce3ee56d35ac4f3e209d8fea1ff354bd297f66c84c",
+    "prompt_sha256": "0a13f92054a2ffa4b48d4f11ea9b68cf603f9f45674a3667f9a532550d21c28d",
+    "version": "paper-context-enricher-prompt/5.3",
+    "tool": "submit_paper_relation_observation"
+  },
+  {
+    "role": "semantica",
+    "source": "mtb-graphrag/backend/research_pipeline/enrichment/semantic_alignment.py",
+    "source_sha256": "c6afccdc178a1176255b79a1b68a1082797d5bb8f090c82712ce95d92b86cb0d",
+    "prompt_sha256": "b0bcbfe18a0d826bb652d6618f349f2b314471abbd9f2e6806831f5edeab0a53",
+    "version": "evidence-drug-semantic-alignment/2.3",
+    "tool": "submit_semantic_alignment"
+  },
+  {
+    "role": "narratore",
+    "source": "mtb-graphrag/backend/research_pipeline/narrative/prompt.py",
+    "source_sha256": "fc7bc1c3e5f441b8324e32cb6c52a5c38cb7b1d3b14c394b1982388362bfa99b",
+    "prompt_sha256": "0c70a4cb6f325adf70d3539ac357c2a1f5c945a569ad02ce379f54c8b668c786",
+    "version": "dossier-narrator-prompt/5.1",
+    "tool": "emit_dossier_narrative"
+  }
+]

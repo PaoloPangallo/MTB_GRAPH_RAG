@@ -1,0 +1,16 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Decidere se si può iniziare la ricerca", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"menzioni" [id="node-menzioni", shape="box", label="Menzioni ancorate al testo\nTipo, ruolo e stato dell’asserzione", fillcolor="#EAF0F5", tooltip="Menzioni ancorate al testo\nTipo, ruolo e stato dell’asserzione"];
+"semantica" [id="node-semantica", shape="box", label="Verifiche deterministiche sulle menzioni\nNegazione · ruolo clinico · tipo di entità", fillcolor="#F0EBF6", tooltip="Verifiche deterministiche sulle menzioni\nNegazione · ruolo clinico · tipo di entità"];
+"contraddizioni" [id="node-contraddizioni", shape="box", label="Rilevare contraddizioni\nSeparare istruzioni e fatti clinici", fillcolor="#F0EBF6", tooltip="Rilevare contraddizioni\nSeparare istruzioni e fatti clinici"];
+"sufficienza" [id="node-sufficienza", shape="diamond", label="Dati sufficienti per questa domanda?\nValutazione di terapia → intervento\nrichiesto", fillcolor="#F0EBF6", tooltip="Il controllo dipende dall’intento dichiarato."];
+"ammesso" [id="node-ammesso", shape="box", label="Proiettare solo i fatti accettati\nIl recupero GCA può iniziare", fillcolor="#E6F3EC", tooltip="Proiettare solo i fatti accettati\nIl recupero GCA può iniziare"];
+"fermo" [id="node-fermo", shape="box", label="Recupero non avviato\nDati mancanti, ambigui, fuori ambito\no contraddittori: motivo esplicito", fillcolor="#F8EEE8", tooltip="Recupero non avviato\nDati mancanti, ambigui, fuori ambito\no contraddittori: motivo esplicito"];
+"menzioni" -> "semantica" [label="menzioni", style="solid"];
+"semantica" -> "contraddizioni" [label="menzioni accettate o escluse", style="solid"];
+"contraddizioni" -> "sufficienza" [label="fatti + intento", style="solid"];
+"sufficienza" -> "ammesso" [label="sì", style="solid"];
+"sufficienza" -> "fermo" [label="no", style="solid"];
+}

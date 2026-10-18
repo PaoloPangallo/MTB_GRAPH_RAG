@@ -1,0 +1,11 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Raggiungere la fonte indicata · Registro di studio clinico", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"fonte" [id="node-fonte", label="Registro NCT02279004", shape="box", fillcolor="#EAF0F5", tooltip="Registro NCT02279004"];
+"risolvere" [id="node-risolvere", label="Cercare la copia del registro\nPreservare identità e origine", shape="box", fillcolor="#E8F4F0", tooltip="Cercare la copia del registro\nPreservare identità e origine"];
+"record" [id="node-record", label="Record di studio disponibile\nTitolo, sintesi e condizioni", shape="box", fillcolor="#E6F3EC", tooltip="Record di studio disponibile\nTitolo, sintesi e condizioni"];
+"fonte" -> "risolvere" [label="riferimento dello studio", style="solid"];
+"risolvere" -> "record" [label="contenuto del registro", style="solid"];
+}

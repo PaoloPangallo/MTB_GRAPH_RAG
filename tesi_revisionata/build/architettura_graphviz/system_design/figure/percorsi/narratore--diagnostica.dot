@@ -1,0 +1,21 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Preparare una spiegazione fedele · Solo Knowledge Graph", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"dossier" [id="node-dossier", label="FoundationOne CDx → BRAF\nSola provenienza nel Knowledge Graph\nNessuna verifica documentale attribuita", shape="box", fillcolor="#EAF0F5", tooltip="Dossier già costruito"];
+"catalogo" [id="node-catalogo", label="Proiettare i fatti in un catalogo\nVarianti di testo autorizzate", shape="box", fillcolor="#E8F4F0", tooltip="Proiettare i fatti in un catalogo\nVarianti di testo autorizzate"];
+"piano" [id="node-piano", label="Modello: scegliere le formulazioni\nUn piano, non nuove conclusioni", shape="box", fillcolor="#FBF1DD", tooltip="Modello: scegliere le formulazioni\nUn piano, non nuove conclusioni"];
+"validare" [id="node-validare", label="Validare identità, ordine e copertura\nTutte le scelte appartengono al catalogo?", shape="box", fillcolor="#F0EBF6", tooltip="Validare identità, ordine e copertura\nTutte le scelte appartengono al catalogo?"];
+"comporre" [id="node-comporre", label="Comporre il testo dal piano valido", shape="box", fillcolor="#E8F4F0", tooltip="Comporre il testo dal piano valido"];
+"alternativa" [id="node-alternativa", label="Piano inutilizzabile\nUsare il piano deterministico alternativo", shape="box", fillcolor="#E8F4F0", tooltip="Piano inutilizzabile\nUsare il piano deterministico alternativo"];
+"testo" [id="node-testo", label="Testo proposto per la verifica finale", shape="box", fillcolor="#E6F3EC", tooltip="Testo proposto per la verifica finale"];
+"dossier" -> "catalogo" [label="fatti e limiti", style="solid"];
+"catalogo" -> "piano" [label="varianti disponibili", style="solid"];
+"piano" -> "validare" [label="scelte", style="solid"];
+"validare" -> "comporre" [label="piano valido", style="solid"];
+"validare" -> "alternativa" [label="piano non valido", style="solid"];
+"comporre" -> "testo" [label="testo realizzato", style="solid"];
+"alternativa" -> "testo" [label="alternativa realizzata", style="solid"];
+{rank=same; "comporre"; "alternativa";}
+}

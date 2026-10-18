@@ -1,0 +1,14 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Leggere la fonte e descrivere ciò che dice · Registro di studio clinico", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"fonte" [id="node-fonte", label="Registro NCT02279004", shape="box", fillcolor="#EAF0F5", tooltip="Registro NCT02279004"];
+"reader" [id="node-reader", label="Percorso predefinito\nReader: leggere che cosa dice il registro", shape="box", fillcolor="#FBF1DD", tooltip="Percorso predefinito\nReader: leggere che cosa dice il registro"];
+"fatti" [id="node-fatti", label="Percorso opzionale, usato nell’esempio\nOrganizzare i dati già presenti nel registro", shape="box", fillcolor="#E8F4F0", tooltip="Percorso opzionale, usato nell’esempio\nOrganizzare i dati già presenti nel registro"];
+"esito" [id="node-esito", label="Informazioni dello studio\nEleggibilità individuale non valutata", shape="box", fillcolor="#E6F3EC", tooltip="Informazioni dello studio\nEleggibilità individuale non valutata"];
+"fonte" -> "reader" [label="passaggi scelti", style="solid"];
+"fonte" -> "fatti" [label="opzione per i registri", style="dashed"];
+"reader" -> "esito" [label="descrizione con citazione o astensione", style="solid"];
+"fatti" -> "esito" [label="dati dello studio", style="dashed"];
+}

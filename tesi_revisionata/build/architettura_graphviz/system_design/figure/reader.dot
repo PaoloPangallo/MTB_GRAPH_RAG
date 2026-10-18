@@ -1,0 +1,23 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Leggere la fonte e descrivere ciò che dice", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"evidenza" [id="node-evidenza", shape="box", label="Passaggi da leggere\nDa qui si può ricavare la citazione", fillcolor="#EAF0F5", tooltip="Passaggi da leggere\nDa qui si può ricavare la citazione"];
+"contesto" [id="node-contesto", shape="box", label="Testo vicino al passaggio\nAiuta a capire riferimenti e contesto", fillcolor="#EAF0F5", tooltip="Testo vicino al passaggio\nAiuta a capire riferimenti e contesto"];
+"lettore" [id="node-lettore", shape="box", label="Reader · modello linguistico\nLeggere che cosa afferma la fonte", fillcolor="#FBF1DD", tooltip="Reader · modello linguistico\nLeggere che cosa afferma la fonte"];
+"osservazione" [id="node-osservazione", shape="box", label="Descrizione di ciò che dice la fonte\nCon il passaggio citato", fillcolor="#E6F3EC", tooltip="Descrizione di ciò che dice la fonte\nCon il passaggio citato"];
+"astensione" [id="node-astensione", shape="box", label="Informazioni insufficienti\nIl Reader si astiene", fillcolor="#F8EEE8", tooltip="Informazioni insufficienti\nIl Reader si astiene"];
+"registro" [id="node-registro", shape="box", label="Informazioni di uno studio registrato", fillcolor="#EAF0F5", tooltip="Informazioni di uno studio registrato"];
+"organizzare" [id="node-organizzare", shape="box", label="Opzione per i registri\nOrganizzare i dati già presenti", fillcolor="#E8F4F0", tooltip="Opzione per i registri\nOrganizzare i dati già presenti"];
+"informazioni" [id="node-informazioni", shape="box", label="Informazioni dello studio\nCon origine e limiti conservati", fillcolor="#E6F3EC", tooltip="Informazioni dello studio\nCon origine e limiti conservati"];
+"solo-grafo" [id="node-solo-grafo", shape="box", label="Collegamento presente nel grafo", fillcolor="#EAF0F5", tooltip="Collegamento presente nel grafo"];
+"origine" [id="node-origine", shape="box", label="Conservare il collegamento\nE la sua origine nel grafo", fillcolor="#E6F3EC", tooltip="Conservare il collegamento\nE la sua origine nel grafo"];
+"evidenza" -> "lettore" [label="passaggi scelti", style="solid"];
+"contesto" -> "lettore" [label="aiuto alla lettura", style="dashed"];
+"lettore" -> "osservazione" [label="descrizione proposta", style="solid"];
+"lettore" -> "astensione" [label="testo insufficiente", style="solid"];
+"registro" -> "evidenza" [label="percorso predefinito", style="solid"];
+"registro" -> "organizzare" [label="percorso opzionale", style="dashed"];
+"organizzare" -> "informazioni" [label="dati dello studio", style="dashed"];
+"solo-grafo" -> "origine" [label="sola provenienza", style="solid"];
+}

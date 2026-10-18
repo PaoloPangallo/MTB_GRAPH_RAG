@@ -1,0 +1,23 @@
+digraph prompts {
+graph [rankdir=TB,bgcolor="transparent",pad="0.3",nodesep="0.35",ranksep="0.55"];
+node [shape=box,style="rounded,filled",fillcolor="#e7f2ef",color="#92b5ae",fontname="Arial",fontsize=17,margin="0.22,0.16"];
+edge [color="#628078",fontname="Arial",fontsize=13];
+case [label="Testo clinico"];
+parser [label="Case Parser\nMenzioni e citazioni letterali",fillcolor="#d9ece8"];
+retrieve [label="Codice: riconoscimento delle entità e recupero GCA\nFonti e passaggi da leggere"];
+reader [label="Reader\nOsservazione + citazione, oppure astensione",fillcolor="#d9ece8"];
+checks [label="Codice: autenticazione e controlli sulla relazione"];
+semantic [label="Confronto semantico\nDirezione, ambiti e ruolo dell’evidenza",fillcolor="#eee9f4"];
+dossier [label="Codice: decisione e dossier\nOsservazioni, controlli, provenienza e limiti"];
+narrator [label="Dossier Narrator\nUna spiegazione per osservazione\nConfronto tra studi della stessa relazione",fillcolor="#d9ece8"];
+verify [label="Codice: copertura e fedeltà\nSchede esatte · ogni osservazione spiegata\nPresentazione / ripiego verificato / dossier"];
+case -> parser -> retrieve -> reader -> checks;
+checks -> semantic [label="evidenza–farmaco: osservazione e struttura accettate"];
+semantic -> dossier;
+checks -> dossier [label="altre famiglie: validatori dedicati
+rami non ammessi al confronto: esito del controllo"];
+retrieve -> dossier [label="sola provenienza KG",style=dashed];
+retrieve -> checks [label="registro: percorso opzionale con dati strutturati",style=dashed];
+dossier -> narrator [label="presentazione opzionale"];
+narrator -> verify;
+}

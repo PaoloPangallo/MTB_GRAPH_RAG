@@ -1,0 +1,12 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Relazioni del solo Knowledge Graph", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"associazione" [id="node-associazione", shape="box", label="Associazione nel Knowledge Graph", fillcolor="#EAF0F5", tooltip="Il collegamento FoundationOne CDx–BRAF è presente nella conoscenza."];
+"assenza" [id="node-assenza", shape="box", label="Nessun documento associato", fillcolor="#F0EBF6", tooltip="Per questo collegamento non sono disponibili riferimenti a una pubblicazione o a uno studio."];
+"origine" [id="node-origine", shape="box", label="Origine conservata", fillcolor="#E6F3EC", tooltip="Il sistema non simula la lettura di un documento assente."];
+"dossier" [id="node-dossier", shape="box", label="Informazione nel dossier", fillcolor="#E6F3EC", tooltip="L’associazione rimane consultabile con il proprio limite."];
+"associazione" -> "assenza" [label="", style="solid"];
+"assenza" -> "origine" [label="", style="solid"];
+"origine" -> "dossier" [label="", style="solid"];
+}

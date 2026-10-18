@@ -1,0 +1,24 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Verificare citazione e significato", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"citazione" [id="node-citazione", shape="box", label="Frase citata e fonte di origine", fillcolor="#EAF0F5", tooltip="Frase citata e fonte di origine"];
+"letterale" [id="node-letterale", shape="box", label="La frase è presente\nnel passaggio della fonte corretta?", fillcolor="#F0EBF6", tooltip="La frase è presente\nnel passaggio della fonte corretta?"];
+"osservazione" [id="node-osservazione", shape="box", label="Le entità descritte nell’osservazione\nSono presenti nella frase?", fillcolor="#F0EBF6", tooltip="Le entità descritte nell’osservazione\nSono presenti nella frase?"];
+"famiglia" [id="node-famiglia", shape="diamond", label="Quale relazione stiamo verificando?", fillcolor="#F0EBF6", tooltip="Ogni tipo di relazione segue controlli specifici."];
+"altri" [id="node-altri", shape="box", label="Per gli altri tipi di relazione\nApplicare i controlli adatti alla fonte", fillcolor="#E8F4F0", tooltip="Per gli altri tipi di relazione\nApplicare i controlli adatti alla fonte"];
+"struttura" [id="node-struttura", shape="box", label="Relazione tra evidenza e farmaco\nControllare identità, origine e\ncollegamenti", fillcolor="#F0EBF6", tooltip="Relazione tra evidenza e farmaco\nControllare identità, origine e collegamenti"];
+"semantica" [id="node-semantica", shape="box", label="Se i controlli precedenti sono superati\nConfrontare il significato della relazione\nCon ciò che afferma la fonte", fillcolor="#FBF1DD", tooltip="Se i controlli precedenti sono superati\nConfrontare il significato della relazione\nCon ciò che afferma la fonte"];
+"fermo" [id="node-fermo", shape="box", label="Dati incompatibili o incompleti\nConservare il motivo del limite", fillcolor="#F8EEE8", tooltip="Dati incompatibili o incompleti\nConservare il motivo del limite"];
+"ammissione" [id="node-ammissione", shape="box", label="Esito sulla relazione\nSupporto pieno o limitato · contraddizione\nAssenza di supporto · informazioni\ninsufficienti", fillcolor="#E6F3EC", tooltip="Esito sulla relazione\nSupporto pieno o limitato · contraddizione\nAssenza di supporto · informazioni insufficienti"];
+"citazione" -> "letterale" [label="testo e origine", style="solid"];
+"letterale" -> "osservazione" [label="frase autentica", style="solid"];
+"osservazione" -> "famiglia" [label="osservazione verificata", style="solid"];
+"famiglia" -> "altri" [label="altro tipo", style="solid"];
+"famiglia" -> "struttura" [label="evidenza–farmaco", style="solid"];
+"struttura" -> "semantica" [label="controlli superati", style="solid"];
+"struttura" -> "fermo" [label="da chiarire", style="solid"];
+"altri" -> "ammissione" [label="esiti dei controlli", style="solid"];
+"semantica" -> "ammissione" [label="confronto e regole", style="solid"];
+{rank=same; "altri"; "struttura";}
+}

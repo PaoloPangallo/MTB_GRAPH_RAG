@@ -1,0 +1,13 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"relazione" [id="macro-node-relazione", label="FoundationOne CDx → gene BRAF", shape="box", fillcolor="#EAF0F5", tooltip="FoundationOne CDx → gene BRAF"];
+"nessuna" [id="macro-node-nessuna", label="Nessun riferimento documentale associato", shape="box", fillcolor="#F0EBF6", tooltip="Nessun riferimento documentale associato"];
+"conservare" [id="macro-node-conservare", label="Conservare il collegamento e la sua origine\nNon simulare selezione, lettura o citazioni", shape="box", fillcolor="#E8F4F0", tooltip="Conservare il collegamento e la sua origine\nNon simulare selezione, lettura o citazioni"];
+"esito" [id="macro-node-esito", label="Sola provenienza nel Knowledge Graph\nNessuna verifica documentale attribuita", shape="box", fillcolor="#E6F3EC", tooltip="Sola provenienza nel Knowledge Graph\nNessuna verifica documentale attribuita"];
+"relazione" -> "nessuna" [label="riferimenti del record", style="solid"];
+"nessuna" -> "conservare" [label="nessun documento", style="solid"];
+"conservare" -> "esito" [label="provenienza nel grafo", style="solid"];
+}

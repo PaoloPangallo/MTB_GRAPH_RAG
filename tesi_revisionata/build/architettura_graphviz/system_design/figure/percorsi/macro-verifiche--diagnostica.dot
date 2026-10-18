@@ -1,0 +1,13 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Verifiche · Solo Knowledge Graph", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"origine" [id="macro-node-origine", label="FoundationOne CDx → BRAF", shape="box", fillcolor="#EAF0F5", tooltip="FoundationOne CDx → BRAF"];
+"autenticazione" [id="macro-node-autenticazione", label="1 · Autenticazione della citazione\nNon applicabile: nessun documento", shape="box", fillcolor="#F0EBF6", tooltip="1 · Autenticazione della citazione\nNon applicabile: nessun documento"];
+"relazione" [id="macro-node-relazione", label="2 · Controlli sulla relazione\nConservare identità e provenienza nel grafo", shape="box", fillcolor="#F0EBF6", tooltip="2 · Controlli sulla relazione\nConservare identità e provenienza nel grafo"];
+"decisione" [id="macro-node-decisione", label="3 · Decisione\nConservare il collegamento nel grafo\nVerifica documentale non applicabile", shape="box", fillcolor="#E6F3EC", tooltip="3 · Decisione\nConservare il collegamento nel grafo\nVerifica documentale non applicabile"];
+"origine" -> "autenticazione" [label="percorso senza documento", style="solid"];
+"autenticazione" -> "relazione" [label="nessuna citazione da validare", style="solid"];
+"relazione" -> "decisione" [label="origine e limite conservati", style="solid"];
+}

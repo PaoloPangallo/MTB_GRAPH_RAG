@@ -1,0 +1,653 @@
+{
+  "verifiedOn": "2026-10-17",
+  "method": "static_source_review",
+  "liveRunExecuted": false,
+  "stages": [
+    "stage_1_case_input",
+    "stage_2_casecontext_parser",
+    "stage_3_casecontext_match",
+    "stage_3b_pre_retrieval_eligibility_gate",
+    "stage_4_retrieval_plan",
+    "stage_5_kg_retrieval",
+    "stage_6_document_resolution",
+    "stage_7_source_units",
+    "stage_8_paper_selection",
+    "stage_9_paper_context_enricher",
+    "stage_10_enrichment_validation",
+    "stage_11_deterministic_gates",
+    "stage_12_status",
+    "stage_13_dossier",
+    "stage_14_narrator",
+    "stage_15_narrative_verifier"
+  ],
+  "sources": [
+    {
+      "file": "mtb_gca_v4.py",
+      "sha256": "9ebae9269c45387f9cbf70aae7a1aa656181fcd6a8448153a3ab904a51a2b9f0"
+    },
+    {
+      "file": "backend/research_pipeline/data_access.py",
+      "sha256": "89d165e97705d754cdb2d598d64706bddd13c88ee2994a5eb322e438e22f4066"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/composite_evidence.py",
+      "sha256": "7d36966bf84c1f202065c8e764f3365178823891250c5d94d6cb47105bd366e1"
+    },
+    {
+      "file": "backend/research_pipeline/run_store.py",
+      "sha256": "6a6a4791c6f0c0eec59a41ce42878be3f9df803626fea53015deb3260f8a2d19"
+    },
+    {
+      "file": "backend/research_pipeline/recording.py",
+      "sha256": "5be318bdd2066590c19db7d811f65b08ce8dfcc29c29005b292c990b8cbaf9c8"
+    },
+    {
+      "file": "backend/research_pipeline/contracts.py",
+      "sha256": "b9379ed0a2d7c971dfab1fc48ab2dfa3d9e0ef82837db153dffc6d2bfcbea5b3"
+    },
+    {
+      "file": "backend/research_pipeline/casecontext/parser.py",
+      "sha256": "434fa09da685c537a2a989e2a75b290880704c30c4bab2219173e6b07f9de7e5"
+    },
+    {
+      "file": "backend/research_pipeline/models.py",
+      "sha256": "a9db11dd5987ac9507618f3409da3fe67e7a027ee714a3734f98bbbd9ac1e3cb"
+    },
+    {
+      "file": "backend/research_pipeline/orchestrator.py",
+      "sha256": "937def99c2c5a86d0551da2a7507d1afaa523430381059553ea75fed63b7f81c"
+    },
+    {
+      "file": "backend/research_pipeline/casecontext/match_verifier.py",
+      "sha256": "d2074f56e4421e2389c3804cdc35c7dc1930a2541fae8d64642ffd8f1939d429"
+    },
+    {
+      "file": "backend/research_pipeline/casecontext/pipeline.py",
+      "sha256": "28956a7cc4869a89dc643d0e7f57a89fe354755061b8bca7ab8bd541d5260952"
+    },
+    {
+      "file": "backend/research_pipeline/eligibility/gate.py",
+      "sha256": "536ce1f11c0c631e9250f1d6b26f2066509ac2f09b5fe1e4b33c92bf88ebfe84"
+    },
+    {
+      "file": "backend/research_pipeline/terminology/case_resolution.py",
+      "sha256": "935dafdf16e0a49c8d42dbd9943383ebc53d3956684c973eb99e9d245a4f6fb7"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/kg_retrieval.py",
+      "sha256": "fb1fbf072c152035e46edccf7d67dd16bc4ea99bf22db91183f14cbea2a6da6f"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/relation_family.py",
+      "sha256": "c5eab73bbbacebb30b744802a2550a74edf136bb01b213f9780557783e92a143"
+    },
+    {
+      "file": "backend/research_pipeline/documents/live_resolution.py",
+      "sha256": "b304d19d2d0dc58c3ee828be621ffbc493b622a5504ddc3de4283b7ec83b5b5e"
+    },
+    {
+      "file": "backend/research_pipeline/documents/authorized_cache.py",
+      "sha256": "0f72cb9618b3ec3406f8744aede1e785525d12a8aa4f2e292ff1837cd3c0bc00"
+    },
+    {
+      "file": "backend/research_pipeline/documents/models.py",
+      "sha256": "82a567e2717ba34c03bf45cffc6361743972c2ac8d939d9e310ed30a2d72c471"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/live_sourceunit_selection.py",
+      "sha256": "892c07812b14c0a538b6472d566381249b6c61896c5ad504c38229873513836d"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/canonical_rrf.py",
+      "sha256": "00c0e6ace38dc90906559646288efae99cae8c81c00903b552330fada68f6541"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/document_plan.py",
+      "sha256": "b5622fc4b179ace88de70a3bba6e973477191d3dc70e0b584348f6f6076fe5f9"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/selection_intent.py",
+      "sha256": "797c21944e06bf80fe24fb7051e6c8aaadcb9284cae5dcd985d0afc2285aab44"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/prompt_v3.py",
+      "sha256": "975dec7b788ddde5309876ce3ee56d35ac4f3e209d8fea1ff354bd297f66c84c"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/context_reader.py",
+      "sha256": "d3adced2a6d6fc89494ceb131aa825b9a3bb02050ff4d06f9b24db6f2f479137"
+    },
+    {
+      "file": "backend/research_pipeline/documents/trial_facts.py",
+      "sha256": "cb91cd4b00b7cf657365285e49972bc182245932115c2f47711f2cb00c4510cf"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/validator_v3.py",
+      "sha256": "c0d19e93aba68ab6bec7a9c66cc1a3d83ca2341410212c271b880db29c2dc4f5"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/document_verification.py",
+      "sha256": "a84c11d3ad8469920c1b44c92b5038752483ab745bf5562f4d96b11f5867d82c"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/verification_policy.py",
+      "sha256": "afcbcc77438b66e6472e94de8ab5308d8f93c4a50fc022bbe28de31f9822e7a5"
+    },
+    {
+      "file": "backend/research_pipeline/determinism/gates.py",
+      "sha256": "72591d4bc38003afe356b771eb01f01e3d60660d91622b718871b4165ca67b8b"
+    },
+    {
+      "file": "backend/research_pipeline/determinism/direction_semantics.py",
+      "sha256": "72b24b4089c56162bc96affd0045e4ac739fb800b4389bae7590a1d0f5c41f4b"
+    },
+    {
+      "file": "backend/research_pipeline/dossier/builder.py",
+      "sha256": "5ffdd9d2d18576ed16cd8d8c932c59c5b17c85b47d2b53dab278595f635b154b"
+    },
+    {
+      "file": "backend/research_pipeline/dossier/accounting.py",
+      "sha256": "a40895ffc1db1b38fa2bcd769b0749ec8d86929810b117ded3d3be20ed7a44b0"
+    },
+    {
+      "file": "backend/research_pipeline/dossier/reading.py",
+      "sha256": "14cd45ccdc5d0c819f5d275454bfefccd87a6651ea151c588327b0a383f6790a"
+    },
+    {
+      "file": "backend/research_pipeline/narrative/controlled.py",
+      "sha256": "154eb908ea6ac727e56f0f1df4b254af72a5a59160f4c4d9de5ec29e55516d53"
+    },
+    {
+      "file": "backend/research_pipeline/narrative/narrator.py",
+      "sha256": "bfaf89cfdc8a423bb3b821a88b53abcde6c039e89a1b05bf149d2383d7cccc68"
+    },
+    {
+      "file": "backend/research_pipeline/narrative/stage_runner.py",
+      "sha256": "41a96b2ebc79bcea751e581b6aeec9bd6a0f30fe29dcf559e0787e92461af119"
+    },
+    {
+      "file": "backend/research_pipeline/budget.py",
+      "sha256": "e7a7dee72b90c82a54fbec9c150b95c5d66949eae21aa58d2a3ee18adba3c541"
+    },
+    {
+      "file": "backend/research_pipeline/execution_mode.py",
+      "sha256": "e2de1dea5886ffd4d44ef178d7e00f89126cb48d914783192305af4f3d28d8ff"
+    }
+  ],
+  "references": {
+    "corpus": [
+      {
+        "file": "mtb_gca_v4.py",
+        "symbol": "materialize_source",
+        "line": 357,
+        "excerpt": "def materialize_source(source_root: Path, output_root: Path, *, document_manifest: Path | None = None, v2_path: Path | None = None) -> dict[str, Any]:\n    graph = CleanGraphData(source_root)\n    output_root.mkdir(parents=True, exist_ok=True)\n    units = enumerate_semantic_units(graph)\n    document_map = _load_document_map(document_manifest)\n    candidates: list[dict[str, Any]] = []\n    exclusions: list[dict[str, Any]] = []\n    for unit in units:\n        candidate, exclusion = _build_candidate(graph, unit, document_map)\n        if candidate is not None: candidates.append(candidate)\n        if exclusion is not None: exclusions.append(exclusion)\n    candidates.sort(key=lambda row: row[\"candidate_id\"])\n    exclusions.sort(key=lambda row: row[\"unit_id\"])\n    candidate_hash = _write_jsonl(output_root / \"candidates.jsonl\", candidates)\n    exclusion_hash = _write_jsonl(output_root / \"exclusions.jsonl\", exclusions)",
+        "sha256": "9ebae9269c45387f9cbf70aae7a1aa656181fcd6a8448153a3ab904a51a2b9f0"
+      },
+      {
+        "file": "backend/research_pipeline/data_access.py",
+        "symbol": "read_candidate_corpus_utf8",
+        "line": 221,
+        "excerpt": "def read_candidate_corpus_utf8() -> str:\n    \"\"\"Read the canonical candidate corpus only after identity validation.\n\n    The corpus is a frozen UTF-8 JSONL artifact.  A checkout or transport\n    transformation must be rejected before JSON parsing; permissive decoding\n    would turn an artifact-integrity failure into altered scientific input.\n    \"\"\"\n    return _read_candidate_corpus_utf8(candidates_path(), _EXPECTED_CANDIDATES_SHA256)\n\n\ndef read_historical_candidate_corpus_utf8(version: str = \"2.0\") -> str:\n    \"\"\"Read a historical corpus only for research/replay callers.\"\"\"\n    expected = _LEGACY_V2_CANDIDATES_SHA256 if version == \"2.0\" else None\n    if expected is None:\n        raise ValueError(f\"unsupported historical candidate repository: {version}\")",
+        "sha256": "89d165e97705d754cdb2d598d64706bddd13c88ee2994a5eb322e438e22f4066"
+      },
+      {
+        "file": "backend/research_pipeline/data_access.py",
+        "symbol": "adapt_candidate_for_runtime",
+        "line": 130,
+        "excerpt": "def adapt_candidate_for_runtime(candidate: dict[str, Any]) -> dict[str, Any]:\n    \"\"\"Expose the v4 contract through the existing runtime candidate shape.\n\n    The v4 artifact remains the source of truth and is never rewritten.  These\n    aliases only preserve fields consumed by the unchanged retrieval/document\n    stages; v4-native provenance remains available alongside them.\n    \"\"\"\n    if candidate.get(\"materializer_version\") != \"gca-materializer/4.0\":\n        return candidate\n\n    row = dict(candidate)\n    context = row.get(\"context\") or {}\n    props = row.get(\"source_properties\") or {}\n    evidence = props.get(\"evidence\") or {}\n    profile = props.get(\"profile\") or {}",
+        "sha256": "89d165e97705d754cdb2d598d64706bddd13c88ee2994a5eb322e438e22f4066"
+      },
+      {
+        "file": "backend/research_pipeline/retrieval/composite_evidence.py",
+        "symbol": "derive_composite_relations",
+        "line": 23,
+        "excerpt": "def derive_composite_relations(\n    source_candidates: Mapping[str, dict[str, Any]],\n) -> tuple[dict[str, dict[str, Any]], list[dict[str, str]]]:\n    \"\"\"Join GCA4 source candidates without changing their semantic accounting.\"\"\"\n    profiles: dict[str, list[dict[str, Any]]] = {}\n    for candidate in source_candidates.values():\n        if _family(candidate) != \"EVIDENCE_STATEMENT\":\n            continue\n        for evidence_id in candidate.get(\"evidence_record_ids\") or []:\n            profiles.setdefault(str(evidence_id), []).append(candidate)\n\n    derived: dict[str, dict[str, Any]] = {}\n    excluded: list[dict[str, str]] = []\n    for drug_edge in sorted(source_candidates.values(), key=lambda row: row[\"candidate_id\"]):\n        if _family(drug_edge) != \"EVIDENCE_DRUG\":",
+        "sha256": "7d36966bf84c1f202065c8e764f3365178823891250c5d94d6cb47105bd366e1"
+      }
+    ],
+    "input": [
+      {
+        "file": "backend/research_pipeline/run_store.py",
+        "symbol": "RunStore",
+        "line": 154,
+        "excerpt": "class RunStore:\n    \"\"\"Registro in memoria. Le run non sopravvivono a un riavvio del processo,\n    ma i loro eventi sÃ¬: il ledger Ã¨ su disco e la trace resta ispezionabile.\"\"\"\n\n    def __init__(self, *, max_workers: int | None = None, queue_capacity: int | None = None,\n                 max_cached_runs: int | None = None) -> None:\n        max_workers = max_workers if max_workers is not None else int(os.getenv(\"RESEARCH_PIPELINE_MAX_WORKERS\", \"2\"))\n        queue_capacity = queue_capacity if queue_capacity is not None else int(os.getenv(\"RESEARCH_PIPELINE_QUEUE_CAPACITY\", \"8\"))\n        max_cached_runs = max_cached_runs if max_cached_runs is not None else int(os.getenv(\"RESEARCH_PIPELINE_MAX_CACHED_RUNS\", \"100\"))\n        if isinstance(max_workers, bool) or not isinstance(max_workers, int) or max_workers < 1:\n            raise ValueError(\"max_workers must be a positive integer\")\n        if isinstance(queue_capacity, bool) or not isinstance(queue_capacity, int) or queue_capacity < 0:\n            raise ValueError(\"queue_capacity must be a non-negative integer\")\n        if type(max_cached_runs) is not int or max_cached_runs < 0:\n            raise ValueError(\"max_cached_runs must be a non-negative integer\")",
+        "sha256": "6a6a4791c6f0c0eec59a41ce42878be3f9df803626fea53015deb3260f8a2d19"
+      },
+      {
+        "file": "backend/research_pipeline/recording.py",
+        "symbol": "RunRecorder",
+        "line": 34,
+        "excerpt": "class RunRecorder:\n    \"\"\"Accumula gli stage e scrive gli eventi sul ledger append-only.\n\n    Il ledger è la fonte di verità; ``PipelineRun`` è una proiezione comoda per\n    l'API. Le due non devono divergere, quindi ogni transizione passa di qui.\n    \"\"\"\n\n    def __init__(self, ledger: EventLedger, run_id: str, execution_mode: str) -> None:\n        self._ledger = ledger\n        self._run_id = run_id\n        self._mode = execution_mode\n        self._stages: list[PipelineStage] = []\n        self._started: dict[str, float] = {}\n        self._started_at: dict[str, str] = {}\n",
+        "sha256": "5be318bdd2066590c19db7d811f65b08ce8dfcc29c29005b292c990b8cbaf9c8"
+      },
+      {
+        "file": "backend/research_pipeline/contracts.py",
+        "symbol": "STAGE_TYPES",
+        "line": 111,
+        "excerpt": "STAGE_TYPES: tuple[tuple[str, str], ...] = (\n    (\"stage_1_case_input\", \"CASE_INPUT\"),\n    (\"stage_2_casecontext_parser\", \"CASECONTEXT_PARSER\"),\n    (\"stage_3_casecontext_match\", \"CASECONTEXT_MATCH_VERIFIER\"),\n    # Il gate è deterministico e sta **prima** del retrieval: è il punto in cui\n    # un input vuoto, fuori dominio, non azionabile o contraddittorio si ferma.\n    # Prima esistevano due soli esiti di routing e la categoria dell'input non\n    # li determinava.\n    (\"stage_3b_pre_retrieval_eligibility_gate\", \"PRE_RETRIEVAL_ELIGIBILITY_GATE\"),\n    (\"stage_4_retrieval_plan\", \"RETRIEVAL_PLAN\"),\n    (\"stage_5_kg_retrieval\", \"KG_RETRIEVAL\"),\n    (\"stage_6_document_resolution\", \"DOCUMENT_RESOLUTION\"),\n    (\"stage_7_source_units\", \"SOURCE_UNIT\"),\n    (\"stage_8_paper_selection\", \"PAPER_SELECTION\"),\n    (\"stage_9_paper_context_enricher\", \"PAPER_CONTEXT_ENRICHER\"),",
+        "sha256": "b9379ed0a2d7c971dfab1fc48ab2dfa3d9e0ef82837db153dffc6d2bfcbea5b3"
+      }
+    ],
+    "parser": [
+      {
+        "file": "backend/research_pipeline/casecontext/parser.py",
+        "symbol": "call_parser",
+        "line": 328,
+        "excerpt": "def call_parser(case_id: str, clinical_text: str, run_index: int = 0) -> dict:\n    messages = [\n        {\"role\": \"system\", \"content\": prompt.SYSTEM_PROMPT + \"\\n\" + prompt.TASK_PROMPT},\n        {\"role\": \"user\", \"content\": prompt.render_request(case_id, clinical_text)},\n    ]\n    payload = tr.build_payload(prompt.CASECONTEXT_TOOL_DEFINITION, prompt.TOOL_NAME, messages, seed=run_index, max_tokens=2048)\n    structured_attempts: list[dict[str, Any]] = []\n    for attempt_number in (1, 2):\n        attempt = _run_parser_attempt(payload, clinical_text)\n        attempt[\"attempt\"] = attempt_number\n        structured_attempts.append(attempt)\n        repairable_shape = (\n            attempt[\"transport_result\"] == \"INVALID_TOOL_ARGUMENTS\"\n            and bool(attempt[\"transport_reason_codes\"])\n            and all(reason.endswith(\"_KEYS_INVALID\") for reason in attempt[\"transport_reason_codes\"])",
+        "sha256": "434fa09da685c537a2a989e2a75b290880704c30c4bab2219173e6b07f9de7e5"
+      },
+      {
+        "file": "backend/research_pipeline/models.py",
+        "symbol": "CaseContext",
+        "line": 57,
+        "excerpt": "class CaseContext:\n    case_id: str\n    disease: dict[str, Any]\n    biomarkers: list[dict[str, Any]]\n    previous_interventions: list[dict[str, Any]]\n    target_intervention: dict[str, Any] | None\n    query_intent: str\n    clinical_question: str\n    uncertainties: list[str] = field(default_factory=list)\n    schema_version: str = CASE_CONTEXT_SCHEMA_VERSION\n\n    def to_dict(self) -> dict[str, Any]:\n        return {\n            \"case_id\": self.case_id, \"schema_version\": self.schema_version,\n            \"disease\": self.disease, \"biomarkers\": self.biomarkers,",
+        "sha256": "a9db11dd5987ac9507618f3409da3fe67e7a027ee714a3734f98bbbd9ac1e3cb"
+      },
+      {
+        "file": "backend/research_pipeline/orchestrator.py",
+        "symbol": "run_case",
+        "anchor": "stage_2_casecontext_parser",
+        "line": 344,
+        "excerpt": "    recorder.start(\"stage_2_casecontext_parser\", StageProducer(\n        kind=\"LLM\", component=\"casecontext_parser\", version=CASECONTEXT_VERSION,\n        model=\"unknown\", prompt_version=CASECONTEXT_VERSION))\n    try:\n        parser_result = call_parser_fn(budget, case_id, clinical_text)\n    except LiveStageFailed as failure:\n        p = _deterministic(\"casecontext_parser\", CASECONTEXT_VERSION)\n        recorder.finish(\"stage_2_casecontext_parser\", p, status=\"FAILED\",\n                        artifact_origin=em.NOT_EXECUTED,\n                        reason_codes=(failure.reason_code,), errors=(failure.detail,))\n        return _finalize(\"FAILED\", failure.reason_code)\n    if canonical:\n        llm_calls += 1\n\n    parser_producer = StageProducer(",
+        "sha256": "937def99c2c5a86d0551da2a7507d1afaa523430381059553ea75fed63b7f81c"
+      }
+    ],
+    "ancoraggio": [
+      {
+        "file": "backend/research_pipeline/casecontext/match_verifier.py",
+        "symbol": "verify_case_context",
+        "line": 58,
+        "excerpt": "def verify_case_context(case_context: dict[str, Any], clinical_text: str) -> list[MatchVerificationRecord]:\n    records = [_verify_span_field(\"disease\", case_context.get(\"disease\"), clinical_text)]\n\n    biomarkers = case_context.get(\"biomarkers\") or []\n    if not biomarkers:\n        records.append(MatchVerificationRecord(\"biomarker\", None, \"MISSING_IN_TEXT\", None, None, None, \"FIELD_NOT_POPULATED\"))\n        records.append(MatchVerificationRecord(\"alteration\", None, \"MISSING_IN_TEXT\", None, None, None, \"FIELD_NOT_POPULATED\"))\n    else:\n        for index, biomarker in enumerate(biomarkers):\n            gene_payload = {\"raw_value\": biomarker.get(\"raw_value\"), \"normalized_value\": biomarker.get(\"normalized_value\"), \"source_spans\": biomarker.get(\"source_spans\")}\n            record = _verify_span_field(\"biomarker\", gene_payload, clinical_text)\n            records.append(MatchVerificationRecord(f\"biomarker[{index}]\", record.casecontext_value, record.status, record.supporting_text, record.start_offset, record.end_offset, record.reason_code))\n            if biomarker.get(\"alteration\"):\n                # Rich CaseContext stores gene and alteration spans separately.\n                # An explicit empty alteration span list means no grounding;",
+        "sha256": "d2074f56e4421e2389c3804cdc35c7dc1930a2541fae8d64642ffd8f1939d429"
+      },
+      {
+        "file": "backend/research_pipeline/casecontext/match_verifier.py",
+        "symbol": "essential_fields_pass",
+        "line": 109,
+        "excerpt": "def essential_fields_pass(records: list[MatchVerificationRecord]) -> tuple[bool, list[str]]:\n    \"\"\"Section 7: pipeline may continue only if essential fields are MATCH, or UNCERTAIN\n    with an explicit warning. Any essential MISMATCH stops the case before retrieval.\"\"\"\n    warnings: list[str] = []\n    by_field: dict[str, list[MatchVerificationRecord]] = {}\n    for record in records:\n        base_field = record.field.split(\"[\")[0]\n        by_field.setdefault(base_field, []).append(record)\n\n    for essential in ESSENTIAL_FIELDS:\n        field_records = by_field.get(essential, [])\n        if not field_records:\n            return False, warnings\n        statuses = {record.status for record in field_records}\n        if \"MISMATCH\" in statuses:",
+        "sha256": "d2074f56e4421e2389c3804cdc35c7dc1930a2541fae8d64642ffd8f1939d429"
+      },
+      {
+        "file": "backend/research_pipeline/orchestrator.py",
+        "symbol": "run_case",
+        "anchor": "stage_3_casecontext_match",
+        "line": 397,
+        "excerpt": "    recorder.start(\"stage_3_casecontext_match\", p)\n    if match_verifier_fn is None:\n        records = verifier.verify_case_context(case_context, clinical_text)\n        essential_ok, match_warnings = verifier.essential_fields_pass(records)\n        match_bypassed = False\n    else:\n        match_result = match_verifier_fn(case_context, clinical_text)\n        records = match_result[\"records\"]\n        essential_ok = match_result[\"essential_fields_pass\"]\n        match_warnings = match_result.get(\"warnings\", [])\n        match_bypassed = bool(match_result.get(\"bypassed\", True))\n    preview = {\"records\": [r.to_dict() for r in records],\n               \"essential_fields_pass\": essential_ok,\n               \"warnings\": list(match_warnings)}\n    if match_bypassed:",
+        "sha256": "937def99c2c5a86d0551da2a7507d1afaa523430381059553ea75fed63b7f81c"
+      }
+    ],
+    "ammissibilita": [
+      {
+        "file": "backend/research_pipeline/casecontext/pipeline.py",
+        "symbol": "run",
+        "line": 301,
+        "excerpt": "def run(\n    clinical_text: str,\n    case_context: dict[str, Any] | None,\n    transport_ok: bool = True,\n) -> dict[str, Any]:\n    \"\"\"Esegue la catena deterministica completa.\n\n    ``case_context`` è l'output grezzo del parser (contratto 1.0). Restituisce\n    il CaseContext 2.0, i record di verifica e la decisione del gate.\n    \"\"\"\n    text = clinical_text or \"\"\n    control_spans = detect_control_instruction_spans(text)\n\n    if not isinstance(case_context, dict):\n        decision = evaluate_gate(text, None, [], control_spans, [], transport_ok=False)",
+        "sha256": "28956a7cc4869a89dc643d0e7f57a89fe354755061b8bca7ab8bd541d5260952"
+      },
+      {
+        "file": "backend/research_pipeline/casecontext/pipeline.py",
+        "symbol": "validate_minimal_case_context",
+        "line": 76,
+        "excerpt": "def validate_minimal_case_context(case_context: dict[str, Any] | None) -> dict[str, Any]:\n    \"\"\"Intent-aware admission based only on explicit usable anchors.\n\n    Disease is contextual: it may improve retrieval, but is not universally\n    required.  The gate never invents a missing disease or intervention.\n    \"\"\"\n    if not isinstance(case_context, dict):\n        return {\"valid\": False, \"run_status\": \"INVALID_CASE_CONTEXT\", \"missing\": [\"case_context\"]}\n    biomarkers = case_context.get(\"biomarkers\") or []\n    molecular_anchor = any(\n        item.get(\"gene\") or item.get(\"alteration\") or item.get(\"normalized_value\") or item.get(\"raw_value\")\n        for item in biomarkers if isinstance(item, dict)\n    )\n    target = case_context.get(\"target_intervention\")\n    interventions = [target, *(case_context.get(\"previous_interventions\") or [])]",
+        "sha256": "28956a7cc4869a89dc643d0e7f57a89fe354755061b8bca7ab8bd541d5260952"
+      },
+      {
+        "file": "backend/research_pipeline/eligibility/gate.py",
+        "symbol": "evaluate",
+        "line": 103,
+        "excerpt": "def evaluate(\n    clinical_text: str,\n    case_context: dict[str, Any] | None,\n    mentions: list[EntityMention],\n    control_spans: list[dict[str, Any]],\n    contradictions: list[Contradiction],\n    transport_ok: bool = True,\n) -> EligibilityDecision:\n    \"\"\"Decisione di eleggibilità. Ordine delle regole significativo.\"\"\"\n    text = clinical_text or \"\"\n    case_context = case_context or {}\n    rejected = [m.to_dict() for m in mentions if not m.accepted_for_casecontext]\n    contradiction_dicts = [c.to_dict() for c in contradictions]\n    now = datetime.now(timezone.utc).isoformat()\n",
+        "sha256": "536ce1f11c0c631e9250f1d6b26f2066509ac2f09b5fe1e4b33c92bf88ebfe84"
+      }
+    ],
+    "piano": [
+      {
+        "file": "backend/research_pipeline/casecontext/pipeline.py",
+        "symbol": "build_retrieval_case_context",
+        "line": 110,
+        "excerpt": "def build_retrieval_case_context(\n    case_context: dict[str, Any], mentions: list[Any],\n) -> dict[str, Any]:\n    \"\"\"Project only accepted clinical mentions into the retriever contract.\n\n    The retriever still receives its existing dictionary shape, but rejected\n    parser values are never copied back into the query projection.\n    \"\"\"\n    projected = dict(case_context or {})\n\n    def value(mention: Any, key: str, default: Any = None) -> Any:\n        if isinstance(mention, dict):\n            return mention.get(key, default)\n        return getattr(mention, key, default)\n",
+        "sha256": "28956a7cc4869a89dc643d0e7f57a89fe354755061b8bca7ab8bd541d5260952"
+      },
+      {
+        "file": "backend/research_pipeline/terminology/case_resolution.py",
+        "symbol": "resolve_case",
+        "line": 223,
+        "excerpt": "def resolve_case(case_context: dict, registry: Registry) -> dict:\n    result = deepcopy(case_context)\n    diseases = list(result.get(\"diseases\") or [])\n    if not diseases and result.get(\"disease\"):\n        diseases = [result[\"disease\"]]\n    resolutions = {\"registry_version\": registry.version, \"diseases\": [], \"biomarkers\": [], \"negated_biomarkers\": [], \"interventions\": []}\n    for value in diseases:\n        raw = (value.get(\"raw_value\") or value.get(\"normalized_value\") or \"\") if isinstance(value, dict) else str(value)\n        resolutions[\"diseases\"].append(disease_context(raw, registry))\n    for item in result.get(\"biomarkers\") or []:\n        gene = registry.resolve(\"GENE\", item.get(\"gene\") or \"\")\n        variant = resolve_variant(gene, item.get(\"alteration\") or \"\", registry)\n        resolutions[\"biomarkers\"].append({\"gene\": resolution_record(gene), \"variant\": resolution_record(variant),\n                                         \"assertion_status\": item.get(\"assertion_status\", \"UNKNOWN\"),\n                                         \"observation\": molecular_observation(item, registry).to_dict()})",
+        "sha256": "935dafdf16e0a49c8d42dbd9943383ebc53d3956684c973eb99e9d245a4f6fb7"
+      },
+      {
+        "file": "backend/research_pipeline/casecontext/pipeline.py",
+        "symbol": "projection_audit",
+        "line": 26,
+        "excerpt": "def projection_audit(\n    case_context: dict[str, Any], mentions: list[Any], projected: dict[str, Any],\n) -> dict[str, Any]:\n    \"\"\"Account for every extracted mention at the retrieval boundary.\n\n    This is deliberately a report helper, not a retrieval rule.  A fact is\n    either visible in the projected contract or carries an explicit rejection\n    reason from the deterministic chain; accepted facts disappearing here are\n    reported as unexplained loss.\n    \"\"\"\n    def get(item: Any, key: str, default: Any = None) -> Any:\n        if isinstance(item, dict):\n            return item.get(key, default)\n        return getattr(item, key, default)\n",
+        "sha256": "28956a7cc4869a89dc643d0e7f57a89fe354755061b8bca7ab8bd541d5260952"
+      }
+    ],
+    "retrieval": [
+      {
+        "file": "backend/research_pipeline/retrieval/kg_retrieval.py",
+        "symbol": "_retrieve",
+        "line": 818,
+        "excerpt": "def _retrieve(case_context: dict[str, Any], *, use_frozen_bundles: bool, exhaustive: bool = False) -> dict[str, Any]:\n    candidates = load_candidates() if not use_frozen_bundles else _load_historical_candidates()\n    if not use_frozen_bundles and any(x.get(\"materializer_version\") == \"gca-materializer/4.0\" for x in candidates.values()):\n        candidates = _linked_candidates(candidates, terminology.registry())\n    source_candidate_count = len(candidates)\n    if not use_frozen_bundles:\n        candidates, derived_candidates, derivation_exclusions, composed_source_ids = _composed_candidates(candidates)\n    else:\n        derived_candidates, derivation_exclusions, composed_source_ids = {}, [], frozenset()\n    gene_index = {\"candidate_genes\": {}, \"by_gene\": {}}\n    query_gene_ids = set()\n    if not use_frozen_bundles:\n        candidates, gene_index = _prepared_and_indexed(candidates, terminology.registry())\n        for item in _case_biomarkers(case_context):\n            resolution = terminology.registry().resolve(\"GENE\", str(item.get(\"gene\") or \"\"))",
+        "sha256": "fb1fbf072c152035e46edccf7d67dd16bc4ea99bf22db91183f14cbea2a6da6f"
+      },
+      {
+        "file": "backend/research_pipeline/retrieval/kg_retrieval.py",
+        "symbol": "_specificity_order_key",
+        "line": 641,
+        "excerpt": "def _specificity_order_key(candidate_id: str, features: dict[str, Any]) -> tuple:\n    \"\"\"Lexicographic specificity order applied after compatibility filtering.\"\"\"\n    intervention_kind = 2 if features.get(\"intervention_raw_exact\") else (1 if features.get(\"intervention_normalized_match\") else 0)\n    return (\n        -intervention_kind,\n        -int(bool(features.get(\"alteration_exact\"))),\n        -int(bool(features.get(\"gene_exact\"))),\n        -int(bool(features.get(\"disease_exact\"))),\n        -int(features.get(\"matched_anchor_count\") or 0),\n        -int(features.get(\"populated_dimension_count\") or 0),\n        candidate_id,\n    )\n\n\n_linked_cache = None",
+        "sha256": "fb1fbf072c152035e46edccf7d67dd16bc4ea99bf22db91183f14cbea2a6da6f"
+      },
+      {
+        "file": "backend/research_pipeline/retrieval/relation_family.py",
+        "symbol": "classify_relation_family",
+        "line": 14,
+        "excerpt": "def classify_relation_family(candidate: dict[str, Any]) -> str:\n    \"\"\"Classify a candidate from its actual document identifiers.\n\n    Source metadata is deliberately ignored: a source label alone is not\n    document provenance. A record carrying both publication and trial\n    identifiers is rejected because this slice defines no mixed family.\n    \"\"\"\n    identifiers = candidate.get(\"document_identifiers\") or []\n    has_pmid = any(item.get(\"pmid\") for item in identifiers if isinstance(item, dict))\n    has_nct = any(item.get(\"nct\") for item in identifiers if isinstance(item, dict))\n    if has_pmid and has_nct:\n        return INVALID_PROVENANCE\n    if has_pmid:\n        return PAPER_EVIDENCE\n    if has_nct:",
+        "sha256": "c5eab73bbbacebb30b744802a2550a74edf136bb01b213f9780557783e92a143"
+      }
+    ],
+    "risoluzione": [
+      {
+        "file": "backend/research_pipeline/documents/live_resolution.py",
+        "symbol": "resolve_live_documents",
+        "line": 260,
+        "excerpt": "def resolve_live_documents(\n    associations: Iterable[Mapping[str, Any]],\n    cache: AuthorizedDocumentCache,\n    manifest_by_document_id: dict[str, Mapping[str, Any]],\n) -> DocumentResolution:\n    \"\"\"Resolve GCA provenance through the writable authorized cache.\"\"\"\n    resolved: list[ResolvedDocument] = []\n    seen: set[tuple[str, str]] = set()\n    resolved_identifiers: dict[str, dict[str, Any]] = {}\n    for association in associations:\n        candidate_id = association.get(\"candidate_id\", \"\")\n        for bundle in association.get(\"available_bundles\", []) or []:\n            requested_id = bundle.get(\"document_id\") or \"\"\n            key = (candidate_id, bundle.get(\"bundle_id\") or requested_id)\n            if key in seen:",
+        "sha256": "b304d19d2d0dc58c3ee828be621ffbc493b622a5504ddc3de4283b7ec83b5b5e"
+      },
+      {
+        "file": "backend/research_pipeline/documents/authorized_cache.py",
+        "symbol": "resolve_live_identifier",
+        "line": 610,
+        "excerpt": "    def resolve_live_identifier(self, item: dict[str, Any]) -> dict[str, Any]:\n        \"\"\"Resolve provenance with PMID?PMC preference and explicit abstract fallback.\"\"\"\n        keyed = _keyed_identifier(item)\n        record = self.resolve_identifier(item)\n        if keyed is None or keyed[0] != \"pmid\":\n            return record\n        requested_pmid = keyed[1]\n        identifiers = record.get(\"identifiers\") or {}\n        pmcid_candidates = []\n        if identifiers.get(\"pmcid\"):\n            pmcid_candidates.append(str(identifiers[\"pmcid\"]))\n        for candidate in record.get(\"pmcid_candidates\") or []:\n            if candidate and str(candidate) not in pmcid_candidates:\n                pmcid_candidates.append(str(candidate))\n        if not pmcid_candidates:",
+        "sha256": "0f72cb9618b3ec3406f8744aede1e785525d12a8aa4f2e292ff1837cd3c0bc00"
+      },
+      {
+        "file": "backend/research_pipeline/documents/live_resolution.py",
+        "symbol": "ResolvedDocument",
+        "line": 64,
+        "excerpt": "class ResolvedDocument:\n    \"\"\"Esito della risoluzione di un singolo documento.\"\"\"\n\n    document_id: str\n    bundle_id: str\n    candidate_id: str\n    availability: str\n    resolved: bool\n    cache_hit: bool\n    document_type: str\n    source: str | None\n    metadata_only: bool\n    abstract_available: bool\n    full_text_available: bool\n    content_hash: str | None",
+        "sha256": "b304d19d2d0dc58c3ee828be621ffbc493b622a5504ddc3de4283b7ec83b5b5e"
+      }
+    ],
+    "unita": [
+      {
+        "file": "backend/research_pipeline/documents/models.py",
+        "symbol": "SourceUnit",
+        "line": 116,
+        "excerpt": "class SourceUnit:\n    source_unit_id: str\n    document_id: str\n    unit_type: str\n    text: str\n    section: Optional[str] = None\n    subsection: Optional[str] = None\n    paragraph_index: Optional[int] = None\n    sentence_index: Optional[int] = None\n    char_start: Optional[int] = None\n    char_end: Optional[int] = None\n    page: Optional[int] = None\n    table_id: Optional[str] = None\n    table_label: Optional[str] = None\n    row: Optional[int] = None",
+        "sha256": "82a567e2717ba34c03bf45cffc6361743972c2ac8d939d9e310ed30a2d72c471"
+      },
+      {
+        "file": "backend/research_pipeline/documents/live_resolution.py",
+        "symbol": "load_source_units",
+        "line": 401,
+        "excerpt": "def load_source_units(\n    resolution: DocumentResolution,\n    manifest_by_document_id: Mapping[str, Mapping[str, Any]],\n    cache: ReadOnlyDocumentCache,\n) -> SourceUnitBundle:\n    \"\"\"Ri-parsa dalla cache le SourceUnit dei documenti effettivamente risolti.\"\"\"\n    units: dict[str, dict[str, Any]] = {}\n    failures: list[dict[str, Any]] = []\n    parsed = 0\n\n    for document_id in sorted({doc.document_id for doc in resolution.documents if doc.resolved}):\n        record = manifest_by_document_id.get(document_id)\n        if record is None:\n            continue\n        try:",
+        "sha256": "b304d19d2d0dc58c3ee828be621ffbc493b622a5504ddc3de4283b7ec83b5b5e"
+      },
+      {
+        "file": "backend/research_pipeline/documents/authorized_cache.py",
+        "symbol": "finalize_source_unit_occurrence_ids",
+        "line": 41,
+        "excerpt": "def finalize_source_unit_occurrence_ids(\n    document_id: str,\n    units: list[dict[str, Any]],\n) -> list[dict[str, Any]]:\n    \"\"\"Assign deterministic, document-scoped identities to parser occurrences.\n\n    Parsers may legitimately emit identical text at distinct structural\n    occurrences.  Their content-derived IDs are therefore finalized only once\n    the complete canonical parser order is available.\n    \"\"\"\n    finalized: list[dict[str, Any]] = []\n    for final_ordinal, source in enumerate(units):\n        unit = dict(source)\n        content = {key: value for key, value in unit.items()\n                   if key not in {\"source_unit_id\", \"content_hash\"}}",
+        "sha256": "0f72cb9618b3ec3406f8744aede1e785525d12a8aa4f2e292ff1837cd3c0bc00"
+      }
+    ],
+    "selezione": [
+      {
+        "file": "backend/research_pipeline/retrieval/live_sourceunit_selection.py",
+        "symbol": "select_live_papers_for_association",
+        "line": 57,
+        "excerpt": "def select_live_papers_for_association(\n    association: Mapping[str, Any],\n    source_units_by_id: Mapping[str, dict[str, Any]],\n    *,\n    resolution: Any,\n    top_k: int = LIVE_SELECTOR_TOP_K,\n    selector_fn: Callable[..., Any] | None = None,\n    selection_index: SelectionIndex | None = None,\n    case_context: Mapping[str, Any] | None = None,\n) -> dict[str, Any]:\n    \"\"\"Select top-k units from every resolved document, without bundle IDs.\n\n    ``resolution`` is the only source of document-to-unit provenance in LIVE.\n    In particular, this function never reads ``available_bundles[*].source_unit_ids``.\n    \"\"\"",
+        "sha256": "892c07812b14c0a538b6472d566381249b6c61896c5ad504c38229873513836d"
+      },
+      {
+        "file": "backend/research_pipeline/retrieval/canonical_rrf.py",
+        "symbol": "select_rrf",
+        "line": 36,
+        "excerpt": "def select_rrf(selection, *, top_k: int = 5, strategy: str = STRATEGY,\n               dense_scorer: Callable | None = None):\n    if strategy not in (STRATEGY, BASELINE):\n        raise ValueError(\"Unsupported canonical retrieval strategy\")\n    if top_k < 1:\n        raise ValueError(\"top_k must be positive\")\n    invocation_hash = selection.input_hash()\n    retrieval = {\"requested_strategy\": strategy, \"actual_strategy\": BASELINE,\n                 \"fallback_reason\": None, \"configuration\": {**CONFIG, \"top_k\": top_k}}\n    if focused_enabled():\n        structure = build_unit_structure(list(selection.source_units))\n        indexable = tuple(u for u in selection.source_units if structure[u['source_unit_id']]['indexable'])\n        retrieval['unit_structure_version'] = 'sourceunit-structure/1.0'\n        retrieval['inventory_units'] = len(selection.source_units)\n        hierarchical = os.getenv('RESEARCH_PIPELINE_HIERARCHICAL_SOURCE_INDEX', '').strip() == '1'",
+        "sha256": "00c0e6ace38dc90906559646288efae99cae8c81c00903b552330fada68f6541"
+      },
+      {
+        "file": "backend/research_pipeline/retrieval/document_plan.py",
+        "symbol": "plan_documents",
+        "line": 15,
+        "excerpt": "def plan_documents(records: list, units_by_document: dict, intent: dict, max_documents: int | None) -> dict:\n    if max_documents is not None and (type(max_documents) is not int or max_documents < 1):\n        raise ValueError('Document limit must be positive or None')\n    labels = list(intent.get('case_question', {}).get('interventions', []))\n    target = intent.get('candidate_target', {})\n    for item in target.get('interventions', []):\n        labels.append(str(item.get('label') or item.get('normalized_value') or item.get('raw_value') or ''))\n    for item in target.get('biomarkers', []):\n        labels.extend(str(item.get(key) or '') for key in ('gene', 'alteration', 'label'))\n    terms = set(re.findall(r'[a-z0-9]+', ' '.join(labels).lower())) - {'and', 'or', 'of', 'the', 'with', 'combination'}\n    unique, duplicates, scores = {}, [], {}\n    for record in records:\n        if record.document_id in unique:\n            duplicates.append(record)\n            continue",
+        "sha256": "b5622fc4b179ace88de70a3bba6e973477191d3dc70e0b584348f6f6076fe5f9"
+      },
+      {
+        "file": "backend/research_pipeline/retrieval/selection_intent.py",
+        "symbol": "build_selection_intent",
+        "line": 7,
+        "excerpt": "def build_selection_intent(candidate: dict, verified_case: dict, linked_candidates: list[dict]) -> dict:\n    # Linked assertions remain lineage, not an inferred regimen operator.\n    targets = verified_case.get('target_interventions') or []\n    if not targets and verified_case.get('target_intervention'):\n        targets = [verified_case['target_intervention']]\n    labels = []\n    for target in targets:\n        if not isinstance(target, dict) or target.get('assertion_status') in {'NEGATED', 'ABSENT', 'REJECTED'}:\n            continue\n        label = target.get('normalized_value') or target.get('raw_value')\n        if isinstance(label, str) and label.strip() and label.strip() not in labels:\n            labels.append(label.strip())\n    return {'version': VERSION,\n            'candidate_target': {'interventions': deepcopy(candidate.get('interventions') or []),\n                                 'biomarkers': deepcopy(candidate.get('biomarkers') or [])},",
+        "sha256": "797c21944e06bf80fe24fb7051e6c8aaadcb9284cae5dcd985d0afc2285aab44"
+      }
+    ],
+    "reader": [
+      {
+        "file": "backend/research_pipeline/enrichment/prompt_v3.py",
+        "symbol": "render_request",
+        "line": 180,
+        "excerpt": "def render_request(case_context: dict[str, Any], candidate: dict[str, Any], paper_id: str,\n                   source_units: list[dict[str, Any]]) -> str:\n    evidence_units = [unit for unit in source_units if unit.get(\"reader_role\") != \"CONTEXT\"]\n    context_units = [unit for unit in source_units if unit.get(\"reader_role\") == \"CONTEXT\"]\n    header = {\n        \"case_context\": case_context,\n        \"candidate\": {key: candidate.get(key) for key in (\n            \"candidate_id\", \"subject\", \"predicate\", \"object\", \"biomarkers\", \"disease\",\n            \"interventions\", \"direction\", \"relation_family\", \"gene_variant_pairs\")},\n        \"candidate_role\": \"SEARCH_TARGET_NOT_OBSERVED_FACT\",\n        \"paper_id\": paper_id,\n        \"instruction\": (\n            \"Extract one flat paper observation using only the tool fields. Quote exactly one SourceUnit \"\n            \"from source_units. context_source_units are interpretation-only: use them solely to resolve \"\n            \"references in a source_units passage; never quote them, cite them, or use a fact found only \"",
+        "sha256": "975dec7b788ddde5309876ce3ee56d35ac4f3e209d8fea1ff354bd297f66c84c"
+      },
+      {
+        "file": "backend/research_pipeline/enrichment/context_reader.py",
+        "symbol": "read_with_context_policy",
+        "line": 252,
+        "excerpt": "def read_with_context_policy(\n    reader: Callable[..., dict[str, Any]],\n    budget: Any,\n    case_id: str,\n    case_context: dict[str, Any],\n    candidate: dict[str, Any],\n    requested_drug: str,\n    paper: dict[str, Any],\n    initial_units: list[dict[str, Any]],\n    document_units: list[dict[str, Any]],\n    policy: ContextPolicy,\n    *,\n    selector_fn: Callable[..., Any] | None = None,\n) -> ReaderContextResult:\n    def invoke(units: list[dict[str, Any]]) -> dict[str, Any]:",
+        "sha256": "d3adced2a6d6fc89494ceb131aa825b9a3bb02050ff4d06f9b24db6f2f479137"
+      },
+      {
+        "file": "backend/research_pipeline/documents/trial_facts.py",
+        "symbol": "extract_trial_facts",
+        "line": 7,
+        "excerpt": "def extract_trial_facts(record: dict, snapshot_digest: str) -> dict:\n    document_id = record.get('document_id', '')\n    if not re.fullmatch(r'nct:NCT\\d{8}', document_id) or not snapshot_digest:\n        raise ValueError('A resolved NCT identity and snapshot digest are required')\n    units = record.get('units') or []\n    if any(u.get('document_id') != document_id for u in units):\n        raise ValueError('Trial fact unit identity mismatch')\n    return {'version': VERSION, 'document_id': document_id, 'nct_id': document_id[4:],\n            'snapshot_digest': snapshot_digest, 'units': units,\n            'origin': 'RESOLVED_REGISTRY_SOURCE_UNITS', 'eligibility_status': 'NOT_EVALUATED',\n            'evidence_interpretation': 'TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE'}\n\n\ndef bind_trial_relation(candidate: dict, facts: dict, case_id: str) -> dict:\n    targets = [str(i.get('label') or '') for i in candidate.get('interventions', [])]",
+        "sha256": "cb91cd4b00b7cf657365285e49972bc182245932115c2f47711f2cb00c4510cf"
+      },
+      {
+        "file": "backend/research_pipeline/documents/trial_facts.py",
+        "symbol": "bind_trial_relation",
+        "line": 20,
+        "excerpt": "def bind_trial_relation(candidate: dict, facts: dict, case_id: str) -> dict:\n    targets = [str(i.get('label') or '') for i in candidate.get('interventions', [])]\n    normalize = lambda value: re.sub(r'\\W+', ' ', value.casefold()).strip()\n    units = facts['units']\n    matching = [u for u in units if u.get('unit_type') == 'INTERVENTION'\n                and any(normalize(t) == normalize(u.get('text', '')) for t in targets)]\n    if not targets:\n        genes = [str(b.get('gene') or b.get('label') or '') for b in candidate.get('biomarkers', [])]\n        matching = [u for u in units if u.get('unit_type') in {'BRIEF_SUMMARY', 'DETAILED_DESCRIPTION', 'TRIAL_TITLE'}\n                    and any(g and re.search(r'\\b' + re.escape(g) + r'\\b', u.get('text', ''), re.I) for g in genes)]\n    unit = min(matching, key=lambda u: (len(u.get('text', '')), u['source_unit_id'])) if matching else None\n    observation = {'decision': 'ABSTAIN', 'abstain_reason': 'NO_RELEVANT_EVIDENCE'}\n    if unit:\n        intervention = unit['text'] if unit.get('unit_type') == 'INTERVENTION' else None\n        relation = {'subjects': [], 'disease': None, 'intervention': intervention,",
+        "sha256": "cb91cd4b00b7cf657365285e49972bc182245932115c2f47711f2cb00c4510cf"
+      }
+    ],
+    "validazione": [
+      {
+        "file": "backend/research_pipeline/enrichment/validator_v3.py",
+        "symbol": "validate_enrichment_v3",
+        "line": 15,
+        "excerpt": "def validate_enrichment_v3(transport_result: str, enrichment: dict[str, Any] | None, *,\n                           candidate: dict[str, Any], paper_bundle: dict[str, Any],\n                           source_units_by_id: dict[str, dict[str, Any]], **_: Any) -> dict[str, Any]:\n    if transport_result != \"V3_TRANSPORT_VALID\" or enrichment is None:\n        return {\"outcome\": \"REJECTED_TRANSPORT\", \"reason_codes\": [transport_result]}\n    if enrichment.get(\"decision\") == \"ABSTAIN\":\n        populated = [name for name in (\"source_unit_id\", \"quote\") if enrichment.get(name)]\n        return {\n            \"outcome\": \"ENRICHMENT_V3_ABSTAINED\" if not populated else \"QUOTE_INVALID\",\n            \"reason_codes\": [] if not populated else [\"FIELDS_POPULATED_DESPITE_ABSTAIN\"],\n        }\n    if enrichment.get(\"candidate_id\") and enrichment.get(\"candidate_id\") != candidate.get(\"candidate_id\"):\n        return {\"outcome\": \"QUOTE_INVALID\", \"reason_codes\": [\"CANDIDATE_ID_MISMATCH\"]}\n    if enrichment.get(\"paper_id\") and enrichment.get(\"paper_id\") not in {\n        paper_bundle.get(\"document_id\"), paper_bundle.get(\"bundle_id\"),",
+        "sha256": "c0d19e93aba68ab6bec7a9c66cc1a3d83ca2341410212c271b880db29c2dc4f5"
+      },
+      {
+        "file": "backend/research_pipeline/enrichment/document_verification.py",
+        "symbol": "structural_verify",
+        "line": 213,
+        "excerpt": "def structural_verify(candidate: dict[str, Any], paper: dict[str, Any],\n                      source_unit: dict[str, Any] | None, enrichment: dict[str, Any] | None,\n                      case_context: dict[str, Any] | None = None) -> dict[str, Any]:\n    \"\"\"Validate provenance and exact identity; uncertain ownership abstains.\"\"\"\n    target = minimal_target(candidate)\n    reasons: list[str] = []\n    document_id = str(paper.get(\"document_id\") or \"\")\n    unit_id = (enrichment or {}).get(\"source_unit_id\")\n    quote = (enrichment or {}).get(\"quote\")\n    unit_text = (source_unit or {}).get(\"text\")\n    base = {\"version\": VERSION, \"identity_alias_version\": IDENTITY_ALIAS_VERSION,\n            \"target_snapshot\": target,\n            \"GEP_snapshot\": {\"candidate_id\": target[\"candidate_id\"],\n                             \"document_id\": document_id, \"source_unit_id\": unit_id,\n                             \"quote\": quote, \"quote_offset\": None,",
+        "sha256": "a84c11d3ad8469920c1b44c92b5038752483ab745bf5562f4d96b11f5867d82c"
+      },
+      {
+        "file": "backend/research_pipeline/enrichment/document_verification.py",
+        "symbol": "admit",
+        "line": 410,
+        "excerpt": "def admit(structural: dict[str, Any], semantic: dict[str, Any] | None) -> dict[str, Any]:\n    \"\"\"The sole deterministic promotion rule. Unknowns always abstain.\"\"\"\n    status = structural.get(\"structural_status\")\n    semantic_missing = semantic is None\n    assessment = assessment_payload(semantic)\n    semantic = semantic if isinstance(semantic, dict) else {}\n    relation_alignment = semantic.get(\"relation_alignment\")\n    assertion_scope = semantic.get(\"assertion_scope\")\n    if status in {\"MISMATCH\", \"UNRESOLVED\"}:\n        # A downstream semantic call is not licensed until structural identity\n        # and provenance pass. Report the actual blocking gate, not a fabricated\n        # schema error for an assessment that was never requested.\n        blockers = list(structural.get(\"structural_reason_codes\") or [f\"STRUCTURAL_{status}\"])\n    elif semantic_missing:\n        blockers = [\"SEMANTIC_ASSESSMENT_MISSING\"]",
+        "sha256": "a84c11d3ad8469920c1b44c92b5038752483ab745bf5562f4d96b11f5867d82c"
+      },
+      {
+        "file": "backend/research_pipeline/enrichment/verification_policy.py",
+        "symbol": "policy_for",
+        "line": 29,
+        "excerpt": "def policy_for(candidate: dict[str, Any]) -> VerificationPolicy:\n    family = str(candidate.get(\"relation_family\") or \"UNSPECIFIED\")\n    if family == \"EVIDENCE_DRUG\":\n        return VerificationPolicy(\n            \"evidence-drug-semantic-admission/2.0\",\n            family,\n            True,\n            (\n                \"LITERAL_QUOTE\",\n                \"AUTHORIZED_PROVENANCE\",\n                \"EXACT_ARGUMENT_IDENTITIES\",\n                \"DIRECT_ASSERTION\",\n                \"OBSERVED_RESULT\",\n                \"COMPARABLE_MOLECULAR_SCOPE\",\n                \"COMPARABLE_POPULATION\",",
+        "sha256": "afcbcc77438b66e6472e94de8ab5308d8f93c4a50fc022bbe28de31f9822e7a5"
+      },
+      {
+        "file": "backend/research_pipeline/orchestrator.py",
+        "symbol": "run_case",
+        "anchor": "semantic_attempts",
+        "line": 283,
+        "excerpt": "    semantic_attempts: list[dict[str, Any]] = []\n\n    def semantic_attempt_summary() -> dict[str, Any]:\n        budget_rejected = sum(\n            item.get(\"status\") == \"NOT_EXECUTED_BUDGET\" for item in semantic_attempts\n        )\n        return {\n            \"attempted_calls\": len(semantic_attempts) - budget_rejected,\n            \"budget_rejected_calls\": budget_rejected,\n            \"attempts\": list(semantic_attempts),\n        }\n\n    def _finalize(status: str, stopped_at: str | None, **extra: Any) -> PipelineRun:\n        relation_aware_report = public_artifact(extra.pop(\"relation_aware_report\", None))\n        if relation_aware_report and relation_aware_report.get(\"technical_run_status\", relation_aware_report.get(\"run_status\")) not in RUN_STATUSES:",
+        "sha256": "937def99c2c5a86d0551da2a7507d1afaa523430381059553ea75fed63b7f81c"
+      }
+    ],
+    "gates": [
+      {
+        "file": "backend/research_pipeline/determinism/gates.py",
+        "symbol": "evaluate_association",
+        "line": 211,
+        "excerpt": "def evaluate_association(query_intent: str, candidate: dict[str, Any], validated_enrichments: list[dict[str, Any]]) -> dict[str, Any]:\n    \"\"\"validated_enrichments: list of {\"validation_outcome\", \"enrichment\"} where outcome is\n    an accepted v1/v2 outcome -- callers must filter rejected values first.\n\n    v1 may provide ``evidence_kind``.  v2 intentionally does not; in that case\n    the deterministic structured source polarity is used, or the result remains\n    conservative when polarity is unknown.\n    \"\"\"\n    accepted = [item for item in validated_enrichments if item[\"validation_outcome\"] in (\n        \"ENRICHMENT_ACCEPTED\", \"ENRICHMENT_ACCEPTED_WITH_WARNING\",\n        \"ENRICHMENT_V2_ACCEPTED\", \"ENRICHMENT_V2_ACCEPTED_SUMMARY_EMPTY\",\n    )]\n    warnings: list[str] = []\n    mask = {\"disease\": \"SUPPORTED\", \"biomarker\": \"SUPPORTED\"}\n",
+        "sha256": "72591d4bc38003afe356b771eb01f01e3d60660d91622b718871b4165ca67b8b"
+      },
+      {
+        "file": "backend/research_pipeline/determinism/direction_semantics.py",
+        "symbol": "compare_relation_axes",
+        "line": 87,
+        "excerpt": "def compare_relation_axes(predicate: Any, expected_stance: str,\n                          expected_effect: str, observed_direction: Any,\n                          observed_stance: Any = None) -> str:\n    \"\"\"Return CONSISTENT, CONFLICTING, or UNRELATED for the relevant axes.\"\"\"\n    raw = _norm(observed_direction)\n    observed = normalize_observed_effect(observed_direction)\n    stance = normalize_observed_stance(observed_stance)\n    # Legacy payloads put stance labels in the overloaded direction field.\n    if stance in {UNKNOWN, NOT_APPLICABLE}:\n        stance = normalize_observed_stance(observed_direction)\n    pred = _norm(predicate)\n    if not pred and stance not in {UNKNOWN, NOT_APPLICABLE}:\n        return \"CONSISTENT\" if expected_stance == stance else \"CONFLICTING\"\n    if pred == \"has evidence statement\":\n        if stance not in {UNKNOWN, NOT_APPLICABLE} and expected_stance not in {UNKNOWN, NOT_APPLICABLE}:",
+        "sha256": "72b24b4089c56162bc96affd0045e4ac739fb800b4389bae7590a1d0f5c41f4b"
+      },
+      {
+        "file": "backend/research_pipeline/orchestrator.py",
+        "symbol": "_accepted_for_gates",
+        "line": 86,
+        "excerpt": "def _accepted_for_gates(\n    outcome: str,\n    candidate_support: dict[str, Any] | None,\n) -> str | None:\n    \"\"\"Traduce un esito di validazione nel vocabolario atteso dai gate.\n\n    Il pilot non ha mai collegato l'enricher v2 ai gate: ``run_pilot_v2.py`` usa\n    i suoi esiti solo per i controlli di sicurezza, mentre la catena completa fino\n    ai gate fu percorsa dalla v1. Collegarli è quindi un'integrazione nuova, e\n    l'adattamento vive **qui**, al confine, non dentro\n    ``gates.evaluate_association``: la regola di decisione resta quella del pilot,\n    invariata e verificabile.\n\n    Restituisce ``None`` per ogni esito non accettato — astensioni e rigetti\n    inclusi — così un enrichment non validato non può in nessun caso influenzare",
+        "sha256": "937def99c2c5a86d0551da2a7507d1afaa523430381059553ea75fed63b7f81c"
+      }
+    ],
+    "status": [
+      {
+        "file": "backend/research_pipeline/orchestrator.py",
+        "symbol": "run_case",
+        "anchor": "stage_12_status",
+        "line": 1185,
+        "excerpt": "        work_progress(\"CANDIDATE_COMPLETED\", \"stage_12_status\", candidate_index + 1, association)\n\n    for association in trial_associations:\n        candidate = association[\"candidate\"]\n        nct_id = next(\n            (item.get(\"nct\") for item in candidate.get(\"document_identifiers\") or [] if item.get(\"nct\")),\n            None,\n        )\n        raw_record = (\n            dict(document_runtime.manifest_by_document_id.get(f\"nct:{nct_id}\", {}))\n            if document_runtime is not None and nct_id else {}\n        )\n        resolved_trial_document = (\n            resolution.records_by_document_id.get(f\"nct:{nct_id}\")\n            if resolution is not None and nct_id else None",
+        "sha256": "937def99c2c5a86d0551da2a7507d1afaa523430381059553ea75fed63b7f81c"
+      },
+      {
+        "file": "backend/research_pipeline/determinism/gates.py",
+        "symbol": "STATUS_VALUES",
+        "line": 21,
+        "excerpt": "STATUS_VALUES = (\"DIRECT\", \"PARTIAL\", \"AMBIGUOUS\", \"CONTRADICTED\", \"DISCOVERED\", \"NO_MATCH\")\n\n# --- Due assi distinti, non uno ---------------------------------------------\n#\n# Il campo ``direction`` di ``graph_candidate_repository/2.0`` porta **due assi\n# sovrapposti**: talvolta la *polarità della fonte* (``Supports`` / ``Does Not\n# Support``), talvolta la *direzione clinica dell'asserzione*\n# (``Sensitivity/Response``, ``Resistance``, …). La polarità vera vive in\n# ``source_properties.evidence.evidence_direction``, che il runtime non leggeva.\n#\n# Il test di sottostringa precedente (``\"support\" in direction``) era vero anche\n# per ``\"does not support\"``, e ``\"sensitivity\"`` / ``\"response\"`` erano veri per\n# ``\"reduced sensitivity\"`` e ``\"adverse response\"``. 752 candidate su 46 864\n# ricevevano così supporto positivo da una fonte negativa o avversa.\n#",
+        "sha256": "72591d4bc38003afe356b771eb01f01e3d60660d91622b718871b4165ca67b8b"
+      },
+      {
+        "file": "backend/research_pipeline/contracts.py",
+        "symbol": "STAGE_TYPES",
+        "line": 111,
+        "excerpt": "STAGE_TYPES: tuple[tuple[str, str], ...] = (\n    (\"stage_1_case_input\", \"CASE_INPUT\"),\n    (\"stage_2_casecontext_parser\", \"CASECONTEXT_PARSER\"),\n    (\"stage_3_casecontext_match\", \"CASECONTEXT_MATCH_VERIFIER\"),\n    # Il gate è deterministico e sta **prima** del retrieval: è il punto in cui\n    # un input vuoto, fuori dominio, non azionabile o contraddittorio si ferma.\n    # Prima esistevano due soli esiti di routing e la categoria dell'input non\n    # li determinava.\n    (\"stage_3b_pre_retrieval_eligibility_gate\", \"PRE_RETRIEVAL_ELIGIBILITY_GATE\"),\n    (\"stage_4_retrieval_plan\", \"RETRIEVAL_PLAN\"),\n    (\"stage_5_kg_retrieval\", \"KG_RETRIEVAL\"),\n    (\"stage_6_document_resolution\", \"DOCUMENT_RESOLUTION\"),\n    (\"stage_7_source_units\", \"SOURCE_UNIT\"),\n    (\"stage_8_paper_selection\", \"PAPER_SELECTION\"),\n    (\"stage_9_paper_context_enricher\", \"PAPER_CONTEXT_ENRICHER\"),",
+        "sha256": "b9379ed0a2d7c971dfab1fc48ab2dfa3d9e0ef82837db153dffc6d2bfcbea5b3"
+      }
+    ],
+    "dossier": [
+      {
+        "file": "backend/research_pipeline/dossier/builder.py",
+        "symbol": "build_relation_aware_report",
+        "line": 612,
+        "excerpt": "def build_relation_aware_report(\n    case_context: dict[str, Any],\n    candidates: list[dict[str, Any]],\n    paper_results: Any = None,\n    trial_results: Any = None,\n    *,\n    run_status: str = \"COMPLETED\",\n    retrieval_summary: dict[str, Any] | None = None,\n    extra_limitations: list[str] | None = None,\n) -> dict[str, Any]:\n    \"\"\"Project GCA candidates into a deterministic, provenance-aware report.\n\n    This function is intentionally a projection only: it performs no retrieval,\n    document resolution, enrichment, LLM call, or network access.\n    \"\"\"",
+        "sha256": "5ffdd9d2d18576ed16cd8d8c932c59c5b17c85b47d2b53dab278595f635b154b"
+      },
+      {
+        "file": "backend/research_pipeline/dossier/accounting.py",
+        "symbol": "build_pipeline_accounting",
+        "line": 54,
+        "excerpt": "def build_pipeline_accounting(\n    *, mention_accounting: dict[str, Any], retrieval_result: dict[str, Any],\n    selections: list[dict[str, Any]], paper_results: dict[str, dict[str, Any]],\n    trial_results: dict[str, dict[str, Any]], report: dict[str, Any],\n    pending_reader_requests: list[dict[str, Any]] | None = None,\n) -> dict[str, Any]:\n    \"\"\"Account for each transition without promoting trial metadata to efficacy.\"\"\"\n    used_candidates = sorted({\n        str(candidate_id)\n        for association in retrieval_result.get(\"associations\") or []\n        for candidate_id in association.get(\"candidate_group_candidate_ids\")\n        or [association.get(\"candidate_id\")]\n        if candidate_id\n    })\n    excluded_candidates = sorted((",
+        "sha256": "a40895ffc1db1b38fa2bcd769b0749ec8d86929810b117ded3d3be20ed7a44b0"
+      },
+      {
+        "file": "backend/research_pipeline/dossier/accounting.py",
+        "symbol": "apply_publication_integrity",
+        "line": 11,
+        "excerpt": "def apply_publication_integrity(report: dict[str, Any]) -> dict[str, Any]:\n    \"\"\"Return a copy with publication completeness separate from execution.\n\n    Reconciliation failure preserves every claim and evidence record; it only\n    closes publication and exposes the original diagnostic. Safe for replayed\n    reports and repeated projections, without repairing or inventing evidence.\n    \"\"\"\n    from .observations import migrate_public_projection\n    projected = deepcopy(migrate_public_projection(report))\n    if projected.get(\"documentary_contract_version\"):\n        from .observations import project_documentary_findings\n\n        expected = project_documentary_findings(projected)\n        aligned = expected.get(\"documentary_summary\") == projected.get(\"documentary_summary\") and all(\n            actual.get(\"documentary_findings\") == reference.get(\"documentary_findings\")",
+        "sha256": "a40895ffc1db1b38fa2bcd769b0749ec8d86929810b117ded3d3be20ed7a44b0"
+      },
+      {
+        "file": "backend/research_pipeline/dossier/reading.py",
+        "symbol": "build_reading_guide",
+        "line": 98,
+        "excerpt": "def build_reading_guide(dossier: dict[str, Any]) -> dict[str, Any]:\n    context = dossier.get('case_summary') or {}\n    findings = [_finding(context, finding, pi, fi)\n                for pi, entry in enumerate(dossier.get('paper_evidence') or [])\n                for fi, finding in enumerate(entry.get('documentary_findings') or [])]\n    groups: dict[str, dict] = {}\n    snapshots: dict[str, set[str]] = {}\n    trials = dossier.get('clinical_trials') or []\n    for index, entry in enumerate(trials):\n        nct = normalized_nct(entry.get('nct_id'))\n        key = nct or f'unidentified:{index}'\n        if key not in groups:\n            groups[key] = {'nct_id': nct, 'entry_indexes': [], 'snapshot_indexes': [], 'conflicting_snapshots': False}\n            snapshots[key] = set()\n        group = groups[key]",
+        "sha256": "14cd45ccdc5d0c819f5d275454bfefccd87a6651ea151c588327b0a383f6790a"
+      }
+    ],
+    "narratore": [
+      {
+        "file": "backend/research_pipeline/narrative/controlled.py",
+        "symbol": "build_catalog",
+        "line": 122,
+        "excerpt": "def build_catalog(narrator_input: dict) -> dict:\n    \"\"\"Build mandatory candidate facts in original order, without external state.\"\"\"\n    if not isinstance(narrator_input, dict) or not isinstance(narrator_input.get('candidates'), list):\n        raise ValueError('Malformed candidates')\n    limits = _strings(narrator_input.get('limitations', []), 'limitations')\n    limit_text = ' '.join(\n        f'{_LIMITATION[code]} [Limite canonico: {json.dumps(code, ensure_ascii=False)}]'\n        if code in _LIMITATION else f'Il dossier registra il seguente limite canonico, senza interpretazione aggiuntiva: {json.dumps(code, ensure_ascii=False)}.'\n        for code in limits\n    )\n    entries = []; seen = set(); counts = {'PAPER': 0, 'TRIAL': 0, 'KG_ONLY': 0}\n    for candidate in narrator_input['candidates']:\n        if not isinstance(candidate, dict): raise ValueError('Malformed candidate')\n        cid = candidate.get('candidate_id'); status = candidate.get('canonical_status')\n        if not isinstance(cid, str) or not cid.strip() or cid in seen: raise ValueError('Invalid or duplicate candidate identity')",
+        "sha256": "154eb908ea6ac727e56f0f1df4b254af72a5a59160f4c4d9de5ec29e55516d53"
+      },
+      {
+        "file": "backend/research_pipeline/narrative/controlled.py",
+        "symbol": "validate_plan",
+        "line": 260,
+        "excerpt": "def validate_plan(catalog: dict, plan: dict) -> list[str]:\n    errors = []\n    if not isinstance(plan, dict) or set(plan) != {'catalog_hash','entries'}: return ['CONTROLLED_PLAN_SHAPE_INVALID']\n    if plan['catalog_hash'] != catalog['catalog_hash']: errors.append('CONTROLLED_CATALOG_HASH_MISMATCH')\n    choices = plan['entries']\n    if not isinstance(choices, list): return errors + ['CONTROLLED_PLAN_SHAPE_INVALID']\n    if len(choices) != len(catalog['entries']): errors.append('CONTROLLED_FACT_COVERAGE_INVALID')\n    for index, choice in enumerate(choices):\n        if not isinstance(choice, dict) or set(choice) != {'fact_id','variant'}:\n            errors.append('CONTROLLED_PLAN_SHAPE_INVALID'); continue\n        if index >= len(catalog['entries']) or choice['fact_id'] != catalog['entries'][index]['fact_id']:\n            errors.append('CONTROLLED_FACT_ORDER_OR_ID_INVALID'); continue\n        if not isinstance(choice['variant'], str) or choice['variant'] not in catalog['entries'][index]['variants']:\n            errors.append('CONTROLLED_VARIANT_INVALID')\n    return sorted(set(errors))",
+        "sha256": "154eb908ea6ac727e56f0f1df4b254af72a5a59160f4c4d9de5ec29e55516d53"
+      },
+      {
+        "file": "backend/research_pipeline/narrative/controlled.py",
+        "symbol": "render_plan",
+        "line": 277,
+        "excerpt": "def render_plan(catalog: dict, plan: dict) -> dict:\n    errors = validate_plan(catalog, plan)\n    if errors: raise ValueError(', '.join(errors))\n    return {**deepcopy(catalog['globals']), 'candidate_narratives': [{'candidate_id': entry['candidate_id'], 'text': entry['variants'][choice['variant']]} for entry, choice in zip(catalog['entries'], plan['entries'])], 'controlled_contract': {'version': CONTROLLED_VERSION, 'catalog_hash': catalog['catalog_hash'], 'plan': deepcopy(plan)}}\n\n\ndef verify_controlled(narrator_input: dict, narrative: dict) -> dict:\n    \"\"\"Independently rebuild and compare every authoritative field exactly.\"\"\"\n    errors = []; results = []; catalog = None\n    try:\n        catalog = build_catalog(narrator_input)\n        if not isinstance(narrative, dict): raise ValueError('Narrative shape')\n        contract = narrative.get('controlled_contract')\n        if not isinstance(contract, dict) or set(contract) != {'version','catalog_hash','plan'}: raise ValueError('Contract shape')\n        if contract['version'] != CONTROLLED_VERSION: errors.append('CONTROLLED_VERSION_MISMATCH')",
+        "sha256": "154eb908ea6ac727e56f0f1df4b254af72a5a59160f4c4d9de5ec29e55516d53"
+      },
+      {
+        "file": "backend/research_pipeline/narrative/narrator.py",
+        "symbol": "call_dossier_narrator",
+        "line": 264,
+        "excerpt": "def call_dossier_narrator(case_id: str, narrator_input: dict[str, Any],\n                          run_index: int = 0) -> dict[str, Any]:\n    \"\"\"Generate prose from the dossier; keep an independently checked fallback.\n\n    Transport validity is not narrative acceptance. Stage 15 applies the\n    deterministic verifier to the generated prose before presentation.\n    \"\"\"\n    from .controlled import build_catalog, default_plan, render_plan\n\n    catalog = build_catalog(narrator_input)\n    fallback = render_plan(catalog, default_plan(catalog))\n    fallback.update({'case_id': case_id, 'language': 'it',\n                     'generation_origin': 'DETERMINISTIC_FALLBACK',\n                     'narrator_input_hash': narrator_input.get('narrator_input_hash', '')})\n    fallback['narrative_hash'] = narrative_hash(fallback)",
+        "sha256": "bfaf89cfdc8a423bb3b821a88b53abcde6c039e89a1b05bf149d2383d7cccc68"
+      }
+    ],
+    "fedelta": [
+      {
+        "file": "backend/research_pipeline/narrative/controlled.py",
+        "symbol": "verify_controlled",
+        "line": 283,
+        "excerpt": "def verify_controlled(narrator_input: dict, narrative: dict) -> dict:\n    \"\"\"Independently rebuild and compare every authoritative field exactly.\"\"\"\n    errors = []; results = []; catalog = None\n    try:\n        catalog = build_catalog(narrator_input)\n        if not isinstance(narrative, dict): raise ValueError('Narrative shape')\n        contract = narrative.get('controlled_contract')\n        if not isinstance(contract, dict) or set(contract) != {'version','catalog_hash','plan'}: raise ValueError('Contract shape')\n        if contract['version'] != CONTROLLED_VERSION: errors.append('CONTROLLED_VERSION_MISMATCH')\n        if contract['catalog_hash'] != catalog['catalog_hash']: errors.append('CONTROLLED_CATALOG_HASH_MISMATCH')\n        errors.extend(validate_plan(catalog, contract['plan']))\n        if not errors:\n            expected = render_plan(catalog, contract['plan'])\n            for key in expected:\n                if narrative.get(key) != expected[key]: errors.append('CONTROLLED_RENDER_MISMATCH')",
+        "sha256": "154eb908ea6ac727e56f0f1df4b254af72a5a59160f4c4d9de5ec29e55516d53"
+      },
+      {
+        "file": "backend/research_pipeline/narrative/stage_runner.py",
+        "symbol": "narrate_and_verify",
+        "line": 15,
+        "excerpt": "def narrate_and_verify(\n    recorder,\n    case_id,\n    canonical_dossier,\n    call_narrator_fn,\n    verify_narrative_fn,\n    canonical,\n    replay_origin,\n    narrative_verifier_mode: str = \"CANONICAL\",\n) -> None:\n    \"\"\"Stage 14 e 15. Separati dallo stage 13 in modo osservabile.\n\n    L'ordine è il contratto: il dossier canonico è già stato costruito ed emesso\n    con ``DOSSIER_BUILT`` prima che il Narrator venga invocato.\n    \"\"\"",
+        "sha256": "41a96b2ebc79bcea751e581b6aeec9bd6a0f30fe29dcf559e0787e92461af119"
+      }
+    ],
+    "runtime": [
+      {
+        "file": "backend/research_pipeline/run_store.py",
+        "symbol": "new_run_budget",
+        "line": 54,
+        "excerpt": "def new_run_budget() -> CallBudget:\n    \"\"\"Size the default budget to retrieval; respect an explicit operator cap.\"\"\"\n    configured = os.getenv(\"RESEARCH_PIPELINE_MAX_LLM_CALLS_PER_RUN\", \"\").strip()\n    token_limit = os.getenv('RESEARCH_PIPELINE_MAX_ESTIMATED_TOKENS_PER_RUN', '').strip()\n    budget = CallBudget(max_llm_calls_per_run(), workload_sized=not bool(configured),\n                        maximum_estimated_tokens=int(token_limit) if token_limit else None)\n    windows = os.getenv('RESEARCH_PIPELINE_MAX_NEW_ENCODING_WINDOWS_PER_RUN', '').strip()\n    seconds = os.getenv('RESEARCH_PIPELINE_MAX_ENCODING_SECONDS_PER_RUN', '').strip()\n    if windows:\n        budget.maximum_encoding_windows = int(windows)\n        if budget.maximum_encoding_windows < 1:\n            raise ValueError('Encoding windows limit must be positive')\n    if seconds:\n        import math\n        budget.maximum_encoding_seconds = float(seconds)",
+        "sha256": "6a6a4791c6f0c0eec59a41ce42878be3f9df803626fea53015deb3260f8a2d19"
+      },
+      {
+        "file": "backend/research_pipeline/run_store.py",
+        "symbol": "RunStore",
+        "line": 154,
+        "excerpt": "class RunStore:\n    \"\"\"Registro in memoria. Le run non sopravvivono a un riavvio del processo,\n    ma i loro eventi sÃ¬: il ledger Ã¨ su disco e la trace resta ispezionabile.\"\"\"\n\n    def __init__(self, *, max_workers: int | None = None, queue_capacity: int | None = None,\n                 max_cached_runs: int | None = None) -> None:\n        max_workers = max_workers if max_workers is not None else int(os.getenv(\"RESEARCH_PIPELINE_MAX_WORKERS\", \"2\"))\n        queue_capacity = queue_capacity if queue_capacity is not None else int(os.getenv(\"RESEARCH_PIPELINE_QUEUE_CAPACITY\", \"8\"))\n        max_cached_runs = max_cached_runs if max_cached_runs is not None else int(os.getenv(\"RESEARCH_PIPELINE_MAX_CACHED_RUNS\", \"100\"))\n        if isinstance(max_workers, bool) or not isinstance(max_workers, int) or max_workers < 1:\n            raise ValueError(\"max_workers must be a positive integer\")\n        if isinstance(queue_capacity, bool) or not isinstance(queue_capacity, int) or queue_capacity < 0:\n            raise ValueError(\"queue_capacity must be a non-negative integer\")\n        if type(max_cached_runs) is not int or max_cached_runs < 0:\n            raise ValueError(\"max_cached_runs must be a non-negative integer\")",
+        "sha256": "6a6a4791c6f0c0eec59a41ce42878be3f9df803626fea53015deb3260f8a2d19"
+      },
+      {
+        "file": "backend/research_pipeline/budget.py",
+        "symbol": "CallBudget",
+        "line": 37,
+        "excerpt": "class CallBudget:\n    def __init__(\n        self, maximum: int = MAX_REAL_CALLS_TOTAL, *, workload_sized: bool = False,\n        maximum_estimated_tokens: int | None = None,\n    ):\n        self.maximum = maximum\n        self.workload_sized = workload_sized\n        self.used = 0\n        self.calls: list[dict[str, Any]] = []\n        if maximum_estimated_tokens is not None and (type(maximum_estimated_tokens) is not int or maximum_estimated_tokens < 1):\n            raise ValueError('Estimated token budget must be positive')\n        self.maximum_estimated_tokens = maximum_estimated_tokens\n        self.transport_attempts: list[dict[str, Any]] = []\n        self.maximum_encoding_windows: int | None = None\n        self.maximum_encoding_seconds: float | None = None",
+        "sha256": "e7a7dee72b90c82a54fbec9c150b95c5d66949eae21aa58d2a3ee18adba3c541"
+      },
+      {
+        "file": "backend/research_pipeline/recording.py",
+        "symbol": "RunRecorder",
+        "line": 34,
+        "excerpt": "class RunRecorder:\n    \"\"\"Accumula gli stage e scrive gli eventi sul ledger append-only.\n\n    Il ledger è la fonte di verità; ``PipelineRun`` è una proiezione comoda per\n    l'API. Le due non devono divergere, quindi ogni transizione passa di qui.\n    \"\"\"\n\n    def __init__(self, ledger: EventLedger, run_id: str, execution_mode: str) -> None:\n        self._ledger = ledger\n        self._run_id = run_id\n        self._mode = execution_mode\n        self._stages: list[PipelineStage] = []\n        self._started: dict[str, float] = {}\n        self._started_at: dict[str, str] = {}\n",
+        "sha256": "5be318bdd2066590c19db7d811f65b08ce8dfcc29c29005b292c990b8cbaf9c8"
+      },
+      {
+        "file": "backend/research_pipeline/execution_mode.py",
+        "symbol": "classify_run_mode",
+        "line": 140,
+        "excerpt": "def classify_run_mode(requested: str, origins: Iterable[str]) -> str:\n    \"\"\"Modalità **effettiva** della run, dalle origini dei suoi stage.\n\n    Una run avviata in LIVE che abbia usato anche un solo artefatto registrato è\n    ``HYBRID``. Non è una sfumatura: è la differenza fra una dimostrazione e una\n    ricostruzione, e deve essere leggibile senza aprire i singoli stage.\n    \"\"\"\n    if requested == REPLAY:\n        return REPLAY\n    return HYBRID if count_replay_artifacts(origins) > 0 else LIVE\n\n\ndef is_fully_live(requested: str, origins: Iterable[str]) -> bool:\n    \"\"\"Vero solo per una run LIVE con zero artefatti registrati.\"\"\"\n    return classify_run_mode(requested, origins) == LIVE and requested == LIVE",
+        "sha256": "e2de1dea5886ffd4d44ef178d7e00f89126cb48d914783192305af4f3d28d8ff"
+      }
+    ]
+  }
+}

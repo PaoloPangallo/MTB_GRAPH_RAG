@@ -1,0 +1,13 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Verifiche · Pubblicazione", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"fonte" [id="macro-node-fonte", label="Pubblicazione 28891408", shape="box", fillcolor="#EAF0F5", tooltip="Pubblicazione 28891408"];
+"autenticazione" [id="macro-node-autenticazione", label="1 · Autenticazione della citazione\nTesto letterale e fonte corretta", shape="box", fillcolor="#F0EBF6", tooltip="1 · Autenticazione della citazione\nTesto letterale e fonte corretta"];
+"relazione" [id="macro-node-relazione", label="2 · Controlli sulla relazione\nIdentità, campi e significato\nSecondo il tipo di relazione", shape="box", fillcolor="#F0EBF6", tooltip="2 · Controlli sulla relazione\nIdentità, campi e significato\nSecondo il tipo di relazione"];
+"decisione" [id="macro-node-decisione", label="3 · Decisione\nAttribuire solo il supporto consentito\nNell’esempio: supporto non attribuito", shape="box", fillcolor="#E6F3EC", tooltip="3 · Decisione\nAttribuire solo il supporto consentito\nNell’esempio: supporto non attribuito"];
+"fonte" -> "autenticazione" [label="contenuto disponibile", style="solid"];
+"autenticazione" -> "relazione" [label="contenuto utilizzabile", style="solid"];
+"relazione" -> "decisione" [label="esiti distinti dei controlli", style="solid"];
+}

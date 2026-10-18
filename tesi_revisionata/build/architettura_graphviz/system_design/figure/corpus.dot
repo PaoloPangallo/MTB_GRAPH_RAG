@@ -1,0 +1,17 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Preparare le associazioni candidate", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"nodi" [id="node-nodi", shape="box", label="Nodi del Knowledge Graph\nVarianti · evidenze · farmaci · studi", fillcolor="#EAF0F5", tooltip="Nodi del Knowledge Graph\nVarianti · evidenze · farmaci · studi"];
+"archi" [id="node-archi", shape="box", label="Archi e riferimenti\nQuali entità sono collegate?", fillcolor="#EAF0F5", tooltip="Archi e riferimenti\nQuali entità sono collegate?"];
+"materializzare" [id="node-materializzare", shape="box", label="Materializzare le GCA\nSoggetto + relazione + oggetto", fillcolor="#E8F4F0", tooltip="Materializzare le GCA\nSoggetto + relazione + oggetto"];
+"collegare" [id="node-collegare", shape="box", label="Comporre relazioni complementari\nSolo con riferimenti di evidenza\ncoincidenti", fillcolor="#E8F4F0", tooltip="Comporre relazioni complementari\nSolo con riferimenti di evidenza coincidenti"];
+"provenienza" [id="node-provenienza", shape="box", label="Conservare nodi, archi e fonte\nOgni relazione resta ricostruibile", fillcolor="#F0EBF6", tooltip="Conservare nodi, archi e fonte\nOgni relazione resta ricostruibile"];
+"corpus" [id="node-corpus", shape="box", label="Corpus delle relazioni candidate\nPronto per compatibilità e specificità", fillcolor="#E6F3EC", tooltip="Corpus delle relazioni candidate\nPronto per compatibilità e specificità"];
+"nodi" -> "materializzare" [label="entità", style="solid"];
+"archi" -> "materializzare" [label="collegamenti", style="solid"];
+"materializzare" -> "collegare" [label="record di relazione", style="solid"];
+"collegare" -> "provenienza" [label="origine dei record collegati", style="solid"];
+"provenienza" -> "corpus" [label="relazioni con provenienza", style="solid"];
+{rank=same; "nodi"; "archi";}
+}

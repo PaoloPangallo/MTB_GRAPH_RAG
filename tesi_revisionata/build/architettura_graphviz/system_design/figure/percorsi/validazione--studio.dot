@@ -1,0 +1,13 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Verificare citazione e significato · Registro di studio clinico", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"fonte" [id="node-fonte", label="Registro NCT02279004", shape="box", fillcolor="#EAF0F5", tooltip="Registro NCT02279004"];
+"citazione" [id="node-citazione", label="Percorso predefinito\nVerificare la frase citata e la sua fonte\nNell’esempio opzionale: conservare l’origine dei dati", shape="box", fillcolor="#F0EBF6", tooltip="Percorso predefinito\nVerificare la frase citata e la sua fonte\nNell’esempio opzionale: conservare l’origine dei dati"];
+"relazione" [id="node-relazione", label="Controllare il collegamento allo studio\nTenere distinti descrizione e risultati", shape="box", fillcolor="#F0EBF6", tooltip="Controllare il collegamento allo studio\nTenere distinti descrizione e risultati"];
+"esito" [id="node-esito", label="Esito registrato: da chiarire\nEleggibilità individuale non valutata", shape="box", fillcolor="#E6F3EC", tooltip="Esito registrato: da chiarire\nEleggibilità individuale non valutata"];
+"fonte" -> "citazione" [label="contenuto del registro", style="solid"];
+"citazione" -> "relazione" [label="origine conservata", style="solid"];
+"relazione" -> "esito" [label="esiti e limiti", style="solid"];
+}

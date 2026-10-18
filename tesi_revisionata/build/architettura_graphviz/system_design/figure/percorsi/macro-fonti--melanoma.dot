@@ -1,0 +1,15 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Analisi delle fonti · Pubblicazione", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"fonte" [id="macro-node-fonte", label="Pubblicazione 28891408", shape="box", fillcolor="#EAF0F5", tooltip="Pubblicazione 28891408"];
+"risolvere" [id="macro-node-risolvere", label="Raggiungere il contenuto della fonte\nConservare documento e posizione", shape="box", fillcolor="#E8F4F0", tooltip="Raggiungere il contenuto della fonte\nConservare documento e posizione"];
+"selezione" [id="macro-node-selezione", label="Percorso predefinito\nBM25 strutturale + MedCPT → RRF", shape="box", fillcolor="#E8F4F0", tooltip="Percorso predefinito\nBM25 strutturale + MedCPT → RRF"];
+"reader" [id="macro-node-reader", label="Reader\nOsservazione con citazione o astensione", shape="box", fillcolor="#FBF1DD", tooltip="Reader\nOsservazione con citazione o astensione"];
+"esito" [id="macro-node-esito", label="Osservazione della pubblicazione\nDa sottoporre ai controlli", shape="box", fillcolor="#E6F3EC", tooltip="Osservazione della pubblicazione\nDa sottoporre ai controlli"];
+"fonte" -> "risolvere" [label="riferimento", style="solid"];
+"risolvere" -> "selezione" [label="unità della fonte", style="solid"];
+"selezione" -> "reader" [label="passaggi selezionati", style="solid"];
+"reader" -> "esito" [label="contenuto della fonte", style="solid"];
+}

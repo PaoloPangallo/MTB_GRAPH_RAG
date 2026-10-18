@@ -1,0 +1,16 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Dividere la fonte in passaggi leggibili", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"documento" [id="node-documento", shape="box", label="Contenuto risolto + formato\nArticolo, abstract, PDF o registro", fillcolor="#EAF0F5", tooltip="Contenuto risolto + formato\nArticolo, abstract, PDF o registro"];
+"parsing" [id="node-parsing", shape="box", label="Interpretare la struttura del documento", fillcolor="#E8F4F0", tooltip="Interpretare la struttura del documento"];
+"segmenti" [id="node-segmenti", shape="box", label="Estrarre unità della fonte\nFrasi · paragrafi · tabelle · didascalie", fillcolor="#E8F4F0", tooltip="Estrarre unità della fonte\nFrasi · paragrafi · tabelle · didascalie"];
+"posizioni" [id="node-posizioni", shape="box", label="Associare documento e posizione\nSezione, frase o pagina disponibili", fillcolor="#E8F4F0", tooltip="Associare documento e posizione\nSezione, frase o pagina disponibili"];
+"occorrenze" [id="node-occorrenze", shape="box", label="Distinguere le occorrenze\nTesto uguale non implica stessa posizione", fillcolor="#E8F4F0", tooltip="Distinguere le occorrenze\nTesto uguale non implica stessa posizione"];
+"unita" [id="node-unita", shape="box", label="Unità selezionabili e citabili\nTesto + fonte + posizione", fillcolor="#E6F3EC", tooltip="Unità selezionabili e citabili\nTesto + fonte + posizione"];
+"documento" -> "parsing" [label="formato", style="solid"];
+"parsing" -> "segmenti" [label="struttura", style="solid"];
+"segmenti" -> "posizioni" [label="testo", style="solid"];
+"posizioni" -> "occorrenze" [label="origine", style="solid"];
+"occorrenze" -> "unita" [label="unità identificabili", style="solid"];
+}

@@ -1,0 +1,18 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Scegliere che cosa leggere · Registro di studio clinico", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"fonte" [id="node-fonte", label="Registro NCT02279004", shape="box", fillcolor="#EAF0F5", tooltip="Registro NCT02279004"];
+"risolvere" [id="node-risolvere", label="Raggiungere il contenuto della fonte\nConservare documento e posizione", shape="box", fillcolor="#E8F4F0", tooltip="Raggiungere il contenuto della fonte\nConservare documento e posizione"];
+"selezione" [id="node-selezione", label="Percorso predefinito\nBM25 strutturale + MedCPT → RRF", shape="box", fillcolor="#E8F4F0", tooltip="Percorso predefinito\nBM25 strutturale + MedCPT → RRF"];
+"reader" [id="node-reader", label="Reader\nOsservazione con citazione o astensione", shape="box", fillcolor="#FBF1DD", tooltip="Reader\nOsservazione con citazione o astensione"];
+"esito" [id="node-esito", label="Informazioni del registro\nNessuna efficacia o eleggibilità dedotta", shape="box", fillcolor="#E6F3EC", tooltip="Informazioni del registro\nNessuna efficacia o eleggibilità dedotta"];
+"fatti" [id="node-fatti", label="Configurazione opzionale del registro\nFatti strutturati, senza Reader generativo", shape="box", fillcolor="#E8F4F0", tooltip="Configurazione opzionale del registro\nFatti strutturati, senza Reader generativo"];
+"fonte" -> "risolvere" [label="riferimento", style="solid"];
+"risolvere" -> "selezione" [label="unità della fonte", style="solid"];
+"selezione" -> "reader" [label="passaggi selezionati", style="solid"];
+"reader" -> "esito" [label="contenuto della fonte", style="solid"];
+"risolvere" -> "fatti" [label="opzione, non default", style="dashed"];
+"fatti" -> "esito" [label="informazioni di studio", style="dashed"];
+}

@@ -1,0 +1,24 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Entity Resolution: dai nomi alle identità", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"menzioni" [id="node-menzioni", shape="box", label="Fatti accettati del caso\nMalattia · biomarcatori · intervento", fillcolor="#EAF0F5", tooltip="Fatti accettati del caso\nMalattia · biomarcatori · intervento"];
+"proiezione" [id="node-proiezione", shape="box", label="Proiezione per il recupero\nEscludere le menzioni non accettate", fillcolor="#E8F4F0", tooltip="Proiezione per il recupero\nEscludere le menzioni non accettate"];
+"malattia" [id="node-malattia", shape="box", label="Risolvere la malattia\nConcetto ontologico + contesto separato", fillcolor="#E8F4F0", tooltip="Risolvere la malattia\nConcetto ontologico + contesto separato"];
+"gene" [id="node-gene", shape="box", label="Risolvere il gene\nNome o sinonimo → identità del gene", fillcolor="#E8F4F0", tooltip="Risolvere il gene\nNome o sinonimo → identità del gene"];
+"variante" [id="node-variante", shape="box", label="Risolvere la variante nel suo gene\nConservare la coppia gene–variante", fillcolor="#E8F4F0", tooltip="Risolvere la variante nel suo gene\nConservare la coppia gene–variante"];
+"intervento" [id="node-intervento", shape="box", label="Cercare nomi e alias dell’intervento\nNon forzare un’identità assente", fillcolor="#E8F4F0", tooltip="Cercare nomi e alias dell’intervento\nNon forzare un’identità assente"];
+"contesto" [id="node-contesto", shape="box", label="Contesto di ricerca\nValori originali + identità + stati\nContesto di malattia e coppie molecolari", fillcolor="#E6F3EC", tooltip="Contesto di ricerca\nValori originali + identità + stati\nContesto di malattia e coppie molecolari"];
+"nonrisolti" [id="node-nonrisolti", shape="box", label="Nomi non risolti o ambigui\nRestano dichiarati, senza equivalenze\ninventate", fillcolor="#F8EEE8", tooltip="Nomi non risolti o ambigui\nRestano dichiarati, senza equivalenze inventate"];
+"menzioni" -> "proiezione" [label="solo dati accettati", style="solid"];
+"proiezione" -> "malattia" [label="malattia", style="solid"];
+"proiezione" -> "gene" [label="biomarcatore", style="solid"];
+"gene" -> "variante" [label="gene riconosciuto +\nalterazione", style="solid"];
+"proiezione" -> "intervento" [label="intervento cercato", style="solid"];
+"malattia" -> "contesto" [label="concetto + contesto", style="solid"];
+"variante" -> "contesto" [label="gene + variante", style="solid"];
+"intervento" -> "contesto" [label="identità o valore originale", style="solid"];
+"intervento" -> "nonrisolti" [label="nome non riconosciuto", style="solid"];
+"nonrisolti" -> "contesto" [label="stato conservato", style="solid"];
+{rank=same; "malattia"; "gene"; "intervento";}
+}

@@ -1,0 +1,13 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"step0" [id="macro-node-step0", label="Pubblicazione 28891408", shape="box", fillcolor="#EAF0F5", tooltip="Pubblicazione 28891408"];
+"step1" [id="macro-node-step1", label="Selezione BM25 strutturale + MedCPT\nRRF → passaggi al Reader", shape="box", fillcolor="#E8F4F0", tooltip="Selezione BM25 strutturale + MedCPT\nRRF → passaggi al Reader"];
+"step2" [id="macro-node-step2", label="Osservazione con citazione\noppure astensione", shape="box", fillcolor="#E8F4F0", tooltip="Osservazione con citazione\noppure astensione"];
+"step3" [id="macro-node-step3", label="Citazione autentica\nSupporto non attribuito alla relazione", shape="box", fillcolor="#E6F3EC", tooltip="Citazione autentica\nSupporto non attribuito alla relazione"];
+"step0" -> "step1" [label="", style="solid"];
+"step1" -> "step2" [label="", style="solid"];
+"step2" -> "step3" [label="", style="solid"];
+}

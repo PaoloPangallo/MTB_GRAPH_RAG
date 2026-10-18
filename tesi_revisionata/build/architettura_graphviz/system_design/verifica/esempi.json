@@ -1,0 +1,659 @@
+{
+  "corpus": {
+    "file": "C:\\Users\\paolo\\Desktop\\mtb-relation-aware-core\\mtb-graphrag\\benchmarks\\mtb_evidence\\document_grounded_claims\\graph_candidate_repository\\4.0\\candidates.jsonl",
+    "sha256": "4e197764dff17cb396c5026338f07e001c0573e37bec9fb0f8a32e652b9d7edd",
+    "loader": "backend/research_pipeline/data_access.py"
+  },
+  "records": [
+    {
+      "candidate_id": "GCA4-04b330bf787c3fb25a0f4abe",
+      "semantic_key": "COMPANION_DIAGNOSTIC_GENE|CompanionDiagnostic:cdx:FOUNDATIONONECD:BRAF:TRAMETINIB|Gene:673",
+      "record_sha256": "23eab319aacf2189961e4779882fb33f134c53e3d759e9e8d3ecd51feb91a68f",
+      "record": {
+        "candidate_id": "GCA4-04b330bf787c3fb25a0f4abe",
+        "context": {},
+        "document_identifiers": [],
+        "edge_ids_by_dataset": {
+          "edge_diagnoses_gene.csv": [
+            "row:edge_diagnoses_gene.csv:28:97f4000582347aff"
+          ]
+        },
+        "graph_path": [
+          "CompanionDiagnostic:cdx:FOUNDATIONONECD:BRAF:TRAMETINIB",
+          "Gene:673"
+        ],
+        "materialization_rule": "gca/4.0/companion_diagnostic_gene",
+        "materializer_version": "gca-materializer/4.0",
+        "node_ids": [
+          "CompanionDiagnostic:cdx:FOUNDATIONONECD:BRAF:TRAMETINIB",
+          "Gene:673"
+        ],
+        "object": {
+          "id": "Gene:673",
+          "label": "BRAF",
+          "type": "Gene"
+        },
+        "predicate": "diagnoses_gene",
+        "relation_family": "COMPANION_DIAGNOSTIC_GENE",
+        "relation_origin": "DIRECT",
+        "semantic_key": "COMPANION_DIAGNOSTIC_GENE|CompanionDiagnostic:cdx:FOUNDATIONONECD:BRAF:TRAMETINIB|Gene:673",
+        "source_datasets": [
+          "edge_diagnoses_gene.csv"
+        ],
+        "source_properties": {
+          "device": {
+            "device_id": "cdx:FOUNDATIONONECD:BRAF:TRAMETINIB",
+            "device_name": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+            "drug": "Trametinib",
+            "gene": "BRAF",
+            "platform_type": "NGS",
+            "specimen_types": "FFPE"
+          },
+          "edge": {
+            "source_device_id": "cdx:FOUNDATIONONECD:BRAF:TRAMETINIB",
+            "target_gene_entrez_id": "673"
+          },
+          "gene": {
+            "aliases": "BRAF1",
+            "categories": "DRUGGABLE GENOME;CLINICALLY ACTIONABLE;DRUG RESISTANCE;SERINE THREONINE KINASE;KINASE",
+            "civic_description": "BRAF mutations are found to be recurrent in many cancer types. Of these, the mutation of valine 600 to glutamic acid (V600E) is the most prevalent. V600E has been determined to be an activating mutation, and cells that harbor it, along with other V600 mutations are sensitive to the BRAF inhibitor dabrafenib. It is also common to use MEK inhibition as a substitute for BRAF inhibitors, and the MEK inhibitor trametinib has seen some success in BRAF mutant melanomas. BRAF mutations have also been correlated with poor prognosis in many cancer types, although there is at least one study that questions this conclusion in papillary thyroid cancer. Oncogenic BRAF mutations are divided into three categories that determine their sensitivity to inhibitors. Class 1 BRAF mutations (V600) are RAS-independent, signal as monomers and are sensitive to current RAF monomer inhibitors. Class 2 BRAF mutations (K601E, K601N, K601T, L597Q, L597V, G469A, G469V, G469R, G464V, G464E, and fusions) are RAS-independent, signaling as constitutive dimers and are resistant to vemurafenib. Such mutants may be sensitive to novel RAF dimer inhibitors or MEK inhibitors. Class 3 BRAF mutations (D287H, V459L, G466V, G466E, G466A, S467L, G469E, N581S, N581I, D594N, D594G, D594A, D594H, F595L, G596D, and G596R) with low or absent kinase activity are RAS-dependent and they activate ERK by increasing their binding to activated RAS and wild-type CRAF. Class 3 BRAF mutations coexist with mutations in RAS or NF1 in melanoma may be treated with MEK inhibitors. In epithelial tumors such as CRC or NSCLC may be effectively treated with combinations that include inhibitors of receptor tyrosine kinase.",
+            "entrez_id": "673",
+            "gene_type": "ONCOGENE",
+            "grch38_isoform": "ENST00000646891",
+            "grch38_refseq": "NM_004333.4",
+            "hugo_symbol": "BRAF",
+            "is_oncokb_annotated": "True"
+          }
+        },
+        "source_record_ids": [
+          "row:edge_diagnoses_gene.csv:28:97f4000582347aff"
+        ],
+        "subject": {
+          "id": "CompanionDiagnostic:cdx:FOUNDATIONONECD:BRAF:TRAMETINIB",
+          "label": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+          "type": "CompanionDiagnostic"
+        }
+      }
+    },
+    {
+      "candidate_id": "GCA4-1d0d2b23a0b1216b14a49011",
+      "semantic_key": "TRIAL_GENE|Trial:NCT02279004|GeneSymbol:BRAF",
+      "record_sha256": "9acfb7d8030f03dc2a38549c2651531bbd2e640ab47ef817381fe1ce87c932d8",
+      "record": {
+        "candidate_id": "GCA4-1d0d2b23a0b1216b14a49011",
+        "context": {},
+        "document_identifiers": [
+          {
+            "nct": "NCT02279004"
+          }
+        ],
+        "edge_ids_by_dataset": {
+          "edges_trial_gene.csv": [
+            "row:edges_trial_gene.csv:512:97ed3744032153df"
+          ]
+        },
+        "graph_path": [
+          "Trial:NCT02279004",
+          "GeneSymbol:BRAF"
+        ],
+        "materialization_rule": "gca/4.0/trial_gene",
+        "materializer_version": "gca-materializer/4.0",
+        "node_ids": [
+          "Trial:NCT02279004",
+          "GeneSymbol:BRAF"
+        ],
+        "object": {
+          "id": "GeneSymbol:BRAF",
+          "label": "BRAF",
+          "type": "GeneSymbol"
+        },
+        "predicate": "has_trial_gene",
+        "relation_family": "TRIAL_GENE",
+        "relation_origin": "DIRECT",
+        "semantic_key": "TRIAL_GENE|Trial:NCT02279004|GeneSymbol:BRAF",
+        "source_datasets": [
+          "edges_trial_gene.csv"
+        ],
+        "source_properties": {
+          "edge": {
+            "gene_symbol": "BRAF",
+            "nct_id": "NCT02279004",
+            "source": "eligibility_criteria"
+          },
+          "trial": {
+            "conditions": "NSCLC | Melanoma",
+            "interventions": "",
+            "keywords": "Plasma Genotyping | NSCLC | Melanoma",
+            "nct_id": "NCT02279004",
+            "phase": "NA",
+            "status": "ACTIVE_NOT_RECRUITING",
+            "title": "A Prospective Study of Plasma Genotyping as a Noninvasive Biomarker for Genotype-directed Cancer Care"
+          }
+        },
+        "source_record_ids": [
+          "row:edges_trial_gene.csv:512:97ed3744032153df"
+        ],
+        "subject": {
+          "id": "Trial:NCT02279004",
+          "label": "A Prospective Study of Plasma Genotyping as a Noninvasive Biomarker for Genotype-directed Cancer Care",
+          "type": "Trial"
+        }
+      }
+    },
+    {
+      "candidate_id": "GCA4-55e94d5dfe5e8cc4831e24b7",
+      "semantic_key": "EVIDENCE_DRUG|Evidence:6179|Drug:fda:TRAMETINIB",
+      "record_sha256": "48953f3ad6aab7553c00b8bf30c1018726a2ee314c3a00bfbcb3507caab37dcb",
+      "record": {
+        "candidate_id": "GCA4-55e94d5dfe5e8cc4831e24b7",
+        "context": {
+          "disease": "Melanoma",
+          "doid": "1909",
+          "evidence_level": "B",
+          "evidence_type": "Predictive"
+        },
+        "document_identifiers": [
+          {
+            "pmid": "28891408",
+            "scope": "evidence_record"
+          }
+        ],
+        "edge_ids_by_dataset": {
+          "edge_has_evidence.csv": [
+            "row:edge_has_evidence.csv:3103:78df4d271c1eb643"
+          ],
+          "edge_in_molecular_profile.csv": [
+            "row:edge_in_molecular_profile.csv:471:204890f9c7b9c8cf"
+          ],
+          "edge_targets_drug.csv": [
+            "row:edge_targets_drug.csv:2333:46907e440ecf4cb4"
+          ]
+        },
+        "graph_path": [
+          "Evidence:6179",
+          "MolecularProfile:559",
+          "Variant:563",
+          "Drug:fda:TRAMETINIB"
+        ],
+        "materialization_rule": "gca/4.0/evidence_drug",
+        "materializer_version": "gca-materializer/4.0",
+        "node_ids": [
+          "Evidence:6179",
+          "MolecularProfile:559",
+          "Variant:563",
+          "Drug:fda:TRAMETINIB"
+        ],
+        "object": {
+          "id": "Drug:fda:TRAMETINIB",
+          "label": "TRAMETINIB",
+          "type": "Drug"
+        },
+        "predicate": "targets_drug",
+        "relation_family": "EVIDENCE_DRUG",
+        "relation_origin": "DIRECT",
+        "semantic_key": "EVIDENCE_DRUG|Evidence:6179|Drug:fda:TRAMETINIB",
+        "source_datasets": [
+          "edge_targets_drug.csv"
+        ],
+        "source_properties": {
+          "drug": {
+            "anti_neoplastic": "True",
+            "approved": "True",
+            "biomarker": "BRAF V600E/K",
+            "concept_id": "fda:TRAMETINIB",
+            "drug_claim_name": "Trametinib",
+            "drug_class": "Small molecule kinase inhibitor",
+            "drug_name": "TRAMETINIB",
+            "fda_approval_year": "2013.0",
+            "immunotherapy": "False",
+            "mechanism": "MEK1/2 inhibitor",
+            "nomenclature": "FDA Precision Oncology",
+            "source_db_name": "FDA_Oncology_Therapies",
+            "source_db_version": "2023-07-25"
+          },
+          "edge": {
+            "evidence_direction": "Supports",
+            "evidence_level": "B",
+            "significance": "Sensitivity/Response",
+            "source_evidence_id": "6179",
+            "target_drug_concept_id": "fda:TRAMETINIB"
+          },
+          "evidence": {
+            "citation_id": "28891408",
+            "disease": "Melanoma",
+            "doid": "1909",
+            "evidence_direction": "Supports",
+            "evidence_id": "6179",
+            "evidence_level": "B",
+            "evidence_statement": "Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was administered to patients with stage III resected melenoma with V600E or V600K mutation in this stage III trial (COMBO-AD, NCT01682083). 78 (9%) patients had V600K, and were administered dabrafenib and trametinib or placebo for 12 months. In subsequent analysis, relapse or death occurred in 16/41 patients (39%) in the treatment group and 19/37 patients (51%) in the placebo group for a 95% CI Hazard Ratio of 0.54 (0.27-1.06).",
+            "evidence_type": "Predictive",
+            "rating": "4",
+            "significance": "Sensitivity/Response",
+            "source_type": "PubMed",
+            "variant_origin": "Somatic"
+          }
+        },
+        "source_record_ids": [
+          "row:edge_targets_drug.csv:2333:46907e440ecf4cb4"
+        ],
+        "subject": {
+          "id": "Evidence:6179",
+          "label": "Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was administered to patients with stage III resected melenoma with V600E or V600K mutation in this stage III trial (COMBO-AD, NCT01682083). 78 (9%) patients had V600K, and were administered dabrafenib and trametinib or placebo for 12 months. In subsequent analysis, relapse or death occurred in 16/41 patients (39%) in the treatment group and 19/37 patients (51%) in the placebo group for a 95% CI Hazard Ratio of 0.54 (0.27-1.06).",
+          "type": "Evidence"
+        }
+      }
+    },
+    {
+      "candidate_id": "GCA4-90e1b87741de703c9b2274d4",
+      "semantic_key": "EVIDENCE_DRUG|Evidence:6179|Drug:rxcui:1424911",
+      "record_sha256": "b6d758835efb904a92379b4ebd69e81e6ba7e4b391601530c0aa2ce477f93fe1",
+      "record": {
+        "candidate_id": "GCA4-90e1b87741de703c9b2274d4",
+        "context": {
+          "disease": "Melanoma",
+          "doid": "1909",
+          "evidence_level": "B",
+          "evidence_type": "Predictive"
+        },
+        "document_identifiers": [
+          {
+            "pmid": "28891408",
+            "scope": "evidence_record"
+          }
+        ],
+        "edge_ids_by_dataset": {
+          "edge_has_evidence.csv": [
+            "row:edge_has_evidence.csv:3103:78df4d271c1eb643"
+          ],
+          "edge_in_molecular_profile.csv": [
+            "row:edge_in_molecular_profile.csv:471:204890f9c7b9c8cf"
+          ],
+          "edge_targets_drug.csv": [
+            "row:edge_targets_drug.csv:2332:2b8d02480356b5be"
+          ]
+        },
+        "graph_path": [
+          "Evidence:6179",
+          "MolecularProfile:559",
+          "Variant:563",
+          "Drug:rxcui:1424911"
+        ],
+        "materialization_rule": "gca/4.0/evidence_drug",
+        "materializer_version": "gca-materializer/4.0",
+        "node_ids": [
+          "Evidence:6179",
+          "MolecularProfile:559",
+          "Variant:563",
+          "Drug:rxcui:1424911"
+        ],
+        "object": {
+          "id": "Drug:rxcui:1424911",
+          "label": "DABRAFENIB",
+          "type": "Drug"
+        },
+        "predicate": "targets_drug",
+        "relation_family": "EVIDENCE_DRUG",
+        "relation_origin": "DIRECT",
+        "semantic_key": "EVIDENCE_DRUG|Evidence:6179|Drug:rxcui:1424911",
+        "source_datasets": [
+          "edge_targets_drug.csv"
+        ],
+        "source_properties": {
+          "drug": {
+            "anti_neoplastic": "True",
+            "approved": "True",
+            "biomarker": "BRAF V600E/K",
+            "concept_id": "rxcui:1424911",
+            "drug_claim_name": "dabrafenib",
+            "drug_class": "Small molecule kinase inhibitor",
+            "drug_name": "DABRAFENIB",
+            "fda_approval_year": "2013.0",
+            "immunotherapy": "False",
+            "mechanism": "BRAF inhibitor",
+            "nomenclature": "Primary Drug Name",
+            "source_db_name": "RxNorm",
+            "source_db_version": "20240401"
+          },
+          "edge": {
+            "evidence_direction": "Supports",
+            "evidence_level": "B",
+            "significance": "Sensitivity/Response",
+            "source_evidence_id": "6179",
+            "target_drug_concept_id": "rxcui:1424911"
+          },
+          "evidence": {
+            "citation_id": "28891408",
+            "disease": "Melanoma",
+            "doid": "1909",
+            "evidence_direction": "Supports",
+            "evidence_id": "6179",
+            "evidence_level": "B",
+            "evidence_statement": "Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was administered to patients with stage III resected melenoma with V600E or V600K mutation in this stage III trial (COMBO-AD, NCT01682083). 78 (9%) patients had V600K, and were administered dabrafenib and trametinib or placebo for 12 months. In subsequent analysis, relapse or death occurred in 16/41 patients (39%) in the treatment group and 19/37 patients (51%) in the placebo group for a 95% CI Hazard Ratio of 0.54 (0.27-1.06).",
+            "evidence_type": "Predictive",
+            "rating": "4",
+            "significance": "Sensitivity/Response",
+            "source_type": "PubMed",
+            "variant_origin": "Somatic"
+          }
+        },
+        "source_record_ids": [
+          "row:edge_targets_drug.csv:2332:2b8d02480356b5be"
+        ],
+        "subject": {
+          "id": "Evidence:6179",
+          "label": "Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was administered to patients with stage III resected melenoma with V600E or V600K mutation in this stage III trial (COMBO-AD, NCT01682083). 78 (9%) patients had V600K, and were administered dabrafenib and trametinib or placebo for 12 months. In subsequent analysis, relapse or death occurred in 16/41 patients (39%) in the treatment group and 19/37 patients (51%) in the placebo group for a 95% CI Hazard Ratio of 0.54 (0.27-1.06).",
+          "type": "Evidence"
+        }
+      }
+    },
+    {
+      "candidate_id": "GCA4-9a002e06fa9adfdb6fa49a8a",
+      "semantic_key": "EVIDENCE_STATEMENT|Evidence:6179",
+      "record_sha256": "349af5fa18cff6a57cb23e65d59588d0fc5fb67a5017e30452af7687bc3865f1",
+      "record": {
+        "candidate_id": "GCA4-9a002e06fa9adfdb6fa49a8a",
+        "context": {
+          "disease": "Melanoma",
+          "doid": "1909",
+          "evidence_type": "Predictive"
+        },
+        "document_identifiers": [
+          {
+            "pmid": "28891408",
+            "scope": "evidence_record"
+          }
+        ],
+        "edge_ids_by_dataset": {
+          "edge_has_evidence.csv": [
+            "row:edge_has_evidence.csv:3103:78df4d271c1eb643"
+          ],
+          "edge_in_molecular_profile.csv": [
+            "row:edge_in_molecular_profile.csv:471:204890f9c7b9c8cf"
+          ]
+        },
+        "graph_path": [
+          "MolecularProfile:559",
+          "Variant:563",
+          "Evidence:6179"
+        ],
+        "materialization_rule": "gca/4.0/evidence_statement",
+        "materializer_version": "gca-materializer/4.0",
+        "node_ids": [
+          "MolecularProfile:559",
+          "Variant:563",
+          "Evidence:6179"
+        ],
+        "object": {
+          "id": "Evidence:6179",
+          "label": "Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was administered to patients with stage III resected melenoma with V600E or V600K mutation in this stage III trial (COMBO-AD, NCT01682083). 78 (9%) patients had V600K, and were administered dabrafenib and trametinib or placebo for 12 months. In subsequent analysis, relapse or death occurred in 16/41 patients (39%) in the treatment group and 19/37 patients (51%) in the placebo group for a 95% CI Hazard Ratio of 0.54 (0.27-1.06).",
+          "type": "Evidence"
+        },
+        "predicate": "has_evidence_statement",
+        "relation_family": "EVIDENCE_STATEMENT",
+        "relation_origin": "DIRECT",
+        "semantic_key": "EVIDENCE_STATEMENT|Evidence:6179",
+        "source_datasets": [
+          "edge_has_evidence.csv"
+        ],
+        "source_properties": {
+          "evidence": {
+            "citation_id": "28891408",
+            "disease": "Melanoma",
+            "doid": "1909",
+            "evidence_direction": "Supports",
+            "evidence_id": "6179",
+            "evidence_level": "B",
+            "evidence_statement": "Adjuvant dual treatment with BRAF inhibitor dabrafenib and MEK inhibitor trametinib was administered to patients with stage III resected melenoma with V600E or V600K mutation in this stage III trial (COMBO-AD, NCT01682083). 78 (9%) patients had V600K, and were administered dabrafenib and trametinib or placebo for 12 months. In subsequent analysis, relapse or death occurred in 16/41 patients (39%) in the treatment group and 19/37 patients (51%) in the placebo group for a 95% CI Hazard Ratio of 0.54 (0.27-1.06).",
+            "evidence_type": "Predictive",
+            "rating": "4",
+            "significance": "Sensitivity/Response",
+            "source_type": "PubMed",
+            "variant_origin": "Somatic"
+          },
+          "profile": {
+            "aliases": "RS121913227;VAL600LYS",
+            "evidence_score": "142.5",
+            "molecular_profile_id": "559",
+            "name": "BRAF V600K",
+            "summary": ""
+          }
+        },
+        "source_record_ids": [
+          "row:edge_has_evidence.csv:3103:78df4d271c1eb643"
+        ],
+        "subject": {
+          "id": "MolecularProfile:559",
+          "label": "BRAF V600K",
+          "type": "MolecularProfile"
+        }
+      }
+    }
+  ],
+  "execution": {
+    "runId": "7564810e-2d66-485e-a291-fef3b0ad38b8",
+    "caseId": "E2E20-16",
+    "syntheticCase": true,
+    "startedAt": "2026-10-15T18:35:05.107065+00:00",
+    "files": [
+      {
+        "file": "C:\\Users\\paolo\\Desktop\\mtb-relation-aware-core\\experiments_real\\remaining_fixes_20261015\\live4\\E2E20-16\\input.json",
+        "sha256": "70258ff4867997af97b37c57f2dbc87729c23f2fffcd872801b1bd480966a090"
+      },
+      {
+        "file": "C:\\Users\\paolo\\Desktop\\mtb-relation-aware-core\\experiments_real\\remaining_fixes_20261015\\live4\\E2E20-16\\run.json",
+        "sha256": "3ebba7d3e9f1b0ce5ff910d5b3db8684b2b401234c22636cae8099d996c26d7a"
+      },
+      {
+        "file": "C:\\Users\\paolo\\Desktop\\mtb-relation-aware-core\\experiments_real\\remaining_fixes_20261015\\live4\\E2E20-16\\dossier.json",
+        "sha256": "f2ab69228537e618113c36041d5212f4a833b6ede4151e0a5b33cc2aec106f22"
+      }
+    ],
+    "stageStatuses": [
+      {
+        "id": "stage_1_case_input",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_2_casecontext_parser",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_3_casecontext_match",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_3b_pre_retrieval_eligibility_gate",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_4_retrieval_plan",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_5_kg_retrieval",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_6_document_resolution",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_7_source_units",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_8_paper_selection",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_9_paper_context_enricher",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_10_enrichment_validation",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_11_deterministic_gates",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_12_status",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_13_dossier",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_14_narrator",
+        "status": "SUCCEEDED"
+      },
+      {
+        "id": "stage_15_narrative_verifier",
+        "status": "SUCCEEDED"
+      }
+    ]
+  },
+  "newExecutionPerformed": false,
+  "entityResolution": {
+    "disease": {
+      "raw_value": "melanoma metastatico",
+      "status": "RESOLVED",
+      "method": "MENTION_SEGMENTATION",
+      "concept_ids": [
+        "DOID:1909"
+      ],
+      "residual_context": "metastatic"
+    },
+    "gene": {
+      "raw_value": "BRAF",
+      "status": "RESOLVED",
+      "method": "EXACT_LABEL",
+      "concept_ids": [
+        "NCBIGene:673"
+      ]
+    },
+    "variant": {
+      "raw_value": "V600K",
+      "status": "RESOLVED",
+      "method": "EXACT_LABEL",
+      "concept_ids": [
+        "CIViCVariant:563"
+      ]
+    },
+    "intervention": {
+      "raw_value": "dabrafenib e trametinib",
+      "status": "UNMAPPED",
+      "method": "NONE",
+      "concept_ids": []
+    }
+  },
+  "operationalGateExample": {
+    "candidate_id": "GCA4-9a002e06fa9adfdb6fa49a8a",
+    "status": "AMBIGUOUS",
+    "gate_bucket": "WARNING_BUCKET",
+    "warnings": [
+      "NO_VALIDATED_ENRICHMENT_AVAILABLE"
+    ]
+  },
+  "paper": {
+    "candidateId": "GCA4-9a002e06fa9adfdb6fa49a8a",
+    "documentId": "pmid:28891408",
+    "quote": "Adjuvant use of combination therapy with dabrafenib plus trametinib resulted in a significantly lower risk of recurrence in patients with stage III melanoma with BRAF V600E or V600K mutations than the adjuvant use of placebo and was not associated with new toxic effects.",
+    "quoteAuthenticated": true,
+    "claimSupport": "NO_SUPPORT",
+    "observation": {
+      "disease": "stage III melanoma",
+      "subjects": [
+        {
+          "type": "GENE",
+          "surface_value": "BRAF",
+          "canonical_value": "braf",
+          "linked_gene": "BRAF"
+        },
+        {
+          "type": "ALTERATION",
+          "surface_value": "V600E",
+          "canonical_value": "v600e",
+          "linked_gene": "BRAF"
+        },
+        {
+          "type": "ALTERATION",
+          "surface_value": "V600K",
+          "canonical_value": "v600k",
+          "linked_gene": "BRAF"
+        }
+      ],
+      "intervention": "dabrafenib plus trametinib",
+      "observed_stance": "SUPPORTS",
+      "effect_direction": "SENSITIVITY_RESPONSE",
+      "relation_scope": "ALTERNATIVES",
+      "molecular_composition": "ALTERNATIVES",
+      "intervention_composition": "COMBINATION",
+      "relation_assertion": "RELATION_ASSERTED",
+      "subject_pairings": [],
+      "uncertainty": null,
+      "caveats": [],
+      "conflict_markers": [],
+      "trial_context": {},
+      "companion_diagnostic": {},
+      "evidence_context": {
+        "subject_level": "COHORT",
+        "claim_type": "OBSERVED_RESPONSE"
+      },
+      "disease_canonical": "stage iii melanoma",
+      "intervention_canonical": "dabrafenib plus trametinib"
+    },
+    "selectedPassages": [
+      "SU-7e81bd35cb1aabd826e9a630",
+      "SU-98608ead3ae93e2665e3b885",
+      "SU-ef13fd04d1258b141baaec7d",
+      "SU-dedd87c2278990a5c1e222d9",
+      "SU-25f3086a4cb6485621c20d46"
+    ],
+    "archivePointer": "/dossier/paper_evidence/4"
+  },
+  "trial": {
+    "candidateId": "GCA4-1d0d2b23a0b1216b14a49011",
+    "code": "NCT02279004",
+    "title": "A Prospective Study of Plasma Genotyping as a Noninvasive Biomarker for Genotype-directed Cancer Care",
+    "savedStatus": "ACTIVE_NOT_RECRUITING",
+    "conditions": [
+      "NSCLC",
+      "Melanoma"
+    ],
+    "eligibility": "NOT_EVALUATED",
+    "claimSupport": "TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE",
+    "modelCalls": 0,
+    "structuredFacts": {
+      "version": "structured-trial-facts/1.0",
+      "document_id": "nct:NCT02279004",
+      "nct_id": "NCT02279004",
+      "snapshot_digest": "b0a2f0f8d40d9b706a80be7b4718173bf8418678c0d7cfeaf121be8c132ba47a",
+      "origin": "RESOLVED_REGISTRY_SOURCE_UNITS",
+      "eligibility_status": "NOT_EVALUATED",
+      "evidence_interpretation": "TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE"
+    },
+    "operationalGate": {
+      "candidate_id": "GCA4-1d0d2b23a0b1216b14a49011",
+      "status": "AMBIGUOUS",
+      "gate_bucket": "WARNING_BUCKET",
+      "warnings": [
+        "NO_VALIDATED_ENRICHMENT_AVAILABLE"
+      ]
+    }
+  },
+  "diagnostic": {
+    "candidateId": "GCA4-04b330bf787c3fb25a0f4abe",
+    "name": "FoundationOne CDx  (Foundation Medicine, Inc.)",
+    "gene": "BRAF",
+    "sourceAvailable": false
+  },
+  "counts": {
+    "associations": 26,
+    "publications": 9,
+    "trials": 1,
+    "graphOnly": 16
+  }
+}

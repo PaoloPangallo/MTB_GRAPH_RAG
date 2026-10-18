@@ -1,0 +1,14 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Accogliere il caso", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"testo" [id="node-testo", shape="box", label="Testo clinico originale\nDescrizione e domanda da approfondire", fillcolor="#EAF0F5", tooltip="Testo clinico originale\nDescrizione e domanda da approfondire"];
+"inizio" [id="node-inizio", shape="box", label="Aprire l’analisi\nCollegare il lavoro al caso", fillcolor="#E8F4F0", tooltip="Aprire l’analisi\nCollegare il lavoro al caso"];
+"risorse" [id="node-risorse", shape="box", label="Inizializzare il budget\nLimiti delle chiamate ai modelli", fillcolor="#E8F4F0", tooltip="Inizializzare il budget\nLimiti delle chiamate ai modelli"];
+"registrazione" [id="node-registrazione", shape="box", label="Registrare avvio e avanzamento\nConservare il testo originale", fillcolor="#E8F4F0", tooltip="Registrare avvio e avanzamento\nConservare il testo originale"];
+"parser" [id="node-parser", shape="box", label="Inviare il testo al Case Parser\nLa lettura strutturata inizia dopo", fillcolor="#E6F3EC", tooltip="Inviare il testo al Case Parser\nLa lettura strutturata inizia dopo"];
+"testo" -> "inizio" [label="testo invariato", style="solid"];
+"inizio" -> "risorse" [label="impostazioni", style="solid"];
+"risorse" -> "registrazione" [label="contesto del lavoro", style="solid"];
+"registrazione" -> "parser" [label="testo + caso", style="solid"];
+}

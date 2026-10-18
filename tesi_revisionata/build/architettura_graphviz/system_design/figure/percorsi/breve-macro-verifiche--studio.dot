@@ -1,0 +1,13 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"fonte" [id="macro-node-fonte", label="Registro NCT02279004", shape="box", fillcolor="#EAF0F5", tooltip="Registro NCT02279004"];
+"autenticazione" [id="macro-node-autenticazione", label="1 · Autenticazione della citazione\nDefault: controllare testo e fonte\nEsempio opzionale: fatti strutturati, nessuna citazione Reader", shape="box", fillcolor="#F0EBF6", tooltip="1 · Autenticazione della citazione\nDefault: controllare testo e fonte\nEsempio opzionale: fatti strutturati, nessuna citazione Reader"];
+"relazione" [id="macro-node-relazione", label="2 · Controlli sulla relazione\nPreservare identità e origine dello studio\nNon dedurre efficacia o eleggibilità", shape="box", fillcolor="#F0EBF6", tooltip="2 · Controlli sulla relazione\nPreservare identità e origine dello studio\nNon dedurre efficacia o eleggibilità"];
+"decisione" [id="macro-node-decisione", label="3 · Decisione\nGate documentato: ambiguo\nEleggibilità individuale non valutata", shape="box", fillcolor="#E6F3EC", tooltip="3 · Decisione\nGate documentato: ambiguo\nEleggibilità individuale non valutata"];
+"fonte" -> "autenticazione" [label="distinguere i due percorsi", style="solid"];
+"autenticazione" -> "relazione" [label="contenuto e provenienza", style="solid"];
+"relazione" -> "decisione" [label="esiti e limiti conservati", style="solid"];
+}

@@ -1,0 +1,11 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Verificare citazione e significato · Solo Knowledge Graph", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"associazione" [id="node-associazione", label="FoundationOne CDx → gene BRAF", shape="box", fillcolor="#EAF0F5", tooltip="FoundationOne CDx → gene BRAF"];
+"assenza" [id="node-assenza", label="Nessuna citazione da autenticare", shape="box", fillcolor="#F0EBF6", tooltip="Nessuna citazione da autenticare"];
+"origine" [id="node-origine", label="Conservare relazione, origine e limite\nNon inventare una citazione", shape="box", fillcolor="#E6F3EC", tooltip="Il sistema non simula la lettura di un documento assente e non inventa citazioni; conserva la provenienza nel grafo."];
+"associazione" -> "assenza" [label="nessun documento associato", style="solid"];
+"assenza" -> "origine" [label="percorso solo grafo", style="solid"];
+}

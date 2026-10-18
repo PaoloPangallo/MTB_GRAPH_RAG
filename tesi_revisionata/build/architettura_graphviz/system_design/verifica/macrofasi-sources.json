@@ -1,0 +1,162 @@
+{
+  "references": [
+    {
+      "file": "backend/research_pipeline/casecontext/prompt.py",
+      "symbol": "SYSTEM_PROMPT",
+      "line": 138,
+      "sha256": "e7b1b6e889d7a19c90b8a9bead44cab2656a1df167abb13fb2c9333afc0de1d3"
+    },
+    {
+      "file": "backend/research_pipeline/casecontext/pipeline.py",
+      "symbol": "build_retrieval_case_context",
+      "line": 110,
+      "sha256": "28956a7cc4869a89dc643d0e7f57a89fe354755061b8bca7ab8bd541d5260952"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/kg_retrieval.py",
+      "symbol": "_specificity_order_key",
+      "line": 641,
+      "sha256": "fb1fbf072c152035e46edccf7d67dd16bc4ea99bf22db91183f14cbea2a6da6f"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/kg_retrieval.py",
+      "symbol": "_match_candidate",
+      "line": 419,
+      "sha256": "fb1fbf072c152035e46edccf7d67dd16bc4ea99bf22db91183f14cbea2a6da6f"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/canonical_rrf.py",
+      "symbol": "rrf_scores",
+      "line": 20,
+      "sha256": "00c0e6ace38dc90906559646288efae99cae8c81c00903b552330fada68f6541"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/canonical_rrf.py",
+      "symbol": "select_rrf",
+      "line": 36,
+      "sha256": "00c0e6ace38dc90906559646288efae99cae8c81c00903b552330fada68f6541"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/live_sourceunit_selection.py",
+      "symbol": "select_live_papers_for_association",
+      "line": 57,
+      "sha256": "892c07812b14c0a538b6472d566381249b6c61896c5ad504c38229873513836d"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/document_plan.py",
+      "symbol": "focused_enabled",
+      "line": 8,
+      "sha256": "b5622fc4b179ace88de70a3bba6e973477191d3dc70e0b584348f6f6076fe5f9"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/context_reader.py",
+      "symbol": "ContextPolicy",
+      "line": 24,
+      "sha256": "d3adced2a6d6fc89494ceb131aa825b9a3bb02050ff4d06f9b24db6f2f479137"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/validator_v3.py",
+      "symbol": "validate_enrichment_v3",
+      "line": 15,
+      "sha256": "c0d19e93aba68ab6bec7a9c66cc1a3d83ca2341410212c271b880db29c2dc4f5"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/verification_policy.py",
+      "symbol": "policy_for",
+      "line": 29,
+      "sha256": "afcbcc77438b66e6472e94de8ab5308d8f93c4a50fc022bbe28de31f9822e7a5"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/document_verification.py",
+      "symbol": "structural_verify",
+      "line": 213,
+      "sha256": "a84c11d3ad8469920c1b44c92b5038752483ab745bf5562f4d96b11f5867d82c"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/document_verification.py",
+      "symbol": "admit",
+      "line": 410,
+      "sha256": "a84c11d3ad8469920c1b44c92b5038752483ab745bf5562f4d96b11f5867d82c"
+    },
+    {
+      "file": "backend/research_pipeline/orchestrator.py",
+      "symbol": "if candidate.get(\"relation_family\") == \"EVIDENCE_DRUG\":",
+      "line": 951,
+      "sha256": "937def99c2c5a86d0551da2a7507d1afaa523430381059553ea75fed63b7f81c"
+    },
+    {
+      "file": "backend/research_pipeline/narrative/controlled_narrator.py",
+      "symbol": "call_controlled_narrator",
+      "line": 65,
+      "sha256": "4ff5a34766af4aea54930df005f0b55e88398ffd069b4365a340aa97f1d619a0"
+    },
+    {
+      "file": "backend/research_pipeline/narrative/controlled.py",
+      "symbol": "verify_controlled",
+      "line": 283,
+      "sha256": "154eb908ea6ac727e56f0f1df4b254af72a5a59160f4c4d9de5ec29e55516d53"
+    },
+    {
+      "file": "backend/research_pipeline/narrative/stage_runner.py",
+      "symbol": "deterministic_verification = verify_controlled",
+      "line": 168,
+      "sha256": "41a96b2ebc79bcea751e581b6aeec9bd6a0f30fe29dcf559e0787e92461af119"
+    },
+    {
+      "file": "backend/research_pipeline/terminology/case_resolution.py",
+      "symbol": "def resolve_case",
+      "line": 223,
+      "sha256": "935dafdf16e0a49c8d42dbd9943383ebc53d3956684c973eb99e9d245a4f6fb7"
+    },
+    {
+      "file": "backend/research_pipeline/retrieval/normalization.py",
+      "symbol": "def alteration_identity",
+      "line": 46,
+      "sha256": "f9c8f1569f6430fccd23fcc9732a7ec1589237770b030d8a12a00cecdad272f7"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/semantic_alignment.py",
+      "symbol": "def render_request",
+      "line": 84,
+      "sha256": "c6afccdc178a1176255b79a1b68a1082797d5bb8f090c82712ce95d92b86cb0d"
+    },
+    {
+      "file": "backend/research_pipeline/enrichment/semantic_contract.py",
+      "symbol": "def admission_blockers",
+      "line": 64,
+      "sha256": "2738707e814adc38c1911a281071ca508643a8718a66856353299c6458bf0575"
+    }
+  ],
+  "rrf": {
+    "constant": 60,
+    "depth": 25,
+    "rows": [
+      {
+        "id": "A",
+        "structure": 1,
+        "medcpt": 3,
+        "score": 0.032266458495966696
+      },
+      {
+        "id": "B",
+        "structure": 2,
+        "medcpt": 1,
+        "score": 0.03252247488101534
+      },
+      {
+        "id": "C",
+        "structure": 3,
+        "medcpt": 2,
+        "score": 0.03200204813108039
+      },
+      {
+        "id": "D",
+        "structure": 4,
+        "medcpt": null,
+        "score": 0.015625
+      }
+    ]
+  },
+  "defaultDocumentaryProfile": "legacy",
+  "optionalDocumentaryProfile": "focused-v1"
+}

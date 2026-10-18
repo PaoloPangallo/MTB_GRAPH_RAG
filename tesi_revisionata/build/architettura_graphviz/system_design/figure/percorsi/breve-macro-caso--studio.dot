@@ -1,0 +1,13 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"step0" [id="macro-node-step0", label="Caso sintetico\nMelanoma metastatico · BRAF V600K\nInteresse: dabrafenib e trametinib", shape="box", fillcolor="#EAF0F5", tooltip="Caso sintetico\nMelanoma metastatico · BRAF V600K\nInteresse: dabrafenib e trametinib"];
+"step1" [id="macro-node-step1", label="Case Parser\nEstrarre campi e citazioni del caso", shape="box", fillcolor="#E8F4F0", tooltip="Case Parser\nEstrarre campi e citazioni del caso"];
+"step2" [id="macro-node-step2", label="Ancoraggio e ammissione\nVerificare testo e dati richiesti", shape="box", fillcolor="#E8F4F0", tooltip="Ancoraggio e ammissione\nVerificare testo e dati richiesti"];
+"step3" [id="macro-node-step3", label="Caso strutturato ammesso alla ricerca", shape="box", fillcolor="#E6F3EC", tooltip="Caso strutturato ammesso alla ricerca"];
+"step0" -> "step1" [label="", style="solid"];
+"step1" -> "step2" [label="", style="solid"];
+"step2" -> "step3" [label="", style="solid"];
+}

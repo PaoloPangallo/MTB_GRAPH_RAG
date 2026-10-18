@@ -1,0 +1,30 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="Presentazione · Registro di studio clinico", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"dossier" [id="macro-node-dossier", label="Voce del dossier · Registro NCT02279004\nInformazioni dello studio\nEleggibilità individuale non valutata", shape="box", fillcolor="#EAF0F5", tooltip="Dossier di riferimento\nRelazioni, osservazioni, esiti e limiti"];
+"catalogo" [id="macro-node-catalogo", label="Proiezione del dossier\nCaso, osservazioni, fonti, controlli e limiti", shape="box", fillcolor="#E8F4F0", tooltip="Proiezione del dossier\nCaso, osservazioni, fonti, controlli e limiti"];
+"modello" [id="macro-node-modello", label="Modello linguistico\nSpiegazione di ogni osservazione\nConfronto tra studi della stessa relazione", shape="box", fillcolor="#FBF1DD", tooltip="Modello linguistico\nSpiegazione di ogni osservazione\nConfronto tra studi della stessa relazione"];
+"struttura" [id="macro-node-struttura", label="1 · Copertura e legame con il dossier\nOgni osservazione spiegata · confronto richiesto\nSchede e dati conservati esattamente", shape="box", fillcolor="#F0EBF6", tooltip="1 · Copertura e legame con il dossier\nOgni osservazione spiegata · confronto richiesto\nSchede e dati conservati esattamente"];
+"contenuto" [id="macro-node-contenuto", label="2 · Vincoli sulla spiegazione\nFonti · citazioni · quantità\nStati · polarità · limiti · raccomandazioni", shape="box", fillcolor="#F0EBF6", tooltip="2 · Vincoli sulla spiegazione\nFonti · citazioni · quantità\nStati · polarità · limiti · raccomandazioni"];
+"mostrare" [id="macro-node-mostrare", label="Presentazione accettata dai controlli\nRegistro NCT02279004\nAssociazione di studio\nNon è una prova di efficacia", shape="box", fillcolor="#E6F3EC", tooltip="Presentazione accettata\nTesto conforme ai controlli implementati"];
+"alternativa" [id="macro-node-alternativa", label="Preparare il ripiego deterministico\nTesto costruito dal dossier", shape="box", fillcolor="#E8F4F0", tooltip="Preparare il ripiego deterministico\nTesto costruito dal dossier"];
+"esatto" [id="macro-node-esatto", label="3 · Verifica separata del ripiego\nRicostruzione e confronto esatto", shape="box", fillcolor="#F0EBF6", tooltip="3 · Verifica separata del ripiego\nRicostruzione e confronto esatto"];
+"ripiego" [id="macro-node-ripiego", label="Mostrare il ripiego verificato\nOrigine deterministica esplicita", shape="box", fillcolor="#E6F3EC", tooltip="Mostrare il ripiego verificato\nOrigine deterministica esplicita"];
+"limite" [id="macro-node-limite", label="Solo dossier strutturato\nTesti respinti conservati tra gli esiti", shape="box", fillcolor="#F8EEE8", tooltip="Solo dossier strutturato\nTesti respinti conservati tra gli esiti"];
+"dossier" -> "catalogo" [label="contenuti da presentare", style="solid"];
+"catalogo" -> "modello" [label="contenuti ammessi", style="solid"];
+"modello" -> "struttura" [label="spiegazione", style="solid"];
+"struttura" -> "contenuto" [label="struttura valida", style="solid"];
+"contenuto" -> "mostrare" [label="controlli superati", style="solid"];
+"struttura" -> "alternativa" [label="formato non valido", style="solid"];
+"contenuto" -> "alternativa" [label="testo respinto", style="solid"];
+"modello" -> "alternativa" [label="generazione indisponibile", style="dashed"];
+"dossier" -> "alternativa" [label="contenuti del ripiego", style="dashed"];
+"alternativa" -> "esatto" [label="testo distinto", style="solid"];
+"esatto" -> "ripiego" [label="conforme", style="solid"];
+"esatto" -> "limite" [label="non conforme", style="solid"];
+{rank=same; "mostrare"; "alternativa";}
+{rank=same; "ripiego"; "limite";}
+}

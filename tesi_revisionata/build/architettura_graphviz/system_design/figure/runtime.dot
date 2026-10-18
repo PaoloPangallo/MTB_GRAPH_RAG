@@ -1,0 +1,18 @@
+digraph phase {
+graph [rankdir="TB", bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", splines=polyline, label="Seguire il lavoro e rispettare i limiti", labelloc=t, fontname="Arial", fontsize=21, fontcolor="#17343F"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=16, fontcolor="#17343F", color="#B7C9CF", penwidth=1, margin="0.18,0.14"];
+edge [color="#718895", fontname="Arial", fontcolor="#365661", fontsize=12, arrowsize=0.65];
+"orchestratore" [id="node-orchestratore", shape="box", label="Orchestratore\nOrdine e avanzamento dei passaggi", fillcolor="#E8F4F0", tooltip="Orchestratore\nOrdine e avanzamento dei passaggi"];
+"budget" [id="node-budget", shape="box", label="Prima di chiamare un modello\nVerificare il budget disponibile", fillcolor="#F0EBF6", tooltip="Prima di chiamare un modello\nVerificare il budget disponibile"];
+"chiamata" [id="node-chiamata", shape="box", label="Eseguire la chiamata consentita\nParser, Reader, confronto o narratore", fillcolor="#FBF1DD", tooltip="Eseguire la chiamata consentita\nParser, Reader, confronto o narratore"];
+"risorse" [id="node-risorse", shape="box", label="Budget esaurito o chiamata fallita\nNon inventare l’operazione mancante", fillcolor="#F8EEE8", tooltip="Budget esaurito o chiamata fallita\nNon inventare l’operazione mancante"];
+"eventi" [id="node-eventi", shape="box", label="Registrare esiti e lavoro non eseguito\nPreservare l’origine delle operazioni", fillcolor="#E8F4F0", tooltip="Registrare esiti e lavoro non eseguito\nPreservare l’origine delle operazioni"];
+"consultazione" [id="node-consultazione", shape="box", label="Stato del lavoro consultabile\nSeparato dal supporto scientifico", fillcolor="#E6F3EC", tooltip="Stato del lavoro consultabile\nSeparato dal supporto scientifico"];
+"orchestratore" -> "budget" [label="attività che richiede un\nmodello", style="solid"];
+"budget" -> "chiamata" [label="risorse disponibili", style="solid"];
+"budget" -> "risorse" [label="risorse non disponibili", style="solid"];
+"chiamata" -> "eventi" [label="esito della chiamata", style="solid"];
+"risorse" -> "eventi" [label="motivo e attività mancanti", style="solid"];
+"orchestratore" -> "eventi" [label="avanzamento dei passaggi", style="solid"];
+"eventi" -> "consultazione" [label="lavoro realmente svolto", style="solid"];
+}

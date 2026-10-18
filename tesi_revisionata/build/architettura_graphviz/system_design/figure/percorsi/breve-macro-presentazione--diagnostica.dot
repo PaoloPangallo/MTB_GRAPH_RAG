@@ -1,0 +1,20 @@
+digraph macro {
+graph [rankdir=TB, bgcolor="white", pad="0.22", nodesep="0.30", ranksep="0.40", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=17, fontcolor="#17343F", color="#AFC4C8", penwidth=1, margin="0.20,0.15"];
+edge [color="#617E87", fontname="Arial", fontcolor="#365661", fontsize=13, arrowsize=0.7];
+graph [label="", labelloc=t, fontname="Arial", fontsize=22, fontcolor="#17343F", labeljust=c];
+"dossier" [id="macro-node-dossier", label="FoundationOne CDx → BRAF\nDossier: fatti, esiti e limiti", shape="box", fillcolor="#EAF0F5", tooltip="FoundationOne CDx → BRAF\nDossier: fatti, esiti e limiti"];
+"piano" [id="macro-node-piano", label="Modello: spiegare ogni osservazione\nConfrontare più studi della stessa relazione\nRipiego deterministico disponibile", shape="box", fillcolor="#E8F4F0", tooltip="Modello: spiegare ogni osservazione\nConfrontare più studi della stessa relazione\nRipiego deterministico disponibile"];
+"verifica" [id="macro-node-verifica", label="Verificare copertura e contenuto\nSchede e dati esatti · ogni osservazione spiegata\nFonti · quantità · stati · limiti", shape="box", fillcolor="#F0EBF6", tooltip="Verificare copertura e contenuto\nSchede e dati esatti · ogni osservazione spiegata\nFonti · quantità · stati · limiti"];
+"accettata" [id="macro-node-accettata", label="Presentazione accettata\nConforme ai controlli implementati", shape="box", fillcolor="#E6F3EC", tooltip="Presentazione accettata\nConforme ai controlli implementati"];
+"ripiego" [id="macro-node-ripiego", label="Preparare il ripiego\nVerificarlo con confronto esatto", shape="box", fillcolor="#F0EBF6", tooltip="Preparare il ripiego\nVerificarlo con confronto esatto"];
+"alternativa" [id="macro-node-alternativa", label="Mostrare il ripiego verificato", shape="box", fillcolor="#E6F3EC", tooltip="Mostrare il ripiego verificato"];
+"respinta" [id="macro-node-respinta", label="Testo respinto\nSolo dossier strutturato", shape="box", fillcolor="#F8EEE8", tooltip="Testo respinto\nSolo dossier strutturato"];
+"dossier" -> "piano" [label="contenuti ammessi", style="solid"];
+"piano" -> "verifica" [label="testo proposto", style="solid"];
+"verifica" -> "accettata" [label="controlli superati", style="solid"];
+"verifica" -> "ripiego" [label="testo respinto", style="solid"];
+"piano" -> "ripiego" [label="indisponibile", style="dashed"];
+"ripiego" -> "alternativa" [label="conforme", style="solid"];
+"ripiego" -> "respinta" [label="non conforme", style="solid"];
+}

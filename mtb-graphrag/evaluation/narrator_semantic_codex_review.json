@@ -1,0 +1,154 @@
+{
+  "reviewer": "Codex, revisione assistita da modello",
+  "scope": "Fedeltà semantica al dossier fornito, con attenzione al collegamento con il caso",
+  "human_or_clinical_gold_standard": false,
+  "source_file": "evaluation/multistudy_narrator_verified/results.json",
+  "cases": [
+    {
+      "name": "concordant_results",
+      "verdict": "ACCEPTABLE",
+      "summary": "Le due parafrasi conservano popolazione, trattamento, esito e natura sintetica; il confronto mantiene separati i due riferimenti.",
+      "findings": []
+    },
+    {
+      "name": "contrasting_results",
+      "verdict": "ACCEPTABLE",
+      "summary": "La negazione della seconda osservazione e il contrasto con la prima sono preservati. L’assenza di beneficio è anche esplicita nel dato sintetico NO_BENEFIT.",
+      "findings": []
+    },
+    {
+      "name": "different_populations",
+      "verdict": "ACCEPTABLE",
+      "summary": "Le spiegazioni distinguono stadio III e melanoma metastatico; il confronto descrive la differenza di popolazione senza trasferire un risultato individuale al caso.",
+      "findings": []
+    },
+    {
+      "name": "combination_and_monotherapy",
+      "verdict": "ACCEPTABLE",
+      "summary": "Trametinib e combinazione dabrafenib–trametinib restano distinti. Il confronto conserva i due trattamenti senza inventarne una superiorità relativa.",
+      "findings": []
+    },
+    {
+      "name": "two_passages_one_study",
+      "verdict": "ACCEPTABLE",
+      "summary": "I due passaggi sono ricondotti allo stesso studio sintetico, conservando una spiegazione per ciascuna osservazione.",
+      "findings": []
+    },
+    {
+      "name": "excluded_second_observation",
+      "verdict": "ACCEPTABLE",
+      "summary": "La spiegazione usa soltanto l’osservazione conservata e mantiene esplicita la natura sintetica del contenuto.",
+      "findings": []
+    },
+    {
+      "name": "BRAF_28891408",
+      "verdict": "REVISION_REQUIRED",
+      "summary": "Risultato, combinazione, varianti alternative e informazione di sicurezza sono riportati fedelmente. Va chiarito il significato del controllo sulla malattia e il rapporto tra stadio III adiuvante e caso metastatico.",
+      "findings": [
+        {
+          "severity": "MAJOR",
+          "category": "check_meaning",
+          "narrative_pointer": "/narrative/candidate_narratives/0/observation_narratives/0/text",
+          "narrative_excerpt": "la malattia non è stata confermata",
+          "input_pointer": "/candidates/0/observations/0/checks/correspondence/fields/disease",
+          "input_excerpt": "NOT_CONFIRMED",
+          "explanation": "Il campo riguarda la corrispondenza della malattia con il bersaglio del confronto. La frase può invece far intendere che la diagnosi nella fonte sia incerta.",
+          "suggested_revision": "La corrispondenza del contesto di malattia con il caso resta da confermare."
+        },
+        {
+          "severity": "MAJOR",
+          "category": "case_linkage",
+          "narrative_pointer": "/narrative/candidate_narratives/0/observation_narratives/0/text",
+          "narrative_excerpt": "in pazienti con melanoma allo stadio III",
+          "input_pointer": "/case/disease",
+          "input_excerpt": "melanoma metastatico",
+          "explanation": "Il testo riporta lo stadio della fonte, ma il collegamento con il diverso contesto del caso resta implicito.",
+          "suggested_revision": "La fonte riguarda il trattamento adiuvante nello stadio III; il caso di ricerca riguarda invece melanoma metastatico."
+        }
+      ]
+    },
+    {
+      "name": "BRAF_22663011",
+      "verdict": "REVISION_REQUIRED",
+      "summary": "Il confronto con la chemioterapia e i due esiti di sopravvivenza sono fedeli. Serve esplicitare che la pubblicazione riguarda trametinib come singolo agente, mentre la domanda verte sulla combinazione.",
+      "findings": [
+        {
+          "severity": "MAJOR",
+          "category": "case_linkage",
+          "narrative_pointer": "/narrative/candidate_narratives/0/observation_narratives/0/text",
+          "narrative_excerpt": "l'uso di Trametinib, rispetto alla chemioterapia",
+          "input_pointer": "/case/target_intervention",
+          "input_excerpt": "dabrafenib e trametinib",
+          "explanation": "La fonte viene descritta correttamente, ma manca il raccordo esplicito fra monoterapia studiata e combinazione richiesta. È un’omissione di interpretazione del caso, distinta da un risultato inventato.",
+          "suggested_revision": "Questa osservazione riguarda trametinib come singolo agente; descrive quindi un intervento diverso dalla combinazione dabrafenib–trametinib oggetto della domanda."
+        }
+      ]
+    },
+    {
+      "name": "BRAF_24508103",
+      "verdict": "ACCEPTABLE_WITH_NOTES",
+      "summary": "Esito e differenza fra vemurafenib e trattamento richiesto sono conservati. La formulazione delle varianti merita una precisazione; il titolo disponibile autorizza il contesto documentale del melanoma, anche se l’estrazione osservata ha disease=null.",
+      "findings": [
+        {
+          "severity": "MINOR",
+          "category": "molecular_composition",
+          "narrative_pointer": "/narrative/candidate_narratives/0/observation_narratives/0/text",
+          "narrative_excerpt": "che presentano la mutazione BRAF V600E (la più comune) e la mutazione BRAF V600K (meno comune)",
+          "input_pointer": "/candidates/0/observations/0/observed/molecular_composition",
+          "input_excerpt": "ALTERNATIVES",
+          "explanation": "La frase può essere letta collettivamente, ma lascia ambigua la distinzione fra pazienti con varianti alternative e coesistenza delle due varianti nel singolo paziente. La fonte distingue esplicitamente i gruppi.",
+          "suggested_revision": "Il risultato riguarda sia i pazienti con BRAF V600E sia quelli con BRAF V600K."
+        }
+      ]
+    },
+    {
+      "name": "BRAF_three_relations",
+      "verdict": "REVISION_REQUIRED",
+      "summary": "Le tre osservazioni e i loro esiti principali rimangono separati. La spiegazione perde parte del raccordo con il caso e dei limiti che erano più visibili nelle risposte singole.",
+      "findings": [
+        {
+          "severity": "MAJOR",
+          "category": "case_linkage",
+          "narrative_pointer": "/narrative/candidate_narratives/0/observation_narratives/0/text",
+          "narrative_excerpt": "in pazienti con melanoma allo stadio III",
+          "input_pointer": "/case/disease",
+          "input_excerpt": "melanoma metastatico",
+          "explanation": "Manca un raccordo esplicito fra contesto adiuvante in stadio III e caso metastatico.",
+          "suggested_revision": "Accostare il contesto della fonte a quello del caso, spiegando la differenza di popolazione."
+        },
+        {
+          "severity": "MAJOR",
+          "category": "case_linkage",
+          "narrative_pointer": "/narrative/candidate_narratives/1/observation_narratives/0/text",
+          "narrative_excerpt": "il trametinib, rispetto alla chemioterapia",
+          "input_pointer": "/case/target_intervention",
+          "input_excerpt": "dabrafenib e trametinib",
+          "explanation": "L’introduzione identifica la monoterapia, ma manca il raccordo esplicito con la domanda sulla combinazione.",
+          "suggested_revision": "Esplicitare che il risultato della monoterapia resta distinto da quello della combinazione richiesta."
+        },
+        {
+          "severity": "MAJOR",
+          "category": "case_linkage",
+          "narrative_pointer": "/narrative/candidate_narratives/2/observation_narratives/0/text",
+          "narrative_excerpt": "l'inibizione di BRAF tramite vemurafenib migliora la sopravvivenza",
+          "input_pointer": "/case/target_intervention",
+          "input_excerpt": "dabrafenib e trametinib",
+          "explanation": "Rispetto alla risposta singola, scompare la spiegazione che vemurafenib è diverso dall’intervento richiesto.",
+          "suggested_revision": "Ripristinare il confronto esplicito tra vemurafenib e la combinazione oggetto della domanda."
+        },
+        {
+          "severity": "MAJOR",
+          "category": "material_coverage",
+          "narrative_pointer": "/narrative/candidate_narratives/0/observation_narratives/0/text",
+          "narrative_excerpt": "Il controllo registrato conferma la corrispondenza per il gene, l'alterazione e la direzione dell'effetto",
+          "input_pointer": "/candidates/0/observations/0/clinical_applicability",
+          "input_excerpt": "NOT_EVALUATED",
+          "explanation": "La spiegazione riporta conferme del controllo ma lascia l’applicabilità clinica soltanto nei dati strutturati. Questo limite riguarda tutte e tre le voci e può essere espresso una sola volta con precisione.",
+          "suggested_revision": "Inserire una sola frase comune che chiarisca il perimetro documentale delle osservazioni e l’applicabilità clinica ancora da valutare."
+        }
+      ]
+    }
+  ],
+  "source_sha256": "76ad588d2a1d3fafd70728d767c8a1db683ae00c1cf8d0d79b1abe4f631960af",
+  "original_source_sha256_before_lf_normalization": "9e2dc6fa17cebb05262a990015fdd80aa47c035283ed772365573bcb822e77f0"
+}

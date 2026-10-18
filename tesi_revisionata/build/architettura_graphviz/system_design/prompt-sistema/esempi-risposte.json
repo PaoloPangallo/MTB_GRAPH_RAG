@@ -1,0 +1,295 @@
+{
+  "parser": {
+    "label": "Estratto del risultato archiviato, presentato in forma leggibile.",
+    "input": "Il testo del caso dichiara melanoma metastatico, BRAF V600K e dabrafenib e trametinib come intervento oggetto della ricerca.",
+    "rows": [
+      [
+        "Malattia",
+        "melanoma metastatico"
+      ],
+      [
+        "Gene",
+        "BRAF"
+      ],
+      [
+        "Variante associata al gene",
+        "V600K"
+      ],
+      [
+        "Intervento oggetto della ricerca",
+        "dabrafenib e trametinib"
+      ],
+      [
+        "Trattamenti precedenti estratti",
+        "Nessuno riportato nel risultato"
+      ]
+    ],
+    "meaning": "Il risultato conserva i dettagli del testo e la coppia gene–variante. L’intervento è ciò su cui verte la domanda: la sua somministrazione e il suo beneficio richiedono informazioni esplicite.",
+    "raw_response": {
+      "case_id": "E2E20-16",
+      "schema_version": "end-to-end-pilot-casecontext/1.0",
+      "disease": {
+        "raw_value": "melanoma metastatico",
+        "normalized_value": "melanoma metastatico",
+        "source_spans": [
+          {
+            "quote": "melanoma metastatico",
+            "start_offset": 69,
+            "end_offset": 89
+          }
+        ]
+      },
+      "biomarkers": [
+        {
+          "gene": "BRAF",
+          "alteration": "V600K",
+          "raw_value": "BRAF V600K",
+          "normalized_value": "BRAF V600K",
+          "source_spans": [
+            {
+              "quote": "BRAF",
+              "start_offset": 122,
+              "end_offset": 126
+            },
+            {
+              "quote": "V600K",
+              "start_offset": 127,
+              "end_offset": 132
+            }
+          ],
+          "alteration_type": null,
+          "assertion_status": "PRESENT",
+          "clinical_role": "UNKNOWN",
+          "gene_source_spans": [
+            {
+              "quote": "BRAF",
+              "start_offset": 122,
+              "end_offset": 126
+            }
+          ],
+          "alteration_source_spans": [
+            {
+              "quote": "V600K",
+              "start_offset": 127,
+              "end_offset": 132
+            }
+          ],
+          "gene_quote": "BRAF",
+          "alteration_quote": "V600K"
+        }
+      ],
+      "previous_interventions": [],
+      "target_intervention": {
+        "raw_value": "dabrafenib e trametinib",
+        "normalized_value": "dabrafenib e trametinib",
+        "source_spans": [
+          {
+            "quote": "dabrafenib e trametinib",
+            "start_offset": 168,
+            "end_offset": 191
+          }
+        ]
+      },
+      "query_intent": "THERAPY_EVALUATION",
+      "clinical_question": null,
+      "uncertainties": [],
+      "diseases": [
+        {
+          "value": "melanoma metastatico",
+          "normalized_value": "melanoma metastatico",
+          "source_spans": [
+            {
+              "quote": "melanoma metastatico",
+              "start_offset": 69,
+              "end_offset": 89
+            }
+          ],
+          "assertion_status": "PRESENT",
+          "clinical_role": "UNKNOWN",
+          "quote": "melanoma metastatico"
+        }
+      ],
+      "interventions": [
+        {
+          "name": "dabrafenib e trametinib",
+          "normalized_value": "dabrafenib e trametinib",
+          "source_spans": [
+            {
+              "quote": "dabrafenib e trametinib",
+              "start_offset": 168,
+              "end_offset": 191
+            }
+          ],
+          "role": "TARGET",
+          "assertion_status": "PRESENT",
+          "quote": "dabrafenib e trametinib"
+        }
+      ],
+      "trial_mentions": [],
+      "companion_diagnostic_mentions": [],
+      "ambiguities": []
+    },
+    "source": {
+      "file": "experiments_real/remaining_fixes_20261015/live4/E2E20-16/run.json",
+      "sha256": "33706d622c22d94b0c45cf4ef7de52895137c4accb7028c176adc0dc5bbb11b0"
+    },
+    "kind": "ARCHIVED_PARSER_RESULT_READABLE_EXTRACT"
+  },
+  "reader": {
+    "label": "Osservazione effettivamente registrata dal Reader · pubblicazione PMID 28891408.",
+    "input": "Il Reader riceve i passaggi selezionati della pubblicazione sulla combinazione dabrafenib e trametinib.",
+    "rows": [
+      [
+        "Contesto descritto dalla fonte",
+        "stage III melanoma"
+      ],
+      [
+        "Trattamento osservato",
+        "dabrafenib plus trametinib"
+      ],
+      [
+        "Varianti descritte",
+        "V600E oppure V600K"
+      ],
+      [
+        "Tipo di osservazione",
+        "Risultato osservato in una coorte"
+      ]
+    ],
+    "quotation": "Adjuvant use of combination therapy with dabrafenib plus trametinib resulted in a significantly lower risk of recurrence in patients with stage III melanoma with BRAF V600E or V600K mutations than the adjuvant use of placebo and was not associated with new toxic effects.",
+    "meaning": "L’osservazione riguarda il contesto adiuvante nello stadio III descritto dalla fonte. La corrispondenza con il caso metastatico viene valutata nei controlli successivi.",
+    "raw_response": {
+      "observed": {
+        "disease": "stage III melanoma",
+        "subjects": [
+          {
+            "type": "GENE",
+            "surface_value": "BRAF",
+            "canonical_value": "braf",
+            "linked_gene": "BRAF"
+          },
+          {
+            "type": "ALTERATION",
+            "surface_value": "V600E",
+            "canonical_value": "v600e",
+            "linked_gene": "BRAF"
+          },
+          {
+            "type": "ALTERATION",
+            "surface_value": "V600K",
+            "canonical_value": "v600k",
+            "linked_gene": "BRAF"
+          }
+        ],
+        "intervention": "dabrafenib plus trametinib",
+        "observed_stance": "SUPPORTS",
+        "effect_direction": "SENSITIVITY_RESPONSE",
+        "relation_scope": "ALTERNATIVES",
+        "molecular_composition": "ALTERNATIVES",
+        "intervention_composition": "COMBINATION",
+        "relation_assertion": "RELATION_ASSERTED",
+        "subject_pairings": [],
+        "uncertainty": null,
+        "caveats": [],
+        "conflict_markers": [],
+        "trial_context": {},
+        "companion_diagnostic": {},
+        "evidence_context": {
+          "subject_level": "COHORT",
+          "claim_type": "OBSERVED_RESPONSE"
+        },
+        "disease_canonical": "stage iii melanoma",
+        "intervention_canonical": "dabrafenib plus trametinib"
+      },
+      "quotation": "Adjuvant use of combination therapy with dabrafenib plus trametinib resulted in a significantly lower risk of recurrence in patients with stage III melanoma with BRAF V600E or V600K mutations than the adjuvant use of placebo and was not associated with new toxic effects."
+    },
+    "source": {
+      "file": "experiments_real/remaining_fixes_20261015/live4/E2E20-16/dossier.json",
+      "sha256": "3526e261819e3e7436a563ac534e4e207ed5480050b8506437f58c4e8e873b52"
+    },
+    "kind": "ARCHIVED_READER_OBSERVATION"
+  },
+  "semantica": {
+    "label": "Esempio sintetico tratto dai test del contratto: mostra la forma della risposta attesa.",
+    "input": "AXR1 mutation showed sensitivity to agent-x in lung cancer.",
+    "rows": [
+      [
+        "Confronto della relazione",
+        "La fonte descrive la stessa relazione cercata"
+      ],
+      [
+        "Tipo di informazione",
+        "Un risultato osservato, affermato direttamente"
+      ],
+      [
+        "Profilo molecolare, popolazione e intervento",
+        "Corrispondono al bersaglio del confronto"
+      ],
+      [
+        "Passaggio che giustifica il confronto",
+        "AXR1 mutation showed sensitivity to agent-x in lung cancer."
+      ]
+    ],
+    "meaning": "In questo caso di test il codice ammette il supporto documentale. Se il passaggio descrivesse soltanto il disegno dello studio, il confronto avrebbe un esito diverso. È un esempio del controllo, distinto da una risposta misurata sul caso BRAF.",
+    "raw_response": {
+      "relation_alignment": "SAME",
+      "assertion_scope": "DIRECT_ASSERTION",
+      "reason": "controlled assessment",
+      "decisive_text": "AXR1 mutation showed sensitivity to agent-x in lung cancer.",
+      "evidence_role": "OBSERVED_RESULT",
+      "molecular_scope": "SAME",
+      "population_scope": "SAME",
+      "intervention_scope": "SAME",
+      "inference": "DIRECT",
+      "certainty": "ESTABLISHED",
+      "result_span": "AXR1 mutation showed sensitivity to agent-x in lung cancer.",
+      "molecular_span": "AXR1 mutation showed sensitivity to agent-x in lung cancer.",
+      "population_span": "AXR1 mutation showed sensitivity to agent-x in lung cancer.",
+      "intervention_span": "AXR1 mutation showed sensitivity to agent-x in lung cancer."
+    },
+    "source": {
+      "file": "mtb-graphrag/backend/research_pipeline/tests/test_semantic_admission_contract.py",
+      "sha256": "c5b7d3dcaab4f6088eb6bcdb557b39e3171c0cdd5fc926ecb9e306261e7ad716"
+    },
+    "kind": "SYNTHETIC_CONTRACT_TEST_EXPECTED_RESPONSE"
+  },
+  "narratore": {
+    "label": "Risposta effettiva del modello · trametinib, pubblicazione PMID 22663011. La scheda bibliografica viene composta dai dati della fonte.",
+    "input": "Una voce del dossier su BRAF V600K e trametinib, con osservazione della fonte, autenticazione della citazione e limiti della valutazione.",
+    "response_text": "È stata esaminata la relazione tra la mutazione BRAF V600K e la risposta al trattamento con trametinib nel melanoma.\n\nLa pubblicazione pmid:22663011 riporta che il trametinib, rispetto alla chemioterapia, ha migliorato i tassi di sopravvivenza libera da progressione e la sopravvivenza globale in pazienti con melanoma metastatico portatori di una mutazione BRAF V600E oppure V600K. I controlli registrati indicano che la citazione è autenticata e che il gene, l'alterazione, la direzione dell'effetto e la posizione (stance) sono confermati, mentre la corrispondenza della malattia non è stata confermata.\n\nL'osservazione riguarda il melanoma metastatico e la mutazione BRAF V600K, coerentemente con il caso; tuttavia, l'intervento esaminato è il trametinib come singolo agente, mentre il caso richiede la valutazione della combinazione di dabrafenib e trametinib.\n\nL’applicabilità clinica individuale resta da valutare.",
+    "source_cards": [
+      {
+        "public_source_identity": "pmid:22663011",
+        "document_id": "pmid:22663011",
+        "paper_id": "live:GCA4-0179f6160400942845a98063:pmid:22663011",
+        "source_unit_id": "SU-1018a4f893a05b216c1d3ce6",
+        "source_unit_sha256": "b20a87878d995026de748818076dae6ee89e0a01b37234e20630ae97564b723e",
+        "source_unit_digest_contract": "canonical-text-sha256/1.0",
+        "source_unit_chars": 178,
+        "quote_available": true,
+        "validated_quote": "Trametinib, as compared with chemotherapy, improved rates of progression-free and overall survival among patients who had metastatic melanoma with a BRAF V600E or V600K mutation.",
+        "disposition": "RETAINED_RECORD",
+        "title": "Improved survival with MEK inhibition in BRAF-mutated melanoma.",
+        "journal": "The New England journal of medicine",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22663011/"
+      }
+    ],
+    "meaning": "La spiegazione collega la relazione esaminata, ciò che riporta la fonte e i limiti dei controlli. Questo estratto appartiene a una risposta che supera le regole del verificatore, con il perimetro semantico descritto nella pagina delle prove.",
+    "raw_response": {
+      "candidate_id": "GCA4-0179f6160400942845a98063",
+      "observation_narratives": [
+        {
+          "case_relevance": "L'osservazione riguarda il melanoma metastatico e la mutazione BRAF V600K, coerentemente con il caso; tuttavia, l'intervento esaminato è il trametinib come singolo agente, mentre il caso richiede la valutazione della combinazione di dabrafenib e trametinib.",
+          "observation_id": "OBS-f05fcdb50c300ad7",
+          "text": "La pubblicazione pmid:22663011 riporta che il trametinib, rispetto alla chemioterapia, ha migliorato i tassi di sopravvivenza libera da progressione e la sopravvivenza globale in pazienti con melanoma metastatico portatori di una mutazione BRAF V600E oppure V600K. I controlli registrati indicano che la citazione è autenticata e che il gene, l'alterazione, la direzione dell'effetto e la posizione (stance) sono confermati, mentre la corrispondenza della malattia non è stata confermata."
+        }
+      ],
+      "text": "È stata esaminata la relazione tra la mutazione BRAF V600K e la risposta al trattamento con trametinib nel melanoma."
+    },
+    "source": {
+      "file": "mtb-graphrag/evaluation/multistudy_narrator_v51_verified/results.json",
+      "sha256": "4e1896d9aa834bbb5aae5f054145ac5439a44a74de75f76ded5084aec9d89125"
+    },
+    "kind": "RECORDED_MODEL_NARRATIVE_EXCERPT"
+  }
+}

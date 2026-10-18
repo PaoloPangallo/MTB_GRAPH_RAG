@@ -1,0 +1,2970 @@
+{
+  "mode": "LIVE_MODEL_GRADER",
+  "scope": "SEMANTIC_FIDELITY_TO_SUPPLIED_DOSSIER",
+  "production_gate_changed": false,
+  "grader_prompt_version": "narration-semantic-audit/1.1",
+  "same_model_as_narrator": true,
+  "cases": [
+    {
+      "name": "concordant_results",
+      "origin": "SYNTHETIC_CONTRACT_FIXTURE",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "",
+          "query_intent": "",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "SYNTHETIC-RELATION",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "document_id": "pmid:90000001",
+                "public_source_identity": "pmid:90000001",
+                "source_unit_id": "SYNTHETIC-UNIT-1",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000001",
+                "title": "Synthetic test publication pmid:90000001",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000001/"
+              },
+              {
+                "document_id": "pmid:90000002",
+                "public_source_identity": "pmid:90000002",
+                "source_unit_id": "SYNTHETIC-UNIT-2",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000002",
+                "title": "Synthetic test publication pmid:90000002",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000002/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000001",
+                  "public_source_identity": "pmid:90000001",
+                  "source_unit_id": "SYNTHETIC-UNIT-1"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000001",
+                "observation_id": "OBS-398054e3024f2d84"
+              },
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000002",
+                  "public_source_identity": "pmid:90000002",
+                  "source_unit_id": "SYNTHETIC-UNIT-2"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000002",
+                "observation_id": "OBS-51c89b504a4530bf"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "SYNTHETIC-RELATION",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione coincide con il caso di ricerca per quanto riguarda la patologia (melanoma metastatico), il profilo molecolare (BRAF V600K) e l'intervento (trametinib).",
+                  "observation_id": "OBS-398054e3024f2d84",
+                  "text": "La fonte pmid:90000001 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati confermano la citazione e la corrispondenza del gene e dell'alterazione. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                },
+                {
+                  "case_relevance": "L'osservazione coincide con il caso di ricerca per quanto riguarda la patologia (melanoma metastatico), il profilo molecolare (BRAF V600K) e l'intervento (trametinib).",
+                  "observation_id": "OBS-51c89b504a4530bf",
+                  "text": "La fonte pmid:90000002 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati confermano la citazione e la corrispondenza del gene e dell'alterazione. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                }
+              ],
+              "study_comparison": {
+                "observation_ids": [
+                  "OBS-398054e3024f2d84",
+                  "OBS-51c89b504a4530bf"
+                ],
+                "text": "Entrambe le osservazioni (OBS-398054e3024f2d84 e OBS-51c89b504a4530bf) provengono da fonti diverse ma riportano risultati identici in termini di popolazione (melanoma metastatico BRAF V600K), intervento (trametinib) ed esito (miglioramento della sopravvivenza), essendo entrambe definite come test sintetici."
+              },
+              "text": "È stata esaminata la relazione tra l'uso di trametinib e la risposta in pazienti con melanoma metastatico e profilo molecolare BRAF V600K."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "Le osservazioni sono correttamente associate alle rispettive fonti pmid:90000001 e pmid:90000002."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il miglioramento della sopravvivenza è riportato fedelmente."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "La mutazione BRAF V600K è riportata correttamente."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La popolazione (melanoma metastatico) è coerente con l'input."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "L'intervento (trametinib) è riportato correttamente."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La natura sintetica dei dati è esplicitamente menzionata come caveat."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "Il testo riflette correttamente i controlli di autenticazione e corrispondenza."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Il collegamento tra caso e osservazioni è esplicitato nelle sezioni di case_relevance."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Tutte le informazioni rilevanti, inclusi i caveat sui dati sintetici, sono coperte."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "OK",
+              "reason": "Il confronto tra i due studi evidenzia correttamente l'identità dei risultati nonostante le fonti diverse."
+            }
+          ],
+          "findings": [],
+          "summary": "La narrazione è semanticamente fedele al dossier fornito, riportando accuratamente i dati, le fonti e le limitazioni (natura sintetica dei test).",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-184",
+          "object": "chat.completion",
+          "created": 1792331668,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_2nvrov8c",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"Le osservazioni sono correttamente associate alle rispettive fonti pmid:90000001 e pmid:90000002.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il miglioramento della sopravvivenza è riportato fedelmente.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"La mutazione BRAF V600K è riportata correttamente.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La popolazione (melanoma metastatico) è coerente con l'input.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"L'intervento (trametinib) è riportato correttamente.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La natura sintetica dei dati è esplicitamente menzionata come caveat.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"Il testo riflette correttamente i controlli di autenticazione e corrispondenza.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Il collegamento tra caso e osservazioni è esplicitato nelle sezioni di case_relevance.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Tutte le informazioni rilevanti, inclusi i caveat sui dati sintetici, sono coperte.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"OK\",\"reason\":\"Il confronto tra i due studi evidenzia correttamente l'identità dei risultati nonostante le fonti diverse.\"}],\"findings\":[],\"summary\":\"La narrazione è semanticamente fedele al dossier fornito, riportando accuratamente i dati, le fonti e le limitazioni (natura sintetica dei test).\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4216,
+            "completion_tokens": 447,
+            "total_tokens": 4663,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          }
+        },
+        "input_sha256": "0ee3aac4311efeeb9bae0dd73371b50eda4cf7143f42ce4726d6523597b66a78"
+      }
+    },
+    {
+      "name": "contrasting_results",
+      "origin": "SYNTHETIC_CONTRACT_FIXTURE",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "",
+          "query_intent": "",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "SYNTHETIC-RELATION",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "document_id": "pmid:90000001",
+                "public_source_identity": "pmid:90000001",
+                "source_unit_id": "SYNTHETIC-UNIT-1",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000001",
+                "title": "Synthetic test publication pmid:90000001",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000001/"
+              },
+              {
+                "document_id": "pmid:90000002",
+                "public_source_identity": "pmid:90000002",
+                "source_unit_id": "SYNTHETIC-UNIT-2",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib did not improve survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000002",
+                "title": "Synthetic test publication pmid:90000002",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000002/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000001",
+                  "public_source_identity": "pmid:90000001",
+                  "source_unit_id": "SYNTHETIC-UNIT-1"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000001",
+                "observation_id": "OBS-398054e3024f2d84"
+              },
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000002",
+                  "public_source_identity": "pmid:90000002",
+                  "source_unit_id": "SYNTHETIC-UNIT-2"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "DOES_NOT_SUPPORT",
+                  "effect_direction": "NO_BENEFIT",
+                  "finding": "In this synthetic test, trametinib did not improve survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib did not improve survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000002",
+                "observation_id": "OBS-73918b473838f374"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "SYNTHETIC-RELATION",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma metastatico con mutazione BRAF V600K trattato con trametinib, corrispondendo esattamente al caso di ricerca.",
+                  "observation_id": "OBS-398054e3024f2d84",
+                  "text": "La fonte pmid:90000001 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati confermano l'autenticità della citazione e la corrispondenza del gene e dell'alterazione. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                },
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma metastatico con mutazione BRAF V600K trattato con trametinib, corrispondendo esattamente al caso di ricerca.",
+                  "observation_id": "OBS-73918b473838f374",
+                  "text": "La fonte pmid:90000002 riporta che, in un test sintetico, trametinib non ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati confermano l'autenticità della citazione e la corrispondenza del gene e dell'alterazione. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                }
+              ],
+              "study_comparison": {
+                "observation_ids": [
+                  "OBS-398054e3024f2d84",
+                  "OBS-73918b473838f374"
+                ],
+                "text": "Le due osservazioni, derivanti da studi sintetici distinti (pmid:90000001 e pmid:90000002), presentano risultati contrastanti per la stessa popolazione (melanoma metastatico BRAF V600K) e lo stesso trattamento (trametinib): la prima riporta un miglioramento della sopravvivenza, mentre la seconda indica l'assenza di beneficio."
+              },
+              "text": "È stata esaminata la relazione tra l'uso di trametinib e l'outcome in pazienti con melanoma metastatico e profilo molecolare BRAF V600K."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "Le osservazioni sono correttamente associate alle rispettive fonti pmid:90000001 e pmid:90000002."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il miglioramento e l'assenza di beneficio della sopravvivenza sono riportati fedelmente."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "La mutazione BRAF V600K è riportata correttamente."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La popolazione (melanoma metastatico) è coerente tra input e narrativa."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "L'intervento (trametinib) è correttamente identificato."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La natura sintetica dei dati è esplicitamente menzionata per entrambe le osservazioni."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "L'autenticità della citazione e la corrispondenza dei campi sono riportate correttamente."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Il collegamento tra il caso e le osservazioni è esplicitato nella sezione case_relevance."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Tutte le osservazioni disponibili e i relativi caveat sono stati inclusi."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "OK",
+              "reason": "Il contrasto tra i risultati dei due studi sintetici è chiaramente spiegato."
+            }
+          ],
+          "findings": [],
+          "summary": "La narrativa riflette fedelmente i dati forniti nel dossier, inclusa la natura sintetica dei risultati e la contraddizione tra le due fonti.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-460",
+          "object": "chat.completion",
+          "created": 1792331671,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_nzpp577t",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"Le osservazioni sono correttamente associate alle rispettive fonti pmid:90000001 e pmid:90000002.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il miglioramento e l'assenza di beneficio della sopravvivenza sono riportati fedelmente.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"La mutazione BRAF V600K è riportata correttamente.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La popolazione (melanoma metastatico) è coerente tra input e narrativa.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"L'intervento (trametinib) è correttamente identificato.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La natura sintetica dei dati è esplicitamente menzionata per entrambe le osservazioni.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"L'autenticità della citazione e la corrispondenza dei campi sono riportate correttamente.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Il collegamento tra il caso e le osservazioni è esplicitato nella sezione case_relevance.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Tutte le osservazioni disponibili e i relativi caveat sono stati inclusi.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"OK\",\"reason\":\"Il contrasto tra i risultati dei due studi sintetici è chiaramente spiegato.\"}],\"findings\":[],\"summary\":\"La narrativa riflette fedelmente i dati forniti nel dossier, inclusa la natura sintetica dei risultati e la contraddizione tra le due fonti.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4209,
+            "completion_tokens": 448,
+            "total_tokens": 4657,
+            "prompt_tokens_details": {
+              "cached_tokens": 2880
+            }
+          }
+        },
+        "input_sha256": "8508bcef91a41d5374b9895138e346d769a34145758d5f4f3276a48ddb6a7958"
+      }
+    },
+    {
+      "name": "different_populations",
+      "origin": "SYNTHETIC_CONTRACT_FIXTURE",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "",
+          "query_intent": "",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "SYNTHETIC-RELATION",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "document_id": "pmid:90000001",
+                "public_source_identity": "pmid:90000001",
+                "source_unit_id": "SYNTHETIC-UNIT-1",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000001",
+                "title": "Synthetic test publication pmid:90000001",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000001/"
+              },
+              {
+                "document_id": "pmid:90000002",
+                "public_source_identity": "pmid:90000002",
+                "source_unit_id": "SYNTHETIC-UNIT-2",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in stage III melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000002",
+                "title": "Synthetic test publication pmid:90000002",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000002/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000001",
+                  "public_source_identity": "pmid:90000001",
+                  "source_unit_id": "SYNTHETIC-UNIT-1"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000001",
+                "observation_id": "OBS-398054e3024f2d84"
+              },
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000002",
+                  "public_source_identity": "pmid:90000002",
+                  "source_unit_id": "SYNTHETIC-UNIT-2"
+                },
+                "observed": {
+                  "disease": "stage III melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in stage III melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in stage III melanoma with BRAF V600K.",
+                "study_id": "pmid:90000002",
+                "observation_id": "OBS-289abd8b0532f4d4"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "SYNTHETIC-RELATION",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma metastatico e l'uso di trametinib in pazienti con mutazione BRAF V600K, corrispondendo esattamente al setting e al profilo molecolare del caso.",
+                  "observation_id": "OBS-398054e3024f2d84",
+                  "text": "La fonte pmid:90000001 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. Il controllo registrato conferma la corrispondenza del gene e dell'alterazione e l'autenticità della citazione. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                },
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma in stadio III, che rappresenta un setting clinico differente rispetto al melanoma metastatico richiesto nel caso.",
+                  "observation_id": "OBS-289abd8b0532f4d4",
+                  "text": "La fonte pmid:90000002 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma in stadio III e mutazione BRAF V600K. Il controllo registrato conferma la corrispondenza del gene e dell'alterazione e l'autenticità della citazione. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                }
+              ],
+              "study_comparison": {
+                "observation_ids": [
+                  "OBS-398054e3024f2d84",
+                  "OBS-289abd8b0532f4d4"
+                ],
+                "text": "Le due osservazioni provengono da studi differenti (pmid:90000001 e pmid:90000002). Entrambe riportano un miglioramento della sopravvivenza con trametinib in pazienti BRAF V600K, ma differiscono per il setting clinico: la prima riguarda il melanoma metastatico, mentre la seconda riguarda il melanoma in stadio III. Entrambe sono identificate come fixture di test sintetico."
+              },
+              "text": "È stata esaminata la relazione tra l'uso di trametinib e la risposta in pazienti con melanoma e mutazione BRAF V600K."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "Le osservazioni sono correttamente associate alle rispettive fonti pmid:90000001 e pmid:90000002."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il miglioramento della sopravvivenza è riportato fedelmente per entrambi gli studi."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "La mutazione BRAF V600K è riportata correttamente."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La distinzione tra melanoma metastatico e stadio III è mantenuta."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "L'intervento (trametinib) è riportato correttamente."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La natura sintetica dei dati è esplicitamente menzionata in ogni sezione."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "I termini di controllo (corrispondenza e autenticità) sono usati correttamente."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Il testo distingue correttamente tra il setting del caso (metastatico) e l'osservazione in stadio III."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Tutte le osservazioni fornite sono coperte."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "OK",
+              "reason": "Il confronto tra i due studi evidenzia correttamente la differenza di stadio della malattia."
+            }
+          ],
+          "findings": [],
+          "summary": "L'analisi narrativa è semanticamente fedele al dossier fornito, rispettando tutte le dimensioni di audit.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-799",
+          "object": "chat.completion",
+          "created": 1792331673,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_d4uascr3",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"Le osservazioni sono correttamente associate alle rispettive fonti pmid:90000001 e pmid:90000002.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il miglioramento della sopravvivenza è riportato fedelmente per entrambi gli studi.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"La mutazione BRAF V600K è riportata correttamente.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La distinzione tra melanoma metastatico e stadio III è mantenuta.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"L'intervento (trametinib) è riportato correttamente.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La natura sintetica dei dati è esplicitamente menzionata in ogni sezione.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"I termini di controllo (corrispondenza e autenticità) sono usati correttamente.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Il testo distingue correttamente tra il setting del caso (metastatico) e l'osservazione in stadio III.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Tutte le osservazioni fornite sono coperte.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"OK\",\"reason\":\"Il confronto tra i due studi evidenzia correttamente la differenza di stadio della malattia.\"}],\"findings\":[],\"summary\":\"L'analisi narrativa è semanticamente fedele al dossier fornito, rispettando tutte le dimensioni di audit.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4203,
+            "completion_tokens": 431,
+            "total_tokens": 4634,
+            "prompt_tokens_details": {
+              "cached_tokens": 2880
+            }
+          }
+        },
+        "input_sha256": "aaf8170d1b2b817bf1aacfd73f2ccb61d4e03adcad42190b92cf0d34f865a14b"
+      }
+    },
+    {
+      "name": "combination_and_monotherapy",
+      "origin": "SYNTHETIC_CONTRACT_FIXTURE",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "",
+          "query_intent": "",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "SYNTHETIC-RELATION",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "document_id": "pmid:90000001",
+                "public_source_identity": "pmid:90000001",
+                "source_unit_id": "SYNTHETIC-UNIT-1",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000001",
+                "title": "Synthetic test publication pmid:90000001",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000001/"
+              },
+              {
+                "document_id": "pmid:90000002",
+                "public_source_identity": "pmid:90000002",
+                "source_unit_id": "SYNTHETIC-UNIT-2",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, dabrafenib plus trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000002",
+                "title": "Synthetic test publication pmid:90000002",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000002/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000001",
+                  "public_source_identity": "pmid:90000001",
+                  "source_unit_id": "SYNTHETIC-UNIT-1"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000001",
+                "observation_id": "OBS-398054e3024f2d84"
+              },
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000002",
+                  "public_source_identity": "pmid:90000002",
+                  "source_unit_id": "SYNTHETIC-UNIT-2"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "dabrafenib plus trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, dabrafenib plus trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, dabrafenib plus trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000002",
+                "observation_id": "OBS-b3d8fff2ac414d01"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "SYNTHETIC-RELATION",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma metastatico con mutazione BRAF V600K trattato con trametinib, corrispondendo esattamente al profilo e all'intervento del caso.",
+                  "observation_id": "OBS-398054e3024f2d84",
+                  "text": "La fonte pmid:90000001 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati confermano l'autenticità della citazione e la corrispondenza del gene e dell'alterazione. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                },
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma metastatico con mutazione BRAF V600K, ma l'intervento (dabrafenib più trametinib) differisce dal trattamento singolo (trametinib) richiesto nel caso.",
+                  "observation_id": "OBS-b3d8fff2ac414d01",
+                  "text": "La fonte pmid:90000002 indica che, in un test sintetico, la combinazione di dabrafenib più trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati confermano l'autenticità della citazione e la corrispondenza del gene e dell'alterazione. Anche in questo caso, l'osservazione è definita come un elemento di test sintetico e non come un risultato scientifico."
+                }
+              ],
+              "study_comparison": {
+                "observation_ids": [
+                  "OBS-398054e3024f2d84",
+                  "OBS-b3d8fff2ac414d01"
+                ],
+                "text": "Le due osservazioni, derivanti da studi differenti (pmid:90000001 e pmid:90000002), condividono la stessa popolazione (melanoma metastatico BRAF V600K) e riportano un miglioramento della sopravvivenza, ma differiscono per l'intervento utilizzato: trametinib in monoterapia nel primo caso e la combinazione dabrafenib più trametinib nel secondo. Entrambe sono identificate come prove sintetiche."
+              },
+              "text": "È stata esaminata la relazione tra l'efficacia di trametinib e il profilo BRAF V600K nel melanoma metastatico. Le prove documentali provengono da pubblicazioni di test sintetici."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "Le osservazioni sono correttamente associate alle rispettive fonti pmid:90000001 e pmid:90000002."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il miglioramento della sopravvivenza è riportato correttamente per entrambi gli interventi."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "La mutazione BRAF V600K è riportata correttamente."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La popolazione (melanoma metastatico) è coerente con l'input."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "La distinzione tra monoterapia (trametinib) e combinazione (dabrafenib più trametinib) è mantenuta."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La natura sintetica dei dati è esplicitamente menzionata come caveat."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "L'autenticità della citazione e la corrispondenza dei campi sono riportate correttamente."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Il testo distingue correttamente tra l'intervento del caso (trametinib) e la combinazione riportata in una delle fonti."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Tutte le osservazioni e i limiti (natura sintetica) sono coperti."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "OK",
+              "reason": "Il confronto tra i due studi evidenzia correttamente la differenza nell'intervento."
+            }
+          ],
+          "findings": [],
+          "summary": "L'analisi semantica conferma che la narrazione è fedele al dossier fornito, rispettando le distinzioni tra interventi, la natura sintetica dei dati e la popolazione del caso.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-424",
+          "object": "chat.completion",
+          "created": 1792331676,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_libhq2dw",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"Le osservazioni sono correttamente associate alle rispettive fonti pmid:90000001 e pmid:90000002.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il miglioramento della sopravvivenza è riportato correttamente per entrambi gli interventi.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"La mutazione BRAF V600K è riportata correttamente.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La popolazione (melanoma metastatico) è coerente con l'input.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"La distinzione tra monoterapia (trametinib) e combinazione (dabrafenib più trametinib) è mantenuta.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La natura sintetica dei dati è esplicitamente menzionata come caveat.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"L'autenticità della citazione e la corrispondenza dei campi sono riportate correttamente.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Il testo distingue correttamente tra l'intervento del caso (trametinib) e la combinazione riportata in una delle fonti.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Tutte le osservazioni e i limiti (natura sintetica) sono coperti.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"OK\",\"reason\":\"Il confronto tra i due studi evidenzia correttamente la differenza nell'intervento.\"}],\"findings\":[],\"summary\":\"L'analisi semantica conferma che la narrazione è fedele al dossier fornito, rispettando le distinzioni tra interventi, la natura sintetica dei dati e la popolazione del caso.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4267,
+            "completion_tokens": 469,
+            "total_tokens": 4736,
+            "prompt_tokens_details": {
+              "cached_tokens": 2880
+            }
+          }
+        },
+        "input_sha256": "5b7e8a8339e17c3c7533c20601bd4d59ca1a7d24e67faf347e53a688b41c96ee"
+      }
+    },
+    {
+      "name": "two_passages_one_study",
+      "origin": "SYNTHETIC_CONTRACT_FIXTURE",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "",
+          "query_intent": "",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "SYNTHETIC-RELATION",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "document_id": "pmid:90000001",
+                "public_source_identity": "pmid:90000001",
+                "source_unit_id": "SYNTHETIC-UNIT-1",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000001",
+                "title": "Synthetic test publication pmid:90000001",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000001/"
+              },
+              {
+                "document_id": "pmid:90000001",
+                "public_source_identity": "pmid:90000001",
+                "source_unit_id": "SYNTHETIC-UNIT-2",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000001",
+                "title": "Synthetic test publication pmid:90000001",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000001/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000001",
+                  "public_source_identity": "pmid:90000001",
+                  "source_unit_id": "SYNTHETIC-UNIT-1"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000001",
+                "observation_id": "OBS-398054e3024f2d84"
+              },
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000001",
+                  "public_source_identity": "pmid:90000001",
+                  "source_unit_id": "SYNTHETIC-UNIT-2"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000001",
+                "observation_id": "OBS-96af006bfd6cda11"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "SYNTHETIC-RELATION",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione coincide con il caso di ricerca per quanto riguarda la patologia (melanoma metastatico), l'alterazione molecolare (BRAF V600K) e l'intervento (trametinib).",
+                  "observation_id": "OBS-398054e3024f2d84",
+                  "text": "La fonte pmid:90000001 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati indicano che la citazione è autenticata e che il gene e l'alterazione corrispondono a quanto ricercato. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                },
+                {
+                  "case_relevance": "L'osservazione coincide con il caso di ricerca per quanto riguarda la patologia (melanoma metastatico), l'alterazione molecolare (BRAF V600K) e l'intervento (trametinib).",
+                  "observation_id": "OBS-96af006bfd6cda11",
+                  "text": "La fonte pmid:90000001 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati confermano l'autenticità della citazione e la corrispondenza di gene e alterazione. Come per la precedente osservazione, è indicato che si tratta di un dato sintetico per scopi di test e non di un risultato scientifico."
+                }
+              ],
+              "study_comparison": {
+                "observation_ids": [
+                  "OBS-398054e3024f2d84",
+                  "OBS-96af006bfd6cda11"
+                ],
+                "text": "Entrambe le osservazioni derivano dalla stessa pubblicazione (pmid:90000001) e riportano lo stesso risultato sintetico riguardante l'efficacia di trametinib nel melanoma metastatico BRAF V600K, senza differenze o conflitti nei dati riportati."
+              },
+              "text": "È stata esaminata la relazione tra l'uso di trametinib e la risposta in pazienti con melanoma metastatico e profilo BRAF V600K."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "Le osservazioni sono correttamente associate alla fonte pmid:90000001."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il miglioramento della sopravvivenza è riportato fedelmente."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "La mutazione BRAF V600K è riportata correttamente."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La popolazione (melanoma metastatico) è coerente tra input e narrativa."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "L'intervento (trametinib) è riportato correttamente."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La natura sintetica del dato è esplicitamente menzionata."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "I termini 'autenticata' e 'corrispondono' sono usati correttamente in riferimento ai controlli."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Il collegamento tra caso e osservazioni è esplicitato nelle sezioni di case_relevance."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Tutte le informazioni rilevanti, inclusi i caveat sulla natura sintetica, sono coperte."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "OK",
+              "reason": "Il confronto tra le due osservazioni della stessa fonte è correttamente effettuato."
+            }
+          ],
+          "findings": [],
+          "summary": "La narrativa è semanticamente fedele al dossier fornito, riportando accuratamente i risultati, la popolazione, l'intervento e la natura sintetica dei dati.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-799",
+          "object": "chat.completion",
+          "created": 1792331678,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_5s2clf7y",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"Le osservazioni sono correttamente associate alla fonte pmid:90000001.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il miglioramento della sopravvivenza è riportato fedelmente.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"La mutazione BRAF V600K è riportata correttamente.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La popolazione (melanoma metastatico) è coerente tra input e narrativa.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"L'intervento (trametinib) è riportato correttamente.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La natura sintetica del dato è esplicitamente menzionata.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"I termini 'autenticata' e 'corrispondono' sono usati correttamente in riferimento ai controlli.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Il collegamento tra caso e osservazioni è esplicitato nelle sezioni di case_relevance.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Tutte le informazioni rilevanti, inclusi i caveat sulla natura sintetica, sono coperte.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"OK\",\"reason\":\"Il confronto tra le due osservazioni della stessa fonte è correttamente effettuato.\"}],\"findings\":[],\"summary\":\"La narrativa è semanticamente fedele al dossier fornito, riportando accuratamente i risultati, la popolazione, l'intervento e la natura sintetica dei dati.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4194,
+            "completion_tokens": 432,
+            "total_tokens": 4626,
+            "prompt_tokens_details": {
+              "cached_tokens": 2880
+            }
+          }
+        },
+        "input_sha256": "a53a51d4f50232783ac7cc6a9ff1ebb82834bccab33ba4d6d650a84febc616c4"
+      }
+    },
+    {
+      "name": "excluded_second_observation",
+      "origin": "SYNTHETIC_CONTRACT_FIXTURE",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "",
+          "query_intent": "",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "SYNTHETIC-RELATION",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "document_id": "pmid:90000001",
+                "public_source_identity": "pmid:90000001",
+                "source_unit_id": "SYNTHETIC-UNIT-1",
+                "quote_available": true,
+                "validated_quote": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "disposition": "RETAINED_RECORD",
+                "paper_id": "pmid:90000001",
+                "title": "Synthetic test publication pmid:90000001",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000001/"
+              },
+              {
+                "document_id": "pmid:90000002",
+                "public_source_identity": "pmid:90000002",
+                "source_unit_id": "SYNTHETIC-UNIT-2",
+                "quote_available": false,
+                "validated_quote": null,
+                "disposition": "EXCLUDED_RECORD",
+                "paper_id": "pmid:90000002",
+                "title": "Synthetic test publication pmid:90000002",
+                "journal": "Contract test fixture",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/90000002/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": null,
+                "source": {
+                  "document_id": "pmid:90000001",
+                  "public_source_identity": "pmid:90000001",
+                  "source_unit_id": "SYNTHETIC-UNIT-1"
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "intervention": "trametinib",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "finding": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                  "caveats": [
+                    "Synthetic contract fixture; not a scientific result."
+                  ]
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED"
+                    }
+                  }
+                },
+                "limitations": {},
+                "observed_origin": null,
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": null,
+                "quotation": "In this synthetic test, trametinib improved survival in metastatic melanoma with BRAF V600K.",
+                "study_id": "pmid:90000001",
+                "observation_id": "OBS-398054e3024f2d84"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "SYNTHETIC-RELATION",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma metastatico con mutazione BRAF V600K trattato con trametinib, coincidendo esattamente con il profilo molecolare, la patologia e l'intervento richiesti nel caso.",
+                  "observation_id": "OBS-398054e3024f2d84",
+                  "text": "La pubblicazione pmid:90000001 riporta che, in un test sintetico, trametinib ha migliorato la sopravvivenza in pazienti con melanoma metastatico e mutazione BRAF V600K. I controlli registrati confermano la corrispondenza del gene e dell'alterazione, e l'autenticità della citazione. Viene tuttavia specificato che si tratta di un elemento di test sintetico e non di un risultato scientifico."
+                }
+              ],
+              "text": "È stata esaminata la relazione tra l'uso di trametinib e la risposta in pazienti con melanoma metastatico e profilo molecolare BRAF V600K."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "L'osservazione è correttamente associata alla fonte pmid:90000001."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il miglioramento della sopravvivenza è riportato fedelmente."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "La mutazione BRAF V600K è riportata correttamente."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La popolazione (melanoma metastatico) è coerente con l'input."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "L'intervento (trametinib) è riportato correttamente."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "Viene esplicitamente menzionato che si tratta di un test sintetico e non di un risultato scientifico."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "I termini di autenticazione e corrispondenza sono usati correttamente."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Il collegamento tra l'osservazione e il caso è esplicitato correttamente."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Tutte le informazioni rilevanti della fonte sono coperte."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "NOT_APPLICABLE",
+              "reason": "È presente un solo studio rilevante."
+            }
+          ],
+          "findings": [],
+          "summary": "La narrazione è semanticamente fedele al dossier fornito, includendo correttamente la natura sintetica del dato.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-743",
+          "object": "chat.completion",
+          "created": 1792331681,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_3l4qg7qv",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"L'osservazione è correttamente associata alla fonte pmid:90000001.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il miglioramento della sopravvivenza è riportato fedelmente.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"La mutazione BRAF V600K è riportata correttamente.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La popolazione (melanoma metastatico) è coerente con l'input.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"L'intervento (trametinib) è riportato correttamente.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"Viene esplicitamente menzionato che si tratta di un test sintetico e non di un risultato scientifico.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"I termini di autenticazione e corrispondenza sono usati correttamente.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Il collegamento tra l'osservazione e il caso è esplicitato correttamente.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Tutte le informazioni rilevanti della fonte sono coperte.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"NOT_APPLICABLE\",\"reason\":\"È presente un solo studio rilevante.\"}],\"findings\":[],\"summary\":\"La narrazione è semanticamente fedele al dossier fornito, includendo correttamente la natura sintetica del dato.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 3076,
+            "completion_tokens": 412,
+            "total_tokens": 3488,
+            "prompt_tokens_details": {
+              "cached_tokens": 1280
+            }
+          }
+        },
+        "input_sha256": "2cc132d61d8015576b5e653999332124a42e67f1beeed059609ea5ffc629bb78"
+      }
+    },
+    {
+      "name": "BRAF_28891408",
+      "origin": "ARCHIVED_DOCUMENTARY_SUBSET",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "E2E20-16",
+          "query_intent": "THERAPY_EVALUATION",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "dabrafenib e trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "GCA4-9a002e06fa9adfdb6fa49a8a",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "public_source_identity": "pmid:28891408",
+                "document_id": "pmid:28891408",
+                "paper_id": "live:GCA4-9a002e06fa9adfdb6fa49a8a:pmid:28891408",
+                "source_unit_id": "SU-98608ead3ae93e2665e3b885",
+                "source_unit_sha256": "de6aeee73ab7b6c55423e754ee122e28576d45fefe82fc0ccfe921c2a7d39665",
+                "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                "source_unit_chars": 271,
+                "quote_available": true,
+                "validated_quote": "Adjuvant use of combination therapy with dabrafenib plus trametinib resulted in a significantly lower risk of recurrence in patients with stage III melanoma with BRAF V600E or V600K mutations than the adjuvant use of placebo and was not associated with new toxic effects.",
+                "disposition": "RETAINED_RECORD",
+                "title": "Adjuvant Dabrafenib plus Trametinib in Stage III BRAF-Mutated Melanoma.",
+                "journal": "The New England journal of medicine",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/28891408/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": "EVIDENCE-9e6f4d3bd6adddff969244d9",
+                "source": {
+                  "public_source_identity": "pmid:28891408",
+                  "document_id": "pmid:28891408",
+                  "paper_id": "live:GCA4-9a002e06fa9adfdb6fa49a8a:pmid:28891408",
+                  "source_unit_id": "SU-98608ead3ae93e2665e3b885",
+                  "source_unit_sha256": "de6aeee73ab7b6c55423e754ee122e28576d45fefe82fc0ccfe921c2a7d39665",
+                  "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                  "source_unit_chars": 271
+                },
+                "observed": {
+                  "disease": "stage III melanoma",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF",
+                      "canonical_value": "braf",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600E",
+                      "canonical_value": "v600e",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "canonical_value": "v600k",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "intervention": "dabrafenib plus trametinib",
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "relation_scope": "ALTERNATIVES",
+                  "molecular_composition": "ALTERNATIVES",
+                  "intervention_composition": "COMBINATION",
+                  "relation_assertion": "RELATION_ASSERTED",
+                  "subject_pairings": [],
+                  "uncertainty": null,
+                  "caveats": [],
+                  "conflict_markers": [],
+                  "trial_context": {},
+                  "companion_diagnostic": {},
+                  "evidence_context": {
+                    "subject_level": "COHORT",
+                    "claim_type": "OBSERVED_RESPONSE"
+                  },
+                  "disease_canonical": "stage iii melanoma",
+                  "intervention_canonical": "dabrafenib plus trametinib"
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED",
+                    "validation_outcome": "ENRICHMENT_V3_ACCEPTED",
+                    "reason_codes": [],
+                    "origin": "RECORDED_DOCUMENT_VALIDATOR"
+                  },
+                  "structural": {
+                    "status": "NOT_RECORDED",
+                    "reason_codes": [],
+                    "origin": "DETERMINISTIC_GATE"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "disease": "NOT_CONFIRMED",
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED",
+                      "drug": "NOT_APPLICABLE",
+                      "direction": "CONFIRMED",
+                      "stance": "CONFIRMED"
+                    },
+                    "origin": "RECORDED_POLICY_FIELDS_NOT_INDEPENDENT_GOLD"
+                  },
+                  "semantic": {
+                    "status": "NOT_REQUIRED_BY_POLICY",
+                    "origin": "MODEL_ASSESSMENT_WITH_DETERMINISTIC_CONSTRAINTS",
+                    "assessment": null,
+                    "model": null,
+                    "prompt_version": null
+                  }
+                },
+                "limitations": {
+                  "reason_codes": [],
+                  "rejection_reason": null,
+                  "scope": null,
+                  "abstain_reason": null
+                },
+                "observed_origin": "READER_EXTRACTION_NOT_INDEPENDENT_GOLD",
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": "NOT_INDEPENDENTLY_EVALUATED",
+                "quotation": "Adjuvant use of combination therapy with dabrafenib plus trametinib resulted in a significantly lower risk of recurrence in patients with stage III melanoma with BRAF V600E or V600K mutations than the adjuvant use of placebo and was not associated with new toxic effects.",
+                "study_id": "pmid:28891408",
+                "observation_id": "OBS-832f942638005210"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda dabrafenib e trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "GCA4-9a002e06fa9adfdb6fa49a8a",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma in stadio III in setting adiuvante, mentre il caso di ricerca riguarda il melanoma metastatico. L'intervento (dabrafenib più trametinib) e il profilo molecolare (BRAF V600K) sono coerenti con la richiesta.",
+                  "observation_id": "OBS-832f942638005210",
+                  "text": "La pubblicazione pmid:28891408 riporta che l'uso adiuvante della terapia di combinazione con dabrafenib più trametinib ha determinato un rischio di recidiva significativamente inferiore rispetto all'uso adiuvante di placebo in pazienti con melanoma in stadio III con mutazioni BRAF V600E oppure V600K. Viene inoltre indicato che tale trattamento non è stato associato a nuovi effetti tossici. I controlli registrati confermano la corrispondenza per il gene, l'alterazione, la direzione dell'effetto e la posizione (stance), mentre la corrispondenza per la malattia non è stata confermata. La citazione è autenticata."
+                }
+              ],
+              "text": "È stata esaminata la relazione tra il profilo molecolare BRAF V600K e l'efficacia di dabrafenib e trametinib nel melanoma."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "L'osservazione è correttamente associata alla fonte pmid:28891408."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il rischio di recidiva e la tossicità sono riportati fedelmente."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "Le mutazioni V600E e V600K sono correttamente trattate come alternative."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La distinzione tra stadio III e melanoma metastatico è mantenuta."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "La terapia di combinazione dabrafenib più trametinib è correttamente identificata."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La forza delle conclusioni (significativamente inferiore) è preservata."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "I termini 'autenticata' e 'non confermata' sono usati correttamente secondo le definizioni."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Viene esplicitata la differenza di setting (adiuvante stadio III vs metastatico) e la coerenza di farmaco e biomarcatore."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Tutte le informazioni rilevanti della fonte sono coperte."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "NOT_APPLICABLE",
+              "reason": "È presente un unico studio."
+            }
+          ],
+          "findings": [],
+          "summary": "L'analisi narrativa è semanticamente fedele al dossier fornito, distinguendo correttamente il setting clinico dello studio (adiuvante stadio III) rispetto al caso (metastatico) e riportando accuratamente i risultati di efficacia e sicurezza.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-742",
+          "object": "chat.completion",
+          "created": 1792331684,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_xeavhou3",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"L'osservazione è correttamente associata alla fonte pmid:28891408.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il rischio di recidiva e la tossicità sono riportati fedelmente.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"Le mutazioni V600E e V600K sono correttamente trattate come alternative.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La distinzione tra stadio III e melanoma metastatico è mantenuta.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"La terapia di combinazione dabrafenib più trametinib è correttamente identificata.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La forza delle conclusioni (significativamente inferiore) è preservata.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"I termini 'autenticata' e 'non confermata' sono usati correttamente secondo le definizioni.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Viene esplicitata la differenza di setting (adiuvante stadio III vs metastatico) e la coerenza di farmaco e biomarcatore.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Tutte le informazioni rilevanti della fonte sono coperte.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"NOT_APPLICABLE\",\"reason\":\"È presente un unico studio.\"}],\"findings\":[],\"summary\":\"L'analisi narrativa è semanticamente fedele al dossier fornito, distinguendo correttamente il setting clinico dello studio (adiuvante stadio III) rispetto al caso (metastatico) e riportando accuratamente i risultati di efficacia e sicurezza.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4334,
+            "completion_tokens": 461,
+            "total_tokens": 4795,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024
+            }
+          }
+        },
+        "input_sha256": "9f128ee6d868965703dac9a52310be45c31a1cffde97fbc33fa2f9248a02034a"
+      }
+    },
+    {
+      "name": "BRAF_22663011",
+      "origin": "ARCHIVED_DOCUMENTARY_SUBSET",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "E2E20-16",
+          "query_intent": "THERAPY_EVALUATION",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "dabrafenib e trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "GCA4-0179f6160400942845a98063",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "public_source_identity": "pmid:22663011",
+                "document_id": "pmid:22663011",
+                "paper_id": "live:GCA4-0179f6160400942845a98063:pmid:22663011",
+                "source_unit_id": "SU-1018a4f893a05b216c1d3ce6",
+                "source_unit_sha256": "b20a87878d995026de748818076dae6ee89e0a01b37234e20630ae97564b723e",
+                "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                "source_unit_chars": 178,
+                "quote_available": true,
+                "validated_quote": "Trametinib, as compared with chemotherapy, improved rates of progression-free and overall survival among patients who had metastatic melanoma with a BRAF V600E or V600K mutation.",
+                "disposition": "RETAINED_RECORD",
+                "title": "Improved survival with MEK inhibition in BRAF-mutated melanoma.",
+                "journal": "The New England journal of medicine",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/22663011/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": "EVIDENCE-2019855035fb11b762456f5f",
+                "source": {
+                  "public_source_identity": "pmid:22663011",
+                  "document_id": "pmid:22663011",
+                  "paper_id": "live:GCA4-0179f6160400942845a98063:pmid:22663011",
+                  "source_unit_id": "SU-1018a4f893a05b216c1d3ce6",
+                  "source_unit_sha256": "b20a87878d995026de748818076dae6ee89e0a01b37234e20630ae97564b723e",
+                  "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                  "source_unit_chars": 178
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF",
+                      "canonical_value": "braf",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600E",
+                      "canonical_value": "v600e",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "canonical_value": "v600k",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "intervention": "Trametinib",
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "relation_scope": "ALTERNATIVES",
+                  "molecular_composition": "ALTERNATIVES",
+                  "intervention_composition": "SINGLE_AGENT",
+                  "relation_assertion": "RELATION_ASSERTED",
+                  "subject_pairings": [],
+                  "uncertainty": null,
+                  "caveats": [],
+                  "conflict_markers": [],
+                  "trial_context": {},
+                  "companion_diagnostic": {},
+                  "evidence_context": {
+                    "subject_level": "COHORT",
+                    "claim_type": "OBSERVED_RESPONSE"
+                  },
+                  "disease_canonical": "metastatic melanoma",
+                  "intervention_canonical": "trametinib"
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED",
+                    "validation_outcome": "ENRICHMENT_V3_ACCEPTED",
+                    "reason_codes": [],
+                    "origin": "RECORDED_DOCUMENT_VALIDATOR"
+                  },
+                  "structural": {
+                    "status": "NOT_RECORDED",
+                    "reason_codes": [],
+                    "origin": "DETERMINISTIC_GATE"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "disease": "NOT_CONFIRMED",
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED",
+                      "drug": "NOT_APPLICABLE",
+                      "direction": "CONFIRMED",
+                      "stance": "CONFIRMED"
+                    },
+                    "origin": "RECORDED_POLICY_FIELDS_NOT_INDEPENDENT_GOLD"
+                  },
+                  "semantic": {
+                    "status": "NOT_REQUIRED_BY_POLICY",
+                    "origin": "MODEL_ASSESSMENT_WITH_DETERMINISTIC_CONSTRAINTS",
+                    "assessment": null,
+                    "model": null,
+                    "prompt_version": null
+                  }
+                },
+                "limitations": {
+                  "reason_codes": [],
+                  "rejection_reason": null,
+                  "scope": null,
+                  "abstain_reason": null
+                },
+                "observed_origin": "READER_EXTRACTION_NOT_INDEPENDENT_GOLD",
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": "NOT_INDEPENDENTLY_EVALUATED",
+                "quotation": "Trametinib, as compared with chemotherapy, improved rates of progression-free and overall survival among patients who had metastatic melanoma with a BRAF V600E or V600K mutation.",
+                "study_id": "pmid:22663011",
+                "observation_id": "OBS-f05fcdb50c300ad7"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda dabrafenib e trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "GCA4-0179f6160400942845a98063",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma metastatico e la mutazione BRAF V600K, coerentemente con il caso; tuttavia, l'intervento esaminato è il trametinib come singolo agente, mentre il caso richiede la valutazione della combinazione di dabrafenib e trametinib.",
+                  "observation_id": "OBS-f05fcdb50c300ad7",
+                  "text": "La pubblicazione pmid:22663011 riporta che il trametinib, rispetto alla chemioterapia, ha migliorato i tassi di sopravvivenza libera da progressione e la sopravvivenza globale in pazienti con melanoma metastatico portatori di una mutazione BRAF V600E oppure V600K. I controlli registrati indicano che la citazione è autenticata e che il gene, l'alterazione, la direzione dell'effetto e la posizione (stance) sono confermati, mentre la corrispondenza della malattia non è stata confermata."
+                }
+              ],
+              "text": "È stata esaminata la relazione tra la mutazione BRAF V600K e la risposta al trattamento con trametinib nel melanoma."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "L'osservazione è correttamente associata alla fonte pmid:22663011."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "La sopravvivenza libera da progressione e la sopravvivenza globale sono riportate correttamente."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "Le mutazioni V600E e V600K sono correttamente trattate come alternative."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La popolazione di pazienti con melanoma metastatico è riportata correttamente."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "Il trametinib è correttamente identificato come singolo agente."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La forza delle conclusioni è preservata."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "I termini 'autenticata' e 'non confermata' sono usati correttamente secondo le definizioni."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "La differenza tra l'intervento nel caso (combinazione) e quello nello studio (monoterapia) è esplicitata."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Le informazioni principali della fonte sono coperte."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "NOT_APPLICABLE",
+              "reason": "È presente un solo studio."
+            }
+          ],
+          "findings": [],
+          "summary": "L'analisi semantica conferma che la narrazione è fedele al dossier fornito, distinguendo correttamente tra l'intervento richiesto dal caso e quello osservato nello studio.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-823",
+          "object": "chat.completion",
+          "created": 1792331687,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_yf0d5icu",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"L'osservazione è correttamente associata alla fonte pmid:22663011.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"La sopravvivenza libera da progressione e la sopravvivenza globale sono riportate correttamente.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"Le mutazioni V600E e V600K sono correttamente trattate come alternative.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La popolazione di pazienti con melanoma metastatico è riportata correttamente.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"Il trametinib è correttamente identificato come singolo agente.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La forza delle conclusioni è preservata.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"I termini 'autenticata' e 'non confermata' sono usati correttamente secondo le definizioni.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"La differenza tra l'intervento nel caso (combinazione) e quello nello studio (monoterapia) è esplicitata.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Le informazioni principali della fonte sono coperte.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"NOT_APPLICABLE\",\"reason\":\"È presente un solo studio.\"}],\"findings\":[],\"summary\":\"L'analisi semantica conferma che la narrazione è fedele al dossier fornito, distinguendo correttamente tra l'intervento richiesto dal caso e quello osservato nello studio.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4289,
+            "completion_tokens": 427,
+            "total_tokens": 4716,
+            "prompt_tokens_details": {
+              "cached_tokens": 2496
+            }
+          }
+        },
+        "input_sha256": "f638ba34024c7c02cc6b294952fbd86aba013e3db099b5d705ac72b2236c684f"
+      }
+    },
+    {
+      "name": "BRAF_24508103",
+      "origin": "ARCHIVED_DOCUMENTARY_SUBSET",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "E2E20-16",
+          "query_intent": "THERAPY_EVALUATION",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "dabrafenib e trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "GCA4-5c90befd74bc6da459a29cf7",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "public_source_identity": "pmid:24508103",
+                "document_id": "pmcid:PMC4382632",
+                "paper_id": "live:GCA4-5c90befd74bc6da459a29cf7:pmid:24508103",
+                "source_unit_id": "SU-f409c28ef334c85c80700852",
+                "source_unit_sha256": "6857fc159c00b1e94d4fde4a212c6a4b083b8632656e2084b86b756a02292ac3",
+                "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                "source_unit_chars": 162,
+                "quote_available": true,
+                "validated_quote": "Inhibition of BRAF with vemurafenib improves survival in patients with the most common BRAFV600E mutation and in patients with the less common BRAFV600K mutation.",
+                "disposition": "RETAINED_RECORD",
+                "title": "Safety and efficacy of vemurafenib in BRAF(V600E) and BRAF(V600K) mutation-positive melanoma (BRIM-3): extended follow-up of a phase 3, randomised, open-label study.",
+                "journal": "The Lancet. Oncology",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/24508103/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": "EVIDENCE-124f498e6eadff308de4de00",
+                "source": {
+                  "public_source_identity": "pmid:24508103",
+                  "document_id": "pmcid:PMC4382632",
+                  "paper_id": "live:GCA4-5c90befd74bc6da459a29cf7:pmid:24508103",
+                  "source_unit_id": "SU-f409c28ef334c85c80700852",
+                  "source_unit_sha256": "6857fc159c00b1e94d4fde4a212c6a4b083b8632656e2084b86b756a02292ac3",
+                  "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                  "source_unit_chars": 162
+                },
+                "observed": {
+                  "disease": null,
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF",
+                      "canonical_value": "braf",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600E",
+                      "canonical_value": "v600e",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "canonical_value": "v600k",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "intervention": "vemurafenib",
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "relation_scope": "ALTERNATIVES",
+                  "molecular_composition": "ALTERNATIVES",
+                  "intervention_composition": "SINGLE_AGENT",
+                  "relation_assertion": "RELATION_ASSERTED",
+                  "subject_pairings": [],
+                  "uncertainty": null,
+                  "caveats": [],
+                  "conflict_markers": [],
+                  "trial_context": {},
+                  "companion_diagnostic": {},
+                  "evidence_context": {
+                    "subject_level": "POPULATION",
+                    "claim_type": "OBSERVED_RESPONSE"
+                  },
+                  "disease_canonical": "",
+                  "intervention_canonical": "vemurafenib"
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED",
+                    "validation_outcome": "ENRICHMENT_V3_ACCEPTED",
+                    "reason_codes": [],
+                    "origin": "RECORDED_DOCUMENT_VALIDATOR"
+                  },
+                  "structural": {
+                    "status": "NOT_RECORDED",
+                    "reason_codes": [],
+                    "origin": "DETERMINISTIC_GATE"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "disease": "NOT_CONFIRMED",
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED",
+                      "drug": "NOT_APPLICABLE",
+                      "direction": "CONFIRMED",
+                      "stance": "CONFIRMED"
+                    },
+                    "origin": "RECORDED_POLICY_FIELDS_NOT_INDEPENDENT_GOLD"
+                  },
+                  "semantic": {
+                    "status": "NOT_REQUIRED_BY_POLICY",
+                    "origin": "MODEL_ASSESSMENT_WITH_DETERMINISTIC_CONSTRAINTS",
+                    "assessment": null,
+                    "model": null,
+                    "prompt_version": null
+                  }
+                },
+                "limitations": {
+                  "reason_codes": [],
+                  "rejection_reason": null,
+                  "scope": null,
+                  "abstain_reason": null
+                },
+                "observed_origin": "READER_EXTRACTION_NOT_INDEPENDENT_GOLD",
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": "NOT_INDEPENDENTLY_EVALUATED",
+                "quotation": "Inhibition of BRAF with vemurafenib improves survival in patients with the most common BRAFV600E mutation and in patients with the less common BRAFV600K mutation.",
+                "study_id": "pmid:24508103",
+                "observation_id": "OBS-390bc5b4f3259d78"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda dabrafenib e trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "GCA4-5c90befd74bc6da459a29cf7",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda l'uso di vemurafenib, che è un intervento differente rispetto alla combinazione di dabrafenib e trametinib richiesta per il caso. Inoltre, mentre il caso specifica il melanoma metastatico, la corrispondenza con la malattia per questa specifica osservazione non è stata confermata.",
+                  "observation_id": "OBS-390bc5b4f3259d78",
+                  "text": "La pubblicazione pmid:24508103 riporta che l'inibizione di BRAF tramite l'uso di vemurafenib migliora la sopravvivenza sia nei pazienti con la mutazione BRAF V600E (la più comune) sia in quelli con la mutazione BRAF V600K (meno comune). I controlli registrati indicano che la citazione è autenticata e che il gene, l'alterazione e la direzione dell'effetto sono confermati, mentre la corrispondenza con la malattia non è stata confermata."
+                }
+              ],
+              "text": "È stata esaminata la relazione tra le mutazioni BRAF V600E/V600K e la risposta al trattamento con vemurafenib."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "L'osservazione è correttamente associata alla fonte pmid:24508103."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il miglioramento della sopravvivenza è riportato fedelmente."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "Le mutazioni V600E e V600K sono trattate come alternative/distinte come da input."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "La popolazione è descritta correttamente e la mancanza di conferma della malattia è segnalata."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "Vemurafenib è correttamente identificato come agente singolo."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La forza delle conclusioni e lo stato dei controlli sono preservati."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "I termini 'autenticata' e 'non confermata' sono usati correttamente secondo le definizioni."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Viene esplicitata la differenza tra l'intervento del caso (dabrafenib e trametinib) e quello dello studio (vemurafenib)."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "L'osservazione principale e i limiti di corrispondenza sono coperti."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "NOT_APPLICABLE",
+              "reason": "È presente un unico studio."
+            }
+          ],
+          "findings": [],
+          "summary": "L'analisi narrativa è semanticamente fedele al dossier fornito, distinguendo correttamente l'intervento dello studio da quello richiesto nel caso e riportando accuratamente i risultati e lo stato dei controlli di validazione.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-825",
+          "object": "chat.completion",
+          "created": 1792331689,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_x8gb6m40",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"L'osservazione è correttamente associata alla fonte pmid:24508103.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il miglioramento della sopravvivenza è riportato fedelmente.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"Le mutazioni V600E e V600K sono trattate come alternative/distinte come da input.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"La popolazione è descritta correttamente e la mancanza di conferma della malattia è segnalata.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"Vemurafenib è correttamente identificato come agente singolo.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La forza delle conclusioni e lo stato dei controlli sono preservati.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"I termini 'autenticata' e 'non confermata' sono usati correttamente secondo le definizioni.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Viene esplicitata la differenza tra l'intervento del caso (dabrafenib e trametinib) e quello dello studio (vemurafenib).\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"L'osservazione principale e i limiti di corrispondenza sono coperti.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"NOT_APPLICABLE\",\"reason\":\"È presente un unico studio.\"}],\"findings\":[],\"summary\":\"L'analisi narrativa è semanticamente fedele al dossier fornito, distinguendo correttamente l'intervento dello studio da quello richiesto nel caso e riportando accuratamente i risultati e lo stato dei controlli di validazione.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4273,
+            "completion_tokens": 462,
+            "total_tokens": 4735,
+            "prompt_tokens_details": {
+              "cached_tokens": 1408
+            }
+          }
+        },
+        "input_sha256": "a3fc546cb22e261e165a692e03f557177a25d161057d48c3d444293900531cbd"
+      }
+    },
+    {
+      "name": "BRAF_three_relations",
+      "origin": "ARCHIVED_DOCUMENTARY_SUBSET",
+      "mechanical_status": "PASS",
+      "narrator_model": "gemma4:cloud",
+      "narrator_prompt_version": "dossier-narrator-prompt/5.1",
+      "payload": {
+        "case": {
+          "case_id": "E2E20-16",
+          "query_intent": "THERAPY_EVALUATION",
+          "disease": "melanoma metastatico",
+          "biomarkers": [
+            "BRAF V600K"
+          ],
+          "target_intervention": "dabrafenib e trametinib",
+          "clinical_question": ""
+        },
+        "candidates": [
+          {
+            "candidate_id": "GCA4-9a002e06fa9adfdb6fa49a8a",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "public_source_identity": "pmid:28891408",
+                "document_id": "pmid:28891408",
+                "paper_id": "live:GCA4-9a002e06fa9adfdb6fa49a8a:pmid:28891408",
+                "source_unit_id": "SU-98608ead3ae93e2665e3b885",
+                "source_unit_sha256": "de6aeee73ab7b6c55423e754ee122e28576d45fefe82fc0ccfe921c2a7d39665",
+                "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                "source_unit_chars": 271,
+                "quote_available": true,
+                "validated_quote": "Adjuvant use of combination therapy with dabrafenib plus trametinib resulted in a significantly lower risk of recurrence in patients with stage III melanoma with BRAF V600E or V600K mutations than the adjuvant use of placebo and was not associated with new toxic effects.",
+                "disposition": "RETAINED_RECORD",
+                "title": "Adjuvant Dabrafenib plus Trametinib in Stage III BRAF-Mutated Melanoma.",
+                "journal": "The New England journal of medicine",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/28891408/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": "EVIDENCE-9e6f4d3bd6adddff969244d9",
+                "source": {
+                  "public_source_identity": "pmid:28891408",
+                  "document_id": "pmid:28891408",
+                  "paper_id": "live:GCA4-9a002e06fa9adfdb6fa49a8a:pmid:28891408",
+                  "source_unit_id": "SU-98608ead3ae93e2665e3b885",
+                  "source_unit_sha256": "de6aeee73ab7b6c55423e754ee122e28576d45fefe82fc0ccfe921c2a7d39665",
+                  "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                  "source_unit_chars": 271
+                },
+                "observed": {
+                  "disease": "stage III melanoma",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF",
+                      "canonical_value": "braf",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600E",
+                      "canonical_value": "v600e",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "canonical_value": "v600k",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "intervention": "dabrafenib plus trametinib",
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "relation_scope": "ALTERNATIVES",
+                  "molecular_composition": "ALTERNATIVES",
+                  "intervention_composition": "COMBINATION",
+                  "relation_assertion": "RELATION_ASSERTED",
+                  "subject_pairings": [],
+                  "uncertainty": null,
+                  "caveats": [],
+                  "conflict_markers": [],
+                  "trial_context": {},
+                  "companion_diagnostic": {},
+                  "evidence_context": {
+                    "subject_level": "COHORT",
+                    "claim_type": "OBSERVED_RESPONSE"
+                  },
+                  "disease_canonical": "stage iii melanoma",
+                  "intervention_canonical": "dabrafenib plus trametinib"
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED",
+                    "validation_outcome": "ENRICHMENT_V3_ACCEPTED",
+                    "reason_codes": [],
+                    "origin": "RECORDED_DOCUMENT_VALIDATOR"
+                  },
+                  "structural": {
+                    "status": "NOT_RECORDED",
+                    "reason_codes": [],
+                    "origin": "DETERMINISTIC_GATE"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "disease": "NOT_CONFIRMED",
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED",
+                      "drug": "NOT_APPLICABLE",
+                      "direction": "CONFIRMED",
+                      "stance": "CONFIRMED"
+                    },
+                    "origin": "RECORDED_POLICY_FIELDS_NOT_INDEPENDENT_GOLD"
+                  },
+                  "semantic": {
+                    "status": "NOT_REQUIRED_BY_POLICY",
+                    "origin": "MODEL_ASSESSMENT_WITH_DETERMINISTIC_CONSTRAINTS",
+                    "assessment": null,
+                    "model": null,
+                    "prompt_version": null
+                  }
+                },
+                "limitations": {
+                  "reason_codes": [],
+                  "rejection_reason": null,
+                  "scope": null,
+                  "abstain_reason": null
+                },
+                "observed_origin": "READER_EXTRACTION_NOT_INDEPENDENT_GOLD",
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": "NOT_INDEPENDENTLY_EVALUATED",
+                "quotation": "Adjuvant use of combination therapy with dabrafenib plus trametinib resulted in a significantly lower risk of recurrence in patients with stage III melanoma with BRAF V600E or V600K mutations than the adjuvant use of placebo and was not associated with new toxic effects.",
+                "study_id": "pmid:28891408",
+                "observation_id": "OBS-832f942638005210"
+              }
+            ]
+          },
+          {
+            "candidate_id": "GCA4-0179f6160400942845a98063",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "public_source_identity": "pmid:22663011",
+                "document_id": "pmid:22663011",
+                "paper_id": "live:GCA4-0179f6160400942845a98063:pmid:22663011",
+                "source_unit_id": "SU-1018a4f893a05b216c1d3ce6",
+                "source_unit_sha256": "b20a87878d995026de748818076dae6ee89e0a01b37234e20630ae97564b723e",
+                "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                "source_unit_chars": 178,
+                "quote_available": true,
+                "validated_quote": "Trametinib, as compared with chemotherapy, improved rates of progression-free and overall survival among patients who had metastatic melanoma with a BRAF V600E or V600K mutation.",
+                "disposition": "RETAINED_RECORD",
+                "title": "Improved survival with MEK inhibition in BRAF-mutated melanoma.",
+                "journal": "The New England journal of medicine",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/22663011/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": "EVIDENCE-2019855035fb11b762456f5f",
+                "source": {
+                  "public_source_identity": "pmid:22663011",
+                  "document_id": "pmid:22663011",
+                  "paper_id": "live:GCA4-0179f6160400942845a98063:pmid:22663011",
+                  "source_unit_id": "SU-1018a4f893a05b216c1d3ce6",
+                  "source_unit_sha256": "b20a87878d995026de748818076dae6ee89e0a01b37234e20630ae97564b723e",
+                  "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                  "source_unit_chars": 178
+                },
+                "observed": {
+                  "disease": "metastatic melanoma",
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF",
+                      "canonical_value": "braf",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600E",
+                      "canonical_value": "v600e",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "canonical_value": "v600k",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "intervention": "Trametinib",
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "relation_scope": "ALTERNATIVES",
+                  "molecular_composition": "ALTERNATIVES",
+                  "intervention_composition": "SINGLE_AGENT",
+                  "relation_assertion": "RELATION_ASSERTED",
+                  "subject_pairings": [],
+                  "uncertainty": null,
+                  "caveats": [],
+                  "conflict_markers": [],
+                  "trial_context": {},
+                  "companion_diagnostic": {},
+                  "evidence_context": {
+                    "subject_level": "COHORT",
+                    "claim_type": "OBSERVED_RESPONSE"
+                  },
+                  "disease_canonical": "metastatic melanoma",
+                  "intervention_canonical": "trametinib"
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED",
+                    "validation_outcome": "ENRICHMENT_V3_ACCEPTED",
+                    "reason_codes": [],
+                    "origin": "RECORDED_DOCUMENT_VALIDATOR"
+                  },
+                  "structural": {
+                    "status": "NOT_RECORDED",
+                    "reason_codes": [],
+                    "origin": "DETERMINISTIC_GATE"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "disease": "NOT_CONFIRMED",
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED",
+                      "drug": "NOT_APPLICABLE",
+                      "direction": "CONFIRMED",
+                      "stance": "CONFIRMED"
+                    },
+                    "origin": "RECORDED_POLICY_FIELDS_NOT_INDEPENDENT_GOLD"
+                  },
+                  "semantic": {
+                    "status": "NOT_REQUIRED_BY_POLICY",
+                    "origin": "MODEL_ASSESSMENT_WITH_DETERMINISTIC_CONSTRAINTS",
+                    "assessment": null,
+                    "model": null,
+                    "prompt_version": null
+                  }
+                },
+                "limitations": {
+                  "reason_codes": [],
+                  "rejection_reason": null,
+                  "scope": null,
+                  "abstain_reason": null
+                },
+                "observed_origin": "READER_EXTRACTION_NOT_INDEPENDENT_GOLD",
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": "NOT_INDEPENDENTLY_EVALUATED",
+                "quotation": "Trametinib, as compared with chemotherapy, improved rates of progression-free and overall survival among patients who had metastatic melanoma with a BRAF V600E or V600K mutation.",
+                "study_id": "pmid:22663011",
+                "observation_id": "OBS-f05fcdb50c300ad7"
+              }
+            ]
+          },
+          {
+            "candidate_id": "GCA4-5c90befd74bc6da459a29cf7",
+            "branch": "PAPER",
+            "source_cards": [
+              {
+                "public_source_identity": "pmid:24508103",
+                "document_id": "pmcid:PMC4382632",
+                "paper_id": "live:GCA4-5c90befd74bc6da459a29cf7:pmid:24508103",
+                "source_unit_id": "SU-f409c28ef334c85c80700852",
+                "source_unit_sha256": "6857fc159c00b1e94d4fde4a212c6a4b083b8632656e2084b86b756a02292ac3",
+                "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                "source_unit_chars": 162,
+                "quote_available": true,
+                "validated_quote": "Inhibition of BRAF with vemurafenib improves survival in patients with the most common BRAFV600E mutation and in patients with the less common BRAFV600K mutation.",
+                "disposition": "RETAINED_RECORD",
+                "title": "Safety and efficacy of vemurafenib in BRAF(V600E) and BRAF(V600K) mutation-positive melanoma (BRIM-3): extended follow-up of a phase 3, randomised, open-label study.",
+                "journal": "The Lancet. Oncology",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/24508103/"
+              }
+            ],
+            "observations": [
+              {
+                "evidence_id": "EVIDENCE-124f498e6eadff308de4de00",
+                "source": {
+                  "public_source_identity": "pmid:24508103",
+                  "document_id": "pmcid:PMC4382632",
+                  "paper_id": "live:GCA4-5c90befd74bc6da459a29cf7:pmid:24508103",
+                  "source_unit_id": "SU-f409c28ef334c85c80700852",
+                  "source_unit_sha256": "6857fc159c00b1e94d4fde4a212c6a4b083b8632656e2084b86b756a02292ac3",
+                  "source_unit_digest_contract": "canonical-text-sha256/1.0",
+                  "source_unit_chars": 162
+                },
+                "observed": {
+                  "disease": null,
+                  "subjects": [
+                    {
+                      "type": "GENE",
+                      "surface_value": "BRAF",
+                      "canonical_value": "braf",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600E",
+                      "canonical_value": "v600e",
+                      "linked_gene": "BRAF"
+                    },
+                    {
+                      "type": "ALTERATION",
+                      "surface_value": "V600K",
+                      "canonical_value": "v600k",
+                      "linked_gene": "BRAF"
+                    }
+                  ],
+                  "intervention": "vemurafenib",
+                  "observed_stance": "SUPPORTS",
+                  "effect_direction": "SENSITIVITY_RESPONSE",
+                  "relation_scope": "ALTERNATIVES",
+                  "molecular_composition": "ALTERNATIVES",
+                  "intervention_composition": "SINGLE_AGENT",
+                  "relation_assertion": "RELATION_ASSERTED",
+                  "subject_pairings": [],
+                  "uncertainty": null,
+                  "caveats": [],
+                  "conflict_markers": [],
+                  "trial_context": {},
+                  "companion_diagnostic": {},
+                  "evidence_context": {
+                    "subject_level": "POPULATION",
+                    "claim_type": "OBSERVED_RESPONSE"
+                  },
+                  "disease_canonical": "",
+                  "intervention_canonical": "vemurafenib"
+                },
+                "checks": {
+                  "quotation": {
+                    "status": "AUTHENTICATED",
+                    "validation_outcome": "ENRICHMENT_V3_ACCEPTED",
+                    "reason_codes": [],
+                    "origin": "RECORDED_DOCUMENT_VALIDATOR"
+                  },
+                  "structural": {
+                    "status": "NOT_RECORDED",
+                    "reason_codes": [],
+                    "origin": "DETERMINISTIC_GATE"
+                  },
+                  "correspondence": {
+                    "fields": {
+                      "disease": "NOT_CONFIRMED",
+                      "gene": "CONFIRMED",
+                      "alteration": "CONFIRMED",
+                      "drug": "NOT_APPLICABLE",
+                      "direction": "CONFIRMED",
+                      "stance": "CONFIRMED"
+                    },
+                    "origin": "RECORDED_POLICY_FIELDS_NOT_INDEPENDENT_GOLD"
+                  },
+                  "semantic": {
+                    "status": "NOT_REQUIRED_BY_POLICY",
+                    "origin": "MODEL_ASSESSMENT_WITH_DETERMINISTIC_CONSTRAINTS",
+                    "assessment": null,
+                    "model": null,
+                    "prompt_version": null
+                  }
+                },
+                "limitations": {
+                  "reason_codes": [],
+                  "rejection_reason": null,
+                  "scope": null,
+                  "abstain_reason": null
+                },
+                "observed_origin": "READER_EXTRACTION_NOT_INDEPENDENT_GOLD",
+                "clinical_applicability": "NOT_EVALUATED",
+                "scientific_correctness": "NOT_INDEPENDENTLY_EVALUATED",
+                "quotation": "Inhibition of BRAF with vemurafenib improves survival in patients with the most common BRAFV600E mutation and in patients with the less common BRAFV600K mutation.",
+                "study_id": "pmid:24508103",
+                "observation_id": "OBS-390bc5b4f3259d78"
+              }
+            ]
+          }
+        ],
+        "narrative": {
+          "narrative_summary": "Caso di ricerca: melanoma metastatico; profilo molecolare BRAF V600K. La domanda riguarda dabrafenib e trametinib.",
+          "candidate_narratives": [
+            {
+              "candidate_id": "GCA4-9a002e06fa9adfdb6fa49a8a",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma allo stadio III in setting adiuvante, mentre il caso riguarda il melanoma metastatico. L'intervento (dabrafenib più trametinib) coincide con quello richiesto.",
+                  "observation_id": "OBS-832f942638005210",
+                  "text": "La pubblicazione pmid:28891408 riporta che l'uso adiuvante della terapia combinata con dabrafenib più trametinib ha determinato un rischio di recidiva significativamente inferiore rispetto all'uso di placebo in pazienti con melanoma allo stadio III portatori di mutazioni BRAF V600E o V600K, senza essere associato a nuovi effetti tossici. I controlli registrati indicano che la citazione è autenticata e che il gene, l'alterazione e la direzione dell'effetto sono confermati, mentre la corrispondenza con la malattia non è stata confermata."
+                }
+              ],
+              "text": "È stata esaminata la relazione tra l'uso di dabrafenib più trametinib e la risposta in pazienti con mutazione BRAF V600K."
+            },
+            {
+              "candidate_id": "GCA4-0179f6160400942845a98063",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione riguarda il melanoma metastatico, coerentemente con il caso. Tuttavia, l'intervento è trametinib come singolo agente, mentre il caso richiede la combinazione di dabrafenib e trametinib.",
+                  "observation_id": "OBS-f05fcdb50c300ad7",
+                  "text": "La pubblicazione pmid:22663011 riporta che trametinib, rispetto alla chemioterapia, ha migliorato i tassi di sopravvivenza libera da progressione e la sopravvivenza globale nei pazienti con melanoma metastatico affetti da mutazione BRAF V600E o V600K. I controlli registrati confermano l'autenticità della citazione, il gene, l'alterazione e la direzione dell'effetto, mentre la corrispondenza con la malattia non è stata confermata."
+                }
+              ],
+              "text": "È stata esaminata la relazione tra l'uso di trametinib e la risposta in pazienti con mutazione BRAF V600K."
+            },
+            {
+              "candidate_id": "GCA4-5c90befd74bc6da459a29cf7",
+              "observation_narratives": [
+                {
+                  "case_relevance": "L'osservazione non specifica lo stadio della malattia (campo non disponibile), mentre il caso riguarda il melanoma metastatico. L'intervento è vemurafenib, che differisce dalla combinazione di dabrafenib e trametinib richiesta.",
+                  "observation_id": "OBS-390bc5b4f3259d78",
+                  "text": "La pubblicazione pmid:24508103 riporta che l'inibizione di BRAF con vemurafenib migliora la sopravvivenza sia nei pazienti con la mutazione BRAF V600E che in quelli con la mutazione BRAF V600K. I controlli registrati indicano che la citazione è autenticata e che il gene, l'alterazione e la direzione dell'effetto sono confermati, mentre la corrispondenza con la malattia non è stata confermata."
+                }
+              ],
+              "text": "È stata esaminata la relazione tra l'uso di vemurafenib e la risposta in pazienti con mutazione BRAF V600K."
+            }
+          ],
+          "limitations_summary": "L’applicabilità clinica individuale resta da valutare.",
+          "closing_note": ""
+        }
+      },
+      "source_file": "evaluation/multistudy_narrator_v51_verified/results.json",
+      "source_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "judge_call": {
+        "model": "gemma4:cloud",
+        "prompt_version": "narration-semantic-audit/1.1",
+        "transport_result": "FORCED_TOOL_VALID",
+        "finish_reason": "tool_calls",
+        "transport_reason_codes": [],
+        "retry_count": 0,
+        "judgement": {
+          "dimensions": [
+            {
+              "dimension": "source_attribution",
+              "judgement": "OK",
+              "reason": "Le citazioni e le fonti sono correttamente associate in tutte le narrative."
+            },
+            {
+              "dimension": "outcomes",
+              "judgement": "OK",
+              "reason": "Il rischio di recidiva, la sopravvivenza libera da progressione e la sopravvivenza globale sono riportati correttamente."
+            },
+            {
+              "dimension": "molecular_composition",
+              "judgement": "OK",
+              "reason": "Le mutazioni V600E e V600K sono trattate come alternative, coerentemente con l'input."
+            },
+            {
+              "dimension": "population",
+              "judgement": "OK",
+              "reason": "Le differenze tra melanoma allo stadio III, metastatico e non specificato sono mantenute."
+            },
+            {
+              "dimension": "intervention",
+              "judgement": "OK",
+              "reason": "La distinzione tra terapia combinata (dabrafenib+trametinib) e singoli agenti (trametinib, vemurafenib) è preservata."
+            },
+            {
+              "dimension": "uncertainty",
+              "judgement": "OK",
+              "reason": "La forza delle conclusioni e le qualifiche sono fedeli alle fonti."
+            },
+            {
+              "dimension": "check_meaning",
+              "judgement": "OK",
+              "reason": "I termini 'autenticata' e 'non confermata' sono usati correttamente per descrivere i controlli di corrispondenza."
+            },
+            {
+              "dimension": "case_linkage",
+              "judgement": "OK",
+              "reason": "Le differenze di stadio e di intervento tra i casi e le osservazioni sono esplicitate nelle sezioni di rilevanza."
+            },
+            {
+              "dimension": "material_coverage",
+              "judgement": "OK",
+              "reason": "Tutte le osservazioni rilevanti fornite nei candidati sono coperte."
+            },
+            {
+              "dimension": "study_comparison",
+              "judgement": "OK",
+              "reason": "I tre studi indipendenti sono presentati distintamente."
+            }
+          ],
+          "findings": [],
+          "summary": "L'analisi della fedeltà semantica non ha rilevato errori. La narrazione riflette accuratamente i dati del dossier, distinguendo correttamente tra i diversi regimi terapeutici, gli stadi della malattia e i risultati clinici, mantenendo inoltre la corretta associazione tra fonti e osservazioni.",
+          "verdict": "ACCEPTABLE"
+        },
+        "evidence_validation_errors": [],
+        "usable_judgement": true,
+        "raw_response": {
+          "id": "chatcmpl-270",
+          "object": "chat.completion",
+          "created": 1792331692,
+          "model": "gemma4:cloud",
+          "system_fingerprint": "fp_ollama",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "id": "call_32d09kqm",
+                    "index": 0,
+                    "type": "function",
+                    "function": {
+                      "name": "emit_semantic_audit",
+                      "arguments": "{\"dimensions\":[{\"dimension\":\"source_attribution\",\"judgement\":\"OK\",\"reason\":\"Le citazioni e le fonti sono correttamente associate in tutte le narrative.\"},{\"dimension\":\"outcomes\",\"judgement\":\"OK\",\"reason\":\"Il rischio di recidiva, la sopravvivenza libera da progressione e la sopravvivenza globale sono riportati correttamente.\"},{\"dimension\":\"molecular_composition\",\"judgement\":\"OK\",\"reason\":\"Le mutazioni V600E e V600K sono trattate come alternative, coerentemente con l'input.\"},{\"dimension\":\"population\",\"judgement\":\"OK\",\"reason\":\"Le differenze tra melanoma allo stadio III, metastatico e non specificato sono mantenute.\"},{\"dimension\":\"intervention\",\"judgement\":\"OK\",\"reason\":\"La distinzione tra terapia combinata (dabrafenib+trametinib) e singoli agenti (trametinib, vemurafenib) è preservata.\"},{\"dimension\":\"uncertainty\",\"judgement\":\"OK\",\"reason\":\"La forza delle conclusioni e le qualifiche sono fedeli alle fonti.\"},{\"dimension\":\"check_meaning\",\"judgement\":\"OK\",\"reason\":\"I termini 'autenticata' e 'non confermata' sono usati correttamente per descrivere i controlli di corrispondenza.\"},{\"dimension\":\"case_linkage\",\"judgement\":\"OK\",\"reason\":\"Le differenze di stadio e di intervento tra i casi e le osservazioni sono esplicitate nelle sezioni di rilevanza.\"},{\"dimension\":\"material_coverage\",\"judgement\":\"OK\",\"reason\":\"Tutte le osservazioni rilevanti fornite nei candidati sono coperte.\"},{\"dimension\":\"study_comparison\",\"judgement\":\"OK\",\"reason\":\"I tre studi indipendenti sono presentati distintamente.\"}],\"findings\":[],\"summary\":\"L'analisi della fedeltà semantica non ha rilevato errori. La narrazione riflette accuratamente i dati del dossier, distinguendo correttamente tra i diversi regimi terapeutici, gli stadi della malattia e i risultati clinici, mantenendo inoltre la corretta associazione tra fonti e osservazioni.\",\"verdict\":\"ACCEPTABLE\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 9905,
+            "completion_tokens": 509,
+            "total_tokens": 10414,
+            "prompt_tokens_details": {
+              "cached_tokens": 2208
+            }
+          }
+        },
+        "input_sha256": "6042b2e392c3ebe6666088e25248b740e5f56d64715d9b9ed8af32231c9a6839"
+      }
+    }
+  ]
+}

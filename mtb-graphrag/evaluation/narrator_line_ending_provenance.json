@@ -1,0 +1,894 @@
+{
+  "policy": "canonical-lf-publication/1.0",
+  "description": "Canonical LF publication; frozen historical digest values are retained, and current generated references are rebuilt.",
+  "files": [
+    {
+      "file": "experiments_real/remaining_fixes_20261015/live4/E2E20-16/dossier.json",
+      "original_sha256": "f2ab69228537e618113c36041d5212f4a833b6ede4151e0a5b33cc2aec106f22",
+      "canonical_sha256": "3526e261819e3e7436a563ac534e4e207ed5480050b8506437f58c4e8e873b52"
+    },
+    {
+      "file": "experiments_real/remaining_fixes_20261015/live4/E2E20-16/run.json",
+      "original_sha256": "3ebba7d3e9f1b0ce5ff910d5b3db8684b2b401234c22636cae8099d996c26d7a",
+      "canonical_sha256": "33706d622c22d94b0c45cf4ef7de52895137c4accb7028c176adc0dc5bbb11b0"
+    },
+    {
+      "file": "mtb-graphrag/backend/api/research_routes.py",
+      "original_sha256": "50cecfe6d756057c3ff27bc54e064dc1281917f5956e5efa650b6ca301541ec0",
+      "canonical_sha256": "fb63e1404dbc8c672f5103c2924b3ed2397767bf46a7a8a0b3a04dafdff847b4"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/budget.py",
+      "original_sha256": "592b2b9e3df603eb3cd8c616c1954aa66372563ab21629b35483e9ad7856e378",
+      "canonical_sha256": "e7a7dee72b90c82a54fbec9c150b95c5d66949eae21aa58d2a3ee18adba3c541"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/dossier/builder.py",
+      "original_sha256": "c5a7686077cc06b93f60f8a8c4769b553bccd80e59f7873b7499751fa03bdd87",
+      "canonical_sha256": "5ffdd9d2d18576ed16cd8d8c932c59c5b17c85b47d2b53dab278595f635b154b"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/enrichment/prompt_v3.py",
+      "original_sha256": "7688915f7bb255d7d0346028c60398877d8a921bb3649cd55edf9738e609c504",
+      "canonical_sha256": "975dec7b788ddde5309876ce3ee56d35ac4f3e209d8fea1ff354bd297f66c84c"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/enrichment/semantic_alignment.py",
+      "original_sha256": "49779711c73719f5c810ec0962267cb527b6b01c9c8bfed7c98f75aa9d53bfaf",
+      "canonical_sha256": "c6afccdc178a1176255b79a1b68a1082797d5bb8f090c82712ce95d92b86cb0d"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/enrichment/verification_policy.py",
+      "original_sha256": "ccf610bba22f54a3c439db4f3c67f32dfad1548351b3c910455d13ae908f2655",
+      "canonical_sha256": "afcbcc77438b66e6472e94de8ab5308d8f93c4a50fc022bbe28de31f9822e7a5"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/controlled.py",
+      "original_sha256": "1116e210a09a413833b960f238c0db447db8275d28d7c1aa9d074829f1a6b767",
+      "canonical_sha256": "154eb908ea6ac727e56f0f1df4b254af72a5a59160f4c4d9de5ec29e55516d53"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/controlled_narrator.py",
+      "original_sha256": "babf987a8f2a71f5e2c60f548cffd771d661e9943fa0ed742599406e112201e2",
+      "canonical_sha256": "4ff5a34766af4aea54930df005f0b55e88398ffd069b4365a340aa97f1d619a0"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/evidence_sources.py",
+      "original_sha256": "0e28c3dd30ddea908bdf43d884b99ac87a6690c2267cb45637a6b5b35ddf992c",
+      "canonical_sha256": "3330e76fd2f1a6522961bc3c06ceec4ff5026c1c784935f55056f3354da47ced"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/input_projection.py",
+      "original_sha256": "6311d28de6855c5bc503003cb05deade03e3a777b63c45c5a2029ed81f07051c",
+      "canonical_sha256": "a89b1043e050f382183164f108b03ccabc3fa7f256cb3a2e40c18d224f03ea45"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/markdown_renderer.py",
+      "original_sha256": "aa90e3e3bdb10b195d7224966fbd4b4d695e98174b30bd6af36647f914b4de8e",
+      "canonical_sha256": "15c647ed2100d1b7b85091c2525cf76269e49532b5aac94244f9372c834a4978"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/presentation.py",
+      "original_sha256": "dc0a704366006c40e892aa65f7fe961b591015eaf7837486763fab37cfba0e43",
+      "canonical_sha256": "2f4cf4960d9f177d108df130a42d5bbeda4514dc2a0862f1d78b2e6633b2f440"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/prompt.py",
+      "original_sha256": "5d120911e77b2b7b0c0a5f24d1e152140edd7af846bcc446b862118bf0b6977e",
+      "canonical_sha256": "fc7bc1c3e5f441b8324e32cb6c52a5c38cb7b1d3b14c394b1982388362bfa99b"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/stage_runner.py",
+      "original_sha256": "74c20d664229f597c6bbd44074d07cf8c7ee0e3c44cbd803eaefdb0bf409365a",
+      "canonical_sha256": "41a96b2ebc79bcea751e581b6aeec9bd6a0f30fe29dcf559e0787e92461af119"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/narrative/verifier.py",
+      "original_sha256": "f05d0518f3ffe0ec6b961dc3b60b1951e005252e38626db96dfa98d4bbd27250",
+      "canonical_sha256": "ff12b4441c976794fb6989336399ee0a33f2718ae5a4b01e66cd7f00f0cbcfbb"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/orchestrator.py",
+      "original_sha256": "70875b38999a95c747cf4df9fd251115efda936d2e55b93cc6c93e01fbe29f15",
+      "canonical_sha256": "937def99c2c5a86d0551da2a7507d1afaa523430381059553ea75fed63b7f81c"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/pipeline.py",
+      "original_sha256": "ceb1e639299eb6e054504cb533188dc9ecd167e85a42d4d08334f6cf7b18f96d",
+      "canonical_sha256": "c84973d90ffb183254fd1ba2234ce909841899dcd800009a1b19bd7ea12ede23"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/recording.py",
+      "original_sha256": "d8617ce947741a32c50afca112b3acd61d53cbd4c43ac819c42f4fa5dc4ac27c",
+      "canonical_sha256": "5be318bdd2066590c19db7d811f65b08ce8dfcc29c29005b292c990b8cbaf9c8"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/tests/test_controlled_narrative.py",
+      "original_sha256": "4f1e4d4381427cfa44a2c9f9ed27637358cd5e2c043fa598639088ff40187534",
+      "canonical_sha256": "c4e3f98af130f846f726f29ee3d751c0973a420e26271b732c389ac7e3d24604"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/tests/test_controlled_narrative_api.py",
+      "original_sha256": "ad20d3b2b1638592f6f1db9b7e9d6fa5d5b718f5543b8317600da8fd966b6213",
+      "canonical_sha256": "990b026c91052015991f4568d9a3f1312cfa2c3430c2a240ac3e88631fba00f8"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/tests/test_narrative_presentation.py",
+      "original_sha256": "628627e3b4bedd10a96fc42bf549fc5d87692d057480499b97c3f626b9c75776",
+      "canonical_sha256": "6eabd3ef7c075785aefd8baf09865f95a96ed77b60d6a1ff44283a274f7cb1dd"
+    },
+    {
+      "file": "mtb-graphrag/backend/research_pipeline/versions.py",
+      "original_sha256": "d6202da13391d4130612b363a2a58cd3ed7bcc374e1c89d1960c094a145659d6",
+      "canonical_sha256": "3fc8664119cc06a4efbb8c936d209e2a5921d571c0c0d31458b04192c660e1d9"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/dossier_narration_ten_final/REPORT.md",
+      "original_sha256": "29fe189121832ae71651b35dd5c3398a63d0b11c30fb9318bf81610806801881",
+      "canonical_sha256": "6a8c81f08272e1522b63b302ae9c936cb1305a06e6452ebd36265ff6736c7a70"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/dossier_narration_ten_final/results.json",
+      "original_sha256": "41e479893fa0c19562531d4e5b8afe5b7a016e182340e4b87fbd0d381adcb2ea",
+      "canonical_sha256": "3280947b86031a6e2e749f20d87f2dff2a40e458d87c3f3d6bca2e8134029ee4"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/multistudy_narrator_v50/results.json",
+      "original_sha256": "179bfce293a46a4f62faf6be1de05a4c863f7abafb444dbbd87781adefafd0b1",
+      "canonical_sha256": "e54e814fe0ab039af7b8acf8eb2bab0fce84c0393ce0dba064cd000e16bf8173"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/multistudy_narrator_v51/results.json",
+      "original_sha256": "0147eabcd43b295fcfbdc201aa0633b273df3d5a8966986a7fc0d832506d0ce9",
+      "canonical_sha256": "72e7bafdb0fb49659fb97a60e4b0350711045fb6f37143ffe8392d9ec17fe71d"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/multistudy_narrator_v51_verified/results.json",
+      "original_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "canonical_sha256": "4e1896d9aa834bbb5aae5f054145ac5439a44a74de75f76ded5084aec9d89125"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/multistudy_narrator_verified/results.json",
+      "original_sha256": "9e2dc6fa17cebb05262a990015fdd80aa47c035283ed772365573bcb822e77f0",
+      "canonical_sha256": "76ad588d2a1d3fafd70728d767c8a1db683ae00c1cf8d0d79b1abe4f631960af"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_audit_repaired/judge-prompt.txt",
+      "original_sha256": "480ec2a2bb791a727a9546383cbc21cfb717ca0032644e4f4d4117d36a4fe5ac",
+      "canonical_sha256": "bbac2df3beb83d6a01c4b2a7232112c10aaaffdadee166b53723c50124d75ad2"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_audit_repaired/repair-report.json",
+      "original_sha256": "6327579c7238a2744c277e6e7a4f53dd9d8340f03174de57a9d10e2109c27642",
+      "canonical_sha256_before_rebuild": "f279a2ea523699a45dbeb50d20bdff524edff0245529a10b673d6629350d3a92",
+      "canonical_sha256_after_rebuild": "450c2ef08d360c289cf9a2030fffaaaf3efc63b067f928ccbdcd1c9f82c9890b"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_audit_repaired/results.json",
+      "original_sha256": "b4f7224de4d8533097aa7aecbe5c6444ee266862193e8885447e866a1e2f3f97",
+      "canonical_sha256": "6f8e84d0e416f37270d4d70a2ef70bcd3972aad86bc416d4ac77d6de6a58fc6e"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_audit_v1/judge-prompt.txt",
+      "original_sha256": "e09227237b46d44bde7b935680831d43c6d093eab463fa0fb0d2da883a958f0c",
+      "canonical_sha256": "2ebc2fc1398f73486a86c45971d71b50067b80fc4ba77db0c8079610cccf5412"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_audit_v1/results.json",
+      "original_sha256": "091c6762a683e266610ef5058f31a9500a016197a55bf406acab99ab234ae6a8",
+      "canonical_sha256": "fd5c4839b6e36eecd11c46a4ea401df11629445435ef1fad1a999c605c21e9fe"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_audit_v11/audit.json",
+      "original_sha256": "3f3f36ba118330c179389dd73280b813422e2b811c6dc62974b51ce646c77f79",
+      "canonical_sha256": "ff3f0f0b2e601e0c1e411cf43f75f950b2ac7217e7218019c94d234f8ed27d1d"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_audit_v11/judge-prompt.txt",
+      "original_sha256": "480ec2a2bb791a727a9546383cbc21cfb717ca0032644e4f4d4117d36a4fe5ac",
+      "canonical_sha256": "bbac2df3beb83d6a01c4b2a7232112c10aaaffdadee166b53723c50124d75ad2"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_audit_v11/results.json",
+      "original_sha256": "743a07b18638cc0774b3bb4bd2738c0879c10283bca526625dc2d1dc4bbde297",
+      "canonical_sha256": "0bb4037e9223d04b9dde9ebc449564ebe189fc59021e84762be1c9fc882c2139"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/narrator_semantic_codex_review.json",
+      "original_sha256": "e647b47d1c67589611490e51c03c76e78e5d8d8440d0903c0d03515ea8e3df8d",
+      "canonical_sha256_before_rebuild": "0ed5a62ca37e54da4948bf60dfb36b9720b8b6290b769eead19a3060715461f0",
+      "canonical_sha256_after_rebuild": "863b660411ca17f37587fa80941892c5ae9977cd5cda82bd145b6d7aba70acda"
+    },
+    {
+      "file": "mtb-graphrag/evaluation/source_first_narrator_v45/results.json",
+      "original_sha256": "499897a82d8366557ed49f054f7ac4abf1d56c032c95f82f034c2bdcbc2bb82b",
+      "canonical_sha256": "fc0c69d8bec2d22caca85b1ec1904ec427fe017deb3681e5f8ff427f98c0d387"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/Architettura_per_il_relatore.html",
+      "original_sha256": "4e3dc51011c5a4b101872679df755175526499ef8b54090d5fb02405c0624f41",
+      "canonical_sha256_before_rebuild": "31d7e210412fb58668d513513b03ebd1fd64d68f94ef57e16b51612f4da6ea4c",
+      "canonical_sha256_after_rebuild": "321345d0b90defd83c562dabc75fe6bf28a1096aefd794a3817a1d1a6e520455"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/Architettura_per_il_relatore_breve.html",
+      "original_sha256": "289747ca69f5acac0f8e194c71ce1ab5e30823c1e4bbbaf8969b24787b6815bb",
+      "canonical_sha256_before_rebuild": "16020ab9a31c54a2934284929886fd96c51b72047dd239a1f0ed52ceadd5f6e9",
+      "canonical_sha256_after_rebuild": "b903559cf3339876e1a9247c8f0ef6a67faab4122f931b20532ead9bd81a3823"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/Audit_GCA_per_il_relatore.html",
+      "original_sha256": "8d49fe0d903409d74b7fadbb0dd938bbffaad8078dfa5c86ad6ab37775f4ab3a",
+      "canonical_sha256": "6f4c802f5eda169f06412c32b8e380eb55f0fa7edeb5d26a87b8bada24d1ed7f"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/Audit_paper_NCT_per_il_relatore.html",
+      "original_sha256": "01d039015f4c605a73bc67415988b390b36534e226145af9a7aee1be23829adb",
+      "canonical_sha256": "e16680bf08ffe140bf9a3e81728e0e27a0cba8ecdc8d7754173256937ebf294c"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/Audit_semantico_del_dossier.html",
+      "original_sha256": "9715ec009ba38cf248671e71bb6b8ceb1886f00a57577b14413c9627a1b5e694",
+      "canonical_sha256": "942d89278a6fa865eaa5be76e91614fb4feb031824d2265532723e9c49b0f636"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/Audit_source_unit_per_il_relatore.html",
+      "original_sha256": "593e621bc377510d46f86f56066a5d194f0b76c7f25912c280a9116918c6c4a7",
+      "canonical_sha256": "bdba3cf7769cd436882c2591f988daa10ea347dee59e9409c56f06a9ba9acf23"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/DESIGN.md",
+      "original_sha256": "38a2d423619c3e30ba5689391bc4b4c23734412f414453a4ad45980037bf6d5e",
+      "canonical_sha256": "cae6946a90b64fe2a123a4be9d1d38da0c95a4be4217839aeac22ca68d222a00"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/Prompt_di_sistema_per_il_relatore.html",
+      "original_sha256": "c33a394b552f7059eb53bdfbea0870cec46b6fbdcb74c908fa7528aaed76d12a",
+      "canonical_sha256": "f04e15aa281a2bd6f6d9bcf85c02e89020c593dd18cef179cd85c4c2477f0d97"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/Prove_narratore_per_il_relatore.html",
+      "original_sha256": "28acfe51f6e6534954768c63bafa0b94248a6b22f1d1877a7852d8cfc2e5d883",
+      "canonical_sha256": "9c1564d0cc495e061638927a9f2b49b5409f7661c76eab4b32ef569b075ff88c"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/README.md",
+      "original_sha256": "9250adc3fb645b4188c228d381d58f05b73472bf31b9dd2758fe74647402590e",
+      "canonical_sha256": "7da25b412809c0967d730fd2ee76ffd0eb508a1fc8178838efd83b7b88094c73"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/System_design_architettura.html",
+      "original_sha256": "4e3dc51011c5a4b101872679df755175526499ef8b54090d5fb02405c0624f41",
+      "canonical_sha256_before_rebuild": "31d7e210412fb58668d513513b03ebd1fd64d68f94ef57e16b51612f4da6ea4c",
+      "canonical_sha256_after_rebuild": "321345d0b90defd83c562dabc75fe6bf28a1096aefd794a3817a1d1a6e520455"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/System_design_versione_tecnica.html",
+      "original_sha256": "67901cc2d0e1c18734c8aad66af0ed3ff85d8fb4b06c95b2421a0f014ec45579",
+      "canonical_sha256": "26b9113383944bd9c36e502fc44dfb1db69a7981027b913fdd4002dd99c13c6d"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/app.js",
+      "original_sha256": "5f265d1070dacc251dcbb5f0f47ecd29b983046f0cb98048eb94a746666ba5e1",
+      "canonical_sha256": "bd60a03636d832a6ac038671381c96c23a7b4ce34640ddd5ac1cad56a1c69532"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/build-gca-audit.py",
+      "original_sha256": "d39436047f432985d6ca4ab36815b50546a0d55f4864e4d2c8f1c64942ff4425",
+      "canonical_sha256": "9beefa0f1118a5e7ecf6167149668034bbe273aceb58aea77219207767ecfd38"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/build-prompts.py",
+      "original_sha256": "af76a002ee26250bf6881f0866b0ca817c03e805a9ee20fd4958ef5e34e5b02b",
+      "canonical_sha256": "b73239ba63110c50c6aa5e4a0c200d70bfd8adc5da6d4ffeb2c434b3c28e5d6b"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/build.cjs",
+      "original_sha256": "754cae702a3a078aa81e1c679d46927e31857ea48e1878ea1886e2301432a985",
+      "canonical_sha256": "a9bb6dbd2e9548be267a745cc7643c68b20db51c448530e602f4c22e6eb1e732"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/data.js",
+      "original_sha256": "262eb6afe52b4e4975704efcfebede27c6ff8a0dd4bd81b40c5e3e55e5d4abe1",
+      "canonical_sha256": "f9398c9541a3d22e42afee1a7ed92119b7eaf16bfa08961d2841870f6358838a"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/detail-lessons.cjs",
+      "original_sha256": "93632da10013a46c3fe128707f3e5c649d4fc5112ff25527d39737ec330bf1a3",
+      "canonical_sha256": "5d6fbb2612fd45990a849408f30459e5ab9b68ea3007cf428ce96498428f9fc8"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/document_audit.py",
+      "original_sha256": "360c1bbfb866ff4e026594a6c1a00355f17e99038c6a7d0d129da32b1b7f3851",
+      "canonical_sha256": "af0350b83ff96666a859b09787046141811ac569f069b5ccfd03c46d3007b541"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/ammissibilita.svg",
+      "original_sha256": "c694037ffd24173a9bd0f20c24af655d97df17d6218df86c9b44126a116238b5",
+      "canonical_sha256": "3960e554112063ceb0943409251be24c2a04ea49940a1c30d47f542fa4bb0147"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/ancoraggio.svg",
+      "original_sha256": "84d829669e63334be0d85f02bf064de030b644d0b80e7ce5eabf3eedc3f62ee8",
+      "canonical_sha256": "2d7dcffb03b11a5247273518198b1e10d86e895be360cf0a871dd1b9106c8859"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/audit-gca/anatomia.dot",
+      "original_sha256": "b551a7c3b4debd2d5bc4962aca05283784530d7c145e7e51390d4327dc2073b8",
+      "canonical_sha256": "4ca9e57cc3d4def89d55cd9a0403880de012df14a7dbd110dcd4904b86ab372d"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/audit-gca/anatomia.svg",
+      "original_sha256": "931a42958e7030c41ea35ebf22a5ce8dd8fcf36afb7e0aa09008e8b9f2307606",
+      "canonical_sha256": "37140ae14f196c2f36aaf56476743550b1a1116cc27ecd3d5b1b52cb77b2d4ec"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/corpus.svg",
+      "original_sha256": "f7d73b6ab07ef881c2fe99739150664f41bf8e74ffe674177f998cd81b6cfd71",
+      "canonical_sha256": "5808d14ffe4ea967fd80ee5a0cbe1c2897de6b302243cd2bae5eb0992a2cf1d0"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/dossier.svg",
+      "original_sha256": "5f8ff89c44a6b1fc7382eec8ba5418ff4b7e07a5f3a64a5abdaed39a0380fe32",
+      "canonical_sha256": "016db69f146fd050fe98de1db6c6f2ed0f3014cff1563ce723d86b17378f3c91"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/fedelta.svg",
+      "original_sha256": "17f65b2d716298b4e8bf2a1c7c283aad676317f7e5fff2f033fd0543398b0f82",
+      "canonical_sha256": "65c45e703dab0b2f0878da2e628d60ac939bf055356e9d9a0c026cb8e2897404"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/gates.svg",
+      "original_sha256": "82e59506da3fb7e375b792e4a9ad22eb3af1c6f457ac3cdfd88eb3e31d48d543",
+      "canonical_sha256": "05c48ff5f7d07530c6bd06d3bf92aab5ce6374bc5bffad73e968f7d6613a1c90"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/input.svg",
+      "original_sha256": "bc4e4935063eeae4adad874c5f9589bc2a594e9c99ec3b110a0c3c8a65064b23",
+      "canonical_sha256": "63ee268e2b7ced182d819c33e12ae6531ef852fc77441ceda05c1e283b93912e"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/macrofasi/macro-caso.svg",
+      "original_sha256": "49ccbeddce3b842dd68c5481c25b36b8b56020c425c56287fcea5af6c991e43a",
+      "canonical_sha256": "ba5f97805ccc4ad14421d38a3e1715e8428e1c648c57164b4715149e182439a3"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/macrofasi/macro-dossier.svg",
+      "original_sha256": "c5f2e81598244caa5b76b1896e35b39070218feecd773ec8000f32c1a70cd5c3",
+      "canonical_sha256": "089887fdb990b5d1c07c575010550339d5b14ecc212ad04c087d925ffdd09953"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/macrofasi/macro-fonti.svg",
+      "original_sha256": "d2dada27d1cdc08ac32d2459e0a252bb1e2eb45fb743a97dd8bd7976b273c073",
+      "canonical_sha256": "44594b4d968aef6fe78160a354f785f63575fbbb00ff46e81fd4cf8fe8d4926b"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/macrofasi/macro-presentazione.svg",
+      "original_sha256": "6c358293f6ba5bf0479eb7e61cd5856eef0f7b0f81fcdf394bff4a72ab9839d0",
+      "canonical_sha256": "29810281144220865a0d09c2ff57fbcfa2d3e06ea29e5cf94d00b20b5ad8dc9a"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/macrofasi/macro-recupero.svg",
+      "original_sha256": "782c88df47a4a16815348b0a7d21d55cefe41e433cb0518276412bdf19e45db3",
+      "canonical_sha256": "ef4b1a4fbc212d6ca602088133c39d21e14c8003eab31a329f08232c60058e3f"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/macrofasi/macro-verifiche.svg",
+      "original_sha256": "ab8676546bfc89efbfed28c3bc14195cd34a2b43de4e79aecb5e1f863fbe0f83",
+      "canonical_sha256": "4eda7e26d5fdd60347e9d667a2f8db193ff6f6b8269027b67f26fb0760385e9d"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/macrofasi/rrf.svg",
+      "original_sha256": "00f30c9852231159bd8a104a7418e5c52c4be697f5a358f137f00c75003b0def",
+      "canonical_sha256": "5de749ed3bb0bd736c8bbe4c99345a71c36f153c3cfa74b92067a59b9fa84a4d"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/narratore.svg",
+      "original_sha256": "f8a9892569d4ab1646b9c3da64539b6cb5d8ffecfe02b6149d2934a953901704",
+      "canonical_sha256": "a33cd7c69ff0cafd914880e87d548b394462cff6cc9f50cde1541703d6190ff0"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/parser.svg",
+      "original_sha256": "7325afb28817915019f6954cd6aae4beaa23cc04f048949d6cb5128bbc86d450",
+      "canonical_sha256": "c7e1b4f6c8e0757b954e8ab114cc943d34339cde77712877733adeb7fe488ca4"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-caso--diagnostica.svg",
+      "original_sha256": "5031dbff67f98a2f2c4b8c451402b521cd4b6841afb184d6db48dcd83b4e8204",
+      "canonical_sha256": "3c56f05dc49d1f7ddd4e8b0231a8612e0d9d448743562fb744c06ff7a06237d6"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-caso--melanoma.svg",
+      "original_sha256": "5031dbff67f98a2f2c4b8c451402b521cd4b6841afb184d6db48dcd83b4e8204",
+      "canonical_sha256": "3c56f05dc49d1f7ddd4e8b0231a8612e0d9d448743562fb744c06ff7a06237d6"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-caso--studio.svg",
+      "original_sha256": "5031dbff67f98a2f2c4b8c451402b521cd4b6841afb184d6db48dcd83b4e8204",
+      "canonical_sha256": "3c56f05dc49d1f7ddd4e8b0231a8612e0d9d448743562fb744c06ff7a06237d6"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-dossier--diagnostica.svg",
+      "original_sha256": "92cbbfdad3e636cdc70b6ff8463292f5dcaf896cf37a8a5f8b6178df55fcb21e",
+      "canonical_sha256": "be78766d40eadd761d4016eb0526d4d409ce49f152b6358fb9c1f929ee78f3f9"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-dossier--melanoma.svg",
+      "original_sha256": "8b06f738ec30b49a680a039a762e9f17fed5234cf2fcd01d4e615272cbd35c89",
+      "canonical_sha256": "bdb39672abaefd31c6ad1390f1c0bd3156664b260018acce3c491fe3dd0b4616"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-dossier--studio.svg",
+      "original_sha256": "81eb5bba4c524c1f07b7798596f45732cf1f286a9b0072d9caac58b45e3c92cf",
+      "canonical_sha256": "efd8d3fc1e4de8815fa692f33a27497d9f69731b00004a8acd7d4e21638e1bcc"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-fonti--diagnostica.svg",
+      "original_sha256": "cae4c85c2bb5dcf5ff2284e186a3c9238897a665a5adb00cce34061c2c19298c",
+      "canonical_sha256": "aabc5aa7f6f68e87e9e8571dac94c568c286d81fc13ba81f0f2305cc18200aab"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-fonti--melanoma.svg",
+      "original_sha256": "2ddf15674d56cfe3fe30031b197e8e8a945a80a6cc04af1a73bc3685f65dc206",
+      "canonical_sha256": "c9c4f3a44ea2aa9f9ba6ee348b08e9013964a88fcf5b3a4c744bef9b6da5c2c1"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-fonti--studio.svg",
+      "original_sha256": "0aba32d9c11444482906a12f2ee679a4a7d6329576e9bdc0ebba7f54b7cbdb3c",
+      "canonical_sha256": "90ca7272fd10b8260a2228ddabd1f95aac7d541b02630b229f8e0753d7d1da36"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-presentazione--diagnostica.svg",
+      "original_sha256": "cd192297ae0e97d47a484965b15881a50aba2ca06d2a62cb49ee32b7da12667e",
+      "canonical_sha256": "93f072e2882edd4c6061f4833f18f7465b9bb81d18d027d3d8e2253315eb786f"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-presentazione--melanoma.svg",
+      "original_sha256": "15f240afb4de9aa903f7a1af727ad2ef9fdb240156afaed83aa6f4bbe7dbfcb9",
+      "canonical_sha256": "7d69140a2d78b2f2dd300a81a4e96f75767ddafd1fd5ea76fbe1e5fdcd8156f6"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-presentazione--studio.svg",
+      "original_sha256": "f638d2acb495a771b6b9adc436652c42a11809c9c1b39f9381308019831db102",
+      "canonical_sha256": "19e903decb83b5f484c7eca12d58202c7a07650753d7516f375baddc90c6636a"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-recupero--diagnostica.svg",
+      "original_sha256": "baac2356119042e021f8fed235adfc1af2d0dfd7a2ac41f18d018478d5337c23",
+      "canonical_sha256": "1ae10cbdb32316bd4fa911ed4fc34479d188da50dc12620c3094cd4e5d8b58ce"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-recupero--melanoma.svg",
+      "original_sha256": "e112cc46eaee0419962030484e0f04a157c9b4d6c02b2afb71517f6db7170340",
+      "canonical_sha256": "d90aa6074c1d99cd6b8aa18378e0b5d64c04689eb631f9eec69bca9b733fcf40"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-recupero--studio.svg",
+      "original_sha256": "b5c98974b75e828260280f8011f072f5a22c990dfda43ac622108ac478ca42b5",
+      "canonical_sha256": "1daa118a4b9e3a5e2e6812752037f7b9126be9982730032bffc23a6e676744fe"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-verifiche--diagnostica.svg",
+      "original_sha256": "2529cd523582b88c8b5d87a5c7bb5937ea47e0892fc85b2e87a838b143921010",
+      "canonical_sha256": "3be31f1af13594d68502edd9d87d881206f256d3b7d11d53693b9fd0e924b58d"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-verifiche--melanoma.svg",
+      "original_sha256": "769b4d0418bce96fe17583231813ca79425db263cc3beb63b7c397eb33c284f5",
+      "canonical_sha256": "1874d7eb0ddcf88e9e412b3c0c6487b5a0e09f106cedb4d77c35b37454bac649"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/breve-macro-verifiche--studio.svg",
+      "original_sha256": "45e8a8a64ed8ab11716e733be8e60e70ab9434b22cb4d328b6c123c64d55670e",
+      "canonical_sha256": "12d9872ca678eb3d6726320f9731033e554533d3dbf13814da27f161e38c39a1"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/dossier--diagnostica.svg",
+      "original_sha256": "f78659835174e5060791a7787f979ae6522c7a4069833e9f9a763216204c7444",
+      "canonical_sha256": "ee674ae35d3e5bff1d9623bff80f84480bcb7027aa72c79dca9264facb7cf0f6"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/dossier--studio.svg",
+      "original_sha256": "7296ae3c37aade88e27e2336dde0b5b1d3b18802c5aae0d4b396642659e1365e",
+      "canonical_sha256": "6805532d5dfb3efd82c1c98eef7bfcaf55c3b694429314b14055290195739d7e"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/fedelta--diagnostica.svg",
+      "original_sha256": "4ca61b0854a1cf370e93988b89d481212d298342b784466aac7f83ceb8aab105",
+      "canonical_sha256": "304d49ee9228b83329991a0316895b47c509421a086ef12d1b0189f8e4af5ace"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/fedelta--studio.svg",
+      "original_sha256": "4d54da3320a449186b610d65488eb6791e4c32ca1d77a9c113593e60ceab8eb9",
+      "canonical_sha256": "442b65fe4667cfeedb58c37e6adb7088bdceebd4fcc1dab243239ba2b5a577de"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/gates--diagnostica.svg",
+      "original_sha256": "c2a70fcb92a448644a924721985d19052406aa056d5d0f3b6c909435da5f8da9",
+      "canonical_sha256": "feb99c0cd0a928d1c2c37b5e39e38c328a4953ef15729608fd1df34dadfee76e"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/gates--studio.svg",
+      "original_sha256": "e622607a8097c2b1cfb9db823c2c1fef28b6c3954742c19a81e97073fb4b8268",
+      "canonical_sha256": "0ed5cd5859d1faf12336d6c82a61cc4e2005294713aa7115280342f8482eee0b"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-caso--diagnostica.svg",
+      "original_sha256": "2a0283b5be72e77d9ba8455b2d45ab2de6b83f59aa330de66cc68d854ec31dfb",
+      "canonical_sha256": "315428c388170806cb17e0f4ba494db83b0f54ec15b6b62be4b37dfc012bd858"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-caso--melanoma.svg",
+      "original_sha256": "b16504b21848a0e49174da6a013e8f05bd03eebcb1b2c4dffc9cabd22d33af03",
+      "canonical_sha256": "a9e8500435733c93f04ef80ccaebe8a83bc3351c578ef53a4bcb240e6337a92c"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-caso--studio.svg",
+      "original_sha256": "ddf233292abbbc46ea8ed90e93df932e3dc83c874a5b9da92bad1a2c19ac14cc",
+      "canonical_sha256": "f8b86bb3b879315528e0de1c21f10239d42b8fe158088b89a1308c71bc6e2db3"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-dossier--diagnostica.svg",
+      "original_sha256": "7d8750e9c2001aa5a1d41f02716399e99e2d71ea0ef4cf13d477033ba881f45b",
+      "canonical_sha256": "455a8cd51b4601a6b9a5dccc05b123d8a034f06ae7e1c33a6c14e07e995f353e"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-dossier--melanoma.svg",
+      "original_sha256": "ae916d97ead798e3edb7234f011aeed20fd598e012ee498dd91ebbb8866e0299",
+      "canonical_sha256": "abedab372952d7a49d35445a520cf767b5fb3186904e8465d3e74f58e1a4e243"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-dossier--studio.svg",
+      "original_sha256": "f55ec97595943da1cc38188c60447b68b52cd706acf9641b88d13f24ac9d5bd1",
+      "canonical_sha256": "6ab08273fceebccc7c169a14ce6becb0350d27ac70f7c1c2d682b7495526e7f0"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-fonti--diagnostica.svg",
+      "original_sha256": "171a51eb2b4ac1d61de2b67a7a5bde08852e1dc75c75218965e4572a5fbb38bc",
+      "canonical_sha256": "866d78fe1724e48bac4878b073b0c6d6f251b2f21d171ac9723eb49b83e6dd26"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-fonti--melanoma.svg",
+      "original_sha256": "56a4933bc6aba7c1556966dabbf1cc29c521c47aa72be5d505e0273a3d96803d",
+      "canonical_sha256": "bf33c63cfe2bd843af31718417f68d8c03df0330d5fad23fe21ee87939ea5af9"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-fonti--studio.svg",
+      "original_sha256": "caf9decb988ecb583997f6c5e81a0e232ae564dfce39ec58b89ab55c9f048dad",
+      "canonical_sha256": "130cac436dad804b434aadc33e1f32eb4ecae9c1bae0799bd48657e2bfcbd7f4"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-presentazione--diagnostica.svg",
+      "original_sha256": "25a27c4f04ad796909542f53892abfe829f9311d8a9ee7fe0fa748753084306f",
+      "canonical_sha256": "86e37ca3f2edabed6b0fa36cf8040423bf28c856311b2b316577f615f6649537"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-presentazione--melanoma.svg",
+      "original_sha256": "a90dfbbca61573861baba9ac4919ba1fdf7a0b6ccd9c1cd28cd285ade44c05d6",
+      "canonical_sha256": "9c33ab4aa617cac2de5a497d8a9970a7b03909c86cf4c9b40b4a1706b2047994"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-presentazione--studio.svg",
+      "original_sha256": "742bf57bf3d892d2b6ca6e662e40e59faa2d92cfe52499c248d8192fbee006a4",
+      "canonical_sha256": "b2d4838c7a2412f407b349ba228b13ba9bf2a6cb33afb4ac56158ba52c17c166"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-recupero--diagnostica.svg",
+      "original_sha256": "ab639867101a98c94e2d8e10d1570304dd3127dbc0201506d9d7c1e76bd4710d",
+      "canonical_sha256": "2b6fd255fe96e80816b1eff6bfe99faa364916b0b5d387a6e04ab9e931a75292"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-recupero--melanoma.svg",
+      "original_sha256": "585e789c9feeef05f09251de35553fba774713f4af725a2bf9ec2f170be6789f",
+      "canonical_sha256": "155c7dc4d7eb9dbeaeb516c68064af1d9ccab3f8871896b6dbadac7b5df8c2c6"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-recupero--studio.svg",
+      "original_sha256": "5275912e39493b698b078c671175ef6eba43609958548b0a358873d054ead907",
+      "canonical_sha256": "84b437e7dbbd1b17d6b6766c1cd33897b0967213a1699daf4368d6c78f7a9e00"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-verifiche--diagnostica.svg",
+      "original_sha256": "b160fb89ba119e92437c37ac833671fe622d63245cea405ef0e322642db393f1",
+      "canonical_sha256": "4ecb730858c817f7bbb8b4401a3c964a982bbc5563707e66efcea4f8418ed4a1"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-verifiche--melanoma.svg",
+      "original_sha256": "66bcc5ad0f8224e5fe36dd995ef66b44f4190d5f8807e41d7be8d990717650f5",
+      "canonical_sha256": "1e04740c2edf86fd6c5df0c6d3adb0115bdafb81c463e33fa1ce5286b6360b0e"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/macro-verifiche--studio.svg",
+      "original_sha256": "5dcb3289073c8ab14318ba69bd189698249a9c210221f5efdf0920b631113f7b",
+      "canonical_sha256": "f90a86f949e5a5a5d8c7c48367d1bff5e8739f6afce13d25f68fbf95edc53add"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/narratore--diagnostica.svg",
+      "original_sha256": "b471efd645d56d9f948fc6fc65876591eb089840b48cd9cc8c12629c83f61ca7",
+      "canonical_sha256": "a0ce2f458356eaccb1645d5d9c6aaf7514cef9dc45ee576166dbfb763bd396e1"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/narratore--studio.svg",
+      "original_sha256": "f1bf863d22f9e3dae0ffad0d25668911aafe5c90a6cb063c482aa3c2b29c669f",
+      "canonical_sha256": "ca226fa03b09e079546950a74133fc935d6163ed5f2cd1dca1d3869a1ce160ef"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/reader--diagnostica.svg",
+      "original_sha256": "08ff46924da801ad34c5f3b6c3aa9d3b8cd3846b423de68deae4c46e6e9ee350",
+      "canonical_sha256": "7606ec9616bf6b4026df5f3ee93a11c596b7860c6b661401ab5a1979543cfde8"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/reader--studio.svg",
+      "original_sha256": "1fec2d8f5c4fc384dd3931f7edd4b2ca7e06b273fc3c0faa1194ae8fb64ab8eb",
+      "canonical_sha256": "7f538d847d949710f85ff9f6ede94c1edd0ad3d5405fd205a948d9e902608a84"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/retrieval--diagnostica.svg",
+      "original_sha256": "5d753a5b56a2a471e1457aac1432213f3835b76587b29b2662ca58b9c8d1b456",
+      "canonical_sha256": "23788f490e0cdd2282a3563518e0d3229543819a5a60339c3e767331cc89f2cf"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/retrieval--studio.svg",
+      "original_sha256": "62f424e5bbef5d9e7c5a99f55b7b60fe4361cb6cffee983b5b9ce15771a2b267",
+      "canonical_sha256": "dc749a3199eafebc4929c1ee1d03df9d579cbd0d9281aa971a49433d8cc0fce4"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/risoluzione--diagnostica.svg",
+      "original_sha256": "632c177ec689b2a1b6012521d734a80064f9aa1523480477b052ef962218a338",
+      "canonical_sha256": "92b9a1b01e57cab7afdb1369e6e52422c6cd2107e54e062de94215d58c007fb3"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/risoluzione--studio.svg",
+      "original_sha256": "b02332f6b579c76f9a7b156bd9de6305c1f42af6c82c2bf36e22f94c483b8fbc",
+      "canonical_sha256": "05e0ec929799b054a1448a63d73b36fd88ea0b01bc5cc506142a567d36c16d45"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/selezione--diagnostica.svg",
+      "original_sha256": "67162741cb1aa7436851fc1f604b7367585e9970ae1ba027cfb231bb6d42f5ff",
+      "canonical_sha256": "6506fd0058729f2f1d18a0d74b4e2844bc274db6c10a9910535f30b572ca84d6"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/selezione--studio.svg",
+      "original_sha256": "bfc89f58045e7a3ab4681b19a4e89456919a925569016ded27ace1eb704c1985",
+      "canonical_sha256": "fc0e6004f7685e3111e64e1b6a78215e1ac8a39d5b2bfb53d81add648c004d60"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/status--diagnostica.svg",
+      "original_sha256": "d7b2870c7bb926f5622db7bd0405532cf174028a829fa10c4271947b57b2d7a6",
+      "canonical_sha256": "d0906c960deacd02511731b239b8c6e099891619114e576b0df328172285ad60"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/status--studio.svg",
+      "original_sha256": "835a531fff212bf8c21fb14cef63c540d26bd2ed2be4edb1814e54fb17233bef",
+      "canonical_sha256": "14a5365a213edfd865061b136768f7046f27518f65cfe82856c6156ac6d516ad"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/unita--diagnostica.svg",
+      "original_sha256": "8cd6dea2f8fcd45dd860970a810345f0b53b76b60f26d57cd2643aa1918d7f88",
+      "canonical_sha256": "719d3e0a87948f97cb03762ededa382eb3e601879c9a5284b5c79b7cbc347276"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/unita--studio.svg",
+      "original_sha256": "d15cc1716355593cf32281aabe86c8adde2bd8a1a6eb7ffc6b792c16f5c9451b",
+      "canonical_sha256": "8bd1eab535af068d66665fba7c935874fba7c16c6cb6a1309d32ea546d4f66c7"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/validazione--diagnostica.svg",
+      "original_sha256": "60a27bf2ee7cba34095576d91f4c647fc2b601b7e398795e51958446083ba129",
+      "canonical_sha256": "45e3ddd4559d9af4ee896d4d449c2acdaac831fa629e732f2fc96f2cf6dd2c00"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/percorsi/validazione--studio.svg",
+      "original_sha256": "c68c786ec9985bfcf73fcf8225ed2ea56cc1e92c1c630fa252af5cb2ed0d899a",
+      "canonical_sha256": "ded0f90cca1625a214a7a944acc966af608a41120d7f14eeef402cc9532195fb"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/piano.svg",
+      "original_sha256": "6be3943ddee4cdd07e146137a474888265a8753038b8ba84767de2f57ee3e999",
+      "canonical_sha256": "78ef2ab6edfba4634c632d15c33a7cbd579fa9fced2e80917f29f2dfb515e53e"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/reader-focused.svg",
+      "original_sha256": "d8f3ef17ef15ae189ea92d3cc321e76089bc4c795d9605baefdd71f1a64b7fc4",
+      "canonical_sha256": "e9716fda4182c9a417e6602279e21ba65658e0e38dcfcef18d62b8d71d8a80b0"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/reader.svg",
+      "original_sha256": "c3e23fc98e6c92c6290b95532e940ae0976594e8ffcaf3a321060a551e54dcea",
+      "canonical_sha256": "3214482c1d2f682bc66a3c70bd382925a0323e9edcdf41ab5d9ddfc7a3249a85"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/retrieval.svg",
+      "original_sha256": "bdff1fdd154083c2344e9faf5ceb4e27b4295d4f349377cf17cbed17205d8d87",
+      "canonical_sha256": "7fde9c7d45957e6c3ed0a3d44968ae6b100ae99a513fcccdd779694f9882bc12"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/risoluzione.svg",
+      "original_sha256": "bac0e9f85f4872bdc083ee3c8370c7d53ff16227b2a4c62d1022e59a5662fedc",
+      "canonical_sha256": "fb95180e60ea7adf6f75092d5e59813421a0908ec2d2aa69c5259214049b1442"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/runtime.svg",
+      "original_sha256": "d0de36035fab0381b3fc64b13832f49c39f709363bbc2e7191296df619023ba2",
+      "canonical_sha256": "966acb23e785e848d83155a8990b594da9fa2497228c36a83c05bc370a6a1040"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/selezione-focused.svg",
+      "original_sha256": "16a04493adf75645575a03c2218b94133c9bbfde184d69ad1bd3cb5217504828",
+      "canonical_sha256": "21d5812331c62f624363d8294333d57e5cb417bafb670d8c68b7081e83248522"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/selezione.svg",
+      "original_sha256": "a393f8f44f373379e66b2579e0dfce6a51f1fa5350c0fb2a70b199ae0f6f0603",
+      "canonical_sha256": "b46e08c670eb797d07a4ba4aca033827d963f8f5fdf17b343d609817f76adf41"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/solo-grafo.svg",
+      "original_sha256": "006b496328e378fb03b6c24f8539020eace943e455269388d932bce37c36260f",
+      "canonical_sha256": "ca51f0a9a52425af5859b404ef7d6d40f7c24d2696757ec9274ecf1e034df666"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/status.svg",
+      "original_sha256": "a2c8cbbe023f2c113db70c92ea9118943062bcd462f66ec1121f52f13132b05a",
+      "canonical_sha256": "42c47f791849ec4ed5cd22e66c8248ba09a6e001adf880e2b68f1764ffa420c0"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/unita.svg",
+      "original_sha256": "5fa46e67b28dce3d4d2aabd92c3d72139716e65da93707aed346c528e09686b2",
+      "canonical_sha256": "bad9b26fd7a032ed1c8f85f5fdb04781d4ea0616d1107297e3d6f77118275bd8"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/figure/validazione.svg",
+      "original_sha256": "ceb8348f728a68811ff0f75bf0e82cf57331f5b7b3355e09be9959d53fb937d4",
+      "canonical_sha256": "4c3befef42b5555e9d0596de0c4186175ce46b5060b0437bc3b80440981c0b3a"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/index.html",
+      "original_sha256": "4b6345468207d5084d981a16b07013231b52b0f5033ad557ff8d25104802627e",
+      "canonical_sha256": "8c89fd1a2bcaceb811f218c1b54420c1b256ccad70363351f153dce78058fddd"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/macro-data.js",
+      "original_sha256": "5b902db8d5368e9c599815a37676f0c23d29a5ee2409729d39d4c77d3a4dbdfb",
+      "canonical_sha256": "d93e4013f68cbb15ea35fe2bf580b25876470ea949f564b33c9c49ec86bcaf11"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/prompt-sistema/esempi-risposte.json",
+      "original_sha256": "dd406453f62e63c08b49be79437c5e4771cfd849ef1185a39d807dccf7efd69e",
+      "canonical_sha256_before_rebuild": "b5b99e6f6994992a5990fa0729c91d922dd4c97f0b070348fba1fdc83bf4d1d5",
+      "canonical_sha256_after_rebuild": "8a5434dcd5d9881237472728d1a9cae725b2b95b16020fa9dcdfa0be33a8dad5"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/prompt-sistema/narratore.txt",
+      "original_sha256": "174e073373ea01fd8e66beb1c1fb75eafb5e3c09e6066e0c0fc1aaba0d804032",
+      "canonical_sha256": "0c70a4cb6f325adf70d3539ac357c2a1f5c945a569ad02ce379f54c8b668c786"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/prompt-sistema/orchestrazione.dot",
+      "original_sha256": "73535d50342ca1abc6a414d130de9667363a6219b569324cde3c45c397dcd985",
+      "canonical_sha256": "b857b5d83477bb3d177ce251d96e801f62d9f7fcf49d388c71f99f020b2dac64"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/prompt-sistema/orchestrazione.svg",
+      "original_sha256": "21e51a46d46712522a346a791a70d1ac9b553bb6080dc9741655b0b52250a319",
+      "canonical_sha256": "c7ada7a85df4455a14bd6dffd9674bd45eb1b0d508d047119be10f964e290a06"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/prompt-sistema/parser.txt",
+      "original_sha256": "ea25641e186dfac330b95f9db9c41ef5a8cd2122a1429e51de1bd960af3101b9",
+      "canonical_sha256": "eb48b4bf9a6d0a40d45493719ebcf847009b75ef21733123afa144a3c79ef0d0"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/prompt-sistema/provenienza.json",
+      "original_sha256": "5d0d4d64f21e1d01168d4b4a36f65af02709f7be8f54ca54d8f4d0cb8998f17c",
+      "canonical_sha256_before_rebuild": "bb8eeb3f764401c84ea3b7bc667dfc8754dec8059b48b82dd0996ffdea5d8719",
+      "canonical_sha256_after_rebuild": "4affe07fedfa5ef997beddb2c30eadcc853b0149fac34108c03d9f2ea5d7cb8f"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/prompt-sistema/reader.txt",
+      "original_sha256": "c9ed2d4278213c6e4894e931c7c3bfa4dffa5cdf67210d85f3ab33f8d601bba9",
+      "canonical_sha256": "0a13f92054a2ffa4b48d4f11ea9b68cf603f9f45674a3667f9a532550d21c28d"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/prompt-sistema/semantica.txt",
+      "original_sha256": "1c940033ecf37152c2ef48f786dc970e0c055af22fe8e656660320b17f6755bd",
+      "canonical_sha256": "b0bcbfe18a0d826bb652d6618f349f2b314471abbd9f2e6806831f5edeab0a53"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/sourceunit_audit.py",
+      "original_sha256": "781899d98cb7d0018957488a240442e2314a51447c872dc81245ccb031a02f8a",
+      "canonical_sha256": "a2ac301e18cc531b7d03630ba72cfb3965e86d2bab0f1ed9570051d15a5e09ea"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/styles.css",
+      "original_sha256": "a05c3ebfcb809e8205fa58e329483efe647c18ec1bef44a31f758023db78769f",
+      "canonical_sha256": "ea5c9e7ea6f12dfeb303f484d2dc2cf8e44e327110cbab7ed50859e196f39992"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/tests/audience.test.cjs",
+      "original_sha256": "21bb08e21dbccd77f7a305079d968b27b8bca215ff011efd185ce5f0afcf3742",
+      "canonical_sha256": "dfb9be68497f5a64f68e01bfa18995c7401687c440e225ef00448d7b83f29df4"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/tests/document.test.cjs",
+      "original_sha256": "6d75837e3de89d41985087a3036573573bc38dca1d32c2d8b40063614b1a2620",
+      "canonical_sha256": "f122c1e85b77279795b81b07a2badf149db95d2ef368879c4a9701ada18f1e48"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/tests/journey.test.cjs",
+      "original_sha256": "71097b7f16a9804f8708bf22c1a884e3d43214d572e37759bb63f21bdb6f59c0",
+      "canonical_sha256": "15509403153b87b651f20be8a62e99114c1bb771ed82364618961bf283190a7b"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/tests/macros.test.cjs",
+      "original_sha256": "f65b6890b329785f5737a0b0809308373898f55223e9f5d20c97f1cfec04ab70",
+      "canonical_sha256": "6f9189aeff2f9606d3a017cfd1505a801906cb1768ba833074089c10f7e5002b"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/esito.json",
+      "original_sha256": "1914346091d76ceb1fab37fde8a73e1019133b0bf0fd620dba7f0e48f4427613",
+      "canonical_sha256": "bb4ad63fa6536c4df8608dffe2fa58ab3c9d9f286b02caec70b451d2fc3e0404"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/fonti-audit.json",
+      "original_sha256": "d19bbf2baf3e1d21be4cde3d0ec92dc574ba2ce1912dbd552781b6276a4c16f4",
+      "canonical_sha256": "18022091b9b36fc9315121803e26c8f4ead30d96ae9a51574e10c49e5bc9e5a6"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/gca-audit-tabelle.csv",
+      "original_sha256": "308d56ad965387a212f8c4604bc6a227f53e8b757a96de0695931b3c50c0d776",
+      "canonical_sha256": "fc6516a81ed39527bdfd5610bcb6a94924ba04292405d8b08a03a76a466bad81"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/gca-audit.json",
+      "original_sha256": "2598311fba30d06514d2c4a5cd2f366f0a850fe07ce7f0c95f23339cc0a890a4",
+      "canonical_sha256": "f2363095b1f263e51a9c26b481b44a02b5fc669f0962d4c896c9ae76cd2d29ab"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/narratore-audit-correzioni.json",
+      "original_sha256": "6327579c7238a2744c277e6e7a4f53dd9d8340f03174de57a9d10e2109c27642",
+      "canonical_sha256_before_rebuild": "f279a2ea523699a45dbeb50d20bdff524edff0245529a10b673d6629350d3a92",
+      "canonical_sha256_after_rebuild": "450c2ef08d360c289cf9a2030fffaaaf3efc63b067f928ccbdcd1c9f82c9890b"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/narratore-audit-semantico.json",
+      "original_sha256": "3f3f36ba118330c179389dd73280b813422e2b811c6dc62974b51ce646c77f79",
+      "canonical_sha256": "ff3f0f0b2e601e0c1e411cf43f75f950b2ac7217e7218019c94d234f8ed27d1d"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/narratore-dieci-casi.json",
+      "original_sha256": "41e479893fa0c19562531d4e5b8afe5b7a016e182340e4b87fbd0d381adcb2ea",
+      "canonical_sha256": "3280947b86031a6e2e749f20d87f2dff2a40e458d87c3f3d6bca2e8134029ee4"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/narratore-fonti-documentate.json",
+      "original_sha256": "499897a82d8366557ed49f054f7ac4abf1d56c032c95f82f034c2bdcbc2bb82b",
+      "canonical_sha256": "fc0c69d8bec2d22caca85b1ec1904ec427fe017deb3681e5f8ff427f98c0d387"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/narratore-multistudio.json",
+      "original_sha256": "d6de1bf64edc3d688e81d80345fc7173f81f3cab08f568f8f1c4c662de65bcc0",
+      "canonical_sha256": "4e1896d9aa834bbb5aae5f054145ac5439a44a74de75f76ded5084aec9d89125"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/nct-audit-inventario.csv",
+      "original_sha256": "351fb3684cf7fd8aa54ddb997833cee095f58328d54fd9cd75d2b4de899865f0",
+      "canonical_sha256": "d28d0890cb30d7cee008a34cb4c96d219e32d2aec91f186bfd7b2267b1ced019"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/paper-audit-inventario.csv",
+      "original_sha256": "cf7af3da4fcee8a493507e739f4d6d6c1baabdfb7be7a15bd45fffa9f069e10f",
+      "canonical_sha256": "0341da1bef71d87b8462c42707fd35e3e33cffe5c04ec0e8be546ca1e58dfdbc"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/sourceunit-audit.json",
+      "original_sha256": "3dc47ffc9643179f286b4c64e0cee0aac1598abda169ae629177d424ee61da4a",
+      "canonical_sha256": "192d07337084196296cd23020f688a32c45dfa69b200ac4f17b76fc8d580b34b"
+    },
+    {
+      "file": "tesi_revisionata/build/architettura_graphviz/system_design/verifica/sourceunit-documenti.csv",
+      "original_sha256": "26eb147cab98be34b19bc6331e6c42d79b93c5d439755ccc0041599cdef59a7f",
+      "canonical_sha256": "5ba2ac30944bba2118aac9fc56e3d3dc9c9394d32971155994ed08d3b45f53d2"
+    }
+  ]
+}

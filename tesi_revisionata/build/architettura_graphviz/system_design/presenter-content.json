@@ -1,0 +1,824 @@
+{
+  "title": "Come funziona l’architettura",
+  "rows": [
+    {
+      "id": "corpus",
+      "title": "Preparare le associazioni candidate",
+      "summary": "Il Knowledge Graph contiene collegamenti tra profili molecolari, descrizioni di evidenza, farmaci, studi e test. La preparazione li trasforma in relazioni candidate ricercabili, mantenendo gli argomenti del collegamento e la sua origine.",
+      "component": "Preparazione della conoscenza",
+      "input": [
+        {
+          "name": "Knowledge Graph",
+          "description": "Conoscenza oncologica organizzata come entità e collegamenti."
+        },
+        {
+          "name": "Origine delle informazioni",
+          "description": "Risorsa e percorso da cui proviene ogni collegamento."
+        }
+      ],
+      "output": [
+        {
+          "name": "Associazioni candidate",
+          "description": "Collegamenti pronti per essere confrontati con il caso."
+        },
+        {
+          "name": "Traccia dell’origine",
+          "description": "Riferimenti che permettono di ricostruire come sono stati ottenuti."
+        }
+      ],
+      "controls": [
+        "Controllare che la raccolta utilizzata sia quella prevista.",
+        "Collegare informazioni complementari soltanto quando i riferimenti coincidono.",
+        "Conservare l’origine di entrambi i collegamenti quando vengono uniti."
+      ],
+      "failures": [
+        "Se la raccolta non è quella prevista, il sistema si ferma.",
+        "Se due collegamenti non possono essere uniti con certezza, non vengono fusi."
+      ],
+      "design": "La conoscenza viene preparata prima della ricerca sul caso. Le associazioni candidate indicano che cosa approfondire, senza essere già conclusioni sul paziente.",
+      "lesson": "Nel Knowledge Graph BRAF V600K è collegato alla descrizione di uno studio; la stessa descrizione è collegata a dabrafenib e a trametinib. Il sistema può ricostruire il percorso conservandone le origini.",
+      "explanation": "Il Knowledge Graph contiene collegamenti tra profili molecolari, descrizioni di evidenza, farmaci, studi e test. La preparazione li trasforma in relazioni candidate ricercabili, mantenendo gli argomenti del collegamento e la sua origine.",
+      "how": [
+        "La materializzazione legge nodi e archi e produce record di relazione: soggetto, predicato, oggetto e riferimenti documentali, quando presenti.",
+        "Le relazioni complementari possono essere collegate solo attraverso la stessa evidenza e gli identificatori previsti dalla regola di composizione. La somiglianza del testo non basta.",
+        "Il risultato serve al recupero: la presenza di un collegamento nel grafo non è una verifica della pubblicazione."
+      ]
+    },
+    {
+      "id": "input",
+      "title": "Accogliere il caso",
+      "summary": "L’avvio conserva il testo originale del caso e crea il contesto di esecuzione che accompagnerà l’analisi. In questo punto non vengono ancora interpretati gene, variante o malattia.",
+      "component": "Avvio dell’analisi",
+      "input": [
+        {
+          "name": "Testo del caso",
+          "description": "Descrizione clinica e domanda da approfondire."
+        }
+      ],
+      "output": [
+        {
+          "name": "Analisi avviata",
+          "description": "Un percorso riconoscibile, legato al caso di partenza."
+        },
+        {
+          "name": "Prima registrazione",
+          "description": "Informazioni necessarie a ricostruire ciò che accade dopo."
+        }
+      ],
+      "controls": [
+        "Associare tutte le operazioni alla stessa analisi.",
+        "Controllare che ci siano risorse disponibili prima di iniziare."
+      ],
+      "failures": [
+        "Se non è possibile avviare una nuova analisi, il sistema lo segnala.",
+        "Un problema successivo non cancella le operazioni già registrate."
+      ],
+      "design": "Identificare l’analisi permette di risalire al testo originale, alle fonti lette e al risultato finale.",
+      "lesson": "L’esempio parte da un caso dichiaratamente sintetico: melanoma metastatico, BRAF V600K e interesse per dabrafenib e trametinib. Non sono disponibili esiti terapeutici del paziente.",
+      "explanation": "L’avvio conserva il testo originale del caso e crea il contesto di esecuzione che accompagnerà l’analisi. In questo punto non vengono ancora interpretati gene, variante o malattia.",
+      "how": [
+        "Il testo viene mantenuto come riferimento per verificare successivamente le informazioni estratte dal Case Parser.",
+        "L’orchestratore inizializza stato del lavoro, registrazione degli eventi e budget delle chiamate; poi passa il testo al parser."
+      ]
+    },
+    {
+      "id": "parser",
+      "title": "Case Parser: dal testo ai campi",
+      "summary": "Il Case Parser usa un modello linguistico per trasformare il testo in campi strutturati. Deve indicare anche le parole da cui li ha ricavati: estrarre “BRAF” non è ancora dimostrare che quel dato sia corretto.",
+      "component": "Lettura del caso",
+      "input": [
+        {
+          "name": "Descrizione libera",
+          "description": "Il testo fornito all’inizio dell’analisi."
+        }
+      ],
+      "output": [
+        {
+          "name": "Descrizione organizzata del caso",
+          "description": "Malattia, gene, variante, trattamento di interesse e domanda."
+        },
+        {
+          "name": "Riferimenti al testo",
+          "description": "Le frasi da cui sono state ricavate le informazioni."
+        }
+      ],
+      "controls": [
+        "Separare i dati presenti dalle informazioni mancanti.",
+        "Collegare ogni elemento importante alle parole originali.",
+        "Non cercare ancora informazioni nel Knowledge Graph."
+      ],
+      "failures": [
+        "Se la descrizione organizzata non è valida, la ricerca non prosegue.",
+        "Un dato proposto dall’assistente deve ancora essere controllato."
+      ],
+      "design": "Organizzare il testo e autorizzarne l’uso sono due passaggi distinti: la lettura assistita non sostituisce i controlli.",
+      "lesson": "Dal testo dell’esempio vengono conservati separatamente melanoma metastatico, BRAF, V600K e dabrafenib e trametinib. Il gene non viene confuso con la variante.",
+      "explanation": "Il Case Parser usa un modello linguistico per trasformare il testo in campi strutturati. Deve indicare anche le parole da cui li ha ricavati: estrarre “BRAF” non è ancora dimostrare che quel dato sia corretto.",
+      "how": [
+        "La richiesta specifica i campi attesi: malattia, gene, alterazione, interventi e intento della domanda, con citazioni letterali del caso.",
+        "La risposta deve rispettare lo schema richiesto. Testo libero o una struttura non valida non vengono trattati come un caso correttamente estratto.",
+        "I valori mancanti rimangono nulli o liste vuote. Gene e variante restano associati nello stesso biomarcatore; l’intervento da valutare non diventa una terapia pregressa."
+      ]
+    },
+    {
+      "id": "ancoraggio",
+      "title": "Controllare il legame con il testo",
+      "summary": "Il Match Verifier cerca nel testo originale le citazioni indicate dal parser e verifica che sostengano il valore estratto. È codice deterministico: non chiede allo stesso modello di confermare la propria risposta.",
+      "component": "Confronto con il testo iniziale",
+      "input": [
+        {
+          "name": "Informazioni ricavate",
+          "description": "I dati organizzati dopo la lettura."
+        },
+        {
+          "name": "Testo iniziale",
+          "description": "Le parole realmente fornite per il caso."
+        }
+      ],
+      "output": [
+        {
+          "name": "Dati controllati",
+          "description": "Informazioni con il relativo riscontro nel testo."
+        },
+        {
+          "name": "Dubbi espliciti",
+          "description": "Elementi assenti, incerti o in contrasto."
+        }
+      ],
+      "controls": [
+        "Confrontare ogni valore con il testo.",
+        "Distinguere un dato mancante da un dato contraddetto.",
+        "Mantenere i riferimenti alle frasi di partenza."
+      ],
+      "failures": [
+        "Un contrasto su un dato essenziale può fermare la ricerca.",
+        "Un testo senza contraddizioni può comunque essere insufficiente."
+      ],
+      "design": "Il primo controllo chiede se i dati provengono dal testo. Il successivo chiede se bastano per cercare.",
+      "lesson": "Il sistema può ritrovare BRAF V600K nella descrizione iniziale. Non deve sostituire V600K con una variante più comune o completare informazioni non dichiarate.",
+      "explanation": "Il Match Verifier cerca nel testo originale le citazioni indicate dal parser e verifica che sostengano il valore estratto. È codice deterministico: non chiede allo stesso modello di confermare la propria risposta.",
+      "how": [
+        "Per ciascun campo si cerca la citazione letterale. Se compare una sola volta, la posizione viene ricostruita dal testo.",
+        "Se la citazione compare più volte, gli offset devono disambiguare l’occorrenza; altrimenti il campo resta incerto.",
+        "Gene e variante sono controllati anche con riferimenti separati. Un valore non dichiarato resta assente, anziché essere completato."
+      ]
+    },
+    {
+      "id": "ammissibilita",
+      "title": "Decidere se si può iniziare la ricerca",
+      "summary": "Avere campi presenti nel testo non basta per avviare una ricerca significativa. Il gate considera le menzioni verificate, il loro ruolo, eventuali contraddizioni e i dati richiesti dalla domanda.",
+      "component": "Controllo di sufficienza",
+      "input": [
+        {
+          "name": "Descrizione controllata",
+          "description": "Le informazioni sostenute dal testo."
+        },
+        {
+          "name": "Domanda da approfondire",
+          "description": "Il tipo di ricerca richiesto."
+        }
+      ],
+      "output": [
+        {
+          "name": "Decisione di proseguire",
+          "description": "Dati sufficienti per una ricerca significativa."
+        },
+        {
+          "name": "Richiesta di chiarimento",
+          "description": "Indicazione di ciò che manca o non è coerente."
+        }
+      ],
+      "controls": [
+        "Verificare i dati necessari per la domanda specifica.",
+        "Individuare contraddizioni e istruzioni estranee riconosciute dal controllo.",
+        "Non inventare malattia, variante o trattamento."
+      ],
+      "failures": [
+        "Se i dati non bastano, il sistema si ferma.",
+        "Se c’è un’ambiguità importante, rende necessario un chiarimento."
+      ],
+      "design": "Questo controllo riguarda l’avvio della ricerca. Non decide se una persona può ricevere un trattamento o partecipare a uno studio.",
+      "lesson": "Nell’esempio sono espliciti malattia, gene, variante e interesse della ricerca. L’analisi registrata prosegue; non si tratta di una valutazione dell’eleggibilità del caso a uno studio.",
+      "explanation": "Avere campi presenti nel testo non basta per avviare una ricerca significativa. Il gate considera le menzioni verificate, il loro ruolo, eventuali contraddizioni e i dati richiesti dalla domanda.",
+      "how": [
+        "La catena deterministica distingue menzioni positive, negate, incerte o storiche e rileva contraddizioni e istruzioni estranee al contenuto clinico.",
+        "La sufficienza dipende dall’intento: per valutare un intervento deve esserci l’intervento oggetto della domanda. La malattia non viene inventata e non è un requisito universale per qualsiasi ricerca.",
+        "Se il caso non è utilizzabile, il recupero non parte; il sistema restituisce il motivo concreto, come un dato necessario mancante o un contesto contraddittorio."
+      ]
+    },
+    {
+      "id": "piano",
+      "title": "Entity Resolution: dai nomi alle identità",
+      "summary": "L’Entity Resolution prepara il confronto tra le parole del caso e le entità del Knowledge Graph. Non è una nuova lettura clinica: collega i nomi a identità riconosciute, conserva il contesto e rende espliciti i nomi che non riesce a risolvere.",
+      "component": "Riconoscimento delle entità",
+      "input": [
+        {
+          "name": "Dati accettati",
+          "description": "Informazioni che hanno superato i controlli sul caso."
+        },
+        {
+          "name": "Nomi e sinonimi riconosciuti",
+          "description": "Vocabolario della conoscenza consultata."
+        }
+      ],
+      "output": [
+        {
+          "name": "Contesto per la ricerca",
+          "description": "Identità da confrontare con le associazioni candidate."
+        },
+        {
+          "name": "Nomi non risolti",
+          "description": "Dubbi e limiti di riconoscimento visibili."
+        }
+      ],
+      "controls": [
+        "Usare soltanto informazioni accettate.",
+        "Tenere distinti gene, variante e combinazioni di alterazioni.",
+        "Non considerare equivalenti nomi che non è possibile ricondurre con certezza alla stessa entità."
+      ],
+      "failures": [
+        "Un nome non riconosciuto rimane esplicito.",
+        "Un dato valido non deve scomparire nel passaggio alla ricerca."
+      ],
+      "design": "Riconoscere sinonimi aiuta a cercare senza cambiare ciò che il caso afferma.",
+      "lesson": "Il gene BRAF e la variante V600K restano due informazioni distinte. Un collegamento riferito soltanto a BRAF non diventa automaticamente specifico per V600K.",
+      "explanation": "L’Entity Resolution prepara il confronto tra le parole del caso e le entità del Knowledge Graph. Non è una nuova lettura clinica: collega i nomi a identità riconosciute, conserva il contesto e rende espliciti i nomi che non riesce a risolvere.",
+      "how": [
+        "La proiezione passa alla ricerca soltanto menzioni accettate dai controlli precedenti. I valori scartati dal parser non vengono reinseriti nella domanda.",
+        "Per la malattia si separano concetto riconosciuto e contesto residuo: riconoscere melanoma non autorizza a cancellare “metastatico”.",
+        "Il gene viene risolto prima della variante; la variante è interpretata nel contesto del suo gene. Per gli interventi si cercano nomi e alias nel vocabolario.",
+        "L’uscita conserva valore originale, identità trovata e stato di risoluzione. Un nome non riconosciuto resta visibile: non viene trasformato in un’identità inventata."
+      ],
+      "workedExample": [
+        {
+          "name": "«melanoma metastatico»",
+          "description": "Concetto melanoma: DOID:1909. “metastatico” è conservato come contesto separato (metastatic), non eliminato."
+        },
+        {
+          "name": "«BRAF»",
+          "description": "Identità del gene riconosciuta: NCBIGene:673."
+        },
+        {
+          "name": "«V600K» associata a BRAF",
+          "description": "Variante riconosciuta nel contesto del gene: CIViCVariant:563. Il legame BRAF–V600K rimane esplicito."
+        },
+        {
+          "name": "«dabrafenib e trametinib»",
+          "description": "Nell’esempio documentato la stringa combinata è UNMAPPED: non è risolta come identità unica. Il valore originale rimane disponibile per la ricerca."
+        }
+      ]
+    },
+    {
+      "id": "retrieval",
+      "title": "Trovare le associazioni pertinenti",
+      "summary": "Il recupero confronta il contesto del caso con le relazioni candidate del grafo. La compatibilità decide quali relazioni ammettere; la specificità ordina soltanto quelle già ammesse.",
+      "component": "Ricerca delle associazioni candidate",
+      "input": [
+        {
+          "name": "Contesto del caso",
+          "description": "Malattia, elementi molecolari e interesse della ricerca."
+        },
+        {
+          "name": "Associazioni candidate",
+          "description": "Collegamenti del Knowledge Graph con la loro origine."
+        }
+      ],
+      "output": [
+        {
+          "name": "Associazioni da approfondire",
+          "description": "Risultati ordinati per pertinenza e specificità."
+        },
+        {
+          "name": "Tipo di fonte",
+          "description": "Pubblicazione, registro di uno studio o sola origine nel Knowledge Graph."
+        }
+      ],
+      "controls": [
+        "Controllare la compatibilità delle informazioni applicabili.",
+        "Privilegiare le corrispondenze più specifiche, senza perdere collegamenti equivalenti.",
+        "Riconoscere quale fonte è realmente associata al risultato."
+      ],
+      "failures": [
+        "Se non trova collegamenti pertinenti, il sistema lo rende esplicito.",
+        "Un riferimento ambiguo non viene inviato automaticamente a più percorsi."
+      ],
+      "design": "L’ordine dei risultati indica che cosa esaminare prima. Non è una graduatoria di appropriatezza dei trattamenti.",
+      "lesson": "Nell’analisi registrata risultano 26 associazioni: 9 collegate a pubblicazioni, una a un registro di studio e 16 con sola provenienza nel Knowledge Graph. Non sono 26 conferme documentali.",
+      "explanation": "Il recupero confronta il contesto del caso con le relazioni candidate del grafo. La compatibilità decide quali relazioni ammettere; la specificità ordina soltanto quelle già ammesse.",
+      "how": [
+        "I filtri dipendono dalla famiglia della relazione e dalle identità disponibili: non applicano indistintamente gli stessi requisiti a pubblicazioni, studi e test.",
+        "L’ordinamento lessicografico considera le caratteristiche di specificità, mantenendo la differenza tra gene, variante e contesto. Non è un punteggio di efficacia.",
+        "Dopo raggruppamento e limiti per famiglia, ogni relazione mantiene la propria fonte: riferimento documentale oppure sola provenienza nel grafo."
+      ]
+    },
+    {
+      "id": "risoluzione",
+      "title": "Raggiungere la fonte indicata",
+      "summary": "La relazione del grafo può indicare una pubblicazione o uno studio, ma il riferimento non è ancora testo leggibile. Il resolver cerca il contenuto associato e registra esattamente quale fonte è disponibile.",
+      "component": "Ricerca della fonte originale",
+      "input": [
+        {
+          "name": "Riferimento della fonte",
+          "description": "Pubblicazione o studio indicato dall’associazione."
+        },
+        {
+          "name": "Documenti già disponibili",
+          "description": "Copie che il sistema può riutilizzare."
+        }
+      ],
+      "output": [
+        {
+          "name": "Fonte consultabile",
+          "description": "Testo completo, riassunto o informazioni del registro."
+        },
+        {
+          "name": "Limiti di disponibilità",
+          "description": "Indicazione di ciò che non è stato possibile leggere."
+        }
+      ],
+      "controls": [
+        "Usare la fonte effettivamente collegata all’associazione.",
+        "Preferire il testo completo quando disponibile e coerente con il riferimento.",
+        "Mantenere il legame tra riferimento richiesto e documento trovato."
+      ],
+      "failures": [
+        "Se il testo completo manca, può essere usato il riassunto disponibile.",
+        "Una fonte assente non viene sostituita con un’altra scelta liberamente."
+      ],
+      "design": "Il sistema approfondisce la provenienza dell’associazione, anziché cercare soltanto un testo che sembri confermarla.",
+      "lesson": "Per l’associazione BRAF V600K dell’esempio viene consultato il riassunto della pubblicazione 28891408. La registrazione distingue questa disponibilità dal testo completo.",
+      "explanation": "La relazione del grafo può indicare una pubblicazione o uno studio, ma il riferimento non è ancora testo leggibile. Il resolver cerca il contenuto associato e registra esattamente quale fonte è disponibile.",
+      "how": [
+        "Il sistema prova prima la copia disponibile localmente; se manca, il percorso autorizzato tenta il recupero attraverso la sorgente prevista.",
+        "La disponibilità distingue testo completo, abstract, registro e contenuto non disponibile. Un identificatore bibliografico non viene presentato come se fosse un testo letto.",
+        "Le relazioni senza documento seguono il percorso del solo grafo: non si inventa un articolo per farle attraversare il Reader."
+      ]
+    },
+    {
+      "id": "unita",
+      "title": "Dividere la fonte in passaggi leggibili",
+      "summary": "Il contenuto della fonte viene suddiviso in unità citabili, mantenendo il legame con il documento e la posizione. Il Reader potrà citare un passaggio identificabile, non una frase senza origine.",
+      "component": "Preparazione dei passaggi della fonte",
+      "input": [
+        {
+          "name": "Contenuto disponibile",
+          "description": "Testo della pubblicazione o informazioni del registro."
+        }
+      ],
+      "output": [
+        {
+          "name": "Passaggi della fonte",
+          "description": "Frasi, parti di testo, elementi di tabelle o didascalie."
+        },
+        {
+          "name": "Posizione e origine",
+          "description": "Indicazioni che consentono di ritrovare ciascun passaggio."
+        }
+      ],
+      "controls": [
+        "Conservare il documento di origine.",
+        "Mantenere testo e posizione quando disponibili.",
+        "Distinguere passaggi uguali che compaiono in punti diversi."
+      ],
+      "failures": [
+        "Un contenuto non leggibile non viene trattato come testo disponibile.",
+        "La divisione in parti non garantisce che ogni dettaglio del documento sia stato conservato perfettamente."
+      ],
+      "design": "Una citazione controllabile richiede un passaggio riconoscibile, non soltanto il titolo di un articolo.",
+      "lesson": "Nell’esempio il passaggio citato appartiene al riassunto della pubblicazione. L’osservazione conserva il legame con quel passaggio e con la fonte.",
+      "explanation": "Il contenuto della fonte viene suddiviso in unità citabili, mantenendo il legame con il documento e la posizione. Il Reader potrà citare un passaggio identificabile, non una frase senza origine.",
+      "how": [
+        "Il caricatore interpreta il formato disponibile: testo di abstract, struttura dell’articolo, PDF locale o parti del registro.",
+        "Ogni unità conserva testo, documento, tipo e localizzatore, quando ricostruibile: sezione, paragrafo, frase o pagina.",
+        "Gli identificatori distinguono le occorrenze: due passaggi con testo uguale in punti diversi non devono perdere la propria posizione."
+      ]
+    },
+    {
+      "id": "selezione",
+      "title": "Scegliere che cosa leggere",
+      "summary": "La selezione cerca, dentro ciascun documento, i passaggi più pertinenti alla relazione da approfondire. Il percorso predefinito combina una classifica lessicale strutturale e una classifica semantica mediante RRF.",
+      "component": "Selezione dei passaggi e dei documenti",
+      "input": [
+        {
+          "name": "Passaggi disponibili",
+          "description": "Contenuti delle fonti trovate."
+        },
+        {
+          "name": "Associazione e domanda",
+          "description": "Gli elementi da cercare senza confonderne l’origine."
+        }
+      ],
+      "output": [
+        {
+          "name": "Materiale da leggere",
+          "description": "Documenti e passaggi scelti per l’approfondimento."
+        },
+        {
+          "name": "Esclusioni esplicite",
+          "description": "Materiale non letto o rinviato a causa dei limiti."
+        }
+      ],
+      "controls": [
+        "Considerare le incompatibilità riconosciute prima della scelta finale.",
+        "Affiancare corrispondenze di parole e somiglianza di significato.",
+        "Evitare ripetizioni e rispettare i limiti del materiale leggibile."
+      ],
+      "failures": [
+        "Se un criterio non è disponibile, il sistema registra quello effettivamente usato.",
+        "I limiti possono lasciare fuori materiale pertinente: la selezione non è esaustiva."
+      ],
+      "design": "Il percorso predefinito fonde BM25 strutturale e MedCPT con RRF; se MedCPT non e disponibile, usa BM25 strutturale. La pianificazione preventiva dei documenti appartiene al profilo opzionale focused-v1.",
+      "lesson": "Per la pubblicazione 28891408 l’analisi registrata seleziona cinque passaggi. Questo numero descrive il materiale scelto, non cinque prove indipendenti.",
+      "explanation": "La selezione cerca, dentro ciascun documento, i passaggi più pertinenti alla relazione da approfondire. Il percorso predefinito combina una classifica lessicale strutturale e una classifica semantica mediante RRF.",
+      "how": [
+        "BM25 strutturale pesa la corrispondenza lessicale con prior e fattore di sezione. MedCPT ordina i passaggi per pertinenza semantica.",
+        "I filtri di ammissibilità precedono la fusione. RRF somma 1/(60+rango), con ranghi da uno e fino a 25 risultati per classifica; non confronta direttamente i punteggi delle due scale.",
+        "La selezione finale applica top-k e vincoli di sovrapposizione. Se MedCPT non è disponibile, si ripiega su BM25 strutturale. focused-v1 aggiunge pianificazione dei documenti e regole dedicate al materiale da leggere."
+      ]
+    },
+    {
+      "id": "reader",
+      "title": "Leggere la fonte e descrivere ciò che dice",
+      "summary": "Il Reader produce una relazione osservata nella fonte e una citazione che la accompagna. L’osservazione è distinta dalla relazione cercata nel grafo: deve descrivere ciò che il testo permette di dire, oppure astenersi.",
+      "component": "Lettura delle fonti",
+      "input": [
+        {
+          "name": "Passaggi scelti",
+          "description": "Il materiale autorizzato a sostenere una citazione."
+        },
+        {
+          "name": "Contesto vicino",
+          "description": "Passaggi aggiuntivi utilizzabili soltanto per chiarire i riferimenti."
+        }
+      ],
+      "output": [
+        {
+          "name": "Osservazione con citazione",
+          "description": "Ciò che il testo permette di descrivere."
+        },
+        {
+          "name": "Astensione",
+          "description": "Esito esplicito quando non c’è un’osservazione utilizzabile."
+        }
+      ],
+      "controls": [
+        "Descrivere la fonte senza trasformare l’associazione iniziale in una verità.",
+        "Separare i passaggi citabili dal contesto che aiuta a interpretarli.",
+        "Per i registri di studio, riutilizzare le informazioni strutturate dello stesso contenuto."
+      ],
+      "failures": [
+        "Se il testo non basta, l’assistente si astiene.",
+        "Il contesto di supporto non può diventare una citazione sostitutiva."
+      ],
+      "design": "Il percorso documentale predefinito usa il Reader anche per i registri. Solo focused-v1 usa fatti strutturati per i registri risolti senza lettura generativa. Il solo grafo non produce citazioni.",
+      "lesson": "La fonte osservata parla di melanoma di stadio III, trattamento adiuvante e varianti V600E oppure V600K. Il sistema conserva questa descrizione senza riscriverla come melanoma metastatico.",
+      "explanation": "Il Reader produce una relazione osservata nella fonte e una citazione che la accompagna. L’osservazione è distinta dalla relazione cercata nel grafo: deve descrivere ciò che il testo permette di dire, oppure astenersi.",
+      "how": [
+        "La richiesta contiene la relazione da esaminare e i passaggi selezionati. Il modello restituisce soggetti, intervento, contesto e citazione, oppure un’astensione.",
+        "Il contesto adiacente può chiarire riferimenti locali, ma rimane separato dai passaggi autorizzati alla citazione.",
+        "Il predefinito tratta anche il registro attraverso selezione e Reader. focused-v1 usa invece fatti strutturati per i registri risolti. Le relazioni del solo grafo non producono citazioni."
+      ]
+    },
+    {
+      "id": "validazione",
+      "title": "Verificare citazione e significato",
+      "summary": "Le verifiche rispondono a domande diverse: la citazione è autentica? L’osservazione è coerente con il testo? La fonte sostiene la relazione cercata? Superare il primo controllo non implica superare gli altri.",
+      "component": "Controllo delle osservazioni",
+      "input": [
+        {
+          "name": "Osservazione proposta",
+          "description": "Descrizione e citazione ricavate dalla lettura."
+        },
+        {
+          "name": "Associazione e fonte",
+          "description": "Il collegamento da esaminare e il testo disponibile."
+        }
+      ],
+      "output": [
+        {
+          "name": "Controlli distinti",
+          "description": "Citazione presente, contenuto riconosciuto e supporto attribuito."
+        },
+        {
+          "name": "Esiti espliciti",
+          "description": "Controlli superati, non richiesti o non eseguiti."
+        }
+      ],
+      "controls": [
+        "Verificare che la citazione sia davvero nel passaggio dichiarato.",
+        "Controllare identità e informazioni centrali per il tipo di associazione.",
+        "Quando previsto, confrontare anche contesto e forza dell’affermazione con un lettore distinto."
+      ],
+      "failures": [
+        "Una citazione corretta non equivale automaticamente a una relazione confermata.",
+        "Un controllo non richiesto o non eseguito non è un controllo superato.",
+        "Problemi tecnici, assenza di supporto e contraddizioni rimangono distinguibili."
+      ],
+      "design": "Autenticità della citazione, corrispondenza alla relazione e ammissione del supporto rispondono a domande diverse.",
+      "lesson": "Nell’esempio la citazione è autenticata, ma nell’analisi registrata il supporto non è attribuito alla relazione conservata. Stadio III e melanoma metastatico sono contesti da confrontare, senza attribuire al sistema motivazioni non registrate.",
+      "explanation": "Le verifiche rispondono a domande diverse: la citazione è autentica? L’osservazione è coerente con il testo? La fonte sostiene la relazione cercata? Superare il primo controllo non implica superare gli altri.",
+      "how": [
+        "Il validatore ritrova la citazione letterale nell’unità selezionata e ne controlla l’appartenenza al documento; verifica inoltre gli argomenti dell’osservazione.",
+        "Per EVIDENCE_DRUG si verificano provenienza autorizzata, identità di gene, variante e intervento e legami nella proposizione. Struttura incompatibile e struttura non risolta fermano il confronto semantico.",
+        "Il confronto semantico aggiuntivo parte solo con osservazione ammessa e struttura PASS. Le altre famiglie usano il proprio validatore. Supporto, contraddizione, assenza di supporto e incertezza non vengono fusi in un solo sì/no."
+      ]
+    },
+    {
+      "id": "gates",
+      "title": "Applicare le regole di valutazione",
+      "summary": "Le regole deterministiche non rileggono liberamente le fonti. Ricevono soltanto osservazioni ammesse al gate e valutano la relazione secondo l’intento della domanda e la direzione dell’evidenza.",
+      "component": "Valutazione regolata",
+      "input": [
+        {
+          "name": "Associazione candidata",
+          "description": "Collegamento e contesto dichiarati."
+        },
+        {
+          "name": "Osservazioni controllate",
+          "description": "Solo contenuti ammessi dai controlli precedenti."
+        }
+      ],
+      "output": [
+        {
+          "name": "Valutazione dell’associazione",
+          "description": "Esito accompagnato da avvisi e limiti."
+        }
+      ],
+      "controls": [
+        "Non usare come supporto osservazioni respinte o non controllate.",
+        "Distinguere la direzione dell’effetto dalla posizione della fonte rispetto alla relazione.",
+        "Calcolare gli esiti attraverso regole, senza affidarli alla spiegazione finale."
+      ],
+      "failures": [
+        "L’assenza di un supporto utilizzabile non viene trasformata in una conclusione favorevole.",
+        "Una fonte che non sostiene l’affermazione non diventa positiva per il solo linguaggio usato."
+      ],
+      "design": "La valutazione riassume controlli circoscritti. Non decide il trattamento del singolo paziente.",
+      "lesson": "La presenza di una citazione nell’esempio non è sufficiente per promuovere automaticamente l’associazione a conclusione applicabile al caso.",
+      "explanation": "Le regole deterministiche non rileggono liberamente le fonti. Ricevono soltanto osservazioni ammesse al gate e valutano la relazione secondo l’intento della domanda e la direzione dell’evidenza.",
+      "how": [
+        "L’adattatore ammette al gate soltanto esiti di validazione accettati con supporto forte/pieno. Un’astensione o un supporto non attribuito non viene promosso a evidenza valida.",
+        "La valutazione distingue ricerca di possibili interventi e valutazione di un intervento indicato. Per quest’ultima confronta la direzione della relazione con il segnale documentale ammesso.",
+        "Gli esiti del gate e il supporto documentale conservato nel dossier sono informazioni distinte: nell’esempio BRAF il gate è ambiguo per assenza di osservazioni ammesse, mentre la relazione nel dossier ha supporto non attribuito."
+      ],
+      "workedExample": [
+        {
+          "name": "Citazione della pubblicazione 28891408",
+          "description": "Autentica, ma supporto non attribuito alla relazione: non viene ammessa come segnale positivo al gate."
+        },
+        {
+          "name": "Esito del gate per quella relazione",
+          "description": "AMBIGUOUS, con NO_VALIDATED_ENRICHMENT_AVAILABLE e direzione NO_DOCUMENT_SIGNAL. Questo non significa che non esista una citazione."
+        }
+      ]
+    },
+    {
+      "id": "status",
+      "title": "Rendere leggibili gli esiti",
+      "summary": "Questo passaggio espone gli esiti già calcolati per ogni associazione. Non aggiunge una nuova conferma scientifica e non sostituisce la valutazione documentale della relazione.",
+      "component": "Organizzazione degli esiti",
+      "input": [
+        {
+          "name": "Valutazioni disponibili",
+          "description": "Risultati dei controlli sulle associazioni."
+        }
+      ],
+      "output": [
+        {
+          "name": "Esiti consultabili",
+          "description": "Classificazioni, avvisi e motivi."
+        },
+        {
+          "name": "Stato dell’analisi",
+          "description": "Indicazione dell’avanzamento e delle eventuali interruzioni."
+        }
+      ],
+      "controls": [
+        "Tenere separati il completamento dell’analisi e la forza delle informazioni.",
+        "Non lasciare che la spiegazione cambi gli esiti.",
+        "Distinguere lavoro non eseguito e lavoro eseguito senza trovare supporto."
+      ],
+      "failures": [
+        "Un’analisi completata non dimostra che ogni associazione sia confermata.",
+        "Un esito incerto non viene presentato come assenza di evidenza nella letteratura."
+      ],
+      "design": "Una sola etichetta di successo nasconderebbe differenze importanti. Per questo il percorso e i risultati restano leggibili separatamente.",
+      "lesson": "L’analisi dell’esempio è completata, ma conserva associazioni documentali, informazioni di registro e collegamenti senza pubblicazione come tipi di informazione differenti.",
+      "explanation": "Questo passaggio espone gli esiti già calcolati per ogni associazione. Non aggiunge una nuova conferma scientifica e non sostituisce la valutazione documentale della relazione.",
+      "how": [
+        "L’orchestratore raccoglie, per ciascuna relazione, stato del gate, raggruppamento e avvisi. Il motivo rimane associato al risultato.",
+        "Lo stato dell’analisi descrive se il lavoro è stato completato o interrotto; è distinto dal supporto alla singola relazione.",
+        "Una relazione non confermata rimane visibile con il proprio motivo: non scompare per lasciare soltanto risultati apparentemente positivi."
+      ]
+    },
+    {
+      "id": "dossier",
+      "title": "Costruire il dossier",
+      "summary": "Il dossier è la rappresentazione strutturata di ciò che il sistema ha trovato e di come lo ha valutato. Aggrega le osservazioni senza perdere le differenze tra le fonti o nascondere un risultato non favorevole.",
+      "component": "Raccolta dei risultati",
+      "input": [
+        {
+          "name": "Risultati dei tre percorsi",
+          "description": "Pubblicazioni, registri di studio e collegamenti del Knowledge Graph."
+        },
+        {
+          "name": "Traccia del lavoro",
+          "description": "Operazioni eseguite, esclusioni e attività non svolte."
+        }
+      ],
+      "output": [
+        {
+          "name": "Dossier consultabile",
+          "description": "Una rappresentazione coerente del percorso e dei risultati."
+        },
+        {
+          "name": "Controllo di completezza del lavoro",
+          "description": "Confronto fra ciò che è stato elaborato e ciò che è stato riportato."
+        }
+      ],
+      "controls": [
+        "Conservare la diversa origine delle informazioni.",
+        "Non inventare una lettura documentale per collegamenti privi di fonte.",
+        "Considerare completa la pubblicazione soltanto se i risultati riportati sono riconciliati con il lavoro eseguito."
+      ],
+      "failures": [
+        "Se gli elementi non si riconciliano, la pubblicazione è incompleta.",
+        "Completezza del lavoro previsto non significa completezza di tutta la letteratura."
+      ],
+      "design": "Il dossier è il riferimento principale. Può essere consultato anche senza una spiegazione generata.",
+      "lesson": "Il dossier dell’esempio conserva le 26 associazioni con provenienze differenti, comprese l’osservazione sullo studio adiuvante e il collegamento diagnostico a BRAF.",
+      "explanation": "Il dossier è la rappresentazione strutturata di ciò che il sistema ha trovato e di come lo ha valutato. Aggrega le osservazioni senza perdere le differenze tra le fonti o nascondere un risultato non favorevole.",
+      "how": [
+        "Le osservazioni di più documenti o passaggi vengono conservate e aggregate per relazione; non si usa soltanto l’ultima osservazione letta.",
+        "Pubblicazioni, registri e relazioni del solo grafo rimangono sezioni distinte. Ogni voce mantiene relazione, origine, osservazione, controlli e limiti.",
+        "Il confronto con il lavoro svolto verifica che risultati, esclusioni e attività non eseguite siano rappresentati. Non certifica la completezza della letteratura."
+      ]
+    },
+    {
+      "id": "narratore",
+      "title": "Preparare una spiegazione fedele",
+      "summary": "Il narratore controllato non riceve il compito di decidere nuovamente che cosa sia vero. Il codice ricava dal dossier formulazioni consentite e il modello propone quali varianti usare, mantenendo contenuti e ordine.",
+      "component": "Presentazione dei risultati",
+      "input": [
+        {
+          "name": "Contenuti del dossier",
+          "description": "Informazioni già raccolte e controllate."
+        },
+        {
+          "name": "Formulazioni consentite",
+          "description": "Modi di esporre gli stessi contenuti."
+        }
+      ],
+      "output": [
+        {
+          "name": "Spiegazione proposta",
+          "description": "Testo composto senza aggiungere nuove conclusioni cliniche."
+        },
+        {
+          "name": "Origine della presentazione",
+          "description": "Indicazione di come è stata costruita."
+        }
+      ],
+      "controls": [
+        "Mantenere tutti i contenuti richiesti e il loro ordine.",
+        "Consentire scelte espositive, senza inventare fatti.",
+        "Tenere distinta una presentazione alternativa preparata automaticamente."
+      ],
+      "failures": [
+        "Se la scelta espositiva non è valida, può essere usata una presentazione alternativa controllata.",
+        "Se non c’è spiegazione, il dossier rimane disponibile."
+      ],
+      "design": "Rendere il risultato più leggibile non deve aumentarne la forza. La spiegazione non modifica quanto le fonti hanno permesso di osservare.",
+      "lesson": "Una spiegazione fedele mantiene sia il caso metastatico sia il contesto adiuvante della fonte; non elimina questa differenza per rendere il racconto più semplice.",
+      "explanation": "Il narratore controllato non riceve il compito di decidere nuovamente che cosa sia vero. Il codice ricava dal dossier formulazioni consentite e il modello propone quali varianti usare, mantenendo contenuti e ordine.",
+      "how": [
+        "La proiezione costruisce i fatti da esporre e un catalogo di formulazioni che preservano stati, fonti e limiti del dossier.",
+        "Il modello restituisce un piano di scelte. Il validatore controlla identità, ordine e copertura delle voci; il codice compone il testo dalle varianti autorizzate.",
+        "Se il piano non è utilizzabile, può essere generata un’alternativa deterministica completa, da sottoporre anch’essa alla verifica finale."
+      ]
+    },
+    {
+      "id": "fedelta",
+      "title": "Controllare la spiegazione finale",
+      "summary": "Il verificatore ricostruisce dal dossier il contenuto che la spiegazione è autorizzata a contenere. Il confronto è deterministico e riguarda il testo effettivamente prodotto, non la buona intenzione del narratore.",
+      "component": "Confronto tra spiegazione e dossier",
+      "input": [
+        {
+          "name": "Dossier e formulazioni",
+          "description": "Il contenuto che può essere esposto."
+        },
+        {
+          "name": "Spiegazione composta",
+          "description": "La presentazione da controllare."
+        }
+      ],
+      "output": [
+        {
+          "name": "Spiegazione verificata",
+          "description": "Testo utilizzabile con esito e origine dichiarati."
+        },
+        {
+          "name": "Limiti della presentazione",
+          "description": "Indicazione dei problemi riscontrati."
+        }
+      ],
+      "controls": [
+        "Controllare testo, ordine e copertura dei contenuti.",
+        "Verificare anche le presentazioni alternative.",
+        "Non modificare il dossier per far coincidere la spiegazione."
+      ],
+      "failures": [
+        "Un testo che non supera il controllo non viene presentato come spiegazione verificata.",
+        "La fedeltà al dossier non certifica applicabilità clinica o completezza delle fonti."
+      ],
+      "design": "Quest’ultimo controllo riguarda la corrispondenza della presentazione al dossier, non una nuova valutazione scientifica delle fonti.",
+      "lesson": "Nell’esempio il risultato deve continuare a distinguere una citazione osservata da una conferma per il caso. Anche la presentazione finale deve preservare questa distinzione.",
+      "explanation": "Il verificatore ricostruisce dal dossier il contenuto che la spiegazione è autorizzata a contenere. Il confronto è deterministico e riguarda il testo effettivamente prodotto, non la buona intenzione del narratore.",
+      "how": [
+        "Si ricostruiscono catalogo e formulazioni attese dal dossier, separatamente dal testo proposto.",
+        "Si verificano il piano e i campi autorevoli: contenuto, identità delle voci, ordine e copertura. Aggiunte, omissioni o alterazioni fanno fallire il confronto.",
+        "La presentazione alternativa è soggetta allo stesso vincolo. Il fallimento della spiegazione non riscrive il dossier e non ne invalida automaticamente le osservazioni."
+      ]
+    },
+    {
+      "id": "runtime",
+      "title": "Seguire il lavoro e rispettare i limiti",
+      "summary": "L’orchestratore accompagna tutti i passaggi: ne gestisce l’ordine, controlla le risorse prima delle chiamate e registra che cosa è stato eseguito. Non è un’ultima elaborazione dopo la spiegazione.",
+      "component": "Coordinamento dell’analisi",
+      "input": [
+        {
+          "name": "Impostazioni dell’analisi",
+          "description": "Scelte del percorso e risorse disponibili."
+        },
+        {
+          "name": "Avanzamento delle attività",
+          "description": "Avvii, conclusioni, problemi e consumo delle risorse."
+        }
+      ],
+      "output": [
+        {
+          "name": "Traccia dell’analisi",
+          "description": "Storia delle operazioni che può essere ricostruita."
+        },
+        {
+          "name": "Risultato consultabile",
+          "description": "Esiti accompagnati da ciò che è stato o non è stato svolto."
+        }
+      ],
+      "controls": [
+        "Non avviare attività oltre i limiti applicati.",
+        "Conservare l’origine delle informazioni e delle operazioni.",
+        "Distinguere dati già disponibili, nuovo lavoro e attività rinviate."
+      ],
+      "failures": [
+        "Risorse esaurite: attività interrotte o differite con un motivo.",
+        "Un’attività non svolta non diventa un giudizio negativo sul contenuto scientifico."
+      ],
+      "design": "La tracciabilità permette di capire come si è arrivati al dossier e quali limiti hanno circoscritto il lavoro.",
+      "lesson": "L’esempio viene da un’analisi realmente registrata il 15 ottobre 2026, su un caso sintetico. Questa presentazione riutilizza quei dati: non sta eseguendo una nuova analisi.",
+      "explanation": "L’orchestratore accompagna tutti i passaggi: ne gestisce l’ordine, controlla le risorse prima delle chiamate e registra che cosa è stato eseguito. Non è un’ultima elaborazione dopo la spiegazione.",
+      "how": [
+        "Ogni attività aggiorna lo stato del lavoro attraverso avvio, conclusione o problema. Le operazioni restano ricostruibili.",
+        "Il budget viene controllato prima del trasporto al modello; tentativi e consumi sono distinti dal significato scientifico dei risultati.",
+        "Se una risorsa si esaurisce, il lavoro può interrompersi o lasciare attività non eseguite. “Non eseguito” non viene trasformato in “la fonte non sostiene la relazione”."
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "preparazione",
+      "title": "Preparare la conoscenza",
+      "description": "Dal Knowledge Graph alle associazioni"
+    },
+    {
+      "id": "caso",
+      "title": "Comprendere il caso",
+      "description": "Dal testo a informazioni controllate"
+    },
+    {
+      "id": "recupero",
+      "title": "Cercare i collegamenti",
+      "description": "Dalle identità alle associazioni pertinenti"
+    },
+    {
+      "id": "fonti",
+      "title": "Raggiungere e scegliere le fonti",
+      "description": "Dai riferimenti ai passaggi da leggere"
+    },
+    {
+      "id": "verifica",
+      "title": "Leggere e controllare",
+      "description": "Dalle osservazioni agli esiti"
+    },
+    {
+      "id": "risultato",
+      "title": "Restituire il risultato",
+      "description": "Dal dossier alla spiegazione"
+    },
+    {
+      "id": "trasversale",
+      "title": "Seguire l’intera analisi",
+      "description": "Risorse, avanzamento e tracciabilità"
+    }
+  ]
+}
