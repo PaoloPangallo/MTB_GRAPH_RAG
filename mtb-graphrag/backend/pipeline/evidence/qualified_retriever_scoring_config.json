@@ -1,0 +1,53 @@
+{
+  "version": "qualified_retriever_scoring/1.0",
+  "clinical_gold_used_for_weights": false,
+  "weights": {
+    "native_biomarker": 40,
+    "native_disease": 30,
+    "native_intervention": 15,
+    "native_direction": 8,
+    "native_assertion_polarity": 8,
+    "native_evidence_scope": 5,
+    "native_source_presence": 2,
+    "qualified_context_compatible": 2,
+    "qualified_first_review": 1,
+    "qualified_direct_support": 2,
+    "penalty_pending_terminology": -3,
+    "penalty_partial": -5,
+    "penalty_ambiguous": -8,
+    "penalty_conflicting": -10,
+    "penalty_invalid": -50,
+    "penalty_abstract_only": -2,
+    "penalty_unresolved": -1,
+    "penalty_case_level": -2,
+    "penalty_named_patient_subset": -2,
+    "penalty_not_separable": -2,
+    "penalty_preclinical_preference": -3,
+    "penalty_negative_mismatch": -15
+  },
+  "thresholds": {
+    "prototype_only_positive_cap": 5,
+    "primary_result_minimum": 0
+  },
+  "tie_break_rules": [
+    "total_score_desc",
+    "native_score_desc",
+    "support_directness_desc",
+    "review_status_desc",
+    "source_basis_desc",
+    "evidence_context_preference_desc",
+    "canonical_source_id_asc",
+    "statement_id_asc"
+  ],
+  "missing_field_policy": {
+    "unknown": "neutral",
+    "not_applicable": "exclude_dimension",
+    "not_separable": "warning_and_optional_penalty"
+  },
+  "prototype_only_policy": {
+    "hard_filter": false,
+    "positive_contribution_capped": true,
+    "may_determine_applicability": false
+  },
+  "hash": "ddbfe3cec5d79f0f321b6a853938aa074e55f9ab77149fc73f2ce17224908c00"
+}

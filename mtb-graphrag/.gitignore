@@ -1,0 +1,11 @@
+experiments/thesis_alignment/_work/
+
+# Cache di lavoro degli abstract: testo protetto, non redistribuito.
+# Rigenerabile con benchmarks/mtb_evidence/evaluation/scripts/fetch_priority_abstracts.py
+benchmarks/mtb_evidence/v3/priority_curation/source_abstract_cache.jsonl
+
+# Report generati localmente; la documentazione sorgente resta tracciabile.
+*_report.json
+*_report.md
+*.report.json
+*.report.md

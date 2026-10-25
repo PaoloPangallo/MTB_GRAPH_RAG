@@ -1,0 +1,308 @@
+"""Una run deve poter essere riaperta dopo un riavvio del backend.
+
+``RunStore`` è in memoria: il riavvio si simula scartandolo con
+``reset_store()`` mantenendo lo stesso file di ledger, che è esattamente ciò che
+accade a un processo riavviato. Un test che riusasse lo stesso store non
+proverebbe nulla, perché la vista arriverebbe ancora dalla memoria.
+"""
+
+from __future__ import annotations
+
+import time
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest import TestCase, mock
+
+from fastapi.testclient import TestClient
+
+from backend.api import research_routes
+from backend.api.main import app
+from backend.pipeline.agentic.ledger import EventLedger
+from backend.research_pipeline import execution_mode as em, rehydration, replay, run_store
+from backend.research_pipeline.contracts import STAGE_SEQUENCE
+from backend.research_pipeline.retrieval import kg_retrieval as retrieval_mod
+
+BASE = "/api/v1/research/pipeline"
+DEMO_CASE = "CASE-1-therapy-evaluation-strong-match"
+
+
+class RunPersistenceTest(TestCase):
+    def setUp(self) -> None:
+        self._tmp = TemporaryDirectory()
+        self._env = mock.patch.dict("os.environ", {
+            "VERIFIABLE_PIPELINE_RESEARCH_ENABLED": "1",
+            "RESEARCH_LEDGER_PATH": str(Path(self._tmp.name) / "research.sqlite3"),
+        })
+        self._env.start()
+        # Come in ``test_research_api``: il layer documentale e il modello sono
+        # sostituiti dagli adattatori congelati **dentro il test**, perche' cio'
+        # che si misura qui e' la sopravvivenza della run a un riavvio, non la
+        # pipeline documentale. La richiesta HTTP resta priva di qualunque campo
+        # che possa chiedere il percorso storico.
+        self._patches = [
+            mock.patch.object(research_routes.llm_config, "resolve_endpoint",
+                              return_value=("http://model.invalid", "test-key")),
+            mock.patch.object(research_routes.cache_runtime, "is_available", return_value=True),
+            mock.patch.object(run_store.DocumentRuntime, "open", classmethod(lambda cls: None)),
+            mock.patch.object(run_store.orchestrator, "run_case", self._frozen_run_case),
+        ]
+        for patch in self._patches:
+            patch.start()
+        run_store.reset_store()
+        self.client = TestClient(app)
+
+    def tearDown(self) -> None:
+        for patch in reversed(self._patches):
+            patch.stop()
+        self._env.stop()
+        run_store.reset_store()
+        self._tmp.cleanup()
+
+    _real_run_case = staticmethod(run_store.orchestrator.run_case)
+
+    @classmethod
+    def _frozen_run_case(cls, **kwargs):
+        kwargs.update(
+            research_frozen_artifacts=True,
+            source_units_by_id=run_store.da.load_source_unit_index(),
+            retrieve_fn=retrieval_mod.retrieve_frozen_bundles,
+            document_runtime=None,
+            call_parser_fn=replay.parser_fn,
+            call_enricher_fn=replay.enricher_fn,
+            select_papers_fn=lambda a, u, **kw: replay.selection_fn(a, u, case_id=kw["case_id"]),
+            validate_fn=lambda t, e, **kw: replay.validation_fn(
+                t, e, case_id=kw["case_id"], paper_id=kw["paper_id"]),
+            call_narrator_fn=replay.narrator_fn,
+        )
+        return cls._real_run_case(**kwargs)
+
+    def _completed_run(self, case_id: str = DEMO_CASE) -> str:
+        response = self.client.post(f"{BASE}/runs", json={"demo_case_key": case_id})
+        self.assertEqual(response.status_code, 201, response.text)
+        run_id = response.json()["run_id"]
+        for _ in range(300):
+            if self.client.get(f"{BASE}/runs/{run_id}").json()["status"] not in ("CREATED", "RUNNING"):
+                return run_id
+            time.sleep(0.1)
+        self.fail("la run non si è conclusa entro il tempo previsto")
+
+    def _restart_backend(self) -> None:
+        """Scarta il registro in memoria; il ledger su disco resta."""
+        run_store.reset_store()
+
+    # --- Riapertura ---------------------------------------------------------
+
+    def test_a_run_is_still_readable_after_a_restart(self) -> None:
+        run_id = self._completed_run()
+        before = self.client.get(f"{BASE}/runs/{run_id}").json()
+
+        self._restart_backend()
+        after = self.client.get(f"{BASE}/runs/{run_id}")
+
+        self.assertEqual(after.status_code, 200, after.text)
+        rebuilt = after.json()
+        self.assertTrue(rebuilt["rehydrated"])
+        self.assertEqual(rebuilt["status"], before["status"])
+        self.assertEqual(rebuilt["case_id"], before["case_id"])
+
+    def test_canonical_relation_aware_report_survives_restart_at_top_level(self) -> None:
+        run_id = self._completed_run()
+        before = self.client.get(f"{BASE}/runs/{run_id}").json()
+        self.assertIsNotNone(before["relation_aware_report"])
+        terminal = next(event for event in run_store.get_store().ledger.events(run_id)
+                        if event["event_type"] == "RUN_COMPLETED")
+        self.assertNotIn("relation_aware_report", terminal["payload"])
+
+        self._restart_backend()
+        after = self.client.get(f"{BASE}/runs/{run_id}").json()
+
+        self.assertEqual(after["relation_aware_report"], before["relation_aware_report"])
+
+    def test_empty_no_match_dossier_survives_restart_without_executing_dossier_stage(self) -> None:
+        run_id = self._completed_run("CASE-5-casecontext-mismatch-no-match")
+        before = self.client.get(f"{BASE}/runs/{run_id}/dossier")
+        self.assertEqual(before.status_code, 200, before.text)
+        original = before.json()["dossier"]
+        for branch in ("paper_evidence", "clinical_trials", "kg_only_relations"):
+            self.assertEqual(original[branch], [])
+
+        self._restart_backend()
+        after = self.client.get(f"{BASE}/runs/{run_id}/dossier")
+        self.assertEqual(after.status_code, 200, after.text)
+        self.assertEqual(after.json()["dossier"], original)
+        snapshot = self.client.get(f"{BASE}/runs/{run_id}").json()
+        self.assertEqual(snapshot["status"], "STOPPED")
+        self.assertEqual(snapshot["stopped_at"], "RETRIEVAL_NO_MATCH")
+        stage = next(s for s in snapshot["stages"] if s["stage_id"] == "stage_13_dossier")
+        self.assertEqual(stage["status"], "SKIPPED")
+        self.assertTrue(snapshot["hash_chain_valid"])
+
+    def test_historical_stop_without_recorded_dossier_remains_absent(self) -> None:
+        from backend.research_pipeline.orchestrator import RunRecorder
+
+        run_id = "historical-no-match-without-artifact"
+        recorder = RunRecorder(run_store.get_store().ledger, run_id, em.CANONICAL_MODE)
+        recorder.run_created("SYNTHETIC-OLD", "Synthetic query", {})
+        recorder.skip_remaining("RETRIEVAL_NO_MATCH")
+        recorder.run_completed("STOPPED", "RETRIEVAL_NO_MATCH", 0)
+        self._restart_backend()
+        snapshot = self.client.get(f"{BASE}/runs/{run_id}").json()
+        self.assertIsNone(snapshot["relation_aware_report"])
+        self.assertEqual(self.client.get(f"{BASE}/runs/{run_id}/dossier").status_code, 409)
+
+    def test_failed_parser_does_not_gain_a_dossier_on_restart(self) -> None:
+        with mock.patch.object(replay, "parser_fn", return_value={"transport_result": "HTTP_ERROR"}):
+            run_id = self._completed_run()
+        self.assertEqual(self.client.get(f"{BASE}/runs/{run_id}/dossier").status_code, 409)
+        self._restart_backend()
+        snapshot = self.client.get(f"{BASE}/runs/{run_id}").json()
+        self.assertEqual(snapshot["status"], "FAILED")
+        self.assertIsNone(snapshot["relation_aware_report"])
+        self.assertEqual(self.client.get(f"{BASE}/runs/{run_id}/dossier").status_code, 409)
+
+    def test_every_stage_is_rebuilt_in_order(self) -> None:
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        stages = self.client.get(f"{BASE}/runs/{run_id}").json()["stages"]
+
+        self.assertEqual([s["stage_id"] for s in stages], list(STAGE_SEQUENCE))
+        self.assertEqual([s["sequence"] for s in stages],
+                         list(range(1, len(STAGE_SEQUENCE) + 1)))
+        self.assertNotIn("PENDING", {s["status"] for s in stages})
+
+    def test_execution_mode_and_origins_survive(self) -> None:
+        """Senza queste, una run reidratata non direbbe più come è stata eseguita."""
+        run_id = self._completed_run()
+        before = self.client.get(f"{BASE}/runs/{run_id}").json()
+        self._restart_backend()
+        after = self.client.get(f"{BASE}/runs/{run_id}").json()
+
+        self.assertEqual(after["execution_mode"], before["execution_mode"])
+        self.assertEqual(after["requested_mode"], before["requested_mode"])
+        self.assertEqual(after["replay_artifacts_used"], before["replay_artifacts_used"])
+        self.assertEqual(
+            [s["artifact_origin"] for s in after["stages"]],
+            [s["artifact_origin"] for s in before["stages"]],
+        )
+
+    def test_the_llm_call_count_is_the_same_read_from_either_side(self) -> None:
+        """Era ricalcolato in lettura, e dava due numeri per la stessa run.
+
+        La somma delle metriche di stage escludeva il parser — che non
+        contribuisce ad alcuna metrica — e in REPLAY contava come reali le
+        chiamate rigiocate. Il valore canonico lo scrive l'orchestratore.
+        """
+        run_id = self._completed_run()
+        before = self.client.get(f"{BASE}/runs/{run_id}").json()
+        self._restart_backend()
+        after = self.client.get(f"{BASE}/runs/{run_id}").json()
+
+        self.assertEqual(after["llm_calls"], before["llm_calls"])
+
+    def test_a_frozen_research_run_reports_zero_real_model_calls(self) -> None:
+        """RESEARCH / REGRESSION: un artefatto rigiocato non conta come chiamata."""
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        snapshot = self.client.get(f"{BASE}/runs/{run_id}").json()
+
+        self.assertEqual(snapshot["execution_mode"], "REPLAY")
+        self.assertEqual(snapshot["llm_calls"], 0)
+
+    def test_the_dossier_is_rebuilt(self) -> None:
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        response = self.client.get(f"{BASE}/runs/{run_id}/dossier")
+
+        self.assertEqual(response.status_code, 200, response.text)
+        dossier = response.json()["dossier"]
+        for section in ("paper_evidence", "clinical_trials", "kg_only_relations", "limitations"):
+            self.assertIn(section, dossier)
+        self.assertIn("candidate_therapies", response.json()["legacy_dossier"])
+
+    def test_provenance_is_rebuilt(self) -> None:
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        items = self.client.get(f"{BASE}/runs/{run_id}/provenance").json()["items"]
+
+        self.assertTrue(items)
+        levels = [level["level"] for level in items[0]["chain"]]
+        self.assertEqual(levels[0], "CASE_CONTEXT")
+        self.assertEqual(levels[-1], "DOSSIER_ITEM")
+
+    def test_events_are_readable_after_a_restart(self) -> None:
+        """Prima rispondevano 404: la rotta passava dal registro in memoria."""
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        payload = self.client.get(f"{BASE}/runs/{run_id}/events").json()
+
+        self.assertTrue(payload["events"])
+        self.assertTrue(payload["hash_chain_valid"])
+
+    def test_a_restarted_run_still_appears_in_the_list(self) -> None:
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        rows = self.client.get(f"{BASE}/runs").json()["runs"]
+
+        row = next((r for r in rows if r["run_id"] == run_id), None)
+        self.assertIsNotNone(row)
+        self.assertTrue(row["rehydrated"])
+
+    # --- Integrità e recupero ----------------------------------------------
+
+    def test_the_hash_chain_is_verified_on_rehydration(self) -> None:
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        self.assertTrue(self.client.get(f"{BASE}/runs/{run_id}").json()["hash_chain_valid"])
+
+    def test_an_interrupted_run_is_marked_recovered_incomplete(self) -> None:
+        """Una run senza RUN_COMPLETED non è né riuscita né conclusa.
+
+        Si costruisce scrivendo sul ledger gli eventi di apertura e di un solo
+        stage, come farebbe un processo ucciso a metà.
+        """
+        ledger = EventLedger(run_store.research_ledger_path())
+        run_id = "interrupted-run"
+        ledger.append(run_id, "RUN_CREATED", "orchestrator",
+                      {"case_id": DEMO_CASE, "input_text": "…",
+                       "requested_execution_mode": "LIVE"},
+                      tool_name="orchestrator", tool_version="test")
+        ledger.append(run_id, "STAGE_COMPLETED", "orchestrator",
+                      {"stage_id": "stage_1_case_input", "stage_type": "CASE_INPUT",
+                       "producer": {"kind": "DETERMINISTIC", "component": "case_input",
+                                    "version": "test", "model": None,
+                                    "prompt_version": None, "transport_version": None},
+                       "status": "SUCCEEDED", "execution_mode": "LIVE",
+                       "artifact_origin": "GENERATED_NOW", "sequence": 1},
+                      tool_name="orchestrator", tool_version="test")
+
+        snapshot = rehydration.rehydrate(ledger, run_id)
+
+        self.assertIsNotNone(snapshot)
+        self.assertEqual(snapshot["recovery_status"], rehydration.RECOVERED_INCOMPLETE)
+        self.assertEqual(snapshot["stages_recorded"], 1)
+        self.assertIn("stage_13_dossier", snapshot["stages_missing"])
+
+    def test_an_unknown_run_is_still_404(self) -> None:
+        self._restart_backend()
+        self.assertEqual(self.client.get(f"{BASE}/runs/nope").status_code, 404)
+
+    # --- Cosa non deve finire su disco -------------------------------------
+
+    def test_no_document_text_or_credentials_are_persisted(self) -> None:
+        """La persistenza eredita il filtro del ledger invece di ridichiararlo."""
+        run_id = self._completed_run()
+        self._restart_backend()
+
+        raw = Path(run_store.research_ledger_path()).read_bytes()
+
+        for forbidden in (b'"full_text"', b'"document_text"', b'"source_text"',
+                          b'"thinking"', b'"reasoning"', b"Bearer ", b"OLLAMA_API_KEY"):
+            self.assertNotIn(forbidden, raw, f"{forbidden!r} non deve essere persistito")
+        self.assertIn(run_id.encode(), raw)

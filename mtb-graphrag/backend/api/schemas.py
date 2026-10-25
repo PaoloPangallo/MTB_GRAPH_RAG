@@ -103,6 +103,9 @@ class ClaimCheck(BaseModel):
 
 class ArchitectureMetrics(BaseModel):
     elapsed_ms: int
+    # Deprecato: alias di retrieval_tool_calls, mantenuto per i consumatori
+    # esistenti durante la migrazione. Il nome era ambiguo perché sommava
+    # chiamate a strumenti, nodi di pipeline e sintesi LLM in un solo numero.
     tool_calls: int
     evidence_count: int
     verified_claims: int
@@ -110,6 +113,37 @@ class ArchitectureMetrics(BaseModel):
     review_claims: int = 0
     ledger_events: int = 0
     stage_timings_ms: dict[str, int] = Field(default_factory=dict)
+    # Conteggi disaggregati: hanno lo stesso significato nelle due
+    # architetture, quindi sono confrontabili. planner_calls è 0 per il piano
+    # fisso ed è ciò che distingue davvero le due orchestrazioni.
+    retrieval_tool_calls: int = 0
+    planner_calls: int = 0
+    llm_synthesis_calls: int = 0
+    source_verifier_calls: int = 0
+    pipeline_nodes_executed: int = 0
+    repair_attempts: int = 0
+    ledger_valid: bool = False
+    planning_mode: Optional[str] = None
+    fallback_reason: Optional[str] = None
+    mandatory_tools: list[str] = Field(default_factory=list)
+    missing_mandatory_tools: list[str] = Field(default_factory=list)
+    # Esito della verifica strutturale. structural_warnings raccoglie i
+    # diagnostici (es. LEXICON_VIOLATION) che non influenzano lo stato.
+    structural_coverage: float = 1.0
+    structural_violations: int = 0
+    structural_warnings: int = 0
+    spurious_citations: int = 0
+    escalated: bool = False
+    # Vista canonica e proiezione: prima la deduplicazione era invisibile.
+    canonical_records_in: int = 0
+    canonical_records_out: int = 0
+    canonical_conflicts: int = 0
+    projection_admitted: int = 0
+    projection_excluded: int = 0
+    replay_fidelity: Optional[str] = None
+    # Chiave di invalidazione della cache del profilo sorgente.
+    model_revision: Optional[str] = None
+    prompt_version: Optional[str] = None
     # Conteggi distinti sui due assi di verifica — non sommati fra loro,
     # né con i conteggi legacy sopra (verified_claims/blocked_claims/review_claims
     # restano derivati dalla sola vista tecnica ClaimCheck).

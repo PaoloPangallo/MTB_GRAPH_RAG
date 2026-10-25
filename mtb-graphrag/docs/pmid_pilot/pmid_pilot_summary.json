@@ -1,0 +1,31 @@
+{
+  "pilot": "v3_pmid_document_support",
+  "base_commit": "e70f81b195fa24ce4fcf81fae9c92597e5e61895",
+  "branch": "research/v3-pmid-document-pilot",
+  "groups": {
+    "A": {"selected": 12, "text_available": 12, "direct_support": 4, "partial_support": 8, "context_only": 0, "ambiguous": 0, "contradicted": 0, "no_support_found": 0, "text_unavailable": 0},
+    "B": {"selected": 4, "text_available": 4, "direct_support": 1, "partial_support": 2, "context_only": 0, "ambiguous": 1, "contradicted": 0, "no_support_found": 0, "text_unavailable": 0}
+  },
+  "document_records": 12,
+  "llm_used": false,
+  "llm_prompt_saved": false,
+  "llm_output_saved": false,
+  "runtime_modified": false,
+  "qualified_claim_repository_modified": false,
+  "knowledge_graph_modified": false,
+  "claim_provenance_status_modified": false,
+  "gate_modified": false,
+  "scoring_modified": false,
+  "bucket_modified": false,
+  "source_text_invented": false,
+  "external_knowledge_used_as_evidence": false,
+  "pubmed_live_used": false,
+  "official_experiment_modified": false,
+  "official_ledgers_modified": false,
+  "gold_read_count": 0,
+  "push_executed": false,
+  "merge_executed": false,
+  "doi_available_for_selected_records": 0,
+  "locator_policy": "ABSTRACT when only an abstract record is locally inspectable",
+  "status_note": "Parent PMID candidates are not claim-level sources."
+}

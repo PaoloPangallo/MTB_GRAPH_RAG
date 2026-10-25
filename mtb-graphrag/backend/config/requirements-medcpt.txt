@@ -1,0 +1,5 @@
+# Pinned CPU-compatible dependencies used by the hybrid retrieval experiment.
+# Checkpoints are local assets; installing this file never downloads model weights.
+numpy==2.4.6
+torch==2.12.1
+transformers==5.12.1

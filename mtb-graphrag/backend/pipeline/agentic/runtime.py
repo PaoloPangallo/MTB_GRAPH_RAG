@@ -14,6 +14,8 @@ from typing import Any, Callable
 from uuid import uuid4
 
 from backend.pipeline.agentic.ledger import EventLedger
+from backend.pipeline.control.events import plan_decision_payload, tool_completed_payload
+from backend.pipeline.control.strategies.tool_registry import records_from_state, tool_version
 
 
 logger = logging.getLogger(__name__)
@@ -269,6 +271,16 @@ def _attempt_planner_call(
     return (tool, rationale), None
 
 
+#: Campi del caso che determinano il risultato di una tool call. Registrati
+#: come argomenti dell'azione, sono ciò che permette a una riparazione di
+#: raccolta di rieseguire lo stesso strumento con gli stessi parametri.
+_ARGUMENT_FIELDS = ("gene", "variant", "tumor_type", "alteration_type", "therapy_line")
+
+
+def _tool_arguments(state: dict[str, Any]) -> dict[str, Any]:
+    return {field: state.get(field) for field in _ARGUMENT_FIELDS}
+
+
 def _observation(tool: str, state: dict[str, Any]) -> dict[str, Any]:
     if tool == "assess_complexity":
         return {"complexity": state.get("complexity")}
@@ -292,6 +304,7 @@ def run_agentic_collection(
     initial_state: dict[str, Any],
     *,
     ledger: EventLedger | None = None,
+    recorder: Any | None = None,
     planner_llm: Any | None = None,
     tool_registry: dict[str, Tool] | None = None,
     max_steps: int = 8,
@@ -302,13 +315,21 @@ def run_agentic_collection(
     transizione a ``safe_fallback`` non viene più richiamato — gli step
     successivi usano direttamente l'ordine tipizzato sicuro, senza ulteriori
     chiamate LLM e senza moltiplicare i tentativi/timeout per ogni step.
+
+    ``recorder`` è la via che usa lo strato di controllo condiviso: passandolo,
+    la raccolta scrive sulla stessa catena del resto della pipeline anziché
+    aprire un proprio ledger. ``ledger`` resta accettato per compatibilità e
+    costruisce internamente un recorder.
     """
+    from backend.pipeline.control.recorder import ActionRecorder
+
     if planner_llm is None:
         from backend.pipeline.llm import build_llm
         planner_llm = build_llm(timeout=_planner_timeout_seconds())
     tools = tool_registry or _default_tools()
-    event_ledger = ledger or EventLedger()
-    run_id = str(uuid4())
+    if recorder is None:
+        recorder = ActionRecorder(ledger or EventLedger())
+    run_id = recorder.run_id
     state = dict(initial_state)
     completed: set[str] = set()
     tool_path: list[str] = []
@@ -325,9 +346,11 @@ def run_agentic_collection(
     timeout_seconds = _planner_timeout_seconds()
     max_attempts = 1 + _planner_max_retries()
 
-    event_ledger.append(run_id, "run_started", "controller", {
+    recorder.record("run_started", "controller", {
         "case": _state_summary(state, completed)["case"],
         "max_steps": max_steps,
+        "orchestration_mode": "agentic",
+        "mandatory_tools": list(mandatory),
     })
 
     for step in range(1, max_steps + 1):
@@ -365,7 +388,7 @@ def run_agentic_collection(
                 fallback_reason = fallback_reason or "other"
                 tool = _fallback_tool(allowed)
                 rationale = _FALLBACK_MESSAGES.get(fallback_reason, _FALLBACK_MESSAGES["other"])
-                event_ledger.append(run_id, "planner_fallback_triggered", "controller", {
+                recorder.record("planner_fallback_triggered", "controller", {
                     "step": step,
                     "reason_category": fallback_reason,
                     "rationale": rationale,
@@ -373,22 +396,32 @@ def run_agentic_collection(
                     "elapsed_ms": planner_elapsed_ms,
                 })
 
-        event_ledger.append(run_id, "plan_decision", "llm_planner" if not fallback_locked else "controller", {
-            "step": step,
-            "selected_tool": tool,
-            "allowed_tools": allowed,
-            "rationale": rationale,
-            "fallback": fallback_locked,
-        })
+        recorder.record(
+            "plan_decision",
+            "llm_planner" if not fallback_locked else "controller",
+            plan_decision_payload(
+                step=step,
+                selected_tool=tool,
+                allowed_tools=allowed,
+                rationale=rationale,
+                planning_mode=planning_mode,
+                fallback=fallback_locked,
+            ),
+        )
 
         if tool == "finish":
-            event_ledger.append(run_id, "collection_finished", "controller", {
+            recorder.record("collection_finished", "controller", {
                 "step": step,
                 "completed_tools": sorted(completed),
             })
             break
 
-        event_ledger.append(run_id, "tool_started", tool, {"step": step})
+        action_id = recorder.new_action_id()
+        recorder.record(
+            "tool_started", tool, {"step": step},
+            action_id=action_id, tool_name=tool, tool_version=tool_version(tool),
+            query_or_arguments=_tool_arguments(state),
+        )
         tool_started = perf_counter()
         try:
             state = tools[tool](state)
@@ -400,10 +433,24 @@ def run_agentic_collection(
                 "elapsed_ms": int((perf_counter() - tool_started) * 1000),
                 "status": "completed",
             })
-            event_ledger.append(run_id, "tool_completed", tool, {
-                "step": step,
-                "observation": _observation(tool, state),
-            })
+            record_kind, records = records_from_state(tool, state)
+            payload = tool_completed_payload(
+                tool=tool, record_kind=record_kind, records=records,
+            )
+            payload["step"] = step
+            if not record_kind:
+                # Solo per gli strumenti che non producono record (assess_complexity
+                # classifica soltanto): per tutti gli altri l'osservazione
+                # duplicherebbe `records` senza passare dal bounding, riportando
+                # nel ledger proprio i testi lunghi che si vogliono tenerne fuori.
+                payload["observation"] = _observation(tool, state)
+            recorder.record(
+                "tool_completed", tool, payload,
+                action_id=recorder.new_action_id(), parent_action_id=action_id,
+                tool_name=tool, tool_version=tool_version(tool),
+                query_or_arguments=_tool_arguments(state),
+                completeness_status=payload["completeness_status"],
+            )
         except Exception as exc:
             category = _categorize_tool_exception(exc)
             logger.exception("Tool '%s' failed during agentic collection (category=%s)", tool, category)
@@ -415,19 +462,21 @@ def run_agentic_collection(
                 "elapsed_ms": int((perf_counter() - tool_started) * 1000),
                 "status": "failed",
             })
-            event_ledger.append(run_id, "tool_failed", tool, {
-                "step": step,
-                "error_category": category,
-            })
+            recorder.record(
+                "tool_failed", tool,
+                {"step": step, "error_category": category},
+                parent_action_id=action_id, tool_name=tool,
+                tool_version=tool_version(tool), completeness_status="partial",
+            )
             break
     else:
         errors.append(f"Raggiunto il limite di {max_steps} passi.")
 
-    event_ledger.append(run_id, "run_completed", "controller", {
+    recorder.record("run_completed", "controller", {
         "completed_tools": tool_path,
         "errors": errors,
     })
-    events = event_ledger.events(run_id)
+    events = list(recorder.events())
     missing_mandatory = [tool for tool in mandatory if tool not in completed]
     incompleteness_reason = None
     if missing_mandatory:
@@ -442,7 +491,7 @@ def run_agentic_collection(
         events=events,
         tool_path=tool_path,
         planning_mode=planning_mode,
-        ledger_valid=event_ledger.verify_chain(run_id),
+        ledger_valid=recorder.chain_valid(),
         errors=errors,
         fallback_reason=fallback_reason if planning_mode == "safe_fallback" else None,
         planner_attempts=planner_attempts,

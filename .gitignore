@@ -36,14 +36,71 @@ debug_out.txt
 debug_step.txt
 pandas_test.txt
 
+# --- ingressi esterni privati -------------------------------------------------
+#
+# Materiale clinico riservato. Il repository ne conserva il manifest — versione,
+# schema, hash attesi, hash aggregato — e non i byte: il manifest basta a
+# verificare un bundle quando c'e' e a descriverlo quando non c'e', e non basta a
+# ricostruirlo. E' esattamente la proprieta' che serve.
+#
+# Ignorati per posizione e per nome: il bundle e' stato tracciato per sbaglio
+# sotto `pilot/input/` da cce87f1 fino a questa fase, e un `git add -A` distratto
+# lo rimetterebbe dentro. Una regola qui costa meno di una rimozione.
+MTB_Evidence_gold_pilot_v1_bundle/
+mtb-graphrag/benchmarks/mtb_evidence/pilot/input/MTB_Evidence_gold_pilot_v1.xlsx
+mtb-graphrag/benchmarks/mtb_evidence/pilot/input/mtb_evidence_gold_pilot_v1.jsonl
+mtb-graphrag/benchmarks/mtb_evidence/pilot/input/MTB_Evidence_annotation_notes_v1.md
 
-# Generated research artifacts
-*_executed.ipynb
-inspection_results*.txt
-benchmark_papers_not_available*.txt
-download_trials_log.txt
-mtb-graphrag/results_output*.txt
-mtb-graphrag/compute_metrics_out.txt
+# --- cache documentale autorizzata --------------------------------------------
+#
+# Radice di AuthorizedDocumentCache: contiene i documenti scaricati per intero
+# (XML PubMed/PMC, PDF, protocolli NCT) da cui vengono ri-parsate le SourceUnit.
+# E' testo di terzi, non redatto, e non deve entrare nel repository.
+#
+# Cio' che serve alla verificabilita' e' gia' tracciato altrove e non contiene
+# testo: `authorized_document_cache_pilot/source_unit_index.jsonl` conserva
+# soltanto locatori (offset, sezione, indice di paragrafo) e `content_hash`
+# SHA-256. Bastano a verificare una citazione quando il documento c'e', e a
+# descriverla quando non c'e'; non bastano a ricostruire il documento.
+#
+# La directory oggi non esiste: la regola precede il ripopolamento, perche'
+# aggiungerla dopo un `git add -A` distratto sarebbe troppo tardi.
+data_cache/
 
-# Local archives
-*.zip
+# Scratch dei test: directory temporanee create dalle suite, mai da versionare.
+.test_tmp/
+
+# Final Evaluation runtime/export material is kept outside Git; curated
+# Protocol 1.7 results live under evaluation/final_results/protocol_v1_7/.
+evaluation/final_evaluation/
+evaluation/final_evaluation_harness/.pytest_cache/
+evaluation/final_evaluation_harness/**/staging/
+FINAL_EVALUATION_PROTOCOL_1_7_*.zip
+FINAL_EVALUATION_PROTOCOL_1_7_RESULTS/
+final_evaluation_protocol_1_7_export/
+mtb-graphrag/.worktrees/
+mtb-graphrag/.pytest_cache/
+
+# Local test/tool caches and disposable databases.
+.pytest*/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.tsbuildinfo
+mtb-graphrag/.closure_*/
+mtb-graphrag/.independent-review-*/
+mtb-graphrag/.persistence-hardening-*/
+mtb-graphrag/.pre_freeze_pytest_tmp/
+mtb-graphrag/.review-tmp-*/
+mtb-graphrag/.review_medcpt_*/
+mtb-graphrag/.test-temp-*/
+mtb-graphrag/.test-tmp/
+mtb-graphrag/.tmp-*/
+mtb-graphrag/backend/research_pipeline/tests/.*.sqlite3*
+
+# Local frontend run captures (logs, ledgers and generated screenshots).
+# Source fixtures under frontend/src remain versioned.
+/mtb-graphrag/frontend/verification/
+/mtb-graphrag/verification/push-backend-frontend-*/

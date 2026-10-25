@@ -1,0 +1,102 @@
+{
+  "audit_baseline": {
+    "branch": "audit/v3-provenance",
+    "start_branch": "docs/repository-architecture-map",
+    "commit": "93fb99707623dac69a4a21be75208fb6a765ef34"
+  },
+  "runtime_universe": {
+    "repository_version": "qualified_claim_repository/1.4",
+    "candidate_total": 311,
+    "active_claims": 148,
+    "qualified_claims": 148,
+    "deprecated_claims": 4,
+    "technical_records_api": 163,
+    "technical_association_records": 12,
+    "provenance_containers": 147,
+    "parents_with_active_children": 144,
+    "parents_without_claims": 3,
+    "aggregate_claims": 3,
+    "atomic_claims": 140,
+    "regimen_claims": 3,
+    "domains": {
+      "therapeutic": 146,
+      "diagnostic": 2
+    },
+    "claim_types": {
+      "atomic_intervention_claim": 140,
+      "regimen_claim": 3,
+      "aggregate_intervention_claim": 3,
+      "diagnostic_claim": 2
+    },
+    "review_status": {
+      "pending_verification": 131,
+      "adjudicated": 15,
+      "first_review_complete": 2
+    }
+  },
+  "provenance_status": {
+    "PARENT_ONLY": 131,
+    "VERIFIED_LOCATOR": 17
+  },
+  "diagnoses": {
+    "DATA_PRESENT_BUT_NOT_PROPAGATED": 131,
+    "NONE_OBSERVED": 17
+  },
+  "identifiers": {
+    "direct_claim_pmid": 17,
+    "direct_claim_doi": 0,
+    "direct_claim_nct": 0,
+    "direct_claim_url": 0,
+    "direct_claim_locator": 17,
+    "parent_context_pmid": 147,
+    "parent_context_doi": 1
+  },
+  "links": {
+    "claim_to_parent": {
+      "PRESENT": 148
+    },
+    "parent_to_source_unit": {
+      "MISSING": 131,
+      "PRESENT": 17
+    },
+    "source_unit_to_original": {
+      "MISSING": 131,
+      "PRESENT": 17
+    },
+    "original_to_identifier": {
+      "PRESENT": 148
+    },
+    "identifier_to_locator": {
+      "MISSING": 131,
+      "PRESENT": 17
+    }
+  },
+  "integrity_checks": {
+    "claim_ids_unique": true,
+    "parent_ids_exist": true,
+    "graph_evidence_ids_match_parent": true,
+    "parent_child_refs_missing": 0,
+    "claims_missing_from_parent_children": 0,
+    "all_parent_source_record_ids_present": true,
+    "all_parent_source_ids_present": true,
+    "broken_structural_references": 0,
+    "source_unit_auxiliary_mapping_uncertain": 1,
+    "source_unit_uncertain_claim_ids": [
+      "CLM-5ce532268b4aa1661311"
+    ],
+    "gold_files_read": 0,
+    "ledger_files_read": 0,
+    "identifiers_invented": false,
+    "direct_identifier_parent_coherence": true,
+    "direct_identifier_parent_mismatches": [],
+    "direct_identifier_occurrences": 17,
+    "direct_identifier_unique": 9,
+    "repeated_identifiers_are_shared_source_ids": true
+  },
+  "auxiliary_review_artifacts": [
+    "benchmarks/mtb_evidence/v3/multi_intervention_source_review/source_unit_annotations.jsonl",
+    "benchmarks/mtb_evidence/v3/multi_intervention_second_review/source_unit_annotations_second.jsonl",
+    "benchmarks/mtb_evidence/v3/multi_intervention_review_comparison/source_unit_comparison.jsonl",
+    "benchmarks/mtb_evidence/v3/non_therapeutic_source_closure/pmid_24122810_source_unit_review.json"
+  ]
+}

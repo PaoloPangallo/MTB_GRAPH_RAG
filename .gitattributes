@@ -1,0 +1,59 @@
+# Fine riga normalizzata a LF in checkout, su ogni piattaforma.
+#
+# Senza questo file il checkout dipende da `core.autocrlf` della macchina, e su
+# Windows produce CRLF. Gli audit congelati verificano l'integrita' dei sorgenti
+# con lo sha256 dei byte del file: un checkout CRLF cambia quei byte, e ogni
+# hash congelato risulta violato. Su un clone pulito fallivano 66 test, tutti
+# per questa ragione e nessuno per un difetto del codice.
+#
+# La normalizzazione va dichiarata qui e non risolta caso per caso: un hash di
+# integrita' e' una promessa sui byte, e i byte devono essere gli stessi ovunque
+# il repository venga aperto.
+* text=auto eol=lf
+
+# --- nessuna eccezione, e perche' ---
+#
+# Dodici artefatti congelati, di otto fasi chiuse, registrano lo sha256 di otto
+# sorgenti misurati nella forma CRLF che una macchina Windows aveva sul disco.
+# La regola qui sopra li consegna in LF, quindi nessuno di quei dodici hash e'
+# riproducibile da un checkout pulito.
+#
+# Per due di quegli otto sorgenti questo file dichiarava un'eccezione — `eol=crlf`
+# su `qualification.py`, `-text` su `qualified_retriever.py` — e il secondo era
+# accompagnato da un `\r` aggiunto al sorgente per far tornare l'impronta. Sono
+# state rimosse entrambe. Adattare il codice operativo, o la forma in cui viene
+# consegnato, a un'impronta storica significa cambiare cio' che il repository
+# distribuisce per non dover cambiare cio' che un artefatto afferma: e' il verso
+# sbagliato. Un artefatto congelato registra una misura del passato, non impone
+# una forma al presente.
+#
+# Le eccezioni erano anche incomplete per costruzione. Sei degli otto sorgenti
+# stanno sotto `mtb-graphrag/benchmarks/`, che dal commit 63ed143 ha un
+# `.gitattributes` proprio con `* text eol=lf`; un file annidato ha la precedenza,
+# quindi per quei sei un'eccezione scritta qui sarebbe stata una riga morta.
+# Una convenzione che puo' coprire due casi su otto non e' una convenzione.
+#
+# La forma canonica e' LF, per tutti e otto, senza deroghe. La discrepanza fra
+# la forma canonica e la forma storicamente misurata e' registrata — sorgente per
+# sorgente, con l'impronta di entrambe le forme e il codice della ragione — in
+#
+#   mtb-graphrag/benchmarks/mtb_evidence/v3/hermetic_reproducibility_closure/
+#       artifact_hash_erratum.json
+#
+# sotto `artifact_hash_policy/2.0`. Gli artefatti storici non vengono riscritti:
+# l'erratum e' una registrazione esterna, ed e' verificato da un test che fallisce
+# se una delle due impronte smette di essere vera.
+
+# Binari: nessuna conversione, nemmeno tentata.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.xlsx binary
+*.xls binary
+*.zip binary
+*.gz binary
+*.db binary
+*.sqlite3 binary
+*.pyc binary

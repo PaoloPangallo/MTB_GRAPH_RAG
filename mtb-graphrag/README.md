@@ -1,78 +1,98 @@
-# MTB GraphRAG — Research Implementation
+# MTB GraphRAG
 
-Research prototype developed for a Master's thesis on **evidence-grounded AI support for Molecular Tumor Boards**.
+Il contratto corrente `documentary-findings/1.0` separa target della ricerca,
+osservazione della fonte, controlli documentali/strutturali/semantici, limiti e
+disposizione del record. Le classificazioni globali precedenti restano soltanto
+per compatibilita tecnica e audit: non sono endpoint scientifici ne criteri di
+completezza della run. Dettagli e riproduzione offline nello
+[sprint di coerenza](../experiments_real/documentary_coherence_20261014/FINAL_REPORT.md).
 
-The project investigates how curated oncology knowledge, document retrieval, structured representations and language models can be combined while keeping the evidence trail inspectable by a human reviewer.
+Prototipo di ricerca per preparare evidenze revisionabili destinate a un
+Molecular Tumor Board. Il sistema non produce decisioni terapeutiche autonome.
 
-> This software is a research prototype. It does not provide autonomous therapeutic decisions and is not a substitute for clinical assessment.
+## Runtime della tesi attuale
 
-## Research goals
+Le correzioni SourceUnit/Reader sono integrate nel codice corrente. Il profilo
+di selezione e budget `focused-v1` resta esplicito e sperimentale; configurazione,
+test e prove live sono descritti nel
+[report del 15 ottobre](../experiments_real/sourceunit_fix_evaluation/REPORT.md)
+e nella [descrizione del runtime](docs/architecture_final.md).
 
-The implementation focuses on four engineering properties:
+La console principale esegue `backend/research_pipeline/orchestrator.py::run_case`
+tramite le API `/api/v1/research/pipeline`. Il Case Parser produce un contesto verificato;
+il retrieval usa il repository GCA 4.0 e instrada le candidate in tre rami:
+`PAPER_EVIDENCE`, `CLINICAL_TRIAL` e `KG_ONLY`. Il dossier canonico conserva
+separatamente supporto documentale, associazioni a trial e provenance grafica.
+Le relazioni `EVIDENCE_DRUG` richiedono anche il confronto semantico vincolato.
+La narrativa viene verificata a valle del dossier; il generatore LLM è opzionale.
 
-- **structured knowledge** rather than free-text-only reasoning;
-- **traceable retrieval** from curated knowledge and documentary sources;
-- **explicit verification** before evidence is surfaced;
-- **reproducible evaluation** of retrieval, verification and dossier-generation behaviour.
+La descrizione corrente e la mappa dei moduli sono in
+[`docs/architecture_final.md`](docs/architecture_final.md). La valutazione
+indipendente è descritta in [`docs/independent_review_workflow.md`](docs/independent_review_workflow.md).
+Le correzioni e le verifiche sono registrate in
+[`docs/ARCHITECTURE_HARDENING.md`](docs/ARCHITECTURE_HARDENING.md).
 
-The repository also contains experimental and comparison code produced during the evolution of the thesis. Those utilities are retained for research reproducibility but are not the conceptual focus of the final thesis architecture.
+## Confronto delle architetture storico
 
-## Application structure
+La schermata **Confronta architetture** applica lo stesso caso a:
 
-```text
-mtb-graphrag/
-├── backend/
-│   ├── api/
-│   ├── comparison/
-│   ├── evaluation/
-│   ├── pipeline/
-│   └── tests/
-├── frontend/
-└── experiments/
-```
+1. traversal deterministico: piano fisso, query tipizzate, LLM a valle;
+2. architettura agentica verificabile: planner dinamico su strumenti allow-listed,
+   ledger append-only, vista canonica, rendering deterministico e verifica
+   claim--fonte.
 
-The backend contains the retrieval, orchestration, evidence-processing and evaluation components. The frontend provides an interface for inspecting cases, evidence and experimental outputs.
+La modalità `demo` funziona senza servizi esterni ed espone una fixture
+dichiarata. La modalità `live` richiede Neo4j, l'endpoint LLM configurato e
+accesso a PubMed. Ogni decisione e tool call viene inserita durante
+l'esecuzione in un ledger SQLite append-only con catena SHA-256. Le claim sono
+ammesse nel report soltanto dopo il confronto con record CIViC e abstract
+PubMed; esiti incerti o fonti non disponibili vengono inviati alla revisione
+umana.
 
-## Evidence-oriented workflow
+## Dossier clinico comparativo
 
-At a high level, the system:
+Il confronto accetta, oltre al profilo molecolare, stadio, setting di malattia,
+trattamenti e risposta precedenti, ECOG, interessamento del SNC,
+co-alterazioni, contesto regolatorio e obiettivo del MTB. I campi sono
+facoltativi: quelli non compilati vengono mostrati come dati mancanti e non
+sono ricostruiti dal modello.
 
-1. receives a structured molecular/clinical case;
-2. retrieves relevant structured knowledge and supporting documents;
-3. keeps source information attached to the retrieved evidence;
-4. verifies whether candidate statements are supported by the authorized source material;
-5. separates supported, uncertain and excluded evidence;
-6. produces a structured dossier intended for human review.
+Entrambe le architetture restituiscono lo stesso contratto di dossier:
 
-Incomplete case information is kept explicit rather than silently reconstructed by the model.
+- riepilogo del caso e dati mancanti;
+- evidenze supportate documentalmente, con applicabilità clinica separata;
+- evidenze da revisionare o non verificate;
+- evidenze escluse con motivazione;
+- resistenze e trial potenzialmente pertinenti;
+- questioni da discutere nel Molecular Tumor Board.
 
-## Running locally
+Il dossier mantiene due assi distinti: supporto della claim rispetto alla fonte
+e compatibilità con i dati clinici dichiarati. Se il caso è incompleto,
+l'applicabilità resta indeterminata anche quando la fonte supporta la claim.
 
-Copy the environment template:
+## Avvio
 
 ```bash
 cp .env.example .env
-```
-
-Create a Python environment and install the backend dependencies:
-
-```bash
-python -m venv .venv
+python -m venv .venv           # Python 3.12
 source .venv/bin/activate
 pip install -r backend/config/requirements.txt
-uvicorn backend.api.main:app --reload
+VERIFIABLE_PIPELINE_RESEARCH_ENABLED=1 uvicorn backend.api.main:app --reload
 ```
 
-On Windows PowerShell:
+Per **eseguire test ed evaluation** servono anche le dipendenze di sviluppo:
+`requirements.txt` da solo non contiene `pytest`.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r backend/config/requirements.txt
-uvicorn backend.api.main:app --reload
+```bash
+pip install -r backend/config/requirements-dev.txt
+python -m pytest                # nessun PYTHONPATH da impostare
 ```
 
-Start the frontend in a second terminal:
+`backend/config/requirements-lock.txt` congela l'ambiente esatto in cui gli
+esperimenti sono stati eseguiti (`pip freeze`), per chi debba riprodurli alla
+lettera.
+
+In un secondo terminale:
 
 ```bash
 cd frontend
@@ -80,18 +100,122 @@ npm ci
 npm run dev
 ```
 
-## Configuration
+Aprire `http://localhost:5173/research/verifiable-pipeline`: Ã¨ la console
+principale del runtime research. Il confronto fra architetture resta disponibile
+nella vista storica `http://localhost:5173/legacy/v3-deterministic`.
 
-The live application can depend on services such as Neo4j, LLM endpoints and external evidence sources. Secrets must be supplied through environment variables and must never be committed.
+Su Windows, il launcher prepara automaticamente feature flag, CORS e URL del
+backend per la console principale:
 
-Only synthetic or public cases should be used in demonstrations.
+```powershell
+.\scripts\start_verifiable_pipeline.ps1 -DocumentCachePath 'C:\percorso\data_cache\document_grounding'
+```
 
-## Reproducibility
+Per un deployment persistente, impostare `AGENT_LEDGER_PATH` su una directory
+montata come volume. Il valore predefinito è `./data/agent_events.sqlite3`.
 
-Evaluation and reproducibility assets are kept under the dedicated evaluation / experiment directories. Generated logs, temporary reports, executed-notebook copies and local databases are intentionally excluded from version control.
+## Sicurezza e riproducibilità
 
-## Author
+- non committare `.env`, password, token o casi clinici identificabili;
+- usare solo casi sintetici/pubblici nella demo;
+- conservare gli artefatti pesanti fuori da Git con checksum;
+- considerare `claim support` come esito di provenienza, regole cliniche e
+  verifica semantica sulla fonte disponibile, non come sostituto della
+  valutazione clinica dell'oncologo.
 
-**Paolo Pangallo**  
-M.Sc. Computer Engineering — Artificial Intelligence  
-University of Calabria
+Gli script della tesi sono in `experiments/reproducibility/` con una nota sugli
+artefatti richiesti.
+
+## Le due architetture verificabili storiche
+
+La vista di confronto storica espone **due architetture GraphRAG complete**, che differiscono
+soltanto nella strategia di raccolta e condividono per intero lo strato di
+controllo (ledger, replay, vista canonica, proiezione, rendering, verifica
+strutturale, verifica documentale, applicabilità, riparazione, dossier):
+
+1. **GraphRAG deterministico verificabile** — piano fisso e traversal tipizzato.
+2. **Agentic GraphRAG verificabile** — planner adattivo in ciclo plan–act–observe.
+
+Dettagli in [`docs/THESIS_CODE_ALIGNMENT.md`](docs/THESIS_CODE_ALIGNMENT.md).
+
+Il ledger è **append-only e tamper-evident nel threat model considerato**, non
+immutabile in senso assoluto. Il dossier è un artefatto destinato alla revisione
+del Molecular Tumor Board: questo è un **prototipo di ricerca** e non produce
+raccomandazioni terapeutiche.
+
+## Verifica
+
+La suite **core** gira su qualunque checkout pulito, senza ingressi esterni e
+senza saltare niente per la loro assenza:
+
+```bash
+# Test backend (unittest stdlib, nessun runner aggiuntivo configurato)
+cd mtb-graphrag && PYTHONPATH=. python -m unittest discover -s backend/tests -t .
+cd mtb-graphrag && PYTHONPATH=. python -m pytest backend/tests -q
+
+# Frontend
+cd frontend && npm run lint && npm run typecheck && npm test && npm run build
+```
+
+### Ingressi esterni privati
+
+Due ingressi non stanno nel repository e non ci staranno mai: il **bundle gold
+pilota**, materiale clinico riservato, e la **cache degli abstract**, testo
+protetto da copyright. Di entrambi il repository conserva il manifest — versione,
+schema, hash attesi file per file, hash aggregato — che basta a verificarli
+quando ci sono e a descriverli quando non ci sono.
+
+I test che li aprono stanno fuori dalla discovery core, un albero per ingresso, e
+si eseguono con un comando esplicito ciascuno:
+
+```bash
+python -m benchmarks.mtb_evidence.evaluation.run_gold_evaluation \
+  --gold-bundle <PATH>
+
+python -m benchmarks.mtb_evidence.evaluation.run_source_cache_validation \
+  --source-abstract-cache <PATH>
+```
+
+Ogni comando verifica il **proprio** ingresso contro il manifest e poi esegue la
+**propria** suite. Codici d'uscita: `2` ingresso assente (il messaggio dice dove
+ha cercato), `3` ingresso presente ma diverso da quello dichiarato, `4` test
+falliti. Il 3 e il 4 restano distinti apposta: un risultato calcolato su un
+ingresso diverso da quello dichiarato non e' sbagliato, e' inconfrontabile.
+
+### Impronte di integrità
+
+`artifact_hash_policy/2.0` dichiara come si misura l'integrità di un file:
+sempre da `read_bytes()`, forma canonica LF, e un CR isolato viene rifiutato
+invece di essere convertito in silenzio. Dodici artefatti di otto fasi chiuse
+portano impronte prese sotto la convenzione implicita precedente: non vengono
+riscritte, sono registrate in
+`benchmarks/mtb_evidence/v3/hermetic_reproducibility_closure/`.
+
+## Migrazione del ledger
+
+Lo schema v2 viene applicato automaticamente all'apertura del ledger. La
+migrazione è **additiva**: `ALTER TABLE ADD COLUMN` non attiva i trigger
+append-only e non riscrive le righe esistenti, che restano marcate `v1` e
+continuano a verificare con il preimage originale.
+
+```bash
+# Ispezione dell'integrità di un run
+PYTHONPATH=. python -c "from backend.pipeline.agentic.ledger import EventLedger; \
+  print(EventLedger('data/agent_events.sqlite3').chain_report('<run_id>'))"
+```
+
+Consigliata una copia di `data/agent_events.sqlite3` prima del primo avvio con
+lo schema v2, per prudenza sull'archivio di audit.
+
+## Case study riproducibile
+
+```bash
+PYTHONPATH=. SOURCE_VERIFIER_MAX_WORKERS=6 \
+  python experiments/thesis_alignment/run_case_study.py --live
+```
+
+Esegue EGFR L858R / Lung Adenocarcinoma / first-line / `general-review` su
+entrambe le architetture, in fase cold e warm, con **cache isolata per
+architettura** (altrimenti il cold della seconda sarebbe già caldo per effetto
+della prima). I risultati sono etichettati come **run live**, distinte da test
+con LLM scriptato, benchmark e case study descrittivo.

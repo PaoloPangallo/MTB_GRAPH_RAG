@@ -1,0 +1,54 @@
+{
+  "pilot": "companion_diagnostic_discovery",
+  "mode": "read_only_design",
+  "starting_commit": "d9b2a7f",
+  "snapshot_date": "2026-07-21",
+  "graph_counts": {
+    "CompanionDiagnostic": 166,
+    "HAS_COMPANION_DIAGNOSTIC": 150,
+    "DIAGNOSES_GENE": 163,
+    "Drug": 24502,
+    "Disease": 334,
+    "Evidence": 4860,
+    "Publication": 2222
+  },
+  "active_diagnostic_claims": 2,
+  "explicit_companion_diagnostic_nodes": 166,
+  "explicit_complementary_diagnostic_nodes": 0,
+  "explicit_screening_nodes": 0,
+  "explicit_confirmation_test_nodes": 0,
+  "active_claim_ids": [
+    "CLM-8941c177da91f66ff93a",
+    "CLM-a7e1c40b794d2c4d4ca8"
+  ],
+  "recommendation": "B_ONLY_VISUALIZATION",
+  "runtime_integration": false,
+  "live_services_used": false,
+  "facts": {
+    "test_biomarker_link": "partial",
+    "test_disease_link": "missing",
+    "test_therapy_link": "structural_association_only",
+    "test_technology": "present_as_platform_type",
+    "test_specimen": "present_as_specimen_types",
+    "test_source": "missing_on_companion_diagnostic_node"
+  },
+  "materialization_gap": "CDx nodes are consumed by legacy target/subgraph queries but are not inputs to v2_adapter, shadow claim builders, or V3 corpus materialization.",
+  "provenance_rule": "publication linked is not equivalent to claim supported",
+  "flags": {
+    "runtime_modified": false,
+    "knowledge_graph_modified": false,
+    "qualified_claim_repository_modified": false,
+    "gate_modified": false,
+    "scoring_modified": false,
+    "bucket_modified": false,
+    "ontology_mvp_modified": false,
+    "pmid_pilot_modified": false,
+    "diagnostic_categories_invented": false,
+    "regulatory_claims_invented": false,
+    "official_experiment_modified": false,
+    "official_ledgers_modified": false,
+    "gold_read_count": 0,
+    "push_executed": false,
+    "merge_executed": false
+  }
+}

@@ -1,0 +1,562 @@
+[
+  {
+    "case_id": "CASE-1-therapy-evaluation-strong-match",
+    "run_id": "76226620-2689-4f85-bdde-ca2f7c8db0f9",
+    "status": "FAILED",
+    "stopped_at": "PARSER_TRANSPORT_FAILED",
+    "parser_stage": {
+      "stage_id": "stage_2_casecontext_parser",
+      "stage_type": "CASECONTEXT_PARSER",
+      "sequence": 2,
+      "status": "FAILED",
+      "started_at": null,
+      "completed_at": "2026-09-30T18:35:31.497277+00:00",
+      "duration_ms": 0,
+      "input_ref": null,
+      "output_ref": null,
+      "input_preview": {},
+      "output_preview": {
+        "transport_result": "INVALID_TOOL_ARGUMENTS",
+        "parser_diagnostics": {
+          "http_status": 200,
+          "response_headers": {
+            "content-type": "application/json",
+            "x-request-id": "2bd91085-038e-417d-bc58-bcfea3d75a87",
+            "date": "Wed, 30 Sep 2026 18:35:32 GMT",
+            "server": "Google Frontend"
+          },
+          "raw_response_body": {
+            "id": "chatcmpl-664",
+            "object": "chat.completion",
+            "created": 1790793332,
+            "model": "gemma4:cloud",
+            "system_fingerprint": "fp_ollama",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "",
+                  "tool_calls": [
+                    {
+                      "id": "call_b9v1bc5i",
+                      "index": 0,
+                      "type": "function",
+                      "function": {
+                        "name": "submit_case_context",
+                        "arguments": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"G12D mutation\",\"raw_value\":\"G12D mutation\"},\"assertion_status\":\"PRESENT\",\"gene\":{\"quote\":\"KRAS\",\"raw_value\":\"KRAS\"}}],\"clinical_question\":\"whether panitumumab would be an appropriate therapy for this patient\",\"companion_diagnostic_mentions\":[],\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"patient diagnosis\",\"value\":{\"quote\":\"metastatic colorectal cancer\",\"raw_value\":\"metastatic colorectal cancer\"}}],\"interventions\":[{\"assertion_status\":\"UNKNOWN\",\"name\":{\"quote\":\"panitumumab\",\"raw_value\":\"panitumumab\"},\"role\":\"target therapy\"}],\"previous_interventions\":[],\"query_intent\":\"THERAPY_EVALUATION\",\"target_intervention\":{},\"trial_mentions\":[]}"
+                      }
+                    }
+                  ]
+                },
+                "finish_reason": "tool_calls"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 1872,
+              "completion_tokens": 213,
+              "total_tokens": 2085,
+              "prompt_tokens_details": {
+                "cached_tokens": 1856
+              }
+            }
+          },
+          "attempt_count": 1,
+          "finish_reason": "tool_calls",
+          "message_content": "",
+          "tool_calls_present": true,
+          "tool_name": "submit_case_context",
+          "function_arguments_raw": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"G12D mutation\",\"raw_value\":\"G12D mutation\"},\"assertion_status\":\"PRESENT\",\"gene\":{\"quote\":\"KRAS\",\"raw_value\":\"KRAS\"}}],\"clinical_question\":\"whether panitumumab would be an appropriate therapy for this patient\",\"companion_diagnostic_mentions\":[],\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"patient diagnosis\",\"value\":{\"quote\":\"metastatic colorectal cancer\",\"raw_value\":\"metastatic colorectal cancer\"}}],\"interventions\":[{\"assertion_status\":\"UNKNOWN\",\"name\":{\"quote\":\"panitumumab\",\"raw_value\":\"panitumumab\"},\"role\":\"target therapy\"}],\"previous_interventions\":[],\"query_intent\":\"THERAPY_EVALUATION\",\"target_intervention\":{},\"trial_mentions\":[]}",
+          "validation_errors": [
+            "TARGET_INTERVENTION_KEYS_INVALID"
+          ],
+          "disease_normalization": null,
+          "target_intervention_normalization": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "finish_reason": "tool_calls",
+              "tool_calls_present": true,
+              "reason_codes": [
+                "TARGET_INTERVENTION_KEYS_INVALID"
+              ],
+              "transport_result": "INVALID_TOOL_ARGUMENTS"
+            }
+          ],
+          "retry_result": null
+        }
+      },
+      "reason_codes": [
+        "PARSER_TRANSPORT_FAILED"
+      ],
+      "warnings": [],
+      "errors": [
+        "INVALID_TOOL_ARGUMENTS"
+      ],
+      "producer": {
+        "kind": "LLM",
+        "component": "casecontext_parser",
+        "version": "end-to-end-pilot-casecontext/1.0",
+        "model": "gemma4:cloud",
+        "prompt_version": "casecontext-parser-prompt/3.1",
+        "transport_version": null
+      },
+      "metrics": {},
+      "lineage": {},
+      "execution_mode": "LIVE",
+      "artifact_origin": "GENERATED_NOW"
+    },
+    "dossier_response": {
+      "unavailable": "HTTP Error 409: Conflict"
+    }
+  },
+  {
+    "case_id": "CASE-2-therapy-discovery",
+    "run_id": "db7d37f3-6c1d-4b47-901b-1f268cb92c40",
+    "status": "FAILED",
+    "stopped_at": "PARSER_TRANSPORT_FAILED",
+    "parser_stage": {
+      "stage_id": "stage_2_casecontext_parser",
+      "stage_type": "CASECONTEXT_PARSER",
+      "sequence": 2,
+      "status": "FAILED",
+      "started_at": null,
+      "completed_at": "2026-09-30T18:35:33.695016+00:00",
+      "duration_ms": 265,
+      "input_ref": null,
+      "output_ref": null,
+      "input_preview": {},
+      "output_preview": {
+        "transport_result": "INVALID_TOOL_ARGUMENTS",
+        "parser_diagnostics": {
+          "http_status": 200,
+          "response_headers": {
+            "content-type": "application/json",
+            "x-request-id": "9bc1a16a-09ad-45d4-9175-d3717060eb7c",
+            "date": "Wed, 30 Sep 2026 18:35:34 GMT",
+            "server": "Google Frontend"
+          },
+          "raw_response_body": {
+            "id": "chatcmpl-13",
+            "object": "chat.completion",
+            "created": 1790793334,
+            "model": "gemma4:cloud",
+            "system_fingerprint": "fp_ollama",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "",
+                  "tool_calls": [
+                    {
+                      "id": "call_2vo82y3d",
+                      "index": 0,
+                      "type": "function",
+                      "function": {
+                        "name": "submit_case_context",
+                        "arguments": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"V600E mutation\",\"raw_value\":\"V600E mutation\"},\"assertion_status\":\"PRESENT\",\"gene\":{\"quote\":\"BRAF\",\"raw_value\":\"BRAF\"}}],\"clinical_question\":\"Which therapeutic options are associated with this molecular alteration in this disease context?\",\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"patient diagnosis\",\"value\":{\"quote\":\"metastatic colorectal cancer\",\"raw_value\":\"metastatic colorectal cancer\"}}],\"interventions\":[],\"previous_interventions\":[],\"query_intent\":\"THERAPY_DISCOVERY\",\"target_intervention\":{},\"trial_mentions\":[]}"
+                      }
+                    }
+                  ]
+                },
+                "finish_reason": "tool_calls"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 1860,
+              "completion_tokens": 173,
+              "total_tokens": 2033,
+              "prompt_tokens_details": {
+                "cached_tokens": 1760
+              }
+            }
+          },
+          "attempt_count": 1,
+          "finish_reason": "tool_calls",
+          "message_content": "",
+          "tool_calls_present": true,
+          "tool_name": "submit_case_context",
+          "function_arguments_raw": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"V600E mutation\",\"raw_value\":\"V600E mutation\"},\"assertion_status\":\"PRESENT\",\"gene\":{\"quote\":\"BRAF\",\"raw_value\":\"BRAF\"}}],\"clinical_question\":\"Which therapeutic options are associated with this molecular alteration in this disease context?\",\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"patient diagnosis\",\"value\":{\"quote\":\"metastatic colorectal cancer\",\"raw_value\":\"metastatic colorectal cancer\"}}],\"interventions\":[],\"previous_interventions\":[],\"query_intent\":\"THERAPY_DISCOVERY\",\"target_intervention\":{},\"trial_mentions\":[]}",
+          "validation_errors": [
+            "TARGET_INTERVENTION_KEYS_INVALID"
+          ],
+          "disease_normalization": null,
+          "target_intervention_normalization": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "finish_reason": "tool_calls",
+              "tool_calls_present": true,
+              "reason_codes": [
+                "TARGET_INTERVENTION_KEYS_INVALID"
+              ],
+              "transport_result": "INVALID_TOOL_ARGUMENTS"
+            }
+          ],
+          "retry_result": null
+        }
+      },
+      "reason_codes": [
+        "PARSER_TRANSPORT_FAILED"
+      ],
+      "warnings": [],
+      "errors": [
+        "INVALID_TOOL_ARGUMENTS"
+      ],
+      "producer": {
+        "kind": "LLM",
+        "component": "casecontext_parser",
+        "version": "end-to-end-pilot-casecontext/1.0",
+        "model": "gemma4:cloud",
+        "prompt_version": "casecontext-parser-prompt/3.1",
+        "transport_version": null
+      },
+      "metrics": {},
+      "lineage": {},
+      "execution_mode": "LIVE",
+      "artifact_origin": "GENERATED_NOW"
+    },
+    "dossier_response": {
+      "unavailable": "HTTP Error 409: Conflict"
+    }
+  },
+  {
+    "case_id": "CASE-3-partial-incomplete-context",
+    "run_id": "ff598305-3b6d-4deb-9454-6ce11cf3686f",
+    "status": "FAILED",
+    "stopped_at": "PARSER_TRANSPORT_FAILED",
+    "parser_stage": {
+      "stage_id": "stage_2_casecontext_parser",
+      "stage_type": "CASECONTEXT_PARSER",
+      "sequence": 2,
+      "status": "FAILED",
+      "started_at": null,
+      "completed_at": "2026-09-30T18:35:35.775707+00:00",
+      "duration_ms": 15,
+      "input_ref": null,
+      "output_ref": null,
+      "input_preview": {},
+      "output_preview": {
+        "transport_result": "INVALID_TOOL_ARGUMENTS",
+        "parser_diagnostics": {
+          "http_status": 200,
+          "response_headers": {
+            "content-type": "application/json",
+            "x-request-id": "0d82f2de-888f-4186-aa2d-d47ac15643a9",
+            "date": "Wed, 30 Sep 2026 18:35:36 GMT",
+            "server": "Google Frontend"
+          },
+          "raw_response_body": {
+            "id": "chatcmpl-825",
+            "object": "chat.completion",
+            "created": 1790793336,
+            "model": "gemma4:cloud",
+            "system_fingerprint": "fp_ollama",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "",
+                  "tool_calls": [
+                    {
+                      "id": "call_5t0ugaiz",
+                      "index": 0,
+                      "type": "function",
+                      "function": {
+                        "name": "submit_case_context",
+                        "arguments": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"microsatellite instability (MSI)\",\"raw_value\":\"microsatellite instability (MSI)\"},\"alteration_type\":null,\"assertion_status\":\"PRESENT\",\"clinical_role\":null,\"gene\":{\"quote\":\"microsatellite instability (MSI)\",\"raw_value\":\"microsatellite instability (MSI)\"}}],\"clinical_question\":null,\"companion_diagnostic_mentions\":[],\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"diagnosis\",\"value\":{\"quote\":\"colorectal cancer\",\"raw_value\":\"colorectal cancer\"}}],\"interventions\":[{\"assertion_status\":\"UNKNOWN\",\"name\":{\"quote\":\"nivolumab\",\"raw_value\":\"nivolumab\"},\"role\":\"subsequent treatment option\"}],\"previous_interventions\":[{\"quote\":\"fluoropyrimidine-based chemotherapy\",\"raw_value\":\"fluoropyrimidine-based chemotherapy\"}],\"query_intent\":\"THERAPY_EVALUATION\",\"target_intervention\":{},\"trial_mentions\":[]}"
+                      }
+                    }
+                  ]
+                },
+                "finish_reason": "tool_calls"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 1877,
+              "completion_tokens": 260,
+              "total_tokens": 2137,
+              "prompt_tokens_details": {
+                "cached_tokens": 1760
+              }
+            }
+          },
+          "attempt_count": 1,
+          "finish_reason": "tool_calls",
+          "message_content": "",
+          "tool_calls_present": true,
+          "tool_name": "submit_case_context",
+          "function_arguments_raw": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"microsatellite instability (MSI)\",\"raw_value\":\"microsatellite instability (MSI)\"},\"alteration_type\":null,\"assertion_status\":\"PRESENT\",\"clinical_role\":null,\"gene\":{\"quote\":\"microsatellite instability (MSI)\",\"raw_value\":\"microsatellite instability (MSI)\"}}],\"clinical_question\":null,\"companion_diagnostic_mentions\":[],\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"diagnosis\",\"value\":{\"quote\":\"colorectal cancer\",\"raw_value\":\"colorectal cancer\"}}],\"interventions\":[{\"assertion_status\":\"UNKNOWN\",\"name\":{\"quote\":\"nivolumab\",\"raw_value\":\"nivolumab\"},\"role\":\"subsequent treatment option\"}],\"previous_interventions\":[{\"quote\":\"fluoropyrimidine-based chemotherapy\",\"raw_value\":\"fluoropyrimidine-based chemotherapy\"}],\"query_intent\":\"THERAPY_EVALUATION\",\"target_intervention\":{},\"trial_mentions\":[]}",
+          "validation_errors": [
+            "TARGET_INTERVENTION_KEYS_INVALID"
+          ],
+          "disease_normalization": null,
+          "target_intervention_normalization": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "finish_reason": "tool_calls",
+              "tool_calls_present": true,
+              "reason_codes": [
+                "TARGET_INTERVENTION_KEYS_INVALID"
+              ],
+              "transport_result": "INVALID_TOOL_ARGUMENTS"
+            }
+          ],
+          "retry_result": null
+        }
+      },
+      "reason_codes": [
+        "PARSER_TRANSPORT_FAILED"
+      ],
+      "warnings": [],
+      "errors": [
+        "INVALID_TOOL_ARGUMENTS"
+      ],
+      "producer": {
+        "kind": "LLM",
+        "component": "casecontext_parser",
+        "version": "end-to-end-pilot-casecontext/1.0",
+        "model": "gemma4:cloud",
+        "prompt_version": "casecontext-parser-prompt/3.1",
+        "transport_version": null
+      },
+      "metrics": {},
+      "lineage": {},
+      "execution_mode": "LIVE",
+      "artifact_origin": "GENERATED_NOW"
+    },
+    "dossier_response": {
+      "unavailable": "HTTP Error 409: Conflict"
+    }
+  },
+  {
+    "case_id": "CASE-4-contradicted-or-resistance",
+    "run_id": "3f83d474-1b57-47df-8925-9a61ab5ef618",
+    "status": "FAILED",
+    "stopped_at": "PARSER_TRANSPORT_FAILED",
+    "parser_stage": {
+      "stage_id": "stage_2_casecontext_parser",
+      "stage_type": "CASECONTEXT_PARSER",
+      "sequence": 2,
+      "status": "FAILED",
+      "started_at": null,
+      "completed_at": "2026-09-30T18:35:37.642912+00:00",
+      "duration_ms": 15,
+      "input_ref": null,
+      "output_ref": null,
+      "input_preview": {},
+      "output_preview": {
+        "transport_result": "INVALID_TOOL_ARGUMENTS",
+        "parser_diagnostics": {
+          "http_status": 200,
+          "response_headers": {
+            "content-type": "application/json",
+            "x-request-id": "82af7d27-bd00-4eab-a808-0fbc7b14c9f8",
+            "date": "Wed, 30 Sep 2026 18:35:38 GMT",
+            "server": "Google Frontend"
+          },
+          "raw_response_body": {
+            "id": "chatcmpl-356",
+            "object": "chat.completion",
+            "created": 1790793338,
+            "model": "gemma4:cloud",
+            "system_fingerprint": "fp_ollama",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "",
+                  "tool_calls": [
+                    {
+                      "id": "call_qimz42k6",
+                      "index": 0,
+                      "type": "function",
+                      "function": {
+                        "name": "submit_case_context",
+                        "arguments": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"amplification\",\"raw_value\":\"amplification\"},\"assertion_status\":\"PRESENT\",\"gene\":{\"quote\":\"FGFR1\",\"raw_value\":\"FGFR1\"}}],\"clinical_question\":\"The oncology team is evaluating infigratinib for this patient and would like to understand what the available literature reports.\",\"companion_diagnostic_mentions\":[],\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"patient diagnosis\",\"value\":{\"quote\":\"lung squamous cell carcinoma\",\"raw_value\":\"lung squamous cell carcinoma\"}}],\"interventions\":[{\"assertion_status\":\"UNKNOWN\",\"name\":{\"quote\":\"infigratinib\",\"raw_value\":\"infigratinib\"},\"role\":\"target intervention\"}],\"previous_interventions\":[],\"query_intent\":\"THERAPY_EVALUATION\",\"target_intervention\":{},\"trial_mentions\":[]}"
+                      }
+                    }
+                  ]
+                },
+                "finish_reason": "tool_calls"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 1868,
+              "completion_tokens": 222,
+              "total_tokens": 2090,
+              "prompt_tokens_details": {
+                "cached_tokens": 1760
+              }
+            }
+          },
+          "attempt_count": 1,
+          "finish_reason": "tool_calls",
+          "message_content": "",
+          "tool_calls_present": true,
+          "tool_name": "submit_case_context",
+          "function_arguments_raw": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"amplification\",\"raw_value\":\"amplification\"},\"assertion_status\":\"PRESENT\",\"gene\":{\"quote\":\"FGFR1\",\"raw_value\":\"FGFR1\"}}],\"clinical_question\":\"The oncology team is evaluating infigratinib for this patient and would like to understand what the available literature reports.\",\"companion_diagnostic_mentions\":[],\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"patient diagnosis\",\"value\":{\"quote\":\"lung squamous cell carcinoma\",\"raw_value\":\"lung squamous cell carcinoma\"}}],\"interventions\":[{\"assertion_status\":\"UNKNOWN\",\"name\":{\"quote\":\"infigratinib\",\"raw_value\":\"infigratinib\"},\"role\":\"target intervention\"}],\"previous_interventions\":[],\"query_intent\":\"THERAPY_EVALUATION\",\"target_intervention\":{},\"trial_mentions\":[]}",
+          "validation_errors": [
+            "TARGET_INTERVENTION_KEYS_INVALID"
+          ],
+          "disease_normalization": null,
+          "target_intervention_normalization": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "finish_reason": "tool_calls",
+              "tool_calls_present": true,
+              "reason_codes": [
+                "TARGET_INTERVENTION_KEYS_INVALID"
+              ],
+              "transport_result": "INVALID_TOOL_ARGUMENTS"
+            }
+          ],
+          "retry_result": null
+        }
+      },
+      "reason_codes": [
+        "PARSER_TRANSPORT_FAILED"
+      ],
+      "warnings": [],
+      "errors": [
+        "INVALID_TOOL_ARGUMENTS"
+      ],
+      "producer": {
+        "kind": "LLM",
+        "component": "casecontext_parser",
+        "version": "end-to-end-pilot-casecontext/1.0",
+        "model": "gemma4:cloud",
+        "prompt_version": "casecontext-parser-prompt/3.1",
+        "transport_version": null
+      },
+      "metrics": {},
+      "lineage": {},
+      "execution_mode": "LIVE",
+      "artifact_origin": "GENERATED_NOW"
+    },
+    "dossier_response": {
+      "unavailable": "HTTP Error 409: Conflict"
+    }
+  },
+  {
+    "case_id": "CASE-5-casecontext-mismatch-no-match",
+    "run_id": "58d94feb-2fde-4e0a-9918-aadf66e660a0",
+    "status": "FAILED",
+    "stopped_at": "PARSER_TRANSPORT_FAILED",
+    "parser_stage": {
+      "stage_id": "stage_2_casecontext_parser",
+      "stage_type": "CASECONTEXT_PARSER",
+      "sequence": 2,
+      "status": "FAILED",
+      "started_at": null,
+      "completed_at": "2026-09-30T18:35:39.440163+00:00",
+      "duration_ms": 15,
+      "input_ref": null,
+      "output_ref": null,
+      "input_preview": {},
+      "output_preview": {
+        "transport_result": "INVALID_TOOL_ARGUMENTS",
+        "parser_diagnostics": {
+          "http_status": 200,
+          "response_headers": {
+            "content-type": "application/json",
+            "x-request-id": "6e88c8f8-cd72-486d-960e-63a82c9dc162",
+            "date": "Wed, 30 Sep 2026 18:35:40 GMT",
+            "server": "Google Frontend"
+          },
+          "raw_response_body": {
+            "id": "chatcmpl-341",
+            "object": "chat.completion",
+            "created": 1790793340,
+            "model": "gemma4:cloud",
+            "system_fingerprint": "fp_ollama",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "",
+                  "tool_calls": [
+                    {
+                      "id": "call_iwqy7lmd",
+                      "index": 0,
+                      "type": "function",
+                      "function": {
+                        "name": "submit_case_context",
+                        "arguments": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"P44R alteration\",\"raw_value\":\"P44R alteration\"},\"assertion_status\":\"PRESENT\",\"clinical_role\":\"uncertain clinical significance\",\"gene\":{\"quote\":\"ZZTK9\",\"raw_value\":\"ZZTK9\"}}],\"clinical_question\":\"whether panitumumab could be considered for this patient\",\"companion_diagnostic_mentions\":[],\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"patient with\",\"value\":{\"quote\":\"colorectal cancer\",\"raw_value\":\"colorectal cancer\"}}],\"interventions\":[{\"assertion_status\":\"UNKNOWN\",\"name\":{\"quote\":\"panitumumab\",\"raw_value\":\"panitumumab\"},\"role\":\"target intervention\"}],\"previous_interventions\":[],\"query_intent\":\"THERAPY_EVALUATION\",\"target_intervention\":{},\"trial_mentions\":[]}"
+                      }
+                    }
+                  ]
+                },
+                "finish_reason": "tool_calls"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 1871,
+              "completion_tokens": 223,
+              "total_tokens": 2094,
+              "prompt_tokens_details": {
+                "cached_tokens": 1760
+              }
+            }
+          },
+          "attempt_count": 1,
+          "finish_reason": "tool_calls",
+          "message_content": "",
+          "tool_calls_present": true,
+          "tool_name": "submit_case_context",
+          "function_arguments_raw": "{\"biomarkers\":[{\"alteration\":{\"quote\":\"P44R alteration\",\"raw_value\":\"P44R alteration\"},\"assertion_status\":\"PRESENT\",\"clinical_role\":\"uncertain clinical significance\",\"gene\":{\"quote\":\"ZZTK9\",\"raw_value\":\"ZZTK9\"}}],\"clinical_question\":\"whether panitumumab could be considered for this patient\",\"companion_diagnostic_mentions\":[],\"disease\":null,\"diseases\":[{\"assertion_status\":\"PRESENT\",\"clinical_role\":\"patient with\",\"value\":{\"quote\":\"colorectal cancer\",\"raw_value\":\"colorectal cancer\"}}],\"interventions\":[{\"assertion_status\":\"UNKNOWN\",\"name\":{\"quote\":\"panitumumab\",\"raw_value\":\"panitumumab\"},\"role\":\"target intervention\"}],\"previous_interventions\":[],\"query_intent\":\"THERAPY_EVALUATION\",\"target_intervention\":{},\"trial_mentions\":[]}",
+          "validation_errors": [
+            "TARGET_INTERVENTION_KEYS_INVALID"
+          ],
+          "disease_normalization": null,
+          "target_intervention_normalization": null,
+          "attempts": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "finish_reason": "tool_calls",
+              "tool_calls_present": true,
+              "reason_codes": [
+                "TARGET_INTERVENTION_KEYS_INVALID"
+              ],
+              "transport_result": "INVALID_TOOL_ARGUMENTS"
+            }
+          ],
+          "retry_result": null
+        }
+      },
+      "reason_codes": [
+        "PARSER_TRANSPORT_FAILED"
+      ],
+      "warnings": [],
+      "errors": [
+        "INVALID_TOOL_ARGUMENTS"
+      ],
+      "producer": {
+        "kind": "LLM",
+        "component": "casecontext_parser",
+        "version": "end-to-end-pilot-casecontext/1.0",
+        "model": "gemma4:cloud",
+        "prompt_version": "casecontext-parser-prompt/3.1",
+        "transport_version": null
+      },
+      "metrics": {},
+      "lineage": {},
+      "execution_mode": "LIVE",
+      "artifact_origin": "GENERATED_NOW"
+    },
+    "dossier_response": {
+      "unavailable": "HTTP Error 409: Conflict"
+    }
+  }
+]

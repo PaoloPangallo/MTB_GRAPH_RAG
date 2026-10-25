@@ -1,0 +1,46 @@
+{
+  "corpus_file_sha256": {
+    "claim_replacement_lineage.jsonl": "5f6bfe9cc69cf5e441d5d2eb1eb7dad00d0faba8f13cc24bbe463d5ef421bd89",
+    "deprecated_claims.jsonl": "4fc60c1e52f3850edaba7096b538b74c3fe3f2f19bdefd011490d4aed3b99f7c",
+    "diagnostic_claims.jsonl": "9fe1ec838639250feaa93b9f6791d68d64ef2875a63ddb68f2ba99e92b3fe912",
+    "disease_relation_registry.json": "eb9d3431eb3294318f0b0f3ee694e92591a0e8917e5e5e7de0b312c66f116395",
+    "evidence_claims.jsonl": "28c2614840e3a51be45de189088fde4108a732c6c68e0e6c5dc3edf712dce517",
+    "formulation_registry.jsonl": "9bfaf03b4ec142aa6f2ab91ac8627b2ef3557c65acc37821bc5f4c500532d8e0",
+    "graph_evidence_parents.jsonl": "152327cc74801806b6916a26f99b7c220ff2eb0c84599a2c59827a04c8a3926d",
+    "prognostic_claims.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualification_links.jsonl": "6856a3cc631f149d44e0bc3104ec8db11392e6003ea73a580fff49de799d624c",
+    "qualified_evidence_views.jsonl": "266076f24771c5c4f5f9dd6cc0ce00a220fd46e89930437115076ebaa9dc79ea",
+    "terminology_registry.json": "0fb3ba96d51d6f45bfa1fcafb99c0cacc43b27610babc80f5dd075c849846778",
+    "therapeutic_claims.jsonl": "512c17918c4283591525b21a4d34cc781aa2a3c45bf15ddc982e9ecce0eedaa0",
+    "unresolved_associations.jsonl": "5013fd853dc5c5f2702e2fcd32ab4a848a6c5524faab51f12d6d9b882d5ecd7a",
+    "unsupported_associations.jsonl": "95b4eabca69c9ba9ed816e5a0ea44785297aaff812f21a64dba6a62258087aaf"
+  },
+  "idempotent": true,
+  "modes": [
+    "retain_for_audit",
+    "move_to_inactive"
+  ],
+  "operational_artifacts_touched_by_rollback": [],
+  "operational_retriever_was_never_bound": true,
+  "preserved_files": [
+    "claim_replacement_lineage.jsonl",
+    "promotion_log.json",
+    "rollback_metadata.json"
+  ],
+  "procedure": [
+    "disattivare la voce di registro della 1.4",
+    "riportare il puntatore prototipale al bersaglio di rollback, se presente",
+    "conservare i file promossi per audit, oppure spostarli in stato inactive",
+    "non rimuovere lineage, promotion log e rollback metadata",
+    "verificare che gli hash operativi non siano cambiati",
+    "verificare che il retriever operativo non sia mai stato collegato"
+  ],
+  "registry_relpath": "backend/pipeline/evidence/corpus/v3/prototype_corpus_registry.json",
+  "repository_version": "qualified_claim_repository/1.4",
+  "rollback_scope": "prototype_registry_pointer_only",
+  "rollback_target": null,
+  "rollback_target_note": "Nessun corpus prototipale era stato promosso prima della 1.4: il rollback riporta il puntatore a nessuno, non a una versione precedente. Dichiararlo `null` invece di inventare un bersaglio evita che un ripristino sembri possibile dove non lo e'.",
+  "shadow_repository_removed_by_rollback": false,
+  "source_shadow_sha256": "22d5d730969277eab7c470ebed02e8a6503a3500ab537ec547425d3d99bfb72d",
+  "source_shadow_version": "qualified_claim_repository/1.4"
+}

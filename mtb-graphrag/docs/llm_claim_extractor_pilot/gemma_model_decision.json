@@ -1,0 +1,32 @@
+{
+  "baseline_criteria": {
+    "accepted_pass": false,
+    "accepted_ratio": "1/3",
+    "contradicted_not_promoted": true,
+    "graph_only_accepted": 0,
+    "graph_only_pass": true,
+    "invented_source_units_accepted": 0,
+    "invented_source_units_pass": true,
+    "nonexistent_quotes_accepted": 0,
+    "nonexistent_quotes_pass": true,
+    "semantic_reached_pass": true,
+    "semantic_reached_ratio": "3/3",
+    "transport_valid_pass": true,
+    "transport_valid_ratio": "3/3",
+    "validator_unchanged": true
+  },
+  "decision": "MODEL_SEMANTIC_GROUNDING_INSUFFICIENT",
+  "decision_basis": "baseline accepted_ratio criterion (>=2/3) not met (1/3)",
+  "full_75_call_pilot_authorized": false,
+  "model": "gemma4:cloud",
+  "preferred_75_call_criteria": {
+    "contradicted_preserved": true,
+    "direct_preserved": true,
+    "no_unsupported_accepted_field": true,
+    "semantic_3_of_3": true,
+    "transport_3_of_3": true
+  },
+  "prompt_modified_for_gemma": false,
+  "semantic_validator_weakened": false,
+  "transport_modified_for_gemma": false
+}

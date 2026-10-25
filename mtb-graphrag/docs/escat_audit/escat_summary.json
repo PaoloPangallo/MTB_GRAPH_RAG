@@ -1,0 +1,58 @@
+{
+  "audit": "escat_presence_audit",
+  "mode": "read_only",
+  "snapshot": {
+    "manifest": "benchmarks/mtb_evidence/pilot/audit/graph_snapshot_manifest.json",
+    "timestamp": "2026-07-21T17:35:58.570517+00:00",
+    "commit_sha": "c295e1d7753fb247a60456f8e69d2f4210d2e309",
+    "evidence_nodes": 4860,
+    "total_active_claims": 148
+  },
+  "escat": {
+    "graph_property_records": 0,
+    "graph_edge_records": 0,
+    "graph_escat_nodes": 0,
+    "graph_evidence_record_fields": 0,
+    "source_unit_records": 0,
+    "qualified_claim_records": 0,
+    "legacy_derived_runtime_field": "escat_tier",
+    "contract_allows_system": "escat"
+  },
+  "claim_coverage": {
+    "claims_with_escat_in_graph": 0,
+    "claims_preserving_escat": 0,
+    "claims_losing_escat": 0,
+    "claims_with_multiple_escat_values": 0,
+    "claims_without_escat": 148,
+    "context_mismatches": 0,
+    "context_mismatch_status": "not_computable_without_escat_records",
+    "therapeutic": 146,
+    "resistance": 49,
+    "diagnostic": 2,
+    "aggregate": 3
+  },
+  "escat_distribution": {
+    "I-A": 0,
+    "I-B": 0,
+    "I-C": 0,
+    "II-A": 0,
+    "II-B": 0,
+    "III-A": 0,
+    "III-B": 0,
+    "IV-A": 0,
+    "IV-B": 0,
+    "V": 0,
+    "X": 0,
+    "generic_I": 0,
+    "generic_II": 0,
+    "generic_III": 0,
+    "generic_IV": 0,
+    "unrecognized": 0,
+    "missing_evidence_nodes": 4860,
+    "missing_active_claims": 148
+  },
+  "recommendation": "E_ESCAT_NOT_PRESENT_IN_ACTIVE_DATA",
+  "external_services_used": false,
+  "escat_values_inferred": false,
+  "escat_values_modified": false
+}

@@ -1,0 +1,639 @@
+{
+  "source_unit": {
+    "source_unit_id": "SU-CONTRACT",
+    "document_id": "pmid:123",
+    "unit_type": null,
+    "locator": {
+      "section": "Results",
+      "paragraph_index": 2,
+      "sentence_index": 3,
+      "char_start": 10,
+      "char_end": 44,
+      "page": null,
+      "confidence": null
+    },
+    "index": 3,
+    "exact_text_available": true,
+    "length": 35,
+    "text_preview": "Grounded passage from the document.",
+    "content_hash": null,
+    "selectable": true,
+    "reason_codes": [],
+    "lineage": {
+      "parser": "parser-contract",
+      "parser_version": "1",
+      "loader_version": "live-source-unit-loader/1.0"
+    }
+  },
+  "empty_report": {
+    "run_status": "STOPPED",
+    "case_summary": {
+      "case_id": null,
+      "disease": null,
+      "gene": null,
+      "variant": null,
+      "intervention": null,
+      "intent": null
+    },
+    "retrieval_summary": {
+      "total_candidates": 0,
+      "paper_candidates": 0,
+      "trial_candidates": 0,
+      "kg_only_candidates": 0
+    },
+    "paper_evidence": [],
+    "clinical_trials": [],
+    "kg_only_relations": [],
+    "claims": [],
+    "aggregation_reconciliation": {
+      "accepted_input_records": 0,
+      "rejected_input_records": 0,
+      "dossier_accepted_records": 0,
+      "dossier_rejected_records": 0,
+      "missing_accepted_records": 0,
+      "unsupported_dossier_records": 0,
+      "unaccounted_records": 0
+    },
+    "limitations": [],
+    "provenance_summary": {
+      "candidate_ids": [],
+      "paper_document_ids": [],
+      "trial_ids": [],
+      "graph_only_candidate_ids": []
+    }
+  },
+  "generated_from": [
+    "backend.research_pipeline.documents.live_resolution._preview_for",
+    "backend.research_pipeline.dossier.builder.build_relation_aware_report",
+    "backend.research_pipeline.retrieval.kg_retrieval.load_candidates (repository 4.0)",
+    "backend.research_pipeline.events.EVENT_TYPES"
+  ],
+  "unresolved_report": {
+    "run_status": "PARTIAL",
+    "case_summary": {
+      "case_id": "CONTRACT-TEST",
+      "disease": null,
+      "gene": null,
+      "variant": null,
+      "intervention": null,
+      "intent": null
+    },
+    "retrieval_summary": {
+      "total_candidates": 3,
+      "paper_candidates": 1,
+      "trial_candidates": 1,
+      "kg_only_candidates": 1
+    },
+    "paper_evidence": [
+      {
+        "candidate_id": "GCA4-000b81b1296a2cd3d24bdd8b",
+        "relation_family": "PAPER_EVIDENCE",
+        "subject": {
+          "id": "MolecularProfile:81",
+          "label": "KRAS G13D",
+          "type": "MolecularProfile"
+        },
+        "relation": "has_evidence_statement",
+        "object": {
+          "id": "Evidence:3881",
+          "label": "This was a retrospective study of 691 cetuximab treated patients with metastatic colorectal cancer. Of those, 50 patients harbored KRAS G13D, were BRAF, NRAS and PIK3CA wt, and had individual response data. Nine patients had partial response, 19 had stable disease, and 22 progressed. Treatments included cetuximab + irinotecan (n=38), cetuximab + FOLFIRI (n=5), cetuximab monotherapy (n=4), cetuximab + oxaliplatin + 5FU (n=2), and cetuximab + irinotecan + oxaliplatin + 5FU (n=1). Median PFS was 16 weeks (3-101 weeks), median OS was 33 weeks (3-161 weeks), and median number of previous chemotherapy lines was 2 (0-4). Median age was 65 years old (34-78), and there were 29 males and 20 females. Authors concluded that KRAS mutation was strongly associated with poor response to cetuximab and suggested that mutation status of KRAS is the most informative compared to BRAF, NRAS, and PIK3CA exon 20 for predicting cetuximab response.",
+          "type": "Evidence"
+        },
+        "disease_context": [
+          "Colorectal Cancer"
+        ],
+        "direction": "Supports",
+        "evidence_type": "Predictive",
+        "graph_provenance": {
+          "node_ids": [
+            "MolecularProfile:81",
+            "Variant:81",
+            "Evidence:3881"
+          ],
+          "edge_ids": [
+            "row:edge_has_evidence.csv:2160:898cfc16e42b2131",
+            "row:edge_in_molecular_profile.csv:65:1b6f360b165972ba"
+          ],
+          "graph_path": [
+            "MolecularProfile:81",
+            "Variant:81",
+            "Evidence:3881"
+          ],
+          "materialization_rule_id": "gca/4.0/evidence_statement"
+        },
+        "document_id": null,
+        "declared_source_identity": "pmid:20619739",
+        "resolved_source_identity": null,
+        "requested_document_id": "pmid:20619739",
+        "source_type": "PubMed",
+        "claim_id": "CLAIM-176f5614fe6dd81f69126e9e",
+        "claim": {
+          "claim_id": "CLAIM-176f5614fe6dd81f69126e9e",
+          "candidate_id": "GCA4-000b81b1296a2cd3d24bdd8b",
+          "candidate_group_candidate_ids": [
+            "GCA4-000b81b1296a2cd3d24bdd8b"
+          ],
+          "member_semantic_identities": [
+            "EVIDENCE_STATEMENT|Evidence:3881"
+          ],
+          "group_graph_paths": [],
+          "relation_family": "PAPER_EVIDENCE",
+          "relation_origin": "DIRECT",
+          "composite_lineage": null,
+          "subject": {
+            "id": "MolecularProfile:81",
+            "label": "KRAS G13D",
+            "type": "MolecularProfile"
+          },
+          "object": {
+            "id": "Evidence:3881",
+            "label": "This was a retrospective study of 691 cetuximab treated patients with metastatic colorectal cancer. Of those, 50 patients harbored KRAS G13D, were BRAF, NRAS and PIK3CA wt, and had individual response data. Nine patients had partial response, 19 had stable disease, and 22 progressed. Treatments included cetuximab + irinotecan (n=38), cetuximab + FOLFIRI (n=5), cetuximab monotherapy (n=4), cetuximab + oxaliplatin + 5FU (n=2), and cetuximab + irinotecan + oxaliplatin + 5FU (n=1). Median PFS was 16 weeks (3-101 weeks), median OS was 33 weeks (3-161 weeks), and median number of previous chemotherapy lines was 2 (0-4). Median age was 65 years old (34-78), and there were 29 males and 20 females. Authors concluded that KRAS mutation was strongly associated with poor response to cetuximab and suggested that mutation status of KRAS is the most informative compared to BRAF, NRAS, and PIK3CA exon 20 for predicting cetuximab response.",
+            "type": "Evidence"
+          },
+          "relation": "has_evidence_statement",
+          "disease_context": [
+            "Colorectal Cancer"
+          ],
+          "direction": "Supports",
+          "evidence_type": "Predictive",
+          "specificity": "VARIANT_LEVEL",
+          "gene_variant_pairings": [],
+          "status": "UNVERIFIABLE",
+          "representative_evidence_id": null,
+          "supporting_evidence_ids": [],
+          "partial_evidence_ids": [],
+          "contradicting_evidence_ids": [],
+          "no_support_evidence_ids": [],
+          "unverifiable_evidence_ids": [],
+          "rejected_evidence_ids": [],
+          "source_record_ids": [
+            "row:edge_has_evidence.csv:2160:898cfc16e42b2131"
+          ],
+          "source_datasets": [
+            "edge_has_evidence.csv"
+          ],
+          "semantic_key": "EVIDENCE_STATEMENT|Evidence:3881",
+          "graph_path": [
+            "MolecularProfile:81",
+            "Variant:81",
+            "Evidence:3881"
+          ],
+          "node_ids": [
+            "MolecularProfile:81",
+            "Variant:81",
+            "Evidence:3881"
+          ],
+          "edge_ids": [
+            "row:edge_has_evidence.csv:2160:898cfc16e42b2131",
+            "row:edge_in_molecular_profile.csv:65:1b6f360b165972ba"
+          ],
+          "materialization_rule": "gca/4.0/evidence_statement",
+          "document_ids": [],
+          "source_unit_ids": [],
+          "quotes": [],
+          "caveats": [],
+          "uncertainty": [],
+          "conflict_markers": [],
+          "contradiction_present": false
+        },
+        "representative_evidence_id": null,
+        "pmcid": null,
+        "document_type": null,
+        "document_source": null,
+        "document_resolution_status": "UNAVAILABLE",
+        "selected_source_units": [],
+        "selected_source_unit_ids": [],
+        "reader_status": null,
+        "reader_decision": null,
+        "quote": null,
+        "quote_source_unit_id": null,
+        "representative_document_id": null,
+        "source_unit_text": null,
+        "quote_valid": false,
+        "quote_validation": null,
+        "support_fields": null,
+        "support_level": "UNVERIFIABLE",
+        "reason": null,
+        "support_reason": null,
+        "rejected_quotes": [],
+        "audit_only": {
+          "rejected_quotes": []
+        },
+        "evidence_records": [],
+        "accepted_evidence_records": [],
+        "rejected_evidence": [],
+        "accepted_evidence_ids": [],
+        "full_evidence_ids": [],
+        "partial_evidence_ids": [],
+        "contradicting_evidence_ids": [],
+        "no_support_evidence_ids": [],
+        "unverifiable_evidence_ids": [],
+        "contradiction_present": false,
+        "support_status": "NOT_EVALUATED"
+      }
+    ],
+    "clinical_trials": [
+      {
+        "candidate_id": "GCA4-0010f0196af8fc50247b929d",
+        "relation_family": "CLINICAL_TRIAL",
+        "subject": {
+          "id": "Trial:NCT04039607",
+          "label": "A Study of Nivolumab in Combination With Ipilimumab in Participants With Advanced Hepatocellular Carcinoma",
+          "type": "Trial"
+        },
+        "relation": "has_trial_intervention",
+        "object": {
+          "id": "DrugName:SORAFENIB",
+          "label": "SORAFENIB",
+          "type": "DrugName"
+        },
+        "disease_context": [
+          "Hepatocellular Carcinoma"
+        ],
+        "direction": null,
+        "evidence_type": null,
+        "graph_provenance": {
+          "node_ids": [
+            "Trial:NCT04039607",
+            "DrugName:SORAFENIB"
+          ],
+          "edge_ids": [
+            "row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb"
+          ],
+          "graph_path": [
+            "Trial:NCT04039607",
+            "DrugName:SORAFENIB"
+          ],
+          "materialization_rule_id": "gca/4.0/trial_drug"
+        },
+        "nct_id": "NCT04039607",
+        "declared_source_identity": "NCT04039607",
+        "resolved_source_identity": null,
+        "reader_attempts": [],
+        "declared_nct_id": null,
+        "resolved_nct_id": null,
+        "title": null,
+        "status": null,
+        "phase": null,
+        "conditions": [],
+        "interventions": [
+          "Sorafenib"
+        ],
+        "biomarker_gene": [],
+        "source": "ClinicalTrials.gov",
+        "provenance_status": "TRIAL_RECORD_UNAVAILABLE",
+        "eligibility_status": "NOT_EVALUATED",
+        "trial_resolution_status": "UNAVAILABLE",
+        "evidence_interpretation": "TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE",
+        "claim_id": "CLAIM-d53790aeac6a0d63779fcbb9",
+        "claim": {
+          "claim_id": "CLAIM-d53790aeac6a0d63779fcbb9",
+          "candidate_id": "GCA4-0010f0196af8fc50247b929d",
+          "relation_family": "CLINICAL_TRIAL",
+          "relation": "has_trial_intervention",
+          "status": "TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE",
+          "supporting_evidence_ids": [],
+          "partial_evidence_ids": [],
+          "contradicting_evidence_ids": [],
+          "rejected_evidence_ids": [],
+          "source_record_ids": [
+            "row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb"
+          ],
+          "source_datasets": [
+            "edges_trial_drug.csv"
+          ],
+          "semantic_key": "TRIAL_DRUG|Trial:NCT04039607|DrugName:SORAFENIB",
+          "graph_path": [
+            "Trial:NCT04039607",
+            "DrugName:SORAFENIB"
+          ],
+          "node_ids": [
+            "Trial:NCT04039607",
+            "DrugName:SORAFENIB"
+          ],
+          "edge_ids": [
+            "row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb"
+          ],
+          "materialization_rule": "gca/4.0/trial_drug",
+          "document_ids": [
+            "NCT04039607"
+          ],
+          "source_unit_ids": [],
+          "quotes": [],
+          "caveats": [],
+          "uncertainty": [],
+          "conflict_markers": [],
+          "specificity": "UNKNOWN",
+          "gene_variant_pairings": []
+        }
+      }
+    ],
+    "kg_only_relations": [
+      {
+        "candidate_id": "GCA4-000074f3d4ea7d88759bc423",
+        "relation_family": "KG_ONLY",
+        "subject": {
+          "id": "Gene:4058",
+          "label": "LTK",
+          "type": "Gene"
+        },
+        "relation": "interacts_with",
+        "object": {
+          "id": "Drug:chembl:CHEMBL1997335",
+          "label": "CHEMBL:CHEMBL1997335",
+          "type": "Drug"
+        },
+        "disease_context": [],
+        "direction": null,
+        "evidence_type": null,
+        "graph_provenance": {
+          "node_ids": [
+            "Gene:4058",
+            "Drug:chembl:CHEMBL1997335"
+          ],
+          "edge_ids": [
+            "row:edge_interacts_with.csv:23872:6b65d6c1b96412d3"
+          ],
+          "graph_path": [
+            "Gene:4058",
+            "Drug:chembl:CHEMBL1997335"
+          ],
+          "materialization_rule_id": "gca/4.0/gene_drug"
+        },
+        "document_id": null,
+        "source_database": "KG",
+        "verification_status": "KG_ONLY",
+        "document_provenance": "NOT_AVAILABLE",
+        "diagnostic_scope": null,
+        "diagnostic_context": {},
+        "claim_id": "CLAIM-2a87a4309e367da0b7274803",
+        "claim": {
+          "claim_id": "CLAIM-2a87a4309e367da0b7274803",
+          "candidate_id": "GCA4-000074f3d4ea7d88759bc423",
+          "candidate_group_candidate_ids": [
+            "GCA4-000074f3d4ea7d88759bc423"
+          ],
+          "member_semantic_identities": [
+            "GENE_DRUG|Gene:4058|Drug:chembl:CHEMBL1997335"
+          ],
+          "group_graph_paths": [],
+          "relation_family": "KG_ONLY",
+          "relation": "interacts_with",
+          "status": "KG_ONLY",
+          "supporting_evidence_ids": [],
+          "partial_evidence_ids": [],
+          "contradicting_evidence_ids": [],
+          "rejected_evidence_ids": [],
+          "source_record_ids": [
+            "row:edge_interacts_with.csv:23872:6b65d6c1b96412d3"
+          ],
+          "source_datasets": [
+            "edge_interacts_with.csv"
+          ],
+          "semantic_key": "GENE_DRUG|Gene:4058|Drug:chembl:CHEMBL1997335",
+          "graph_path": [
+            "Gene:4058",
+            "Drug:chembl:CHEMBL1997335"
+          ],
+          "node_ids": [
+            "Gene:4058",
+            "Drug:chembl:CHEMBL1997335"
+          ],
+          "edge_ids": [
+            "row:edge_interacts_with.csv:23872:6b65d6c1b96412d3"
+          ],
+          "materialization_rule": "gca/4.0/gene_drug",
+          "document_ids": [],
+          "source_unit_ids": [],
+          "quotes": [],
+          "caveats": [],
+          "uncertainty": [],
+          "conflict_markers": [],
+          "specificity": "GENE_LEVEL",
+          "gene_variant_pairings": []
+        }
+      }
+    ],
+    "claims": [
+      {
+        "claim_id": "CLAIM-176f5614fe6dd81f69126e9e",
+        "candidate_id": "GCA4-000b81b1296a2cd3d24bdd8b",
+        "candidate_group_candidate_ids": [
+          "GCA4-000b81b1296a2cd3d24bdd8b"
+        ],
+        "member_semantic_identities": [
+          "EVIDENCE_STATEMENT|Evidence:3881"
+        ],
+        "group_graph_paths": [],
+        "relation_family": "PAPER_EVIDENCE",
+        "relation_origin": "DIRECT",
+        "composite_lineage": null,
+        "subject": {
+          "id": "MolecularProfile:81",
+          "label": "KRAS G13D",
+          "type": "MolecularProfile"
+        },
+        "object": {
+          "id": "Evidence:3881",
+          "label": "This was a retrospective study of 691 cetuximab treated patients with metastatic colorectal cancer. Of those, 50 patients harbored KRAS G13D, were BRAF, NRAS and PIK3CA wt, and had individual response data. Nine patients had partial response, 19 had stable disease, and 22 progressed. Treatments included cetuximab + irinotecan (n=38), cetuximab + FOLFIRI (n=5), cetuximab monotherapy (n=4), cetuximab + oxaliplatin + 5FU (n=2), and cetuximab + irinotecan + oxaliplatin + 5FU (n=1). Median PFS was 16 weeks (3-101 weeks), median OS was 33 weeks (3-161 weeks), and median number of previous chemotherapy lines was 2 (0-4). Median age was 65 years old (34-78), and there were 29 males and 20 females. Authors concluded that KRAS mutation was strongly associated with poor response to cetuximab and suggested that mutation status of KRAS is the most informative compared to BRAF, NRAS, and PIK3CA exon 20 for predicting cetuximab response.",
+          "type": "Evidence"
+        },
+        "relation": "has_evidence_statement",
+        "disease_context": [
+          "Colorectal Cancer"
+        ],
+        "direction": "Supports",
+        "evidence_type": "Predictive",
+        "specificity": "VARIANT_LEVEL",
+        "gene_variant_pairings": [],
+        "status": "UNVERIFIABLE",
+        "representative_evidence_id": null,
+        "supporting_evidence_ids": [],
+        "partial_evidence_ids": [],
+        "contradicting_evidence_ids": [],
+        "no_support_evidence_ids": [],
+        "unverifiable_evidence_ids": [],
+        "rejected_evidence_ids": [],
+        "source_record_ids": [
+          "row:edge_has_evidence.csv:2160:898cfc16e42b2131"
+        ],
+        "source_datasets": [
+          "edge_has_evidence.csv"
+        ],
+        "semantic_key": "EVIDENCE_STATEMENT|Evidence:3881",
+        "graph_path": [
+          "MolecularProfile:81",
+          "Variant:81",
+          "Evidence:3881"
+        ],
+        "node_ids": [
+          "MolecularProfile:81",
+          "Variant:81",
+          "Evidence:3881"
+        ],
+        "edge_ids": [
+          "row:edge_has_evidence.csv:2160:898cfc16e42b2131",
+          "row:edge_in_molecular_profile.csv:65:1b6f360b165972ba"
+        ],
+        "materialization_rule": "gca/4.0/evidence_statement",
+        "document_ids": [],
+        "source_unit_ids": [],
+        "quotes": [],
+        "caveats": [],
+        "uncertainty": [],
+        "conflict_markers": [],
+        "contradiction_present": false
+      },
+      {
+        "claim_id": "CLAIM-2a87a4309e367da0b7274803",
+        "candidate_id": "GCA4-000074f3d4ea7d88759bc423",
+        "candidate_group_candidate_ids": [
+          "GCA4-000074f3d4ea7d88759bc423"
+        ],
+        "member_semantic_identities": [
+          "GENE_DRUG|Gene:4058|Drug:chembl:CHEMBL1997335"
+        ],
+        "group_graph_paths": [],
+        "relation_family": "KG_ONLY",
+        "relation": "interacts_with",
+        "status": "KG_ONLY",
+        "supporting_evidence_ids": [],
+        "partial_evidence_ids": [],
+        "contradicting_evidence_ids": [],
+        "rejected_evidence_ids": [],
+        "source_record_ids": [
+          "row:edge_interacts_with.csv:23872:6b65d6c1b96412d3"
+        ],
+        "source_datasets": [
+          "edge_interacts_with.csv"
+        ],
+        "semantic_key": "GENE_DRUG|Gene:4058|Drug:chembl:CHEMBL1997335",
+        "graph_path": [
+          "Gene:4058",
+          "Drug:chembl:CHEMBL1997335"
+        ],
+        "node_ids": [
+          "Gene:4058",
+          "Drug:chembl:CHEMBL1997335"
+        ],
+        "edge_ids": [
+          "row:edge_interacts_with.csv:23872:6b65d6c1b96412d3"
+        ],
+        "materialization_rule": "gca/4.0/gene_drug",
+        "document_ids": [],
+        "source_unit_ids": [],
+        "quotes": [],
+        "caveats": [],
+        "uncertainty": [],
+        "conflict_markers": [],
+        "specificity": "GENE_LEVEL",
+        "gene_variant_pairings": []
+      },
+      {
+        "claim_id": "CLAIM-d53790aeac6a0d63779fcbb9",
+        "candidate_id": "GCA4-0010f0196af8fc50247b929d",
+        "relation_family": "CLINICAL_TRIAL",
+        "relation": "has_trial_intervention",
+        "status": "TRIAL_ASSOCIATION_NOT_EFFICACY_EVIDENCE",
+        "supporting_evidence_ids": [],
+        "partial_evidence_ids": [],
+        "contradicting_evidence_ids": [],
+        "rejected_evidence_ids": [],
+        "source_record_ids": [
+          "row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb"
+        ],
+        "source_datasets": [
+          "edges_trial_drug.csv"
+        ],
+        "semantic_key": "TRIAL_DRUG|Trial:NCT04039607|DrugName:SORAFENIB",
+        "graph_path": [
+          "Trial:NCT04039607",
+          "DrugName:SORAFENIB"
+        ],
+        "node_ids": [
+          "Trial:NCT04039607",
+          "DrugName:SORAFENIB"
+        ],
+        "edge_ids": [
+          "row:edges_trial_drug.csv:2052:3fd15cad90ec8ceb"
+        ],
+        "materialization_rule": "gca/4.0/trial_drug",
+        "document_ids": [
+          "NCT04039607"
+        ],
+        "source_unit_ids": [],
+        "quotes": [],
+        "caveats": [],
+        "uncertainty": [],
+        "conflict_markers": [],
+        "specificity": "UNKNOWN",
+        "gene_variant_pairings": []
+      }
+    ],
+    "aggregation_reconciliation": {
+      "accepted_input_records": 0,
+      "rejected_input_records": 0,
+      "dossier_accepted_records": 0,
+      "dossier_rejected_records": 0,
+      "missing_accepted_records": 0,
+      "unsupported_dossier_records": 0,
+      "unaccounted_records": 0
+    },
+    "limitations": [
+      "DOCUMENT_PROVENANCE_NOT_AVAILABLE",
+      "PAPER_SUPPORT_NOT_EVALUATED",
+      "QUOTE_INVALID",
+      "TRIAL_ASSOCIATION_IS_NOT_EFFICACY_EVIDENCE",
+      "TRIAL_RECORD_UNAVAILABLE"
+    ],
+    "provenance_summary": {
+      "candidate_ids": [
+        "GCA4-000074f3d4ea7d88759bc423",
+        "GCA4-000b81b1296a2cd3d24bdd8b",
+        "GCA4-0010f0196af8fc50247b929d"
+      ],
+      "paper_document_ids": [],
+      "trial_ids": [
+        "NCT04039607"
+      ],
+      "graph_only_candidate_ids": [
+        "GCA4-000074f3d4ea7d88759bc423"
+      ]
+    }
+  },
+  "event_types": [
+    "RUN_CREATED",
+    "STAGE_STARTED",
+    "STAGE_COMPLETED",
+    "STAGE_WARNING",
+    "STAGE_FAILED",
+    "STAGE_SKIPPED",
+    "RUN_COMPLETED",
+    "PIPELINE_WORK_PROGRESS",
+    "CASECONTEXT_PARSED",
+    "CASECONTEXT_VERIFIED",
+    "RETRIEVAL_COMPLETED",
+    "CANDIDATES_FOUND",
+    "DOCUMENT_RESOLVED",
+    "DOCUMENT_CACHE_HIT",
+    "DOCUMENT_CACHE_MISS",
+    "DOCUMENT_FETCH_STARTED",
+    "DOCUMENT_FETCH_SUCCEEDED",
+    "DOCUMENT_FETCH_FAILED",
+    "DOCUMENT_DEGRADED_TO_ABSTRACT",
+    "SOURCE_UNIT_MATERIALIZED",
+    "SOURCE_UNITS_PARSED",
+    "SOURCEUNIT_SELECTION_STARTED",
+    "SOURCEUNIT_SELECTION_COMPLETED",
+    "PAPER_SELECTED",
+    "ENRICHMENT_PROPOSED",
+    "ENRICHMENT_VALIDATED",
+    "GATES_COMPUTED",
+    "STATUS_ASSIGNED",
+    "DOSSIER_BUILT",
+    "NARRATION_GENERATED",
+    "NARRATION_VERIFIED",
+    "NARRATION_REJECTED",
+    "STRUCTURED_FALLBACK_USED"
+  ]
+}

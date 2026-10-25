@@ -37,6 +37,15 @@ app.add_middleware(
 
 app.include_router(router, prefix="/api/v1")
 
+# Research runtime verificabile — namespace separato, disattivo di default.
+# Il router è sempre montato ma ogni rotta risponde 404 finché
+# VERIFIABLE_PIPELINE_RESEARCH_ENABLED non è attivo: montarlo condizionalmente
+# renderebbe il flag leggibile dalla forma di OpenAPI, e comunque impedirebbe di
+# attivarlo senza riavviare il processo.
+from backend.api.research_routes import router as research_router  # noqa: E402
+
+app.include_router(research_router, prefix="/api/v1/research/pipeline")
+
 
 @app.get("/health")
 def health():

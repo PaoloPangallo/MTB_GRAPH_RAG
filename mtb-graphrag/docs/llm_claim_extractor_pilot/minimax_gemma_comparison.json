@@ -1,0 +1,55 @@
+{
+  "bundles": [
+    "EB-b4c48ba003913f278ff182a6",
+    "EB-2ae853e8abf1195cc4c84846",
+    "EB-6a291f12975b20b79e1c3dd7"
+  ],
+  "gemma": {
+    "accepted_or_accepted_with_dropped": 1,
+    "contradiction_preserved": true,
+    "direct_preserved": true,
+    "direction_errors": 2,
+    "final_support_status_non_null": 2,
+    "graph_only_accepted": 0,
+    "latency_ms": [
+      2619.915,
+      3053.503,
+      6089.953
+    ],
+    "model": "gemma4:cloud",
+    "output_tokens": [
+      444,
+      542,
+      388
+    ],
+    "quote_errors_accepted": 0,
+    "semantic_reached": 3,
+    "source_unit_errors_accepted": 0,
+    "thinking_disable_honored_count": 3,
+    "transport_valid": 3
+  },
+  "minimax": {
+    "accepted_or_accepted_with_dropped": 0,
+    "contradiction_preserved": true,
+    "direct_preserved": false,
+    "direction_errors": 1,
+    "final_support_status_non_null": 0,
+    "graph_only_accepted": 0,
+    "latency_ms": [
+      11962.723,
+      26460.197,
+      21372.305
+    ],
+    "model": "minimax-m3:cloud",
+    "output_tokens": [
+      1883,
+      3919,
+      3151
+    ],
+    "quote_errors_accepted": 0,
+    "semantic_reached": 2,
+    "source_unit_errors_accepted": 0,
+    "thinking_disable_honored_count": 0,
+    "transport_valid": 2
+  }
+}

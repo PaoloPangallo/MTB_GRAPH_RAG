@@ -1,0 +1,10 @@
+"""Frozen, fail-closed harness for the MTB-GraphRAG final experiment."""
+
+SCHEMA_VERSION = "mtb-final-experiment-package/1.0"
+BASE_COMMIT = "84bcecaafdee60206799fd0a245cb78f816b257e"
+CORPUS_VERSION = "qualified_claim_repository/1.4"
+CORPUS_HASH = "31636f26c44bee03b16ed7d7c5e9b9580292f750e04b80e4effbaf9618ec39fa"
+GATE_VERSION = "qualified_claim_structural_gate/1.3"
+RETRIEVER_VERSION = "qualified_claim_retriever/1.0"
+GENERATOR_VERSION = "final_experiment_generator/1.0"
+CONTENT_SHA256 = "d83cf16a7370a8dc200e2f038677dd680a8774af76147096c112f06ee2a1dca0"

@@ -1,0 +1,85 @@
+{
+  "applied_mappings": [
+    {
+      "affected_claims": [
+        {
+          "graph_evidence_id": "evidence:1851",
+          "new_claim_id": "CLM-90e863f00f134fc3cd3d",
+          "old_claim_id": "CLM-a7c903cf8d423f015e29"
+        },
+        {
+          "graph_evidence_id": "evidence:1853",
+          "new_claim_id": "CLM-5071bb2d8657ac0fbed0",
+          "old_claim_id": "CLM-aae818bbc8ec735a255d"
+        }
+      ],
+      "canonical_intervention_id": "TIV-INFIGRATINIB",
+      "canonical_label": "infigratinib",
+      "claims_atomized": 0,
+      "confidence": "high",
+      "decision": "verified_development_code_for_same_intervention",
+      "is_global": true,
+      "is_verified": true,
+      "mapping_scope": "global",
+      "propagation_policy": "prototype_only",
+      "queue_id": "TRQ-BGJ398",
+      "reason_codes": [
+        "AGGREGATE_RESULT_REMAINS_NON_SEPARABLE",
+        "DEVELOPMENT_CODE_VERIFIED",
+        "FORMULATION_RELATION_REQUIRES_QUALIFIER",
+        "GLOBAL_DRUG_IDENTITY_CONFIRMED",
+        "SOURCE_LITERAL_PRESERVED"
+      ],
+      "review_independence": "non_independent",
+      "review_status": "first_review_complete",
+      "source_literal_preserved": true,
+      "source_literal_term": "BGJ398",
+      "terminology_decision_id": "TP-BGJ398-INFIGRATINIB"
+    }
+  ],
+  "collisions": 0,
+  "deduplications": 0,
+  "propositions_created": 0,
+  "propositions_removed": 0,
+  "queue_fully_resolved": false,
+  "registry_version": "shadow_terminology_registry/1.0",
+  "repository_version": "qualified_claim_repository/1.3",
+  "unresolved_associations_superseding_reason": {
+    "association_ids": [
+      "UNR-0735290c4b6f33a27c79",
+      "UNR-45adc52a7eb9696c1aca"
+    ],
+    "materialized_by_this_phase": false,
+    "previous_reason_code": "PENDING_ALIAS_BLOCKS_MATERIALIZATION",
+    "records_modified": false,
+    "superseding_reason_code": "AGGREGATE_RESULT_REMAINS_NON_SEPARABLE"
+  },
+  "unresolved_mappings": [
+    {
+      "canonical_label": "",
+      "claims_materialized": 0,
+      "confidence": "insufficient",
+      "decision": "insufficient_authoritative_evidence",
+      "exact_alias_created": false,
+      "graph_term": "luminespib",
+      "is_global": false,
+      "is_verified": false,
+      "mapping_scope": "none",
+      "propagation_policy": "prototype_only",
+      "queue_id": "TRQ-AUY922",
+      "reason_codes": [
+        "INSUFFICIENT_AUTHORITATIVE_SOURCE",
+        "MAPPING_REMAINS_UNRESOLVED",
+        "SOURCE_LITERAL_PRESERVED",
+        "VOCABULARY_CONCEPT_ID_CONFLICT"
+      ],
+      "recommendation": "require_external_review",
+      "review_independence": "non_independent",
+      "review_status": "first_review_complete",
+      "source_literal_preserved": true,
+      "source_literal_term": "AUY922",
+      "terminology_decision_id": "TP-AUY922-LUMINESPIB",
+      "unresolved_reason": "Nessuna fonte autorevole non circolare collega il letterale della fonte al nome generico del grafo."
+    }
+  ]
+}

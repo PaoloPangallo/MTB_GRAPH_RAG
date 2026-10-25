@@ -1,0 +1,7 @@
+# Gli artefatti di audit sono scritti con newline LF esplicito e confrontati byte
+# per byte fra due esecuzioni. Senza questo vincolo, su Windows core.autocrlf
+# riscriverebbe i file al checkout e ogni riesecuzione risulterebbe diversa dal
+# contenuto versionato pur essendo identica nella sostanza.
+* text eol=lf
+
+*.xlsx binary

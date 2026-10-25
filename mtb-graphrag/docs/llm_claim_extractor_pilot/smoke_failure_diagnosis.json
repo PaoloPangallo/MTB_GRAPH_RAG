@@ -1,0 +1,35 @@
+{
+  "cases": [
+    {
+      "classification": "RAW_CAPTURE_GAP",
+      "content_length": 0,
+      "done_reason": "NOT_CAPTURED",
+      "expected": "DIRECT",
+      "output_tokens": 1024,
+      "thinking": "NOT_CAPTURED",
+      "tool_call": "NOT_CAPTURED"
+    },
+    {
+      "classification": "RAW_CAPTURE_GAP",
+      "content_length": 0,
+      "done_reason": "NOT_CAPTURED",
+      "expected": "PARTIAL",
+      "output_tokens": 1024,
+      "thinking": "NOT_CAPTURED",
+      "tool_call": "NOT_CAPTURED"
+    },
+    {
+      "classification": "RAW_CAPTURE_GAP",
+      "content_length": 654,
+      "done_reason": "NOT_CAPTURED",
+      "expected": "CONTRADICTED",
+      "output_tokens": 1024,
+      "thinking": "NOT_CAPTURED",
+      "tool_call": "NOT_CAPTURED"
+    }
+  ],
+  "conclusion": "The previous runner retained no recoverable raw content or completion metadata. JSON truncation and done_reason=length cannot be asserted retrospectively.",
+  "protocol": "llm-claim-extractor-prompt/1.0",
+  "raw_capture_recoverable": false,
+  "transport": "RAW_JSON_TEXT"
+}

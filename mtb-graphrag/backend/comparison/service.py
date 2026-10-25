@@ -686,202 +686,6 @@ def _evidence_payload(item: EvidenceItem) -> dict:
     }
 
 
-def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
-    from backend.pipeline.agents.resistance_checker import resistance_checker
-    from backend.pipeline.agents.synthesizer import synthesizer
-    from backend.pipeline.agents.target_identifier import target_identifier
-    from backend.pipeline.agents.trial_matcher import trial_matcher
-    from backend.pipeline.agents.variant_interpreter import variant_interpreter_low
-
-    started = perf_counter()
-    state = _initial_state(req)
-    # Piano esplicito e stabile. Il componente interpreter recupera l'evidenza;
-    # l'LLM resta usato per classificazione/sintesi come dichiarato nei limiti.
-    state = variant_interpreter_low(state)
-    state = target_identifier(state)
-    state = trial_matcher(state)
-    state = resistance_checker(state)
-    retrieval_ms = int((perf_counter() - started) * 1000)
-    synthesis_started = perf_counter()
-    state = synthesizer(state)
-    synthesis_ms = int((perf_counter() - synthesis_started) * 1000)
-    evidence = _canonical_evidence(_evidence_from_state(state))
-    checks = [ClaimCheck(
-        claim="Il contenuto clinico del report coincide con le evidenze recuperate.",
-        status="not_checked",
-        reason=(
-            "Il filtro corrente controlla gli identificatori PMID, ma non verifica "
-            "l'aderenza semantica di ogni claim al record sorgente."
-        ),
-    )]
-    dossier_started = perf_counter()
-    dossier = _build_dossier(req, evidence, checks, state=state)
-    dossier_ms = int((perf_counter() - dossier_started) * 1000)
-    elapsed = int((perf_counter() - started) * 1000)
-    return ArchitectureRun(
-        architecture_id="deterministic",
-        title="Traversal deterministico",
-        subtitle="Piano fisso sui componenti reali del backend",
-        llm_roles=["Classificatore ESCAT", "Sintetizzatore vincolato"],
-        trace=[
-            TraceStep(order=1, stage="Normalizzazione", actor="Input adapter", detail="Caso convertito nello stato canonico."),
-            TraceStep(order=2, stage="Traversal", actor="Query tipizzate", detail="Evidenze, farmaci, trial e resistenze interrogati in ordine fisso."),
-            TraceStep(order=3, stage="Sintesi", actor="LLM", detail="Report costruito dal contesto strutturato."),
-            TraceStep(order=4, stage="Filtro PMID", actor="Regole", detail="Rimossi identificatori non presenti nel KG."),
-        ],
-        evidence=evidence,
-        report=state.get("report", ""),
-        dossier=dossier,
-        claim_checks=checks,
-        metrics=ArchitectureMetrics(
-            elapsed_ms=elapsed,
-            tool_calls=5,
-            evidence_count=len(evidence),
-            verified_claims=0,
-            blocked_claims=0,
-            review_claims=len(evidence),
-            stage_timings_ms={
-                "retrieval": retrieval_ms,
-                "synthesis": synthesis_ms,
-                "dossier": dossier_ms,
-            },
-            source_supported_count=0,
-            source_uncertain_count=len(evidence),
-            source_unsupported_count=0,
-            applicability_indeterminate_count=len(evidence),
-        ),
-        limitations=["Il classificatore ESCAT live usa un LLM; il retrieval rimane vincolato alle query tipizzate."],
-    )
-
-
-def _agentic_trace(
-    collection: Any,
-    evidence: list[EvidenceItem],
-    events: list[dict],
-    ledger_valid: bool,
-    supported: int,
-    blocked: int,
-    uncertain: int,
-    compatible: int = 0,
-    indeterminate_applicability: int = 0,
-    not_compatible: int = 0,
-    supported_as_written: int = 0,
-    supported_after_contextualization: int = 0,
-) -> list[TraceStep]:
-    """Costruisce la trace in modo condizionale su ``planning_mode``: non deve
-    mai descrivere un'esecuzione in ``safe_fallback`` come pianificazione
-    dinamica riuscita, né affermare che ogni osservazione ha guidato la
-    decisione successiva quando il planner non è più stato interpellato."""
-    dynamic = collection.planning_mode == "llm_dynamic"
-    if dynamic:
-        planning_detail = "Il planner ha scelto iterativamente gli strumenti."
-        planning_status = "completed"
-        collection_detail = (
-            f"Completate {len(collection.tool_path)} chiamate; ogni osservazione ha "
-            "alimentato la decisione successiva del planner."
-        )
-        collection_status = "completed"
-    else:
-        planning_detail = (
-            "È stato eseguito un piano tipizzato predefinito; questa esecuzione non "
-            "dimostra pianificazione agentica dinamica."
-        )
-        planning_status = "warning"
-        collection_detail = (
-            f"Completate {len(collection.tool_path)} chiamate secondo l'ordine di sicurezza "
-            f"predefinito (motivo del fallback: {collection.fallback_reason})."
-        )
-        collection_status = "warning"
-
-    mandatory_tools = getattr(collection, "mandatory_tools", []) or []
-    missing_mandatory_tools = getattr(collection, "missing_mandatory_tools", []) or []
-    incompleteness_reason = getattr(collection, "incompleteness_reason", None)
-    completed_mandatory = [tool for tool in mandatory_tools if tool not in missing_mandatory_tools]
-    collection_detail += (
-        f" Policy minima per l'obiettivo — obbligatori: {', '.join(mandatory_tools) or 'nessuno'}; "
-        f"completati: {', '.join(completed_mandatory) or 'nessuno'}; "
-        f"mancanti: {', '.join(missing_mandatory_tools) or 'nessuno'}."
-    )
-    if missing_mandatory_tools:
-        collection_detail += f" Motivo dell'incompletezza: {incompleteness_reason or 'non specificato'}."
-        collection_status = "warning"
-
-    return [
-        TraceStep(order=1, stage="Controller di autonomia", actor="Policy", detail="Definiti strumenti consentiti, dipendenze e massimo numero di passi."),
-        TraceStep(order=2, stage="Pianificazione dinamica", actor="LLM planner", detail=planning_detail, status=planning_status),
-        TraceStep(order=3, stage="Raccolta iterativa", actor="Agente + strumenti KG", detail=collection_detail, status=collection_status),
-        TraceStep(order=4, stage="Event log append-only", actor="SQLite hash-chain", detail=f"Persistiti {len(events)} eventi durante l'esecuzione; catena integra: {'sì' if ledger_valid else 'no'}.", status="completed" if ledger_valid else "blocked"),
-        TraceStep(order=5, stage="Vista canonica", actor="Regole", detail=f"Deduplicazione completata: {len(evidence)} record canonici."),
-        TraceStep(order=6, stage="Proiezione pertinente", actor="Regole", detail="Selezionati i record relativi al caso con statement clinico e provenienza."),
-        TraceStep(order=7, stage="Rendering candidato", actor="Renderer deterministico", detail="Costruito esclusivamente dalla proiezione canonica."),
-        TraceStep(
-            order=8,
-            stage="Verifica claim–fonte",
-            actor="Regole + LLM",
-            detail=(
-                f"Il verificatore produce due assi indipendenti. Supporto documentale — PubMed/CIViC: "
-                f"{supported} supportate ({supported_as_written} come formulate, "
-                f"{supported_after_contextualization} dopo contestualizzazione), {blocked} contraddette, "
-                f"{uncertain} inviate a revisione. "
-                f"Applicabilità al caso — {compatible} compatibili, {indeterminate_applicability} indeterminate, "
-                f"{not_compatible} non compatibili."
-            ),
-            status="warning" if (blocked or uncertain or indeterminate_applicability or not_compatible) else "completed",
-        ),
-        TraceStep(
-            order=9,
-            stage="Riparazione",
-            actor="Regole",
-            detail=(
-                "Le fonti con supporto documentale incerto o non supportato sono escluse dal report "
-                "documentale. Le fonti supportate ma non compatibili (o con applicabilità indeterminata) "
-                "restano visibili come contesto, non come opzioni per il caso."
-            ),
-        ),
-        TraceStep(
-            order=10,
-            stage="Report verificato",
-            actor="Renderer deterministico",
-            detail=(
-                "\"Verificato\" significa verificato rispetto al supporto documentale della fonte, non "
-                "clinicamente raccomandato: sono emesse soltanto le claim che hanno superato provenienza, "
-                "regole cliniche e verifica semantica."
-            ),
-        ),
-        TraceStep(order=11, stage="Narrazione opzionale", actor="LLM + nuova verifica", detail="Non applicata in questa esecuzione: viene mostrato il report deterministico."),
-        TraceStep(order=12, stage="Revisione", actor="Oncologo", detail="Gli esiti incerti sono esplicitamente destinati alla revisione umana."),
-    ]
-
-
-def _agentic_guarantees(collection: Any) -> list[str]:
-    """Costruisce le garanzie in modo condizionale su ``planning_mode``: non
-    deve mai descrivere una pianificazione dinamica riuscita quando è stato
-    eseguito il piano sicuro predefinito, né il contrario."""
-    if collection.planning_mode == "llm_dynamic":
-        guarantees = ["Il planner ha scelto iterativamente gli strumenti."]
-    else:
-        guarantees = [
-            "È stato eseguito il piano sicuro predefinito; questa esecuzione non "
-            "dimostra pianificazione agentica dinamica."
-        ]
-    guarantees.append(
-        f"Il ledger è persistito durante ogni decisione e tool call con catena SHA-256 verificata ({collection.run_id})."
-    )
-    guarantees.append(
-        "Il verificatore è fail-closed su due assi indipendenti — supporto documentale e applicabilità al caso: "
-        "fonte assente o esito incerto richiedono revisione umana su almeno uno dei due assi."
-    )
-    if collection.planning_mode == "safe_fallback":
-        guarantees.append(
-            "Il planner LLM non ha completato un piano valido; è stato eseguito il piano sicuro predefinito "
-            f"(motivo: {collection.fallback_reason}; tentativi: {collection.planner_attempts}; "
-            f"tempo planner: {collection.planner_elapsed_ms} ms)."
-        )
-    if collection.errors:
-        guarantees.append("Escalation runtime: " + "; ".join(collection.errors))
-    return guarantees
-
-
 def _source_profile_cache() -> Any:
     """Cache di processo, condivisa fra le richieste: un PMID già verificato
     con lo stesso prompt/modello non causa mai una nuova chiamata LLM solo
@@ -896,151 +700,34 @@ def _source_profile_cache() -> Any:
 _SOURCE_PROFILE_CACHE: Any = None
 
 
+# --- Le due architetture verificabili -------------------------------------
+#
+# Entrambe passano dallo stesso strato di controllo (run_verified_pipeline) e
+# differiscono soltanto nella strategia di raccolta. Il precedente percorso
+# deterministico non verificato — piano fisso + sintesi LLM + filtro PMID —
+# non è più esposto: resta nella cronologia Git come baseline storica.
+
+def _live_run(req: ArchitectureComparisonRequest, architecture_id: str) -> ArchitectureRun:
+    from backend.comparison.live_runs import build_run
+    from backend.pipeline.control.verification.source_port import PubMedSourceVerifier
+
+    run, _result = build_run(
+        req,
+        architecture_id,
+        source_verifier=PubMedSourceVerifier(profile_cache=_source_profile_cache()),
+        build_dossier=_build_dossier,
+        build_claim_checks=_checks_from_verifications,
+        render_verified=_render_verified_report,
+    )
+    return run
+
+
+def _live_deterministic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
+    return _live_run(req, "deterministic")
+
+
 def _live_agentic(req: ArchitectureComparisonRequest) -> ArchitectureRun:
-    from backend.pipeline.agentic.ledger import EventLedger
-    from backend.pipeline.agentic.runtime import run_agentic_collection
-    from backend.pipeline.agentic.source_verifier import verify_evidence_items
-
-    started = perf_counter()
-    collection = run_agentic_collection(_initial_state(req))
-    collection_ms = int((perf_counter() - started) * 1000)
-    projection_started = perf_counter()
-    state = collection.state
-    collected = _evidence_from_state(state)
-    evidence = _canonical_evidence(collected)
-    ledger = EventLedger()
-    ledger.append(collection.run_id, "canonical_view_created", "canonicalizer", {
-        "records_in": len(collected),
-        "records_out": len(evidence),
-        "records": [_evidence_payload(item) for item in evidence],
-    })
-    candidate_report = _render_candidate_report(_case_label(req), evidence)
-    ledger.append(collection.run_id, "candidate_report_rendered", "deterministic_renderer", {
-        "report": candidate_report,
-    })
-    projection_ms = int((perf_counter() - projection_started) * 1000)
-    verification_started = perf_counter()
-    verifier_metrics: dict[str, int] = {}
-    verifications = verify_evidence_items(
-        evidence,
-        metrics=verifier_metrics,
-        profile_cache=_source_profile_cache(),
-        case_context={
-            "gene": req.gene or "",
-            "variant": req.variant,
-            "tumor_type": req.tumor_type,
-            "alteration_type": req.alteration_type,
-            "therapy_line": req.therapy_line,
-            "disease_stage": req.disease_stage or "",
-            "disease_setting": req.disease_setting or "",
-            "prior_therapies": ", ".join(req.prior_therapies),
-            "prior_response": req.prior_response or "",
-            "ecog_status": "" if req.ecog_status is None else str(req.ecog_status),
-            "cns_metastases": "" if req.cns_metastases is None else str(req.cns_metastases),
-            "co_alterations": ", ".join(req.co_alterations),
-            "jurisdiction": req.jurisdiction or "",
-            "mtb_goal": req.mtb_goal or "",
-        },
-    )
-    checks = _checks_from_verifications(evidence, verifications)
-    verification_ms = int((perf_counter() - verification_started) * 1000)
-    ledger.append(collection.run_id, "claims_verified", "source_verifier", {
-        "checks": [{
-            "claim": _claim_text(item),
-            "source_id": item.source_id,
-            "source_support_status": verification.source_support_status,
-            "source_support_reason": verification.source_support_reason,
-            "source_population": verification.source_population,
-            "source_line": verification.source_line,
-            "source_setting": verification.source_setting,
-            "source_prerequisites": verification.source_prerequisites,
-            "applicability_status": verification.applicability_status,
-            "applicability_reason": verification.applicability_reason,
-            "verification_level": verification.verification_level,
-        } for item, verification in zip(evidence, verifications)],
-    })
-    rendering_started = perf_counter()
-    report = _render_verified_report(_case_label(req), evidence, verifications)
-    ledger.append(collection.run_id, "verified_report_rendered", "deterministic_renderer", {
-        "report": report,
-    })
-    dossier = _build_dossier(req, evidence, checks, verifications=verifications, state=state)
-    rendering_ms = int((perf_counter() - rendering_started) * 1000)
-    events = ledger.events(collection.run_id)
-    ledger_valid = ledger.verify_chain(collection.run_id)
-    elapsed = int((perf_counter() - started) * 1000)
-
-    supported_as_written = sum(v.source_support_status == "supported_as_written" for v in verifications)
-    supported_after_contextualization = sum(
-        v.source_support_status == "supported_after_contextualization" for v in verifications
-    )
-    supported = supported_as_written + supported_after_contextualization
-    blocked = sum(v.source_support_status == "contradicted" for v in verifications)
-    uncertain = sum(v.source_support_status == "uncertain" for v in verifications)
-    compatible = sum(v.applicability_status == "compatible" for v in verifications)
-    indeterminate_applicability = sum(v.applicability_status == "indeterminate" for v in verifications)
-    not_compatible = sum(v.applicability_status == "not_compatible" for v in verifications)
-
-    trace = _agentic_trace(
-        collection, evidence, events, ledger_valid,
-        supported, blocked, uncertain,
-        compatible, indeterminate_applicability, not_compatible,
-        supported_as_written, supported_after_contextualization,
-    )
-
-    guarantees = _agentic_guarantees(collection)
-
-    return ArchitectureRun(
-        architecture_id="agentic",
-        title="Architettura agentica verificabile",
-        subtitle="Raccolta adattiva, ledger canonico, rendering e verifica separati",
-        llm_roles=["Controller della raccolta", "Narratore opzionale post-verifica"],
-        trace=trace,
-        evidence=evidence,
-        report=report,
-        dossier=dossier,
-        claim_checks=checks,
-        metrics=ArchitectureMetrics(
-            elapsed_ms=elapsed,
-            tool_calls=len(collection.tool_path),
-            evidence_count=len(evidence),
-            verified_claims=supported,
-            blocked_claims=blocked,
-            review_claims=uncertain,
-            ledger_events=len(events),
-            stage_timings_ms={
-                "collection": collection_ms,
-                "projection": projection_ms,
-                "verification": verification_ms,
-                "rendering": rendering_ms,
-            },
-            source_supported_count=supported,
-            source_uncertain_count=uncertain,
-            source_unsupported_count=blocked,
-            source_supported_as_written_count=supported_as_written,
-            source_supported_after_contextualization_count=supported_after_contextualization,
-            applicability_compatible_count=compatible,
-            applicability_indeterminate_count=indeterminate_applicability,
-            applicability_not_compatible_count=not_compatible,
-            cache_hits=verifier_metrics.get("cache_hits", 0),
-            cache_misses=verifier_metrics.get("cache_misses", 0),
-            verifier_batches=verifier_metrics.get("verifier_batches", 0),
-            failed_batches=verifier_metrics.get("failed_batches", 0),
-            retry_items=verifier_metrics.get("retry_items", 0),
-            recovered_items=verifier_metrics.get("recovered_items", 0),
-            permanently_failed_items=verifier_metrics.get("permanently_failed_items", 0),
-            source_profile_elapsed_ms=verifier_metrics.get("source_profile_elapsed_ms", 0),
-            applicability_elapsed_ms=verifier_metrics.get("applicability_elapsed_ms", 0),
-        ),
-        limitations=guarantees,
-        run_id=collection.run_id,
-        ledger_valid=ledger_valid,
-        planning_mode=collection.planning_mode,
-        fallback_reason=collection.fallback_reason,
-        planner_attempts=collection.planner_attempts,
-        planner_elapsed_ms=collection.planner_elapsed_ms,
-        tool_call_timings=collection.tool_call_timings,
-    )
+    return _live_run(req, "agentic")
 
 
 def compare_architectures(req: ArchitectureComparisonRequest) -> ArchitectureComparisonResponse:

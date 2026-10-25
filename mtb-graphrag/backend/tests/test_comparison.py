@@ -2,9 +2,8 @@ from types import SimpleNamespace
 from unittest import TestCase
 
 from backend.api.schemas import ArchitectureComparisonRequest, EvidenceItem
+from backend.comparison.live_runs import build_limitations, build_trace
 from backend.comparison.service import (
-    _agentic_guarantees,
-    _agentic_trace,
     _build_dossier,
     _canonical_evidence,
     _render_verified_report,
@@ -162,133 +161,167 @@ class ComparisonDemoTest(TestCase):
         self.assertEqual(nct_ids.count("NCT07183189"), 1)
         self.assertEqual(len(dossier.trial_findings), 1)
 
+class TraceBuilderTest(TestCase):
+    """La trace e' costruita dai fatti della run e non dichiara fasi non eseguite.
 
-class AgenticTraceTest(TestCase):
-    def _collection(self, **overrides):
-        base = {
-            "planning_mode": "llm_dynamic",
-            "tool_path": ["interpret_variant"],
-            "fallback_reason": None,
-            "run_id": "run-fixture",
-            "planner_attempts": 0,
-            "planner_elapsed_ms": 0,
-            "errors": [],
-            "mandatory_tools": [],
-            "missing_mandatory_tools": [],
-            "incompleteness_reason": None,
-        }
+    Le asserzioni cercano lo stadio per nome, non per posizione: l'accoppiamento
+    posizionale era esso stesso un difetto.
+    """
+
+    def _result(self, **overrides):
+        collection = SimpleNamespace(
+            planning_mode="llm_dynamic", tool_path=["interpret_variant"],
+            fallback_reason=None, planner_calls=3, planner_elapsed_ms=120,
+            errors=[], mandatory_tools=[], missing_mandatory_tools=[],
+            incompleteness_reason=None, tool_call_timings=(),
+        )
+        for key in ("planning_mode", "tool_path", "fallback_reason", "planner_calls",
+                    "errors", "mandatory_tools", "missing_mandatory_tools"):
+            if key in overrides:
+                setattr(collection, key, overrides.pop(key))
+
+        verdict = SimpleNamespace(status="pass", coverage=1.0, violations=(), warnings=())
+        base = dict(
+            orchestration_mode="agentic", collection=collection,
+            events=[{}] * 12, ledger_valid=True,
+            canonical_view=SimpleNamespace(records_in=5, records_out=4,
+                                           replay_fidelity="full", records=()),
+            projection=SimpleNamespace(admitted=[1, 2], excluded=[3]),
+            candidate_report="x" * 40,
+            candidate_verdict=verdict, final_verdict=verdict, dossier_verdict=verdict,
+            evidence_items=[1, 2],
+            source_outcome=SimpleNamespace(model_revision="ollama:test-model"),
+            repair_actions=(), escalation=None,
+        )
         base.update(overrides)
         return SimpleNamespace(**base)
 
-    def test_collection_step_shows_mandatory_completed_and_missing_tools(self):
-        collection = self._collection(
-            mandatory_tools=["interpret_variant", "identify_targets", "check_resistance", "match_trials"],
-            missing_mandatory_tools=["check_resistance"],
-            incompleteness_reason="Limite di passi raggiunto prima di completare gli strumenti obbligatori.",
+    def _step(self, trace, stage_fragment):
+        return next(step for step in trace if stage_fragment.lower() in step.stage.lower())
+
+    def test_dynamic_planning_is_reported_as_such(self):
+        step = self._step(build_trace(self._result()), "Orchestrazione")
+
+        self.assertIn("Il planner ha scelto iterativamente gli strumenti", step.detail)
+        self.assertEqual(step.status, "completed")
+
+    def test_safe_fallback_is_never_described_as_dynamic_planning(self):
+        result = self._result(planning_mode="safe_fallback", fallback_reason="timeout")
+
+        step = self._step(build_trace(result), "Orchestrazione")
+
+        self.assertIn("non dimostra pianificazione agentica dinamica", step.detail)
+        self.assertNotIn("ha scelto iterativamente", step.detail)
+        self.assertIn("timeout", step.detail)
+
+    def test_fixed_plan_orchestration_names_the_declared_plan(self):
+        result = self._result(orchestration_mode="deterministic",
+                              planning_mode="fixed_plan", planner_calls=0)
+
+        step = self._step(build_trace(result), "Orchestrazione")
+
+        self.assertIn("Piano fisso dichiarato prima dell", step.detail)
+        self.assertEqual(step.actor, "Controller a piano fisso")
+
+    def test_repair_step_is_not_claimed_when_no_repair_ran(self):
+        step = self._step(build_trace(self._result()), "Riparazione")
+
+        self.assertIn("Nessuna riparazione necessaria", step.detail)
+
+    def test_repair_step_reports_the_executed_kind_when_it_ran(self):
+        action = SimpleNamespace(kind="rendering", tool_name=None,
+                                 triggered_by=("MISSING_CLAIM",))
+
+        step = self._step(build_trace(self._result(repair_actions=(action,))), "Riparazione")
+
+        self.assertIn("rigenerazione del report", step.detail)
+        self.assertIn("MISSING_CLAIM", step.detail)
+
+    def test_canonical_view_step_reports_the_deduplication(self):
+        step = self._step(build_trace(self._result()), "Vista canonica")
+
+        self.assertIn("5 record osservati ridotti a 4", step.detail)
+        self.assertIn("genealogia conservata", step.detail)
+
+    def test_projection_step_reports_admitted_and_excluded(self):
+        step = self._step(build_trace(self._result()), "Proiezione")
+
+        self.assertIn("2 record ammessi", step.detail)
+        self.assertIn("1 esclusi con motivazione", step.detail)
+
+    def test_both_architectures_produce_the_same_trace_structure(self):
+        agentic = build_trace(self._result())
+        deterministic = build_trace(
+            self._result(orchestration_mode="deterministic",
+                         planning_mode="fixed_plan", planner_calls=0)
         )
-        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=0, blocked=0, uncertain=0)
-        collection_step = trace[2]
-        self.assertIn("obbligatori", collection_step.detail.lower())
-        self.assertIn("check_resistance", collection_step.detail)
-        self.assertIn("Motivo dell'incompletezza", collection_step.detail)
-        self.assertEqual(collection_step.status, "warning")
 
-    def test_trace_reflects_llm_dynamic_planning(self):
-        collection = self._collection(tool_path=["interpret_variant", "assess_complexity"])
-        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=1, blocked=0, uncertain=0)
-        planning_step, collection_step = trace[1], trace[2]
+        self.assertEqual([s.stage for s in agentic], [s.stage for s in deterministic])
+        self.assertEqual([s.order for s in agentic], list(range(1, len(agentic) + 1)))
 
-        self.assertEqual(planning_step.detail, "Il planner ha scelto iterativamente gli strumenti.")
-        self.assertEqual(planning_step.status, "completed")
-        self.assertIn("ha alimentato la decisione successiva", collection_step.detail)
-        self.assertEqual(collection_step.status, "completed")
 
-    def test_trace_reflects_safe_fallback_planning(self):
-        collection = self._collection(planning_mode="safe_fallback", fallback_reason="timeout")
-        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=0, blocked=0, uncertain=0)
-        planning_step, collection_step = trace[1], trace[2]
-
-        self.assertEqual(
-            planning_step.detail,
-            "È stato eseguito un piano tipizzato predefinito; questa esecuzione non "
-            "dimostra pianificazione agentica dinamica.",
+class LimitationsTest(TestCase):
+    def _result(self, **overrides):
+        collection = SimpleNamespace(
+            planning_mode="llm_dynamic", missing_mandatory_tools=[], errors=[],
         )
-        self.assertEqual(planning_step.status, "warning")
-        self.assertNotIn("ha alimentato la decisione successiva", collection_step.detail)
-        self.assertEqual(collection_step.status, "warning")
-        self.assertIn("timeout", collection_step.detail)
-
-    def test_verification_step_reports_both_independent_axes(self):
-        collection = self._collection()
-        trace = _agentic_trace(
-            collection, evidence=[], events=[], ledger_valid=True,
-            supported=2, blocked=1, uncertain=1,
-            compatible=1, indeterminate_applicability=2, not_compatible=1,
-            supported_as_written=1, supported_after_contextualization=1,
+        for key in ("planning_mode", "missing_mandatory_tools", "errors"):
+            if key in overrides:
+                setattr(collection, key, overrides.pop(key))
+        base = dict(
+            collection=collection,
+            canonical_view=SimpleNamespace(replay_fidelity="full"),
+            escalation=None,
         )
-        verification_step = trace[7]
-        self.assertEqual(verification_step.order, 8)
-        self.assertIn("due assi indipendenti", verification_step.detail)
-        self.assertIn("2 supportate (1 come formulate, 1 dopo contestualizzazione), 1 contraddette, 1 inviate a revisione", verification_step.detail)
-        self.assertIn("1 compatibili, 2 indeterminate, 1 non compatibili", verification_step.detail)
-
-    def test_repair_step_distinguishes_excluded_from_visible_context(self):
-        collection = self._collection()
-        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=0, blocked=0, uncertain=0)
-        repair_step = trace[8]
-        self.assertEqual(repair_step.order, 9)
-        self.assertIn("escluse dal report", repair_step.detail)
-        self.assertIn("non come opzioni per il caso", repair_step.detail)
-
-    def test_verified_report_step_clarifies_documentary_not_clinical_meaning(self):
-        collection = self._collection()
-        trace = _agentic_trace(collection, evidence=[], events=[], ledger_valid=True, supported=0, blocked=0, uncertain=0)
-        verified_report_step = trace[9]
-        self.assertEqual(verified_report_step.order, 10)
-        self.assertIn("non clinicamente raccomandato", verified_report_step.detail)
-
-
-class AgenticGuaranteesTest(TestCase):
-    def _collection(self, **overrides):
-        base = {
-            "planning_mode": "llm_dynamic",
-            "run_id": "run-fixture",
-            "fallback_reason": None,
-            "planner_attempts": 0,
-            "planner_elapsed_ms": 0,
-            "errors": [],
-        }
         base.update(overrides)
         return SimpleNamespace(**base)
 
-    def test_llm_dynamic_guarantee_does_not_mention_safe_fallback(self):
-        guarantees = _agentic_guarantees(self._collection())
-        self.assertEqual(guarantees[0], "Il planner ha scelto iterativamente gli strumenti.")
-        self.assertFalse(any("piano sicuro predefinito" in guarantee and "motivo" in guarantee for guarantee in guarantees))
+    def test_ledger_is_described_as_tamper_evident_not_absolutely_immutable(self):
+        joined = " ".join(build_limitations(self._result()))
 
-    def test_safe_fallback_guarantee_never_claims_dynamic_planning(self):
-        collection = self._collection(
-            planning_mode="safe_fallback", fallback_reason="timeout", planner_attempts=2, planner_elapsed_ms=500,
+        self.assertIn("append-only e tamper-evident", joined)
+        self.assertIn("non immutabile in senso assoluto", joined)
+
+    def test_research_prototype_boundary_is_always_declared(self):
+        self.assertTrue(
+            any("Prototipo di ricerca" in item for item in build_limitations(self._result()))
         )
-        guarantees = _agentic_guarantees(collection)
-        self.assertEqual(
-            guarantees[0],
-            "È stato eseguito il piano sicuro predefinito; questa esecuzione non "
-            "dimostra pianificazione agentica dinamica.",
+
+    def test_safe_fallback_limitation_never_claims_dynamic_planning(self):
+        limitations = build_limitations(self._result(planning_mode="safe_fallback"))
+
+        self.assertTrue(
+            any("non dimostra pianificazione agentica dinamica" in item for item in limitations)
         )
-        self.assertTrue(any("motivo: timeout" in guarantee for guarantee in guarantees))
-        self.assertFalse(any(guarantee == "Il planner ha scelto iterativamente gli strumenti." for guarantee in guarantees))
+
+    def test_missing_mandatory_tools_are_surfaced(self):
+        limitations = build_limitations(
+            self._result(missing_mandatory_tools=["check_resistance"])
+        )
+
+        self.assertTrue(any("check_resistance" in item for item in limitations))
 
     def test_sanitized_runtime_errors_are_surfaced_without_raw_exception_text(self):
-        collection = self._collection(errors=["check_resistance: servizio esterno non disponibile durante l'esecuzione dello strumento"])
-        guarantees = _agentic_guarantees(collection)
-        escalation = [g for g in guarantees if g.startswith("Escalation runtime")]
-        self.assertEqual(len(escalation), 1)
-        self.assertIn("servizio esterno non disponibile", escalation[0])
+        limitations = build_limitations(self._result(
+            errors=["check_resistance: servizio esterno non disponibile"]
+        ))
 
-    def test_no_escalation_guarantee_when_no_errors(self):
-        guarantees = _agentic_guarantees(self._collection())
-        self.assertFalse(any(g.startswith("Escalation runtime") for g in guarantees))
+        errors = [item for item in limitations if item.startswith("Errori durante la raccolta")]
+        self.assertEqual(len(errors), 1)
+        self.assertIn("servizio esterno non disponibile", errors[0])
+
+    def test_no_error_limitation_when_collection_succeeded(self):
+        self.assertFalse(
+            any(item.startswith("Errori durante la raccolta")
+                for item in build_limitations(self._result()))
+        )
+
+    def test_degraded_replay_fidelity_is_declared(self):
+        limitations = build_limitations(self._result(
+            canonical_view=SimpleNamespace(replay_fidelity="degraded_v1_events")
+        ))
+
+        self.assertTrue(any("Fedelt" in item and "replay" in item for item in limitations))
 
 
 class RenderVerifiedReportTest(TestCase):

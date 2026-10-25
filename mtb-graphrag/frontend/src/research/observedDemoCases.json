@@ -1,0 +1,139 @@
+{
+  "scope": "OBSERVED_SYNTHETIC_EXAMPLES_NOT_CLINICAL_GOLD",
+  "campaign": "verification\\e2e\\demo-selection-20261007",
+  "cases": [
+    {
+      "case_id": "DEMO-CLINICAL_TRIAL-01",
+      "title": "Tumori solidi · ERBB2 — studi clinici",
+      "clinical_text": "Synthetic research case. Solid Tumors. Molecular profiling reports ERBB2. Which clinical studies are associated with these molecular findings in this disease context?",
+      "group": "TRIAL",
+      "counts": {
+        "PAPER": 0,
+        "TRIAL": 38,
+        "KG": 183
+      },
+      "status": "COMPLETED",
+      "run_id": "01ca0fc7-4116-4b4b-b75e-c57d1c0ffa4e",
+      "observed_at": "2026-10-07T09:45:43.853459+00:00",
+      "elapsed_seconds": 131.8,
+      "support_counts": {},
+      "behavior_description": "Associazioni a studi clinici: non dimostrano efficacia o eleggibilità del paziente.",
+      "presentation_mode": "VERIFIED_NARRATIVE"
+    },
+    {
+      "case_id": "DEMO-CLINICAL_TRIAL-03",
+      "title": "Mammella avanzata · ATM — studi clinici",
+      "clinical_text": "Synthetic research case. Advanced Breast Cancer. Molecular profiling reports ATM. Which clinical studies are associated with these molecular findings in this disease context?",
+      "group": "TRIAL",
+      "counts": {
+        "PAPER": 0,
+        "TRIAL": 58,
+        "KG": 77
+      },
+      "status": "COMPLETED",
+      "run_id": "2af4312e-a425-486e-9bd8-b8f8d3775943",
+      "observed_at": "2026-10-07T09:47:13.525601+00:00",
+      "elapsed_seconds": 183.0,
+      "support_counts": {},
+      "behavior_description": "Associazioni a studi clinici: non dimostrano efficacia o eleggibilità del paziente.",
+      "presentation_mode": "VERIFIED_NARRATIVE"
+    },
+    {
+      "case_id": "DEMO-KG_ONLY-01",
+      "title": "MAP2K1 — relazioni del grafo",
+      "clinical_text": "Synthetic research case. Disease context is not specified. Molecular profiling reports MAP2K1. Which molecular relations and available sources are associated with these findings?",
+      "group": "KG",
+      "counts": {
+        "PAPER": 0,
+        "TRIAL": 0,
+        "KG": 84
+      },
+      "status": "COMPLETED",
+      "run_id": "8040ee4b-21af-4249-8e9a-a61df493184c",
+      "observed_at": "2026-10-07T09:33:48.457772+00:00",
+      "elapsed_seconds": 61.7,
+      "support_counts": {},
+      "behavior_description": "Solo relazioni del grafo: nessun supporto documentale verificato.",
+      "presentation_mode": "VERIFIED_NARRATIVE"
+    },
+    {
+      "case_id": "DEMO-KG_ONLY-03",
+      "title": "PIK3R2 — relazioni del grafo",
+      "clinical_text": "Synthetic research case. Disease context is not specified. Molecular profiling reports PIK3R2. Which molecular relations and available sources are associated with these findings?",
+      "group": "KG",
+      "counts": {
+        "PAPER": 0,
+        "TRIAL": 0,
+        "KG": 39
+      },
+      "status": "COMPLETED",
+      "run_id": "434d0c6c-926e-48d4-91da-e9c9fa559578",
+      "observed_at": "2026-10-07T09:33:33.791767+00:00",
+      "elapsed_seconds": 46.2,
+      "support_counts": {},
+      "behavior_description": "Solo relazioni del grafo: nessun supporto documentale verificato.",
+      "presentation_mode": "VERIFIED_NARRATIVE"
+    },
+    {
+      "case_id": "DEMO-KG_ONLY-05",
+      "title": "PIM2 — relazioni del grafo",
+      "clinical_text": "Synthetic research case. Disease context is not specified. Molecular profiling reports PIM2. Which molecular relations and available sources are associated with these findings?",
+      "group": "KG",
+      "counts": {
+        "PAPER": 0,
+        "TRIAL": 0,
+        "KG": 8
+      },
+      "status": "COMPLETED",
+      "run_id": "74830784-beaa-4b59-a3b1-790333e8b022",
+      "observed_at": "2026-10-07T09:33:51.203508+00:00",
+      "elapsed_seconds": 12.2,
+      "support_counts": {},
+      "behavior_description": "Solo relazioni del grafo: nessun supporto documentale verificato.",
+      "presentation_mode": "VERIFIED_NARRATIVE"
+    },
+    {
+      "case_id": "DEMO-PAPER_EVIDENCE-01",
+      "title": "Polmone · MET exon 14 — pubblicazioni e trial",
+      "clinical_text": "Synthetic research case. Lung Adenocarcinoma. Molecular profiling reports MET Exon 14 Skipping Mutation. Which therapeutic associations have published evidence for these molecular findings in this disease context?",
+      "group": "PAPER",
+      "counts": {
+        "PAPER": 10,
+        "TRIAL": 4,
+        "KG": 111
+      },
+      "status": "COMPLETED",
+      "run_id": "949a243d-2633-4de6-840b-cfbfbad71258",
+      "observed_at": "2026-10-07T09:35:14.790294+00:00",
+      "elapsed_seconds": 77.2,
+      "support_counts": {
+        "NO_SUPPORT": 7,
+        "FULL_SUPPORT": 1,
+        "UNVERIFIABLE": 2
+      },
+      "behavior_description": "Esiti documentali misti: alcune relazioni hanno supporto, altre sono senza supporto o non verificabili.",
+      "presentation_mode": "VERIFIED_NARRATIVE"
+    },
+    {
+      "case_id": "DEMO-PAPER_EVIDENCE-08",
+      "title": "Cervice · AURKA sovraespresso — pubblicazioni e trial",
+      "clinical_text": "Synthetic research case. Cervical Adenocarcinoma. Molecular profiling reports AURKA Overexpression. Which therapeutic associations have published evidence for these molecular findings in this disease context?",
+      "group": "PAPER",
+      "counts": {
+        "PAPER": 2,
+        "TRIAL": 2,
+        "KG": 59
+      },
+      "status": "COMPLETED",
+      "run_id": "05618de1-bb1c-42ea-90d1-4f8d8544b603",
+      "observed_at": "2026-10-07T09:44:09.355976+00:00",
+      "elapsed_seconds": 37.1,
+      "support_counts": {
+        "NO_SUPPORT": 1,
+        "UNVERIFIABLE": 1
+      },
+      "behavior_description": "Fonti presenti, ma nessuna relazione con supporto documentale pieno o parziale nell’esecuzione osservata.",
+      "presentation_mode": "VERIFIED_NARRATIVE"
+    }
+  ]
+}

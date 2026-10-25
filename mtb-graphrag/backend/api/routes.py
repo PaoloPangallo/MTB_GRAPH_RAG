@@ -15,18 +15,14 @@ from backend.api.schemas import (
     ArchitectureComparisonRequest,
     ArchitectureComparisonResponse,
 )
+from backend.api.v3_schemas import V3RetrieveRequest, V3RetrieveResponse
+from backend.api.v3_presentation import present_retrieval_outcome
 from backend.comparison.service import compare_architectures
 from backend.pipeline.state import MTBState
-from backend.pipeline.graph import run_pipeline
-from backend.pipeline.agents.oncokb_enricher import oncokb_enricher
-from backend.pipeline.agents.judge import llm_as_judge
+from backend.pipeline.evidence.retrieval.pipeline import EvidenceRetrievalPipeline
 from backend.pipeline.helpers import make_pmids_clickable
-from backend.pipeline.llm import llm
-from backend.evaluation.run_zeroshot import SYNTHESIZER_SYSTEM, build_zeroshot_context
 from backend.evaluation.compute_metrics import extract_pmids_from_report, extract_escat_tier
 from backend.api.subgraph import extract_subgraph, build_zeroshot_subgraph
-from backend.evaluation.ablation_websearch import run_websearch
-from backend.evaluation.ablation_rag import run_rag_testuale
 
 
 router = APIRouter()
@@ -34,7 +30,29 @@ router = APIRouter()
 
 @router.post("/compare-architectures", response_model=ArchitectureComparisonResponse)
 def architecture_comparison(req: ArchitectureComparisonRequest) -> ArchitectureComparisonResponse:
-    """Confronta le due architetture sullo stesso caso e rende visibile la trace."""
+    """Esegue le due architetture GraphRAG verificabili sullo stesso caso.
+
+    Restituisce esattamente due run:
+
+    - ``deterministic`` — GraphRAG deterministico verificabile: piano fisso e
+      traversal tipizzato;
+    - ``agentic`` — Agentic GraphRAG verificabile: planner adattivo in ciclo
+      plan-act-observe.
+
+    Le due differiscono **soltanto** nella strategia di raccolta e attraversano
+    lo stesso strato di controllo (ledger append-only, vista canonica
+    ricostruita per replay, proiezione pertinente, verifica strutturale,
+    verifica claim-fonte, applicabilita', riparazione bounded, dossier). Il
+    confronto misura quindi orchestrazione deterministica contro orchestrazione
+    agentica a strato di controllo invariato.
+
+    ``execution_mode`` non identifica un'architettura: sceglie soltanto se
+    usare le dipendenze reali (``live``) o fixture e client scriptati
+    (``demo``). La forma della risposta e' identica nei due casi.
+
+    Prototipo di ricerca: il dossier e' un artefatto destinato alla revisione
+    del Molecular Tumor Board, non una raccomandazione terapeutica.
+    """
     return compare_architectures(req)
 
 
@@ -92,6 +110,8 @@ def subgraph(
 @router.post("/analyze", response_model=ReportResponse)
 def analyze(req: MTBRequest) -> ReportResponse:
     """Esegue la pipeline completa su un caso MTB."""
+    from backend.pipeline.graph import run_pipeline
+
     alt_type = req.alteration_type
     if "MSI" in req.variant.upper() or "TMB" in req.variant.upper():
         alt_type = "biomarker"
@@ -134,6 +154,8 @@ def analyze(req: MTBRequest) -> ReportResponse:
 @router.post("/enrich", response_model=ReportResponse)
 def enrich(req: MTBRequest) -> ReportResponse:
     """Richiama solo l'OncoKB Enricher su uno stato esistente."""
+    from backend.pipeline.agents.oncokb_enricher import oncokb_enricher
+
     alt_type = req.alteration_type
     if "MSI" in req.variant.upper() or "TMB" in req.variant.upper():
         alt_type = "biomarker"
@@ -175,6 +197,9 @@ def enrich(req: MTBRequest) -> ReportResponse:
 @router.post("/zeroshot", response_model=ReportResponse)
 def zeroshot(req: MTBRequest) -> ReportResponse:
     """Esegue la generazione zero-shot (senza Knowledge Graph) su un caso MTB."""
+    from backend.evaluation.run_zeroshot import SYNTHESIZER_SYSTEM, build_zeroshot_context
+    from backend.pipeline.llm import llm
+
     gene = req.gene or ""
     variant = req.variant
     tumor_type = req.tumor_type
@@ -236,6 +261,8 @@ def extract_drugs_from_report(report_text: str) -> list[dict]:
 @router.post("/websearch", response_model=ReportResponse)
 def websearch(req: MTBRequest) -> ReportResponse:
     """Esegue la condizione websearch (PubMed search + LLM zero-shot)."""
+    from backend.evaluation.ablation_websearch import run_websearch
+
     gene = req.gene or ""
     variant = req.variant
     tumor_type = req.tumor_type
@@ -275,6 +302,8 @@ def websearch(req: MTBRequest) -> ReportResponse:
 @router.post("/rag", response_model=ReportResponse)
 def rag(req: MTBRequest) -> ReportResponse:
     """Esegue la condizione rag_testuale (RAG su chunk KG + LLM)."""
+    from backend.evaluation.ablation_rag import run_rag_testuale
+
     gene = req.gene or ""
     variant = req.variant
     tumor_type = req.tumor_type
@@ -311,9 +340,26 @@ def rag(req: MTBRequest) -> ReportResponse:
     )
 
 
+@router.post("/v3/retrieve", response_model=V3RetrieveResponse)
+def v3_retrieve(req: V3RetrieveRequest) -> V3RetrieveResponse:
+    """Esegue esclusivamente il retriever V3 strutturale, senza planner o LLM."""
+    pipeline = EvidenceRetrievalPipeline.from_config(
+        {
+            "retrieval_backend": "qualified_claim_v3",
+            "qualified_claim_policy_mode": req.policy_mode,
+        }
+    )
+    outcome = pipeline.run(
+        req.to_query(), retrieval_backend="qualified_claim_v3"
+    )
+    return V3RetrieveResponse.model_validate(present_retrieval_outcome(outcome))
+
+
 @router.post("/judge", response_model=JudgeResponse)
 def judge(req: JudgeRequest) -> JudgeResponse:
     """Valuta un report MTB con LLM-as-judge."""
+    from backend.pipeline.agents.judge import llm_as_judge
+
     case_info = {
         "gene": req.gene,
         "variant": req.variant,
